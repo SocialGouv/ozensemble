@@ -9,4 +9,4 @@ https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1
 https://play.google.com/store/apps/details?id=com.addicto
 
 # Site Web :
-https://play.google.com/store/apps/details?id=com.addicto
+https://www.ozensemble.fr/
