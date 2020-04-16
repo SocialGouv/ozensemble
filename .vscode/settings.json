@@ -1,0 +1,13 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "##f5b300",
+    "titleBar.inactiveBackground": "##f5b300CC"
+  },
+  "files.exclude": {
+    "**/build": true,
+    "**/.DS_Store": true
+  },
+  "stylelint.enable": true,
+  "css.validate": false,
+  "scss.validate": false
+}
