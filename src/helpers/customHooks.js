@@ -15,29 +15,35 @@ export const useBackHandler = (handler, activate = true) => {
   });
 };
 
+// settings validation
+function isValidFunction(func) {
+  return func && typeof func === 'function';
+}
+
 export default function useAppState(settings) {
   const { onChange, onForeground, onBackground } = settings || {};
   const [appState, setAppState] = React.useState(AppState.currentState);
 
-  React.useEffect(() => {
-    function handleAppStateChange(nextAppState) {
-      if (nextAppState === 'active') {
-        isValidFunction(onForeground) && onForeground();
-      } else if (appState === 'active' && nextAppState.match(/inactive|background/)) {
-        isValidFunction(onBackground) && onBackground();
-      }
+  const handleAppStateChange = nextAppState => {
+    if (nextAppState === 'active' && appState.match(/inactive|background/)) {
+      isValidFunction(onForeground) && onForeground();
+      setAppState(nextAppState);
+      isValidFunction(onChange) && onChange(nextAppState);
+    } else if (appState === 'active' && nextAppState.match(/inactive|background/)) {
+      isValidFunction(onBackground) && onBackground();
       setAppState(nextAppState);
       isValidFunction(onChange) && onChange(nextAppState);
     }
+  };
+
+  React.useEffect(() => {
     AppState.addEventListener('change', handleAppStateChange);
 
-    return () => AppState.removeEventListener('change', handleAppStateChange);
-  }, [onChange, onForeground, onBackground, appState]);
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange);
+    };
+  });
 
-  // settings validation
-  function isValidFunction(func) {
-    return func && typeof func === 'function';
-  }
   return { appState };
 }
 

@@ -41,7 +41,8 @@ export const SubTitle = styled(H2)`
   Feed
 */
 export const FeedContainer = styled.View`
-  background-color: ${({ theme, hideFeed }) => (hideFeed ? theme.colors.whiteBg : theme.colors.greyBg)};
+  background-color: ${({ theme, hideFeed }) =>
+    hideFeed ? theme.colors.whiteBg : theme.colors.greyBg};
   padding: 20px;
   padding-right: 0px;
   padding-bottom: 100px;
@@ -113,6 +114,7 @@ export const HelpText = styled.Text`
   font-weight: bold;
   font-size: 20px;
 `;
+
 export const CloseHelpContainer = styled.View`
   margin-left: auto;
 `;

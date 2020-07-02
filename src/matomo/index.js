@@ -19,9 +19,14 @@ const initMatomo = async () => {
 
   Matomo.init({
     baseUrl: 'https://matomo.fabrique.social.gouv.fr/piwik.php',
-    userId,
     idsite: 22,
+    userId,
     _idvc: newVisits,
+  });
+
+  Matomo.init2({
+    baseUrl: 'https://stats.incubateur.net/matomo.php',
+    idsite: 2,
   });
 
   const resultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT);
@@ -51,6 +56,8 @@ const logEvent = async ({ category, action, name, value }) => {
   }
 };
 
+const getUserId = () => Matomo.userId;
+
 /*
 APP VISIT
 
@@ -61,7 +68,7 @@ const APP_OPEN = 'APP_OPEN';
 const APP_CLOSE = 'APP_CLOSE';
 const ORIGIN = 'origin';
 
-const logAppVisit = async () => {
+const logAppVisit = async (from = null) => {
   await logEvent({
     category: APP,
     action: APP_OPEN,
@@ -235,10 +242,11 @@ CONTACT
 */
 
 const CONTACT = CONSTANTS.VIEW_CONTACT;
-const CONTACT_OPEN = CONTACT_OPEN;
+const CONTACT_OPEN = 'CONTACT_OPEN';
 const CONTACT_CALL = 'CONTACT_CALL';
 const CONTACT_WEBSITE_OPEN = 'CONTACT_WEBSITE_OPEN';
 const CONTACT_ASKCALL = 'CONTACT_ASKCALL';
+const CONTACT_RDV = 'CONTACT_RDV';
 
 const logContactOpen = async value => {
   await logEvent({
@@ -270,6 +278,27 @@ const logContactAskForBeingCalled = async () => {
   });
 };
 
+const logContactTakeRDV = async () => {
+  await logEvent({
+    category: CONTACT,
+    action: CONTACT_RDV,
+  });
+};
+
+const logNPSOpen = async () => {
+  await logEvent({
+    category: 'NPS',
+    action: 'NPS_OPEN',
+  });
+};
+
+const logNPSSend = async () => {
+  await logEvent({
+    category: 'NPS',
+    action: 'NPS_SEND',
+  });
+};
+
 export default {
   initMatomo,
   logAppVisit,
@@ -294,4 +323,8 @@ export default {
   logContactNumberCalled,
   logContactWebsiteOpened,
   logContactAskForBeingCalled,
+  logContactTakeRDV,
+  logNPSOpen,
+  logNPSSend,
+  getUserId,
 };

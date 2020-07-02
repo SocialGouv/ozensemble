@@ -15,7 +15,7 @@ import matomo from '../../matomo/index';
 const Bottom = ({
   setView,
   theme,
-  title = 'Suivez votre consommation pendant 15 jours',
+  title = 'Suivez votre consommation',
   subTitle = 'Commencez dès maintenant à suivre votre consommation au quotidien',
   buttonTitle = 'Suivre ma consommation',
 }) => (

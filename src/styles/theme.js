@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import { Dimensions } from 'react-native';
 
-const titleColor = '#4030a5';
+export const titleColor = '#4030a5';
 const theme = {
   colors: {
     headerBackground: '#39cec0',
@@ -35,7 +35,4 @@ const theme = {
   },
 };
 
-export default ({ children }) =>
-  <ThemeProvider theme={theme}>
-    {children}
-  </ThemeProvider>
+export default theme;

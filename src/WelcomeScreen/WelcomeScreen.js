@@ -13,9 +13,11 @@ import Screen3 from './Screen3';
 import { CTAButtonContainer } from './styles';
 import CONSTANTS from '../reference/constants';
 import matomo from '../matomo';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const WelcomeScreen = ({ theme, setView }) => {
-  const onStartPress = async () => {
+  const onStartPress = () => {
+    AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
     setView(CONSTANTS.VIEW_QUIZZ);
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
   };

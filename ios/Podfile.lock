@@ -188,6 +188,8 @@ PODS:
     - React
   - react-native-safe-area-context (0.6.4):
     - React
+  - react-native-webview (10.2.3):
+    - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
   - React-RCTAnimation (0.61.5):
@@ -263,6 +265,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-notifications (from `../node_modules/react-native-notifications`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -323,6 +326,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-notifications"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-webview:
+    :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -379,6 +384,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: fa42683301345997e876760ba2be86f06148baa5
   react-native-notifications: f56a12d741eeb2fd4d7a418a4689111c50f7cd72
   react-native-safe-area-context: 52342d2d80ea8faadd0ffa76d83b6051f20c5329
+  react-native-webview: 0bacc79175bc44869e4c1a015b9bc21df8cf4feb
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
@@ -399,6 +405,6 @@ SPEC CHECKSUMS:
   Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: b665ca68d94e89956da30a7320c0244a86fe749f
+PODFILE CHECKSUM: e5d1ca2f8d430af89bde9869b61832407ce7c047
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

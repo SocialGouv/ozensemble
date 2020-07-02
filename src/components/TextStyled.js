@@ -10,9 +10,12 @@ const TextStyled = styled.Text`
       default:
         return theme.colors.basicText;
       case 'buttonPrimary':
+      case 'selected':
         return theme.colors.buttonPrimary;
       case 'link':
         return theme.colors.title;
+      case 'light':
+        return '#999999';
     }
   }};
   ${({ type }) => type === 'link' && 'text-decoration-line: underline;'}
@@ -29,6 +32,7 @@ const TextStyled = styled.Text`
         return 'italic';
     }
   }};
+  ${props => props.bold && 'font-weight: bold;'}
 `;
 
 export default TextStyled;

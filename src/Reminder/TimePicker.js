@@ -16,6 +16,9 @@ import UnderlinedButton from '../components/UnderlinedButton';
 
 const TimePicker = ({ visible, selectDate }) => {
   const [date, setDate] = React.useState(new Date());
+  React.useEffect(() => {
+    if (visible) setDate(new Date(Date.now() + 60 * 1000));
+  }, [visible]);
   if (Platform.OS === 'ios') {
     return (
       <Modal visible={visible} animationType="fade" transparent={true}>
