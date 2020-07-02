@@ -5,7 +5,12 @@ import { Platform } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { v4 as uuidv4 } from 'uuid';
 import { compose } from 'recompose';
-import { getDrinksPerCurrentDrinksTimestamp, getModalTimestamp, updateDrink, updateModalTimestamp } from '../consoDuck';
+import {
+  getDrinksPerCurrentDrinksTimestamp,
+  getModalTimestamp,
+  updateDrink,
+  updateModalTimestamp,
+} from '../consoDuck';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H2 from '../../components/H2';
 import UnderlinedButton from '../../components/UnderlinedButton';
@@ -15,10 +20,20 @@ import { drinksCatalog } from '../drinksCatalog';
 import DatePicker from './DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../matomo';
+import { withToast } from '../../services/toast';
 
 const checkIfNoDrink = drinks => drinks.filter(d => d && d.quantity > 0).length === 0;
 
-const DrinksModal = ({ visible, date, drinks, updateDrink, updateModalTimestamp, setShowSetDrinksModal, theme }) => {
+const DrinksModal = ({
+  visible,
+  date,
+  drinks,
+  updateDrink,
+  updateModalTimestamp,
+  setShowSetDrinksModal,
+  theme,
+  setToast,
+}) => {
   const [localDrinksState, setLocalDrinksState] = React.useState(drinks);
   const [showDatePicker, setShowDatePicker] = React.useState(false);
 
@@ -52,12 +67,17 @@ const DrinksModal = ({ visible, date, drinks, updateDrink, updateModalTimestamp,
   };
 
   const onValidateConsos = async () => {
+    let drinkNumber = 0;
     for (let drink of localDrinksState) {
+      drinkNumber++;
       updateDrink(drink);
       matomo.logConsoAdd(drink);
     }
     setLocalDrinksState([]);
     setShowSetDrinksModal(false);
+    setTimeout(() => {
+      setToast(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+    }, 250);
   };
 
   const onCancelConsos = () => {
@@ -68,7 +88,11 @@ const DrinksModal = ({ visible, date, drinks, updateDrink, updateModalTimestamp,
   };
 
   return (
-    <ModalStyled visible={visible} transparent animationType="slide" onRequestClose={onCancelConsos}>
+    <ModalStyled
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onCancelConsos}>
       <SafeAreaViewStyled>
         <ModalContent>
           <Title>Sélectionnez vos consommations</Title>
@@ -92,7 +116,11 @@ const DrinksModal = ({ visible, date, drinks, updateDrink, updateModalTimestamp,
         </ModalContent>
         <ButtonsContainerSafe>
           <ButtonsContainer>
-            <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
+            <ButtonPrimary
+              content="Valider"
+              onPress={onValidateConsos}
+              disabled={checkIfNoDrink(localDrinksState)}
+            />
             <UnderlinedButton content="Retour" bold onPress={onCancelConsos} />
           </ButtonsContainer>
         </ButtonsContainerSafe>
@@ -184,5 +212,6 @@ export default compose(
     makeStateToProps,
     dispatchToProps
   ),
-  withTheme
+  withTheme,
+  withToast
 )(DrinksModal);

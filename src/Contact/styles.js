@@ -79,4 +79,6 @@ export const ErrorStyled = styled.Text`
 
 export const BackButton = styled(UnderlinedButton)`
   margin-right: auto;
+  ${props => !props.withoutPadding && 'padding-horizontal: 15px;'}
+  ${props => !props.withoutPadding && 'margin-bottom: 15px;'}
 `;

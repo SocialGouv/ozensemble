@@ -12,7 +12,7 @@ import {
 } from './styles';
 import Bottom from './Bottom';
 
-const ResultEmpty = ({ onActionButtonPress }) => (
+const ResultEmpty = ({ setView, onActionButtonPress }) => (
   <ScreenBgStyled>
     <TopContainer>
       <TopTitle>
@@ -37,6 +37,7 @@ const ResultEmpty = ({ onActionButtonPress }) => (
       />
     </TopContainer>
     <Bottom
+      setView={setView}
       onActionButtonPress={onActionButtonPress}
       subTitle="Pour préparer au mieux votre échange, suivez votre consommation"
     />

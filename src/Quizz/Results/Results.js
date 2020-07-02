@@ -33,13 +33,13 @@ const Results = ({ setView, backToQuestions, resultKey }) => {
     case null:
       return <EmptyView />;
     case 'no-result':
-      return <ResultEmpty onActionButtonPress={onActionButtonPress} />;
+      return <ResultEmpty setView={setView} onActionButtonPress={onActionButtonPress} />;
     case CONSTANTS.RESULT_GOOD:
       return <ResultGood onActionButtonPress={onActionButtonPress} />;
     case CONSTANTS.RESULT_RISK:
       return <ResultRisk onActionButtonPress={onActionButtonPress} />;
     case CONSTANTS.RESULT_ADDICTED:
-      return <ResultAddicted onActionButtonPress={onActionButtonPress} />;
+      return <ResultAddicted setView={setView} onActionButtonPress={onActionButtonPress} />;
   }
 };
 

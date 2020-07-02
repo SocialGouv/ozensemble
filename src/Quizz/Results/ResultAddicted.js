@@ -14,7 +14,7 @@ import {
 import { withTheme } from 'styled-components';
 import Bottom from './Bottom';
 
-const ResultAddicted = ({ theme, onActionButtonPress }) => (
+const ResultAddicted = ({ setView, theme, onActionButtonPress }) => (
   <ScreenBgStyled>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
@@ -40,6 +40,7 @@ const ResultAddicted = ({ theme, onActionButtonPress }) => (
       />
     </TopContainer>
     <Bottom
+      setView={setView}
       onActionButtonPress={onActionButtonPress}
       subTitle="Pour préparer au mieux votre échange, suivez votre consommation"
     />

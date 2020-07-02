@@ -4,7 +4,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import questions from './questions';
 import CONSTANTS from '../reference/constants';
 import { mapAnswersToResult } from './utils';
-import { QuizzBackButton, QuizzAndResultContainer, QuizzContainer, QuestionsContainer } from './styles';
+import {
+  QuizzBackButton,
+  QuizzAndResultContainer,
+  QuizzContainer,
+  QuestionsContainer,
+} from './styles';
 import Question, { Intro } from './Question';
 import Background from '../components/Background';
 import ProgressBar from '../components/ProgressBar';
@@ -91,7 +96,9 @@ const Quizz = ({ setView }) => {
       const addictionResult = mapAnswersToResult(newAnswers);
       await matomo.logAddictionResult(addictionResult);
       await matomo.logQuizzFinish();
-      await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT, addictionResult);
+      if (addictionResult) {
+        await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT, addictionResult);
+      }
       setResultKey(addictionResult);
       LayoutAnimation.easeInEaseOut();
       setShowQuizz(false);
@@ -155,7 +162,9 @@ const Quizz = ({ setView }) => {
               );
             })}
           </QuestionsContainer>
-          {questionInView > 0 && <QuizzBackButton bold content="Retour" onPress={backToPreviousQuestion} />}
+          {questionInView > 0 && (
+            <QuizzBackButton bold content="Retour" onPress={backToPreviousQuestion} />
+          )}
         </QuizzContainer>
         <QuizzContainer>
           <Results

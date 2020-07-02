@@ -1,10 +1,13 @@
 import questions from './questions';
 import CONSTANTS from '../reference/constants';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as Sentry from '@sentry/react-native';
 
 // Utils
-const findQuestion = questionKey => questions.find(question => question.questionKey === questionKey);
-const findAnswer = ({ answers }, answerKey) => answers.find(answer => answer.answerKey === answerKey);
+const findQuestion = questionKey =>
+  questions.find(question => question.questionKey === questionKey);
+const findAnswer = ({ answers }, answerKey) =>
+  answers.find(answer => answer.answerKey === answerKey);
 const getAnswerScore = answer => answer.score;
 
 export const getGender = answers => answers[CONSTANTS.GENDER];
@@ -25,24 +28,29 @@ export const getAcceptableDosePerDay = gender => {
 };
 
 const computeScore = answers => {
-  if (!Object.values(answers).filter(Boolean).length) {
+  try {
+    if (!Object.values(answers).filter(Boolean).length) {
+      return {
+        [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
+        [CONSTANTS.SCORE]: 0,
+      };
+    }
+    const questionKeys = Object.keys(answers).filter(key => key !== CONSTANTS.GENDER);
+    let score = 0;
+    for (let questionKey of questionKeys) {
+      const answerKey = answers[questionKey];
+      const question = findQuestion(questionKey);
+      const answer = findAnswer(question, answerKey);
+      score = score + getAnswerScore(answer);
+    }
     return {
-      [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
-      [CONSTANTS.SCORE]: 0,
+      [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
+      [CONSTANTS.SCORE]: score,
     };
+  } catch (e) {
+    Sentry.captureMessage('cannot compute score of these answers: ' + JSON.stringify(answers));
+    Sentry.captureException(e);
   }
-  const questionKeys = Object.keys(answers).filter(key => key !== CONSTANTS.GENDER);
-  let score = 0;
-  for (let questionKey of questionKeys) {
-    const answerKey = answers[questionKey];
-    const question = findQuestion(questionKey);
-    const answer = findAnswer(question, answerKey);
-    score = score + getAnswerScore(answer);
-  }
-  return {
-    [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
-    [CONSTANTS.SCORE]: score,
-  };
 };
 
 const mapScoreToResult = scoreAndGender => {
