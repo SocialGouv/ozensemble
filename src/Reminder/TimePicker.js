@@ -15,7 +15,7 @@ import UnderlinedButton from '../components/UnderlinedButton';
 // https://github.com/react-native-community/react-native-datetimepicker/issues/114
 
 const TimePicker = ({ visible, selectDate }) => {
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState(new Date(Date.now() + 60 * 1000));
   React.useEffect(() => {
     if (visible) setDate(new Date(Date.now() + 60 * 1000));
   }, [visible]);
@@ -38,7 +38,7 @@ const TimePicker = ({ visible, selectDate }) => {
             />
             <ButtonsContainer>
               <ButtonPrimary
-                content="Valider"
+                content="Validez"
                 onPress={() => {
                   selectDate(date);
                 }}

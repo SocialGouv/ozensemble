@@ -1,5 +1,6 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
+import { TouchableWithoutFeedback } from 'react-native';
+import { connect } from 'react-redux';
 import Timeline from './Timeline';
 import DateDisplay from './DateDisplay';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -14,13 +15,10 @@ import {
 } from './styles';
 import NoConsoFeedDisplay from './NoConsoFeedDisplay';
 import { isToday, datesAreEqual } from '../helpers/dateHelpers';
-import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { getDrinksState, getDaysForFeed, removeDrink, setModalTimestamp } from './consoDuck';
 import { useBackHandler } from '../helpers/customHooks';
-import { TouchableWithoutFeedback } from 'react-native';
 import CONSTANTS from '../reference/constants';
-import matomo from '../matomo';
+import matomo from '../services/matomo';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter(d => d.timestamp === drink.timestamp);
@@ -38,12 +36,11 @@ const computeShowButtons = (selected, position) => {
 };
 
 const Feed = ({
-  theme,
   days,
   drinks,
   setView,
   setModalTimestamp,
-  setShowSetDrinksModal,
+  onShowDrinksModal,
   removeDrink,
   showSetDrinksModal,
   hideFeed,
@@ -60,7 +57,7 @@ const Feed = ({
 
   const addDrinksRequest = timestamp => {
     setModalTimestamp(timestamp);
-    setShowSetDrinksModal(true);
+    onShowDrinksModal();
   };
 
   const deleteDrinkRequest = timestamp => {
@@ -85,7 +82,7 @@ const Feed = ({
     <React.Fragment>
       <FeedAddConsoTodayContainer zIndex={10}>
         <FeedAddConsoTodayButton
-          content="Ajouter une consommation"
+          content="Ajoutez une consommation"
           onPress={async () => {
             addDrinksRequest(Date.now());
             await matomo.logConsoOpenAddScreen();
@@ -107,7 +104,9 @@ const Feed = ({
                   <Timeline first={isFirst} last={isLast} />
                   <FeedDayContent>
                     <DateDisplay day={day} />
-                    {noDrinks && !isToday(day) && <NoConsoFeedDisplay selected={timestampSelected === null} />}
+                    {noDrinks && !isToday(day) && (
+                      <NoConsoFeedDisplay selected={timestampSelected === null} />
+                    )}
                     {drinksOfTheDay.map(drink => {
                       if (!drink.quantity) {
                         return null;
@@ -137,8 +136,8 @@ const Feed = ({
                     })}
                     {!isToday(day) && (
                       <FeedBottomButton
-                        color={theme.colors.title}
-                        content="Ajouter une consommation"
+                        color="#4030a5"
+                        content="Ajoutez une consommation"
                         withoutPadding
                         onPress={async () => {
                           addDrinksRequest(Date.parse(day));
@@ -175,10 +174,7 @@ const dispatchToProps = {
   setModalTimestamp,
 };
 
-export default compose(
-  connect(
-    makeStateToProps,
-    dispatchToProps
-  ),
-  withTheme
+export default connect(
+  makeStateToProps,
+  dispatchToProps
 )(Feed);

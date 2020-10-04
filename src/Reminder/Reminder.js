@@ -1,6 +1,6 @@
 import React from 'react';
-import { Alert, Linking } from 'react-native';
-import styled, { withTheme } from 'styled-components';
+import { Alert, Linking, Platform } from 'react-native';
+import styled from 'styled-components';
 import AsyncStorage from '@react-native-community/async-storage';
 import CONSTANTS from '../reference/constants';
 import ReminderIcon from '../components/Illustrations/ReminderIcon';
@@ -12,7 +12,8 @@ import UnderlinedButton from '../components/UnderlinedButton';
 import TimePicker from './TimePicker';
 import { followupNumberOfDays } from '../ConsoFollowUp/consoDuck';
 import { dateWithTimeAndOffsetFromToday, timeIsAfterNow } from '../helpers/dateHelpers';
-import matomo from '../matomo';
+import matomo from '../services/matomo';
+import NotificationService from '../services/notifications';
 import { BackButton } from '../Contact/styles';
 
 class Reminder extends React.Component {
@@ -23,10 +24,15 @@ class Reminder extends React.Component {
 
   componentDidMount() {
     this.getReminder(false);
+    this.notifcationListener = NotificationService.listen(this.handleNotification);
+  }
+
+  componentWillUnmount() {
+    NotificationService.remove(this.notifcationListener);
   }
 
   getReminder = async (showAlert = true) => {
-    const isRegistered = await this.props.notificationService.checkPermission();
+    const isRegistered = await NotificationService.checkPermission();
     const reminder = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_REMINDER);
     if (Boolean(reminder) && new Date(reminder) == 'Invalid Date') {
       this.deleteReminder();
@@ -38,14 +44,14 @@ class Reminder extends React.Component {
   };
 
   scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
-    this.props.notificationService.cancelAll();
+    NotificationService.cancelAll();
     for (let i = !timeIsAfterNow(reminder); i <= followupNumberOfDays; i++) {
       const fireDate = dateWithTimeAndOffsetFromToday(
         reminder.getHours(),
         reminder.getMinutes(),
         i
       );
-      this.props.notificationService.scheduleNotification({
+      NotificationService.scheduleNotification({
         date: fireDate,
         title: CONSTANTS.NOTIF_REMINDER_TITLE,
         message: CONSTANTS.NOTIF_REMINDER_MESSAGE,
@@ -54,7 +60,7 @@ class Reminder extends React.Component {
   };
 
   showTimePicker = async () => {
-    const isRegistered = await this.props.notificationService.checkPermission();
+    const isRegistered = await NotificationService.checkPermission();
     if (!isRegistered) {
       this.showPermissionsAlert(this.deleteReminder);
       return;
@@ -62,7 +68,7 @@ class Reminder extends React.Component {
     this.setState({ timePickerVisible: true });
   };
 
-  showPermissionsAlert = deleteReminder => {
+  showPermissionsAlert = (deleteReminder) => {
     // Alert.
     Alert.alert(
       'Vous devez autoriser les notifications pour accéder à ce service',
@@ -82,7 +88,7 @@ class Reminder extends React.Component {
     );
   };
 
-  setReminder = async reminder => {
+  setReminder = async (reminder) => {
     if (!reminder) {
       this.setState({ timePickerVisible: false });
       return;
@@ -95,30 +101,77 @@ class Reminder extends React.Component {
 
   deleteReminder = async () => {
     await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_REMINDER);
-    this.props.notificationService.cancelAll();
+    NotificationService.cancelAll();
     this.setState({ reminder: null, timePickerVisible: false });
     matomo.logReminderDelete();
   };
 
+  handleNotification = (notification) => {
+    if (Platform.OS === 'android') {
+      if (notification.title === CONSTANTS.NOTIF_REMINDER_TITLE) {
+        this.props.setView(CONSTANTS.VIEW_CONSO);
+        matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
+      }
+    }
+    if (Platform.OS === 'ios') {
+      if (notification.foreground && !this.notifHandled) {
+        this.notifHandled = true;
+        if (notification.message === CONSTANTS.NOTIF_REMINDER_MESSAGE) {
+          Alert.alert(
+            CONSTANTS.NOTIF_REMINDER_TITLE,
+            CONSTANTS.NOTIF_REMINDER_MESSAGE,
+            [
+              {
+                text: 'Suivi',
+                onPress: () => {
+                  this.props.setView(CONSTANTS.VIEW_CONSO);
+                  matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
+                  this.notifHandled = false;
+                },
+              },
+              {
+                text: 'Annuler',
+                style: 'cancel',
+                onPress: () => {
+                  this.notifHandled = false;
+                },
+              },
+            ],
+            { cancelable: true }
+          );
+        }
+      } else {
+        if (notification.message === CONSTANTS.NOTIF_REMINDER_MESSAGE) {
+          this.props.setView(CONSTANTS.VIEW_CONSO);
+          matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
+        }
+      }
+    }
+  };
+
   render() {
     const { reminder, timePickerVisible } = this.state;
-    const { theme, onBackPress } = this.props;
+    const { onBackPress } = this.props;
     return (
       <Container>
         <BackButton content="< Retour" onPress={onBackPress} bold />
-        <ReminderIcon size={80} color={theme.colors.title} selected={false} />
+        <ReminderIcon size={80} color="#4030a5" selected={false} />
         <Title>
-          <TextStyled type="title">N'oubliez plus jamais de remplir vos consommations</TextStyled>
+          <TextStyled color="#4030a5">
+            N'oubliez plus jamais de remplir vos consommations
+          </TextStyled>
         </Title>
         <SubTitle>
           {reminder ? (
             <React.Fragment>
-              <TextStyled type="basicText">Vous avez défini un rappel à</TextStyled>
-              <TextStyled type="title">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
-              <TextStyled type="basicText">tous les jours.</TextStyled>
+              <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
+              <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime(
+                'fr'
+              )} \n `}</TextStyled>
+              <TextStyled color="#191919">tous les jours.</TextStyled>
             </React.Fragment>
           ) : (
-            <TextStyled type="basicText">
+            <TextStyled color="#191919">
               Définissez un rappel quotidien sur votre téléphone pour vous rappeler
             </TextStyled>
           )}
@@ -139,11 +192,12 @@ class Reminder extends React.Component {
 }
 
 const Container = styled.View`
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   padding-bottom: 100px;
-  background-color: ${({ theme }) => theme.colors.whiteBg};
-  flex: 1;
+  background-color: #f9f9f9;
+  flex-grow: 1;
+  height: 100%;
 `;
 
 const Title = styled(H1)`
@@ -165,6 +219,7 @@ export const SubTitle = styled(H2)`
 const ButtonsContainer = styled.View`
   justify-content: space-around;
   margin-vertical: 15px;
+  margin-bottom: 20%;
 `;
 
-export default withTheme(Reminder);
+export default Reminder;

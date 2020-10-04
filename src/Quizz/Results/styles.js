@@ -3,10 +3,11 @@ import H2 from '../../components/H2';
 import H1 from '../../components/H1';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import ResultsIllustration from '../../components/Illustrations/ResultsIllustration';
+import { screenWidth } from '../../styles/theme';
 
 export const EmptyView = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.whiteBg};
+  background-color: #f9f9f9;
   position: absolute;
   height: 100%;
   width: 100%;
@@ -14,13 +15,13 @@ export const EmptyView = styled.View`
 `;
 
 export const ScreenBgStyled = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.whiteBg};
+  background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
   min-height: 100%;
-  max-width: ${({ theme }) => theme.dimensions.screen.width}px;
-  min-width: ${({ theme }) => theme.dimensions.screen.width}px;
+  max-width: ${screenWidth}px;
+  min-width: ${screenWidth}px;
 `;
 
 export const commonCss = css`
@@ -56,7 +57,7 @@ export const TopButtonContainer = styled.View`
 export const BottomContainer = styled.View`
   padding: 20px;
   ${props => props.longPaddingBottom && 'padding-bottom: 100px;'}
-  background-color: ${({ theme }) => theme.colors.greyBg};
+  background-color: #efefef;
   flex-direction: row;
   margin-top: auto;
 `;

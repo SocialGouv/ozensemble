@@ -6,10 +6,12 @@ const Screen2 = () => (
   <ScreenBgStyled>
     <StyledScreen2 />
     <Title>
-      <TextStyled type="title">Détectez les risques d'addiction</TextStyled>
+      <TextStyled color="#4030a5">Détectez les risques d'addiction</TextStyled>
     </Title>
     <SubTitle>
-      <TextStyled type="basicText">Identifiez des consommations excessives ou votre dépendance</TextStyled>
+      <TextStyled color="#191919">
+        Identifiez des consommations excessives ou votre dépendance
+      </TextStyled>
     </SubTitle>
   </ScreenBgStyled>
 );

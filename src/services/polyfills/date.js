@@ -1,3 +1,5 @@
+import { decode, encode } from 'base-64';
+
 /* eslint-disable no-extend-native */
 /*
 Date.prototype.toCustomLocaleString doesn't work natively in Android.
@@ -53,7 +55,20 @@ Date.prototype.toCustomLocaleString = function(locale, options) {
           'novembre',
           'decembre',
         ],
-        short: ['jan.', 'fév.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'aoû', 'sep.', 'oct.', 'nov.', 'dec.'],
+        short: [
+          'jan.',
+          'fév.',
+          'mars',
+          'avr.',
+          'mai',
+          'juin',
+          'juil.',
+          'aoû',
+          'sep.',
+          'oct.',
+          'nov.',
+          'dec.',
+        ],
       },
     };
     const weekdays = {
@@ -260,8 +275,4 @@ Date.prototype.getLocaleTime = function(locale) {
 
 Date.prototype.getLocaleMonth = function(locale) {
   return new Date(this).toCustomLocaleString(locale, { month: 'long' });
-};
-
-String.prototype.capitalize = function() {
-  return this.charAt(0).toUpperCase() + this.slice(1);
 };

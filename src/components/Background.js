@@ -17,7 +17,7 @@ const Background = ({ neverBottom, children, color, withSwiperContainer }) => {
 const Screen = styled.View`
   width: 100%;
   height: 100%;
-  background: ${({ theme, color }) => theme.colors[color]};
+  background: ${({ color }) => color};
 `;
 
 const SwiperContainer = styled.View`

@@ -27,7 +27,7 @@ export const getAcceptableDosePerDay = gender => {
   return 2;
 };
 
-const computeScore = answers => {
+export const computeScore = answers => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
       return {
@@ -39,6 +39,10 @@ const computeScore = answers => {
     let score = 0;
     for (let questionKey of questionKeys) {
       const answerKey = answers[questionKey];
+      if (!answerKey) {
+        Sentry.captureMessage('error computing score of these answers: ' + JSON.stringify(answers));
+        continue;
+      }
       const question = findQuestion(questionKey);
       const answer = findAnswer(question, answerKey);
       score = score + getAnswerScore(answer);
@@ -51,6 +55,16 @@ const computeScore = answers => {
     Sentry.captureMessage('cannot compute score of these answers: ' + JSON.stringify(answers));
     Sentry.captureException(e);
   }
+  if (answers[CONSTANTS.GENDER]) {
+    return {
+      [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
+      [CONSTANTS.SCORE]: 0,
+    };
+  }
+  return {
+    [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
+    [CONSTANTS.SCORE]: 0,
+  };
 };
 
 const mapScoreToResult = scoreAndGender => {

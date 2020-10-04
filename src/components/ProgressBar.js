@@ -1,47 +1,50 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 import { Animated } from 'react-native';
+import { quizzPadding, screenWidth } from '../styles/theme';
 
-const ProgressBar = ({ progress, theme }) => {
+const ProgressBar = ({ progress }) => {
   const computedProgress = React.useRef(new Animated.Value(progress)).current;
 
   React.useEffect(() => {
     Animated.timing(computedProgress, {
       toValue: progress,
       duration: 500,
+      useNativeDriver: false,
     }).start();
-  }, [progress])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progress]);
 
   return (
     <ProgressBarContainer>
       <Animated.View
         style={{
-          height: theme.dimensions.progressBar,
-          minWidth: progressBarWidth({ theme }) * minWidth,
+          height: progressBarHeight,
+          minWidth: progressBarWidth * minWidth,
           width: computedProgress.interpolate({
             inputRange: [0, 1],
-            outputRange: [0, progressBarWidth({ theme })],
+            outputRange: [0, progressBarWidth],
           }),
-          backgroundColor: theme.colors.headerBackground,
-          borderRadius: theme.dimensions.progressBar,
+          backgroundColor: '#39cec0',
+          borderRadius: progressBarHeight,
         }}
       />
     </ProgressBarContainer>
   );
 };
 
+const progressBarHeight = 10;
+const progressBarWidth = screenWidth - 2 * quizzPadding;
 const minWidth = 0.05; // the min width of the progress bar is 5% of the container
 
-const progressBarWidth = ({ theme }) =>
-  theme.dimensions.screen.width - 2 * theme.dimensions.quizzPadding;
-
 const ProgressBarContainer = styled.View`
-  height: ${({ theme }) => theme.dimensions.progressBar}px;
+  height: ${progressBarHeight}px;
   width: ${progressBarWidth}px;
-  margin: ${({ theme }) => theme.dimensions.quizzPadding}px;
-  margin-bottom: ${({ theme }) => theme.dimensions.quizzPadding / 2}px;
-  background-color: ${({ theme }) => theme.colors.greyBg};
-  border-radius: ${({ theme }) => theme.dimensions.progressBar}px;
+  margin: ${quizzPadding}px;
+  margin-bottom: ${quizzPadding / 2}px;
+  background-color: #efefef;
+  border-radius: ${progressBarHeight}px;
 `;
 
-export default withTheme(ProgressBar);
+export default ProgressBar;

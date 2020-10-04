@@ -1,12 +1,12 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 import Svg, { Path } from 'react-native-svg';
 
 const StyledSvg = styled(Svg)`
   margin-right: 5px;
 `;
 
-const ValidateIcon = withTheme(({ theme, size, ...props }) => (
+const ValidateIcon = ({ size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 16 16" {...props}>
     <Path
       d="M8 16C3.58862 16 0 12.4114 0 8C0 3.58862 3.58862 0 8 0C12.4114 0 16 3.58862 16 8C16 12.4114 12.4114 16 8 16ZM8 1C4.14001 1 1 4.14001 1 8C1 11.86 4.14001 15 8 15C11.86 15 15 11.86 15 8C15 4.14001 11.86 1 8 1Z"
@@ -25,6 +25,6 @@ const ValidateIcon = withTheme(({ theme, size, ...props }) => (
       fill="#39CEC1"
     />
   </StyledSvg>
-));
+);
 
 export default ValidateIcon;

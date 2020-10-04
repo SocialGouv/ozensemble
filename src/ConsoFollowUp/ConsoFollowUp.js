@@ -1,43 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import TextStyled from '../components/TextStyled';
 import { ScreenBgStyled, TopContainer, Title, SubTitle } from './styles';
 import Diagram from './Diagram';
 import Feed from './Feed';
-import DrinksModal from './DrinksModal/DrinksModal';
-import { connect } from 'react-redux';
 import { checkIfThereIsDrinks } from './consoDuck';
 import { drinksCatalog, BEER, BEER_HALF } from './drinksCatalog';
-import DrinksCategory from './DrinksModal/DrinksCategory';
+import DrinksCategory from '../DrinksModal/DrinksCategory';
 import DiagramHelpModal from './DiagramHelpModal';
-import matomo from '../matomo/index';
+import matomo from '../services/matomo';
 
-const showPreviewForDebug = false;
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
-const ConsoFollowUp = ({ showWelcomeMessage, setView, forceOpenDrinksModal }) => {
-  const [showSetDrinksModal, setShowSetDrinksModal] = React.useState(false);
+const ConsoFollowUp = ({ showWelcomeMessage, setView, showSetDrinksModal, onShowDrinksModal }) => {
   const [showHelpModal, setShowHelpModal] = React.useState(false);
-
-  React.useEffect(() => {
-    if (forceOpenDrinksModal) {
-      setShowSetDrinksModal(true);
-    }
-  }, [forceOpenDrinksModal]);
 
   return (
     <React.Fragment>
       <ScreenBgStyled>
         <TopContainer>
           <Title>
-            <TextStyled type="title">Suivez votre consommation d'alcool</TextStyled>
+            <TextStyled color="#4030a5">Suivez votre consommation d'alcool</TextStyled>
           </Title>
           {showWelcomeMessage ? (
             <>
               <SubTitle>
-                <TextStyled type="basicText">
+                <TextStyled color="#191919">
                   Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
                 </TextStyled>
-                <TextStyled type="basicText">
+                <TextStyled color="#191919">
                   Tous les jours vous renseignez votre consommation.{'\n'}
                 </TextStyled>
               </SubTitle>
@@ -57,13 +48,13 @@ const ConsoFollowUp = ({ showWelcomeMessage, setView, forceOpenDrinksModal }) =>
                   />
                 ))}
               <SubTitle>
-                <TextStyled type="basicText">
+                <TextStyled color="#191919">
                   Un graphique récapitule vos consommations en unité d’alcool{'\n'}
                 </TextStyled>
               </SubTitle>
               <Diagram asPreview />
               <SubTitle last>
-                <TextStyled type="basicText">
+                <TextStyled color="#191919">
                   Le rouge représente ce qui est supérieur au seuil de l’OMS
                 </TextStyled>
               </SubTitle>
@@ -80,19 +71,18 @@ const ConsoFollowUp = ({ showWelcomeMessage, setView, forceOpenDrinksModal }) =>
         </TopContainer>
         <Feed
           showSetDrinksModal={showSetDrinksModal}
-          setShowSetDrinksModal={setShowSetDrinksModal}
+          onShowDrinksModal={onShowDrinksModal}
           setView={setView}
           hideFeed={showWelcomeMessage}
         />
       </ScreenBgStyled>
-      <DrinksModal visible={showSetDrinksModal} setShowSetDrinksModal={setShowSetDrinksModal} />
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
     </React.Fragment>
   );
 };
 
 const makeStateToProps = () => state => ({
-  showWelcomeMessage: !checkIfThereIsDrinks(state) || showPreviewForDebug,
+  showWelcomeMessage: !checkIfThereIsDrinks(state),
 });
 
 export default connect(makeStateToProps)(ConsoFollowUp);

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { screenWidth, screenHeight } from '../styles/theme';
 
 const HeaderBackground = () => (
   <>
@@ -11,21 +12,21 @@ const HeaderBackground = () => (
 const HeaderBackgroundStyled = styled.View`
   width: 100%;
   height: 20px;
-  background: ${({ theme }) => theme.colors.headerBackground};
+  background: #39cec0;
 `;
 
-const obliqueHeight = ({ theme }) => Math.min(theme.dimensions.screen.height * 0.1, 10);
+const obliqueHeight = Math.min(screenHeight * 0.1, 10);
 
 const Oblique = styled.View`
   height: ${obliqueHeight}px;
-  background-color: ${({ theme }) => theme.colors.whiteBg};
-  border-left-color: ${({ theme }) => theme.colors.headerBackground};
-  border-left-width: ${({ theme }) => theme.dimensions.screen.width}px;
+  background-color: #f9f9f9;
+  border-left-color: #39cec0;
+  border-left-width: ${screenWidth}px;
   border-bottom-width: ${obliqueHeight}px;
   border-bottom-color: transparent;
   border-top-width: 0px;
   border-top-color: transparent;
-  border-right-width: ${({ theme }) => theme.dimensions.screen.width}px;
+  border-right-width: ${screenWidth}px;
   border-right-color: transparent;
 `;
 

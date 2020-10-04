@@ -4,6 +4,7 @@ import ButtonPrimary from '../components/ButtonPrimary';
 import H1 from '../components/H1';
 import H2 from '../components/H2';
 import H3 from '../components/H3';
+import { screenHeight } from '../styles/theme';
 
 const commonCss = css`
   width: 85%;
@@ -15,7 +16,7 @@ const commonCss = css`
 */
 
 export const ScreenBgStyled = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.whiteBg};
+  background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
@@ -41,8 +42,7 @@ export const SubTitle = styled(H2)`
   Feed
 */
 export const FeedContainer = styled.View`
-  background-color: ${({ theme, hideFeed }) =>
-    hideFeed ? theme.colors.whiteBg : theme.colors.greyBg};
+  background-color: ${({ hideFeed }) => (hideFeed ? '#f9f9f9' : '#efefef')};
   padding: 20px;
   padding-right: 0px;
   padding-bottom: 100px;
@@ -78,9 +78,9 @@ export const FeedAddConsoTodayButton = styled(ButtonPrimary)`
 export const FeedButtonStyled = styled.View`
   width: 100%;
   height: 50px;
-  background-color: ${({ backgroundColor, theme }) => backgroundColor || theme.colors.whiteBg};
+  background-color: ${({ backgroundColor }) => backgroundColor || '#f9f9f9'};
   border-width: 1px;
-  border-color: ${({ theme, borderColor }) => borderColor || theme.colors.questionBorderUnselected};
+  border-color: ${({ borderColor }) => borderColor || '#dbdbe9'};
   border-radius: 7px;
   padding-left: 5px;
   justify-content: center;
@@ -94,7 +94,7 @@ Diagram styles
 
 export const Legend = styled.Text`
   margin-left: auto;
-  color: ${({ theme }) => theme.colors.buttonPrimary};
+  color: #de285e;
   margin-top: -35px;
   margin-bottom: 35px;
 `;
@@ -103,14 +103,14 @@ export const Help = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   border-radius: 40px;
-  border: 1px solid ${({ theme }) => theme.colors.headerBackground};
+  border: 1px solid #39cec0;
   background-color: white;
   margin-left: auto;
   justify-content: center;
   align-items: center;
 `;
 export const HelpText = styled.Text`
-  color: ${({ theme }) => theme.colors.headerBackground};
+  color: #39cec0;
   font-weight: bold;
   font-size: 20px;
 `;
@@ -128,10 +128,10 @@ export const BarsContainer = styled.View`
 `;
 
 export const Bar = styled.View`
-  border-color: ${({ theme }) => theme.colors.title};
+  border-color: #4030a5;
   border-style: ${({ empty }) => (empty ? 'dashed' : 'solid')};
   border-width: ${({ empty }) => (empty ? 1 : 0)}px;
-  border-radius: ${({ theme }) => theme.dimensions.screen.height * 0.005}px;
+  border-radius: ${screenHeight * 0.005}px;
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 30px;
@@ -140,8 +140,8 @@ export const Bar = styled.View`
 `;
 
 const topRadius = css`
-  border-top-left-radius: ${({ theme }) => theme.dimensions.screen.height * 0.005}px;
-  border-top-right-radius: ${({ theme }) => theme.dimensions.screen.height * 0.005}px;
+  border-top-left-radius: ${screenHeight * 0.005}px;
+  border-top-right-radius: ${screenHeight * 0.005}px;
 `;
 
 export const UpperBar = styled.View`
@@ -150,7 +150,7 @@ export const UpperBar = styled.View`
   height: ${({ height }) => height}px;
   width: 100%;
   ${topRadius}
-  background: ${({ theme }) => theme.colors.buttonPrimary};
+  background: #de285e;
 `;
 
 export const LowerBar = styled.View`
@@ -158,7 +158,7 @@ export const LowerBar = styled.View`
   bottom: 0px;
   height: ${({ height }) => height}px;
   width: 100%;
-  background: ${({ theme }) => theme.colors.title};
+  background: #4030a5;
   ${({ withTopRadius }) => withTopRadius && topRadius}
 `;
 
@@ -169,7 +169,7 @@ export const Dose = styled(H3)`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: ${({ theme, overLine }) => (overLine ? theme.colors.buttonPrimary : theme.colors.title)};
+  color: ${({ overLine }) => (overLine ? '#de285e' : '#4030a5')};
 `;
 
 export const Line = styled.View`
@@ -180,5 +180,5 @@ export const Line = styled.View`
   border-style: dashed;
   border-width: 1px;
   border-radius: 1px;
-  border-color: ${({ theme }) => theme.colors.headerBackground};
+  border-color: #39cec0;
 `;

@@ -2,19 +2,26 @@ import styled, { css } from 'styled-components';
 import H2 from '../components/H2';
 import UnderlinedButton from '../components/UnderlinedButton';
 import ButtonPrimary from '../components/ButtonPrimary';
+import { quizzPadding, screenWidth } from '../styles/theme';
 /*
 QUIZZ
 */
 
+// needed to prevent QuizzAndResultContainer to overflow on ConsoFolluwUp screen
+//  when Results are shown (cf margin-left)
+export const QuizzAndResultSubContainer = styled.View`
+  overflow: hidden;
+`;
+
 export const QuizzAndResultContainer = styled.View`
   flex-direction: row;
-  margin-left: ${({ showQuizz, theme }) => (showQuizz ? 0 : -theme.dimensions.screen.width)}px;
+  margin-left: ${({ showQuizz }) => (showQuizz ? 0 : -screenWidth)}px;
 `;
 
 export const QuizzContainer = styled.View`
   flex-shrink: 0;
   flex-grow: 1;
-  width: ${({ theme }) => theme.dimensions.screen.width}px;
+  width: ${screenWidth}px;
   padding-bottom: 80px;
 `;
 
@@ -23,7 +30,7 @@ export const QuestionsContainer = styled.View`
   /* flex-grow: 1; */ /* DONT PUT "flex-grow: 1" or the ScrollView will disappear #fuckingbug */
   flex-basis: 100%;
   flex-direction: row;
-  margin-left: ${({ questionIndex, theme }) => -questionIndex * theme.dimensions.screen.width}px;
+  margin-left: ${({ questionIndex }) => -questionIndex * screenWidth}px;
   overflow: hidden;
 `;
 
@@ -34,7 +41,7 @@ export const QuizzBackButton = styled(UnderlinedButton)`
 `;
 
 export const AnswersContainer = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.whiteBg};
+  background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 0;
   padding-right: 10px;
@@ -44,10 +51,8 @@ export const AnswersContainer = styled.ScrollView`
 export const AnswerButton = styled.TouchableOpacity`
   width: 100%;
   height: 50px;
-  background-color: ${({ selected, theme: { colors } }) =>
-    selected ? colors.questionBgSelected : colors.questionBgUnselected};
-  border-color: ${({ selected, theme: { colors } }) =>
-    selected ? colors.questionBorderSelected : colors.questionBorderUnselected};
+  background-color: ${({ selected }) => (selected ? '#5352a3' : '#f3f3f6')};
+  border-color: ${({ selected }) => (selected ? '#4030a5' : '#dbdbe9')};
   border-width: 1px;
   border-radius: 7px;
   padding-left: 15px;
@@ -57,7 +62,7 @@ export const AnswerButton = styled.TouchableOpacity`
 
 export const AnswerContent = styled(H2)`
   font-weight: 500;
-  color: ${({ selected, theme: { colors } }) => (selected ? colors.whiteBg : colors.basicText)};
+  color: ${({ selected }) => (selected ? '#f9f9f9' : '#191919')};
 `;
 
 /*
@@ -65,13 +70,13 @@ QUESTION
 */
 
 export const ScreenBgStyled = styled.View`
-  background-color: ${({ theme }) => theme.colors.whiteBg};
-  padding-horizontal: ${({ theme }) => theme.dimensions.quizzPadding}px;
-  padding-top: ${({ theme }) => theme.dimensions.quizzPadding / 2}px;
+  background-color: #f9f9f9;
+  padding-horizontal: ${quizzPadding}px;
+  padding-top: ${quizzPadding / 2}px;
   flex-shrink: 0;
   flex-grow: 0;
-  width: ${({ theme }) => theme.dimensions.screen.width}px;
-  max-width: ${({ theme }) => theme.dimensions.screen.width}px;
+  width: ${screenWidth}px;
+  max-width: ${screenWidth}px;
   ${({ debug }) => debug && 'border: 2px solid #000;'}
 `;
 
@@ -85,9 +90,9 @@ export const QuestionNumber = styled(H2)`
 `;
 
 export const QuestionTitle = styled(H2)`
-  color: ${({ theme }) => theme.colors.title};
+  color: #4030a5;
   ${commonCss}
-  margin-bottom: ${({ theme }) => Math.min(30, theme.dimensions.screen.width * 0.05)}px;
+  margin-bottom: ${Math.min(30, screenWidth * 0.05)}px;
 `;
 
 export const SubTitle = styled(H2)`

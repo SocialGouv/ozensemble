@@ -9,7 +9,7 @@ import {
   TopButtonContainer,
   Extra,
 } from './styles';
-import matomo from '../matomo';
+import matomo from '../services/matomo';
 import ButtonPrimary from '../components/ButtonPrimary';
 
 const ContactForm = ({ onRdvRequest }) => {
@@ -22,18 +22,20 @@ const ContactForm = ({ onRdvRequest }) => {
       <ScreenBgStyled>
         <TopContainer>
           <TopTitle>
-            <TextStyled type="title">Échangez</TextStyled>
-            <TextStyled type="buttonPrimary"> gratuitement </TextStyled>
-            <TextStyled type="title">par téléphone avec un professionnel de l'addiction</TextStyled>
+            <TextStyled color="#4030a5">Échangez</TextStyled>
+            <TextStyled color="#de285e"> gratuitement </TextStyled>
+            <TextStyled color="#4030a5">
+              par téléphone avec un professionnel de l'addiction
+            </TextStyled>
           </TopTitle>
           <TopSubTitle>
-            <TextStyled type="basicText">Prenez un rendez-vous </TextStyled>
-            <TextStyled type="title">téléphonique </TextStyled>
-            <TextStyled type="basicText">pour un échange </TextStyled>
-            <TextStyled type="title">gratuit </TextStyled>
-            <TextStyled type="basicText">de </TextStyled>
-            <TextStyled type="title">15 minutes </TextStyled>
-            <TextStyled type="basicText">avec un professionnel de l'addiction.</TextStyled>
+            <TextStyled color="#191919">Prenez un rendez-vous </TextStyled>
+            <TextStyled color="#4030a5">téléphonique </TextStyled>
+            <TextStyled color="#191919">pour un échange </TextStyled>
+            <TextStyled color="#4030a5">gratuit </TextStyled>
+            <TextStyled color="#191919">de </TextStyled>
+            <TextStyled color="#4030a5">15 minutes </TextStyled>
+            <TextStyled color="#191919">avec un professionnel de l'addiction.</TextStyled>
           </TopSubTitle>
           <TopButtonContainer>
             <ButtonPrimary
@@ -45,16 +47,16 @@ const ContactForm = ({ onRdvRequest }) => {
             />
           </TopButtonContainer>
           <Extra>
-            <TextStyled type="extra">
+            <TextStyled color="#191919">
               Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire
               le point ou répondront à vos questions. Nos locaux sont situés à Montreuil -{' '}
             </TextStyled>
             <TextStyled
+              color="#4030a5"
               onPress={() => {
                 matomo.logContactWebsiteOpened();
                 Linking.openURL('https://www.capasscite.fr/');
-              }}
-              type="link">
+              }}>
               Qui sommes nous ?
             </TextStyled>
           </Extra>

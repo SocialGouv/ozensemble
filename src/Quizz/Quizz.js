@@ -9,13 +9,14 @@ import {
   QuizzAndResultContainer,
   QuizzContainer,
   QuestionsContainer,
+  QuizzAndResultSubContainer,
 } from './styles';
 import Question, { Intro } from './Question';
 import Background from '../components/Background';
 import ProgressBar from '../components/ProgressBar';
 import { useBackHandler } from '../helpers/customHooks';
 import Results from './Results/Results';
-import matomo from '../matomo';
+import matomo from '../services/matomo';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -141,45 +142,47 @@ const Quizz = ({ setView }) => {
   if (!answers) return null;
 
   return (
-    <Background color="whiteBg" withSwiperContainer>
-      <QuizzAndResultContainer showQuizz={showQuizz}>
-        <QuizzContainer>
-          <ProgressBar progress={progress} />
-          <QuestionsContainer questionIndex={questionInView}>
-            {[0, ...questions].map((content, index) => {
-              if (index === 0) {
-                return <Intro startQuizz={startQuizz} setView={setView} key="intro" />;
-              }
-              return (
-                <Question
-                  {...content}
-                  key={index - 1}
-                  numberOfQuestions={questions.length}
-                  questionIndex={index - 1}
-                  saveAnswer={saveAnswer}
-                  selectedAnswerKey={answers[content.questionKey]}
-                />
-              );
-            })}
-          </QuestionsContainer>
-          {questionInView > 0 && (
-            <QuizzBackButton bold content="Retour" onPress={backToPreviousQuestion} />
-          )}
-        </QuizzContainer>
-        <QuizzContainer>
-          <Results
-            resultKey={resultKey}
-            setView={view => {
-              resetQuizz();
-              setView(view);
-            }}
-            backToQuestions={() => {
-              LayoutAnimation.easeInEaseOut();
-              setShowQuizz(true);
-            }}
-          />
-        </QuizzContainer>
-      </QuizzAndResultContainer>
+    <Background color="#f9f9f9" withSwiperContainer>
+      <QuizzAndResultSubContainer>
+        <QuizzAndResultContainer showQuizz={showQuizz}>
+          <QuizzContainer>
+            <ProgressBar progress={progress} />
+            <QuestionsContainer questionIndex={questionInView}>
+              {[0, ...questions].map((content, index) => {
+                if (index === 0) {
+                  return <Intro startQuizz={startQuizz} setView={setView} key="intro" />;
+                }
+                return (
+                  <Question
+                    {...content}
+                    key={index - 1}
+                    numberOfQuestions={questions.length}
+                    questionIndex={index - 1}
+                    saveAnswer={saveAnswer}
+                    selectedAnswerKey={answers[content.questionKey]}
+                  />
+                );
+              })}
+            </QuestionsContainer>
+            {questionInView > 0 && (
+              <QuizzBackButton bold content="Retour" onPress={backToPreviousQuestion} />
+            )}
+          </QuizzContainer>
+          <QuizzContainer>
+            <Results
+              resultKey={resultKey}
+              setView={(view) => {
+                resetQuizz();
+                setView(view);
+              }}
+              backToQuestions={() => {
+                LayoutAnimation.easeInEaseOut();
+                setShowQuizz(true);
+              }}
+            />
+          </QuizzContainer>
+        </QuizzAndResultContainer>
+      </QuizzAndResultSubContainer>
     </Background>
   );
 };

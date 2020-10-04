@@ -6,10 +6,12 @@ const Screen3 = () => (
   <ScreenBgStyled>
     <StyledScreen3 />
     <Title>
-      <TextStyled type="title">Faites-vous accompagner par un professionnel</TextStyled>
+      <TextStyled color="#4030a5">Faites-vous accompagner par un professionnel</TextStyled>
     </Title>
     <SubTitle>
-      <TextStyled type="basicText">Discutez gratuitement avec un professionnel et obtenez des conseils personnalisés</TextStyled>
+      <TextStyled color="#191919">
+        Discutez gratuitement avec un professionnel et obtenez des conseils personnalisés
+      </TextStyled>
     </SubTitle>
   </ScreenBgStyled>
 );
