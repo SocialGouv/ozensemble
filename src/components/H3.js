@@ -7,17 +7,17 @@ const bigH3 = css`
 `;
 
 const mediumH3 = css`
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
 `;
 
 const smallH3 = css`
-  font-size: 10px;
+  font-size: 14px;
   line-height: 16px;
 `;
 
 const H3 = styled.Text`
-  color: ${({ theme }) => theme.colors.basicText};
+  color: #191919;
   ${bigH3}
   ${mediaHeight.medium`${mediumH3}`}
   ${mediaHeight.small`${smallH3}`}

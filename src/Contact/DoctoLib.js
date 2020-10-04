@@ -4,14 +4,17 @@ import { Modal, Dimensions, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { BackButton } from './styles';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { titleColor } from '../styles/theme';
 import Background from '../components/Background';
 
 const DoctoLib = ({ visible, onClose }) => {
   return (
-    <Modal visible={visible} animationType="slide" onDismiss={onClose}>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      presentationStyle="formSheet"
+      onDismiss={onClose}>
       <SafeAreaProvider>
-        <Background color="whiteBg">
+        <Background color="#f9f9f9">
           <Container>
             <TopBar>
               <BackButton withoutPadding content="< Retour" onPress={onClose} bold />
@@ -35,7 +38,7 @@ const DoctoLib = ({ visible, onClose }) => {
 
 const Loading = () => (
   <LoadingContainer>
-    <ActivityIndicator color={titleColor} />
+    <ActivityIndicator color="#4030a5" />
   </LoadingContainer>
 );
 
@@ -47,11 +50,14 @@ const TopBar = styled.View`
   height: 50px;
   padding-left: 20px;
   justify-content: flex-start;
+  flex-grow: 0;
 `;
 
 const LoadingContainer = styled.View`
   width: ${Dimensions.get('window').width}px;
+  height: 100%;
   justify-content: center;
+  flex-grow: 1;
 `;
 
 const WebViewContainer = styled.View`

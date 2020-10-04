@@ -47,7 +47,9 @@ export const Intro = ({ startQuizz }) => (
     <AnswersContainer>
       <QuestionNumber>Auto-évaluation</QuestionNumber>
       <QuestionTitle>Commençons par quelques questions rapides !</QuestionTitle>
-      <SubTitle>Pour évaluer votre consommation d'alcool et détecter des comportements à risques.</SubTitle>
+      <SubTitle>
+        Pour évaluer votre consommation d'alcool et détecter des comportements à risques.
+      </SubTitle>
       <ButtonPrimaryStyled content="Commencez" onPress={startQuizz} />
     </AnswersContainer>
   </ScreenBgStyled>

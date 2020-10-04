@@ -2,9 +2,10 @@ import styled, { css } from 'styled-components';
 import H2 from '../components/H2';
 import H1 from '../components/H1';
 import UnderlinedButton from '../components/UnderlinedButton';
+import { screenWidth } from '../styles/theme';
 
 export const ScreenBgStyled = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.whiteBg};
+  background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
@@ -36,6 +37,16 @@ export const Extra = styled(H2)`
   font-style: italic;
   font-weight: normal;
   margin-bottom: 10px;
+  color: #191919;
+`;
+
+export const Link = styled.Text`
+  ${commonCss}
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: #4030a5;
+  text-decoration-line: underline;
 `;
 
 export const TopButtonContainer = styled.View`
@@ -45,7 +56,7 @@ export const TopButtonContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
   margin-left: ${-paddingHorizontal}px;
-  width: ${({ theme }) => theme.dimensions.screen.width}px;
+  width: ${screenWidth}px;
 `;
 
 export const FormContainer = styled.View`
@@ -54,7 +65,7 @@ export const FormContainer = styled.View`
 `;
 
 export const LabelStyled = styled.Text`
-  color: ${({ theme }) => theme.colors.title};
+  color: #4030a5;
   font-size: 15px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -63,9 +74,9 @@ export const LabelStyled = styled.Text`
 export const TextInputStyled = styled.TextInput`
   width: 100%;
   height: 50px;
-  background-color: ${({ theme }) => theme.colors.questionBgUnselected};
-  border: 1px solid ${({ theme }) => theme.colors.questionBorderUnselected};
-  color: ${({ theme }) => theme.colors.title};
+  background-color: #f3f3f6;
+  border: 1px solid #dbdbe9;
+  color: #4030a5;
   border-radius: 7px;
   padding-left: 15px;
   justify-content: center;
@@ -74,7 +85,7 @@ export const TextInputStyled = styled.TextInput`
 
 export const ErrorStyled = styled.Text`
   font-size: 12px;
-  color: ${({ theme }) => theme.colors.buttonPrimary};
+  color: #de285e;
 `;
 
 export const BackButton = styled(UnderlinedButton)`

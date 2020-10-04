@@ -6,7 +6,7 @@ import {
   differenceOfDays,
   dateIsBeforeOrToday,
 } from '../helpers/dateHelpers';
-import { drinksCatalog } from './drinksCatalog';
+import { mapDrinkToDose, drinksCatalog, getDisplayName } from './drinksCatalog';
 import { createSelector } from 'reselect';
 import { REHYDRATE } from 'redux-persist';
 
@@ -14,55 +14,75 @@ import { REHYDRATE } from 'redux-persist';
 export const followupNumberOfDays = 15;
 export const maxDosesOnScreen = 50;
 
-const removeDrinkFromDrinksAndId = (drinks, id) => drinks.filter(drink => drink.id !== id);
-const removeDrinkFromDrinksAndTimestamp = (drinks, timestamp) => drinks.filter(drink => drink.timestamp !== timestamp);
+const removeDrinkFromDrinksAndId = (drinks, id) => drinks.filter((drink) => drink.id !== id);
+const removeDrinkFromDrinksAndTimestamp = (drinks, timestamp) =>
+  drinks.filter((drink) => drink.timestamp !== timestamp);
 
-export const mapDrinkToDose = ({ drinkKey, quantity }) => {
-  const drink = drinksCatalog.find(drink => drink.drinkKey === drinkKey);
-  return drink.doses * quantity;
-};
-
-export const reduceDrinksToDailyDoses = drinks =>
+const reduceDrinksToDailyDoses = (drinks, catalog) =>
   drinks.reduce((dailyDoses, drink) => {
     const day = dateWithoutTime(drink.timestamp);
     if (dailyDoses[day]) {
       return {
         ...dailyDoses,
-        [day]: dailyDoses[day] + mapDrinkToDose(drink),
+        [day]: dailyDoses[day] + mapDrinkToDose(drink, catalog),
       };
     }
     return {
       ...dailyDoses,
-      [day]: mapDrinkToDose(drink),
+      [day]: mapDrinkToDose(drink, catalog),
     };
   }, {});
 
-export const computeHighestDailyDose = drinks => {
-  const dailyDoses = reduceDrinksToDailyDoses(drinks);
+const computeHighestDailyDose = (drinks, catalog) => {
+  const dailyDoses = reduceDrinksToDailyDoses(drinks, catalog);
   return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
 };
 
-export const getDrinksKeysFromCategory = categoryKey =>
-  drinksCatalog.filter(drink => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
+const sortDrinksByDate = (drinks) =>
+  drinks.sort((drink1, drink2) => {
+    if (drink1.timestamp < drink2.timestamp) return -1;
+    return 1;
+  });
 
-export const getDisplayName = (drinkKey, quantity) => {
-  const drink = drinksCatalog.find(drink => drink.drinkKey === drinkKey);
-  return drink.displayFeed(quantity);
-};
-
-export const getDisplayDrinksModalName = drinkKey => {
-  const drink = drinksCatalog.find(drink => drink.drinkKey === drinkKey);
-  return drink.displayDrinkModal;
-};
-
-export const getVolume = drinkKey => {
-  const drink = drinksCatalog.find(drink => drink.drinkKey === drinkKey);
-  return drink.volume;
-};
-
-export const getIcon = drinkKey => {
-  const drink = drinksCatalog.find(drink => drink.drinkKey === drinkKey);
-  return drink.icon;
+const formatHtmlTable = (drinks, catalog) => {
+  return `
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="https://www.w3.org/1999/xhtml">
+    <head>
+      <title>Bilan des consommations</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+      <style>
+      table { background-color: white; width: 100%; }
+      td, th { border: 1px solid #ddd; text-align: center; }
+      span { font-weight: bold; }
+      </style>
+    </head>
+    <body>
+      <span>Bilan des consommations</span>
+      <table class="table">
+        <tbody>
+          <tr>
+            <th>Date</th>
+            <th>Quantité</th>
+          </tr>
+          ${sortDrinksByDate(drinks)
+            .map((drink) => {
+              const doses = mapDrinkToDose(drink, catalog);
+              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
+              const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
+              return `<tr>
+                  <td>${time}</td>
+                  <td>${drink.quantity} ${name} (${doses} dose${doses > 1 ? 's' : ''})</td>
+                </tr>`;
+            })
+            .join('')}
+        </tbody>
+      </table>
+    </body>
+  </html>
+  `;
 };
 
 // Actions
@@ -70,6 +90,8 @@ const CONSO_UPDATE_DRINK = 'CONSO_UPDATE_DRINK';
 const CONSO_REMOVE_DRINK = 'CONSO_REMOVE_DRINK';
 const CONSO_SET_MODAL_TIMESTAMP = 'CONSO_SET_MODAL_TIMESTAMP';
 const CONSO_UPDATE_MODAL_TIMESTAMP = 'CONSO_UPDATE_MODAL_TIMESTAMP';
+const CONSO_SET_OWN_DRINK = 'CONSO_SET_OWN_DRINK';
+const CONSO_REMOVE_OWN_DRINK = 'CONSO_REMOVE_OWN_DRINK';
 
 // Actions creators
 export const updateDrink = ({ drinkKey, quantity, id = uuidv4() }) => ({
@@ -77,28 +99,43 @@ export const updateDrink = ({ drinkKey, quantity, id = uuidv4() }) => ({
   payload: { drinkKey, quantity, id },
 });
 
-export const removeDrink = timestamp => ({
+export const removeDrink = (timestamp) => ({
   type: CONSO_REMOVE_DRINK,
   payload: { timestamp },
 });
 
-export const setModalTimestamp = timestamp => ({
+export const setModalTimestamp = (timestamp) => ({
   type: CONSO_SET_MODAL_TIMESTAMP,
   payload: timestamp,
 });
 
-export const updateModalTimestamp = timestamp => ({
+export const updateModalTimestamp = (timestamp) => ({
   type: CONSO_UPDATE_MODAL_TIMESTAMP,
   payload: timestamp,
 });
 
-// Selectors
-export const getDrinksState = ({ conso: { drinks } }) => drinks;
-export const checkIfThereIsDrinks = ({ conso: { drinks } }) => drinks.length > 0;
-export const getModalTimestamp = ({ conso: { modalTimestamp } }) => modalTimestamp;
+export const setOwnDrink = (formattedDrink) => ({
+  type: CONSO_SET_OWN_DRINK,
+  payload: formattedDrink,
+});
 
-export const getStartDate = ({ conso: { startDate } }) => startDate;
-export const getDays = ({ conso: { drinks, startDate } }) => {
+export const removeOwnDrink = (drinkKey) => ({
+  type: CONSO_REMOVE_OWN_DRINK,
+  payload: drinkKey,
+});
+
+// Selectors
+export const getConsoState = ({ conso }) => conso;
+export const getDrinksState = createSelector(getConsoState, (conso) => conso.drinks || []);
+export const getOwnDrinks = createSelector(getConsoState, (conso) => conso.ownDrinks || []);
+export const getConsolidatedCatalog = createSelector(getOwnDrinks, (ownDrinks) => [
+  ...ownDrinks,
+  ...drinksCatalog,
+]);
+export const checkIfThereIsDrinks = createSelector(getDrinksState, (drinks) => drinks.length > 0);
+export const getModalTimestamp = createSelector(getConsoState, (conso) => conso.modalTimestamp);
+const getStartDate = createSelector(getConsoState, (conso) => conso.startDate);
+const getDays = createSelector([getDrinksState, getStartDate], (drinks, startDate) => {
   const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp));
   const days = [];
   const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);
@@ -112,23 +149,29 @@ export const getDays = ({ conso: { drinks, startDate } }) => {
     days.push(dateWithoutTime(startDate, i));
   }
   return days;
-};
-
-export const getDaysForDiagram = createSelector(
-  getDays,
-  days => days.filter((_, i) => i >= days.length - followupNumberOfDays)
+});
+export const getDaysForDiagram = createSelector(getDays, (days) =>
+  days.filter((_, i) => i >= days.length - followupNumberOfDays)
 );
-
-export const getDaysForFeed = createSelector(
-  getDays,
-  days => [...days].filter(date => dateIsBeforeOrToday(date)).reverse()
+export const getDaysForFeed = createSelector(getDays, (days) =>
+  [...days].filter((date) => dateIsBeforeOrToday(date)).reverse()
 );
-
-export const getDailyDoses = ({ conso: { drinks } }) => reduceDrinksToDailyDoses(drinks);
-export const getHighestDailyDoses = ({ conso: { drinks } }) => computeHighestDailyDose(drinks);
-export const getDrinksPerCurrentDrinksTimestamp = ({ conso: { drinks, modalTimestamp } }) =>
-  drinks.filter(drink => drink.timestamp === modalTimestamp);
-
+export const getDailyDoses = createSelector(
+  [getDrinksState, getConsolidatedCatalog],
+  reduceDrinksToDailyDoses
+);
+export const getHighestDailyDoses = createSelector(
+  [getDrinksState, getConsolidatedCatalog],
+  computeHighestDailyDose
+);
+export const getDrinksPerCurrentDrinksTimestamp = createSelector(
+  [getDrinksState, getModalTimestamp],
+  (drinks, modalTimestamp) => drinks.filter((drink) => drink.timestamp === modalTimestamp)
+);
+export const getHTMLExport = createSelector(
+  [getDrinksState, getConsolidatedCatalog],
+  (drinks, catalog) => formatHtmlTable(drinks, catalog)
+);
 // Reducer
 
 /*
@@ -141,6 +184,7 @@ DRINK SCHEMA: {
 
 const initialState = {
   drinks: [],
+  ownDrinks: [],
   startDate: today(),
   modalTimestamp: today(),
 };
@@ -157,8 +201,28 @@ const reducer = (state = initialState, action) => {
         drinks: [
           ...removeDrinkFromDrinksAndId(state.drinks, id),
           { ...action.payload, timestamp: state.modalTimestamp },
-        ],
+        ].filter((d) => d.quantity > 0),
         startDate: newStartDate,
+      };
+    }
+    case CONSO_SET_OWN_DRINK: {
+      const drinks = state.ownDrinks || [];
+      const drink = action.payload;
+      return {
+        ...state,
+        ownDrinks: [...drinks.filter((d) => d.drinkKey !== drink.drinkKey), drink],
+      };
+    }
+    case CONSO_REMOVE_OWN_DRINK: {
+      return {
+        ...state,
+        ownDrinks: state.ownDrinks.map((d) => {
+          if (d.drinkKey !== action.payload) return d;
+          return {
+            ...d,
+            active: false,
+          };
+        }),
       };
     }
     case CONSO_REMOVE_DRINK: {
@@ -173,7 +237,7 @@ const reducer = (state = initialState, action) => {
       const oldTimestamp = state.modalTimestamp;
       return {
         ...state,
-        drinks: state.drinks.map(drink => {
+        drinks: state.drinks.map((drink) => {
           if (drink.timestamp === oldTimestamp) {
             return {
               ...drink,
@@ -203,12 +267,13 @@ const reducer = (state = initialState, action) => {
 
       return {
         ...state,
+        ownDrinks: [],
         drinks: oldDrinks.reduce((newDrinks, drink, i) => {
           const prevDrinks = newDrinks.filter((_, index) => index < i);
           if (!prevDrinks.length) return [drink];
-          const sameDrink = newDrinks.find(d => checkSameDrink(d, drink));
+          const sameDrink = newDrinks.find((d) => checkSameDrink(d, drink));
           if (!sameDrink) return [...newDrinks, drink];
-          return newDrinks.map(d => {
+          return newDrinks.map((d) => {
             if (checkSameDrink(d, drink)) {
               return {
                 ...drink,

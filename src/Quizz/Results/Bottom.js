@@ -1,5 +1,4 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 import CONSTANTS from '../../reference/constants';
 import {
@@ -10,11 +9,10 @@ import {
   ResultsIllustrationStyled,
   UnderlinedButtonStyled,
 } from './styles';
-import matomo from '../../matomo/index';
+import matomo from '../../services/matomo';
 
 const Bottom = ({
   setView,
-  theme,
   title = 'Suivez votre consommation',
   subTitle = 'Commencez dès maintenant à suivre votre consommation au quotidien',
   buttonTitle = 'Suivre ma consommation',
@@ -25,14 +23,14 @@ const Bottom = ({
     </BottomSubContainer>
     <BottomSubContainer shrink>
       <BottomTitle>
-        <TextStyled type="title">{title}</TextStyled>
+        <TextStyled color="#4030a5">{title}</TextStyled>
       </BottomTitle>
       <BottomSubTitle>
-        <TextStyled type="basicText">{subTitle}</TextStyled>
+        <TextStyled color="#191919">{subTitle}</TextStyled>
       </BottomSubTitle>
       <UnderlinedButtonStyled
         withoutPadding
-        color={theme.colors.buttonPrimary}
+        color="#de285e"
         bold
         content={buttonTitle}
         onPress={() => {
@@ -44,4 +42,4 @@ const Bottom = ({
   </BottomContainer>
 );
 
-export default withTheme(Bottom);
+export default Bottom;

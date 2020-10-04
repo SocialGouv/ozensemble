@@ -11,20 +11,21 @@ import {
   TopButtonContainer,
   UnderlinedButtonStyled,
 } from './styles';
-import { withTheme } from 'styled-components';
 import Bottom from './Bottom';
 
-const ResultAddicted = ({ setView, theme, onActionButtonPress }) => (
+const ResultAddicted = ({ setView, onActionButtonPress }) => (
   <ScreenBgStyled>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
       <TopTitle>
-        <TextStyled type="title">Vous pourriez présenter des risques d'addiction à l'alcool !</TextStyled>
+        <TextStyled color="#4030a5">
+          Vous pourriez présenter des risques d'addiction à l'alcool !
+        </TextStyled>
       </TopTitle>
       <TopSubTitle>
-        <TextStyled type="basicText">Nous vous recommandons de discuter</TextStyled>
-        <TextStyled type="title"> gratuitement </TextStyled>
-        <TextStyled type="basicText">avec l'un de nos psychologues</TextStyled>
+        <TextStyled color="#191919">Nous vous recommandons de discuter</TextStyled>
+        <TextStyled color="#4030a5"> gratuitement </TextStyled>
+        <TextStyled color="#191919">avec l'un de nos psychologues</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
         <ButtonPrimary
@@ -47,4 +48,4 @@ const ResultAddicted = ({ setView, theme, onActionButtonPress }) => (
   </ScreenBgStyled>
 );
 
-export default withTheme(ResultAddicted);
+export default ResultAddicted;

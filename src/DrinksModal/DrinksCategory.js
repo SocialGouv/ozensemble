@@ -1,29 +1,27 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import TextStyled from '../components/TextStyled';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
-import { getDrinksKeysFromCategory } from '../consoDuck';
-
-const getCurrentDrinkQuantity = (drinks, drinkKey) => {
-  const drink = drinks.find(d => d.drinkKey === drinkKey);
-  if (drink) {
-    return drink.quantity;
-  }
-  return 0;
-};
+import {
+  getDrinksKeysFromCategory,
+  drinksCatalog,
+  getDrinkQuantityFromDrinks,
+} from '../ConsoFollowUp/drinksCatalog';
+import { screenWidth } from '../styles/theme';
 
 const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity }) => {
   return (
     <CategoryContainer asPreview={asPreview} darkBackground={index % 2}>
-      <CategoryDisplay type="title">{category}</CategoryDisplay>
+      <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
       <DrinksContainer>
-        {getDrinksKeysFromCategory(category).map(drinkKey => (
+        {getDrinksKeysFromCategory(category, drinksCatalog).map(drinkKey => (
           <DrinkQuantitySetter
             asPreview={asPreview}
             key={drinkKey}
             drinkKey={drinkKey}
             setDrinkQuantity={setDrinkQuantity}
-            quantity={getCurrentDrinkQuantity(drinks, drinkKey)}
+            quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+            catalog={drinksCatalog}
           />
         ))}
       </DrinksContainer>
@@ -34,12 +32,12 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity }
 const previewCss = css`
   margin-left: -20px;
   margin-vertical: 20px;
-  width: ${props => props.theme.dimensions.screen.width}px;
+  width: ${screenWidth}px;
   transform: scale(0.9);
 `;
 
 const CategoryContainer = styled.View`
-  background: ${({ darkBackground, theme }) => (darkBackground ? theme.colors.whiteBg : theme.colors.greyBg)};
+  background: ${({ darkBackground }) => (darkBackground ? '#f9f9f9' : '#efefef')};
   ${props => props.asPreview && previewCss}
 `;
 

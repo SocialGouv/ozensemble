@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import { AppState, BackHandler } from 'react-native';
+import { BackHandler } from 'react-native';
 import CONSTANTS from '../reference/constants';
 import { getGender, getAcceptableDosePerDay } from '../Quizz/utils';
 
@@ -15,39 +15,7 @@ export const useBackHandler = (handler, activate = true) => {
   });
 };
 
-// settings validation
-function isValidFunction(func) {
-  return func && typeof func === 'function';
-}
-
-export default function useAppState(settings) {
-  const { onChange, onForeground, onBackground } = settings || {};
-  const [appState, setAppState] = React.useState(AppState.currentState);
-
-  const handleAppStateChange = nextAppState => {
-    if (nextAppState === 'active' && appState.match(/inactive|background/)) {
-      isValidFunction(onForeground) && onForeground();
-      setAppState(nextAppState);
-      isValidFunction(onChange) && onChange(nextAppState);
-    } else if (appState === 'active' && nextAppState.match(/inactive|background/)) {
-      isValidFunction(onBackground) && onBackground();
-      setAppState(nextAppState);
-      isValidFunction(onChange) && onChange(nextAppState);
-    }
-  };
-
-  React.useEffect(() => {
-    AppState.addEventListener('change', handleAppStateChange);
-
-    return () => {
-      AppState.removeEventListener('change', handleAppStateChange);
-    };
-  });
-
-  return { appState };
-}
-
-export const usefetchAsyncStorage = (key, initValue = null) => {
+const usefetchAsyncStorage = (key, initValue = null) => {
   const [value, setValue] = React.useState(initValue);
   const [alreadyFetched, setAlreadyFetched] = React.useState(false);
   React.useEffect(() => {
@@ -72,14 +40,8 @@ export const usefetchAsyncStorage = (key, initValue = null) => {
   return value;
 };
 
-export const usefetchQuizzAnswers = () => usefetchAsyncStorage(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
-
-export const useFetchResultKey = () => usefetchAsyncStorage(CONSTANTS.STORE_KEY_QUIZZ_RESULT);
-
-export const useFetchResultReminder = () => usefetchAsyncStorage(CONSTANTS.STORE_KEY_REMINDER);
-
 export const usefetchMaxAcceptableDosesPerDay = () => {
-  const quizzAnswers = usefetchQuizzAnswers();
+  const quizzAnswers = usefetchAsyncStorage(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
   if (!quizzAnswers) return 3;
   return getAcceptableDosePerDay(getGender(quizzAnswers));
 };

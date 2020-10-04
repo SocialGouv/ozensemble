@@ -22,7 +22,7 @@ const TimelineContainer = styled.View`
 const Line = styled.View`
   width: 2px;
   margin-left: -0.5px;
-  background: ${({ theme, first }) => first ? 'transparent' : theme.colors.headerBackground};
+  background: ${({ first }) => (first ? 'transparent' : '#39cec0')};
   flex-shrink: ${({ shrink }) => (shrink ? 1 : 0)};
   flex-grow: ${({ grow }) => (grow ? 1 : 0)};
   height: 20px;
@@ -35,12 +35,11 @@ const Dot = styled.View`
   height: ${dotSize}px;
   margin-vertical: 3px;
   border-radius: ${dotSize}px;
-  background: ${({ theme }) => theme.colors.headerBackground};
+  background: #39cec0;
 `;
 
 const ArrowDownStyled = styled(ArrowDown)`
   margin-top: 1px;
 `;
-
 
 export default Timeline;

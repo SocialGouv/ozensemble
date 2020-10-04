@@ -16,19 +16,20 @@ import {
   ResultsIllustrationStyled,
   UnderlinedButtonStyled,
 } from './styles';
-import { withTheme } from 'styled-components';
 
-const ResultRisk = ({ theme, onActionButtonPress }) => (
+const ResultRisk = ({ onActionButtonPress }) => (
   <ScreenBgStyled>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
       <TopTitle>
-        <TextStyled type="title">Votre consommation d'alcool actuelle est a risque.</TextStyled>
+        <TextStyled color="#4030a5">Votre consommation d'alcool actuelle est a risque.</TextStyled>
       </TopTitle>
       <TopSubTitle>
-        <TextStyled type="basicText">Nous vous conseillons de vous informer ou d’échanger</TextStyled>
-        <TextStyled type="title"> gratuitement </TextStyled>
-        <TextStyled type="basicText">avec l'un de nos professionnels</TextStyled>
+        <TextStyled color="#191919">
+          Nous vous conseillons de vous informer ou d’échanger
+        </TextStyled>
+        <TextStyled color="#4030a5"> gratuitement </TextStyled>
+        <TextStyled color="#191919">avec l'un de nos professionnels</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
         <ButtonPrimary
@@ -49,16 +50,18 @@ const ResultRisk = ({ theme, onActionButtonPress }) => (
       </BottomSubContainer>
       <BottomSubContainer shrink>
         <BottomTitle>
-          <TextStyled type="title">Échangez avec un professionnel</TextStyled>
+          <TextStyled color="#4030a5">Échangez avec un professionnel</TextStyled>
         </BottomTitle>
         <BottomSubTitle>
-          <TextStyled type="basicText">Si vous le souhaitez vous avez la possibilité de discuter</TextStyled>
-          <TextStyled type="title"> gratuitement </TextStyled>
-          <TextStyled type="basicText">avec l'un de nos psychologues</TextStyled>
+          <TextStyled color="#191919">
+            Si vous le souhaitez vous avez la possibilité de discuter
+          </TextStyled>
+          <TextStyled color="#4030a5"> gratuitement </TextStyled>
+          <TextStyled color="#191919">avec l'un de nos psychologues</TextStyled>
         </BottomSubTitle>
         <UnderlinedButtonStyled
           withoutPadding
-          color={theme.colors.buttonPrimary}
+          color="#de285e"
           bold
           content="Échanger avec un conseiller"
           onPress={() => onActionButtonPress(CONSTANTS.ACTION_CONSEILLER)}
@@ -68,4 +71,4 @@ const ResultRisk = ({ theme, onActionButtonPress }) => (
   </ScreenBgStyled>
 );
 
-export default withTheme(ResultRisk);
+export default ResultRisk;

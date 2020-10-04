@@ -16,12 +16,12 @@ const ResultEmpty = ({ setView, onActionButtonPress }) => (
   <ScreenBgStyled>
     <TopContainer>
       <TopTitle>
-        <TextStyled type="title">Vous souhaitez échanger avec un professionnel ?</TextStyled>
+        <TextStyled color="#4030a5">Vous souhaitez échanger avec un professionnel ?</TextStyled>
       </TopTitle>
       <TopSubTitle>
-        <TextStyled type="basicText">Vous pouvez discuter</TextStyled>
-        <TextStyled type="title"> gratuitement </TextStyled>
-        <TextStyled type="basicText">avec l'un de nos psychologues</TextStyled>
+        <TextStyled color="#191919">Vous pouvez discuter</TextStyled>
+        <TextStyled color="#4030a5"> gratuitement </TextStyled>
+        <TextStyled color="#191919">avec l'un de nos psychologues</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
         <ButtonPrimary

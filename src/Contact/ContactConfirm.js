@@ -8,10 +8,10 @@ const ContactConfirm = ({ setView, onBackPress }) => (
     <TopContainer shortPaddingBottom>
       <BackButton withoutPadding content="< Retour" onPress={onBackPress} bold />
       <TopTitle>
-        <TextStyled type="title">Nous avons bien noté votre demande !</TextStyled>
+        <TextStyled color="#4030a5">Nous avons bien noté votre demande !</TextStyled>
       </TopTitle>
       <TopSubTitle>
-        <TextStyled type="basicText">Vous serez rappelé très prochainement.</TextStyled>
+        <TextStyled color="#191919">Vous serez rappelé très prochainement.</TextStyled>
       </TopSubTitle>
     </TopContainer>
     <Bottom setView={setView} />

@@ -1,22 +1,25 @@
 import styled, { css } from 'styled-components';
 import H1 from '../components/H1';
 
-export const ScreenBgStyled = styled.ScrollView`
-  background-color: ${({ theme }) => theme.colors.whiteBg};
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-`;
+export const ScreenBgStyled = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    backgroundColor: '#f9f9f9',
+    flexShrink: 1,
+    flexGrow: 1,
+    flexBasis: '100%',
+    minHeight: '100%',
+  },
+})``;
 
 export const MenuItemStyled = styled.View`
   height: 70px;
   border-bottom-width: 1px;
-  border-bottom-color: ${({ theme }) => theme.colors.title}22;
+  border-bottom-color: #4030a522;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding-horizontal: 15px;
+  ${(props) => props.notVisible && 'opacity: 0;'}
 `;
 
 export const commonCss = css`
@@ -25,13 +28,13 @@ export const commonCss = css`
 `;
 
 export const Arrow = styled.Text`
-  color: ${({ theme }) => theme.colors.title};
+  color: #4030a5;
   font-weight: bold;
 `;
 
 const paddingHorizontal = 30;
 export const TopContainer = styled.View`
-  padding: 20px ${paddingHorizontal}px ${props => (props.shortPaddingBottom ? 30 : 100)}px;
+  padding: 20px ${paddingHorizontal}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
 `;
 
 export const TopTitle = styled(H1)`

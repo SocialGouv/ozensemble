@@ -1,14 +1,12 @@
-import './src/reference/polyfills';
+import './src/services/polyfills';
 import React from 'react';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { ThemeProvider } from 'styled-components';
-import theme from './src/styles/theme';
-import { store, persistor } from './src/redux/store';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from './src/redux/store';
 import Router from './src/Router/Router';
 
 import * as Sentry from '@sentry/react-native';
-import { ToastProvider } from './src/services/toast';
+import {ToastProvider} from './src/services/toast';
 
 if (!__DEV__) {
   Sentry.init({
@@ -18,14 +16,12 @@ if (!__DEV__) {
 
 const App = () => {
   return (
-    <ToastProvider backgroundColor={theme.colors.title}>
-      <ThemeProvider theme={theme}>
-        <Provider store={store}>
-          <PersistGate persistor={persistor} loading={null}>
-            <Router />
-          </PersistGate>
-        </Provider>
-      </ThemeProvider>
+    <ToastProvider backgroundColor="#4030a5">
+      <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
+          <Router />
+        </PersistGate>
+      </Provider>
     </ToastProvider>
   );
 };

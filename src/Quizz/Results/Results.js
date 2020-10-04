@@ -5,7 +5,7 @@ import ResultRisk from './ResultRisk';
 import ResultAddicted from './ResultAddicted';
 import ResultEmpty from './ResultEmpty';
 import { EmptyView } from './styles';
-import matomo from '../../matomo';
+import matomo from '../../services/matomo';
 
 const Results = ({ setView, backToQuestions, resultKey }) => {
   const onActionButtonPress = async action => {
