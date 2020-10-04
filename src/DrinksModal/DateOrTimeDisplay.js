@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import styled from 'styled-components';
-import { isToday, makeSureDate } from '../../helpers/dateHelpers';
-import ValidateIcon from '../../components/ValidateIcon';
+import { isToday, makeSureDate } from '../helpers/dateHelpers';
+import ValidateIcon from '../components/ValidateIcon';
 import { TouchableOpacity } from 'react-native';
 
 const DateOrTimeDisplay = ({ date, onPress, mode }) => {
@@ -36,7 +36,7 @@ const DatesContainer = styled.View`
 `;
 
 const CurrentDateContainer = styled.View`
-  background-color: ${({ theme }) => theme.colors.title};
+  background-color: #4030a5;
   height: 30px;
   border-radius: 30px;
   padding-horizontal: 15px;
@@ -46,7 +46,7 @@ const CurrentDateContainer = styled.View`
 `;
 
 const CurrentDate = styled.Text`
-  color: ${({ theme }) => theme.colors.whiteBg};
+  color: #f9f9f9;
 `;
 
 export default DateOrTimeDisplay;

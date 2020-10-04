@@ -1,38 +1,39 @@
 {
   "name": "oz_ensemble",
-  "version": "1.0.2",
+  "version": "1.2.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "ios-all": "react-native run-ios --simulator=\"iPhone 11 Pro Max\" && react-native run-ios --simulator=\"iPhone 8\" && react-native run-ios --simulator=\"iPhone SE\"",
     "start": "react-native start --reset-cache",
-    "versioning": "chmod +x versioning.sh && ./versioning.sh",
+    "deploy": "./upload.sh",
     "build:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
-    "postversion": "react-native-version",
     "build:android": "cd android && ./gradlew bundleRelease && cd ../",
     "clean:android": "cd android && ./gradlew clean && cd ../",
-    "build:android-apk": "cd android && ./gradlew bundleRelease && cd ../ && npm run from-aab-to-apk",
-    "from-aab-to-apk": "cd android && bundletool build-apks --bundle=./app/build/outputs/bundle/release/app.aab --output=./app/build/outputs/bundle/release/app.apks --ks=./app/keystore.jks --ks-pass=pass:addicto --ks-key-alias=upload --key-pass=pass:addicto --mode=universal && cd ./app/build/outputs/bundle/release && mv app.apks app.zip && unzip app.zip && cd ../../../../../../",
-    "test": "jest",
+    "build:android-apk": "cd android && ./gradlew bundleRelease && cd ../ && npm run from-aab-to-apk && npm run deploy",
+    "from-aab-to-apk": "cd android && bundletool build-apks --bundle=./app/build/outputs/bundle/release/app-release.aab --output=./app/build/outputs/bundle/release/app.apks --ks=./app/keystore.jks --ks-pass=pass:addicto --ks-key-alias=upload --key-pass=pass:addicto --mode=universal && cd ./app/build/outputs/bundle/release && mv app.apks app.zip && unzip app.zip && cd ../../../../../../",
+    "test": "jest --watch",
     "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/datetimepicker": "^2.2.2",
     "@react-native-community/netinfo": "^5.6.1",
-    "@react-native-community/push-notification-ios": "^1.1.0",
-    "@sentry/react-native": "^1.2.2",
+    "@react-native-community/push-notification-ios": "1.1.0",
+    "@sentry/react-native": "1.5.0",
+    "base-64": "^0.1.0",
     "prop-types": "^15.7.2",
-    "react": "16.9.0",
-    "react-native": "0.61.5",
-    "react-native-bootsplash": "^1.2.1",
+    "react": "16.13.1",
+    "react-native": "0.63.1",
+    "react-native-bootsplash": "^2.2.5",
+    "react-native-camera": "^3.30.0",
     "react-native-device-info": "^5.5.3",
-    "react-native-notifications": "^3.1.2",
-    "react-native-push-notification": "^3.1.9",
-    "react-native-safe-area-context": "^0.6.2",
-    "react-native-safe-area-view": "^1.0.0",
+    "react-native-push-notification": "3.1.9",
+    "react-native-safe-area-context": "^3.1.1",
+    "react-native-safe-area-view": "^1.1.1",
     "react-native-svg": "^11.0.1",
+    "react-native-swipe-list-view": "^3.1.3",
     "react-native-swiper": "^1.6.0-nightly.5",
     "react-native-webview": "^10.2.3",
     "react-redux": "^7.1.3",
@@ -48,15 +49,22 @@
   "devDependencies": {
     "@babel/core": "^7.8.4",
     "@babel/runtime": "^7.8.4",
-    "@react-native-community/eslint-config": "^0.0.7",
+    "@react-native-community/eslint-config": "^1.1.0",
     "babel-jest": "^25.1.0",
     "eslint": "^6.8.0",
     "jest": "^25.1.0",
-    "metro-react-native-babel-preset": "^0.58.0",
+    "metro-react-native-babel-preset": "^0.59.0",
     "react-native-version": "^4.0.0",
-    "react-test-renderer": "16.9.0"
+    "react-test-renderer": "16.13.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "setupFiles": [
+      "./__mocks__/AsyncStorage.js",
+      "./__mocks__/Sentry.js"
+    ],
+    "forceCoverageMatch": [
+      "**/*.test.js"
+    ]
   }
 }

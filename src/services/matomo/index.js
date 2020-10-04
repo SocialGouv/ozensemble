@@ -2,9 +2,9 @@ import NetInfo from '@react-native-community/netinfo';
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
-import CONSTANTS from '../reference/constants';
 import Matomo from './lib';
-import { getGenderFromLocalStorage, mapResultToMatomoProfile } from '../Quizz/utils';
+import CONSTANTS from '../../reference/constants';
+import { getGenderFromLocalStorage, mapResultToMatomoProfile } from '../../Quizz/utils';
 
 const initMatomo = async () => {
   let userId = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_USER_ID);
@@ -97,7 +97,7 @@ const QUIZZ_ANSWER = 'QUIZZ_ANSWER';
 const QUIZZ_START = 'QUIZZ_START';
 const QUIZZ_FINISH = 'QUIZZ_FINISH';
 
-const logQuizzOpen = async value => {
+const logQuizzOpen = async (value) => {
   await logEvent({
     category: QUIZZ,
     action: QUIZZ_OPEN,
@@ -131,7 +131,7 @@ const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
   await logEvent({ category, action, name, value });
 };
 
-const logAddictionResult = resultKey => {
+const logAddictionResult = (resultKey) => {
   const profile = mapResultToMatomoProfile(resultKey);
   Matomo.setUserProperties({ profile });
 };
@@ -148,8 +148,12 @@ const CONSO_UPDATE = 'CONSO_UPDATE';
 const CONSO_ADD = 'CONSO_ADD';
 const CONSO_DELETE = 'CONSO_DELETE';
 const CONSO_OPEN_HELP = 'CONSO_OPEN_HELP';
+const CONSO_SCAN_OWN_OPEN = 'CONSO_SCAN_OWN_OPEN';
+const CONSO_SCAN_OWN = 'CONSO_SCAN_OWN';
+const CONSO_ADD_OWN_MANUALLY_OPEN = 'CONSO_ADD_OWN_MANUALLY_OPEN';
+const CONSO_ADD_OWN_MANUALLY = 'CONSO_ADD_OWN_MANUALLY';
 
-const logConsoOpen = async value => {
+const logConsoOpen = async (value) => {
   await logEvent({
     category: CONSO,
     action: CONSO_OPEN,
@@ -195,6 +199,34 @@ const logConsoDelete = async () => {
   });
 };
 
+const logConsoScanOwnOpen = async () => {
+  await logEvent({
+    category: CONSO,
+    action: CONSO_SCAN_OWN_OPEN,
+  });
+};
+
+const logConsoScanOwn = async () => {
+  await logEvent({
+    category: CONSO,
+    action: CONSO_SCAN_OWN,
+  });
+};
+
+const logConsoAddOwnManuallyOpen = async () => {
+  await logEvent({
+    category: CONSO,
+    action: CONSO_ADD_OWN_MANUALLY_OPEN,
+  });
+};
+
+const logConsoAddOwnManually = async () => {
+  await logEvent({
+    category: CONSO,
+    action: CONSO_ADD_OWN_MANUALLY,
+  });
+};
+
 const logConsoDiagramHelp = async () => {
   await logEvent({
     category: CONSO,
@@ -212,7 +244,7 @@ const REMINDER_OPEN = 'REMINDER_OPEN';
 const REMINDER_SET = 'REMINDER_SET';
 const REMINDER_DELETE = 'REMINDER_DELETE';
 
-const logReminderOpen = async value => {
+const logReminderOpen = async (value) => {
   await logEvent({
     category: REMINDER,
     action: REMINDER_OPEN,
@@ -220,7 +252,7 @@ const logReminderOpen = async value => {
     value,
   });
 };
-const logReminderSet = async timestamp => {
+const logReminderSet = async (timestamp) => {
   await logEvent({
     category: REMINDER,
     action: REMINDER_SET,
@@ -248,7 +280,7 @@ const CONTACT_WEBSITE_OPEN = 'CONTACT_WEBSITE_OPEN';
 const CONTACT_ASKCALL = 'CONTACT_ASKCALL';
 const CONTACT_RDV = 'CONTACT_RDV';
 
-const logContactOpen = async value => {
+const logContactOpen = async (value) => {
   await logEvent({
     category: CONTACT,
     action: CONTACT_OPEN,
@@ -292,10 +324,12 @@ const logNPSOpen = async () => {
   });
 };
 
-const logNPSSend = async () => {
+const logNPSSend = async (useful, reco) => {
   await logEvent({
     category: 'NPS',
     action: 'NPS_SEND',
+    name: 'notes',
+    value: `${useful}-${reco}`,
   });
 };
 
@@ -312,10 +346,14 @@ export default {
   logConsoOpen,
   logConsoOpenAddScreen,
   logConsoCloseAddScreen,
+  logConsoScanOwnOpen,
+  logConsoAddOwnManuallyOpen,
   logConsoUpdate,
   logConsoAdd,
   logConsoDelete,
   logConsoDiagramHelp,
+  logConsoScanOwn,
+  logConsoAddOwnManually,
   logReminderOpen,
   logReminderSet,
   logReminderDelete,

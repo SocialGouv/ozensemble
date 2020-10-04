@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { today } from '../../helpers/dateHelpers';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import { getModalTimestamp } from '../consoDuck';
 import { connect } from 'react-redux';
+import ButtonPrimary from '../components/ButtonPrimary';
+import { today } from '../helpers/dateHelpers';
+import UnderlinedButton from '../components/UnderlinedButton';
+import { getModalTimestamp } from '../ConsoFollowUp/consoDuck';
 
 /*
   onChange:
@@ -37,7 +37,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
             />
             <ButtonsContainer>
               <ButtonPrimary
-                content="Valider"
+                content="Validez"
                 onPress={() => {
                   selectDate(Date.parse(date));
                 }}

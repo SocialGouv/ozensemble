@@ -1,10 +1,12 @@
 import React from 'react';
-import styled, { css, withTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { TouchableWithoutFeedback } from 'react-native';
 import H3 from '../components/H3';
-import { getDisplayName, getVolume, getIcon } from './consoDuck';
+import { getDisplayName, getVolume, getIcon } from './drinksCatalog';
+import { getConsolidatedCatalog } from './consoDuck';
 import { FeedButtonStyled } from './styles';
 import ButtonPrimary from '../components/ButtonPrimary';
+import { connect } from 'react-redux';
 
 const isFirst = position => position === 'first';
 const isAlone = position => position === 'alone';
@@ -23,11 +25,11 @@ const ConsoFeedDisplay = ({
   updateDrinkRequest,
   deleteDrinkRequest,
   position: p,
-  theme,
+  allDrinks,
 }) => {
-  const n = getDisplayName(drinkKey, q);
-  const v = getVolume(drinkKey);
-  const Icon = getIcon(drinkKey);
+  const n = getDisplayName(drinkKey, q, allDrinks);
+  const v = getVolume(drinkKey, allDrinks);
+  const Icon = getIcon(drinkKey, allDrinks);
   return (
     <React.Fragment>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
@@ -51,8 +53,8 @@ const ConsoFeedDisplay = ({
             small
             content="Supprimer"
             onPress={deleteDrinkRequest}
-            color={theme.colors.title}
-            shadowColor={theme.colors.titleShadow}
+            color="#4030a5"
+            shadowColor="#171586"
           />
         </UpdateContainer>
       )}
@@ -112,7 +114,7 @@ const Hour = styled(H3)`
   font-style: italic;
   margin-left: auto;
   margin-right: 12px;
-  color: ${({ theme }) => theme.colors.title};
+  color: #4030a5;
 `;
 
 const UpdateContainer = styled.View`
@@ -130,4 +132,8 @@ const DeleteButton = styled(UpdateButton)`
   margin-right: 0px;
 `;
 
-export default withTheme(ConsoFeedDisplay);
+const makeStateToProps = () => state => ({
+  allDrinks: getConsolidatedCatalog(state),
+});
+
+export default connect(makeStateToProps)(ConsoFeedDisplay);

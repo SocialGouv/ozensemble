@@ -1,6 +1,4 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
-import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import {
   getDaysForDiagram,
@@ -24,15 +22,13 @@ import {
   CloseHelpContainer,
 } from './styles';
 import { usefetchMaxAcceptableDosesPerDay } from '../helpers/customHooks';
-import { fakeConsoData } from '../reference/mocks';
+import { fakeConsoData } from '../reference/mocks/fakeConsoData';
 import UnderlinedButton from '../components/UnderlinedButton';
+import { screenHeight } from '../styles/theme';
 
-const computeBarNormalHeightForMaxAcceptableDose = theme => theme.dimensions.screen.height * 0.1;
-const computeHighestBarHeightPossible = theme => theme.dimensions.screen.height * 0.2;
-
-const computeBarsHeight = (highestDailyDose, theme, highestAcceptableDosesPerDay) => {
-  const barNormalHeightForMaxAcceptableDose = computeBarNormalHeightForMaxAcceptableDose(theme);
-  const barHighestHeightPossible = computeHighestBarHeightPossible(theme);
+const computeBarsHeight = (highestDailyDose, highestAcceptableDosesPerDay) => {
+  const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
+  const barHighestHeightPossible = screenHeight * 0.2;
   if (highestDailyDose <= highestAcceptableDosesPerDay) {
     return {
       barMaxHeight: barNormalHeightForMaxAcceptableDose,
@@ -42,18 +38,19 @@ const computeBarsHeight = (highestDailyDose, theme, highestAcceptableDosesPerDay
   if (highestDailyDose >= 2 * highestAcceptableDosesPerDay) {
     return {
       barMaxHeight: barHighestHeightPossible,
-      barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDailyDose) * barHighestHeightPossible,
+      barMaxAcceptableDoseHeight:
+        (highestAcceptableDosesPerDay / highestDailyDose) * barHighestHeightPossible,
     };
   }
   return {
-    barMaxHeight: (highestDailyDose / highestAcceptableDosesPerDay) * barNormalHeightForMaxAcceptableDose,
+    barMaxHeight:
+      (highestDailyDose / highestAcceptableDosesPerDay) * barNormalHeightForMaxAcceptableDose,
     barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
   };
 };
 
 const minBarHeight = 1;
 const Diagram = ({
-  theme,
   days,
   dailyDoses,
   highestDailyDose,
@@ -66,7 +63,6 @@ const Diagram = ({
   const highestAcceptableDosesPerDay = usefetchMaxAcceptableDosesPerDay();
   const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
     highestDailyDose,
-    theme,
     highestAcceptableDosesPerDay
   );
 
@@ -100,7 +96,8 @@ const Diagram = ({
               return <Bar key={index} height={doseHeight * highestAcceptableDosesPerDay} empty />;
             }
             const underLineValue = Math.min(dailyDose, highestAcceptableDosesPerDay);
-            const overLineValue = dailyDose > highestAcceptableDosesPerDay && dailyDose - highestAcceptableDosesPerDay;
+            const overLineValue =
+              dailyDose > highestAcceptableDosesPerDay && dailyDose - highestAcceptableDosesPerDay;
             return (
               <React.Fragment key={index}>
                 <Bar
@@ -108,14 +105,24 @@ const Diagram = ({
                   height={(doseHeight * dailyDose || minBarHeight) + doseTextHeight}
                   heightFactor={dailyDose || 0}>
                   {Boolean(dailyDose) && (
-                    <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                    <Dose
+                      adjustsFontSizeToFit
+                      numberOfLines={1}
+                      ellipsizeMode="clip"
+                      overLine={Boolean(overLineValue)}>
                       {dailyDose}
                     </Dose>
                   )}
                   {Boolean(overLineValue) && (
-                    <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
+                    <UpperBar
+                      bottom={doseHeight * highestAcceptableDosesPerDay}
+                      height={doseHeight * overLineValue}
+                    />
                   )}
-                  <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
+                  <LowerBar
+                    withTopRadius={!overLineValue}
+                    height={doseHeight * underLineValue || minBarHeight}
+                  />
                 </Bar>
               </React.Fragment>
             );
@@ -134,6 +141,7 @@ Diagram.defaultProps = {
 
 const makeStateToProps = () => (realState, { asPreview }) => {
   const state = asPreview ? { conso: fakeConsoData.partial } : realState;
+
   return {
     days: getDaysForDiagram(state),
     thereIsDrinks: checkIfThereIsDrinks(state),
@@ -148,11 +156,8 @@ const mergeProps = (stateProps, dispatch, ownProps) => ({
   ...dispatch,
 });
 
-export default compose(
-  connect(
-    makeStateToProps,
-    null,
-    mergeProps
-  ),
-  withTheme
+export default connect(
+  makeStateToProps,
+  null,
+  mergeProps
 )(Diagram);

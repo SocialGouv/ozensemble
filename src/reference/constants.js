@@ -1,26 +1,26 @@
 /* eslint-disable quotes */
 export default {
   // key storage
-  STORE_KEY_ONBOARDING_DONE: '@OnboardingDone',
+  STORE_KEY_ONBOARDING_DONE: '@OnboardingDoneWithCGU',
   STORE_KEY_QUIZZ_ANSWERS: '@Quizz_answers',
   STORE_KEY_QUIZZ_RESULT: '@Quizz_result',
   STORE_KEY_REMINDER: '@Reminder',
   STORE_KEY_ASKED_FOR_NOTIFICATIONS_IOS: '@Reminder',
   STORE_KEY_NUMBER_OF_VISITS: '@NumberOfVisits',
   STORE_KEY_USER_ID: '@UserIdv2',
-  STORE_KEY_INITIAL_OPENING: '@InitialOpening',
-  STORE_KEY_NPS_DONE: '@NpsDone',
+  STORE_KEY_DONT_SHOW_SCAN_ALERT: '@ScanAlert',
   //  notifs
   NOTIF_REMINDER_TITLE: "C'est l'heure de votre suivi quotidien !",
   NOTIF_REMINDER_MESSAGE: "N'oubliez pas de remplir votre agenda Oz",
-  NOTIF_NPS_TITLE: 'Vos retours sont importants pour nous',
-  NOTIF_NPS_MESSAGE: 'Avez-vous quelques secondes pour donner votre avis ?',
   // views
   VIEW_WELCOME: 'WELCOME',
   VIEW_QUIZZ: 'QUIZZ',
   VIEW_CONTACT: 'CONTACT',
   VIEW_CONSO: 'CONSO',
   VIEW_REMINDER: 'REMINDER',
+  VIEW_EXPORT: 'EXPORT',
+  VIEW_CGU: 'CGUS',
+  VIEW_PRIVACY_POLICY: 'POLICY',
   VIEW_INFOS: 'INFOS',
   VIEW_LEGALS: 'LEGALS',
   // from

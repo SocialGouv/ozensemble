@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Platform } from 'react-native';
+import { buttonHeight } from '../styles/theme';
 
 const UnderlinedButton = ({ content, onPress, color, withoutPadding, bold, ...props }) => (
   <UnderlinedButtonStyled withoutPadding={withoutPadding} onPress={onPress} {...props}>
@@ -11,17 +13,17 @@ const UnderlinedButton = ({ content, onPress, color, withoutPadding, bold, ...pr
 
 const UnderlinedButtonStyled = styled.TouchableOpacity`
   ${({ withoutPadding }) => !withoutPadding && 'padding: 20px;'}
-  height: ${({ theme }) => theme.dimensions.buttonHeight}px;
+  height: ${buttonHeight}px;
   justify-content: center;
   align-items: center;
 `;
 
 const TextStyled = styled.Text`
   text-decoration-line: underline;
-  color: ${({ theme, color }) => color || theme.colors.basicText};
-  font-weight: ${({ bold }) => (bold ? 'bold' : 'normal')};
+  color: ${({ color }) => color || '#191919'};
+  font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
   flex-shrink: 0;
-  height: ${({ theme }) => theme.dimensions.buttonHeight}px;
+  height: ${buttonHeight}px;
   font-size: 16px;
   line-height: 40px;
   justify-content: center;

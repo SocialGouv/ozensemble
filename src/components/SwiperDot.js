@@ -19,20 +19,14 @@ const dotCss = css`
 
 const DotContainer = styled.View`
   ${dotCss}
-  background-color: ${({active, theme: {colors}}) =>
-    !active
-      ? colors.swiperButtonDisabledShadow
-      : colors.buttonPrimaryShadow};
+  background-color: ${({ active }) => (!active ? '#d7d7d7' : '#c0184a')};
 `;
 
 const Dot = styled.View`
   ${dotCss}
   margin-top: ${dotSize * 0.12}px;
   margin-left: 0;
-  background-color: ${({active, theme: {colors}}) =>
-    !active
-      ? colors.swiperButtonDisabled
-      : colors.buttonPrimary};
+  background-color: ${({ active }) => (!active ? '#d7d7d7' : '#de285e')};
 
 `;
 

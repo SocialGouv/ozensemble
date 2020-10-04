@@ -3,6 +3,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <permission
        android:name="${applicationId}.permission.C2D_MESSAGE"
        android:protectionLevel="signature" />
@@ -40,6 +42,8 @@
       </activity>
 
       <!-- NOTIFICATIONS -->
+
+      <meta-data android:name="io.sentry.anr.timeout-interval-mills" android:value="15000" />
 
       <meta-data
         android:name="com.dieam.reactnativepushnotification.notification_channel_name"

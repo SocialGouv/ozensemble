@@ -4,8 +4,8 @@ import TextStyled from '../components/TextStyled';
 
 const DateDisplay = ({ day }) => (
   <React.Fragment>
-    <WeekDay type="title">{day.getLocaleWeekDay('fr').capitalize()}</WeekDay>
-    <DayAndMonth type="buttonPrimary">
+    <WeekDay color="#4030a5">{day.getLocaleWeekDay('fr').capitalize()}</WeekDay>
+    <DayAndMonth>
       {day.getDate()} {day.getLocaleMonth('fr')}
     </DayAndMonth>
   </React.Fragment>
@@ -21,6 +21,7 @@ const DayAndMonth = styled(TextStyled)`
   font-size: 11px;
   margin-top: 2px;
   margin-bottom: 20px;
+  color: #de285e;
 `;
 
 export default DateDisplay;

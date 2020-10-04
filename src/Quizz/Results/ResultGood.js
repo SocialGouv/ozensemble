@@ -17,12 +17,16 @@ const ResultGood = ({ onActionButtonPress }) => (
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
       <TopTitle>
-        <TextStyled type="title">Vous ne présentez pas de risque particulier actuellement, bravo !</TextStyled>
+        <TextStyled color="#4030a5">
+          Vous ne présentez pas de risque particulier actuellement, bravo !
+        </TextStyled>
       </TopTitle>
       <TopSubTitle>
-        <TextStyled type="basicText">Vous pouvez toutefois obtenir une évaluation plus fine en utilisant</TextStyled>
-        <TextStyled type="title"> gratuitement </TextStyled>
-        <TextStyled type="basicText">notre outil de agenda de consommation.</TextStyled>
+        <TextStyled color="#191919">
+          Vous pouvez toutefois obtenir une évaluation plus fine en utilisant
+        </TextStyled>
+        <TextStyled color="#4030a5"> gratuitement </TextStyled>
+        <TextStyled color="#191919">notre outil de agenda de consommation.</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
         <ButtonPrimary
