@@ -146,6 +146,7 @@ const CONSO_OPEN_CONSO_ADDSCREEN = 'CONSO_OPEN_CONSO_ADDSCREEN';
 const CONSO_CLOSE_CONSO_ADDSCREEN = 'CONSO_CLOSE_CONSO_ADDSCREEN';
 const CONSO_UPDATE = 'CONSO_UPDATE';
 const CONSO_ADD = 'CONSO_ADD';
+const NO_CONSO = 'NO_CONSO';
 const CONSO_DELETE = 'CONSO_DELETE';
 const CONSO_OPEN_HELP = 'CONSO_OPEN_HELP';
 const CONSO_SCAN_OWN_OPEN = 'CONSO_SCAN_OWN_OPEN';
@@ -231,6 +232,13 @@ const logConsoDiagramHelp = async () => {
   await logEvent({
     category: CONSO,
     action: CONSO_OPEN_HELP,
+  });
+};
+
+const logNoConso = async () => {
+  await logEvent({
+    category: CONSO,
+    action: NO_CONSO,
   });
 };
 
@@ -365,4 +373,5 @@ export default {
   logNPSOpen,
   logNPSSend,
   getUserId,
+  logNoConso,
 };

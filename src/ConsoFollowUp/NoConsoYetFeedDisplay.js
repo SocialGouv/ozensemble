@@ -5,12 +5,13 @@ import H3 from '../components/H3';
 import { makeSureTimestamp } from '../helpers/dateHelpers';
 import { setNoDrink } from './consoDuck';
 import { FeedButtonStyled, FeedNoDrinkTodayTopButton } from './styles';
+import matomo from '../services/matomo';
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   return (
     <FeedButtonStyled showAsSelected={selected}>
       <Content>
-        <Caption>Vous n'avez pas sasi de consommation</Caption>
+        <Caption>Vous n'avez pas saisi de consommation</Caption>
         <NoDrinkTodayButton disabled={!selected} timestamp={timestamp} />
       </Content>
     </FeedButtonStyled>
@@ -28,7 +29,10 @@ export const NoDrinkTodayButton = connect(
   <FeedNoDrinkTodayTopButton
     content={content}
     disabled={disabled}
-    onPress={() => setNoDrink(makeSureTimestamp(timestamp))}
+    onPress={() => {
+      matomo.logNoConso();
+      setNoDrink(makeSureTimestamp(timestamp));
+    }}
   />
 ));
 
