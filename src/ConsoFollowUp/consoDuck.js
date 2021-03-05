@@ -6,9 +6,10 @@ import {
   differenceOfDays,
   dateIsBeforeOrToday,
 } from '../helpers/dateHelpers';
-import { mapDrinkToDose, drinksCatalog, getDisplayName } from './drinksCatalog';
+import { mapDrinkToDose, drinksCatalog, getDisplayName, NO_CONSO } from './drinksCatalog';
 import { createSelector } from 'reselect';
 import { REHYDRATE } from 'redux-persist';
+import { fakeConsoData } from '../reference/mocks/fakeConsoData';
 
 // Utils
 export const followupNumberOfDays = 15;
@@ -91,6 +92,7 @@ const CONSO_REMOVE_DRINK = 'CONSO_REMOVE_DRINK';
 const CONSO_SET_MODAL_TIMESTAMP = 'CONSO_SET_MODAL_TIMESTAMP';
 const CONSO_UPDATE_MODAL_TIMESTAMP = 'CONSO_UPDATE_MODAL_TIMESTAMP';
 const CONSO_SET_OWN_DRINK = 'CONSO_SET_OWN_DRINK';
+const CONSO_SET_NO_DRINK = 'CONSO_SET_NO_DRINK';
 const CONSO_REMOVE_OWN_DRINK = 'CONSO_REMOVE_OWN_DRINK';
 
 // Actions creators
@@ -106,12 +108,17 @@ export const removeDrink = (timestamp) => ({
 
 export const setModalTimestamp = (timestamp) => ({
   type: CONSO_SET_MODAL_TIMESTAMP,
-  payload: timestamp,
+  payload: { timestamp },
+});
+
+export const setNoDrink = (timestamp) => ({
+  type: CONSO_SET_NO_DRINK,
+  payload: { timestamp },
 });
 
 export const updateModalTimestamp = (timestamp) => ({
   type: CONSO_UPDATE_MODAL_TIMESTAMP,
-  payload: timestamp,
+  payload: { timestamp },
 });
 
 export const setOwnDrink = (formattedDrink) => ({
@@ -128,10 +135,7 @@ export const removeOwnDrink = (drinkKey) => ({
 export const getConsoState = ({ conso }) => conso;
 export const getDrinksState = createSelector(getConsoState, (conso) => conso.drinks || []);
 export const getOwnDrinks = createSelector(getConsoState, (conso) => conso.ownDrinks || []);
-export const getConsolidatedCatalog = createSelector(getOwnDrinks, (ownDrinks) => [
-  ...ownDrinks,
-  ...drinksCatalog,
-]);
+export const getConsolidatedCatalog = createSelector(getOwnDrinks, (ownDrinks) => [...ownDrinks, ...drinksCatalog]);
 export const checkIfThereIsDrinks = createSelector(getDrinksState, (drinks) => drinks.length > 0);
 export const getModalTimestamp = createSelector(getConsoState, (conso) => conso.modalTimestamp);
 const getStartDate = createSelector(getConsoState, (conso) => conso.startDate);
@@ -156,21 +160,14 @@ export const getDaysForDiagram = createSelector(getDays, (days) =>
 export const getDaysForFeed = createSelector(getDays, (days) =>
   [...days].filter((date) => dateIsBeforeOrToday(date)).reverse()
 );
-export const getDailyDoses = createSelector(
-  [getDrinksState, getConsolidatedCatalog],
-  reduceDrinksToDailyDoses
-);
-export const getHighestDailyDoses = createSelector(
-  [getDrinksState, getConsolidatedCatalog],
-  computeHighestDailyDose
-);
+export const getDailyDoses = createSelector([getDrinksState, getConsolidatedCatalog], reduceDrinksToDailyDoses);
+export const getHighestDailyDoses = createSelector([getDrinksState, getConsolidatedCatalog], computeHighestDailyDose);
 export const getDrinksPerCurrentDrinksTimestamp = createSelector(
   [getDrinksState, getModalTimestamp],
   (drinks, modalTimestamp) => drinks.filter((drink) => drink.timestamp === modalTimestamp)
 );
-export const getHTMLExport = createSelector(
-  [getDrinksState, getConsolidatedCatalog],
-  (drinks, catalog) => formatHtmlTable(drinks, catalog)
+export const getHTMLExport = createSelector([getDrinksState, getConsolidatedCatalog], (drinks, catalog) =>
+  formatHtmlTable(drinks, catalog)
 );
 // Reducer
 
@@ -187,6 +184,7 @@ const initialState = {
   ownDrinks: [],
   startDate: today(),
   modalTimestamp: today(),
+  ...fakeConsoData.partial,
 };
 
 const reducer = (state = initialState, action) => {
@@ -203,6 +201,13 @@ const reducer = (state = initialState, action) => {
           { ...action.payload, timestamp: state.modalTimestamp },
         ].filter((d) => d.quantity > 0),
         startDate: newStartDate,
+      };
+    }
+    case CONSO_SET_NO_DRINK: {
+      const { timestamp } = action.payload;
+      return {
+        ...state,
+        drinks: [...state.drinks, { drinkKey: NO_CONSO, quantity: 1, timestamp, id: 1654 }],
       };
     }
     case CONSO_SET_OWN_DRINK: {
@@ -233,7 +238,7 @@ const reducer = (state = initialState, action) => {
       };
     }
     case CONSO_UPDATE_MODAL_TIMESTAMP: {
-      const newTimestamp = action.payload;
+      const newTimestamp = action.payload.timestamp;
       const oldTimestamp = state.modalTimestamp;
       return {
         ...state,
@@ -250,10 +255,10 @@ const reducer = (state = initialState, action) => {
       };
     }
     case CONSO_SET_MODAL_TIMESTAMP: {
-      const newTimestamp = action.payload;
+      const { timestamp } = action.payload;
       return {
         ...state,
-        modalTimestamp: newTimestamp,
+        modalTimestamp: timestamp,
       };
     }
     case REHYDRATE: {
