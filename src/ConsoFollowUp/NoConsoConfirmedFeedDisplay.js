@@ -4,7 +4,7 @@ import H3 from '../components/H3';
 import { FeedButtonStyled } from './styles';
 import Applause from '../components/Illustrations/Applause';
 
-const NoConsoFeedDisplay =  ({ selected }) => {
+const NoConsoConfirmedFeedDisplay = ({ selected }) => {
   return (
     <FeedButtonStyled showAsSelected={selected}>
       <Content>
@@ -24,4 +24,4 @@ const Caption = styled(H3)`
   margin-left: 5px;
 `;
 
-export default NoConsoFeedDisplay;
+export default NoConsoConfirmedFeedDisplay;

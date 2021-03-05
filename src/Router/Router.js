@@ -125,7 +125,6 @@ class Router extends React.PureComponent {
 
   render() {
     const { view, showDoctoLib, initScreen, showSetDrinksModal, NPSKey } = this.state;
-    console.log(view);
     return (
       <SafeAreaProvider>
         <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
