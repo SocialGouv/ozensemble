@@ -12,4 +12,13 @@ export default {
   blacklist: [
     // 'conso',
   ],
+  // transforms: [
+  //   encryptTransform({
+  //     secretKey: 'my-super-magic-secret-key',
+  //     onError: function (error) {
+  //       // Handle the error.
+  //       console.log('error in ecnryption', error);
+  //     },
+  //   }),
+  // ],
 };

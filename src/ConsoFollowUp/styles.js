@@ -35,7 +35,7 @@ export const Title = styled(H1)`
 export const SubTitle = styled(H2)`
   ${commonCss}
   font-weight: 500;
-  ${props => props.last && 'margin-bottom: 40px;'}
+  ${(props) => props.last && 'margin-bottom: 40px;'}
 `;
 
 /*
@@ -75,15 +75,21 @@ export const FeedAddConsoTodayButton = styled(ButtonPrimary)`
   flex-grow: 0;
 `;
 
+export const FeedNoDrinkTodayTopButton = styled(ButtonPrimary)`
+  margin-vertical: 20px;
+  flex-grow: 0;
+`;
+
 export const FeedButtonStyled = styled.View`
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   background-color: ${({ backgroundColor }) => backgroundColor || '#f9f9f9'};
   border-width: 1px;
   border-color: ${({ borderColor }) => borderColor || '#dbdbe9'};
   border-radius: 7px;
   padding-left: 5px;
   justify-content: center;
+  ${(props) => props.start && 'justify-content: center;'}
   margin-bottom: 10px;
   opacity: ${({ showAsSelected }) => (showAsSelected ? 1 : 0.3)};
 `;
