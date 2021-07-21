@@ -1,6 +1,6 @@
 import React from 'react';
 import { UIManager, Platform, LayoutAnimation } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import questions from './questions';
 import CONSTANTS from '../reference/constants';
 import { mapAnswersToResult } from './utils';
@@ -164,9 +164,7 @@ const Quizz = ({ setView }) => {
                 );
               })}
             </QuestionsContainer>
-            {questionInView > 0 && (
-              <QuizzBackButton bold content="Retour" onPress={backToPreviousQuestion} />
-            )}
+            {questionInView > 0 && <QuizzBackButton bold content="Retour" onPress={backToPreviousQuestion} />}
           </QuizzContainer>
           <QuizzContainer>
             <Results

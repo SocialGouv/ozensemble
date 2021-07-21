@@ -14,7 +14,7 @@ class AppStateHandler extends React.PureComponent {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
 
-  handleAppStateChange = newState => {
+  handleAppStateChange = (newState) => {
     const { appState } = this.state;
     if (newState === 'active' && appState !== 'active') {
       this.props.isActive();

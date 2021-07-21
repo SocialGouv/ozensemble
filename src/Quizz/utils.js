@@ -1,16 +1,14 @@
 import questions from './questions';
 import CONSTANTS from '../reference/constants';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Sentry from '@sentry/react-native';
 
 // Utils
-const findQuestion = questionKey =>
-  questions.find(question => question.questionKey === questionKey);
-const findAnswer = ({ answers }, answerKey) =>
-  answers.find(answer => answer.answerKey === answerKey);
-const getAnswerScore = answer => answer.score;
+const findQuestion = (questionKey) => questions.find((question) => question.questionKey === questionKey);
+const findAnswer = ({ answers }, answerKey) => answers.find((answer) => answer.answerKey === answerKey);
+const getAnswerScore = (answer) => answer.score;
 
-export const getGender = answers => answers[CONSTANTS.GENDER];
+export const getGender = (answers) => answers[CONSTANTS.GENDER];
 
 export const getGenderFromLocalStorage = async () => {
   const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
@@ -21,13 +19,13 @@ export const getGenderFromLocalStorage = async () => {
   return null;
 };
 
-export const getAcceptableDosePerDay = gender => {
+export const getAcceptableDosePerDay = (gender) => {
   if (!gender) return 3;
   if (gender === CONSTANTS.MAN) return 3;
   return 2;
 };
 
-export const computeScore = answers => {
+export const computeScore = (answers) => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
       return {
@@ -35,7 +33,7 @@ export const computeScore = answers => {
         [CONSTANTS.SCORE]: 0,
       };
     }
-    const questionKeys = Object.keys(answers).filter(key => key !== CONSTANTS.GENDER);
+    const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER);
     let score = 0;
     for (let questionKey of questionKeys) {
       const answerKey = answers[questionKey];
@@ -67,7 +65,7 @@ export const computeScore = answers => {
   };
 };
 
-const mapScoreToResult = scoreAndGender => {
+const mapScoreToResult = (scoreAndGender) => {
   const gender = scoreAndGender[CONSTANTS.GENDER];
   const score = scoreAndGender[CONSTANTS.SCORE];
   // woman first
@@ -84,7 +82,7 @@ const mapScoreToResult = scoreAndGender => {
   }
 };
 
-export const mapResultToMatomoProfile = resultKey => {
+export const mapResultToMatomoProfile = (resultKey) => {
   switch (resultKey) {
     case CONSTANTS.RESULT_ADDICTED:
       return 3;
@@ -97,4 +95,4 @@ export const mapResultToMatomoProfile = resultKey => {
   }
 };
 
-export const mapAnswersToResult = answers => mapScoreToResult(computeScore(answers));
+export const mapAnswersToResult = (answers) => mapScoreToResult(computeScore(answers));

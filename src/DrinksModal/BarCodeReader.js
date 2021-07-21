@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import React from 'react';
 import styled from 'styled-components';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableWithoutFeedback, Modal, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import {
@@ -76,7 +76,7 @@ class BarCodeReader extends React.Component {
     this.props.onClose();
   };
 
-  handleBarCodeRead = async e => {
+  handleBarCodeRead = async (e) => {
     if (this.barCodeRead) return;
     this.barCodeRead = true;
     this.barCode = e.data;
@@ -145,9 +145,7 @@ class BarCodeReader extends React.Component {
         <CameraContainer>
           <Preview
             type={RNCamera.Constants.Type.back}
-            flashMode={
-              withTorch ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off
-            }
+            flashMode={withTorch ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
             captureAudio={false}
             androidCameraPermissionOptions={{
               title: "Permission pour utiliser l'appareil photo",
