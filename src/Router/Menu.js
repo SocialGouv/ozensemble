@@ -41,12 +41,8 @@ const Button = ({ setView, view, selfView, Icon, caption, moveLeft, moveRight })
   );
 };
 
-const QuizzButton = (props) => (
-  <Button selfView={CONSTANTS.VIEW_QUIZZ} Icon={QuizzIcon} caption="Quizz" {...props} />
-);
-const TestsButton = (props) => (
-  <Button selfView={CONSTANTS.VIEW_QUIZZ} Icon={TestsIcon} caption="Tests" {...props} />
-);
+const QuizzButton = (props) => <Button selfView={CONSTANTS.VIEW_QUIZZ} Icon={QuizzIcon} caption="Quizz" {...props} />;
+const TestsButton = (props) => <Button selfView={CONSTANTS.VIEW_QUIZZ} Icon={TestsIcon} caption="Tests" {...props} />;
 const GuidanceButton = (props) => (
   <Button selfView={CONSTANTS.VIEW_CONTACT} Icon={GuidanceIcon} caption="En parler" {...props} />
 );
@@ -56,9 +52,7 @@ const FollowUpButton = (props) => (
 const ReminderButton = (props) => (
   <Button selfView={CONSTANTS.VIEW_REMINDER} Icon={ReminderIcon} caption="Rappel" {...props} />
 );
-const InfosButton = (props) => (
-  <Button selfView={CONSTANTS.VIEW_INFOS} Icon={InfosIcon} caption="Infos" {...props} />
-);
+const InfosButton = (props) => <Button selfView={CONSTANTS.VIEW_INFOS} Icon={InfosIcon} caption="Infos" {...props} />;
 
 const MenuContainer = styled.View`
   position: absolute;

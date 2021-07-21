@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import { screenWidth, menuHeight } from '../styles/theme';
 import { setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import matomo from '../services/matomo';
 
@@ -24,17 +23,19 @@ const AddDrinkCTAButton = ({ onCTAPress, setModalTimestamp }) => (
   </TouchableWithoutFeedback>
 );
 
-const roundCss = size => css`
+const roundCss = (size) => css`
   height: ${size}px;
   width: ${size}px;
   border-radius: ${size}px;
 `;
 
 const CTASize = 2 * iconSize;
+const plusThickness = 4;
+const CTAInner = CTASize - 2 * plusThickness;
+const plusSize = CTAInner / 2;
 const CTAContainer = styled.View`
   position: absolute;
-  bottom: ${menuHeight - CTASize / 2}px;
-  left: ${screenWidth / 2 - CTASize / 2}px;
+  bottom: ${plusSize / 4 - plusThickness / 2}px;
   ${roundCss(CTASize)}
   border: 1px solid #4030a533;
   background-color: white;
@@ -42,8 +43,6 @@ const CTAContainer = styled.View`
   align-items: center;
 `;
 
-const plusThickness = 4;
-const CTAInner = CTASize - 2 * plusThickness;
 const CTASubContainer = styled.View`
   ${roundCss(CTAInner)}
   background-color: #de285e;
@@ -51,7 +50,6 @@ const CTASubContainer = styled.View`
   align-items: center;
 `;
 
-const plusSize = CTAInner / 2;
 const PlusHorizontal = styled.View`
   width: ${plusSize}px;
   height: ${plusThickness}px;
@@ -76,7 +74,4 @@ const dispatchToProps = {
   setModalTimestamp,
 };
 
-export default connect(
-  null,
-  dispatchToProps
-)(AddDrinkCTAButton);
+export default connect(null, dispatchToProps)(AddDrinkCTAButton);

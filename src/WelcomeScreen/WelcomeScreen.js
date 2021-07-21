@@ -21,16 +21,14 @@ CANNOT USE RN Modal
 because on iOS it's clashing with splash screnn, weird
 */
 
-const WelcomeScreen = ({ setView, visible }) => {
+const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = React.useState(false);
 
   const onStartPress = () => {
     AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
-    setView(CONSTANTS.VIEW_QUIZZ);
+    navigation.navigate('Tabs');
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
   };
-
-  if (!visible) return null;
 
   return (
     <AbsoluteView>

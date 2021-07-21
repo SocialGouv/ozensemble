@@ -56,14 +56,10 @@ const Infos = ({ setView, forceShowNPS }) => {
     <Swiper loop={false} index={0} showsPagination={false} scrollEnabled={false} ref={swiperRef}>
       <InfosMenu onShowSubview={showSubview} onEmptyPress={onEmptyPress} />
       <ScreenBgStyled>
-        {subView === CONSTANTS.VIEW_REMINDER && (
-          <Reminder setView={setView} onBackPress={onBackHandlerPressed} />
-        )}
+        {subView === CONSTANTS.VIEW_REMINDER && <Reminder setView={setView} onBackPress={onBackHandlerPressed} />}
         {subView === CONSTANTS.VIEW_EXPORT && <Export onBackPress={onBackHandlerPressed} />}
         {subView === CONSTANTS.VIEW_CGU && <CGUs onClose={onBackHandlerPressed} />}
-        {subView === CONSTANTS.VIEW_PRIVACY_POLICY && (
-          <PrivacyPolicy onClose={onBackHandlerPressed} />
-        )}
+        {subView === CONSTANTS.VIEW_PRIVACY_POLICY && <PrivacyPolicy onClose={onBackHandlerPressed} />}
       </ScreenBgStyled>
     </Swiper>
   );
@@ -75,14 +71,8 @@ const InfosMenu = ({ onShowSubview, onEmptyPress }) => (
       <TextStyled color="#4030a5">Mes informations</TextStyled>
     </TopTitle>
     <MenuItem caption="Rappel" onPress={() => onShowSubview(CONSTANTS.VIEW_REMINDER)} />
-    <MenuItem
-      caption="Conditions Générales d'Utilisation"
-      onPress={() => onShowSubview(CONSTANTS.VIEW_CGU)}
-    />
-    <MenuItem
-      caption="Privacy Policy"
-      onPress={() => onShowSubview(CONSTANTS.VIEW_PRIVACY_POLICY)}
-    />
+    <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => onShowSubview(CONSTANTS.VIEW_CGU)} />
+    <MenuItem caption="Privacy Policy" onPress={() => onShowSubview(CONSTANTS.VIEW_PRIVACY_POLICY)} />
     <MenuItem caption="Exporter mes données" onPress={() => onShowSubview(CONSTANTS.VIEW_EXPORT)} />
     <MenuItem notVisible onPress={() => onEmptyPress()} />
   </ScreenBgStyled>

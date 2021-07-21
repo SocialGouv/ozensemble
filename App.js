@@ -7,6 +7,7 @@ import Router from './src/Router/Router';
 
 import * as Sentry from '@sentry/react-native';
 import { ToastProvider } from './src/services/toast';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 if (!__DEV__) {
   Sentry.init({
@@ -19,7 +20,9 @@ const App = () => {
     <ToastProvider backgroundColor="#4030a5">
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
-          <Router />
+          <SafeAreaProvider>
+            <Router />
+          </SafeAreaProvider>
         </PersistGate>
       </Provider>
     </ToastProvider>
