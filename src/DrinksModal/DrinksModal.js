@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { connect } from 'react-redux';
-import { Modal } from 'react-native';
 import { v4 as uuidv4 } from 'uuid';
 import { compose } from 'recompose';
 import {
@@ -40,6 +39,8 @@ import {
 import NewDrinkForm from './NewDrinkForm';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
 import DrinksHeader from './DrinksHeader';
+import { useIsFocused } from '@react-navigation/native';
+import { BackHandler } from 'react-native';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -55,7 +56,6 @@ const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
 };
 
 const DrinksModal = ({
-  visible,
   date,
   drinks,
   updateDrink,
@@ -64,7 +64,7 @@ const DrinksModal = ({
   setOwnDrink,
   ownDrinks,
   removeOwnDrink,
-  onClose,
+  navigation,
 }) => {
   const [localDrinksState, setLocalDrinksState] = React.useState(drinks);
   const [showDatePicker, setShowDatePicker] = React.useState(false);
@@ -73,16 +73,10 @@ const DrinksModal = ({
   const [newDrink, setNewDrink] = React.useState(initDrinkState);
 
   const scrollRef = React.useRef(null);
+  const isFocused = useIsFocused();
 
   const mergedOwnDrinksKeys = mergeOwnDrinksKeys(ownDrinks, localDrinksState);
   const withOwnDrinks = mergedOwnDrinksKeys.length > 0;
-
-  React.useEffect(() => {
-    if (visible) {
-      setLocalDrinksState(drinks);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible]);
 
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = localDrinksState.find((drink) => drink.drinkKey === drinkKey);
@@ -107,6 +101,7 @@ const DrinksModal = ({
   };
 
   const onValidateConsos = async () => {
+    onClose();
     let drinkNumber = 0;
     for (let drink of localDrinksState) {
       drinkNumber++;
@@ -114,18 +109,21 @@ const DrinksModal = ({
       matomo.logConsoAdd(drink);
     }
     setLocalDrinksState([]);
-    onClose();
     setTimeout(() => {
       setToast(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
     }, 250);
   };
 
-  const onCancelConsos = () => {
-    setLocalDrinksState([]);
+  const onClose = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
+
+  const onCancelConsos = useCallback(() => {
     onClose();
+    setLocalDrinksState([]);
     matomo.logConsoCloseAddScreen();
     return true;
-  };
+  }, [onClose]);
 
   const onAddDrinkToCatalog = async (name, volume, degrees, drinkKey, quantity) => {
     setNewDrink(initDrinkState);
@@ -143,31 +141,38 @@ const DrinksModal = ({
     removeOwnDrink(drinkKey);
   };
 
+  React.useEffect(() => {
+    if (isFocused) {
+      setLocalDrinksState(drinks);
+      BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
+    }
+    return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
+  }, [isFocused, onCancelConsos, drinks]);
+
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onCancelConsos}>
-      <SafeAreaViewStyled>
-        <ModalContent ref={scrollRef} disableHorizontal>
-          <Title>Sélectionnez vos consommations</Title>
-          <DateAndTimeContainer>
-            <DateOrTimeDisplay mode="date" date={date} onPress={() => setShowDatePicker('date')} />
-            <DateOrTimeDisplay mode="time" date={date} onPress={() => setShowDatePicker('time')} />
-          </DateAndTimeContainer>
-          {withOwnDrinks && (
-            <>
-              <DrinksHeader content="Mes boissons" />
-              {mergedOwnDrinksKeys.map((drinkKey, index) => (
-                <DrinkQuantitySetter
-                  oneLine
-                  key={drinkKey}
-                  drinkKey={drinkKey}
-                  setDrinkQuantity={setDrinkQuantityRequest}
-                  quantity={getDrinkQuantityFromDrinks(localDrinksState, drinkKey)}
-                  catalog={ownDrinks}
-                  index={index}
-                  onDelete={removeOwnDrinkRequest}
-                />
-              ))}
-              {/* <ButtonsContainer>
+    <SafeAreaViewStyled>
+      <ModalContent ref={scrollRef} disableHorizontal>
+        <Title>Sélectionnez vos consommations</Title>
+        <DateAndTimeContainer>
+          <DateOrTimeDisplay mode="date" date={date} onPress={() => setShowDatePicker('date')} />
+          <DateOrTimeDisplay mode="time" date={date} onPress={() => setShowDatePicker('time')} />
+        </DateAndTimeContainer>
+        {withOwnDrinks && (
+          <>
+            <DrinksHeader content="Mes boissons" />
+            {mergedOwnDrinksKeys.map((drinkKey, index) => (
+              <DrinkQuantitySetter
+                oneLine
+                key={drinkKey}
+                drinkKey={drinkKey}
+                setDrinkQuantity={setDrinkQuantityRequest}
+                quantity={getDrinkQuantityFromDrinks(localDrinksState, drinkKey)}
+                catalog={ownDrinks}
+                index={index}
+                onDelete={removeOwnDrinkRequest}
+              />
+            ))}
+            {/* <ButtonsContainer>
                 <ButtonPrimary
                   content="Ajoutez une boisson"
                   onPress={() => {
@@ -175,96 +180,91 @@ const DrinksModal = ({
                   }}
                 />
               </ButtonsContainer> */}
-              <DrinksHeader content="Génériques" />
-            </>
-          )}
-          {drinksCatalog
-            .map(({ categoryKey }) => categoryKey)
-            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-            .map((category, index) => (
-              <DrinksCategory
-                key={index}
-                category={category}
-                index={index}
-                drinks={localDrinksState}
-                setDrinkQuantity={setDrinkQuantityRequest}
-              />
-            ))}
-          <>
-            <SmallMarginBottom />
-            <ButtonsContainer>
-              <ButtonPrimary
-                content="Scannez une boisson"
-                onPress={() => {
-                  setShowBarCodeReader(true);
-                  matomo.logConsoScanOwnOpen();
-                }}
-              />
-            </ButtonsContainer>
-            <UnderlinedButton
-              content="Ajoutez manuellement"
-              bold
-              onPress={() => {
-                setShowNewDrinkForm(true);
-                matomo.logConsoAddOwnManuallyOpen();
-              }}
-            />
+            <DrinksHeader content="Génériques" />
           </>
-          <MarginBottom />
-        </ModalContent>
-        <ButtonsContainerSafe>
+        )}
+        {drinksCatalog
+          .map(({ categoryKey }) => categoryKey)
+          .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+          .map((category, index) => (
+            <DrinksCategory
+              key={index}
+              category={category}
+              index={index}
+              drinks={localDrinksState}
+              setDrinkQuantity={setDrinkQuantityRequest}
+            />
+          ))}
+        <>
+          <SmallMarginBottom />
           <ButtonsContainer>
             <ButtonPrimary
-              content="Validez"
-              onPress={onValidateConsos}
-              disabled={checkIfNoDrink(localDrinksState)}
+              content="Scannez une boisson"
+              onPress={() => {
+                setShowBarCodeReader(true);
+                matomo.logConsoScanOwnOpen();
+              }}
             />
-            <UnderlinedButton content="Retour" bold onPress={onCancelConsos} />
           </ButtonsContainer>
-        </ButtonsContainerSafe>
-        <DatePicker
-          visible={Boolean(showDatePicker)}
-          mode={showDatePicker}
-          selectDate={(newDate) => {
-            if (newDate && showDatePicker === 'date') {
-              const newDateObject = new Date(newDate);
-              const oldDateObject = new Date(date);
-              newDate = new Date(
-                newDateObject.getFullYear(),
-                newDateObject.getMonth(),
-                newDateObject.getDate(),
-                oldDateObject.getHours(),
-                oldDateObject.getMinutes()
-              );
-            }
-            setShowDatePicker(false);
-            if (newDate) {
-              updateModalTimestamp(makeSureTimestamp(newDate));
-            }
-          }}
-        />
-        <BarCodeReader
-          visible={showBarCodeReader}
-          onClose={() => setShowBarCodeReader(false)}
-          onAddDrink={(drinkData = initDrinkState) => {
-            setShowBarCodeReader(false);
-            setNewDrink(drinkData);
-            setShowNewDrinkForm(true);
-          }}
-        />
-        <NewDrinkForm
-          name={newDrink.name}
-          volume={newDrink.volume}
-          degrees={newDrink.degrees}
-          isNew={newDrink.isNew}
-          code={newDrink.code}
-          visible={showNewDrinkForm}
-          key={showNewDrinkForm}
-          onClose={() => setShowNewDrinkForm(false)}
-          onValidate={onAddDrinkToCatalog}
-        />
-      </SafeAreaViewStyled>
-    </Modal>
+          <UnderlinedButton
+            content="Ajoutez manuellement"
+            bold
+            onPress={() => {
+              setShowNewDrinkForm(true);
+              matomo.logConsoAddOwnManuallyOpen();
+            }}
+          />
+        </>
+        <MarginBottom />
+      </ModalContent>
+      <ButtonsContainerSafe>
+        <ButtonsContainer>
+          <ButtonPrimary content="Validez" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
+          <UnderlinedButton content="Retour" bold onPress={onCancelConsos} />
+        </ButtonsContainer>
+      </ButtonsContainerSafe>
+      <DatePicker
+        visible={Boolean(showDatePicker)}
+        mode={showDatePicker}
+        selectDate={(newDate) => {
+          if (newDate && showDatePicker === 'date') {
+            const newDateObject = new Date(newDate);
+            const oldDateObject = new Date(date);
+            newDate = new Date(
+              newDateObject.getFullYear(),
+              newDateObject.getMonth(),
+              newDateObject.getDate(),
+              oldDateObject.getHours(),
+              oldDateObject.getMinutes()
+            );
+          }
+          setShowDatePicker(false);
+          if (newDate) {
+            updateModalTimestamp(makeSureTimestamp(newDate));
+          }
+        }}
+      />
+      <BarCodeReader
+        visible={showBarCodeReader}
+        onClose={() => setShowBarCodeReader(false)}
+        onAddDrink={(drinkData = initDrinkState) => {
+          setShowBarCodeReader(false);
+          setNewDrink(drinkData);
+          setShowNewDrinkForm(true);
+        }}
+      />
+      <NewDrinkForm
+        name={newDrink.name}
+        volume={newDrink.volume}
+        degrees={newDrink.degrees}
+        isNew={newDrink.isNew}
+        code={newDrink.code}
+        visible={showNewDrinkForm}
+        key={showNewDrinkForm}
+        onClose={() => setShowNewDrinkForm(false)}
+        onValidate={onAddDrinkToCatalog}
+      />
+    </SafeAreaViewStyled>
   );
 };
 
