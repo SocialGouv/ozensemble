@@ -19,7 +19,7 @@ export const setToast = (caption = '', duration = 2000) => ({
 
 /* COMPONENT */
 
-const makeStateToProps = state => ({ caption: state.caption, duration: state.duration });
+const makeStateToProps = (state) => ({ caption: state.caption, duration: state.duration });
 const dispatchToProps = { setToast };
 
 const Toast = connect(
@@ -36,6 +36,7 @@ const Toast = connect(
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 100,
+      useNativeDriver: true,
     }).start();
   };
 
@@ -43,6 +44,7 @@ const Toast = connect(
     Animated.timing(fadeAnim, {
       toValue: 0,
       duration: 100,
+      useNativeDriver: true,
     }).start(() => {
       setShow(false);
       setToast('');
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
   },
-  toastContainer: backgroundColor => ({
+  toastContainer: (backgroundColor) => ({
     overflow: 'hidden',
     maxWidth: Dimensions.get('window').width * 0.8,
     borderRadius: 10,
@@ -130,15 +132,15 @@ export const ToastProvider = ({ children, backgroundColor }) => (
 
 /* HOC */
 
-export const withToast = ChildComponent => {
-  const ToastedComponent = props => {
+export const withToast = (ChildComponent) => {
+  const ToastedComponent = (props) => {
     if (!ChildComponent) return null;
     return <ChildComponent {...props} setToast={(...args) => store.dispatch(setToast(...args))} />;
   };
 
-  ToastedComponent.displayName = `withToast(${ToastedComponent.displayName ||
-    ToastedComponent.name ||
-    'Component'})`;
+  ToastedComponent.displayName = `withToast(${
+    ToastedComponent.displayName || ToastedComponent.name || 'Component'
+  })`;
 
   return ToastedComponent;
 };

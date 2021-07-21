@@ -72,4 +72,5 @@ export const StyledScreen2 = styled(Screen2Image)`
 
 export const StyledScreen3 = styled(Screen3Image)`
   ${imageCss}
+  margin-bottom: 0px;
 `;

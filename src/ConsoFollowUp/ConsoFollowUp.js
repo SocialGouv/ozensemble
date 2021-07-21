@@ -81,7 +81,7 @@ const ConsoFollowUp = ({ showWelcomeMessage, setView, showSetDrinksModal, onShow
   );
 };
 
-const makeStateToProps = () => state => ({
+const makeStateToProps = () => (state) => ({
   showWelcomeMessage: !checkIfThereIsDrinks(state),
 });
 

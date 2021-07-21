@@ -10,7 +10,7 @@ see https://facebook.github.io/react-native/docs/hermes
 
 
 */
-Date.prototype.toCustomLocaleString = function(locale, options) {
+Date.prototype.toCustomLocaleString = function (locale, options) {
   try {
     /*
     options: {
@@ -232,11 +232,11 @@ Date.prototype.toCustomLocaleString = function(locale, options) {
   }
 };
 
-Date.prototype.getLocaleWeekDay = function(locale) {
+Date.prototype.getLocaleWeekDay = function (locale) {
   return new Date(this).toCustomLocaleString(locale, { weekday: 'long' });
 };
 
-Date.prototype.getLocaleDate = function(locale) {
+Date.prototype.getLocaleDate = function (locale) {
   return new Date(this).toCustomLocaleString(locale, {
     weekday: 'long',
     month: 'long',
@@ -244,7 +244,7 @@ Date.prototype.getLocaleDate = function(locale) {
   });
 };
 
-Date.prototype.getLocaleDateAndTime = function(locale) {
+Date.prototype.getLocaleDateAndTime = function (locale) {
   return new Date(this)
     .toCustomLocaleString(locale, {
       weekday: 'long',
@@ -256,14 +256,14 @@ Date.prototype.getLocaleDateAndTime = function(locale) {
     .capitalize();
 };
 
-Date.prototype.getLocalePureTime = function(locale) {
+Date.prototype.getLocalePureTime = function (locale) {
   return new Date(this).toCustomLocaleString(locale, {
     hour: '2-digit',
     minute: '2-digit',
   });
 };
 
-Date.prototype.getLocaleTime = function(locale) {
+Date.prototype.getLocaleTime = function (locale) {
   return (
     'à ' +
     new Date(this).toCustomLocaleString(locale, {
@@ -273,6 +273,6 @@ Date.prototype.getLocaleTime = function(locale) {
   );
 };
 
-Date.prototype.getLocaleMonth = function(locale) {
+Date.prototype.getLocaleMonth = function (locale) {
   return new Date(this).toCustomLocaleString(locale, { month: 'long' });
 };
