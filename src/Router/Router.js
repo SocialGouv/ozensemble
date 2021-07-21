@@ -74,9 +74,9 @@ const TabsNavigator = ({ navigation, route }) => {
             tabPress: (e) => {
               e.preventDefault();
             },
-          }}
-          component={() => null}
-        />
+          }}>
+          {() => null}
+        </Tabs.Screen>
         <Tabs.Screen
           name="Quizz"
           options={{
@@ -130,7 +130,6 @@ class Router extends React.Component {
 
   render() {
     const { initialRouteName } = this.state;
-    console.log({ initialRouteName });
     return (
       <NavigationContainer
         ref={(r) => {
