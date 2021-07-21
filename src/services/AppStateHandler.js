@@ -18,12 +18,11 @@ class AppStateHandler extends React.PureComponent {
     const { appState } = this.state;
     if (newState === 'active' && appState !== 'active') {
       this.props.isActive();
-      this.setState({ appState: newState });
     }
     if (newState.match(/inactive|background/) && !appState.match(/inactive|background/)) {
       this.props.isInactive();
-      this.setState({ appState: newState });
     }
+    this.setState({ appState: newState });
   };
 
   render() {
