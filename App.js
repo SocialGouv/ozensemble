@@ -1,16 +1,16 @@
 import './src/services/polyfills';
 import React from 'react';
-import {Provider} from 'react-redux';
-import {PersistGate} from 'redux-persist/integration/react';
-import {store, persistor} from './src/redux/store';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './src/redux/store';
 import Router from './src/Router/Router';
 
 import * as Sentry from '@sentry/react-native';
-import {ToastProvider} from './src/services/toast';
+import { ToastProvider } from './src/services/toast';
 
 if (!__DEV__) {
   Sentry.init({
-    dsn: 'https://b43d73353b7b48b8857deb69bca98da2@sentry.io/2213011',
+    dsn: 'https://46a05ff121824832a53b8539e63b4eb2@o548798.ingest.sentry.io/5874545',
   });
 }
 

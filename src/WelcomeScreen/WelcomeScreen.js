@@ -1,6 +1,6 @@
 import React from 'react';
 import Swiper from 'react-native-swiper';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CONSTANTS from '../reference/constants';
 import matomo from '../services/matomo';
 import HeaderBackground from '../components/HeaderBackground';

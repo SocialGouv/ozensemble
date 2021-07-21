@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Linking, Platform } from 'react-native';
 import styled from 'styled-components';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import CONSTANTS from '../reference/constants';
 import ReminderIcon from '../components/Illustrations/ReminderIcon';
 import TextStyled from '../components/TextStyled';
@@ -38,7 +38,7 @@ class Reminder extends React.Component {
       this.deleteReminder();
       return;
     }
-    if (!isRegistered && reminder && showAlert) this.showPermissionsAlert(this.deleteReminder);
+    if (!isRegistered && reminder && showAlert) this.showPermissionsAlert();
     if (!reminder) return;
     this.setState({ reminder: new Date(reminder) });
   };
@@ -46,11 +46,7 @@ class Reminder extends React.Component {
   scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
     NotificationService.cancelAll();
     for (let i = !timeIsAfterNow(reminder); i <= followupNumberOfDays; i++) {
-      const fireDate = dateWithTimeAndOffsetFromToday(
-        reminder.getHours(),
-        reminder.getMinutes(),
-        i
-      );
+      const fireDate = dateWithTimeAndOffsetFromToday(reminder.getHours(), reminder.getMinutes(), i);
       NotificationService.scheduleNotification({
         date: fireDate,
         title: CONSTANTS.NOTIF_REMINDER_TITLE,
@@ -62,14 +58,13 @@ class Reminder extends React.Component {
   showTimePicker = async () => {
     const isRegistered = await NotificationService.checkPermission();
     if (!isRegistered) {
-      this.showPermissionsAlert(this.deleteReminder);
+      this.showPermissionsAlert();
       return;
     }
     this.setState({ timePickerVisible: true });
   };
 
-  showPermissionsAlert = (deleteReminder) => {
-    // Alert.
+  showPermissionsAlert = () => {
     Alert.alert(
       'Vous devez autoriser les notifications pour accéder à ce service',
       'Veuillez cliquer sur Réglages puis Notifications pour activer les notifications',
@@ -80,7 +75,7 @@ class Reminder extends React.Component {
         },
         {
           text: 'Annuler',
-          onPress: deleteReminder,
+          onPress: () => this.deleteReminder(),
           style: 'cancel',
         },
       ],
@@ -157,17 +152,13 @@ class Reminder extends React.Component {
         <BackButton content="< Retour" onPress={onBackPress} bold />
         <ReminderIcon size={80} color="#4030a5" selected={false} />
         <Title>
-          <TextStyled color="#4030a5">
-            N'oubliez plus jamais de remplir vos consommations
-          </TextStyled>
+          <TextStyled color="#4030a5">N'oubliez plus jamais de remplir vos consommations</TextStyled>
         </Title>
         <SubTitle>
           {reminder ? (
             <React.Fragment>
               <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-              <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime(
-                'fr'
-              )} \n `}</TextStyled>
+              <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
               <TextStyled color="#191919">tous les jours.</TextStyled>
             </React.Fragment>
           ) : (
@@ -181,9 +172,7 @@ class Reminder extends React.Component {
             content={reminder ? 'Modifier le rappel' : 'Définir un rappel'}
             onPress={this.showTimePicker}
           />
-          {Boolean(reminder) && (
-            <UnderlinedButton content="Retirer le rappel" bold onPress={this.deleteReminder} />
-          )}
+          {Boolean(reminder) && <UnderlinedButton content="Retirer le rappel" bold onPress={this.deleteReminder} />}
         </ButtonsContainer>
         <TimePicker visible={timePickerVisible} selectDate={this.setReminder} />
       </Container>

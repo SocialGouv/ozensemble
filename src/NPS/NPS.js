@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Platform, AppState, Alert } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import NotificationService from '../services/notifications';
 import matomo from '../services/matomo';
@@ -224,24 +224,14 @@ class NPS extends React.Component {
         <TopSubTitle>
           <TextStyled color="#191919">Ce service vous a-t-il été utile{'\u00A0'}?</TextStyled>
         </TopSubTitle>
-        <Mark
-          selected={useful}
-          onPress={this.setUseful}
-          bad="Pas utile du tout"
-          good="Extrêmement utile"
-        />
+        <Mark selected={useful} onPress={this.setUseful} bad="Pas utile du tout" good="Extrêmement utile" />
         <TopSubTitle>
           <TextStyled color="#191919">
             Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche
             {'\u00A0'}?
           </TextStyled>
         </TopSubTitle>
-        <Mark
-          selected={reco}
-          onPress={this.setReco}
-          bad="Pas du tout probable"
-          good="Très probable"
-        />
+        <Mark selected={reco} onPress={this.setReco} bad="Pas du tout probable" good="Très probable" />
         <ButtonContainer>
           <ButtonPrimary content={sendButton} disabled={!useful || !reco} onPress={this.nextPage} />
         </ButtonContainer>
@@ -255,14 +245,13 @@ class NPS extends React.Component {
       <>
         <TopTitle>
           <TextStyled color="#4030a5">
-            Merci !{'\u000A'}Pour améliorer notre service, avez-vous quelques recommandations à nous
-            faire{'\u00A0'}?
+            Merci !{'\u000A'}Pour améliorer notre service, avez-vous quelques recommandations à nous faire{'\u00A0'}?
           </TextStyled>
         </TopTitle>
         <TopSubTitle>
           <TextStyled color="#191919">
-            Comment pouvons-nous vous être encore plus utile{'\u00A0'}? Comment pouvons-nous
-            améliorer ce service{'\u00A0'}?
+            Comment pouvons-nous vous être encore plus utile{'\u00A0'}? Comment pouvons-nous améliorer ce service
+            {'\u00A0'}?
           </TextStyled>
         </TopSubTitle>
         <FeedBackStyled
@@ -275,8 +264,8 @@ class NPS extends React.Component {
         />
         <TopSubTitle>
           <TextStyled color="#191919">
-            Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes
-            d'accord, vous pouvez renseigner votre adresse email ci-dessous.
+            Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes d'accord, vous pouvez
+            renseigner votre adresse email ci-dessous.
           </TextStyled>
         </TopSubTitle>
         <TextInputStyled
@@ -293,11 +282,7 @@ class NPS extends React.Component {
           onSubmitEditing={this.sendNPS}
         />
         <ButtonContainer>
-          <ButtonPrimary
-            disabled={sendButton === 'Merci !'}
-            content={sendButton}
-            onPress={this.sendNPS}
-          />
+          <ButtonPrimary disabled={sendButton === 'Merci !'} content={sendButton} onPress={this.sendNPS} />
         </ButtonContainer>
       </>
     );

@@ -6,11 +6,7 @@ import { Platform } from 'react-native';
 class NotificationService {
   listeners = {};
 
-  init = async () => {
-    await this.configure();
-  };
-
-  async configure() {
+  init = () => {
     PushNotification.configure({
       onNotification: this.handleNotification,
       onRegister: () => null,
@@ -22,10 +18,10 @@ class NotificationService {
       },
 
       popInitialNotification: Platform.OS === 'ios',
-      requestPermissions: Platform.OS === 'ios',
+      requestPermissions: false,
     });
     this.isConfigured = true;
-  }
+  };
 
   //Appears after a specified time. App does not have to be open.
   scheduleNotification({ date, title, message, playSound = true, soundName = 'default' } = {}) {
@@ -39,8 +35,9 @@ class NotificationService {
   }
 
   async checkPermission() {
-    return await new Promise((resolve) => {
+    return new Promise((resolve) => {
       PushNotification.checkPermissions(({ alert }) => {
+        console.log({ alert });
         resolve(alert);
       });
     });
