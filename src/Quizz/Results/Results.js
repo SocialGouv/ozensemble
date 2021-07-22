@@ -6,20 +6,16 @@ import ResultAddicted from './ResultAddicted';
 import { EmptyView } from './styles';
 
 const Results = ({ navigation, resultKey }) => {
-  const backToQuizz = async () => {
-    navigation.navigate('QUIZZ_QUESTIONS', { screen: 'QUIZZ_QUESTION_1' });
-  };
-
   switch (resultKey) {
     default:
     case null:
       return <EmptyView />;
     case CONSTANTS.RESULT_GOOD:
-      return <ResultGood navigation={navigation} backToQuizz={backToQuizz} />;
+      return <ResultGood navigation={navigation} />;
     case CONSTANTS.RESULT_RISK:
-      return <ResultRisk navigation={navigation} backToQuizz={backToQuizz} />;
+      return <ResultRisk navigation={navigation} />;
     case CONSTANTS.RESULT_ADDICTED:
-      return <ResultAddicted navigation={navigation} backToQuizz={backToQuizz} />;
+      return <ResultAddicted navigation={navigation} />;
   }
 };
 

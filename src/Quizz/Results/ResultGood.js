@@ -11,7 +11,7 @@ import {
   UnderlinedButtonStyled,
 } from './styles';
 
-const ResultGood = ({ navigation, backToQuizz }) => (
+const ResultGood = ({ navigation }) => (
   <FullScreenBackground>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
@@ -26,7 +26,12 @@ const ResultGood = ({ navigation, backToQuizz }) => (
       <TopButtonContainer>
         <ButtonPrimary content="Suivre ma consommation" onPress={() => navigation.navigate('CONSO_FOLLOW_UP')} />
       </TopButtonContainer>
-      <UnderlinedButtonStyled withoutPadding content="Retour au questionnaire" onPress={backToQuizz} bold />
+      <UnderlinedButtonStyled
+        withoutPadding
+        content="Retour au questionnaire"
+        onPress={() => navigation.navigate('QUIZZ_QUESTIONS', { screen: 'QUIZZ_QUESTION_1' })}
+        bold
+      />
     </TopContainer>
   </FullScreenBackground>
 );

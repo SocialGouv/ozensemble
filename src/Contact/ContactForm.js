@@ -1,32 +1,22 @@
 import React from 'react';
-import { Linking, Platform, KeyboardAvoidingView } from 'react-native';
+import { Linking } from 'react-native';
 import TextStyled from '../components/TextStyled';
-import {
-  ScreenBgStyled,
-  TopContainer,
-  TopTitle,
-  TopSubTitle,
-  TopButtonContainer,
-  Extra,
-} from './styles';
+import { ScreenBgStyled, TopContainer, TopTitle, TopSubTitle, TopButtonContainer, Extra } from './styles';
 import matomo from '../services/matomo';
 import ButtonPrimary from '../components/ButtonPrimary';
+import Background from '../components/Background';
+import HeaderBackground from '../components/HeaderBackground';
 
-const ContactForm = ({ onRdvRequest }) => {
+const ContactForm = ({ navigation }) => {
   return (
-    <KeyboardAvoidingView
-      // eslint-disable-next-line react-native/no-inline-styles
-      style={{ flex: 1 }}
-      behavior={Platform.select({ ios: 'padding', android: null })}
-      keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
+    <Background color="#39cec0" withSwiperContainer>
+      <HeaderBackground />
       <ScreenBgStyled>
         <TopContainer>
           <TopTitle>
             <TextStyled color="#4030a5">Échangez</TextStyled>
             <TextStyled color="#de285e"> gratuitement </TextStyled>
-            <TextStyled color="#4030a5">
-              par téléphone avec un professionnel de l'addiction
-            </TextStyled>
+            <TextStyled color="#4030a5">par téléphone avec un professionnel de l'addiction</TextStyled>
           </TopTitle>
           <TopSubTitle>
             <TextStyled color="#191919">Prenez un rendez-vous </TextStyled>
@@ -42,14 +32,14 @@ const ContactForm = ({ onRdvRequest }) => {
               content="Prendre RDV téléphonique"
               onPress={() => {
                 matomo.logContactTakeRDV();
-                onRdvRequest();
+                navigation.navigate('DOCTOLIB');
               }}
             />
           </TopButtonContainer>
           <Extra>
             <TextStyled color="#191919">
-              Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire
-              le point ou répondront à vos questions. Nos locaux sont situés à Montreuil -{' '}
+              Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire le point ou
+              répondront à vos questions. Nos locaux sont situés à Montreuil -{' '}
             </TextStyled>
             <TextStyled
               color="#4030a5"
@@ -62,7 +52,7 @@ const ContactForm = ({ onRdvRequest }) => {
           </Extra>
         </TopContainer>
       </ScreenBgStyled>
-    </KeyboardAvoidingView>
+    </Background>
   );
 };
 
