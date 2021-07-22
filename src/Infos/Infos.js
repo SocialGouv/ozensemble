@@ -64,7 +64,9 @@ const ScreenBgStyled = styled.ScrollView.attrs({
     flexBasis: '100%',
     minHeight: '100%',
   },
-})``;
+})`
+  background-color: #f9f9f9;
+`;
 
 const MenuItemStyled = styled.View`
   height: 70px;

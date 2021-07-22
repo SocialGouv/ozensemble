@@ -9,14 +9,17 @@ import { drinksCatalog, BEER, BEER_HALF } from './drinksCatalog';
 import DrinksCategory from '../DrinksModal/DrinksCategory';
 import DiagramHelpModal from './DiagramHelpModal';
 import matomo from '../services/matomo';
+import Background from '../components/Background';
+import HeaderBackground from '../components/HeaderBackground';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
-const ConsoFollowUp = ({ showWelcomeMessage, setView, showSetDrinksModal, onShowDrinksModal }) => {
+const ConsoFollowUp = ({ showWelcomeMessage, showSetDrinksModal }) => {
   const [showHelpModal, setShowHelpModal] = React.useState(false);
 
   return (
-    <React.Fragment>
+    <Background color="#39cec0" withSwiperContainer>
+      <HeaderBackground />
       <ScreenBgStyled>
         <TopContainer>
           <Title>
@@ -28,24 +31,14 @@ const ConsoFollowUp = ({ showWelcomeMessage, setView, showSetDrinksModal, onShow
                 <TextStyled color="#191919">
                   Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
                 </TextStyled>
-                <TextStyled color="#191919">
-                  Tous les jours vous renseignez votre consommation.{'\n'}
-                </TextStyled>
+                <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
               </SubTitle>
               {drinksCatalog
                 .filter(({ categoryKey }) => categoryKey === BEER)
                 .map(({ categoryKey }) => categoryKey)
-                .filter(
-                  (categoryKey, index, categories) => categories.indexOf(categoryKey) === index
-                )
+                .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
                 .map((category, index) => (
-                  <DrinksCategory
-                    asPreview
-                    key={index}
-                    category={category}
-                    index={index}
-                    drinks={fakeDrinks}
-                  />
+                  <DrinksCategory asPreview key={index} category={category} index={index} drinks={fakeDrinks} />
                 ))}
               <SubTitle>
                 <TextStyled color="#191919">
@@ -54,9 +47,7 @@ const ConsoFollowUp = ({ showWelcomeMessage, setView, showSetDrinksModal, onShow
               </SubTitle>
               <Diagram asPreview />
               <SubTitle last>
-                <TextStyled color="#191919">
-                  Le rouge représente ce qui est supérieur au seuil de l’OMS
-                </TextStyled>
+                <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l’OMS</TextStyled>
               </SubTitle>
             </>
           ) : null}
@@ -69,15 +60,10 @@ const ConsoFollowUp = ({ showWelcomeMessage, setView, showSetDrinksModal, onShow
             />
           )}
         </TopContainer>
-        <Feed
-          showSetDrinksModal={showSetDrinksModal}
-          onShowDrinksModal={onShowDrinksModal}
-          setView={setView}
-          hideFeed={showWelcomeMessage}
-        />
+        <Feed showSetDrinksModal={showSetDrinksModal} hideFeed={showWelcomeMessage} />
       </ScreenBgStyled>
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
-    </React.Fragment>
+    </Background>
   );
 };
 

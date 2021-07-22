@@ -1,10 +1,11 @@
-import React from "react";
-import { TouchableWithoutFeedback } from "react-native";
-import { connect } from "react-redux";
-import Timeline from "./Timeline";
-import DateDisplay from "./DateDisplay";
-import ConsoFeedDisplay from "./ConsoFeedDisplay";
-import ResultsFeedDisplay from "./ResultsFeedDisplay";
+import React from 'react';
+import { TouchableWithoutFeedback } from 'react-native';
+import { connect } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import Timeline from './Timeline';
+import DateDisplay from './DateDisplay';
+import ConsoFeedDisplay from './ConsoFeedDisplay';
+import ResultsFeedDisplay from './ResultsFeedDisplay';
 import {
   FeedContainer,
   FeedDay,
@@ -12,43 +13,36 @@ import {
   FeedBottomButton,
   FeedAddConsoTodayContainer,
   FeedAddConsoTodayButton,
-} from "./styles";
-import NoConsoConfirmedFeedDisplay from "./NoConsoConfirmedFeedDisplay";
-import { isToday, datesAreEqual } from "../helpers/dateHelpers";
-import { getDrinksState, getDaysForFeed, removeDrink, setModalTimestamp } from "./consoDuck";
-import { useBackHandler } from "../helpers/customHooks";
-import CONSTANTS from "../reference/constants";
-import matomo from "../services/matomo";
-import { NO_CONSO } from "./drinksCatalog";
-import NoConsoYetFeedDisplay, { NoDrinkTodayButton } from "./NoConsoYetFeedDisplay";
-import ThoughtOfTheDay from "./ThoughtOfTheDay";
+} from './styles';
+import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
+import { isToday, datesAreEqual } from '../helpers/dateHelpers';
+import { getDrinksState, getDaysForFeed, removeDrink, setModalTimestamp } from './consoDuck';
+import { useBackHandler } from '../helpers/customHooks';
+import CONSTANTS from '../reference/constants';
+import matomo from '../services/matomo';
+import { NO_CONSO } from './drinksCatalog';
+import NoConsoYetFeedDisplay, { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
+import ThoughtOfTheDay from './ThoughtOfTheDay';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
-  if (sameTimeStamp.length === 1) return "alone";
+  if (sameTimeStamp.length === 1) return 'alone';
   const position = sameTimeStamp.findIndex((d) => d.id === drink.id);
-  if (position === 0) return "first";
-  if (position === sameTimeStamp.length - 1) return "last";
-  return "middle";
+  if (position === 0) return 'first';
+  if (position === sameTimeStamp.length - 1) return 'last';
+  return 'middle';
 };
 
 const computeShowButtons = (selected, position) => {
   if (!selected) return false;
-  if (position === "alone" || position === "last") return true;
+  if (position === 'alone' || position === 'last') return true;
   return false;
 };
 
-const Feed = ({
-  days,
-  drinks,
-  setView,
-  setModalTimestamp,
-  onShowDrinksModal,
-  removeDrink,
-  showSetDrinksModal,
-  hideFeed,
-}) => {
+const Feed = ({ days, drinks, setModalTimestamp, removeDrink, showSetDrinksModal, hideFeed }) => {
   const [timestampSelected, setTimestampSelected] = React.useState(null);
+
+  const navigation = useNavigation();
 
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
@@ -60,7 +54,7 @@ const Feed = ({
 
   const addDrinksRequest = (timestamp) => {
     setModalTimestamp(timestamp);
-    onShowDrinksModal();
+    navigation.push('DRINKS_MODAL');
   };
 
   const deleteDrinkRequest = (timestamp) => {
@@ -91,9 +85,7 @@ const Feed = ({
             await matomo.logConsoOpenAddScreen();
           }}
         />
-        {!!hideFeed && (
-          <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />
-        )}
+        {!!hideFeed && <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />}
       </FeedAddConsoTodayContainer>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
         <FeedContainer hideFeed={hideFeed}>
@@ -105,21 +97,15 @@ const Feed = ({
                 .filter(({ timestamp }) => datesAreEqual(timestamp, day))
                 .sort((a, b) => (a > b ? -1 : 1));
               const noDrinksYet = !drinksOfTheDay.length;
-              const noDrinksConfirmed =
-                drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
+              const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
               return (
                 <FeedDay key={index}>
                   <Timeline first={isFirst} last={isLast} />
                   <FeedDayContent>
                     <DateDisplay day={day} />
-                    {!!isFirst && (
-                      <ThoughtOfTheDay day={day} selected={timestampSelected === null} />
-                    )}
+                    {!!isFirst && <ThoughtOfTheDay day={day} selected={timestampSelected === null} />}
                     {noDrinksYet && !isToday(day) && (
-                      <NoConsoYetFeedDisplay
-                        selected={timestampSelected === null}
-                        timestamp={day}
-                      />
+                      <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={day} />
                     )}
                     {noDrinksConfirmed ? (
                       <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
@@ -165,7 +151,7 @@ const Feed = ({
                     {isLast && (
                       <ResultsFeedDisplay
                         onPress={async () => {
-                          setView(CONSTANTS.VIEW_QUIZZ);
+                          navigation.navigate('TESTS');
                           matomo.logQuizzOpen(CONSTANTS.FROM_CONSO);
                         }}
                         selected={timestampSelected === null}

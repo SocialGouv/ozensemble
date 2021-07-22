@@ -24,7 +24,7 @@ const TimePicker = ({ visible, selectDate }) => {
       <Modal visible={visible} animationType="fade" transparent={true}>
         <ModalContent>
           <DatePickerContainer>
-            <DateTimePickerStyled
+            <DateTimePicker
               testID="dateTimePicker"
               value={date}
               mode="time"
@@ -73,13 +73,14 @@ const Modal = styled.Modal``;
 const ModalContent = styled.View`
   height: 100%;
   width: 100%;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   justify-content: center;
   align-items: center;
 `;
 
 const DatePickerContainer = styled.View`
-  width: 80%;
+  width: 100%;
   max-width: 320px;
   border-radius: 20px;
   background-color: white;
@@ -87,13 +88,10 @@ const DatePickerContainer = styled.View`
   /* align-items: center; */
 `;
 
-const DateTimePickerStyled = styled(DateTimePicker)`
-  width: 100%;
-`;
-
 const ButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
   margin-vertical: 15px;
 `;
 

@@ -103,9 +103,10 @@ class Reminder extends React.Component {
   };
 
   handleNotification = (notification) => {
+    const { navigation } = this.props;
     if (Platform.OS === 'android') {
       if (notification.title === CONSTANTS.NOTIF_REMINDER_TITLE) {
-        this.props.setView(CONSTANTS.VIEW_CONSO);
+        navigation.navigate('CONSO_FOLLOW_UP');
         matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
       }
     }
@@ -120,7 +121,7 @@ class Reminder extends React.Component {
               {
                 text: 'Suivi',
                 onPress: () => {
-                  this.props.navigation.navigate('CONSO_FOLLOW_UP');
+                  navigation.navigate('CONSO_FOLLOW_UP');
                   matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
                   this.notifHandled = false;
                 },
@@ -138,7 +139,7 @@ class Reminder extends React.Component {
         }
       } else {
         if (notification.message === CONSTANTS.NOTIF_REMINDER_MESSAGE) {
-          this.props.setView(CONSTANTS.VIEW_CONSO);
+          navigation.navigate('CONSO_FOLLOW_UP');
           matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
         }
       }
@@ -181,13 +182,19 @@ class Reminder extends React.Component {
   }
 }
 
-const Container = styled.View`
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 100px;
+const Container = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    backgroundColor: '#f9f9f9',
+    flexShrink: 1,
+    flexGrow: 1,
+    flexBasis: '100%',
+    minHeight: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 100,
+  },
+})`
   background-color: #f9f9f9;
-  flex-grow: 1;
-  height: 100%;
 `;
 
 const Title = styled(H1)`

@@ -37,7 +37,7 @@ const computeInitAnswersState = () => {
 const QuizzStack = createStackNavigator();
 const QuizzAndResultsStack = createStackNavigator();
 
-const Quizz = ({ setView, navigation }) => {
+const Quizz = () => {
   const [{ answers, progress }, setState] = React.useState({ answers: null, progress: 0 });
   const [resultKey, setResultKey] = React.useState(null);
 

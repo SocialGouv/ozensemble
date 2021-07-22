@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import styled from 'styled-components';
@@ -14,15 +15,9 @@ const DateOrTimeDisplay = ({ date, onPress, mode }) => {
           <CurrentDateContainer>
             <ValidateIcon size={15} />
             {mode === 'date' && (
-              <CurrentDate>
-                {isToday(date) ? 'Aujourd\'hui' : makeSureDate(date).getLocaleDate('fr')}
-              </CurrentDate>
+              <CurrentDate>{isToday(date) ? "Aujourd'hui" : makeSureDate(date).getLocaleDate('fr')}</CurrentDate>
             )}
-            {mode === 'time' && (
-              <CurrentDate>
-                {makeSureDate(date).getLocaleTime('fr')}
-              </CurrentDate>
-            )}
+            {mode === 'time' && <CurrentDate>{makeSureDate(date).getLocaleTime('fr')}</CurrentDate>}
           </CurrentDateContainer>
         </TouchableOpacity>
       )}
