@@ -55,7 +55,7 @@ class NPS extends React.Component {
   };
 
   async componentDidMount() {
-    // this.reset(); // useful in dev mode
+    this.reset(); // useful in dev mode
     AppState.addEventListener('change', this.handleAppStateChange);
     this.notificationsListener = NotificationService.listen(this.handleNotification);
     this.checkNeedNPS();
@@ -179,7 +179,7 @@ class NPS extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        apiKey: TIPIMAIL_API_USER,
+        apiKey: TIPIMAIL_API_KEY,
         to: [
           {
             address: TIPIMAIL_EMAIL_TO,
@@ -194,7 +194,10 @@ class NPS extends React.Component {
           text: formatText(useful, reco, feedback, email, userId),
         },
       }),
-    }).catch((err) => console.log('sendNPS err', err));
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log('sendNPS err', err));
+
     this.npsSent = true;
     this.setState({ visible: false });
   };
