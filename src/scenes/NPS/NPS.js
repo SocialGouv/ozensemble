@@ -55,7 +55,7 @@ class NPS extends React.Component {
   };
 
   async componentDidMount() {
-    this.reset(); // useful in dev mode
+    // this.reset(); // useful in dev mode
     AppState.addEventListener('change', this.handleAppStateChange);
     this.notificationsListener = NotificationService.listen(this.handleNotification);
     this.checkNeedNPS();
