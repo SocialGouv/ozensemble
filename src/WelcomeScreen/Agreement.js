@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Linking, TouchableWithoutFeedback, Modal } from 'react-native';
+import { TouchableWithoutFeedback, Modal } from 'react-native';
 import CGUs from '../Infos/CGUs';
 import PrivacyPolicy from '../Infos/PrivacyPolicy';
 
@@ -10,9 +10,7 @@ const Agreement = ({ onAgree, agreed }) => {
   return (
     <>
       <Container>
-        <TouchableWithoutFeedback
-          onPress={onAgree}
-          hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
+        <TouchableWithoutFeedback onPress={onAgree} hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
           <CheckBoxContainer>
             <CheckBox agreed={agreed} />
           </CheckBoxContainer>

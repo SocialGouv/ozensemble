@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import H2 from '../components/H2';
 import UnderlinedButton from '../components/UnderlinedButton';
 import ButtonPrimary from '../components/ButtonPrimary';
-import { quizzPadding, screenWidth } from '../styles/theme';
+import { defaultPadding, screenWidth } from '../styles/theme';
 /*
 QUIZZ
 */
@@ -71,10 +71,10 @@ QUESTION
 
 export const ScreenBgStyled = styled.View`
   background-color: #f9f9f9;
-  padding-horizontal: ${quizzPadding}px;
-  padding-top: ${quizzPadding / 2}px;
-  flex-shrink: 0;
-  flex-grow: 0;
+  padding-horizontal: ${defaultPadding}px;
+  padding-top: ${defaultPadding / 2}px;
+  flex-shrink: 1;
+  flex-grow: 1;
   width: ${screenWidth}px;
   max-width: ${screenWidth}px;
   ${({ debug }) => debug && 'border: 2px solid #000;'}
