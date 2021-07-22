@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 import Matomo from './lib';
 import CONSTANTS from '../../reference/constants';
 import { getGenderFromLocalStorage, mapResultToMatomoProfile } from '../../scenes/Quizz/utils';
+import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../../config';
 
 const initMatomo = async () => {
   let userId = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_USER_ID);
@@ -19,14 +20,14 @@ const initMatomo = async () => {
 
   Matomo.init({
     baseUrl: MATOMO_URL,
-    idsite: 22,
+    idsite: MATOMO_IDSITE_1,
     userId,
     _idvc: newVisits,
   });
 
   Matomo.init2({
     baseUrl: MATOMO_URL_2,
-    idsite: 2,
+    idsite: MATOMO_IDSITE_2,
   });
 
   const resultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT);
