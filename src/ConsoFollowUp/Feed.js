@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Timeline from './Timeline';
 import DateDisplay from './DateDisplay';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -39,7 +39,7 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ days, drinks, setModalTimestamp, removeDrink, showSetDrinksModal, hideFeed }) => {
+const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
   const [timestampSelected, setTimestampSelected] = React.useState(null);
 
   const navigation = useNavigation();
@@ -62,18 +62,11 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, showSetDrinksModal
     removeDrink(timestamp);
   };
 
-  const onBackHandlerPressed = () => {
-    if (timestampSelected !== null) {
-      setTimestampSelected(null);
-      return true;
-    }
-  };
+  const isFocused = useIsFocused();
 
   React.useEffect(() => {
-    setTimestampSelected(null);
-  }, [showSetDrinksModal]);
-
-  useBackHandler(onBackHandlerPressed, !showSetDrinksModal);
+    if (isFocused) setTimestampSelected(null);
+  }, [isFocused]);
 
   return (
     <React.Fragment>

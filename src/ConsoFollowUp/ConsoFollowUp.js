@@ -14,7 +14,7 @@ import HeaderBackground from '../components/HeaderBackground';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
-const ConsoFollowUp = ({ showWelcomeMessage, showSetDrinksModal }) => {
+const ConsoFollowUp = ({ showWelcomeMessage }) => {
   const [showHelpModal, setShowHelpModal] = React.useState(false);
 
   return (
@@ -60,7 +60,7 @@ const ConsoFollowUp = ({ showWelcomeMessage, showSetDrinksModal }) => {
             />
           )}
         </TopContainer>
-        <Feed showSetDrinksModal={showSetDrinksModal} hideFeed={showWelcomeMessage} />
+        <Feed hideFeed={showWelcomeMessage} />
       </ScreenBgStyled>
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
     </Background>
