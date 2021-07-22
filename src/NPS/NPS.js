@@ -50,12 +50,11 @@ class NPS extends React.Component {
     feedback: '',
     email: '',
     sendButton: 'Envoyer',
-    NPSKey: 0,
     page: 1,
   };
 
   async componentDidMount() {
-    // this.reset();
+    // this.reset(); // useful in dev mode
     AppState.addEventListener('change', this.handleAppStateChange);
     this.notificationsListener = NotificationService.listen(this.handleNotification);
     this.checkNeedNPS();
@@ -64,13 +63,6 @@ class NPS extends React.Component {
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
     NotificationService.remove(this.notificationsListener);
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState.NPSKey && this.state.NPSKey) this.checkNeedNPS();
-    if (prevProps.forceView !== this.props.forceView && !this.state.visible) {
-      this.setState({ visible: true });
-    }
   }
 
   reset = async () => {
@@ -101,13 +93,7 @@ class NPS extends React.Component {
   };
 
   handleAppStateChange = (newState) => {
-    const { NPSKey } = this.state;
-    if (newState === 'active' && !NPSKey) {
-      this.setState({ NPSKey: 1 });
-    }
-    if (newState.match(/inactive|background/) && Boolean(NPSKey)) {
-      this.setState({ NPSKey: 0 });
-    }
+    if (newState === 'active') this.checkNeedNPS();
   };
 
   handleNotification = (notification) => {
@@ -133,7 +119,7 @@ class NPS extends React.Component {
               {
                 text: 'Donner mon avis',
                 onPress: () => {
-                  this.setState(({ NPSKey }) => ({ NPSKey: NPSKey + 1 }));
+                  this.setState({ visible: true });
                 },
               },
               {

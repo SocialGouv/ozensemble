@@ -29,7 +29,6 @@ const TabsNavigator = ({ navigation, route }) => {
   useEffect(() => {
     (async () => {
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
-      if (__DEV__) return setInitialRouteName('INFOS');
       if (!answersExist) return setInitialRouteName('TESTS');
       return setInitialRouteName('CONSO_FOLLOW_UP');
     })();
