@@ -22,6 +22,7 @@ import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import TextStyled from '../../components/TextStyled';
+import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -178,10 +179,10 @@ class NPS extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        apiKey: TIPIMAIL_API_KEY,
+        apiKey: TIPIMAIL_API_USER,
         to: [
           {
-            address: __DEV__ ? 'arnaud@ambroselli.io' : 'nps_addicto@selego.co',
+            address: TIPIMAIL_EMAIL_TO,
           },
         ],
         msg: {
