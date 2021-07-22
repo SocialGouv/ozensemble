@@ -2,6 +2,14 @@ apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
+
+project.ext.envConfigFiles = [
+    debug: ".env.local",
+    release: ".env",
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -78,12 +86,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: false,  // clean and rebuild if changing
-]
-
-project.ext.envConfigFiles = [
-    debug: ".env.local",
-    release: ".env",
+    enableHermes: true,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -153,18 +156,16 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file(project.env.get('MYAPP_UPLOAD_STORE_FILE'))
+            storePassword project.env.get("MYAPP_UPLOAD_STORE_PASSWORD")
+            keyAlias project.env.get("MYAPP_UPLOAD_KEY_ALIAS")
+            keyPassword project.env.get("MYAPP_UPLOAD_KEY_PASSWORD")
         }
         release {
-            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
-                storeFile file(MYAPP_UPLOAD_STORE_FILE)
-                storePassword MYAPP_UPLOAD_STORE_PASSWORD
-                keyAlias MYAPP_UPLOAD_KEY_ALIAS
-                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
-            }
+            storeFile file(project.env.get('MYAPP_UPLOAD_STORE_FILE'))
+            storePassword project.env.get("MYAPP_UPLOAD_STORE_PASSWORD")
+            keyAlias project.env.get("MYAPP_UPLOAD_KEY_ALIAS")
+            keyPassword project.env.get("MYAPP_UPLOAD_KEY_PASSWORD")
         }
     }
     buildTypes {
@@ -232,4 +233,3 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
