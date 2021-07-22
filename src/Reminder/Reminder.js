@@ -1,7 +1,8 @@
 import React from 'react';
-import { Alert, Linking, Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { openSettings } from 'react-native-permissions';
 import CONSTANTS from '../reference/constants';
 import ReminderIcon from '../components/Illustrations/ReminderIcon';
 import TextStyled from '../components/TextStyled';
@@ -56,7 +57,7 @@ class Reminder extends React.Component {
   };
 
   showTimePicker = async () => {
-    const isRegistered = await NotificationService.checkPermission();
+    const isRegistered = await NotificationService.checkAndAskForPermission();
     if (!isRegistered) {
       this.showPermissionsAlert();
       return;
@@ -71,7 +72,7 @@ class Reminder extends React.Component {
       [
         {
           text: 'Réglages',
-          onPress: () => Linking.openURL('app-settings:'),
+          onPress: () => openSettings(),
         },
         {
           text: 'Annuler',
@@ -119,7 +120,7 @@ class Reminder extends React.Component {
               {
                 text: 'Suivi',
                 onPress: () => {
-                  this.props.setView(CONSTANTS.VIEW_CONSO);
+                  this.props.navigation.navigate('CONSO_FOLLOW_UP');
                   matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
                   this.notifHandled = false;
                 },
@@ -146,10 +147,10 @@ class Reminder extends React.Component {
 
   render() {
     const { reminder, timePickerVisible } = this.state;
-    const { onBackPress } = this.props;
+    const { navigation } = this.props;
     return (
       <Container>
-        <BackButton content="< Retour" onPress={onBackPress} bold />
+        <BackButton content="< Retour" onPress={navigation.goBack} bold />
         <ReminderIcon size={80} color="#4030a5" selected={false} />
         <Title>
           <TextStyled color="#4030a5">N'oubliez plus jamais de remplir vos consommations</TextStyled>

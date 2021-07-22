@@ -32,11 +32,6 @@ export const Arrow = styled.Text`
   font-weight: bold;
 `;
 
-const paddingHorizontal = 30;
-export const TopContainer = styled.View`
-  padding: 20px ${paddingHorizontal}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
-`;
-
 export const TopTitle = styled(H1)`
   ${commonCss}
   padding-horizontal: 30px;

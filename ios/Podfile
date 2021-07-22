@@ -5,11 +5,19 @@ platform :ios, '10.0'
 
 target 'oz_ensemble' do
   config = use_native_modules!
-
-  use_react_native!(:path => config["reactNativePath"])
+  permissions_path = '../node_modules/react-native-permissions/ios'
 
   pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
 
   target 'oz_ensembleTests' do
     inherit! :complete
@@ -20,7 +28,7 @@ target 'oz_ensemble' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!({ 'Flipper' => '0.98.0' })
+  use_flipper!({'Flipper' => '0.98.0', 'Flipper-Folly' => '2.6.7'})
   post_install do |installer|
     flipper_post_install(installer)
   end

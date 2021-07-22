@@ -1,97 +1,95 @@
 import React from 'react';
-import { Text, TouchableOpacity, Linking } from 'react-native';
-import { useBackHandler } from '../helpers/customHooks';
-import { ScreenBgStyled, MenuItemStyled, Arrow, TopTitle } from './styles';
-import Swiper from 'react-native-swiper';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Text, TouchableOpacity } from 'react-native';
 import TextStyled from '../components/TextStyled';
-import CONSTANTS from '../reference/constants';
 import Reminder from '../Reminder/Reminder';
 import Export from '../Export/Export';
 import CGUs from './CGUs';
 import PrivacyPolicy from './PrivacyPolicy';
+import Background from '../components/Background';
+import HeaderBackground from '../components/HeaderBackground';
 
-const Infos = ({ setView, forceShowNPS }) => {
-  const [screen, setScreen] = React.useState(0);
-  const [subView, setSubView] = React.useState(null);
-  const [showNPS, setShowNPS] = React.useState(0);
+const InfosStack = createStackNavigator();
 
-  const swiperRef = React.useRef(null);
-  const forceNPSTimeout = React.useRef(null);
-
-  const onBackHandlerPressed = () => {
-    if (screen === 1) {
-      setScreen(0);
-    }
-    return true;
-  };
-
-  const showSubview = (nextSubView) => {
-    setSubView(nextSubView);
-    setTimeout(() => {
-      setScreen(1);
-    }, 250);
-  };
-
-  const onEmptyPress = () => {
-    clearTimeout(forceNPSTimeout.current);
-    if (showNPS < 4) {
-      setShowNPS(showNPS + 1);
-      forceNPSTimeout.current = setTimeout(() => {
-        setShowNPS(0);
-      }, 3000);
-    } else {
-      setShowNPS(0);
-      forceShowNPS();
-    }
-  };
-
-  React.useEffect(() => {
-    if (!swiperRef.current) return;
-    swiperRef.current.scrollTo(screen, true);
-  }, [screen]);
-
-  useBackHandler(onBackHandlerPressed);
-
-  return (
-    <Swiper loop={false} index={0} showsPagination={false} scrollEnabled={false} ref={swiperRef}>
-      <InfosMenu onShowSubview={showSubview} onEmptyPress={onEmptyPress} />
-      <ScreenBgStyled>
-        {subView === CONSTANTS.VIEW_REMINDER && <Reminder setView={setView} onBackPress={onBackHandlerPressed} />}
-        {subView === CONSTANTS.VIEW_EXPORT && <Export onBackPress={onBackHandlerPressed} />}
-        {subView === CONSTANTS.VIEW_CGU && <CGUs onClose={onBackHandlerPressed} />}
-        {subView === CONSTANTS.VIEW_PRIVACY_POLICY && <PrivacyPolicy onClose={onBackHandlerPressed} />}
-      </ScreenBgStyled>
-    </Swiper>
-  );
-};
-
-const InfosMenu = ({ onShowSubview, onEmptyPress }) => (
-  <ScreenBgStyled>
-    <TopTitle>
-      <TextStyled color="#4030a5">Mes informations</TextStyled>
-    </TopTitle>
-    <MenuItem caption="Rappel" onPress={() => onShowSubview(CONSTANTS.VIEW_REMINDER)} />
-    <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => onShowSubview(CONSTANTS.VIEW_CGU)} />
-    <MenuItem caption="Privacy Policy" onPress={() => onShowSubview(CONSTANTS.VIEW_PRIVACY_POLICY)} />
-    <MenuItem caption="Exporter mes données" onPress={() => onShowSubview(CONSTANTS.VIEW_EXPORT)} />
-    <MenuItem notVisible onPress={() => onEmptyPress()} />
-  </ScreenBgStyled>
+const Infos = () => (
+  <Background color="#39cec0" withSwiperContainer>
+    <HeaderBackground />
+    <InfosStack.Navigator headerMode="none">
+      <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
+      <InfosStack.Screen name="REMINDER" component={Reminder} />
+      <InfosStack.Screen name="CGU" component={CGUs} />
+      <InfosStack.Screen name="PRIVACY_POLICY" component={PrivacyPolicy} />
+      <InfosStack.Screen name="EXPORT" component={Export} />
+    </InfosStack.Navigator>
+  </Background>
 );
 
-const MenuItem = ({ caption, onPress, link, notVisible }) => (
-  <TouchableOpacity
-    onPress={() => {
-      if (link) {
-        Linking.openURL(link);
-        return;
-      }
-      onPress();
-    }}>
-    <MenuItemStyled notVisible={notVisible}>
+const InfosMenu = ({ navigation }) => (
+  <>
+    <ScreenBgStyled>
+      <TopTitle>
+        <TextStyled color="#4030a5">Mes informations</TextStyled>
+      </TopTitle>
+      <MenuItem caption="Rappel" onPress={() => navigation.push('REMINDER')} />
+      <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
+      <MenuItem
+        caption="Mentions Légales & Politique de Confidentialité"
+        onPress={() => navigation.push('PRIVACY_POLICY')}
+      />
+      <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+    </ScreenBgStyled>
+  </>
+);
+
+const MenuItem = ({ caption, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <MenuItemStyled>
       <Text>{caption}</Text>
-      {!link && <Arrow>{'>'}</Arrow>}
+      <Arrow>{'>'}</Arrow>
     </MenuItemStyled>
   </TouchableOpacity>
 );
 
 export default Infos;
+
+import styled, { css } from 'styled-components';
+import H1 from '../components/H1';
+import { defaultPadding } from '../styles/theme';
+
+const ScreenBgStyled = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    backgroundColor: '#f9f9f9',
+    flexShrink: 1,
+    flexGrow: 1,
+    flexBasis: '100%',
+    minHeight: '100%',
+  },
+})``;
+
+const MenuItemStyled = styled.View`
+  height: 70px;
+  border-bottom-width: 1px;
+  border-bottom-color: #4030a522;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-horizontal: ${defaultPadding}px;
+`;
+
+const commonCss = css`
+  width: 95%;
+  flex-shrink: 0;
+`;
+
+const Arrow = styled.Text`
+  color: #4030a5;
+  font-weight: bold;
+`;
+
+const TopTitle = styled(H1)`
+  ${commonCss}
+  padding-horizontal: 30px;
+  padding-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
