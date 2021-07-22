@@ -5,8 +5,8 @@ import DoctoLib from './DoctoLib';
 
 const ContactStack = createStackNavigator();
 const Contact = () => (
-  <ContactStack.Navigator headerMode="none" initialRouteName="CONTACT_INTRO" mode="modal">
-    <ContactStack.Screen name="CONTACT_INTRO" component={ContactForm} />
+  <ContactStack.Navigator headerMode="none" initialRouteName="CONTACT_TAB" mode="modal">
+    <ContactStack.Screen name="CONTACT_TAB" component={ContactForm} />
     <ContactStack.Screen name="DOCTOLIB" component={DoctoLib} />
   </ContactStack.Navigator>
 );

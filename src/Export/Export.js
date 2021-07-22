@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import TextStyled from '../components/TextStyled';
 import H2 from '../components/H2';
 import ButtonPrimary from '../components/ButtonPrimary';
-import { BackButton } from '../Contact/styles';
 import { getHTMLExport } from '../ConsoFollowUp/consoDuck';
 import { connect } from 'react-redux';
 import { withToast } from '../services/toast';
 import { compose } from 'recompose';
+import UnderlinedButton from '../components/UnderlinedButton';
+import { defaultPadding } from '../styles/theme';
 
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 class Export extends React.Component {
@@ -56,11 +57,11 @@ class Export extends React.Component {
 
   render() {
     const { email } = this.state;
-    const { onBackPress } = this.props;
+    const { navigation } = this.props;
     return (
-      <>
-        <BackButton content="< Retour" onPress={onBackPress} bold />
-        <Container>
+      <Container>
+        <BackButton content="< Retour" onPress={navigation.goBack} bold />
+        <SubContainer>
           <Title>
             <TextStyled color="#4030a5">Exporter mes données</TextStyled>
           </Title>
@@ -80,8 +81,8 @@ class Export extends React.Component {
           <ButtonsContainer>
             <ButtonPrimary content="Envoyer" disabled={!email} onPress={this.exportData} />
           </ButtonsContainer>
-        </Container>
-      </>
+        </SubContainer>
+      </Container>
     );
   }
 }
@@ -89,8 +90,16 @@ class Export extends React.Component {
 const Container = styled.View`
   justify-content: center;
   align-items: center;
+  background-color: #f9f9f9;
+  flex: 1;
+  padding-horizontal: ${defaultPadding}px;
+`;
+
+const SubContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   padding-bottom: 100px;
-  padding-horizontal: 30px;
   background-color: #f9f9f9;
   flex: 1;
 `;
@@ -120,6 +129,11 @@ const TextInputStyled = styled.TextInput`
   justify-content: center;
   margin-bottom: 10px;
   margin-top: 15px;
+`;
+
+const BackButton = styled(UnderlinedButton)`
+  margin-right: auto;
+  margin-left: -20px;
 `;
 
 const makeStateToProps = () => (state) => ({
