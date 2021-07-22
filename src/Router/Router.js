@@ -66,7 +66,9 @@ const TabsNavigator = ({ navigation, route }) => {
         name="CTA_ADD_DRINK_PLACEHOLDER"
         options={{
           tabBarLabel: '',
-          tabBarIcon: () => <AddDrinkCTAButton onCTAPress={() => navigation.push('DRINKS_MODAL')} />,
+          tabBarIcon: () => (
+            <AddDrinkCTAButton onCTAPress={() => navigation.push('DRINKS_MODAL', { timestamp: Date.now() })} />
+          ),
         }}
         listeners={{
           tabPress: (e) => {

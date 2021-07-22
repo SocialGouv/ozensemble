@@ -172,14 +172,6 @@ const DrinksModal = ({
                 onDelete={removeOwnDrinkRequest}
               />
             ))}
-            {/* <ButtonsContainer>
-                <ButtonPrimary
-                  content="Ajoutez une boisson"
-                  onPress={() => {
-                    setShowBarCodeReader(true);
-                  }}
-                />
-              </ButtonsContainer> */}
             <DrinksHeader content="Génériques" />
           </>
         )}
