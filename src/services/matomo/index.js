@@ -4,7 +4,7 @@ import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import Matomo from './lib';
 import CONSTANTS from '../../reference/constants';
-import { getGenderFromLocalStorage, mapResultToMatomoProfile } from '../../Quizz/utils';
+import { getGenderFromLocalStorage, mapResultToMatomoProfile } from '../../scenes/Quizz/utils';
 
 const initMatomo = async () => {
   let userId = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_USER_ID);

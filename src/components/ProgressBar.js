@@ -10,7 +10,7 @@ const ProgressBar = ({ progress }) => {
   React.useEffect(() => {
     Animated.timing(computedProgress, {
       toValue: progress,
-      duration: 500,
+      duration: 400,
       useNativeDriver: false,
     }).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps

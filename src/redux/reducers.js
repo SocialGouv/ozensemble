@@ -1,4 +1,4 @@
-import conso from '../ConsoFollowUp/consoDuck';
+import conso from '../scenes/ConsoFollowUp/consoDuck';
 
 export default {
   conso,

@@ -29,11 +29,21 @@ target 'oz_ensemble' do
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
   use_flipper!({'Flipper' => '0.98.0', 'Flipper-Folly' => '2.6.7'})
+  ENVFILES = {
+    'Debug' => '$(PODS_ROOT)/../../.env.local',
+    'Release' => '$(PODS_ROOT)/../../.env',
+  }
   post_install do |installer|
     flipper_post_install(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        if target.name == 'react-native-config'
+          config.build_settings['ENVFILE'] = ENVFILES[config.name]
+        end
+      end
+    end
   end
 end
-
 target 'oz_ensemble-tvOS' do
   # Pods for oz_ensemble-tvOS
 
