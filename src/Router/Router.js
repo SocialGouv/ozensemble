@@ -135,12 +135,12 @@ class Router extends React.Component {
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
             <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen name="NPS" component={NPS} />
             <Root.Screen name="DRINKS_MODAL" component={DrinksModal} />
             <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>
         )}
         <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />
+        <NPS />
       </NavigationContainer>
     );
   }
