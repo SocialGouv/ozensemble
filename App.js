@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './src/redux/store';
-import Router from './src/Router/Router';
+import Router from './src/Router';
 
 import * as Sentry from '@sentry/react-native';
 import { ToastProvider } from './src/services/toast';
