@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNBootSplash from 'react-native-bootsplash';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import matomo from '../services/matomo';
-import Background from '../components/Background';
 import CONSTANTS from '../reference/constants';
 import NotificationService from '../services/notifications';
 import WelcomeScreen from '../WelcomeScreen/WelcomeScreen';
@@ -31,70 +30,69 @@ const TabsNavigator = ({ navigation, route }) => {
   useEffect(() => {
     (async () => {
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
-      if (!answersExist) return setInitialRouteName('Quizz');
-      return setInitialRouteName('ConsoFollowUp');
+      if (__DEV__) return setInitialRouteName('TESTS');
+      if (!answersExist) return setInitialRouteName('TESTS');
+      return setInitialRouteName('CONSO_FOLLOW_UP');
     })();
   }, []);
 
   if (!initialRouteName) return null;
 
   return (
-    <Background color="#39cec0" withSwiperContainer neverBottom>
-      <Tabs.Navigator
-        initialRouteName={initialRouteName}
-        lazy={true}
-        tabBarOptions={{
-          activeTintColor: '#5352a3',
-          inactiveTintColor: '#39cec066',
-          keyboardHidesTabBar: true,
+    <Tabs.Navigator
+      initialRouteName={initialRouteName}
+      lazy={false}
+      tabBarOptions={{
+        activeTintColor: '#5352a3',
+        inactiveTintColor: '#39cec0cc',
+        keyboardHidesTabBar: true,
+      }}>
+      <Tabs.Screen
+        name="CONTACT"
+        options={{
+          tabBarLabel: 'En parler',
+          tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
+        }}
+        component={Contact}
+      />
+      <Tabs.Screen
+        name="CONSO_FOLLOW_UP"
+        options={{
+          tabBarLabel: 'Suivi',
+          tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
+        }}
+        component={ConsoFollowUp}
+      />
+      <Tabs.Screen
+        name="CTA_ADD_DRINK_PLACEHOLDER"
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: () => <AddDrinkCTAButton onCTAPress={() => navigation.push('DRINKS_MODAL')} />,
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+          },
         }}>
-        <Tabs.Screen
-          name="Contact"
-          options={{
-            tabBarLabel: 'En parler',
-            tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
-          }}
-          component={Contact}
-        />
-        <Tabs.Screen
-          name="ConsoFollowUp"
-          options={{
-            tabBarLabel: 'Suivi',
-            tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
-          }}
-          component={ConsoFollowUp}
-        />
-        <Tabs.Screen
-          name="CTAPlaceHolder"
-          options={{
-            tabBarLabel: '',
-            tabBarIcon: () => <AddDrinkCTAButton onCTAPress={() => navigation.push('DrinksModal')} />,
-          }}
-          listeners={{
-            tabPress: (e) => {
-              e.preventDefault();
-            },
-          }}>
-          {() => null}
-        </Tabs.Screen>
-        <Tabs.Screen
-          name="Quizz"
-          options={{
-            tabBarLabel: 'Tests',
-            tabBarIcon: ({ size, color }) => <TestsIcon size={size} color={color} />,
-          }}
-          component={Quizz}
-        />
-        <Tabs.Screen
-          name="Infos"
-          options={{
-            tabBarLabel: 'Infos',
-            tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
-          }}
-          component={Infos}
-        />
-      </Tabs.Navigator>
-    </Background>
+        {() => null}
+      </Tabs.Screen>
+      <Tabs.Screen
+        name="TESTS"
+        options={{
+          tabBarLabel: 'Tests',
+          tabBarIcon: ({ size, color }) => <TestsIcon size={size} color={color} />,
+        }}
+        component={Quizz}
+      />
+      <Tabs.Screen
+        name="INFOS"
+        options={{
+          tabBarLabel: 'Infos',
+          tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
+        }}
+        component={Infos}
+      />
+    </Tabs.Navigator>
   );
 };
 const Root = createStackNavigator();
@@ -116,8 +114,8 @@ class Router extends React.Component {
     await matomo.initMatomo();
     await matomo.logAppVisit('initApp');
     const onBoardingDone = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE);
-    if (!onBoardingDone) return this.setState({ initialRouteName: 'WelcomeScreen' });
-    return this.setState({ initialRouteName: 'Tabs' });
+    if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
+    return this.setState({ initialRouteName: 'TABS' });
   };
 
   onStateChange = async () => {
@@ -131,19 +129,15 @@ class Router extends React.Component {
   render() {
     const { initialRouteName } = this.state;
     return (
-      <NavigationContainer
-        ref={(r) => {
-          this.navigationRef = r;
-        }}
-        onStateChange={this.onStateChange}>
+      <NavigationContainer ref={(r) => (this.navigationRef = r)} onStateChange={this.onStateChange}>
         <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
-            <Root.Screen name="WelcomeScreen" component={WelcomeScreen} />
-            <Root.Screen name="DoctoLib" component={DoctoLib} />
+            <Root.Screen name="WELCOME" component={WelcomeScreen} />
+            <Root.Screen name="DOCTOLIB" component={DoctoLib} />
             <Root.Screen name="NPS" component={NPS} />
-            <Root.Screen name="DrinksModal" component={DrinksModal} />
-            <Root.Screen name="Tabs" component={TabsNavigator} />
+            <Root.Screen name="DRINKS_MODAL" component={DrinksModal} />
+            <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>
         )}
         <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />

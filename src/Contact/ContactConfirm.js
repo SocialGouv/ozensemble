@@ -3,7 +3,7 @@ import TextStyled from '../components/TextStyled';
 import { ScreenBgStyled, TopContainer, TopTitle, TopSubTitle, BackButton } from './styles';
 import Bottom from '../Quizz/Results/Bottom';
 
-const ContactConfirm = ({ setView, onBackPress }) => (
+const ContactConfirm = ({ onBackPress }) => (
   <ScreenBgStyled>
     <TopContainer shortPaddingBottom>
       <BackButton withoutPadding content="< Retour" onPress={onBackPress} bold />
@@ -14,7 +14,7 @@ const ContactConfirm = ({ setView, onBackPress }) => (
         <TextStyled color="#191919">Vous serez rappelé très prochainement.</TextStyled>
       </TopSubTitle>
     </TopContainer>
-    <Bottom setView={setView} />
+    <Bottom onActionButtonPress={() => null} />
   </ScreenBgStyled>
 );
 

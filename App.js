@@ -8,6 +8,7 @@ import Router from './src/Router/Router';
 import * as Sentry from '@sentry/react-native';
 import { ToastProvider } from './src/services/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import './src/styles/theme';
 
 if (!__DEV__) {
   Sentry.init({

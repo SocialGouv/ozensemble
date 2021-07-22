@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Animated } from 'react-native';
-import { quizzPadding, screenWidth } from '../styles/theme';
+import { defaultPadding, screenWidth } from '../styles/theme';
 
 const ProgressBar = ({ progress }) => {
   const computedProgress = React.useRef(new Animated.Value(progress)).current;
@@ -35,14 +35,14 @@ const ProgressBar = ({ progress }) => {
 };
 
 const progressBarHeight = 10;
-const progressBarWidth = screenWidth - 2 * quizzPadding;
+const progressBarWidth = screenWidth - 2 * defaultPadding;
 const minWidth = 0.05; // the min width of the progress bar is 5% of the container
 
 const ProgressBarContainer = styled.View`
   height: ${progressBarHeight}px;
   width: ${progressBarWidth}px;
-  margin: ${quizzPadding}px;
-  margin-bottom: ${quizzPadding / 2}px;
+  margin: ${defaultPadding}px;
+  margin-bottom: ${defaultPadding / 2}px;
   background-color: #efefef;
   border-radius: ${progressBarHeight}px;
 `;

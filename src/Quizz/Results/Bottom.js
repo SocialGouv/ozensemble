@@ -1,6 +1,5 @@
 import React from 'react';
 import TextStyled from '../../components/TextStyled';
-import CONSTANTS from '../../reference/constants';
 import {
   BottomContainer,
   BottomSubContainer,
@@ -9,10 +8,9 @@ import {
   ResultsIllustrationStyled,
   UnderlinedButtonStyled,
 } from './styles';
-import matomo from '../../services/matomo';
 
 const Bottom = ({
-  setView,
+  onActionButtonPress,
   title = 'Suivez votre consommation',
   subTitle = 'Commencez dès maintenant à suivre votre consommation au quotidien',
   buttonTitle = 'Suivre ma consommation',
@@ -28,16 +26,7 @@ const Bottom = ({
       <BottomSubTitle>
         <TextStyled color="#191919">{subTitle}</TextStyled>
       </BottomSubTitle>
-      <UnderlinedButtonStyled
-        withoutPadding
-        color="#de285e"
-        bold
-        content={buttonTitle}
-        onPress={() => {
-          setView(CONSTANTS.VIEW_CONSO);
-          matomo.logConsoOpen(CONSTANTS.FROM_CONTACT);
-        }}
-      />
+      <UnderlinedButtonStyled withoutPadding color="#de285e" bold content={buttonTitle} onPress={onActionButtonPress} />
     </BottomSubContainer>
   </BottomContainer>
 );

@@ -5,16 +5,7 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import ResultsIllustration from '../../components/Illustrations/ResultsIllustration';
 import { screenWidth } from '../../styles/theme';
 
-export const EmptyView = styled.View`
-  flex: 1;
-  background-color: #f9f9f9;
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  ${({ debug }) => debug && 'border: 3px solid #000;'}
-`;
-
-export const ScreenBgStyled = styled.ScrollView`
+export const FullScreenBackground = styled.ScrollView`
   background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 1;
@@ -56,7 +47,7 @@ export const TopButtonContainer = styled.View`
 
 export const BottomContainer = styled.View`
   padding: 20px;
-  ${props => props.longPaddingBottom && 'padding-bottom: 100px;'}
+  ${(props) => props.longPaddingBottom && 'padding-bottom: 100px;'}
   background-color: #efefef;
   flex-direction: row;
   margin-top: auto;

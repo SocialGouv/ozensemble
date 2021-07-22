@@ -1,14 +1,6 @@
 import React from 'react';
-import {
-  ScreenBgStyled,
-  QuestionNumber,
-  QuestionTitle,
-  AnswerButton,
-  AnswerContent,
-  ButtonPrimaryStyled,
-  SubTitle,
-  AnswersContainer,
-} from './styles';
+import ScreenBgStyled from '../components/ScreenBgStyled';
+import { QuestionNumber, QuestionTitle, AnswerButton, AnswerContent, AnswersContainer } from './styles';
 
 const Question = ({
   questionIndex,
@@ -18,6 +10,7 @@ const Question = ({
   selectedAnswerKey,
   answers,
   saveAnswer,
+  navigation,
 }) => (
   <ScreenBgStyled>
     <QuestionNumber>
@@ -28,8 +21,16 @@ const Question = ({
       {answers.map(({ answerKey, content, score }, i) => (
         <AnswerButton
           key={answerKey}
-          onPress={() => {
+          onPress={async () => {
             saveAnswer(questionIndex, questionKey, answerKey, score);
+            setTimeout(() => {
+              const endOfQuestions = questionIndex === numberOfQuestions - 1;
+              if (!endOfQuestions) {
+                navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
+              } else {
+                navigation.push('QUIZZ_RESULTS');
+              }
+            }, 500);
           }}
           selected={answerKey === selectedAnswerKey}
           last={i === answers.length - 1}>
@@ -41,16 +42,3 @@ const Question = ({
 );
 
 export default Question;
-
-export const Intro = ({ startQuizz }) => (
-  <ScreenBgStyled>
-    <AnswersContainer>
-      <QuestionNumber>Auto-évaluation</QuestionNumber>
-      <QuestionTitle>Commençons par quelques questions rapides !</QuestionTitle>
-      <SubTitle>
-        Pour évaluer votre consommation d'alcool et détecter des comportements à risques.
-      </SubTitle>
-      <ButtonPrimaryStyled content="Commencez" onPress={startQuizz} />
-    </AnswersContainer>
-  </ScreenBgStyled>
-);
