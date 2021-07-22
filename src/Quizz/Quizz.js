@@ -90,51 +90,49 @@ const Quizz = ({ setView, navigation }) => {
   if (!answers) return null;
 
   return (
-    <>
-      <Background color="#39cec0" withSwiperContainer>
-        <HeaderBackground />
-        <QuizzAndResultsStack.Navigator
-          screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-          headerMode="none"
-          initialRouteName="QUIZZ_QUESTIONS">
-          <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
-            {({ route }) => {
-              return (
-                <>
-                  <ProgressBar progress={progress} />
-                  <QuizzStack.Navigator
-                    screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-                    headerMode="none"
-                    initialRouteName="QUIZZ_INTRO">
-                    <QuizzStack.Screen name="QUIZZ_INTRO" component={Intro} />
-                    {questions.map((content, index) => (
-                      <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>
-                        {(props) => (
-                          <>
-                            <Question
-                              {...content}
-                              numberOfQuestions={questions.length}
-                              questionIndex={index}
-                              saveAnswer={saveAnswer}
-                              selectedAnswerKey={answers[content.questionKey]}
-                              {...props}
-                            />
-                            <QuizzBackButton bold content="Retour" onPress={props.navigation.goBack} />
-                          </>
-                        )}
-                      </QuizzStack.Screen>
-                    ))}
-                  </QuizzStack.Navigator>
-                </>
-              );
-            }}
-          </QuizzAndResultsStack.Screen>
-          <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS">
-            {(props) => <Results resultKey={resultKey} {...props} />}
-          </QuizzAndResultsStack.Screen>
-        </QuizzAndResultsStack.Navigator>
-      </Background>
-    </>
+    <Background color="#39cec0" withSwiperContainer>
+      <HeaderBackground />
+      <QuizzAndResultsStack.Navigator
+        screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
+        headerMode="none"
+        initialRouteName="QUIZZ_QUESTIONS">
+        <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
+          {() => {
+            return (
+              <>
+                <ProgressBar progress={progress} />
+                <QuizzStack.Navigator
+                  screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
+                  headerMode="none"
+                  initialRouteName="QUIZZ_INTRO">
+                  <QuizzStack.Screen name="QUIZZ_INTRO" component={Intro} />
+                  {questions.map((content, index) => (
+                    <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>
+                      {(props) => (
+                        <>
+                          <Question
+                            {...content}
+                            numberOfQuestions={questions.length}
+                            questionIndex={index}
+                            saveAnswer={saveAnswer}
+                            selectedAnswerKey={answers[content.questionKey]}
+                            {...props}
+                          />
+                          <QuizzBackButton bold content="Retour" onPress={props.navigation.goBack} />
+                        </>
+                      )}
+                    </QuizzStack.Screen>
+                  ))}
+                </QuizzStack.Navigator>
+              </>
+            );
+          }}
+        </QuizzAndResultsStack.Screen>
+        <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS">
+          {(props) => <Results resultKey={resultKey} {...props} />}
+        </QuizzAndResultsStack.Screen>
+      </QuizzAndResultsStack.Navigator>
+    </Background>
   );
 };
 

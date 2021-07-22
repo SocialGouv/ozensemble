@@ -12,7 +12,6 @@ import Quizz from '../Quizz/Quizz';
 import Contact from '../Contact/Contact';
 import ConsoFollowUp from '../ConsoFollowUp/ConsoFollowUp';
 import Infos from '../Infos/Infos';
-import DoctoLib from '../Contact/DoctoLib';
 import NPS from '../NPS/NPS';
 import AppStateHandler from '../services/AppStateHandler';
 import DrinksModal from '../DrinksModal/DrinksModal';
@@ -134,7 +133,6 @@ class Router extends React.Component {
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
             <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen name="DOCTOLIB" component={DoctoLib} />
             <Root.Screen name="NPS" component={NPS} />
             <Root.Screen name="DRINKS_MODAL" component={DrinksModal} />
             <Root.Screen name="TABS" component={TabsNavigator} />
