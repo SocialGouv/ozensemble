@@ -2,7 +2,7 @@
   Open Food Fact API
 */
 
-export const getOFFDataFromBarCode = async barCode => {
+export const getOFFDataFromBarCode = async (barCode) => {
   const url = `https://world.openfoodfacts.org/api/v0/product/${barCode}.json`;
   const options = {
     method: 'GET',
@@ -11,14 +11,12 @@ export const getOFFDataFromBarCode = async barCode => {
       'Content-Type': 'application/json',
     },
   };
-  const drinkData = await fetch(url, options).then(res => res.json());
-  if (drinkData.status_verbose === 'product not found') {
-    return null;
-  }
+  const drinkData = await fetch(url, options).then((res) => res.json());
+  if (drinkData.status_verbose === 'product not found') return null;
   return drinkData;
 };
 
-const formatNumber = numberOrString => {
+const formatNumber = (numberOrString) => {
   if (!numberOrString) return undefined;
   if (!isNaN(numberOrString)) {
     return numberOrString.toString();
@@ -26,7 +24,7 @@ const formatNumber = numberOrString => {
   return numberOrString.replace(/[^.\d]/g, '');
 };
 
-export const extractAlcoholDataFromOFFData = offData => {
+export const extractAlcoholDataFromOFFData = (offData) => {
   const degrees = offData.product.nutriments.alcohol;
   const brands = offData.product.brands;
   const product_name = offData.product.product_name;
@@ -51,15 +49,16 @@ const authTest = {
 // eslint-disable-next-line no-undef
 const testAuthorization = `Basic ${btoa(`${authTest.user_id}:${authTest.password}`)}`;
 
-const computeParams = params =>
+const computeParams = (params) =>
   Object.keys(params).reduce((paramString, key, index) => {
     const computedParam = `${key}=${encodeURIComponent(params[key])}`;
     if (index === 0) return computedParam;
     return `${paramString}&${computedParam}`;
   }, '');
 
-export const uploadAlcoholProductToOFF = async args => {
+export const uploadAlcoholProductToOFF = async (args) => {
   const { auth = authTest, test = true, code, fields, isNew = false } = args;
+  console.log('uploadAlcoholProductToOFF', args);
   if (!code) return;
   const baseUrl = test ? 'world.openfoodfacts.net' : 'world.openfoodfacts.org';
 
@@ -131,9 +130,9 @@ export const uploadAlcoholProductToOFF = async args => {
     };
   }
   try {
-    const response = await fetch(url, options).then(res => res.json());
+    const response = await fetch(url, options).then((res) => res.json());
     if (__DEV__) {
-      console.log(response);
+      console.log('off response', response);
       console.log(url, options);
     }
   } catch (error) {

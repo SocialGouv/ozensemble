@@ -20,8 +20,10 @@ const Infos = () => (
     <InfosStack.Navigator headerMode="none">
       <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
       <InfosStack.Screen name="REMINDER" component={Reminder} />
-      <InfosStack.Screen name="CGU" component={CGUs} />
-      <InfosStack.Screen name="PRIVACY_POLICY" component={PrivacyPolicy} />
+      <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
+      <InfosStack.Screen name="PRIVACY_POLICY">
+        {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
+      </InfosStack.Screen>
       <InfosStack.Screen name="EXPORT" component={Export} />
     </InfosStack.Navigator>
   </Background>

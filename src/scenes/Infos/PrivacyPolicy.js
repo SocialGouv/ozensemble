@@ -8,11 +8,11 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { Linking, Text } from 'react-native';
 import { defaultPadding } from '../../styles/theme';
 
-const PrivacyPolicy = ({ navigation }) => (
+const PrivacyPolicy = ({ onClose }) => (
   <SafeAreaProvider>
     <Background color="#f9f9f9">
       <Container>
-        <BackButton content="< Retour" onPress={navigation.goBack} bold />
+        <BackButton content="< Retour" onPress={onClose} bold />
         <H1>Mentions Légales & Politique de Confidentialité - Application Oz Ensemble</H1>
         <Spacer size={50} />
         <H2>Mentions Légales - Editeur de la plateforme</H2>

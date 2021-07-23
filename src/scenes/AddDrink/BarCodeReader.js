@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TouchableWithoutFeedback, Modal, Alert } from 'react-native';
+import { TouchableWithoutFeedback, Alert } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import {
   BarCodeHint,
@@ -144,45 +144,40 @@ class BarCodeReader extends React.Component {
   };
 
   render() {
-    const { visible } = this.props;
     const { withTorch } = this.state;
 
     return (
-      <Modal visible={visible} transparent animationType="slide" onRequestClose={this.handleClose}>
-        <CameraContainer>
-          <Preview
-            type={RNCamera.Constants.Type.back}
-            flashMode={withTorch ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
-            captureAudio={false}
-            androidCameraPermissionOptions={{
-              title: "Permission pour utiliser l'appareil photo",
-              message:
-                'Oz Ensemble souhaite accéder à votre appareil photo afin de lire les codes barres des produits que vous scannez',
-              buttonPositive: 'Ok',
-              buttonNegative: 'Cancel',
-            }}
-            onBarCodeRead={this.handleBarCodeRead}
-          />
-          <ButtonsContainerSafe>
-            <BarCodeHint>Scannez le code-barres d'une boisson ou</BarCodeHint>
-            <ButtonsContainer>
-              <ButtonPrimary content="Ajoutez manuellement" onPress={this.handleAddManually} />
-              <UnderlinedButton content="Retour" bold onPress={this.handleClose} />
-            </ButtonsContainer>
-          </ButtonsContainerSafe>
-          <CameraButtonsContainerSafe>
-            <ButtonsContainer flexStart>
-              <TouchableWithoutFeedback
-                onPress={this.toggleTorch}
-                hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-                <CameraButton>
-                  <TorchIcon size={20} showWithCrossLine={withTorch} />
-                </CameraButton>
-              </TouchableWithoutFeedback>
-            </ButtonsContainer>
-          </CameraButtonsContainerSafe>
-        </CameraContainer>
-      </Modal>
+      <CameraContainer>
+        <Preview
+          type={RNCamera.Constants.Type.back}
+          flashMode={withTorch ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
+          captureAudio={false}
+          androidCameraPermissionOptions={{
+            title: "Permission pour utiliser l'appareil photo",
+            message:
+              'Oz Ensemble souhaite accéder à votre appareil photo afin de lire les codes barres des produits que vous scannez',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          onBarCodeRead={this.handleBarCodeRead}
+        />
+        <ButtonsContainerSafe>
+          <BarCodeHint>Scannez le code-barres d'une boisson ou</BarCodeHint>
+          <ButtonsContainer>
+            <ButtonPrimary content="Ajoutez manuellement" onPress={this.handleAddManually} />
+            <UnderlinedButton content="Retour" bold onPress={this.handleClose} />
+          </ButtonsContainer>
+        </ButtonsContainerSafe>
+        <CameraButtonsContainerSafe>
+          <ButtonsContainer flexStart>
+            <TouchableWithoutFeedback onPress={this.toggleTorch} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+              <CameraButton>
+                <TorchIcon size={20} showWithCrossLine={withTorch} />
+              </CameraButton>
+            </TouchableWithoutFeedback>
+          </ButtonsContainer>
+        </CameraButtonsContainerSafe>
+      </CameraContainer>
     );
   }
 }
