@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { Platform } from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
 import H2 from '../../components/H2';
-import H3 from '../../components/H3';
 import { buttonHeight } from '../../styles/theme';
 
-export const SafeAreaViewStyled = styled(SafeAreaView)`
+export const Container = styled.View`
   background-color: #f9f9f9;
   flex: 1;
+  padding-top: 45px;
 `;
 
 export const ModalContent = styled.ScrollView`

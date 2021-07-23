@@ -53,7 +53,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
 
   const addDrinksRequest = (timestamp) => {
     setModalTimestamp(timestamp);
-    navigation.push('DRINKS_MODAL');
+    navigation.push('ADD_DRINK');
   };
 
   const deleteDrinkRequest = (timestamp) => {

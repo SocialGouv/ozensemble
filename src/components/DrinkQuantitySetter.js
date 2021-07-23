@@ -1,9 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import TextStyled from '../../components/TextStyled';
-import H3 from '../../components/H3';
-import { getDisplayDrinksModalName, getIcon, getVolume } from '../ConsoFollowUp/drinksCatalog';
-import TouchableDelete from '../../components/TouchableDelete';
+import TextStyled from './TextStyled';
+import H3 from './H3';
+import { getDisplayDrinksModalName, getIcon, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
+import TouchableDelete from './TouchableDelete';
 
 const DrinkQuantitySetter = ({
   oneLine,
@@ -153,9 +153,9 @@ const TextContainer = styled.View`
   align-items: center;
 `;
 
-const DisplayName = styled(TextStyled).attrs((props) => ({
+const DisplayName = styled(TextStyled).attrs({
   numberOfLines: 1,
-}))`
+})`
   font-weight: bold;
   flex-shrink: 1;
 `;

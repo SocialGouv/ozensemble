@@ -1,10 +1,9 @@
 /* eslint-disable quotes */
-/* eslint-disable prettier/prettier */
 import React from 'react';
 import styled from 'styled-components';
-import { isToday, makeSureDate } from '../../helpers/dateHelpers';
-import ValidateIcon from '../../components/ValidateIcon';
 import { TouchableOpacity } from 'react-native';
+import { isToday, makeSureDate } from '../helpers/dateHelpers';
+import ValidateIcon from './ValidateIcon';
 
 const DateOrTimeDisplay = ({ date, onPress, mode }) => {
   if (!date) return null;

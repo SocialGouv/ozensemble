@@ -6,11 +6,11 @@ import Diagram from './Diagram';
 import Feed from './Feed';
 import { checkIfThereIsDrinks } from './consoDuck';
 import { drinksCatalog, BEER, BEER_HALF } from './drinksCatalog';
-import DrinksCategory from '../DrinksModal/DrinksCategory';
 import DiagramHelpModal from './DiagramHelpModal';
 import matomo from '../../services/matomo';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
+import DrinksCategory from '../../components/DrinksCategory';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -38,7 +38,14 @@ const ConsoFollowUp = ({ showWelcomeMessage }) => {
                 .map(({ categoryKey }) => categoryKey)
                 .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
                 .map((category, index) => (
-                  <DrinksCategory asPreview key={index} category={category} index={index} drinks={fakeDrinks} />
+                  <DrinksCategory
+                    drinksCatalog={drinksCatalog}
+                    asPreview
+                    key={index}
+                    category={category}
+                    index={index}
+                    drinks={fakeDrinks}
+                  />
                 ))}
               <SubTitle>
                 <TextStyled color="#191919">

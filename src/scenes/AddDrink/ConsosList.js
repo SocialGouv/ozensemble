@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
@@ -15,21 +15,20 @@ import {
 } from '../ConsoFollowUp/consoDuck';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import DateOrTimeDisplay from './DateOrTimeDisplay';
-import DrinksCategory from './DrinksCategory';
+import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
+import DrinksCategory from '../../components/DrinksCategory';
 import {
   drinksCatalog,
   formatNewDrink,
   getDrinksKeysFromCatalog,
   getDrinkQuantityFromDrinks,
 } from '../ConsoFollowUp/drinksCatalog';
-import DatePicker from './DatePicker';
+import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../services/matomo';
 import { withToast } from '../../services/toast';
-import BarCodeReader from './BarCodeReader';
 import {
-  SafeAreaViewStyled,
+  Container,
   ModalContent,
   Title,
   DateAndTimeContainer,
@@ -38,9 +37,8 @@ import {
   MarginBottom,
   SmallMarginBottom,
 } from './styles';
-import NewDrinkForm from './NewDrinkForm';
-import DrinkQuantitySetter from './DrinkQuantitySetter';
-import DrinksHeader from './DrinksHeader';
+import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
+import DrinksHeader from '../../components/DrinksHeader';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -55,7 +53,7 @@ const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
   return [...new Set([...ownDrinksKeys, ...localOwnDrinksKeys])];
 };
 
-const DrinksModal = ({
+const ConsosList = ({
   date,
   drinks,
   updateDrink,
@@ -65,11 +63,10 @@ const DrinksModal = ({
   ownDrinks,
   removeOwnDrink,
   navigation,
+  route,
 }) => {
   const [localDrinksState, setLocalDrinksState] = React.useState(drinks);
   const [showDatePicker, setShowDatePicker] = React.useState(false);
-  const [showBarCodeReader, setShowBarCodeReader] = React.useState(false);
-  const [showNewDrinkForm, setShowNewDrinkForm] = React.useState(false);
   const [newDrink, setNewDrink] = React.useState(initDrinkState);
 
   const scrollRef = React.useRef(null);
@@ -125,9 +122,8 @@ const DrinksModal = ({
     return true;
   }, [onClose]);
 
-  const onAddDrinkToCatalog = async (name, volume, degrees, drinkKey, quantity) => {
+  const onAddDrinkToCatalog = async ({ name, volume, degrees, drinkKey, quantity }) => {
     setNewDrink(initDrinkState);
-    setShowNewDrinkForm(false);
     const formattedDrink = formatNewDrink(name, volume, degrees, drinkKey);
     setOwnDrink(formattedDrink);
     setDrinkQuantityRequest(formattedDrink.drinkKey, quantity);
@@ -141,7 +137,7 @@ const DrinksModal = ({
     removeOwnDrink(drinkKey);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isFocused) {
       setLocalDrinksState(drinks);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
@@ -149,8 +145,26 @@ const DrinksModal = ({
     return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
   }, [isFocused, onCancelConsos, drinks]);
 
+  useEffect(() => {
+    if (route?.params?.addBarCodeDrink) {
+      const newDrink = route?.params?.addBarCodeDrink;
+      setNewDrink(route?.params?.addBarCodeDrink);
+      navigation.setParams({ addBarCodeDrink: null });
+      navigation.push('CONSO_NEW_DRINK', { init: newDrink });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [route?.params?.addBarCodeDrink?.timestamp]);
+
+  useEffect(() => {
+    if (route?.params?.addNewDrinkFromForm) {
+      onAddDrinkToCatalog(route?.params?.addNewDrinkFromForm);
+      navigation.setParams({ addNewDrinkFromForm: null });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [route?.params?.addNewDrinkFromForm?.timestamp]);
+
   return (
-    <SafeAreaViewStyled>
+    <Container>
       <ModalContent ref={scrollRef} disableHorizontal>
         <Title>Sélectionnez vos consommations</Title>
         <DateAndTimeContainer>
@@ -181,6 +195,7 @@ const DrinksModal = ({
           .map((category, index) => (
             <DrinksCategory
               key={index}
+              drinksCatalog={drinksCatalog}
               category={category}
               index={index}
               drinks={localDrinksState}
@@ -190,21 +205,12 @@ const DrinksModal = ({
         <>
           <SmallMarginBottom />
           <ButtonsContainer>
-            <ButtonPrimary
-              content="Scannez une boisson"
-              onPress={() => {
-                setShowBarCodeReader(true);
-                matomo.logConsoScanOwnOpen();
-              }}
-            />
+            <ButtonPrimary content="Scannez une boisson" onPress={() => navigation.push('CONSO_SCAN_BAR_CODE')} />
           </ButtonsContainer>
           <UnderlinedButton
             content="Ajoutez manuellement"
             bold
-            onPress={() => {
-              setShowNewDrinkForm(true);
-              matomo.logConsoAddOwnManuallyOpen();
-            }}
+            onPress={() => navigation.push('CONSO_NEW_DRINK', { init: newDrink })}
           />
         </>
         <MarginBottom />
@@ -218,6 +224,7 @@ const DrinksModal = ({
       <DatePicker
         visible={Boolean(showDatePicker)}
         mode={showDatePicker}
+        initDate={date}
         selectDate={(newDate) => {
           if (newDate && showDatePicker === 'date') {
             const newDateObject = new Date(newDate);
@@ -236,27 +243,7 @@ const DrinksModal = ({
           }
         }}
       />
-      <BarCodeReader
-        visible={showBarCodeReader}
-        onClose={() => setShowBarCodeReader(false)}
-        onAddDrink={(drinkData = initDrinkState) => {
-          setShowBarCodeReader(false);
-          setNewDrink(drinkData);
-          setShowNewDrinkForm(true);
-        }}
-      />
-      <NewDrinkForm
-        name={newDrink.name}
-        volume={newDrink.volume}
-        degrees={newDrink.degrees}
-        isNew={newDrink.isNew}
-        code={newDrink.code}
-        visible={showNewDrinkForm}
-        key={showNewDrinkForm}
-        onClose={() => setShowNewDrinkForm(false)}
-        onValidate={onAddDrinkToCatalog}
-      />
-    </SafeAreaViewStyled>
+    </Container>
   );
 };
 
@@ -271,4 +258,4 @@ const dispatchToProps = {
   setOwnDrink,
   removeOwnDrink,
 };
-export default compose(connect(makeStateToProps, dispatchToProps), withToast)(DrinksModal);
+export default compose(connect(makeStateToProps, dispatchToProps), withToast)(ConsosList);
