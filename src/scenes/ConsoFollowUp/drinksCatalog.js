@@ -21,9 +21,7 @@ export const HARD_BOTTLE = 'hard-bottle';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
-  if (drink) {
-    return drink.quantity;
-  }
+  if (drink) return drink.quantity;
   return 0;
 };
 
@@ -48,9 +46,6 @@ export const mapDrinkToDose = ({ drinkKey, quantity }, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
   return drink.doses * quantity;
 };
-
-export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
-  catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
 
 export const getDrinksKeysFromCatalog = (catalog) =>
   catalog.filter(({ active }) => Boolean(active)).map(({ drinkKey }) => drinkKey);

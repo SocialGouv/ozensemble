@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { connect } from 'react-redux';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { today } from '../../helpers/dateHelpers';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import { getModalTimestamp } from '../ConsoFollowUp/consoDuck';
+import ButtonPrimary from './ButtonPrimary';
+import { today } from '../helpers/dateHelpers';
+import UnderlinedButton from './UnderlinedButton';
 
 /*
   onChange:
@@ -95,8 +93,4 @@ const ButtonsContainer = styled.View`
   margin-vertical: 15px;
 `;
 
-const makeStateToProps = () => (state) => ({
-  initDate: getModalTimestamp(state),
-});
-
-export default connect(makeStateToProps)(DatePicker);
+export default DatePicker;

@@ -64,16 +64,23 @@ class BarCodeReader extends React.Component {
 
   toggleTorch = () => this.setState(({ withTorch }) => ({ withTorch: !withTorch }));
 
+  handleAddDrink = (drink = {}) => {
+    this.props.navigation.navigate('CONSOS_LIST', {
+      addBarCodeDrink: {
+        ...drink,
+        timestamp: Date.now(),
+      },
+    });
+  };
+
   handleAddManually = () => {
-    // this.handleBarCodeRead({ data: 3244081500005 });
-    // this.handleDrinkData(heineken);
-    this.props.onAddDrink();
+    this.handleAddDrink();
     matomo.logConsoAddOwnManuallyOpen();
   };
 
   handleClose = () => {
     this.reset();
-    this.props.onClose();
+    this.props.navigation.goBack();
   };
 
   handleBarCodeRead = async (e) => {
@@ -87,7 +94,7 @@ class BarCodeReader extends React.Component {
         [
           {
             text: 'Ajoutez la boisson manuellement',
-            onPress: this.props.onAddDrink,
+            onPress: this.handleAddDrink,
           },
           {
             text: 'Réessayer',
@@ -112,7 +119,7 @@ class BarCodeReader extends React.Component {
         [
           {
             text: 'Ajoutez la boisson manuellement',
-            onPress: () => this.props.onAddDrink({ code: this.barCode, isNew: true }),
+            onPress: () => this.handleAddDrink({ code: this.barCode, isNew: true }),
           },
           {
             text: 'Essayer un autre code-barres',
@@ -129,7 +136,7 @@ class BarCodeReader extends React.Component {
       );
       return;
     }
-    this.props.onAddDrink({
+    this.handleAddDrink({
       ...extractAlcoholDataFromOFFData(drinkData),
       isNew: false,
       code: this.barCode,

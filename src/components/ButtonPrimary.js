@@ -19,14 +19,13 @@ const ButtonPrimary = ({ content, onPress, small, color, shadowColor, ...props }
 );
 
 const shadowHeight = 4;
-const computeButtonHeight = small => (small ? buttonSmallHeight : buttonHeight);
+const computeButtonHeight = (small) => (small ? buttonSmallHeight : buttonHeight);
 
 const ButtonPrimaryStyled = styled.TouchableOpacity`
   background-color: ${({ shadowColor }) => shadowColor || '#c0184a'};
   height: ${({ small }) => computeButtonHeight(small) + shadowHeight}px;
   border-radius: ${({ small }) => computeButtonHeight(small)}px;
-  ${({ disabled }) => disabled && 'opacity: 0.5;'}
-  /* SHADOW NOT WORKING IN ANDROID */
+  ${({ disabled }) => disabled && 'opacity: 0.5;'}/* SHADOW NOT WORKING IN ANDROID */
   /*
   elevation: 1;
   border-width: 0;

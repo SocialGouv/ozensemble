@@ -15,12 +15,12 @@ import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
 import Infos from './scenes/Infos/Infos';
 import NPS from './scenes/NPS/NPS';
 import AppStateHandler from './services/AppStateHandler';
-import DrinksModal from './scenes/DrinksModal/DrinksModal';
-import AddDrinkCTAButton from './scenes/DrinksModal/AddDrinkCTAButton';
 import GuidanceIcon from './components/Illustrations/GuidanceIcon';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
 import TestsIcon from './components/Illustrations/Tests';
 import InfosIcon from './components/Illustrations/Infos';
+import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
+import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation, route }) => {
@@ -66,7 +66,7 @@ const TabsNavigator = ({ navigation, route }) => {
         options={{
           tabBarLabel: '',
           tabBarIcon: () => (
-            <AddDrinkCTAButton onCTAPress={() => navigation.push('DRINKS_MODAL', { timestamp: Date.now() })} />
+            <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
           ),
         }}
         listeners={{
@@ -134,7 +134,7 @@ class Router extends React.Component {
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
             <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen name="DRINKS_MODAL" component={DrinksModal} />
+            <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
             <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>
         )}

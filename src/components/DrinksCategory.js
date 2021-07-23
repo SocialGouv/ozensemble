@@ -1,11 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import TextStyled from './TextStyled';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
-import { getDrinksKeysFromCategory, drinksCatalog, getDrinkQuantityFromDrinks } from '../ConsoFollowUp/drinksCatalog';
-import { screenWidth } from '../../styles/theme';
+import { screenWidth } from '../styles/theme';
 
-const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity }) => {
+export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
+  catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
+
+export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
+  const drink = drinks.find((d) => d.drinkKey === drinkKey);
+  if (drink) return drink.quantity;
+  return 0;
+};
+
+const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, drinksCatalog }) => {
   return (
     <CategoryContainer asPreview={asPreview} darkBackground={index % 2}>
       <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
