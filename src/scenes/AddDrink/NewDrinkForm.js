@@ -39,7 +39,6 @@ const computeDrinkKey = (volume, degrees) => {
 const NewDrinkForm = ({ route, navigation }) => {
   const { init } = route.params;
   const { isNew, code } = init;
-  console.log('NewDrinkForm route params', route.params);
   const [name, setName] = useState(init.name);
   const [degrees, setDegrees] = useState(init.degrees);
   const [volume, setVolume] = useState(init.volume <= 50 ? init.volume : null);
