@@ -58,7 +58,6 @@ const computeParams = (params) =>
 
 export const uploadAlcoholProductToOFF = async (args) => {
   const { auth = authTest, test = true, code, fields, isNew = false } = args;
-  console.log('uploadAlcoholProductToOFF', args);
   if (!code) return;
   const baseUrl = test ? 'world.openfoodfacts.net' : 'world.openfoodfacts.org';
 
