@@ -21,8 +21,8 @@ const formatDecimalNumber = (numberOrString) => {
 };
 
 const openFoodFactAuth = {
-  user_id: OPEN_FOOD_FACT_PASSWORD,
-  password: OPEN_FOOD_FACT_USER_ID,
+  user_id: OPEN_FOOD_FACT_USER_ID,
+  password: OPEN_FOOD_FACT_PASSWORD,
 };
 
 const computeDrinkKey = (volume, degrees) => {
@@ -39,6 +39,7 @@ const computeDrinkKey = (volume, degrees) => {
 const NewDrinkForm = ({ route, navigation }) => {
   const { init } = route.params;
   const { isNew, code } = init;
+  console.log('NewDrinkForm route params', route.params);
   const [name, setName] = useState(init.name);
   const [degrees, setDegrees] = useState(init.degrees);
   const [volume, setVolume] = useState(init.volume <= 50 ? init.volume : null);
@@ -95,6 +96,11 @@ const NewDrinkForm = ({ route, navigation }) => {
     });
   };
 
+  const handleCancel = () => {
+    navigation.setParams({ addNewDrinkFromForm: null });
+    navigation.goBack();
+  };
+
   return (
     <Container>
       <KeyboardAvoidingViewStyled
@@ -138,7 +144,7 @@ const NewDrinkForm = ({ route, navigation }) => {
             </LineContainer>
             <ButtonsContainer>
               <ButtonPrimary content="Ajoutez" onPress={handleValidate} />
-              <UnderlinedButton content="Retour" bold onPress={navigation.goBack} />
+              <UnderlinedButton content="Retour" bold onPress={handleCancel} />
             </ButtonsContainer>
             {error && <Error>{error}</Error>}
           </FormContainer>

@@ -1,15 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import SafeAreaView from 'react-native-safe-area-view';
-import { ScrollView } from 'react-native';
+import { Modal, ScrollView } from 'react-native';
 import TextStyled from '../../components/TextStyled';
 import { SubTitle, TopContainer } from './styles';
 import Diagram from './Diagram';
-import CocktailBottle from '../../components/Illustrations/CocktailBottle';
 import CocktailGlass from '../../components/Illustrations/CocktailGlass';
 import HalfBeer from '../../components/Illustrations/HalfBeer';
-import Pint from '../../components/Illustrations/Pint';
-import WineBottle from '../../components/Illustrations/WineBottle';
 import WineGlass from '../../components/Illustrations/WineGlass';
 import Dose from '../../components/Illustrations/Dose';
 
@@ -24,7 +21,7 @@ const doses = [
 
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   return (
-    <ModalStyled visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
+    <Modal visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
       <SafeAreaViewStyled>
         <ScrollView>
           <TopContainer>
@@ -93,11 +90,9 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           </TopContainer>
         </ScrollView>
       </SafeAreaViewStyled>
-    </ModalStyled>
+    </Modal>
   );
 };
-
-const ModalStyled = styled.Modal``;
 
 const SafeAreaViewStyled = styled(SafeAreaView)`
   background-color: #f9f9f9;

@@ -151,6 +151,8 @@ const ConsosList = ({
       setNewDrink(route?.params?.addBarCodeDrink);
       navigation.setParams({ addBarCodeDrink: null });
       navigation.push('CONSO_NEW_DRINK', { init: newDrink });
+    } else {
+      setNewDrink(initDrinkState);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route?.params?.addBarCodeDrink?.timestamp]);
@@ -158,7 +160,8 @@ const ConsosList = ({
   useEffect(() => {
     if (route?.params?.addNewDrinkFromForm) {
       onAddDrinkToCatalog(route?.params?.addNewDrinkFromForm);
-      navigation.setParams({ addNewDrinkFromForm: null });
+    } else {
+      setNewDrink(initDrinkState);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route?.params?.addNewDrinkFromForm?.timestamp]);

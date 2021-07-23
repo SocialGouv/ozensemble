@@ -7,11 +7,11 @@ import H2 from '../../components/H2';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPadding } from '../../styles/theme';
 
-const CGUs = ({ navigation }) => (
+const CGUs = ({ onClose }) => (
   <SafeAreaProvider>
     <Background color="#f9f9f9">
       <Container>
-        <BackButton content="< Retour" onPress={navigation.goBack} bold />
+        <BackButton content="< Retour" onPress={onClose} bold />
 
         <H1>Conditions Générales d'Utilisation - OzEnsemble</H1>
         <Spacer size={50} />

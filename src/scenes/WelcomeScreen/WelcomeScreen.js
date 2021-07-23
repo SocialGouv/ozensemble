@@ -15,11 +15,6 @@ import { Screen1, Screen2, Screen3 } from './Screens';
 import { screenHeight } from '../../styles/theme';
 import Agreement from './Agreement';
 
-/*
-CANNOT USE RN Modal
-because on iOS it's clashing with splash screnn, weird
-*/
-
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = React.useState(false);
 
