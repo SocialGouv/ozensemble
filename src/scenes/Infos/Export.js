@@ -29,12 +29,12 @@ class Export extends React.Component {
     const res = await fetch('https://api.tipimail.com/v1/messages/send', {
       method: 'POST',
       headers: {
-        'X-Tipimail-ApiUser': TIPIMAIL_API_USER,
-        'X-Tipimail-ApiKey': TIPIMAIL_API_KEY,
+        'X-Tipimail-ApiUser': '2fbfeec4905f352f871b2590da840571',
+        'X-Tipimail-ApiKey': 'e94f70b1c2dd423a446efbbc788200cb',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        apiKey: TIPIMAIL_API_KEY,
+        apiKey: 'e94f70b1c2dd423a446efbbc788200cb',
         to: [
           {
             address: email,
@@ -42,7 +42,7 @@ class Export extends React.Component {
         ],
         msg: {
           from: {
-            address: TIPIMAIL_EMAIL_FROM,
+            address: 'addicto@selego.co',
             personalName: 'Oz Ensemble',
           },
           subject: 'Export de données',
