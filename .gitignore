@@ -56,6 +56,10 @@ buck-out/
 */fastlane/Preview.html
 */fastlane/screenshots
 
+# sentry
+android/sentry.properties
+ios/sentry.properties
+
 # Bundle artifact
 *.jsbundle
 
