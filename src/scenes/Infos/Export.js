@@ -10,6 +10,7 @@ import { withToast } from '../../services/toast';
 import { compose } from 'recompose';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPadding } from '../../styles/theme';
+import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 class Export extends React.Component {
