@@ -1,4 +1,4 @@
-import questions from './questions';
+import questions from './QuizzOnboarding/questions';
 import CONSTANTS from '../../reference/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Sentry from '@sentry/react-native';

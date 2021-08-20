@@ -1,6 +1,6 @@
 import React from 'react';
-import ScreenBgStyled from '../../components/ScreenBgStyled';
-import { QuestionNumber, QuestionTitle, ButtonPrimaryStyled, SubTitle, AnswersContainer } from './styles';
+import ScreenBgStyled from '../../../components/ScreenBgStyled';
+import { QuestionNumber, QuestionTitle, ButtonPrimaryStyled, SubTitle, AnswersContainer } from '../styles';
 
 const Intro = ({ startQuizz, navigation }) => (
   <ScreenBgStyled>

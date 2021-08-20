@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
-import H2 from '../../../components/H2';
-import H1 from '../../../components/H1';
-import UnderlinedButton from '../../../components/UnderlinedButton';
-import ResultsIllustration from '../../../components/Illustrations/ResultsIllustration';
-import { screenWidth } from '../../../styles/theme';
+import H2 from '../../../../components/H2';
+import H1 from '../../../../components/H1';
+import UnderlinedButton from '../../../../components/UnderlinedButton';
+import ResultsIllustration from '../../../../components/Illustrations/ResultsIllustration';
+import { screenWidth } from '../../../../styles/theme';
 
 export const FullScreenBackground = styled.ScrollView`
   background-color: #f9f9f9;
