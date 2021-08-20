@@ -9,7 +9,8 @@ import matomo from './services/matomo';
 import CONSTANTS from './reference/constants';
 import NotificationService from './services/notifications';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
-import Quizz from './scenes/Quizz/Quizz';
+import Quizz from './scenes/Quizz/QuizzOnboarding';
+import Defi from './scenes/Defi';
 import Contact from './scenes/Contact/Contact';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
 import Infos from './scenes/Infos/Infos';
@@ -30,7 +31,7 @@ const TabsNavigator = ({ navigation, route }) => {
     (async () => {
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
       if (!answersExist) return setInitialRouteName('TESTS');
-      return setInitialRouteName('CONSO_FOLLOW_UP');
+      return setInitialRouteName('INFOS');
     })();
   }, []);
 
@@ -77,12 +78,12 @@ const TabsNavigator = ({ navigation, route }) => {
         {() => null}
       </Tabs.Screen>
       <Tabs.Screen
-        name="TESTS"
+        name="DEFI"
         options={{
-          tabBarLabel: 'Tests',
+          tabBarLabel: 'Défis',
           tabBarIcon: ({ size, color }) => <TestsIcon size={size} color={color} />,
         }}
-        component={Quizz}
+        component={Defi}
       />
       <Tabs.Screen
         name="INFOS"
@@ -90,7 +91,7 @@ const TabsNavigator = ({ navigation, route }) => {
           tabBarLabel: 'Infos',
           tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
         }}
-        component={Infos}
+        component={Quizz}
       />
     </Tabs.Navigator>
   );

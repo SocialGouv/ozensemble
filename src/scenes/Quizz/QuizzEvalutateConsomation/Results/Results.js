@@ -1,5 +1,5 @@
 import React from 'react';
-import CONSTANTS from '../../../reference/constants';
+import CONSTANTS from '../../../../reference/constants';
 import ResultGood from './ResultGood';
 import ResultRisk from './ResultRisk';
 import ResultAddicted from './ResultAddicted';
