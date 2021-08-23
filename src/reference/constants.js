@@ -4,6 +4,8 @@ export default {
   STORE_KEY_ONBOARDING_DONE: '@OnboardingDoneWithCGU',
   STORE_KEY_QUIZZ_ANSWERS: '@Quizz_answers',
   STORE_KEY_QUIZZ_RESULT: '@Quizz_result',
+  STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_ANSWERS: '@Challenge7d_Quizz_j2_answers',
+  STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_RESULT: '@Challenge7d_Quizz_j2_result',
   STORE_KEY_REMINDER: '@Reminder',
   STORE_KEY_ASKED_FOR_NOTIFICATIONS_IOS: '@Reminder',
   STORE_KEY_NUMBER_OF_VISITS: '@NumberOfVisits',
@@ -56,6 +58,9 @@ export default {
   MORE_THAN_ONCE_A_MONTH: 'more-than-once-a-month',
   ONCE_A_WEEK: 'once-a-week',
   EVERYDAY: 'everyday',
+  NO: 'no',
+  YES_BUT_NOT_LAST_YEAR: 'yes-but-not-last-year',
+  YES_LAST_YEAR: 'yes-last-year',
   // results
   RESULT_ADDICTED: 'addicted',
   RESULT_RISK: 'risk',
