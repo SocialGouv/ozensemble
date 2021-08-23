@@ -1,7 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { defaultPadding, screenWidth } from '../../styles/theme';
-
+import { createStackNavigator } from '@react-navigation/stack';
+import QuizzOnboarding from './QuizzOnboarding';
+import QuizzEvalutateConsomation from './QuizzEvalutateConsomation';
 import TextStyled from '../../components/TextStyled';
 import Background from '../../components/Background';
 import H2 from '../../components/H2';
@@ -9,7 +11,20 @@ import H3 from '../../components/H3';
 
 import QuizzElement from './QuizzElement';
 
-export default ({ navigation }) => {
+const QuizzStack = createStackNavigator();
+
+export default () => (
+  <QuizzStack.Navigator headerMode="none">
+    <QuizzStack.Screen name="QUIZZ_MENU" component={QuizzMenu} />
+    <QuizzStack.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
+    <QuizzStack.Screen name="EVALUATE_CONSO_QUIZZ" component={QuizzEvalutateConsomation} />
+
+    {/* <QuizzStack.Screen name="PRIVACY_POLICY">
+      {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
+    </QuizzStack.Screen> */}
+  </QuizzStack.Navigator>
+);
+const QuizzMenu = ({ navigation }) => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <ScreenBgStyled>
@@ -37,7 +52,7 @@ export default ({ navigation }) => {
           <QuizzElement
             topTitle="Questionnaire d’auto-évaluation"
             title="Ma consommation d'alcool"
-            onStart={() => {}}
+            onStart={() => navigation.push('ONBOARDING_QUIZZ')}
             onShowResult={() => {}}
             done={true}
             disabled={false}
@@ -45,7 +60,7 @@ export default ({ navigation }) => {
           <QuizzElement
             topTitle="Questionnaire d’auto-évaluation"
             title="Evaluer sa consommation"
-            onStart={() => {}}
+            onStart={() => navigation.push('EVALUATE_CONSO_QUIZZ')}
             onShowResult={() => {}}
             done={false}
             disabled={false}

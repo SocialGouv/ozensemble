@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import questions from './questions';
 import CONSTANTS from '../../../reference/constants';
-import { mapAnswersToResult } from '../utils';
+import { mapAnswersToResult } from './utils';
 import Question from '../Question';
-import Intro from './Intro';
 import Background from '../../../components/Background';
 import ProgressBar from '../../../components/ProgressBar';
-import Results from './Results/Results';
+import Results from './Results';
 import matomo from '../../../services/matomo';
 import HeaderBackground from '../../../components/HeaderBackground';
 import UnderlinedButton from '../../../components/UnderlinedButton';
@@ -50,15 +49,16 @@ const Quizz = () => {
 
     const endOfQuestions = questionIndex === questions.length - 1;
 
-    await matomo.logQuizzAnswer({ questionKey, answerKey, score });
-    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS, JSON.stringify(newAnswers));
+    // await matomo.logQuizzAnswer({ questionKey, answerKey, score });
+    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_ANSWERS, JSON.stringify(newAnswers));
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(newAnswers);
-      await matomo.logAddictionResult(addictionResult);
-      await matomo.logQuizzFinish();
+      console.log({ addictionResult });
+      // await matomo.logAddictionResult(addictionResult);
+      // await matomo.logQuizzFinish();
       if (addictionResult) {
-        await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT, addictionResult);
+        await AsyncStorage.setItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_RESULT, JSON.stringify(addictionResult));
       }
       setResultKey(addictionResult);
     }
@@ -67,16 +67,17 @@ const Quizz = () => {
   React.useEffect(() => {
     const fetchStoredAnswers = async () => {
       try {
-        const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
+        const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_ANSWERS);
+        console.log(storedAnswers);
         if (storedAnswers !== null) {
           const newAnswers = JSON.parse(storedAnswers);
           setState((s) => ({ ...s, answers: newAnswers }));
         } else {
           setState((s) => ({ ...s, answers: computeInitAnswersState() }));
         }
-        const storedResultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT);
+        const storedResultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_RESULT);
         if (storedResultKey !== null) {
-          setResultKey(storedResultKey);
+          setResultKey(JSON.parse(storedResultKey));
         }
       } catch (e) {
         setAnswers(computeInitAnswersState());
@@ -102,8 +103,7 @@ const Quizz = () => {
                 <QuizzStack.Navigator
                   screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
                   headerMode="none"
-                  initialRouteName="QUIZZ_INTRO">
-                  <QuizzStack.Screen name="QUIZZ_INTRO" component={Intro} />
+                  initialRouteName="QUIZZ_QUESTION_1">
                   {questions.map((content, index) => (
                     <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>
                       {(props) => (

@@ -31,6 +31,7 @@ export default ({ topTitle, title, onShowResult, onStart, done = false, disabled
             <ButtonRedoTest
               onPress={() => {
                 console.log('Refaire le test');
+                onStart();
               }}>
               Refaire le test
             </ButtonRedoTest>
@@ -41,6 +42,7 @@ export default ({ topTitle, title, onShowResult, onStart, done = false, disabled
             content="Passer le test"
             onPress={() => {
               console.log('faire le test');
+              onStart();
             }}
           />
         )
