@@ -9,7 +9,6 @@ import matomo from './services/matomo';
 import CONSTANTS from './reference/constants';
 import NotificationService from './services/notifications';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
-import Quizz from './scenes/Quizz/QuizzOnboarding';
 import Defi from './scenes/Defi';
 import Contact from './scenes/Contact/Contact';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
@@ -29,9 +28,10 @@ const TabsNavigator = ({ navigation, route }) => {
 
   useEffect(() => {
     (async () => {
+      // await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_ANSWERS);
+      return setInitialRouteName('DEFI');
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
       if (!answersExist) return setInitialRouteName('TESTS');
-      return setInitialRouteName('INFOS');
     })();
   }, []);
 
@@ -91,7 +91,7 @@ const TabsNavigator = ({ navigation, route }) => {
           tabBarLabel: 'Infos',
           tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
         }}
-        component={Quizz}
+        component={Infos}
       />
     </Tabs.Navigator>
   );
