@@ -19,6 +19,7 @@ import GuidanceIcon from './components/Illustrations/GuidanceIcon';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
 import TestsIcon from './components/Illustrations/Tests';
 import InfosIcon from './components/Illustrations/Infos';
+import Calendar7DaysIcon from './components/Illustrations/Calendar7Days';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 
@@ -81,7 +82,7 @@ const TabsNavigator = ({ navigation, route }) => {
         name="DEFI"
         options={{
           tabBarLabel: 'Défis',
-          tabBarIcon: ({ size, color }) => <TestsIcon size={size} color={color} />,
+          tabBarIcon: ({ size, color }) => <Calendar7DaysIcon size={size} color={color} />,
         }}
         component={Defi}
       />
