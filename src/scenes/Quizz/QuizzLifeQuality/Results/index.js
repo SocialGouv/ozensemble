@@ -5,7 +5,7 @@ import { FullScreenBackground, ResultContainer } from './styles';
 
 const Results = ({ navigation, resultKey }) => {
   console.log(resultKey);
-
+  if (!resultKey) return null;
   return (
     <FullScreenBackground>
       <Header />
