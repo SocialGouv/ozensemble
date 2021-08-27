@@ -4,52 +4,73 @@ import styled from 'styled-components';
 import { View } from 'react-native';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/Illustrations/TickDone';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import CONSTANTS from '../../reference/constants';
 
-export default ({ topTitle, title, onShowResult, onStart, done = false, disabled = true }) => (
-  <Container done={done} disabled={disabled}>
-    <ContainerIcon>
-      <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />
-    </ContainerIcon>
-    <Content>
-      <View>
-        <TopTitle>{topTitle}</TopTitle>
-        <Title>{title}</Title>
-      </View>
-      {!disabled ? (
-        done ? (
-          <ButtonContainer>
+export default ({ topTitle, title, onShowResult, onStart, disabled = true, storageKey = '' }) => {
+  const [done, setDone] = React.useState(false);
+
+  const fetchStoredResults = async (key) => {
+    if (!key) setDone(false);
+    try {
+      const storedResultKey = await AsyncStorage.getItem(key);
+      setDone(storedResultKey !== null);
+    } catch (e) {
+      console.log('error catching stored results', e);
+      setDone(false);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchStoredResults(storageKey);
+  }, []);
+
+  return (
+    <Container done={done} disabled={disabled}>
+      <ContainerIcon>
+        <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />
+      </ContainerIcon>
+      <Content>
+        <View>
+          <TopTitle>{topTitle}</TopTitle>
+          <Title>{title}</Title>
+        </View>
+        {!disabled ? (
+          done ? (
+            <ButtonContainer>
+              <Button
+                small
+                content="Mes resultats"
+                color="#4030A5"
+                shadowColor="#201569"
+                onPress={() => {
+                  console.log('Mes resultats');
+                  onShowResult();
+                }}
+              />
+              <ButtonRedoTest
+                onPress={() => {
+                  console.log('Refaire le test');
+                  onStart();
+                }}>
+                Refaire le test
+              </ButtonRedoTest>
+            </ButtonContainer>
+          ) : (
             <Button
               small
-              content="Mes resultats"
-              color="#4030A5"
-              shadowColor="#201569"
+              content="Passer le test"
               onPress={() => {
-                console.log('Mes resultats');
-                onShowResult();
+                console.log('faire le test');
+                onStart();
               }}
             />
-            <ButtonRedoTest
-              onPress={() => {
-                console.log('Refaire le test');
-                onStart();
-              }}>
-              Refaire le test
-            </ButtonRedoTest>
-          </ButtonContainer>
-        ) : (
-          <Button
-            small
-            content="Passer le test"
-            onPress={() => {
-              console.log('faire le test');
-              onStart();
-            }}
-          />
-        )
-      ) : null}
-    </Content>
-  </Container>
-);
+          )
+        ) : null}
+      </Content>
+    </Container>
+  );
+};
 
 const getBackgroundColor = ({ done, disabled }) => {
   if (done) return '#81DBD326';

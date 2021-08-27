@@ -20,7 +20,7 @@ export const challenge7DaysData = {
       </TextStyled>
     ),
     textCTA: 'Comment compter',
-    onPressCTA: () => {},
+    onPressCTA: 'DAY_1',
     colorCTA: '#4030a5',
   },
   1: {

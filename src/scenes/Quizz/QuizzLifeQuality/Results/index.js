@@ -1,18 +1,16 @@
 import React from 'react';
 import Header from './Header';
-import ResultAddiction from './ResultAddiction';
-import ResultPopulation from './ResultPopulation';
+import Result from './Result';
 import { FullScreenBackground, ResultContainer } from './styles';
 
 const Results = ({ navigation, resultKey }) => {
-  console.log({ resultKey });
-  if (!resultKey) return null;
+  console.log(resultKey);
+
   return (
     <FullScreenBackground>
       <Header />
       <ResultContainer>
-        <ResultAddiction value={resultKey?.scoreAddiction} />
-        <ResultPopulation value={resultKey?.scorePopulation} navigation={navigation} />
+        {resultKey ? <Result values={resultKey?.filter((r) => r.score !== 0)} /> : null}
       </ResultContainer>
     </FullScreenBackground>
   );

@@ -85,7 +85,7 @@ const Quizz = () => {
       }
     };
     if (answers === null) fetchStoredAnswers();
-  });
+  }, []);
 
   if (!answers) return null;
 
