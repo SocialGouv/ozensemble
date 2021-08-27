@@ -6,6 +6,10 @@ export default {
   STORE_KEY_QUIZZ_RESULT: '@Quizz_result',
   STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_ANSWERS: '@Challenge7d_Quizz_j2_answers',
   STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_RESULT: '@Challenge7d_Quizz_j2_result',
+  STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_ANSWERS: '@Challenge7d_Quizz_j4_answers',
+  STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_RESULT: '@Challenge7d_Quizz_j4_result',
+  STORE_KEY_CHALLENGE7DAYS_QUIZZ_J6_ANSWERS: '@Challenge7d_Quizz_j6_answers',
+  STORE_KEY_CHALLENGE7DAYS_QUIZZ_J6_RESULT: '@Challenge7d_Quizz_j6_result',
   STORE_KEY_REMINDER: '@Reminder',
   STORE_KEY_ASKED_FOR_NOTIFICATIONS_IOS: '@Reminder',
   STORE_KEY_NUMBER_OF_VISITS: '@NumberOfVisits',
@@ -61,6 +65,20 @@ export default {
   NO: 'no',
   YES_BUT_NOT_LAST_YEAR: 'yes-but-not-last-year',
   YES_LAST_YEAR: 'yes-last-year',
+  // life quality
+  NOT_AT_ALL: 'not-at-all',
+  SLIGHTLY: 'slightly',
+  MODERATELY: 'moderately',
+  A_LOT: 'a-lot',
+  VERY_MUCH: 'very-much',
+
+  NONE: 'none',
+  VERY_LOW: 'very-low',
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high',
+  VERY_HIGH: 'very-high',
+
   // results
   RESULT_ADDICTED: 'addicted',
   RESULT_RISK: 'risk',

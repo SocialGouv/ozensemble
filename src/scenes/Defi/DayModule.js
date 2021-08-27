@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled, TopContainer, Title, FeedDay, FeedContainer, FeedDayContent } from './styles';
+import { FeedDayContent } from './styles';
 import { getTitle, getTagline, getDescription } from './utils';
 
 export default ({ day }) => {

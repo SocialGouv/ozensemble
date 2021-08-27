@@ -18,8 +18,25 @@ import TopTimeline from './TopTimeline';
 import Timeline from './Timeline';
 import DayModule from './DayModule';
 import { getTitle, getTagline, getOnPressCTA, getTextCTA } from './utils';
+import Day1 from './day1';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default ({ nbdays = 7, validatedDays = 3, unlockedDays = 3, activeDay = 0 }) => {
+const DefiStack = createStackNavigator();
+
+export default () => (
+  <DefiStack.Navigator headerMode="none" initialRouteName="MENU">
+    <DefiStack.Screen name="MENU" component={Menu} />
+    <DefiStack.Screen name="DAY_1" component={Day1} />
+    <DefiStack.Screen name="DAY_2" component={Day1} />
+    <DefiStack.Screen name="DAY_3" component={Day1} />
+    <DefiStack.Screen name="DAY_4" component={Day1} />
+    <DefiStack.Screen name="DAY_5" component={Day1} />
+    <DefiStack.Screen name="DAY_6" component={Day1} />
+    <DefiStack.Screen name="DAY_7" component={Day1} />
+  </DefiStack.Navigator>
+);
+
+const Menu = ({ navigation, nbdays = 7, validatedDays = 0, unlockedDays = 0, activeDay = 0 }) => {
   const getTitleColor = (i) => {
     if (unlockedDays < i) return '#c4c4c4';
     if (validatedDays > i) return '#4030a5';
@@ -42,7 +59,7 @@ export default ({ nbdays = 7, validatedDays = 3, unlockedDays = 3, activeDay = 0
         <TopTimeline nbdays={nbdays} validatedDays={validatedDays} unlockedDays={unlockedDays} activeDay={activeDay} />
         <FeedCTAContainer zIndex={10}>
           {getOnPressCTA(activeDay) ? (
-            <FeedCTAButton content={getTextCTA(activeDay)} onPress={getOnPressCTA(activeDay)} />
+            <FeedCTAButton content={getTextCTA(activeDay)} onPress={() => navigation.push('DAY_1')} />
           ) : (
             <FeedCTAButton content="Ajouter une consommation" />
           )}

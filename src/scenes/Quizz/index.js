@@ -1,13 +1,16 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { defaultPadding, screenWidth } from '../../styles/theme';
 import { createStackNavigator } from '@react-navigation/stack';
 import QuizzOnboarding from './QuizzOnboarding';
 import QuizzEvalutateConsomation from './QuizzEvalutateConsomation';
+import QuizzLifeQuality from './QuizzLifeQuality';
+import QuizzMotivations from './QuizzMotivations';
 import TextStyled from '../../components/TextStyled';
 import Background from '../../components/Background';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
+import CONSTANTS from '../../reference/constants';
 
 import QuizzElement from './QuizzElement';
 
@@ -18,10 +21,8 @@ export default () => (
     <QuizzStack.Screen name="QUIZZ_MENU" component={QuizzMenu} />
     <QuizzStack.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
     <QuizzStack.Screen name="EVALUATE_CONSO_QUIZZ" component={QuizzEvalutateConsomation} />
-
-    {/* <QuizzStack.Screen name="PRIVACY_POLICY">
-      {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
-    </QuizzStack.Screen> */}
+    <QuizzStack.Screen name="LIFE_QUALITY_QUIZZ" component={QuizzLifeQuality} />
+    <QuizzStack.Screen name="MOTIVATIONS_QUIZZ" component={QuizzMotivations} />
   </QuizzStack.Navigator>
 );
 const QuizzMenu = ({ navigation }) => {
@@ -52,34 +53,50 @@ const QuizzMenu = ({ navigation }) => {
           <QuizzElement
             topTitle="Questionnaire d’auto-évaluation"
             title="Ma consommation d'alcool"
-            onStart={() => navigation.push('ONBOARDING_QUIZZ')}
-            onShowResult={() => {}}
-            done={true}
+            onStart={() => {
+              navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' });
+            }}
+            onShowResult={() => {
+              navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_RESULTS' });
+            }}
+            storageKey={CONSTANTS.STORE_KEY_QUIZZ_RESULT}
             disabled={false}
           />
           <QuizzElement
-            topTitle="Questionnaire d’auto-évaluation"
+            topTitle="Défi 7 jours"
             title="Evaluer sa consommation"
-            onStart={() => navigation.push('EVALUATE_CONSO_QUIZZ')}
-            onShowResult={() => {}}
-            done={false}
+            onStart={() => {
+              navigation.navigate('EVALUATE_CONSO_QUIZZ', { screen: 'QUIZZ_QUESTIONS' });
+            }}
+            onShowResult={() => {
+              navigation.navigate('EVALUATE_CONSO_QUIZZ', { screen: 'QUIZZ_RESULTS' });
+            }}
+            storageKey={CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_RESULT}
             disabled={false}
           />
           <QuizzElement
-            topTitle="Questionnaire d’auto-évaluation"
+            topTitle="Défi 7 jours"
             title="Qualité de vie"
-            onStart={() => {}}
-            onShowResult={() => {}}
-            done={false}
-            disabled={true}
+            onStart={() => {
+              navigation.navigate('LIFE_QUALITY_QUIZZ', { screen: 'QUIZZ_QUESTIONS' });
+            }}
+            onShowResult={() => {
+              navigation.navigate('LIFE_QUALITY_QUIZZ', { screen: 'QUIZZ_RESULTS' });
+            }}
+            storageKey={CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_RESULT}
+            disabled={false}
           />
           <QuizzElement
-            topTitle="Questionnaire d’auto-évaluation"
+            topTitle="Défi 7 jours"
             title="Mes motivations à diminuer"
-            onStart={() => {}}
-            onShowResult={() => {}}
-            done={false}
-            disabled={true}
+            onStart={() => {
+              navigation.navigate('MOTIVATIONS_QUIZZ', { screen: 'QUIZZ_QUESTIONS' });
+            }}
+            onShowResult={() => {
+              navigation.navigate('MOTIVATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' });
+            }}
+            storageKey={CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J6_ANSWERS}
+            disabled={false}
           />
         </Quizzcontainer>
       </ScreenBgStyled>
