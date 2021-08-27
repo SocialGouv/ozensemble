@@ -7,7 +7,7 @@ export default ({ nbdays, validatedDays, unlockedDays, activeDay }) => {
   return (
     <Container>
       {[...Array(nbdays)].map((_, i) => {
-        return <Day index={i} done={validatedDays > i} locked={unlockedDays < i} />;
+        return <Day key={i} index={i} done={validatedDays > i} locked={unlockedDays < i} />;
       })}
     </Container>
   );

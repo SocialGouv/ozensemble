@@ -69,7 +69,7 @@ const Menu = ({ navigation, nbdays = 7, validatedDays = 0, unlockedDays = 0, act
           <Separator />
           {[...Array(nbdays)].map((_, i) => {
             return (
-              <FeedDay>
+              <FeedDay key={i}>
                 <Timeline
                   first={i === 0}
                   last={i === nbdays - 1}
