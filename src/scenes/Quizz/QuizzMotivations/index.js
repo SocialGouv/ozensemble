@@ -5,9 +5,10 @@ import CONSTANTS from '../../../reference/constants';
 import Background from '../../../components/Background';
 import Results from './Results';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ScreenBgStyled, TopContainer, TopTitle, Paragraph, SectionTitle } from './styles';
+import { ScreenBgStyled, TopContainer, TopTitle, Paragraph, TopTitleContainer } from './styles';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
+import GoBackButton from '../../../components/GoBackButton';
 
 const QuizzAndResultsStack = createStackNavigator();
 
@@ -56,11 +57,15 @@ const Quizz = ({ navigation }) => {
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
           {({ navigation }) => (
             <ScreenBgStyled>
-              {/* <GoBackButton onPress={navigation.goBack()} /> */}
               <TopContainer>
-                <TopTitle>
-                  <TextStyled color="#4030a5">Quelles raisons vous motivent à diminuer votre consommation ?</TextStyled>
-                </TopTitle>
+                <TopTitleContainer>
+                  <GoBackButton onPress={navigation.goBack} />
+                  <TopTitle>
+                    <TextStyled color="#4030a5">
+                      Quelles raisons vous motivent à diminuer votre consommation ?
+                    </TextStyled>
+                  </TopTitle>
+                </TopTitleContainer>
                 <Paragraph>
                   <TextStyled>
                     Sélectionnez vos principales raisons pour diminuer votre consommation d’alcool{' '}

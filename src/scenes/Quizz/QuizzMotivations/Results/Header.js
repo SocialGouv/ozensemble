@@ -2,13 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 import TextStyled from '../../../../components/TextStyled';
-import { TopContainer, TopTitle } from './styles';
+import { TopContainer, TopTitle, TopTitleContainer } from './styles';
+import GoBackButton from '../../../../components/GoBackButton';
 
-export default () => (
+export default ({ navigation }) => (
   <TopContainer>
-    <TopTitle>
-      <TextStyled color="#4030a5">Évaluation de votre consommation</TextStyled>
-    </TopTitle>
+    <TopTitleContainer>
+      <GoBackButton onPress={navigation.goBack} />
+      <TopTitle>
+        <TextStyled color="#4030a5">Quelles raisons vous motivent à diminuer votre consommation ?</TextStyled>
+      </TopTitle>
+    </TopTitleContainer>
     <SectionTitle color="#de285e">C'est déjà terminé !</SectionTitle>
     <TextParagraph>Merci d'avoir répondu au questionnaire !</TextParagraph>
     <TextParagraph>

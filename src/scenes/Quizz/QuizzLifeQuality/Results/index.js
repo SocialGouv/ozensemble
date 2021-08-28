@@ -8,7 +8,7 @@ const Results = ({ navigation, resultKey }) => {
   if (!resultKey) return null;
   return (
     <FullScreenBackground>
-      <Header />
+      <Header navigation={navigation} />
       <ResultContainer>
         {resultKey ? <Result values={resultKey?.filter((r) => r.score !== 0)} /> : null}
       </ResultContainer>

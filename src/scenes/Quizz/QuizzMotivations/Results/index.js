@@ -8,7 +8,7 @@ const Results = ({ navigation, results }) => {
   if (!results) return null;
   return (
     <FullScreenBackground>
-      <Header />
+      <Header navigation={navigation} />
       <ResultContainer>{results ? <Result values={results} /> : null}</ResultContainer>
     </FullScreenBackground>
   );
