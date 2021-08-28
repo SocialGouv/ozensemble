@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import questions from './questions';
-import CONSTANTS from '../../reference/constants';
-import { mapAnswersToResult } from './utils';
-import Question from './Question';
+import CONSTANTS from '../../../reference/constants';
+import { mapAnswersToResult } from '../utils';
+import Question from '../Question';
 import Intro from './Intro';
-import Background from '../../components/Background';
-import ProgressBar from '../../components/ProgressBar';
-import Results from './Results/Results';
-import matomo from '../../services/matomo';
-import HeaderBackground from '../../components/HeaderBackground';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import Background from '../../../components/Background';
+import ProgressBar from '../../../components/ProgressBar';
+import Results from './Results';
+import matomo from '../../../services/matomo';
+import HeaderBackground from '../../../components/HeaderBackground';
+import UnderlinedButton from '../../../components/UnderlinedButton';
 import { createStackNavigator } from '@react-navigation/stack';
 
 /*
@@ -79,18 +79,17 @@ const Quizz = () => {
           setResultKey(storedResultKey);
         }
       } catch (e) {
-        setAnswers(computeInitAnswersState());
+        setState((s) => ({ ...s, answers: computeInitAnswersState() }));
         console.log('error catching stored answers', e);
       }
     };
     if (answers === null) fetchStoredAnswers();
-  });
+  }, []);
 
   if (!answers) return null;
 
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <QuizzAndResultsStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
         headerMode="none"

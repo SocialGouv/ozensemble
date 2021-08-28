@@ -1,11 +1,12 @@
 import React from 'react';
-import CONSTANTS from '../../../reference/constants';
+import CONSTANTS from '../../../../reference/constants';
 import ResultGood from './ResultGood';
 import ResultRisk from './ResultRisk';
 import ResultAddicted from './ResultAddicted';
 import { EmptyView } from './styles';
 
-const Results = ({ navigation, resultKey }) => {
+export default ({ navigation, resultKey }) => {
+  if (!resultKey) return null;
   switch (resultKey) {
     default:
     case null:
@@ -18,5 +19,3 @@ const Results = ({ navigation, resultKey }) => {
       return <ResultAddicted navigation={navigation} />;
   }
 };
-
-export default Results;

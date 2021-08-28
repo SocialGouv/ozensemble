@@ -1,6 +1,6 @@
 import React from 'react';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import TextStyled from '../../../components/TextStyled';
+import ButtonPrimary from '../../../../components/ButtonPrimary';
+import TextStyled from '../../../../components/TextStyled';
 import {
   FullScreenBackground,
   TopContainer,
