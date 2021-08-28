@@ -55,33 +55,30 @@ const Quizz = ({ navigation }) => {
         initialRouteName="QUIZZ_QUESTIONS">
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
           {({ navigation }) => (
-            <Background color="#39cec0" withSwiperContainer>
-              <ScreenBgStyled>
-                {/* <GoBackButton onPress={navigation.goBack()} /> */}
-                <TopContainer>
-                  <TopTitle>
-                    <TextStyled color="#4030a5">
-                      Quelles raisons vous motivent à diminuer votre consommation ?
-                    </TextStyled>
-                  </TopTitle>
-                  <Paragraph>
-                    <TextStyled>
-                      Sélectionnez vos principales raisons pour diminuer votre consommation d’alcool{' '}
-                    </TextStyled>
-                  </Paragraph>
-                  {sections.map((section, id) => (
-                    <Section
-                      key={id}
-                      sectionTitle={section.sectionTitle}
-                      sectionItems={section.sectionItems}
-                      onPress={toggleAnswers}
-                      answers={answers}
-                    />
-                  ))}
-                </TopContainer>
+            <ScreenBgStyled>
+              {/* <GoBackButton onPress={navigation.goBack()} /> */}
+              <TopContainer>
+                <TopTitle>
+                  <TextStyled color="#4030a5">Quelles raisons vous motivent à diminuer votre consommation ?</TextStyled>
+                </TopTitle>
+                <Paragraph>
+                  <TextStyled>
+                    Sélectionnez vos principales raisons pour diminuer votre consommation d’alcool{' '}
+                  </TextStyled>
+                </Paragraph>
+                {sections.map((section, id) => (
+                  <Section
+                    key={id}
+                    sectionTitle={section.sectionTitle}
+                    sectionItems={section.sectionItems}
+                    onPress={toggleAnswers}
+                    answers={answers}
+                    navigation={navigation}
+                  />
+                ))}
                 <ButtonPrimary onPress={saveAnswer} content="Valider mes réponses" />
-              </ScreenBgStyled>
-            </Background>
+              </TopContainer>
+            </ScreenBgStyled>
           )}
         </QuizzAndResultsStack.Screen>
         <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS">
