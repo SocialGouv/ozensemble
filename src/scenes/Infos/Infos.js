@@ -11,6 +11,7 @@ import CGUs from './CGUs';
 import PrivacyPolicy from './PrivacyPolicy';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
+import Quizz from '../../scenes/Quizz';
 
 const InfosStack = createStackNavigator();
 
@@ -25,6 +26,7 @@ const Infos = () => (
         {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
       </InfosStack.Screen>
       <InfosStack.Screen name="EXPORT" component={Export} />
+      <InfosStack.Screen name="TESTS" component={Quizz} />
     </InfosStack.Navigator>
   </Background>
 );
@@ -42,6 +44,9 @@ const InfosMenu = ({ navigation }) => (
         onPress={() => navigation.push('PRIVACY_POLICY')}
       />
       <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+      {/* todo : open nps */}
+      <MenuItem caption="Mon avis sur l'application" onPress={() => {}} />
+      <MenuItem caption="Mes Tests " onPress={() => navigation.push('TESTS')} />
     </ScreenBgStyled>
   </>
 );

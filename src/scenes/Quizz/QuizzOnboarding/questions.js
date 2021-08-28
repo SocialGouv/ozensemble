@@ -1,4 +1,4 @@
-import CONSTANTS from '../../reference/constants';
+import CONSTANTS from '../../../reference/constants';
 
 const questions = [
   {

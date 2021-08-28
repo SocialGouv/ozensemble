@@ -1,5 +1,5 @@
 import React from 'react';
-import TextStyled from '../../../components/TextStyled';
+import TextStyled from '../../../../components/TextStyled';
 import {
   BottomContainer,
   BottomSubContainer,
