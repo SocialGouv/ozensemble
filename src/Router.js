@@ -9,7 +9,7 @@ import matomo from './services/matomo';
 import CONSTANTS from './reference/constants';
 import NotificationService from './services/notifications';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
-import Quizz from './scenes/Quizz/Quizz';
+import Defi from './scenes/Defi';
 import Contact from './scenes/Contact/Contact';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
 import Infos from './scenes/Infos/Infos';
@@ -19,6 +19,7 @@ import GuidanceIcon from './components/Illustrations/GuidanceIcon';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
 import TestsIcon from './components/Illustrations/Tests';
 import InfosIcon from './components/Illustrations/Infos';
+import Calendar7DaysIcon from './components/Illustrations/Calendar7Days';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 
@@ -28,9 +29,10 @@ const TabsNavigator = ({ navigation, route }) => {
 
   useEffect(() => {
     (async () => {
+      // await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_ANSWERS);
+      return setInitialRouteName('DEFI');
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
       if (!answersExist) return setInitialRouteName('TESTS');
-      return setInitialRouteName('CONSO_FOLLOW_UP');
     })();
   }, []);
 
@@ -77,12 +79,12 @@ const TabsNavigator = ({ navigation, route }) => {
         {() => null}
       </Tabs.Screen>
       <Tabs.Screen
-        name="TESTS"
+        name="DEFI"
         options={{
-          tabBarLabel: 'Tests',
-          tabBarIcon: ({ size, color }) => <TestsIcon size={size} color={color} />,
+          tabBarLabel: 'Défis',
+          tabBarIcon: ({ size, color }) => <Calendar7DaysIcon size={size} color={color} />,
         }}
-        component={Quizz}
+        component={Defi}
       />
       <Tabs.Screen
         name="INFOS"
