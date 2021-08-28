@@ -29,7 +29,7 @@ const TabsNavigator = ({ navigation, route }) => {
 
   useEffect(() => {
     (async () => {
-      // await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_ANSWERS);
+      // await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_ANSWERS);
       return setInitialRouteName('DEFI');
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
       if (!answersExist) return setInitialRouteName('TESTS');
