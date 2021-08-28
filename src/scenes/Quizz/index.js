@@ -71,7 +71,7 @@ const QuizzMenu = ({ navigation }) => {
             onShowResult={() => {
               navigation.navigate('EVALUATE_CONSO_QUIZZ', { screen: 'QUIZZ_RESULTS' });
             }}
-            storageKey={CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J2_RESULT}
+            storageKey={CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_RESULT}
             disabled={false}
           />
           <QuizzElement
@@ -83,7 +83,7 @@ const QuizzMenu = ({ navigation }) => {
             onShowResult={() => {
               navigation.navigate('LIFE_QUALITY_QUIZZ', { screen: 'QUIZZ_RESULTS' });
             }}
-            storageKey={CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_RESULT}
+            storageKey={CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_RESULT}
             disabled={false}
           />
           <QuizzElement
@@ -95,7 +95,7 @@ const QuizzMenu = ({ navigation }) => {
             onShowResult={() => {
               navigation.navigate('MOTIVATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' });
             }}
-            storageKey={CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J6_ANSWERS}
+            storageKey={CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS}
             disabled={false}
           />
         </Quizzcontainer>

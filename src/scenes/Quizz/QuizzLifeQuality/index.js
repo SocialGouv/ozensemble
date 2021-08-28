@@ -50,7 +50,7 @@ const Quizz = () => {
     const endOfQuestions = questionIndex === questions.length - 1;
 
     // await matomo.logQuizzAnswer({ questionKey, answerKey, score });
-    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_ANSWERS, JSON.stringify(newAnswers));
+    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_ANSWERS, JSON.stringify(newAnswers));
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(newAnswers);
@@ -58,7 +58,7 @@ const Quizz = () => {
       // await matomo.logAddictionResult(addictionResult);
       // await matomo.logQuizzFinish();
       if (addictionResult) {
-        await AsyncStorage.setItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_RESULT, JSON.stringify(addictionResult));
+        await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_RESULT, JSON.stringify(addictionResult));
       }
       setResultKey(addictionResult);
     }
@@ -67,14 +67,14 @@ const Quizz = () => {
   React.useEffect(() => {
     const fetchStoredAnswers = async () => {
       try {
-        const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_ANSWERS);
+        const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_ANSWERS);
         if (storedAnswers !== null) {
           const newAnswers = JSON.parse(storedAnswers);
           setState((s) => ({ ...s, answers: newAnswers }));
         } else {
           setState((s) => ({ ...s, answers: computeInitAnswersState() }));
         }
-        const storedResultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J4_RESULT);
+        const storedResultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_RESULT);
         if (storedResultKey !== null) {
           setResultKey(JSON.parse(storedResultKey));
         }

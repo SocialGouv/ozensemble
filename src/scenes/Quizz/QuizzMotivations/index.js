@@ -15,14 +15,14 @@ const Quizz = ({ navigation }) => {
   const [answers, setAnswers] = React.useState();
 
   const saveAnswer = async () => {
-    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J6_ANSWERS, JSON.stringify(answers));
+    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS, JSON.stringify(answers));
     navigation.navigate('MOTIVATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' });
   };
 
   React.useEffect(() => {
     const fetchStoredAnswers = async () => {
       try {
-        const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_CHALLENGE7DAYS_QUIZZ_J6_ANSWERS);
+        const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS);
         if (storedAnswers !== null) {
           const newAnswers = JSON.parse(storedAnswers);
           setAnswers(newAnswers);
