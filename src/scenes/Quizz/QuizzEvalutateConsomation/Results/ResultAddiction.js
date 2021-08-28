@@ -16,10 +16,6 @@ export default ({ value }) => {
             <ResultParagraph color="#191919">
               Votre consommation d’alcool ne devrait pas provoquer de risque pour votre santé.
             </ResultParagraph>
-            <ResultParagraph color="#191919">
-              N’hésitez pas à demander conseil à votre professionnel de santé si votre situation change : prise d’un
-              traitement, maladie chronique, grossesse...
-            </ResultParagraph>
           </View>
         );
       case CONSTANTS.RESULT_RISK:

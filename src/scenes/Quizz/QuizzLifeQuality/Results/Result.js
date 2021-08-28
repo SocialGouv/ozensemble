@@ -1,15 +1,5 @@
 import React from 'react';
-import CONSTANTS from '../../../../reference/constants';
-import { View } from 'react-native';
-import {
-  EmptyView,
-  ResultTitle,
-  ResultParagraph,
-  ContainerSection,
-  ItemStyled,
-  ItemsContainer,
-  ItemContainer,
-} from './styles';
+import { ResultTitle, ContainerSection, ItemStyled, ItemsContainer, ItemContainer } from './styles';
 import TextStyled from '../../../../components/TextStyled';
 
 export default ({ values }) => {
