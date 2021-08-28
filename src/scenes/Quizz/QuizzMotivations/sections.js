@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableWithoutFeedback, Modal } from 'react-native';
 import styled from 'styled-components';
 import TextStyled from '../../../components/TextStyled';
+import CheckBox from '@react-native-community/checkbox';
 
 import { Paragraph, SectionTitle } from './styles';
 
@@ -60,35 +61,46 @@ export const Section = ({ sectionTitle, sectionItems, onPress, answers }) => (
         id={item.id}
         title={item.title}
         onPress={() => onPress(item)}
-        checked={answers.find((a) => a.id === item.id)}
+        checked={!!answers.find((a) => a.id === item.id)}
       />
     ))}
   </Paragraph>
 );
 
-export const Item = ({ id, title, onPress, checked = false }) => (
+export const Item = ({ id, title, onPress, checked = false, disabled = false }) => (
   <TouchableWithoutFeedback onPress={() => onPress(id)}>
     <ItemContainer>
       <CheckBoxContainer>
-        <CheckBox agreed={checked} />
+        <CheckBoxStyled
+          // ios style
+          onCheckColor="#4030a5"
+          onTintColor="#4030a5"
+          onFillColor="#4030a511"
+          animationDuration={0.2}
+          boxType="square"
+          lineWidth={1}
+          //android style
+          tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
+          //common props
+          disabled={disabled}
+          value={checked}
+        />
       </CheckBoxContainer>
       <TextStyled>{title}</TextStyled>
     </ItemContainer>
   </TouchableWithoutFeedback>
 );
 const CheckBoxContainer = styled.View`
-  background-color: #c4c4c4;
-  padding: 4px;
+  padding: 2px;
   height: 20px;
   width: 20px;
   flex-shrink: 0;
   margin-right: 10px;
 `;
 
-const CheckBox = styled.View`
+const CheckBoxStyled = styled(CheckBox)`
   height: 100%;
   width: 100%;
-  ${(props) => props.agreed && 'background-color: #4030a5'}
 `;
 
 const ItemContainer = styled.View`

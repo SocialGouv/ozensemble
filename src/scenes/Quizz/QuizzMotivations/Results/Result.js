@@ -10,7 +10,7 @@ export default ({ values }) => {
       <ResultTitle>Vos motivations à changer</ResultTitle>
       {values.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
       {values.map((item) => (
-        <Item key={item.id} id={item.id} title={item.title} onPress={() => {}} checked />
+        <Item key={item.id} id={item.id} title={item.title} onPress={() => {}} checked disabled />
       ))}
     </ContainerSection>
   );
