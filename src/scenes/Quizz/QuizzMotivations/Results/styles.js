@@ -55,7 +55,7 @@ export const ResultParagraph = styled(TextStyled)`
 `;
 
 export const commonCss = css`
-  width: 85%;
+  width: 100%;
   flex-shrink: 0;
 `;
 
@@ -69,8 +69,14 @@ export const ResultTitle = styled(H3)`
   color: #4030a5;
 `;
 
-export const TopTitle = styled(H1)`
+export const TopTitleContainer = styled.View`
+  display: flex;
+  flex-direction: row;
   ${commonCss}
   margin-top: 10px;
   margin-bottom: 20px;
+`;
+
+export const TopTitle = styled(H1)`
+  padding: 0 10px;
 `;

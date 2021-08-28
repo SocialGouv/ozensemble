@@ -43,8 +43,14 @@ export const ResultTitle = styled(H3)`
   color: #4030a5;
 `;
 
-export const TopTitle = styled(H1)`
+export const TopTitleContainer = styled.View`
+  display: flex;
+  flex-direction: row;
   ${commonCss}
   margin-top: 10px;
   margin-bottom: 20px;
+`;
+
+export const TopTitle = styled(H1)`
+  padding: 0 10px;
 `;

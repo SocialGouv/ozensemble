@@ -3,7 +3,7 @@ import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 
 export const commonCss = css`
-  width: 95%;
+  width: 100%;
   flex-shrink: 0;
 `;
 
@@ -24,10 +24,16 @@ export const TopContainer = styled.View`
   padding: 20px ${paddingHorizontal}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
 `;
 
-export const TopTitle = styled(H1)`
+export const TopTitleContainer = styled.View`
+  display: flex;
+  flex-direction: row;
   ${commonCss}
   margin-top: 10px;
   margin-bottom: 20px;
+`;
+
+export const TopTitle = styled(H1)`
+  padding: 0 10px;
 `;
 
 export const SectionTitle = styled(TextStyled)`

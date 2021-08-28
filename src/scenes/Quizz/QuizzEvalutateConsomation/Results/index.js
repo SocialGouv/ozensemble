@@ -9,7 +9,7 @@ const Results = ({ navigation, resultKey }) => {
   if (!resultKey) return null;
   return (
     <FullScreenBackground>
-      <Header />
+      <Header navigation={navigation} />
       <ResultContainer>
         <ResultAddiction value={resultKey?.scoreAddiction} />
         <ResultPopulation value={resultKey?.scorePopulation} navigation={navigation} />
