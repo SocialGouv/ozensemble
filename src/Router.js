@@ -24,7 +24,7 @@ import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
-  const [initialRouteName, setInitialRouteName] = useState('INFOS');
+  const [initialRouteName, setInitialRouteName] = useState('DEFI');
 
   useEffect(() => {
     (async () => {

@@ -2,69 +2,48 @@ import React from 'react';
 import styled from 'styled-components';
 import { defaultPadding, screenWidth } from '../../styles/theme';
 import { createStackNavigator } from '@react-navigation/stack';
-import QuizzMotivations from './QuizzMotivations';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import CONSTANTS from '../../reference/constants';
 
+import QuizzLifeQuality from './QuizzLifeQuality';
+import QuizzEvaluateConso from './QuizzEvaluateConso';
+import QuizzOnboarding from './QuizzOnboarding';
+import QuizzMotivations from './QuizzMotivations';
+
 import QuizzElement from './QuizzElement';
-import Quizz from '../../components/Quizz';
-
-import questionsOnboarding from './QuizzOnboarding/questions';
-import ResultsOnboarding from './QuizzOnboarding/ResultsOnboarding';
-import { mapOnboardingAnswersToResult } from './QuizzOnboarding/utils';
-
-import questionsEvaluateConso from './QuizzEvaluateConso/questions';
-import { mapEvaluateConsoAnswersToResult } from './QuizzEvaluateConso/utils';
-import ResultsEvaluateConso from './QuizzEvaluateConso/ResultsEvaluateConso';
-
-import questionsLifeQuality from './QuizzLifeQuality/questions';
-import ResultsLifeQuality from './QuizzLifeQuality/ResultsLifeQuality';
-import { mapLifeQualityAnswersToResult } from './QuizzLifeQuality/utils';
 
 const QuizzsStack = createStackNavigator();
 
 const QuizzsNavigator = () => (
   <QuizzsStack.Navigator headerMode="none">
     <QuizzsStack.Screen name="QUIZZ_MENU" component={QuizzMenu} />
-    <QuizzsStack.Screen name="ONBOARDING_QUIZZ">
-      {(props) => (
-        <Quizz
-          {...props}
-          questions={questionsOnboarding}
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS}
-          mapAnswersToResult={mapOnboardingAnswersToResult}
-          Results={ResultsOnboarding}
-        />
-      )}
-    </QuizzsStack.Screen>
-    <QuizzsStack.Screen name="EVALUATE_CONSO_QUIZZ">
-      {(props) => (
-        <Quizz
-          {...props}
-          questions={questionsEvaluateConso}
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_ANSWERS}
-          mapAnswersToResult={mapEvaluateConsoAnswersToResult}
-          Results={ResultsEvaluateConso}
-        />
-      )}
-    </QuizzsStack.Screen>
-    <QuizzsStack.Screen name="LIFE_QUALITY_QUIZZ">
-      {(props) => (
-        <Quizz
-          {...props}
-          questions={questionsLifeQuality}
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_ANSWERS}
-          mapAnswersToResult={mapLifeQualityAnswersToResult}
-          Results={ResultsLifeQuality}
-        />
-      )}
-    </QuizzsStack.Screen>
-    <QuizzsStack.Screen name="MOTIVATIONS_QUIZZ" component={QuizzMotivations} />
+    <QuizzsStack.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
+    <QuizzsStack.Screen
+      name="EVALUATE_CONSO_QUIZZ"
+      component={QuizzEvaluateConso}
+      initialParams={{
+        title: 'Évaluer sa consommation',
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="LIFE_QUALITY_QUIZZ"
+      component={QuizzLifeQuality}
+      initialParams={{
+        title: 'Évaluer sa qualité de vie',
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="MOTIVATIONS_QUIZZ"
+      component={QuizzMotivations}
+      initialParams={{
+        title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
   </QuizzsStack.Navigator>
 );
 const QuizzMenu = () => {

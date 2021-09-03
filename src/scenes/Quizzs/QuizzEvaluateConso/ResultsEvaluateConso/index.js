@@ -1,17 +1,17 @@
 import React from 'react';
-import Header from './Header';
+import Header from '../../../Defis/Header';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
 import { FullScreenBackground, ResultContainer } from './styles';
 
-const Results = ({ navigation, resultKey }) => {
+const Results = ({ resultKey, route }) => {
   if (!resultKey) return null;
   return (
     <FullScreenBackground>
-      <Header navigation={navigation} />
+      <Header />
       <ResultContainer>
         <ResultAddiction value={resultKey?.scoreAddiction} />
-        <ResultPopulation value={resultKey?.scorePopulation} navigation={navigation} />
+        <ResultPopulation value={resultKey?.scorePopulation} />
       </ResultContainer>
     </FullScreenBackground>
   );

@@ -12,7 +12,7 @@ import GoBackButton from '../../../components/GoBackButton';
 import Section from './Section';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 
-const QuizzAndResultsStack = createStackNavigator();
+const QuizzMotivationsStack = createStackNavigator();
 
 const QuizzMotivations = ({ navigation, route }) => {
   const initialState = route.params.initialState || {};
@@ -22,8 +22,15 @@ const QuizzMotivations = ({ navigation, route }) => {
   const memoryKeyAnswers = CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS;
   const memoryKeyResult = CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_RESULT;
 
+  const setInitAnswers = async () => {
+    const fetchedInitialState = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
+    if (fetchedInitialState?.answers || fetchedInitialState?.result) {
+      setAnswers(fetchedInitialState.answers);
+    }
+  };
+
   React.useEffect(() => {
-    fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
+    if (!answers) setInitAnswers();
   }, []);
 
   const toggleAnswer = async (answerKey, checked) => {
@@ -37,18 +44,16 @@ const QuizzMotivations = ({ navigation, route }) => {
   const validateAnswers = async () => {
     await AsyncStorage.setItem(memoryKeyAnswers, JSON.stringify(answers));
     await AsyncStorage.setItem(memoryKeyResult, 'true');
-    navigation.navigate('MOTIVATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' });
+    navigation.push('QUIZZ_RESULTS');
   };
-
-  if (!answers) return null;
 
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <QuizzAndResultsStack.Navigator
+      <QuizzMotivationsStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
         headerMode="none"
         initialRouteName={route?.params?.initialRouteName}>
-        <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
+        <QuizzMotivationsStack.Screen name="QUIZZ_QUESTIONS">
           {({ navigation }) => (
             <ScreenBgStyled>
               <TopContainer>
@@ -78,11 +83,11 @@ const QuizzMotivations = ({ navigation, route }) => {
               </TopContainer>
             </ScreenBgStyled>
           )}
-        </QuizzAndResultsStack.Screen>
-        <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS">
+        </QuizzMotivationsStack.Screen>
+        <QuizzMotivationsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
           {(props) => <Results results={answers} {...props} />}
-        </QuizzAndResultsStack.Screen>
-      </QuizzAndResultsStack.Navigator>
+        </QuizzMotivationsStack.Screen>
+      </QuizzMotivationsStack.Navigator>
     </Background>
   );
 };
