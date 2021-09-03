@@ -23,7 +23,7 @@ const QuizzStack = createStackNavigator();
 const QuizzAndResultsStack = createStackNavigator();
 
 const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswersToResult, Results }) => {
-  const initialState = route.params.initialState || {};
+  const initialState = route?.params?.initialState || {};
   const [{ answers, progress, resultKey }, setGlobalState] = React.useState({
     answers: initialState.answers,
     resultKey: initialState.result,
@@ -56,22 +56,32 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
     }
   };
 
-  React.useEffect(() => {
-    if (!answers) fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
-  }, []);
+  const setInitAnswers = async () => {
+    const fetchedInitialState = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
+    if (fetchedInitialState?.answers || fetchedInitialState?.result) {
+      setGlobalState({
+        answers: fetchedInitialState.answers,
+        resultKey: fetchedInitialState.result,
+        progress: 0,
+      });
+    }
+  };
 
-  console.log({ answers });
+  React.useEffect(() => {
+    if (!answers) setInitAnswers();
+  }, []);
 
   return (
     <Background color="#39cec0" withSwiperContainer>
       <QuizzAndResultsStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
         headerMode="none"
-        initialRouteName={route?.params?.initialRouteName}>
+        initialRouteName={route?.params?.initialRouteName}
+        initialParams={route?.params}>
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
           {() => <QuizzQuestions progress={progress} questions={questions} answers={answers} saveAnswer={saveAnswer} />}
         </QuizzAndResultsStack.Screen>
-        <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS">
+        <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
           {(props) => <Results resultKey={resultKey} {...props} />}
         </QuizzAndResultsStack.Screen>
       </QuizzAndResultsStack.Navigator>

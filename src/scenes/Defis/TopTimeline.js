@@ -1,21 +1,31 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
+import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import Lock from '../../components/Illustrations/Lock';
 import StarButton from '../../components/Illustrations/StarButton';
 
-const TopTimeline = ({ nbdays, validatedDays, unlockedDayIndex, activeDay }) => {
+const TopTimeline = ({ nbdays, validatedDays, unlockedDayIndex, hackAndUnlockDay }) => {
   return (
     <Container>
       {[...Array(nbdays)].map((_, dayIndex) => {
         return (
-          <Day key={dayIndex} index={dayIndex} done={validatedDays > dayIndex} locked={unlockedDayIndex < dayIndex} />
+          <Day
+            key={dayIndex}
+            index={dayIndex}
+            done={validatedDays > dayIndex}
+            locked={dayIndex !== 0 && unlockedDayIndex < dayIndex}
+            unLock={hackAndUnlockDay}
+          />
         );
       })}
     </Container>
   );
 };
 
-const Day = ({ locked, done, index }) => {
+const Day = ({ locked, done, index, unLock }) => {
+  const [pressed, setPressed] = useState(0);
+
   const renderItem = () => {
     if (locked) {
       return <Lock color="#C4C4C4" size="20px" />;
@@ -27,11 +37,23 @@ const Day = ({ locked, done, index }) => {
   };
   const getTextColor = () => (locked ? '#C4C4C4' : '#4030a5');
 
+  const unLockLevel = async () => {
+    setPressed(0);
+    await unLock(index);
+    await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', 'UNLOCK');
+  };
+
+  useEffect(() => {
+    if (pressed > 5) unLockLevel();
+  }, [pressed]);
+
   return (
-    <DayContainer>
-      {renderItem()}
-      <DayNumber color={getTextColor()}>{index + 1}</DayNumber>
-    </DayContainer>
+    <TouchableWithoutFeedback onPress={() => setPressed((p) => p + 1)}>
+      <DayContainer>
+        {renderItem()}
+        <DayNumber color={getTextColor()}>{index + 1}</DayNumber>
+      </DayContainer>
+    </TouchableWithoutFeedback>
   );
 };
 

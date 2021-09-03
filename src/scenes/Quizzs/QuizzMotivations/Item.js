@@ -4,42 +4,47 @@ import CheckBox from '@react-native-community/checkbox';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
+import { useNavigation } from '@react-navigation/native';
 
-export const Item = ({ answerKey, content, alertText, onPress, checked = false, disabled = false, navigation }) => (
-  <TouchableWithoutFeedback onPress={() => onPress?.(answerKey)}>
-    <View>
-      <ItemContainer>
-        <CheckBoxContainer>
-          <CheckBoxStyled
-            // ios style
-            onCheckColor="#4030a5"
-            onTintColor="#4030a5"
-            onFillColor="#4030a511"
-            animationDuration={0.2}
-            boxType="square"
-            lineWidth={1}
-            //android style
-            tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
-            //common props
-            disabled={disabled}
-            value={checked}
-          />
-        </CheckBoxContainer>
-        <TextStyled>{content}</TextStyled>
-      </ItemContainer>
-      {!!checked && !!alertText && (
-        <AlertContainer>
-          <TextStyled color="#1a1a1a">{alertText}</TextStyled>
-          <ButtonPrimaryStyled
-            small
-            content="Échanger avec un conseiller"
-            onPress={() => navigation.navigate('CONTACT')}
-          />
-        </AlertContainer>
-      )}
-    </View>
-  </TouchableWithoutFeedback>
-);
+export const Item = ({ answerKey, content, alertText, onPress, checked = false, disabled = false }) => {
+  const navigation = useNavigation();
+  return (
+    <TouchableWithoutFeedback onPress={() => onPress?.(answerKey)}>
+      <View>
+        <ItemContainer>
+          <CheckBoxContainer>
+            <CheckBoxStyled
+              // ios style
+              onCheckColor="#4030a5"
+              onTintColor="#4030a5"
+              onFillColor="#4030a511"
+              animationDuration={0.2}
+              boxType="square"
+              lineWidth={1}
+              //android style
+              tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
+              //common props
+              disabled={disabled}
+              value={checked}
+            />
+          </CheckBoxContainer>
+          <TextStyled>{content}</TextStyled>
+        </ItemContainer>
+        {!!checked && !!alertText && (
+          <AlertContainer>
+            <TextStyled color="#1a1a1a">{alertText}</TextStyled>
+            <ButtonPrimaryStyled
+              small
+              content="Échanger avec un conseiller"
+              onPress={() => navigation.navigate('CONTACT')}
+            />
+          </AlertContainer>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
+  );
+};
+
 const CheckBoxContainer = styled.View`
   padding: 2px;
   height: 20px;

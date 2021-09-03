@@ -1,6 +1,7 @@
 import CONSTANTS from '../../../reference/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAnswerScore } from '../../../components/Quizz/utils';
+import { capture } from '../../../services/sentry';
 
 const lookupConsommationPopulation = [
   [0, 0, 0, 0, 0],

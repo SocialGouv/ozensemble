@@ -18,7 +18,7 @@ const InfosStack = createStackNavigator();
 const Infos = () => (
   <Background color="#39cec0" withSwiperContainer>
     <HeaderBackground />
-    <InfosStack.Navigator headerMode="none" initialRouteName="TESTS">
+    <InfosStack.Navigator headerMode="none">
       <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
       <InfosStack.Screen name="REMINDER" component={Reminder} />
       <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
