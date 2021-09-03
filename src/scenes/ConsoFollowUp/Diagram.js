@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import {
   getDaysForDiagram,
@@ -21,10 +21,16 @@ import {
   HelpText,
   CloseHelpContainer,
 } from './styles';
-import { usefetchMaxAcceptableDosesPerDay } from '../../helpers/customHooks';
 import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
+import CONSTANTS from '../../reference/constants';
+
+const getAcceptableDosePerDay = (gender) => {
+  if (!gender) return 3;
+  if (gender === CONSTANTS.MAN) return 3;
+  return 2;
+};
 
 const computeBarsHeight = (highestDailyDose, highestAcceptableDosesPerDay) => {
   const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
@@ -58,7 +64,20 @@ const Diagram = ({
   onCloseHelp,
   onShowHelp,
 }) => {
-  const highestAcceptableDosesPerDay = usefetchMaxAcceptableDosesPerDay();
+  const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(3);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const storedValue = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+        if (!storedValue) return;
+        const quizzAnswers = JSON.parse(storedValue);
+        if (!quizzAnswers) return;
+        setHighestAcceptableDosesPerDay(getAcceptableDosePerDay(quizzAnswers[CONSTANTS.GENDER]));
+      } catch (e) {}
+    })();
+  }, []);
+
   const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
     highestDailyDose,
     highestAcceptableDosesPerDay

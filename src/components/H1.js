@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
 
 const bigH1 = css`
-  font-size: 25px;
-  line-height: 37px;
+  font-size: 23px;
+  line-height: 30px;
 `;
 
 const mediumH1 = css`

@@ -11,14 +11,14 @@ import CGUs from './CGUs';
 import PrivacyPolicy from './PrivacyPolicy';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
-import Quizz from '../../scenes/Quizz';
+import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 
 const InfosStack = createStackNavigator();
 
 const Infos = () => (
   <Background color="#39cec0" withSwiperContainer>
     <HeaderBackground />
-    <InfosStack.Navigator headerMode="none">
+    <InfosStack.Navigator headerMode="none" initialRouteName="TESTS">
       <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
       <InfosStack.Screen name="REMINDER" component={Reminder} />
       <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
@@ -26,7 +26,7 @@ const Infos = () => (
         {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
       </InfosStack.Screen>
       <InfosStack.Screen name="EXPORT" component={Export} />
-      <InfosStack.Screen name="TESTS" component={Quizz} />
+      <InfosStack.Screen name="TESTS" component={QuizzsNavigator} />
     </InfosStack.Navigator>
   </Background>
 );
