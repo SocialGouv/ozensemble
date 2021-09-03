@@ -268,7 +268,7 @@ PODS:
     - React-Core
   - react-native-netinfo (5.9.10):
     - React-Core
-  - react-native-safe-area-context (3.3.0):
+  - react-native-safe-area-context (3.3.1):
     - React-Core
   - react-native-webview (10.10.2):
     - React-Core
@@ -613,7 +613,7 @@ SPEC CHECKSUMS:
   react-native-camera: b8cc03e2feec0c04403d0998e37cf519d8fd4c6f
   react-native-config: 72d948053a442779b3178fddd571e37f118ef606
   react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
-  react-native-safe-area-context: 61c8c484a3a9e7d1fda19f7b1794b35bbfd2262a
+  react-native-safe-area-context: ca9f3b49266e56b1d841ccdde7cfe2e076f529b6
   react-native-webview: 0aa2cde4ee7e3e1c5fffdf64dbce9c709aa18155
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b

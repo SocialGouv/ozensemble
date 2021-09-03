@@ -2,7 +2,7 @@ import React from 'react';
 import TextStyled from '../components/TextStyled';
 import styled from 'styled-components';
 
-export default ({ onPress }) => (
+const GoBackButton = ({ onPress }) => (
   <Container onPress={onPress}>
     <TextStyled color="#39cec0">{'<'}</TextStyled>
   </Container>
@@ -16,4 +16,7 @@ export const Container = styled.TouchableOpacity`
   background-color: white;
   justify-content: center;
   align-items: center;
+  margin-top: 4px;
 `;
+
+export default GoBackButton;

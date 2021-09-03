@@ -9,7 +9,6 @@ import matomo from './services/matomo';
 import CONSTANTS from './reference/constants';
 import NotificationService from './services/notifications';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
-import Defi from './scenes/Defi';
 import Contact from './scenes/Contact/Contact';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
 import Infos from './scenes/Infos/Infos';
@@ -17,21 +16,19 @@ import NPS from './scenes/NPS/NPS';
 import AppStateHandler from './services/AppStateHandler';
 import GuidanceIcon from './components/Illustrations/GuidanceIcon';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
-import TestsIcon from './components/Illustrations/Tests';
 import InfosIcon from './components/Illustrations/Infos';
 import Calendar7DaysIcon from './components/Illustrations/Calendar7Days';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
+import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 
 const Tabs = createBottomTabNavigator();
-const TabsNavigator = ({ navigation, route }) => {
-  const [initialRouteName, setInitialRouteName] = useState(null);
+const TabsNavigator = ({ navigation }) => {
+  const [initialRouteName, setInitialRouteName] = useState('INFOS');
 
   useEffect(() => {
     (async () => {
-      // await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_ANSWERS);
-      return setInitialRouteName('DEFI');
-      const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ANSWERS);
+      const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
       if (!answersExist) return setInitialRouteName('TESTS');
     })();
   }, []);
@@ -84,7 +81,7 @@ const TabsNavigator = ({ navigation, route }) => {
           tabBarLabel: 'Défis',
           tabBarIcon: ({ size, color }) => <Calendar7DaysIcon size={size} color={color} />,
         }}
-        component={Defi}
+        component={Defi7DaysNavigator}
       />
       <Tabs.Screen
         name="INFOS"
@@ -97,10 +94,11 @@ const TabsNavigator = ({ navigation, route }) => {
     </Tabs.Navigator>
   );
 };
+
 const Root = createStackNavigator();
 class Router extends React.Component {
   state = {
-    initialRouteName: null,
+    initialRouteName: 'TABS',
   };
 
   async componentDidMount() {

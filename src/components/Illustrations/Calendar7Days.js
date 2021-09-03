@@ -4,7 +4,7 @@ import Svg, { Path } from 'react-native-svg';
 
 const StyledSvg = styled(Svg)``;
 
-export default ({ color, size, ...props }) => (
+const Calendar7Days = ({ color, size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 31.5 31.5" {...props}>
     <Path
       fill={color}
@@ -24,3 +24,5 @@ export default ({ color, size, ...props }) => (
     />
   </StyledSvg>
 );
+
+export default Calendar7Days;

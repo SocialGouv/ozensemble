@@ -7,7 +7,6 @@ const ButtonPrimary = ({ content, onPress, small, color, shadowColor, ...props }
   <ButtonPrimaryStyled
     adjustsFontSizeToFit
     numberOfLines={1}
-    withShadow
     onPress={onPress}
     small={small}
     shadowColor={shadowColor}
@@ -22,7 +21,7 @@ const shadowHeight = 4;
 const computeButtonHeight = (small) => (small ? buttonSmallHeight : buttonHeight);
 
 const ButtonPrimaryStyled = styled.TouchableOpacity`
-  background-color: ${({ shadowColor }) => shadowColor || '#c0184a'};
+  /* background-color: ${({ shadowColor }) => shadowColor || '#c0184a'}; */
   height: ${({ small }) => computeButtonHeight(small) + shadowHeight}px;
   border-radius: ${({ small }) => computeButtonHeight(small)}px;
   ${({ disabled }) => disabled && 'opacity: 0.5;'}/* SHADOW NOT WORKING IN ANDROID */
@@ -74,7 +73,7 @@ const smallContent = css`
 const ContentStyled = styled.Text`
   color: #f9f9f9;
   font-weight: bold;
-  margin-top: ${({ small }) => (small ? 3 : 0)}px;
+  /* margin-top: ${({ small }) => (small ? 3 : 0)}px; */
   ${bigContent}
   ${mediaHeight.medium`${mediumContent}`}
   ${mediaHeight.small`${smallContent}`}

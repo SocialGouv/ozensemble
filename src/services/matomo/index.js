@@ -4,8 +4,9 @@ import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import Matomo from './lib';
 import CONSTANTS from '../../reference/constants';
-import { getGenderFromLocalStorage, mapResultToMatomoProfile } from '../../scenes/Quizz/utils';
 import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../../config';
+import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
+import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
 
 const initMatomo = async () => {
   let userId = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_USER_ID);
@@ -30,12 +31,12 @@ const initMatomo = async () => {
     idsite: MATOMO_IDSITE_2,
   });
 
-  const resultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_RESULT);
+  const resultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_RESULT);
   const gender = await getGenderFromLocalStorage();
   Matomo.setUserProperties({
     version: DeviceInfo.getVersion(),
     system: Platform.OS,
-    profile: mapResultToMatomoProfile(resultKey),
+    profile: mapOnboardingResultToMatomoProfile(resultKey),
     gender,
   });
 };
@@ -92,7 +93,7 @@ QUIZZ
 
 */
 
-const QUIZZ = CONSTANTS.VIEW_QUIZZ;
+const QUIZZ = 'QUIZZ';
 const QUIZZ_OPEN = 'QUIZZ_OPEN';
 const QUIZZ_ANSWER = 'QUIZZ_ANSWER';
 const QUIZZ_START = 'QUIZZ_START';
@@ -133,7 +134,7 @@ const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
 };
 
 const logAddictionResult = (resultKey) => {
-  const profile = mapResultToMatomoProfile(resultKey);
+  const profile = mapOnboardingResultToMatomoProfile(resultKey);
   Matomo.setUserProperties({ profile });
 };
 
@@ -141,7 +142,7 @@ const logAddictionResult = (resultKey) => {
 CONSO
 
 */
-const CONSO = CONSTANTS.VIEW_CONSO;
+const CONSO = 'CONSO';
 const CONSO_OPEN = 'CONSO_OPEN';
 const CONSO_OPEN_CONSO_ADDSCREEN = 'CONSO_OPEN_CONSO_ADDSCREEN';
 const CONSO_CLOSE_CONSO_ADDSCREEN = 'CONSO_CLOSE_CONSO_ADDSCREEN';
@@ -248,7 +249,7 @@ REMINDER
 
 */
 
-const REMINDER = CONSTANTS.VIEW_REMINDER;
+const REMINDER = 'REMINDER';
 const REMINDER_OPEN = 'REMINDER_OPEN';
 const REMINDER_SET = 'REMINDER_SET';
 const REMINDER_DELETE = 'REMINDER_DELETE';
@@ -282,7 +283,7 @@ CONTACT
 
 */
 
-const CONTACT = CONSTANTS.VIEW_CONTACT;
+const CONTACT = 'CONTACT';
 const CONTACT_OPEN = 'CONTACT_OPEN';
 const CONTACT_CALL = 'CONTACT_CALL';
 const CONTACT_WEBSITE_OPEN = 'CONTACT_WEBSITE_OPEN';
