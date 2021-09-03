@@ -7,7 +7,16 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/Illustrations/TickDone';
 import { fetchStoredAnswers } from '../../components/Quizz/utils';
 
-const QuizzElement = ({ topTitle, title, disabled, quizzRoute, questions, memoryKeyAnswers, memoryKeyResult }) => {
+const QuizzElement = ({
+  topTitle,
+  title,
+  disabled,
+  quizzRoute,
+  questions,
+  memoryKeyAnswers,
+  memoryKeyResult,
+  showEvenNotDone,
+}) => {
   const [quizzInitialState, setQuizzInitialState] = useState({ answers: null, result: null });
   const navigation = useNavigation();
 
@@ -30,6 +39,8 @@ const QuizzElement = ({ topTitle, title, disabled, quizzRoute, questions, memory
   }, [isFocused]);
 
   const done = quizzInitialState.result !== null;
+
+  if (!done && !showEvenNotDone) return null;
 
   return (
     <Container done={done} disabled={disabled}>

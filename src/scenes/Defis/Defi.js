@@ -10,6 +10,7 @@ import DayModule from './DayModule';
 const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unlockedDayIndex, hackAndUnlockDay }) => {
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, validatedDays);
+  const activeDayIsUnlocked = activeDay === unlockedDayIndex;
 
   const getTitleColor = (dayIndex) => {
     if (unlockedDayIndex < dayIndex) return '#c4c4c4';
@@ -36,7 +37,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unl
         hackAndUnlockDay={hackAndUnlockDay}
       />
       <FeedCTAContainer zIndex={10}>
-        {!!data[activeDay]?.screenCTA ? (
+        {!!activeDayIsUnlocked && !!data[activeDay]?.screenCTA ? (
           <FeedCTAButton
             content={data[activeDay]?.textCTA}
             color="#4030a5"
@@ -49,14 +50,14 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unl
           <FeedCTAButton
             content="Ajouter une consommation"
             onPress={() => {
-              updateValidatedDays(activeDay + 1);
+              if (!!activeDayIsUnlocked) updateValidatedDays(activeDay + 1);
               navigation.push('ADD_DRINK', { timestamp: Date.now() });
             }}
           />
         )}
       </FeedCTAContainer>
       <FeedContainer>
-        <DayModule dayData={data[activeDay]} />
+        <DayModule dayData={data[activeDay]} activeDayIsUnlocked={activeDayIsUnlocked} />
         <Separator />
         {data.map((dayData, dayIndex) => {
           return (
