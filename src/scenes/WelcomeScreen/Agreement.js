@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TouchableWithoutFeedback, Modal } from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 import CGUs from '../Infos/CGUs';
 import PrivacyPolicy from '../Infos/PrivacyPolicy';
 
@@ -12,7 +13,19 @@ const Agreement = ({ onAgree, agreed }) => {
       <Container>
         <TouchableWithoutFeedback onPress={onAgree} hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
           <CheckBoxContainer>
-            <CheckBox agreed={agreed} />
+            <CheckBoxStyled
+              // ios style
+              onCheckColor="#4030a5"
+              onTintColor="#4030a5"
+              onFillColor="#4030a511"
+              animationDuration={0.2}
+              boxType="square"
+              lineWidth={1}
+              //android style
+              tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
+              //common props
+              value={agreed}
+            />
           </CheckBoxContainer>
         </TouchableWithoutFeedback>
         <TextContainer>
@@ -53,17 +66,16 @@ const Container = styled.View`
 `;
 
 const CheckBoxContainer = styled.View`
-  background-color: #c4c4c4;
-  padding: 4px;
+  padding: 2px;
   height: 20px;
   width: 20px;
   flex-shrink: 0;
+  margin-right: 10px;
 `;
 
-const CheckBox = styled.View`
+const CheckBoxStyled = styled(CheckBox)`
   height: 100%;
   width: 100%;
-  ${(props) => props.agreed && `background-color: ${color}`}
 `;
 
 const TextContainer = styled.Text`
