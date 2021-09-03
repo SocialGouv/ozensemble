@@ -11,8 +11,8 @@ const Section = ({ section, onToggle, answers, ...props }) => (
         answerKey={item.answerKey}
         content={item.content}
         alertText={item.alertText}
-        onPress={() => onToggle(item.answerKey, !answers[item.answerKey])}
-        checked={!!answers[item.answerKey]}
+        onPress={() => onToggle(item.answerKey, !answers?.[item.answerKey])}
+        checked={!!answers?.[item.answerKey]}
         {...props}
       />
     ))}

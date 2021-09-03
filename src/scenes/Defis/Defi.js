@@ -3,15 +3,12 @@ import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import Background from '../../components/Background';
-import HeaderBackground from '../../components/HeaderBackground';
 import TopTimeline from './TopTimeline';
 import Timeline from './Timeline';
 import DayModule from './DayModule';
 
-const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays }) => {
+const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unlockedDayIndex, hackAndUnlockDay }) => {
   const nbdays = data.length;
-  const unlockedDayIndex = validatedDays;
   const activeDay = Math.min(data.length - 1, validatedDays);
 
   const getTitleColor = (dayIndex) => {
@@ -36,6 +33,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays }) =
         validatedDays={validatedDays}
         unlockedDayIndex={unlockedDayIndex}
         activeDay={activeDay}
+        hackAndUnlockDay={hackAndUnlockDay}
       />
       <FeedCTAContainer zIndex={10}>
         {!!data[activeDay]?.screenCTA ? (
