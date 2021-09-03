@@ -3,7 +3,20 @@ import styled from 'styled-components';
 
 import TextStyled from '../../components/TextStyled';
 
-const DayModule = ({ dayData }) => {
+const DayModule = ({ dayData, activeDayIsUnlocked }) => {
+  if (!activeDayIsUnlocked) {
+    return (
+      <FeedDayContent>
+        <DescriptionContainer>
+          <TextStyled>
+            <TextStyled bold>Courage ! Continuez à remplir vos consommations </TextStyled> tout au long de la journée.
+            Chaque jour de la semaine vous trouverez ici une nouvelle aide pour vous accompagner dans ce pointsur 7
+            jours.
+          </TextStyled>
+        </DescriptionContainer>
+      </FeedDayContent>
+    );
+  }
   return (
     <FeedDayContent>
       <TitleDay>

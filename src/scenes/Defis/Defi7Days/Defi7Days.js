@@ -57,21 +57,23 @@ const Defi7DaysNavigator = () => {
 };
 
 const Defi7DaysMenu = ({ navigation }) => {
-  const [validatedDays, setValidateDays] = useState(5);
+  const [validatedDays, setValidateDays] = useState(0);
   const [lastUpdate, setLastUpdate] = useState('');
 
   const getValidatedDays = async () => {
-    // await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', `2021-09-03`);
-    const storedValidateDays = await AsyncStorage.getItem('DEFI_7_JOURS_VALIDATED_DAYS');
-    if (storedValidateDays) setValidateDays(Number(storedValidateDays));
+    // await AsyncStorage.clear();
     const storedLastUpdate = await AsyncStorage.getItem('DEFI_7_JOURS_LAST_UPDATE');
     if (storedLastUpdate) setLastUpdate(storedLastUpdate);
+    const storedValidateDays = await AsyncStorage.getItem('DEFI_7_JOURS_VALIDATED_DAYS');
+    if (storedValidateDays) setValidateDays(Number(storedValidateDays));
   };
 
   const updateValidatedDays = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     await AsyncStorage.setItem('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
-    await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', `${new Date().toISOString().split('T')[0]}`);
+    const lastUpdate = new Date().toISOString().split('T')[0];
+    await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', lastUpdate);
+    setLastUpdate(lastUpdate);
     setValidateDays(day);
   };
 

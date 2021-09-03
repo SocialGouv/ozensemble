@@ -76,6 +76,7 @@ const QuizzMenu = () => {
           quizzRoute="ONBOARDING_QUIZZ"
           memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_RESULT}
           memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS}
+          showEvenNotDone
         />
         <QuizzElement
           topTitle="Défi 7 jours"
