@@ -29,7 +29,7 @@ const TabsNavigator = ({ navigation }) => {
   useEffect(() => {
     (async () => {
       const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
-      if (!answersExist) return setInitialRouteName('TESTS');
+      if (!answersExist) return setInitialRouteName('DEFI');
     })();
   }, []);
 
@@ -98,7 +98,7 @@ const TabsNavigator = ({ navigation }) => {
 const Root = createStackNavigator();
 class Router extends React.Component {
   state = {
-    initialRouteName: 'TABS',
+    initialRouteName: 'WELCOME',
   };
 
   async componentDidMount() {
