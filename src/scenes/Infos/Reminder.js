@@ -154,7 +154,7 @@ class Reminder extends React.Component {
         <BackButton content="< Retour" onPress={navigation.goBack} bold />
         <ReminderIcon size={80} color="#4030a5" selected={false} />
         <Title>
-          <TextStyled color="#4030a5">N'oubliez plus jamais de remplir vos consommations</TextStyled>
+          <TextStyled color="#4030a5">Une aide pour penser à noter vos consommations</TextStyled>
         </Title>
         <SubTitle>
           {reminder ? (
