@@ -21,7 +21,12 @@ export const defi7DaysData = [
     actionType: 'quizz',
     title: 'Jour 2',
     tagLine: 'Évaluer sa consommation',
-    description: 'Affinez votre première évaluation avec un questionnaire plus complet de 10 questions',
+    description: (
+      <>
+        <TextStyled bold>Affinez</TextStyled> votre première évaluation avec un questionnaire plus complet de 10
+        questions.
+      </>
+    ),
     textCTA: 'Passer le test',
     screenCTA: 'DAY_2',
   },

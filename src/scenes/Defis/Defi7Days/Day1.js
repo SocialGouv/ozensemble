@@ -5,6 +5,17 @@ import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
+import Diagram from '../../ConsoFollowUp/Diagram';
+import CocktailGlass from '../../../components/Illustrations/CocktailGlass';
+import HalfBeer from '../../../components/Illustrations/HalfBeer';
+import WineGlass from '../../../components/Illustrations/WineGlass';
+import Dose from '../../../components/Illustrations/Dose';
+
+const doses = [
+  { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
+  { Icon: WineGlass, name: 'vin', volume: 10, degrees: 12 },
+  { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
+];
 
 const Day1 = ({ navigation }) => {
   return (
@@ -19,8 +30,9 @@ const Day1 = ({ navigation }) => {
           </TopTitle>
           <Paragraph>
             <TextStyled>
-              Un agenda de consommation est à votre disposition dans l’onglet Suivi. Vous pouvez saisir une consommation
-              depuis l’agenda ou en appyant sur le bouton “+”
+              Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre agenda
+              de consommation disponible dans l’onglet suivi. l’onglet Suivi. Vous pouvez saisir une consommation depuis
+              l’agenda ou en appyant sur le bouton “+”{' '}
             </TextStyled>
           </Paragraph>
           <Paragraph>
@@ -29,7 +41,32 @@ const Day1 = ({ navigation }) => {
               d’alcool.{'\n\n'}A titre indicatif chaque consommation ci-dessous compte pour une unité d’alcool.
             </TextStyled>
           </Paragraph>
-          {/* todo doses */}
+          <IconsContainer>
+            {doses.map(({ Icon, volume, name, degrees }, i) => (
+              <React.Fragment key={i}>
+                <IconWrapper>
+                  <Icon size={50} style={{ borderWidth: 0 }} />
+                  <Volume color="#4030a5">{name}</Volume>
+                  <Volume color="#4030a5">{volume}cl</Volume>
+                  <Volume color="#4030a5">{degrees}%</Volume>
+                </IconWrapper>
+                {i < doses.length - 1 && (
+                  <EqualWrapper>
+                    <TextStyled color="#191919">=</TextStyled>
+                  </EqualWrapper>
+                )}
+              </React.Fragment>
+            ))}
+            <EqualWrapper>
+              <TextStyled color="#191919">≈</TextStyled>
+            </EqualWrapper>
+            <IconWrapper>
+              <Dose size={25} style={{ borderWidth: 0 }} />
+              <Volume color="#4030a5">1 dose</Volume>
+              <Volume color="#4030a5">10g d'alcool</Volume>
+              <Volume color="#4030a5"> </Volume>
+            </IconWrapper>
+          </IconsContainer>
           <Paragraph>
             <TextStyled>
               Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
@@ -49,7 +86,7 @@ const Day1 = ({ navigation }) => {
               jour pour un homme.
             </TextStyled>
           </Paragraph>
-          {/* todo example graph */}
+          <Diagram asPreview />
           <Paragraph>
             <TextStyled>
               Retrouvez le détail de vos consommations dans le fil du journal de l’onglet suivi. Vous pouvez les
@@ -100,4 +137,20 @@ const TopTitle = styled.View`
 const AddConsoCTAContainer = styled.View`
   margin-bottom: 100px;
   align-items: center;
+`;
+const IconsContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 50px;
+`;
+const IconWrapper = styled.View`
+  align-items: center;
+`;
+const Volume = styled(TextStyled)`
+  margin-top: 5px;
+`;
+const EqualWrapper = styled.View`
+  padding: 10px;
+  padding-bottom: 50px;
 `;
