@@ -20,8 +20,7 @@ const ResultPopulation = ({ value }) => {
               Vous avez une consommation <TextStyled bold>inférieure</TextStyled> à la plupart des Français.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par
-              semaine, ou un verre tous les <TextStyled bold>2 à 3 jours</TextStyled>.
+              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
             </ResultParagraph>
           </View>
         );
@@ -32,8 +31,7 @@ const ResultPopulation = ({ value }) => {
               Vous avez une consommation <TextStyled bold>égale</TextStyled> à la plupart des Français.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par
-              semaine, ou un verre tous les <TextStyled bold>2 à 3 jours</TextStyled>.
+              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
             </ResultParagraph>
             <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
           </View>
@@ -46,8 +44,7 @@ const ResultPopulation = ({ value }) => {
               Vous avez une consommation <TextStyled bold>supérieure</TextStyled> à la plupart des Français.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par
-              semaine, ou un verre tous les <TextStyled bold>2 à 3 jours</TextStyled>.
+              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
             </ResultParagraph>
             <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
           </View>
