@@ -22,16 +22,13 @@ import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 
+import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
+
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   const [initialRouteName, setInitialRouteName] = useState('DEFI');
 
-  useEffect(() => {
-    (async () => {
-      const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
-      if (!answersExist) return setInitialRouteName('DEFI');
-    })();
-  }, []);
+  // todo : if in defi goto DEFI else goto CONSO_FOLLOW_UP
 
   if (!initialRouteName) return null;
 
@@ -98,7 +95,7 @@ const TabsNavigator = ({ navigation }) => {
 const Root = createStackNavigator();
 class Router extends React.Component {
   state = {
-    initialRouteName: 'WELCOME',
+    initialRouteName: null,
   };
 
   async componentDidMount() {
@@ -115,6 +112,8 @@ class Router extends React.Component {
     await matomo.logAppVisit('initApp');
     const onBoardingDone = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE);
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
+    const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+    if (!answersExist) return this.setState({ initialRouteName: 'ONBOARDING_QUIZZ' });
     return this.setState({ initialRouteName: 'TABS' });
   };
 
@@ -134,6 +133,7 @@ class Router extends React.Component {
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
             <Root.Screen name="WELCOME" component={WelcomeScreen} />
+            <Root.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
             <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
             <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>
