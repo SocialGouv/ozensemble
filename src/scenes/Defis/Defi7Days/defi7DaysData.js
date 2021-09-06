@@ -33,31 +33,35 @@ export const defi7DaysData = [
   {
     actionType: 'content',
     title: 'Jour 3',
-    tagLine: 'Saviez-vous que...',
+    tagLine: 'Le saviez-vous ?',
     description:
-      'L’alcool facilite l’endormissement mais perturbe la qualité du sommeil en provoquant un sommeil haché par de multiples réveils ?',
+      'L’alcool facilite l’endormissement mais perturbe la qualité du sommeil en provoquant un sommeil haché par de multiples réveils.',
   },
   {
     actionType: 'quizz',
     title: 'Jour 4',
     tagLine: 'Évaluer sa qualitée de vie',
-    description: "Evaluez votre niveau de qualité de vie et l'impact éventuel de l'alcool sur celle-ci",
+    description: (
+      <>
+        <TextStyled bold>Evaluez</TextStyled> votre niveau de qualité de vie et l'impact éventuel de l'alcool sur
+        celle-ci.
+      </>
+    ),
     textCTA: 'Passer le test',
     screenCTA: 'DAY_4',
   },
   {
     actionType: 'content',
     title: 'Jour 5',
-    tagLine: 'Saviez-vous que...',
-    description:
-      'L’alcool facilite l’endormissement mais perturbe la qualité du sommeil en provoquant un sommeil haché par de multiples réveils ?',
+    tagLine: 'Le saviez-vous ?',
+    description: 'L’alcool peut être festif mais peut induire rapidement des syndromes dépressifs.',
   },
   {
     actionType: 'quizz',
     title: 'Jour 6',
     tagLine: 'Identifier mes motivations à diminuer',
     description:
-      'Identifier mes motivations à changer Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d’alcool',
+      'Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d’alcool.  ',
     textCTA: 'Mes motivations à diminuer',
     screenCTA: 'DAY_6',
   },
@@ -65,8 +69,12 @@ export const defi7DaysData = [
     actionType: 'content',
     title: 'Jour 7',
     tagLine: 'Bilan de votre point sur 7 jours',
-    description:
-      'Bravo ! Vous avez fait un grand premier pas vers une meilleure connaissance et maitrîse de votre consommation d’alcool !',
+    description: (
+      <>
+        <TextStyled bold>Bravo !</TextStyled> Vous avez fait un grand premier pas vers une meilleure connaissance et
+        maitrîse de votre consommation d’alcool !
+      </>
+    ),
     textCTA: 'Consulter mon bilan',
     screenCTA: 'DAY_7',
   },
