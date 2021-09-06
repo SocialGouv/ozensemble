@@ -22,7 +22,7 @@ const Item = ({ response }) => {
   if (response.score === 0) return null;
   return (
     <ItemContainer>
-      <ItemStyled color={response.score > 0 ? '#B4E44D' : '#EE4F6C'}>
+      <ItemStyled color={response.score > 0 ? '#39cec0' : '#c0184a'}>
         <TextStyled style={{ fontSize: 30 }} bold>
           {response.score > 0 ? '👍' : '👎'}
         </TextStyled>

@@ -13,7 +13,7 @@ export const ItemStyled = styled.View`
   justify-content: center;
   align-items: center;
   background-color: ${({ color }) => color || '#fff'};
-  border-radius: 20px;
+  border-radius: 30px;
 `;
 
 export const ItemContainer = styled.View`
