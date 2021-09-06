@@ -11,7 +11,7 @@ export const defi7DaysData = [
       <>
         <TextStyled bold>L'observation</TextStyled> est une{' '}
         <TextStyled bold>première étape clé pour faire le point</TextStyled>. L’alcool est très présent dans nos vies,
-        parfois plus qu’on ne le pense. Vous pourriez être surpris de boire autant
+        parfois plus qu’on ne le pense. Vous pourriez être surpris de votre consommation.
       </>
     ),
     textCTA: 'Comment compter',
