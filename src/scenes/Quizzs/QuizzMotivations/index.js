@@ -61,14 +61,12 @@ const QuizzMotivations = ({ navigation, route }) => {
                   <GoBackButton onPress={navigation.goBack} />
                   <TopTitle>
                     <TextStyled color="#4030a5">
-                      Quelles raisons vous motivent à diminuer votre consommation ?
+                      Quelles raisons vous motivent à changer votre consommation ?
                     </TextStyled>
                   </TopTitle>
                 </TopTitleContainer>
                 <Paragraph>
-                  <TextStyled>
-                    Sélectionnez vos principales raisons pour diminuer votre consommation d’alcool{' '}
-                  </TextStyled>
+                  <TextStyled>Sélectionnez vos principales raisons pour changer votre consommation d’alcool</TextStyled>
                 </Paragraph>
                 {sections.map((section, id) => (
                   <Section
