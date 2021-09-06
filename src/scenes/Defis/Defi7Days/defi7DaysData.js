@@ -59,10 +59,10 @@ export const defi7DaysData = [
   {
     actionType: 'quizz',
     title: 'Jour 6',
-    tagLine: 'Identifier mes motivations à diminuer',
+    tagLine: 'Identifier mes motivations à changer',
     description:
-      'Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d’alcool.  ',
-    textCTA: 'Mes motivations à diminuer',
+      'Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d’alcool.',
+    textCTA: 'Mes motivations à changer',
     screenCTA: 'DAY_6',
   },
   {
