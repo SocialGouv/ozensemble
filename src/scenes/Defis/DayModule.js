@@ -9,8 +9,8 @@ const DayModule = ({ dayData, activeDayIsUnlocked }) => {
       <FeedDayContent>
         <DescriptionContainer>
           <TextStyled>
-            <TextStyled bold>Courage ! Continuez à remplir vos consommations </TextStyled> tout au long de la journée.
-            Chaque jour de la semaine vous trouverez ici une nouvelle aide pour vous accompagner dans ce pointsur 7
+            <TextStyled bold>Courage ! Continuez à remplir vos consommations</TextStyled> tout au long de la journée.
+            Chaque jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7
             jours.
           </TextStyled>
         </DescriptionContainer>
