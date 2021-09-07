@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Lock from '../../components/Illustrations/Lock';
 import StarButton from '../../components/Illustrations/StarButton';
 
-const TopTimeline = ({ nbdays, validatedDays, unlockedDayIndex, hackAndUnlockDay }) => {
+const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay }) => {
   return (
     <Container>
       {[...Array(nbdays)].map((_, dayIndex) => {
@@ -14,7 +14,7 @@ const TopTimeline = ({ nbdays, validatedDays, unlockedDayIndex, hackAndUnlockDay
             key={dayIndex}
             index={dayIndex}
             done={validatedDays > dayIndex}
-            locked={dayIndex !== 0 && unlockedDayIndex < dayIndex}
+            locked={dayIndex !== 0 && activeDay < dayIndex}
             unLock={hackAndUnlockDay}
           />
         );

@@ -19,7 +19,6 @@ const Defi7DaysNavigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-
       <Defi7DaysStack.Navigator headerMode="none" initialRouteName="DEFI_7_DAYS_MENU">
         <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
         <Defi7DaysStack.Screen name="DAY_1" component={Day1} />
@@ -89,7 +88,7 @@ const Defi7DaysMenu = ({ navigation }) => {
   });
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
-  const unlockedDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
+  const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
   return (
     <Defi
@@ -97,7 +96,7 @@ const Defi7DaysMenu = ({ navigation }) => {
       title="Faire le point sur 7 jours"
       data={defi7DaysData}
       validatedDays={validatedDays}
-      unlockedDayIndex={unlockedDayIndex}
+      ActiveDayIndex={ActiveDayIndex}
       updateValidatedDays={updateValidatedDays}
       hackAndUnlockDay={hackAndUnlockDay}
     />
@@ -105,10 +104,3 @@ const Defi7DaysMenu = ({ navigation }) => {
 };
 
 export default Defi7DaysNavigator;
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;

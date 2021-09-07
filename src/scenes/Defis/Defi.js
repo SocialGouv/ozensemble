@@ -7,18 +7,18 @@ import TopTimeline from './TopTimeline';
 import Timeline from './Timeline';
 import DayModule from './DayModule';
 
-const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unlockedDayIndex, hackAndUnlockDay }) => {
+const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
   const nbdays = data.length;
-  const activeDay = Math.min(data.length - 1, validatedDays);
-  const activeDayIsUnlocked = activeDay === unlockedDayIndex;
+  const activeDay = Math.min(data.length - 1, ActiveDayIndex);
+  const activeDayIsDone = activeDay <= validatedDays - 1;
 
   const getTitleColor = (dayIndex) => {
-    if (unlockedDayIndex < dayIndex) return '#c4c4c4';
+    if (activeDay < dayIndex) return '#c4c4c4';
     if (validatedDays > dayIndex) return '#4030a5';
     if (activeDay === dayIndex) return '#de285e';
   };
   const getSubtitleColor = (dayIndex) => {
-    if (unlockedDayIndex < dayIndex) return '#c4c4c4';
+    if (activeDay < dayIndex) return '#c4c4c4';
     if (validatedDays > dayIndex) return '#191919';
     if (activeDay === dayIndex) return '#191919';
   };
@@ -32,12 +32,11 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unl
       <TopTimeline
         nbdays={nbdays}
         validatedDays={validatedDays}
-        unlockedDayIndex={unlockedDayIndex}
         activeDay={activeDay}
         hackAndUnlockDay={hackAndUnlockDay}
       />
       <FeedCTAContainer zIndex={10}>
-        {!!activeDayIsUnlocked && !!data[activeDay]?.screenCTA ? (
+        {!activeDayIsDone && !!data[activeDay]?.screenCTA ? (
           <FeedCTAButton
             content={data[activeDay]?.textCTA}
             color="#4030a5"
@@ -50,14 +49,14 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unl
           <FeedCTAButton
             content="Ajouter une consommation"
             onPress={() => {
-              if (!!activeDayIsUnlocked) updateValidatedDays(activeDay + 1);
+              if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
               navigation.push('ADD_DRINK', { timestamp: Date.now() });
             }}
           />
         )}
       </FeedCTAContainer>
       <FeedContainer>
-        <DayModule dayData={data[activeDay]} activeDayIsUnlocked={activeDayIsUnlocked} />
+        <DayModule dayData={data[activeDay]} activeDayIsDone={activeDayIsDone} />
         <Separator />
         {data.map((dayData, dayIndex) => {
           return (
@@ -66,7 +65,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, unl
                 first={dayIndex === 0}
                 last={dayIndex === data.length - 1}
                 done={validatedDays > dayIndex}
-                locked={unlockedDayIndex < dayIndex}
+                locked={activeDay < dayIndex}
                 active={activeDay === dayIndex}
               />
               <FeedDayContent>
