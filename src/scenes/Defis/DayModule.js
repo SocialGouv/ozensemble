@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import TextStyled from '../../components/TextStyled';
 
-const DayModule = ({ dayData, activeDayIsUnlocked }) => {
-  if (!activeDayIsUnlocked) {
+const DayModule = ({ dayData, activeDayIsDone }) => {
+  if (activeDayIsDone) {
     return (
       <FeedDayContent>
         <DescriptionContainer>
