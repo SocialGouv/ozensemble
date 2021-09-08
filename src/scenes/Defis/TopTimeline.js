@@ -4,6 +4,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import Lock from '../../components/Illustrations/Lock';
 import StarButton from '../../components/Illustrations/StarButton';
+import { Dot } from './Timeline';
 
 const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay }) => {
   return (
@@ -33,9 +34,14 @@ const Day = ({ locked, done, index, unLock }) => {
     if (done) {
       return <StarButton color="#4030a5" size="20px" />;
     }
-    return <DayinProgress />;
+    return <Dot active />;
   };
-  const getTextColor = () => (locked ? '#C4C4C4' : '#4030a5');
+
+  const getTextColor = () => {
+    if (locked) return '#C4C4C4';
+    if (done) return '#4030a5';
+    return '#de285e';
+  };
 
   const unLockLevel = async () => {
     setPressed(0);
