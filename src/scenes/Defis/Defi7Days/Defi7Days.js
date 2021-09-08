@@ -29,6 +29,7 @@ const Defi7DaysNavigator = () => {
             title: 'Évaluer sa consommation',
             inDefi7Days: true,
             rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 2,
           }}
         />
         <Defi7DaysStack.Screen
@@ -38,6 +39,7 @@ const Defi7DaysNavigator = () => {
             title: 'Évaluer sa qualité de vie',
             inDefi7Days: true,
             rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 4,
           }}
         />
         <Defi7DaysStack.Screen
@@ -47,6 +49,7 @@ const Defi7DaysNavigator = () => {
             title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
             inDefi7Days: true,
             rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 6,
           }}
         />
         <Defi7DaysStack.Screen name="DAY_7" component={Day1} />
@@ -104,3 +107,10 @@ const Defi7DaysMenu = ({ navigation }) => {
 };
 
 export default Defi7DaysNavigator;
+
+export const setValidatedDays = async (day) => {
+  await new Promise((res) => setTimeout(res, 1000)); // better UX
+  await AsyncStorage.setItem('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
+  const lastUpdate = new Date().toISOString().split('T')[0];
+  await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', lastUpdate);
+};
