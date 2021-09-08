@@ -41,7 +41,6 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
             content={data[activeDay]?.textCTA}
             color="#4030a5"
             onPress={() => {
-              updateValidatedDays(activeDay + 1);
               navigation.push(data[activeDay]?.screenCTA);
             }}
           />
