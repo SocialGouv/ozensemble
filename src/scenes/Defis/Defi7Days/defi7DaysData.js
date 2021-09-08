@@ -14,6 +14,12 @@ export const defi7DaysData = [
         parfois plus qu’on ne le pense. Vous pourriez être surpris de votre consommation.
       </>
     ),
+    descriptionDone: (
+      <>
+        <TextStyled bold>Courage ! continuez à remplir vos consommations</TextStyled> tout au long de la journée. Chaque
+        jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
+      </>
+    ),
     textCTA: 'Comment compter',
     screenCTA: 'DAY_1',
   },
@@ -25,6 +31,12 @@ export const defi7DaysData = [
       <>
         <TextStyled bold>Affinez</TextStyled> votre première évaluation avec un questionnaire plus complet de 10
         questions.
+      </>
+    ),
+    descriptionDone: (
+      <>
+        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
+        <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
       </>
     ),
     textCTA: 'Passer le test',
@@ -47,6 +59,12 @@ export const defi7DaysData = [
         celle-ci.
       </>
     ),
+    descriptionDone: (
+      <>
+        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
+        <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
+      </>
+    ),
     textCTA: 'Passer le test',
     screenCTA: 'DAY_4',
   },
@@ -62,6 +80,12 @@ export const defi7DaysData = [
     tagLine: 'Identifier mes motivations à changer',
     description:
       'Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d’alcool.',
+    descriptionDone: (
+      <>
+        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
+        <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
+      </>
+    ),
     textCTA: 'Mes motivations à changer',
     screenCTA: 'DAY_6',
   },
@@ -73,6 +97,12 @@ export const defi7DaysData = [
       <>
         <TextStyled bold>Bravo !</TextStyled> Vous avez fait un grand premier pas vers une meilleure connaissance et
         maitrîse de votre consommation d’alcool !
+      </>
+    ),
+    descriptionDone: (
+      <>
+        <TextStyled bold>Feliciations !</TextStyled> Vous avez fait un grand premier pas. Continuez à remplir vos
+        consommations tous les jours et n’hésitez pas à prendre contact avec un professionnel Oz Ensemble.
       </>
     ),
     textCTA: 'Consulter mon bilan',
