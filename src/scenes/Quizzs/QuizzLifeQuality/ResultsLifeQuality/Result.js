@@ -1,6 +1,7 @@
 import React from 'react';
-import { ResultTitle, ContainerSection, ItemStyled, ItemsContainer, ItemContainer } from './styles';
+import { ResultTitle, ContainerSection, ItemStyled, ItemsContainer, ItemContainer, EmojiStyled } from './styles';
 import TextStyled from '../../../../components/TextStyled';
+import questionsLifeQuality from '../questions';
 
 const Results = ({ values }) => {
   return (
@@ -8,9 +9,12 @@ const Results = ({ values }) => {
       <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
       <ItemsContainer>
         {values.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
-        {values.map((response) => (
-          <Item response={response} />
-        ))}
+        {values.map((r) => {
+          const response = questionsLifeQuality
+            .find((q) => q.resultLabel === r.title)
+            .answers.find((a) => a.score === r.score);
+          return <Item response={r} emoji={response.emoji} />;
+        })}
       </ItemsContainer>
     </ContainerSection>
   );
@@ -18,16 +22,13 @@ const Results = ({ values }) => {
 
 export default Results;
 
-const Item = ({ response }) => {
-  if (response.score === 0) return null;
+const Item = ({ response, emoji }) => {
   return (
     <ItemContainer>
       <ItemStyled color={response.score > 0 ? '#39cec0' : '#c0184a'}>
-        <TextStyled style={{ fontSize: 30 }} bold>
-          {response.score > 0 ? '👍' : '👎'}
-        </TextStyled>
+        <EmojiStyled>{emoji}</EmojiStyled>
       </ItemStyled>
-      <TextStyled>{response.title}</TextStyled>
+      {/* <TextStyled>{response.title}</TextStyled> */}
     </ItemContainer>
   );
 };

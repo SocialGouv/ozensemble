@@ -8,11 +8,7 @@ const DayModule = ({ dayData, activeDayIsDone }) => {
     return (
       <FeedDayContent>
         <DescriptionContainer>
-          <TextStyled>
-            <TextStyled bold>Courage ! Continuez à remplir vos consommations</TextStyled> tout au long de la journée.
-            Chaque jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7
-            jours.
-          </TextStyled>
+          <TextStyled>{dayData?.descriptionDone || dayData?.description}</TextStyled>
         </DescriptionContainer>
       </FeedDayContent>
     );

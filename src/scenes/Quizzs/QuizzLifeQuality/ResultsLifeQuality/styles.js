@@ -16,6 +16,10 @@ export const ItemStyled = styled.View`
   border-radius: 30px;
 `;
 
+export const EmojiStyled = styled(TextStyled)`
+  font-size: ${(screenWidth / 3) * 0.4}px;
+`;
+
 export const ItemContainer = styled.View`
   flex-direction: column;
   justify-content: center;
