@@ -44,7 +44,7 @@ const Day = ({ locked, done, index, unLock }) => {
   };
 
   useEffect(() => {
-    if (pressed > 5) unLockLevel();
+    if (pressed >= (__DEV__ ? 2 : 8)) unLockLevel();
   }, [pressed]);
 
   return (
