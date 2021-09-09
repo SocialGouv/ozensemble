@@ -5,9 +5,20 @@ import TextStyled from '../../../../components/TextStyled';
 import GraphPopulation from './GraphPopulation';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { useNavigation } from '@react-navigation/native';
+import UnderlinedButton from '../../../../components/UnderlinedButton';
 
-const ResultPopulation = ({ value }) => {
+const ResultPopulation = ({ value, hideButtons }) => {
   const navigation = useNavigation();
+  const renderFooter = () => (
+    <>
+      <ButtonPrimary
+        content="Échanger avec un conseiller"
+        onPress={() => navigation.navigate('CONTACT')}
+        style={{ marginVertical: 30 }}
+      />
+      <UnderlinedButton content="Conseils de réduction" onPress={() => navigation.navigate('ADVISE')} color="#4030a5" />
+    </>
+  );
   const renderDescription = () => {
     switch (value) {
       default:
@@ -33,7 +44,7 @@ const ResultPopulation = ({ value }) => {
             <ResultParagraph color="#191919">
               La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
             </ResultParagraph>
-            <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
+            {!hideButtons && renderFooter()}
           </View>
         );
       case 12:
@@ -46,7 +57,7 @@ const ResultPopulation = ({ value }) => {
             <ResultParagraph color="#191919">
               La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
             </ResultParagraph>
-            <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
+            {!hideButtons && renderFooter()}
           </View>
         );
     }
