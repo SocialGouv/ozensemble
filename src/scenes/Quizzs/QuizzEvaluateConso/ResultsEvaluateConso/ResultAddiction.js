@@ -9,7 +9,7 @@ const ResultAddiction = ({ value }) => {
     switch (value) {
       default:
       case null:
-        return <EmptyView />;
+        return;
       case CONSTANTS.RESULT_GOOD:
         return (
           <View>
