@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Day1 from './Day1';
+import Day7 from './Day7';
 import { createStackNavigator } from '@react-navigation/stack';
 import Defi from '../Defi';
 import { defi7DaysData } from './defi7DaysData';
@@ -52,7 +53,7 @@ const Defi7DaysNavigator = () => {
             day: 6,
           }}
         />
-        <Defi7DaysStack.Screen name="DAY_7" component={Day1} />
+        <Defi7DaysStack.Screen name="DAY_7" component={Day7} />
       </Defi7DaysStack.Navigator>
     </Background>
   );

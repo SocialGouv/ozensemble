@@ -21,13 +21,11 @@ export const EmojiStyled = styled(TextStyled)`
 `;
 
 export const ItemContainer = styled.View`
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
 `;
 export const ItemsContainer = styled.View`
-  flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
