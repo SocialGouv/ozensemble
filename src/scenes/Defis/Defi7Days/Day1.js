@@ -11,6 +11,8 @@ import HalfBeer from '../../../components/Illustrations/HalfBeer';
 import WineGlass from '../../../components/Illustrations/WineGlass';
 import Dose from '../../../components/Illustrations/Dose';
 import Stars from '../../../components/Illustrations/Stars';
+import { useFocusEffect } from '@react-navigation/native';
+import { setValidatedDays } from './Defi7Days';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -25,7 +27,10 @@ const Elem = ({ content }) => (
   </ElemContainer>
 );
 
-export default ({ navigation }) => {
+export default ({ navigation, route }) => {
+  useFocusEffect(() => {
+    route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
+  });
   return (
     <Background color="#39cec0" withSwiperContainer>
       {/* <HeaderBackground /> */}

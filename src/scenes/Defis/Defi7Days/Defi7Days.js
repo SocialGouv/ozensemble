@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Day1 from './Day1';
@@ -22,7 +21,15 @@ const Defi7DaysNavigator = () => {
       <HeaderBackground />
       <Defi7DaysStack.Navigator headerMode="none" initialRouteName="DEFI_7_DAYS_MENU">
         <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
-        <Defi7DaysStack.Screen name="DAY_1" component={Day1} />
+        <Defi7DaysStack.Screen
+          name="DAY_1"
+          component={Day1}
+          initialParams={{
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 1,
+          }}
+        />
         <Defi7DaysStack.Screen
           name="DAY_2"
           component={QuizzEvaluateConso}
