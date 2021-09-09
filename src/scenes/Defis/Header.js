@@ -11,7 +11,11 @@ const Header = () => {
   return (
     <TopContainer>
       <TopTitleContainer>
-        <GoBackButton onPress={() => navigation.navigate(route?.params?.rootRoute)} />
+        <GoBackButton
+          onPress={() =>
+            route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
+          }
+        />
         <TopTitle>
           <TextStyled color="#4030a5">{route?.params?.title}</TextStyled>
         </TopTitle>

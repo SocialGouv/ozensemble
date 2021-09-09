@@ -54,7 +54,7 @@ export default ({ navigation }) => {
             <H1 color="#4030a5">Le bilan de mon Défi 7 jours</H1>
           </TopTitle>
           {/* TODO HERE */}
-          <ResultsEvaluateConso resultKey={resultEvaluateConso?.result} />
+          <ResultsEvaluateConso resultKey={resultEvaluateConso?.result} hideButtons />
           <ResultLifeQuality values={resultLifeQuality?.result?.filter((r) => r.score !== 0)} />
           <ResultMotivation results={resultMotivation?.answers} />
         </TopContainer>
