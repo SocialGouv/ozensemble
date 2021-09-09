@@ -36,8 +36,8 @@ const WelcomeScreen = ({ navigation }) => {
         showsButtons
         dot={<Dot />}
         activeDot={<Dot active />}
-        nextButton={<ArrowRight size={15} />}
-        prevButton={<ArrowLeft size={15} />}
+        nextButton={<ArrowRight size={15} style={{ marginTop: 50 }} />}
+        prevButton={<ArrowLeft size={15} style={{ marginTop: 50 }} />}
         // eslint-disable-next-line react-native/no-inline-styles
         paginationStyle={{
           justifyContent: 'flex-start',
