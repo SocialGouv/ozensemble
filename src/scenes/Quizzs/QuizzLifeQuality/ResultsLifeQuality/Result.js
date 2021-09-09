@@ -29,6 +29,7 @@ const Item = ({ response, emoji }) => {
       <ItemStyled color={response.score > 0 ? '#39cec0' : '#c0184a'}>
         <EmojiStyled>{emoji}</EmojiStyled>
       </ItemStyled>
+      <TextStyled bold>{response.title}</TextStyled>
     </ItemContainer>
   );
 };
