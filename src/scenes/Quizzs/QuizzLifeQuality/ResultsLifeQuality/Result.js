@@ -4,6 +4,7 @@ import TextStyled from '../../../../components/TextStyled';
 import questionsLifeQuality from '../questions';
 
 const Results = ({ values }) => {
+  if (!values) return null;
   return (
     <ContainerSection>
       <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
@@ -28,7 +29,6 @@ const Item = ({ response, emoji }) => {
       <ItemStyled color={response.score > 0 ? '#39cec0' : '#c0184a'}>
         <EmojiStyled>{emoji}</EmojiStyled>
       </ItemStyled>
-      {/* <TextStyled>{response.title}</TextStyled> */}
     </ItemContainer>
   );
 };

@@ -17,11 +17,16 @@ const Results = ({ resultKey, route }) => {
     <FullScreenBackground>
       <Header />
       <ResultContainer>
-        <ResultAddiction value={resultKey?.scoreAddiction} />
-        <ResultPopulation value={resultKey?.scorePopulation} />
+        <Content resultKey={resultKey} />
       </ResultContainer>
     </FullScreenBackground>
   );
 };
 
 export default Results;
+export const Content = ({ resultKey }) => (
+  <>
+    <ResultAddiction value={resultKey?.scoreAddiction} />
+    <ResultPopulation value={resultKey?.scorePopulation} />
+  </>
+);

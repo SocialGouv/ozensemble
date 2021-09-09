@@ -23,11 +23,10 @@ export const ItemContainer = styled.View`
   margin-bottom: 15px;
 `;
 export const ItemsContainer = styled.View`
+  display: flex;
   flex: 1;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const FullScreenBackground = styled.ScrollView`
