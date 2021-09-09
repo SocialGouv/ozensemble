@@ -10,6 +10,7 @@ import CocktailGlass from '../../../components/Illustrations/CocktailGlass';
 import HalfBeer from '../../../components/Illustrations/HalfBeer';
 import WineGlass from '../../../components/Illustrations/WineGlass';
 import Dose from '../../../components/Illustrations/Dose';
+import Stars from '../../../components/Illustrations/Stars';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -17,7 +18,14 @@ const doses = [
   { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
 ];
 
-const Day1 = ({ navigation }) => {
+const Elem = ({ content }) => (
+  <ElemContainer>
+    <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
+    <TextStyled style={{ flex: 1 }}>{content}</TextStyled>
+  </ElemContainer>
+);
+
+export default ({ navigation }) => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       {/* <HeaderBackground /> */}
@@ -29,17 +37,18 @@ const Day1 = ({ navigation }) => {
             <H1 color="#4030a5">Comment compter sa consommation d'alcool ?</H1>
           </TopTitle>
           <Paragraph>
-            <TextStyled>
-              Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre agenda
+            <Elem
+              content="Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre agenda
               de consommation disponible dans l’onglet suivi. l’onglet Suivi. Vous pouvez saisir une consommation depuis
-              l’agenda ou en appyant sur le bouton “+”{' '}
-            </TextStyled>
+              l’agenda ou en appyant sur le bouton “+”"
+            />
           </Paragraph>
           <Paragraph>
-            <TextStyled>
-              Quand vous saisissez une consommation d’alcool, celle-ci est automatiquement comptabilisée en unité
-              d’alcool.{'\n\n'}A titre indicatif chaque consommation ci-dessous compte pour une unité d’alcool.
-            </TextStyled>
+            <Elem
+              content={
+                'Quand vous saisissez une consommation d’alcool, celle-ci est automatiquement comptabilisée en unité d’alcool.\n\nA titre indicatif chaque consommation ci-dessous compte pour une unité d’alcool.'
+              }
+            />
           </Paragraph>
           <IconsContainer>
             {doses.map(({ Icon, volume, name, degrees }, i) => (
@@ -68,30 +77,30 @@ const Day1 = ({ navigation }) => {
             </IconWrapper>
           </IconsContainer>
           <Paragraph>
-            <TextStyled>
-              Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
-              aussi scanner l’étiquette de la bouteille.
-            </TextStyled>
+            <Elem
+              content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
+              aussi scanner l’étiquette de la bouteille."
+            />
           </Paragraph>
           <Paragraph>
-            <TextStyled>
-              Nous vous conseillons de noter vos consommation au fure et à mesure de la journée sans attendre le
-              lendemain !
-            </TextStyled>
+            <Elem
+              content="Nous vous conseillons de noter vos consommation au fure et à mesure de la journée sans attendre le
+              lendemain !"
+            />
           </Paragraph>
           <Paragraph>
-            <TextStyled>
-              Un graphique vous permet de suivre vos consommation en unité d’alcool consommées sur une journée. {'\n\n'}
-              La ligne verte représente le seuil de l’OMS. Elle est à 2 verres par jour pour une femme et 3 verres par
-              jour pour un homme.
-            </TextStyled>
+            <Elem
+              content={
+                "Un graphique vous permet de suivre vos consommation en unité d’alcool consommées sur une journée. {'\n\n'}La ligne verte représente le seuil de l’OMS. Elle est à 2 verres par jour pour une femme et 3 verres par jour pour un homme."
+              }
+            />
           </Paragraph>
           <Diagram asPreview />
           <Paragraph>
-            <TextStyled>
-              Retrouvez le détail de vos consommations dans le fil du journal de l’onglet suivi. Vous pouvez les
-              modifier ou les compléter pour les jours précédents.
-            </TextStyled>
+            <Elem
+              content="Retrouvez le détail de vos consommations dans le fil du journal de l’onglet suivi. Vous pouvez les
+              modifier ou les compléter pour les jours précédents."
+            />
           </Paragraph>
         </TopContainer>
         <AddConsoCTAContainer>
@@ -105,7 +114,11 @@ const Day1 = ({ navigation }) => {
   );
 };
 
-export default Day1;
+const ElemContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+`;
 
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
