@@ -29,7 +29,10 @@ const ResultRisk = ({ navigation }) => (
         <TextStyled color="#191919">avec l'un de nos professionnels</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
-        <ButtonPrimary content="Suivre ma consommation" onPress={() => navigation.navigate('CONSO_FOLLOW_UP')} />
+        <ButtonPrimary
+          content="Suivre ma consommation"
+          onPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
+        />
       </TopButtonContainer>
       <UnderlinedButtonStyled
         withoutPadding
@@ -62,7 +65,7 @@ const ResultRisk = ({ navigation }) => (
           color="#de285e"
           bold
           content="Échanger avec un conseiller"
-          onPress={() => navigation.navigate('CONTACT')}
+          onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
         />
       </BottomSubContainer>
     </BottomContainer>
