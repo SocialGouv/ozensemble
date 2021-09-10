@@ -25,7 +25,10 @@ const ResultAddicted = ({ navigation }) => (
         <TextStyled color="#191919">avec l'un de nos psychologues</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
-        <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
+        <ButtonPrimary
+          content="Échanger avec un conseiller"
+          onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
+        />
       </TopButtonContainer>
       <UnderlinedButtonStyled
         withoutPadding
@@ -41,7 +44,7 @@ const ResultAddicted = ({ navigation }) => (
       />
     </TopContainer>
     <Bottom
-      onActionButtonPress={() => () => navigation.navigate('CONSO_FOLLOW_UP')}
+      onActionButtonPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
       subTitle="Pour préparer au mieux votre échange, suivez votre consommation"
     />
   </FullScreenBackground>
