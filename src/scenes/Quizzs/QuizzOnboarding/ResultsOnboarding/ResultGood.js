@@ -24,7 +24,10 @@ const ResultGood = ({ navigation }) => (
         <TextStyled color="#191919">notre outil de agenda de consommation.</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
-        <ButtonPrimary content="Suivre ma consommation" onPress={() => navigation.navigate('CONSO_FOLLOW_UP')} />
+        <ButtonPrimary
+          content="Suivre ma consommation"
+          onPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
+        />
       </TopButtonContainer>
       <UnderlinedButtonStyled
         withoutPadding

@@ -26,15 +26,9 @@ import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
-  const [initialRouteName, setInitialRouteName] = useState('DEFI');
-
-  // todo : if in defi goto DEFI else goto CONSO_FOLLOW_UP
-
-  if (!initialRouteName) return null;
-
   return (
     <Tabs.Navigator
-      initialRouteName={initialRouteName}
+      initialRouteName={'DEFI'}
       lazy={false}
       tabBarOptions={{
         activeTintColor: '#5352a3',
@@ -112,8 +106,8 @@ class Router extends React.Component {
     await matomo.logAppVisit('initApp');
     const onBoardingDone = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE);
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
-    const answersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
-    if (!answersExist) return this.setState({ initialRouteName: 'ONBOARDING_QUIZZ' });
+    const onBoardingAnswersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+    if (!onBoardingAnswersExist) return this.setState({ initialRouteName: 'ONBOARDING_QUIZZ' });
     return this.setState({ initialRouteName: 'TABS' });
   };
 
