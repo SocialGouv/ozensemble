@@ -104,6 +104,7 @@ class Router extends React.Component {
   initView = async () => {
     await matomo.initMatomo();
     await matomo.logAppVisit('initApp');
+    // await AsyncStorage.clear();
     const onBoardingDone = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE);
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
     const onBoardingAnswersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
