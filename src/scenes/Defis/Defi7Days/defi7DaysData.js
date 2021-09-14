@@ -29,7 +29,7 @@ export const defi7DaysData = [
     tagLine: 'Évaluer sa consommation',
     description: (
       <>
-        <TextStyled bold>Affinez</TextStyled> votre première évaluation avec un questionnaire plus complet de 10
+        <TextStyled bold>Affinez</TextStyled> votre première évaluation avec un questionnaire plus complet de 11
         questions.
       </>
     ),
