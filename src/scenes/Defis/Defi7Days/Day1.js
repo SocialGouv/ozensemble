@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -23,7 +23,7 @@ const doses = [
 const Elem = ({ content }) => (
   <ElemContainer>
     <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
-    <TextStyled style={{ flex: 1 }}>{content}</TextStyled>
+    <TextStyled style={{ flex: 1, lineHeight: 20 }}>{content}</TextStyled>
   </ElemContainer>
 );
 
@@ -43,9 +43,21 @@ export default ({ navigation, route }) => {
           </TopTitle>
           <Paragraph>
             <Elem
-              content="Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre agenda
-              de consommation disponible dans l’onglet suivi. l’onglet Suivi. Vous pouvez saisir une consommation depuis
-              l’agenda ou en appyant sur le bouton “+”"
+              content={
+                <>
+                  <TextStyled>
+                    Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre
+                    agenda de consommation disponible dans l’onglet suivi. l’onglet Suivi. Vous pouvez saisir une
+                    consommation depuis l’agenda ou en appyant sur le bouton{' '}
+                  </TextStyled>
+                  <CTAContainer>
+                    <CTASubContainer>
+                      <PlusHorizontal />
+                      <PlusVertical />
+                    </CTASubContainer>
+                  </CTAContainer>
+                </>
+              }
             />
           </Paragraph>
           <Paragraph>
@@ -96,7 +108,7 @@ export default ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content={
-                "Un graphique vous permet de suivre vos consommation en unité d’alcool consommées sur une journée. {'\n\n'}La ligne verte représente le seuil de l’OMS. Elle est à 2 verres par jour pour une femme et 3 verres par jour pour un homme."
+                'Un graphique vous permet de suivre vos consommation en unité d’alcool consommées sur une journée. \n\nLa ligne verte représente le seuil de l’OMS. Elle est à 2 verres par jour pour une femme et 3 verres par jour pour un homme.'
               }
             />
           </Paragraph>
@@ -171,4 +183,52 @@ const Volume = styled(TextStyled)`
 const EqualWrapper = styled.View`
   padding: 10px;
   padding-bottom: 50px;
+`;
+
+const roundCss = (size) => css`
+  height: ${size}px;
+  width: ${size}px;
+  border-radius: ${size}px;
+`;
+const iconSize = 15;
+const CTASize = 2 * iconSize;
+const plusThickness = 2;
+const CTAInner = CTASize - 2 * plusThickness;
+const plusSize = CTAInner / 2;
+
+const CTAContainer = styled.View`
+  position: absolute;
+  transform: translateY(-${20}px);
+  ${roundCss(CTASize)}
+  border: 1px solid #4030a533;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CTASubContainer = styled.View`
+  ${roundCss(CTAInner)}
+  background-color: #de285e;
+  justify-content: center;
+  align-items: center;
+`;
+
+const PlusHorizontal = styled.View`
+  width: ${plusSize}px;
+  height: ${plusThickness}px;
+  border-radius: ${plusThickness}px;
+  position: absolute;
+  top: ${CTAInner / 2 - plusThickness / 2}px;
+  left: ${(CTAInner - plusSize) / 2}px;
+  background: white;
+`;
+
+const PlusVertical = styled.View`
+  width: ${plusThickness}px;
+  height: ${plusSize}px;
+  border-radius: ${plusThickness}px;
+  position: absolute;
+  left: ${CTAInner / 2 - plusThickness / 2}px;
+  top: ${(CTAInner - plusSize) / 2}px;
+  background: white;
 `;
