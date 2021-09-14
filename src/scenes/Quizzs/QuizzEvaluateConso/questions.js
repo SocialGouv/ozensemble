@@ -53,7 +53,7 @@ const questions = [
     questionKey: '1',
     answers: [
       {
-        content: '0 à 2',
+        content: '1 à 2',
         answerKey: 'less-than-three',
         score: 0,
       },
@@ -80,7 +80,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'À quelle fréquence buvez-vous six verres ou plus lors d’une occasion particulière ?',
+    questionTitle: 'À quelle fréquence buvez-vous six verres ou plus en une même occasion ?',
     questionKey: '2',
     answers: [
       {
