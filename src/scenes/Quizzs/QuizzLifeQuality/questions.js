@@ -198,7 +198,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines ; y a-t-il eu des moments où votre état de santé ou émotionnel, vous a gêné dans votre vie et vos relations avec les autres, votre famille, vos amis, vos connaissances ?',
+      'Au cours de ces 4 dernières semaines ; y a-t-il eu des moments où votre état de santé ou émotionnel vous a gêné dans votre vie et vos relations avec les autres, votre famille, vos amis, vos connaissances ?',
     questionKey: '5',
     resultLabel: 'Relationnel',
     answers: [
@@ -272,7 +272,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines, dans quelle mesure vos problèmes personnels ou votre état émotionnel, vous ont-ils empêchés de réaliser votre travail habituel, vos études, ou vos activités quotidiennes ?',
+      'Au cours de ces 4 dernières semaines, dans quelle mesure vos problèmes personnels ou votre état émotionnel vous ont-ils empêchés de réaliser votre travail habituel, vos études, ou vos activités quotidiennes ?',
     questionKey: '7',
     resultLabel: 'Frein psychique',
     answers: [
