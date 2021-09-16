@@ -12,6 +12,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
+import pck from '../../../package.json';
 
 const InfosStack = createStackNavigator();
 
@@ -47,6 +48,9 @@ const InfosMenu = ({ navigation }) => (
       {/* todo : open nps */}
       <MenuItem caption="Mon avis sur l'application" onPress={() => {}} />
       <MenuItem caption="Mes Tests " onPress={() => navigation.push('TESTS')} />
+      <VersionContainer>
+        <VersionLabel>version {pck.version}</VersionLabel>
+      </VersionContainer>
     </ScreenBgStyled>
   </>
 );
@@ -61,6 +65,15 @@ const MenuItem = ({ caption, onPress }) => (
 );
 
 export default Infos;
+
+const VersionContainer = styled.View`
+  margin-top: 30;
+  flex: 1;
+  align-items: center;
+`;
+const VersionLabel = styled(TextStyled)`
+  color: #ddd;
+`;
 
 const ScreenBgStyled = styled.ScrollView.attrs({
   contentContainerStyle: {

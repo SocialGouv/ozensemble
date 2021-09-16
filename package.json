@@ -1,6 +1,6 @@
 {
   "name": "oz_ensemble",
-  "version": "1.2.2",
+  "version": "1.4.1",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -9,8 +9,8 @@
     "ios-all": "react-native run-ios --simulator=\"iPhone 11 Pro Max\" && react-native run-ios --simulator=\"iPhone 8\" && react-native run-ios --simulator=\"iPhone SE\"",
     "start": "react-native start --reset-cache",
     "build:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
-    "build:android": "cd android && ./gradlew bundleRelease && cd ../",
-    "build:android-apk": "cd android && ./gradlew assembleRelease && cd ../",
+    "build:android": "cd android && ./gradlew clean && ./gradlew bundleRelease && cd ../",
+    "build:android-apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ../",
     "clean:android": "cd android && ./gradlew clean && cd ../",
     "test": "jest --watch",
     "lint": "eslint ."
