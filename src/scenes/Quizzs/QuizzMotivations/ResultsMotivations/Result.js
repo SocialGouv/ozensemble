@@ -6,7 +6,11 @@ import Item from '../Item';
 
 const Results = ({ results }) => {
   if (!results) return null;
-  const answerKeys = Object.keys(results);
+  const onlyTrueResults = Object.keys(results).reduce((acc, current) => {
+    if (results[current]) acc[current] = results[current];
+    return acc;
+  }, {});
+  const answerKeys = Object.keys(onlyTrueResults);
   return (
     <ContainerSection>
       <ResultTitle>Vos motivations à changer</ResultTitle>
