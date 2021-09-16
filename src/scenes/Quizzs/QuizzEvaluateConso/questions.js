@@ -53,7 +53,7 @@ const questions = [
     questionKey: '1',
     answers: [
       {
-        content: '1 à 2',
+        content: '0 à 2',
         answerKey: 'less-than-three',
         score: 0,
       },

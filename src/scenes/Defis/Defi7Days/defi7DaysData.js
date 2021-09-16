@@ -52,7 +52,7 @@ export const defi7DaysData = [
   {
     actionType: 'quizz',
     title: 'Jour 4',
-    tagLine: 'Évaluer sa qualitée de vie',
+    tagLine: 'Évaluer sa qualité de vie',
     description: (
       <>
         <TextStyled bold>Evaluez</TextStyled> votre niveau de qualité de vie et l'impact éventuel de l'alcool sur
@@ -72,7 +72,7 @@ export const defi7DaysData = [
     actionType: 'content',
     title: 'Jour 5',
     tagLine: 'Le saviez-vous ?',
-    description: 'L’alcool peut être festif mais peut induire rapidement des syndromes dépressifs.',
+    description: 'L’alcool peut être festif mais peut induire rapidement des symptômes dépressifs.',
   },
   {
     actionType: 'quizz',
