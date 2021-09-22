@@ -20,43 +20,43 @@ export default ({ navigation }) => {
     navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' });
   };
   return (
-    <Container>
-      <ReminderIcon size={80} color="#4030a5" selected={false} />
-      <Title>
-        <TextStyled color="#4030a5">Nous vous proposons de faire le point pendant 7 jours</TextStyled>
-      </Title>
-      <SubTitle>
-        <TextStyled color="#191919">
-          Observez votre situation, notez votre consommation d'alcool et recevez un bilan personnalisé
-        </TextStyled>
-      </SubTitle>
-      <UnderlinedButton
-        content="À qui s'adresse ce défi 7 jours ?"
-        onPress={() => navigation.navigate('ONBOARDING_INFO')}
-      />
-      <ButtonsContainer>
-        <ButtonPrimary content="Oui, je veux le faire" onPress={startDefi} />
-        <UnderlinedButton color="#4030a5" content="Non merci, peut-être plus tard" bold onPress={noThankYou} />
-      </ButtonsContainer>
-    </Container>
+    <ScreenBgStyled>
+      <Container>
+        <ReminderIcon size={80} color="#4030a5" selected={false} />
+        <Title>
+          <TextStyled color="#4030a5">Nous vous proposons de faire le point pendant 7 jours</TextStyled>
+        </Title>
+        <SubTitle>
+          <TextStyled color="#191919">
+            Observez votre situation, notez votre consommation d'alcool et recevez un bilan personnalisé
+          </TextStyled>
+        </SubTitle>
+        <UnderlinedButton
+          withoutPadding
+          content="À qui s'adresse ce défi 7 jours ?"
+          onPress={() => navigation.navigate('ONBOARDING_INFO')}
+        />
+        <ButtonsContainer>
+          <ButtonPrimary content="Oui, je veux le faire" onPress={startDefi} />
+          <UnderlinedButton
+            withoutPadding
+            color="#4030a5"
+            content="Non merci, peut-être plus tard"
+            bold
+            onPress={noThankYou}
+          />
+        </ButtonsContainer>
+      </Container>
+    </ScreenBgStyled>
   );
 };
 
-const Container = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    backgroundColor: '#f9f9f9',
-    flexShrink: 1,
-    flexGrow: 1,
-    flexBasis: '100%',
-    minHeight: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingBottom: 100,
-    paddingTop: 50,
-  },
-})`
+export const Container = styled.View`
   background-color: #f9f9f9;
-  padding-horizontal: ${defaultPadding}px;
+  padding: 0 ${defaultPadding}px;
+  padding-top: 20px;
+  align-items: center;
+  padding-bottom: 100px;
 `;
 
 const Title = styled(H1)`
@@ -78,5 +78,11 @@ export const SubTitle = styled(H2)`
 const ButtonsContainer = styled.View`
   justify-content: space-around;
   margin-vertical: 15px;
-  margin-bottom: 20%;
+`;
+
+export const ScreenBgStyled = styled.ScrollView`
+  background-color: #f9f9f9;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 100%;
 `;
