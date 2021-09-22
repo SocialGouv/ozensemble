@@ -22,7 +22,9 @@ const WelcomeScreen = ({ navigation }) => {
     AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
     RNBootSplash.show({ duration: 250 });
     await new Promise((res) => setTimeout(res, 250));
-    navigation.navigate('TABS');
+    const onBoardingAnswersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+    if (!onBoardingAnswersExist) navigation.navigate('ONBOARDING_QUIZZ');
+    else navigation.navigate('TABS');
     await new Promise((res) => setTimeout(res, 750));
     RNBootSplash.hide({ duration: 250 });
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
