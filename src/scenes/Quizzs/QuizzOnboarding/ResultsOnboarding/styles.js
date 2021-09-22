@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import H3 from '../../../../components/H3';
 import H2 from '../../../../components/H2';
 import H1 from '../../../../components/H1';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
@@ -34,7 +35,7 @@ export const TopTitle = styled(H1)`
   margin-bottom: 20px;
 `;
 
-export const TopSubTitle = styled(H2)`
+export const TopSubTitle = styled(H3)`
   ${commonCss}
 `;
 

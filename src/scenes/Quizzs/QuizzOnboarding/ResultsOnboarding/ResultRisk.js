@@ -21,17 +21,20 @@ const ResultRisk = ({ navigation }) => (
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
       <TopTitle>
-        <TextStyled color="#4030a5">Votre consommation d'alcool actuelle est a risque.</TextStyled>
+        <TextStyled color="#4030a5">Votre consommation d'alcool actuelle pourrait être à risque.</TextStyled>
       </TopTitle>
       <TopSubTitle>
-        <TextStyled color="#191919">Nous vous conseillons de vous informer ou d’échanger</TextStyled>
+        <TextStyled color="#191919">Nous avons besoin d'en savoir plus pour affiner ce résultat.</TextStyled>
+      </TopSubTitle>
+      <TopSubTitle>
+        <TextStyled color="#191919">Nous vous conseillons de vous informer, d’échanger</TextStyled>
         <TextStyled color="#4030a5"> gratuitement </TextStyled>
-        <TextStyled color="#191919">avec l'un de nos professionnels</TextStyled>
+        <TextStyled color="#191919">avec l'un de nos professionnels ou de faire le défi 7 jours</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
         <ButtonPrimary
-          content="Suivre ma consommation"
-          onPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
+          content="Faire le défi 7 jours"
+          onPress={() => navigation.navigate('TABS', { screen: 'DEFI' })}
         />
       </TopButtonContainer>
       <UnderlinedButtonStyled
