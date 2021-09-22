@@ -108,12 +108,12 @@ export default QuizzsNavigator;
 
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
-  padding-top: ${defaultPadding / 2}px;
   flex-shrink: 1;
   flex-grow: 1;
-  width: ${screenWidth}px;
+  flex-basis: 100%;
+  min-height: 100%;
   max-width: ${screenWidth}px;
-  ${({ debug }) => debug && 'border: 2px solid #000;'}
+  min-width: ${screenWidth}px;
 `;
 
 const TopContainer = styled.View`
@@ -130,4 +130,5 @@ export const Quizzcontainer = styled.View`
   background-color: #efefef;
   padding: 20px;
   padding-bottom: 100px;
+  height: 100%;
 `;
