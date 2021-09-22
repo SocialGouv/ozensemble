@@ -1,7 +1,7 @@
 {
   "name": "oz_ensemble",
-  "version": "1.4.2",
-  "versionCode": 47,
+  "version": "1.4.3",
+  "versionCode": 48,
   "private": true,
   "scripts": {
     "android": "react-native run-android",
