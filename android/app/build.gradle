@@ -1,7 +1,19 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import groovy.json.JsonSlurper
 
+def getVersionFromNpm(key) {
+    //  Read and parse package.json file from project root
+    def inputFile = new File("$rootDir/../package.json")
+    def packageJson = new JsonSlurper().parseText(inputFile.text)
+
+    // Return the version, you can get any value this way
+    return packageJson[key]
+}
+
+println "VersionCode : ${getVersionFromNpm('versionCode')}"
+println "version : ${getVersionFromNpm('version')}"
 
 project.ext.envConfigFiles = [
     debug: ".env.local",
@@ -143,8 +155,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
-        versionCode 46
-        versionName "1.4.1"
+        versionCode getVersionFromNpm('versionCode')
+        versionName getVersionFromNpm('version')
     }
     splits {
         abi {
