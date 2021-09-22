@@ -51,7 +51,7 @@ export default ({ navigation }) => {
   );
 };
 
-export const Container = styled.View`
+const Container = styled.View`
   background-color: #f9f9f9;
   padding: 0 ${defaultPadding}px;
   padding-top: 20px;
@@ -80,7 +80,7 @@ const ButtonsContainer = styled.View`
   margin-vertical: 15px;
 `;
 
-export const ScreenBgStyled = styled.ScrollView`
+const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 1;

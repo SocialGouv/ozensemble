@@ -35,22 +35,24 @@ const Infos = () => (
 const InfosMenu = ({ navigation }) => (
   <>
     <ScreenBgStyled>
-      <TopTitle>
-        <TextStyled color="#4030a5">Mes informations</TextStyled>
-      </TopTitle>
-      <MenuItem caption="Rappel" onPress={() => navigation.push('REMINDER')} />
-      <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
-      <MenuItem
-        caption="Mentions Légales & Politique de Confidentialité"
-        onPress={() => navigation.push('PRIVACY_POLICY')}
-      />
-      <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-      {/* todo : open nps */}
-      <MenuItem caption="Mon avis sur l'application" onPress={() => {}} />
-      <MenuItem caption="Mes Tests " onPress={() => navigation.push('TESTS')} />
-      <VersionContainer>
-        <VersionLabel>version {pck.version}</VersionLabel>
-      </VersionContainer>
+      <Container>
+        <TopTitle>
+          <TextStyled color="#4030a5">Mes informations</TextStyled>
+        </TopTitle>
+        <MenuItem caption="Rappel" onPress={() => navigation.push('REMINDER')} />
+        <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
+        <MenuItem
+          caption="Mentions Légales & Politique de Confidentialité"
+          onPress={() => navigation.push('PRIVACY_POLICY')}
+        />
+        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+        {/* todo : open nps */}
+        <MenuItem caption="Mon avis sur l'application" onPress={() => {}} />
+        <MenuItem caption="Mes Tests " onPress={() => navigation.push('TESTS')} />
+        <VersionContainer>
+          <VersionLabel>version {pck.version}</VersionLabel>
+        </VersionContainer>
+      </Container>
     </ScreenBgStyled>
   </>
 );
@@ -75,16 +77,15 @@ const VersionLabel = styled(TextStyled)`
   color: #ddd;
 `;
 
-const ScreenBgStyled = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    backgroundColor: '#f9f9f9',
-    flexShrink: 1,
-    flexGrow: 1,
-    flexBasis: '100%',
-    minHeight: '100%',
-  },
-})`
+export const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 100%;
+`;
+
+const Container = styled.View`
+  padding-bottom: 100px;
 `;
 
 const MenuItemStyled = styled.View`
