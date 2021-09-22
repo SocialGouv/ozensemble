@@ -184,7 +184,7 @@ const initialState = {
   ownDrinks: [],
   startDate: today(),
   modalTimestamp: today(),
-  ...fakeConsoData.partial,
+  // ...fakeConsoData.partial,
 };
 
 const reducer = (state = initialState, action) => {
