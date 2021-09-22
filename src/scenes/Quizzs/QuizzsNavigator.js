@@ -130,5 +130,5 @@ export const Quizzcontainer = styled.View`
   background-color: #efefef;
   padding: 20px;
   padding-bottom: 100px;
-  height: 100%;
+  min-height: 100%;
 `;
