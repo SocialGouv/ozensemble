@@ -1,5 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Platform } from 'react-native';
+
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -20,10 +22,10 @@ const doses = [
   { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
 ];
 
-const Elem = ({ content }) => (
+const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
     <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
-    <TextStyled style={{ flex: 1, lineHeight: 20 }}>{content}</TextStyled>
+    <TextStyled style={{ flex: 1, lineHeight }}>{content}</TextStyled>
   </ElemContainer>
 );
 
@@ -48,7 +50,7 @@ export default ({ navigation, route }) => {
                   <TextStyled>
                     Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre
                     agenda de consommation disponible dans l’onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez
-                    saisir une consommation depuis l’agenda ou en appuyant sur le bouton
+                    saisir une consommation depuis l’agenda ou en appuyant sur le bouton{' '}
                   </TextStyled>
                   <CTAContainer>
                     <CTASubContainer>
@@ -195,7 +197,7 @@ const roundCss = (size) => css`
   width: ${size}px;
   border-radius: ${size}px;
 `;
-const iconSize = 15;
+const iconSize = 12;
 const CTASize = 2 * iconSize;
 const plusThickness = 2;
 const CTAInner = CTASize - 2 * plusThickness;
@@ -203,7 +205,7 @@ const plusSize = CTAInner / 2;
 
 const CTAContainer = styled.View`
   position: absolute;
-  transform: translateY(-${20}px);
+  ${Platform.OS === 'ios' ? `transform: translateY(-${CTAInner}px);` : `transform: translateY(${CTAInner / 2}px);`}
   ${roundCss(CTASize)}
   border: 1px solid #4030a533;
   background-color: white;
