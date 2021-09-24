@@ -39,12 +39,13 @@ export default Header;
 
 const SectionTitle = styled(TextStyled)`
   font-weight: bold;
-  font-size: 12px;
+  font-size: 15px;
   margin-bottom: 5px;
 `;
 
 const TextParagraph = styled(TextStyled)`
   margin-bottom: 8px;
+  font-size: 13px;
 `;
 
 const commonCss = css`
@@ -53,7 +54,7 @@ const commonCss = css`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 25px 40px;
+  padding: 20px 25px;
 `;
 
 const TopTitleContainer = styled.View`
