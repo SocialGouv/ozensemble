@@ -15,6 +15,7 @@ import {
   LowerBar,
   Dose,
   Line,
+  LegendContainer,
   Legend,
   doseTextHeight,
   Help,
@@ -65,6 +66,7 @@ const Diagram = ({
   onShowHelp,
 }) => {
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(3);
+  const [{ selectedBarIndex, selectedBarLabel }, setSelectedBar] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -84,6 +86,13 @@ const Diagram = ({
   );
 
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
+
+  const onPressBar = (index) => {
+    if (index === null || index === undefined) return setSelectedBar({});
+    const day = days[index];
+    const selectedBarLabel = `${day.getLocaleWeekDay('fr').capitalize()} ${day.getDate()} ${day.getLocaleMonth('fr')}`;
+    return setSelectedBar({ selectedBarIndex: index, selectedBarLabel });
+  };
 
   return (
     <React.Fragment>
@@ -110,7 +119,14 @@ const Diagram = ({
           })
           .map((dailyDose, index) => {
             if (dailyDose === null || dailyDose === undefined) {
-              return <Bar key={index} height={doseHeight * highestAcceptableDosesPerDay} empty />;
+              return (
+                <Bar
+                  onPress={() => onPressBar(null)}
+                  key={index}
+                  height={doseHeight * highestAcceptableDosesPerDay}
+                  empty
+                />
+              );
             }
             const dailyDoseHeight = (dailyDose > 0 && dailyDose) || 0;
             const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesPerDay);
@@ -119,6 +135,7 @@ const Diagram = ({
             return (
               <React.Fragment key={index}>
                 <Bar
+                  onPress={() => onPressBar(index)}
                   key={index}
                   height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
                   heightFactor={dailyDoseHeight || 0}>
@@ -134,14 +151,21 @@ const Diagram = ({
                   {Boolean(overLineValue) && (
                     <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
                   )}
-                  <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
+                  <LowerBar
+                    borderBottom={selectedBarIndex === index}
+                    withTopRadius={!overLineValue}
+                    height={doseHeight * underLineValue || minBarHeight}
+                  />
                 </Bar>
               </React.Fragment>
             );
           })}
         {thereIsDrinks && <Line bottom={barMaxAcceptableDoseHeight} />}
       </BarsContainer>
-      {thereIsDrinks && <Legend>en unités d'alcool</Legend>}
+      <LegendContainer>
+        {selectedBarIndex >= 0 && selectedBarLabel ? <Legend>{selectedBarLabel}</Legend> : null}
+        {thereIsDrinks && <Legend>en unités d'alcool</Legend>}
+      </LegendContainer>
     </React.Fragment>
   );
 };

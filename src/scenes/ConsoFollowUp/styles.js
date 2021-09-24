@@ -5,6 +5,7 @@ import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import { screenHeight } from '../../styles/theme';
+import { TouchableOpacity } from 'react-native';
 
 const commonCss = css`
   width: 85%;
@@ -98,6 +99,11 @@ export const FeedButtonStyled = styled.View`
 Diagram styles
 */
 
+export const LegendContainer = styled.View`
+  flex-direction: row;
+  align-items: stretch;
+`;
+
 export const Legend = styled.Text`
   margin-left: auto;
   color: #de285e;
@@ -133,7 +139,7 @@ export const BarsContainer = styled.View`
   align-items: flex-end;
 `;
 
-export const Bar = styled.View`
+export const Bar = styled(TouchableOpacity)`
   border-color: #4030a5;
   border-style: ${({ empty }) => (empty ? 'dashed' : 'solid')};
   border-width: ${({ empty }) => (empty ? 1 : 0)}px;
@@ -143,6 +149,7 @@ export const Bar = styled.View`
   flex-basis: 30px;
   margin-horizontal: 3px;
   overflow: hidden;
+  height: ${({ height }) => height}px;
 `;
 
 const topRadius = css`
@@ -159,12 +166,17 @@ export const UpperBar = styled.View`
   background: #de285e;
 `;
 
+const borderBottomRed = css`
+  border-bottom-width: 4px;
+  border-bottom-color: #de285e;
+`;
 export const LowerBar = styled.View`
   position: absolute;
   bottom: 0px;
   height: ${({ height }) => height}px;
   width: 100%;
   background: #4030a5;
+  ${({ borderBottom }) => borderBottom && borderBottomRed}
   ${({ withTopRadius }) => withTopRadius && topRadius}
 `;
 
