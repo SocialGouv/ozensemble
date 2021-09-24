@@ -103,8 +103,8 @@ const Diagram = ({
             if (!dateIsBeforeOrToday(day)) {
               return null;
             }
-            if (!dailyDoses[day]) {
-              return 0;
+            if (!(dailyDoses[day] >= 0)) {
+              return -1;
             }
             return Math.min(maxDosesOnScreen, dailyDoses[day]);
           })
@@ -112,17 +112,23 @@ const Diagram = ({
             if (dailyDose === null || dailyDose === undefined) {
               return <Bar key={index} height={doseHeight * highestAcceptableDosesPerDay} empty />;
             }
-            const underLineValue = Math.min(dailyDose, highestAcceptableDosesPerDay);
-            const overLineValue = dailyDose > highestAcceptableDosesPerDay && dailyDose - highestAcceptableDosesPerDay;
+            const dailyDoseHeight = (dailyDose > 0 && dailyDose) || 0;
+            const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesPerDay);
+            const overLineValue =
+              dailyDoseHeight > highestAcceptableDosesPerDay && dailyDoseHeight - highestAcceptableDosesPerDay;
             return (
               <React.Fragment key={index}>
                 <Bar
                   key={index}
-                  height={(doseHeight * dailyDose || minBarHeight) + doseTextHeight}
-                  heightFactor={dailyDose || 0}>
-                  {Boolean(dailyDose) && (
+                  height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
+                  heightFactor={dailyDoseHeight || 0}>
+                  {dailyDose >= 0 ? (
                     <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
                       {dailyDose}
+                    </Dose>
+                  ) : (
+                    <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                      ?
                     </Dose>
                   )}
                   {Boolean(overLineValue) && (
