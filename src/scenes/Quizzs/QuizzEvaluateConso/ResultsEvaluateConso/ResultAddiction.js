@@ -69,7 +69,7 @@ const ResultAddiction = ({ value }) => {
 
   return (
     <ContainerSection>
-      <ResultTitle>Résultats</ResultTitle>
+      <ResultTitle>Mes résultats</ResultTitle>
       {getResultScore()}
     </ContainerSection>
   );
