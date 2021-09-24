@@ -15,9 +15,7 @@ const Results = ({ resultKey, route }) => {
   return (
     <FullScreenBackground>
       <Header />
-      <ResultContainer>
-        {resultKey ? <Result values={resultKey?.filter((r) => r.score !== 0)} /> : null}
-      </ResultContainer>
+      <ResultContainer>{resultKey ? <Result values={resultKey} /> : null}</ResultContainer>
     </FullScreenBackground>
   );
 };
