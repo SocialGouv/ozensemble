@@ -17,6 +17,8 @@ import Agreement from './Agreement';
 
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = React.useState(false);
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const swiperRef = React.useRef();
 
   const onStartPress = async () => {
     AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
@@ -30,20 +32,22 @@ const WelcomeScreen = ({ navigation }) => {
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
   };
 
+  onPressNext = () => swiperRef?.current?.scrollBy(1);
+
   return (
     <Background color="#39cec0" withSwiperContainer neverBottom>
       <HeaderBackground />
       <Swiper
+        onIndexChanged={setCurrentIndex}
+        ref={swiperRef}
         loop={false}
         showsButtons
         dot={<Dot />}
         activeDot={<Dot active />}
         nextButton={<ArrowRight size={15} style={{ marginTop: 50 }} />}
         prevButton={<ArrowLeft size={15} style={{ marginTop: 50 }} />}
-        // eslint-disable-next-line react-native/no-inline-styles
         paginationStyle={{
-          justifyContent: 'flex-start',
-          paddingLeft: '10%',
+          justifyContent: 'center',
           bottom: screenHeight * 0.1,
         }}>
         <Screen1 />
@@ -51,8 +55,14 @@ const WelcomeScreen = ({ navigation }) => {
         <Screen3 />
       </Swiper>
       <CTAButtonContainer>
-        <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
-        <ButtonPrimary content="Commencez" onPress={onStartPress} disabled={!agreed} />
+        {currentIndex === 2 ? (
+          <>
+            <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
+            <ButtonPrimary content="Commencer" onPress={onStartPress} disabled={!agreed} />
+          </>
+        ) : (
+          <ButtonPrimary content="Suivant" onPress={onPressNext} />
+        )}
       </CTAButtonContainer>
     </Background>
   );
