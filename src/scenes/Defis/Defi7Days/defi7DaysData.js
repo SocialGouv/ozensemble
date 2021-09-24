@@ -45,9 +45,21 @@ export const defi7DaysData = [
   {
     actionType: 'content',
     title: 'Jour 3',
-    tagLine: 'Le saviez-vous ?',
-    description:
-      'L’alcool facilite l’endormissement mais perturbe la qualité du sommeil en provoquant un sommeil haché par de multiples réveils.',
+    tagLine: 'Comment réduire ?',
+    description: (
+      <>
+        Voici quelques conseils simples pour vous aider à <TextStyled bold>réduire</TextStyled> votre consommation
+        d'alcool
+      </>
+    ),
+    descriptionDone: (
+      <>
+        <TextStyled bold>Courage ! continuez à remplir vos consommations</TextStyled> tout au long de la journée. Chaque
+        jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
+      </>
+    ),
+    textCTA: 'Mes conseils réduction',
+    screenCTA: 'DAY_3',
   },
   {
     actionType: 'quizz',
