@@ -48,7 +48,7 @@ const InfosMenu = ({ navigation }) => (
         <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
         {/* todo : open nps */}
         <MenuItem caption="Mon avis sur l'application" onPress={() => {}} />
-        <MenuItem caption="Mes Tests " onPress={() => navigation.push('TESTS')} />
+        <MenuItem caption="Mes tests " onPress={() => navigation.push('TESTS')} />
         <VersionContainer>
           <VersionLabel>version {pck.version}</VersionLabel>
         </VersionContainer>

@@ -66,6 +66,7 @@ export const ResultTitle = styled(H3)`
   ${commonCss}
   font-weight: bold;
   color: #4030a5;
+  margin-bottom: 10;
 `;
 
 export const TopTitleContainer = styled.View`
