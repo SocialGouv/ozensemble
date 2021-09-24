@@ -10,12 +10,13 @@ const Results = ({ values }) => {
       <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
       <ItemsContainer>
         {values.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
-        {values.map((r) => {
-          const response = questionsLifeQuality
-            .find((q) => q.resultLabel === r.title)
-            .answers.find((a) => a.score === r.score);
-          return <Item response={r} emoji={response.emoji} />;
-        })}
+        {values
+          .sort((a, b) => a.score < b.score)
+          .map((r) => {
+            const question = questionsLifeQuality.find((q) => q.resultLabel === r.title);
+            const response = question?.answers.find((a) => a.score === r.score);
+            return <Item response={response} question={question} />;
+          })}
       </ItemsContainer>
     </ContainerSection>
   );
@@ -23,13 +24,18 @@ const Results = ({ values }) => {
 
 export default Results;
 
-const Item = ({ response, emoji }) => {
+const Item = ({ response, question }) => {
+  const scoreToColor = (score) => {
+    if (score < 0) return '#c0184a';
+    if (score > 0) return '#39cec0';
+    if (score === 0) return '#FF9933';
+  };
   return (
     <ItemContainer>
-      <ItemStyled color={response.score > 0 ? '#39cec0' : '#c0184a'}>
-        <EmojiStyled>{emoji}</EmojiStyled>
+      <ItemStyled color={scoreToColor(response.score)}>
+        <EmojiStyled>{response.emoji}</EmojiStyled>
       </ItemStyled>
-      <TextStyled bold>{response.title}</TextStyled>
+      <TextStyled bold>{question.resultLabel}</TextStyled>
     </ItemContainer>
   );
 };
