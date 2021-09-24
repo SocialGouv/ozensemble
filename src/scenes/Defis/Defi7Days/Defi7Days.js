@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Onboarding from './Onboarding';
 import OnboardingInfo from './OnboardingInfo';
 import Day1 from './Day1';
+import Day3 from './Day3';
 import Day7 from './Day7';
 import { createStackNavigator } from '@react-navigation/stack';
 import Defi from '../Defi';
@@ -52,6 +53,15 @@ const Defi7DaysNavigator = () => {
               inDefi7Days: true,
               rootRoute: 'DEFI_7_DAYS_MENU',
               day: 2,
+            }}
+          />
+          <Defi7DaysStack.Screen
+            name="DAY_3"
+            component={Day3}
+            initialParams={{
+              inDefi7Days: true,
+              rootRoute: 'DEFI_7_DAYS_MENU',
+              day: 3,
             }}
           />
           <Defi7DaysStack.Screen
