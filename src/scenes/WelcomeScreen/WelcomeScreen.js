@@ -51,8 +51,8 @@ const WelcomeScreen = ({ navigation }) => {
         <Screen3 />
       </Swiper>
       <CTAButtonContainer>
-        <ButtonPrimary content="Commencez" onPress={onStartPress} disabled={!agreed} />
         <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
+        <ButtonPrimary content="Commencez" onPress={onStartPress} disabled={!agreed} />
       </CTAButtonContainer>
     </Background>
   );
