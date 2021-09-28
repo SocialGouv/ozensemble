@@ -16,7 +16,7 @@ const Results = ({ results }) => {
       <ResultTitle>Vos motivations à changer</ResultTitle>
       {!answerKeys.length && (
         <TextStyled>
-          Vous n'avez pas encore sélectionné de motivations à changer", vous pouvez revenir à ce questionnaire en allant
+          Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en allant
           dans l'onglet <TextStyled bold>Mes infos</TextStyled> et en cliquant sur{' '}
           <TextStyled bold>Mes tests</TextStyled>.
         </TextStyled>
