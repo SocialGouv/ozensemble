@@ -112,7 +112,7 @@ const ConsosList = ({
   };
 
   const onClose = useCallback(() => {
-    navigation.goBack();
+    navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' });
   }, [navigation]);
 
   const onCancelConsos = useCallback(() => {
