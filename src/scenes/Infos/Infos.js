@@ -13,6 +13,7 @@ import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import pck from '../../../package.json';
+import NPS from '../NPS/NPS';
 
 const InfosStack = createStackNavigator();
 
@@ -32,30 +33,37 @@ const Infos = () => (
   </Background>
 );
 
-const InfosMenu = ({ navigation }) => (
-  <>
-    <ScreenBgStyled>
-      <Container>
-        <TopTitle>
-          <TextStyled color="#4030a5">Mes informations</TextStyled>
-        </TopTitle>
-        <MenuItem caption="Rappel" onPress={() => navigation.push('REMINDER')} />
-        <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
-        <MenuItem
-          caption="Mentions Légales & Politique de Confidentialité"
-          onPress={() => navigation.push('PRIVACY_POLICY')}
-        />
-        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-        {/* todo : open nps */}
-        <MenuItem caption="Mon avis sur l'application" onPress={() => {}} />
-        <MenuItem caption="Mes tests " onPress={() => navigation.push('TESTS')} />
-        <VersionContainer>
-          <VersionLabel>version {pck.version}</VersionLabel>
-        </VersionContainer>
-      </Container>
-    </ScreenBgStyled>
-  </>
-);
+const InfosMenu = ({ navigation }) => {
+  const [NPSvisible, setNPSvisible] = React.useState(false);
+  const onPressContribute = () => setNPSvisible(true);
+  const closeNPS = () => setNPSvisible(false);
+
+  return (
+    <>
+      <ScreenBgStyled>
+        <NPS forceView={NPSvisible} close={closeNPS} />
+        <Container>
+          <TopTitle>
+            <TextStyled color="#4030a5">Mes informations</TextStyled>
+          </TopTitle>
+          <MenuItem caption="Rappel" onPress={() => navigation.push('REMINDER')} />
+          <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
+          <MenuItem
+            caption="Mentions Légales & Politique de Confidentialité"
+            onPress={() => navigation.push('PRIVACY_POLICY')}
+          />
+          <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+          {/* todo : open nps */}
+          <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
+          <MenuItem caption="Mes tests " onPress={() => navigation.push('TESTS')} />
+          <VersionContainer>
+            <VersionLabel>version {pck.version}</VersionLabel>
+          </VersionContainer>
+        </Container>
+      </ScreenBgStyled>
+    </>
+  );
+};
 
 const MenuItem = ({ caption, onPress }) => (
   <TouchableOpacity onPress={onPress}>
