@@ -128,7 +128,13 @@ class Router extends React.Component {
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
             <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
+            <Root.Screen
+              name="ONBOARDING_QUIZZ"
+              component={QuizzOnboarding}
+              initialParams={{
+                onboarding: true,
+              }}
+            />
             <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
             <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>

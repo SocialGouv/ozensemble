@@ -5,18 +5,18 @@ import ResultRisk from './ResultRisk';
 import ResultAddicted from './ResultAddicted';
 import { EmptyView } from './styles';
 
-const Results = ({ navigation, resultKey }) => {
+const Results = ({ navigation, route, resultKey }) => {
   if (!resultKey) return null;
   switch (resultKey) {
     default:
     case null:
       return <EmptyView />;
     case CONSTANTS.RESULT_GOOD:
-      return <ResultGood navigation={navigation} />;
+      return <ResultGood navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
     case CONSTANTS.RESULT_RISK:
-      return <ResultRisk navigation={navigation} />;
+      return <ResultRisk navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
     case CONSTANTS.RESULT_ADDICTED:
-      return <ResultAddicted navigation={navigation} />;
+      return <ResultAddicted navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
   }
 };
 

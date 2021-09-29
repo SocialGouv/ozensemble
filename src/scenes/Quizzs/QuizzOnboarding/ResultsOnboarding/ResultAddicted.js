@@ -12,7 +12,7 @@ import {
 } from './styles';
 import Bottom from './Bottom';
 
-const ResultAddicted = ({ navigation }) => (
+const ResultAddicted = ({ navigation, isInOnboarding }) => (
   <FullScreenBackground>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
@@ -30,18 +30,22 @@ const ResultAddicted = ({ navigation }) => (
           onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
         />
       </TopButtonContainer>
-      <UnderlinedButtonStyled
-        withoutPadding
-        content="Retour au questionnaire"
-        onPress={() => navigation.navigate('QUIZZ_QUESTIONS', { screen: 'QUIZZ_QUESTION_1' })}
-        bold
-      />
-      <UnderlinedButtonStyled
-        withoutPadding
-        content="Retour aux tests"
-        onPress={() => navigation.navigate('QUIZZ_MENU')}
-        bold
-      />
+      {!isInOnboarding ? (
+        <>
+          <UnderlinedButtonStyled
+            withoutPadding
+            content="Retour au questionnaire"
+            onPress={() => navigation.navigate('QUIZZ_QUESTIONS', { screen: 'QUIZZ_QUESTION_1' })}
+            bold
+          />
+          <UnderlinedButtonStyled
+            withoutPadding
+            content="Retour aux tests"
+            onPress={() => navigation.navigate('QUIZZ_MENU')}
+            bold
+          />
+        </>
+      ) : null}
     </TopContainer>
     <Bottom
       onActionButtonPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
