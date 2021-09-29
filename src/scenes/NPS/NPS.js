@@ -30,8 +30,8 @@ const formatText = (useful, reco, feedback, email, userId) =>
   `
 userId: ${userId}
 Ce service vous a-t-il été utile: ${useful}
-Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}
 Comment pouvons-nous vous être encore plus utile: ${feedback}
+Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}
 Email: ${email}
 `;
 
@@ -55,7 +55,9 @@ class NPS extends React.Component {
   };
 
   async componentDidMount() {
-    // this.reset(); // useful in dev mode
+    if (__DEV__) {
+      // this.reset(); // useful in dev mode
+    }
     AppState.addEventListener('change', this.handleAppStateChange);
     this.notificationsListener = NotificationService.listen(this.handleNotification);
     this.checkNeedNPS();
@@ -64,6 +66,22 @@ class NPS extends React.Component {
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
     NotificationService.remove(this.notificationsListener);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.NPSKey && this.state.NPSKey) {
+      this.checkNeedNPS();
+    }
+    if (!prevProps.forceView && this.props.forceView && !this.state.visible) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ visible: true });
+    }
+    if (prevState.visible && !this.state.visible) {
+      if (this.props.close) {
+        this.props.close();
+      }
+      this.npsSent = false;
+    }
   }
 
   reset = async () => {
@@ -170,7 +188,8 @@ class NPS extends React.Component {
     const { userIdLocalStorageKey } = this.props;
     const userId = await AsyncStorage.getItem(userIdLocalStorageKey);
     this.setSendButton('Merci !');
-    matomo.logNPSSend(useful, reco);
+    matomo.logNPSUsefulSend(useful);
+    matomo.logNPSRecoSend(reco);
     await fetch('https://api.tipimail.com/v1/messages/send', {
       method: 'POST',
       headers: {
@@ -203,7 +222,7 @@ class NPS extends React.Component {
   };
 
   renderFirstPage() {
-    const { useful, reco, sendButton } = this.state;
+    const { feedback, email, useful, reco, sendButton } = this.state;
     return (
       <>
         <TopTitle>
@@ -217,13 +236,46 @@ class NPS extends React.Component {
         <Mark selected={useful} onPress={this.setUseful} bad="Pas utile du tout" good="Extrêmement utile" />
         <TopSubTitle>
           <TextStyled color="#191919">
+            Comment pouvons-nous vous être encore plus utile{'\u00A0'}? Comment pouvons-nous améliorer ce service
+            {'\u00A0'}?
+          </TextStyled>
+        </TopSubTitle>
+        <FeedBackStyled
+          onChangeText={this.setFeedback}
+          placeholder="Idées d'améliorations (facultatif)"
+          value={feedback}
+          multiline
+          textAlignVertical="top"
+          returnKeyType="next"
+        />
+        <TopSubTitle>
+          <TextStyled color="#191919">
             Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche
             {'\u00A0'}?
           </TextStyled>
         </TopSubTitle>
         <Mark selected={reco} onPress={this.setReco} bad="Pas du tout probable" good="Très probable" />
+        <TopSubTitle>
+          <TextStyled color="#191919">
+            Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes d'accord, vous pouvez
+            renseigner votre adresse email ci-dessous.
+          </TextStyled>
+        </TopSubTitle>
+        <TextInputStyled
+          value={email}
+          ref={(r) => (this.emailInput = r)}
+          placeholder="Adresse email (facultatif)"
+          onChangeText={this.setEmail}
+          autoCompleteType="email"
+          autoCorrect={false}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          returnKeyType="go"
+          textContentType="emailAddress"
+          onSubmitEditing={this.sendNPS}
+        />
         <ButtonContainer>
-          <ButtonPrimary content={sendButton} disabled={!useful || !reco} onPress={this.nextPage} />
+          <ButtonPrimary content={sendButton} disabled={!useful || !reco} onPress={this.sendNPS} />
         </ButtonContainer>
       </>
     );
