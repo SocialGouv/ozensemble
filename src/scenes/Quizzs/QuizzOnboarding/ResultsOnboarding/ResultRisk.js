@@ -16,7 +16,7 @@ import {
   UnderlinedButtonStyled,
 } from './styles';
 
-const ResultRisk = ({ navigation }) => (
+const ResultRisk = ({ navigation, isInOnboarding }) => (
   <FullScreenBackground>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
@@ -37,18 +37,22 @@ const ResultRisk = ({ navigation }) => (
           onPress={() => navigation.navigate('TABS', { screen: 'DEFI' })}
         />
       </TopButtonContainer>
-      <UnderlinedButtonStyled
-        withoutPadding
-        content="Retour au questionnaire"
-        onPress={() => navigation.navigate('QUIZZ_QUESTIONS', { screen: 'QUIZZ_QUESTION_1' })}
-        bold
-      />
-      <UnderlinedButtonStyled
-        withoutPadding
-        content="Retour aux tests"
-        onPress={() => navigation.navigate('QUIZZ_MENU')}
-        bold
-      />
+      {!isInOnboarding ? (
+        <>
+          <UnderlinedButtonStyled
+            withoutPadding
+            content="Retour au questionnaire"
+            onPress={() => navigation.navigate('QUIZZ_QUESTIONS', { screen: 'QUIZZ_QUESTION_1' })}
+            bold
+          />
+          <UnderlinedButtonStyled
+            withoutPadding
+            content="Retour aux tests"
+            onPress={() => navigation.navigate('QUIZZ_MENU')}
+            bold
+          />
+        </>
+      ) : null}
     </TopContainer>
     <BottomContainer longPaddingBottom>
       <BottomSubContainer>
