@@ -74,8 +74,8 @@ class Api {
   async execute(params) {
     try {
       if (!this.initDone) throw new Error('matomo not initialized yet');
-      if (__DEV__) return;
       const url = `${this.baseUrl}?${this.computeParams(params, this.idsite)}`;
+      if (__DEV__) return console.log(url);
       const res = await fetch(encodeURI(url));
       // if (__DEV__) {
       //   console.log(url);

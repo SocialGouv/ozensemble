@@ -351,6 +351,24 @@ const logNPSSend = async (useful, reco) => {
   });
 };
 
+const logNPSUsefulSend = async (value) => {
+  await logEvent({
+    category: 'NPS',
+    action: 'NPS_SEND',
+    name: 'notes-useful',
+    value,
+  });
+};
+
+const logNPSRecoSend = async (value) => {
+  await logEvent({
+    category: 'NPS',
+    action: 'NPS_SEND',
+    name: 'notes-reco',
+    value,
+  });
+};
+
 export default {
   initMatomo,
   logAppVisit,
@@ -384,4 +402,6 @@ export default {
   logNPSSend,
   getUserId,
   logNoConso,
+  logNPSUsefulSend,
+  logNPSRecoSend,
 };
