@@ -2,6 +2,32 @@ import CONSTANTS from '../../../reference/constants';
 
 const questions = [
   {
+    questionTitle: "Quelle est votre tranche d'âge ?",
+    questionKey: 'age',
+    answers: [
+      {
+        content: 'Moins de 18 ans',
+        answerKey: '-18',
+        score: 0,
+      },
+      {
+        content: '18 à 25 ans',
+        answerKey: '18-25',
+        score: 0,
+      },
+      {
+        content: '25 à 45 ans',
+        answerKey: '25-45',
+        score: 0,
+      },
+      {
+        content: 'Plus de 45 ans',
+        answerKey: '+45',
+        score: 0,
+      },
+    ],
+  },
+  {
     questionTitle: 'Êtes-vous un homme ou une femme ?',
     questionKey: CONSTANTS.GENDER,
     answers: [

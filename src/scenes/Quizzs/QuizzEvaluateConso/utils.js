@@ -28,7 +28,7 @@ export const computeScore = (questions, answers) => {
         [CONSTANTS.SCORE]: 0,
       };
     }
-    const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER);
+    const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER && key !== 'age');
     let score = 0;
     for (let questionKey of questionKeys) {
       const answerKey = answers[questionKey];
