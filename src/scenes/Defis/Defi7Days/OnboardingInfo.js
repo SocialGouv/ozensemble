@@ -7,6 +7,8 @@ import GoBackButton from '../../../components/GoBackButton';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
 import { setValidatedDays } from './Defi7Days';
+import { View, Dimensions } from 'react-native';
+const screenWidth = Dimensions.get('window').width;
 
 const Elem = ({ content, bold }) => (
   <ElemContainer>
@@ -15,12 +17,6 @@ const Elem = ({ content, bold }) => (
       {content}
     </TextStyled>
   </ElemContainer>
-);
-const SubElem = ({ children }) => (
-  <SubElemContainer>
-    <TextStyled style={{ marginRight: 10 }}>•</TextStyled>
-    {children}
-  </SubElemContainer>
 );
 
 const Br = ({ lines = 1 }) => <TextStyled>{'\n'.repeat(lines)}</TextStyled>;
@@ -45,79 +41,145 @@ export default ({ navigation, route }) => {
             />
           </Paragraph>
           <Paragraph>
-            <Elem
-              content={
-                <>
-                  Toutefois, si vous êtes dans l’une des situations ci-dessous,{' '}
-                  <TextStyled bold>
-                    vous devez prendre conseil auprès de votre médecin ou d’un professionnel Oz Ensemble
-                  </TextStyled>{' '}
-                  avant de commencer ce défi 7 jours :
-                  <Br lines={2} />
-                  <SubElem>
+            <ElemContainer>
+              <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
+              <TextStyled style={{ flex: 1 }}>
+                Toutefois, si vous êtes dans l’une des situations ci-dessous,{' '}
+                <TextStyled bold>
+                  vous devez prendre conseil auprès de votre médecin ou d’un professionnel Oz Ensemble
+                </TextStyled>{' '}
+                avant de commencer ce défi 7 jours :
+                <Br lines={2} />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled bold color="#de285e" style={{ flex: 1, width: screenWidth * 0.7 }}>
+                    Vous êtes enceinte
+                  </TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
                     <TextStyled bold color="#de285e">
-                      Vous êtes enceinte
+                      Vous ressentez des symptômes de sevrage
+                    </TextStyled>{' '}
+                    lorsque vous cessez de consommer de l’alcool tel que le besoin de prendre un verre d’alcool le
+                    matin, tremblements, transpiration excessive, hallucinations, besoin de consommer.
+                  </TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                    <TextStyled bold color="#de285e">
+                      Vous prenez des médicaments prescrits{' '}
                     </TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>
-                      <TextStyled bold color="#de285e">
-                        Vous ressentez des symptômes de sevrage
-                      </TextStyled>{' '}
-                      lorsque vous cessez de consommer de l’alcool tel que le besoin de prendre un verre d’alcool le
-                      matin, tremblements, transpiration excessive, hallucinations, besoin de consommer.
-                    </TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>
-                      <TextStyled bold color="#de285e">
-                        Vous prenez des médicaments prescrits{' '}
-                      </TextStyled>
-                      : l’alcool entre en interaction avec plusieurs médicaments
-                    </TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>
-                      Vous prenez des{' '}
-                      <TextStyled bold color="#de285e">
-                        drogues illégales
-                      </TextStyled>{' '}
-                      en association avec l’alcool. Ce défi n’a pas été conçu pour les personnes qui consomment des
-                      substances autres que l’alcool.
-                    </TextStyled>
-                  </SubElem>
-                </>
-              }
-            />
+                    : l’alcool entre en interaction avec plusieurs médicaments
+                  </TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                    Vous prenez des{' '}
+                    <TextStyled bold color="#de285e">
+                      drogues illégales
+                    </TextStyled>{' '}
+                    en association avec l’alcool. Ce défi n’a pas été conçu pour les personnes qui consomment des
+                    substances autres que l’alcool.
+                  </TextStyled>
+                </View>
+              </TextStyled>
+            </ElemContainer>
           </Paragraph>
           <Paragraph>
-            <Elem
-              content={
-                <>
-                  D’une façon générale, l’option la plus sûre est de{' '}
-                  <TextStyled bold color="#de285e">
-                    NE PAS CONSOMMER D’ALCOOL
-                  </TextStyled>{' '}
-                  en cas de :
-                  <Br lines={2} />
-                  <SubElem>
-                    <TextStyled>conduite automobile</TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>manipulation d'outils ou de machines (bricolage, ect.)</TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>pratique de sports à risque</TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>consommation de certains médicaments</TextStyled>
-                  </SubElem>
-                  <SubElem>
-                    <TextStyled>existence de certaines pathologies</TextStyled>
-                  </SubElem>
-                </>
-              }
-            />
+            <ElemContainer>
+              <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
+              <TextStyled style={{ flex: 1 }}>
+                D’une façon générale, l’option la plus sûre est de{' '}
+                <TextStyled bold color="#de285e">
+                  NE PAS CONSOMMER D’ALCOOL
+                </TextStyled>{' '}
+                en cas de :
+                <Br lines={2} />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled>conduite automobile</TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                    manipulation d'outils ou de machines (bricolage, etc.)
+                  </TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>pratique de sports à risque</TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                    consommation de certains médicaments
+                  </TextStyled>
+                </View>
+                <Br />
+                <View
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                  }}>
+                  <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
+                  <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                    existence de certaines pathologies
+                  </TextStyled>
+                </View>
+                <Br />
+              </TextStyled>
+            </ElemContainer>
           </Paragraph>
         </TopContainer>
       </ScreenBgStyled>
@@ -129,10 +191,6 @@ const ElemContainer = styled.View`
   display: flex;
   flex-direction: row;
   margin: 10px 0;
-`;
-const SubElemContainer = styled.View`
-  display: flex;
-  flex-direction: row;
 `;
 
 const ScreenBgStyled = styled.ScrollView`
