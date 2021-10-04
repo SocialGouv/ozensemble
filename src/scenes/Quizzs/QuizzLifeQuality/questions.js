@@ -90,13 +90,13 @@ const questions = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 0,
+        score: 1,
         emoji: '🙂',
       },
       {
         content: 'Un petit peu',
         answerKey: 'slightly',
-        score: 0,
+        score: 1,
         emoji: '🙂',
       },
       {
@@ -183,13 +183,13 @@ const questions = [
         content: 'Moyenne',
         answerKey: 'moderately',
         score: 0,
-        emoji: '🥱',
+        emoji: '😩',
       },
       {
         content: 'Faible',
         answerKey: 'slightly',
         score: 0,
-        emoji: '🥱',
+        emoji: '😩',
       },
       {
         content: 'Très faible',
@@ -290,13 +290,13 @@ const questions = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 0,
+        score: 1,
         emoji: '🙂',
       },
       {
         content: 'Un petit peu',
         answerKey: 'slightly',
-        score: 0,
+        score: 1,
         emoji: '🙂',
       },
       {

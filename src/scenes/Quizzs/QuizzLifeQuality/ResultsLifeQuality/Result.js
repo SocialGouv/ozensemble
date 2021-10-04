@@ -11,11 +11,16 @@ const Results = ({ values }) => {
       <ItemsContainer>
         {values.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
         {values
-          .sort((a, b) => a.score < b.score)
-          .map((r) => {
+          .sort((a, b) => Number(a.score) < Number(b.score))
+          .map((r, i) => {
             const question = questionsLifeQuality.find((q) => q.resultLabel === r.title);
             const response = question?.answers.find((a) => a.score === r.score);
-            return <Item response={response} question={question} />;
+
+            //hide if good score for these questions
+            if (['Handicap physique', 'Frein psychique'].includes(question.resultLabel) && response.score > 0)
+              return null;
+
+            return <Item key={i} response={response} question={question} />;
           })}
       </ItemsContainer>
     </ContainerSection>
