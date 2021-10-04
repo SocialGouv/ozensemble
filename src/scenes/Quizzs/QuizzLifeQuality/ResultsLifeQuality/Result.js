@@ -11,7 +11,7 @@ const Results = ({ values }) => {
       <ItemsContainer>
         {values.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
         {values
-          .sort((a, b) => Number(a.score) < Number(b.score))
+          .sort((a, b) => Number(b.score) - Number(a.score))
           .map((r, i) => {
             const question = questionsLifeQuality.find((q) => q.resultLabel === r.title);
             const response = question?.answers.find((a) => a.score === r.score);
