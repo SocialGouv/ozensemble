@@ -14,12 +14,12 @@ export default (props) => (
   <QuizzEvaluateResultStack.Navigator headerMode="none">
     <QuizzEvaluateResultStack.Screen
       name="RESULT"
-      component={() => <Results {...props} />}
       initialParams={{
         title: 'Évaluer sa consommation',
         ...props?.route?.params,
-      }}
-    />
+      }}>
+      {() => <Results {...props} />}
+    </QuizzEvaluateResultStack.Screen>
     <QuizzEvaluateResultStack.Screen name="ADVISE" component={Advise} />
   </QuizzEvaluateResultStack.Navigator>
 );
@@ -44,6 +44,6 @@ const Results = ({ resultKey, route }) => {
 export const Content = ({ resultKey, hideButtons }) => (
   <>
     <ResultAddiction value={resultKey?.scoreAddiction} />
-    <ResultPopulation value={resultKey?.scorePopulation} hideButtons={hideButtons} />
+    <ResultPopulation value={resultKey?.scoreArrow} hideButtons={hideButtons} />
   </>
 );

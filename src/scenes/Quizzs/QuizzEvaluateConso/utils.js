@@ -3,14 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAnswerScore } from '../../../components/Quizz/utils';
 import { capture } from '../../../services/sentry';
 
-const lookupConsommationPopulation = [
-  [0, 0, 0, 0, 0],
-  [0, 0, 0, 7, 7],
-  [7, 7, 7, 7, 7],
-  [7, 7, 12, 12, 14],
-  [7, 7, 12, 14, 14],
-];
-
 export const getGenderFromLocalStorage = async () => {
   const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
   if (storedAnswers !== null) {
@@ -18,6 +10,18 @@ export const getGenderFromLocalStorage = async () => {
     return newAnswers[CONSTANTS.GENDER];
   }
   return null;
+};
+
+const atLeastOneAnswerIsNotNever = (answers) => {
+  const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER && key !== 'age');
+  const hasNotAnsweredNeverAtLeastOne = questionKeys.reduce((prev, curr) => {
+    if (curr < 3) return prev;
+    const answerKey = answers[curr];
+    return (answerKey !== 'never' && answerKey !== 'no') || !!prev;
+  }, false);
+  console.log({ answers });
+  console.log({ hasNotAnsweredNeverAtLeastOne });
+  return hasNotAnsweredNeverAtLeastOne;
 };
 
 export const computeScore = (questions, answers) => {
@@ -39,14 +43,9 @@ export const computeScore = (questions, answers) => {
       score += getAnswerScore(questions, answers, questionKey);
     }
 
-    // get the index score for scorePopulation
-    const x = getAnswerScore(questions, answers, '0');
-    const y = getAnswerScore(questions, answers, '1');
-
     return {
       [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
       [CONSTANTS.SCORE]: score,
-      population: lookupConsommationPopulation[x][y],
     };
   } catch (e) {
     capture('error in mapEvaluateConsoAnswersToResult ' + e, { extra: { answers } });
@@ -55,33 +54,50 @@ export const computeScore = (questions, answers) => {
     return {
       [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
       [CONSTANTS.SCORE]: -1,
-      population: -1,
     };
   }
   return {
     [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
     [CONSTANTS.SCORE]: -1,
-    population: -1,
   };
 };
 
-const mapScoreToResult = (computedScore) => {
+const mapScoreToResult = ({ computedScore, answers }) => {
   const gender = computedScore[CONSTANTS.GENDER];
   const score = computedScore[CONSTANTS.SCORE];
-  const scorePopulation = computedScore.population;
+
   // woman first
+  let scores = {};
   if (gender === CONSTANTS.WOMAN) {
-    if (score > 12) return { scoreAddiction: CONSTANTS.RESULT_ADDICTED, scorePopulation };
-    if (score > 5) return { scoreAddiction: CONSTANTS.RESULT_RISK, scorePopulation };
-    return { scoreAddiction: CONSTANTS.RESULT_GOOD, scorePopulation };
+    // score for the first part, addiction
+    if (score > 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
+    if (score > 5) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
+    scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
+
+    //score for the second part, the arrow
+    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
+    if (score >= 7 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
+    if (score >= 1 && score <= 6) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
+    if (score === 0) scores.scoreArrow = CONSTANTS.RESULT_ARROW_NO_USAGE;
+    if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
   }
   // then men
-  if (gender === CONSTANTS.MAN) {
-    if (score > 12) return { scoreAddiction: CONSTANTS.RESULT_ADDICTED, scorePopulation };
-    if (score > 6) return { scoreAddiction: CONSTANTS.RESULT_RISK, scorePopulation };
-    return { scoreAddiction: CONSTANTS.RESULT_GOOD, scorePopulation };
+  else if (gender === CONSTANTS.MAN) {
+    if (score > 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
+    if (score > 6) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
+    scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
+
+    //score for the second part, the arrow
+    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
+    if (score >= 8 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
+    if (score >= 1 && score <= 7) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
+    if (score === 0) scores.scoreArrow = CONSTANTS.RESULT_ARROW_NO_USAGE;
+    if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
   }
+  console.log({ score });
+  console.log({ scores });
+  return scores;
 };
 
 export const mapEvaluateConsoAnswersToResult = (questions, answers) =>
-  mapScoreToResult(computeScore(questions, answers));
+  mapScoreToResult({ computedScore: computeScore(questions, answers), answers });
