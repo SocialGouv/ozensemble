@@ -6,19 +6,37 @@ import GraphPopulation from './GraphPopulation';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { useNavigation } from '@react-navigation/native';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
+import ArrowUsage from './ArrowUsage';
+import CONSTANTS from '../../../../reference/constants';
+import styled from 'styled-components';
 
 const ResultPopulation = ({ value, hideButtons }) => {
   const navigation = useNavigation();
-  const renderFooter = () => (
-    <>
-      <ButtonPrimary
-        content="Échanger avec un conseiller"
-        onPress={() => navigation.navigate('CONTACT')}
-        style={{ marginVertical: 30 }}
-      />
-      <UnderlinedButton content="Conseils de réduction" onPress={() => navigation.navigate('ADVISE')} color="#4030a5" />
-    </>
-  );
+  const renderFooter = () =>
+    [CONSTANTS.RESULT_ARROW_ADDICTED, CONSTANTS.RESULT_ARROW_HARMFUL_USAGE].includes(value) ? (
+      <>
+        <ButtonPrimary
+          content="Échanger avec un conseiller"
+          onPress={() => navigation.navigate('CONTACT')}
+          style={{ marginVertical: 30 }}
+        />
+        <UnderlinedButton
+          content="Conseils de réduction"
+          onPress={() => navigation.navigate('ADVISE')}
+          color="#4030a5"
+        />
+      </>
+    ) : (
+      <ButtonContainer>
+        <ButtonPrimary
+          content="Retour au suivi"
+          shadowColor="#201569"
+          color="#4030A5"
+          onPress={() => navigation.navigate('CONSO_FOLLOW_UP')}
+          style={{ marginVertical: 30, flexGrow: 0 }}
+        />
+      </ButtonContainer>
+    );
   const renderDescription = () => {
     switch (value) {
       default:
@@ -66,10 +84,16 @@ const ResultPopulation = ({ value, hideButtons }) => {
   return (
     <ContainerSection>
       <ResultTitle>L'alcool en France</ResultTitle>
-      <GraphPopulation activeBarIndex={value} />
-      {renderDescription()}
+      <ArrowUsage score={value} />
+      {!hideButtons && renderFooter()}
+      {/* {renderDescription()} */}
     </ContainerSection>
   );
 };
 
 export default ResultPopulation;
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+`;
