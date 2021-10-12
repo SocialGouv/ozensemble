@@ -55,7 +55,7 @@ export default ({ navigation }) => {
           </TopTitle>
           {/* TODO HERE */}
           <ResultsEvaluateConso resultKey={resultEvaluateConso?.result} hideButtons />
-          <ResultLifeQuality values={resultLifeQuality?.result?.filter((r) => r.score !== 0)} />
+          <ResultLifeQuality values={resultLifeQuality?.result} />
           <ResultMotivation results={resultMotivation?.answers} />
         </TopContainer>
       </ScreenBgStyled>
