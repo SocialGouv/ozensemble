@@ -83,7 +83,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
 
   return (
     <ContainerSection>
-      <ResultTitle>L'alcool en France</ResultTitle>
+      <ResultTitle>Mon niveau de risque</ResultTitle>
       <ArrowUsage score={value} />
       {!hideButtons && renderFooter()}
       {/* {renderDescription()} */}
