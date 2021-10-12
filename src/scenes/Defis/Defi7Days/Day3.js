@@ -110,6 +110,7 @@ const ScreenBgStyled = styled.ScrollView`
 
 const TopContainer = styled.View`
   padding: 20px 30px 0px;
+  padding-bottom: 100px;
 `;
 
 const Spacer = styled.View`
