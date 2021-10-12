@@ -4,22 +4,15 @@ import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 
 const DayModule = ({ dayData, activeDayIsDone }) => {
-  if (activeDayIsDone) {
-    return (
-      <FeedDayContent>
-        <DescriptionContainer>
-          <TextStyled>{dayData?.descriptionDone || dayData?.description}</TextStyled>
-        </DescriptionContainer>
-      </FeedDayContent>
-    );
-  }
   return (
     <FeedDayContent>
       <TitleDay>
         {dayData?.title} : {dayData?.tagLine}
       </TitleDay>
       <DescriptionContainer>
-        <TextStyled>{dayData?.description}</TextStyled>
+        <TextStyled>
+          {activeDayIsDone ? dayData?.descriptionDone || dayData?.description : dayData?.description}
+        </TextStyled>
       </DescriptionContainer>
     </FeedDayContent>
   );
