@@ -70,29 +70,29 @@ const mapScoreToResult = ({ computedScore, answers }) => {
   let scores = {};
   if (gender === CONSTANTS.WOMAN) {
     // score for the first part, addiction
-    if (score > 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
-    if (score > 5) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
-    scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
+    if (score <= 4) scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
+    if (score >= 5) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
+    if (score >= 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
 
     //score for the second part, the arrow
-    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
-    if (score >= 7 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
-    if (score >= 1 && score <= 6) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
     if (score === 0) scores.scoreArrow = CONSTANTS.RESULT_ARROW_NO_USAGE;
+    if (score >= 1 && score <= 6) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
+    if (score >= 7 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
     if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
+    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
   }
   // then men
   else if (gender === CONSTANTS.MAN) {
-    if (score > 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
-    if (score > 6) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
-    scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
+    if (score <= 5) scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
+    if (score >= 6) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
+    if (score >= 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
 
     //score for the second part, the arrow
-    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
-    if (score >= 8 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
-    if (score >= 1 && score <= 7) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
     if (score === 0) scores.scoreArrow = CONSTANTS.RESULT_ARROW_NO_USAGE;
+    if (score >= 1 && score <= 7) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
+    if (score >= 8 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
     if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
+    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
   }
   console.log({ score });
   console.log({ scores });
