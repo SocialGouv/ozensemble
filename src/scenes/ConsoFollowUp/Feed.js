@@ -87,7 +87,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
               const isLast = index === days.length - 1;
               const drinksOfTheDay = drinks
                 .filter(({ timestamp }) => datesAreEqual(timestamp, day))
-                .sort((a, b) => (a > b ? -1 : 1));
+                .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
               const noDrinksYet = !drinksOfTheDay.length;
               const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
               return (
