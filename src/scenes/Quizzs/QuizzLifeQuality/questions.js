@@ -45,7 +45,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines, avez-vous été limité dans vos activités physiques habituelles par votre état physique (tel que monter des escaliers, ou marcher) :',
+      'Au cours de ces 4 dernières semaines, avez-vous été limité dans vos activités physiques habituelles par votre état physique (tel que monter des escaliers, ou marcher) ?',
     questionKey: '1',
     resultLabel: 'Activité physique',
     answers: [
