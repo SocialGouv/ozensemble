@@ -14,24 +14,28 @@ import HeaderBackground from '../../components/HeaderBackground';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import pck from '../../../package.json';
 import NPS from '../NPS/NPS';
+import usePopToTop from '../../hooks/usePopToTop';
 
 const InfosStack = createStackNavigator();
 
-const Infos = () => (
-  <Background color="#39cec0" withSwiperContainer>
-    <HeaderBackground />
-    <InfosStack.Navigator headerMode="none">
-      <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
-      <InfosStack.Screen name="REMINDER" component={Reminder} />
-      <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
-      <InfosStack.Screen name="PRIVACY_POLICY">
-        {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
-      </InfosStack.Screen>
-      <InfosStack.Screen name="EXPORT" component={Export} />
-      <InfosStack.Screen name="TESTS" component={QuizzsNavigator} />
-    </InfosStack.Navigator>
-  </Background>
-);
+const Infos = () => {
+  usePopToTop();
+  return (
+    <Background color="#39cec0" withSwiperContainer>
+      <HeaderBackground />
+      <InfosStack.Navigator initialRouteName="INFOS_TAB" headerMode="none">
+        <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
+        <InfosStack.Screen name="REMINDER" component={Reminder} />
+        <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
+        <InfosStack.Screen name="PRIVACY_POLICY">
+          {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
+        </InfosStack.Screen>
+        <InfosStack.Screen name="EXPORT" component={Export} />
+        <InfosStack.Screen name="TESTS" component={QuizzsNavigator} />
+      </InfosStack.Navigator>
+    </Background>
+  );
+};
 
 const InfosMenu = ({ navigation }) => {
   const [NPSvisible, setNPSvisible] = React.useState(false);
