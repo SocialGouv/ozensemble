@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Onboarding from './Onboarding';
 import OnboardingInfo from './OnboardingInfo';
+import Reminder from '../../Infos/Reminder';
 import Day1 from './Day1';
 import Day3 from './Day3';
 import Day7 from './Day7';
@@ -34,6 +35,7 @@ const Defi7DaysNavigator = () => {
       {!!initialScreen && (
         <Defi7DaysStack.Navigator headerMode="none" initialRouteName={initialScreen}>
           <Defi7DaysStack.Screen name="ONBOARDING" component={Onboarding} />
+          <Defi7DaysStack.Screen name="DEFI_7_DAYS_REMINDER" component={Reminder} />
           <Defi7DaysStack.Screen name="ONBOARDING_INFO" component={OnboardingInfo} />
           <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
           <Defi7DaysStack.Screen
