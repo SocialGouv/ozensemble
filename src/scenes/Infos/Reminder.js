@@ -148,13 +148,15 @@ class Reminder extends React.Component {
 
   render() {
     const { reminder, timePickerVisible } = this.state;
-    const { navigation } = this.props;
+    const { navigation, route } = this.props;
     return (
       <Container>
         <BackButton content="< Retour" onPress={navigation.goBack} bold />
         <ReminderIcon size={80} color="#4030a5" selected={false} />
         <Title>
-          <TextStyled color="#4030a5">Une aide pour penser à noter vos consommations</TextStyled>
+          <TextStyled color="#4030a5">
+            {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
+          </TextStyled>
         </Title>
         <SubTitle>
           {reminder ? (
@@ -175,6 +177,10 @@ class Reminder extends React.Component {
             onPress={this.showTimePicker}
           />
           {Boolean(reminder) && <UnderlinedButton content="Retirer le rappel" bold onPress={this.deleteReminder} />}
+          {Boolean(route?.params?.enableContinueButton) &&
+          typeof route?.params?.onPressContinueButton === 'function' ? (
+            <ButtonPrimary content="Continuer" onPress={route?.params?.onPressContinueButton} />
+          ) : null}
         </ButtonsContainer>
         <TimePicker visible={timePickerVisible} selectDate={this.setReminder} />
       </Container>

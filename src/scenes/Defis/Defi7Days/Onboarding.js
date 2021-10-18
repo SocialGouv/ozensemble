@@ -14,10 +14,17 @@ export default ({ navigation }) => {
   const startDefi = async () => {
     const startAt = new Date().toISOString().split('T')[0];
     await AsyncStorage.setItem('DEFI_7_JOURS_STARTED_AT', startAt);
-    navigation.navigate('DEFI_7_DAYS_MENU');
+    navigation.navigate('DEFI_7_DAYS_REMINDER', {
+      title: 'Un rappel pour penser à faire votre défi 7 jours',
+      enableContinueButton: true,
+      onPressContinueButton: () => navigation.navigate('DEFI_7_DAYS_MENU'),
+    });
   };
   const noThankYou = () => {
-    navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' });
+    navigation.navigate('DEFI_7_DAYS_REMINDER', {
+      enableContinueButton: true,
+      onPressContinueButton: () => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' }),
+    });
   };
   return (
     <ScreenBgStyled>
