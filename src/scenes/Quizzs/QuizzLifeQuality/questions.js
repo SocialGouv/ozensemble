@@ -7,7 +7,7 @@ import CONSTANTS from '../../../reference/constants';
 
 const questions = [
   {
-    questionTitle: 'Dans l’ensemble, pensez-vous que votre santé durant les 4 semaines passées était :',
+    questionTitle: 'Dans l’ensemble, comment évalueriez-vous votre santé durant les 4 semaines passées ?',
     questionKey: '0',
     resultLabel: 'Santé ressentie',
     answers: [
@@ -83,7 +83,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines, et en raison de votre état physique, avez-vous été obligé de réduire le temps passé à votre travail ou à vos activités habituelles à la maison et en dehors, à cause de de votre état physique ?',
+      "Au cours des 4 dernières semaines, à quel point avez-vous eu des difficultés à faire votre travail ou vos activités habituelles à la maison et à l'extérieur, en raison de votre état physique ?",
     questionKey: '2',
     resultLabel: 'Handicap physique',
     answers: [
@@ -163,7 +163,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Au cours de ces 4 dernières semaines, quelle quantité d’énergie avez-vous ressenti avoir ?',
+    questionTitle: 'Au cours des 4 dernières semaines, comment évalueriez-vous votre niveau d’énergie au global ?',
     questionKey: '4',
     resultLabel: 'Vitalité',
     answers: [
@@ -207,7 +207,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines ; y a-t-il eu des moments où votre état de santé ou émotionnel vous a gêné dans votre vie et vos relations avec les autres, votre famille, vos amis, vos connaissances ?',
+      'Au cours des 4 dernières semaines, à quel point votre santé physique ou vos problèmes émotionnels ont-ils limité vos activités sociales habituelles en famille ou entre amis ?',
     questionKey: '5',
     resultLabel: 'Relationnel',
     answers: [
@@ -245,7 +245,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines, avez-vous été gêné par votre état émotionnel (comme vous sentir triste, nerveux(se) ou irritable) ?',
+      'Au cours des 4 dernières semaines, à quel point avez-vous été dérangé par votre état émotionnel (tel que vous sentir anxieux, déprimé ou irritable) ?',
     questionKey: '6',
     resultLabel: 'Santé psychique',
     answers: [
@@ -283,7 +283,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines, dans quelle mesure vos problèmes personnels ou votre état émotionnel vous ont-ils empêchés de réaliser votre travail habituel, vos études, ou vos activités quotidiennes ?',
+      "Au cours des 4 dernières semaines, dans quelle mesure des problèmes personnels ou émotionnels vous ont-ils empêché de faire votre travail habituel, vos études ou d'autres activités quotidiennes ?",
     questionKey: '7',
     resultLabel: 'Frein psychique',
     answers: [
