@@ -122,6 +122,10 @@ const Defi7DaysMenu = ({ navigation }) => {
 
   useFocusEffect(() => {
     getValidatedDays();
+    // if we validated day 4, we can validate day 5 when the user focus the defi screen
+    if (validatedDays === 4) {
+      updateValidatedDays(5);
+    }
   });
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];

@@ -2,7 +2,7 @@ import CONSTANTS from '../../../reference/constants';
 
 // scores
 // 1 : green tag
-// 0 : no tag
+// 0 : orange tag
 // -1 : red tag
 
 const questions = [
