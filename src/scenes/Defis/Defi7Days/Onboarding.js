@@ -9,11 +9,13 @@ import { defaultPadding } from '../../../styles/theme';
 import ReminderIcon from '../../../components/Illustrations/ReminderIcon';
 import H2 from '../../../components/H2';
 import UnderlinedButton from '../../../components/UnderlinedButton';
+import matomo from '../../../services/matomo';
 
 export default ({ navigation }) => {
   const startDefi = async () => {
     const startAt = new Date().toISOString().split('T')[0];
     await AsyncStorage.setItem('DEFI_7_JOURS_STARTED_AT', startAt);
+    matomo.logClickStartDefi7Days();
     navigation.navigate('DEFI_7_DAYS_REMINDER', {
       title: 'Un rappel pour penser à faire votre défi 7 jours',
       enableContinueButton: true,
@@ -21,6 +23,7 @@ export default ({ navigation }) => {
     });
   };
   const noThankYou = () => {
+    matomo.logClickNotStartDefi7Days();
     navigation.navigate('DEFI_7_DAYS_REMINDER', {
       enableContinueButton: true,
       onPressContinueButton: () => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' }),
