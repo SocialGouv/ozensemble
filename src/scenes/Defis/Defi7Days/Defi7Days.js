@@ -16,6 +16,7 @@ import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import QuizzMotivations from '../../Quizzs/QuizzMotivations';
 import { useFocusEffect } from '@react-navigation/native';
+import matomo from '../../../services/matomo';
 
 const Defi7DaysStack = createStackNavigator();
 
@@ -105,10 +106,10 @@ const Defi7DaysMenu = ({ navigation }) => {
   };
 
   const updateValidatedDays = async (day) => {
-    await new Promise((res) => setTimeout(res, 1000)); // better UX
-    await AsyncStorage.setItem('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
-    const lastUpdate = new Date().toISOString().split('T')[0];
-    await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', lastUpdate);
+    // set local storage
+    setValidatedDays(day);
+
+    //set state
     setLastUpdate(lastUpdate);
     setValidateDays(day);
   };
@@ -122,11 +123,13 @@ const Defi7DaysMenu = ({ navigation }) => {
 
   useFocusEffect(() => {
     getValidatedDays();
-    // if we validated day 4, we can validate day 5 when the user focus the defi screen
-    if (validatedDays === 4) {
-      updateValidatedDays(5);
-    }
   });
+
+  useEffect(() => {
+    if (validatedDays === 4) {
+      setValidatedDays(5);
+    }
+  }, [validatedDays]);
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
   const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
@@ -151,4 +154,5 @@ export const setValidatedDays = async (day) => {
   await AsyncStorage.setItem('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
   const lastUpdate = new Date().toISOString().split('T')[0];
   await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', lastUpdate);
+  matomo.logValidateDayInDefi7Days(day);
 };
