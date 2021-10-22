@@ -34,11 +34,12 @@ const QuizzMotivations = ({ navigation, route }) => {
   }, []);
 
   const toggleAnswer = async (answerKey, checked) => {
-    const newAnswers = {
-      ...answers,
-      [answerKey]: checked,
-    };
-    setAnswers(newAnswers);
+    setAnswers((prevAnswers) => {
+      return {
+        ...prevAnswers,
+        [answerKey]: checked,
+      };
+    });
   };
 
   const validateAnswers = async () => {
