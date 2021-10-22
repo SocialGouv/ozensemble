@@ -369,6 +369,34 @@ const logNPSRecoSend = async (value) => {
   });
 };
 
+// DEFI 7 DAYS
+const DEFI_7_DAYS = 'DEFI_7_DAYS';
+const DEFI_7_DAYS_CLICK_START = 'DEFI_7_DAYS_CLICK_START';
+const DEFI_7_DAYS_CLICK_NOT_START = 'DEFI_7_DAYS_CLICK_NOT_START';
+const DEFI_7_DAYS_VALIDATE_DAY = 'DEFI_7_DAYS_VALIDATE_DAY';
+
+const logClickStartDefi7Days = async () => {
+  await logEvent({
+    category: DEFI_7_DAYS,
+    action: DEFI_7_DAYS_CLICK_START,
+  });
+};
+const logClickNotStartDefi7Days = async () => {
+  await logEvent({
+    category: DEFI_7_DAYS,
+    action: DEFI_7_DAYS_CLICK_NOT_START,
+  });
+};
+
+const logValidateDayInDefi7Days = async (day) => {
+  await logEvent({
+    category: DEFI_7_DAYS,
+    action: DEFI_7_DAYS_VALIDATE_DAY,
+    name: 'day',
+    value: day,
+  });
+};
+
 export default {
   initMatomo,
   logAppVisit,
@@ -404,4 +432,7 @@ export default {
   logNoConso,
   logNPSUsefulSend,
   logNPSRecoSend,
+  logClickStartDefi7Days,
+  logClickNotStartDefi7Days,
+  logValidateDayInDefi7Days,
 };
