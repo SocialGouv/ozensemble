@@ -81,7 +81,7 @@ const MenuItem = ({ caption, onPress }) => (
 export default Infos;
 
 const VersionContainer = styled.View`
-  margin-top: 30;
+  margin-top: 30px;
   flex: 1;
   align-items: center;
 `;
