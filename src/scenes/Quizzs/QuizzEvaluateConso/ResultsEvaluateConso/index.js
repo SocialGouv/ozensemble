@@ -4,7 +4,7 @@ import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
 import { FullScreenBackground, ResultContainer } from './styles';
 import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from '../../../Defis/Defi7Days/Defi7Days';
+import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
 import { createStackNavigator } from '@react-navigation/stack';
 import Advise from './Advise';
 

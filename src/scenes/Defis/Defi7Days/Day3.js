@@ -7,7 +7,7 @@ import GoBackButton from '../../../components/GoBackButton';
 import { TouchableOpacity, View } from 'react-native';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from './Defi7Days';
+import { setValidatedDays } from './utils';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = React.useState(false);

@@ -6,7 +6,7 @@ import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from './Defi7Days';
+import { setValidatedDays } from './utils';
 import { View, Dimensions } from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 
