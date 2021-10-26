@@ -17,6 +17,7 @@ import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import QuizzMotivations from '../../Quizzs/QuizzMotivations';
 import { useFocusEffect } from '@react-navigation/native';
 import matomo from '../../../services/matomo';
+import { setValidatedDays } from './utils';
 
 const Defi7DaysStack = createStackNavigator();
 
@@ -148,11 +149,3 @@ const Defi7DaysMenu = ({ navigation }) => {
 };
 
 export default Defi7DaysNavigator;
-
-export const setValidatedDays = async (day) => {
-  await new Promise((res) => setTimeout(res, 1000)); // better UX
-  await AsyncStorage.setItem('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
-  const lastUpdate = new Date().toISOString().split('T')[0];
-  await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', lastUpdate);
-  matomo.logValidateDayInDefi7Days(day);
-};
