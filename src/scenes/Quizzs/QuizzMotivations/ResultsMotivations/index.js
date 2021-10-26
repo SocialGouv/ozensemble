@@ -3,7 +3,7 @@ import Header from '../../../Defis/Header';
 import Result from './Result';
 import { FullScreenBackground, ResultContainer } from './styles';
 import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from '../../../Defis/Defi7Days/Defi7Days';
+import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
 
 const Results = ({ results, route }) => {
   if (!results) return null;

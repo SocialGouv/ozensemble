@@ -14,7 +14,7 @@ import WineGlass from '../../../components/Illustrations/WineGlass';
 import Dose from '../../../components/Illustrations/Dose';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from './Defi7Days';
+import { setValidatedDays } from './utils';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
