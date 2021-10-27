@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -26,6 +26,17 @@ import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
+  const tabPressListener = ({ navigation, rootName }) => {
+    return {
+      blur: () => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: rootName }],
+        });
+      },
+    };
+  };
+
   return (
     <Tabs.Navigator
       initialRouteName={'DEFI'}
@@ -81,6 +92,7 @@ const TabsNavigator = ({ navigation }) => {
           tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
         }}
         component={Infos}
+        listeners={(props) => tabPressListener({ ...props, rootName: 'INFOS_TAB' })}
       />
     </Tabs.Navigator>
   );
