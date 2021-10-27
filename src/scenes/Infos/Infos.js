@@ -14,12 +14,13 @@ import HeaderBackground from '../../components/HeaderBackground';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import pck from '../../../package.json';
 import NPS from '../NPS/NPS';
-import usePopToTop from '../../hooks/usePopToTop';
+// import usePopToTop from '../../hooks/usePopToTop';
 
 const InfosStack = createStackNavigator();
 
 const Infos = () => {
-  usePopToTop();
+  // usePopToTop();
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
