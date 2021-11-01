@@ -4,10 +4,11 @@ import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Linking } from 'react-native';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
 import { setValidatedDays } from './utils';
+import Sources from '../../Quizzs/Sources';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = React.useState(false);
@@ -88,6 +89,22 @@ export default ({ navigation, route }) => {
             <Elem content='"Non merci, j’ai dit à ma famille que je boirai moins."' />
             <Elem content='"Non merci, je fais Dry January."' />
           </ToggleContent>
+          <Sources
+            content={
+              <TextStyled>
+                Santé publique France,{'\n'}
+                <TextStyled
+                  color="#4030a5"
+                  onPress={() => {
+                    Linking.openURL(
+                      'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
+                    );
+                  }}>
+                  Voir l'article sur santepubliquefrance.fr
+                </TextStyled>
+              </TextStyled>
+            }
+          />
         </TopContainer>
       </ScreenBgStyled>
     </Background>
