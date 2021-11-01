@@ -15,6 +15,7 @@ import {
   ResultsIllustrationStyled,
   UnderlinedButtonStyled,
 } from './styles';
+import Sources from '../../Sources';
 
 const ResultRisk = ({ navigation, isInOnboarding }) => (
   <FullScreenBackground>
@@ -76,6 +77,13 @@ const ResultRisk = ({ navigation, isInOnboarding }) => (
         />
       </BottomSubContainer>
     </BottomContainer>
+    <TopContainer>
+      <Sources
+        content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+        Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+        Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+      />
+    </TopContainer>
   </FullScreenBackground>
 );
 
