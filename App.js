@@ -9,10 +9,10 @@ import * as Sentry from '@sentry/react-native';
 import { ToastProvider } from './src/services/toast';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import './src/styles/theme';
-import { SENTRY_DSN } from './src/config';
+import { SENTRY_XXX } from './src/config';
 
 if (!__DEV__) {
-  Sentry.init({ dsn: SENTRY_DSN });
+  Sentry.init({ dsn: SENTRY_XXX });
 }
 
 const App = () => {
