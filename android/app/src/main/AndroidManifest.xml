@@ -27,7 +27,6 @@
         android:launchMode="singleTask"
         android:exported="true">
       </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
       <!-- BOOT SPLASH -->
 
