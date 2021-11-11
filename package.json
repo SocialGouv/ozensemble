@@ -1,6 +1,6 @@
 {
   "name": "oz_ensemble",
-  "version": "1.4.10",
+  "version": "1.4.12",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
