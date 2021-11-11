@@ -1,7 +1,6 @@
 {
   "name": "oz_ensemble",
-  "version": "1.4.9",
-  "versionCode": 55,
+  "version": "1.4.10",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -15,7 +14,8 @@
     "build:android-apk": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ../",
     "clean:android": "cd android && ./gradlew clean && cd ../",
     "test": "jest --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "update-mobile-app-version": "node ./update-mobile-app-version.js"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.5",
