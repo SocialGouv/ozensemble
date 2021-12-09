@@ -1,4 +1,8 @@
 {
   "name": "oz_ensemble",
-  "displayName": "oz_ensemble"
+  "displayName": "oz_ensemble",
+  "version": {
+    "buildNumber": 61,
+    "buildName": "1.4.12"
+  }
 }
