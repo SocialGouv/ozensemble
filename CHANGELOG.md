@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/SocialGouv/ozensemble/compare/v1.6.0...v1.7.0) (2021-12-10)
+
+
+### Features
+
+* **défi:** fil d'ariane cliquable ([5289fc9](https://github.com/SocialGouv/ozensemble/commit/5289fc9f6ffcd8b5719ad28da13298d633fee964))
+
 # [1.6.0](https://github.com/SocialGouv/ozensemble/compare/v1.5.0...v1.6.0) (2021-12-10)
 
 
