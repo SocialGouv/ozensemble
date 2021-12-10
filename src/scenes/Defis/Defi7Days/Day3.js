@@ -9,6 +9,8 @@ import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
 import { setValidatedDays } from './utils';
 import Sources from '../../Quizzs/Sources';
+import ButtonPrimary from '../../../components/ButtonPrimary';
+import UnderlinedButton from '../../../components/UnderlinedButton';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = React.useState(false);
@@ -32,76 +34,73 @@ const TitleStyled = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 15px;
+  margin: 15px 0;
 `;
 
-export default ({ navigation, route }) => {
+const Day3 = ({ navigation, route }) => {
   useFocusEffect(() => {
     route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
   });
   return (
     <Background color="#39cec0" withSwiperContainer>
-      {/* <HeaderBackground /> */}
       <ScreenBgStyled>
         <TopContainer>
           <TopTitle>
             <GoBackButton onPress={navigation.goBack} />
             <Spacer />
-            <H1 color="#4030a5">Conseils pour diminuer ma consommation d’alcool </H1>
+            <H1 color="#4030a5">
+              Avez-vous une dépendance physique à l’alcool qui necessite de consulter un professionel de santé ?
+            </H1>
           </TopTitle>
-          <ToggleContent title="Planifier">
-            <Elem content="Eviter les personnes et les endroits qui incitent à consommer plus qu’on ne le souhaite" />
-            <Elem content="Ne pas conserver d’alcool chez soi lorsqu'on a des difficultés à ne pas boire" />
-            <Elem content="Se souvenir qu’une envie de consommer finira toujours par passer" />
-            <Elem
-              content="Ne pas oublier les raisons pour lesquelles on souhaite changer et se concentrer sur des façons plus saines
-              de passer le temps"
-            />
+          <ElemContainer>
+            <TextStyled style={{ flex: 1 }}>
+              Le sevrage à l’alcool peut entrainer des complications graves et possiblement mortelles.{'\n\n'}
+              <TextStyled bold color="#de285e">
+                Si vous présentez l’un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de
+                santé.
+              </TextStyled>
+            </TextStyled>
+          </ElemContainer>
+          <ToggleContent title="Tremblements">
+            <Elem content="Il s'agit de tremblements involontaires et incontrôlables en particulier des mains, mais aussi parfois de la tête et de la langue. Il peut aller de légers tremblements à une trémulation forte." />
           </ToggleContent>
-          <ToggleContent title="S'occuper">
-            <Elem
-              content="Occuper son temps libre avec des passes-temps et des personnes dynamiques qui améliorent notre santé et
-              notre bien-être"
-            />
-            <Elem
-              content="Trouver de meilleurs façons d’être à l’aise dans nos activités sociales, de gérer notre humeur et de faire
-              face à nos problèmes"
-            />
-            <Elem content="Participer à une activité qui n’implique aucune consommation d’alcool" />
+          <ToggleContent title="Sueurs">
+            <Elem content="Elles apparaissent généralement sous 24h à 48h et se manifestent quelques heures après les dernières consommations." />
           </ToggleContent>
-          <ToggleContent title="Prendre son temps">
-            <Elem
-              content="Ne pas consommer plus d’un verre standard par heure et, pour chaque verre d’alcool, boire une boisson non
-              alcoolisée"
-            />
-            <Elem content="Ne pas boire l’estomac vide. Manger quelque chose pour que l’organisme absorbe l’alcool plus lentement" />
-            <Elem
-              content="Tout en mangeant sainement, ne pas oublier qu’un des effets secondaire de l’alcool est la prise de poids.
-              Un seul verre de vin contient plus de 120 calories et une bouteille de bière près de 130"
-            />
+          <ToggleContent title="Pouls accéléré">
+            <Elem content="Normalement la fréquence cardiaque de l'adulte se situe en dessous de 80 battements/minutes au repos." />
           </ToggleContent>
-          <ToggleContent title='Se préparer à dire "Non merci"'>
-            <Elem content='"Non merci, je conduis."' />
-            <Elem content='"Non merci, je viens de finir un verre."' />
-            <Elem content='"Non merci, je suis au régime."' />
-            <Elem content='"Non merci, j’ai un examen demain pour lequel je veux être en forme."' />
-            <Elem content='"Non merci, j’ai un match important demain pour lequel je veux être en forme."' />
-            <Elem content='"Non merci, j’ai dit à ma famille que je boirai moins."' />
-            <Elem content='"Non merci, je fais Dry January."' />
+          <ToggleContent title="Hyperventillation">
+            <Elem content="Votre respiration s'accèlere nettement, même au repos, au delà de 17 cycles/minutes." />
           </ToggleContent>
+          <ToggleContent title="Forte agitation">
+            <Elem content="L'agitation est la manifestation physique et motrice, d’un état d’excitation interne. C’est donc bien une tension interne qui se manifeste par le corps." />
+          </ToggleContent>
+          <>
+            <ButtonContainer>
+              <ButtonPrimary
+                content="Échanger avec un conseiller"
+                onPress={() => navigation.navigate('CONTACT')}
+                style={{ marginVertical: 30 }}
+              />
+              <Button
+                small
+                content="Retour au suivi"
+                shadowColor="#201569"
+                color="#4030A5"
+                onPress={() => navigation.navigate('CONSO_FOLLOW_UP')}
+              />
+            </ButtonContainer>
+          </>
           <Sources
             content={
               <TextStyled>
-                Santé publique France,{'\n'}
-                <TextStyled
-                  color="#4030a5"
-                  onPress={() => {
-                    Linking.openURL(
-                      'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
-                    );
-                  }}>
-                  Voir l'article sur santepubliquefrance.fr
-                </TextStyled>
+                -Mayo-Smith M.F. Pharmacological management of alcohol withdrawal: a meta-analysis and evidence-based
+                practice guideline. JAMA 1997 ; 278(2) : 144-51.{'\n'}-Moore M., Gray M.G. Delirium tremens: a study of
+                cases at the Boston City Hospital, 1915-1936. NEJM 1939 ; 220(23) : 953-6.{'\n'}-Ferguson J.A., Suelzer
+                C.J., Eckert G.J., et al. Risk factors for delirium tremens development. J Gen Intern Med 1996 ; 11(7) :
+                410-4.{'\n'}-Thiercelin N., et al. Facteurs de risque du delirium tremens : revue de la littérature. La
+                Revue de médecine interne 2012 : 33 ; 18-22.
               </TextStyled>
             }
           />
@@ -113,7 +112,6 @@ export default ({ navigation, route }) => {
 
 const Elem = ({ content }) => (
   <ElemContainer>
-    <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
     <TextStyled style={{ flex: 1 }}>{content}</TextStyled>
   </ElemContainer>
 );
@@ -146,3 +144,12 @@ const ElemContainer = styled.View`
   flex-direction: row;
   margin: 10px 0;
 `;
+const Button = styled(ButtonPrimary)`
+  flex-grow: 0;
+`;
+const ButtonContainer = styled.View`
+  align-items: center;
+  justify-content: center;
+`;
+
+export default Day3;
