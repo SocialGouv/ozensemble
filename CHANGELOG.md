@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/SocialGouv/ozensemble/compare/v1.7.0...v1.8.0) (2021-12-10)
+
+
+### Bug Fixes
+
+* 1 ([f2e6885](https://github.com/SocialGouv/ozensemble/commit/f2e688510d9eec6555ff384f29900bdb0be68727))
+* readme ([45959e6](https://github.com/SocialGouv/ozensemble/commit/45959e625a6a5158dd47baaa2f8f913bbd52a165))
+
+
+### Features
+
+* 2 ([df95e23](https://github.com/SocialGouv/ozensemble/commit/df95e238e384268e0665c0e878a77a5a713078b8))
+
 # [1.7.0](https://github.com/SocialGouv/ozensemble/compare/v1.6.0...v1.7.0) (2021-12-10)
 
 
