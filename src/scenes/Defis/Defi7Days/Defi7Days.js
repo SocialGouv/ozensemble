@@ -6,6 +6,7 @@ import OnboardingInfo from './OnboardingInfo';
 import Reminder from '../../Infos/Reminder';
 import Day1 from './Day1';
 import Day3 from './Day3';
+import Day5 from './Day5';
 import Day7 from './Day7';
 import { createStackNavigator } from '@react-navigation/stack';
 import Defi from '../Defi';
@@ -76,6 +77,15 @@ const Defi7DaysNavigator = () => {
               inDefi7Days: true,
               rootRoute: 'DEFI_7_DAYS_MENU',
               day: 4,
+            }}
+          />
+          <Defi7DaysStack.Screen
+            name="DAY_5"
+            component={Day5}
+            initialParams={{
+              inDefi7Days: true,
+              rootRoute: 'DEFI_7_DAYS_MENU',
+              day: 5,
             }}
           />
           <Defi7DaysStack.Screen

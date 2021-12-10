@@ -55,7 +55,7 @@ const QuizzElement = ({
         {!disabled &&
           (done ? (
             <ButtonContainer>
-              <Button small content="Mes resultats" color="#4030A5" shadowColor="#201569" onPress={onShowResult} />
+              <Button small content="Mes résultats" color="#4030A5" shadowColor="#201569" onPress={onShowResult} />
               <ButtonRedoTest onPress={onStart}>Refaire le test</ButtonRedoTest>
             </ButtonContainer>
           ) : (
