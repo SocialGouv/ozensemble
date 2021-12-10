@@ -6,8 +6,13 @@ import TextStyled from '../../components/TextStyled';
 import TopTimeline from './TopTimeline';
 import Timeline from './Timeline';
 import DayModule from './DayModule';
+import NPS from '../NPS/NPS';
 
 const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
+  const [NPSvisible, setNPSvisible] = React.useState(false);
+  const onPressContribute = () => setNPSvisible(true);
+  const closeNPS = () => setNPSvisible(false);
+
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, ActiveDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
@@ -24,6 +29,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
   };
   return (
     <ScreenBgStyled>
+      <NPS forceView={NPSvisible} close={closeNPS} />
       <TopContainer>
         <Title>
           <TextStyled color="#4030a5">{title}</TextStyled>
@@ -74,6 +80,15 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
             </FeedDay>
           );
         })}
+        <ButtonContainer>
+          <ButtonPrimary
+            small
+            content="Contribuer à Oz Ensemble"
+            shadowColor="#201569"
+            color="#4030A5"
+            onPress={onPressContribute}
+          />
+        </ButtonContainer>
       </FeedContainer>
     </ScreenBgStyled>
   );
@@ -149,6 +164,12 @@ const FeedCTAContainer = styled.View`
 
 const FeedCTAButton = styled(ButtonPrimary)`
   flex-grow: 0;
+`;
+
+const ButtonContainer = styled.View`
+  margin-top: 28px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default Defi;
