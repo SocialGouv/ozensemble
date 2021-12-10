@@ -45,11 +45,11 @@ export const defi7DaysData = [
   {
     actionType: 'content',
     title: 'Jour 3',
-    tagLine: 'Comment réduire ?',
+    tagLine: 'Repérer les signes de sevrage',
     description: (
       <>
-        Voici quelques conseils simples pour vous aider à <TextStyled bold>réduire</TextStyled> votre consommation
-        d'alcool
+        <TextStyled bold>Apprenez à repérer les symptômes de sevrage</TextStyled> nécessitants de consulter votre
+        médecin ou un professionel Oz Ensemble.
       </>
     ),
     descriptionDone: (
@@ -83,8 +83,21 @@ export const defi7DaysData = [
   {
     actionType: 'content',
     title: 'Jour 5',
-    tagLine: 'Le saviez-vous ?',
-    description: 'L’alcool peut être festif mais peut induire rapidement des symptômes dépressifs.',
+    tagLine: 'Comment réduire ?',
+    description: (
+      <>
+        Voici quelques conseils simples pour vous aider à <TextStyled bold>réduire</TextStyled> votre consommation
+        d'alcool
+      </>
+    ),
+    descriptionDone: (
+      <>
+        <TextStyled bold>Courage ! continuez à remplir vos consommations</TextStyled> tout au long de la journée. Chaque
+        jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
+      </>
+    ),
+    textCTA: 'Mes conseils réduction',
+    screenCTA: 'DAY_5',
   },
   {
     actionType: 'quizz',
