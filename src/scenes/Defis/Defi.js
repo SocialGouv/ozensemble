@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
@@ -7,6 +8,7 @@ import TopTimeline from './TopTimeline';
 import Timeline from './Timeline';
 import DayModule from './DayModule';
 import NPS from '../NPS/NPS';
+import ArrowRight from '../../components/ArrowRight';
 
 const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
   const [NPSvisible, setNPSvisible] = React.useState(false);
@@ -73,9 +75,19 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
                 locked={activeDay < dayIndex}
                 active={activeDay === dayIndex}
               />
-              <FeedDayContent>
-                <TitleDay color={getTitleColor(dayIndex)}>{dayData?.title}</TitleDay>
-                <SubtitleDay color={getSubtitleColor(dayIndex)}>{dayData?.tagLine}</SubtitleDay>
+              <FeedDayContent
+                activeOpacity={0.47}
+                disabled={activeDay < dayIndex || !dayData?.screenCTA}
+                onPress={() => {
+                  navigation.push(dayData?.screenCTA, { inDefi7Days: validatedDays <= dayIndex });
+                }}>
+                <View style={{ flex: 1 }}>
+                  <TitleDay color={getTitleColor(dayIndex)}>{dayData?.title}</TitleDay>
+                  <SubtitleDay color={getSubtitleColor(dayIndex)}>{dayData?.tagLine}</SubtitleDay>
+                </View>
+                {!(activeDay < dayIndex || !dayData?.screenCTA) ? (
+                  <ArrowRight size={10} color="#4030a5" style={{ marginTop: 0 }} />
+                ) : null}
               </FeedDayContent>
             </FeedDay>
           );
@@ -148,7 +160,9 @@ const FeedDay = styled.View`
   flex-grow: 0;
 `;
 
-const FeedDayContent = styled.View`
+const FeedDayContent = styled.TouchableOpacity`
+  align-items: center;
+  flex-direction: row;
   flex-grow: 1;
   padding-horizontal: 15px;
   padding-vertical: 10px;
