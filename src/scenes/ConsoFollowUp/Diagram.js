@@ -65,7 +65,7 @@ const Diagram = ({
   onCloseHelp,
   onShowHelp,
 }) => {
-  const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(3);
+  const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
   const [{ selectedBarIndex, selectedBarLabel }, setSelectedBar] = useState({});
 
   useEffect(() => {
