@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import SafeAreaView from 'react-native-safe-area-view';
 import { Modal, ScrollView } from 'react-native';
 import TextStyled from '../../components/TextStyled';
-import { SubTitle, TopContainer } from './styles';
+import { TopContainer } from './styles';
 import Diagram from './Diagram';
 import CocktailGlass from '../../components/Illustrations/CocktailGlass';
 import HalfBeer from '../../components/Illustrations/HalfBeer';
 import WineGlass from '../../components/Illustrations/WineGlass';
 import Dose from '../../components/Illustrations/Dose';
+import Stars from '../../components/Illustrations/Stars';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -19,6 +20,13 @@ const doses = [
   // { Icon: CocktailBottle, volume: 75 },
 ];
 
+const Elem = ({ content, lineHeight = 20 }) => (
+  <ElemContainer>
+    <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
+    <TextStyled style={{ flex: 1, lineHeight, fontSize: 18 }}>{content}</TextStyled>
+  </ElemContainer>
+);
+
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
@@ -26,21 +34,40 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
         <ScrollView>
           <TopContainer>
             <Diagram asPreview showCloseHelp onCloseHelp={onCloseHelp} />
-            <SubTitle>
-              <TextStyled color="#191919">
-                Le graphique représente les unités d’alcool consommées sur une journée.{'\n\n'}
-              </TextStyled>
-              <TextStyled color="#191919">
-                La ligne verte représente le seuil de l’OMS. Elle est à 2 verres par jour pour une femme et 3 verres par
-                jour pour un homme.{'\n\n'}
-              </TextStyled>
-            </SubTitle>
-            <SubTitle>
-              <TextStyled color="#191919">
-                Une unité d’alcool correspond à environ 10 grammes d’alcool pur, soit environ un verre de vin de 13cl à
-                12°c ou un demi de bière à 4°c par exemple.{'\n\n'}
-              </TextStyled>
-            </SubTitle>
+            <Paragraph>
+              <Elem
+                content={
+                  <TextStyled>
+                    Le graphique représente{' '}
+                    <TextStyled bold color="#4030a5">
+                      les unités d’alcool
+                    </TextStyled>{' '}
+                    consommées sur une journée.
+                  </TextStyled>
+                }
+              />
+              <Elem
+                content={
+                  <TextStyled>
+                    La ligne verte représente{' '}
+                    <TextStyled bold color="#4030a5">
+                      le seuil de l’OMS{' '}
+                    </TextStyled>
+                    (2 verres par jour).
+                  </TextStyled>
+                }
+              />
+            </Paragraph>
+            <Paragraph>
+              <Elem
+                content={
+                  <TextStyled>
+                    Une unité d’alcool correspond à environ 10 grammes d’alcool pur, soit environ un verre de vin de
+                    13cl à 12°c ou un demi de bière à 4°c par exemple.
+                  </TextStyled>
+                }
+              />
+            </Paragraph>
             <IconsContainer>
               {doses.map(({ Icon, volume, name, degrees }, i) => (
                 <React.Fragment key={i}>
@@ -76,17 +103,26 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                 <Volume color="#4030a5">1 dose</Volume>
               </IconWrapper>
             </DoseContainer> */}
-            <SubTitle>
-              <TextStyled color="#191919">
-                Lorsque vous saisisez une consommation, l’application convertit automatiquement en unité d’alcool.
-                {'\n\n'}
-              </TextStyled>
-            </SubTitle>
-            <SubTitle>
-              <TextStyled color="#191919">
-                Compter ses consommations est un pas essentiel pour prendre conscience de ce que l’on consomme.{'\n\n'}
-              </TextStyled>
-            </SubTitle>
+            <Paragraph>
+              <Elem
+                content={
+                  <TextStyled>
+                    Lorsque vous saisisez une consommation, l’application{' '}
+                    <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité d’alcool.
+                  </TextStyled>
+                }
+              />
+            </Paragraph>
+            <Paragraph>
+              <Elem
+                content={
+                  <TextStyled>
+                    <TextStyled color="#4030a5">Compter ses consommations</TextStyled> est un pas essentiel pour prendre
+                    conscience de ce que l’on consomme.
+                  </TextStyled>
+                }
+              />
+            </Paragraph>
           </TopContainer>
         </ScrollView>
       </SafeAreaViewStyled>
@@ -117,6 +153,16 @@ const Volume = styled(TextStyled)`
 
 const IconWrapper = styled.View`
   align-items: center;
+`;
+
+const Paragraph = styled.View`
+  margin-bottom: 25px;
+`;
+
+const ElemContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
 `;
 
 export default DiagramHelpModal;

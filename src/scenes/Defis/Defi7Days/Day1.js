@@ -110,7 +110,7 @@ export default ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content={
-                'Un graphique vous permet de suivre vos consommations en unité d’alcool consommées sur une journée. \n\nLa ligne verte représente le seuil de l’OMS. Elle est à 2 verres par jour pour une femme et 3 verres par jour pour un homme.'
+                'Un graphique vous permet de suivre vos consommations en unité d’alcool consommées sur une journée. \n\nLa ligne verte représente le seuil de l’OMS (2 verres par jour).'
               }
             />
           </Paragraph>
