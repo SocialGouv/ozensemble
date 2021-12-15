@@ -88,7 +88,7 @@ const Diagram = ({
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
   const onPressBar = (index) => {
-    if (index === null || index === undefined) return setSelectedBar({});
+    if (index === null || index === undefined || index === selectedBarIndex) return setSelectedBar({});
     const day = days[index];
     const selectedBarLabel = `${day.getLocaleWeekDay('fr').capitalize()} ${day.getDate()} ${day.getLocaleMonth('fr')}`;
     return setSelectedBar({ selectedBarIndex: index, selectedBarLabel });
@@ -164,7 +164,6 @@ const Diagram = ({
       </BarsContainer>
       <LegendContainer>
         {selectedBarIndex >= 0 && selectedBarLabel ? <Legend>{selectedBarLabel}</Legend> : null}
-        {thereIsDrinks && <Legend>en unités d'alcool</Legend>}
       </LegendContainer>
     </React.Fragment>
   );
