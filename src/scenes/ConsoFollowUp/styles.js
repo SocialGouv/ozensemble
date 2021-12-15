@@ -30,7 +30,6 @@ export const TopContainer = styled.View`
 export const Title = styled(H1)`
   ${commonCss}
   margin-top: 10px;
-  margin-bottom: 20px;
 `;
 
 export const SubTitle = styled(H2)`
@@ -101,11 +100,11 @@ Diagram styles
 
 export const LegendContainer = styled.View`
   flex-direction: row;
+  justify-content: center;
   align-items: stretch;
 `;
 
 export const Legend = styled.Text`
-  margin-left: auto;
   color: #de285e;
   margin-top: -35px;
   margin-bottom: 35px;
