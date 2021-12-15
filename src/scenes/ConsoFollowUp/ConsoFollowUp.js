@@ -23,7 +23,7 @@ const ConsoFollowUp = ({ showWelcomeMessage }) => {
       <ScreenBgStyled>
         <TopContainer>
           <Title>
-            <TextStyled color="#4030a5">Suivez votre consommation d'alcool</TextStyled>
+            <TextStyled color="#4030a5">Suivez votre consommation en unités d'alcool</TextStyled>
           </Title>
           {showWelcomeMessage ? (
             <>
