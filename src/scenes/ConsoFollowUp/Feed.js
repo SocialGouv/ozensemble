@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import Timeline from './Timeline';
 import DateDisplay from './DateDisplay';
@@ -15,6 +16,8 @@ import matomo from '../../services/matomo';
 import { NO_CONSO } from './drinksCatalog';
 import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import NPS from '../NPS/NPS';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
@@ -32,6 +35,11 @@ const computeShowButtons = (selected, position) => {
 };
 
 const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
+  // state for NPS
+  const [NPSvisible, setNPSvisible] = React.useState(false);
+  const onPressContribute = () => setNPSvisible(true);
+  const closeNPS = () => setNPSvisible(false);
+
   const [timestampSelected, setTimestampSelected] = React.useState(null);
 
   const navigation = useNavigation();
@@ -64,6 +72,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
     <React.Fragment>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
         <FeedContainer hideFeed={hideFeed}>
+          <NPS forceView={NPSvisible} close={closeNPS} />
           {!hideFeed &&
             days.map((day, index) => {
               const isFirst = index === 0;
@@ -136,11 +145,26 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
                 </FeedDay>
               );
             })}
+          <ButtonContainer>
+            <ButtonPrimary
+              small
+              content="Contribuer à Oz Ensemble"
+              shadowColor="#201569"
+              color="#4030A5"
+              onPress={onPressContribute}
+            />
+          </ButtonContainer>
         </FeedContainer>
       </TouchableWithoutFeedback>
     </React.Fragment>
   );
 };
+
+const ButtonContainer = styled.View`
+  margin-top: 28px;
+  align-items: center;
+  justify-content: center;
+`;
 
 const makeStateToProps = () => (state) => ({
   drinks: getDrinksState(state),
