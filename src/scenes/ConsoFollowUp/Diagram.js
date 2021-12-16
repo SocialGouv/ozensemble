@@ -64,9 +64,10 @@ const Diagram = ({
   showCloseHelp,
   onCloseHelp,
   onShowHelp,
+  selectedBar,
+  setSelectedBar,
 }) => {
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
-  const [{ selectedBarIndex, selectedBarLabel }, setSelectedBar] = useState({});
 
   useEffect(() => {
     (async () => {
@@ -88,10 +89,11 @@ const Diagram = ({
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
   const onPressBar = (index) => {
-    if (index === null || index === undefined || index === selectedBarIndex) return setSelectedBar({});
+    if (index === null || index === undefined || index === selectedBar?.index) return setSelectedBar({});
     const day = days[index];
-    const selectedBarLabel = `${day.getLocaleWeekDay('fr').capitalize()} ${day.getDate()} ${day.getLocaleMonth('fr')}`;
-    return setSelectedBar({ selectedBarIndex: index, selectedBarLabel });
+    const label = `${day.getLocaleWeekDay('fr').capitalize()} ${day.getDate()} ${day.getLocaleMonth('fr')}`;
+    console.log('onPressBar');
+    setSelectedBar({ timestamp: day, index, label });
   };
 
   return (
@@ -152,7 +154,7 @@ const Diagram = ({
                     <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
                   )}
                   <LowerBar
-                    borderBottom={selectedBarIndex === index}
+                    borderBottom={selectedBar?.index === index}
                     withTopRadius={!overLineValue}
                     height={doseHeight * underLineValue || minBarHeight}
                   />
@@ -163,7 +165,7 @@ const Diagram = ({
         {thereIsDrinks && <Line bottom={barMaxAcceptableDoseHeight} />}
       </BarsContainer>
       <LegendContainer>
-        {selectedBarIndex >= 0 && selectedBarLabel ? <Legend>{selectedBarLabel}</Legend> : null}
+        {selectedBar?.index >= 0 && selectedBar?.label ? <Legend>{selectedBar?.label}</Legend> : null}
       </LegendContainer>
     </React.Fragment>
   );
