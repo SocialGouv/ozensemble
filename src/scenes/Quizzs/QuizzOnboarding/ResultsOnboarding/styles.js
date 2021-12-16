@@ -40,7 +40,7 @@ export const TopSubTitle = styled(H3)`
 `;
 
 export const TopButtonContainer = styled.View`
-  margin-vertical: 50px;
+  margin: 20px 0 30px 0;
   align-items: flex-start;
   flex-grow: 0;
   width: auto;

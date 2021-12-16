@@ -18,7 +18,7 @@ const ResultAddicted = ({ navigation, isInOnboarding }) => (
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
       <TopTitle>
-        <TextStyled color="#4030a5">Vous pourriez présenter des risques d'addiction à l'alcool !</TextStyled>
+        <TextStyled color="#4030a5">Vous pourriez présenter des risques de dépendance à l'alcool !</TextStyled>
       </TopTitle>
       <TopSubTitle>
         <TextStyled color="#191919">Nous vous recommandons de discuter</TextStyled>
@@ -31,6 +31,29 @@ const ResultAddicted = ({ navigation, isInOnboarding }) => (
           onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
         />
       </TopButtonContainer>
+      <TopTitle>
+        <TextStyled color="#4030a5">
+          Vous souhaitez d'abord essayer de réduire votre consommation d’alcool par vous-même ?
+        </TextStyled>
+      </TopTitle>
+      <TopSubTitle>
+        <TextStyled color="#191919">Nous vous proposons un défi sur 7 jours</TextStyled>
+        <TextStyled color="#4030a5"> gratuitement </TextStyled>
+        <TextStyled color="#191919">pour faire le point plus finement</TextStyled>
+      </TopSubTitle>
+      <TopButtonContainer>
+        <ButtonPrimary
+          content="Faire le défi 7 jours"
+          onPress={() => navigation.navigate('TABS', { screen: 'DEFI' })}
+        />
+      </TopButtonContainer>
+    </TopContainer>
+    <Bottom
+      onActionButtonPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
+      title="Suivez votre consommation pendant 15 jours"
+      subTitle="Pour préparer au mieux votre échange, suivez votre consommation"
+    />
+    <TopContainer>
       {!isInOnboarding ? (
         <>
           <UnderlinedButtonStyled
@@ -47,12 +70,6 @@ const ResultAddicted = ({ navigation, isInOnboarding }) => (
           />
         </>
       ) : null}
-    </TopContainer>
-    <Bottom
-      onActionButtonPress={() => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' })}
-      subTitle="Pour préparer au mieux votre échange, suivez votre consommation"
-    />
-    <TopContainer>
       <Sources
         content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
         Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol

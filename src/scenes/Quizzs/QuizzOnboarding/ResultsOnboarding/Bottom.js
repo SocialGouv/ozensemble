@@ -15,7 +15,7 @@ const Bottom = ({
   subTitle = 'Commencez dès maintenant à suivre votre consommation au quotidien',
   buttonTitle = 'Suivre ma consommation',
 }) => (
-  <BottomContainer longPaddingBottom>
+  <BottomContainer>
     <BottomSubContainer>
       <ResultsIllustrationStyled />
     </BottomSubContainer>
