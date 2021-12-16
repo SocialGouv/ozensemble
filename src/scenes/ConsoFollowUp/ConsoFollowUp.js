@@ -1,21 +1,38 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled, TopContainer, Title, SubTitle } from './styles';
+import {
+  ScreenBgStyled,
+  TopContainer,
+  Title,
+  SubTitle,
+  FeedAddConsoTodayContainer,
+  FeedAddConsoTodayButton,
+} from './styles';
 import Diagram from './Diagram';
 import Feed from './Feed';
-import { checkIfThereIsDrinks } from './consoDuck';
+import { checkIfThereIsDrinks, setModalTimestamp } from './consoDuck';
 import { drinksCatalog, BEER, BEER_HALF } from './drinksCatalog';
 import DiagramHelpModal from './DiagramHelpModal';
 import matomo from '../../services/matomo';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import DrinksCategory from '../../components/DrinksCategory';
+import { useNavigation } from '@react-navigation/native';
+import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
-const ConsoFollowUp = ({ showWelcomeMessage }) => {
+const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
   const [showHelpModal, setShowHelpModal] = React.useState(false);
+  const [selectedBar, setSelectedBar] = React.useState({});
+  const navigation = useNavigation();
+
+  const addDrinksRequest = (timestamp) => {
+    setModalTimestamp(timestamp);
+    navigation.push('ADD_DRINK');
+  };
 
   return (
     <Background color="#39cec0" withSwiperContainer>
@@ -64,9 +81,23 @@ const ConsoFollowUp = ({ showWelcomeMessage }) => {
                 matomo.logConsoDiagramHelp();
                 setShowHelpModal(true);
               }}
+              selectedBar={selectedBar}
+              setSelectedBar={setSelectedBar}
             />
           )}
         </TopContainer>
+        <FeedAddConsoTodayContainer zIndex={10}>
+          <FeedAddConsoTodayButton
+            content="Ajoutez une consommation"
+            onPress={async () => {
+              addDrinksRequest(makeSureTimestamp(selectedBar?.timestamp) || Date.now());
+              await matomo.logConsoOpenAddScreen();
+            }}
+          />
+          {!!showWelcomeMessage && (
+            <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />
+          )}
+        </FeedAddConsoTodayContainer>
         <Feed hideFeed={showWelcomeMessage} />
       </ScreenBgStyled>
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
@@ -78,4 +109,8 @@ const makeStateToProps = () => (state) => ({
   showWelcomeMessage: !checkIfThereIsDrinks(state),
 });
 
-export default connect(makeStateToProps)(ConsoFollowUp);
+const dispatchToProps = {
+  setModalTimestamp,
+};
+
+export default connect(makeStateToProps, dispatchToProps)(ConsoFollowUp);

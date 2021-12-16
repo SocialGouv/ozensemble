@@ -6,21 +6,14 @@ import Timeline from './Timeline';
 import DateDisplay from './DateDisplay';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
 import ResultsFeedDisplay from './ResultsFeedDisplay';
-import {
-  FeedContainer,
-  FeedDay,
-  FeedDayContent,
-  FeedBottomButton,
-  FeedAddConsoTodayContainer,
-  FeedAddConsoTodayButton,
-} from './styles';
+import { FeedContainer, FeedDay, FeedDayContent, FeedBottomButton } from './styles';
 import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
 import { isToday, datesAreEqual } from '../../helpers/dateHelpers';
 import { getDrinksState, getDaysForFeed, removeDrink, setModalTimestamp } from './consoDuck';
 import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
 import { NO_CONSO } from './drinksCatalog';
-import NoConsoYetFeedDisplay, { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
+import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
 
 const computePosition = (drinksOfTheDay, drink) => {
@@ -69,16 +62,6 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
 
   return (
     <React.Fragment>
-      <FeedAddConsoTodayContainer zIndex={10}>
-        <FeedAddConsoTodayButton
-          content="Ajoutez une consommation"
-          onPress={async () => {
-            addDrinksRequest(Date.now());
-            await matomo.logConsoOpenAddScreen();
-          }}
-        />
-        {!!hideFeed && <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />}
-      </FeedAddConsoTodayContainer>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
         <FeedContainer hideFeed={hideFeed}>
           {!hideFeed &&
