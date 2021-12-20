@@ -140,8 +140,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
-        versionCode 63
-        versionName "1.5.1"
+        versionCode 64
+        versionName "1.5.2"
     }
     splits {
         abi {
