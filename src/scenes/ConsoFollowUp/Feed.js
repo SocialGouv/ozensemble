@@ -9,7 +9,7 @@ import ConsoFeedDisplay from './ConsoFeedDisplay';
 import ResultsFeedDisplay from './ResultsFeedDisplay';
 import { FeedContainer, FeedDay, FeedDayContent, FeedBottomButton } from './styles';
 import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
-import { isToday, datesAreEqual } from '../../helpers/dateHelpers';
+import { isToday, datesAreEqual, makeSureTimestamp } from '../../helpers/dateHelpers';
 import { getDrinksState, getDaysForFeed, removeDrink, setModalTimestamp } from './consoDuck';
 import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
@@ -127,7 +127,19 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
                         content="Ajoutez une consommation"
                         withoutPadding
                         onPress={async () => {
-                          addDrinksRequest(Date.parse(day));
+                          let selectedTimestamp = Date.parse(day);
+                          if (Date.parse(day)) {
+                            // if a bar is selected, we use it, and we set the hours and minutes to present
+                            const now = new Date();
+                            const h = now.getHours();
+                            const m = now.getMinutes();
+                            const timestamp = makeSureTimestamp(Date.parse(day));
+                            const tempDate = new Date(timestamp);
+                            tempDate.setHours(h);
+                            tempDate.setMinutes(m);
+                            selectedTimestamp = makeSureTimestamp(tempDate);
+                          }
+                          addDrinksRequest(selectedTimestamp);
                           await matomo.logConsoOpenAddScreen();
                         }}
                       />
