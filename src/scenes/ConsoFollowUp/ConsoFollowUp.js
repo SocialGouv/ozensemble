@@ -90,7 +90,19 @@ const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
           <FeedAddConsoTodayButton
             content="Ajoutez une consommation"
             onPress={async () => {
-              addDrinksRequest(makeSureTimestamp(selectedBar?.timestamp) || Date.now());
+              let selectedTimestamp = null;
+              if (selectedBar?.timestamp) {
+                // if a bar is selected, we use it, and we set the hours and minutes to present
+                const now = new Date();
+                const h = now.getHours();
+                const m = now.getMinutes();
+                const timestamp = makeSureTimestamp(selectedBar?.timestamp);
+                const tempDate = new Date(timestamp);
+                tempDate.setHours(h);
+                tempDate.setMinutes(m);
+                selectedTimestamp = makeSureTimestamp(tempDate);
+              }
+              addDrinksRequest(selectedTimestamp || Date.now());
               await matomo.logConsoOpenAddScreen();
             }}
           />
