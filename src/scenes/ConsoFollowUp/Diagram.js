@@ -92,7 +92,6 @@ const Diagram = ({
     if (index === null || index === undefined || index === selectedBar?.index) return setSelectedBar({});
     const day = days[index];
     const label = `${day.getLocaleWeekDay('fr').capitalize()} ${day.getDate()} ${day.getLocaleMonth('fr')}`;
-    console.log('onPressBar');
     setSelectedBar({ timestamp: day, index, label });
   };
 
