@@ -23,12 +23,15 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import TextStyled from '../../components/TextStyled';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
+import pck from '../../../package.json';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
 const formatText = (useful, reco, feedback, email, userId) =>
   `
 userId: ${userId}
+Version: ${pck.version}
+OS: ${Platform.OS}
 Ce service vous a-t-il été utile: ${useful}
 Comment pouvons-nous vous être encore plus utile: ${feedback}
 Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}
@@ -218,7 +221,7 @@ class NPS extends React.Component {
       .catch((err) => console.log('sendNPS err', err));
 
     this.npsSent = true;
-    this.setState({ visible: false });
+    this.setState({ visible: false, reco: null, useful: null, feedback: '' });
   };
 
   renderFirstPage() {
