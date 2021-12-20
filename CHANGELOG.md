@@ -1,3 +1,11 @@
+## [1.5.2](https://github.com/SocialGouv/ozensemble/compare/v1.5.1...v1.5.2) (2021-12-20)
+
+
+### Bug Fixes
+
+* **NPS:** ajout de la version de l'app dans le corps du mail ([ccf202d](https://github.com/SocialGouv/ozensemble/commit/ccf202d43a16260da8701129091c3f2d4a356f7e))
+* **suivi:** fixer à l'heure actuelle si ajout pour un jour précédent ([d796526](https://github.com/SocialGouv/ozensemble/commit/d7965269581542aa6c731df802180f6dc6d5f38c))
+
 # [1.5.1](https://github.com/SocialGouv/ozensemble/compare/v1.5.0...v1.5.1) (2021-12-16)
 
 
