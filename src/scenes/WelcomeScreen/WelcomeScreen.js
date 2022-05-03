@@ -18,7 +18,18 @@ import Agreement from './Agreement';
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = React.useState(false);
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [pagination, setPagination] = React.useState(true);
   const swiperRef = React.useRef();
+
+  const indexChanged = (index) => {
+    setCurrentIndex(index)
+    if (index === 2) {
+      setPagination(false)
+    }
+    else {
+      setPagination(true)
+    }
+  }
 
   const onStartPress = async () => {
     AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
@@ -38,10 +49,11 @@ const WelcomeScreen = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer neverBottom>
       <HeaderBackground />
       <Swiper
-        onIndexChanged={setCurrentIndex}
+        onIndexChanged={indexChanged}
         ref={swiperRef}
         loop={false}
         showsButtons
+        showsPagination={pagination}
         dot={<Dot />}
         activeDot={<Dot active />}
         nextButton={<ArrowRight size={15} style={{ marginTop: 50 }} />}
@@ -64,7 +76,7 @@ const WelcomeScreen = ({ navigation }) => {
           <ButtonPrimary content="Suivant" onPress={onPressNext} />
         )}
       </CTAButtonContainer>
-    </Background>
+    </Background >
   );
 };
 
