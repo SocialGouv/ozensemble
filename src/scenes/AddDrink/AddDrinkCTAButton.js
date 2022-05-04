@@ -35,7 +35,8 @@ const CTAInner = CTASize - 2 * plusThickness;
 const plusSize = CTAInner / 2;
 const CTAContainer = styled.View`
   position: absolute;
-  bottom: ${plusSize / 4 - plusThickness / 2}px;
+  bottom: ${14 * (plusSize / 4 - plusThickness / 2)}px;
+  right: 6px;
   ${roundCss(CTASize)}
   border: 1px solid #4030a533;
   background-color: white;
