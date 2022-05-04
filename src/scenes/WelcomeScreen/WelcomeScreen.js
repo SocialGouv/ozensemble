@@ -13,7 +13,6 @@ import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { Screen1, Screen2, Screen3 } from './Screens';
 import { screenHeight } from '../../styles/theme';
-import Agreement from './Agreement';
 
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = React.useState(false);
@@ -60,18 +59,15 @@ const WelcomeScreen = ({ navigation }) => {
         prevButton={<ArrowLeft size={15} style={{ marginTop: 50 }} />}
         paginationStyle={{
           justifyContent: 'center',
-          bottom: screenHeight * 0.1,
+          bottom: screenHeight * 0.05,
         }}>
         <Screen1 />
         <Screen2 />
-        <Screen3 />
+        <Screen3 setAgreed={setAgreed} agreed={agreed} />
       </Swiper>
       <CTAButtonContainer>
         {currentIndex === 2 ? (
-          <>
-            <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
-            <ButtonPrimary content="Commencer" onPress={onStartPress} disabled={!agreed} />
-          </>
+          <ButtonPrimary content="Commencer" onPress={onStartPress} disabled={!agreed} />
         ) : (
           <ButtonPrimary content="Suivant" onPress={onPressNext} />
         )}
@@ -83,7 +79,7 @@ const WelcomeScreen = ({ navigation }) => {
 export default WelcomeScreen;
 
 const CTAButtonContainer = styled.View`
-  height: ${screenHeight * 0.22}px;
+  height: ${screenHeight * 0.15}px;
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
