@@ -17,7 +17,7 @@ import AppStateHandler from './services/AppStateHandler';
 import GuidanceIcon from './components/Illustrations/GuidanceIcon';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
 import InfosIcon from './components/Illustrations/Infos';
-import Calendar7DaysIcon from './components/Illustrations/Calendar7Days';
+import DefisIcon from './components/Illustrations/Defis';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
@@ -60,7 +60,7 @@ const TabsNavigator = ({ navigation }) => {
           name="DEFI"
           options={{
             tabBarLabel: 'Défis',
-            tabBarIcon: ({ size, color }) => <Calendar7DaysIcon size={size} color={color} />,
+            tabBarIcon: ({ size, color }) => <DefisIcon size={size} color={color} />,
           }}
           component={Defi7DaysNavigator}
         />
