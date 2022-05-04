@@ -9,6 +9,7 @@ import Screen2Image from '../../components/Illustrations/Screen2';
 import Screen3Image from '../../components/Illustrations/Screen3';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import { mediaHeight } from '../../styles/mediaQueries';
+import Agreement from './Agreement';
 
 
 export const Screen1 = () => (
@@ -17,13 +18,13 @@ export const Screen1 = () => (
     <Title>
       <TextStyled color="#4030a5">Bravo de vouloir réduire  votre consommation</TextStyled>
     </Title>
-    <SubTitle>
+    <SubTitle1>
       <TextStyled color="#191919">Vous avez entre les mains un outil </TextStyled>
       <TextStyled color="#4030a5">gratuit </TextStyled>
       <TextStyled color="#191919">et </TextStyled>
       <TextStyled color="#4030a5">anonyme </TextStyled>
       <TextStyled color="#191919">de suivi de consommation d'alcool</TextStyled>
-    </SubTitle>
+    </SubTitle1>
   </ScreenBgStyled>
 );
 
@@ -38,23 +39,24 @@ export const Screen2 = () => (
       <BulletPointText color="#191919" bold > {'\u2022'} Fixez-vous un objectif</BulletPointText>
       <BulletPointText color="#191919" bold> {'\u2022'} Trouvez des conseils</BulletPointText>
     </BulletPointView>
-    <SubTitle>
+    <SubTitle2>
       <TextStyled color="#191919">Rien de plus simple !</TextStyled>
-    </SubTitle>
+    </SubTitle2>
   </ScreenBgStyled >
 );
 
-export const Screen3 = (onAgree, agreed) => (
+export const Screen3 = ({ setAgreed, agreed }) => (
   <ScreenBgStyled>
     <StyledScreen3 />
     <Title>
       <TextStyled color="#4030a5">Mesurez vos gains</TextStyled>
     </Title>
-    <SubTitle>
+    <SubTitle3>
       <TextStyled color="#191919">
-        Au fil du temps, vous découvrirez vos économies en euros et  les calories évitées
+        Au fil du temps, vous découvrirez vos économies en euros et les calories évitées
       </TextStyled>
-    </SubTitle>
+    </SubTitle3>
+    <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
   </ScreenBgStyled>
 );
 
@@ -66,7 +68,6 @@ const ScreenBgStyled = styled.View`
   flex-grow: 1;
   flex-basis: 100%;
 `;
-
 
 const Title = styled(H1)`
   margin-bottom: ${screenHeight * 0.025}px;
@@ -88,12 +89,28 @@ const BulletPointText = styled.Text`
   text-align: center;
 `;
 
-const SubTitle = styled(H2)`
+const SubTitle1 = styled(H2)`
+  width: 75%;
+  flex-shrink: 0;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: ${screenHeight * 0.2}px;
+`;
+
+const SubTitle2 = styled(H2)`
   width: 75%;
   flex-shrink: 0;
   flex-direction: column;
   text-align: center;
   margin-bottom: ${screenHeight * 0.15}px;
+`;
+
+const SubTitle3 = styled(H2)`
+  width: 75%;
+  flex-shrink: 0;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: ${screenHeight * 0.1}px;
 `;
 
 const bigImage = css`
@@ -125,5 +142,4 @@ const StyledScreen2 = styled(Screen2Image)`
 
 const StyledScreen3 = styled(Screen3Image)`
   ${imageCss}
-  margin-bottom: 0px;
 `;
