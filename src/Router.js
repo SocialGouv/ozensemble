@@ -21,6 +21,7 @@ import Calendar7DaysIcon from './components/Illustrations/Calendar7Days';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
+import Gains from './scenes/Gains/Gains'
 
 import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
 
@@ -38,63 +39,59 @@ const TabsNavigator = ({ navigation }) => {
   };
 
   return (
-    <Tabs.Navigator
-      initialRouteName={'DEFI'}
-      lazy={false}
-      tabBarOptions={{
-        activeTintColor: '#5352a3',
-        inactiveTintColor: '#39cec0cc',
-        keyboardHidesTabBar: true,
-      }}>
-      <Tabs.Screen
-        name="CONTACT"
-        options={{
-          tabBarLabel: 'En parler',
-          tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
-        }}
-        component={Contact}
-      />
-      <Tabs.Screen
-        name="CONSO_FOLLOW_UP"
-        options={{
-          tabBarLabel: 'Suivi',
-          tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
-        }}
-        component={ConsoFollowUp}
-      />
-      <Tabs.Screen
-        name="CTA_ADD_DRINK_PLACEHOLDER"
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: () => (
-            <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
-          ),
-        }}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
-          },
+    <>
+      <Tabs.Navigator
+        initialRouteName={'DEFI'}
+        lazy={false}
+        tabBarOptions={{
+          activeTintColor: '#4030A5',
+          inactiveTintColor: '#5150A225',
+          keyboardHidesTabBar: true,
         }}>
-        {() => null}
-      </Tabs.Screen>
-      <Tabs.Screen
-        name="DEFI"
-        options={{
-          tabBarLabel: 'Défis',
-          tabBarIcon: ({ size, color }) => <Calendar7DaysIcon size={size} color={color} />,
-        }}
-        component={Defi7DaysNavigator}
-      />
-      <Tabs.Screen
-        name="INFOS"
-        options={{
-          tabBarLabel: 'Infos',
-          tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
-        }}
-        component={Infos}
-        listeners={(props) => tabPressListener({ ...props, rootName: 'INFOS_TAB' })}
-      />
-    </Tabs.Navigator>
+        <Tabs.Screen
+          name="GAINS"
+          options={{
+            tabBarLabel: 'Gains',
+            tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
+          }}
+          component={Gains}
+        />
+        <Tabs.Screen
+          name="DEFI"
+          options={{
+            tabBarLabel: 'Défis',
+            tabBarIcon: ({ size, color }) => <Calendar7DaysIcon size={size} color={color} />,
+          }}
+          component={Defi7DaysNavigator}
+        />
+        <Tabs.Screen
+          name="CONSO_FOLLOW_UP"
+          options={{
+            tabBarLabel: 'Suivi',
+            tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
+          }}
+          component={ConsoFollowUp}
+        />
+        <Tabs.Screen
+          name="CONTACT"
+          options={{
+            tabBarLabel: 'En parler',
+            tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
+          }}
+          component={Contact}
+        />
+        <Tabs.Screen
+          name="INFOS"
+          options={{
+            tabBarLabel: 'Infos',
+            tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
+          }}
+          component={Infos}
+          listeners={(props) => tabPressListener({ ...props, rootName: 'INFOS_TAB' })}
+        />
+      </Tabs.Navigator>
+      <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
+    </>
   );
 };
 
