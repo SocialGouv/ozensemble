@@ -75,7 +75,7 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="CONTACT"
           options={{
-            tabBarLabel: 'En parler',
+            tabBarLabel: 'Santé',
             tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
           }}
           component={Contact}
