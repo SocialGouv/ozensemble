@@ -33,10 +33,6 @@ const Goal = () => {
     navigation.navigate("GAINS");
   };
 
-  useEffect(() => {
-    console.log(Week, dayNoDrink)
-  }, [dayNoDrink])
-
   return (
     <ScreenBgStyled>
       <GoBack onPress={Return}>
@@ -179,6 +175,7 @@ const QButtonContent = styled(TextStyled)`
 
 const NumberByWeekContainer = styled.View`
   align-items: center;
+  margin-top: ${screenHeight * 0.01}
   margin-bottom: ${screenHeight * 0.1}
 `;
 
