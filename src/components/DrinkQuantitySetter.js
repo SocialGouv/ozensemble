@@ -4,6 +4,7 @@ import TextStyled from './TextStyled';
 import H3 from './H3';
 import { getDisplayDrinksModalName, getIcon, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
 import TouchableDelete from './TouchableDelete';
+import QButton from './QButton'
 
 const DrinkQuantitySetter = ({
   oneLine,
@@ -102,13 +103,6 @@ const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, v
   </Container>
 );
 
-const QButton = ({ small, content, onPress, disabled }) => (
-  <QButtonStyled onPress={onPress} disabled={disabled}>
-    <QButtonContentContainer small={small} disabled={disabled}>
-      <QButtonContent color="#4030a5">{content}</QButtonContent>
-    </QButtonContentContainer>
-  </QButtonStyled>
-);
 
 const Container = styled.View`
   height: 100px;
@@ -163,26 +157,6 @@ const DisplayName = styled(TextStyled).attrs({
 const Volume = styled(H3)``;
 
 const qButtonSize = 40;
-const QButtonStyled = styled.TouchableOpacity``;
-const QButtonContentContainer = styled.View`
-  height: ${qButtonSize}px;
-  width: ${qButtonSize}px;
-  border-radius: ${qButtonSize}px;
-  border: 1px solid #dbdbe9;
-  background: #eaeaed;
-  justify-content: center;
-  align-items: center;
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-`;
-
-const QButtonContent = styled(TextStyled)`
-  font-size: 23px;
-  line-height: 25px;
-  font-weight: bold;
-  justify-content: center;
-  align-items: center;
-  text-align-vertical: center;
-`;
 
 const absoluteCss = css`
   position: absolute;
