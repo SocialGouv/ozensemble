@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import styled, { css } from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 import {
     ScreenBgStyled,
@@ -8,23 +8,34 @@ import {
 } from '../ConsoFollowUp/styles';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
+import { createStackNavigator } from '@react-navigation/stack';
+import Goal from './Goal';
+import MesGains from './MesGains';
 
+const GainsStack = createStackNavigator();
 
-const Gains = () => {
-
+const GainsNavigator = () => {
+    const [initialScreen, setInitialScreen] = useState(null);
+    const initNavigator = async () => {
+        return setInitialScreen("GAINS");
+    };
+    useEffect(() => {
+        initNavigator();
+    }, []);
     return (
         <Background color="#39cec0" withSwiperContainer>
             <HeaderBackground />
-            <ScreenBgStyled>
-                <TopContainer>
-                    <Title>
-                        <TextStyled color="#4030a5">Mes gains</TextStyled>
-                    </Title>
-                </TopContainer>
-            </ScreenBgStyled>
+            {!!initialScreen && (
+                <GainsStack.Navigator headerMode="none" initialRouteName={initialScreen}>
+                    <GainsStack.Screen name="GAINS" component={MesGains} />
+                    <GainsStack.Screen name="OBJECTIF" component={Goal} />
+                </GainsStack.Navigator>
+            )}
         </Background>
     );
 };
 
 
-export default Gains;
+export default GainsNavigator;
+
+
