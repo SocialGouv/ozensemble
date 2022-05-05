@@ -4,6 +4,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import matomo from '../../services/matomo';
+import { screenHeight, screenWidth } from '../../styles/theme';
 
 const iconSize = 30;
 
@@ -35,8 +36,8 @@ const CTAInner = CTASize - 2 * plusThickness;
 const plusSize = CTAInner / 2;
 const CTAContainer = styled.View`
   position: absolute;
-  bottom: ${14 * (plusSize / 4 - plusThickness / 2)}px;
-  right: 6px;
+  top: ${screenHeight * 0.82} ;
+  left: ${screenWidth * 0.82};
   ${roundCss(CTASize)}
   border: 1px solid #4030a533;
   background-color: white;
