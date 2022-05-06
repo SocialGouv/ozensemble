@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import TextStyled from '../../components/TextStyled';
-import {
-    ScreenBgStyled,
-    TopContainer,
-    Title
-} from '../ConsoFollowUp/styles';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import { createStackNavigator } from '@react-navigation/stack';
 import Goal from './Goal';
 import MesGains from './MesGains';
+import CountConsumptiom from './CountConsumption';
 
 const GainsStack = createStackNavigator();
 
@@ -28,7 +22,8 @@ const GainsNavigator = () => {
             {!!initialScreen && (
                 <GainsStack.Navigator headerMode="none" initialRouteName={initialScreen}>
                     <GainsStack.Screen name="GAINS" component={MesGains} />
-                    <GainsStack.Screen name="OBJECTIF" component={Goal} />
+                    <GainsStack.Screen name="GOAL" component={Goal} />
+                    <GainsStack.Screen name="HOWCOUNT" component={CountConsumptiom} />
                 </GainsStack.Navigator>
             )}
         </Background>

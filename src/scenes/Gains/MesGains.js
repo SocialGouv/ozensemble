@@ -16,7 +16,7 @@ const MesGains = () => {
   const navigation = useNavigation();
 
   const ToGoal = () => {
-    navigation.navigate("OBJECTIF");
+    navigation.navigate("GOAL");
   };
 
   const [init, setInit] = useState(true);

@@ -3,11 +3,11 @@ import styled, { css } from 'styled-components';
 import TextStyled from './TextStyled';
 
 const QButton = ({ small, content, onPress, disabled }) => (
-    <QButtonStyled onPress={onPress} disabled={disabled}>
-        <QButtonContentContainer small={small} disabled={disabled}>
-            <QButtonContent color="#4030a5">{content}</QButtonContent>
-        </QButtonContentContainer>
-    </QButtonStyled>
+  <QButtonStyled onPress={onPress} >
+    <QButtonContentContainer small={small} disabled={disabled}>
+      <QButtonContent color="#4030a5">{content}</QButtonContent>
+    </QButtonContentContainer>
+  </QButtonStyled>
 );
 
 export default QButton
@@ -22,7 +22,6 @@ const QButtonContentContainer = styled.View`
   background: #eaeaed;
   justify-content: center;
   align-items: center;
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 const QButtonContent = styled(TextStyled)`

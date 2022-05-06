@@ -21,7 +21,7 @@ import DefisIcon from './components/Illustrations/Defis';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
-import Gains from './scenes/Gains/Gains'
+import GainsNavigator from './scenes/Gains/GainsNavigator'
 
 import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
 
@@ -54,7 +54,7 @@ const TabsNavigator = ({ navigation }) => {
             tabBarLabel: 'Gains',
             tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
           }}
-          component={Gains}
+          component={GainsNavigator}
         />
         <Tabs.Screen
           name="DEFI"
