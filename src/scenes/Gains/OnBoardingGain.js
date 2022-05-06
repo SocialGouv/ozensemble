@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
