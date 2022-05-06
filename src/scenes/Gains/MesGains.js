@@ -36,6 +36,7 @@ const MesGains = () => {
 
   return (
     <ScreenBgStyled>
+
       <TopContainer>
         <TopTitle>
           <H1 color="#4030a5">Mes gains</H1>
@@ -74,9 +75,6 @@ const MesGains = () => {
       <Categories>
         <CategorieGain icon={<Economy size={24} />} value={"?"} unit={"€"} description1={"Mes"} description2={"économies"} />
         <CategorieGain icon={<Balance size={26} />} value={"?"} unit={"kcal"} description1={"Mes calories"} description2={"économisées"} />
-        {init &&
-          <OnBoardingGain onPress={ToGoal} />
-        }
       </Categories>
       <TextContainer>
         <TextForm>
@@ -87,6 +85,9 @@ const MesGains = () => {
         <CategorieGain icon={null} value={"?"} unit={""} description1={"Verres"} description2={"restants"} />
         <CategorieGain icon={<NoDrink size={24} />} value={"?"} unit={""} description1={"Jours où je"} description2={"n'ai pas bu"} />
       </Categories>
+      {init &&
+        <OnBoardingGain onPress={ToGoal} />
+      }
       <GainsCalendar />
       <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
     </ScreenBgStyled >

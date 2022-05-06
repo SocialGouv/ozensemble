@@ -4,6 +4,7 @@ import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
+import { screenHeight } from '../../styles/theme';
 
 const OnBoardingGain = ({ onPress }) => {
 
@@ -29,7 +30,7 @@ const OnBoardingGain = ({ onPress }) => {
 const OnBoarding = styled.View`
   position: absolute;
   background-color: white ;
-  margin-top: 24px;
+  margin-top: ${screenHeight * 0.3};
   width: 95%;
   padding: 24px;
   border-style: solid;
