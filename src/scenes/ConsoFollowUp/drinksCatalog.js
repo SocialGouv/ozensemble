@@ -4,20 +4,29 @@ import HalfBeer from '../../components/Illustrations/HalfBeer';
 import Pint from '../../components/Illustrations/Pint';
 import WineBottle from '../../components/Illustrations/WineBottle';
 import WineGlass from '../../components/Illustrations/WineGlass';
+import PintCider from '../../components/Illustrations/PintCider';
+import HalfCider from '../../components/Illustrations/HalfCider';
+import Shoot from '../../components/Illustrations/Shoot';
+import Flasque from '../../components/Illustrations/Flasque';
 
 // categories
 export const BEER = 'Bières';
 export const WINE = 'Vins';
+export const CIDER = 'Cidre';
 export const HARD = 'Cocktails et spiritueux';
 
 // subCategories
 export const NO_CONSO = 'no-conso';
 export const BEER_HALF = 'beer-half';
 export const BEER_PINT = 'beer-pint';
+export const CIDER_HALF = 'cider-half';
+export const CIDER_PINT = 'cider-pint';
 export const WINE_GLASS = 'wine-glass';
 export const WINE_BOTTLE = 'wine-bottle';
-export const HARD_SHOT = 'hard-shot';
+export const HARD_COCKTAIL = 'hard-cocktail';
 export const HARD_BOTTLE = 'hard-bottle';
+export const HARD_SHOOT = 'hard-shoot';
+export const HARD_FLASQUE = 'hard-flasque';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
@@ -135,10 +144,30 @@ export const drinksCatalog = [
     icon: WineBottle,
   },
   {
+    categoryKey: CIDER,
+    drinkKey: CIDER_HALF,
+    displayFeed: (q) => (q > 1 ? 'cidres' : 'cidre'),
+    displayDrinkModal: 'demi',
+    displayFormDrink: 'Demi\u00A0(25cl)',
+    volume: '25 cl - 4˚',
+    doses: 1,
+    icon: HalfCider,
+  },
+  {
+    categoryKey: CIDER,
+    drinkKey: CIDER_PINT,
+    displayFeed: (q) => (q > 1 ? 'cidres' : 'cidre'),
+    displayDrinkModal: 'pinte',
+    displayFormDrink: 'Pinte\u00A0(50cl)',
+    volume: '50 cl - 4˚',
+    doses: 2,
+    icon: PintCider,
+  },
+  {
     categoryKey: HARD,
-    drinkKey: HARD_SHOT,
-    displayFeed: (q) => (q > 1 ? 'cocktails ou shots' : 'cocktail ou shot'),
-    displayDrinkModal: 'cocktail ou shot',
+    drinkKey: HARD_COCKTAIL,
+    displayFeed: (q) => (q > 1 ? 'cocktails' : 'cocktail'),
+    displayDrinkModal: 'cocktail',
     displayFormDrink: 'Spiritueux (3\u00A0à\u00A05cl)',
     volume: '5 cl - 40˚',
     doses: 1,
@@ -153,5 +182,25 @@ export const drinksCatalog = [
     volume: '75 cl - 40˚',
     doses: 22,
     icon: CocktailBottle,
+  },
+  {
+    categoryKey: "",
+    drinkKey: HARD_SHOOT,
+    displayFeed: (q) => (q > 1 ? 'shoots' : 'shoot'),
+    displayDrinkModal: 'shoot',
+    displayFormDrink: 'Spiritueux (3\u00A0à\u00A05cl)',
+    volume: '3 cl',
+    doses: 1,
+    icon: Shoot,
+  },
+  {
+    categoryKey: "",
+    drinkKey: HARD_FLASQUE,
+    displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
+    displayDrinkModal: 'Flasque',
+    displayFormDrink: 'Bouteille de spiritueux',
+    volume: '30 cl',
+    doses: 22,
+    icon: Flasque,
   },
 ];
