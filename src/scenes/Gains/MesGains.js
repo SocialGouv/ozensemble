@@ -19,7 +19,7 @@ const MesGains = () => {
     navigation.navigate("GOAL");
   };
 
-  const [init, setInit] = useState(true);
+  const [init] = useState(true);
 
   return (
     <ScreenBgStyled>
