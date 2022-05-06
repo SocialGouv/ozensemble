@@ -6,32 +6,30 @@ import { screenHeight, screenWidth } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 
 const CategorieGain = ({ icon, value, unit, description1, description2 }) => {
-    return (
-        <Categorie>
-            <ComponentCategorie>
-                <IconCategorie>
-                    {icon}
-                </IconCategorie>
-                <UnitCategorie>
-                    <Text> {value}</Text>
-                    <TextStyled bold> {unit}</TextStyled>
-                </UnitCategorie>
-            </ComponentCategorie>
-            <TextCategorie>
-                <TextStyled >{description1}</TextStyled>
-                <TextStyled >{description2}</TextStyled>
-            </TextCategorie>
-        </Categorie>
-    )
+  return (
+    <Categorie>
+      <ComponentCategorie>
+        <IconCategorie>
+          {icon}
+        </IconCategorie>
+        <UnitCategorie>
+          <Text> {value}</Text>
+          <TextStyled bold> {unit}</TextStyled>
+        </UnitCategorie>
+      </ComponentCategorie>
+      <TextCategorie>
+        <TextStyled >{description1}</TextStyled>
+        <TextStyled >{description2}</TextStyled>
+      </TextCategorie>
+    </Categorie>
+  )
 }
 
 const width = (screenWidth / 3)
-const height = screenHeight / 5
 
 const Categorie = styled.View`
   margin-left: ${width * 0.2};
   margin-right: ${width * 0.2};
-  margin-top: ${height / 3 - 1}px;
 `;
 
 const ComponentCategorie = styled.View`

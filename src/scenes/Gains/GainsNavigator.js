@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Goal from './Goal';
 import MesGains from './MesGains';
 import CountConsumptiom from './CountConsumption';
+import Consumptions from './Consumptions';
 
 const GainsStack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const GainsNavigator = () => {
                     <GainsStack.Screen name="GAINS" component={MesGains} />
                     <GainsStack.Screen name="GOAL" component={Goal} />
                     <GainsStack.Screen name="HOWCOUNT" component={CountConsumptiom} />
+                    <GainsStack.Screen name="CONSUMPTIONS" component={Consumptions} />
                 </GainsStack.Navigator>
             )}
         </Background>
