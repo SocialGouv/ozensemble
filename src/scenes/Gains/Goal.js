@@ -33,6 +33,10 @@ const Goal = () => {
     navigation.navigate("GAINS");
   };
 
+  const onHowCount = () => {
+    navigation.navigate("HOWCOUNT");
+  }
+
   return (
     <ScreenBgStyled>
       <GoBack onPress={Return}>
@@ -67,7 +71,9 @@ const Goal = () => {
         </Row>
         <Row>
           <TextStyled>Comment compter un verre sans me tromper </TextStyled>
-          <InfoObjectif size={20} color={"#000000"} />
+          <HowCount onPress={onHowCount}>
+            <InfoObjectif size={20} color={"#000000"} />
+          </HowCount>
         </Row>
         <QuantityContainer>
           <QButton content="-" disabled={!quantity} onPress={() => setQuantity(quantity - 1)} />
@@ -177,6 +183,9 @@ const NumberByWeekContainer = styled.View`
   align-items: center;
   margin-top: ${screenHeight * 0.01}
   margin-bottom: ${screenHeight * 0.1}
+`;
+
+const HowCount = styled.TouchableOpacity`
 `;
 
 export default Goal
