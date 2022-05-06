@@ -25,7 +25,7 @@ const Goal = () => {
 
   const Week = [Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche]
   const dayNoDrink = Week.filter((e) => e === true).length
-  const NumberByWeek = quantity * (7 - dayNoDrink)
+  const DrinkByWeek = quantity * (7 - dayNoDrink)
 
   const navigation = useNavigation();
 
@@ -80,9 +80,9 @@ const Goal = () => {
           <TextStyled bold color="#4030a5">{quantity}</TextStyled>
           <QButton content="+" disabled={false} onPress={() => setQuantity(quantity + 1)} />
         </QuantityContainer>
-        <NumberByWeekContainer>
-          <TextStyled> soit {NumberByWeek} verres par semaine</TextStyled>
-        </NumberByWeekContainer>
+        <DrinkByWeekContainer>
+          <TextStyled> soit {DrinkByWeek} verres par semaine</TextStyled>
+        </DrinkByWeekContainer>
         <CTAButtonContainer>
           <ButtonPrimary content="Continuer" onPress={() => console.log("continuer")} disabled={dayNoDrink === 0 || quantity === 0} />
         </CTAButtonContainer>
@@ -179,7 +179,7 @@ const QButtonContent = styled(TextStyled)`
   text-align-vertical: center;
 `;
 
-const NumberByWeekContainer = styled.View`
+const DrinkByWeekContainer = styled.View`
   align-items: center;
   margin-top: ${screenHeight * 0.01}
   margin-bottom: ${screenHeight * 0.1}
