@@ -17,7 +17,7 @@ const smallH3 = css`
 `;
 
 const H3 = styled.Text`
-  color: #191919;
+  color: ${({ color }) => color ? color : "#191919"};;
   ${bigH3}
   ${mediaHeight.medium`${mediumH3}`}
   ${mediaHeight.small`${smallH3}`}

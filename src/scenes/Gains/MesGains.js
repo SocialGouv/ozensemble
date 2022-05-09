@@ -23,6 +23,7 @@ const MesGains = () => {
 
   const ToGoal = () => {
     navigation.navigate("GOAL");
+    setNextStep(!nextStep)
   };
 
   const beginDate = "3 avril";
@@ -31,71 +32,70 @@ const MesGains = () => {
   const drinkByWeek = 16;
   const dayNoDrink = 3;
 
-  const [init] = useState(false);
+  const [init] = useState(true);
+  const [nextStep, setNextStep] = useState(false)
   const [showGoalfix, setShowGoalfix] = useState(true)
 
   return (
-    <Screen>
-      <ScreenBgStyled>
-        <TopContainer>
-          <TopTitle>
-            <H1 color="#4030a5">Mes gains</H1>
-          </TopTitle>
-          {init ? (
-            <Description>
-              <InfosIcon size={24} />
-              <TextDescritpion>
-                <Text>Pour calculer vos gains, {"\n"} fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
-              </TextDescritpion>
-              <ButtonTouchable onPress={ToGoal} >
-                <Arrow>{'>'}</Arrow>
-              </ButtonTouchable>
-            </Description>
-          ) : (
-            <>
-              {showGoalfix &&
-                <Description>
-                  <Rocket size={24} />
-                  <TextDescritpion>
-                    <Text>Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps</Text>
-                  </TextDescritpion>
-                  <ButtonTouchable onPress={() => setShowGoalfix(false)} >
-                    <Arrow>{'x'}</Arrow>
-                  </ButtonTouchable>
-                </Description>
-              }
-            </>
-          )}
-        </TopContainer >
-        <TextContainer>
-          <TextForm>
-            <TextStyled> Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled></TextStyled>
-          </TextForm>
-        </TextContainer>
-        <Categories>
-          <CategorieGain icon={<Economy size={24} />} value={"?"} unit={"€"} description1={"Mes"} description2={"économies"} />
-          <CategorieGain icon={<Balance size={26} />} value={"?"} unit={"kcal"} description1={"Mes calories"} description2={"économisées"} />
-        </Categories>
-        <TextContainer>
-          <TextForm>
-            <TextStyled>Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled></TextStyled>
-          </TextForm>
-        </TextContainer>
-        <Categories>
-          <CategorieGain icon={null} value={"?"} unit={""} description1={"Verres"} description2={"restants"} />
-          <CategorieGain icon={<NoDrink size={24} />} value={"?"} unit={""} description1={"Jours où je"} description2={"n'ai pas bu"} />
-        </Categories>
-        <GainsCalendar />
-        <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
-      </ScreenBgStyled >
-      {init &&
+    <ScreenBgStyled>
+      <TopContainer>
+        <TopTitle>
+          <H1 color="#4030a5">Mes gains</H1>
+        </TopTitle>
+        {init ? (
+          <FixGoalInit nextStep={nextStep} setNextStep={setNextStep} />
+        ) : (
+          <>
+            {showGoalfix &&
+              <Description>
+                <Rocket size={24} />
+                <TextDescritpion>
+                  <Text>Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps</Text>
+                </TextDescritpion>
+                <ButtonTouchable onPress={() => setShowGoalfix(false)} >
+                  <Arrow>{'x'}</Arrow>
+                </ButtonTouchable>
+              </Description>
+            }
+          </>
+        )}
+      </TopContainer >
+      <TextContainer>
+        <TextForm>
+          {!init && <TextStyled> Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled></TextStyled>}
+        </TextForm>
+      </TextContainer>
+      <Categories>
+        <CategorieGain icon={<Economy size={24} />} value={"?"} unit={"€"} description1={"Mes"} description2={"économies"} />
+        <CategorieGain icon={<Balance size={26} />} value={"?"} unit={"kcal"} description1={"Mes calories"} description2={"économisées"} />
+      </Categories>
+      <TextContainer>
+        <TextForm>
+          {!init && <TextStyled>Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled></TextStyled>}
+        </TextForm>
+      </TextContainer>
+      <Categories>
+        <CategorieGain icon={null} value={"?"} unit={""} description1={"Verres"} description2={"restants"} />
+        <CategorieGain icon={<NoDrink size={24} />} value={"?"} unit={""} description1={"Jours où je"} description2={"n'ai pas bu"} />
+      </Categories>
+      {nextStep &&
         <OnBoardingGain onPress={ToGoal} />
       }
-    </Screen>
+      <GainsCalendar init={init} />
+      {init ? (
+        <TopContainer>
+          <TopTitle>
+            <H1 color="#4030a5">Mon objectif</H1>
+          </TopTitle>
+          <FixGoalInit nextStep={nextStep} setNextStep={setNextStep} />
+        </TopContainer>
+      ) : (
+        <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
+      )}
+    </ScreenBgStyled >
   )
 }
-const Screen = styled.View`
-`
+
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
   flex-shrink: 1;
@@ -154,6 +154,18 @@ const TextContainer = styled.View`
 
 const TextForm = styled(H2)`
 `;
+
+const FixGoalInit = ({ nextStep, setNextStep }) => (
+  <Description>
+    <InfosIcon size={24} />
+    <TextDescritpion>
+      <Text>Pour calculer vos gains, {"\n"}fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
+    </TextDescritpion>
+    <ButtonTouchable onPress={() => setNextStep(!nextStep)} >
+      <Arrow>{'>'}</Arrow>
+    </ButtonTouchable>
+  </Description>
+)
 
 
 
