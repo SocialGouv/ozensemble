@@ -8,10 +8,13 @@ import PintCider from '../../components/Illustrations/PintCider';
 import HalfCider from '../../components/Illustrations/HalfCider';
 import Shoot from '../../components/Illustrations/Shoot';
 import Flasque from '../../components/Illustrations/Flasque';
+import ChampagneBottle from '../../components/Illustrations/ChampagneBottle';
+import ChampagneGlass from '../../components/Illustrations/ChampagneGlass';
 
 // categories
 export const BEER = 'Bières';
 export const WINE = 'Vins';
+export const CHAMPAGNE = 'Champagne';
 export const CIDER = 'Cidre';
 export const HARD = 'Cocktails et spiritueux';
 
@@ -23,6 +26,8 @@ export const CIDER_HALF = 'cider-half';
 export const CIDER_PINT = 'cider-pint';
 export const WINE_GLASS = 'wine-glass';
 export const WINE_BOTTLE = 'wine-bottle';
+export const CHAMPAGNE_GLASS = 'champagne-glass';
+export const CHAMPAGNE_BOTTLE = 'champagne-bottle';
 export const HARD_COCKTAIL = 'hard-cocktail';
 export const HARD_BOTTLE = 'hard-bottle';
 export const HARD_SHOOT = 'hard-shoot';
@@ -142,6 +147,26 @@ export const drinksCatalog = [
     volume: '75 cl - 12˚',
     doses: 8,
     icon: WineBottle,
+  },
+  {
+    categoryKey: CHAMPAGNE,
+    drinkKey: CHAMPAGNE_GLASS,
+    displayFeed: (q) => (q > 1 ? 'verres de champagne' : 'verre de champagne'),
+    displayDrinkModal: 'coupe',
+    displayFormDrink: 'coupe\u00A0(25cl)',
+    volume: '12cl',
+    doses: 1,
+    icon: ChampagneGlass,
+  },
+  {
+    categoryKey: CHAMPAGNE,
+    drinkKey: CHAMPAGNE_BOTTLE,
+    displayFeed: (q) => (q > 1 ? 'Bouteilles de champagnes' : 'Bouteille de champagne'),
+    displayDrinkModal: 'Bouteille',
+    displayFormDrink: 'Bouteille\u00A0(75cl)',
+    volume: '75cl',
+    doses: 2,
+    icon: ChampagneBottle,
   },
   {
     categoryKey: CIDER,
