@@ -31,7 +31,8 @@ const OnBoarding = styled.View`
   position: absolute;
   background-color: white ;
   margin-top: ${screenHeight * 0.3};
-  width: 95%;
+  left: 10%;
+  width: 80%;
   padding: 24px;
   border-style: solid;
   border-width: 1px;
