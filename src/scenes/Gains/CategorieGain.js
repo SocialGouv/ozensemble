@@ -4,6 +4,7 @@ import { Text } from 'react-native';
 import styled from 'styled-components';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
+import H1 from '../../components/H1';
 
 const CategorieGain = ({ icon, value, unit, description1, description2 }) => {
   return (
@@ -13,8 +14,12 @@ const CategorieGain = ({ icon, value, unit, description1, description2 }) => {
           {icon}
         </IconCategorie>
         <UnitCategorie>
-          <Text> {value}</Text>
-          <TextStyled bold> {unit}</TextStyled>
+          <CategorieValue>
+            <TextStyled bold> {value}</TextStyled>
+          </CategorieValue>
+          <CategorieUnit>
+            <TextStyled bold> {unit}</TextStyled>
+          </CategorieUnit>
         </UnitCategorie>
       </ComponentCategorie>
       <TextCategorie>
@@ -45,17 +50,23 @@ const ComponentCategorie = styled.View`
 const IconCategorie = styled.View`
   justify-content: center;
   flex-direction: row ;
-  height: ${width * 0.85 * 0.5}; 
+  height: ${width * 0.85 * 0.4}; 
   align-items: center;
 `;
 
 const UnitCategorie = styled.View`
   justify-content: center;
   flex-direction: row ;
-  align-items: center;
+  align-items: flex-end;
   height: ${width * 0.85 * 0.5};
  `;
 
+const CategorieUnit = styled(H1)` 
+`;
+
+const CategorieValue = styled.Text` 
+  font-size: 50px;
+`;
 
 const TextCategorie = styled.View`
   padding-top: 2px;  

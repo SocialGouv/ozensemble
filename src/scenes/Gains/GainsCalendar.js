@@ -6,21 +6,25 @@ import H1 from '../../components/H1';
 import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 
-const GainsCalendar = () => {
-    return (
-        <TopContainer>
-            <TopTitle>
-                <H1 color="#4030a5">Mon Calendrier</H1>
-            </TopTitle>
-            <Text>Calendrier</Text>
-            <TextStyled color="#4030a5">État de ma consommation</TextStyled>
-            <PartDescription value={"Je n'ai pas bu"} color={"#28A745"} />
-            <PartDescription value={"J'ai bu"} color={"#DE285E"} />
-            <TextStyled color="#4030a5">Total verres par semaine</TextStyled>
-            <PartDescription value={"J'ai respecté mon objectif"} color={"#02594C"} />
-            <PartDescription value={"Je n'ai pas respecté mon objectif"} color={"#960031"} />
-        </TopContainer>
-    )
+const GainsCalendar = ({ init }) => {
+  return (
+    <TopContainer>
+      <TopTitle>
+        <H1 color="#4030a5">Mon Calendrier</H1>
+      </TopTitle>
+      <Text>Calendrier</Text>
+      <TextStyled color="#4030a5">État de ma consommation</TextStyled>
+      <PartDescription value={"Je n'ai pas bu"} color={"#28A745"} />
+      <PartDescription value={"J'ai bu"} color={"#DE285E"} />
+      {!init &&
+        <>
+          <TextStyled color="#4030a5">Total verres par semaine</TextStyled>
+          <PartDescription value={"J'ai respecté mon objectif"} color={"#02594C"} />
+          <PartDescription value={"Je n'ai pas respecté mon objectif"} color={"#960031"} />
+        </>
+      }
+    </TopContainer>
+  )
 }
 
 const TopContainer = styled.View`
@@ -34,10 +38,10 @@ const TopTitle = styled.View`
 `;
 
 const PartDescription = ({ color, value }) => (
-    <PartContainer>
-        <Dot color={color} />
-        <TextStyled>{value}</TextStyled>
-    </PartContainer>
+  <PartContainer>
+    <Dot color={color} />
+    <TextStyled>{value}</TextStyled>
+  </PartContainer>
 )
 
 const PartContainer = styled.View`
