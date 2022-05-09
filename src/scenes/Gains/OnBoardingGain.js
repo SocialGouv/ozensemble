@@ -14,7 +14,7 @@ const OnBoardingGain = ({ onPress }) => {
         <TextStyled bold>Sans objectif, pas de gains</TextStyled>
       </Title>
       <SubTitle>
-        <TextStyled >En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool</TextStyled>
+        <TextStyled color={"#3C3C4360"}>En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool</TextStyled>
       </SubTitle>
       <Continue>
         <ButtonTouchable onPress={onPress}>
@@ -48,14 +48,14 @@ const ButtonTouchable = styled.TouchableOpacity`
 
 const ContinueText = styled.Text`
   text-transform: uppercase;
-
 `;
 
 const Title = styled(H2)`
   margin-bottom: 15px;
 `;
 
-const SubTitle = styled(H3)`
+const SubTitle = styled.Text`
+  font-size: 18px;
   margin-bottom: 15px;
 `;
 
