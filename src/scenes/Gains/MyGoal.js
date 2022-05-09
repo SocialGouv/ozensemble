@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
@@ -9,6 +10,16 @@ import Economy from '../../components/Illustrations/Economy';
 import CocktailGlass from '../../components/Illustrations/CocktailGlassTriangle';
 
 const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
+
+    const navigation = useNavigation();
+
+    const ToGoal = () => {
+        navigation.navigate("GOAL");
+    };
+
+    const ToEstimation = () => {
+        navigation.navigate("ESTIMATION");
+    }
 
     return (
         <MyGoalContainer>
@@ -22,9 +33,11 @@ const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
                 </MyGoalSubContainerInside>
             </MyGoalSubContainer>
             <ModifyContainer>
-                <TextModify>
-                    <TextStyled>Modifier l'objectif</TextStyled>
-                </TextModify>
+                <ButtonTouchable onPress={ToGoal}>
+                    <TextModify>
+                        <TextStyled>Modifier l'objectif</TextStyled>
+                    </TextModify>
+                </ButtonTouchable>
             </ModifyContainer>
             <Title>
                 <H2 color="#4030a5">Estimation de ma consommation avant objectif</H2>
@@ -37,9 +50,11 @@ const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
                 </MyGoalSubContainerInside>
             </MyGoalSubContainer>
             <ModifyContainer>
-                <TextModify>
-                    <TextStyled>Modifier l'estimation</TextStyled>
-                </TextModify>
+                <ButtonTouchable onPress={ToEstimation}>
+                    <TextModify>
+                        <TextStyled>Modifier l'estimation</TextStyled>
+                    </TextModify>
+                </ButtonTouchable>
             </ModifyContainer>
         </MyGoalContainer>
     )
@@ -85,6 +100,9 @@ const ModifyContainer = styled.View`
 
 const TextModify = styled.Text`
   text-decoration: underline;
+`;
+
+const ButtonTouchable = styled.TouchableOpacity`
 `;
 
 export default MyGoal
