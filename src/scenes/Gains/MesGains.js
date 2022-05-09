@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { screenHeight } from '../../styles/theme';
+import styled from 'styled-components';
 
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import styled from 'styled-components';
 import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import Balance from '../../components/Illustrations/Balance';
 import Economy from '../../components/Illustrations/Economy';
@@ -31,69 +31,71 @@ const MesGains = () => {
   const drinkByWeek = 16;
   const dayNoDrink = 3;
 
-  const [init] = useState(true);
+  const [init] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true)
 
   return (
-    <ScreenBgStyled>
-
-      <TopContainer>
-        <TopTitle>
-          <H1 color="#4030a5">Mes gains</H1>
-        </TopTitle>
-        {init ? (
-          <Description>
-            <InfosIcon size={24} />
-            <TextDescritpion>
-              <Text>Pour calculer vos gains, {"\n"} fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
-            </TextDescritpion>
-            <ButtonTouchable onPress={ToGoal} >
-              <Arrow>{'>'}</Arrow>
-            </ButtonTouchable>
-          </Description>
-        ) : (
-          <>
-            {showGoalfix &&
-              <Description>
-                <Rocket size={24} />
-                <TextDescritpion>
-                  <Text>Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps</Text>
-                </TextDescritpion>
-                <ButtonTouchable onPress={() => setShowGoalfix(false)} >
-                  <Arrow>{'x'}</Arrow>
-                </ButtonTouchable>
-              </Description>
-            }
-          </>
-        )}
-      </TopContainer >
-      <TextContainer>
-        <TextForm>
-          <TextStyled> Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled></TextStyled>
-        </TextForm>
-      </TextContainer>
-      <Categories>
-        <CategorieGain icon={<Economy size={24} />} value={"?"} unit={"€"} description1={"Mes"} description2={"économies"} />
-        <CategorieGain icon={<Balance size={26} />} value={"?"} unit={"kcal"} description1={"Mes calories"} description2={"économisées"} />
-      </Categories>
-      <TextContainer>
-        <TextForm>
-          <TextStyled>Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled></TextStyled>
-        </TextForm>
-      </TextContainer>
-      <Categories>
-        <CategorieGain icon={null} value={"?"} unit={""} description1={"Verres"} description2={"restants"} />
-        <CategorieGain icon={<NoDrink size={24} />} value={"?"} unit={""} description1={"Jours où je"} description2={"n'ai pas bu"} />
-      </Categories>
+    <Screen>
+      <ScreenBgStyled>
+        <TopContainer>
+          <TopTitle>
+            <H1 color="#4030a5">Mes gains</H1>
+          </TopTitle>
+          {init ? (
+            <Description>
+              <InfosIcon size={24} />
+              <TextDescritpion>
+                <Text>Pour calculer vos gains, {"\n"} fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
+              </TextDescritpion>
+              <ButtonTouchable onPress={ToGoal} >
+                <Arrow>{'>'}</Arrow>
+              </ButtonTouchable>
+            </Description>
+          ) : (
+            <>
+              {showGoalfix &&
+                <Description>
+                  <Rocket size={24} />
+                  <TextDescritpion>
+                    <Text>Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps</Text>
+                  </TextDescritpion>
+                  <ButtonTouchable onPress={() => setShowGoalfix(false)} >
+                    <Arrow>{'x'}</Arrow>
+                  </ButtonTouchable>
+                </Description>
+              }
+            </>
+          )}
+        </TopContainer >
+        <TextContainer>
+          <TextForm>
+            <TextStyled> Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled></TextStyled>
+          </TextForm>
+        </TextContainer>
+        <Categories>
+          <CategorieGain icon={<Economy size={24} />} value={"?"} unit={"€"} description1={"Mes"} description2={"économies"} />
+          <CategorieGain icon={<Balance size={26} />} value={"?"} unit={"kcal"} description1={"Mes calories"} description2={"économisées"} />
+        </Categories>
+        <TextContainer>
+          <TextForm>
+            <TextStyled>Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled></TextStyled>
+          </TextForm>
+        </TextContainer>
+        <Categories>
+          <CategorieGain icon={null} value={"?"} unit={""} description1={"Verres"} description2={"restants"} />
+          <CategorieGain icon={<NoDrink size={24} />} value={"?"} unit={""} description1={"Jours où je"} description2={"n'ai pas bu"} />
+        </Categories>
+        <GainsCalendar />
+        <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
+      </ScreenBgStyled >
       {init &&
         <OnBoardingGain onPress={ToGoal} />
       }
-      <GainsCalendar />
-      <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
-    </ScreenBgStyled >
+    </Screen>
   )
 }
-
+const Screen = styled.View`
+`
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
   flex-shrink: 1;
