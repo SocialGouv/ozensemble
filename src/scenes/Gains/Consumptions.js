@@ -10,8 +10,7 @@ import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassT
 import NoDrink from '../../components/Illustrations/NoDrink';
 
 const Consumptions = () => {
-
-  const date = 1651849680000
+  const date = 1651849680000;
   const [showDatePicker, setShowDatePicker] = React.useState(false);
 
   return (
@@ -32,21 +31,19 @@ const Consumptions = () => {
       <Option icon={<NoDrink size={40} />} value={"Je n'ai pas bu"} />
       <Option icon={<CocktailGlassTriangle size={40} />} value={"J'ai bu"} />
     </ScreenBgStyled>
-  )
-}
+  );
+};
 
 const Option = ({ icon, value }) => {
-
   return (
-
     <AskDrinkContainer>
       <ButtonTouchable>
         <Box>{icon}</Box>
       </ButtonTouchable>
       <TextStyled> {value}</TextStyled>
     </AskDrinkContainer>
-  )
-}
+  );
+};
 
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
@@ -73,15 +70,14 @@ export const DateAndTimeContainer = styled.View`
   align-items: center;
 `;
 
-const ButtonTouchable = styled.TouchableOpacity`
-`;
+const ButtonTouchable = styled.TouchableOpacity``;
 
 const ChangeDate = styled.Text`
   text-decoration: underline;
 `;
 
 const Box = styled.View`
-  border: 1px solid #DE285E;
+  border: 1px solid #de285e;
   border-radius: 5px;
   padding: 30px;
   justify-content: center;
@@ -95,4 +91,4 @@ const AskDrinkContainer = styled.View`
   margin-top: ${screenHeight * 0.1}px;
 `;
 
-export default Consumptions
+export default Consumptions;
