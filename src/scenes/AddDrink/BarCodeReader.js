@@ -14,7 +14,6 @@ import {
 import ButtonPrimary from '../../components/ButtonPrimary';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import TorchIcon from '../../components/TorchIcon';
-import CONSTANTS from '../../reference/constants';
 import { getOFFDataFromBarCode, extractAlcoholDataFromOFFData } from '../../services/off';
 import matomo from '../../services/matomo';
 

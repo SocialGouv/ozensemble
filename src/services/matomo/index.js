@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import Matomo from './lib';
-import CONSTANTS from '../../reference/constants';
 import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../../config';
 import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
 import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
@@ -127,7 +126,7 @@ const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
   const action = QUIZZ_ANSWER;
   const name = questionKey;
   const value = score;
-  if (questionKey === CONSTANTS.GENDER) {
+  if (questionKey === 'gender') {
     Matomo.setUserProperties({ gender: answerKey });
   }
   await logEvent({ category, action, name, value });

@@ -25,7 +25,6 @@ import {
 import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
-import CONSTANTS from '../../reference/constants';
 
 const getAcceptableDosePerDay = (gender) => {
   if (!gender) return 3;
