@@ -9,7 +9,7 @@ import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassT
 import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { screenHeight } from '../../styles/theme';
+import { screenHeight, screenWidth } from '../../styles/theme';
 
 const Goal = () => {
 
@@ -23,9 +23,9 @@ const Goal = () => {
   const [saturday, setSaturday] = useState(false)
   const [sunday, setSunday] = useState(false)
 
-  const Week = [monday, tuesday, wednesday, thuesday, friday, saturday, sunday]
-  const dayNoDrink = Week.filter((e) => e === true).length
-  const DrinkByWeek = quantity * (7 - dayNoDrink)
+  const week = [monday, tuesday, wednesday, thuesday, friday, saturday, sunday]
+  const dayNoDrink = week.filter((e) => e === true).length
+  const drinkByWeek = quantity * (7 - dayNoDrink)
 
   const navigation = useNavigation();
 
@@ -35,6 +35,10 @@ const Goal = () => {
 
   const onHowCount = () => {
     navigation.navigate("HOWCOUNT");
+  }
+
+  const toEstimation = () => {
+    navigation.navigate("ESTIMATION");
   }
 
   return (
@@ -83,17 +87,19 @@ const Goal = () => {
         </Row>
         <QuantityContainer>
           <QButton content="-" disabled={!quantity} onPress={() => setQuantity(quantity - 1)} />
-          <TextStyled bold color="#4030a5">{quantity}</TextStyled>
+          <NumberDrink>
+            <TextStyled bold color="#4030a5">{quantity}</TextStyled>
+          </NumberDrink>
           <QButton content="+" disabled={false} onPress={() => setQuantity(quantity + 1)} />
         </QuantityContainer>
         <DrinkByWeekContainer>
-          <TextStyled> soit {DrinkByWeek} verres par semaine</TextStyled>
+          {quantity > 1 ? (<TextStyled> soit {drinkByWeek} verres par semaine</TextStyled>) : (<TextStyled> {null} </TextStyled>)}
         </DrinkByWeekContainer>
         <CTAButtonContainer>
-          <ButtonPrimary content="Continuer" onPress={() => console.log("continuer")} disabled={dayNoDrink === 0 || quantity === 0} />
+          <ButtonPrimary content="Continuer" onPress={toEstimation} disabled={dayNoDrink === 0 || quantity === 0} />
         </CTAButtonContainer>
       </Container>
-    </ScreenBgStyled>
+    </ScreenBgStyled >
   )
 }
 
@@ -137,9 +143,15 @@ const Row = styled.View`
 const QuantityContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-
+  justify-content: center;
 `
+
+const NumberDrink = styled.Text`
+  margin-right: ${screenWidth * 0.05};
+  margin-left: ${screenWidth * 0.05};
+  font-size: 18px;
+`;
+
 const CTAButtonContainer = styled.View`
   height: ${screenHeight * 0.22}px;
   align-items: center;
@@ -202,5 +214,6 @@ const Small = styled.Text`
 const VerySmall = styled.Text`
   font-size:10px;
 `;
+
 
 export default Goal
