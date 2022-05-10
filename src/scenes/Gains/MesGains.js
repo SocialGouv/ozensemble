@@ -14,28 +14,27 @@ import CategorieGain from './CategorieGain';
 import OnBoardingGain from './OnBoardingGain';
 import Rocket from '../../components/Illustrations/Rocket';
 import TextStyled from '../../components/TextStyled';
-import GainsCalendar from './GainsCalendar'
+import GainsCalendar from './GainsCalendar';
 import MyGoal from './MyGoal';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
 const MesGains = () => {
-
   const navigation = useNavigation();
 
-  const ToGoal = () => {
-    navigation.navigate("GOAL");
-    setNextStep(!nextStep)
+  const toGoal = () => {
+    navigation.navigate('GOAL');
+    setNextStep(!nextStep);
   };
 
-  const beginDate = "3 avril";
-  const beginDay = "mercredi";
+  const beginDate = '3 avril';
+  const beginDay = 'mercredi';
 
-  const [drinkByWeek] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
-  const [dayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
+  const [drinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0);
+  const [dayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0);
 
   const [init] = useState(false);
-  const [nextStep, setNextStep] = useState(false)
-  const [showGoalfix, setShowGoalfix] = useState(true)
+  const [nextStep, setNextStep] = useState(false);
+  const [showGoalfix, setShowGoalfix] = useState(true);
 
   return (
     <ScreenBgStyled>
@@ -47,41 +46,68 @@ const MesGains = () => {
           <FixGoalInit nextStep={nextStep} setNextStep={setNextStep} />
         ) : (
           <>
-            {showGoalfix &&
+            {showGoalfix && (
               <Description>
                 <Rocket size={24} />
                 <TextDescritpion>
-                  <Text>Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps</Text>
+                  <Text>
+                    Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps
+                  </Text>
                 </TextDescritpion>
-                <ButtonTouchable onPress={() => setShowGoalfix(false)} >
+                <ButtonTouchable onPress={() => setShowGoalfix(false)}>
                   <Arrow>{'x'}</Arrow>
                 </ButtonTouchable>
               </Description>
-            }
+            )}
           </>
         )}
-      </TopContainer >
+      </TopContainer>
       <TextContainer>
         <TextForm>
-          {!init && <TextStyled> Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled></TextStyled>}
+          {!init && (
+            <TextStyled>
+              {' '}
+              Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled>
+            </TextStyled>
+          )}
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={<Economy size={24} />} value={"?"} unit={"€"} description1={"Mes"} description2={"économies"} />
-        <CategorieGain icon={<Balance size={26} />} value={"?"} unit={"kcal"} description1={"Mes calories"} description2={"économisées"} />
+        <CategorieGain
+          icon={<Economy size={24} />}
+          value={'?'}
+          unit={'€'}
+          description1={'Mes'}
+          description2={'économies'}
+        />
+        <CategorieGain
+          icon={<Balance size={26} />}
+          value={'?'}
+          unit={'kcal'}
+          description1={'Mes calories'}
+          description2={'économisées'}
+        />
       </Categories>
       <TextContainer>
         <TextForm>
-          {!init && <TextStyled>Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled></TextStyled>}
+          {!init && (
+            <TextStyled>
+              Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled>
+            </TextStyled>
+          )}
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={null} value={"?"} unit={""} description1={"Verres"} description2={"restants"} />
-        <CategorieGain icon={<NoDrink size={24} />} value={"?"} unit={""} description1={"Jours où je"} description2={"n'ai pas bu"} />
+        <CategorieGain icon={null} value={'?'} unit={''} description1={'Verres'} description2={'restants'} />
+        <CategorieGain
+          icon={<NoDrink size={24} />}
+          value={'?'}
+          unit={''}
+          description1={'Jours où je'}
+          description2={"n'ai pas bu"}
+        />
       </Categories>
-      {nextStep &&
-        <OnBoardingGain onPress={ToGoal} />
-      }
+      {nextStep && <OnBoardingGain onPress={toGoal} />}
       <GainsCalendar init={init} />
       {init ? (
         <TopContainer>
@@ -93,9 +119,9 @@ const MesGains = () => {
       ) : (
         <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
       )}
-    </ScreenBgStyled >
-  )
-}
+    </ScreenBgStyled>
+  );
+};
 
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
@@ -114,21 +140,20 @@ const TopTitle = styled.View`
 `;
 
 const Description = styled.View`
-  background-color: #C5F3BA29 ;
+  background-color: #c5f3ba29;
   border-style: solid;
   border-width: 1px;
-  border-color: #81DB9557 ;
+  border-color: #81db9557;
   padding: 13px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: ${screenHeight * 0.02}px; 
+  margin-top: ${screenHeight * 0.02}px;
 `;
 
-const ButtonTouchable = styled.TouchableOpacity`
-`;
+const ButtonTouchable = styled.TouchableOpacity``;
 
 const Arrow = styled.Text`
   color: #4030a5;
@@ -153,21 +178,20 @@ const TextContainer = styled.View`
   margin-top: ${screenHeight * 0.01}px;
 `;
 
-const TextForm = styled(H2)`
-`;
+const TextForm = styled(H2)``;
 
 const FixGoalInit = ({ nextStep, setNextStep }) => (
-  <ButtonTouchable onPress={() => setNextStep(!nextStep)} >
+  <ButtonTouchable onPress={() => setNextStep(!nextStep)}>
     <Description>
       <InfosIcon size={24} />
       <TextDescritpion>
-        <Text>Pour calculer vos gains, {"\n"}fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
+        <Text>
+          Pour calculer vos gains, {'\n'}fixez-vous un <Text style={{ fontWeight: 'bold' }}>objectif</Text>
+        </Text>
       </TextDescritpion>
       <Arrow>{'>'}</Arrow>
     </Description>
   </ButtonTouchable>
-)
+);
 
-
-
-export default MesGains
+export default MesGains;
