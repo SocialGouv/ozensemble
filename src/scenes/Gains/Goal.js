@@ -13,41 +13,40 @@ import { screenHeight, screenWidth } from '../../styles/theme';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
 const Goal = () => {
+  const [quantity, setQuantity] = useStateWithAsyncStorage('@GainQuantityDrinkByDay', 1);
 
-  const [quantity, setQuantity] = useStateWithAsyncStorage("@GainQuantityDrinkByDay", 1);
+  const [monday, setMonday] = useStateWithAsyncStorage('@GainMonday', false);
+  const [tuesday, setTuesday] = useStateWithAsyncStorage('@GainTuesday', false);
+  const [wednesday, setWednesday] = useStateWithAsyncStorage('@GainWednesday', false);
+  const [thursday, setThursday] = useStateWithAsyncStorage('@GainThursday', false);
+  const [friday, setFriday] = useStateWithAsyncStorage('@GainFriday', false);
+  const [saturday, setSaturday] = useStateWithAsyncStorage('@GainSaturday', false);
+  const [sunday, setSunday] = useStateWithAsyncStorage('@GainSunday', false);
 
-  const [monday, setMonday] = useStateWithAsyncStorage("@GainMonday", false);
-  const [tuesday, setTuesday] = useStateWithAsyncStorage("@GainTuesday", false);
-  const [wednesday, setWednesday] = useStateWithAsyncStorage("@GainWednesday", false);
-  const [thursday, setThursday] = useStateWithAsyncStorage("@GainThursday", false);
-  const [friday, setFriday] = useStateWithAsyncStorage("@GainFriday", false);
-  const [saturday, setSaturday] = useStateWithAsyncStorage("@GainSaturday", false);
-  const [sunday, setSunday] = useStateWithAsyncStorage("@GainSunday", false);
-
-  const week = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-  const [drinkByWeek, setdrinkByWeek] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 7);
-  const [dayNoDrink, setDayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
+  const [drinkByWeek, setdrinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 7);
+  const [dayNoDrink, setDayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0);
 
   useEffect(() => {
-    setdrinkByWeek(quantity * (7 - dayNoDrink))
-    setDayNoDrink(week.filter((e) => e === true).length)
-  }, [quantity, week]);
+    const week = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+    const newDayNoDrink = week.filter((e) => e === true).length;
+    setDayNoDrink(newDayNoDrink);
+    setdrinkByWeek(quantity * (7 - newDayNoDrink));
+  }, [quantity, monday, tuesday, wednesday, thursday, friday, saturday, sunday]);
 
   const navigation = useNavigation();
 
   const onHowCount = () => {
-    navigation.navigate("HOWCOUNT");
-  }
+    navigation.navigate('HOWCOUNT');
+  };
 
   const toEstimation = () => {
-    navigation.navigate("ESTIMATION");
-  }
+    navigation.navigate('ESTIMATION');
+  };
 
   return (
     <ScreenBgStyled>
       <GoBack onPress={navigation.goBack}>
-        <TextStyled bold>
-          {"<"} Retour </TextStyled>
+        <TextStyled bold>{'<'} Retour </TextStyled>
       </GoBack>
       <TopContainer>
         <TopTitle>
@@ -56,7 +55,9 @@ const Goal = () => {
       </TopContainer>
       <Container>
         <ContainerTime>
-          <TextStyled>La durée de votre objectif est d'<TextStyled bold>un mois</TextStyled></TextStyled>
+          <TextStyled>
+            La durée de votre objectif est d'<TextStyled bold>un mois</TextStyled>
+          </TextStyled>
         </ContainerTime>
         <Row>
           <Calendar size={24} />
@@ -82,26 +83,28 @@ const Goal = () => {
         <Row>
           <TextStyled>Comment compter un verre sans me tromper </TextStyled>
           <HowCount onPress={onHowCount}>
-            <InfoObjectif size={20} color={"#000000"} />
+            <InfoObjectif size={20} color={'#000000'} />
           </HowCount>
         </Row>
         <QuantityContainer>
           <QButton content="-" disabled={!quantity} onPress={() => setQuantity(quantity - 1)} />
           <NumberDrink>
-            <TextStyled bold color="#4030a5">{quantity}</TextStyled>
+            <TextStyled bold color="#4030a5">
+              {quantity}
+            </TextStyled>
           </NumberDrink>
           <QButton content="+" disabled={false} onPress={() => setQuantity(quantity + 1)} />
         </QuantityContainer>
         <DrinkByWeekContainer>
-          {quantity > 1 ? (<TextStyled> soit {drinkByWeek} verres par semaine</TextStyled>) : (<TextStyled> {null} </TextStyled>)}
+          <TextStyled> soit {drinkByWeek} verres par semaine</TextStyled>
         </DrinkByWeekContainer>
         <CTAButtonContainer>
           <ButtonPrimary content="Continuer" onPress={toEstimation} disabled={dayNoDrink === 0 || quantity === 0} />
         </CTAButtonContainer>
       </Container>
-    </ScreenBgStyled >
-  )
-}
+    </ScreenBgStyled>
+  );
+};
 
 const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
@@ -144,7 +147,7 @@ const QuantityContainer = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-`
+`;
 
 const NumberDrink = styled.Text`
   margin-right: ${screenWidth * 0.05}px;
@@ -167,10 +170,10 @@ const DayContainer = styled.View`
 
 const DayButton = ({ small, content, onPress, active }) => (
   <QButtonStyled onPress={onPress}>
-    <QButtonContentContainer small={small} backgroundColor={active ? "#4030A5" : "#eeeeee"} >
-      <QButtonContent color={active ? "#eeeeee" : "#000000"}>{content}</QButtonContent>
+    <QButtonContentContainer small={small} backgroundColor={active ? '#4030A5' : '#eeeeee'}>
+      <QButtonContent color={active ? '#eeeeee' : '#000000'}>{content}</QButtonContent>
     </QButtonContentContainer>
-  </QButtonStyled >
+  </QButtonStyled>
 );
 
 const qButtonSize = 35;
@@ -182,10 +185,9 @@ const QButtonContentContainer = styled.View`
   height: ${qButtonSize}px;
   width: ${qButtonSize}px;
   border-radius: ${qButtonSize}px;
-  border: 1px solid #4030A5;
+  border: 1px solid #4030a5;
   justify-content: center;
   align-items: center;
-
 `;
 
 const QButtonContent = styled(TextStyled)`
@@ -203,13 +205,10 @@ const DrinkByWeekContainer = styled.View`
   margin-bottom: ${screenHeight * 0.04}px;
 `;
 
-const HowCount = styled.TouchableOpacity`
-`;
+const HowCount = styled.TouchableOpacity``;
 
 const TextSemiBold = styled.Text`
-  font-weight:700;
+  font-weight: 700;
 `;
 
-
-
-export default Goal
+export default Goal;
