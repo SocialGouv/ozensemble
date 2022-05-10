@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { screenHeight } from '../../styles/theme';
+import { screenHeight, screenWidth } from '../../styles/theme';
 import styled from 'styled-components';
+import Speedometer from 'react-native-speedometer-chart';
 
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
@@ -54,9 +55,9 @@ const MesGains = () => {
                     Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps
                   </Text>
                 </TextDescritpion>
-                <ButtonTouchable onPress={() => setShowGoalfix(false)}>
+                <TouchableOpacity onPress={() => setShowGoalfix(false)}>
                   <Arrow>{'x'}</Arrow>
-                </ButtonTouchable>
+                </TouchableOpacity>
               </Description>
             )}
           </>
@@ -73,20 +74,8 @@ const MesGains = () => {
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain
-          icon={<Economy size={24} />}
-          value={'?'}
-          unit={'€'}
-          description1={'Mes'}
-          description2={'économies'}
-        />
-        <CategorieGain
-          icon={<Balance size={26} />}
-          value={'?'}
-          unit={'kcal'}
-          description1={'Mes calories'}
-          description2={'économisées'}
-        />
+        <CategorieGain icon={<Economy size={24} />} unit={'€'} description1={'Mes économies'} />
+        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description1="'Mes calories économisées" />
       </Categories>
       <TextContainer>
         <TextForm>
@@ -98,14 +87,16 @@ const MesGains = () => {
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={null} value={'?'} unit={''} description1={'Verres'} description2={'restants'} />
-        <CategorieGain
-          icon={<NoDrink size={24} />}
-          value={'?'}
-          unit={''}
-          description1={'Jours où je'}
-          description2={"n'ai pas bu"}
-        />
+        <CategorieGain description="Verres restants">
+          <Speedometer
+            value={50}
+            totalValue={100}
+            size={screenWidth / 4}
+            outerColor="#d3d3d3"
+            internalColor={`rgba(64, 48, 165, ${50 / 100})`}
+          />
+        </CategorieGain>
+        <CategorieGain icon={<NoDrink size={24} />} description1="Jours où je n'ai pas bu" />
       </Categories>
       {nextStep && <OnBoardingGain onPress={toGoal} />}
       <GainsCalendar init={init} />
@@ -153,8 +144,6 @@ const Description = styled.View`
   margin-top: ${screenHeight * 0.02}px;
 `;
 
-const ButtonTouchable = styled.TouchableOpacity``;
-
 const Arrow = styled.Text`
   color: #4030a5;
   font-weight: bold;
@@ -181,7 +170,7 @@ const TextContainer = styled.View`
 const TextForm = styled(H2)``;
 
 const FixGoalInit = ({ nextStep, setNextStep }) => (
-  <ButtonTouchable onPress={() => setNextStep(!nextStep)}>
+  <TouchableOpacity onPress={() => setNextStep(!nextStep)}>
     <Description>
       <InfosIcon size={24} />
       <TextDescritpion>
@@ -191,7 +180,7 @@ const FixGoalInit = ({ nextStep, setNextStep }) => (
       </TextDescritpion>
       <Arrow>{'>'}</Arrow>
     </Description>
-  </ButtonTouchable>
+  </TouchableOpacity>
 );
 
 export default MesGains;
