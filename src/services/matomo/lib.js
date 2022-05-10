@@ -31,7 +31,7 @@ class Api {
     };
   }
 
-  computeCvar(cvarObject) {
+  computeCvar(cvarObject = {}) {
     const _cvar = {};
     for (let [index, key] of Object.keys(cvarObject).entries()) {
       _cvar[`${index}`] = [key, cvarObject[key]];
