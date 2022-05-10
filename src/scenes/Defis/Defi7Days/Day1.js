@@ -8,19 +8,10 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
 import Diagram from '../../ConsoFollowUp/Diagram';
-import CocktailGlass from '../../../components/Illustrations/CocktailGlass';
-import HalfBeer from '../../../components/Illustrations/HalfBeer';
-import WineGlass from '../../../components/Illustrations/WineGlass';
-import Dose from '../../../components/Illustrations/Dose';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
 import { setValidatedDays } from './utils';
-
-const doses = [
-  { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
-  { Icon: WineGlass, name: 'vin', volume: 10, degrees: 12 },
-  { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
-];
+import OneDoses from '../../../components/OneDoses';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -69,32 +60,7 @@ export default ({ navigation, route }) => {
               }
             />
           </Paragraph>
-          <IconsContainer>
-            {doses.map(({ Icon, volume, name, degrees }, i) => (
-              <React.Fragment key={i}>
-                <IconWrapper>
-                  <Icon size={50} style={{ borderWidth: 0 }} />
-                  <Volume color="#4030a5">{name}</Volume>
-                  <Volume color="#4030a5">{volume}cl</Volume>
-                  <Volume color="#4030a5">{degrees}%</Volume>
-                </IconWrapper>
-                {i < doses.length - 1 && (
-                  <EqualWrapper>
-                    <TextStyled color="#191919">=</TextStyled>
-                  </EqualWrapper>
-                )}
-              </React.Fragment>
-            ))}
-            <EqualWrapper>
-              <TextStyled color="#191919">≈</TextStyled>
-            </EqualWrapper>
-            <IconWrapper>
-              <Dose size={25} style={{ borderWidth: 0 }} />
-              <Volume color="#4030a5">1 dose</Volume>
-              <Volume color="#4030a5">10g d'alcool</Volume>
-              <Volume color="#4030a5"> </Volume>
-            </IconWrapper>
-          </IconsContainer>
+          <OneDoses></OneDoses>
           <Paragraph>
             <Elem
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
@@ -175,23 +141,6 @@ const AddConsoCTAContainer = styled.View`
   margin-bottom: 100px;
   align-items: center;
 `;
-const IconsContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  margin-bottom: 50px;
-`;
-const IconWrapper = styled.View`
-  align-items: center;
-`;
-const Volume = styled(TextStyled)`
-  margin-top: 5px;
-`;
-const EqualWrapper = styled.View`
-  padding: 10px;
-  padding-bottom: 50px;
-`;
-
 const roundCss = (size) => css`
   height: ${size}px;
   width: ${size}px;

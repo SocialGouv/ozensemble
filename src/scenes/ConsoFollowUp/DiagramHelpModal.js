@@ -10,6 +10,7 @@ import HalfBeer from '../../components/Illustrations/HalfBeer';
 import WineGlass from '../../components/Illustrations/WineGlass';
 import Dose from '../../components/Illustrations/Dose';
 import Stars from '../../components/Illustrations/Stars';
+import OneDoses from '../../components/OneDoses';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -68,32 +69,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                 }
               />
             </Paragraph>
-            <IconsContainer>
-              {doses.map(({ Icon, volume, name, degrees }, i) => (
-                <React.Fragment key={i}>
-                  <IconWrapper>
-                    <Icon size={50} style={{ borderWidth: 0 }} />
-                    <Volume color="#4030a5">{name}</Volume>
-                    <Volume color="#4030a5">{volume}cl</Volume>
-                    <Volume color="#4030a5">{degrees}%</Volume>
-                  </IconWrapper>
-                  {i < doses.length - 1 && (
-                    <EqualWrapper>
-                      <TextStyled color="#191919">=</TextStyled>
-                    </EqualWrapper>
-                  )}
-                </React.Fragment>
-              ))}
-              <EqualWrapper>
-                <TextStyled color="#191919">≈</TextStyled>
-              </EqualWrapper>
-              <IconWrapper>
-                <Dose size={25} style={{ borderWidth: 0 }} />
-                <Volume color="#4030a5">1 dose</Volume>
-                <Volume color="#4030a5">10g d'alcool</Volume>
-                <Volume color="#4030a5"> </Volume>
-              </IconWrapper>
-            </IconsContainer>
+            <OneDoses />
             {/* <DoseContainer>
               <DoseEqualWrapper>
                 <TextStyled color="#191919">=</TextStyled>
