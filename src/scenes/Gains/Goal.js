@@ -119,12 +119,12 @@ const Container = styled.View`
 `;
 
 const ContainerTime = styled.View`
-  margin-bottom: ${screenHeight * 0.03}
+  margin-bottom: ${screenHeight * 0.03}px;
 `;
 
 const Row = styled.View`
   flex-direction: row;
-  margin-bottom: ${screenHeight * 0.02}
+  margin-bottom: ${screenHeight * 0.02}px;
 `;
 
 const QuantityContainer = styled.View`
@@ -138,13 +138,13 @@ const CTAButtonContainer = styled.View`
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
-  margin-top: ${screenHeight * 0}
+  margin-top: ${screenHeight * 0}px;
 `;
 
 const DayContainer = styled.View`
   flex-direction: row;
   justify-content: center;
-  margin-bottom: ${screenHeight * 0.08}
+  margin-bottom: ${screenHeight * 0.08}px;
 `;
 
 const DayButton = ({ small, content, onPress, active }) => (
@@ -181,8 +181,8 @@ const QButtonContent = styled(TextStyled)`
 
 const DrinkByWeekContainer = styled.View`
   align-items: center;
-  margin-top: ${screenHeight * 0.01}
-  margin-bottom: ${screenHeight * 0.1}
+  margin-top: ${screenHeight * 0.01}px;
+  margin-bottom: ${screenHeight * 0.1}px;
 `;
 
 const HowCount = styled.TouchableOpacity`

@@ -30,7 +30,7 @@ const OnBoardingGain = ({ onPress }) => {
 const OnBoarding = styled.View`
   position: absolute;
   background-color: white ;
-  margin-top: ${screenHeight * 0.3};
+  margin-top: ${screenHeight * 0.3}px;
   left: 10%;
   width: 80%;
   padding: 24px;
