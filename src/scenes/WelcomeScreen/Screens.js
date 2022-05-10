@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import H1 from '../../components/H1';
-import H3 from '../../components/H3';
 import Screen1Image from '../../components/Illustrations/Screen1';
 import Screen2Image from '../../components/Illustrations/Screen2';
 import Screen3Image from '../../components/Illustrations/Screen3';
@@ -11,12 +10,11 @@ import { screenHeight, screenWidth } from '../../styles/theme';
 import { mediaHeight } from '../../styles/mediaQueries';
 import Agreement from './Agreement';
 
-
 export const Screen1 = () => (
   <ScreenBgStyled>
     <StyledScreen1 />
     <Title>
-      <TextStyled color="#4030a5">Bravo de vouloir réduire  votre consommation</TextStyled>
+      <TextStyled color="#4030a5">Bravo de vouloir réduire votre consommation</TextStyled>
     </Title>
     <SubTitle1>
       <TextStyled color="#191919">Vous avez entre les mains un outil </TextStyled>
@@ -35,14 +33,20 @@ export const Screen2 = () => (
       <TextStyled color="#4030a5">Comment cela marche ?</TextStyled>
     </Title>
     <BulletPointView>
-      <BulletPointText color="#191919" bold> {'\u2022'} Evaluez votre risque</BulletPointText>
-      <BulletPointText color="#191919" bold > {'\u2022'} Fixez-vous un objectif</BulletPointText>
-      <BulletPointText color="#191919" bold> {'\u2022'} Trouvez des conseils</BulletPointText>
+      <TextStyled color="#191919">
+        {'\u2022'} Évaluez votre risque{'\n'}
+      </TextStyled>
+      <TextStyled color="#191919">
+        {'\u2022'} Fixez-vous un objectif{'\n'}
+      </TextStyled>
+      <TextStyled color="#191919">
+        {'\u2022'} Trouvez des conseils{'\n'}
+      </TextStyled>
     </BulletPointView>
     <SubTitle2>
       <TextStyled color="#191919">Rien de plus simple !</TextStyled>
     </SubTitle2>
-  </ScreenBgStyled >
+  </ScreenBgStyled>
 );
 
 export const Screen3 = ({ setAgreed, agreed }) => (
@@ -76,23 +80,16 @@ const Title = styled(H1)`
   text-align: center;
 `;
 
-const BulletPointView = styled.View`
-  flex-direction: column;
-  margin-bottom: ${screenHeight * 0.025}px;
-`;
-
-const BulletPointText = styled.Text`
-  color: #191919;
-  font-weight: bold;
-  font-size: 17.5px;
-  line-height: 30px;
+const BulletPointView = styled(H2)`
+  width: 75%;
+  flex-shrink: 0;
   text-align: center;
+  margin-bottom: ${screenHeight * 0.025}px;
 `;
 
 const SubTitle1 = styled(H2)`
   width: 75%;
   flex-shrink: 0;
-  flex-direction: column;
   text-align: center;
   margin-bottom: ${screenHeight * 0.2}px;
 `;
