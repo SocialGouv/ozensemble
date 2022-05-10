@@ -13,8 +13,10 @@ const Estimation = () => {
   const navigation = useNavigation();
 
   const [drinkgoal] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
+  const [init, setInit] = useStateWithAsyncStorage("@GainInitGoal", false);
 
   const Complete = () => {
+    setInit(false);
     navigation.navigate("GAINS");
   }
 

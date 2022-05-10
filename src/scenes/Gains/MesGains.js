@@ -33,7 +33,7 @@ const MesGains = () => {
   const [drinkByWeek] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
   const [dayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
 
-  const [init] = useState(false);
+  const [init] = useStateWithAsyncStorage("@GainInitGoal", true);
   const [nextStep, setNextStep] = useState(false)
   const [showGoalfix, setShowGoalfix] = useState(true)
 
