@@ -4,7 +4,7 @@ import TextStyled from './TextStyled';
 import H3 from './H3';
 import { getDisplayDrinksModalName, getIcon, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
 import TouchableDelete from './TouchableDelete';
-import QButton from './QButton'
+import QButton from './QButton';
 
 const DrinkQuantitySetter = ({
   oneLine,
@@ -102,7 +102,6 @@ const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, v
     </BottomContainer>
   </Container>
 );
-
 
 const Container = styled.View`
   height: 100px;
