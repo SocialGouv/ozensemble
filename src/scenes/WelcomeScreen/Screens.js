@@ -3,25 +3,28 @@ import styled, { css } from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import H1 from '../../components/H1';
+import H3 from '../../components/H3';
 import Screen1Image from '../../components/Illustrations/Screen1';
 import Screen2Image from '../../components/Illustrations/Screen2';
 import Screen3Image from '../../components/Illustrations/Screen3';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import { mediaHeight } from '../../styles/mediaQueries';
+import Agreement from './Agreement';
+
 
 export const Screen1 = () => (
   <ScreenBgStyled>
     <StyledScreen1 />
     <Title>
-      <TextStyled color="#4030a5">Évaluez votre consommation d'alcool</TextStyled>
+      <TextStyled color="#4030a5">Bravo de vouloir réduire  votre consommation</TextStyled>
     </Title>
-    <SubTitle>
-      <TextStyled color="#191919">Un outil </TextStyled>
+    <SubTitle1>
+      <TextStyled color="#191919">Vous avez entre les mains un outil </TextStyled>
       <TextStyled color="#4030a5">gratuit </TextStyled>
       <TextStyled color="#191919">et </TextStyled>
       <TextStyled color="#4030a5">anonyme </TextStyled>
       <TextStyled color="#191919">de suivi de consommation d'alcool</TextStyled>
-    </SubTitle>
+    </SubTitle1>
   </ScreenBgStyled>
 );
 
@@ -29,25 +32,31 @@ export const Screen2 = () => (
   <ScreenBgStyled>
     <StyledScreen2 />
     <Title>
-      <TextStyled color="#4030a5">Détectez les risques d'addiction</TextStyled>
+      <TextStyled color="#4030a5">Comment cela marche ?</TextStyled>
     </Title>
-    <SubTitle>
-      <TextStyled color="#191919">Identifiez des consommations excessives ou votre dépendance</TextStyled>
-    </SubTitle>
-  </ScreenBgStyled>
+    <BulletPointView>
+      <BulletPointText color="#191919" bold> {'\u2022'} Evaluez votre risque</BulletPointText>
+      <BulletPointText color="#191919" bold > {'\u2022'} Fixez-vous un objectif</BulletPointText>
+      <BulletPointText color="#191919" bold> {'\u2022'} Trouvez des conseils</BulletPointText>
+    </BulletPointView>
+    <SubTitle2>
+      <TextStyled color="#191919">Rien de plus simple !</TextStyled>
+    </SubTitle2>
+  </ScreenBgStyled >
 );
 
-export const Screen3 = () => (
+export const Screen3 = ({ setAgreed, agreed }) => (
   <ScreenBgStyled>
     <StyledScreen3 />
     <Title>
-      <TextStyled color="#4030a5">Faites-vous accompagner par un professionnel</TextStyled>
+      <TextStyled color="#4030a5">Mesurez vos gains</TextStyled>
     </Title>
-    <SubTitle>
+    <SubTitle3>
       <TextStyled color="#191919">
-        Discutez gratuitement avec un professionnel et obtenez des conseils personnalisés
+        Au fil du temps, vous découvrirez vos économies en euros et les calories évitées
       </TextStyled>
-    </SubTitle>
+    </SubTitle3>
+    <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
   </ScreenBgStyled>
 );
 
@@ -64,12 +73,44 @@ const Title = styled(H1)`
   margin-bottom: ${screenHeight * 0.025}px;
   width: 75%;
   flex-shrink: 0;
+  text-align: center;
 `;
 
-const SubTitle = styled(H2)`
+const BulletPointView = styled.View`
+  flex-direction: column;
+  margin-bottom: ${screenHeight * 0.025}px;
+`;
+
+const BulletPointText = styled.Text`
+  color: #191919;
+  font-weight: bold;
+  font-size: 17.5px;
+  line-height: 30px;
+  text-align: center;
+`;
+
+const SubTitle1 = styled(H2)`
   width: 75%;
-  margin-bottom: ${screenHeight * 0.25}px;
   flex-shrink: 0;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: ${screenHeight * 0.2}px;
+`;
+
+const SubTitle2 = styled(H2)`
+  width: 75%;
+  flex-shrink: 0;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: ${screenHeight * 0.15}px;
+`;
+
+const SubTitle3 = styled(H2)`
+  width: 75%;
+  flex-shrink: 0;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: ${screenHeight * 0.1}px;
 `;
 
 const bigImage = css`
@@ -101,5 +142,4 @@ const StyledScreen2 = styled(Screen2Image)`
 
 const StyledScreen3 = styled(Screen3Image)`
   ${imageCss}
-  margin-bottom: 0px;
 `;

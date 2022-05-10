@@ -17,7 +17,6 @@ const Agreement = ({ onAgree, agreed }) => {
               // ios style
               onCheckColor="#4030a5"
               onTintColor="#4030a5"
-              onFillColor="#4030a511"
               animationDuration={0.2}
               boxType="square"
               lineWidth={1}
@@ -59,7 +58,7 @@ const Container = styled.View`
   text-align: center;
   width: 75%;
   margin-top: 5%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
@@ -67,10 +66,11 @@ const Container = styled.View`
 
 const CheckBoxContainer = styled.View`
   padding: 2px;
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   flex-shrink: 0;
   margin-right: 10px;
+
 `;
 
 const CheckBoxStyled = styled(CheckBox)`
@@ -81,15 +81,16 @@ const CheckBoxStyled = styled(CheckBox)`
 const TextContainer = styled.Text`
   margin-left: 15px;
   flex-shrink: 1;
+  line-height: 19.2px;
 `;
 
 const Content = styled.Text`
-  font-size: 10px;
+  font-size: 12px;
   color: ${color};
 `;
 
 const Link = styled.Text`
-  font-size: 10px;
+  font-size: 12px;
   text-decoration: underline;
   color: ${color};
 `;
