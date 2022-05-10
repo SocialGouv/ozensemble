@@ -10,7 +10,7 @@ import HalfBeer from '../../components/Illustrations/HalfBeer';
 import WineGlass from '../../components/Illustrations/WineGlass';
 import Dose from '../../components/Illustrations/Dose';
 import Stars from '../../components/Illustrations/Stars';
-import OneDoses from '../../components/OneDoses';
+import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -69,7 +69,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                 }
               />
             </Paragraph>
-            <OneDoses />
+            <OneDoseAlcoolExplanation />
             {/* <DoseContainer>
               <DoseEqualWrapper>
                 <TextStyled color="#191919">=</TextStyled>
