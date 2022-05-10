@@ -32,7 +32,7 @@ class BarCodeReader extends React.Component {
   };
 
   showScanAlert = async () => {
-    const dontShowScanAlert = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_DONT_SHOW_SCAN_ALERT);
+    const dontShowScanAlert = await AsyncStorage.getItem('@ScanAlert');
     if (dontShowScanAlert) return;
     setTimeout(() => {
       if (this.props.visible) {
@@ -47,7 +47,7 @@ class BarCodeReader extends React.Component {
             {
               text: 'Ne plus afficher',
               onPress: async () => {
-                await AsyncStorage.setItem(CONSTANTS.STORE_KEY_DONT_SHOW_SCAN_ALERT, 'true');
+                await AsyncStorage.setItem('@ScanAlert', 'true');
               },
               style: 'cancel',
             },

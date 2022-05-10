@@ -6,10 +6,10 @@ import { getAnswerScore } from '../../../components/Quizz/utils';
 // Utils
 
 export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+  const storedAnswers = await AsyncStorage.getItem('@Quizz_answers');
   if (storedAnswers !== null) {
     const newAnswers = JSON.parse(storedAnswers);
-    return newAnswers[CONSTANTS.GENDER];
+    return newAnswers.gender;
   }
   return null;
 };
@@ -18,8 +18,8 @@ export const computeScore = (questions, answers) => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
       return {
-        [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
-        [CONSTANTS.SCORE]: 0,
+        gender: 'woman',
+        score: 0,
       };
     }
     const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER);
@@ -33,50 +33,50 @@ export const computeScore = (questions, answers) => {
       score = score + getAnswerScore(questions, answers, questionKey);
     }
     return {
-      [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
-      [CONSTANTS.SCORE]: score,
+      gender: answers.gender,
+      score: score,
     };
   } catch (e) {
     capture('error in mapOnboardingAnswersToResult ' + e, {
       extra: { answers, message: 'cannot compute score of onboarding quizz' },
     });
   }
-  if (answers[CONSTANTS.GENDER]) {
+  if (answers.gender) {
     return {
-      [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
-      [CONSTANTS.SCORE]: 0,
+      gender: answers.gender,
+      score: 0,
     };
   }
   return {
-    [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
-    [CONSTANTS.SCORE]: 0,
+    gender: 'woman',
+    score: 0,
   };
 };
 
 const mapScoreToResult = (scoreAndGender) => {
-  const gender = scoreAndGender[CONSTANTS.GENDER];
-  const score = scoreAndGender[CONSTANTS.SCORE];
+  const gender = scoreAndGender.gender;
+  const score = scoreAndGender.score;
   // woman first
-  if (gender === CONSTANTS.WOMAN) {
-    if (score > 4) return CONSTANTS.RESULT_ADDICTED;
-    if (score > 3) return CONSTANTS.RESULT_RISK;
-    return CONSTANTS.RESULT_GOOD;
+  if (gender === 'woman') {
+    if (score > 4) return 'addicted';
+    if (score > 3) return 'risk';
+    return 'good';
   }
   // then men
-  if (gender === CONSTANTS.MAN) {
-    if (score > 5) return CONSTANTS.RESULT_ADDICTED;
-    if (score > 4) return CONSTANTS.RESULT_RISK;
-    return CONSTANTS.RESULT_GOOD;
+  if (gender === 'man') {
+    if (score > 5) return 'addicted';
+    if (score > 4) return 'risk';
+    return 'good';
   }
 };
 
 export const mapOnboardingResultToMatomoProfile = (resultKey) => {
   switch (resultKey) {
-    case CONSTANTS.RESULT_ADDICTED:
+    case 'addicted':
       return 3;
-    case CONSTANTS.RESULT_RISK:
+    case 'risk':
       return 2;
-    case CONSTANTS.RESULT_GOOD:
+    case 'good':
       return 1;
     default:
       return null;

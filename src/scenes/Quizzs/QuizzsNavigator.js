@@ -74,30 +74,30 @@ const QuizzMenu = () => {
           topTitle="Questionnaire d’auto-évaluation"
           title="Ma consommation d'alcool"
           quizzRoute="ONBOARDING_QUIZZ"
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS}
+          memoryKeyResult={'@Quizz_result'}
+          memoryKeyAnswers={'@Quizz_answers'}
           showEvenNotDone
         />
         <QuizzElement
           topTitle="Défi 7 jours"
           title="Évaluer sa consommation"
           quizzRoute="EVALUATE_CONSO_QUIZZ"
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_ANSWERS}
+          memoryKeyResult={'@QuizzEvaluateConso_result'}
+          memoryKeyAnswers={'@QuizzEvaluateConso_answers'}
         />
         <QuizzElement
           topTitle="Défi 7 jours"
           title="Qualité de vie"
           quizzRoute="LIFE_QUALITY_QUIZZ"
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_ANSWERS}
+          memoryKeyResult={'@QuizzLifeQuality_result'}
+          memoryKeyAnswers={'@QuizzLifeQuality_answers'}
         />
         <QuizzElement
           topTitle="Défi 7 jours"
           title="Mes motivations à diminuer"
           quizzRoute="MOTIVATIONS_QUIZZ"
-          memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_RESULT}
-          memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS}
+          memoryKeyResult={'@QuizzMotivations_result'}
+          memoryKeyAnswers={'@QuizzMotivations_answers'}
         />
       </Quizzcontainer>
     </ScreenBgStyled>

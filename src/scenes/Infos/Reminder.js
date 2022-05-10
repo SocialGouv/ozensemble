@@ -17,6 +17,9 @@ import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
 
+const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
+const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
+
 class Reminder extends React.Component {
   state = {
     reminder: null,
@@ -34,7 +37,7 @@ class Reminder extends React.Component {
 
   getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
-    const reminder = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_REMINDER);
+    const reminder = await AsyncStorage.getItem('@Reminder');
     if (Boolean(reminder) && new Date(reminder) == 'Invalid Date') {
       this.deleteReminder();
       return;
@@ -50,8 +53,8 @@ class Reminder extends React.Component {
       const fireDate = dateWithTimeAndOffsetFromToday(reminder.getHours(), reminder.getMinutes(), i);
       NotificationService.scheduleNotification({
         date: fireDate,
-        title: CONSTANTS.NOTIF_REMINDER_TITLE,
-        message: CONSTANTS.NOTIF_REMINDER_MESSAGE,
+        title: notifReminderTitle,
+        message: notifReminderMessage,
       });
     }
   };
@@ -89,14 +92,14 @@ class Reminder extends React.Component {
       this.setState({ timePickerVisible: false });
       return;
     }
-    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_REMINDER, reminder.toISOString());
+    await AsyncStorage.setItem('@Reminder', reminder.toISOString());
     await this.scheduleNotification(reminder);
     await matomo.logReminderSet(Date.parse(reminder));
     this.setState({ reminder, timePickerVisible: false });
   };
 
   deleteReminder = async () => {
-    await AsyncStorage.removeItem(CONSTANTS.STORE_KEY_REMINDER);
+    await AsyncStorage.removeItem('@Reminder');
     NotificationService.cancelAll();
     this.setState({ reminder: null, timePickerVisible: false });
     matomo.logReminderDelete();
@@ -105,7 +108,7 @@ class Reminder extends React.Component {
   handleNotification = (notification) => {
     const { navigation } = this.props;
     if (Platform.OS === 'android') {
-      if (notification.title === CONSTANTS.NOTIF_REMINDER_TITLE) {
+      if (notification.title === notifReminderTitle) {
         navigation.navigate('CONSO_FOLLOW_UP');
         matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
       }
@@ -113,10 +116,10 @@ class Reminder extends React.Component {
     if (Platform.OS === 'ios') {
       if (notification.foreground && !this.notifHandled) {
         this.notifHandled = true;
-        if (notification.message === CONSTANTS.NOTIF_REMINDER_MESSAGE) {
+        if (notification.message === notifReminderMessage) {
           Alert.alert(
-            CONSTANTS.NOTIF_REMINDER_TITLE,
-            CONSTANTS.NOTIF_REMINDER_MESSAGE,
+            notifReminderTitle,
+            notifReminderMessage,
             [
               {
                 text: 'Suivi',
@@ -138,7 +141,7 @@ class Reminder extends React.Component {
           );
         }
       } else {
-        if (notification.message === CONSTANTS.NOTIF_REMINDER_MESSAGE) {
+        if (notification.message === notifReminderMessage) {
           navigation.navigate('CONSO_FOLLOW_UP');
           matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
         }

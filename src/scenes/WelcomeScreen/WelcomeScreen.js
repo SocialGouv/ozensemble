@@ -21,20 +21,19 @@ const WelcomeScreen = ({ navigation }) => {
   const swiperRef = React.useRef();
 
   const indexChanged = (index) => {
-    setCurrentIndex(index)
+    setCurrentIndex(index);
     if (index === 2) {
-      setPagination(false)
+      setPagination(false);
+    } else {
+      setPagination(true);
     }
-    else {
-      setPagination(true)
-    }
-  }
+  };
 
   const onStartPress = async () => {
-    AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
+    AsyncStorage.setItem('@OnboardingDoneWithCGU', 'true');
     RNBootSplash.show({ duration: 250 });
     await new Promise((res) => setTimeout(res, 250));
-    const onBoardingAnswersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+    const onBoardingAnswersExist = await AsyncStorage.getItem('@Quizz_answers');
     if (!onBoardingAnswersExist) navigation.navigate('ONBOARDING_QUIZZ');
     else navigation.navigate('TABS');
     await new Promise((res) => setTimeout(res, 750));
@@ -72,7 +71,7 @@ const WelcomeScreen = ({ navigation }) => {
           <ButtonPrimary content="Suivant" onPress={onPressNext} />
         )}
       </CTAButtonContainer>
-    </Background >
+    </Background>
   );
 };
 

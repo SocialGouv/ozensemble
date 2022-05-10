@@ -21,7 +21,7 @@ import DefisIcon from './components/Illustrations/Defis';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
-import GainsNavigator from './scenes/Gains/GainsNavigator'
+import GainsNavigator from './scenes/Gains/GainsNavigator';
 
 import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
 
@@ -114,9 +114,9 @@ class Router extends React.Component {
     await matomo.initMatomo();
     await matomo.logAppVisit('initApp');
     // await AsyncStorage.clear();
-    const onBoardingDone = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE);
+    const onBoardingDone = await AsyncStorage.getItem('@OnboardingDoneWithCGU');
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
-    const onBoardingAnswersExist = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+    const onBoardingAnswersExist = await AsyncStorage.getItem('@Quizz_answers');
     if (!onBoardingAnswersExist) return this.setState({ initialRouteName: 'ONBOARDING_QUIZZ' });
     return this.setState({ initialRouteName: 'TABS' });
   };
