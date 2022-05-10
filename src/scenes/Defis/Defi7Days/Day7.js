@@ -11,7 +11,6 @@ import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/
 import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 
-import CONSTANTS from '../../../reference/constants';
 import Sources from '../../Quizzs/Sources';
 
 export default ({ navigation }) => {
@@ -24,23 +23,13 @@ export default ({ navigation }) => {
   };
   React.useEffect(() => {
     getResultsFromStorage(
-      CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_ANSWERS,
-      CONSTANTS.STORE_KEY_QUIZZ_EVALUATE_CONSO_RESULT,
+      '@QuizzEvaluateConso_answers',
+      '@QuizzEvaluateConso_result',
       'resultEvaluateConso',
       setResults
     );
-    getResultsFromStorage(
-      CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_ANSWERS,
-      CONSTANTS.STORE_KEY_QUIZZ_LIFE_QUALITY_RESULT,
-      'resultLifeQuality',
-      setResults
-    );
-    getResultsFromStorage(
-      CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS,
-      CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_RESULT,
-      'resultMotivation',
-      setResults
-    );
+    getResultsFromStorage('@QuizzLifeQuality_answers', '@QuizzLifeQuality_result', 'resultLifeQuality', setResults);
+    getResultsFromStorage('@QuizzMotivations_answers', '@QuizzMotivations_result', 'resultMotivation', setResults);
   }, []);
 
   React.useEffect(() => {

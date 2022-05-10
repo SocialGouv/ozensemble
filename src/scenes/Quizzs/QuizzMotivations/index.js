@@ -2,7 +2,6 @@ import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import sections from './sections';
 import { TopContainer, TopTitle, TopTitleContainer, ScreenBgStyled, Paragraph } from './styles';
-import CONSTANTS from '../../../reference/constants';
 import Background from '../../../components/Background';
 import Results from './ResultsMotivations';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -19,8 +18,8 @@ const QuizzMotivations = ({ navigation, route }) => {
 
   const [answers, setAnswers] = React.useState(initialState.answers);
 
-  const memoryKeyAnswers = CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS;
-  const memoryKeyResult = CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_RESULT;
+  const memoryKeyAnswers = '@QuizzMotivations_answers';
+  const memoryKeyResult = '@QuizzMotivations_result';
 
   const setInitAnswers = async () => {
     const fetchedInitialState = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
