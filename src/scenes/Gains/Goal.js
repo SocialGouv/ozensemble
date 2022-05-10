@@ -29,9 +29,6 @@ const Goal = () => {
 
   const navigation = useNavigation();
 
-  const Return = () => {
-    navigation.navigate("GAINS");
-  };
 
   const onHowCount = () => {
     navigation.navigate("HOWCOUNT");
@@ -43,7 +40,7 @@ const Goal = () => {
 
   return (
     <ScreenBgStyled>
-      <GoBack onPress={Return}>
+      <GoBack onPress={navigation.goBack}>
         <TextStyled bold>
           {"<"} Retour </TextStyled>
       </GoBack>

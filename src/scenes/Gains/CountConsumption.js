@@ -4,21 +4,17 @@ import { useNavigation } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
-import OneDoses from '../../components/OneDoses';
+import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import { screenHeight } from '../../styles/theme';
 
 const CountConsumptiom = () => {
 
   const navigation = useNavigation();
 
-  const Return = () => {
-    navigation.navigate("GOAL");
-  };
-
   return (
     <ScreenBgStyled>
       <TextBackground>
-        <GoBack onPress={Return}>
+        <GoBack onPress={navigation.goBack}>
           <TextStyled bold>
             {"<"} Retour </TextStyled>
         </GoBack>
@@ -42,7 +38,7 @@ const CountConsumptiom = () => {
         </HowCountContainer>
       </TextBackground>
       <DoseContainer>
-        <OneDoses backgroundColor={"#ECECEC"} />
+        <OneDoseAlcoolExplanation backgroundColor={"#ECECEC"} />
       </DoseContainer>
     </ScreenBgStyled>
   )
