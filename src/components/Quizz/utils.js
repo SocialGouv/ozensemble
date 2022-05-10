@@ -1,4 +1,3 @@
-import CONSTANTS from '../../reference/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { capture } from '../../services/sentry';
 
@@ -10,10 +9,10 @@ export const getAnswerScore = (questions, answers, questionKey) =>
   findAnswer(findQuestion(questions, questionKey), answers[questionKey])?.score;
 
 export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+  const storedAnswers = await AsyncStorage.getItem('@Quizz_answers');
   if (storedAnswers !== null) {
     const newAnswers = JSON.parse(storedAnswers);
-    return newAnswers[CONSTANTS.GENDER];
+    return newAnswers.gender;
   }
   return null;
 };

@@ -1,5 +1,3 @@
-import CONSTANTS from '../../../reference/constants';
-
 const questions = [
   {
     questionTitle: "Quelle est votre tranche d'âge ?",
@@ -29,16 +27,16 @@ const questions = [
   },
   {
     questionTitle: 'Êtes-vous un homme ou une femme ?',
-    questionKey: CONSTANTS.GENDER,
+    questionKey: 'gender',
     answers: [
       {
         content: 'Un homme',
-        answerKey: CONSTANTS.MAN,
+        answerKey: 'man',
         score: 0,
       },
       {
         content: 'Une femme',
-        answerKey: CONSTANTS.WOMAN,
+        answerKey: 'woman',
         score: 1,
       },
     ],

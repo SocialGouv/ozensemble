@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import NotificationService from '../../services/notifications';
 import matomo from '../../services/matomo';
-import CONSTANTS from '../../reference/constants';
 import Mark from './Mark';
 import {
   Container,
@@ -368,7 +367,7 @@ NPS.propTypes = {
 NPS.defaultProps = {
   notifTitle: 'Vos retours sont importants pour nous',
   notifMessage: 'Avez-vous quelques secondes pour donner votre avis ?',
-  userIdLocalStorageKey: CONSTANTS.STORE_KEY_USER_ID,
+  userIdLocalStorageKey: '@UserIdv2',
 };
 
 export default NPS;
