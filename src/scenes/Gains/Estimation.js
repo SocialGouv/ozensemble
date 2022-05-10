@@ -5,12 +5,18 @@ import H1 from '../../components/H1';
 import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import { screenHeight } from '../../styles/theme';
 
 const Estimation = () => {
 
   const navigation = useNavigation();
 
   const [drinkgoal] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
+
+  const Complete = () => {
+    navigation.navigate("GAINS");
+  }
 
   return (
     <ScreenBgStyled>
@@ -34,6 +40,9 @@ const Estimation = () => {
           </DescriptionText>
         </TopDescription>
       </TopContainer>
+      <CTAButtonContainer>
+        <ButtonPrimary content="Continuer" onPress={Complete} />
+      </CTAButtonContainer>
     </ScreenBgStyled>
   )
 }
@@ -64,5 +73,11 @@ const DescriptionText = styled.Text`
   margin-bottom: 14px;
 `;
 
+const CTAButtonContainer = styled.View`
+  height: ${screenHeight * 0.22}px;
+  align-items: center;
+  background-color: #f9f9f9;
+  flex-shrink: 1;
+`;
 
 export default Estimation
