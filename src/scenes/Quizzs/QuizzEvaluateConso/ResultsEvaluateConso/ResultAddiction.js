@@ -1,7 +1,6 @@
 import React from 'react';
-import CONSTANTS from '../../../../reference/constants';
 import { View } from 'react-native';
-import { EmptyView, ResultTitle, ResultParagraph, ContainerSection } from './styles';
+import { ResultTitle, ResultParagraph, ContainerSection } from './styles';
 import TextStyled from '../../../../components/TextStyled';
 
 const ResultAddiction = ({ value }) => {
@@ -10,7 +9,7 @@ const ResultAddiction = ({ value }) => {
       default:
       case null:
         return;
-      case CONSTANTS.RESULT_GOOD:
+      case 'good':
         return (
           <View>
             <ResultParagraph color="#191919">
@@ -18,7 +17,7 @@ const ResultAddiction = ({ value }) => {
             </ResultParagraph>
           </View>
         );
-      case CONSTANTS.RESULT_RISK:
+      case 'risk':
         return (
           <View>
             <ResultParagraph color="#191919">
@@ -36,7 +35,7 @@ const ResultAddiction = ({ value }) => {
             </ResultParagraph>
           </View>
         );
-      case CONSTANTS.RESULT_ADDICTED:
+      case 'addicted':
         return (
           <View>
             <ResultParagraph color="#191919">

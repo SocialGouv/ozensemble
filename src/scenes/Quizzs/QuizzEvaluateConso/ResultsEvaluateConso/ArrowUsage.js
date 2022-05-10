@@ -1,24 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import TextStyled from '../../../../components/TextStyled';
-import CONSTANTS from '../../../../reference/constants';
 
 const STEPS = [
   {
     label: 'Dépendance',
-    scoreKey: CONSTANTS.RESULT_ARROW_ADDICTED,
+    scoreKey: 'RESULT_ARROW_ADDICTED',
   },
   {
     label: 'Usage nocif',
-    scoreKey: CONSTANTS.RESULT_ARROW_HARMFUL_USAGE,
+    scoreKey: 'RESULT_ARROW_HARMFUL_USAGE',
   },
   {
     label: 'Usage simple',
-    scoreKey: CONSTANTS.RESULT_ARROW_SIMPLE_USAGE,
+    scoreKey: 'RESULT_ARROW_SIMPLE_USAGE',
   },
   {
     label: 'Non usage',
-    scoreKey: CONSTANTS.RESULT_ARROW_NO_USAGE,
+    scoreKey: 'RESULT_ARROW_NO_USAGE',
   },
 ];
 
