@@ -123,7 +123,7 @@ const Description = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: ${screenHeight * 0.02}; 
+  margin-top: ${screenHeight * 0.02}px; 
 `;
 
 const ButtonTouchable = styled.TouchableOpacity`
@@ -148,8 +148,8 @@ const Categories = styled.View`
 
 const TextContainer = styled.View`
   align-items: center;
-  margin-bottom: ${screenHeight * 0.02};
-  margin-top: ${screenHeight * 0.02};
+  margin-bottom: ${screenHeight * 0.02}px;
+  margin-top: ${screenHeight * 0.02}px;
 `;
 
 const TextForm = styled(H2)`

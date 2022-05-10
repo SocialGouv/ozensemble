@@ -36,8 +36,8 @@ const CTAInner = CTASize - 2 * plusThickness;
 const plusSize = CTAInner / 2;
 const CTAContainer = styled.View`
   position: absolute;
-  top: ${screenHeight * 0.82} ;
-  left: ${screenWidth * 0.82};
+  top: ${screenHeight * 0.8}px;
+  left: ${screenWidth * 0.8}px;
   ${roundCss(CTASize)}
   border: 1px solid #4030a533;
   background-color: white;
