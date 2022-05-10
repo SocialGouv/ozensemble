@@ -8,11 +8,15 @@ import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { screenHeight } from '../../styles/theme';
 
-const Estimation = () => {
+const SevragesSign = () => {
 
   const navigation = useNavigation();
 
   const [drinkgoal] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
+
+  const Complete = () => {
+    navigation.navigate("GAINS");
+  }
 
   return (
     <ScreenBgStyled>
@@ -22,7 +26,7 @@ const Estimation = () => {
       </GoBack>
       <TopContainer>
         <TopTitle>
-          <H1 color="#4030a5">Pour calculer vos gains</H1>
+          <H1 color="#000000">Repérez le signes de sevrades</H1>
         </TopTitle>
         <TopDescription>
           <DescriptionText>
@@ -37,7 +41,7 @@ const Estimation = () => {
         </TopDescription>
       </TopContainer>
       <CTAButtonContainer>
-        <ButtonPrimary content="Je finalise" onPress={() => navigation.navigate("GAINS")} />
+        <ButtonPrimary content="Je finalise" onPress={Complete} />
       </CTAButtonContainer>
     </ScreenBgStyled>
   )
@@ -76,4 +80,4 @@ const CTAButtonContainer = styled.View`
   flex-shrink: 1;
 `;
 
-export default Estimation
+export default SevragesSign

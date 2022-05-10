@@ -7,6 +7,7 @@ import MesGains from './MesGains';
 import CountConsumptiom from './CountConsumption';
 import Consumptions from './Consumptions';
 import Estimation from './Estimation';
+import SevragesSign from './SevragesSign';
 
 const GainsStack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const GainsNavigator = () => {
                     <GainsStack.Screen name="HOWCOUNT" component={CountConsumptiom} />
                     <GainsStack.Screen name="CONSUMPTIONS" component={Consumptions} />
                     <GainsStack.Screen name="ESTIMATION" component={Estimation} />
+                    <GainsStack.Screen name="SEVRAGESIGN" component={SevragesSign} />
                 </GainsStack.Navigator>
             )}
         </Background>
