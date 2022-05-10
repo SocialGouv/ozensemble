@@ -16,6 +16,7 @@ import Rocket from '../../components/Illustrations/Rocket';
 import TextStyled from '../../components/TextStyled';
 import GainsCalendar from './GainsCalendar'
 import MyGoal from './MyGoal';
+import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
 const MesGains = () => {
 
@@ -29,10 +30,10 @@ const MesGains = () => {
   const beginDate = "3 avril";
   const beginDay = "mercredi";
 
-  const drinkByWeek = 16;
-  const dayNoDrink = 3;
+  const [drinkByWeek] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
+  const [dayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
 
-  const [init] = useState(true);
+  const [init] = useState(false);
   const [nextStep, setNextStep] = useState(false)
   const [showGoalfix, setShowGoalfix] = useState(true)
 

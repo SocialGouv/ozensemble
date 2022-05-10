@@ -25,7 +25,7 @@ const DotContainer = styled.View`
 const Dot = styled.View`
   ${dotCss}
   margin-top: ${dotSize * 0.12}px;
-  margin-left: 0;
+  margin-left: 0px;
   background-color: ${({ active }) => (!active ? '#d7d7d7' : '#de285e')};
 
 `;

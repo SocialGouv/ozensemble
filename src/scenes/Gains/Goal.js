@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import H1 from '../../components/H1';
@@ -10,25 +10,30 @@ import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { screenHeight, screenWidth } from '../../styles/theme';
+import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
 const Goal = () => {
 
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useStateWithAsyncStorage("@GainQuantityDrinkByDay", 1);
 
-  const [monday, setMonday] = useState(false)
-  const [tuesday, setTuesday] = useState(false)
-  const [wednesday, setWednesday] = useState(false)
-  const [thuesday, setThuesday] = useState(false)
-  const [friday, setFriday] = useState(false)
-  const [saturday, setSaturday] = useState(false)
-  const [sunday, setSunday] = useState(false)
+  const [monday, setMonday] = useStateWithAsyncStorage("@GainMonday", false);
+  const [tuesday, setTuesday] = useStateWithAsyncStorage("@GainTuesday", false);
+  const [wednesday, setWednesday] = useStateWithAsyncStorage("@GainWednesday", false);
+  const [thursday, setThursday] = useStateWithAsyncStorage("@GainThursday", false);
+  const [friday, setFriday] = useStateWithAsyncStorage("@GainFriday", false);
+  const [saturday, setSaturday] = useStateWithAsyncStorage("@GainSaturday", false);
+  const [sunday, setSunday] = useStateWithAsyncStorage("@GainSunday", false);
 
-  const week = [monday, tuesday, wednesday, thuesday, friday, saturday, sunday]
-  const dayNoDrink = week.filter((e) => e === true).length
-  const drinkByWeek = quantity * (7 - dayNoDrink)
+  const week = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
+  const [drinkByWeek, setdrinkByWeek] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 7);
+  const [dayNoDrink, setDayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
+
+  useEffect(() => {
+    setdrinkByWeek(quantity * (7 - dayNoDrink))
+    setDayNoDrink(week.filter((e) => e === true).length)
+  }, [quantity, week]);
 
   const navigation = useNavigation();
-
 
   const onHowCount = () => {
     navigation.navigate("HOWCOUNT");
@@ -55,29 +60,27 @@ const Goal = () => {
         </ContainerTime>
         <Row>
           <Calendar size={24} />
-          <Small>
+          <TextSemiBold>
             <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
-          </Small>
+          </TextSemiBold>
         </Row>
         <DayContainer>
           <DayButton content="L" active={monday} onPress={() => setMonday(!monday)} />
           <DayButton content="M" active={tuesday} onPress={() => setTuesday(!tuesday)} />
           <DayButton content="M" active={wednesday} onPress={() => setWednesday(!wednesday)} />
-          <DayButton content="J" active={thuesday} onPress={() => setThuesday(!thuesday)} />
+          <DayButton content="J" active={thursday} onPress={() => setThursday(!thursday)} />
           <DayButton content="V" active={friday} onPress={() => setFriday(!friday)} />
           <DayButton content="S" active={saturday} onPress={() => setSaturday(!saturday)} />
           <DayButton content="D" active={sunday} onPress={() => setSunday(!sunday)} />
         </DayContainer>
         <Row>
           <CocktailGlassTriangle size={24} />
-          <Small>
+          <TextSemiBold>
             <TextStyled> Nombre de verres par jours que je m'autorise quand je bois de l'alcool</TextStyled>
-          </Small>
+          </TextSemiBold>
         </Row>
         <Row>
-          <VerySmall>
-            <TextStyled>Comment compter un verre sans me tromper </TextStyled>
-          </VerySmall>
+          <TextStyled>Comment compter un verre sans me tromper </TextStyled>
           <HowCount onPress={onHowCount}>
             <InfoObjectif size={20} color={"#000000"} />
           </HowCount>
@@ -144,8 +147,8 @@ const QuantityContainer = styled.View`
 `
 
 const NumberDrink = styled.Text`
-  margin-right: ${screenWidth * 0.05};
-  margin-left: ${screenWidth * 0.05};
+  margin-right: ${screenWidth * 0.05}px;
+  margin-left: ${screenWidth * 0.05}px;
   font-size: 18px;
 `;
 
@@ -203,14 +206,10 @@ const DrinkByWeekContainer = styled.View`
 const HowCount = styled.TouchableOpacity`
 `;
 
-const Small = styled.Text`
-  font-size:11px;
+const TextSemiBold = styled.Text`
   font-weight:700;
 `;
 
-const VerySmall = styled.Text`
-  font-size:10px;
-`;
 
 
 export default Goal
