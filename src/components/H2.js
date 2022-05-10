@@ -17,7 +17,7 @@ const smallH2 = css`
 `;
 
 const H2 = styled.Text`
-  color: #191919;
+  color: ${({ color }) => color ? color : "#191919"};;
   font-weight: bold;
   ${bigH2}
   ${mediaHeight.medium`${mediumH2}`}
