@@ -10,7 +10,7 @@ const ResultAddiction = ({ value }) => {
       default:
       case null:
         return;
-      case CONSTANTS.RESULT_GOOD:
+      case 'good':
         return (
           <View>
             <ResultParagraph color="#191919">
@@ -18,7 +18,7 @@ const ResultAddiction = ({ value }) => {
             </ResultParagraph>
           </View>
         );
-      case CONSTANTS.RESULT_RISK:
+      case 'risk':
         return (
           <View>
             <ResultParagraph color="#191919">
@@ -36,7 +36,7 @@ const ResultAddiction = ({ value }) => {
             </ResultParagraph>
           </View>
         );
-      case CONSTANTS.RESULT_ADDICTED:
+      case 'addicted':
         return (
           <View>
             <ResultParagraph color="#191919">

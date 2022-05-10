@@ -368,7 +368,7 @@ NPS.propTypes = {
 NPS.defaultProps = {
   notifTitle: 'Vos retours sont importants pour nous',
   notifMessage: 'Avez-vous quelques secondes pour donner votre avis ?',
-  userIdLocalStorageKey: CONSTANTS.STORE_KEY_USER_ID,
+  userIdLocalStorageKey: '@UserIdv2',
 };
 
 export default NPS;

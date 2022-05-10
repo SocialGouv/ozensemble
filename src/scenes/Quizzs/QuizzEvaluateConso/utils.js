@@ -4,10 +4,10 @@ import { getAnswerScore } from '../../../components/Quizz/utils';
 import { capture } from '../../../services/sentry';
 
 export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+  const storedAnswers = await AsyncStorage.getItem('@Quizz_answers');
   if (storedAnswers !== null) {
     const newAnswers = JSON.parse(storedAnswers);
-    return newAnswers[CONSTANTS.GENDER];
+    return newAnswers.gender;
   }
   return null;
 };
@@ -28,8 +28,8 @@ export const computeScore = (questions, answers) => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
       return {
-        [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
-        [CONSTANTS.SCORE]: 0,
+        gender: 'woman',
+        score: 0,
       };
     }
     const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER && key !== 'age');
@@ -44,55 +44,55 @@ export const computeScore = (questions, answers) => {
     }
 
     return {
-      [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
-      [CONSTANTS.SCORE]: score,
+      gender: answers.gender,
+      score: score,
     };
   } catch (e) {
     capture('error in mapEvaluateConsoAnswersToResult ' + e, { extra: { answers } });
   }
-  if (answers[CONSTANTS.GENDER]) {
+  if (answers.gender) {
     return {
-      [CONSTANTS.GENDER]: answers[CONSTANTS.GENDER],
-      [CONSTANTS.SCORE]: -1,
+      gender: answers.gender,
+      score: -1,
     };
   }
   return {
-    [CONSTANTS.GENDER]: CONSTANTS.WOMAN,
-    [CONSTANTS.SCORE]: -1,
+    gender: 'woman',
+    score: -1,
   };
 };
 
 const mapScoreToResult = ({ computedScore, answers }) => {
-  const gender = computedScore[CONSTANTS.GENDER];
-  const score = computedScore[CONSTANTS.SCORE];
+  const gender = computedScore.gender;
+  const score = computedScore.score;
 
   // woman first
   let scores = {};
-  if (gender === CONSTANTS.WOMAN) {
+  if (gender === 'woman') {
     // score for the first part, addiction
-    if (score <= 4) scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
-    if (score >= 5) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
-    if (score >= 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
+    if (score <= 4) scores.scoreAddiction = 'good';
+    if (score >= 5) scores.scoreAddiction = 'risk';
+    if (score >= 12) scores.scoreAddiction = 'addicted';
 
     //score for the second part, the arrow
-    if (score === 0) scores.scoreArrow = CONSTANTS.RESULT_ARROW_NO_USAGE;
-    if (score >= 1 && score <= 6) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
-    if (score >= 7 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
-    if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
-    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
+    if (score === 0) scores.scoreArrow = 'RESULT_ARROW_NO_USAGE';
+    if (score >= 1 && score <= 6) scores.scoreArrow = 'RESULT_ARROW_SIMPLE_USAGE';
+    if (score >= 7 && score <= 11) scores.scoreArrow = 'RESULT_ARROW_HARMFUL_USAGE';
+    if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = 'RESULT_ARROW_HARMFUL_USAGE';
+    if (score >= 12) scores.scoreArrow = 'RESULT_ARROW_ADDICTED';
   }
   // then men
-  else if (gender === CONSTANTS.MAN) {
-    if (score <= 5) scores.scoreAddiction = CONSTANTS.RESULT_GOOD;
-    if (score >= 6) scores.scoreAddiction = CONSTANTS.RESULT_RISK;
-    if (score >= 12) scores.scoreAddiction = CONSTANTS.RESULT_ADDICTED;
+  else if (gender === 'man') {
+    if (score <= 5) scores.scoreAddiction = 'good';
+    if (score >= 6) scores.scoreAddiction = 'risk';
+    if (score >= 12) scores.scoreAddiction = 'addicted';
 
     //score for the second part, the arrow
-    if (score === 0) scores.scoreArrow = CONSTANTS.RESULT_ARROW_NO_USAGE;
-    if (score >= 1 && score <= 7) scores.scoreArrow = CONSTANTS.RESULT_ARROW_SIMPLE_USAGE;
-    if (score >= 8 && score <= 11) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
-    if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = CONSTANTS.RESULT_ARROW_HARMFUL_USAGE;
-    if (score >= 12) scores.scoreArrow = CONSTANTS.RESULT_ARROW_ADDICTED;
+    if (score === 0) scores.scoreArrow = 'RESULT_ARROW_NO_USAGE';
+    if (score >= 1 && score <= 7) scores.scoreArrow = 'RESULT_ARROW_SIMPLE_USAGE';
+    if (score >= 8 && score <= 11) scores.scoreArrow = 'RESULT_ARROW_HARMFUL_USAGE';
+    if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = 'RESULT_ARROW_HARMFUL_USAGE';
+    if (score >= 12) scores.scoreArrow = 'RESULT_ARROW_ADDICTED';
   }
   console.log({ score });
   console.log({ scores });

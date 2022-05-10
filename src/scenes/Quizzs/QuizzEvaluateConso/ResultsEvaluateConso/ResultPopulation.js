@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const ResultPopulation = ({ value, hideButtons }) => {
   const navigation = useNavigation();
   const renderFooter = () =>
-    [CONSTANTS.RESULT_ARROW_ADDICTED, CONSTANTS.RESULT_ARROW_HARMFUL_USAGE].includes(value) ? (
+    ['RESULT_ARROW_ADDICTED', 'RESULT_ARROW_HARMFUL_USAGE'].includes(value) ? (
       <>
         <ButtonPrimary
           content="Échanger avec un conseiller"

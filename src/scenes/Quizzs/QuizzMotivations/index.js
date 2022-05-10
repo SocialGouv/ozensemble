@@ -19,8 +19,8 @@ const QuizzMotivations = ({ navigation, route }) => {
 
   const [answers, setAnswers] = React.useState(initialState.answers);
 
-  const memoryKeyAnswers = CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS;
-  const memoryKeyResult = CONSTANTS.STORE_KEY_QUIZZ_MOTIVATIONS_RESULT;
+  const memoryKeyAnswers = '@QuizzMotivations_answers';
+  const memoryKeyResult = '@QuizzMotivations_result';
 
   const setInitAnswers = async () => {
     const fetchedInitialState = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
