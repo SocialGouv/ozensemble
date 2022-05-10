@@ -24,9 +24,15 @@ const Estimation = () => {
           <H1 color="#4030a5">Pour calculer vos gains</H1>
         </TopTitle>
         <TopDescription>
-          <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
-          <TextStyled><TextStyled bold>Vos réponses sont anonymes,</TextStyled>répondez avec le plus de transparence possible.</TextStyled>
-          <TextStyled>Pour rappel votre objectif est de ne pas dépasser <TextStyled color={"#4030a5"}>{drinkgoal} verres par semaine.</TextStyled></TextStyled>
+          <DescriptionText>
+            <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
+          </DescriptionText>
+          <DescriptionText>
+            <TextStyled><TextStyled bold>Vos réponses sont anonymes,</TextStyled>répondez avec le plus de transparence possible.</TextStyled>
+          </DescriptionText>
+          <DescriptionText>
+            <TextStyled>Pour rappel votre objectif est de ne pas dépasser <TextStyled color={"#4030a5"}>{drinkgoal} verres par semaine.</TextStyled></TextStyled>
+          </DescriptionText>
         </TopDescription>
       </TopContainer>
     </ScreenBgStyled>
@@ -53,6 +59,10 @@ const GoBack = styled.TouchableOpacity`
 `;
 
 const TopDescription = styled.View`
+`;
+
+const DescriptionText = styled.Text`
+  margin-bottom: 14px;
 `;
 
 
