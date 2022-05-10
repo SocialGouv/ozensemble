@@ -4,14 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
-import { screenHeight } from '../../styles/theme';
+import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
 const Estimation = () => {
 
   const navigation = useNavigation();
 
-
-  const drinkgoal = 16;
+  const [drinkgoal] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
 
   return (
     <ScreenBgStyled>
