@@ -41,7 +41,7 @@ const WelcomeScreen = ({ navigation }) => {
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
   };
 
-  onPressNext = () => swiperRef?.current?.scrollBy(1);
+  const onPressNext = () => swiperRef?.current?.scrollBy(1);
 
   return (
     <Background color="#39cec0" withSwiperContainer neverBottom>
