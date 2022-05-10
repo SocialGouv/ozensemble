@@ -11,7 +11,7 @@ import Diagram from '../../ConsoFollowUp/Diagram';
 import Stars from '../../../components/Illustrations/Stars';
 import { useFocusEffect } from '@react-navigation/native';
 import { setValidatedDays } from './utils';
-import OneDoses from '../../../components/OneDoses';
+import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -60,7 +60,7 @@ export default ({ navigation, route }) => {
               }
             />
           </Paragraph>
-          <OneDoses></OneDoses>
+          <OneDoseAlcoolExplanation></OneDoseAlcoolExplanation>
           <Paragraph>
             <Elem
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
