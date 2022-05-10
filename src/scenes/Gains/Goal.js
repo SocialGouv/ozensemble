@@ -15,15 +15,15 @@ const Goal = () => {
 
   const [quantity, setQuantity] = useState(1)
 
-  const [Lundi, setLundi] = useState(false)
-  const [Mardi, setMardi] = useState(false)
-  const [Mercredi, setMercredi] = useState(false)
-  const [Jeudi, setJeudi] = useState(false)
-  const [Vendredi, setVendredi] = useState(false)
-  const [Samedi, setSamedi] = useState(false)
-  const [Dimanche, setDimanche] = useState(false)
+  const [monday, setMonday] = useState(false)
+  const [tuesday, setTuesday] = useState(false)
+  const [wednesday, setWednesday] = useState(false)
+  const [thuesday, setThuesday] = useState(false)
+  const [friday, setFriday] = useState(false)
+  const [saturday, setSaturday] = useState(false)
+  const [sunday, setSunday] = useState(false)
 
-  const Week = [Lundi, Mardi, Mercredi, Jeudi, Vendredi, Samedi, Dimanche]
+  const Week = [monday, tuesday, wednesday, thuesday, friday, saturday, sunday]
   const dayNoDrink = Week.filter((e) => e === true).length
   const DrinkByWeek = quantity * (7 - dayNoDrink)
 
@@ -54,23 +54,29 @@ const Goal = () => {
         </ContainerTime>
         <Row>
           <Calendar size={24} />
-          <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
+          <Small>
+            <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
+          </Small>
         </Row>
         <DayContainer>
-          <DayButton content="L" active={Lundi} onPress={() => setLundi(!Lundi)} />
-          <DayButton content="M" active={Mardi} onPress={() => setMardi(!Mardi)} />
-          <DayButton content="M" active={Mercredi} onPress={() => setMercredi(!Mercredi)} />
-          <DayButton content="J" active={Jeudi} onPress={() => setJeudi(!Jeudi)} />
-          <DayButton content="V" active={Vendredi} onPress={() => setVendredi(!Vendredi)} />
-          <DayButton content="S" active={Samedi} onPress={() => setSamedi(!Samedi)} />
-          <DayButton content="D" active={Dimanche} onPress={() => setDimanche(!Dimanche)} />
+          <DayButton content="L" active={monday} onPress={() => setMonday(!monday)} />
+          <DayButton content="M" active={tuesday} onPress={() => setTuesday(!tuesday)} />
+          <DayButton content="M" active={wednesday} onPress={() => setWednesday(!wednesday)} />
+          <DayButton content="J" active={thuesday} onPress={() => setThuesday(!thuesday)} />
+          <DayButton content="V" active={friday} onPress={() => setFriday(!friday)} />
+          <DayButton content="S" active={saturday} onPress={() => setSaturday(!saturday)} />
+          <DayButton content="D" active={sunday} onPress={() => setSunday(!sunday)} />
         </DayContainer>
         <Row>
-          <CocktailGlassTriangle size={30} />
-          <TextStyled>Nombre de verres par jours que je m'autorise quand je bois de l'alcool</TextStyled>
+          <CocktailGlassTriangle size={24} />
+          <Small>
+            <TextStyled> Nombre de verres par jours que je m'autorise quand je bois de l'alcool</TextStyled>
+          </Small>
         </Row>
         <Row>
-          <TextStyled>Comment compter un verre sans me tromper </TextStyled>
+          <VerySmall>
+            <TextStyled>Comment compter un verre sans me tromper </TextStyled>
+          </VerySmall>
           <HowCount onPress={onHowCount}>
             <InfoObjectif size={20} color={"#000000"} />
           </HowCount>
@@ -125,6 +131,7 @@ const ContainerTime = styled.View`
 const Row = styled.View`
   flex-direction: row;
   margin-bottom: ${screenHeight * 0.02}px;
+  align-items: center;
 `;
 
 const QuantityContainer = styled.View`
@@ -138,13 +145,12 @@ const CTAButtonContainer = styled.View`
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
-  margin-top: ${screenHeight * 0}px;
 `;
 
 const DayContainer = styled.View`
   flex-direction: row;
   justify-content: center;
-  margin-bottom: ${screenHeight * 0.08}px;
+  margin-bottom: ${screenHeight * 0.06}px;
 `;
 
 const DayButton = ({ small, content, onPress, active }) => (
@@ -182,10 +188,19 @@ const QButtonContent = styled(TextStyled)`
 const DrinkByWeekContainer = styled.View`
   align-items: center;
   margin-top: ${screenHeight * 0.01}px;
-  margin-bottom: ${screenHeight * 0.1}px;
+  margin-bottom: ${screenHeight * 0.04}px;
 `;
 
 const HowCount = styled.TouchableOpacity`
+`;
+
+const Small = styled.Text`
+  font-size:11px;
+  font-weight:700;
+`;
+
+const VerySmall = styled.Text`
+  font-size:10px;
 `;
 
 export default Goal

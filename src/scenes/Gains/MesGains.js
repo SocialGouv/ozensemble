@@ -148,23 +148,23 @@ const Categories = styled.View`
 
 const TextContainer = styled.View`
   align-items: center;
-  margin-bottom: ${screenHeight * 0.02}px;
-  margin-top: ${screenHeight * 0.02}px;
+  margin-bottom: ${screenHeight * 0.01}px;
+  margin-top: ${screenHeight * 0.01}px;
 `;
 
 const TextForm = styled(H2)`
 `;
 
 const FixGoalInit = ({ nextStep, setNextStep }) => (
-  <Description>
-    <InfosIcon size={24} />
-    <TextDescritpion>
-      <Text>Pour calculer vos gains, {"\n"}fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
-    </TextDescritpion>
-    <ButtonTouchable onPress={() => setNextStep(!nextStep)} >
+  <ButtonTouchable onPress={() => setNextStep(!nextStep)} >
+    <Description>
+      <InfosIcon size={24} />
+      <TextDescritpion>
+        <Text>Pour calculer vos gains, {"\n"}fixez-vous un <Text style={{ fontWeight: "bold" }}>objectif</Text></Text>
+      </TextDescritpion>
       <Arrow>{'>'}</Arrow>
-    </ButtonTouchable>
-  </Description>
+    </Description>
+  </ButtonTouchable>
 )
 
 
