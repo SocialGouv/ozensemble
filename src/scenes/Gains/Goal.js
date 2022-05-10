@@ -10,7 +10,7 @@ import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { screenHeight, screenWidth } from '../../styles/theme';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage'
+import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
 const Goal = () => {
 
@@ -25,12 +25,13 @@ const Goal = () => {
   const [sunday, setSunday] = useStateWithAsyncStorage("@GainSunday", false);
 
   const week = [monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-  const dayNoDrink = week.filter((e) => e === true).length
   const [drinkByWeek, setdrinkByWeek] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 7);
+  const [dayNoDrink, setDayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
 
   useEffect(() => {
     setdrinkByWeek(quantity * (7 - dayNoDrink))
-  }, [quantity, dayNoDrink]);
+    setDayNoDrink(week.filter((e) => e === true).length)
+  }, [quantity, week]);
 
   const navigation = useNavigation();
 
@@ -59,9 +60,9 @@ const Goal = () => {
         </ContainerTime>
         <Row>
           <Calendar size={24} />
-          <Small>
+          <TextSemiBold>
             <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
-          </Small>
+          </TextSemiBold>
         </Row>
         <DayContainer>
           <DayButton content="L" active={monday} onPress={() => setMonday(!monday)} />
@@ -74,14 +75,12 @@ const Goal = () => {
         </DayContainer>
         <Row>
           <CocktailGlassTriangle size={24} />
-          <Small>
+          <TextSemiBold>
             <TextStyled> Nombre de verres par jours que je m'autorise quand je bois de l'alcool</TextStyled>
-          </Small>
+          </TextSemiBold>
         </Row>
         <Row>
-          <VerySmall>
-            <TextStyled>Comment compter un verre sans me tromper </TextStyled>
-          </VerySmall>
+          <TextStyled>Comment compter un verre sans me tromper </TextStyled>
           <HowCount onPress={onHowCount}>
             <InfoObjectif size={20} color={"#000000"} />
           </HowCount>
@@ -207,14 +206,10 @@ const DrinkByWeekContainer = styled.View`
 const HowCount = styled.TouchableOpacity`
 `;
 
-const Small = styled.Text`
-  font-size:11px;
+const TextSemiBold = styled.Text`
   font-weight:700;
 `;
 
-const VerySmall = styled.Text`
-  font-size:10px;
-`;
 
 
 export default Goal
