@@ -13,12 +13,22 @@ import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { Screen1, Screen2, Screen3 } from './Screens';
 import { screenHeight } from '../../styles/theme';
-import Agreement from './Agreement';
 
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = React.useState(false);
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [pagination, setPagination] = React.useState(true);
   const swiperRef = React.useRef();
+
+  const indexChanged = (index) => {
+    setCurrentIndex(index)
+    if (index === 2) {
+      setPagination(false)
+    }
+    else {
+      setPagination(true)
+    }
+  }
 
   const onStartPress = async () => {
     AsyncStorage.setItem(CONSTANTS.STORE_KEY_ONBOARDING_DONE, 'true');
@@ -38,40 +48,38 @@ const WelcomeScreen = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer neverBottom>
       <HeaderBackground />
       <Swiper
-        onIndexChanged={setCurrentIndex}
+        onIndexChanged={indexChanged}
         ref={swiperRef}
         loop={false}
         showsButtons
+        showsPagination={pagination}
         dot={<Dot />}
         activeDot={<Dot active />}
         nextButton={<ArrowRight size={15} style={{ marginTop: 50 }} />}
         prevButton={<ArrowLeft size={15} style={{ marginTop: 50 }} />}
         paginationStyle={{
           justifyContent: 'center',
-          bottom: screenHeight * 0.1,
+          bottom: screenHeight * 0.05,
         }}>
         <Screen1 />
         <Screen2 />
-        <Screen3 />
+        <Screen3 setAgreed={setAgreed} agreed={agreed} />
       </Swiper>
       <CTAButtonContainer>
         {currentIndex === 2 ? (
-          <>
-            <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
-            <ButtonPrimary content="Commencer" onPress={onStartPress} disabled={!agreed} />
-          </>
+          <ButtonPrimary content="Commencer" onPress={onStartPress} disabled={!agreed} />
         ) : (
           <ButtonPrimary content="Suivant" onPress={onPressNext} />
         )}
       </CTAButtonContainer>
-    </Background>
+    </Background >
   );
 };
 
 export default WelcomeScreen;
 
 const CTAButtonContainer = styled.View`
-  height: ${screenHeight * 0.22}px;
+  height: ${screenHeight * 0.15}px;
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
