@@ -9,8 +9,8 @@ const QuizzOnboarding = (props) => (
   <Quizz
     {...props}
     questions={questionsOnboarding}
-    memoryKeyResult={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_RESULT}
-    memoryKeyAnswers={CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS}
+    memoryKeyResult={'@Quizz_result'}
+    memoryKeyAnswers={'@Quizz_answers'}
     mapAnswersToResult={mapOnboardingAnswersToResult}
     Results={ResultsOnboarding}
   />

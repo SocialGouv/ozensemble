@@ -9,15 +9,15 @@ import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
 import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
 
 const initMatomo = async () => {
-  let userId = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_USER_ID);
+  let userId = await AsyncStorage.getItem('@UserIdv2');
   if (!userId) {
     userId = Matomo.makeid();
-    await AsyncStorage.setItem(CONSTANTS.STORE_KEY_USER_ID, userId);
+    await AsyncStorage.setItem('@UserIdv2', userId);
   }
 
-  const prevVisits = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_NUMBER_OF_VISITS);
+  const prevVisits = await AsyncStorage.getItem('@NumberOfVisits');
   const newVisits = prevVisits ? Number(prevVisits) + 1 : 1;
-  await AsyncStorage.setItem(CONSTANTS.STORE_KEY_NUMBER_OF_VISITS, `${newVisits}`);
+  await AsyncStorage.setItem('@NumberOfVisits', `${newVisits}`);
 
   Matomo.init({
     baseUrl: MATOMO_URL,
@@ -31,7 +31,7 @@ const initMatomo = async () => {
     idsite: MATOMO_IDSITE_2,
   });
 
-  const resultKey = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_RESULT);
+  const resultKey = await AsyncStorage.getItem('@Quizz_result');
   const gender = await getGenderFromLocalStorage();
   Matomo.setUserProperties({
     version: DeviceInfo.getVersion(),

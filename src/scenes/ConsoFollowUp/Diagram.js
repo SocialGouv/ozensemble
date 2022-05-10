@@ -29,7 +29,7 @@ import CONSTANTS from '../../reference/constants';
 
 const getAcceptableDosePerDay = (gender) => {
   if (!gender) return 3;
-  if (gender === CONSTANTS.MAN) return 3;
+  if (gender === 'man') return 3;
   return 2;
 };
 
@@ -72,11 +72,11 @@ const Diagram = ({
   useEffect(() => {
     (async () => {
       try {
-        const storedValue = await AsyncStorage.getItem(CONSTANTS.STORE_KEY_QUIZZ_ONBOARDING_ANSWERS);
+        const storedValue = await AsyncStorage.getItem('@Quizz_answers');
         if (!storedValue) return;
         const quizzAnswers = JSON.parse(storedValue);
         if (!quizzAnswers) return;
-        setHighestAcceptableDosesPerDay(getAcceptableDosePerDay(quizzAnswers[CONSTANTS.GENDER]));
+        setHighestAcceptableDosesPerDay(getAcceptableDosePerDay(quizzAnswers.gender));
       } catch (e) {}
     })();
   }, []);

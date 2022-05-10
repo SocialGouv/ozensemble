@@ -7,12 +7,12 @@ const questions = [
     answers: [
       {
         content: 'Un homme',
-        answerKey: CONSTANTS.MAN,
+        answerKey: 'man',
         score: 0,
       },
       {
         content: 'Une femme',
-        answerKey: CONSTANTS.WOMAN,
+        answerKey: 'woman',
         score: 1,
       },
     ],

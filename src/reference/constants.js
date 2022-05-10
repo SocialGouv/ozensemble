@@ -11,7 +11,6 @@ export default {
   STORE_KEY_QUIZZ_MOTIVATIONS_ANSWERS: '@QuizzMotivations_answers',
   STORE_KEY_QUIZZ_MOTIVATIONS_RESULT: '@QuizzMotivations_result',
   STORE_KEY_REMINDER: '@Reminder',
-  STORE_KEY_ASKED_FOR_NOTIFICATIONS_IOS: '@Reminder',
   STORE_KEY_NUMBER_OF_VISITS: '@NumberOfVisits',
   STORE_KEY_USER_ID: '@UserIdv2',
   STORE_KEY_DONT_SHOW_SCAN_ALERT: '@ScanAlert',
