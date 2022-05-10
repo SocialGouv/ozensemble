@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import TextStyled from '../../../../components/TextStyled';
-import CONSTANTS from '../../../../reference/constants';
 
 const STEPS = [
   {

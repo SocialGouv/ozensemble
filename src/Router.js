@@ -6,7 +6,6 @@ import RNBootSplash from 'react-native-bootsplash';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import matomo from './services/matomo';
-import CONSTANTS from './reference/constants';
 import NotificationService from './services/notifications';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
 import Contact from './scenes/Contact/Contact';

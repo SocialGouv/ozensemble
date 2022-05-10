@@ -1,5 +1,3 @@
-import CONSTANTS from '../../../reference/constants';
-
 // scores
 // 1 : green tag
 // 0 : orange tag

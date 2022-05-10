@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { defaultPadding, screenWidth } from '../../styles/theme';
+import { screenWidth } from '../../styles/theme';
 import { createStackNavigator } from '@react-navigation/stack';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
-import CONSTANTS from '../../reference/constants';
 
 import QuizzLifeQuality from './QuizzLifeQuality';
 import QuizzEvaluateConso from './QuizzEvaluateConso';

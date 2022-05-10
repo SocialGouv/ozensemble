@@ -2,7 +2,6 @@ import React from 'react';
 import questionsEvaluateConso from './questions';
 import { mapEvaluateConsoAnswersToResult } from './utils';
 import ResultsEvaluateConso from './ResultsEvaluateConso';
-import CONSTANTS from '../../../reference/constants';
 import Quizz from '../../../components/Quizz';
 
 const QuizzEvaluateConso = (props) => {

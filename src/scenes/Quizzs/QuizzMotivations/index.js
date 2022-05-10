@@ -2,7 +2,6 @@ import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import sections from './sections';
 import { TopContainer, TopTitle, TopTitleContainer, ScreenBgStyled, Paragraph } from './styles';
-import CONSTANTS from '../../../reference/constants';
 import Background from '../../../components/Background';
 import Results from './ResultsMotivations';
 import { createStackNavigator } from '@react-navigation/stack';
