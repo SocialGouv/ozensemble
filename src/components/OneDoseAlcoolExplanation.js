@@ -14,14 +14,8 @@ const doses = [
     { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
 ];
 
-const Elem = ({ content, lineHeight = 20 }) => (
-    <ElemContainer>
-        <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
-        <TextStyled style={{ flex: 1, lineHeight }}>{content}</TextStyled>
-    </ElemContainer>
-);
 
-const OneDoses = ({ backgroundColor }) => {
+const OneDoseAlcoolExplanation = ({ backgroundColor }) => {
     return (
         <ScreenBgStyled backgroundColor={backgroundColor}>
             <IconsContainer>
@@ -54,12 +48,6 @@ const OneDoses = ({ backgroundColor }) => {
     );
 };
 
-const ElemContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0;
-`;
-
 const ScreenBgStyled = styled.ScrollView`
   background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : "#f9f9f9")};
   flex-shrink: 1;
@@ -84,4 +72,4 @@ const EqualWrapper = styled.View`
   padding-bottom: 50px;
 `;
 
-export default OneDoses;
+export default OneDoseAlcoolExplanation;
