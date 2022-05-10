@@ -92,7 +92,7 @@ const Box = styled.View`
 const AskDrinkContainer = styled.View`
   justify-content: center;
   align-items: center;
-  margin-top: ${screenHeight * 0.1}
+  margin-top: ${screenHeight * 0.1}px;
 `;
 
 export default Consumptions

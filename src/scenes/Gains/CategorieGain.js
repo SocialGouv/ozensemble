@@ -33,8 +33,8 @@ const CategorieGain = ({ icon, value, unit, description1, description2 }) => {
 const width = (screenWidth / 3)
 
 const Categorie = styled.View`
-  margin-left: ${width * 0.2};
-  margin-right: ${width * 0.2};
+  margin-left: ${width * 0.2}px;
+  margin-right: ${width * 0.2}px;
 `;
 
 const ComponentCategorie = styled.View`
@@ -42,15 +42,15 @@ const ComponentCategorie = styled.View`
   border-width: 1px;
   border-color: #4030A5;
   border-radius: 5px;
-  width: ${width * 0.85};
-  height: ${width * 0.85};
+  width: ${width * 0.85}px;
+  height: ${width * 0.85}px;
 `;
 
 
 const IconCategorie = styled.View`
   justify-content: center;
   flex-direction: row ;
-  height: ${width * 0.85 * 0.4}; 
+  height: ${width * 0.85 * 0.4}px; 
   align-items: center;
 `;
 
@@ -58,14 +58,14 @@ const UnitCategorie = styled.View`
   justify-content: center;
   flex-direction: row ;
   align-items: flex-end;
-  height: ${width * 0.85 * 0.5};
+  height: ${width * 0.85 * 0.5}px;
  `;
 
 const CategorieUnit = styled(H1)` 
 `;
 
 const CategorieValue = styled.Text` 
-  font-size: 50px;
+  font-size: 45px;
 `;
 
 const TextCategorie = styled.View`

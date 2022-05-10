@@ -71,8 +71,8 @@ const TopDescription = styled.View`
 `;
 
 const HowCountContainer = styled.View`
-  margin-top: ${screenHeight * 0.05};
-  margin-bottom: ${screenHeight * 0.05};
+  margin-top: ${screenHeight * 0.05}px;
+  margin-bottom: ${screenHeight * 0.05}px;
   width: 95%;
   justify-content: center; 
   padding: 0px 30px 0px;
@@ -87,12 +87,12 @@ const Title = styled.View`
 `;
 
 const Description = styled.View`
-  margin-top: ${screenHeight * 0.04};
+  margin-top: ${screenHeight * 0.04}px;
 `;
 
 
 const DoseContainer = styled.View`
-  padding-top: ${screenHeight * 0.05};;
+  padding-top: ${screenHeight * 0.05}px;
   background-color:#ECECEC;
 `;
 
