@@ -8,32 +8,35 @@ import { screenHeight } from '../../styles/theme';
 
 const Estimation = () => {
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    const Return = () => {
-        navigation.navigate("GAINS");
-    };
 
-    const drinkgoal = 16;
+  const drinkgoal = 16;
 
-    return (
-        <ScreenBgStyled>
-            <GoBack onPress={Return}>
-                <TextStyled bold>
-                    {"<"} Retour </TextStyled>
-            </GoBack>
-            <TopContainer>
-                <TopTitle>
-                    <H1 color="#4030a5">Pour calculer vos gains</H1>
-                </TopTitle>
-                <TopDescription>
-                    <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
-                    <TextStyled><TextStyled bold>Vos réponses sont anonymes,</TextStyled>répondez avec le plus de transparence possible.</TextStyled>
-                    <TextStyled>Pour rappel votre objectif est de ne pas dépasser <TextStyled color={"#4030a5"}>{drinkgoal} verres par semaine.</TextStyled></TextStyled>
-                </TopDescription>
-            </TopContainer>
-        </ScreenBgStyled>
-    )
+  return (
+    <ScreenBgStyled>
+      <GoBack onPress={navigation.goBack}>
+        <TextStyled bold>
+          {"<"} Retour </TextStyled>
+      </GoBack>
+      <TopContainer>
+        <TopTitle>
+          <H1 color="#4030a5">Pour calculer vos gains</H1>
+        </TopTitle>
+        <TopDescription>
+          <DescriptionText>
+            <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
+          </DescriptionText>
+          <DescriptionText>
+            <TextStyled><TextStyled bold>Vos réponses sont anonymes,</TextStyled>répondez avec le plus de transparence possible.</TextStyled>
+          </DescriptionText>
+          <DescriptionText>
+            <TextStyled>Pour rappel votre objectif est de ne pas dépasser <TextStyled color={"#4030a5"}>{drinkgoal} verres par semaine.</TextStyled></TextStyled>
+          </DescriptionText>
+        </TopDescription>
+      </TopContainer>
+    </ScreenBgStyled>
+  )
 }
 
 const ScreenBgStyled = styled.ScrollView`
@@ -56,6 +59,10 @@ const GoBack = styled.TouchableOpacity`
 `;
 
 const TopDescription = styled.View`
+`;
+
+const DescriptionText = styled.Text`
+  margin-bottom: 14px;
 `;
 
 
