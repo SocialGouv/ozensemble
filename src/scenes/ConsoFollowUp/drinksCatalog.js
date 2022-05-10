@@ -58,7 +58,8 @@ const getDoseOfDrink = (volume, degrees) => {
 export const mapDrinkToDose = ({ drinkKey, quantity }, catalog) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  return drink.doses * quantity;
+  if (drink) return drink.doses * quantity;
+  return 0;
 };
 
 export const getDrinksKeysFromCatalog = (catalog) =>
