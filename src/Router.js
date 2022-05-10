@@ -40,7 +40,7 @@ const TabsNavigator = ({ navigation }) => {
   return (
     <>
       <Tabs.Navigator
-        initialRouteName={'DEFI'}
+        initialRouteName={'GAINS'}
         lazy={false}
         tabBarOptions={{
           activeTintColor: '#4030A5',
@@ -115,8 +115,6 @@ class Router extends React.Component {
     // await AsyncStorage.clear();
     const onBoardingDone = await AsyncStorage.getItem('@OnboardingDoneWithCGU');
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
-    const onBoardingAnswersExist = await AsyncStorage.getItem('@Quizz_answers');
-    if (!onBoardingAnswersExist) return this.setState({ initialRouteName: 'ONBOARDING_QUIZZ' });
     return this.setState({ initialRouteName: 'TABS' });
   };
 
@@ -136,13 +134,6 @@ class Router extends React.Component {
         {!!initialRouteName && (
           <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
             <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen
-              name="ONBOARDING_QUIZZ"
-              component={QuizzOnboarding}
-              initialParams={{
-                onboarding: true,
-              }}
-            />
             <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
             <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>
