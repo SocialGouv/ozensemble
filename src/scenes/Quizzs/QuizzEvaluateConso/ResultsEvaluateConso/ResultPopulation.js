@@ -2,12 +2,10 @@ import React from 'react';
 import { View } from 'react-native';
 import { ResultTitle, ResultParagraph, ContainerSection } from './styles';
 import TextStyled from '../../../../components/TextStyled';
-import GraphPopulation from './GraphPopulation';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { useNavigation } from '@react-navigation/native';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
 import ArrowUsage from './ArrowUsage';
-import CONSTANTS from '../../../../reference/constants';
 import styled from 'styled-components';
 
 const ResultPopulation = ({ value, hideButtons }) => {

@@ -1,4 +1,3 @@
-import CONSTANTS from '../../../reference/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getAnswerScore } from '../../../components/Quizz/utils';
 import { capture } from '../../../services/sentry';
@@ -13,7 +12,7 @@ export const getGenderFromLocalStorage = async () => {
 };
 
 const atLeastOneAnswerIsNotNever = (answers) => {
-  const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER && key !== 'age');
+  const questionKeys = Object.keys(answers).filter((key) => key !== 'gender' && key !== 'age');
   const hasNotAnsweredNeverAtLeastOne = questionKeys.reduce((prev, curr) => {
     if (curr < 3) return prev;
     const answerKey = answers[curr];
@@ -32,7 +31,7 @@ export const computeScore = (questions, answers) => {
         score: 0,
       };
     }
-    const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER && key !== 'age');
+    const questionKeys = Object.keys(answers).filter((key) => key !== 'gender' && key !== 'age');
     let score = 0;
     for (let questionKey of questionKeys) {
       const answerKey = answers[questionKey];

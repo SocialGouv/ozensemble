@@ -2,7 +2,6 @@ import React from 'react';
 import questionsLifeQuality from './questions';
 import ResultsLifeQuality from './ResultsLifeQuality';
 import { mapLifeQualityAnswersToResult } from './utils';
-import CONSTANTS from '../../../reference/constants';
 import Quizz from '../../../components/Quizz';
 
 const QuizzLifeQuality = (props) => (

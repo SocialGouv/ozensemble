@@ -11,7 +11,6 @@ import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/
 import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 
-import CONSTANTS from '../../../reference/constants';
 import Sources from '../../Quizzs/Sources';
 
 export default ({ navigation }) => {

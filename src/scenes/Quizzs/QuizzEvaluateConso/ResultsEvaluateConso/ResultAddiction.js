@@ -1,7 +1,6 @@
 import React from 'react';
-import CONSTANTS from '../../../../reference/constants';
 import { View } from 'react-native';
-import { EmptyView, ResultTitle, ResultParagraph, ContainerSection } from './styles';
+import { ResultTitle, ResultParagraph, ContainerSection } from './styles';
 import TextStyled from '../../../../components/TextStyled';
 
 const ResultAddiction = ({ value }) => {

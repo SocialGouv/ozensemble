@@ -1,4 +1,3 @@
-import CONSTANTS from '../../reference/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { capture } from '../../services/sentry';
 

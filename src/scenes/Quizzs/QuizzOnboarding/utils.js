@@ -1,4 +1,3 @@
-import CONSTANTS from '../../../reference/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { capture } from '../../../services/sentry';
 import { getAnswerScore } from '../../../components/Quizz/utils';
@@ -22,7 +21,7 @@ export const computeScore = (questions, answers) => {
         score: 0,
       };
     }
-    const questionKeys = Object.keys(answers).filter((key) => key !== CONSTANTS.GENDER);
+    const questionKeys = Object.keys(answers).filter((key) => key !== 'gender');
     let score = 0;
     for (let questionKey of questionKeys) {
       const answerKey = answers[questionKey];
