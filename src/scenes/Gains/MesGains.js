@@ -18,8 +18,19 @@ import TextStyled from '../../components/TextStyled';
 import GainsCalendar from './GainsCalendar';
 import MyGoal from './MyGoal';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
+import { connect } from 'react-redux';
+import {
+  getDaysForFeed,
+  getDailyDoses,
+  getDrinksState,
+} from '../ConsoFollowUp/consoDuck';
+import { datesAreEqual } from '../../helpers/dateHelpers';
 
-const MesGains = () => {
+const MesGains = ({
+  days,
+  dailyDoses,
+  drinks
+}) => {
   const navigation = useNavigation();
 
   const toGoal = () => {
@@ -36,6 +47,13 @@ const MesGains = () => {
   const [init] = useState(false);
   const [nextStep, setNextStep] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
+
+
+  const notDrinkDaythisWeek = days.slice(0, 7).filter(day => dailyDoses[day] === 0).length
+  const numberDrinkThisWeek = days.slice(0, 7).reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0)
+  const remaindrink = drinkByWeek - numberDrinkThisWeek > 0 ? drinkByWeek - numberDrinkThisWeek : 0;
+
+
 
   return (
     <ScreenBgStyled>
@@ -75,7 +93,7 @@ const MesGains = () => {
       </TextContainer>
       <Categories>
         <CategorieGain icon={<Economy size={24} />} unit={'€'} description1={'Mes économies'} />
-        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description1="'Mes calories économisées" />
+        <CategorieGain icon={<Balance size={26} />} unit="kcal" description1="'Mes calories économisées" />
       </Categories>
       <TextContainer>
         <TextForm>
@@ -87,16 +105,16 @@ const MesGains = () => {
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain description="Verres restants">
+        <CategorieGain description="Verres restants" value={remaindrink}>
           <Speedometer
-            value={50}
-            totalValue={100}
+            value={remaindrink}
+            totalValue={drinkByWeek}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
             internalColor={`rgba(64, 48, 165, ${50 / 100})`}
           />
         </CategorieGain>
-        <CategorieGain icon={<NoDrink size={24} />} description1="Jours où je n'ai pas bu" />
+        <CategorieGain icon={<NoDrink size={24} />} description1="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
       </Categories>
       {nextStep && <OnBoardingGain onPress={toGoal} />}
       <GainsCalendar init={init} />
@@ -183,4 +201,12 @@ const FixGoalInit = ({ nextStep, setNextStep }) => (
   </TouchableOpacity>
 );
 
-export default MesGains;
+const makeStateToProps = () => (state) => ({
+  drinks: getDrinksState(state),
+  days: getDaysForFeed(state),
+  dailyDoses: getDailyDoses(state),
+})
+
+
+export default connect(makeStateToProps)(MesGains);
+

@@ -76,7 +76,7 @@ const Diagram = ({
         const quizzAnswers = JSON.parse(storedValue);
         if (!quizzAnswers) return;
         setHighestAcceptableDosesPerDay(getAcceptableDosePerDay(quizzAnswers.gender));
-      } catch (e) {}
+      } catch (e) { }
     })();
   }, []);
 
@@ -176,16 +176,16 @@ Diagram.defaultProps = {
 
 const makeStateToProps =
   () =>
-  (realState, { asPreview }) => {
-    const state = asPreview ? { conso: fakeConsoData.partial } : realState;
+    (realState, { asPreview }) => {
+      const state = asPreview ? { conso: fakeConsoData.partial } : realState;
 
-    return {
-      days: getDaysForDiagram(state),
-      thereIsDrinks: checkIfThereIsDrinks(state),
-      dailyDoses: getDailyDoses(state),
-      highestDailyDose: getHighestDailyDoses(state),
+      return {
+        days: getDaysForDiagram(state),
+        thereIsDrinks: checkIfThereIsDrinks(state),
+        dailyDoses: getDailyDoses(state),
+        highestDailyDose: getHighestDailyDoses(state),
+      };
     };
-  };
 
 const mergeProps = (stateProps, dispatch, ownProps) => ({
   ...ownProps,
