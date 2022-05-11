@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/SocialGouv/ozensemble/compare/v1.6.1...v1.7.0) (2022-05-11)
+
+
+### Features
+
+* modal ([5428c5c](https://github.com/SocialGouv/ozensemble/commit/5428c5c1b54f462b12eb2141ace2255b2610869e))
+
 ## [1.6.1](https://github.com/SocialGouv/ozensemble/compare/v1.6.0...v1.6.1) (2022-05-11)
 
 
