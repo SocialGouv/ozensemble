@@ -21,6 +21,7 @@ import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
+import Screen3Image from './components/Illustrations/Screen3';
 
 import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
 
@@ -51,7 +52,7 @@ const TabsNavigator = ({ navigation }) => {
           name="GAINS"
           options={{
             tabBarLabel: 'Gains',
-            tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
+            tabBarIcon: ({ size, color }) => <Screen3Image size={size} color={color} fillOpacity={1} />,
           }}
           component={GainsNavigator}
         />
