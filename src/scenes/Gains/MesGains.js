@@ -24,7 +24,7 @@ const MesGains = () => {
   const navigation = useNavigation();
 
   const ToGoal = () => {
-    setShowToGoal(true)
+    setShowToGoal(false)
     navigation.navigate("GOAL");
   };
 
@@ -35,7 +35,7 @@ const MesGains = () => {
   const [dayNoDrink] = useStateWithAsyncStorage("@GainDayNoDrink", 0);
 
   const [init] = useStateWithAsyncStorage("@GainInitGoal", true);
-  const [showToGoal, setShowToGoal] = useState(true)
+  const [showToGoal, setShowToGoal] = useState(false)
   const [showGoalfix, setShowGoalfix] = useState(true)
 
   return (
@@ -174,6 +174,11 @@ const FixGoalInit = ({ nextStep, setNextStep }) => (
     </Description>
   </TouchableOpacity>
 );
+
+const ContainerOnBoardingGain = styled.View`
+  background-color: #000000 ;
+  opacity: 0.32;
+`;
 
 
 
