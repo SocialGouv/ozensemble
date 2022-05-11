@@ -236,7 +236,7 @@ export const drinksCatalog = [
     categoryKey: HARD_BIG,
     drinkKey: HARD_FLASQUE,
     displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
-    displayDrinkModal: 'Flasque',
+    displayDrinkModal: 'flasque',
     displayFormDrink: 'Flasque de spiritueux',
     volume: '30 cl',
     doses: 22,
