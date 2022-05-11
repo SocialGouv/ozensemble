@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/SocialGouv/ozensemble/compare/v1.7.0...v1.7.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* text categorie gain ([f33a643](https://github.com/SocialGouv/ozensemble/commit/f33a643ae9f751146f4ec85f91f70e53b74a601d))
+
 # [1.7.0](https://github.com/SocialGouv/ozensemble/compare/v1.6.1...v1.7.0) (2022-05-11)
 
 
