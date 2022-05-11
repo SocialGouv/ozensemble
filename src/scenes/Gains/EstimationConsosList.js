@@ -11,7 +11,7 @@ import {
 } from '../AddDrink/styles';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 
-const EstimationConsosList = ({ }) => {
+const EstimationConsosList = () => {
     const [estimationDrinksPerWeek, setEstimationDrinksPerWeek] = useStateWithAsyncStorage("@GainEstimationDrinksPerWeek", []);
     const scrollRef = React.useRef(null);
 
