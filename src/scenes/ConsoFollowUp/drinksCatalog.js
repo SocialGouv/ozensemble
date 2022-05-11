@@ -16,7 +16,8 @@ export const BEER = 'Bières';
 export const WINE = 'Vins';
 export const CHAMPAGNE = 'Champagne';
 export const CIDER = 'Cidre';
-export const HARD = 'Cocktails et spiritueux';
+export const HARD_SMALL = 'Shot et Cocktail';
+export const HARD_BIG = 'Spiritueux';
 
 // subCategories
 export const NO_CONSO = 'no-conso';
@@ -30,7 +31,7 @@ export const CHAMPAGNE_GLASS = 'champagne-glass';
 export const CHAMPAGNE_BOTTLE = 'champagne-bottle';
 export const HARD_COCKTAIL = 'hard-cocktail';
 export const HARD_BOTTLE = 'hard-bottle';
-export const HARD_SHOOT = 'hard-shoot';
+export const HARD_SHOT = 'hard-shot';
 export const HARD_FLASQUE = 'hard-flasque';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
@@ -208,7 +209,19 @@ export const drinksCatalog = [
     kcal: 104,
   },
   {
-    categoryKey: HARD,
+    categoryKey: HARD_SMALL,
+    drinkKey: HARD_SHOT,
+    displayFeed: (q) => (q > 1 ? 'shots' : 'shot'),
+    displayDrinkModal: 'shot',
+    displayFormDrink: 'Spiritueux (\u00A03cl)',
+    volume: '3 cl',
+    doses: 1,
+    icon: Shoot,
+    price: 2,
+    kcal: 100,
+  },
+  {
+    categoryKey: HARD_SMALL,
     drinkKey: HARD_COCKTAIL,
     displayFeed: (q) => (q > 1 ? 'cocktails' : 'cocktail'),
     displayDrinkModal: 'cocktail',
@@ -220,7 +233,19 @@ export const drinksCatalog = [
     kcal: 133,
   },
   {
-    categoryKey: HARD,
+    categoryKey: HARD_BIG,
+    drinkKey: HARD_FLASQUE,
+    displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
+    displayDrinkModal: 'flasque',
+    displayFormDrink: 'Flasque de spiritueux',
+    volume: '30 cl',
+    doses: 22,
+    icon: Flasque,
+    price: 4,
+    kcal: 750,
+  },
+  {
+    categoryKey: HARD_BIG,
     drinkKey: HARD_BOTTLE,
     displayFeed: (q) => (q > 1 ? 'bouteilles de spiritueux' : 'bouteille de spiritueux'),
     displayDrinkModal: 'bouteille',
@@ -230,29 +255,5 @@ export const drinksCatalog = [
     icon: CocktailBottle,
     price: 15,
     kcal: 1875,
-  },
-  {
-    categoryKey: "",
-    drinkKey: HARD_SHOOT,
-    displayFeed: (q) => (q > 1 ? 'shoots' : 'shoot'),
-    displayDrinkModal: 'shoot',
-    displayFormDrink: 'Spiritueux (\u00A03cl)',
-    volume: '3 cl',
-    doses: 1,
-    icon: Shoot,
-    price: 2,
-    kcal: 100,
-  },
-  {
-    categoryKey: "",
-    drinkKey: HARD_FLASQUE,
-    displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
-    displayDrinkModal: 'Flasque',
-    displayFormDrink: 'Flasque de spiritueux',
-    volume: '30 cl',
-    doses: 22,
-    icon: Flasque,
-    price: 4,
-    kcal: 750,
   },
 ];

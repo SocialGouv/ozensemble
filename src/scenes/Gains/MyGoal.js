@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 
@@ -8,6 +8,8 @@ import TextStyled from '../../components/TextStyled';
 import Done from '../../components/Illustrations/Done';
 import Economy from '../../components/Illustrations/Economy';
 import CocktailGlass from '../../components/Illustrations/CocktailGlassTriangle';
+import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 
 const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
 
@@ -20,6 +22,20 @@ const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
     const ToEstimation = () => {
         navigation.navigate("ESTIMATION");
     }
+
+    const [estimationDrinksPerWeek] = useStateWithAsyncStorage("@GainEstimationDrinksPerWeek", []);
+
+    const price = useMemo(() => {
+        return estimationDrinksPerWeek.reduce((sum, drink) =>
+            sum + drink.quantity * drinksCatalog.find(drinkCatalog => drinkCatalog.drinkKey === drink.drinkKey).price
+            , 0)
+    }, [estimationDrinksPerWeek])
+
+    const numberOfDrink = useMemo(() => {
+        return estimationDrinksPerWeek.reduce((sum, drink) =>
+            sum + drink.quantity
+            , 0)
+    }, [estimationDrinksPerWeek])
 
     return (
         <MyGoalContainer>
@@ -45,8 +61,8 @@ const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
             </Title>
             <MyGoalSubContainer>
                 <MyGoalSubContainerInside>
-                    <PartMyGoalSubContainer icon={<Economy size={20} />} value={`  ${dayNoDrink} €`} />
-                    <PartMyGoalSubContainer icon={<CocktailGlass size={20} />} value={`  ${drinkByWeek} ${drinkByWeek > 1 ? "verres" : "verre"} `} />
+                    <PartMyGoalSubContainer icon={<Economy size={20} />} value={`  ${price} €`} />
+                    <PartMyGoalSubContainer icon={<CocktailGlass size={20} />} value={`  ${numberOfDrink} ${numberOfDrink > 1 ? "verres" : "verre"} `} />
                 </MyGoalSubContainerInside>
             </MyGoalSubContainer>
             <ModifyContainer>
