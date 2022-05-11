@@ -247,12 +247,12 @@ export const drinksCatalog = [
     categoryKey: "",
     drinkKey: HARD_FLASQUE,
     displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
-    displayDrinkModal: 'Flasque',
+    displayDrinkModal: 'flasque',
     displayFormDrink: 'Flasque de spiritueux',
     volume: '30 cl',
     doses: 22,
     icon: Flasque,
     price: 4,
     kcal: 750,
-  },
+  }
 ];
