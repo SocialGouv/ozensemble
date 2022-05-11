@@ -22,9 +22,11 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
           )}
         </UnitCategorie>
       </ComponentCategorie>
-      <TextCategorie>
-        <TextStyled>{description}</TextStyled>
-      </TextCategorie>
+      <TextCategorieContainer>
+        <TextCategorie>
+          <TextStyled numberOfLines={2}>{description}</TextStyled>
+        </TextCategorie>
+      </TextCategorieContainer>
     </Categorie>
   );
 };
@@ -33,6 +35,7 @@ const width = screenWidth / 3;
 
 const Categorie = styled.View`
   margin-left: ${width * 0.2}px;
+  width: ${width * 0.85}px;
   margin-right: ${width * 0.2}px;
 `;
 
@@ -65,8 +68,15 @@ const CategorieValue = styled.Text`
   font-size: 45px;
 `;
 
-const TextCategorie = styled.View`
+const TextCategorieContainer = styled.View`
   padding-top: 2px;
   align-items: center;
 `;
+
+const TextCategorie = styled.Text`
+  textAlign: center;
+`;
+
+
+
 export default CategorieGain;

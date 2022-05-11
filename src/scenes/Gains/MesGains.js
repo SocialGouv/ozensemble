@@ -74,8 +74,8 @@ const MesGains = () => {
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={<Economy size={24} />} unit={'€'} description1={'Mes économies'} />
-        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description1="'Mes calories économisées" />
+        <CategorieGain icon={<Economy size={24} />} unit={'€'} description='Mes économies' />
+        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description="Mes calories économisées" />
       </Categories>
       <TextContainer>
         <TextForm>
@@ -96,7 +96,7 @@ const MesGains = () => {
             internalColor={`rgba(64, 48, 165, ${50 / 100})`}
           />
         </CategorieGain>
-        <CategorieGain icon={<NoDrink size={24} />} description1="Jours où je n'ai pas bu" />
+        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" />
       </Categories>
       {nextStep && <OnBoardingGain onPress={toGoal} />}
       <GainsCalendar init={init} />
