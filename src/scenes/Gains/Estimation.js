@@ -7,6 +7,7 @@ import TextStyled from '../../components/TextStyled';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { screenHeight } from '../../styles/theme';
+import EstimationConsosList from "./EstimationConsosList";
 
 const Estimation = () => {
 
@@ -14,7 +15,9 @@ const Estimation = () => {
 
   const [drinkgoal] = useStateWithAsyncStorage("@GainQuantityDrinkByWeek", 0);
 
-  const Complete = () => {
+
+  const complete = () => {
+
     navigation.navigate("GAINS");
   }
 
@@ -40,8 +43,9 @@ const Estimation = () => {
           </DescriptionText>
         </TopDescription>
       </TopContainer>
+      <EstimationConsosList />
       <CTAButtonContainer>
-        <ButtonPrimary content="Continuer" onPress={Complete} />
+        <ButtonPrimary content="Je finalise" onPress={complete} />
       </CTAButtonContainer>
     </ScreenBgStyled>
   )

@@ -58,7 +58,7 @@ const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
                   <DrinksCategory
                     drinksCatalog={drinksCatalog}
                     asPreview
-                    key={index}
+                    key={category}
                     category={category}
                     index={index}
                     drinks={fakeDrinks}
