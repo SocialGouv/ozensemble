@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { screenHeight, screenWidth } from '../../styles/theme';
@@ -35,17 +35,17 @@ const MesGains = ({
 
   const toGoal = () => {
     navigation.navigate('GOAL');
-    setNextStep(!nextStep);
+    setShowOnboardingGainModal((show) => !show);
   };
 
   const beginDate = '3 avril';
   const beginDay = 'mercredi';
 
-  const [drinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0);
-  const [dayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0);
+  const [drinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0, true);
+  const [dayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0, true);
 
-  const [init] = useState(false);
-  const [nextStep, setNextStep] = useState(false);
+  const isOnboarded = useMemo(() => !!drinkByWeek, [drinkByWeek]);
+  const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
 
 
@@ -61,8 +61,18 @@ const MesGains = ({
         <TopTitle>
           <H1 color="#4030a5">Mes gains</H1>
         </TopTitle>
-        {init ? (
-          <FixGoalInit nextStep={nextStep} setNextStep={setNextStep} />
+        {!isOnboarded ? (
+          <TouchableOpacity onPress={() => navigation.navigate('GOAL')}>
+            <Description>
+              <InfosIcon size={24} />
+              <TextDescritpion>
+                <Text>
+                  Pour calculer vos gains, {'\n'}fixez-vous un <Text style={{ fontWeight: 'bold' }}>objectif</Text>
+                </Text>
+              </TextDescritpion>
+              <Arrow>{'>'}</Arrow>
+            </Description>
+          </TouchableOpacity>
         ) : (
           <>
             {showGoalfix && (
@@ -83,21 +93,20 @@ const MesGains = ({
       </TopContainer>
       <TextContainer>
         <TextForm>
-          {!init && (
+          {!isOnboarded && (
             <TextStyled>
-              {' '}
               Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled>
             </TextStyled>
           )}
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={<Economy size={24} />} unit={'€'} description1={'Mes économies'} />
-        <CategorieGain icon={<Balance size={26} />} unit="kcal" description1="'Mes calories économisées" />
+        <CategorieGain icon={<Economy size={24} />} unit={'€'} description='Mes économies' />
+        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description="Mes calories économisées" />
       </Categories>
       <TextContainer>
         <TextForm>
-          {!init && (
+          {!isOnboarded && (
             <TextStyled>
               Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled>
             </TextStyled>
@@ -114,16 +123,30 @@ const MesGains = ({
             internalColor={`rgba(64, 48, 165, ${50 / 100})`}
           />
         </CategorieGain>
-        <CategorieGain icon={<NoDrink size={24} />} description1="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
+        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" />
       </Categories>
-      {nextStep && <OnBoardingGain onPress={toGoal} />}
-      <GainsCalendar init={init} />
-      {init ? (
+      <OnBoardingGain
+        onPress={toGoal}
+        visible={showOnboardingGainModal}
+        hide={() => setShowOnboardingGainModal(false)}
+      />
+      <GainsCalendar init={isOnboarded} />
+      {!isOnboarded ? (
         <TopContainer>
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
-          <FixGoalInit nextStep={nextStep} setNextStep={setNextStep} />
+          <TouchableOpacity onPress={() => setShowOnboardingGainModal((show) => !show)}>
+            <Description>
+              <InfosIcon size={24} />
+              <TextDescritpion>
+                <Text>
+                  Pour calculer vos gains, {'\n'}fixez-vous un <Text style={{ fontWeight: 'bold' }}>objectif</Text>
+                </Text>
+              </TextDescritpion>
+              <Arrow>{'>'}</Arrow>
+            </Description>
+          </TouchableOpacity>
         </TopContainer>
       ) : (
         <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
@@ -187,26 +210,6 @@ const TextContainer = styled.View`
 
 const TextForm = styled(H2)``;
 
-const FixGoalInit = ({ nextStep, setNextStep }) => (
-  <TouchableOpacity onPress={() => setNextStep(!nextStep)}>
-    <Description>
-      <InfosIcon size={24} />
-      <TextDescritpion>
-        <Text>
-          Pour calculer vos gains, {'\n'}fixez-vous un <Text style={{ fontWeight: 'bold' }}>objectif</Text>
-        </Text>
-      </TextDescritpion>
-      <Arrow>{'>'}</Arrow>
-    </Description>
-  </TouchableOpacity>
-);
 
-const makeStateToProps = () => (state) => ({
-  drinks: getDrinksState(state),
-  days: getDaysForFeed(state),
-  dailyDoses: getDailyDoses(state),
-})
-
-
-export default connect(makeStateToProps)(MesGains);
+export default MesGains;
 
