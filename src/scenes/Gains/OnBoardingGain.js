@@ -1,62 +1,56 @@
 import React from 'react';
-
-import H2 from '../../components/H2';
-import H3 from '../../components/H3';
 import styled from 'styled-components';
+import ButtonPrimary from '../../components/ButtonPrimary';
+
+import H1 from '../../components/H1';
+import ModalContainer from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
-import { screenHeight } from '../../styles/theme';
 
-const OnBoardingGain = ({ onPress }) => {
-
+const OnBoardingGain = ({ onPress, visible, hide }) => {
   return (
-    <OnBoarding>
-      <Title>
-        <TextStyled bold>Sans objectif, pas de gains</TextStyled>
-      </Title>
-      <SubTitle>
-        <TextStyled color={"#3C3C4360"}>En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool</TextStyled>
-      </SubTitle>
-      <Continue>
-        <ButtonTouchable onPress={onPress}>
-          <ContinueText>
-            <TextStyled color={"#5856D6"}> Je me fixe un objectif</TextStyled>
-          </ContinueText>
-        </ButtonTouchable>
-      </Continue>
-    </OnBoarding>
-  )
-}
+    <ModalContainer visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
+      <Container>
+        <Title>
+          <TextStyled color="#4030a5">Sans objectif, pas de gains</TextStyled>
+        </Title>
+        <SubTitle>
+          <TextStyled color={'#3C3C43'}>
+            En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool
+          </TextStyled>
+        </SubTitle>
+        <Continue>
+          <ButtonPrimary onPress={onPress} content="Je me fixe un objectif" />
+        </Continue>
+      </Container>
+    </ModalContainer>
+  );
+};
 
-const OnBoarding = styled.View`
-  position: absolute;
-  background-color: white ;
-  margin-top: ${screenHeight * 0.3}px;
-  left: 10%;
-  width: 80%;
-  padding: 24px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: #00000020 ;
+const Container = styled.View`
+  background-color: white;
+  padding: 15px;
+  border-radius: 15px;
 `;
-
 const Continue = styled.View`
-  alignItems: flex-end;
+  align-items: center;
   margin-top: 30px;
 `;
-const ButtonTouchable = styled.TouchableOpacity`
-`;
+const ButtonTouchable = styled.TouchableOpacity``;
 
 const ContinueText = styled.Text`
   text-transform: uppercase;
 `;
 
-const Title = styled(H2)`
-  margin-bottom: 15px;
+const Title = styled(H1)`
+  flex-shrink: 0;
+  text-align: center;
+  margin-bottom: 30px;
 `;
 
 const SubTitle = styled.Text`
   font-size: 18px;
   margin-bottom: 15px;
+  text-align: center;
 `;
 
-export default OnBoardingGain
+export default OnBoardingGain;
