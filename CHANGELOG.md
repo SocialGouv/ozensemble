@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/SocialGouv/ozensemble/compare/v1.6.0...v1.6.1) (2022-05-11)
+
+
+### Bug Fixes
+
+* delete package-lock.json ([f42a682](https://github.com/SocialGouv/ozensemble/commit/f42a682964cfc56ac5fb8d3f193d217649764b3f))
+
 # [1.6.0](https://github.com/SocialGouv/ozensemble/compare/v1.5.2...v1.6.0) (2022-05-10)
 
 
