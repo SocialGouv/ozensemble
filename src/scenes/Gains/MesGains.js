@@ -26,6 +26,7 @@ import {
 } from '../ConsoFollowUp/consoDuck';
 import { datesAreEqual } from '../../helpers/dateHelpers';
 
+
 const MyGains = ({
   days,
   dailyDoses,
@@ -123,35 +124,37 @@ const MyGains = ({
             internalColor={`rgba(64, 48, 165, ${50 / 100})`}
           />
         </CategorieGain>
-        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" />
-      </Categories>
+        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
+      </Categories >
       <OnBoardingGain
         onPress={toGoal}
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
       <GainsCalendar init={isOnboarded} />
-      {!isOnboarded ? (
-        <TopContainer>
-          <TopTitle>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </TopTitle>
-          <TouchableOpacity onPress={() => setShowOnboardingGainModal((show) => !show)}>
-            <Description>
-              <InfosIcon size={24} />
-              <TextDescritpion>
-                <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
-                </Text>
-              </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
-            </Description>
-          </TouchableOpacity>
-        </TopContainer>
-      ) : (
-        <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
-      )}
-    </ScreenBgStyled>
+      {
+        !isOnboarded ? (
+          <TopContainer>
+            <TopTitle>
+              <H1 color="#4030a5">Mon objectif</H1>
+            </TopTitle>
+            <TouchableOpacity onPress={() => setShowOnboardingGainModal((show) => !show)}>
+              <Description>
+                <InfosIcon size={24} />
+                <TextDescritpion>
+                  <Text>
+                    Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+                  </Text>
+                </TextDescritpion>
+                <Arrow>{'>'}</Arrow>
+              </Description>
+            </TouchableOpacity>
+          </TopContainer>
+        ) : (
+          <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
+        )
+      }
+    </ScreenBgStyled >
   );
 };
 
@@ -215,4 +218,12 @@ const Bold = styled.Text`
   font-weight: bold;
 `;
 
-export default MyGains;
+const makeStateToProps = () => (state) => ({
+  drinks: getDrinksState(state),
+  days: getDaysForFeed(state),
+  dailyDoses: getDailyDoses(state),
+})
+
+
+export default connect(makeStateToProps)(MyGains);
+
