@@ -8,8 +8,9 @@ export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
   catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
+  if (drinks === undefined) drinks = "Cocktails et spiritueux";
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
-  if (drink) return drink.quantity;
+  if (drink !== undefined) return drink.quantity;
   return 0;
 };
 
