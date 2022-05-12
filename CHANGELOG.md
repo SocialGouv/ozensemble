@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/SocialGouv/ozensemble/compare/v1.10.0...v1.10.1) (2022-05-12)
+
+
+### Bug Fixes
+
+* small typo ([ed1a0e4](https://github.com/SocialGouv/ozensemble/commit/ed1a0e4aa82b61ab4af6127a5b8235464e4fd26d))
+
 # [1.10.0](https://github.com/SocialGouv/ozensemble/compare/v1.9.0...v1.10.0) (2022-05-12)
 
 
