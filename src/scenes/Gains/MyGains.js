@@ -143,7 +143,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
 };
 
 const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
+  background-color: white;
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
