@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/SocialGouv/ozensemble/compare/v1.7.1...v1.7.2) (2022-05-12)
+
+
+### Bug Fixes
+
+* onboarding ([0265d8c](https://github.com/SocialGouv/ozensemble/commit/0265d8cae275483a9c0469f3b033af4e503825d5))
+
 ## [1.7.1](https://github.com/SocialGouv/ozensemble/compare/v1.7.0...v1.7.1) (2022-05-11)
 
 
