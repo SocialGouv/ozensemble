@@ -10,6 +10,7 @@ import './src/services/polyfills';
 import { SENTRY_XXX } from './src/config';
 import { ToastProvider } from './src/services/toast';
 import './src/styles/theme';
+import { RecoilRoot } from 'recoil';
 
 if (!__DEV__) {
   Sentry.init({ dsn: SENTRY_XXX });
@@ -17,15 +18,17 @@ if (!__DEV__) {
 
 const App = () => {
   return (
-    <ToastProvider backgroundColor="#4030a5">
-      <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
-          <SafeAreaProvider>
-            <Router />
-          </SafeAreaProvider>
-        </PersistGate>
-      </Provider>
-    </ToastProvider>
+    <RecoilRoot>
+      <ToastProvider backgroundColor="#4030a5">
+        <Provider store={store}>
+          <PersistGate persistor={persistor} loading={null}>
+            <SafeAreaProvider>
+              <Router />
+            </SafeAreaProvider>
+          </PersistGate>
+        </Provider>
+      </ToastProvider>
+    </RecoilRoot>
   );
 };
 

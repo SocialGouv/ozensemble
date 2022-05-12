@@ -4,6 +4,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
@@ -13,14 +14,14 @@ import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import NoDrink from '../../components/Illustrations/NoDrink';
 import Rocket from '../../components/Illustrations/Rocket';
 import TextStyled from '../../components/TextStyled';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
 import MyGoal from './MyGoal';
 import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
+import { daysWithGoalNoDrinkState, drinksByWeekState } from './recoil';
 
-const MyGains = ({ days, dailyDoses, drinks }) => {
+const MyGains = ({ days, dailyDoses }) => {
   const navigation = useNavigation();
 
   const toGoal = () => {
@@ -31,16 +32,16 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
   const beginDate = '3 avril';
   const beginDay = 'mercredi';
 
-  const [drinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0);
-  const [dayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0);
+  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
+  const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const isOnboarded = useMemo(() => !!drinkByWeek, [drinkByWeek]);
+  const isOnboarded = useMemo(() => !!maxDrinksPerWeekGoal, [maxDrinksPerWeekGoal]);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
 
   const notDrinkDaythisWeek = days.slice(0, 7).filter((day) => dailyDoses[day] === 0).length;
   const numberDrinkThisWeek = days.slice(0, 7).reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0);
-  const remaindrink = drinkByWeek - numberDrinkThisWeek > 0 ? drinkByWeek - numberDrinkThisWeek : 0;
+  const remaindrink = maxDrinksPerWeekGoal - numberDrinkThisWeek > 0 ? maxDrinksPerWeekGoal - numberDrinkThisWeek : 0;
 
   return (
     <ScreenBgStyled>
@@ -104,10 +105,10 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
         <CategorieGain description="Verres restants" value={remaindrink}>
           <Speedometer
             value={remaindrink}
-            totalValue={drinkByWeek}
+            totalValue={maxDrinksPerWeekGoal}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
-            internalColor={`rgba(64, 48, 165, ${remaindrink / drinkByWeek})`}
+            internalColor={`rgba(64, 48, 165, ${remaindrink / maxDrinksPerWeekGoal})`}
           />
         </CategorieGain>
         <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
@@ -117,7 +118,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
-      <GainsCalendar init={isOnboarded} />
+      <GainsCalendar isOnboarded={isOnboarded} />
       {!isOnboarded ? (
         <TopContainer>
           <TopTitle>
@@ -136,7 +137,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           </TouchableOpacity>
         </TopContainer>
       ) : (
-        <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
+        <MyGoal />
       )}
     </ScreenBgStyled>
   );

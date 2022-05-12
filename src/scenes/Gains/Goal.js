@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
-
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
@@ -9,30 +9,20 @@ import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassT
 import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import { screenHeight, screenWidth } from '../../styles/theme';
+import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from './recoil';
 
 const Goal = () => {
-  const [quantity, setQuantity] = useStateWithAsyncStorage('@GainQuantityDrinkByDay', 1);
+  const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
+  const toggleDayWithGoalNoDrink = (day) =>
+    setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
 
-  const [monday, setMonday] = useStateWithAsyncStorage('@GainMonday', false);
-  const [tuesday, setTuesday] = useStateWithAsyncStorage('@GainTuesday', false);
-  const [wednesday, setWednesday] = useStateWithAsyncStorage('@GainWednesday', false);
-  const [thursday, setThursday] = useStateWithAsyncStorage('@GainThursday', false);
-  const [friday, setFriday] = useStateWithAsyncStorage('@GainFriday', false);
-  const [saturday, setSaturday] = useStateWithAsyncStorage('@GainSaturday', false);
-  const [sunday, setSunday] = useStateWithAsyncStorage('@GainSunday', false);
+  const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
 
-  const [drinkByWeek, setdrinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 7);
-  const [dayNoDrink, setDayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0);
-
-  useEffect(() => {
-    const week = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
-    const newDayNoDrink = week.filter((e) => e === true).length;
-    setDayNoDrink(newDayNoDrink);
-    setdrinkByWeek(quantity * (7 - newDayNoDrink));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity, monday, tuesday, wednesday, thursday, friday, saturday, sunday]);
+  const drinkByWeek = useMemo(
+    () => drinksByDrinkingDay * (7 - daysWithGoalNoDrink.length),
+    [daysWithGoalNoDrink.length, drinksByDrinkingDay]
+  );
 
   const navigation = useNavigation();
 
@@ -67,13 +57,41 @@ const Goal = () => {
           </TextSemiBold>
         </Row>
         <DayContainer>
-          <DayButton content="L" active={monday} onPress={() => setMonday(!monday)} />
-          <DayButton content="M" active={tuesday} onPress={() => setTuesday(!tuesday)} />
-          <DayButton content="M" active={wednesday} onPress={() => setWednesday(!wednesday)} />
-          <DayButton content="J" active={thursday} onPress={() => setThursday(!thursday)} />
-          <DayButton content="V" active={friday} onPress={() => setFriday(!friday)} />
-          <DayButton content="S" active={saturday} onPress={() => setSaturday(!saturday)} />
-          <DayButton content="D" active={sunday} onPress={() => setSunday(!sunday)} />
+          <DayButton
+            content="L"
+            active={daysWithGoalNoDrink.includes('monday')}
+            onPress={() => toggleDayWithGoalNoDrink('monday')}
+          />
+          <DayButton
+            content="M"
+            active={daysWithGoalNoDrink.includes('tuesday')}
+            onPress={() => toggleDayWithGoalNoDrink('tuesday')}
+          />
+          <DayButton
+            content="M"
+            active={daysWithGoalNoDrink.includes('wednesday')}
+            onPress={() => toggleDayWithGoalNoDrink('wednesday')}
+          />
+          <DayButton
+            content="J"
+            active={daysWithGoalNoDrink.includes('thursday')}
+            onPress={() => toggleDayWithGoalNoDrink('thursday')}
+          />
+          <DayButton
+            content="V"
+            active={daysWithGoalNoDrink.includes('friday')}
+            onPress={() => toggleDayWithGoalNoDrink('friday')}
+          />
+          <DayButton
+            content="S"
+            active={daysWithGoalNoDrink.includes('saturday')}
+            onPress={() => toggleDayWithGoalNoDrink('saturday')}
+          />
+          <DayButton
+            content="D"
+            active={daysWithGoalNoDrink.includes('sunday')}
+            onPress={() => toggleDayWithGoalNoDrink('sunday')}
+          />
         </DayContainer>
         <Row>
           <CocktailGlassTriangle size={24} />
@@ -88,19 +106,27 @@ const Goal = () => {
           </HowCount>
         </Row>
         <QuantityContainer>
-          <QButton content="-" disabled={!quantity} onPress={() => setQuantity(quantity - 1)} />
+          <QButton
+            content="-"
+            disabled={drinksByDrinkingDay <= 0}
+            onPress={() => setDrinksByDrinkingDay((q) => q - 1)}
+          />
           <NumberDrink>
             <TextStyled bold color="#4030a5">
-              {quantity}
+              {drinksByDrinkingDay}
             </TextStyled>
           </NumberDrink>
-          <QButton content="+" disabled={false} onPress={() => setQuantity(quantity + 1)} />
+          <QButton content="+" onPress={() => setDrinksByDrinkingDay((q) => q + 1)} />
         </QuantityContainer>
         <DrinkByWeekContainer>
           <TextStyled> soit {drinkByWeek} verres par semaine</TextStyled>
         </DrinkByWeekContainer>
         <CTAButtonContainer>
-          <ButtonPrimary content="Continuer" onPress={toEstimation} disabled={dayNoDrink === 0 || quantity === 0} />
+          <ButtonPrimary
+            content="Continuer"
+            onPress={toEstimation}
+            disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}
+          />
         </CTAButtonContainer>
       </Container>
     </ScreenBgStyled>
