@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import sections from './sections';
-import { TopContainer, TopTitle, TopTitleContainer, ScreenBgStyled, Paragraph } from './styles';
-import Background from '../../../components/Background';
-import Results from './ResultsMotivations';
 import { createStackNavigator } from '@react-navigation/stack';
+import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import TextStyled from '../../../components/TextStyled';
 import GoBackButton from '../../../components/GoBackButton';
-import Section from './Section';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
+import TextStyled from '../../../components/TextStyled';
+import Results from './ResultsMotivations';
+import Section from './Section';
+import sections from './sections';
+import { Paragraph, ScreenBgStyled, TopContainer, TopTitle, TopTitleContainer } from './styles';
 
 const QuizzMotivationsStack = createStackNavigator();
 
 const QuizzMotivations = ({ navigation, route }) => {
   const initialState = route.params.initialState || {};
 
-  const [answers, setAnswers] = React.useState(initialState.answers);
+  const [answers, setAnswers] = useState(initialState.answers);
 
   const memoryKeyAnswers = '@QuizzMotivations_answers';
   const memoryKeyResult = '@QuizzMotivations_result';
@@ -28,8 +28,9 @@ const QuizzMotivations = ({ navigation, route }) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!answers) setInitAnswers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggleAnswer = async (answerKey, checked) => {

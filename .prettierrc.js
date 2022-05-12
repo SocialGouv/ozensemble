@@ -4,5 +4,11 @@ module.exports = {
   singleQuote: true,
   trailingComma: 'es5',
   printWidth: 120,
-  curly: ["error", "multi-line"],
+  curly: ['error', 'multi-line'],
+  'no-unused-vars': [
+    'error',
+    {
+      varsIgnorePattern: 'React',
+    },
+  ],
 };

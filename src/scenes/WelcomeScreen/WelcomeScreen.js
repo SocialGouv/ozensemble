@@ -1,24 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
-import Swiper from 'react-native-swiper';
+import React, { useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNBootSplash from 'react-native-bootsplash';
-import CONSTANTS from '../../reference/constants';
-import matomo from '../../services/matomo';
-import HeaderBackground from '../../components/HeaderBackground';
-import ArrowRight from '../../components/ArrowRight';
+import Swiper from 'react-native-swiper';
+import styled from 'styled-components';
 import ArrowLeft from '../../components/ArrowLeft';
-import Dot from '../../components/SwiperDot';
+import ArrowRight from '../../components/ArrowRight';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { Screen1, Screen2, Screen3 } from './Screens';
+import HeaderBackground from '../../components/HeaderBackground';
+import Dot from '../../components/SwiperDot';
+import CONSTANTS from '../../reference/constants';
+import matomo from '../../services/matomo';
 import { screenHeight } from '../../styles/theme';
+import { Screen1, Screen2, Screen3 } from './Screens';
 
 const WelcomeScreen = ({ navigation }) => {
-  const [agreed, setAgreed] = React.useState(false);
-  const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [pagination, setPagination] = React.useState(true);
-  const swiperRef = React.useRef();
+  const [agreed, setAgreed] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [pagination, setPagination] = useState(true);
+  const swiperRef = useRef();
 
   const indexChanged = (index) => {
     setCurrentIndex(index);
@@ -54,8 +54,9 @@ const WelcomeScreen = ({ navigation }) => {
         showsPagination={pagination}
         dot={<Dot />}
         activeDot={<Dot active />}
-        nextButton={<ArrowRight size={15} style={{ marginTop: 50 }} />}
-        prevButton={<ArrowLeft size={15} style={{ marginTop: 50 }} />}
+        nextButton={<StyledArrowRight size={15} />}
+        prevButton={<StyledArrowLeft size={15} />}
+        // eslint-disable-next-line react-native/no-inline-styles
         paginationStyle={{
           justifyContent: 'center',
           bottom: screenHeight * 0.05,
@@ -82,4 +83,12 @@ const CTAButtonContainer = styled.View`
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
+`;
+
+const StyledArrowRight = styled(ArrowRight)`
+  margin-top: 50px;
+`;
+
+const StyledArrowLeft = styled(ArrowLeft)`
+  margin-top: 50px;
 `;

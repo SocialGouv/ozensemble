@@ -1,26 +1,26 @@
-import React from 'react';
-import { Alert, Platform } from 'react-native';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
-import CONSTANTS from '../../reference/constants';
-import ReminderIcon from '../../components/Illustrations/ReminderIcon';
-import TextStyled from '../../components/TextStyled';
+import styled from 'styled-components';
+import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import ReminderIcon from '../../components/Illustrations/ReminderIcon';
+import TextStyled from '../../components/TextStyled';
 import TimePicker from '../../components/TimePicker';
-import { followupNumberOfDays } from '../ConsoFollowUp/consoDuck';
+import UnderlinedButton from '../../components/UnderlinedButton';
 import { dateWithTimeAndOffsetFromToday, timeIsAfterNow } from '../../helpers/dateHelpers';
+import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
+import { followupNumberOfDays } from '../ConsoFollowUp/consoDuck';
 
 const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
 
-class Reminder extends React.Component {
+class Reminder extends Component {
   state = {
     reminder: null,
     timePickerVisible: false,
@@ -38,6 +38,7 @@ class Reminder extends React.Component {
   getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
     const reminder = await AsyncStorage.getItem('@Reminder');
+    // eslint-disable-next-line eqeqeq
     if (Boolean(reminder) && new Date(reminder) == 'Invalid Date') {
       this.deleteReminder();
       return;
@@ -163,11 +164,11 @@ class Reminder extends React.Component {
         </Title>
         <SubTitle>
           {reminder ? (
-            <React.Fragment>
+            <>
               <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
               <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
               <TextStyled color="#191919">tous les jours.</TextStyled>
-            </React.Fragment>
+            </>
           ) : (
             <TextStyled color="#191919">
               Définissez un rappel quotidien sur votre téléphone pour vous rappeler

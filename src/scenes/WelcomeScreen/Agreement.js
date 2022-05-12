@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
-import { TouchableWithoutFeedback, Modal } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
+import React, { useState } from 'react';
+import { Modal, TouchableWithoutFeedback } from 'react-native';
+import styled from 'styled-components';
 import CGUs from '../Infos/CGUs';
 import PrivacyPolicy from '../Infos/PrivacyPolicy';
 
 const Agreement = ({ onAgree, agreed }) => {
-  const [showCGUs, setShowCGUs] = React.useState(false);
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = React.useState(false);
+  const [showCGUs, setShowCGUs] = useState(false);
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
   return (
     <>
       <Container>
@@ -70,7 +70,6 @@ const CheckBoxContainer = styled.View`
   width: 30px;
   flex-shrink: 0;
   margin-right: 10px;
-
 `;
 
 const CheckBoxStyled = styled(CheckBox)`

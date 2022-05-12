@@ -1,15 +1,15 @@
-import './src/services/polyfills';
 import React from 'react';
+import * as Sentry from '@sentry/react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/redux/store';
+import { persistor, store } from './src/redux/store';
 import Router from './src/Router';
+import './src/services/polyfills';
 
-import * as Sentry from '@sentry/react-native';
-import { ToastProvider } from './src/services/toast';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import './src/styles/theme';
 import { SENTRY_XXX } from './src/config';
+import { ToastProvider } from './src/services/toast';
+import './src/styles/theme';
 
 if (!__DEV__) {
   Sentry.init({ dsn: SENTRY_XXX });

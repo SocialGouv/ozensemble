@@ -1,8 +1,8 @@
 import React from 'react';
+import EmptyView from '../../../../components/EmptyView';
+import ResultAddicted from './ResultAddicted';
 import ResultGood from './ResultGood';
 import ResultRisk from './ResultRisk';
-import ResultAddicted from './ResultAddicted';
-import { EmptyView } from './styles';
 
 const Results = ({ navigation, route, resultKey }) => {
   if (!resultKey) return null;

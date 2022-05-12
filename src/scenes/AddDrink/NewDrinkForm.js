@@ -1,16 +1,15 @@
-/* eslint-disable quotes */
 import React, { useEffect, useState } from 'react';
+import { Keyboard, Platform } from 'react-native';
 import styled from 'styled-components';
-import { Platform, Keyboard } from 'react-native';
-import { Container, ModalContent, ButtonsContainer } from './styles';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import H2 from '../../components/H2';
-import { HARD_SHOT, WINE_GLASS, BEER_HALF, BEER_PINT, WINE_BOTTLE, HARD_BOTTLE } from '../ConsoFollowUp/drinksCatalog';
-import { uploadAlcoholProductToOFF } from '../../services/off';
 import { QuantitySetter } from '../../components/DrinkQuantitySetter';
-import matomo from '../../services/matomo';
+import H2 from '../../components/H2';
+import UnderlinedButton from '../../components/UnderlinedButton';
 import { OPEN_FOOD_FACT_PASSWORD, OPEN_FOOD_FACT_USER_ID } from '../../config';
+import matomo from '../../services/matomo';
+import { uploadAlcoholProductToOFF } from '../../services/off';
+import { BEER_HALF, BEER_PINT, HARD_BOTTLE, HARD_SHOT, WINE_BOTTLE, WINE_GLASS } from '../ConsoFollowUp/drinksCatalog';
+import { ButtonsContainer, Container, ModalContent } from './styles';
 
 const formatDecimalNumber = (numberOrString) => {
   if (!numberOrString) return undefined;
@@ -47,7 +46,6 @@ const NewDrinkForm = ({ route, navigation }) => {
 
   useEffect(() => {
     if (route?.params?.newVolume) setVolume(route.params.newVolume);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route?.params?.newVolume]);
 
   const handleValidate = () => {

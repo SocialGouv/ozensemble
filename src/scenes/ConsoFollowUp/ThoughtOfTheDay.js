@@ -1,6 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable quotes */
-
 import React from 'react';
 import styled from 'styled-components';
 import H3 from '../../components/H3';

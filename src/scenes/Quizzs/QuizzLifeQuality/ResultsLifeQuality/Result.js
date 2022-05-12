@@ -1,7 +1,7 @@
 import React from 'react';
-import { ResultTitle, ContainerSection, ItemStyled, ItemsContainer, ItemContainer, EmojiStyled } from './styles';
 import TextStyled from '../../../../components/TextStyled';
 import questionsLifeQuality from '../questions';
+import { ContainerSection, EmojiStyled, ItemContainer, ItemsContainer, ItemStyled, ResultTitle } from './styles';
 
 const Results = ({ values }) => {
   if (!values) return null;
@@ -17,8 +17,9 @@ const Results = ({ values }) => {
             const response = question?.answers.find((a) => a.score === r.score);
 
             //hide if good score for these questions
-            if (['Handicap physique', 'Frein psychique'].includes(question.resultLabel) && response.score > 0)
+            if (['Handicap physique', 'Frein psychique'].includes(question.resultLabel) && response.score > 0) {
               return null;
+            }
 
             return <Item key={i} response={response} question={question} />;
           })}

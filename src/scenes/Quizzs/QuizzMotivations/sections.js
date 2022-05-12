@@ -17,13 +17,13 @@ const sections = [
         answerKey: '2.4',
         content: 'Ne pas trembler',
         alertText:
-          'Votre corps peut être devenu dépendant à l’alcool, cela va se manifester par l’apparition de tremblements, d’une sensation de malaise, d’hallucinations visuelles lorsque vous essayer de réduire seul votre consommation.\n\nContactez au plus vite l’équipe Oz Ensemble ou votre professionnel de santé',
+          "Votre corps peut être devenu dépendant à l'alcool, cela va se manifester par l'apparition de tremblements, d'une sensation de malaise, d'hallucinations visuelles lorsque vous essayer de réduire seul votre consommation.\n\nContactez au plus vite l'équipe Oz Ensemble ou votre professionnel de santé",
       },
       {
         answerKey: '2.5',
         content: 'Je suis enceinte',
         alertText:
-          'L’alcool peut entraîner des conséquences graves lorsqu’il est consommé pendant la grossesse : handicaps mentaux et moteurs, malformations.\n\nContactez au plus vite l’équipe Oz Ensemble ou votre professionnel de santé',
+          "L'alcool peut entraîner des conséquences graves lorsqu'il est consommé pendant la grossesse : handicaps mentaux et moteurs, malformations.\n\nContactez au plus vite l'équipe Oz Ensemble ou votre professionnel de santé",
       },
     ],
   },
