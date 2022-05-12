@@ -22,7 +22,7 @@ import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from './recoil';
 
 const MyGains = ({ days, dailyDoses }) => {
-  const navigation = useNavigation();
+   const navigation = useNavigation();
 
   const toGoal = () => {
     navigation.navigate('GOAL');
@@ -118,7 +118,7 @@ const MyGains = ({ days, dailyDoses }) => {
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
-      <GainsCalendar isOnboarded={isOnboarded} />
+      <GainsCalendar isOnboarded={isOnboarded} navigation={navigation}/>
       {!isOnboarded ? (
         <TopContainer>
           <TopTitle>

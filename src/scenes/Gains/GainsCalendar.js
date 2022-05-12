@@ -1,14 +1,17 @@
+import { NavigationContainer } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { connect } from 'react-redux';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { getDailyDoses } from '../ConsoFollowUp/consoDuck';
 import { maxDrinksPerWeekSelector } from './recoil';
+
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -36,6 +39,7 @@ const drinkDay = {
 
 const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+   const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const todayFormatted = dayjs().format('YYYY-MM-DD');
     const days = {};
@@ -56,6 +60,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
         <Calendar
           // Initially visible month. Default = now
           key={3}
+
           theme={{
             backgroundColor: 'transparent',
             calendarBackground: 'transparent',
@@ -88,6 +93,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
           firstDay={1}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
+          onDayPress={(date)=>{navigation.navigate("ADD_DRINKS", {screen:"CONSUMPTIONS"})}}
         />
       </CalendarContainer>
       <TextStyled color="#4030a5">État de ma consommation</TextStyled>
