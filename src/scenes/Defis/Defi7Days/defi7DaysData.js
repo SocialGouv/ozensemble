@@ -1,3 +1,4 @@
+import React from 'react';
 import TextStyled from '../../../components/TextStyled';
 
 export const defi7DaysData = [

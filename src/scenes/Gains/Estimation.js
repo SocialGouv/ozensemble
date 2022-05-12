@@ -1,17 +1,18 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import { screenHeight } from '../../styles/theme';
 import EstimationConsosList from './EstimationConsosList';
+import { drinksByWeekState } from './recoil';
 
 const Estimation = () => {
   const navigation = useNavigation();
 
-  const [drinkgoal] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0);
+  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
 
   const complete = () => {
     navigation.navigate('GAINS');
@@ -38,7 +39,7 @@ const Estimation = () => {
           <DescriptionText>
             <TextStyled>
               Pour rappel votre objectif est de ne pas dépasser{' '}
-              <TextStyled color={'#4030a5'}>{drinkgoal} verres par semaine.</TextStyled>
+              <TextStyled color={'#4030a5'}>{maxDrinksPerWeekGoal} verres par semaine.</TextStyled>
             </TextStyled>
           </DescriptionText>
         </TopDescription>
