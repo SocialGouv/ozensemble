@@ -1,9 +1,13 @@
 import React from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import { connect } from 'react-redux';
+import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
+import { getDailyDoses } from '../ConsoFollowUp/consoDuck';
+import { drinksByWeekState } from './recoil';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -16,7 +20,11 @@ markedDates is an object with keys such as `2022-04-30` and values such as
 
 */
 
-const GainsCalendar = ({ init }) => {
+const GainsCalendar = ({ isOnboarded, dailyDoses, dayNoDrink }) => {
+  console.log(dailyDoses, dayNoDrink);
+
+  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
+
   return (
     <TopContainer>
       <TopTitle>
@@ -43,7 +51,7 @@ const GainsCalendar = ({ init }) => {
       <TextStyled color="#4030a5">État de ma consommation</TextStyled>
       <PartDescription value={"Je n'ai pas bu"} color={'#28A745'} />
       <PartDescription value={"J'ai bu"} color={'#DE285E'} />
-      {!init && (
+      {!isOnboarded && (
         <>
           <TextStyled color="#4030a5">Total verres par semaine</TextStyled>
           <PartDescription value={"J'ai respecté mon objectif"} color={'#02594C'} />
@@ -126,4 +134,11 @@ LocaleConfig.locales.fr = {
 };
 LocaleConfig.defaultLocale = 'fr';
 
-export default GainsCalendar;
+const makeStateToProps = () => (state) => ({
+  // days: getDaysForDiagram(state),
+  // thereIsDrinks: checkIfThereIsDrinks(state),
+  dailyDoses: getDailyDoses(state),
+  // highestDailyDose: getHighestDailyDoses(state),
+});
+
+export default connect(makeStateToProps)(GainsCalendar);

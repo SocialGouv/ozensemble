@@ -1,18 +1,21 @@
 import React, { useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
-
+import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import CocktailGlass from '../../components/Illustrations/CocktailGlassTriangle';
 import Done from '../../components/Illustrations/Done';
 import Economy from '../../components/Illustrations/Economy';
 import TextStyled from '../../components/TextStyled';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { daysWithGoalNoDrinkState, drinksByWeekState, estimationDrinksPerWeekState } from './recoil';
 
-const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
+const MyGoal = () => {
   const navigation = useNavigation();
+
+  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
+  const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const ToGoal = () => {
     navigation.navigate('GOAL');
@@ -22,7 +25,7 @@ const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
     navigation.navigate('ESTIMATION');
   };
 
-  const [estimationDrinksPerWeek] = useStateWithAsyncStorage('@GainEstimationDrinksPerWeek', []);
+  const estimationDrinksPerWeek = useRecoilValue(estimationDrinksPerWeekState);
 
   const price = useMemo(() => {
     return estimationDrinksPerWeek.reduce(
@@ -49,7 +52,7 @@ const MyGoal = ({ drinkByWeek, dayNoDrink }) => {
           />
           <PartMyGoalSubContainer
             icon={<Done size={20} />}
-            value={`  ${drinkByWeek} ${drinkByWeek > 1 ? 'verres' : 'verre'} max par semaine`}
+            value={`  ${maxDrinksPerWeekGoal} ${maxDrinksPerWeekGoal > 1 ? 'verres' : 'verre'} max par semaine`}
           />
         </MyGoalSubContainerInside>
       </MyGoalSubContainer>
