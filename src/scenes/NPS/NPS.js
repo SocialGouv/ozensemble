@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import PropTypes from 'prop-types';
 import { Alert, AppState, Modal, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -23,6 +22,7 @@ import {
   TopSubTitle,
   TopTitle,
 } from './styles';
+import { storage } from '../../services/storage';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -86,17 +86,17 @@ class NPS extends Component {
   }
 
   reset = async () => {
-    await AsyncStorage.removeItem(STORE_KEYS.NPS_DONE);
-    await AsyncStorage.removeItem(STORE_KEYS.INITIAL_OPENING);
+    storage.delete(STORE_KEYS.NPS_DONE);
+    storage.delete(STORE_KEYS.INITIAL_OPENING);
   };
 
   checkNeedNPS = async () => {
-    const NPSDone = await AsyncStorage.getItem(STORE_KEYS.NPS_DONE);
+    const NPSDone = storage.getString(STORE_KEYS.NPS_DONE);
     if (NPSDone) return;
 
-    const appFirstOpening = await AsyncStorage.getItem(STORE_KEYS.INITIAL_OPENING);
+    const appFirstOpening = storage.getString(STORE_KEYS.INITIAL_OPENING);
     if (!appFirstOpening) {
-      await AsyncStorage.setItem(STORE_KEYS.INITIAL_OPENING, new Date().toISOString());
+      storage.set(STORE_KEYS.INITIAL_OPENING, new Date().toISOString());
       NotificationService.scheduleNotification({
         date: new Date(Date.now() + NPSTimeoutMS),
         title: this.props.notifTitle,
@@ -104,11 +104,11 @@ class NPS extends Component {
       });
       return;
     }
-    const opening = await AsyncStorage.getItem(STORE_KEYS.INITIAL_OPENING);
+    const opening = storage.getString(STORE_KEYS.INITIAL_OPENING);
     const timeForNPS = Date.now() - Date.parse(new Date(opening)) > NPSTimeoutMS;
     if (!timeForNPS) return;
     matomo.logNPSOpen();
-    await AsyncStorage.setItem(STORE_KEYS.NPS_DONE, 'true');
+    storage.set(STORE_KEYS.NPS_DONE, 'true');
     this.setState({ visible: true });
   };
 
@@ -147,7 +147,7 @@ class NPS extends Component {
                 style: 'cancel',
                 onPress: () => {
                   this.notifHandled = false;
-                  AsyncStorage.setItem(STORE_KEYS.NPS_DONE, 'true');
+                  storage.set(STORE_KEYS.NPS_DONE, 'true');
                 },
               },
             ],
@@ -187,7 +187,7 @@ class NPS extends Component {
       return;
     }
     const { userIdLocalStorageKey } = this.props;
-    const userId = await AsyncStorage.getItem(userIdLocalStorageKey);
+    const userId = storage.getString(userIdLocalStorageKey);
     this.setSendButton('Merci !');
     matomo.logNPSUsefulSend(useful);
     matomo.logNPSRecoSend(reco);

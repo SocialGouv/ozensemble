@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { capture } from '../../services/sentry';
+import { storage } from '../../services/storage';
 
 // Utils
 export const findQuestion = (questions, questionKey) =>
@@ -9,8 +9,8 @@ export const getAnswerScore = (questions, answers, questionKey) =>
   findAnswer(findQuestion(questions, questionKey), answers[questionKey])?.score;
 
 export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = await AsyncStorage.getItem('@Quizz_answers');
-  if (storedAnswers !== null) {
+  const storedAnswers = storage.getString('@Quizz_answers');
+  if (typeof storedAnswers === 'string') {
     const newAnswers = JSON.parse(storedAnswers);
     return newAnswers.gender;
   }
@@ -28,14 +28,14 @@ export const fetchStoredAnswers = async ({ memoryKeyAnswers, memoryKeyResult, qu
 
   const toReturn = { answers: null, result: null };
   try {
-    const storedAnswers = await AsyncStorage.getItem(memoryKeyAnswers);
+    const storedAnswers = storage.getString(memoryKeyAnswers);
     if (storedAnswers !== null) {
       toReturn.answers = JSON.parse(storedAnswers);
     } else {
       toReturn.answers = computeInitAnswersState();
     }
     if (memoryKeyResult) {
-      const storedResultKey = await AsyncStorage.getItem(memoryKeyResult);
+      const storedResultKey = storage.getBoolean(memoryKeyResult);
       if (storedResultKey !== null) {
         toReturn.result = JSON.parse(storedResultKey);
       }

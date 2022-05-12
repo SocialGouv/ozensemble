@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert, TouchableWithoutFeedback } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import styled from 'styled-components';
@@ -15,6 +14,7 @@ import {
   CameraButton,
   CameraButtonsContainerSafe,
 } from './styles';
+import { storage } from '../../services/storage';
 
 class BarCodeReader extends Component {
   state = {
@@ -30,7 +30,7 @@ class BarCodeReader extends Component {
   };
 
   showScanAlert = async () => {
-    const dontShowScanAlert = await AsyncStorage.getItem('@ScanAlert');
+    const dontShowScanAlert = storage.getString('@ScanAlert');
     if (dontShowScanAlert) return;
     setTimeout(() => {
       if (this.props.visible) {
@@ -45,7 +45,7 @@ class BarCodeReader extends Component {
             {
               text: 'Ne plus afficher',
               onPress: async () => {
-                await AsyncStorage.setItem('@ScanAlert', 'true');
+                storage.set('@ScanAlert', 'true');
               },
               style: 'cancel',
             },

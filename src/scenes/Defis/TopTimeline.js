@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import Lock from '../../components/Illustrations/Lock';
 import StarButton from '../../components/Illustrations/StarButton';
 import { Dot } from './Timeline';
+import { storage } from '../../services/storage';
 
 const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay }) => {
   return (
@@ -46,7 +46,7 @@ const Day = ({ locked, done, index, unLock }) => {
   const unLockLevel = async () => {
     setPressed(0);
     await unLock(index);
-    await AsyncStorage.setItem('DEFI_7_JOURS_LAST_UPDATE', 'UNLOCK');
+    storage.set('DEFI_7_JOURS_LAST_UPDATE', 'UNLOCK');
   };
 
   useEffect(() => {

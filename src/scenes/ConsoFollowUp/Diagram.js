@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { dateIsBeforeOrToday } from '../../helpers/dateHelpers';
 import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
+import { storage } from '../../services/storage';
 import { screenHeight } from '../../styles/theme';
 import {
   checkIfThereIsDrinks,
@@ -72,12 +72,12 @@ const Diagram = ({
   useEffect(() => {
     (async () => {
       try {
-        const storedValue = await AsyncStorage.getItem('@Quizz_answers');
+        const storedValue = storage.getString('@Quizz_answers');
         if (!storedValue) return;
         const quizzAnswers = JSON.parse(storedValue);
         if (!quizzAnswers) return;
         setHighestAcceptableDosesPerDay(getAcceptableDosePerDay(quizzAnswers.gender));
-      } catch (e) { }
+      } catch (e) {}
     })();
   }, []);
 
@@ -177,16 +177,16 @@ Diagram.defaultProps = {
 
 const makeStateToProps =
   () =>
-    (realState, { asPreview }) => {
-      const state = asPreview ? { conso: fakeConsoData.partial } : realState;
+  (realState, { asPreview }) => {
+    const state = asPreview ? { conso: fakeConsoData.partial } : realState;
 
-      return {
-        days: getDaysForDiagram(state),
-        thereIsDrinks: checkIfThereIsDrinks(state),
-        dailyDoses: getDailyDoses(state),
-        highestDailyDose: getHighestDailyDoses(state),
-      };
+    return {
+      days: getDaysForDiagram(state),
+      thereIsDrinks: checkIfThereIsDrinks(state),
+      dailyDoses: getDailyDoses(state),
+      highestDailyDose: getHighestDailyDoses(state),
     };
+  };
 
 const mergeProps = (stateProps, dispatch, ownProps) => ({
   ...ownProps,

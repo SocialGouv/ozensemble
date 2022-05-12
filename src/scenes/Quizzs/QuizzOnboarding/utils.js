@@ -1,11 +1,11 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { capture } from '../../../services/sentry';
 import { getAnswerScore } from '../../../components/Quizz/utils';
+import { storage } from '../../../services/storage';
 
 // Utils
 
 export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = await AsyncStorage.getItem('@Quizz_answers');
+  const storedAnswers = storage.getString('@Quizz_answers');
   if (storedAnswers !== null) {
     const newAnswers = JSON.parse(storedAnswers);
     return newAnswers.gender;

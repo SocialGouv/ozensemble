@@ -1,36 +1,43 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { atom, selector } from 'recoil';
+import { storage } from '../../services/storage';
 
-const getInitValueFromStorage = async (key, defaultValue) =>
-  new Promise(async (resolve) => {
-    const valueType = typeof defaultValue;
-    const foundValue = await AsyncStorage.getItem(key);
-    if (!foundValue) return resolve(defaultValue);
-    if (valueType === 'number') return resolve(Number(foundValue));
-    if (valueType === 'boolean') return resolve(foundValue === 'true' ? true : false);
-    return resolve(JSON.parse(foundValue));
-  });
+const getInitValueFromStorage = (key, defaultValue) => {
+  const valueType = typeof defaultValue;
+  if (valueType === 'number') {
+    const foundValue = storage.getNumber(key);
+    if (!foundValue) return defaultValue;
+    return Number(foundValue);
+  }
+  if (valueType === 'boolean') {
+    const foundValue = storage.getBoolean(key);
+    if (!foundValue) return defaultValue;
+    return foundValue;
+  }
+  const foundValue = storage.getString(key);
+  if (!foundValue) return defaultValue;
+  return JSON.parse(foundValue);
+};
 
 export const daysWithGoalNoDrinkState = atom({
   key: 'daysWithGoalNoDrinkState',
   default: getInitValueFromStorage('@DaysWithGoalNoDrink', []),
-  effects: [({ onSet }) => onSet((newValue) => AsyncStorage.setItem('@DaysWithGoalNoDrink', JSON.stringify(newValue)))],
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@DaysWithGoalNoDrink', JSON.stringify(newValue)))],
 });
 
 export const drinksByDrinkingDayState = atom({
   key: 'drinksByDrinkingDayState',
   default: getInitValueFromStorage('@StoredDrinksByDrinkingDay', 0),
-  effects: [({ onSet }) => onSet((newValue) => AsyncStorage.setItem('@StoredDrinksByDrinkingDay', newValue))],
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@StoredDrinksByDrinkingDay', newValue))],
 });
 
 export const estimationDrinksPerWeekState = atom({
   key: 'estimationDrinksPerWeekState',
   default: getInitValueFromStorage('@GainEstimationDrinksPerWeek', []),
-  effects: [({ onSet }) => onSet((newValue) => AsyncStorage.setItem('@GainEstimationDrinksPerWeek', newValue))],
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@GainEstimationDrinksPerWeek', newValue))],
 });
 
-export const drinksByWeekState = selector({
-  key: 'drinksByWeekState',
+export const maxDrinksPerWeekSelector = selector({
+  key: 'maxDrinksPerWeekSelector',
   get: ({ get }) => {
     const drinksByDrinkingDay = get(drinksByDrinkingDayState);
     const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);

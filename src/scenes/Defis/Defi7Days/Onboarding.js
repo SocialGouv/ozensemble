@@ -1,5 +1,4 @@
 import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import styled from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import H1 from '../../../components/H1';
@@ -9,11 +8,12 @@ import TextStyled from '../../../components/TextStyled';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import matomo from '../../../services/matomo';
 import { defaultPadding } from '../../../styles/theme';
+import { storage } from '../../../services/storage';
 
 export default ({ navigation }) => {
   const startDefi = async () => {
     const startAt = new Date().toISOString().split('T')[0];
-    await AsyncStorage.setItem('DEFI_7_JOURS_STARTED_AT', startAt);
+    storage.set('DEFI_7_JOURS_STARTED_AT', startAt);
     matomo.logClickStartDefi7Days();
     navigation.navigate('DEFI_7_DAYS_REMINDER', {
       title: 'Un rappel pour penser à faire votre défi 7 jours',

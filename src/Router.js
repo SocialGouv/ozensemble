@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -22,6 +21,7 @@ import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
 import AppStateHandler from './services/AppStateHandler';
 import matomo from './services/matomo';
 import NotificationService from './services/notifications';
+import { storage } from './services/storage';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
@@ -111,8 +111,7 @@ class Router extends Component {
   initView = async () => {
     await matomo.initMatomo();
     await matomo.logAppVisit('initApp');
-    // await AsyncStorage.clear();
-    const onBoardingDone = await AsyncStorage.getItem('@OnboardingDoneWithCGU');
+    const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
     return this.setState({ initialRouteName: 'TABS' });
   };

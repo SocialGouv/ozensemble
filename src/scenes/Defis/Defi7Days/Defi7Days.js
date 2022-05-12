@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
+import { storage } from '../../../services/storage';
 import Reminder from '../../Infos/Reminder';
 import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
@@ -23,7 +23,7 @@ const Defi7DaysStack = createStackNavigator();
 const Defi7DaysNavigator = () => {
   const [initialScreen, setInitialScreen] = useState(null);
   const initNavigator = async () => {
-    const defiStartedAt = await AsyncStorage.getItem('DEFI_7_JOURS_STARTED_AT');
+    const defiStartedAt = storage.getString('DEFI_7_JOURS_STARTED_AT');
     if (defiStartedAt) return setInitialScreen('DEFI_7_DAYS_MENU');
     return setInitialScreen('ONBOARDING');
   };
@@ -108,9 +108,9 @@ const Defi7DaysMenu = ({ navigation }) => {
   const [lastUpdate, setLastUpdate] = useState('');
 
   const getValidatedDays = async () => {
-    const storedLastUpdate = await AsyncStorage.getItem('DEFI_7_JOURS_LAST_UPDATE');
+    const storedLastUpdate = storage.getString('DEFI_7_JOURS_LAST_UPDATE');
     if (storedLastUpdate) setLastUpdate(storedLastUpdate);
-    const storedValidateDays = await AsyncStorage.getItem('DEFI_7_JOURS_VALIDATED_DAYS');
+    const storedValidateDays = storage.getString('DEFI_7_JOURS_VALIDATED_DAYS');
     if (storedValidateDays) setValidateDays(Number(storedValidateDays));
   };
 
@@ -125,7 +125,7 @@ const Defi7DaysMenu = ({ navigation }) => {
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
-    await AsyncStorage.setItem('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
+    storage.set('DEFI_7_JOURS_VALIDATED_DAYS', `${day}`);
     setLastUpdate('UNLOCK');
     setValidateDays(day);
   };
