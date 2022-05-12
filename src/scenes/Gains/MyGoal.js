@@ -17,7 +17,7 @@ const MyGoal = () => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const ToGoal = () => {
+  const toGoal = () => {
     navigation.navigate('GOAL');
   };
 
