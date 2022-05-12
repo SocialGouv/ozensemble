@@ -1,15 +1,14 @@
 import React, { useRef } from 'react';
+import { useRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import DrinksCategory from '../../components/DrinksCategory';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import { Container, MarginBottom, ModalContent } from '../AddDrink/styles';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { estimationDrinksPerWeekState } from './recoil';
 
 const EstimationConsosList = () => {
-  const [estimationDrinksPerWeek, setEstimationDrinksPerWeek] = useStateWithAsyncStorage(
-    '@GainEstimationDrinksPerWeek',
-    []
-  );
+  const [estimationDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(estimationDrinksPerWeekState);
+
   const scrollRef = useRef(null);
 
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
