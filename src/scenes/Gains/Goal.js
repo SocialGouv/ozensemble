@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import H1 from '../../components/H1';
 import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import H1 from '../../components/H1';
 import Calendar from '../../components/Illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
 import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { screenHeight, screenWidth } from '../../styles/theme';
+import TextStyled from '../../components/TextStyled';
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
+import { screenHeight, screenWidth } from '../../styles/theme';
 
 const Goal = () => {
   const [quantity, setQuantity] = useStateWithAsyncStorage('@GainQuantityDrinkByDay', 1);
@@ -31,6 +31,7 @@ const Goal = () => {
     const newDayNoDrink = week.filter((e) => e === true).length;
     setDayNoDrink(newDayNoDrink);
     setdrinkByWeek(quantity * (7 - newDayNoDrink));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quantity, monday, tuesday, wednesday, thursday, friday, saturday, sunday]);
 
   const navigation = useNavigation();

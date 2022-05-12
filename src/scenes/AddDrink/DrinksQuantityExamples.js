@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Platform, TouchableOpacity } from 'react-native';
-import { Container, ModalContent } from './styles';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import styled from 'styled-components';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
+import UnderlinedButton from '../../components/UnderlinedButton';
+import { Container, ModalContent } from './styles';
 
 const examples = {
   'Bouteille de bière': '30',

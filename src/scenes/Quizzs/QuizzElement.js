@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
+import styled from 'styled-components';
 
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/Illustrations/TickDone';
@@ -36,6 +36,7 @@ const QuizzElement = ({
 
   useEffect(() => {
     if (isFocused) getQuizzInitialState();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   const done = quizzInitialState.result !== null;

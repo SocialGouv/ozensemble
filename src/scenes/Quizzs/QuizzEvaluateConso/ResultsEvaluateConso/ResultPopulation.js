@@ -1,12 +1,11 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { View } from 'react-native';
-import { ResultTitle, ResultParagraph, ContainerSection } from './styles';
-import TextStyled from '../../../../components/TextStyled';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { useNavigation } from '@react-navigation/native';
+import styled from 'styled-components';
+import ButtonPrimary from '../../../../components/ButtonPrimary';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
 import ArrowUsage from './ArrowUsage';
-import styled from 'styled-components';
+import { ContainerSection, ResultTitle } from './styles';
 
 const ResultPopulation = ({ value, hideButtons }) => {
   const navigation = useNavigation();
@@ -35,7 +34,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
         />
       </ButtonContainer>
     );
-  const renderDescription = () => {
+  /*  const renderDescription = () => {
     switch (value) {
       default:
       case null:
@@ -78,7 +77,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
         );
     }
   };
-
+ */
   return (
     <ContainerSection>
       <ResultTitle>Mon niveau de risque</ResultTitle>

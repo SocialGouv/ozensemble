@@ -1,23 +1,23 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { screenHeight, screenWidth } from '../../styles/theme';
-import styled from 'styled-components';
 import Speedometer from 'react-native-speedometer-chart';
+import styled from 'styled-components';
+import { screenHeight, screenWidth } from '../../styles/theme';
 
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import Balance from '../../components/Illustrations/Balance';
 import Economy from '../../components/Illustrations/Economy';
+import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import NoDrink from '../../components/Illustrations/NoDrink';
-import CategorieGain from './CategorieGain';
-import OnBoardingGain from './OnBoardingGain';
 import Rocket from '../../components/Illustrations/Rocket';
 import TextStyled from '../../components/TextStyled';
+import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
+import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
 import MyGoal from './MyGoal';
-import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
+import OnBoardingGain from './OnBoardingGain';
 import { connect } from 'react-redux';
 import {
   getDaysForFeed,
@@ -26,7 +26,7 @@ import {
 } from '../ConsoFollowUp/consoDuck';
 import { datesAreEqual } from '../../helpers/dateHelpers';
 
-const MesGains = ({
+const MyGains = ({
   days,
   dailyDoses,
   drinks
@@ -41,8 +41,8 @@ const MesGains = ({
   const beginDate = '3 avril';
   const beginDay = 'mercredi';
 
-  const [drinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0, true);
-  const [dayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0, true);
+  const [drinkByWeek] = useStateWithAsyncStorage('@GainQuantityDrinkByWeek', 0);
+  const [dayNoDrink] = useStateWithAsyncStorage('@GainDayNoDrink', 0);
 
   const isOnboarded = useMemo(() => !!drinkByWeek, [drinkByWeek]);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
@@ -67,7 +67,7 @@ const MesGains = ({
               <InfosIcon size={24} />
               <TextDescritpion>
                 <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Text style={{ fontWeight: 'bold' }}>objectif</Text>
+                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
                 </Text>
               </TextDescritpion>
               <Arrow>{'>'}</Arrow>
@@ -101,8 +101,8 @@ const MesGains = ({
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={<Economy size={24} />} unit={'€'} description='Mes économies' />
-        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description="Mes calories économisées" />
+        <CategorieGain icon={<Economy size={24} />} unit={'€'} description="Mes économies" />
+        <CategorieGain icon={<Balance size={26} />} unit="kcal" description="Mes calories économisées" />
       </Categories>
       <TextContainer>
         <TextForm>
@@ -141,7 +141,7 @@ const MesGains = ({
               <InfosIcon size={24} />
               <TextDescritpion>
                 <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Text style={{ fontWeight: 'bold' }}>objectif</Text>
+                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
                 </Text>
               </TextDescritpion>
               <Arrow>{'>'}</Arrow>
@@ -211,5 +211,8 @@ const TextContainer = styled.View`
 const TextForm = styled(H2)``;
 
 
-export default MesGains;
+const Bold = styled.Text`
+  font-weight: bold;
+`;
 
+export default MyGains;

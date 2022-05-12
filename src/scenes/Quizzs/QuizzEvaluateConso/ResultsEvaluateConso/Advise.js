@@ -1,14 +1,15 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
-import H1 from '../../../../components/H1';
-import TextStyled from '../../../../components/TextStyled';
 import Background from '../../../../components/Background';
 import GoBackButton from '../../../../components/GoBackButton';
-import { TouchableOpacity, View } from 'react-native';
+import H1 from '../../../../components/H1';
 import Stars from '../../../../components/Illustrations/Stars';
+import TextStyled from '../../../../components/TextStyled';
 
 const ToggleContent = ({ children, title }) => {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   return (
     <View>
       <TouchableOpacity onPress={() => setVisible(!visible)}>

@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Text, TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components';
-import H1 from '../../components/H1';
-import { defaultPadding } from '../../styles/theme';
-import TextStyled from '../../components/TextStyled';
-import Reminder from './Reminder';
-import Export from './Export';
-import CGUs from './CGUs';
-import PrivacyPolicy from './PrivacyPolicy';
-import Background from '../../components/Background';
-import HeaderBackground from '../../components/HeaderBackground';
-import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import pck from '../../../package.json';
+import Background from '../../components/Background';
+import H1 from '../../components/H1';
+import HeaderBackground from '../../components/HeaderBackground';
+import TextStyled from '../../components/TextStyled';
+import { defaultPadding } from '../../styles/theme';
 import NPS from '../NPS/NPS';
+import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
+import CGUs from './CGUs';
+import Export from './Export';
+import PrivacyPolicy from './PrivacyPolicy';
+import Reminder from './Reminder';
 // import usePopToTop from '../../hooks/usePopToTop';
 
 const InfosStack = createStackNavigator();
@@ -39,7 +39,7 @@ const Infos = () => {
 };
 
 const InfosMenu = ({ navigation }) => {
-  const [NPSvisible, setNPSvisible] = React.useState(false);
+  const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 

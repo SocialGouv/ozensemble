@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
 
@@ -17,7 +18,7 @@ const smallH3 = css`
 `;
 
 const H3 = styled.Text`
-  color: ${({ color }) => color ? color : "#191919"};;
+  color: ${({ color }) => (color ? color : '#191919')};
   ${bigH3}
   ${mediaHeight.medium`${mediumH3}`}
   ${mediaHeight.small`${smallH3}`}

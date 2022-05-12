@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import SafeAreaView from 'react-native-safe-area-view';
+import styled from 'styled-components';
 
 const Background = ({ neverBottom, children, color, withSwiperContainer, debug }) => {
   const Container = withSwiperContainer ? SwiperContainer : React.Fragment;

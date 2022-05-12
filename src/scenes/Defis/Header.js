@@ -1,9 +1,9 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import styled, { css } from 'styled-components';
+import GoBackButton from '../../components/GoBackButton';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import GoBackButton from '../../components/GoBackButton';
 
 const Header = () => {
   const route = useRoute();

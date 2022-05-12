@@ -1,22 +1,19 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-
-import H1 from '../../components/H1';
 import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import H1 from '../../components/H1';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
+import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
 
 const CountConsumptiom = () => {
-
   const navigation = useNavigation();
 
   return (
     <ScreenBgStyled>
       <TextBackground>
         <GoBack onPress={navigation.goBack}>
-          <TextStyled bold>
-            {"<"} Retour </TextStyled>
+          <TextStyled bold>{'<'} Retour </TextStyled>
         </GoBack>
         <TopContainer>
           <TopTitle>
@@ -32,20 +29,20 @@ const CountConsumptiom = () => {
           </Title>
           <Description>
             <TextStyled>Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement</TextStyled>
-            <TextStyled bold>comptabilisée en unité d'alcool.{"\n"}</TextStyled>
+            <TextStyled bold>comptabilisée en unité d'alcool.{'\n'}</TextStyled>
             <TextStyled>A titre indicatif chaque consommation ci-dessous compte pour une unité d'alcool.</TextStyled>
           </Description>
         </HowCountContainer>
       </TextBackground>
       <DoseContainer>
-        <OneDoseAlcoolExplanation backgroundColor={"#ECECEC"} />
+        <OneDoseAlcoolExplanation backgroundColor={'#ECECEC'} />
       </DoseContainer>
     </ScreenBgStyled>
-  )
-}
+  );
+};
 
 const ScreenBgStyled = styled.ScrollView`
-  background-color:#ECECEC;
+  background-color: #ececec;
 `;
 
 const TopContainer = styled.View`
@@ -63,14 +60,13 @@ const GoBack = styled.TouchableOpacity`
   padding: 20px 30px 0px;
 `;
 
-const TopDescription = styled.View`
-`;
+const TopDescription = styled.View``;
 
 const HowCountContainer = styled.View`
   margin-top: ${screenHeight * 0.05}px;
   margin-bottom: ${screenHeight * 0.05}px;
   width: 95%;
-  justify-content: center; 
+  justify-content: center;
   padding: 0px 30px 0px;
 `;
 
@@ -86,10 +82,9 @@ const Description = styled.View`
   margin-top: ${screenHeight * 0.04}px;
 `;
 
-
 const DoseContainer = styled.View`
   padding-top: ${screenHeight * 0.05}px;
-  background-color:#ECECEC;
+  background-color: #ececec;
 `;
 
-export default CountConsumptiom
+export default CountConsumptiom;

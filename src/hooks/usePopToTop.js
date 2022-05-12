@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 const usePopToTop = () => {
   const navigation = useNavigation();
   useEffect(() => {
-    const unsubscribe = navigation.addListener('tabPress', (e) => {
+    const unsubscribe = navigation.addListener('tabPress', () => {
       // there is this error coming: The action 'POP_TO_TOP' was not handled by any navigator.
       // I tried to findout how to make it better here:
       // https://github.com/react-navigation/react-navigation/issues/7814

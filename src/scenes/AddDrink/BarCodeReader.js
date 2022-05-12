@@ -1,23 +1,22 @@
-/* eslint-disable quotes */
-import React from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { TouchableWithoutFeedback, Alert } from 'react-native';
+import { Alert, TouchableWithoutFeedback } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import styled from 'styled-components';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import TorchIcon from '../../components/TorchIcon';
+import UnderlinedButton from '../../components/UnderlinedButton';
+import matomo from '../../services/matomo';
+import { extractAlcoholDataFromOFFData, getOFFDataFromBarCode } from '../../services/off';
 import {
   BarCodeHint,
-  ButtonsContainerSafe,
   ButtonsContainer,
-  CameraButtonsContainerSafe,
+  ButtonsContainerSafe,
   CameraButton,
+  CameraButtonsContainerSafe,
 } from './styles';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import TorchIcon from '../../components/TorchIcon';
-import { getOFFDataFromBarCode, extractAlcoholDataFromOFFData } from '../../services/off';
-import matomo from '../../services/matomo';
 
-class BarCodeReader extends React.Component {
+class BarCodeReader extends Component {
   state = {
     withTorch: false,
   };

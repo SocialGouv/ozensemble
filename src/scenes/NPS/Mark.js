@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarkContainer, MarkStyled, MarkText, MarkButton, MarkHint, MarkHintText } from './styles';
+import { MarkButton, MarkContainer, MarkHint, MarkHintText, MarkStyled, MarkText } from './styles';
 
 const Mark = ({ onPress, selected, bad, good }) => (
   <>
