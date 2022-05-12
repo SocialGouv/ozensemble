@@ -106,6 +106,7 @@ class Router extends Component {
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
     RNBootSplash.hide({ duration: 250 });
+    console.log("storage.getString('persist:addicto')", storage.getString('persist:addicto'));
   }
 
   initView = async () => {

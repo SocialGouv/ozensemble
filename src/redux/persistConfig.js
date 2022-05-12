@@ -4,7 +4,7 @@ import { reduxStorage } from '../services/storage';
 const migrations = {};
 
 export default {
-  key: 'addicto2',
+  key: 'addicto',
   version: 4,
   storage: reduxStorage,
   debug: false,

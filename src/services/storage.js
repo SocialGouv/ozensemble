@@ -19,6 +19,7 @@ export const reduxStorage = {
 };
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
+// export const hasMigratedFromAsyncStorage = false;
 export const hasMigratedFromAsyncStorage = storage.getBoolean('hasMigratedFromAsyncStorage');
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
@@ -36,10 +37,17 @@ export async function migrateFromAsyncStorage() {
         if (['true', 'false'].includes(value)) {
           storage.set(key, value === 'true');
         } else {
-          storage.set(key, value);
+          if (key === 'persist:addicto' && value.length > 5) {
+            const alreadyHere = storage.getString('persist:addicto');
+            console.log({ value });
+            console.log({ alreadyHere });
+            storage.set(key, value); // because persist:addicto is stringified twice
+          } else {
+            storage.set(key, value);
+          }
         }
 
-        AsyncStorage.removeItem(key);
+        if (key !== 'persist:addicto') AsyncStorage.removeItem(key);
       }
     } catch (error) {
       console.error(`Failed to migrate key "${key}" from AsyncStorage to MMKV!`, error);
