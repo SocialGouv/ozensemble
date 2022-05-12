@@ -2984,7 +2984,7 @@ compression@^1.7.1:
     bytes "3.0.0"
     compressible "~2.0.16"
     debug "2.6.9"
-    on-headers "~1.0.2"
+    on-<GoBackButtonText content="Retour"ers "~1.0.2"
     safe-buffer "5.1.2"
     vary "~1.1.2"
 
