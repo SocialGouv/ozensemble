@@ -1,12 +1,12 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { TouchableWithoutFeedback } from 'react-native';
-import H3 from '../../components/H3';
-import { getDisplayName, getVolume, getIcon } from './drinksCatalog';
-import { getConsolidatedCatalog } from './consoDuck';
-import { FeedButtonStyled } from './styles';
-import ButtonPrimary from '../../components/ButtonPrimary';
 import { connect } from 'react-redux';
+import styled, { css } from 'styled-components';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import H3 from '../../components/H3';
+import { getConsolidatedCatalog } from './consoDuck';
+import { getDisplayName, getIcon, getVolume } from './drinksCatalog';
+import { FeedButtonStyled } from './styles';
 
 const isFirst = (position) => position === 'first';
 const isAlone = (position) => position === 'alone';
@@ -15,7 +15,6 @@ const isMiddle = (position) => position === 'middle';
 
 const ConsoFeedDisplay = ({
   onPress,
-  id,
   selected,
   showButtons,
   nothingSelected,
@@ -31,7 +30,7 @@ const ConsoFeedDisplay = ({
   const v = getVolume(drinkKey, allDrinks);
   const Icon = getIcon(drinkKey, allDrinks);
   return (
-    <React.Fragment>
+    <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
         <FeedButton pos={p} showAsSelected={selected || nothingSelected}>
           <Content>
@@ -52,7 +51,7 @@ const ConsoFeedDisplay = ({
           <DeleteButton small content="Supprimer" onPress={deleteDrinkRequest} color="#4030a5" shadowColor="#171586" />
         </UpdateContainer>
       )}
-    </React.Fragment>
+    </>
   );
 };
 

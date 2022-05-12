@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
 import Header from '../../../Defis/Header';
+import Sources from '../../Sources';
+import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
 import { FullScreenBackground, ResultContainer } from './styles';
-import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
-import { createStackNavigator } from '@react-navigation/stack';
-import Advise from './Advise';
-import Sources from '../../Sources';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -26,11 +26,13 @@ export default (props) => (
 );
 
 const Results = ({ resultKey, route }) => {
-  if (!resultKey) return null;
+  const isFocused = useIsFocused();
 
-  useFocusEffect(() => {
-    route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
-  });
+  useEffect(() => {
+    if (resultKey && route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+  }, [route?.params, isFocused, resultKey]);
+
+  if (!resultKey) return null;
 
   return (
     <FullScreenBackground>

@@ -1,16 +1,16 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import TextStyled from './TextStyled';
 
 const QButton = ({ small, content, onPress, disabled }) => (
-  <QButtonStyled onPress={onPress} >
+  <QButtonStyled onPress={onPress}>
     <QButtonContentContainer small={small} disabled={disabled}>
       <QButtonContent color="#4030a5">{content}</QButtonContent>
     </QButtonContentContainer>
   </QButtonStyled>
 );
 
-export default QButton
+export default QButton;
 
 const qButtonSize = 40;
 const QButtonStyled = styled.TouchableOpacity``;

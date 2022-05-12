@@ -1,13 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import TextStyled from '../../components/TextStyled';
-import H2 from '../../components/H2';
 import H1 from '../../components/H1';
+import H2 from '../../components/H2';
 import Screen1Image from '../../components/Illustrations/Screen1';
 import Screen2Image from '../../components/Illustrations/Screen2';
 import Screen3Image from '../../components/Illustrations/Screen3';
-import { screenHeight, screenWidth } from '../../styles/theme';
+import TextStyled from '../../components/TextStyled';
 import { mediaHeight } from '../../styles/mediaQueries';
+import { screenHeight, screenWidth } from '../../styles/theme';
 import Agreement from './Agreement';
 
 export const Screen1 = () => (

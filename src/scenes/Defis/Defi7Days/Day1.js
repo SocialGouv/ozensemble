@@ -1,17 +1,17 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+/* eslint-disable react-native/no-inline-styles */
+import { useIsFocused } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
-
-import H1 from '../../../components/H1';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
+import styled, { css } from 'styled-components';
 import Background from '../../../components/Background';
+import ButtonPrimary from '../../../components/ButtonPrimary';
 import GoBackButton from '../../../components/GoBackButton';
-import Diagram from '../../ConsoFollowUp/Diagram';
+import H1 from '../../../components/H1';
 import Stars from '../../../components/Illustrations/Stars';
-import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from './utils';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
+import TextStyled from '../../../components/TextStyled';
+import Diagram from '../../ConsoFollowUp/Diagram';
+import { setValidatedDays } from './utils';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -21,9 +21,12 @@ const Elem = ({ content, lineHeight = 20 }) => (
 );
 
 export default ({ navigation, route }) => {
-  useFocusEffect(() => {
-    route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
-  });
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+  }, [route?.params, isFocused]);
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       {/* <HeaderBackground /> */}
@@ -60,7 +63,7 @@ export default ({ navigation, route }) => {
               }
             />
           </Paragraph>
-          <OneDoseAlcoolExplanation></OneDoseAlcoolExplanation>
+          <OneDoseAlcoolExplanation />
           <Paragraph>
             <Elem
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez

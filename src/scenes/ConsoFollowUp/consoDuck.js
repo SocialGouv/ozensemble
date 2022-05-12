@@ -1,15 +1,14 @@
-import { v4 as uuidv4 } from 'uuid';
-import { createSelector } from 'reselect';
 import { REHYDRATE } from 'redux-persist';
+import { createSelector } from 'reselect';
+import { v4 as uuidv4 } from 'uuid';
 import {
-  today,
-  dateWithoutTime,
-  firstDateIsBeforeSecondDate,
-  differenceOfDays,
   dateIsBeforeOrToday,
+  dateWithoutTime,
+  differenceOfDays,
+  firstDateIsBeforeSecondDate,
+  today,
 } from '../../helpers/dateHelpers';
-import { mapDrinkToDose, drinksCatalog, getDisplayName, NO_CONSO } from './drinksCatalog';
-import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
+import { drinksCatalog, getDisplayName, mapDrinkToDose, NO_CONSO } from './drinksCatalog';
 
 // Utils
 export const followupNumberOfDays = 15;

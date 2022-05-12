@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import Svg, { Path } from 'react-native-svg';
+import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)`
   margin-right: 5px;

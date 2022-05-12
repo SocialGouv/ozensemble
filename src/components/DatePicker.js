@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Platform } from 'react-native';
+import React, { useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ButtonPrimary from './ButtonPrimary';
+import { Platform } from 'react-native';
+import styled from 'styled-components';
 import { today } from '../helpers/dateHelpers';
+import ButtonPrimary from './ButtonPrimary';
 import UnderlinedButton from './UnderlinedButton';
 
 /*
@@ -15,7 +15,7 @@ import UnderlinedButton from './UnderlinedButton';
 // https://github.com/react-native-community/react-native-datetimepicker/issues/114
 
 const DatePicker = ({ visible, selectDate, initDate, mode }) => {
-  const [date, setDate] = React.useState(new Date(initDate));
+  const [date, setDate] = useState(new Date(initDate));
   if (Platform.OS === 'ios') {
     return (
       <Modal visible={visible} animationType="fade" transparent={true}>

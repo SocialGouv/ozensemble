@@ -1,11 +1,11 @@
 import React from 'react';
 import { Linking } from 'react-native';
-import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled, TopContainer, TopTitle, TopSubTitle, TopButtonContainer, Extra } from './styles';
-import matomo from '../../services/matomo';
-import ButtonPrimary from '../../components/ButtonPrimary';
 import Background from '../../components/Background';
+import ButtonPrimary from '../../components/ButtonPrimary';
 import HeaderBackground from '../../components/HeaderBackground';
+import TextStyled from '../../components/TextStyled';
+import matomo from '../../services/matomo';
+import { Extra, ScreenBgStyled, TopButtonContainer, TopContainer, TopSubTitle, TopTitle } from './styles';
 
 const ContactForm = ({ navigation }) => {
   return (

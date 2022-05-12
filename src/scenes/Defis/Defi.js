@@ -1,17 +1,18 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled, { css } from 'styled-components';
+import ArrowRight from '../../components/ArrowRight';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import TopTimeline from './TopTimeline';
-import Timeline from './Timeline';
-import DayModule from './DayModule';
 import NPS from '../NPS/NPS';
-import ArrowRight from '../../components/ArrowRight';
+import DayModule from './DayModule';
+import Timeline from './Timeline';
+import TopTimeline from './TopTimeline';
 
 const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
-  const [NPSvisible, setNPSvisible] = React.useState(false);
+  const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 

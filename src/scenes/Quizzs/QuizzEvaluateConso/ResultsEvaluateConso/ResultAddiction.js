@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { ResultTitle, ResultParagraph, ContainerSection } from './styles';
 import TextStyled from '../../../../components/TextStyled';
+import { ContainerSection, ResultParagraph, ResultTitle } from './styles';
 
 const ResultAddiction = ({ value }) => {
   const getResultScore = () => {

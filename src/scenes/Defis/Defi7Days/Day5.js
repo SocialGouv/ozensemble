@@ -1,17 +1,18 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import { useIsFocused } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { Linking, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
-import H1 from '../../../components/H1';
-import TextStyled from '../../../components/TextStyled';
 import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
-import { TouchableOpacity, View, Linking } from 'react-native';
+import H1 from '../../../components/H1';
 import Stars from '../../../components/Illustrations/Stars';
-import { useFocusEffect } from '@react-navigation/native';
-import { setValidatedDays } from './utils';
+import TextStyled from '../../../components/TextStyled';
 import Sources from '../../Quizzs/Sources';
+import { setValidatedDays } from './utils';
 
 const ToggleContent = ({ children, title }) => {
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
   return (
     <View>
       <TouchableOpacity onPress={() => setVisible(!visible)}>
@@ -36,9 +37,12 @@ const TitleStyled = styled.View`
 `;
 
 const Day5 = ({ navigation, route }) => {
-  useFocusEffect(() => {
-    route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
-  });
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+  }, [route?.params, isFocused]);
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       {/* <HeaderBackground /> */}

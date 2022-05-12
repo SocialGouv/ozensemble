@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-import { SwipeRow } from 'react-native-swipe-list-view';
 import { Platform, TouchableOpacity } from 'react-native';
+import { SwipeRow } from 'react-native-swipe-list-view';
+import styled from 'styled-components';
 
 const DeleteBackground = styled.View`
   flex: 1;
@@ -18,7 +18,7 @@ const DeleteText = styled.Text`
   text-align: center;
 `;
 
-const TouchableDelete = ({ children, onDelete, onPress }) => (
+const TouchableDelete = ({ children, onDelete }) => (
   <SwipeRow
     rightOpenValue={-140}
     disableRightSwipe={true}
