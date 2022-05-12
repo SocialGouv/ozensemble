@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/SocialGouv/ozensemble/compare/v1.7.6...v1.8.0) (2022-05-12)
+
+
+### Features
+
+* dayjs ([f24d08a](https://github.com/SocialGouv/ozensemble/commit/f24d08a4ca0b704e522bae6423ae461c244db13c))
+
 ## [1.7.6](https://github.com/SocialGouv/ozensemble/compare/v1.7.5...v1.7.6) (2022-05-12)
 
 
