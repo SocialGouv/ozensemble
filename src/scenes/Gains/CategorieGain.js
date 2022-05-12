@@ -12,7 +12,7 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
         {children}
         <UnitCategorie>
           <CategorieValue>
-            <TextStyled bold> {!isNaN(value) ? '?' : value}</TextStyled>
+            <TextStyled bold> {value}</TextStyled>
           </CategorieValue>
           {!!unit && (
             <CategorieUnit>
