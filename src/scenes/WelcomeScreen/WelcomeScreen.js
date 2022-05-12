@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import RNBootSplash from 'react-native-bootsplash';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components';
@@ -13,6 +12,7 @@ import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
 import { screenHeight } from '../../styles/theme';
 import { Screen1, Screen2, Screen3 } from './Screens';
+import { storage } from '../../services/storage';
 
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = useState(false);
@@ -30,7 +30,7 @@ const WelcomeScreen = ({ navigation }) => {
   };
 
   const onStartPress = async () => {
-    AsyncStorage.setItem('@OnboardingDoneWithCGU', 'true');
+    storage.set('@OnboardingDoneWithCGU', true);
     RNBootSplash.show({ duration: 250 });
     await new Promise((res) => setTimeout(res, 250));
     navigation.navigate('TABS');

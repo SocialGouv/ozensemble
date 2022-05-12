@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
@@ -16,6 +15,7 @@ import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
 import { followupNumberOfDays } from '../ConsoFollowUp/consoDuck';
+import { storage } from '../../services/storage';
 
 const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
@@ -37,7 +37,7 @@ class Reminder extends Component {
 
   getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
-    const reminder = await AsyncStorage.getItem('@Reminder');
+    const reminder = storage.getString('@Reminder');
     // eslint-disable-next-line eqeqeq
     if (Boolean(reminder) && new Date(reminder) == 'Invalid Date') {
       this.deleteReminder();
@@ -93,14 +93,14 @@ class Reminder extends Component {
       this.setState({ timePickerVisible: false });
       return;
     }
-    await AsyncStorage.setItem('@Reminder', reminder.toISOString());
+    storage.set('@Reminder', reminder.toISOString());
     await this.scheduleNotification(reminder);
     await matomo.logReminderSet(Date.parse(reminder));
     this.setState({ reminder, timePickerVisible: false });
   };
 
   deleteReminder = async () => {
-    await AsyncStorage.removeItem('@Reminder');
+    storage.delete('@Reminder');
     NotificationService.cancelAll();
     this.setState({ reminder: null, timePickerVisible: false });
     matomo.logReminderDelete();

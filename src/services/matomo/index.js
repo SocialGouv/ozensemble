@@ -1,22 +1,22 @@
 import NetInfo from '@react-native-community/netinfo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import Matomo from './lib';
 import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../../config';
 import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
 import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
+import { storage } from '../storage';
 
 const initMatomo = async () => {
-  let userId = await AsyncStorage.getItem('@UserIdv2');
+  let userId = storage.getString('@UserIdv2');
   if (!userId) {
     userId = Matomo.makeid();
-    await AsyncStorage.setItem('@UserIdv2', userId);
+    storage.set('@UserIdv2', userId);
   }
 
-  const prevVisits = await AsyncStorage.getItem('@NumberOfVisits');
+  const prevVisits = storage.getNumber('@NumberOfVisits');
   const newVisits = prevVisits ? Number(prevVisits) + 1 : 1;
-  await AsyncStorage.setItem('@NumberOfVisits', `${newVisits}`);
+  storage.set('@NumberOfVisits', `${newVisits}`);
 
   Matomo.init({
     baseUrl: MATOMO_URL,
@@ -30,7 +30,7 @@ const initMatomo = async () => {
     idsite: MATOMO_IDSITE_2,
   });
 
-  const resultKey = await AsyncStorage.getItem('@Quizz_result');
+  const resultKey = storage.getString('@Quizz_result');
   const gender = await getGenderFromLocalStorage();
   Matomo.setUserProperties({
     version: DeviceInfo.getVersion(),

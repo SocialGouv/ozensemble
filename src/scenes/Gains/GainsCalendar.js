@@ -7,7 +7,7 @@ import styled, { css } from 'styled-components';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { getDailyDoses } from '../ConsoFollowUp/consoDuck';
-import { drinksByWeekState } from './recoil';
+import { maxDrinksPerWeekSelector } from './recoil';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -21,9 +21,7 @@ markedDates is an object with keys such as `2022-04-30` and values such as
 */
 
 const GainsCalendar = ({ isOnboarded, dailyDoses, dayNoDrink }) => {
-  console.log(dailyDoses, dayNoDrink);
-
-  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
 
   return (
     <TopContainer>
