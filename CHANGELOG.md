@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/SocialGouv/ozensemble/compare/v1.10.1...v1.11.0) (2022-05-12)
+
+
+### Features
+
+* calendar almost finito ([887e6a1](https://github.com/SocialGouv/ozensemble/commit/887e6a195de46a10df61d26eef34c1cb9f6304ec))
+
 ## [1.10.1](https://github.com/SocialGouv/ozensemble/compare/v1.10.0...v1.10.1) (2022-05-12)
 
 
