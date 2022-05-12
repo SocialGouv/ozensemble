@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/SocialGouv/ozensemble/compare/v1.7.5...v1.7.6) (2022-05-12)
+
+
+### Bug Fixes
+
+* front MyGain ([261b55f](https://github.com/SocialGouv/ozensemble/commit/261b55feea16a98d86e418895b22fef258b9a196))
+
 ## [1.7.5](https://github.com/SocialGouv/ozensemble/compare/v1.7.4...v1.7.5) (2022-05-12)
 
 
