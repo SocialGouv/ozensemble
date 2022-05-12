@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/SocialGouv/ozensemble/compare/v1.8.0...v1.9.0) (2022-05-12)
+
+
+### Features
+
+* recoil ([a6325cd](https://github.com/SocialGouv/ozensemble/commit/a6325cd920f421eee1fa059b0d50bb03649ca056))
+
 # [1.8.0](https://github.com/SocialGouv/ozensemble/compare/v1.7.6...v1.8.0) (2022-05-12)
 
 
