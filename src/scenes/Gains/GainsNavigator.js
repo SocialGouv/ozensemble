@@ -6,7 +6,7 @@ import Consumptions from './Consumptions';
 import CountConsumptiom from './CountConsumption';
 import Estimation from './Estimation';
 import Goal from './Goal';
-import MesGains from './MesGains';
+import MyGains from './MyGains';
 
 const GainsStack = createStackNavigator();
 
@@ -23,7 +23,7 @@ const GainsNavigator = () => {
       <HeaderBackground />
       {!!initialScreen && (
         <GainsStack.Navigator headerMode="none" initialRouteName={initialScreen}>
-          <GainsStack.Screen name="GAINS" component={MesGains} />
+          <GainsStack.Screen name="GAINS" component={MyGains} />
           <GainsStack.Screen name="GOAL" component={Goal} />
           <GainsStack.Screen name="HOWCOUNT" component={CountConsumptiom} />
           <GainsStack.Screen name="CONSUMPTIONS" component={Consumptions} />
