@@ -111,7 +111,7 @@ class Router extends Component {
   initView = async () => {
     await matomo.initMatomo();
     await matomo.logAppVisit('initApp');
-    // await AsyncStorage.clear();
+     // await AsyncStorage.clear();
     const onBoardingDone = await AsyncStorage.getItem('@OnboardingDoneWithCGU');
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
     return this.setState({ initialRouteName: 'TABS' });

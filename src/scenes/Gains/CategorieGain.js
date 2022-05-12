@@ -23,7 +23,7 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
       </ComponentCategorie>
       <TextCategorieContainer>
         <TextCategorie>
-          <TextStyled numberOfLines={2}>{description}</TextStyled>
+          <TextStyled>{description}</TextStyled>
         </TextCategorie>
       </TextCategorieContainer>
     </Categorie>
