@@ -1,4 +1,5 @@
-import React from 'react';
+import dayjs from 'dayjs';
+import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { connect } from 'react-redux';
 import { useRecoilValue } from 'recoil';
@@ -19,9 +20,32 @@ markedDates is an object with keys such as `2022-04-30` and values such as
       }
 
 */
+const noDrinkDay = {
+  selected: true,
+  startingDay: true,
+  endingDay: true,
+  selectedColor: 'green',
+};
 
-const GainsCalendar = ({ isOnboarded, dailyDoses, dayNoDrink }) => {
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+const drinkDay = {
+  selected: true,
+  startingDay: true,
+  endingDay: true,
+  selectedColor: 'red',
+};
+
+const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
+  // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+  const markedDays = useMemo(() => {
+    const todayFormatted = dayjs().format('YYYY-MM-DD');
+    const days = {};
+    for (const [day, doses] of Object.entries(dailyDoses)) {
+      const dayFormatted = dayjs(day).format('YYYY-MM-DD');
+      days[dayFormatted] = doses > 0 ? drinkDay : noDrinkDay;
+      days[dayFormatted] = { ...days[dayFormatted], marked: dayFormatted === todayFormatted };
+    }
+    return days;
+  }, [dailyDoses]);
 
   return (
     <TopContainer>
@@ -31,8 +55,28 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, dayNoDrink }) => {
       <CalendarContainer>
         <Calendar
           // Initially visible month. Default = now
-          key={theme}
-          theme={theme}
+          key={3}
+          theme={{
+            backgroundColor: 'transparent',
+            calendarBackground: 'transparent',
+            arrowColor: '#4130a5',
+            'stylesheet.day.basic': {
+              today: {
+                borderColor: '#4130a5',
+                borderWidth: 1,
+                borderRadius: 20,
+                color: '#000',
+              },
+            },
+            'stylesheet.day.period': {
+              todayText: {
+                // borderColor: '#4130a5',
+                // borderWidth: 1,
+                // borderRadius: 20,
+                color: '#000',
+              },
+            },
+          }}
           pastScrollRange={50}
           futureScrollRange={50}
           scrollEnabled
@@ -42,12 +86,12 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, dayNoDrink }) => {
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
-          // markedDates={JSON.parse(JSON.stringify(dates))}
-          markingType="period"
+          markedDates={JSON.parse(JSON.stringify(markedDays))}
+          markingType="dot"
         />
       </CalendarContainer>
       <TextStyled color="#4030a5">État de ma consommation</TextStyled>
-      <PartDescription value={"Je n'ai pas bu"} color={'#28A745'} />
+      <PartDescription value={"Je n'ai pas bu"} color={'#008001'} />
       <PartDescription value={"J'ai bu"} color={'#DE285E'} />
       {!isOnboarded && (
         <>
@@ -103,12 +147,6 @@ const Dot = styled.View`
 const CalendarContainer = styled.View`
   margin-vertical: 15px;
 `;
-
-const theme = {
-  backgroundColor: 'transparent',
-  calendarBackground: 'transparent',
-  arrowColor: '#4130a5',
-};
 
 LocaleConfig.locales.fr = {
   monthNames: [
