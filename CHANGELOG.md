@@ -1,3 +1,10 @@
+## [1.7.5](https://github.com/SocialGouv/ozensemble/compare/v1.7.4...v1.7.5) (2022-05-12)
+
+
+### Bug Fixes
+
+* speedometer ([b980d6d](https://github.com/SocialGouv/ozensemble/commit/b980d6dd9f2c133db940866ea9226f6dd8578579))
+
 ## [1.7.4](https://github.com/SocialGouv/ozensemble/compare/v1.7.3...v1.7.4) (2022-05-12)
 
 
