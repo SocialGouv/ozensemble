@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import H3 from '../../components/H3';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import matomo from '../../services/matomo';
 import { setNoDrink } from './consoDuck';
 import { FeedButtonStyled, FeedNoDrinkTodayTopButton } from './styles';
-import matomo from '../../services/matomo';
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   return (

@@ -1,16 +1,16 @@
 import React from 'react';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import TextStyled from '../../../../components/TextStyled';
+import Sources from '../../Sources';
 import {
   FullScreenBackground,
-  TopContainer,
   ResultTitle,
-  TopTitle,
-  TopSubTitle,
   TopButtonContainer,
+  TopContainer,
+  TopSubTitle,
+  TopTitle,
   UnderlinedButtonStyled,
 } from './styles';
-import Sources from '../../Sources';
 
 const ResultGood = ({ navigation, isInOnboarding }) => (
   <FullScreenBackground>

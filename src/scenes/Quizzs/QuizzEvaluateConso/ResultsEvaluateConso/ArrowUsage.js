@@ -30,7 +30,7 @@ const ArrowUsage = ({ steps = STEPS, height = 180, score }) => {
     <MainContainer>
       <ArrowContainer>
         {steps.map(({ scoreKey }, i) => {
-          if (i === 0)
+          if (i === 0) {
             return (
               <ContainerItem key={i}>
                 <ArrowHeadContainer>
@@ -39,12 +39,13 @@ const ArrowUsage = ({ steps = STEPS, height = 180, score }) => {
                 </ArrowHeadContainer>
               </ContainerItem>
             );
-          else
+          } else {
             return (
               <ContainerItem key={i}>
                 <ElementArrow height={size} width={size / 2} active={scoreKey === score} />
               </ContainerItem>
             );
+          }
         })}
       </ArrowContainer>
       <LabelsContainer>

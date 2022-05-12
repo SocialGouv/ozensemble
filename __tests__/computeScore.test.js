@@ -1,4 +1,4 @@
-import { computeScore } from '../src/Quizz/utils';
+import { computeScore } from '../src/scenes/Quizzs/QuizzOnboarding/utils';
 
 describe('computeScore', () => {
   const example1 = { glasses: null, gender: 'man', frequency: 'never', binge: 'never' };

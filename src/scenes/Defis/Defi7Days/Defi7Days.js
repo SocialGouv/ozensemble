@@ -1,23 +1,21 @@
-import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import Onboarding from './Onboarding';
-import OnboardingInfo from './OnboardingInfo';
+import { useFocusEffect } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import Background from '../../../components/Background';
+import HeaderBackground from '../../../components/HeaderBackground';
 import Reminder from '../../Infos/Reminder';
+import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
+import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
+import QuizzMotivations from '../../Quizzs/QuizzMotivations';
+import Defi from '../Defi';
 import Day1 from './Day1';
 import Day3 from './Day3';
 import Day5 from './Day5';
 import Day7 from './Day7';
-import { createStackNavigator } from '@react-navigation/stack';
-import Defi from '../Defi';
 import { defi7DaysData } from './defi7DaysData';
-import Background from '../../../components/Background';
-import HeaderBackground from '../../../components/HeaderBackground';
-import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
-import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
-import QuizzMotivations from '../../Quizzs/QuizzMotivations';
-import { useFocusEffect } from '@react-navigation/native';
-import matomo from '../../../services/matomo';
+import Onboarding from './Onboarding';
+import OnboardingInfo from './OnboardingInfo';
 import { setValidatedDays } from './utils';
 
 const Defi7DaysStack = createStackNavigator();

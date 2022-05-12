@@ -69,7 +69,7 @@ const APP_OPEN = 'APP_OPEN';
 const APP_CLOSE = 'APP_CLOSE';
 const ORIGIN = 'origin';
 
-const logAppVisit = async (from = null) => {
+const logAppVisit = async () => {
   await logEvent({
     category: APP,
     action: APP_OPEN,
@@ -288,7 +288,7 @@ const CONTACT_CALL = 'CONTACT_CALL';
 const CONTACT_WEBSITE_OPEN = 'CONTACT_WEBSITE_OPEN';
 const CONTACT_ASKCALL = 'CONTACT_ASKCALL';
 const CONTACT_RDV = 'CONTACT_RDV';
-const CONTACT_RDV_CONFIRM = 'CONTACT_RDV_CONFIRM';
+// const CONTACT_RDV_CONFIRM = 'CONTACT_RDV_CONFIRM';
 
 const logContactOpen = async (value) => {
   await logEvent({
@@ -327,12 +327,12 @@ const logContactTakeRDV = async () => {
   });
 };
 
-const logContactConfirmRDV = async () => {
-  await logEvent({
-    category: CONTACT,
-    action: CONTACT_RDV_CONFIRM,
-  });
-};
+// const logContactConfirmRDV = async () => {
+//   await logEvent({
+//     category: CONTACT,
+//     action: CONTACT_RDV_CONFIRM,
+//   });
+// };
 
 const logNPSOpen = async () => {
   await logEvent({

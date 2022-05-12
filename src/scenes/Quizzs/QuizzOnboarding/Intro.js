@@ -1,14 +1,14 @@
 import React from 'react';
-import ScreenBgStyled from '../../../components/ScreenBgStyled';
 import {
+  AnswersContainer,
+  ButtonPrimaryStyled,
   QuestionNumber,
   QuestionTitle,
-  ButtonPrimaryStyled,
   SubTitle,
-  AnswersContainer,
 } from '../../../components/Quizz/styles';
+import ScreenBgStyled from '../../../components/ScreenBgStyled';
 
-const Intro = ({ startQuizz, navigation }) => (
+const Intro = ({ navigation }) => (
   <ScreenBgStyled>
     <AnswersContainer>
       <QuestionNumber>Auto-évaluation</QuestionNumber>

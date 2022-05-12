@@ -1,7 +1,6 @@
-/* eslint-disable quotes */
 import React from 'react';
-import styled from 'styled-components';
 import { TouchableOpacity } from 'react-native';
+import styled from 'styled-components';
 import { isToday, makeSureDate } from '../helpers/dateHelpers';
 import ValidateIcon from './ValidateIcon';
 

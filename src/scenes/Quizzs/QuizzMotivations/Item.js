@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import CheckBox from '@react-native-community/checkbox';
+import { useNavigation } from '@react-navigation/native';
 import { TouchableWithoutFeedback, View } from 'react-native';
+import styled from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
-import { useNavigation } from '@react-navigation/native';
 
 export const Item = ({ answerKey, content, alertText, onPress, checked = false, disabled = false }) => {
   const navigation = useNavigation();

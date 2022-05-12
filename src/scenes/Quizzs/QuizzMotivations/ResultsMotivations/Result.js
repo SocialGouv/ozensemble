@@ -1,8 +1,8 @@
 import React from 'react';
-import { ResultTitle, ContainerSection, ItemsContainer } from './styles';
 import TextStyled from '../../../../components/TextStyled';
-import sections from '../sections';
 import Item from '../Item';
+import sections from '../sections';
+import { ContainerSection, ItemsContainer, ResultTitle } from './styles';
 
 const Results = ({ results }) => {
   if (!results) return null;

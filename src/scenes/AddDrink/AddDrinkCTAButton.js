@@ -1,10 +1,10 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
 import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
-import { setModalTimestamp } from '../ConsoFollowUp/consoDuck';
+import styled, { css } from 'styled-components';
 import matomo from '../../services/matomo';
 import { screenHeight, screenWidth } from '../../styles/theme';
+import { setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 
 const iconSize = 30;
 

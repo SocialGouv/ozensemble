@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert } from 'react-native';
-import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
-import H2 from '../../components/H2';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { getHTMLExport } from '../ConsoFollowUp/consoDuck';
 import { connect } from 'react-redux';
-import { withToast } from '../../services/toast';
 import { compose } from 'recompose';
+import styled from 'styled-components';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import H2 from '../../components/H2';
+import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { defaultPadding } from '../../styles/theme';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
+import { withToast } from '../../services/toast';
+import { defaultPadding } from '../../styles/theme';
+import { getHTMLExport } from '../ConsoFollowUp/consoDuck';
 
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
-class Export extends React.Component {
+class Export extends Component {
   state = {
     email: '',
   };

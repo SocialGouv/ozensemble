@@ -1,23 +1,23 @@
-import React from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import Timeline from './Timeline';
-import DateDisplay from './DateDisplay';
-import ConsoFeedDisplay from './ConsoFeedDisplay';
-import ResultsFeedDisplay from './ResultsFeedDisplay';
-import { FeedContainer, FeedDay, FeedDayContent, FeedBottomButton } from './styles';
-import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
-import { isToday, datesAreEqual, makeSureTimestamp } from '../../helpers/dateHelpers';
-import { getDrinksState, getDaysForFeed, removeDrink, setModalTimestamp } from './consoDuck';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import { datesAreEqual, isToday, makeSureTimestamp } from '../../helpers/dateHelpers';
 import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
-import { NO_CONSO } from './drinksCatalog';
-import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
-import ThoughtOfTheDay from './ThoughtOfTheDay';
-import ButtonPrimary from '../../components/ButtonPrimary';
 import NPS from '../NPS/NPS';
+import { getDaysForFeed, getDrinksState, removeDrink, setModalTimestamp } from './consoDuck';
+import ConsoFeedDisplay from './ConsoFeedDisplay';
+import DateDisplay from './DateDisplay';
+import { NO_CONSO } from './drinksCatalog';
+import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
+import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
+import ResultsFeedDisplay from './ResultsFeedDisplay';
+import { FeedBottomButton, FeedContainer, FeedDay, FeedDayContent } from './styles';
+import ThoughtOfTheDay from './ThoughtOfTheDay';
+import Timeline from './Timeline';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
@@ -36,11 +36,11 @@ const computeShowButtons = (selected, position) => {
 
 const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
   // state for NPS
-  const [NPSvisible, setNPSvisible] = React.useState(false);
+  const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 
-  const [timestampSelected, setTimestampSelected] = React.useState(null);
+  const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
 
@@ -64,12 +64,12 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
 
   const isFocused = useIsFocused();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isFocused) setTimestampSelected(null);
   }, [isFocused]);
 
   return (
-    <React.Fragment>
+    <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
         <FeedContainer hideFeed={hideFeed}>
           <NPS forceView={NPSvisible} close={closeNPS} />
@@ -168,7 +168,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
           </ButtonContainer>
         </FeedContainer>
       </TouchableWithoutFeedback>
-    </React.Fragment>
+    </>
   );
 };
 

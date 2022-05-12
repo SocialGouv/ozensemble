@@ -1,14 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import TextStyled from './TextStyled';
-import DrinkQuantitySetter from './DrinkQuantitySetter';
 import { screenWidth } from '../styles/theme';
+import DrinkQuantitySetter from './DrinkQuantitySetter';
+import TextStyled from './TextStyled';
 
 export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
   catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
-  if (drinks === undefined) drinks = "Cocktails et spiritueux";
+  if (drinks === undefined) drinks = 'Cocktails et spiritueux';
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
   if (drink !== undefined) return drink.quantity;
   return 0;

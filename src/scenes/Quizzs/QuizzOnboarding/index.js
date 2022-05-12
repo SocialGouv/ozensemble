@@ -1,8 +1,8 @@
 import React from 'react';
+import Quizz from '../../../components/Quizz';
 import questionsOnboarding from './questions';
 import ResultsOnboarding from './ResultsOnboarding';
 import { mapOnboardingAnswersToResult } from './utils';
-import Quizz from '../../../components/Quizz';
 
 const QuizzOnboarding = (props) => (
   <Quizz

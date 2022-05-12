@@ -1,10 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import TextStyled from './TextStyled';
-import H3 from './H3';
 import { getDisplayDrinksModalName, getIcon, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
-import TouchableDelete from './TouchableDelete';
+import H3 from './H3';
 import QButton from './QButton';
+import TextStyled from './TextStyled';
+import TouchableDelete from './TouchableDelete';
 
 const DrinkQuantitySetter = ({
   oneLine,

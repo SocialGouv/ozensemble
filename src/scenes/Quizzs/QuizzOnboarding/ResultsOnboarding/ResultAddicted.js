@@ -1,17 +1,17 @@
 import React from 'react';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import TextStyled from '../../../../components/TextStyled';
+import Sources from '../../Sources';
+import Bottom from './Bottom';
 import {
   FullScreenBackground,
-  TopContainer,
   ResultTitle,
-  TopTitle,
-  TopSubTitle,
   TopButtonContainer,
+  TopContainer,
+  TopSubTitle,
+  TopTitle,
   UnderlinedButtonStyled,
 } from './styles';
-import Bottom from './Bottom';
-import Sources from '../../Sources';
 
 const ResultAddicted = ({ navigation, isInOnboarding }) => (
   <FullScreenBackground>

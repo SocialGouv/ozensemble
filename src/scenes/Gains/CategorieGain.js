@@ -1,9 +1,8 @@
 import React from 'react';
-
 import styled from 'styled-components';
-import { screenWidth } from '../../styles/theme';
-import TextStyled from '../../components/TextStyled';
 import H1 from '../../components/H1';
+import TextStyled from '../../components/TextStyled';
+import { screenWidth } from '../../styles/theme';
 
 const CategorieGain = ({ children, icon = null, value = '?', unit = '', description }) => {
   return (
@@ -74,9 +73,7 @@ const TextCategorieContainer = styled.View`
 `;
 
 const TextCategorie = styled.Text`
-  textAlign: center;
+  text-align: center;
 `;
-
-
 
 export default CategorieGain;

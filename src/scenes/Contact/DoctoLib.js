@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
+import { ActivityIndicator, Dimensions, Modal } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Modal, Dimensions, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
-import { BackButton } from './styles';
+import styled from 'styled-components';
 import Background from '../../components/Background';
 import matomo from '../../services/matomo';
+import { BackButton } from './styles';
 
 const DoctoLib = ({ navigation }) => {
   const [visible, setVisible] = useState(true);

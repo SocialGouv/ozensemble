@@ -1,11 +1,11 @@
+import { TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
+import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
-import { TouchableOpacity } from 'react-native';
 
 const commonCss = css`
   width: 85%;

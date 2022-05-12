@@ -1,6 +1,6 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import { AppState, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
 
 class NotificationService {
@@ -35,7 +35,7 @@ class NotificationService {
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
-  failIOSToken = (fail) => {
+  failIOSToken = () => {
     if (Platform.OS === 'android') return;
   };
 
