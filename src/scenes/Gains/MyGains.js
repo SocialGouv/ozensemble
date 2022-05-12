@@ -107,7 +107,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
             totalValue={drinkByWeek}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
-            internalColor={`rgba(64, 48, 165, ${50 / 100})`}
+            internalColor={`rgba(64, 48, 165, ${remaindrink / drinkByWeek})`}
           />
         </CategorieGain>
         <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
