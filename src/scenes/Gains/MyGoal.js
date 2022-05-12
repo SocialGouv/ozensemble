@@ -21,7 +21,7 @@ const MyGoal = () => {
     navigation.navigate('GOAL');
   };
 
-  const ToEstimation = () => {
+  const toEstimation = () => {
     navigation.navigate('ESTIMATION');
   };
 
@@ -57,7 +57,7 @@ const MyGoal = () => {
         </MyGoalSubContainerInside>
       </MyGoalSubContainer>
       <ModifyContainer>
-        <ButtonTouchable onPress={ToGoal}>
+        <ButtonTouchable onPress={toGoal}>
           <TextModify>
             <TextStyled>Modifier l'objectif</TextStyled>
           </TextModify>
@@ -77,7 +77,7 @@ const MyGoal = () => {
         </MyGoalSubContainerInside>
       </MyGoalSubContainer>
       <ModifyContainer>
-        <ButtonTouchable onPress={ToEstimation}>
+        <ButtonTouchable onPress={toEstimation}>
           <TextModify>
             <TextStyled>Modifier l'estimation</TextStyled>
           </TextModify>
