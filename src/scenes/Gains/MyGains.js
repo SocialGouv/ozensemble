@@ -21,6 +21,7 @@ import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
 import { daysWithGoalNoDrinkState, drinksByWeekState } from './recoil';
 
+
 const MyGains = ({ days, dailyDoses }) => {
   const navigation = useNavigation();
 
@@ -81,7 +82,7 @@ const MyGains = ({ days, dailyDoses }) => {
       </TopContainer>
       <TextContainer>
         <TextForm>
-          {!isOnboarded && (
+          {isOnboarded && (
             <TextStyled>
               Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled>
             </TextStyled>
@@ -94,7 +95,7 @@ const MyGains = ({ days, dailyDoses }) => {
       </Categories>
       <TextContainer>
         <TextForm>
-          {!isOnboarded && (
+          {isOnboarded && (
             <TextStyled>
               Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled>
             </TextStyled>
