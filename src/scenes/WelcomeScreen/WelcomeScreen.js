@@ -33,9 +33,7 @@ const WelcomeScreen = ({ navigation }) => {
     AsyncStorage.setItem('@OnboardingDoneWithCGU', 'true');
     RNBootSplash.show({ duration: 250 });
     await new Promise((res) => setTimeout(res, 250));
-    const onBoardingAnswersExist = await AsyncStorage.getItem('@Quizz_answers');
-    if (!onBoardingAnswersExist) navigation.navigate('ONBOARDING_QUIZZ');
-    else navigation.navigate('TABS');
+    navigation.navigate('TABS');
     await new Promise((res) => setTimeout(res, 750));
     RNBootSplash.hide({ duration: 250 });
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
