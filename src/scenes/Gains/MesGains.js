@@ -12,7 +12,7 @@ import Economy from '../../components/Illustrations/Economy';
 import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import NoDrink from '../../components/Illustrations/NoDrink';
 import Rocket from '../../components/Illustrations/Rocket';
-import TextStyled from '../../components/TextStyled';
+import TextStyled from '../../components/TextStyled'; 
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
