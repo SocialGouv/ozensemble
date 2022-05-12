@@ -7,12 +7,12 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
 import EstimationConsosList from './EstimationConsosList';
-import { drinksByWeekState } from './recoil';
+import { maxDrinksPerWeekSelector } from './recoil';
 
 const Estimation = () => {
   const navigation = useNavigation();
 
-  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
 
   const complete = () => {
     navigation.navigate('GAINS');

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -10,6 +9,7 @@ import Results from './ResultsMotivations';
 import Section from './Section';
 import sections from './sections';
 import { Paragraph, ScreenBgStyled, TopContainer, TopTitle, TopTitleContainer } from './styles';
+import { storage } from '../../../services/storage';
 
 const QuizzMotivationsStack = createStackNavigator();
 
@@ -43,8 +43,8 @@ const QuizzMotivations = ({ navigation, route }) => {
   };
 
   const validateAnswers = async () => {
-    await AsyncStorage.setItem(memoryKeyAnswers, JSON.stringify(answers));
-    await AsyncStorage.setItem(memoryKeyResult, 'true');
+    storage.set(memoryKeyAnswers, JSON.stringify(answers));
+    storage.set(memoryKeyResult, true);
     navigation.push('QUIZZ_RESULTS');
   };
 

@@ -9,12 +9,12 @@ import Done from '../../components/Illustrations/Done';
 import Economy from '../../components/Illustrations/Economy';
 import TextStyled from '../../components/TextStyled';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import { daysWithGoalNoDrinkState, drinksByWeekState, estimationDrinksPerWeekState } from './recoil';
+import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, estimationDrinksPerWeekState } from './recoil';
 
 const MyGoal = () => {
   const navigation = useNavigation();
 
-  const maxDrinksPerWeekGoal = useRecoilValue(drinksByWeekState);
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const ToGoal = () => {

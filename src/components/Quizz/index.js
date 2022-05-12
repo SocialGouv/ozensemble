@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 import styled from 'styled-components';
 import Background from '../Background';
@@ -7,6 +6,7 @@ import ProgressBar from '../ProgressBar';
 import UnderlinedButton from '../UnderlinedButton';
 import Question from './Question';
 import { fetchStoredAnswers } from './utils';
+import { storage } from '../../services/storage';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -44,14 +44,14 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
     const endOfQuestions = questionIndex === questions.length - 1;
 
     // await matomo.logQuizzAnswer({ questionKey, answerKey, score });
-    await AsyncStorage.setItem(memoryKeyAnswers, JSON.stringify(newAnswers));
+    storage.set(memoryKeyAnswers, JSON.stringify(newAnswers));
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(questions, newAnswers);
       // await matomo.logAddictionResult(addictionResult);
       // await matomo.logQuizzFinish();
       if (addictionResult) {
-        await AsyncStorage.setItem(memoryKeyResult, JSON.stringify(addictionResult));
+        storage.set(memoryKeyResult, JSON.stringify(addictionResult));
       }
       setState({ resultKey: addictionResult });
     }
