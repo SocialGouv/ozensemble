@@ -2,11 +2,9 @@ import React from 'react';
 import Svg, { G, Path } from 'react-native-svg';
 import styled from 'styled-components';
 
-const StyledSvg = styled(Svg)`
-  margin-top: 50px;
-`;
+const StyledSvg = styled(Svg)``;
 
-const ArrowRight = ({ size, ...props }) => (
+const ArrowRight = ({ size = 20, ...props }) => (
   <StyledSvg height={size} width={size} viewBox="0 0 46 80" {...props}>
     <G id="Icons" fill="none" fillRule="evenodd">
       <G id="Direction" fill="currentColor" fillRule="nonzero">

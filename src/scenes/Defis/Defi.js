@@ -86,9 +86,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
                   <TitleDay color={getTitleColor(dayIndex)}>{dayData?.title}</TitleDay>
                   <SubtitleDay color={getSubtitleColor(dayIndex)}>{dayData?.tagLine}</SubtitleDay>
                 </View>
-                {!(activeDay < dayIndex || !dayData?.screenCTA) ? (
-                  <ArrowRight size={10} color="#4030a5" style={{ marginTop: 0 }} />
-                ) : null}
+                {!(activeDay < dayIndex || !dayData?.screenCTA) ? <ArrowRight size={10} color="#4030a5" /> : null}
               </FeedDayContent>
             </FeedDay>
           );

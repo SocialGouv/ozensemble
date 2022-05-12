@@ -35,6 +35,7 @@
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-bootsplash": "^2.2.5",
+    "react-native-calendars": "^1.1284.0",
     "react-native-camera": "^3.30.0",
     "react-native-config": "^1.4.3",
     "react-native-device-info": "^5.5.3",
