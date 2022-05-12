@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
-import { fetchStoredAnswers } from './utils';
-import Question from './Question';
+import styled from 'styled-components';
 import Background from '../Background';
 import ProgressBar from '../ProgressBar';
 import UnderlinedButton from '../UnderlinedButton';
+import Question from './Question';
+import { fetchStoredAnswers } from './utils';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -24,7 +24,7 @@ const QuizzAndResultsStack = createStackNavigator();
 
 const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswersToResult, Results }) => {
   const initialState = route?.params?.initialState || {};
-  const [{ answers, progress, resultKey }, setGlobalState] = React.useState({
+  const [{ answers, progress, resultKey }, setGlobalState] = useState({
     answers: initialState.answers,
     resultKey: initialState.result,
     progress: 0,
@@ -32,6 +32,7 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
 
   const setState = (newState) => setGlobalState((oldState) => ({ ...oldState, ...newState }));
 
+  // eslint-disable-next-line no-unused-vars
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
     const newAnswers = {
       ...answers,
@@ -67,8 +68,9 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!answers) setInitAnswers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

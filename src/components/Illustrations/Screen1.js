@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 import Svg, { Path } from 'react-native-svg';
+import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const Screen1 = props => (
+const Screen1 = (props) => (
   <StyledSvg width="233" viewBox="0 0 233 94" {...props}>
     <Path
       d="M34.3359 44.6162L33.8472 44.2793C33.3105 43.9092 32.5756 44.0445 32.2058 44.5811C31.8359 45.1176 31.9709 45.8526 32.5076 46.2225L32.9963 46.5594C33.2968 46.7666 33.6591 46.8153 33.985 46.724C34.2413 46.6522 34.4749 46.4939 34.6377 46.2576C35.0076 45.7211 34.8726 44.9861 34.3359 44.6162Z"

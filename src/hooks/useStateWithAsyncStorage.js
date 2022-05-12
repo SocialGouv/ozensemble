@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
+import { useEffect, useMemo, useState } from 'react';
 
 const useStateWithAsyncStorage = (key, initValue, debug_resetOnInit = false) => {
   const [value, setValue] = useState(initValue);
 
   const valueType = useMemo(() => typeof initValue, [initValue]);
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
 
   const getInitItemValue = async () => {
     if (debug_resetOnInit) return AsyncStorage.removeItem(key);
@@ -28,6 +28,7 @@ const useStateWithAsyncStorage = (key, initValue, debug_resetOnInit = false) => 
 
   useEffect(() => {
     if (isFocused) getInitItemValue();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   return [value, setValueInAsyncStorage];

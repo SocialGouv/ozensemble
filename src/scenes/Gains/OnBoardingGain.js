@@ -35,11 +35,6 @@ const Continue = styled.View`
   align-items: center;
   margin-top: 30px;
 `;
-const ButtonTouchable = styled.TouchableOpacity``;
-
-const ContinueText = styled.Text`
-  text-transform: uppercase;
-`;
 
 const Title = styled(H1)`
   flex-shrink: 0;

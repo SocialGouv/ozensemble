@@ -1,8 +1,8 @@
 import React from 'react';
-import questionsEvaluateConso from './questions';
-import { mapEvaluateConsoAnswersToResult } from './utils';
-import ResultsEvaluateConso from './ResultsEvaluateConso';
 import Quizz from '../../../components/Quizz';
+import questionsEvaluateConso from './questions';
+import ResultsEvaluateConso from './ResultsEvaluateConso';
+import { mapEvaluateConsoAnswersToResult } from './utils';
 
 const QuizzEvaluateConso = (props) => {
   return (

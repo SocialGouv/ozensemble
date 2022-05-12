@@ -1,28 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Modal, Platform, AppState, Alert } from 'react-native';
+import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import PropTypes from 'prop-types';
+import { Alert, AppState, Modal, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import NotificationService from '../../services/notifications';
-import matomo from '../../services/matomo';
-import Mark from './Mark';
-import {
-  Container,
-  ScreenBgStyled,
-  KeyboardAvoidingViewStyled,
-  TopTitle,
-  TopSubTitle,
-  FeedBackStyled,
-  ButtonContainer,
-  CloseNPS,
-  TextInputStyled,
-} from './styles';
+import pck from '../../../package.json';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import TextStyled from '../../components/TextStyled';
+import UnderlinedButton from '../../components/UnderlinedButton';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
-import pck from '../../../package.json';
+import matomo from '../../services/matomo';
+import NotificationService from '../../services/notifications';
+import Mark from './Mark';
+import {
+  ButtonContainer,
+  CloseNPS,
+  Container,
+  FeedBackStyled,
+  KeyboardAvoidingViewStyled,
+  ScreenBgStyled,
+  TextInputStyled,
+  TopSubTitle,
+  TopTitle,
+} from './styles';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -45,7 +45,7 @@ const STORE_KEYS = {
   INITIAL_OPENING: '@NPSInitialOpening',
 };
 
-class NPS extends React.Component {
+class NPS extends Component {
   state = {
     visible: false,
     useful: null,
@@ -75,7 +75,6 @@ class NPS extends React.Component {
       this.checkNeedNPS();
     }
     if (!prevProps.forceView && this.props.forceView && !this.state.visible) {
-      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ visible: true });
     }
     if (prevState.visible && !this.state.visible) {

@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import Lock from '../../components/Illustrations/Lock';
@@ -51,6 +51,7 @@ const Day = ({ locked, done, index, unLock }) => {
 
   useEffect(() => {
     if (pressed >= (__DEV__ ? 2 : 8)) unLockLevel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pressed]);
 
   return (
@@ -71,12 +72,6 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 45px;
-`;
-const DayinProgress = styled.View`
-  height: 20px;
-  width: 20px;
-  border: 1px dotted #4030a5;
-  border-radius: 5px;
 `;
 const DayContainer = styled.View`
   display: flex;

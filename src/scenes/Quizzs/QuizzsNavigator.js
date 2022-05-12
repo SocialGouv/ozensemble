@@ -1,15 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-import { screenWidth } from '../../styles/theme';
 import { createStackNavigator } from '@react-navigation/stack';
-import TextStyled from '../../components/TextStyled';
+import styled from 'styled-components';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
+import TextStyled from '../../components/TextStyled';
+import { screenWidth } from '../../styles/theme';
 
-import QuizzLifeQuality from './QuizzLifeQuality';
 import QuizzEvaluateConso from './QuizzEvaluateConso';
-import QuizzOnboarding from './QuizzOnboarding';
+import QuizzLifeQuality from './QuizzLifeQuality';
 import QuizzMotivations from './QuizzMotivations';
+import QuizzOnboarding from './QuizzOnboarding';
 
 import QuizzElement from './QuizzElement';
 

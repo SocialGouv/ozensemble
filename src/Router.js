@@ -1,29 +1,27 @@
-import React from 'react';
-import { StatusBar } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React, { Component } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RNBootSplash from 'react-native-bootsplash';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import matomo from './services/matomo';
-import NotificationService from './services/notifications';
-import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
-import Contact from './scenes/Contact/Contact';
-import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
-import Infos from './scenes/Infos/Infos';
-import NPS from './scenes/NPS/NPS';
-import AppStateHandler from './services/AppStateHandler';
-import GuidanceIcon from './components/Illustrations/GuidanceIcon';
-import FollowUpIcon from './components/Illustrations/FollowUpIcon';
-import InfosIcon from './components/Illustrations/Infos';
+import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'react-native';
+import RNBootSplash from 'react-native-bootsplash';
 import DefisIcon from './components/Illustrations/Defis';
-import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
+import FollowUpIcon from './components/Illustrations/FollowUpIcon';
+import GuidanceIcon from './components/Illustrations/GuidanceIcon';
+import InfosIcon from './components/Illustrations/Infos';
+import Screen3Image from './components/Illustrations/Screen3';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
+import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
+import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
+import Contact from './scenes/Contact/Contact';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
-import Screen3Image from './components/Illustrations/Screen3';
-
-import QuizzOnboarding from './scenes/Quizzs/QuizzOnboarding';
+import Infos from './scenes/Infos/Infos';
+import NPS from './scenes/NPS/NPS';
+import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
+import AppStateHandler from './services/AppStateHandler';
+import matomo from './services/matomo';
+import NotificationService from './services/notifications';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
@@ -96,7 +94,7 @@ const TabsNavigator = ({ navigation }) => {
 };
 
 const Root = createStackNavigator();
-class Router extends React.Component {
+class Router extends Component {
   state = {
     initialRouteName: null,
   };

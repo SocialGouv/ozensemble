@@ -1,13 +1,15 @@
-import React from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import { useIsFocused } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { Dimensions, View } from 'react-native';
 import styled from 'styled-components';
-import H1 from '../../../components/H1';
-import TextStyled from '../../../components/TextStyled';
 import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
+import H1 from '../../../components/H1';
 import Stars from '../../../components/Illustrations/Stars';
-import { useFocusEffect } from '@react-navigation/native';
+import TextStyled from '../../../components/TextStyled';
 import { setValidatedDays } from './utils';
-import { View, Dimensions } from 'react-native';
+
 const screenWidth = Dimensions.get('window').width;
 
 const Elem = ({ content, bold }) => (
@@ -22,9 +24,12 @@ const Elem = ({ content, bold }) => (
 const Br = ({ lines = 1 }) => <TextStyled>{'\n'.repeat(lines)}</TextStyled>;
 
 export default ({ navigation, route }) => {
-  useFocusEffect(() => {
-    route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
-  });
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+  }, [route?.params, isFocused]);
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <ScreenBgStyled>

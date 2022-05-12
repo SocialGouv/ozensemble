@@ -1,6 +1,6 @@
 import React from 'react';
+import Svg, { Circle, G, Line, Path } from 'react-native-svg';
 import styled from 'styled-components';
-import Svg, { G, Circle, Path, Line } from 'react-native-svg';
 
 const StyledSvg = styled(Svg)`
   margin-right: 5px;
@@ -22,16 +22,7 @@ const TorchIcon = ({ size, showWithCrossLine, ...props }) => (
       </G>
       {showWithCrossLine && (
         <>
-          <Line
-            x1="0.25"
-            y1="97"
-            x2="32.25"
-            y2="65"
-            id="Line"
-            stroke="#f9f9f9"
-            strokeWidth="4"
-            strokeLinecap="round"
-          />
+          <Line x1="0.25" y1="97" x2="32.25" y2="65" id="Line" stroke="#f9f9f9" strokeWidth="4" strokeLinecap="round" />
           <Line
             x1="61.5"
             y1="38.25"

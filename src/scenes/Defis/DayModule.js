@@ -1,6 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
-
+import React from 'react';
 import TextStyled from '../../components/TextStyled';
 
 const DayModule = ({ dayData, activeDayIsDone }) => {

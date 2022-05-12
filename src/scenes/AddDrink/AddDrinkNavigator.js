@@ -1,9 +1,9 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import ConsosList from './ConsosList';
 import BarCodeReader from './BarCodeReader';
-import NewDrinkForm from './NewDrinkForm';
+import ConsosList from './ConsosList';
 import DrinksQuantityExamples from './DrinksQuantityExamples';
+import NewDrinkForm from './NewDrinkForm';
 
 const AddDrinkStack = createStackNavigator();
 const AddDrinkNavigator = () => (

@@ -1,25 +1,13 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import styled from 'styled-components';
-import SafeAreaView from 'react-native-safe-area-view';
 import { Modal, ScrollView } from 'react-native';
-import TextStyled from '../../components/TextStyled';
-import { TopContainer } from './styles';
-import Diagram from './Diagram';
-import CocktailGlass from '../../components/Illustrations/CocktailGlass';
-import HalfBeer from '../../components/Illustrations/HalfBeer';
-import WineGlass from '../../components/Illustrations/WineGlass';
-import Dose from '../../components/Illustrations/Dose';
+import SafeAreaView from 'react-native-safe-area-view';
+import styled from 'styled-components';
 import Stars from '../../components/Illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
-
-const doses = [
-  { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
-  // { Icon: Pint, volume: 50 },
-  { Icon: WineGlass, name: 'vin', volume: 10, degrees: 12 },
-  // { Icon: WineBottle, volume: 75 },
-  { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
-  // { Icon: CocktailBottle, volume: 75 },
-];
+import TextStyled from '../../components/TextStyled';
+import Diagram from './Diagram';
+import { TopContainer } from './styles';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -109,26 +97,6 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
 const SafeAreaViewStyled = styled(SafeAreaView)`
   background-color: #f9f9f9;
   flex: 1;
-`;
-
-const IconsContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  margin-bottom: 50px;
-`;
-
-const EqualWrapper = styled.View`
-  padding: 10px;
-  padding-bottom: 50px;
-`;
-
-const Volume = styled(TextStyled)`
-  margin-top: 5px;
-`;
-
-const IconWrapper = styled.View`
-  align-items: center;
 `;
 
 const Paragraph = styled.View`

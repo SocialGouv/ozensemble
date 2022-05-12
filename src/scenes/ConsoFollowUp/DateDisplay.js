@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 
 const DateDisplay = ({ day }) => (
-  <React.Fragment>
+  <>
     <WeekDay color="#4030a5">{day.getLocaleWeekDay('fr').capitalize()}</WeekDay>
     <DayAndMonth>
       {day.getDate()} {day.getLocaleMonth('fr')}
     </DayAndMonth>
-  </React.Fragment>
+  </>
 );
 
 const WeekDay = styled(TextStyled)`

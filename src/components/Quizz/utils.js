@@ -34,7 +34,7 @@ export const fetchStoredAnswers = async ({ memoryKeyAnswers, memoryKeyResult, qu
     } else {
       toReturn.answers = computeInitAnswersState();
     }
-    if (!!memoryKeyResult) {
+    if (memoryKeyResult) {
       const storedResultKey = await AsyncStorage.getItem(memoryKeyResult);
       if (storedResultKey !== null) {
         toReturn.result = JSON.parse(storedResultKey);
