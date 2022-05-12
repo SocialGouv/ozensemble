@@ -21,7 +21,6 @@ import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from './recoil';
 
-
 const MyGains = ({ days, dailyDoses }) => {
   const navigation = useNavigation();
 
@@ -31,7 +30,7 @@ const MyGains = ({ days, dailyDoses }) => {
   };
 
   const beginDate = '3 avril';
-  const beginDay = 'mercredi';
+  const beginDay = 'lundi';
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
