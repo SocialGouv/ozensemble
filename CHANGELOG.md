@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/SocialGouv/ozensemble/compare/v1.9.0...v1.10.0) (2022-05-12)
+
+
+### Features
+
+* migrate from asyncstorager to mmkv ([9c1e52a](https://github.com/SocialGouv/ozensemble/commit/9c1e52a216db6b153669347f5446c0edf05b824d))
+
 # [1.9.0](https://github.com/SocialGouv/ozensemble/compare/v1.8.0...v1.9.0) (2022-05-12)
 
 
