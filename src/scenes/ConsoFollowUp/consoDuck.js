@@ -68,16 +68,16 @@ const formatHtmlTable = (drinks, catalog) => {
             <th>Quantité</th>
           </tr>
           ${sortDrinksByDate(drinks)
-            .map((drink) => {
-              const doses = mapDrinkToDose(drink, catalog);
-              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
-              const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
-              return `<tr>
+      .map((drink) => {
+        const doses = mapDrinkToDose(drink, catalog);
+        const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
+        const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
+        return `<tr>
                   <td>${time}</td>
                   <td>${drink.quantity} ${name} (${doses} dose${doses > 1 ? 's' : ''})</td>
                 </tr>`;
-            })
-            .join('')}
+      })
+      .join('')}
         </tbody>
       </table>
     </body>

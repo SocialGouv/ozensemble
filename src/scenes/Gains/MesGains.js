@@ -12,14 +12,27 @@ import Economy from '../../components/Illustrations/Economy';
 import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import NoDrink from '../../components/Illustrations/NoDrink';
 import Rocket from '../../components/Illustrations/Rocket';
-import TextStyled from '../../components/TextStyled';
+import TextStyled from '../../components/TextStyled'; 
+
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
 import MyGoal from './MyGoal';
 import OnBoardingGain from './OnBoardingGain';
+import { connect } from 'react-redux';
+import {
+  getDaysForFeed,
+  getDailyDoses,
+  getDrinksState,
+} from '../ConsoFollowUp/consoDuck';
+import { datesAreEqual } from '../../helpers/dateHelpers';
 
-const MyGains = () => {
+
+const MyGains = ({
+  days,
+  dailyDoses,
+  drinks
+}) => {
   const navigation = useNavigation();
 
   const toGoal = () => {
@@ -36,6 +49,13 @@ const MyGains = () => {
   const isOnboarded = useMemo(() => !!drinkByWeek, [drinkByWeek]);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
+
+
+  const notDrinkDaythisWeek = days.slice(0, 7).filter(day => dailyDoses[day] === 0).length
+  const numberDrinkThisWeek = days.slice(0, 7).reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0)
+  const remaindrink = drinkByWeek - numberDrinkThisWeek > 0 ? drinkByWeek - numberDrinkThisWeek : 0;
+
+
 
   return (
     <ScreenBgStyled>
@@ -84,7 +104,7 @@ const MyGains = () => {
       </TextContainer>
       <Categories>
         <CategorieGain icon={<Economy size={24} />} unit={'€'} description="Mes économies" />
-        <CategorieGain icon={<Balance size={26} />} value={null} unit="kcal" description="Mes calories économisées" />
+        <CategorieGain icon={<Balance size={26} />} unit="kcal" description="Mes calories économisées" />
       </Categories>
       <TextContainer>
         <TextForm>
@@ -96,44 +116,46 @@ const MyGains = () => {
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain description="Verres restants">
+        <CategorieGain description="Verres restants" value={remaindrink}>
           <Speedometer
-            value={50}
-            totalValue={100}
+            value={remaindrink}
+            totalValue={drinkByWeek}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
             internalColor={`rgba(64, 48, 165, ${50 / 100})`}
           />
         </CategorieGain>
-        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" />
-      </Categories>
+        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
+      </Categories >
       <OnBoardingGain
         onPress={toGoal}
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
       <GainsCalendar init={isOnboarded} />
-      {!isOnboarded ? (
-        <TopContainer>
-          <TopTitle>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </TopTitle>
-          <TouchableOpacity onPress={() => setShowOnboardingGainModal((show) => !show)}>
-            <Description>
-              <InfosIcon size={24} />
-              <TextDescritpion>
-                <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
-                </Text>
-              </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
-            </Description>
-          </TouchableOpacity>
-        </TopContainer>
-      ) : (
-        <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
-      )}
-    </ScreenBgStyled>
+      {
+        !isOnboarded ? (
+          <TopContainer>
+            <TopTitle>
+              <H1 color="#4030a5">Mon objectif</H1>
+            </TopTitle>
+            <TouchableOpacity onPress={() => setShowOnboardingGainModal((show) => !show)}>
+              <Description>
+                <InfosIcon size={24} />
+                <TextDescritpion>
+                  <Text>
+                    Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+                  </Text>
+                </TextDescritpion>
+                <Arrow>{'>'}</Arrow>
+              </Description>
+            </TouchableOpacity>
+          </TopContainer>
+        ) : (
+          <MyGoal drinkByWeek={drinkByWeek} dayNoDrink={dayNoDrink} />
+        )
+      }
+    </ScreenBgStyled >
   );
 };
 
@@ -196,4 +218,12 @@ const Bold = styled.Text`
   font-weight: bold;
 `;
 
-export default MyGains;
+const makeStateToProps = () => (state) => ({
+  drinks: getDrinksState(state),
+  days: getDaysForFeed(state),
+  dailyDoses: getDailyDoses(state),
+})
+
+
+export default connect(makeStateToProps)(MyGains);
+
