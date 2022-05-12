@@ -13,6 +13,7 @@ import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import NoDrink from '../../components/Illustrations/NoDrink';
 import Rocket from '../../components/Illustrations/Rocket';
 import TextStyled from '../../components/TextStyled'; 
+
 import useStateWithAsyncStorage from '../../hooks/useStateWithAsyncStorage';
 import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
@@ -212,7 +213,6 @@ const TextContainer = styled.View`
 `;
 
 const TextForm = styled(H2)``;
-
 
 const Bold = styled.Text`
   font-weight: bold;
