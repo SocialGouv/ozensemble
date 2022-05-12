@@ -1,17 +1,16 @@
-import React from 'react';
-
-import H1 from '../../components/H1';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
-
-import { screenHeight } from '../../styles/theme';
+import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
 import NoDrink from '../../components/Illustrations/NoDrink';
+import TextStyled from '../../components/TextStyled';
+import { screenHeight } from '../../styles/theme';
 
 const Consumptions = () => {
   const date = 1651849680000;
-  const [showDatePicker, setShowDatePicker] = React.useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   return (
     <ScreenBgStyled>

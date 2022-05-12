@@ -1,12 +1,5 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Animated,
-  View,
-  Text,
-  Dimensions,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect, Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -26,10 +19,10 @@ const Toast = connect(
   makeStateToProps,
   dispatchToProps
 )(({ backgroundColor, caption, duration, setToast }) => {
-  const [show, setShow] = React.useState(caption.length);
+  const [show, setShow] = useState(caption.length);
 
-  const fadeAnim = React.useRef(new Animated.Value(0)).current;
-  const timeout = React.useRef(null);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const timeout = useRef(null);
 
   const fadeIn = () => {
     setShow(true);
@@ -56,7 +49,7 @@ const Toast = connect(
     fadeOut();
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (caption.length) {
       fadeIn();
       timeout.current = setTimeout(() => {
@@ -138,9 +131,7 @@ export const withToast = (ChildComponent) => {
     return <ChildComponent {...props} setToast={(...args) => store.dispatch(setToast(...args))} />;
   };
 
-  ToastedComponent.displayName = `withToast(${
-    ToastedComponent.displayName || ToastedComponent.name || 'Component'
-  })`;
+  ToastedComponent.displayName = `withToast(${ToastedComponent.displayName || ToastedComponent.name || 'Component'})`;
 
   return ToastedComponent;
 };

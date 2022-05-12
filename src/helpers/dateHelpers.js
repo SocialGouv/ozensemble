@@ -25,13 +25,7 @@ export const dateWithTimeAndOffsetFromToday = (hours, minutes, offset) => {
 export const today = (offset = 0, withTime = false) => {
   if (withTime) {
     const now = new Date();
-    return new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      now.getHours(),
-      now.getMinutes() + 1
-    );
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1);
   }
   return dateWithoutTime(new Date(), offset);
 };

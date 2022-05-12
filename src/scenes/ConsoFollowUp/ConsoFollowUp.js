@@ -1,32 +1,32 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import TextStyled from '../../components/TextStyled';
-import {
-  ScreenBgStyled,
-  TopContainer,
-  Title,
-  SubTitle,
-  FeedAddConsoTodayContainer,
-  FeedAddConsoTodayButton,
-} from './styles';
-import Diagram from './Diagram';
-import Feed from './Feed';
-import { checkIfThereIsDrinks, setModalTimestamp } from './consoDuck';
-import { drinksCatalog, BEER, BEER_HALF } from './drinksCatalog';
-import DiagramHelpModal from './DiagramHelpModal';
-import matomo from '../../services/matomo';
-import Background from '../../components/Background';
-import HeaderBackground from '../../components/HeaderBackground';
-import DrinksCategory from '../../components/DrinksCategory';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { connect } from 'react-redux';
+import Background from '../../components/Background';
+import DrinksCategory from '../../components/DrinksCategory';
+import HeaderBackground from '../../components/HeaderBackground';
+import TextStyled from '../../components/TextStyled';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import matomo from '../../services/matomo';
+import { checkIfThereIsDrinks, setModalTimestamp } from './consoDuck';
+import Diagram from './Diagram';
+import DiagramHelpModal from './DiagramHelpModal';
+import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
+import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
+import {
+  FeedAddConsoTodayButton,
+  FeedAddConsoTodayContainer,
+  ScreenBgStyled,
+  SubTitle,
+  Title,
+  TopContainer,
+} from './styles';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
 const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
-  const [showHelpModal, setShowHelpModal] = React.useState(false);
-  const [selectedBar, setSelectedBar] = React.useState({});
+  const [showHelpModal, setShowHelpModal] = useState(false);
+  const [selectedBar, setSelectedBar] = useState({});
   const navigation = useNavigation();
 
   const addDrinksRequest = (timestamp) => {

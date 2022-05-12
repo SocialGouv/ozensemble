@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 export default {
   // from
   FROM_MENU: 1,

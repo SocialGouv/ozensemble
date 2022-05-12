@@ -1,27 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { Linking } from 'react-native';
+import styled from 'styled-components';
 
-import H1 from '../../../components/H1';
-import TextStyled from '../../../components/TextStyled';
 import Background from '../../../components/Background';
 import GoBackButton from '../../../components/GoBackButton';
+import H1 from '../../../components/H1';
+import { fetchStoredAnswers } from '../../../components/Quizz/utils';
+import TextStyled from '../../../components/TextStyled';
 import { Content as ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
 import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/Result';
 import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
-import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 
 import Sources from '../../Quizzs/Sources';
 
 export default ({ navigation }) => {
-  const [{ resultEvaluateConso, resultLifeQuality, resultMotivation }, setGlobalResults] = React.useState({});
+  const [{ resultEvaluateConso, resultLifeQuality, resultMotivation }, setGlobalResults] = useState({});
   const setResults = (newState) => setGlobalResults((oldState) => ({ ...oldState, ...newState }));
 
   const getResultsFromStorage = async (memoryKeyAnswers, memoryKeyResult, key, cb) => {
     const r = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
     cb({ [key]: r });
   };
-  React.useEffect(() => {
+  useEffect(() => {
     getResultsFromStorage(
       '@QuizzEvaluateConso_answers',
       '@QuizzEvaluateConso_result',
@@ -31,10 +31,6 @@ export default ({ navigation }) => {
     getResultsFromStorage('@QuizzLifeQuality_answers', '@QuizzLifeQuality_result', 'resultLifeQuality', setResults);
     getResultsFromStorage('@QuizzMotivations_answers', '@QuizzMotivations_result', 'resultMotivation', setResults);
   }, []);
-
-  React.useEffect(() => {
-    console.log({ resultEvaluateConso, resultLifeQuality, resultMotivation });
-  }, [resultEvaluateConso, resultLifeQuality, resultMotivation]);
 
   return (
     <Background color="#39cec0" withSwiperContainer>
@@ -85,10 +81,6 @@ const ScreenBgStyled = styled.ScrollView`
   flex-basis: 100%;
 `;
 
-const Paragraph = styled.View`
-  margin-bottom: 25px;
-`;
-
 const TopContainer = styled.View`
   padding: 20px 30px 0px;
   padding-bottom: 100px;
@@ -104,25 +96,4 @@ const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
-`;
-
-const AddConsoCTAContainer = styled.View`
-  margin-bottom: 100px;
-  align-items: center;
-`;
-const IconsContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  margin-bottom: 50px;
-`;
-const IconWrapper = styled.View`
-  align-items: center;
-`;
-const Volume = styled(TextStyled)`
-  margin-top: 5px;
-`;
-const EqualWrapper = styled.View`
-  padding: 10px;
-  padding-bottom: 50px;
 `;

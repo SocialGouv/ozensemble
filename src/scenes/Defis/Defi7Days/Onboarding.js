@@ -1,15 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import H1 from '../../../components/H1';
-import TextStyled from '../../../components/TextStyled';
+import styled from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { defaultPadding } from '../../../styles/theme';
-import ReminderIcon from '../../../components/Illustrations/ReminderIcon';
+import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
+import ReminderIcon from '../../../components/Illustrations/ReminderIcon';
+import TextStyled from '../../../components/TextStyled';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import matomo from '../../../services/matomo';
+import { defaultPadding } from '../../../styles/theme';
 
 export default ({ navigation }) => {
   const startDefi = async () => {

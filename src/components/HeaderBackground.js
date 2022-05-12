@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { screenWidth, screenHeight } from '../styles/theme';
+import { screenHeight, screenWidth } from '../styles/theme';
 
 const HeaderBackground = () => (
   <>

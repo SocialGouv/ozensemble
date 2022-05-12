@@ -3,8 +3,8 @@ import TextStyled from '../../../../components/TextStyled';
 import {
   BottomContainer,
   BottomSubContainer,
-  BottomTitle,
   BottomSubTitle,
+  BottomTitle,
   ResultsIllustrationStyled,
   UnderlinedButtonStyled,
 } from './styles';

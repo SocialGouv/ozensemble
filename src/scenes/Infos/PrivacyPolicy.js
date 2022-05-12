@@ -1,11 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Linking, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import styled from 'styled-components';
 import Background from '../../components/Background';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { Linking, Text } from 'react-native';
 import { defaultPadding } from '../../styles/theme';
 
 const PrivacyPolicy = ({ onClose }) => (

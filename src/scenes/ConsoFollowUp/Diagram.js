@@ -1,30 +1,31 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import UnderlinedButton from '../../components/UnderlinedButton';
+import { dateIsBeforeOrToday } from '../../helpers/dateHelpers';
+import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
+import { screenHeight } from '../../styles/theme';
 import {
-  getDaysForDiagram,
-  getDailyDoses,
-  getHighestDailyDoses,
   checkIfThereIsDrinks,
+  getDailyDoses,
+  getDaysForDiagram,
+  getHighestDailyDoses,
   maxDosesOnScreen,
 } from './consoDuck';
-import { dateIsBeforeOrToday } from '../../helpers/dateHelpers';
 import {
-  BarsContainer,
   Bar,
-  UpperBar,
-  LowerBar,
+  BarsContainer,
+  CloseHelpContainer,
   Dose,
-  Line,
-  LegendContainer,
-  Legend,
   doseTextHeight,
   Help,
   HelpText,
-  CloseHelpContainer,
+  Legend,
+  LegendContainer,
+  Line,
+  LowerBar,
+  UpperBar,
 } from './styles';
-import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import { screenHeight } from '../../styles/theme';
 
 const getAcceptableDosePerDay = (gender) => {
   if (!gender) return 3;
@@ -95,7 +96,7 @@ const Diagram = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       {!showCloseHelp && !asPreview && (
         <Help onPress={onShowHelp}>
           <HelpText>?</HelpText>
@@ -112,7 +113,7 @@ const Diagram = ({
             if (!dateIsBeforeOrToday(day)) {
               return null;
             }
-            if (!(dailyDoses[day] >= 0)) {
+            if (dailyDoses[day] < 0) {
               return -1;
             }
             return Math.min(maxDosesOnScreen, dailyDoses[day]);
@@ -165,7 +166,7 @@ const Diagram = ({
       <LegendContainer>
         {selectedBar?.index >= 0 && selectedBar?.label ? <Legend>{selectedBar?.label}</Legend> : null}
       </LegendContainer>
-    </React.Fragment>
+    </>
   );
 };
 

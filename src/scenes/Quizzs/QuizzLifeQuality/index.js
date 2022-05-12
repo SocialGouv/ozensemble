@@ -1,8 +1,8 @@
 import React from 'react';
+import Quizz from '../../../components/Quizz';
 import questionsLifeQuality from './questions';
 import ResultsLifeQuality from './ResultsLifeQuality';
 import { mapLifeQualityAnswersToResult } from './utils';
-import Quizz from '../../../components/Quizz';
 
 const QuizzLifeQuality = (props) => (
   <Quizz

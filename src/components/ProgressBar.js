@@ -1,13 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useRef } from 'react';
 import { Animated } from 'react-native';
+import styled from 'styled-components';
 import { defaultPadding, screenWidth } from '../styles/theme';
 
 const ProgressBar = ({ progress }) => {
-  const computedProgress = React.useRef(new Animated.Value(progress)).current;
+  const computedProgress = useRef(new Animated.Value(progress)).current;
 
-  React.useEffect(() => {
+  useEffect(() => {
     Animated.timing(computedProgress, {
       toValue: progress,
       duration: 400,

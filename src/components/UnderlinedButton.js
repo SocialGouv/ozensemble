@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Platform } from 'react-native';
+import styled from 'styled-components';
 import { buttonHeight } from '../styles/theme';
 
 const UnderlinedButton = ({ content, onPress, color, withoutPadding, bold, ...props }) => (

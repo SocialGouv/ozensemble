@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import Header from '../../../Defis/Header';
 import Result from './Result';
 import { FullScreenBackground, ResultContainer } from './styles';
-import { useFocusEffect } from '@react-navigation/native';
 import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
 import Sources from '../../Sources';
 
 const Results = ({ resultKey, route }) => {
-  if (!resultKey) return null;
+  const isFocused = useIsFocused();
 
-  useFocusEffect(() => {
-    route?.params?.inDefi7Days && setValidatedDays(route?.params?.day);
-  });
+  useEffect(() => {
+    if (resultKey && route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+  }, [route?.params, isFocused, resultKey]);
+
+  if (!resultKey) return null;
 
   return (
     <FullScreenBackground>

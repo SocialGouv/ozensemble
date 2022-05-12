@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Modal, SafeAreaView, TouchableWithoutFeedback } from 'react-native';
+import { Modal, SafeAreaView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 const ModalContainer = ({
   animationType = 'slide',

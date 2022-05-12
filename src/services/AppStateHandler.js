@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { AppState } from 'react-native';
 
-class AppStateHandler extends React.PureComponent {
+class AppStateHandler extends PureComponent {
   state = {
     appState: AppState.currentState,
   };

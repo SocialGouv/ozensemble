@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Platform } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import ButtonPrimary from './ButtonPrimary';
+import { Platform } from 'react-native';
+import styled from 'styled-components';
 import { today } from '../helpers/dateHelpers';
+import ButtonPrimary from './ButtonPrimary';
 import UnderlinedButton from './UnderlinedButton';
 
 /*
@@ -15,8 +15,8 @@ import UnderlinedButton from './UnderlinedButton';
 // https://github.com/react-native-community/react-native-datetimepicker/issues/114
 
 const TimePicker = ({ visible, selectDate }) => {
-  const [date, setDate] = React.useState(new Date(Date.now() + 60 * 1000));
-  React.useEffect(() => {
+  const [date, setDate] = useState(new Date(Date.now() + 60 * 1000));
+  useEffect(() => {
     if (visible) setDate(new Date(Date.now() + 60 * 1000));
   }, [visible]);
   if (Platform.OS === 'ios') {
