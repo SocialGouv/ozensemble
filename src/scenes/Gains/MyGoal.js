@@ -102,6 +102,7 @@ const MyGoalContainer = styled.View`
 
 const MyGoalSubContainer = styled.View`
   border: 1px solid #ddd;
+  border-radius: 5px;
   margin: 10px 5px 10px;
 `;
 
