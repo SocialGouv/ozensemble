@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
+import { getDailyDoses, getDrinksState, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import { maxDrinksPerWeekSelector } from './recoil';
 import { dateWithoutTime } from '../../helpers/dateHelpers';
 
@@ -25,6 +25,7 @@ const noDrinkDay = {
   startingDay: true,
   endingDay: true,
   selectedColor: 'green',
+  isNoDrinkDay: true,
 };
 
 const drinkDay = {
@@ -32,9 +33,10 @@ const drinkDay = {
   startingDay: true,
   endingDay: true,
   selectedColor: 'red',
+  isDrinkDay: true,
 };
 
-const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
+const GainsCalendar = ({ drinks, isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
@@ -70,12 +72,18 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
+          maxDate={dayjs().format('YYYY-MM-DD')}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
-          disabled={true}
+          disableAllTouchEventsForDisabledDays
           onDayPress={({ dateString }) => {
-            if (isOnboarded){
-              setModalTimestamp(dateWithoutTime(dateString));
+            if (!isOnboarded) return setShowOnboardingGainModal(true);
+            if (markedDays[dateString]?.isDrinkDay) {
+              navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
+            } else {
+              const now = dayjs();
+              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+              setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
             }
           }}
@@ -155,6 +163,8 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const makeStateToProps = () => (state) => ({
+  drinks: getDrinksState(state),
+
   // days: getDaysForDiagram(state),
   // thereIsDrinks: checkIfThereIsDrinks(state),
   dailyDoses: getDailyDoses(state),
