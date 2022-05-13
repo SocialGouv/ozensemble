@@ -4,7 +4,7 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenWidth } from '../../styles/theme';
 
-const CategorieGain = ({ children, icon = null, value = '?', unit = '', description }) => {
+const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, maximize }) => {
   return (
     <Categorie>
       <ComponentCategorie>
@@ -42,9 +42,10 @@ const ComponentCategorie = styled.View`
   border: 1px solid #4030a5;
   border-radius: 5px;
   width: ${width * 0.85}px;
-  height: ${width * 0.85}px;
+  min-height: ${width * 0.85}px;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `;
 
 const IconCategorie = styled.View`
@@ -59,6 +60,9 @@ const UnitCategorie = styled.View`
   flex-direction: row;
   align-items: flex-end;
   height: ${width * 0.85 * 0.5}px;
+
+  align-items: baseline;
+  flex-wrap: wrap;
 `;
 
 const CategorieUnit = styled(H1)``;
