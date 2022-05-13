@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
+import { getDailyDoses, getDrinksState, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import { maxDrinksPerWeekSelector } from './recoil';
 import { dateWithoutTime } from '../../helpers/dateHelpers';
 
@@ -36,7 +36,7 @@ const drinkDay = {
   isDrinkDay: true,
 };
 
-const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
+const GainsCalendar = ({ drinks, isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
@@ -83,7 +83,6 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp, setShowOnbo
             } else {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              // setNoDrink(makeSureTimestamp(date));
               setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
             }
@@ -164,6 +163,8 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const makeStateToProps = () => (state) => ({
+  drinks: getDrinksState(state),
+
   // days: getDaysForDiagram(state),
   // thereIsDrinks: checkIfThereIsDrinks(state),
   dailyDoses: getDailyDoses(state),
