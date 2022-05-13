@@ -178,6 +178,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           description="Mes économies"
           value={isOnboarded ? (mySavingsSinceBeginning * 100>0? (mySavingsSinceBeginning * 100) : 0  ): '?'}
           maximize
+          onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
         <CategorieGain
           icon={<Balance size={26} />}
@@ -185,6 +186,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           description="Mes calories économisées"
           value={isOnboarded ? (myKcalSavingsSinceBeginning * 100>0?myKcalSavingsSinceBeginning * 100:0) : '?'}
           maximize
+          onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>
       <TextContainer>
@@ -199,7 +201,8 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
       <Categories>
         <CategorieGain
           description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
-          value={isOnboarded ? remaindrink : '?'}>
+          value={isOnboarded ? remaindrink : '?'}
+          onPress={() => setShowOnboardingGainModal((show) => !show)}>
           <Speedometer
             value={isOnboarded ? remaindrink : 1}
             totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
@@ -212,6 +215,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           icon={<NoDrink size={24} />}
           description="Jours où je n'ai pas bu"
           value={isOnboarded ? notDrinkDaythisWeek : '?'}
+          onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>
       <OnBoardingGain
