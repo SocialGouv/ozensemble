@@ -72,9 +72,12 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           firstDay={1}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
+          disabled={true}
           onDayPress={({ dateString }) => {
-            setModalTimestamp(dateWithoutTime(dateString));
-            navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
+            if (isOnboarded){
+              setModalTimestamp(dateWithoutTime(dateString));
+              navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
+            }
           }}
         />
       </CalendarContainer>
