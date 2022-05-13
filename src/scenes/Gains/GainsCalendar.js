@@ -25,6 +25,7 @@ const noDrinkDay = {
   startingDay: true,
   endingDay: true,
   selectedColor: 'green',
+  isNoDrinkDay: true,
 };
 
 const drinkDay = {
@@ -32,6 +33,7 @@ const drinkDay = {
   startingDay: true,
   endingDay: true,
   selectedColor: 'red',
+  isDrinkDay: true,
 };
 
 const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
@@ -74,8 +76,13 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           markingType="dot"
           disabled={true}
           onDayPress={({ dateString }) => {
-            if (isOnboarded){
-              setModalTimestamp(dateWithoutTime(dateString));
+            if (!isOnboarded) return;
+            if (markedDays[dateString]?.isDrinkDay) {
+              navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
+            } else {
+              const now = dayjs();
+              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+              setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
             }
           }}
