@@ -42,17 +42,22 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
 
-  const beginDate = useMemo(() => {
+  const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
     return dayjs(days[days.length - 1]);
   }, [days]);
 
   const notDrinkDaythisWeek = useMemo(
-    () => days.slice(0, 7).filter((day) => dailyDoses[day] === 0).length,
+    () =>
+      days.filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week'))).filter((day) => dailyDoses[day] === 0)
+        .length,
     [days, dailyDoses]
   );
   const numberDrinkThisWeek = useMemo(
-    () => days.slice(0, 7).reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0),
+    () =>
+      days
+        .filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week')))
+        .reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0),
     [days, dailyDoses]
   );
   const remaindrink = useMemo(
@@ -68,7 +73,8 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) =>
-          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).price,
+          sum +
+          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -78,7 +84,8 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) =>
-          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).kcal,
+          sum +
+          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -88,27 +95,29 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
     if (!days.length) return null;
     const myExpensesSinceBegnining = drinks.reduce(
       (sum, drink) =>
-        sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).price,
+        sum +
+        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
       0
     );
-    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDate).diff(dayjs(), 'days'));
+    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
     const averageDailyExpenses = myExpensesSinceBegnining / numberOfDaysSinceBeginning;
     const averageDailyExpensesBeforeObjective = myWeeklyExpensesBeforeObjective / 7;
     return Math.ceil(averageDailyExpensesBeforeObjective - averageDailyExpenses) * numberOfDaysSinceBeginning;
-  }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDate]);
+  }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDateOfOz]);
 
   const myKcalSavingsSinceBeginning = useMemo(() => {
     if (!days.length) return null;
     const myKcalSinceBegnining = drinks.reduce(
       (sum, drink) =>
-        sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).kcal,
+        sum +
+        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
       0
     );
-    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDate).diff(dayjs(), 'days'));
+    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
     const averageDailyKcal = myKcalSinceBegnining / numberOfDaysSinceBeginning;
     const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
     return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
-  }, [drinks, days, myWeeklyKcalBeforeObjective, beginDate]);
+  }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
   return (
     <ScreenBgStyled>
@@ -153,9 +162,9 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
               Depuis le
               <TextStyled color="#DE285E">
                 {' '}
-                {beginDate.get('year') < dayjs().get('year')
-                  ? beginDate.format('D MMM yyyy')
-                  : beginDate.format('D MMM')}
+                {beginDateOfOz.get('year') < dayjs().get('year')
+                  ? beginDateOfOz.format('D MMM yyyy')
+                  : beginDateOfOz.format('D MMM')}
               </TextStyled>
             </TextStyled>
           )}

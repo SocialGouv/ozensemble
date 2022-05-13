@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { RecoilRoot } from 'recoil';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { PersistGate } from 'redux-persist/integration/react';
 import { InteractionManager } from 'react-native';
 import { persistor, store } from './src/redux/store';
@@ -16,6 +17,7 @@ import { ToastProvider } from './src/services/toast';
 import './src/styles/theme';
 import { hasMigratedFromAsyncStorage, migrateFromAsyncStorage } from './src/services/storage';
 
+dayjs.extend(isSameOrAfter);
 dayjs.locale('fr');
 
 if (!__DEV__) {
