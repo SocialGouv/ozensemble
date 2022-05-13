@@ -82,6 +82,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
             } else {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+              // setNoDrink(makeSureTimestamp(date));
               setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
             }
