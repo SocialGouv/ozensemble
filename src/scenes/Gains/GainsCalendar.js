@@ -36,7 +36,7 @@ const drinkDay = {
   isDrinkDay: true,
 };
 
-const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
+const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
@@ -72,11 +72,12 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
+          maxDate={dayjs().format('YYYY-MM-DD')}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
-          disabled={true}
+          disableAllTouchEventsForDisabledDays
           onDayPress={({ dateString }) => {
-            if (!isOnboarded) return;
+            if (!isOnboarded) return setShowOnboardingGainModal(true);
             if (markedDays[dateString]?.isDrinkDay) {
               navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
             } else {
