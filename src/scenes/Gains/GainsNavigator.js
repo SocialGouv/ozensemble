@@ -7,6 +7,7 @@ import Estimation from './Estimation';
 import Goal from './Goal';
 import MyGains from './MyGains';
 import Reminder from '../Infos/Reminder';
+import Sevrage from './Sevrage';
 
 const GainsStack = createStackNavigator();
 
@@ -28,6 +29,7 @@ const GainsNavigator = () => {
           <GainsStack.Screen name="GAINS_REMINDER" component={Reminder} />
           <GainsStack.Screen name="GAINS_HELP_HOW_TO_COUNT" component={CountConsumptiom} />
           <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={Estimation} />
+          <GainsStack.Screen name="GAINS_SEVRAGE" component={Sevrage} />
         </GainsStack.Navigator>
       )}
     </Background>
