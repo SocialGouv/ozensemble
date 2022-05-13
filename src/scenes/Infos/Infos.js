@@ -20,7 +20,7 @@ const InfosStack = createStackNavigator();
 
 const Infos = () => {
   // usePopToTop();
-
+  
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
