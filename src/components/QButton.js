@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import TextStyled from './TextStyled';
 
 const QButton = ({ small, content, onPress, disabled }) => (
-  <QButtonStyled onPress={onPress}>
-    <QButtonContentContainer small={small} disabled={disabled}>
+  <QButtonStyled onPress={onPress} disabled={disabled}>
+    <QButtonContentContainer small={small}>
       <QButtonContent color="#4030a5">{content}</QButtonContent>
     </QButtonContentContainer>
   </QButtonStyled>
