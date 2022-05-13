@@ -1,3 +1,11 @@
+## [1.12.1](https://github.com/SocialGouv/ozensemble/compare/v1.12.0...v1.12.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* navigate to consos from calendar ([20ec482](https://github.com/SocialGouv/ozensemble/commit/20ec482b62afe667667dc9ca726cbc541214670b))
+* navigation replace ([31c1628](https://github.com/SocialGouv/ozensemble/commit/31c1628cf02d31e4aebb66950faede5629dd8197))
+
 # [1.12.0](https://github.com/SocialGouv/ozensemble/compare/v1.11.1...v1.12.0) (2022-05-13)
 
 
