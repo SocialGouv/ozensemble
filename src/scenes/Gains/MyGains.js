@@ -381,7 +381,7 @@ const Title = styled.View`
 `;
 
 const MyGoalContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px 30px 100px;
 `;
 
 const MyGoalSubContainer = styled.View`
