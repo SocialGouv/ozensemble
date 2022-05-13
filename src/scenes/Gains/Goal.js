@@ -27,11 +27,11 @@ const Goal = () => {
   const navigation = useNavigation();
 
   const onHowCount = () => {
-    navigation.navigate('HOWCOUNT');
+    navigation.navigate('GAINS_HELP_HOW_TO_COUNT');
   };
 
   const toEstimation = () => {
-    navigation.navigate('ESTIMATION');
+    navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
   };
 
   return (
@@ -124,7 +124,12 @@ const Goal = () => {
         <CTAButtonContainer>
           <ButtonPrimary
             content="Continuer"
-            onPress={toEstimation}
+            onPress={() =>
+              navigation.navigate('GAINS_REMINDER', {
+                enableContinueButton: true,
+                onPressContinueButton: () => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'),
+              })
+            }
             disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}
           />
         </CTAButtonContainer>

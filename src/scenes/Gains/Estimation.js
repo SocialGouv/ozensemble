@@ -18,7 +18,7 @@ const Estimation = () => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
 
   const complete = () => {
-    navigation.navigate('GAINS');
+    navigation.navigate('GAINS_MAIN_VIEW');
   };
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
 

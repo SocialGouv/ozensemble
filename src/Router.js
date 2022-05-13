@@ -39,7 +39,7 @@ const TabsNavigator = ({ navigation }) => {
   return (
     <>
       <Tabs.Navigator
-        initialRouteName={'GAINS'}
+        initialRouteName={'GAINS_MAIN_VIEW'}
         lazy={false}
         tabBarOptions={{
           activeTintColor: '#4030A5',
@@ -47,7 +47,7 @@ const TabsNavigator = ({ navigation }) => {
           keyboardHidesTabBar: true,
         }}>
         <Tabs.Screen
-          name="GAINS"
+          name="GAINS_MAIN_VIEW"
           options={{
             tabBarLabel: 'Gains',
             tabBarIcon: ({ size, color }) => <Screen3Image size={size} color={color} fillOpacity={1} />,
