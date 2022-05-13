@@ -112,8 +112,8 @@ class Router extends Component {
     await matomo.initMatomo();
     await matomo.logAppVisit('initApp');
     const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
+    //storage.clearAll();
     if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
-    // storage.clearAll();
     return this.setState({ initialRouteName: 'TABS' });
   };
 

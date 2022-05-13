@@ -48,7 +48,7 @@ const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
-            setNoDrink(makeSureTimestamp(dateWithoutTime(date)));
+            setNoDrink(makeSureTimestamp(date));
             navigation.goBack();
           }}
         />
