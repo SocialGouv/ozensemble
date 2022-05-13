@@ -24,7 +24,6 @@ export const hasMigratedFromAsyncStorage = storage.getBoolean('hasMigratedFromAs
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
 export async function migrateFromAsyncStorage() {
-  console.log('Migrating from AsyncStorage -> MMKV...');
   const start = global.performance.now();
 
   const keys = await AsyncStorage.getAllKeys();
@@ -39,8 +38,6 @@ export async function migrateFromAsyncStorage() {
         } else {
           if (key === 'persist:addicto' && value.length > 5) {
             const alreadyHere = storage.getString('persist:addicto');
-            console.log({ value });
-            console.log({ alreadyHere });
             storage.set(key, value); // because persist:addicto is stringified twice
           } else {
             storage.set(key, value);
