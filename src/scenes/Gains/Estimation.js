@@ -16,11 +16,9 @@ const Estimation = () => {
   const navigation = useNavigation();
 
   const complete = () => {
-    navigation.navigate('GAINS_MAIN_VIEW');
+    navigation.navigate('GAINS_SEVRAGE');
   };
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
-
-  console.log({previousDrinksPerWeek})
 
   const scrollRef = useRef(null);
 
