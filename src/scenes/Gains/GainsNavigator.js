@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
-import Consumptions from './Consumptions';
 import CountConsumptiom from './CountConsumption';
 import Estimation from './Estimation';
 import Goal from './Goal';
@@ -26,7 +25,6 @@ const GainsNavigator = () => {
           <GainsStack.Screen name="GAINS" component={MyGains} />
           <GainsStack.Screen name="GOAL" component={Goal} />
           <GainsStack.Screen name="HOWCOUNT" component={CountConsumptiom} />
-          <GainsStack.Screen name="CONSUMPTIONS" component={Consumptions} />
           <GainsStack.Screen name="ESTIMATION" component={Estimation} />
         </GainsStack.Navigator>
       )}
