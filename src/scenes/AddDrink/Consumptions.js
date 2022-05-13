@@ -55,7 +55,7 @@ const Consumptions = ({ date, updateModalTimestamp }) => {
         <Option
           icon={<CocktailGlassTriangle size={40} />}
           value={"J'ai bu"}
-          onPress={() => navigation.navigate('CONSOS_LIST')}
+          onPress={() => navigation.navigate('CONSOS_LIST',{fromRoute: "CONSUMPTION"})}
         />
         <DatePicker
           visible={Boolean(showDatePicker)}
@@ -121,10 +121,6 @@ export const DateAndTimeContainer = styled.View`
 `;
 
 const ButtonTouchable = styled.TouchableOpacity``;
-
-const ChangeDate = styled.Text`
-  text-decoration: underline;
-`;
 
 const Box = styled.View`
   border: 1px solid #de285e;
