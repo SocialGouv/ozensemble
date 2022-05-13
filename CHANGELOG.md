@@ -1,3 +1,17 @@
+# [1.14.0](https://github.com/SocialGouv/ozensemble/compare/v1.13.0...v1.14.0) (2022-05-13)
+
+
+### Bug Fixes
+
+* explication du nombre de verres ([733b628](https://github.com/SocialGouv/ozensemble/commit/733b628374d97d1e9f7901f988fe01f2b737254d))
+* space between days ([d6d6050](https://github.com/SocialGouv/ozensemble/commit/d6d60501c23e16c242d21d10aec8adb98310384c))
+* value economy ([f8f93e3](https://github.com/SocialGouv/ozensemble/commit/f8f93e3a3f6a7e4e85ce3cebb51cd8e7c34707ea))
+
+
+### Features
+
+* nombre de verres par alcool et desactivation "je finalise" si aucune boisson ([d6033fd](https://github.com/SocialGouv/ozensemble/commit/d6033fd8fe027df4aedeaff6c605674967f9d2e7))
+
 # [1.13.0](https://github.com/SocialGouv/ozensemble/compare/v1.12.1...v1.13.0) (2022-05-13)
 
 
