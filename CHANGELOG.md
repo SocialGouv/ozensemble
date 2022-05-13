@@ -1,3 +1,11 @@
+# [1.12.0](https://github.com/SocialGouv/ozensemble/compare/v1.11.1...v1.12.0) (2022-05-13)
+
+
+### Features
+
+* days of the week ([53123b4](https://github.com/SocialGouv/ozensemble/commit/53123b44cb6f1dae861e1521d5899fb67e03c877))
+* savings in euro and kcal ([4c373c0](https://github.com/SocialGouv/ozensemble/commit/4c373c00eae87e385f753d8d70d929a4552c5f98))
+
 ## [1.11.1](https://github.com/SocialGouv/ozensemble/compare/v1.11.0...v1.11.1) (2022-05-13)
 
 
