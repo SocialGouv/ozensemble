@@ -6,13 +6,14 @@ import CountConsumptiom from './CountConsumption';
 import Estimation from './Estimation';
 import Goal from './Goal';
 import MyGains from './MyGains';
+import Reminder from '../Infos/Reminder';
 
 const GainsStack = createStackNavigator();
 
 const GainsNavigator = () => {
   const [initialScreen, setInitialScreen] = useState(null);
   const initNavigator = async () => {
-    return setInitialScreen('GAINS');
+    return setInitialScreen('GAINS_MAIN_VIEW');
   };
   useEffect(() => {
     initNavigator();
@@ -22,10 +23,11 @@ const GainsNavigator = () => {
       <HeaderBackground />
       {!!initialScreen && (
         <GainsStack.Navigator headerMode="none" initialRouteName={initialScreen}>
-          <GainsStack.Screen name="GAINS" component={MyGains} />
-          <GainsStack.Screen name="GOAL" component={Goal} />
-          <GainsStack.Screen name="HOWCOUNT" component={CountConsumptiom} />
-          <GainsStack.Screen name="ESTIMATION" component={Estimation} />
+          <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
+          <GainsStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
+          <GainsStack.Screen name="GAINS_REMINDER" component={Reminder} />
+          <GainsStack.Screen name="GAINS_HELP_HOW_TO_COUNT" component={CountConsumptiom} />
+          <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={Estimation} />
         </GainsStack.Navigator>
       )}
     </Background>

@@ -5,6 +5,7 @@ import Speedometer from 'react-native-speedometer-chart';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import dayjs from 'dayjs';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
@@ -22,7 +23,6 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from './recoil';
 import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
-import dayjs from 'dayjs';
 
 const MyGains = ({ days, dailyDoses, drinks }) => {
   const navigation = useNavigation();
@@ -31,10 +31,9 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const navigateToGoal = () => {
-    navigation.navigate('GOAL');
-    setShowOnboardingGainModal((show) => !show);
+    navigation.navigate('GAINS_MY_OBJECTIVE');
+    setShowOnboardingGainModal(false);
   };
-  const navigateToEstimation = () => navigation.navigate('ESTIMATION');
   const isOnboarded = useMemo(
     () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
@@ -126,7 +125,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           <H1 color="#4030a5">Mes gains</H1>
         </TopTitle>
         {!isOnboarded ? (
-          <TouchableOpacity onPress={() => navigation.navigate('GOAL')}>
+          <TouchableOpacity onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
             <Description>
               <InfosIcon size={24} />
               <TextDescritpion>
@@ -287,7 +286,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
           <ModifyContainer>
-            <ButtonTouchable onPress={navigateToEstimation}>
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
               <TextModify>
                 <TextStyled>Modifier l'estimation</TextStyled>
               </TextModify>
