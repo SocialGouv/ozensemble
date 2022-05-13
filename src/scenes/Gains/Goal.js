@@ -192,7 +192,7 @@ const CTAButtonContainer = styled.View`
 
 const DayContainer = styled.View`
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   margin-bottom: ${screenHeight * 0.06}px;
 `;
 
