@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/SocialGouv/ozensemble/compare/v1.16.0...v1.16.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* small designes fixes in goal ([ff7928d](https://github.com/SocialGouv/ozensemble/commit/ff7928d899f7c30a80469b83ec1a5412e576a9ad))
+
 # [1.16.0](https://github.com/SocialGouv/ozensemble/compare/v1.15.0...v1.16.0) (2022-05-13)
 
 
