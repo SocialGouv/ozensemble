@@ -1,16 +1,14 @@
-import { NavigationContainer } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { connect } from 'react-redux';
-import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
-
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { getDailyDoses } from '../ConsoFollowUp/consoDuck';
+import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import { maxDrinksPerWeekSelector } from './recoil';
+import { dateWithoutTime } from '../../helpers/dateHelpers';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -36,7 +34,7 @@ const drinkDay = {
   selectedColor: 'red',
 };
 
-const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
+const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
@@ -74,8 +72,9 @@ const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
           firstDay={1}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
-          onDayPress={(date) => {
-            navigation.navigate('ADD_DRINKS', { screen: 'CONSUMPTIONS' });
+          onDayPress={({ dateString }) => {
+            setModalTimestamp(dateWithoutTime(dateString));
+            navigation.navigate('ADD_DRINK', { screen: 'CONSUMPTIONS' });
           }}
         />
       </CalendarContainer>
@@ -159,4 +158,8 @@ const makeStateToProps = () => (state) => ({
   // highestDailyDose: getHighestDailyDoses(state),
 });
 
-export default connect(makeStateToProps)(GainsCalendar);
+const dispatchToProps = {
+  setModalTimestamp,
+};
+
+export default connect(makeStateToProps, dispatchToProps)(GainsCalendar);

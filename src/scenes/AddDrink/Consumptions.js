@@ -23,59 +23,68 @@ import {
 } from '../ConsoFollowUp/consoDuck';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import DatePicker from '../../components/DatePicker';
-import { dateWithoutTime } from '../../helpers/dateHelpers';
+import { dateWithoutTime, makeSureTimestamp } from '../../helpers/dateHelpers';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-
-const Consumptions = ({date, updateModalTimestamp}) => {
-
+const Consumptions = ({ date, updateModalTimestamp }) => {
   const navigation = useNavigation();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   return (
     <ScreenBgStyled>
-      <UnderlinedButton content="Retour" bold onPress={()=>navigation.goBack()} />
-      <TopContainer>
-        <TopTitle>
-          <H1 color="#4030a5">Mes consommations</H1>
-        </TopTitle>
-      </TopContainer>
-      <DateAndTimeContainer>
-        <DateOrTimeDisplay mode="date" date={date} onPress={() => setShowDatePicker('date')} />
-        <DateOrTimeDisplay mode="time" date={date} onPress={() => setShowDatePicker('time')} />
-      </DateAndTimeContainer>
-      <Option icon={<NoDrink size={40} />} value={"Je n'ai pas bu"} onPress={()=>{
-        setNoDrink(dateWithoutTime(date));
-        navigation.goBack();
-      }}/>
-      <Option icon={<CocktailGlassTriangle size={40} />} value={"J'ai bu"} onPress={()=>navigation.navigate("CONSOS_LIST")}/>
-      <DatePicker
-        visible={Boolean(showDatePicker)}
-        mode={showDatePicker}
-        initDate={date}
-        selectDate={(newDate) => {
-          if (newDate && showDatePicker === 'date') {
-            const newDateObject = new Date(newDate);
-            const oldDateObject = new Date(date);
-            newDate = new Date(
-              newDateObject.getFullYear(),
-              newDateObject.getMonth(),
-              newDateObject.getDate(),
-              oldDateObject.getHours(),
-              oldDateObject.getMinutes()
-            );
-          }
-          setShowDatePicker(false);
-          if (newDate) {
-            updateModalTimestamp(makeSureTimestamp(newDate));
-          }
-        }}
-      />
+      <SafeAreaView>
+        <UnderlinedButton content="Retour" bold onPress={() => navigation.goBack()} />
+        <TopContainer>
+          <TopTitle>
+            <H1 color="#4030a5">Mes consommations</H1>
+          </TopTitle>
+        </TopContainer>
+        <DateAndTimeContainer>
+          <DateOrTimeDisplay mode="date" date={date} onPress={() => setShowDatePicker('date')} />
+          <DateOrTimeDisplay mode="time" date={date} onPress={() => setShowDatePicker('time')} />
+        </DateAndTimeContainer>
+        <Option
+          icon={<NoDrink size={40} />}
+          value={"Je n'ai pas bu"}
+          onPress={() => {
+            setNoDrink(dateWithoutTime(date));
+            navigation.goBack();
+          }}
+        />
+        <Option
+          icon={<CocktailGlassTriangle size={40} />}
+          value={"J'ai bu"}
+          onPress={() => navigation.navigate('CONSOS_LIST')}
+        />
+        <DatePicker
+          visible={Boolean(showDatePicker)}
+          mode={showDatePicker}
+          initDate={date}
+          selectDate={(newDate) => {
+            if (newDate && showDatePicker === 'date') {
+              const newDateObject = new Date(newDate);
+              const oldDateObject = new Date(date);
+              newDate = new Date(
+                newDateObject.getFullYear(),
+                newDateObject.getMonth(),
+                newDateObject.getDate(),
+                oldDateObject.getHours(),
+                oldDateObject.getMinutes()
+              );
+            }
+            setShowDatePicker(false);
+            if (newDate) {
+              updateModalTimestamp(makeSureTimestamp(newDate));
+            }
+          }}
+        />
+      </SafeAreaView>
     </ScreenBgStyled>
   );
 };
 
-const Option = ({ icon, value,onPress}) => {
+const Option = ({ icon, value, onPress }) => {
   return (
     <AskDrinkContainer>
       <ButtonTouchable onPress={onPress}>
@@ -144,4 +153,4 @@ const dispatchToProps = {
   removeOwnDrink,
   setNoDrink,
 };
-export default compose(connect(makeStateToProps, dispatchToProps), withToast) (Consumptions);
+export default compose(connect(makeStateToProps, dispatchToProps), withToast)(Consumptions);
