@@ -38,7 +38,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const markedDays = useMemo(() => {
     const todayFormatted = dayjs().format('YYYY-MM-DD');
-    const days = {};
+    const days = { [todayFormatted]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
       const dayFormatted = dayjs(day).format('YYYY-MM-DD');
       days[dayFormatted] = doses > 0 ? drinkDay : noDrinkDay;
@@ -54,35 +54,18 @@ const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
       </TopTitle>
       <CalendarContainer>
         <Calendar
-          // Initially visible month. Default = now
-          key={3}
           theme={{
             backgroundColor: 'transparent',
             calendarBackground: 'transparent',
             arrowColor: '#4130a5',
-            'stylesheet.day.basic': {
-              today: {
-                borderColor: '#4130a5',
-                borderWidth: 1,
-                borderRadius: 20,
-                color: '#000',
-              },
-            },
-            'stylesheet.day.period': {
-              todayText: {
-                // borderColor: '#4130a5',
-                // borderWidth: 1,
-                // borderRadius: 20,
-                color: '#000',
-              },
-            },
+            todayTextColor: '#000000',
+            todayDotColor: '#000000',
           }}
           pastScrollRange={50}
           futureScrollRange={50}
           scrollEnabled
           showScrollIndicator
           hideExtraDays={false}
-          // showWeekNumbers
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
@@ -93,13 +76,6 @@ const GainsCalendar = ({ isOnboarded, dailyDoses }) => {
       <TextStyled color="#4030a5">État de ma consommation</TextStyled>
       <PartDescription value={"Je n'ai pas bu"} color={'#008001'} />
       <PartDescription value={"J'ai bu"} color={'#DE285E'} />
-      {!isOnboarded && (
-        <>
-          <TextStyled color="#4030a5">Total verres par semaine</TextStyled>
-          <PartDescription value={"J'ai respecté mon objectif"} color={'#02594C'} />
-          <PartDescription value={"Je n'ai pas respecté mon objectif"} color={'#960031'} />
-        </>
-      )}
     </TopContainer>
   );
 };

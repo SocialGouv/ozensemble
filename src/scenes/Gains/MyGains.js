@@ -19,7 +19,7 @@ import GainsCalendar from './GainsCalendar';
 import MyGoal from './MyGoal';
 import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from './recoil';
+import { maxDrinksPerWeekSelector } from './recoil';
 
 const MyGains = ({ days, dailyDoses }) => {
   const navigation = useNavigation();
@@ -33,7 +33,6 @@ const MyGains = ({ days, dailyDoses }) => {
   const beginDay = 'lundi';
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const isOnboarded = useMemo(() => !!maxDrinksPerWeekGoal, [maxDrinksPerWeekGoal]);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
@@ -45,7 +44,7 @@ const MyGains = ({ days, dailyDoses }) => {
 
   return (
     <ScreenBgStyled>
-      <TopContainer>
+      <Container>
         <TopTitle>
           <H1 color="#4030a5">Mes gains</H1>
         </TopTitle>
@@ -78,7 +77,7 @@ const MyGains = ({ days, dailyDoses }) => {
             )}
           </>
         )}
-      </TopContainer>
+      </Container>
       <TextContainer>
         <TextForm>
           {isOnboarded && (
@@ -102,7 +101,7 @@ const MyGains = ({ days, dailyDoses }) => {
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain description="Verres restants" value={remaindrink}>
+        <CategorieGain description="Verres restants" value={isOnboarded ? remaindrink : '?'}>
           <Speedometer
             value={remaindrink}
             totalValue={maxDrinksPerWeekGoal}
@@ -111,7 +110,11 @@ const MyGains = ({ days, dailyDoses }) => {
             internalColor={`rgba(64, 48, 165, ${remaindrink / maxDrinksPerWeekGoal})`}
           />
         </CategorieGain>
-        <CategorieGain icon={<NoDrink size={24} />} description="Jours où je n'ai pas bu" value={notDrinkDaythisWeek} />
+        <CategorieGain
+          icon={<NoDrink size={24} />}
+          description="Jours où je n'ai pas bu"
+          value={isOnboarded ? notDrinkDaythisWeek : '?'}
+        />
       </Categories>
       <OnBoardingGain
         onPress={toGoal}
@@ -120,7 +123,7 @@ const MyGains = ({ days, dailyDoses }) => {
       />
       <GainsCalendar isOnboarded={isOnboarded} />
       {!isOnboarded ? (
-        <TopContainer>
+        <BottomContainer>
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
@@ -135,7 +138,7 @@ const MyGains = ({ days, dailyDoses }) => {
               <Arrow>{'>'}</Arrow>
             </Description>
           </TouchableOpacity>
-        </TopContainer>
+        </BottomContainer>
       ) : (
         <MyGoal />
       )}
@@ -150,8 +153,12 @@ const ScreenBgStyled = styled.ScrollView`
   flex-basis: 100%;
 `;
 
-const TopContainer = styled.View`
+const Container = styled.View`
   padding: 20px 30px 0px;
+`;
+
+const BottomContainer = styled.View`
+  padding: 20px 30px 100px;
 `;
 
 const TopTitle = styled.View`
