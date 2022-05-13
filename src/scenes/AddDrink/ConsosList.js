@@ -35,7 +35,6 @@ import {
   ButtonsContainerSafe,
   ButtonsContainer,
   MarginBottom,
-  SmallMarginBottom,
 } from './styles';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
@@ -112,12 +111,11 @@ const ConsosList = ({
   };
 
   const onClose = useCallback(() => {
-    const screen = (route?.params?.fromRoute === "CONSUMPTION")? ("GAINS"):("CONSO_FOLLOW_UP") ;
-    navigation.navigate('TABS', { screen: screen});
+    navigation.goBack();
   }, [navigation]);
 
   const onCancelConsos = useCallback(() => {
-    navigation.goBack()
+    navigation.goBack();
     setLocalDrinksState([]);
     matomo.logConsoCloseAddScreen();
     return true;

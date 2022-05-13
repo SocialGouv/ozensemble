@@ -3,14 +3,12 @@ import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import { maxDrinksPerWeekSelector } from './recoil';
 import { dateWithoutTime } from '../../helpers/dateHelpers';
-import { StackActions } from '@react-navigation/native';
-
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -76,7 +74,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           markingType="dot"
           onDayPress={({ dateString }) => {
             setModalTimestamp(dateWithoutTime(dateString));
-            navigation.push('ADD_DRINK', { screen: 'CONSUMPTIONS' });
+            navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
           }}
         />
       </CalendarContainer>
