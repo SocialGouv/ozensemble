@@ -112,15 +112,16 @@ const ConsosList = ({
   };
 
   const onClose = useCallback(() => {
-    navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' });
+    const screen = (route?.params?.fromRoute === "CONSUMPTION")? ("GAINS"):("CONSO_FOLLOW_UP") ;
+    navigation.navigate('TABS', { screen: screen});
   }, [navigation]);
 
   const onCancelConsos = useCallback(() => {
-    onClose();
+    navigation.goBack()
     setLocalDrinksState([]);
     matomo.logConsoCloseAddScreen();
     return true;
-  }, [onClose]);
+  }, [navigation]);
 
   const onAddDrinkToCatalog = async ({ name, volume, degrees, drinkKey, quantity }) => {
     setNewDrink(initDrinkState);
@@ -205,7 +206,7 @@ const ConsosList = ({
               setDrinkQuantity={setDrinkQuantityRequest}
             />
           ))}
-        <>
+        {/* <>
           <SmallMarginBottom />
           <ButtonsContainer>
             <ButtonPrimary content="Scannez une boisson" onPress={() => navigation.push('CONSO_SCAN_BAR_CODE')} />
@@ -215,7 +216,7 @@ const ConsosList = ({
             bold
             onPress={() => navigation.push('CONSO_NEW_DRINK', { init: newDrink })}
           />
-        </>
+        </> */}
         <MarginBottom />
       </ModalContent>
       <ButtonsContainerSafe>
