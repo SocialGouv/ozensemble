@@ -1,3 +1,10 @@
+## [1.16.2](https://github.com/SocialGouv/ozensemble/compare/v1.16.1...v1.16.2) (2022-05-13)
+
+
+### Bug Fixes
+
+* no drink on today on calendar ([679705c](https://github.com/SocialGouv/ozensemble/commit/679705cad1a831bf074422820d1ccae276da81e0))
+
 ## [1.16.1](https://github.com/SocialGouv/ozensemble/compare/v1.16.0...v1.16.1) (2022-05-13)
 
 
