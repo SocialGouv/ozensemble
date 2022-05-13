@@ -16,31 +16,99 @@ import Rocket from '../../components/Illustrations/Rocket';
 import TextStyled from '../../components/TextStyled';
 import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
-import MyGoal from './MyGoal';
+import CocktailGlass from '../../components/Illustrations/CocktailGlassTriangle';
+import Done from '../../components/Illustrations/Done';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from './recoil';
 import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
-import { maxDrinksPerWeekSelector } from './recoil';
+import dayjs from 'dayjs';
 
-const MyGains = ({ days, dailyDoses }) => {
+const MyGains = ({ days, dailyDoses, drinks }) => {
   const navigation = useNavigation();
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
+  const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const toGoal = () => {
+  const navigateToGoal = () => {
     navigation.navigate('GOAL');
     setShowOnboardingGainModal((show) => !show);
   };
-
-  const beginDate = '3 avril';
-  const beginDay = 'lundi';
-
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-
-  const isOnboarded = useMemo(() => !!maxDrinksPerWeekGoal, [maxDrinksPerWeekGoal]);
+  const navigateToEstimation = () => navigation.navigate('ESTIMATION');
+  const isOnboarded = useMemo(
+    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
+    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
+  );
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
 
-  const notDrinkDaythisWeek = days.slice(0, 7).filter((day) => dailyDoses[day] === 0).length;
-  const numberDrinkThisWeek = days.slice(0, 7).reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0);
-  const remaindrink = maxDrinksPerWeekGoal - numberDrinkThisWeek > 0 ? maxDrinksPerWeekGoal - numberDrinkThisWeek : 0;
+  const beginDate = useMemo(() => {
+    if (!days.length) return null;
+    return dayjs(days[days.length - 1]);
+  }, [days]);
+
+  const notDrinkDaythisWeek = useMemo(
+    () => days.slice(0, 7).filter((day) => dailyDoses[day] === 0).length,
+    [days, dailyDoses]
+  );
+  const numberDrinkThisWeek = useMemo(
+    () => days.slice(0, 7).reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0),
+    [days, dailyDoses]
+  );
+  const remaindrink = useMemo(
+    () => (maxDrinksPerWeekGoal - numberDrinkThisWeek > 0 ? maxDrinksPerWeekGoal - numberDrinkThisWeek : 0),
+    [maxDrinksPerWeekGoal, numberDrinkThisWeek]
+  );
+
+  const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
+    return previousDrinksPerWeek.reduce((sum, drink) => sum + drink.quantity, 0);
+  }, [previousDrinksPerWeek]);
+
+  const myWeeklyExpensesBeforeObjective = useMemo(
+    () =>
+      previousDrinksPerWeek.reduce(
+        (sum, drink) =>
+          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).price,
+        0
+      ),
+    [previousDrinksPerWeek]
+  );
+
+  const myWeeklyKcalBeforeObjective = useMemo(
+    () =>
+      previousDrinksPerWeek.reduce(
+        (sum, drink) =>
+          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).kcal,
+        0
+      ),
+    [previousDrinksPerWeek]
+  );
+
+  const mySavingsSinceBeginning = useMemo(() => {
+    if (!days.length) return null;
+    const myExpensesSinceBegnining = drinks.reduce(
+      (sum, drink) =>
+        sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).price,
+      0
+    );
+    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDate).diff(dayjs(), 'days'));
+    const averageDailyExpenses = myExpensesSinceBegnining / numberOfDaysSinceBeginning;
+    const averageDailyExpensesBeforeObjective = myWeeklyExpensesBeforeObjective / 7;
+    return Math.ceil(averageDailyExpensesBeforeObjective - averageDailyExpenses) * numberOfDaysSinceBeginning;
+  }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDate]);
+
+  const myKcalSavingsSinceBeginning = useMemo(() => {
+    if (!days.length) return null;
+    const myKcalSinceBegnining = drinks.reduce(
+      (sum, drink) =>
+        sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).kcal,
+      0
+    );
+    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDate).diff(dayjs(), 'days'));
+    const averageDailyKcal = myKcalSinceBegnining / numberOfDaysSinceBeginning;
+    const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
+    return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
+  }, [drinks, days, myWeeklyKcalBeforeObjective, beginDate]);
 
   return (
     <ScreenBgStyled>
@@ -80,34 +148,54 @@ const MyGains = ({ days, dailyDoses }) => {
       </Container>
       <TextContainer>
         <TextForm>
-          {isOnboarded && (
+          {!!isOnboarded && (
             <TextStyled>
-              Depuis le<TextStyled color="#DE285E"> {beginDate}</TextStyled>
+              Depuis le
+              <TextStyled color="#DE285E">
+                {' '}
+                {beginDate.get('year') < dayjs().get('year')
+                  ? beginDate.format('D MMM yyyy')
+                  : beginDate.format('D MMM')}
+              </TextStyled>
             </TextStyled>
           )}
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain icon={<Economy size={24} />} unit={'€'} description="Mes économies" />
-        <CategorieGain icon={<Balance size={26} />} unit="kcal" description="Mes calories économisées" />
+        <CategorieGain
+          icon={<Economy size={24} />}
+          unit={'€'}
+          description="Mes économies"
+          value={isOnboarded ? mySavingsSinceBeginning * 100 : '?'}
+          maximize
+        />
+        <CategorieGain
+          icon={<Balance size={26} />}
+          unit="kcal"
+          description="Mes calories économisées"
+          value={isOnboarded ? myKcalSavingsSinceBeginning * 100 : '?'}
+          maximize
+        />
       </Categories>
       <TextContainer>
         <TextForm>
-          {isOnboarded && (
+          {!!isOnboarded && (
             <TextStyled>
-              Sur la semaine en cours depuis<TextStyled color="#DE285E"> {beginDay}</TextStyled>
+              Sur la semaine en cours depuis<TextStyled color="#DE285E"> lundi</TextStyled>
             </TextStyled>
           )}
         </TextForm>
       </TextContainer>
       <Categories>
-        <CategorieGain description="Verres restants" value={isOnboarded ? remaindrink : '?'}>
+        <CategorieGain
+          description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
+          value={isOnboarded ? remaindrink : '?'}>
           <Speedometer
-            value={remaindrink}
-            totalValue={maxDrinksPerWeekGoal}
+            value={isOnboarded ? remaindrink : 1}
+            totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
-            internalColor={`rgba(64, 48, 165, ${remaindrink / maxDrinksPerWeekGoal})`}
+            internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
           />
         </CategorieGain>
         <CategorieGain
@@ -117,7 +205,7 @@ const MyGains = ({ days, dailyDoses }) => {
         />
       </Categories>
       <OnBoardingGain
-        onPress={toGoal}
+        onPress={navigateToGoal}
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
@@ -140,7 +228,63 @@ const MyGains = ({ days, dailyDoses }) => {
           </TouchableOpacity>
         </BottomContainer>
       ) : (
-        <MyGoal />
+        <MyGoalContainer>
+          <Title>
+            <H1 color="#4030a5">Mon objectif</H1>
+          </Title>
+          <MyGoalSubContainer>
+            <MyGoalSubContainerInside>
+              <PartContainer>
+                <Done size={20} />
+                <TextStyled>
+                  {'  '}
+                  {dayNoDrink} {dayNoDrink > 1 ? 'jours' : 'jour'} où je ne bois pas
+                </TextStyled>
+              </PartContainer>
+              <PartContainer>
+                <Done size={20} />
+                <TextStyled>
+                  {'  '}
+                  {maxDrinksPerWeekGoal} {maxDrinksPerWeekGoal > 1 ? 'verres' : 'verre'} max par semaine
+                </TextStyled>
+              </PartContainer>
+            </MyGoalSubContainerInside>
+          </MyGoalSubContainer>
+          <ModifyContainer>
+            <ButtonTouchable onPress={navigateToGoal}>
+              <TextModify>
+                <TextStyled>Modifier l'objectif</TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+          </ModifyContainer>
+          <Title>
+            <H2 color="#4030a5">Estimation de ma consommation avant objectif</H2>
+            <H2>Par semaine</H2>
+          </Title>
+          <MyGoalSubContainer>
+            <MyGoalSubContainerInside>
+              <PartContainer>
+                <Economy size={20} />
+                <TextStyled> {myWeeklyExpensesBeforeObjective} €</TextStyled>
+              </PartContainer>
+              <PartContainer>
+                <CocktailGlass size={20} />
+                <TextStyled>
+                  {' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 'verres' : 'verre'}{' '}
+                </TextStyled>
+              </PartContainer>
+            </MyGoalSubContainerInside>
+          </MyGoalSubContainer>
+          <ModifyContainer>
+            <ButtonTouchable onPress={navigateToEstimation}>
+              <TextModify>
+                <TextStyled>Modifier l'estimation</TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+          </ModifyContainer>
+        </MyGoalContainer>
       )}
     </ScreenBgStyled>
   );
@@ -209,6 +353,42 @@ const Bold = styled.Text`
   font-weight: bold;
 `;
 
+const Title = styled.View`
+  flex-shrink: 0;
+  margin-top: 10px;
+`;
+
+const MyGoalContainer = styled.View`
+  padding: 20px 30px 0px;
+`;
+
+const MyGoalSubContainer = styled.View`
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px 5px 10px;
+`;
+
+const PartContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
+`;
+
+const MyGoalSubContainerInside = styled.View`
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const ModifyContainer = styled.View`
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const TextModify = styled.Text`
+  text-decoration: underline;
+`;
+
 const makeStateToProps = () => (state) => ({
   drinks: getDrinksState(state),
   days: getDaysForFeed(state),
@@ -216,3 +396,5 @@ const makeStateToProps = () => (state) => ({
 });
 
 export default connect(makeStateToProps)(MyGains);
+
+const ButtonTouchable = styled.TouchableOpacity``;
