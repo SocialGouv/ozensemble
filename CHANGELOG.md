@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/SocialGouv/ozensemble/compare/v1.16.2...v1.17.0) (2022-05-13)
+
+
+### Features
+
+* sevrage ([d3c36ac](https://github.com/SocialGouv/ozensemble/commit/d3c36ac8f96aee96e50d1728feeee8b0401fec25))
+
 ## [1.16.2](https://github.com/SocialGouv/ozensemble/compare/v1.16.1...v1.16.2) (2022-05-13)
 
 
