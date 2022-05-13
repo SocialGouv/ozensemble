@@ -95,7 +95,7 @@ const Estimation = () => {
         <ButtonPrimary
           disabled={!previousDrinksPerWeek.find((drink) => drink.quantity != 0)}
           content="Je finalise"
-          onPress={() => navigation.navigate('GAINS_MAIN_VIEW')}
+          onPress={() => navigation.navigate('GAINS_SEVRAGE')}
         />
       </CTAButtonContainer>
     </ScreenBgStyled>
