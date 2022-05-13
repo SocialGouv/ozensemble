@@ -3,12 +3,10 @@ import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { getDailyDoses, getDrinksState, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
-import { maxDrinksPerWeekSelector } from './recoil';
-import { dateWithoutTime } from '../../helpers/dateHelpers';
+import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -24,7 +22,7 @@ const noDrinkDay = {
   selected: true,
   startingDay: true,
   endingDay: true,
-  selectedColor: 'green',
+  selectedColor: '#008001',
   isNoDrinkDay: true,
 };
 
@@ -32,11 +30,11 @@ const drinkDay = {
   selected: true,
   startingDay: true,
   endingDay: true,
-  selectedColor: 'red',
+  selectedColor: '#DE285E',
   isDrinkDay: true,
 };
 
-const GainsCalendar = ({ drinks, isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
+const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
@@ -163,8 +161,6 @@ LocaleConfig.locales.fr = {
 LocaleConfig.defaultLocale = 'fr';
 
 const makeStateToProps = () => (state) => ({
-  drinks: getDrinksState(state),
-
   // days: getDaysForDiagram(state),
   // thereIsDrinks: checkIfThereIsDrinks(state),
   dailyDoses: getDailyDoses(state),
