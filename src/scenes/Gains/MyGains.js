@@ -65,7 +65,8 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
   );
 
   const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
-    return previousDrinksPerWeek.reduce((sum, drink) => sum + drink.quantity, 0);
+    return previousDrinksPerWeek.reduce((sum, drink) => sum +  drink.quantity*drinksCatalog.find((drinkcatalog)=>drinkcatalog.drinkKey=== drink.drinkKey).doses
+, 0);
   }, [previousDrinksPerWeek]);
 
   const myWeeklyExpensesBeforeObjective = useMemo(
@@ -174,14 +175,14 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           icon={<Economy size={24} />}
           unit={'€'}
           description="Mes économies"
-          value={isOnboarded ? mySavingsSinceBeginning * 100 : '?'}
+          value={isOnboarded ? (mySavingsSinceBeginning * 100>0? (mySavingsSinceBeginning * 100) : 0  ): '?'}
           maximize
         />
         <CategorieGain
           icon={<Balance size={26} />}
           unit="kcal"
           description="Mes calories économisées"
-          value={isOnboarded ? myKcalSavingsSinceBeginning * 100 : '?'}
+          value={isOnboarded ? (myKcalSavingsSinceBeginning * 100>0?myKcalSavingsSinceBeginning * 100:0) : '?'}
           maximize
         />
       </Categories>
@@ -280,7 +281,9 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
                 <TextStyled>
                   {' '}
                   {myWeeklyNumberOfDrinksBeforeObjective}{' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 'verres' : 'verre'}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 'verres =' : 'verre ='}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? "doses d'alcool" : "dose d'alcool"}{' '}
                 </TextStyled>
               </PartContainer>
             </MyGoalSubContainerInside>
