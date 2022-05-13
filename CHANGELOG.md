@@ -1,3 +1,36 @@
+## [1.16.2](https://github.com/SocialGouv/ozensemble/compare/v1.16.1...v1.16.2) (2022-05-13)
+
+
+### Bug Fixes
+
+* no drink on today on calendar ([679705c](https://github.com/SocialGouv/ozensemble/commit/679705cad1a831bf074422820d1ccae276da81e0))
+
+## [1.16.1](https://github.com/SocialGouv/ozensemble/compare/v1.16.0...v1.16.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* small designes fixes in goal ([ff7928d](https://github.com/SocialGouv/ozensemble/commit/ff7928d899f7c30a80469b83ec1a5412e576a9ad))
+
+# [1.16.0](https://github.com/SocialGouv/ozensemble/compare/v1.15.0...v1.16.0) (2022-05-13)
+
+
+### Features
+
+* disable day after today calendar ([4899aa8](https://github.com/SocialGouv/ozensemble/commit/4899aa89de72e3ebace3cede3ec4fee38a25635f))
+
+# [1.15.0](https://github.com/SocialGouv/ozensemble/compare/v1.14.0...v1.15.0) (2022-05-13)
+
+
+### Bug Fixes
+
+* show onboarindg modal on click on buttons + fix design of objectifs squares ([031fc40](https://github.com/SocialGouv/ozensemble/commit/031fc4014fe009f5e67716af4f07b0651ba0de93))
+
+
+### Features
+
+* go to suivi conso when click on calendar day with drinks ([5502b96](https://github.com/SocialGouv/ozensemble/commit/5502b96316b266758675e7826b2d1b3e16bb0541))
+
 # [1.14.0](https://github.com/SocialGouv/ozensemble/compare/v1.13.0...v1.14.0) (2022-05-13)
 
 
