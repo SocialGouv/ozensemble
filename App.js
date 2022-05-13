@@ -35,7 +35,6 @@ const App = () => {
     }
   }, []);
 
-  console.log({ hasMigrated });
   if (!hasMigrated) return null;
 
   return (
