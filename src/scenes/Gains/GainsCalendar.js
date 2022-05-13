@@ -76,7 +76,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           markingType="dot"
           onDayPress={({ dateString }) => {
             setModalTimestamp(dateWithoutTime(dateString));
-            navigation.dispatch(StackActions.push('ADD_DRINK', { screen: 'CONSUMPTIONS' }));
+            navigation.push('ADD_DRINK', { screen: 'CONSUMPTIONS' });
           }}
         />
       </CalendarContainer>
