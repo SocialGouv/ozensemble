@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import H1 from '../../components/H1';
@@ -24,9 +25,8 @@ import {
 import UnderlinedButton from '../../components/UnderlinedButton';
 import DatePicker from '../../components/DatePicker';
 import { dateWithoutTime, makeSureTimestamp } from '../../helpers/dateHelpers';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Consumptions = ({ date, updateModalTimestamp }) => {
+const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
   const navigation = useNavigation();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -48,14 +48,14 @@ const Consumptions = ({ date, updateModalTimestamp }) => {
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
-            setNoDrink(dateWithoutTime(date));
+            setNoDrink(makeSureTimestamp(dateWithoutTime(date)));
             navigation.goBack();
           }}
         />
         <Option
           icon={<CocktailGlassTriangle size={40} />}
           value={"J'ai bu"}
-          onPress={() => navigation.navigate('CONSOS_LIST',{fromRoute: "CONSUMPTION"})}
+          onPress={() => navigation.replace('CONSOS_LIST')}
         />
         <DatePicker
           visible={Boolean(showDatePicker)}
@@ -149,4 +149,4 @@ const dispatchToProps = {
   removeOwnDrink,
   setNoDrink,
 };
-export default compose(connect(makeStateToProps, dispatchToProps), withToast)(Consumptions);
+export default compose(connect(makeStateToProps, dispatchToProps), withToast)(ChoiceDrinkOrNoDrink);
