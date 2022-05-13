@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/SocialGouv/ozensemble/compare/v1.15.0...v1.16.0) (2022-05-13)
+
+
+### Features
+
+* disable day after today calendar ([4899aa8](https://github.com/SocialGouv/ozensemble/commit/4899aa89de72e3ebace3cede3ec4fee38a25635f))
+
 # [1.15.0](https://github.com/SocialGouv/ozensemble/compare/v1.14.0...v1.15.0) (2022-05-13)
 
 
