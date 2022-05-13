@@ -1,5 +1,6 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import dayjs from 'dayjs';
+import React, { useEffect, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -34,7 +35,7 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
+const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed, scrollToInput }) => {
   // state for NPS
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
@@ -43,6 +44,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
   const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
+  const route = useRoute();
 
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
@@ -68,6 +70,16 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
     if (isFocused) setTimestampSelected(null);
   }, [isFocused]);
 
+  const refs = useRef({});
+
+  useEffect(() => {
+    if (route?.params?.scrollToDay) {
+      setTimeout(() => {
+        scrollToInput(refs?.current?.[route?.params?.scrollToDay]);
+      });
+    }
+  }, [route?.params?.scrollToDay, scrollToInput]);
+
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
@@ -83,7 +95,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
               const noDrinksYet = !drinksOfTheDay.length;
               const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
               return (
-                <FeedDay key={index}>
+                <FeedDay key={index} ref={(r) => (refs.current[dayjs(day).format('YYYY-MM-DD')] = r)}>
                   <Timeline first={isFirst} last={isLast} />
                   <FeedDayContent>
                     <DateDisplay day={day} />
