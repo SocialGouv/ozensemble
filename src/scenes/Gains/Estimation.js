@@ -15,12 +15,12 @@ import { Container, MarginBottom, ModalContent } from '../AddDrink/styles';
 const Estimation = () => {
   const navigation = useNavigation();
 
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-
   const complete = () => {
     navigation.navigate('GAINS');
   };
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
+
+  console.log({previousDrinksPerWeek})
 
   const scrollRef = useRef(null);
 
@@ -98,7 +98,7 @@ const Estimation = () => {
         </ModalContent>
       </Container>
       <CTAButtonContainer>
-        <ButtonPrimary disabled={previousDrinksPerWeek.length <= 0} content="Je finalise" onPress={complete} />
+        <ButtonPrimary disabled={!previousDrinksPerWeek.find((drink)=>drink.quantity!=0)} content="Je finalise" onPress={complete} />
       </CTAButtonContainer>
     </ScreenBgStyled>
   );
@@ -127,10 +127,6 @@ const TopDescription = styled.View``;
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
-`;
-
-const Bold = styled.Text`
-  font-weight: bold;
 `;
 
 const CTAButtonContainer = styled.View`

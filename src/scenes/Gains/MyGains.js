@@ -66,7 +66,8 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
   );
 
   const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
-    return previousDrinksPerWeek.reduce((sum, drink) => sum + drink.quantity, 0);
+    return previousDrinksPerWeek.reduce((sum, drink) => sum +  drink.quantity*drinksCatalog.find((drinkcatalog)=>drinkcatalog.drinkKey=== drink.drinkKey).doses
+      , 0);
   }, [previousDrinksPerWeek]);
 
   const myWeeklyExpensesBeforeObjective = useMemo(
@@ -281,7 +282,9 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
                 <TextStyled>
                   {' '}
                   {myWeeklyNumberOfDrinksBeforeObjective}{' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 'verres' : 'verre'}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 'verres =' : 'verre ='}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? "doses d'alcool" : "dose d'alcool"}{' '}
                 </TextStyled>
               </PartContainer>
             </MyGoalSubContainerInside>
