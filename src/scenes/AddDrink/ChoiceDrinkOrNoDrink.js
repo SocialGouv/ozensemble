@@ -24,9 +24,9 @@ import {
 } from '../ConsoFollowUp/consoDuck';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import DatePicker from '../../components/DatePicker';
-import { dateWithoutTime, makeSureTimestamp } from '../../helpers/dateHelpers';
+import { makeSureTimestamp } from '../../helpers/dateHelpers';
 
-const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
+const ChoiceDrinkOrNoDrink = ({ setNoDrink, date, updateModalTimestamp }) => {
   const navigation = useNavigation();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -48,7 +48,7 @@ const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
-            setNoDrink(makeSureTimestamp(dateWithoutTime(date)));
+            setNoDrink(makeSureTimestamp(date));
             navigation.goBack();
           }}
         />

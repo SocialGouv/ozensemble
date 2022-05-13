@@ -23,6 +23,7 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from './recoil';
 import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const MyGains = ({ days, dailyDoses, drinks }) => {
   const navigation = useNavigation();
@@ -52,6 +53,7 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
         .length,
     [days, dailyDoses]
   );
+
   const numberDrinkThisWeek = useMemo(
     () =>
       days
@@ -65,8 +67,11 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
   );
 
   const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
-    return previousDrinksPerWeek.reduce((sum, drink) => sum +  drink.quantity*drinksCatalog.find((drinkcatalog)=>drinkcatalog.drinkKey=== drink.drinkKey).doses
-, 0);
+    return previousDrinksPerWeek.reduce(
+      (sum, drink) =>
+        sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses,
+      0
+    );
   }, [previousDrinksPerWeek]);
 
   const myWeeklyExpensesBeforeObjective = useMemo(
@@ -170,22 +175,24 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           )}
         </TextForm>
       </TextContainer>
-      <Categories>
-        <CategorieGain
-          icon={<Economy size={24} />}
-          unit={'€'}
-          description="Mes économies"
-          value={isOnboarded ? (mySavingsSinceBeginning * 100>0? (mySavingsSinceBeginning * 100) : 0  ): '?'}
-          maximize
-        />
-        <CategorieGain
-          icon={<Balance size={26} />}
-          unit="kcal"
-          description="Mes calories économisées"
-          value={isOnboarded ? (myKcalSavingsSinceBeginning * 100>0?myKcalSavingsSinceBeginning * 100:0) : '?'}
-          maximize
-        />
-      </Categories>
+      <TouchableWithoutFeedback disabled={isOnboarded} onPress={() => setShowOnboardingGainModal(true)}>
+        <Categories>
+          <CategorieGain
+            icon={<Economy size={24} />}
+            unit={'€'}
+            description="Mes économies"
+            value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
+            maximize
+          />
+          <CategorieGain
+            icon={<Balance size={26} />}
+            unit="kcal"
+            description="Mes calories économisées"
+            value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
+            maximize
+          />
+        </Categories>
+      </TouchableWithoutFeedback>
       <TextContainer>
         <TextForm>
           {!!isOnboarded && (
@@ -195,30 +202,32 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
           )}
         </TextForm>
       </TextContainer>
-      <Categories>
-        <CategorieGain
-          description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
-          value={isOnboarded ? remaindrink : '?'}>
-          <Speedometer
-            value={isOnboarded ? remaindrink : 1}
-            totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
-            size={screenWidth / 4}
-            outerColor="#d3d3d3"
-            internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
+      <TouchableWithoutFeedback disabled={isOnboarded} onPress={() => setShowOnboardingGainModal(true)}>
+        <Categories>
+          <CategorieGain
+            description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
+            value={isOnboarded ? remaindrink : '?'}>
+            <Speedometer
+              value={isOnboarded ? remaindrink : 1}
+              totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
+              size={screenWidth / 4}
+              outerColor="#d3d3d3"
+              internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
+            />
+          </CategorieGain>
+          <CategorieGain
+            icon={<NoDrink size={24} />}
+            description="Jours où je n'ai pas bu"
+            value={isOnboarded ? notDrinkDaythisWeek : '?'}
           />
-        </CategorieGain>
-        <CategorieGain
-          icon={<NoDrink size={24} />}
-          description="Jours où je n'ai pas bu"
-          value={isOnboarded ? notDrinkDaythisWeek : '?'}
-        />
-      </Categories>
+        </Categories>
+      </TouchableWithoutFeedback>
       <OnBoardingGain
         onPress={navigateToGoal}
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
-      <GainsCalendar isOnboarded={isOnboarded} />
+      <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       {!isOnboarded ? (
         <BottomContainer>
           <TopTitle>
@@ -274,16 +283,18 @@ const MyGains = ({ days, dailyDoses, drinks }) => {
             <MyGoalSubContainerInside>
               <PartContainer>
                 <Economy size={20} />
-                <TextStyled> {myWeeklyExpensesBeforeObjective} €</TextStyled>
+                <TextStyled>
+                  {'   '}
+                  {myWeeklyExpensesBeforeObjective} €
+                </TextStyled>
               </PartContainer>
               <PartContainer>
                 <CocktailGlass size={20} />
                 <TextStyled>
-                  {' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective}{' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 'verres =' : 'verre ='}{' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective}{' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? "doses d'alcool" : "dose d'alcool"}{' '}
+                  {'   '}
+                  {myWeeklyNumberOfDrinksBeforeObjective} verre
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} ( = {myWeeklyNumberOfDrinksBeforeObjective}{' '}
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? "doses d'alcool" : "dose d'alcool"})
                 </TextStyled>
               </PartContainer>
             </MyGoalSubContainerInside>
