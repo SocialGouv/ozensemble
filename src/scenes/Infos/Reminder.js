@@ -176,11 +176,8 @@ class Reminder extends Component {
           )}
         </SubTitle>
         <ButtonsContainer>
-          <ButtonPrimary
-            content={reminder ? 'Modifier le rappel' : 'Définir un rappel'}
-            onPress={this.showTimePicker}
-          />
-          {Boolean(reminder) && <UnderlinedButton content="Retirer le rappel" bold onPress={this.deleteReminder} />}
+          <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={this.showTimePicker} />
+          {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={this.deleteReminder} />}
           {Boolean(route?.params?.enableContinueButton) &&
           typeof route?.params?.onPressContinueButton === 'function' ? (
             <ButtonPrimary content="Continuer" onPress={route?.params?.onPressContinueButton} />
@@ -234,6 +231,12 @@ const BackButton = styled(UnderlinedButton)`
   margin-right: auto;
   margin-left: -20px;
   margin-bottom: 30px;
+`;
+
+const EditButton = styled(UnderlinedButton)``;
+
+const RemoveButton = styled(UnderlinedButton)`
+  margin-bottom: 20px;
 `;
 
 export default Reminder;
