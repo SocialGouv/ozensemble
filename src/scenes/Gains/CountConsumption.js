@@ -5,6 +5,7 @@ import H1 from '../../components/H1';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
+import UnderlinedButton from '../../components/UnderlinedButton';
 
 const CountConsumptiom = () => {
   const navigation = useNavigation();
@@ -12,9 +13,7 @@ const CountConsumptiom = () => {
   return (
     <ScreenBgStyled>
       <TextBackground>
-        <GoBack onPress={navigation.goBack}>
-          <TextStyled bold>{'<'} Retour </TextStyled>
-        </GoBack>
+        <BackButton content="< Retour" onPress={navigation.goBack} bold />
         <TopContainer>
           <TopTitle>
             <H1 color="#4030a5">Se fixer un objectif</H1>
@@ -56,8 +55,9 @@ const TopTitle = styled.View`
   margin-bottom: 10px;
 `;
 
-const GoBack = styled.TouchableOpacity`
-  padding: 20px 30px 0px;
+const BackButton = styled(UnderlinedButton)`
+  margin-right: auto;
+  margin-bottom: 30px;
 `;
 
 const TopDescription = styled.View``;

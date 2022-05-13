@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { connect } from 'react-redux';
 import Background from '../../components/Background';
@@ -21,6 +21,7 @@ import {
   Title,
   TopContainer,
 } from './styles';
+import { findNodeHandle } from 'react-native';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -28,16 +29,30 @@ const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedBar, setSelectedBar] = useState({});
   const navigation = useNavigation();
+  const scrollViewRef = useRef(null);
 
   const addDrinksRequest = (timestamp) => {
     setModalTimestamp(timestamp);
     navigation.push('ADD_DRINK');
   };
+  const scrollToInput = (ref) => {
+    if (!ref) return;
+    if (!scrollViewRef.current) return;
+    setTimeout(() => {
+      ref.measureLayout(
+        findNodeHandle(scrollViewRef.current),
+        (x, y, width, height) => {
+          scrollViewRef.current.scrollTo({ y: y - 100, animated: true });
+        },
+        (error) => console.log('error scrolling', error)
+      );
+    }, 250);
+  };
 
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <ScreenBgStyled>
+      <ScreenBgStyled ref={scrollViewRef}>
         <TopContainer>
           <Title>
             <TextStyled color="#4030a5">Suivez votre consommation en unités d'alcool</TextStyled>
@@ -110,7 +125,7 @@ const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
             <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />
           )}
         </FeedAddConsoTodayContainer>
-        <Feed hideFeed={showWelcomeMessage} />
+        <Feed hideFeed={showWelcomeMessage} scrollToInput={scrollToInput} />
       </ScreenBgStyled>
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
     </Background>
