@@ -68,16 +68,16 @@ const formatHtmlTable = (drinks, catalog) => {
             <th>Quantité</th>
           </tr>
           ${sortDrinksByDate(drinks)
-      .map((drink) => {
-        const doses = mapDrinkToDose(drink, catalog);
-        const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
-        const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
-        return `<tr>
+            .map((drink) => {
+              const doses = mapDrinkToDose(drink, catalog);
+              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
+              const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
+              return `<tr>
                   <td>${time}</td>
                   <td>${drink.quantity} ${name} (${doses} dose${doses > 1 ? 's' : ''})</td>
                 </tr>`;
-      })
-      .join('')}
+            })
+            .join('')}
         </tbody>
       </table>
     </body>
@@ -138,7 +138,7 @@ export const getConsolidatedCatalog = createSelector(getOwnDrinks, (ownDrinks) =
 export const checkIfThereIsDrinks = createSelector(getDrinksState, (drinks) => drinks.length > 0);
 export const getModalTimestamp = createSelector(getConsoState, (conso) => conso.modalTimestamp);
 const getStartDate = createSelector(getConsoState, (conso) => conso.startDate);
-const getDays = createSelector([getDrinksState, getStartDate], (drinks, startDate) => {
+export const getDays = createSelector([getDrinksState, getStartDate], (drinks, startDate) => {
   const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp));
   const days = [];
   const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);

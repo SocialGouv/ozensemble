@@ -30,10 +30,10 @@ export const drinksByDrinkingDayState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@StoredDrinksByDrinkingDay', newValue))],
 });
 
-export const estimationDrinksPerWeekState = atom({
-  key: 'estimationDrinksPerWeekState',
-  default: getInitValueFromStorage('@GainEstimationDrinksPerWeek', []),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@GainEstimationDrinksPerWeek', newValue))],
+export const previousDrinksPerWeekState = atom({
+  key: 'previousDrinksPerWeekState',
+  default: getInitValueFromStorage('@GainPreviousDrinksPerWeek', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@GainPreviousDrinksPerWeek', JSON.stringify(newValue)))],
 });
 
 export const maxDrinksPerWeekSelector = selector({

@@ -3,14 +3,12 @@ import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 import { maxDrinksPerWeekSelector } from './recoil';
 import { dateWithoutTime } from '../../helpers/dateHelpers';
-import { StackActions } from '@react-navigation/native';
-
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -41,7 +39,7 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const todayFormatted = dayjs().format('YYYY-MM-DD');
-    const days = {};
+    const days = { [todayFormatted]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
       const dayFormatted = dayjs(day).format('YYYY-MM-DD');
       days[dayFormatted] = doses > 0 ? drinkDay : noDrinkDay;
@@ -57,35 +55,18 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
       </TopTitle>
       <CalendarContainer>
         <Calendar
-          // Initially visible month. Default = now
-          key={3}
           theme={{
             backgroundColor: 'transparent',
             calendarBackground: 'transparent',
             arrowColor: '#4130a5',
-            'stylesheet.day.basic': {
-              today: {
-                borderColor: '#4130a5',
-                borderWidth: 1,
-                borderRadius: 20,
-                color: '#000',
-              },
-            },
-            'stylesheet.day.period': {
-              todayText: {
-                // borderColor: '#4130a5',
-                // borderWidth: 1,
-                // borderRadius: 20,
-                color: '#000',
-              },
-            },
+            todayTextColor: '#000000',
+            todayDotColor: '#000000',
           }}
           pastScrollRange={50}
           futureScrollRange={50}
           scrollEnabled
           showScrollIndicator
           hideExtraDays={false}
-          // showWeekNumbers
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
@@ -93,20 +74,13 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           markingType="dot"
           onDayPress={({ dateString }) => {
             setModalTimestamp(dateWithoutTime(dateString));
-            navigation.push('ADD_DRINK', { screen: 'CONSUMPTIONS' });
+            navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
           }}
         />
       </CalendarContainer>
       <TextStyled color="#4030a5">État de ma consommation</TextStyled>
       <PartDescription value={"Je n'ai pas bu"} color={'#008001'} />
       <PartDescription value={"J'ai bu"} color={'#DE285E'} />
-      {!isOnboarded && (
-        <>
-          <TextStyled color="#4030a5">Total verres par semaine</TextStyled>
-          <PartDescription value={"J'ai respecté mon objectif"} color={'#02594C'} />
-          <PartDescription value={"Je n'ai pas respecté mon objectif"} color={'#960031'} />
-        </>
-      )}
     </TopContainer>
   );
 };

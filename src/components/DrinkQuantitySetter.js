@@ -57,7 +57,7 @@ const DrinkQuantitySetter = ({
 
 export const QuantitySetter = ({ quantity, onSetQuantity }) => (
   <ButtonsContainer>
-    <QButton content="-" disabled={!quantity} onPress={() => onSetQuantity(quantity - 1)} />
+    <QButton content="-" disabled={quantity <= 0} onPress={() => onSetQuantity(quantity - 1)} />
     <QuantityDisplayContainer>
       <QuantityDisplay>{quantity}</QuantityDisplay>
     </QuantityDisplayContainer>
@@ -81,27 +81,29 @@ const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, nam
   </TouchableDelete>
 );
 
-const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, name }) => (
-  <Container>
-    <TopContainer>
-      <QButton content="-" disabled={!asPreview && !quantity} onPress={() => onSetQuantity(quantity - 1)} />
-      <Icon size={50} />
-      {Boolean(quantity) && (
-        <QuantityDisplayContainer absolute>
-          <QuantityDisplay>{quantity}</QuantityDisplay>
-        </QuantityDisplayContainer>
-      )}
-      <QButton content="+" onPress={() => onSetQuantity(quantity + 1)} />
-    </TopContainer>
-    <BottomContainer>
-      <DisplayName>{name}</DisplayName>
-      <Volume>
-        {' - '}
-        {volume}
-      </Volume>
-    </BottomContainer>
-  </Container>
-);
+const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, name }) => {
+  return (
+    <Container>
+      <TopContainer>
+        <QButton content="-" disabled={!asPreview && quantity <= 0} onPress={() => onSetQuantity(quantity - 1)} />
+        <Icon size={50} />
+        {Boolean(quantity) && (
+          <QuantityDisplayContainer absolute>
+            <QuantityDisplay>{quantity}</QuantityDisplay>
+          </QuantityDisplayContainer>
+        )}
+        <QButton content="+" onPress={() => onSetQuantity(quantity + 1)} />
+      </TopContainer>
+      <BottomContainer>
+        <DisplayName>{name}</DisplayName>
+        <Volume>
+          {' - '}
+          {volume}
+        </Volume>
+      </BottomContainer>
+    </Container>
+  );
+};
 
 const Container = styled.View`
   height: 100px;

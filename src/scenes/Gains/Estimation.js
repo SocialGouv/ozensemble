@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
-import EstimationConsosList from './EstimationConsosList';
-import { maxDrinksPerWeekSelector } from './recoil';
+import { previousDrinksPerWeekState, maxDrinksPerWeekSelector } from './recoil';
+import DrinksCategory from '../../components/DrinksCategory';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { Container, MarginBottom, ModalContent } from '../AddDrink/styles';
 
 const Estimation = () => {
   const navigation = useNavigation();
@@ -16,6 +19,32 @@ const Estimation = () => {
 
   const complete = () => {
     navigation.navigate('GAINS');
+  };
+  const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
+
+  const scrollRef = useRef(null);
+
+  const setDrinkQuantityRequest = (drinkKey, quantity) => {
+    const oldDrink = previousDrinksPerWeek.find((drink) => drink.drinkKey === drinkKey);
+
+    if (oldDrink) {
+      setEstimationDrinksPerWeek([
+        ...previousDrinksPerWeek.filter((drink) => drink.drinkKey !== drinkKey),
+        {
+          ...previousDrinksPerWeek.find((drink) => drink.drinkKey === drinkKey),
+          quantity,
+        },
+      ]);
+    } else {
+      setEstimationDrinksPerWeek([
+        ...previousDrinksPerWeek,
+        {
+          drinkKey,
+          quantity,
+          id: uuidv4(),
+        },
+      ]);
+    }
   };
 
   return (
@@ -29,24 +58,47 @@ const Estimation = () => {
         </TopTitle>
         <TopDescription>
           <DescriptionText>
-            <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
+            <TextStyled>Sur une semaine type, actuellement, combien de verres consommez-vous ?</TextStyled>
           </DescriptionText>
           <DescriptionText>
             <TextStyled>
-              <TextStyled bold>Vos réponses sont anonymes,</TextStyled>répondez avec le plus de transparence possible.
+              Cette estimation sera comparée à ce que vous consommerez par la suite, pour calculer vos gains en&nbsp;€
+              et kCal.
             </TextStyled>
           </DescriptionText>
           <DescriptionText>
             <TextStyled>
-              Pour rappel votre objectif est de ne pas dépasser{' '}
-              <TextStyled color={'#4030a5'}>{maxDrinksPerWeekGoal} verres par semaine.</TextStyled>
+              <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
             </TextStyled>
           </DescriptionText>
+          {/* <DescriptionText>
+            <TextStyled>
+              Pour rappel votre objectif est de ne pas dépasser
+              <TextStyled color={'#4030a5'}> {maxDrinksPerWeekGoal}&nbsp;verres par semaine.</TextStyled>
+            </TextStyled>
+          </DescriptionText> */}
         </TopDescription>
       </TopContainer>
-      <EstimationConsosList />
+      <Container>
+        <ModalContent ref={scrollRef} disableHorizontal>
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={category}
+                drinksCatalog={drinksCatalog}
+                category={category}
+                index={index}
+                drinks={previousDrinksPerWeek}
+                setDrinkQuantity={setDrinkQuantityRequest}
+              />
+            ))}
+          <MarginBottom />
+        </ModalContent>
+      </Container>
       <CTAButtonContainer>
-        <ButtonPrimary content="Je finalise" onPress={complete} />
+        <ButtonPrimary disabled={previousDrinksPerWeek.length <= 0} content="Je finalise" onPress={complete} />
       </CTAButtonContainer>
     </ScreenBgStyled>
   );
@@ -75,6 +127,10 @@ const TopDescription = styled.View``;
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
+`;
+
+const Bold = styled.Text`
+  font-weight: bold;
 `;
 
 const CTAButtonContainer = styled.View`

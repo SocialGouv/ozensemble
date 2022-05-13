@@ -3,6 +3,9 @@ import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import { RecoilRoot } from 'recoil';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { PersistGate } from 'redux-persist/integration/react';
 import { InteractionManager } from 'react-native';
 import { persistor, store } from './src/redux/store';
@@ -13,6 +16,9 @@ import { SENTRY_XXX } from './src/config';
 import { ToastProvider } from './src/services/toast';
 import './src/styles/theme';
 import { hasMigratedFromAsyncStorage, migrateFromAsyncStorage } from './src/services/storage';
+
+dayjs.extend(isSameOrAfter);
+dayjs.locale('fr');
 
 if (!__DEV__) {
   Sentry.init({ dsn: SENTRY_XXX });
@@ -35,7 +41,6 @@ const App = () => {
     }
   }, []);
 
-  console.log({ hasMigrated });
   if (!hasMigrated) return null;
 
   return (

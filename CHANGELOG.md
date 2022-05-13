@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/SocialGouv/ozensemble/compare/v1.11.0...v1.11.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* drinks catalog doses/kcal ([9698023](https://github.com/SocialGouv/ozensemble/commit/96980233b9726435f10de3b09efdd4655f44e309))
+
 # [1.11.0](https://github.com/SocialGouv/ozensemble/compare/v1.10.1...v1.11.0) (2022-05-12)
 
 
