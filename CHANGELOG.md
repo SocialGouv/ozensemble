@@ -1,3 +1,15 @@
+# [1.15.0](https://github.com/SocialGouv/ozensemble/compare/v1.14.0...v1.15.0) (2022-05-13)
+
+
+### Bug Fixes
+
+* show onboarindg modal on click on buttons + fix design of objectifs squares ([031fc40](https://github.com/SocialGouv/ozensemble/commit/031fc4014fe009f5e67716af4f07b0651ba0de93))
+
+
+### Features
+
+* go to suivi conso when click on calendar day with drinks ([5502b96](https://github.com/SocialGouv/ozensemble/commit/5502b96316b266758675e7826b2d1b3e16bb0541))
+
 # [1.14.0](https://github.com/SocialGouv/ozensemble/compare/v1.13.0...v1.14.0) (2022-05-13)
 
 
