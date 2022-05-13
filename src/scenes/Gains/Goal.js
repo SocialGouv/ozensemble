@@ -119,7 +119,8 @@ const Goal = () => {
           <QButton content="+" onPress={() => setDrinksByDrinkingDay((q) => q + 1)} />
         </QuantityContainer>
         <DrinkByWeekContainer>
-          <TextStyled> soit {drinkByWeek} verres par semaine</TextStyled>
+          <TextStyled> {7-daysWithGoalNoDrink.length} jours avec {drinksByDrinkingDay} verres</TextStyled>
+          <TextStyled bold> soit {drinkByWeek} verres par semaine</TextStyled>
         </DrinkByWeekContainer>
         <CTAButtonContainer>
           <ButtonPrimary
@@ -196,7 +197,7 @@ const CTAButtonContainer = styled.View`
 
 const DayContainer = styled.View`
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   margin-bottom: ${screenHeight * 0.06}px;
 `;
 
