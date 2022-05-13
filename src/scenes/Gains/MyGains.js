@@ -118,7 +118,7 @@ const MyGains = ({ days, dailyDoses }) => {
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}
       />
-      <GainsCalendar isOnboarded={isOnboarded} navigation={navigation}/>
+      <GainsCalendar isOnboarded={isOnboarded} />
       {!isOnboarded ? (
         <TopContainer>
           <TopTitle>
