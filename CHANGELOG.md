@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/SocialGouv/ozensemble/compare/v1.12.1...v1.13.0) (2022-05-13)
+
+
+### Features
+
+* reminder in gains ([e7e194a](https://github.com/SocialGouv/ozensemble/commit/e7e194a007d330102c4aef9be0caa040d762a516))
+
 ## [1.12.1](https://github.com/SocialGouv/ozensemble/compare/v1.12.0...v1.12.1) (2022-05-13)
 
 
