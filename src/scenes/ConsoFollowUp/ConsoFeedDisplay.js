@@ -1,10 +1,10 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { connect } from 'react-redux';
+import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H3 from '../../components/H3';
-import { getConsolidatedCatalog } from './consoDuck';
+import { consolidatedCatalogSelector } from '../../recoil/consos';
 import { getDisplayName, getIcon, getVolume } from './drinksCatalog';
 import { FeedButtonStyled } from './styles';
 
@@ -24,11 +24,11 @@ const ConsoFeedDisplay = ({
   updateDrinkRequest,
   deleteDrinkRequest,
   position: p,
-  allDrinks,
 }) => {
-  const n = getDisplayName(drinkKey, q, allDrinks);
-  const v = getVolume(drinkKey, allDrinks);
-  const Icon = getIcon(drinkKey, allDrinks);
+  const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
+  const n = getDisplayName(drinkKey, q, consolidatedCatalog);
+  const v = getVolume(drinkKey, consolidatedCatalog);
+  const Icon = getIcon(drinkKey, consolidatedCatalog);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
@@ -125,8 +125,4 @@ const DeleteButton = styled(UpdateButton)`
   margin-right: 0px;
 `;
 
-const makeStateToProps = () => (state) => ({
-  allDrinks: getConsolidatedCatalog(state),
-});
-
-export default connect(makeStateToProps)(ConsoFeedDisplay);
+export default ConsoFeedDisplay;
