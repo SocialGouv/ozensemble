@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/SocialGouv/ozensemble/compare/v1.17.0...v1.18.0) (2022-05-16)
+
+
+### Features
+
+* Open Model (sans objectifs pas de gains) when click on category ([05d881e](https://github.com/SocialGouv/ozensemble/commit/05d881e0ca2eaa26ec5a1160e7eabb05effabc99))
+
 # [1.17.0](https://github.com/SocialGouv/ozensemble/compare/v1.16.2...v1.17.0) (2022-05-13)
 
 
