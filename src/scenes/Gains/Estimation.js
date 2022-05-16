@@ -7,7 +7,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
-import { previousDrinksPerWeekState } from './recoil';
+import { previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { Container, MarginBottom, ModalContent } from '../AddDrink/styles';

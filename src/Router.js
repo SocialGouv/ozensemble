@@ -105,7 +105,7 @@ class Router extends Component {
     // BUG FIX: on Android, Swiper is jumping the index
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
-    RNBootSplash.hide({ duration: 250 });
+    RNBootSplash.hide({ fade: true });
   }
 
   initView = async () => {

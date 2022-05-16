@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -20,10 +20,9 @@ import GainsCalendar from './GainsCalendar';
 import CocktailGlass from '../../components/Illustrations/CocktailGlassTriangle';
 import Done from '../../components/Illustrations/Done';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from './recoil';
+import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingGain from './OnBoardingGain';
 import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const MyGains = ({ days, dailyDoses, drinks }) => {
   const navigation = useNavigation();
