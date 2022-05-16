@@ -68,6 +68,6 @@ ios/sentry.properties
 # Bundle artifact
 *.jsbundle
 
-# CocoaPods
+# Ruby / CocoaPods
 /ios/Pods/
 *.sh

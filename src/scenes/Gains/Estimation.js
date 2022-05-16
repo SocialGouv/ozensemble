@@ -2,25 +2,21 @@ import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
-import { previousDrinksPerWeekState, maxDrinksPerWeekSelector } from './recoil';
+import { previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { Container, MarginBottom, ModalContent } from '../AddDrink/styles';
+import UnderlinedButton from '../../components/UnderlinedButton';
 
 const Estimation = () => {
   const navigation = useNavigation();
 
-  const complete = () => {
-    navigation.navigate('GAINS');
-  };
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
-
-  console.log({previousDrinksPerWeek})
 
   const scrollRef = useRef(null);
 
@@ -49,9 +45,7 @@ const Estimation = () => {
 
   return (
     <ScreenBgStyled>
-      <GoBack onPress={navigation.goBack}>
-        <TextStyled bold>{'<'} Retour </TextStyled>
-      </GoBack>
+      <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <TopContainer>
         <TopTitle>
           <H1 color="#4030a5">Pour calculer vos gains</H1>
@@ -98,7 +92,11 @@ const Estimation = () => {
         </ModalContent>
       </Container>
       <CTAButtonContainer>
-        <ButtonPrimary disabled={!previousDrinksPerWeek.find((drink)=>drink.quantity!=0)} content="Je finalise" onPress={complete} />
+        <ButtonPrimary
+          disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
+          content="Je finalise"
+          onPress={() => navigation.navigate('GAINS_SEVRAGE')}
+        />
       </CTAButtonContainer>
     </ScreenBgStyled>
   );
@@ -119,14 +117,15 @@ const TopTitle = styled.View`
   margin-bottom: 10px;
 `;
 
-const GoBack = styled.TouchableOpacity`
-  padding: 20px 30px 0px;
-`;
-
 const TopDescription = styled.View``;
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
+`;
+
+const BackButton = styled(UnderlinedButton)`
+  margin-right: auto;
+  margin-bottom: 30px;
 `;
 
 const CTAButtonContainer = styled.View`

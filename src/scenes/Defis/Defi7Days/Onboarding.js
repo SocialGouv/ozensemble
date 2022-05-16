@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
-import ReminderIcon from '../../../components/Illustrations/ReminderIcon';
 import TextStyled from '../../../components/TextStyled';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import matomo from '../../../services/matomo';
 import { defaultPadding } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
+import DefiLanding from '../../../components/Illustrations/DefiLanding';
 
 export default ({ navigation }) => {
   const startDefi = async () => {
@@ -17,6 +17,8 @@ export default ({ navigation }) => {
     matomo.logClickStartDefi7Days();
     navigation.navigate('DEFI_7_DAYS_REMINDER', {
       title: 'Un rappel pour penser à faire votre défi 7 jours',
+      notifReminderTitle: "C'est l'heure de votre défi 7 jours !",
+      notifReminderMessage: '',
       enableContinueButton: true,
       onPressContinueButton: () => navigation.navigate('DEFI_7_DAYS_MENU'),
     });
@@ -31,7 +33,7 @@ export default ({ navigation }) => {
   return (
     <ScreenBgStyled>
       <Container>
-        <ReminderIcon size={80} color="#4030a5" selected={false} />
+        <DefiLanding size={200} color="#4030a5" selected={false} />
         <Title>
           <TextStyled color="#4030a5">Nous vous proposons de faire le point pendant 7 jours</TextStyled>
         </Title>

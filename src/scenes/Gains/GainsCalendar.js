@@ -1,14 +1,12 @@
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { useNavigation, StackActions } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
-import { maxDrinksPerWeekSelector } from './recoil';
-import { dateWithoutTime } from '../../helpers/dateHelpers';
+import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -24,18 +22,23 @@ const noDrinkDay = {
   selected: true,
   startingDay: true,
   endingDay: true,
-  selectedColor: 'green',
+  selectedColor: '#008001',
+  isNoDrinkDay: true,
 };
 
 const drinkDay = {
   selected: true,
   startingDay: true,
   endingDay: true,
-  selectedColor: 'red',
+  selectedColor: '#DE285E',
+  isDrinkDay: true,
 };
 
-const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
+const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+  const dailyDoses = useRecoilValue(dailyDosesSelector());
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
+
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const todayFormatted = dayjs().format('YYYY-MM-DD');
@@ -70,12 +73,18 @@ const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp }) => {
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
+          maxDate={dayjs().format('YYYY-MM-DD')}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
-          disabled={true}
+          disableAllTouchEventsForDisabledDays
           onDayPress={({ dateString }) => {
-            if (isOnboarded){
-              setModalTimestamp(dateWithoutTime(dateString));
+            if (!isOnboarded) return setShowOnboardingGainModal(true);
+            if (markedDays[dateString]?.isDrinkDay) {
+              navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
+            } else {
+              const now = dayjs();
+              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+              setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
             }
           }}
@@ -154,15 +163,4 @@ LocaleConfig.locales.fr = {
 };
 LocaleConfig.defaultLocale = 'fr';
 
-const makeStateToProps = () => (state) => ({
-  // days: getDaysForDiagram(state),
-  // thereIsDrinks: checkIfThereIsDrinks(state),
-  dailyDoses: getDailyDoses(state),
-  // highestDailyDose: getHighestDailyDoses(state),
-});
-
-const dispatchToProps = {
-  setModalTimestamp,
-};
-
-export default connect(makeStateToProps, dispatchToProps)(GainsCalendar);
+export default GainsCalendar;
