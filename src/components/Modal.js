@@ -11,6 +11,7 @@ const ModalContainer = ({
   style = {},
   safeAreaView = true,
 }) => {
+  return null;
   const Wrapper = hideOnTouch ? TouchableWithoutFeedback : React.Fragment;
   const wrapperProps = hideOnTouch ? { onPress: hide, style: styles.touchable } : {};
   return (
@@ -47,6 +48,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     height: '100%',
     width: '100%',
+    borderWidth: 3,
+    borderColor: 'red',
   },
   background: {
     position: 'absolute',
