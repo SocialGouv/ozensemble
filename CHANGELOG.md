@@ -1,3 +1,10 @@
+## [1.19.1](https://github.com/SocialGouv/ozensemble/compare/v1.19.0...v1.19.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* drinks at beginning ([738b386](https://github.com/SocialGouv/ozensemble/commit/738b386706270898fbdd16814b0521bdfd12f884))
+
 # [1.19.0](https://github.com/SocialGouv/ozensemble/compare/v1.18.0...v1.19.0) (2022-05-16)
 
 
