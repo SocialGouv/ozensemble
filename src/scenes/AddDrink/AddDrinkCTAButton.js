@@ -1,28 +1,32 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { connect } from 'react-redux';
+import { useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
+import { modalTimestampState } from '../../recoil/consos';
 import matomo from '../../services/matomo';
 import { screenHeight, screenWidth } from '../../styles/theme';
-import { setModalTimestamp } from '../ConsoFollowUp/consoDuck';
 
 const iconSize = 30;
 
-const AddDrinkCTAButton = ({ onCTAPress, setModalTimestamp }) => (
-  <TouchableWithoutFeedback
-    onPress={() => {
-      setModalTimestamp(Date.now());
-      onCTAPress();
-      matomo.logConsoOpenAddScreen();
-    }}>
-    <CTAContainer>
-      <CTASubContainer>
-        <PlusHorizontal />
-        <PlusVertical />
-      </CTASubContainer>
-    </CTAContainer>
-  </TouchableWithoutFeedback>
-);
+const AddDrinkCTAButton = ({ onCTAPress }) => {
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
+
+  return (
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setModalTimestamp(Date.now());
+        onCTAPress();
+        matomo.logConsoOpenAddScreen();
+      }}>
+      <CTAContainer>
+        <CTASubContainer>
+          <PlusHorizontal />
+          <PlusVertical />
+        </CTASubContainer>
+      </CTAContainer>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const roundCss = (size) => css`
   height: ${size}px;
@@ -72,8 +76,4 @@ const PlusVertical = styled.View`
   background: white;
 `;
 
-const dispatchToProps = {
-  setModalTimestamp,
-};
-
-export default connect(null, dispatchToProps)(AddDrinkCTAButton);
+export default AddDrinkCTAButton;

@@ -1,17 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useMemo, useState } from 'react';
+import { selectorFamily, useRecoilValue } from 'recoil';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { dateIsBeforeOrToday } from '../../helpers/dateHelpers';
-import { fakeConsoData } from '../../reference/mocks/fakeConsoData';
 import { storage } from '../../services/storage';
 import { screenHeight } from '../../styles/theme';
-import {
-  checkIfThereIsDrinks,
-  getDailyDoses,
-  getDaysForDiagram,
-  getHighestDailyDoses,
-  maxDosesOnScreen,
-} from './consoDuck';
 import {
   Bar,
   BarsContainer,
@@ -26,6 +18,9 @@ import {
   LowerBar,
   UpperBar,
 } from './styles';
+import { dailyDosesSelector, diagramDaysSelector, drinksState } from '../../recoil/consos';
+
+const maxDosesOnScreen = 50;
 
 const getAcceptableDosePerDay = (gender) => {
   if (!gender) return 3;
@@ -54,20 +49,24 @@ const computeBarsHeight = (highestDailyDose, highestAcceptableDosesPerDay) => {
   };
 };
 
+const highestDailyDoseSelector = selectorFamily({
+  key: 'highestDailyDoseSelector',
+  get:
+    ({ asPreview = false } = {}) =>
+    ({ get }) => {
+      const dailyDoses = get(dailyDosesSelector({ asPreview }));
+      return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
+    },
+});
+
 const minBarHeight = 1;
-const Diagram = ({
-  days,
-  dailyDoses,
-  highestDailyDose,
-  thereIsDrinks,
-  asPreview,
-  showCloseHelp,
-  onCloseHelp,
-  onShowHelp,
-  selectedBar,
-  setSelectedBar,
-}) => {
+const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHelp, selectedBar, setSelectedBar }) => {
+  const days = useRecoilValue(diagramDaysSelector({ asPreview }));
+  const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
+  const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
+  const drinks = useRecoilValue(drinksState);
+  const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
 
   useEffect(() => {
     (async () => {
@@ -170,28 +169,4 @@ const Diagram = ({
   );
 };
 
-Diagram.defaultProps = {
-  onCloseHelp: null,
-  showCloseHelp: null,
-};
-
-const makeStateToProps =
-  () =>
-  (realState, { asPreview }) => {
-    const state = asPreview ? { conso: fakeConsoData.partial } : realState;
-
-    return {
-      days: getDaysForDiagram(state),
-      thereIsDrinks: checkIfThereIsDrinks(state),
-      dailyDoses: getDailyDoses(state),
-      highestDailyDose: getHighestDailyDoses(state),
-    };
-  };
-
-const mergeProps = (stateProps, dispatch, ownProps) => ({
-  ...ownProps,
-  ...stateProps,
-  ...dispatch,
-});
-
-export default connect(makeStateToProps, null, mergeProps)(Diagram);
+export default Diagram;

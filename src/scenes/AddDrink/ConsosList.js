@@ -1,18 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
-import { compose } from 'recompose';
-import {
-  getDrinksPerCurrentDrinksTimestamp,
-  getModalTimestamp,
-  updateDrink,
-  updateModalTimestamp,
-  setOwnDrink,
-  removeOwnDrink,
-  getOwnDrinks,
-} from '../ConsoFollowUp/consoDuck';
+import { selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
@@ -24,9 +14,9 @@ import {
   getDrinkQuantityFromDrinks,
 } from '../ConsoFollowUp/drinksCatalog';
 import DatePicker from '../../components/DatePicker';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { firstDateIsBeforeSecondDate, makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../services/matomo';
-import { withToast } from '../../services/toast';
+import { useToast } from '../../services/toast';
 import {
   Container,
   ModalContent,
@@ -38,6 +28,7 @@ import {
 } from './styles';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
+import { drinksState, modalTimestampState, ownDrinksState, startDateState } from '../../recoil/consos';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -52,23 +43,28 @@ const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
   return [...new Set([...ownDrinksKeys, ...localOwnDrinksKeys])];
 };
 
-const ConsosList = ({
-  date,
-  drinks,
-  updateDrink,
-  updateModalTimestamp,
-  setToast,
-  setOwnDrink,
-  ownDrinks,
-  removeOwnDrink,
-  navigation,
-  route,
-}) => {
-  const [localDrinksState, setLocalDrinksState] = React.useState(drinks);
-  const [showDatePicker, setShowDatePicker] = React.useState(false);
-  const [newDrink, setNewDrink] = React.useState(initDrinkState);
+const drinksPerCurrenTimestampSelector = selector({
+  key: 'drinksPerCurrenTimestampSelector',
+  get: ({ get }) => {
+    const modalTimestamp = get(modalTimestampState);
+    const drinks = get(drinksState);
+    return drinks.filter((drink) => drink.timestamp === modalTimestamp);
+  },
+});
 
-  const scrollRef = React.useRef(null);
+const ConsosList = ({ navigation, route }) => {
+  const drinksPerCurrentaTimestamp = useRecoilValue(drinksPerCurrenTimestampSelector);
+  const setDrinksState = useSetRecoilState(drinksState);
+  const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
+  const [startDate, setStartDate] = useRecoilState(startDateState);
+  const toast = useToast();
+
+  // const [newDrink, setNewDrink] = useState(initDrinkState);
+  const [ownDrinks, setOwnDrinks] = useState(ownDrinksState);
+
+  const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
   const mergedOwnDrinksKeys = mergeOwnDrinksKeys(ownDrinks, localDrinksState);
@@ -96,6 +92,19 @@ const ConsosList = ({
     }
   };
 
+  const updateDrink = ({ drinkKey, quantity, id = uuidv4() }) => {
+    const newStartDate = firstDateIsBeforeSecondDate(addDrinkModalTimestamp, startDate)
+      ? new Date(addDrinkModalTimestamp)
+      : startDate;
+    setDrinksState((state) => {
+      return [
+        ...state.drinks.filter((drink) => drink.id !== id),
+        { drinkKey, quantity, id, timestamp: addDrinkModalTimestamp },
+      ].filter((d) => d.quantity > 0);
+    });
+    setStartDate(newStartDate);
+  };
+
   const onValidateConsos = async () => {
     onClose();
     let drinkNumber = 0;
@@ -106,7 +115,7 @@ const ConsosList = ({
     }
     setLocalDrinksState([]);
     setTimeout(() => {
-      setToast(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+      toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
     }, 250);
   };
 
@@ -121,29 +130,54 @@ const ConsosList = ({
     return true;
   }, [navigation]);
 
-  const onAddDrinkToCatalog = async ({ name, volume, degrees, drinkKey, quantity }) => {
-    setNewDrink(initDrinkState);
-    const formattedDrink = formatNewDrink(name, volume, degrees, drinkKey);
-    setOwnDrink(formattedDrink);
-    setDrinkQuantityRequest(formattedDrink.drinkKey, quantity);
-    setTimeout(() => {
-      scrollRef.current.scrollTo({ y: 0, animated: true });
-    }, 150);
-  };
+  // const onAddDrinkToCatalog = async ({ name, volume, degrees, drinkKey, quantity }) => {
+  //   setNewDrink(initDrinkState);
+  //   const formattedDrink = formatNewDrink(name, volume, degrees, drinkKey);
+  //   setOwnDrinks((ownDrinks) => [...ownDrinks.filter((d) => d.drinkKey !== drink.drinkKey), formattedDrink]);
+  //   setDrinkQuantityRequest(formattedDrink.drinkKey, quantity);
+  //   setTimeout(() => {
+  //     scrollRef.current.scrollTo({ y: 0, animated: true });
+  //   }, 150);
+  // };
 
   const removeOwnDrinkRequest = (drinkKey) => {
     setDrinkQuantityRequest(drinkKey, 0);
-    removeOwnDrink(drinkKey);
+    setOwnDrinks((ownDrinks) =>
+      ownDrinks.map((d) => {
+        if (d.drinkKey !== drinkKey) return d;
+        return {
+          ...d,
+          active: false,
+        };
+      })
+    );
+  };
+
+  const updateModalTimestamp = (newTimestamp) => {
+    const oldTimestamp = addDrinkModalTimestamp;
+    setDrinksState((drinks) =>
+      drinks.map((drink) => {
+        if (drink.timestamp === oldTimestamp) {
+          return {
+            ...drink,
+            timestamp: newTimestamp,
+          };
+        }
+        return drink;
+      })
+    );
+    setAddDrinkModalTimestamp(newTimestamp);
   };
 
   useEffect(() => {
     if (isFocused) {
-      setLocalDrinksState(drinks);
+      setLocalDrinksState(drinksPerCurrentaTimestamp);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
     }
     return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
-  }, [isFocused, onCancelConsos, drinks]);
+  }, [isFocused, onCancelConsos, drinksPerCurrentaTimestamp]);
 
+  /*
   useEffect(() => {
     if (route?.params?.addBarCodeDrink) {
       const newDrink = route?.params?.addBarCodeDrink;
@@ -155,7 +189,6 @@ const ConsosList = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route?.params?.addBarCodeDrink?.timestamp]);
-
   useEffect(() => {
     if (route?.params?.addNewDrinkFromForm) {
       onAddDrinkToCatalog(route?.params?.addNewDrinkFromForm);
@@ -164,14 +197,14 @@ const ConsosList = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [route?.params?.addNewDrinkFromForm?.timestamp]);
-
+ */
   return (
     <Container>
       <ModalContent ref={scrollRef} disableHorizontal>
         <Title>Sélectionnez vos consommations</Title>
         <DateAndTimeContainer>
-          <DateOrTimeDisplay mode="date" date={date} onPress={() => setShowDatePicker('date')} />
-          <DateOrTimeDisplay mode="time" date={date} onPress={() => setShowDatePicker('time')} />
+          <DateOrTimeDisplay mode="date" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('date')} />
+          <DateOrTimeDisplay mode="time" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('time')} />
         </DateAndTimeContainer>
         {withOwnDrinks && (
           <>
@@ -226,11 +259,11 @@ const ConsosList = ({
       <DatePicker
         visible={Boolean(showDatePicker)}
         mode={showDatePicker}
-        initDate={date}
+        initDate={addDrinkModalTimestamp}
         selectDate={(newDate) => {
           if (newDate && showDatePicker === 'date') {
             const newDateObject = new Date(newDate);
-            const oldDateObject = new Date(date);
+            const oldDateObject = new Date(addDrinkModalTimestamp);
             newDate = new Date(
               newDateObject.getFullYear(),
               newDateObject.getMonth(),
@@ -240,24 +273,11 @@ const ConsosList = ({
             );
           }
           setShowDatePicker(false);
-          if (newDate) {
-            updateModalTimestamp(makeSureTimestamp(newDate));
-          }
+          if (newDate) updateModalTimestamp(makeSureTimestamp(newDate));
         }}
       />
     </Container>
   );
 };
 
-const makeStateToProps = () => (state) => ({
-  drinks: getDrinksPerCurrentDrinksTimestamp(state),
-  date: getModalTimestamp(state),
-  ownDrinks: getOwnDrinks(state),
-});
-const dispatchToProps = {
-  updateDrink,
-  updateModalTimestamp,
-  setOwnDrink,
-  removeOwnDrink,
-};
-export default compose(connect(makeStateToProps, dispatchToProps), withToast)(ConsosList);
+export default ConsosList;
