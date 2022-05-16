@@ -1,3 +1,10 @@
+## [1.19.2](https://github.com/SocialGouv/ozensemble/compare/v1.19.1...v1.19.2) (2022-05-16)
+
+
+### Bug Fixes
+
+* reanimated ([3ce17b4](https://github.com/SocialGouv/ozensemble/commit/3ce17b4cb83b696d7f9e9aca76dcdf737b060b57))
+
 ## [1.19.1](https://github.com/SocialGouv/ozensemble/compare/v1.19.0...v1.19.1) (2022-05-16)
 
 
