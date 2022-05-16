@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
 import { Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
@@ -22,10 +21,13 @@ import Done from '../../components/Illustrations/Done';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingGain from './OnBoardingGain';
-import { getDaysForFeed, getDailyDoses, getDrinksState } from '../ConsoFollowUp/consoDuck';
+import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 
-const MyGains = ({ days, dailyDoses, drinks }) => {
+const MyGains = () => {
   const navigation = useNavigation();
+  const drinks = useRecoilValue(drinksState);
+  const days = useRecoilValue(feedDaysSelector);
+  const dailyDoses = useRecoilValue(dailyDosesSelector());
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
@@ -410,12 +412,6 @@ const TextModify = styled.Text`
   text-decoration: underline;
 `;
 
-const makeStateToProps = () => (state) => ({
-  drinks: getDrinksState(state),
-  days: getDaysForFeed(state),
-  dailyDoses: getDailyDoses(state),
-});
-
-export default connect(makeStateToProps)(MyGains);
-
 const ButtonTouchable = styled.TouchableOpacity``;
+
+export default MyGains;

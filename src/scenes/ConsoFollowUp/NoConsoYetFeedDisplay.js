@@ -1,10 +1,12 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { v4 as uuidv4 } from 'uuid';
 import H3 from '../../components/H3';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { drinksState } from '../../recoil/consos';
 import matomo from '../../services/matomo';
-import { setNoDrink } from './consoDuck';
+import { NO_CONSO } from './drinksCatalog';
 import { FeedButtonStyled, FeedNoDrinkTodayTopButton } from './styles';
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
@@ -18,23 +20,22 @@ const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   );
 };
 
-const dispatchToProps = {
-  setNoDrink,
+export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, disabled }) => {
+  const setDrinksState = useSetRecoilState(drinksState);
+  return (
+    <FeedNoDrinkTodayTopButton
+      content={content}
+      disabled={disabled}
+      onPress={() => {
+        matomo.logNoConso();
+        setDrinksState((state) => [
+          ...state,
+          { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(timestamp), id: uuidv4() },
+        ]);
+      }}
+    />
+  );
 };
-
-export const NoDrinkTodayButton = connect(
-  null,
-  dispatchToProps
-)(({ content = "Je n'ai rien bu !", setNoDrink, timestamp, disabled }) => (
-  <FeedNoDrinkTodayTopButton
-    content={content}
-    disabled={disabled}
-    onPress={() => {
-      matomo.logNoConso();
-      setNoDrink(makeSureTimestamp(timestamp));
-    }}
-  />
-));
 
 const Content = styled.View`
   padding-top: 15px;

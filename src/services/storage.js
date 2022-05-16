@@ -2,21 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { MMKV } from 'react-native-mmkv';
 
 export const storage = new MMKV();
-// fucking compatibility with redux-persis
-export const reduxStorage = {
-  setItem: (key, value) => {
-    storage.set(key, value);
-    return Promise.resolve(true);
-  },
-  getItem: (key) => {
-    const value = storage.getString(key);
-    return Promise.resolve(value);
-  },
-  removeItem: (key) => {
-    storage.delete(key);
-    return Promise.resolve();
-  },
-};
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
 // export const hasMigratedFromAsyncStorage = false;
@@ -36,15 +21,10 @@ export async function migrateFromAsyncStorage() {
         if (['true', 'false'].includes(value)) {
           storage.set(key, value === 'true');
         } else {
-          if (key === 'persist:addicto' && value.length > 5) {
-            const alreadyHere = storage.getString('persist:addicto');
-            storage.set(key, value); // because persist:addicto is stringified twice
-          } else {
-            storage.set(key, value);
-          }
+          storage.set(key, value); // because persist:addicto is stringified twice
         }
 
-        if (key !== 'persist:addicto') AsyncStorage.removeItem(key);
+        // if (key !== 'persist:addicto') AsyncStorage.removeItem(key);
       }
     } catch (error) {
       console.error(`Failed to migrate key "${key}" from AsyncStorage to MMKV!`, error);
@@ -56,4 +36,29 @@ export async function migrateFromAsyncStorage() {
 
   const end = global.performance.now();
   console.log(`Migrated from AsyncStorage -> MMKV in ${end - start}ms!`);
+}
+
+export const hasMigratedFromReduxToRecoil = false;
+// export const hasMigratedFromReduxToRecoil = storage.getBoolean('hasMigratedFromReduxToRecoil');
+
+// TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
+export async function migrateFromReduxToRecoil() {
+  const start = global.performance.now();
+
+  let reduxStore = storage.getString('persist:addicto');
+  if (reduxStore && reduxStore.length > 5) {
+    // so we do have a store
+    reduxStore = JSON.parse(JSON.parse(reduxStore).conso);
+    const drinksState = reduxStore.drinks;
+    const ownDrinksState = reduxStore.ownDrinks;
+    const startDateState = reduxStore.startDate;
+    storage.set('@Drinks', JSON.stringify(drinksState));
+    storage.set('@OwnDrinks', JSON.stringify(ownDrinksState));
+    storage.set('@StartDate', JSON.stringify(startDateState));
+  }
+
+  storage.set('hasMigratedFromReduxToRecoil', true);
+
+  const end = global.performance.now();
+  console.log(`Migrated from Redux -> Recoil in ${end - start}ms!`);
 }

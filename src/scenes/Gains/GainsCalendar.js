@@ -1,12 +1,12 @@
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import { connect } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { getDailyDoses, setModalTimestamp } from '../ConsoFollowUp/consoDuck';
+import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -34,8 +34,11 @@ const drinkDay = {
   isDrinkDay: true,
 };
 
-const GainsCalendar = ({ isOnboarded, dailyDoses, setModalTimestamp, setShowOnboardingGainModal }) => {
+const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
   // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+  const dailyDoses = useRecoilValue(dailyDosesSelector());
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
+
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const todayFormatted = dayjs().format('YYYY-MM-DD');
@@ -160,15 +163,4 @@ LocaleConfig.locales.fr = {
 };
 LocaleConfig.defaultLocale = 'fr';
 
-const makeStateToProps = () => (state) => ({
-  // days: getDaysForDiagram(state),
-  // thereIsDrinks: checkIfThereIsDrinks(state),
-  dailyDoses: getDailyDoses(state),
-  // highestDailyDose: getHighestDailyDoses(state),
-});
-
-const dispatchToProps = {
-  setModalTimestamp,
-};
-
-export default connect(makeStateToProps, dispatchToProps)(GainsCalendar);
+export default GainsCalendar;

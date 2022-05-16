@@ -1,137 +1,66 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { connect, Provider } from 'react-redux';
-import { createStore } from 'redux';
+import React, { useCallback, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import ModalContainer from '../components/Modal';
 
-/* ACTION */
+const ModalContext = React.createContext();
 
-export const setToast = (caption = '', duration = 2000) => ({
-  type: 'SET_TOAST',
-  payload: { caption, duration },
-});
+export const useToast = () => {
+  const context = React.useContext(ModalContext);
+  if (context === undefined) {
+    throw new Error('useToast must be used within a ToastProvider');
+  }
 
-/* COMPONENT */
+  return context;
+};
 
-const makeStateToProps = (state) => ({ caption: state.caption, duration: state.duration });
-const dispatchToProps = { setToast };
+const ToastProvider = (props) => {
+  const [caption, setCaption] = useState();
 
-const Toast = connect(
-  makeStateToProps,
-  dispatchToProps
-)(({ backgroundColor, caption, duration, setToast }) => {
-  const [show, setShow] = useState(caption.length);
+  const hide = useCallback(() => setCaption(null), [setCaption]);
 
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const timeout = useRef(null);
-
-  const fadeIn = () => {
-    setShow(true);
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 100,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeOut = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 100,
-      useNativeDriver: true,
-    }).start(() => {
-      setShow(false);
-      setToast('');
-    });
-  };
-
-  const handleReset = () => {
-    clearTimeout(timeout.current);
-    fadeOut();
-  };
-
-  useEffect(() => {
-    if (caption.length) {
-      fadeIn();
-      timeout.current = setTimeout(() => {
-        fadeOut();
-      }, duration);
-      return () => clearTimeout(timeout.current);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [caption, duration]);
-
-  if (!show) return null;
+  const show = useCallback(
+    (caption, timeout = 3000) => {
+      setCaption(caption);
+      setTimeout(() => {
+        setCaption(null);
+      }, timeout);
+    },
+    [setCaption]
+  );
 
   return (
-    <TouchableWithoutFeedback onPress={handleReset}>
-      <View style={styles.container}>
-        <Animated.View style={[styles.toastContainer(backgroundColor), { opacity: fadeAnim }]}>
-          <Text style={styles.content}>{caption}</Text>
-        </Animated.View>
-      </View>
-    </TouchableWithoutFeedback>
+    <ModalContext.Provider value={{ hide, show }} {...props}>
+      {props.children}
+      <ModalContainer visible={Boolean(caption)} hide={hide} hideOnTouch animationType="fade" style={styles.modal}>
+        <View style={styles.wrapper}>
+          <Text maxFontSizeMultiplier={2} style={styles.text} testID="toast">
+            {caption}
+          </Text>
+        </View>
+      </ModalContainer>
+    </ModalContext.Provider>
   );
-});
+};
+
+export default ToastProvider;
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    height: '100%',
-    bottom: 0,
-    justifyContent: 'flex-start',
+  modal: {
+    flex: 1,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    width: '100%',
+    paddingHorizontal: 20,
   },
-  toastContainer: (backgroundColor) => ({
-    overflow: 'hidden',
-    maxWidth: Dimensions.get('window').width * 0.8,
-    borderRadius: 10,
-    marginTop: 20,
-    backgroundColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 8,
-  }),
-  content: {
-    color: 'white',
-    fontSize: 20,
+  wrapper: {
+    backgroundColor: '#4030a5',
+    borderRadius: 16,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+  },
+  text: {
+    fontFamily: 'CodecPro-Bold',
+    color: '#FFF',
     textAlign: 'center',
+    paddingVertical: 10,
   },
 });
-
-/* PROVIDER */
-
-const initState = {
-  caption: '',
-  duration: 3000,
-};
-
-const reducer = (state = initState, action = {}) => {
-  if (action.type === 'SET_TOAST') return action.payload;
-  return state;
-};
-
-const store = createStore(reducer);
-
-export const ToastProvider = ({ children, backgroundColor }) => (
-  <Provider store={store}>
-    <>
-      {children}
-      <Toast backgroundColor={backgroundColor} />
-    </>
-  </Provider>
-);
-
-/* HOC */
-
-export const withToast = (ChildComponent) => {
-  const ToastedComponent = (props) => {
-    if (!ChildComponent) return null;
-    return <ChildComponent {...props} setToast={(...args) => store.dispatch(setToast(...args))} />;
-  };
-
-  ToastedComponent.displayName = `withToast(${ToastedComponent.displayName || ToastedComponent.name || 'Component'})`;
-
-  return ToastedComponent;
-};
