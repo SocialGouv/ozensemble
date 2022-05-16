@@ -82,7 +82,7 @@ const Day3 = ({ navigation, route }) => {
             <ButtonContainer>
               <ButtonPrimary
                 content="Échanger avec un conseiller"
-                onPress={() => navigation.navigate('CONTACT')}
+                onPress={() => navigation.navigate('HEALTH')}
                 style={{ marginVertical: 30 }}
               />
               <Button

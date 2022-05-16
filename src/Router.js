@@ -12,7 +12,7 @@ import Screen3Image from './components/Illustrations/Screen3';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
-import Contact from './scenes/Contact/Contact';
+import Health from './scenes/Health/Health';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
@@ -71,12 +71,12 @@ const TabsNavigator = ({ navigation }) => {
           component={ConsoFollowUp}
         />
         <Tabs.Screen
-          name="CONTACT"
+          name="HEALTH"
           options={{
             tabBarLabel: 'Santé',
             tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
           }}
-          component={Contact}
+          component={Health}
         />
         <Tabs.Screen
           name="INFOS"
