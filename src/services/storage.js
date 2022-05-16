@@ -38,11 +38,11 @@ export async function migrateFromAsyncStorage() {
   console.log(`Migrated from AsyncStorage -> MMKV in ${end - start}ms!`);
 }
 
-export const hasMigratedFromReduxToRecoil = false;
-// export const hasMigratedFromReduxToRecoil = storage.getBoolean('hasMigratedFromReduxToRecoil');
+export const hasMigratedFromReduxToRecoil = storage.getBoolean('hasMigratedFromReduxToRecoil');
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
 export async function migrateFromReduxToRecoil() {
+  if (hasMigratedFromReduxToRecoil) return;
   const start = global.performance.now();
 
   let reduxStore = storage.getString('persist:addicto');

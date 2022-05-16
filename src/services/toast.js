@@ -31,7 +31,7 @@ const ToastProvider = (props) => {
   return (
     <ModalContext.Provider value={{ hide, show }} {...props}>
       {props.children}
-      <ModalContainer visible={Boolean(caption)} hide={hide} hideOnTouch animationType="fade" style={styles.modal}>
+      <ModalContainer visible={Boolean(caption)} hide={hide} animationType="fade" style={styles.modal}>
         <View style={styles.wrapper}>
           <Text maxFontSizeMultiplier={2} style={styles.text} testID="toast">
             {caption}
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   text: {
-    fontFamily: 'CodecPro-Bold',
     color: '#FFF',
     textAlign: 'center',
     paddingVertical: 10,
