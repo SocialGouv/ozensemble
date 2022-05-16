@@ -1,14 +1,15 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import dayjs from 'dayjs';
+import React, { useEffect, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { connect } from 'react-redux';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { datesAreEqual, isToday, makeSureTimestamp } from '../../helpers/dateHelpers';
+import { drinksState, feedDaysSelector, modalTimestampState } from '../../recoil/consos';
 import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
 import NPS from '../NPS/NPS';
-import { getDaysForFeed, getDrinksState, removeDrink, setModalTimestamp } from './consoDuck';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
 import DateDisplay from './DateDisplay';
 import { NO_CONSO } from './drinksCatalog';
@@ -34,8 +35,11 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
+const Feed = ({ hideFeed, scrollToInput }) => {
   // state for NPS
+  const days = useRecoilValue(feedDaysSelector);
+  const [drinks, setDrinks] = useRecoilState(drinksState);
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
@@ -43,6 +47,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
   const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
+  const route = useRoute();
 
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
@@ -59,7 +64,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
 
   const deleteDrinkRequest = (timestamp) => {
     setTimestampSelected(null);
-    removeDrink(timestamp);
+    setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
   };
 
   const isFocused = useIsFocused();
@@ -67,6 +72,16 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
   useEffect(() => {
     if (isFocused) setTimestampSelected(null);
   }, [isFocused]);
+
+  const refs = useRef({});
+
+  useEffect(() => {
+    if (route?.params?.scrollToDay) {
+      setTimeout(() => {
+        scrollToInput(refs?.current?.[route?.params?.scrollToDay]);
+      });
+    }
+  }, [route?.params?.scrollToDay, scrollToInput]);
 
   return (
     <>
@@ -83,7 +98,7 @@ const Feed = ({ days, drinks, setModalTimestamp, removeDrink, hideFeed }) => {
               const noDrinksYet = !drinksOfTheDay.length;
               const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
               return (
-                <FeedDay key={index}>
+                <FeedDay key={index} ref={(r) => (refs.current[dayjs(day).format('YYYY-MM-DD')] = r)}>
                   <Timeline first={isFirst} last={isLast} />
                   <FeedDayContent>
                     <DateDisplay day={day} />
@@ -178,14 +193,4 @@ const ButtonContainer = styled.View`
   justify-content: center;
 `;
 
-const makeStateToProps = () => (state) => ({
-  drinks: getDrinksState(state),
-  days: getDaysForFeed(state),
-});
-
-const dispatchToProps = {
-  removeDrink,
-  setModalTimestamp,
-};
-
-export default connect(makeStateToProps, dispatchToProps)(Feed);
+export default Feed;

@@ -19,7 +19,7 @@ const smallH1 = css`
 `;
 
 const H1 = styled.Text`
-  color: #4030a5;
+  color: ${({ color }) => (color ? color : '#4030a5')};
   font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
   ${bigH1}
   ${mediaHeight.medium`${mediumH1}`}

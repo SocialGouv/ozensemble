@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
-import { compose } from 'recompose';
-import { connect } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
@@ -11,25 +9,35 @@ import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassT
 import NoDrink from '../../components/Illustrations/NoDrink';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
-import { withToast } from '../../services/toast';
-import {
-  getDrinksPerCurrentDrinksTimestamp,
-  getModalTimestamp,
-  updateDrink,
-  updateModalTimestamp,
-  setOwnDrink,
-  removeOwnDrink,
-  getOwnDrinks,
-  setNoDrink,
-} from '../ConsoFollowUp/consoDuck';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import DatePicker from '../../components/DatePicker';
-import { dateWithoutTime, makeSureTimestamp } from '../../helpers/dateHelpers';
+import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { drinksState, modalTimestampState } from '../../recoil/consos';
+import { v4 as uuidv4 } from 'uuid';
 
-const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
+const ChoiceDrinkOrNoDrink = () => {
+  const setDrinksState = useSetRecoilState(drinksState);
+  const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
   const navigation = useNavigation();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const updateModalTimestamp = (newTimestamp) => {
+    const oldTimestamp = addDrinkModalTimestamp;
+    setDrinksState((drinks) =>
+      drinks.map((drink) => {
+        if (drink.timestamp === oldTimestamp) {
+          return {
+            ...drink,
+            timestamp: newTimestamp,
+          };
+        }
+        return drink;
+      })
+    );
+    setAddDrinkModalTimestamp(newTimestamp);
+  };
 
   return (
     <ScreenBgStyled>
@@ -41,14 +49,17 @@ const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
           </TopTitle>
         </TopContainer>
         <DateAndTimeContainer>
-          <DateOrTimeDisplay mode="date" date={date} onPress={() => setShowDatePicker('date')} />
-          <DateOrTimeDisplay mode="time" date={date} onPress={() => setShowDatePicker('time')} />
+          <DateOrTimeDisplay mode="date" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('date')} />
+          <DateOrTimeDisplay mode="time" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('time')} />
         </DateAndTimeContainer>
         <Option
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
-            setNoDrink(makeSureTimestamp(dateWithoutTime(date)));
+            setDrinksState((state) => [
+              ...state,
+              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
+            ]);
             navigation.goBack();
           }}
         />
@@ -64,7 +75,7 @@ const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
           selectDate={(newDate) => {
             if (newDate && showDatePicker === 'date') {
               const newDateObject = new Date(newDate);
-              const oldDateObject = new Date(date);
+              const oldDateObject = new Date(addDrinkModalTimestamp);
               newDate = new Date(
                 newDateObject.getFullYear(),
                 newDateObject.getMonth(),
@@ -74,9 +85,7 @@ const ChoiceDrinkOrNoDrink = ({ date, updateModalTimestamp }) => {
               );
             }
             setShowDatePicker(false);
-            if (newDate) {
-              updateModalTimestamp(makeSureTimestamp(newDate));
-            }
+            if (newDate) updateModalTimestamp(makeSureTimestamp(newDate));
           }}
         />
       </SafeAreaView>
@@ -137,16 +146,4 @@ const AskDrinkContainer = styled.View`
   margin-top: ${screenHeight * 0.1}px;
 `;
 
-const makeStateToProps = () => (state) => ({
-  drinks: getDrinksPerCurrentDrinksTimestamp(state),
-  date: getModalTimestamp(state),
-  ownDrinks: getOwnDrinks(state),
-});
-const dispatchToProps = {
-  updateDrink,
-  updateModalTimestamp,
-  setOwnDrink,
-  removeOwnDrink,
-  setNoDrink,
-};
-export default compose(connect(makeStateToProps, dispatchToProps), withToast)(ChoiceDrinkOrNoDrink);
+export default ChoiceDrinkOrNoDrink;

@@ -14,13 +14,10 @@ import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
 import Reminder from './Reminder';
-// import usePopToTop from '../../hooks/usePopToTop';
 
 const InfosStack = createStackNavigator();
 
 const Infos = () => {
-  // usePopToTop();
-  
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />

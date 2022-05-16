@@ -4,7 +4,7 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenWidth } from '../../styles/theme';
 
-const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, maximize, onPress }) => {
+const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, onPress }) => {
   return (
     <ButtonTouchable onPress={onPress}>
     <Categorie>
@@ -13,7 +13,7 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
         {children}
         <UnitCategorie>
           <CategorieValue>
-            <TextStyled bold> {value}</TextStyled>
+            <TextStyled bold>{value}</TextStyled>
           </CategorieValue>
           {!!unit && (
             <CategorieUnit>
@@ -32,7 +32,7 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
   );
 };
 
-const width = screenWidth / 3;
+const width = Math.max(screenWidth / 3, 100);
 
 const Categorie = styled.View`
   margin-left: ${width * 0.2}px;
@@ -59,18 +59,20 @@ const IconCategorie = styled.View`
 
 const UnitCategorie = styled.View`
   justify-content: center;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-end;
-  height: ${width * 0.85 * 0.5}px;
-
-  align-items: baseline;
-  flex-wrap: wrap;
 `;
 
-const CategorieUnit = styled(H1)``;
+const CategorieUnit = styled(H1)`
+  width: ${width * 0.85}px;
+  text-align: center;
+`;
 
 const CategorieValue = styled.Text`
-  font-size: 45px;
+  font-size: 35px;
+  margin-top: 5px;
+  width: ${width * 0.85}px;
+  text-align: center;
 `;
 
 const TextCategorieContainer = styled.View`

@@ -10,7 +10,8 @@ import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight, screenWidth } from '../../styles/theme';
-import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from './recoil';
+import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
+import UnderlinedButton from '../../components/UnderlinedButton';
 
 const Goal = () => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -27,18 +28,12 @@ const Goal = () => {
   const navigation = useNavigation();
 
   const onHowCount = () => {
-    navigation.navigate('HOWCOUNT');
-  };
-
-  const toEstimation = () => {
-    navigation.navigate('ESTIMATION');
+    navigation.navigate('GAINS_HELP_HOW_TO_COUNT');
   };
 
   return (
     <ScreenBgStyled>
-      <GoBack onPress={navigation.goBack}>
-        <TextStyled bold>{'<'} Retour </TextStyled>
-      </GoBack>
+      <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <TopContainer>
         <TopTitle>
           <H1 color="#4030a5">Se fixer un objectif</H1>
@@ -119,13 +114,21 @@ const Goal = () => {
           <QButton content="+" onPress={() => setDrinksByDrinkingDay((q) => q + 1)} />
         </QuantityContainer>
         <DrinkByWeekContainer>
-          <TextStyled> {7-daysWithGoalNoDrink.length} jours avec {drinksByDrinkingDay} verres</TextStyled>
+          <TextStyled>
+            {' '}
+            {7 - daysWithGoalNoDrink.length} jours avec {drinksByDrinkingDay} verres
+          </TextStyled>
           <TextStyled bold> soit {drinkByWeek} verres par semaine</TextStyled>
         </DrinkByWeekContainer>
         <CTAButtonContainer>
           <ButtonPrimary
             content="Continuer"
-            onPress={toEstimation}
+            onPress={() =>
+              navigation.navigate('GAINS_REMINDER', {
+                enableContinueButton: true,
+                onPressContinueButton: () => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'),
+              })
+            }
             disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}
           />
         </CTAButtonContainer>
@@ -153,8 +156,9 @@ const TopTitle = styled.View`
   margin-bottom: 20px;
 `;
 
-const GoBack = styled.TouchableOpacity`
-  padding: 20px 30px 0px;
+const BackButton = styled(UnderlinedButton)`
+  margin-right: auto;
+  margin-bottom: 30px;
 `;
 
 const Container = styled.View`
@@ -237,6 +241,7 @@ const HowCount = styled.TouchableOpacity``;
 
 const TextSemiBold = styled.Text`
   font-weight: 700;
+  margin-left: 10px;
 `;
 
 export default Goal;
