@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
-import { Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
@@ -181,7 +181,7 @@ const MyGains = () => {
           icon={<Economy size={24} />}
           unit={'€'}
           description="Mes économies"
-          value={isOnboarded ? (mySavingsSinceBeginning * 100>0? (mySavingsSinceBeginning * 100) : 0  ): '?'}
+          value={isOnboarded ? (mySavingsSinceBeginning * 100 > 0 ? mySavingsSinceBeginning * 100 : 0) : '?'}
           maximize
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
@@ -189,7 +189,7 @@ const MyGains = () => {
           icon={<Balance size={26} />}
           unit="kcal"
           description="Mes calories économisées"
-          value={isOnboarded ? (myKcalSavingsSinceBeginning * 100>0?myKcalSavingsSinceBeginning * 100:0) : '?'}
+          value={isOnboarded ? (myKcalSavingsSinceBeginning * 100 > 0 ? myKcalSavingsSinceBeginning * 100 : 0) : '?'}
           maximize
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />

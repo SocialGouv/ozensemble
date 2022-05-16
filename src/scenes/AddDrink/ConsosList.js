@@ -9,7 +9,7 @@ import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import DrinksCategory from '../../components/DrinksCategory';
 import {
   drinksCatalog,
-  formatNewDrink,
+  // formatNewDrink,
   getDrinksKeysFromCatalog,
   getDrinkQuantityFromDrinks,
 } from '../ConsoFollowUp/drinksCatalog';
@@ -32,7 +32,7 @@ import { drinksState, modalTimestampState, ownDrinksState, startDateState } from
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
-const initDrinkState = { name: '', volume: '', degrees: '', isNew: true, code: null };
+// const initDrinkState = { name: '', volume: '', degrees: '', isNew: true, code: null };
 
 const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
   const ownDrinksKeys = getDrinksKeysFromCatalog(ownDrinks);
@@ -52,17 +52,17 @@ const drinksPerCurrenTimestampSelector = selector({
   },
 });
 
-const ConsosList = ({ navigation, route }) => {
+const ConsosList = ({ navigation }) => {
   const drinksPerCurrentaTimestamp = useRecoilValue(drinksPerCurrenTimestampSelector);
   const setDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
   const [startDate, setStartDate] = useRecoilState(startDateState);
-  const toast = useToast();
+  // const toast = useToast();
 
   // const [newDrink, setNewDrink] = useState(initDrinkState);
-  const [ownDrinks, setOwnDrinks] = useState(ownDrinksState);
+  const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
 
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
@@ -96,12 +96,13 @@ const ConsosList = ({ navigation, route }) => {
     const newStartDate = firstDateIsBeforeSecondDate(addDrinkModalTimestamp, startDate)
       ? new Date(addDrinkModalTimestamp)
       : startDate;
-    setDrinksState((state) => {
-      return [
-        ...state.drinks.filter((drink) => drink.id !== id),
+    console.log('update', { drinkKey, quantity, id });
+    setDrinksState((state) =>
+      [
+        ...state.filter((drink) => drink.id !== id),
         { drinkKey, quantity, id, timestamp: addDrinkModalTimestamp },
-      ].filter((d) => d.quantity > 0);
-    });
+      ].filter((d) => d.quantity > 0)
+    );
     setStartDate(newStartDate);
   };
 
@@ -114,9 +115,9 @@ const ConsosList = ({ navigation, route }) => {
       matomo.logConsoAdd(drink);
     }
     setLocalDrinksState([]);
-    setTimeout(() => {
-      toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
-    }, 250);
+    // setTimeout(() => {
+    //   toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+    // }, 250);
   };
 
   const onClose = useCallback(() => {
