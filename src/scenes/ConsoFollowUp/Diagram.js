@@ -18,7 +18,8 @@ import {
   LowerBar,
   UpperBar,
 } from './styles';
-import { dailyDosesSelector, diagramDaysSelector, drinksState } from '../../recoil/consos';
+import { dailyDosesSelector, diagramDaysSelector, drinksState} from '../../recoil/consos';
+import { drinksByDrinkingDayState } from '../../recoil/gains';
 
 const maxDosesOnScreen = 50;
 
@@ -66,6 +67,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
   const drinks = useRecoilValue(drinksState);
+  console.log(drinks)
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
 
   useEffect(() => {
@@ -80,11 +82,12 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
     })();
   }, []);
 
+  const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
   const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
     highestDailyDose,
-    highestAcceptableDosesPerDay
+    drinksByDrinkingDay
   );
-
+  
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
   const onPressBar = (index) => {
