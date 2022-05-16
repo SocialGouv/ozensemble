@@ -76,8 +76,8 @@ export const diagramDaysSelector = selectorFamily({
   get:
     ({ asPreview }) =>
     ({ get }) => {
-      const startDate = get(startDateState);
-      const drinks = asPreview ? fakeConsoData.partial : get(drinksState);
+      const startDate = asPreview ? fakeConsoData.partial.startDate : get(startDateState);
+      const drinks = asPreview ? fakeConsoData.partial.drinks : get(drinksState);
       return getDays(drinks, startDate).filter((_, i, days) => i >= days.length - followupNumberOfDays);
     },
 });
@@ -99,7 +99,7 @@ export const dailyDosesSelector = selectorFamily({
     ({ asPreview = false } = {}) =>
     ({ get }) => {
       const consolidatedCatalog = get(consolidatedCatalogSelector);
-      const drinks = asPreview ? fakeConsoData.partial : get(drinksState);
+      const drinks = asPreview ? fakeConsoData.partial.drinks : get(drinksState);
       return reduceDrinksToDailyDoses(drinks, consolidatedCatalog);
     },
 });
