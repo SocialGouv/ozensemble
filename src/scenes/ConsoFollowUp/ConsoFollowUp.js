@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { connect } from 'react-redux';
+import { findNodeHandle } from 'react-native';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Background from '../../components/Background';
 import DrinksCategory from '../../components/DrinksCategory';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../services/matomo';
-import { checkIfThereIsDrinks, setModalTimestamp } from './consoDuck';
 import Diagram from './Diagram';
 import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
@@ -21,11 +21,13 @@ import {
   Title,
   TopContainer,
 } from './styles';
-import { findNodeHandle } from 'react-native';
+import { drinksState, modalTimestampState } from '../../recoil/consos';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
-const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
+const ConsoFollowUp = () => {
+  const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedBar, setSelectedBar] = useState({});
   const navigation = useNavigation();
@@ -41,7 +43,7 @@ const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
     setTimeout(() => {
       ref.measureLayout(
         findNodeHandle(scrollViewRef.current),
-        (x, y, width, height) => {
+        (x, y) => {
           scrollViewRef.current.scrollTo({ y: y - 100, animated: true });
         },
         (error) => console.log('error scrolling', error)
@@ -132,12 +134,4 @@ const ConsoFollowUp = ({ showWelcomeMessage, setModalTimestamp }) => {
   );
 };
 
-const makeStateToProps = () => (state) => ({
-  showWelcomeMessage: !checkIfThereIsDrinks(state),
-});
-
-const dispatchToProps = {
-  setModalTimestamp,
-};
-
-export default connect(makeStateToProps, dispatchToProps)(ConsoFollowUp);
+export default ConsoFollowUp;

@@ -93,7 +93,7 @@ const Estimation = () => {
       </Container>
       <CTAButtonContainer>
         <ButtonPrimary
-          disabled={!previousDrinksPerWeek.find((drink) => drink.quantity != 0)}
+          disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
           content="Je finalise"
           onPress={() => navigation.navigate('GAINS_SEVRAGE')}
         />

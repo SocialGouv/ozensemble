@@ -14,8 +14,8 @@ import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
-import { followupNumberOfDays } from '../ConsoFollowUp/consoDuck';
 import { storage } from '../../services/storage';
+import { followupNumberOfDays } from '../../recoil/consos';
 
 const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";

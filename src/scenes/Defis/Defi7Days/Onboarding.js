@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
-import ReminderIcon from '../../../components/Illustrations/ReminderIcon';
 import TextStyled from '../../../components/TextStyled';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import matomo from '../../../services/matomo';

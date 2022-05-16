@@ -4,7 +4,7 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenWidth } from '../../styles/theme';
 
-const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, maximize }) => {
+const CategorieGain = ({ children, icon = null, value = '?', unit = '', description }) => {
   return (
     <Categorie>
       <ComponentCategorie>
