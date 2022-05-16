@@ -176,24 +176,24 @@ const MyGains = () => {
           )}
         </TextForm>
       </TextContainer>
-      <TouchableWithoutFeedback disabled={isOnboarded} onPress={() => setShowOnboardingGainModal(true)}>
-        <Categories>
-          <CategorieGain
-            icon={<Economy size={24} />}
-            unit={'€'}
-            description="Mes économies"
-            value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
-            maximize
-          />
-          <CategorieGain
-            icon={<Balance size={26} />}
-            unit="kcal"
-            description="Mes calories économisées"
-            value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
-            maximize
-          />
-        </Categories>
-      </TouchableWithoutFeedback>
+      <Categories>
+        <CategorieGain
+          icon={<Economy size={24} />}
+          unit={'€'}
+          description="Mes économies"
+          value={isOnboarded ? (mySavingsSinceBeginning * 100>0? (mySavingsSinceBeginning * 100) : 0  ): '?'}
+          maximize
+          onPress={() => setShowOnboardingGainModal((show) => !show)}
+        />
+        <CategorieGain
+          icon={<Balance size={26} />}
+          unit="kcal"
+          description="Mes calories économisées"
+          value={isOnboarded ? (myKcalSavingsSinceBeginning * 100>0?myKcalSavingsSinceBeginning * 100:0) : '?'}
+          maximize
+          onPress={() => setShowOnboardingGainModal((show) => !show)}
+        />
+      </Categories>
       <TextContainer>
         <TextForm>
           {!!isOnboarded && (
@@ -203,26 +203,26 @@ const MyGains = () => {
           )}
         </TextForm>
       </TextContainer>
-      <TouchableWithoutFeedback disabled={isOnboarded} onPress={() => setShowOnboardingGainModal(true)}>
-        <Categories>
-          <CategorieGain
-            description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
-            value={isOnboarded ? remaindrink : '?'}>
-            <Speedometer
-              value={isOnboarded ? remaindrink : 1}
-              totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
-              size={screenWidth / 4}
-              outerColor="#d3d3d3"
-              internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
-            />
-          </CategorieGain>
-          <CategorieGain
-            icon={<NoDrink size={24} />}
-            description="Jours où je n'ai pas bu"
-            value={isOnboarded ? notDrinkDaythisWeek : '?'}
+      <Categories>
+        <CategorieGain
+          description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
+          value={isOnboarded ? remaindrink : '?'}
+          onPress={() => setShowOnboardingGainModal((show) => !show)}>
+          <Speedometer
+            value={isOnboarded ? remaindrink : 1}
+            totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
+            size={screenWidth / 4}
+            outerColor="#d3d3d3"
+            internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
           />
-        </Categories>
-      </TouchableWithoutFeedback>
+        </CategorieGain>
+        <CategorieGain
+          icon={<NoDrink size={24} />}
+          description="Jours où je n'ai pas bu"
+          value={isOnboarded ? notDrinkDaythisWeek : '?'}
+          onPress={() => setShowOnboardingGainModal((show) => !show)}
+        />
+      </Categories>
       <OnBoardingGain
         onPress={navigateToGoal}
         visible={showOnboardingGainModal}
