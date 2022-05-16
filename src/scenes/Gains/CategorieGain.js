@@ -4,8 +4,9 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenWidth } from '../../styles/theme';
 
-const CategorieGain = ({ children, icon = null, value = '?', unit = '', description }) => {
+const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, onPress }) => {
   return (
+    <ButtonTouchable onPress={onPress}>
     <Categorie>
       <ComponentCategorie>
         {!!icon && <IconCategorie>{icon}</IconCategorie>}
@@ -27,6 +28,7 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
         </TextCategorie>
       </TextCategorieContainer>
     </Categorie>
+    </ButtonTouchable>
   );
 };
 
@@ -81,5 +83,7 @@ const TextCategorieContainer = styled.View`
 const TextCategorie = styled.Text`
   text-align: center;
 `;
+
+const ButtonTouchable = styled.TouchableOpacity``;
 
 export default CategorieGain;
