@@ -7,27 +7,27 @@ import { screenWidth } from '../../styles/theme';
 const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, onPress }) => {
   return (
     <ButtonTouchable onPress={onPress}>
-    <Categorie>
-      <ComponentCategorie>
-        {!!icon && <IconCategorie>{icon}</IconCategorie>}
-        {children}
-        <UnitCategorie>
-          <CategorieValue>
-            <TextStyled bold>{value}</TextStyled>
-          </CategorieValue>
-          {!!unit && (
-            <CategorieUnit>
-              <TextStyled bold> {unit}</TextStyled>
-            </CategorieUnit>
-          )}
-        </UnitCategorie>
-      </ComponentCategorie>
-      <TextCategorieContainer>
-        <TextCategorie>
-          <TextStyled numberOfLines={2}>{description}</TextStyled>
-        </TextCategorie>
-      </TextCategorieContainer>
-    </Categorie>
+      <Categorie>
+        <ComponentCategorie>
+          {!!icon && <IconCategorie>{icon}</IconCategorie>}
+          {children}
+          <UnitCategorie>
+            <CategorieValue>
+              <TextStyled bold>{value}</TextStyled>
+            </CategorieValue>
+            {!!unit && (
+              <CategorieUnit>
+                <TextStyled bold> {unit}</TextStyled>
+              </CategorieUnit>
+            )}
+          </UnitCategorie>
+        </ComponentCategorie>
+        <TextCategorieContainer>
+          <TextCategorie>
+            <TextStyled numberOfLines={2}>{description}</TextStyled>
+          </TextCategorie>
+        </TextCategorieContainer>
+      </Categorie>
     </ButtonTouchable>
   );
 };

@@ -15,6 +15,7 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { v4 as uuidv4 } from 'uuid';
+import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -71,7 +72,7 @@ const ChoiceDrinkOrNoDrink = () => {
         <DatePicker
           visible={Boolean(showDatePicker)}
           mode={showDatePicker}
-          initDate={date}
+          initDate={addDrinkModalTimestamp}
           selectDate={(newDate) => {
             if (newDate && showDatePicker === 'date') {
               const newDateObject = new Date(newDate);
