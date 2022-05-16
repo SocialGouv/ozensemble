@@ -31,11 +31,11 @@ const WelcomeScreen = ({ navigation }) => {
 
   const onStartPress = async () => {
     storage.set('@OnboardingDoneWithCGU', true);
-    RNBootSplash.show({ duration: 250 });
+    RNBootSplash.hide({ fade: true });
     await new Promise((res) => setTimeout(res, 250));
     navigation.navigate('TABS');
     await new Promise((res) => setTimeout(res, 750));
-    RNBootSplash.hide({ duration: 250 });
+    RNBootSplash.hide({ fade: true });
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
   };
 
