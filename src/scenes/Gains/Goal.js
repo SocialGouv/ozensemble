@@ -10,7 +10,7 @@ import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight, screenWidth } from '../../styles/theme';
-import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from './recoil';
+import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
 import UnderlinedButton from '../../components/UnderlinedButton';
 
 const Goal = () => {

@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-import { storage } from '../../services/storage';
+import { storage } from '../services/storage';
 
 const getInitValueFromStorage = (key, defaultValue) => {
   const valueType = typeof defaultValue;
