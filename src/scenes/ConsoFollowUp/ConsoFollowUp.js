@@ -57,8 +57,11 @@ const ConsoFollowUp = () => {
       <ScreenBgStyled ref={scrollViewRef}>
         <TopContainer>
           <Title>
-            <TextStyled color="#4030a5">Suivez votre consommation en unités d'alcool</TextStyled>
+            <TextStyled color="#4030a5">Mon suivi de consommation</TextStyled>
           </Title>
+          <SubTitle>
+            <TextStyled color="#000000">Nombre d'unité d'alcool consommé</TextStyled>
+          </SubTitle>
           {showWelcomeMessage ? (
             <>
               <SubTitle>
@@ -133,5 +136,6 @@ const ConsoFollowUp = () => {
     </Background>
   );
 };
+
 
 export default ConsoFollowUp;
