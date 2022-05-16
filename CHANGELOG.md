@@ -1,3 +1,15 @@
+# [1.19.0](https://github.com/SocialGouv/ozensemble/compare/v1.18.0...v1.19.0) (2022-05-16)
+
+
+### Bug Fixes
+
+* shadow in conseils sante ([d15548c](https://github.com/SocialGouv/ozensemble/commit/d15548cc335ec0d63dd1e1d7583dd417571a1084))
+
+
+### Features
+
+* Santé ([ac18b1b](https://github.com/SocialGouv/ozensemble/commit/ac18b1b54480eee0830d475236172a37643bb6dc))
+
 # [1.18.0](https://github.com/SocialGouv/ozensemble/compare/v1.17.0...v1.18.0) (2022-05-16)
 
 
