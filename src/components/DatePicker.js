@@ -19,20 +19,22 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
   if (Platform.OS === 'ios') {
     return (
       <Modal visible={visible} animationType="fade" transparent={true}>
-        <ModalContent>
-          <DatePickerContainer>
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              display="default"
-              maximumDate={today(1, true)}
-              locale="fr-FR"
-              onChange={(_, selectedDate) => {
-                const currentDate = selectedDate || date;
-                setDate(currentDate);
-              }}
-            />
+        <ModalBackdropContent>
+          <ModalContent>
+            <DatePickerContainer>
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode={mode}
+                display="default"
+                maximumDate={today(1, true)}
+                locale="fr-FR"
+                onChange={(_, selectedDate) => {
+                  const currentDate = selectedDate || date;
+                  setDate(currentDate);
+                }}
+              />
+            </DatePickerContainer>
             <ButtonsContainer>
               <ButtonPrimary
                 content="Validez"
@@ -42,8 +44,8 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
               />
               <UnderlinedButton content="Retour" bold onPress={() => selectDate(initDate)} />
             </ButtonsContainer>
-          </DatePickerContainer>
-        </ModalContent>
+          </ModalContent>
+        </ModalBackdropContent>
       </Modal>
     );
   }
@@ -68,7 +70,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
 
 const Modal = styled.Modal``;
 
-const ModalContent = styled.View`
+const ModalBackdropContent = styled.View`
   height: 100%;
   width: 100%;
   width: 100%;
@@ -77,12 +79,25 @@ const ModalContent = styled.View`
   align-items: center;
 `;
 
+const ModalContent = styled.View`
+  width: 100%;
+  max-width: 320px;
+  border-radius: 20px;
+  background-color: white;
+  justify-content: center;
+  /* align-items: center; */
+  border: 10px solid black;
+  /* align-items: center; */
+`;
+
 const DatePickerContainer = styled.View`
   width: 100%;
   max-width: 320px;
   border-radius: 20px;
   background-color: white;
   justify-content: center;
+  /* align-items: center; */
+  border: 10px solid black;
   /* align-items: center; */
 `;
 

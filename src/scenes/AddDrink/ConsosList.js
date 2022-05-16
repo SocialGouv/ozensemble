@@ -96,7 +96,6 @@ const ConsosList = ({ navigation }) => {
     const newStartDate = firstDateIsBeforeSecondDate(addDrinkModalTimestamp, startDate)
       ? new Date(addDrinkModalTimestamp)
       : startDate;
-    console.log('update', { drinkKey, quantity, id });
     setDrinksState((state) =>
       [
         ...state.filter((drink) => drink.id !== id),
