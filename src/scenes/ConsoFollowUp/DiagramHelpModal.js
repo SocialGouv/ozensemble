@@ -8,6 +8,8 @@ import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation'
 import TextStyled from '../../components/TextStyled';
 import Diagram from './Diagram';
 import { TopContainer } from './styles';
+import { useRecoilValue } from 'recoil';
+import { maxDrinksPerWeekSelector } from '../../recoil/gains';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -17,6 +19,7 @@ const Elem = ({ content, lineHeight = 20 }) => (
 );
 
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
       <SafeAreaViewStyled>
@@ -40,11 +43,11 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                   <TextStyled>
                     La ligne verte représente{' '}
                     <TextStyled bold color="#4030a5">
-                      le seuil de votre objectif
+                      le seuil de votre objectif  
                     </TextStyled>
-                    (maximum de verres par jour autorisé).
+                    ({maxDrinksPerWeekGoal===0?(2 + " représentant pour l'instant le seuil fixé par l'OMS"):(maxDrinksPerWeekGoal + " verres maximum par jour autorisé")}).
                   </TextStyled>
-                }
+                  }
               />
             </Paragraph>
             <Paragraph>

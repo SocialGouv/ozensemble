@@ -98,11 +98,11 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
 
   return (
     <>
-      {!showCloseHelp && !asPreview && (
+      {/* {!showCloseHelp && !asPreview && (
         <Help onPress={onShowHelp}>
           <HelpText>?</HelpText>
         </Help>
-      )}
+      )} */}
       {showCloseHelp && (
         <CloseHelpContainer>
           <UnderlinedButton content="Fermer" bold onPress={onCloseHelp} />
@@ -158,7 +158,6 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
             return (
               <React.Fragment key={index}>
                 <Bar
-                  //onPress={() => !!asPreview? null: onPressBar(index)}
                   key={index}
                   height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
                   heightFactor={dailyDoseHeight || 0}>
@@ -175,7 +174,6 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
                     <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
                   )}
                   <LowerBar
-                    //borderBottom={selectedBar?.index === index}
                     withTopRadius={!overLineValue}
                     height={doseHeight * underLineValue || minBarHeight}
                   />
@@ -185,23 +183,17 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
           })}
         {thereIsDrinks && <Line bottom={barMaxAcceptableDoseHeight} />}
       </BarsContainer>
-      {/* <LegendContainer>
-        {selectedBar?.index >= 0 && selectedBar?.label ? <Legend>{selectedBar?.label}</Legend> : null}
-      </LegendContainer>  */}
       <LegendsContainer>
-        {days.map((day)=>{
+        {days.map((day,index)=>{
           const formatday = dayjs(day).format("ddd").charAt(0).toUpperCase()+dayjs(day).format("ddd").slice(1,3)
           const backgound= (isToday(day)) ?  "#4030A5" : "transparent" ;
-          const color = (isToday(day)) ?  "#ffffff" : "#4030A5" ;
+          const color = isToday(day) ? '#ffffff' : '#4030A5';
           return(
-            <LegendContainer backgound={backgound}>
-          <Legend  color={color}>
-            {formatday}
-          </Legend>
-          </LegendContainer>
+            <LegendContainer backgound={backgound} key={index}>
+              <Legend color={color} >{formatday}</Legend>
+            </LegendContainer>
           )
-        }
-        )}
+        })}
       </LegendsContainer>
     </>
   );
@@ -220,7 +212,9 @@ const LegendsContainer = styled.View`
   flex-direction: row;
   flex-grow: 1;
   justify-content: space-between;
-  margin-horizontal: 4px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  margin-horizontal: 1px;
 `;
 
 const Legend = styled.Text`
@@ -229,7 +223,7 @@ const Legend = styled.Text`
 `;
 const LegendContainer = styled.View`
   background: ${({ backgound }) => backgound};
-  margin-top: -35px;
+  margin-top: 5px;
   margin-bottom: 35px;
   border-radius: 20px;
   padding-horizontal: 5px;
