@@ -24,7 +24,7 @@ export const ScreenBgStyled = styled.ScrollView`
 `;
 
 export const TopContainer = styled.View`
-  padding: 20px 20px 40px;
+  padding: 20px 20px 0px;
 `;
 
 export const Title = styled(H1)`
@@ -66,8 +66,6 @@ export const FeedBottomButton = styled(UnderlinedButton)`
 `;
 
 export const FeedAddConsoTodayContainer = styled.View`
-  margin-top: -45px;
-  margin-bottom: -20px;
   align-items: center;
 `;
 
@@ -98,21 +96,21 @@ export const FeedButtonStyled = styled.View`
 Diagram styles
 */
 
-
+const Helpsize = 25; 
 export const Help = styled.TouchableOpacity`
-  width: 40px;
-  height: 40px;
+  width: ${Helpsize}px;
+  height: ${Helpsize}px;
   border-radius: 40px;
-  border: 1px solid #39cec0;
+  border: 1px solid #DE285E;
   background-color: white;
   margin-left: auto;
   justify-content: center;
   align-items: center;
 `;
 export const HelpText = styled.Text`
-  color: #39cec0;
+  color: #DE285E;
   font-weight: bold;
-  font-size: 20px;
+  font-size: ${Helpsize*0.5}px;
 `;
 
 export const CloseHelpContainer = styled.View`
@@ -122,7 +120,6 @@ export const CloseHelpContainer = styled.View`
 export const BarsContainer = styled.View`
   max-width: 100%;
   flex-direction: row;
-  margin-bottom: 40px;
   height: ${({ height }) => height}px;
   align-items: flex-end;
 `;
