@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { dateIsBeforeOrToday, today } from '../../helpers/dateHelpers';
+import { dateIsBeforeOrToday, isToday, today } from '../../helpers/dateHelpers';
 import styled from 'styled-components';
 import { storage } from '../../services/storage';
 import { screenHeight } from '../../styles/theme';
@@ -13,8 +13,6 @@ import {
   doseTextHeight,
   Help,
   HelpText,
-  Legend,
-  LegendContainer,
   Line,
   LowerBar,
   UpperBar,
@@ -110,7 +108,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
           <UnderlinedButton content="Fermer" bold onPress={onCloseHelp} />
         </CloseHelpContainer>
       )}
-      {!asPreview &&
+      {!asPreview && (
       <ChangeDateContainer>
         <ChangeDate onPress={() => setStartDate(beforeToday(7, firstDay))}>
           <TextStyled> {'<'}</TextStyled>
@@ -130,7 +128,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
           {today() > lastDay && <TextStyled> {'>'}</TextStyled>}
         </ChangeDate>
       </ChangeDateContainer>
-      }
+      )}
       <BarsContainer height={barMaxHeight + doseTextHeight}>
         {days
           .map((day) => {
@@ -160,7 +158,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
             return (
               <React.Fragment key={index}>
                 <Bar
-                  onPress={() => !!asPreview? null: onPressBar(index)}
+                  //onPress={() => !!asPreview? null: onPressBar(index)}
                   key={index}
                   height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
                   heightFactor={dailyDoseHeight || 0}>
@@ -177,7 +175,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
                     <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
                   )}
                   <LowerBar
-                    borderBottom={selectedBar?.index === index}
+                    //borderBottom={selectedBar?.index === index}
                     withTopRadius={!overLineValue}
                     height={doseHeight * underLineValue || minBarHeight}
                   />
@@ -187,9 +185,24 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
           })}
         {thereIsDrinks && <Line bottom={barMaxAcceptableDoseHeight} />}
       </BarsContainer>
-      <LegendContainer>
+      {/* <LegendContainer>
         {selectedBar?.index >= 0 && selectedBar?.label ? <Legend>{selectedBar?.label}</Legend> : null}
-      </LegendContainer>
+      </LegendContainer>  */}
+      <LegendsContainer>
+        {days.map((day)=>{
+          const formatday = dayjs(day).format("ddd").charAt(0).toUpperCase()+dayjs(day).format("ddd").slice(1,3)
+          const backgound= (isToday(day)) ?  "#4030A5" : "transparent" ;
+          const color = (isToday(day)) ?  "#ffffff" : "#4030A5" ;
+          return(
+            <LegendContainer backgound={backgound}>
+          <Legend  color={color}>
+            {formatday}
+          </Legend>
+          </LegendContainer>
+          )
+        }
+        )}
+      </LegendsContainer>
     </>
   );
 };
@@ -202,5 +215,24 @@ const ChangeDateContainer = styled.View`
 `;
 
 const ChangeDate = styled.TouchableOpacity``;
+
+const LegendsContainer = styled.View`
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: space-between;
+  margin-horizontal: 4px;
+`;
+
+const Legend = styled.Text`
+  color: ${({ color }) => color};
+  font-weight: 600;
+`;
+const LegendContainer = styled.View`
+  background: ${({ backgound }) => backgound};
+  margin-top: -35px;
+  margin-bottom: 35px;
+  border-radius: 20px;
+  padding-horizontal: 5px;
+`;
 
 export default Diagram;
