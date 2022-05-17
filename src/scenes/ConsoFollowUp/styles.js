@@ -98,17 +98,6 @@ export const FeedButtonStyled = styled.View`
 Diagram styles
 */
 
-export const LegendContainer = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-`;
-
-export const Legend = styled.Text`
-  color: #de285e;
-  margin-top: -35px;
-  margin-bottom: 35px;
-`;
 
 export const Help = styled.TouchableOpacity`
   width: 40px;
