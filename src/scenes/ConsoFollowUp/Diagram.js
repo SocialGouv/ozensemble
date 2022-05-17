@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { dateIsBeforeOrToday } from '../../helpers/dateHelpers';
+import { dateIsBeforeOrToday, today } from '../../helpers/dateHelpers';
+import styled from 'styled-components';
 import { storage } from '../../services/storage';
 import { screenHeight } from '../../styles/theme';
 import {
@@ -18,8 +19,11 @@ import {
   LowerBar,
   UpperBar,
 } from './styles';
-import { dailyDosesSelector, diagramDaysSelector, drinksState} from '../../recoil/consos';
+import { dailyDosesSelector, diagramDaysSelector, drinksState,getTodaySWeek,startDateDiagramState,beforeToday, consolidatedCatalogSelector} from '../../recoil/consos';
 import { drinksByDrinkingDayState } from '../../recoil/gains';
+import TextStyled from '../../components/TextStyled';
+import { useRecoilState } from 'recoil';
+import dayjs from 'dayjs';
 
 const maxDosesOnScreen = 50;
 
@@ -63,13 +67,14 @@ const highestDailyDoseSelector = selectorFamily({
 const minBarHeight = 1;
 const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHelp, selectedBar, setSelectedBar }) => {
   const days = useRecoilValue(diagramDaysSelector({ asPreview }));
+  const [startDate, setStartDate] = useRecoilState(startDateDiagramState);
+  const { firstDay, lastDay } = getTodaySWeek(new Date(startDate));
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
   const drinks = useRecoilValue(drinksState);
-  console.log(drinks)
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
-
+  
   useEffect(() => {
     (async () => {
       try {
@@ -83,11 +88,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
   }, []);
 
   const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
-  const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
-    highestDailyDose,
-    drinksByDrinkingDay
-  );
-  
+  const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(highestDailyDose, drinksByDrinkingDay||2);
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
   const onPressBar = (index) => {
@@ -109,6 +110,27 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
           <UnderlinedButton content="Fermer" bold onPress={onCloseHelp} />
         </CloseHelpContainer>
       )}
+      {!asPreview &&
+      <ChangeDateContainer>
+        <ChangeDate onPress={() => setStartDate(beforeToday(7, firstDay))}>
+          <TextStyled> {'<'}</TextStyled>
+        </ChangeDate>
+        {
+        ( firstDay.getMonth()===lastDay.getMonth()) ? (
+          <TextStyled color="#C4C4C4">
+            Semaine du {dayjs(firstDay).format('D')} au {dayjs(lastDay).format('D')} {dayjs(lastDay).format('MMMM')}
+            </TextStyled>
+            ):(
+              <TextStyled color="#C4C4C4">
+              Semaine du {dayjs(firstDay).format("D")} {dayjs(firstDay).format("MMM")} au {dayjs(lastDay).format("D")} {dayjs(lastDay).format("MMM")}
+            </TextStyled>
+            )
+          }
+        <ChangeDate onPress={() => setStartDate(beforeToday(-7, firstDay))}>
+          {today() > lastDay && <TextStyled> {'>'}</TextStyled>}
+        </ChangeDate>
+      </ChangeDateContainer>
+      }
       <BarsContainer height={barMaxHeight + doseTextHeight}>
         {days
           .map((day) => {
@@ -138,7 +160,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
             return (
               <React.Fragment key={index}>
                 <Bar
-                  onPress={() => onPressBar(index)}
+                  onPress={() => asPreview? null: onPressBar(index)}
                   key={index}
                   height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
                   heightFactor={dailyDoseHeight || 0}>
@@ -171,5 +193,14 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
     </>
   );
 };
+
+const ChangeDateContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 10px;
+`;
+
+const ChangeDate = styled.TouchableOpacity``;
 
 export default Diagram;

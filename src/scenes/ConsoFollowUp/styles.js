@@ -146,7 +146,7 @@ export const Bar = styled(TouchableOpacity)`
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 30px;
-  margin-horizontal: 3px;
+  margin-horizontal: 8px;
   overflow: hidden;
   height: ${({ height }) => height}px;
 `;
