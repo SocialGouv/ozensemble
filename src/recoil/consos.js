@@ -5,7 +5,7 @@ import { drinksCatalog, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCat
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';
 
-export const followupNumberOfDays = 15;
+export const followupNumberOfDays = 7;
 
 export const drinksState = atom({
   key: 'drinksState',
@@ -23,6 +23,12 @@ export const startDateState = atom({
   key: 'startDateState',
   default: getInitValueFromStorage('@StartDate', today()),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@StartDate', JSON.stringify(newValue)))],
+});
+
+export const startDateDiagramState = atom({
+  key: 'startDateDiagramState',
+  default: getInitValueFromStorage('@StartDateDiagram', today()),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@StartDateDiagram', JSON.stringify(newValue)))],
 });
 
 export const modalTimestampState = atom({
@@ -71,14 +77,31 @@ const getDays = (drinks, startDate) => {
   return days;
 };
 
+const getDaysDiagram = (drinks, startDate) => {
+  const days = [];
+  for (let i = 0; i < followupNumberOfDays; i++) {
+    days.push(dateWithoutTime(startDate, i));
+  }
+  return days;
+};
+
+export const oneDay = 1000 * 60 * 60 * 24;
+export const beforeToday = (offset = 0, date = new Date()) => new Date(Date.parse(date) - offset * oneDay);
+export const getTodaySWeek = (date = new Date()) => {
+  const weekDay = date.getDay() === 0 ? 6 : date.getDay() - 1;
+  const firstDay = beforeToday(weekDay, date);
+  const lastDay = beforeToday(-(6 - weekDay), date);
+  return { firstDay: new Date(firstDay), lastDay: new Date(lastDay) };
+};
+
 export const diagramDaysSelector = selectorFamily({
   key: 'diagramDaysSelector',
   get:
     ({ asPreview }) =>
     ({ get }) => {
-      const startDate = asPreview ? fakeConsoData.partial.startDate : get(startDateState);
+      const startDate = asPreview ? fakeConsoData.partial.startDate : get(startDateDiagramState);
       const drinks = asPreview ? fakeConsoData.partial.drinks : get(drinksState);
-      return getDays(drinks, startDate).filter((_, i, days) => i >= days.length - followupNumberOfDays);
+      return getDaysDiagram(drinks, startDate).filter((_, i, days) => i >= days.length - followupNumberOfDays);
     },
 });
 
