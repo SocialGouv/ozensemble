@@ -40,9 +40,9 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                   <TextStyled>
                     La ligne verte représente{' '}
                     <TextStyled bold color="#4030a5">
-                      le seuil de l’OMS{' '}
+                      le seuil de votre objectif
                     </TextStyled>
-                    (2 verres par jour).
+                    (maximum de verres par jour autorisé).
                   </TextStyled>
                 }
               />
