@@ -160,7 +160,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null, onShowHe
             return (
               <React.Fragment key={index}>
                 <Bar
-                  onPress={() => asPreview? null: onPressBar(index)}
+                  onPress={() => !!asPreview? null: onPressBar(index)}
                   key={index}
                   height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
                   heightFactor={dailyDoseHeight || 0}>
