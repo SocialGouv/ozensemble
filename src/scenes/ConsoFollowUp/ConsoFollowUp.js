@@ -20,8 +20,12 @@ import {
   SubTitle,
   Title,
   TopContainer,
+  Help,
+  HelpText,
 } from './styles';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
+import styled from 'styled-components';
+import ThoughtOfTheDay from './ThoughtOfTheDay';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -59,9 +63,17 @@ const ConsoFollowUp = () => {
           <Title>
             <TextStyled color="#4030a5">Mon suivi de consommation</TextStyled>
           </Title>
+          <SubtileContainer>
           <SubTitle>
             <TextStyled color="#000000">Nombre d'unité d'alcool consommé</TextStyled>
-          </SubTitle>
+         </SubTitle>
+         <Help onPress={()=>{
+                matomo.logConsoDiagramHelp();
+                setShowHelpModal(true)
+                }}>
+            <HelpText>?</HelpText>
+          </Help>
+         </SubtileContainer>
           {showWelcomeMessage ? (
             <>
               <SubTitle>
@@ -105,9 +117,10 @@ const ConsoFollowUp = () => {
               setSelectedBar={setSelectedBar}
             />
           )}
+          {/*<ThoughtOfTheDay/> */}
         </TopContainer>
         <FeedAddConsoTodayContainer zIndex={10}>
-          <FeedAddConsoTodayButton
+          {/* <FeedAddConsoTodayButton
             content="Ajoutez une consommation"
             onPress={async () => {
               let selectedTimestamp = null;
@@ -125,7 +138,7 @@ const ConsoFollowUp = () => {
               addDrinksRequest(selectedTimestamp || Date.now());
               await matomo.logConsoOpenAddScreen();
             }}
-          />
+          /> */}
           {!!showWelcomeMessage && (
             <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />
           )}
@@ -136,6 +149,20 @@ const ConsoFollowUp = () => {
     </Background>
   );
 };
+
+const SubtileContainer = styled.View`
+  flex-direction: row;
+`;
+
+const EvolutionContainer = styled.View`
+  background-color: ${({ background }) => background};
+  
+  align-item: center;
+  justify-content: space-around;
+  flex-direction: row;
+`;
+
+const Icon = styled.View``;
 
 
 export default ConsoFollowUp;
