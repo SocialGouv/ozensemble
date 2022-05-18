@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/SocialGouv/ozensemble/compare/v1.21.4...v1.22.0) (2022-05-18)
+
+
+### Features
+
+* add button info ([7d8cb0d](https://github.com/SocialGouv/ozensemble/commit/7d8cb0d999ddf1506873f48aed4a9fd4ca857f0e))
+
 ## [1.21.4](https://github.com/SocialGouv/ozensemble/compare/v1.21.3...v1.21.4) (2022-05-18)
 
 
