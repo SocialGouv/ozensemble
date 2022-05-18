@@ -51,6 +51,7 @@ const BackButton = styled(GoBackButtonText)`
 `;
 
 const HowCountContainer = styled.View`
+  margin-top: 20px;
   margin-bottom: ${screenHeight * 0.05}px;
   width: 95%;
   justify-content: center;
