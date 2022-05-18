@@ -16,6 +16,7 @@ import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
 import { storage } from '../../services/storage';
+import GoBackButtonText from '../../components/GoBackButtonText';
 
 const notifReminderTitle = "C'est l'heure de votre suivi !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
@@ -232,10 +233,9 @@ const ButtonsContainer = styled.View`
   margin-bottom: 20%;
 `;
 
-const BackButton = styled(UnderlinedButton)`
+const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
   margin-left: -20px;
-  margin-bottom: 30px;
 `;
 
 const EditButton = styled(UnderlinedButton)``;

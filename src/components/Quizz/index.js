@@ -3,10 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import styled from 'styled-components';
 import Background from '../Background';
 import ProgressBar from '../ProgressBar';
-import UnderlinedButton from '../UnderlinedButton';
 import Question from './Question';
 import { fetchStoredAnswers } from './utils';
 import { storage } from '../../services/storage';
+import GoBackButtonText from '../GoBackButtonText';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -111,7 +111,7 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
                   selectedAnswerKey={answers?.[content.questionKey]}
                   {...props}
                 />
-                <QuizzBackButton bold content="Retour" onPress={props.navigation.goBack} />
+                <QuizzBackButton bold content="< Retour" onPress={props.navigation.goBack} />
               </>
             )}
           </QuizzStack.Screen>
@@ -127,7 +127,7 @@ export default Quizz;
 QUIZZ
 */
 
-const QuizzBackButton = styled(UnderlinedButton)`
+const QuizzBackButton = styled(GoBackButtonText)`
   margin-top: auto;
   margin-right: auto;
   margin-left: 10px;
