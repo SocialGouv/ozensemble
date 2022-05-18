@@ -78,7 +78,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           disableAllTouchEventsForDisabledDays
           onDayPress={({ dateString }) => {
             if (!isOnboarded) return setShowOnboardingGainModal(true);
-            if (markedDays[dateString]?.isDrinkDay) {
+            if (markedDays[dateString]?.isDrinkDay || markedDays[dateString]?.isNoDrinkDay) {
               navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
             } else {
               const now = dayjs();
