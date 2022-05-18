@@ -1,3 +1,10 @@
+## [1.21.4](https://github.com/SocialGouv/ozensemble/compare/v1.21.3...v1.21.4) (2022-05-18)
+
+
+### Bug Fixes
+
+* chevron array + check condition ([70fb7c1](https://github.com/SocialGouv/ozensemble/commit/70fb7c185dd2cd7940c38cfcc23729dbd510d614))
+
 ## [1.21.3](https://github.com/SocialGouv/ozensemble/compare/v1.21.2...v1.21.3) (2022-05-18)
 
 
