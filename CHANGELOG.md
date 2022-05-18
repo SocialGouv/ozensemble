@@ -1,3 +1,10 @@
+## [1.20.3](https://github.com/SocialGouv/ozensemble/compare/v1.20.2...v1.20.3) (2022-05-18)
+
+
+### Bug Fixes
+
+* alcool explanatino ([0cf140a](https://github.com/SocialGouv/ozensemble/commit/0cf140a9eb2ef6ea54a513ead0f5c12ec5f6843e))
+
 ## [1.20.2](https://github.com/SocialGouv/ozensemble/compare/v1.20.1...v1.20.2) (2022-05-18)
 
 
