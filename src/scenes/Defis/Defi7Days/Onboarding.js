@@ -20,14 +20,14 @@ export default ({ navigation }) => {
       notifReminderTitle: "C'est l'heure de votre défi 7 jours !",
       notifReminderMessage: '',
       enableContinueButton: true,
-      onPressContinueButton: () => navigation.navigate('DEFI_7_DAYS_MENU'),
+      onPressContinueNavigation: ['DEFI_7_DAYS_MENU'],
     });
   };
   const noThankYou = () => {
     matomo.logClickNotStartDefi7Days();
     navigation.navigate('DEFI_7_DAYS_REMINDER', {
       enableContinueButton: true,
-      onPressContinueButton: () => navigation.navigate('TABS', { screen: 'CONSO_FOLLOW_UP' }),
+      onPressContinueNavigation: ['TABS', { screen: 'CONSO_FOLLOW_UP' }],
     });
   };
   return (
