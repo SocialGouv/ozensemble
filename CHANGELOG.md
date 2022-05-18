@@ -1,3 +1,10 @@
+## [1.20.9](https://github.com/SocialGouv/ozensemble/compare/v1.20.8...v1.20.9) (2022-05-18)
+
+
+### Bug Fixes
+
+* sevrage styling ([68539b5](https://github.com/SocialGouv/ozensemble/commit/68539b5d3259130fe6a0a94fecaaf9df661d2dbf))
+
 ## [1.20.8](https://github.com/SocialGouv/ozensemble/compare/v1.20.7...v1.20.8) (2022-05-18)
 
 
