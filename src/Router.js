@@ -9,7 +9,6 @@ import DefisIcon from './components/Illustrations/Defis';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
 import GuidanceIcon from './components/Illustrations/GuidanceIcon';
 import InfosIcon from './components/Illustrations/Infos';
-import Screen3Image from './components/Illustrations/Screen3';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
@@ -25,6 +24,7 @@ import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
 import CustomBootsplash from './components/CustomBootsplash';
+import StarsTabIcon from './components/Illustrations/StarsTabIcon';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -65,7 +65,7 @@ const TabsNavigator = ({ navigation }) => {
           name="GAINS_MAIN_VIEW"
           options={{
             tabBarLabel: (props) => <Label {...props}>Gains</Label>,
-            tabBarIcon: ({ size, color }) => <Screen3Image size={size} color={color} fillOpacity={1} />,
+            tabBarIcon: ({ size, color }) => <StarsTabIcon size={size} color={color} fillOpacity={1} />,
           }}
           component={GainsNavigator}
         />
