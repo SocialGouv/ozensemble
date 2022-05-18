@@ -1,13 +1,13 @@
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
-import dayjs from 'dayjs';
 import React, { useEffect, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { datesAreEqual, isToday, makeSureTimestamp } from '../../helpers/dateHelpers';
+import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, feedDaysSelector, modalTimestampState } from '../../recoil/consos';
 import CONSTANTS from '../../reference/constants';
+import { isOnSameDay, isToday } from '../../services/dates';
 import matomo from '../../services/matomo';
 import NPS from '../NPS/NPS';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -93,12 +93,12 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               const isFirst = index === 0;
               const isLast = index === days.length - 1;
               const drinksOfTheDay = drinks
-                .filter(({ timestamp }) => datesAreEqual(timestamp, day))
+                .filter(({ timestamp }) => isOnSameDay(timestamp, day))
                 .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
               const noDrinksYet = !drinksOfTheDay.length;
               const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
               return (
-                <FeedDay key={index} ref={(r) => (refs.current[dayjs(day).format('YYYY-MM-DD')] = r)}>
+                <FeedDay key={index} ref={(r) => (refs.current[day] = r)}>
                   <Timeline first={isFirst} last={isLast} />
                   <FeedDayContent>
                     <DateDisplay day={day} />
