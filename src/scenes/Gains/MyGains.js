@@ -49,12 +49,10 @@ const MyGains = () => {
     return dayjs(days[days.length - 1]);
   }, [days]);
 
-  const notDrinkDaythisWeek = useMemo(
-    () =>
-      days.filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week'))).filter((day) => dailyDoses[day] === 0)
-        .length,
-    [days, dailyDoses]
-  );
+  const notDrinkDaythisWeek = useMemo(() => {
+    return days.filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week'))).filter((day) => !dailyDoses[day])
+      .length;
+  }, [days, dailyDoses]);
 
   const numberDrinkThisWeek = useMemo(
     () =>
@@ -154,7 +152,9 @@ const MyGains = () => {
                     Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps
                   </Text>
                 </TextDescritpion>
-                <TouchableOpacity onPress={() => setShowGoalfix(false)}>
+                <TouchableOpacity
+                  onPress={() => setShowGoalfix(false)}
+                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
                   <Arrow>{'x'}</Arrow>
                 </TouchableOpacity>
               </Description>
@@ -199,7 +199,7 @@ const MyGains = () => {
         <TextForm>
           {!!isOnboarded && (
             <TextStyled>
-              Sur la semaine en cours depuis<TextStyled color="#DE285E"> lundi</TextStyled>
+              Jusqu'à<TextStyled color="#DE285E"> dimanche soir</TextStyled>
             </TextStyled>
           )}
         </TextForm>
@@ -219,7 +219,7 @@ const MyGains = () => {
         </CategorieGain>
         <CategorieGain
           icon={<NoDrink size={24} />}
-          description="Jours où je n'ai pas bu"
+          description={`Jour${notDrinkDaythisWeek > 1 ? 's' : ''} où je n'ai pas\u00A0bu`}
           value={isOnboarded ? notDrinkDaythisWeek : '?'}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
@@ -235,7 +235,9 @@ const MyGains = () => {
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
-          <TouchableOpacity onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}
+            hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <Description>
               <InfosIcon size={24} />
               <TextDescritpion>
@@ -325,6 +327,7 @@ const BottomContainer = styled.View`
 const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
+  margin-bottom: 15px;
 `;
 
 const Description = styled.View`

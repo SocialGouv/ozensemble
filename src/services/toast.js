@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import ModalContainer from '../components/Modal';
+import Modal from '../components/Modal';
 
 const ModalContext = React.createContext();
 
@@ -31,13 +31,13 @@ const ToastProvider = (props) => {
   return (
     <ModalContext.Provider value={{ hide, show }} {...props}>
       {props.children}
-      <ModalContainer visible={Boolean(caption)} hide={hide} animationType="fade" style={styles.modal}>
+      <Modal visible={Boolean(caption)} hideOnTouch hide={hide} animationType="fade" style={styles.modal}>
         <View style={styles.wrapper}>
           <Text maxFontSizeMultiplier={2} style={styles.text} testID="toast">
             {caption}
           </Text>
         </View>
-      </ModalContainer>
+      </Modal>
     </ModalContext.Provider>
   );
 };
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingHorizontal: 20,
+    borderWidth: 3,
   },
   wrapper: {
     backgroundColor: '#4030a5',
