@@ -3,9 +3,9 @@ import { Alert } from 'react-native';
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import GoBackButtonText from '../../components/GoBackButtonText';
 import H2 from '../../components/H2';
 import TextStyled from '../../components/TextStyled';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
@@ -176,7 +176,7 @@ const TextInputStyled = styled.TextInput`
   margin-top: 15px;
 `;
 
-const BackButton = styled(UnderlinedButton)`
+const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
   margin-left: -20px;
 `;

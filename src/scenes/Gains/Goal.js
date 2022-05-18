@@ -154,13 +154,11 @@ const TopTitle = styled.View`
   width: 95%;
   flex-direction: row;
   flex-shrink: 0;
-  margin-top: 10px;
   margin-bottom: 20px;
 `;
 
 const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
-  margin-bottom: 30px;
 `;
 
 const Container = styled.View`

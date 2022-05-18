@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import { buttonHeight } from '../styles/theme';
 
 const GoBackButtonText = ({ content, onPress, color, withoutPadding, bold, ...props }) => (
-  <UnderlinedButtonStyled withoutPadding={withoutPadding} onPress={onPress} {...props}>
+  <GoBackButtonTextStyled withoutPadding={withoutPadding} onPress={onPress} {...props}>
     <TextStyled bold={bold} color={color}>
       {content}
     </TextStyled>
-  </UnderlinedButtonStyled>
+  </GoBackButtonTextStyled>
 );
 
-const UnderlinedButtonStyled = styled.TouchableOpacity`
+const GoBackButtonTextStyled = styled.TouchableOpacity`
   ${({ withoutPadding }) => !withoutPadding && 'padding: 20px;'}
   height: ${buttonHeight}px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const TextStyled = styled.Text`

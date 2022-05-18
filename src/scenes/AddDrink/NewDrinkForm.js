@@ -141,7 +141,7 @@ const NewDrinkForm = ({ route, navigation }) => {
             </LineContainer>
             <ButtonsContainer>
               <ButtonPrimary content="Ajoutez" onPress={handleValidate} />
-              <GoBackButtonText content="Retour" bold onPress={handleCancel} />
+              <GoBackButtonText content="< Retour" bold onPress={handleCancel} />
             </ButtonsContainer>
             {error && <Error>{error}</Error>}
           </FormContainer>

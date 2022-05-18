@@ -163,7 +163,7 @@ class BarCodeReader extends Component {
           <BarCodeHint>Scannez le code-barres d'une boisson ou</BarCodeHint>
           <ButtonsContainer>
             <ButtonPrimary content="Ajoutez manuellement" onPress={this.handleAddManually} />
-            <GoBackButtonText content="Retour" bold onPress={this.handleClose} />
+            <GoBackButtonText content="< Retour" bold onPress={this.handleClose} />
           </ButtonsContainer>
         </ButtonsContainerSafe>
         <CameraButtonsContainerSafe>

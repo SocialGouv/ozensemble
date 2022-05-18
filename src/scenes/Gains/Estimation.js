@@ -10,7 +10,7 @@ import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../reco
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { ModalContent } from '../AddDrink/styles';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import GoBackButtonText from '../../components/GoBackButtonText';
 
 const Estimation = () => {
   const navigation = useNavigation();
@@ -121,7 +121,7 @@ const DescriptionText = styled.Text`
   ${(props) => props.big && 'font-size: 16px;'}
 `;
 
-const BackButton = styled(UnderlinedButton)`
+const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
 `;
 
