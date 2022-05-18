@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useMemo, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -12,8 +11,10 @@ import TextStyled from '../../components/TextStyled';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
 import UnderlinedButton from '../../components/UnderlinedButton';
+import HelpModalCountConsumption from './HelpModalCountConsumption';
 
-const Goal = () => {
+const Goal = ({ navigation }) => {
+  const [helpVisible, setHelpVisible] = useState(false);
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
   const toggleDayWithGoalNoDrink = (day) =>
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
@@ -25,115 +26,112 @@ const Goal = () => {
     [daysWithGoalNoDrink.length, drinksByDrinkingDay]
   );
 
-  const navigation = useNavigation();
-
-  const onHowCount = () => {
-    navigation.navigate('GAINS_HELP_HOW_TO_COUNT');
-  };
-
   return (
-    <ScreenBgStyled>
-      <BackButton content="< Retour" onPress={navigation.goBack} bold />
-      <TopContainer>
-        <TopTitle>
-          <H1 color="#4030a5">Se fixer un objectif</H1>
-        </TopTitle>
-      </TopContainer>
-      <Container>
-        <ContainerTime>
-          <TextStyled>
-            La durée de votre objectif est d'<TextStyled bold>un mois</TextStyled>
-          </TextStyled>
-        </ContainerTime>
-        <Row>
-          <Calendar size={24} />
-          <TextSemiBold>
-            <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
-          </TextSemiBold>
-        </Row>
-        <DayContainer>
-          <DayButton
-            content="L"
-            active={daysWithGoalNoDrink.includes('monday')}
-            onPress={() => toggleDayWithGoalNoDrink('monday')}
-          />
-          <DayButton
-            content="M"
-            active={daysWithGoalNoDrink.includes('tuesday')}
-            onPress={() => toggleDayWithGoalNoDrink('tuesday')}
-          />
-          <DayButton
-            content="M"
-            active={daysWithGoalNoDrink.includes('wednesday')}
-            onPress={() => toggleDayWithGoalNoDrink('wednesday')}
-          />
-          <DayButton
-            content="J"
-            active={daysWithGoalNoDrink.includes('thursday')}
-            onPress={() => toggleDayWithGoalNoDrink('thursday')}
-          />
-          <DayButton
-            content="V"
-            active={daysWithGoalNoDrink.includes('friday')}
-            onPress={() => toggleDayWithGoalNoDrink('friday')}
-          />
-          <DayButton
-            content="S"
-            active={daysWithGoalNoDrink.includes('saturday')}
-            onPress={() => toggleDayWithGoalNoDrink('saturday')}
-          />
-          <DayButton
-            content="D"
-            active={daysWithGoalNoDrink.includes('sunday')}
-            onPress={() => toggleDayWithGoalNoDrink('sunday')}
-          />
-        </DayContainer>
-        <Row>
-          <CocktailGlassTriangle size={24} />
-          <TextSemiBold>
-            <TextStyled> Nombre de verres par jours que je m'autorise quand je bois de l'alcool</TextStyled>
-          </TextSemiBold>
-        </Row>
-        <Row>
-          <TextStyled>Comment compter un verre sans me tromper </TextStyled>
-          <HowCount onPress={onHowCount}>
-            <InfoObjectif size={20} color={'#000000'} />
-          </HowCount>
-        </Row>
-        <QuantityContainer>
-          <QButton
-            content="-"
-            disabled={drinksByDrinkingDay <= 0}
-            onPress={() => setDrinksByDrinkingDay((q) => q - 1)}
-          />
-          <NumberDrink>
-            <TextStyled bold color="#4030a5">
-              {drinksByDrinkingDay}
+    <>
+      <ScreenBgStyled>
+        <BackButton content="< Retour" onPress={navigation.goBack} bold />
+        <TopContainer>
+          <TopTitle>
+            <H1 color="#4030a5">Se fixer un objectif</H1>
+          </TopTitle>
+        </TopContainer>
+        <Container>
+          <ContainerTime>
+            <TextStyled>
+              La durée de votre objectif est d'<TextStyled bold>un mois</TextStyled>
             </TextStyled>
-          </NumberDrink>
-          <QButton content="+" onPress={() => setDrinksByDrinkingDay((q) => q + 1)} />
-        </QuantityContainer>
-        <DrinkByWeekContainer>
-          <TextStyled>
-            {' '}
-            {7 - daysWithGoalNoDrink.length} jours avec {drinksByDrinkingDay} verres
-          </TextStyled>
-          <TextStyled bold> soit {drinkByWeek} verres par semaine</TextStyled>
-        </DrinkByWeekContainer>
-        <CTAButtonContainer>
-          <ButtonPrimary
-            content="Continuer"
-            onPress={() =>
-              navigation.navigate('GAINS_REMINDER', {
-                enableContinueButton: true,
-                onPressContinueButton: () => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'),
-              })
-            }
-            disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}
-          />
-        </CTAButtonContainer>
-      </Container>
-    </ScreenBgStyled>
+          </ContainerTime>
+          <Row>
+            <Calendar size={24} />
+            <TextSemiBold>
+              <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
+            </TextSemiBold>
+          </Row>
+          <DayContainer>
+            <DayButton
+              content="L"
+              active={daysWithGoalNoDrink.includes('monday')}
+              onPress={() => toggleDayWithGoalNoDrink('monday')}
+            />
+            <DayButton
+              content="M"
+              active={daysWithGoalNoDrink.includes('tuesday')}
+              onPress={() => toggleDayWithGoalNoDrink('tuesday')}
+            />
+            <DayButton
+              content="M"
+              active={daysWithGoalNoDrink.includes('wednesday')}
+              onPress={() => toggleDayWithGoalNoDrink('wednesday')}
+            />
+            <DayButton
+              content="J"
+              active={daysWithGoalNoDrink.includes('thursday')}
+              onPress={() => toggleDayWithGoalNoDrink('thursday')}
+            />
+            <DayButton
+              content="V"
+              active={daysWithGoalNoDrink.includes('friday')}
+              onPress={() => toggleDayWithGoalNoDrink('friday')}
+            />
+            <DayButton
+              content="S"
+              active={daysWithGoalNoDrink.includes('saturday')}
+              onPress={() => toggleDayWithGoalNoDrink('saturday')}
+            />
+            <DayButton
+              content="D"
+              active={daysWithGoalNoDrink.includes('sunday')}
+              onPress={() => toggleDayWithGoalNoDrink('sunday')}
+            />
+          </DayContainer>
+          <Row>
+            <CocktailGlassTriangle size={24} />
+            <TextSemiBold>
+              <TextStyled> Nombre de verres par jours que je m'autorise quand je bois de l'alcool</TextStyled>
+            </TextSemiBold>
+          </Row>
+          <Row>
+            <HowCount onPress={() => setHelpVisible(true)}>
+              <TextStyled>Comment compter un verre sans me tromper{'   '}</TextStyled>
+              <InfoObjectif size={20} color={'#000000'} />
+            </HowCount>
+          </Row>
+          <QuantityContainer>
+            <QButton
+              content="-"
+              disabled={drinksByDrinkingDay <= 0}
+              onPress={() => setDrinksByDrinkingDay((q) => q - 1)}
+            />
+            <NumberDrink>
+              <TextStyled bold color="#4030a5">
+                {drinksByDrinkingDay}
+              </TextStyled>
+            </NumberDrink>
+            <QButton content="+" onPress={() => setDrinksByDrinkingDay((q) => q + 1)} />
+          </QuantityContainer>
+          <DrinkByWeekContainer>
+            <TextStyled>
+              {' '}
+              {7 - daysWithGoalNoDrink.length} jours avec {drinksByDrinkingDay} verres
+            </TextStyled>
+            <TextStyled bold> soit {drinkByWeek} verres par semaine</TextStyled>
+          </DrinkByWeekContainer>
+          <CTAButtonContainer>
+            <ButtonPrimary
+              content="Continuer"
+              onPress={() =>
+                navigation.navigate('GAINS_REMINDER', {
+                  enableContinueButton: true,
+                  onPressContinueButton: () => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'),
+                })
+              }
+              disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}
+            />
+          </CTAButtonContainer>
+        </Container>
+      </ScreenBgStyled>
+      <HelpModalCountConsumption visible={helpVisible} onClose={() => setHelpVisible(false)} />
+    </>
   );
 };
 
@@ -237,7 +235,9 @@ const DrinkByWeekContainer = styled.View`
   margin-bottom: ${screenHeight * 0.04}px;
 `;
 
-const HowCount = styled.TouchableOpacity``;
+const HowCount = styled.TouchableOpacity`
+  flex-direction: row;
+`;
 
 const TextSemiBold = styled.Text`
   font-weight: 700;

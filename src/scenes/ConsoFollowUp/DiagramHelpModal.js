@@ -8,7 +8,6 @@ import Stars from '../../components/Illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
 import Diagram from './Diagram';
-import { TopContainer } from './styles';
 import { drinksByDrinkingDayState } from '../../recoil/gains';
 
 const Elem = ({ content, lineHeight = 20 }) => (
@@ -98,6 +97,10 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
     </Modal>
   );
 };
+
+export const TopContainer = styled.View`
+  padding-horizontal: 20px;
+`;
 
 const SafeAreaViewStyled = styled(SafeAreaView)`
   background-color: #f9f9f9;
