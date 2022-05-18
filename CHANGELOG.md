@@ -1,3 +1,10 @@
+## [1.20.10](https://github.com/SocialGouv/ozensemble/compare/v1.20.9...v1.20.10) (2022-05-18)
+
+
+### Bug Fixes
+
+* tabs label ([0d251e2](https://github.com/SocialGouv/ozensemble/commit/0d251e253ffd4177b767c401496de5e2a64dd408))
+
 ## [1.20.9](https://github.com/SocialGouv/ozensemble/compare/v1.20.8...v1.20.9) (2022-05-18)
 
 
