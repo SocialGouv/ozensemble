@@ -73,6 +73,10 @@ export function isAfterToday(date) {
   return dayjs(date).isAfter(dayjs());
 }
 
+export function isBeforeToday(date) {
+  return dayjs(date).isBefore(dayjs());
+}
+
 export function dateForDatePicker(date) {
   return date && dayjs(date).isValid() ? dayjs(date).toDate() : null;
 }
