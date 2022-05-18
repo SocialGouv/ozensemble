@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { v4 as uuidv4 } from 'uuid';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
@@ -12,9 +13,7 @@ import { screenHeight } from '../../styles/theme';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
-import { v4 as uuidv4 } from 'uuid';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 
 const ChoiceDrinkOrNoDrink = () => {
