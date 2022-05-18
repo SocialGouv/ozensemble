@@ -2,11 +2,11 @@ import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { previousDrinksPerWeekState } from '../../recoil/gains';
+import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { ModalContent } from '../AddDrink/styles';
@@ -15,6 +15,7 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 const Estimation = () => {
   const navigation = useNavigation();
 
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
 
   const scrollRef = useRef(null);
@@ -45,14 +46,14 @@ const Estimation = () => {
   return (
     <ScreenBgStyled>
       <BackButton content="< Retour" onPress={navigation.goBack} bold />
-      <TopContainer>
+      <TextContainer>
         <TopTitle>
           <H1 color="#4030a5">Ma consommation avant OzEnsemble</H1>
         </TopTitle>
         <DescriptionText>
           <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
         </DescriptionText>
-      </TopContainer>
+      </TextContainer>
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
           {drinksCatalog
@@ -70,6 +71,25 @@ const Estimation = () => {
             ))}
         </ModalContent>
       </Container>
+      <TextContainer>
+        <DescriptionText>
+          <TextStyled>
+            <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
+          </TextStyled>
+        </DescriptionText>
+        <DescriptionText>
+          <TextStyled>
+            <TextStyled bold>Cette estimation sera comparée à ce que vous consommerez par la suite</TextStyled>, pour
+            calculer vos gains en&nbsp;€ et kCal.
+          </TextStyled>
+        </DescriptionText>
+        <DescriptionText big>
+          <TextStyled>
+            Pour rappel votre objectif est de ne pas dépasser
+            <TextStyled color={'#4030a5'}> {maxDrinksPerWeekGoal}&nbsp;verres par semaine.</TextStyled>
+          </TextStyled>
+        </DescriptionText>
+      </TextContainer>
       <CTAButtonContainer>
         <ButtonPrimary
           disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
@@ -85,7 +105,7 @@ const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
 `;
 
-const TopContainer = styled.View`
+const TextContainer = styled.View`
   padding-horizontal: 20px;
   margin-top: 20px;
 `;
@@ -98,6 +118,7 @@ const TopTitle = styled.View`
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
+  ${(props) => props.big && 'font-size: 16px;'}
 `;
 
 const BackButton = styled(UnderlinedButton)`
