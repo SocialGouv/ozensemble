@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
@@ -19,22 +19,11 @@ import { storage } from '../../services/storage';
 const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
 
-class Reminder extends Component {
-  state = {
-    reminder: null,
-    timePickerVisible: false,
-  };
+const Reminder = ({ navigation, route }) => {
+  const [reminder, setReminder] = useState(null);
+  const [timePickerVisible, setTimePickerVisible] = useState(false);
 
-  componentDidMount() {
-    this.getReminder(false);
-    this.notifcationListener = NotificationService.listen(this.handleNotification);
-  }
-
-  componentWillUnmount() {
-    NotificationService.remove(this.notifcationListener);
-  }
-
-  getReminder = async (showAlert = true) => {
+  const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
     const reminder = storage.getString('@Reminder');
     // eslint-disable-next-line eqeqeq
@@ -47,7 +36,58 @@ class Reminder extends Component {
     this.setState({ reminder: new Date(reminder) });
   };
 
-  scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
+  const notifHandled = useRef(false);
+  const handleNotification = (notification) => {
+    if (Platform.OS === 'android') {
+      if (notification.title === notifReminderTitle) {
+        navigation.navigate('CONSO_FOLLOW_UP');
+        matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
+      }
+    }
+    if (Platform.OS === 'ios') {
+      if (notification.foreground && !notifHandled.current) {
+        notifHandled.current = true;
+        if (notification.message === notifReminderMessage) {
+          Alert.alert(
+            notifReminderTitle,
+            notifReminderMessage,
+            [
+              {
+                text: 'Suivi',
+                onPress: () => {
+                  navigation.navigate('CONSO_FOLLOW_UP');
+                  matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
+                  notifHandled.current = false;
+                },
+              },
+              {
+                text: 'Annuler',
+                style: 'cancel',
+                onPress: () => {
+                  notifHandled.current = false;
+                },
+              },
+            ],
+            { cancelable: true }
+          );
+        }
+      } else {
+        if (notification.message === notifReminderMessage) {
+          navigation.navigate('CONSO_FOLLOW_UP');
+          matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
+        }
+      }
+    }
+  };
+
+  const notificationListener = useRef();
+  useEffect(() => {
+    getReminder(false);
+    notificationListener.current = NotificationService.listen(handleNotification);
+    return () => NotificationService.remove(notificationListener.current);
+  }, []);
+
+  const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
     NotificationService.cancelAll();
     for (let i = !timeIsAfterNow(reminder); i <= 15; i++) {
       const fireDate = dateWithTimeAndOffsetFromToday(reminder.getHours(), reminder.getMinutes(), i);
@@ -59,16 +99,16 @@ class Reminder extends Component {
     }
   };
 
-  showTimePicker = async () => {
+  const showTimePicker = async () => {
     const isRegistered = await NotificationService.checkAndAskForPermission();
     if (!isRegistered) {
-      this.showPermissionsAlert();
+      showPermissionsAlert();
       return;
     }
-    this.setState({ timePickerVisible: true });
+    setTimePickerVisible(true);
   };
 
-  showPermissionsAlert = () => {
+  const showPermissionsAlert = () => {
     Alert.alert(
       'Vous devez autoriser les notifications pour accéder à ce service',
       'Veuillez cliquer sur Réglages puis Notifications pour activer les notifications',
@@ -87,108 +127,56 @@ class Reminder extends Component {
     );
   };
 
-  setReminder = async (reminder) => {
-    if (!reminder) {
-      this.setState({ timePickerVisible: false });
-      return;
-    }
+  const setReminderRequest = async (reminder) => {
+    setTimePickerVisible(false);
+    if (!reminder) return;
     storage.set('@Reminder', reminder.toISOString());
-    await this.scheduleNotification(reminder);
+    await scheduleNotification(reminder);
     await matomo.logReminderSet(Date.parse(reminder));
-    this.setState({ reminder, timePickerVisible: false });
+    setReminder(reminder);
+    setTimePickerVisible(false);
   };
 
-  deleteReminder = async () => {
+  const deleteReminder = async () => {
     storage.delete('@Reminder');
     NotificationService.cancelAll();
     this.setState({ reminder: null, timePickerVisible: false });
     matomo.logReminderDelete();
   };
-
-  handleNotification = (notification) => {
-    const { navigation } = this.props;
-    if (Platform.OS === 'android') {
-      if (notification.title === notifReminderTitle) {
-        navigation.navigate('CONSO_FOLLOW_UP');
-        matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
-      }
-    }
-    if (Platform.OS === 'ios') {
-      if (notification.foreground && !this.notifHandled) {
-        this.notifHandled = true;
-        if (notification.message === notifReminderMessage) {
-          Alert.alert(
-            notifReminderTitle,
-            notifReminderMessage,
-            [
-              {
-                text: 'Suivi',
-                onPress: () => {
-                  navigation.navigate('CONSO_FOLLOW_UP');
-                  matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
-                  this.notifHandled = false;
-                },
-              },
-              {
-                text: 'Annuler',
-                style: 'cancel',
-                onPress: () => {
-                  this.notifHandled = false;
-                },
-              },
-            ],
-            { cancelable: true }
-          );
-        }
-      } else {
-        if (notification.message === notifReminderMessage) {
-          navigation.navigate('CONSO_FOLLOW_UP');
-          matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
-        }
-      }
-    }
-  };
-
-  render() {
-    const { reminder, timePickerVisible } = this.state;
-    const { navigation, route } = this.props;
-    return (
-      <Container>
-        <BackButton content="< Retour" onPress={navigation.goBack} bold />
-        <ReminderIcon size={80} color="#4030a5" selected={false} />
-        <Title>
-          <TextStyled color="#4030a5">
-            {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
-          </TextStyled>
-        </Title>
-        <SubTitle>
-          {reminder ? (
-            <>
-              <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-              <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
-              <TextStyled color="#191919">tous les jours.</TextStyled>
-            </>
-          ) : (
-            <TextStyled color="#191919">
-              Définissez un rappel quotidien sur votre téléphone pour vous rappeler
-            </TextStyled>
-          )}
-        </SubTitle>
-        <ButtonsContainer>
-          <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={this.showTimePicker} />
-          {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={this.deleteReminder} />}
-          {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
-            <ButtonPrimary
-              content="Continuer"
-              onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
-            />
-          ) : null}
-        </ButtonsContainer>
-        <TimePicker visible={timePickerVisible} selectDate={this.setReminder} />
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <ReminderIcon size={80} color="#4030a5" selected={false} />
+      <Title>
+        <TextStyled color="#4030a5">
+          {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
+        </TextStyled>
+      </Title>
+      <SubTitle>
+        {reminder ? (
+          <>
+            <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
+            <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
+            <TextStyled color="#191919">tous les jours.</TextStyled>
+          </>
+        ) : (
+          <TextStyled color="#191919">Définissez un rappel quotidien sur votre téléphone pour vous rappeler</TextStyled>
+        )}
+      </SubTitle>
+      <ButtonsContainer>
+        <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={this.showTimePicker} />
+        {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={this.deleteReminder} />}
+        {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
+          <ButtonPrimary
+            content="Continuer"
+            onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
+          />
+        ) : null}
+      </ButtonsContainer>
+      <TimePicker visible={timePickerVisible} selectDate={setReminderRequest} />
+    </Container>
+  );
+};
 
 const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
