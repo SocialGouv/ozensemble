@@ -177,9 +177,11 @@ class Reminder extends Component {
         <ButtonsContainer>
           <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={this.showTimePicker} />
           {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={this.deleteReminder} />}
-          {Boolean(route?.params?.enableContinueButton) &&
-          typeof route?.params?.onPressContinueButton === 'function' ? (
-            <ButtonPrimary content="Continuer" onPress={route?.params?.onPressContinueButton} />
+          {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
+            <ButtonPrimary
+              content="Continuer"
+              onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
+            />
           ) : null}
         </ButtonsContainer>
         <TimePicker visible={timePickerVisible} selectDate={this.setReminder} />
