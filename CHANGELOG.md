@@ -1,3 +1,10 @@
+## [1.20.8](https://github.com/SocialGouv/ozensemble/compare/v1.20.7...v1.20.8) (2022-05-18)
+
+
+### Bug Fixes
+
+* sevrage spacings ([5ebda35](https://github.com/SocialGouv/ozensemble/commit/5ebda35e275905ec0bbe63a013d758ad8389ba72))
+
 ## [1.20.7](https://github.com/SocialGouv/ozensemble/compare/v1.20.6...v1.20.7) (2022-05-18)
 
 
