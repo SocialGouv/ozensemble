@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar, Text } from 'react-native';
+import { StatusBar } from 'react-native';
+import styled from 'styled-components';
 import RNBootSplash from 'react-native-bootsplash';
 import DefisIcon from './components/Illustrations/Defis';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
@@ -22,12 +23,20 @@ import AppStateHandler from './services/AppStateHandler';
 import matomo from './services/matomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
+import TextStyled from './components/TextStyled';
 
-const Label = ({ children, focused, color }) => {
-  // eslint-disable-next-line react-native/no-inline-styles
-  if (focused) return <Text style={{ color, textDecorationLine: 'underline' }}>{children}</Text>;
-  return <Text style={{ color }}>{children}</Text>;
-};
+const Label = ({ children, focused, color }) => (
+  <LabelStyled focused={focused} color={color}>
+    {children}
+  </LabelStyled>
+);
+
+const LabelStyled = styled(TextStyled)`
+  ${(props) => `color: ${props.color};`}
+  ${(props) => props.focused && 'text-decoration-line: underline;'}
+  font-size: 12px;
+`;
+
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   const tabPressListener = ({ navigation, rootName }) => {
