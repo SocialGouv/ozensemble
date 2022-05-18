@@ -1,3 +1,10 @@
+## [1.20.12](https://github.com/SocialGouv/ozensemble/compare/v1.20.11...v1.20.12) (2022-05-18)
+
+
+### Bug Fixes
+
+* days where I did not drink ([258b12d](https://github.com/SocialGouv/ozensemble/commit/258b12db49b080ca84e467fa3d5b625289335110))
+
 ## [1.20.11](https://github.com/SocialGouv/ozensemble/compare/v1.20.10...v1.20.11) (2022-05-18)
 
 
