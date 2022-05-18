@@ -11,7 +11,7 @@ const Agreement = ({ onAgree, agreed }) => {
   return (
     <>
       <Container>
-        <TouchableWithoutFeedback onPress={onAgree} hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
+        <TouchableWithoutFeedback onPress={()=>onAgree} hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
           <CheckBoxContainer>
             <CheckBoxStyled
               // ios style
