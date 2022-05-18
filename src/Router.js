@@ -24,6 +24,7 @@ import matomo from './services/matomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
+import CustomBootsplash from './components/CustomBootsplash';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -143,18 +144,21 @@ const Router = () => {
   }, []);
 
   return (
-    <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange}>
-      <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
-      {!!initialRouteName && (
-        <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
-          <Root.Screen name="WELCOME" component={WelcomeScreen} />
-          <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
-          <Root.Screen name="TABS" component={TabsNavigator} />
-        </Root.Navigator>
-      )}
-      <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />
-      <NPS />
-    </NavigationContainer>
+    <>
+      <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange}>
+        <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
+        {!!initialRouteName && (
+          <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
+            <Root.Screen name="WELCOME" component={WelcomeScreen} />
+            <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
+            <Root.Screen name="TABS" component={TabsNavigator} />
+          </Root.Navigator>
+        )}
+        <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />
+        <NPS />
+      </NavigationContainer>
+      <CustomBootsplash />
+    </>
   );
 };
 

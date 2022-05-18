@@ -13,12 +13,15 @@ import matomo from '../../services/matomo';
 import { screenHeight } from '../../styles/theme';
 import { Screen1, Screen2, Screen3 } from './Screens';
 import { storage } from '../../services/storage';
+import { useSetRecoilState } from 'recoil';
+import { showBootSplashState } from '../../components/CustomBootsplash';
 
 const WelcomeScreen = ({ navigation }) => {
   const [agreed, setAgreed] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [pagination, setPagination] = useState(true);
   const swiperRef = useRef();
+  const setShowBootsplash = useSetRecoilState(showBootSplashState);
 
   const indexChanged = (index) => {
     setCurrentIndex(index);
@@ -31,11 +34,13 @@ const WelcomeScreen = ({ navigation }) => {
 
   const onStartPress = async () => {
     storage.set('@OnboardingDoneWithCGU', true);
-    RNBootSplash.show({ fade: true });
+    // RNBootSplash.show;
+    setShowBootsplash(true);
     await new Promise((res) => setTimeout(res, 250));
     navigation.navigate('TABS');
     await new Promise((res) => setTimeout(res, 750));
-    RNBootSplash.hide({ fade: true });
+    // RNBootSplash.hide({ fade: true });
+    setShowBootsplash(false);
     matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
   };
 
