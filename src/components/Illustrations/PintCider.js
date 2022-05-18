@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)`
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 `;
 
 const PintCider = ({ size, ...props }) => (
