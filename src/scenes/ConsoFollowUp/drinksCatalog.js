@@ -239,7 +239,7 @@ export const drinksCatalog = [
     displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
     displayDrinkModal: 'flasque',
     displayFormDrink: 'Flasque de spiritueux',
-    volume: '30 cl',
+    volume: '20 cl',
     doses: 7,
     icon: Flasque,
     price: 4,
