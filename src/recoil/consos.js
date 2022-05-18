@@ -82,3 +82,36 @@ export const dailyDosesSelector = selectorFamily({
       return reduceDrinksToDailyDoses(drinks, consolidatedCatalog);
     },
 });
+
+export const diffWithPreviousWeekSelector = selectorFamily({
+  key: 'diffWithPreviousWeekSelector',
+  get:
+    ({ asPreview = false } = {}) =>
+    ({ get }) => {
+      const dailyDoses = get(dailyDosesSelector);
+      console.log({ dailyDoses });
+      const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
+      const daysOfLastWeek = [];
+      for (let i = 0; i <= 6; i++) {
+        const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
+        daysOfLastWeek.push(nextDay);
+      }
+      const firstDayThisWeek = dayjs(dayjs().startOf('week'));
+      const daysOfThisWeek = [];
+      for (let i = 0; i <= 6; i++) {
+        const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
+        daysOfThisWeek.push(nextDay);
+      }
+      const lastWeekNumberOfDrinks = daysOfLastWeek
+        .map((day) => dailyDoses[day])
+        .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
+      const thisWeekNumberOfDrinks = daysOfThisWeek
+        .map((day) => dailyDoses[day])
+        .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
+
+      const diff = lastWeekNumberOfDrinks - thisWeekNumberOfDrinks;
+      const decrease = diff > 0;
+      const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
+      return [diff, decrease, pourcentageOfDecrease];
+    },
+});

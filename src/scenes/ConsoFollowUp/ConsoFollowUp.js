@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { findNodeHandle } from 'react-native';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import Background from '../../components/Background';
 import DrinksCategory from '../../components/DrinksCategory';
@@ -13,8 +12,8 @@ import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
-import { FeedAddConsoTodayContainer, ScreenBgStyled, SubTitle, Title, TopContainer, Help, HelpText, EvolutionContainer, MessageContainer} from './styles';
-import { drinksState, modalTimestampState } from '../../recoil/consos';
+import { FeedAddConsoTodayContainer, ScreenBgStyled, SubTitle, Title, TopContainer, Help, HelpText } from './styles';
+import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
@@ -101,7 +100,7 @@ const ConsoFollowUp = () => {
               setSelectedBar={setSelectedBar}
             />
           )}
-        </TopContainer> 
+        </TopContainer>
         <FeedAddConsoTodayContainer zIndex={10}>
           {!!showWelcomeMessage && (
             <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />
@@ -125,8 +124,5 @@ const DiagramTitle = styled(H2)`
   font-weight: 500;
   flex-shrink: 1;
 `;
-
-
-
 
 export default ConsoFollowUp;
