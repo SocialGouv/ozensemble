@@ -185,7 +185,7 @@ const MyGains = () => {
           icon={<Economy size={24} />}
           unit={'€'}
           description="Mes économies"
-          value={isOnboarded ? (mySavingsSinceBeginning * 100 > 0 ? mySavingsSinceBeginning * 100 : 0) : '?'}
+          value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
           maximize
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
@@ -193,7 +193,7 @@ const MyGains = () => {
           icon={<Balance size={26} />}
           unit="kcal"
           description="Mes calories économisées"
-          value={isOnboarded ? (myKcalSavingsSinceBeginning * 100 > 0 ? myKcalSavingsSinceBeginning * 100 : 0) : '?'}
+          value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
           maximize
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
