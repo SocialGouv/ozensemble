@@ -24,6 +24,8 @@ import OnBoardingGain from './OnBoardingGain';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/Illustrations/ReminderIcon';
+import HelpModalCountConsumption from './HelpModalCountConsumption';
+import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -34,6 +36,7 @@ const MyGains = () => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
   const reminder = storage.getString('@GainsReminder');
+  const [helpVisible, setHelpVisible] = useState(false);
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToGoal = () => {
@@ -306,6 +309,9 @@ const MyGains = () => {
                   {myWeeklyNumberOfDrinksBeforeObjective} unité
                   {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
                 </TextStyled>
+                <InfoContainer onPress={() => setHelpVisible(true)}>
+                  <InfoObjectif size={15} color={'#000000'} />
+                </InfoContainer>
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
@@ -337,6 +343,7 @@ const MyGains = () => {
           </ButtonTouchable>
         </MyGoalContainer>
       )}
+      <HelpModalCountConsumption visible={helpVisible} onClose={() => setHelpVisible(false)} />
     </ScreenBgStyled>
   );
 };
@@ -441,6 +448,10 @@ const ButtonTouchable = styled.TouchableOpacity`
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
+`;
+
+const InfoContainer = styled.TouchableOpacity`
+  padding-left: 10px;
 `;
 
 export default MyGains;
