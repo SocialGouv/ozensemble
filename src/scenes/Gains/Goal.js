@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
@@ -9,13 +9,15 @@ import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight, screenWidth } from '../../styles/theme';
-import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
+import { daysWithGoalNoDrinkState, drinksByDrinkingDayState, previousDrinksPerWeekState } from '../../recoil/gains';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
+  const isOnboarded = useRecoilValue(previousDrinksPerWeekState)?.length;
+
   const toggleDayWithGoalNoDrink = (day) =>
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
 
@@ -120,10 +122,12 @@ const Goal = ({ navigation }) => {
             <ButtonPrimary
               content="Continuer"
               onPress={() =>
-                navigation.navigate('GAINS_REMINDER', {
-                  enableContinueButton: true,
-                  onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
-                })
+                isOnboarded
+                  ? navigation.navigate('GAINS_MAIN_VIEW')
+                  : navigation.navigate('GAINS_REMINDER', {
+                      enableContinueButton: true,
+                      onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
+                    })
               }
               disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}
             />

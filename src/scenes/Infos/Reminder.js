@@ -97,7 +97,6 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
         .set('hours', reminder.getHours())
         .set('minutes', reminder.getMinutes())
         .toDate();
-      console.log({ fireDate });
       NotificationService.scheduleNotification({
         date: fireDate,
         title: notifReminderTitle,
