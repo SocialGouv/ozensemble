@@ -10,7 +10,7 @@ import Router from './src/Router';
 import './src/services/polyfills';
 
 import { SENTRY_XXX } from './src/config';
-// import ToastProvider from './src/services/toast';
+import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
   hasMigratedFromAsyncStorage,
@@ -45,17 +45,18 @@ const App = () => {
         }
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!hasMigrated || !hasMigratedToRecoil) return null;
 
   return (
     <RecoilRoot>
-      {/* <ToastProvider> */}
-      <SafeAreaProvider>
-        <Router />
-      </SafeAreaProvider>
-      {/* </ToastProvider> */}
+      <ToastProvider>
+        <SafeAreaProvider>
+          <Router />
+        </SafeAreaProvider>
+      </ToastProvider>
     </RecoilRoot>
   );
 };
