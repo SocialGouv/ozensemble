@@ -39,8 +39,8 @@ const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0 }) => {
         <IconWrapper>
           <Dose size={25} style={{ borderWidth: 0 }} />
           <Volume color="#4030a5">1 dose</Volume>
-          <Volume color="#4030a5">10g d'alcool</Volume>
-          <Volume color="#4030a5"> </Volume>
+          <Volume color="#4030a5">10g</Volume>
+          <Volume color="#4030a5">d'alcool</Volume>
         </IconWrapper>
       </IconsContainer>
     </ScreenBgStyled>
@@ -65,6 +65,7 @@ const IconsContainer = styled.View`
 `;
 const IconWrapper = styled.View`
   align-items: center;
+  overflow: hidden;
 `;
 const Volume = styled(TextStyled)`
   margin-top: 5px;
