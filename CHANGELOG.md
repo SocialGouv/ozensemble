@@ -1,3 +1,10 @@
+## [1.19.4](https://github.com/SocialGouv/ozensemble/compare/v1.19.3...v1.19.4) (2022-05-18)
+
+
+### Bug Fixes
+
+* getString instead of getNumber for @NumberOfVisits ([453d2d3](https://github.com/SocialGouv/ozensemble/commit/453d2d3f6135afc719e5082ef80be8951e654dc0))
+
 ## [1.19.3](https://github.com/SocialGouv/ozensemble/compare/v1.19.2...v1.19.3) (2022-05-18)
 
 
