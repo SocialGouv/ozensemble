@@ -4,7 +4,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
 import { selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import GoBackButtonText from '../../components/GoBackButtonText';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import DrinksCategory from '../../components/DrinksCategory';
 import {
@@ -253,7 +253,7 @@ const ConsosList = ({ navigation }) => {
       <ButtonsContainerSafe>
         <ButtonsContainer>
           <ButtonPrimary content="Validez" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
-          <UnderlinedButton content="Retour" bold onPress={onCancelConsos} />
+          <GoBackButtonText content="Retour" bold onPress={onCancelConsos} />
         </ButtonsContainer>
       </ButtonsContainerSafe>
       <DatePicker

@@ -42,7 +42,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
                   selectDate(Date.parse(date));
                 }}
               />
-              <UnderlinedButton content="Retour" bold onPress={() => selectDate(initDate)} />
+              <GoBackButtonText content="Retour" bold onPress={() => selectDate(initDate)} />
             </ButtonsContainer>
           </ModalContent>
         </ModalBackdropContent>
