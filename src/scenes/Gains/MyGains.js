@@ -25,7 +25,6 @@ import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -310,7 +309,7 @@ const MyGains = () => {
                   {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
                 </TextStyled>
                 <InfoContainer onPress={() => setHelpVisible(true)}>
-                  <InfoObjectif size={15} color={'#000000'} />
+                  <InfosIcon size={15} color={'#000000'} />
                 </InfoContainer>
               </PartContainer>
             </MyGoalSubContainerInside>
