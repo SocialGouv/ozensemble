@@ -19,7 +19,6 @@ const UnderlinedButtonStyled = styled.TouchableOpacity`
 `;
 
 const TextStyled = styled.Text`
-  text-decoration-line: underline;
   color: ${({ color }) => color || '#191919'};
   font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
   flex-shrink: 0;
