@@ -1,3 +1,10 @@
+## [1.20.2](https://github.com/SocialGouv/ozensemble/compare/v1.20.1...v1.20.2) (2022-05-18)
+
+
+### Bug Fixes
+
+* objectif bar in diagram ([24432cd](https://github.com/SocialGouv/ozensemble/commit/24432cd3061b685d6aa850ca17e5161c7213cab6))
+
 ## [1.20.1](https://github.com/SocialGouv/ozensemble/compare/v1.20.0...v1.20.1) (2022-05-18)
 
 
