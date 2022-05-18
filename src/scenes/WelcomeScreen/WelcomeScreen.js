@@ -31,7 +31,7 @@ const WelcomeScreen = ({ navigation }) => {
 
   const onStartPress = async () => {
     storage.set('@OnboardingDoneWithCGU', true);
-    RNBootSplash.hide({ fade: true });
+    RNBootSplash.show({ fade: true });
     await new Promise((res) => setTimeout(res, 250));
     navigation.navigate('TABS');
     await new Promise((res) => setTimeout(res, 750));
