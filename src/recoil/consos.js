@@ -61,7 +61,7 @@ export const feedDaysSelector = selector({
   get: ({ get }) => {
     const startDate = get(startDateState);
     const drinks = get(drinksState);
-    const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp));
+    const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp), Date.now());
     const days = [];
     const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);
     for (let i = 0; i < amplitudeOfRecords + 1; i++) {
