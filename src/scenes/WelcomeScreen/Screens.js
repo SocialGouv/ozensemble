@@ -107,7 +107,7 @@ const SubTitle3 = styled(H2)`
   flex-shrink: 0;
   flex-direction: column;
   text-align: center;
-  margin-bottom: ${screenHeight * 0.1}px;
+  margin-bottom: ${screenHeight * 0.12}px;
 `;
 
 const bigImage = css`
