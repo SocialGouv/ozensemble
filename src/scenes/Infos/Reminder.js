@@ -15,7 +15,6 @@ import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
 import { storage } from '../../services/storage';
-import { followupNumberOfDays } from '../../recoil/consos';
 
 const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
@@ -50,7 +49,7 @@ class Reminder extends Component {
 
   scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
     NotificationService.cancelAll();
-    for (let i = !timeIsAfterNow(reminder); i <= followupNumberOfDays; i++) {
+    for (let i = !timeIsAfterNow(reminder); i <= 15; i++) {
       const fireDate = dateWithTimeAndOffsetFromToday(reminder.getHours(), reminder.getMinutes(), i);
       NotificationService.scheduleNotification({
         date: fireDate,

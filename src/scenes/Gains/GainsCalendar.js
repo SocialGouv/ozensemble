@@ -41,12 +41,11 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
 
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
-    const todayFormatted = dayjs().format('YYYY-MM-DD');
-    const days = { [todayFormatted]: { marked: true } };
+    const today = dayjs().format('YYYY-MM-DD');
+    const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
-      const dayFormatted = dayjs(day).format('YYYY-MM-DD');
-      days[dayFormatted] = doses > 0 ? drinkDay : noDrinkDay;
-      days[dayFormatted] = { ...days[dayFormatted], marked: dayFormatted === todayFormatted };
+      days[day] = doses > 0 ? drinkDay : noDrinkDay;
+      days[day] = { ...days[day], marked: day === today };
     }
     return days;
   }, [dailyDoses]);
