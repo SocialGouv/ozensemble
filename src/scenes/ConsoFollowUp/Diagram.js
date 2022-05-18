@@ -87,7 +87,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const numberDrinkOfWeek = days.map(day=>{return dailyDoses[day]}).reduce((sum, dailyDose)=>sum+dailyDose?sum+dailyDose:sum,0);
   const diff = lastNumberDrinkOfWeek - numberDrinkOfWeek;
   const decrease = diff> 0 ? false : true;
-  const pourcentageOfDecrease = Math.round(diff/lastNumberDrinkOfWeek)*100);
+  const pourcentageOfDecrease = Math.round(diff/(lastNumberDrinkOfWeek*100));
 
   useEffect(() => {
     (async () => {
