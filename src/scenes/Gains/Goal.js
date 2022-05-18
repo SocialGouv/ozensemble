@@ -10,8 +10,8 @@ import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import { daysWithGoalNoDrinkState, drinksByDrinkingDayState, previousDrinksPerWeekState } from '../../recoil/gains';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
+import GoBackButtonText from '../../components/GoBackButtonText';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
@@ -158,7 +158,7 @@ const TopTitle = styled.View`
   margin-bottom: 20px;
 `;
 
-const BackButton = styled(UnderlinedButton)`
+const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
   margin-bottom: 30px;
 `;

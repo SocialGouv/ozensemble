@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import styled from 'styled-components';
 import { today } from '../helpers/dateHelpers';
 import ButtonPrimary from './ButtonPrimary';
-import UnderlinedButton from './UnderlinedButton';
+import GoBackButtonText from './GoBackButtonText';
 
 /*
   onChange:
