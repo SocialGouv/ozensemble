@@ -1,3 +1,19 @@
+# [1.20.0](https://github.com/SocialGouv/ozensemble/compare/v1.19.4...v1.20.0) (2022-05-18)
+
+
+### Bug Fixes
+
+* error delete all consommation ([ee648dc](https://github.com/SocialGouv/ozensemble/commit/ee648dcfdbd788c19b45642c97ee60b69649f032))
+* styling of diagram ([f9db533](https://github.com/SocialGouv/ozensemble/commit/f9db533e116da5e921190b93c14129a5a915d4ad))
+
+
+### Features
+
+* adapt barMaxAcceptableDoseHeight to the goal ([f8d73c6](https://github.com/SocialGouv/ozensemble/commit/f8d73c6f6e9a2363571b38106fd17f96f01bfe0e))
+* Diagram Mon suivi de consommation ([3d68459](https://github.com/SocialGouv/ozensemble/commit/3d6845986b16214125f286825f8b41a5a9304b6e))
+* Legend mon suivi de conso ([0109a5c](https://github.com/SocialGouv/ozensemble/commit/0109a5c104da1b46144bf18f7de6c225895df7ec))
+* Legend Mon suivi de conso ([11b601d](https://github.com/SocialGouv/ozensemble/commit/11b601d4db049cb6390ad58c31a259cf68c49bb6))
+
 ## [1.19.4](https://github.com/SocialGouv/ozensemble/compare/v1.19.3...v1.19.4) (2022-05-18)
 
 
