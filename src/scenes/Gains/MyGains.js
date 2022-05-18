@@ -22,6 +22,7 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingGain from './OnBoardingGain';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
+import H3 from '../../components/H3';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -248,10 +249,10 @@ const MyGains = () => {
         </BottomContainer>
       ) : (
         <MyGoalContainer>
-          <Title>
+          <Title onPress={navigateToGoal}>
             <H1 color="#4030a5">Mon objectif</H1>
           </Title>
-          <MyGoalSubContainer>
+          <MyGoalSubContainer onPress={navigateToGoal}>
             <MyGoalSubContainerInside>
               <PartContainer>
                 <Done size={20} />
@@ -269,18 +270,14 @@ const MyGains = () => {
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
-          <ModifyContainer>
-            <ButtonTouchable onPress={navigateToGoal}>
-              <TextModify>
-                <TextStyled>Modifier l'objectif</TextStyled>
-              </TextModify>
-            </ButtonTouchable>
-          </ModifyContainer>
-          <Title>
-            <H2 color="#4030a5">Estimation de ma consommation avant objectif</H2>
-            <H2>Par semaine</H2>
+          <ButtonTouchable onPress={navigateToGoal}>
+            <TextModify>Modifier l'objectif</TextModify>
+          </ButtonTouchable>
+          <Title onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+            <H1 color="#4030a5">Ma consommation avant OzEnsemble</H1>
+            <H2>Estimation par semaine</H2>
           </Title>
-          <MyGoalSubContainer>
+          <MyGoalSubContainer onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
             <MyGoalSubContainerInside>
               <PartContainer>
                 <Economy size={20} />
@@ -299,13 +296,11 @@ const MyGains = () => {
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
-          <ModifyContainer>
-            <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
-              <TextModify>
-                <TextStyled>Modifier l'estimation</TextStyled>
-              </TextModify>
-            </ButtonTouchable>
-          </ModifyContainer>
+          <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+            <TextModify>
+              <TextStyled>Modifier l'estimation</TextStyled>
+            </TextModify>
+          </ButtonTouchable>
         </MyGoalContainer>
       )}
     </ScreenBgStyled>
@@ -376,16 +371,17 @@ const Bold = styled.Text`
   font-weight: bold;
 `;
 
-const Title = styled.View`
+const Title = styled.TouchableOpacity`
   flex-shrink: 0;
-  margin-top: 10px;
+  margin-top: 30px;
+  margin-bottom: 15px;
 `;
 
 const MyGoalContainer = styled.View`
   padding: 20px 30px 100px;
 `;
 
-const MyGoalSubContainer = styled.View`
+const MyGoalSubContainer = styled.TouchableOpacity`
   border: 1px solid #ddd;
   border-radius: 5px;
   margin: 10px 5px 10px;
@@ -402,16 +398,14 @@ const MyGoalSubContainerInside = styled.View`
   margin-bottom: 10px;
 `;
 
-const ModifyContainer = styled.View`
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
 const TextModify = styled.Text`
   text-decoration: underline;
 `;
 
-const ButtonTouchable = styled.TouchableOpacity``;
+const ButtonTouchable = styled.TouchableOpacity`
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
 
 export default MyGains;

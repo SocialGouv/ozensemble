@@ -6,11 +6,10 @@ import { useRecoilState } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { screenHeight } from '../../styles/theme';
 import { previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import { Container, MarginBottom, ModalContent } from '../AddDrink/styles';
+import { ModalContent } from '../AddDrink/styles';
 import UnderlinedButton from '../../components/UnderlinedButton';
 
 const Estimation = () => {
@@ -48,30 +47,11 @@ const Estimation = () => {
       <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <TopContainer>
         <TopTitle>
-          <H1 color="#4030a5">Pour calculer vos gains</H1>
+          <H1 color="#4030a5">Ma consommation avant OzEnsemble</H1>
         </TopTitle>
-        <TopDescription>
-          <DescriptionText>
-            <TextStyled>Sur une semaine type, actuellement, combien de verres consommez-vous ?</TextStyled>
-          </DescriptionText>
-          <DescriptionText>
-            <TextStyled>
-              Cette estimation sera comparée à ce que vous consommerez par la suite, pour calculer vos gains en&nbsp;€
-              et kCal.
-            </TextStyled>
-          </DescriptionText>
-          <DescriptionText>
-            <TextStyled>
-              <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
-            </TextStyled>
-          </DescriptionText>
-          {/* <DescriptionText>
-            <TextStyled>
-              Pour rappel votre objectif est de ne pas dépasser
-              <TextStyled color={'#4030a5'}> {maxDrinksPerWeekGoal}&nbsp;verres par semaine.</TextStyled>
-            </TextStyled>
-          </DescriptionText> */}
-        </TopDescription>
+        <DescriptionText>
+          <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
+        </DescriptionText>
       </TopContainer>
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
@@ -88,7 +68,6 @@ const Estimation = () => {
                 setDrinkQuantity={setDrinkQuantityRequest}
               />
             ))}
-          <MarginBottom />
         </ModalContent>
       </Container>
       <CTAButtonContainer>
@@ -107,17 +86,15 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const TopContainer = styled.View`
-  padding: 0px 30px 0px;
+  padding-horizontal: 20px;
+  margin-top: 20px;
 `;
 
 const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
-  margin-top: 10px;
   margin-bottom: 10px;
 `;
-
-const TopDescription = styled.View``;
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
@@ -125,14 +102,20 @@ const DescriptionText = styled.Text`
 
 const BackButton = styled(UnderlinedButton)`
   margin-right: auto;
-  margin-bottom: 30px;
+`;
+
+export const Container = styled.View`
+  background-color: #f9f9f9;
+  flex: 1;
+  margin-top: 20px;
 `;
 
 const CTAButtonContainer = styled.View`
-  height: ${screenHeight * 0.22}px;
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
+  padding-top: 30px;
+  padding-bottom: 100px;
 `;
 
 export default Estimation;
