@@ -1,3 +1,10 @@
+## [1.21.3](https://github.com/SocialGouv/ozensemble/compare/v1.21.2...v1.21.3) (2022-05-18)
+
+
+### Bug Fixes
+
+* remove degree biere ([98a8672](https://github.com/SocialGouv/ozensemble/commit/98a867265e4138e372ce710bfd3707f37e636aa4))
+
 ## [1.21.2](https://github.com/SocialGouv/ozensemble/compare/v1.21.1...v1.21.2) (2022-05-18)
 
 
