@@ -1,6 +1,6 @@
 import CheckBox from '@react-native-community/checkbox';
 import React, { useState } from 'react';
-import { Modal, TouchableWithoutFeedback } from 'react-native';
+import { Modal, Platform, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import CGUs from '../Infos/CGUs';
 import PrivacyPolicy from '../Infos/PrivacyPolicy';
@@ -11,7 +11,9 @@ const Agreement = ({ onAgree, agreed }) => {
   return (
     <>
       <Container>
-        <TouchableWithoutFeedback onPress={()=>onAgree} hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
+        <TouchableWithoutFeedback
+          onPress={Platform.select({ ios: onAgree, android: null })}
+          hitSlop={{ top: 40, left: 40, right: 40, bottom: 40 }}>
           <CheckBoxContainer>
             <CheckBoxStyled
               // ios style
@@ -25,7 +27,7 @@ const Agreement = ({ onAgree, agreed }) => {
               //common props
               value={agreed}
               // android press - compulsory
-              onChange={onAgree}
+              onChange={Platform.select({ android: onAgree, ios: null })}
             />
           </CheckBoxContainer>
         </TouchableWithoutFeedback>
