@@ -13,6 +13,8 @@ import { isToday } from '../../services/dates';
 import Celebration from '../../components/Illustrations/Celebration';
 import Increase from '../../components/Illustrations/Increase'
 import ButtonPrimary from '../../components/ButtonPrimary';
+import matomo from '../../services/matomo';
+import { useNavigation } from '@react-navigation/native';
 
 
 const maxDosesOnScreen = 50;
@@ -56,6 +58,7 @@ const highestDailyDoseSelector = selectorFamily({
 
 const minBarHeight = 1;
 const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
+  const navigation = useNavigation()
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
   const days = useMemo(() => {
@@ -87,7 +90,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const numberDrinkOfWeek = days.map(day=>{return dailyDoses[day]}).reduce((sum, dailyDose)=>sum+dailyDose?sum+dailyDose:sum,0);
   const diff = lastNumberDrinkOfWeek - numberDrinkOfWeek;
   const decrease = diff> 0 ? false : true;
-  const pourcentageOfDecrease = Math.round(diff/lastNumberDrinkOfWeek)*100;
+  const pourcentageOfDecrease = lastNumberDrinkOfWeek !==0 ? Math.round(diff/lastNumberDrinkOfWeek)*100 : -100;
 
   useEffect(() => {
     (async () => {
