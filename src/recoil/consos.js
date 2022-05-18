@@ -61,22 +61,6 @@ export const consolidatedCatalogSelector = selector({
   },
 });
 
-const getDays = (drinks, startDate) => {
-  const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp));
-  const days = [];
-  const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);
-  if (amplitudeOfRecords > followupNumberOfDays) {
-    for (let i = 0; i < amplitudeOfRecords + 1; i++) {
-      days.push(dateWithoutTime(lastDayOfDrinks, i - amplitudeOfRecords));
-    }
-    return days;
-  }
-  for (let i = 0; i < followupNumberOfDays; i++) {
-    days.push(dateWithoutTime(startDate, i));
-  }
-  return days;
-};
-
 const getDaysDiagram = (drinks, startDate) => {
   const days = [];
   for (let i = 0; i < followupNumberOfDays; i++) {
@@ -110,9 +94,13 @@ export const feedDaysSelector = selector({
   get: ({ get }) => {
     const startDate = get(startDateState);
     const drinks = get(drinksState);
-    return getDays(drinks, startDate)
-      .filter((date) => dateIsBeforeOrToday(date))
-      .reverse();
+    const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp));
+    const days = [];
+    const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);
+    for (let i = 0; i < amplitudeOfRecords + 1; i++) {
+      days.push(dateWithoutTime(lastDayOfDrinks, i - amplitudeOfRecords));
+    }
+    return days.filter((date) => dateIsBeforeOrToday(date)).reverse();
   },
 });
 
