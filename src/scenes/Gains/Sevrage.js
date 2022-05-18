@@ -56,6 +56,7 @@ const ScreenBgStyled = styled.ScrollView`
 const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
+  margin-vertical: 20px;
 `;
 
 const BackButton = styled(GoBackButtonText)`
