@@ -169,7 +169,7 @@ const MyGains = () => {
               <TextStyled color="#DE285E">
                 {' '}
                 {beginDateOfOz.get('year') < dayjs().get('year')
-                  ? beginDateOfOz.format('D MMM yyyy')
+                  ? beginDateOfOz.format('D MMM YYYY')
                   : beginDateOfOz.format('D MMM')}
               </TextStyled>
             </TextStyled>
