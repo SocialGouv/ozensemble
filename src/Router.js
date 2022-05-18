@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'react-native';
+import { StatusBar, Text } from 'react-native';
 import RNBootSplash from 'react-native-bootsplash';
 import DefisIcon from './components/Illustrations/Defis';
 import FollowUpIcon from './components/Illustrations/FollowUpIcon';
@@ -22,8 +22,12 @@ import AppStateHandler from './services/AppStateHandler';
 import matomo from './services/matomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
-import HelpModalCountConsumption from './scenes/Gains/HelpModalCountConsumption';
 
+const Label = ({ children, focused, color }) => {
+  // eslint-disable-next-line react-native/no-inline-styles
+  if (focused) return <Text style={{ color, textDecorationLine: 'underline' }}>{children}</Text>;
+  return <Text style={{ color }}>{children}</Text>;
+};
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   const tabPressListener = ({ navigation, rootName }) => {
@@ -44,13 +48,13 @@ const TabsNavigator = ({ navigation }) => {
         lazy={false}
         tabBarOptions={{
           activeTintColor: '#4030A5',
-          inactiveTintColor: '#5150A225',
+          inactiveTintColor: '#767676',
           keyboardHidesTabBar: true,
         }}>
         <Tabs.Screen
           name="GAINS_MAIN_VIEW"
           options={{
-            tabBarLabel: 'Gains',
+            tabBarLabel: (props) => <Label {...props}>Gains</Label>,
             tabBarIcon: ({ size, color }) => <Screen3Image size={size} color={color} fillOpacity={1} />,
           }}
           component={GainsNavigator}
@@ -58,7 +62,7 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="DEFI"
           options={{
-            tabBarLabel: 'Défis',
+            tabBarLabel: (props) => <Label {...props}>Défis</Label>,
             tabBarIcon: ({ size, color }) => <DefisIcon size={size} color={color} />,
           }}
           component={Defi7DaysNavigator}
@@ -66,7 +70,7 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="CONSO_FOLLOW_UP"
           options={{
-            tabBarLabel: 'Suivi',
+            tabBarLabel: (props) => <Label {...props}>Suivi</Label>,
             tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
           }}
           component={ConsoFollowUp}
@@ -74,7 +78,7 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="HEALTH"
           options={{
-            tabBarLabel: 'Santé',
+            tabBarLabel: (props) => <Label {...props}>Santé</Label>,
             tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
           }}
           component={Health}
@@ -82,7 +86,7 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="INFOS"
           options={{
-            tabBarLabel: 'Infos',
+            tabBarLabel: (props) => <Label {...props}>Infos</Label>,
             tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
           }}
           component={Infos}
