@@ -22,7 +22,7 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingGain from './OnBoardingGain';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
-import H3 from '../../components/H3';
+import { storage } from '../../services/storage';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -42,7 +42,7 @@ const MyGains = () => {
     () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
   );
-  const [showGoalfix, setShowGoalfix] = useState(true);
+  const [showGoalfix, setShowGoalfix] = useState(storage.getBoolean('@ShowGoalFix') ?? true);
 
   const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
@@ -153,7 +153,10 @@ const MyGains = () => {
                   </Text>
                 </TextDescritpion>
                 <TouchableOpacity
-                  onPress={() => setShowGoalfix(false)}
+                  onPress={() => {
+                    storage.set('@ShowGoalFix', false);
+                    setShowGoalfix(false);
+                  }}
                   hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
                   <Arrow>{'x'}</Arrow>
                 </TouchableOpacity>
