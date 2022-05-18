@@ -6,7 +6,7 @@ import H1 from '../../components/H1';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import GoBackButtonText from '../../components/GoBackButtonText';
 
 const HelpModalCountConsumption = ({ visible, onClose }) => {
   return (
@@ -46,9 +46,8 @@ const ScreenBgStyled = styled.ScrollView`
   background-color: #ececec;
 `;
 
-const BackButton = styled(UnderlinedButton)`
+const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
-  margin-bottom: 30px;
 `;
 
 const HowCountContainer = styled.View`

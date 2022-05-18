@@ -10,7 +10,7 @@ const ToSayNo = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
       <ScreenBgStyled>
-        <GoBackButtonText content="Retour" bold onPress={() => navigation.goBack()} />
+        <GoBackButtonText content="< Retour" bold onPress={() => navigation.goBack()} />
         <TopContainer>
           <TopTitle>
             <TextStyled color="#4030a5">Pour dire Non</TextStyled>
