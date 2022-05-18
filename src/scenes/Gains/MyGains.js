@@ -160,17 +160,17 @@ const MyGains = () => {
                 <Rocket size={24} />
                 <TextDescritpion>
                   <Text>
-                    Bravo votre objectif est fixé, remplissez vos consommation et mesurez votre gain au fil du temps
+                    Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
                   </Text>
                 </TextDescritpion>
-                <TouchableOpacity
+                <CloseShowGoalfix
                   onPress={() => {
                     storage.set('@ShowGoalFix', false);
                     setShowGoalfix(false);
                   }}
                   hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
                   <Arrow>{'x'}</Arrow>
-                </TouchableOpacity>
+                </CloseShowGoalfix>
               </Description>
             )}
           </>
@@ -452,6 +452,10 @@ const ButtonTouchable = styled.TouchableOpacity`
 
 const InfoContainer = styled.TouchableOpacity`
   padding-left: 10px;
+`;
+
+const CloseShowGoalfix = styled.TouchableOpacity`
+  align-self: flex-start;
 `;
 
 export default MyGains;
