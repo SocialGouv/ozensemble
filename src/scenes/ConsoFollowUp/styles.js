@@ -42,7 +42,7 @@ export const SubTitle = styled(H2)`
   Feed
 */
 export const FeedContainer = styled.View`
-  background-color: ${({ hideFeed }) => (hideFeed ? '#f9f9f9' : '#efefef')};
+  background-color: #f9f9f9;
   padding: 20px;
   padding-right: 0px;
   padding-bottom: 100px;

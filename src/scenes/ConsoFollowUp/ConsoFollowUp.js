@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { findNodeHandle } from 'react-native';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import Background from '../../components/Background';
 import DrinksCategory from '../../components/DrinksCategory';
@@ -14,7 +13,7 @@ import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 import { FeedAddConsoTodayContainer, ScreenBgStyled, SubTitle, Title, TopContainer, Help, HelpText } from './styles';
-import { drinksState, modalTimestampState } from '../../recoil/consos';
+import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
