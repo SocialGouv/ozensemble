@@ -1,3 +1,10 @@
+## [1.20.11](https://github.com/SocialGouv/ozensemble/compare/v1.20.10...v1.20.11) (2022-05-18)
+
+
+### Bug Fixes
+
+* sevrage padding ([6df30ab](https://github.com/SocialGouv/ozensemble/commit/6df30ab30bf52b4a1e3cb8394d419db3d78b4129))
+
 ## [1.20.10](https://github.com/SocialGouv/ozensemble/compare/v1.20.9...v1.20.10) (2022-05-18)
 
 
