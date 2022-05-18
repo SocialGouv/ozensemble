@@ -26,7 +26,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
                 testID="dateTimePicker"
                 value={date}
                 mode={mode}
-                display="default"
+                display="spinner"
                 maximumDate={today(1, true)}
                 locale="fr-FR"
                 onChange={(_, selectedDate) => {
@@ -53,15 +53,17 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
   if (!visible) {
     return null;
   }
+
   return (
     <DateTimePicker
       testID="dateTimePicker"
-      value={initDate}
+      value={date}
       mode={mode}
       display="spinner"
+      is24Hour
       maximumDate={today(1, true)}
       onChange={(_, selectedDate) => {
-        const currentDate = selectedDate || initDate;
+        const currentDate = selectedDate || date;
         selectDate(Date.parse(currentDate));
       }}
     />
@@ -85,9 +87,6 @@ const ModalContent = styled.View`
   border-radius: 20px;
   background-color: white;
   justify-content: center;
-  /* align-items: center; */
-  border: 10px solid black;
-  /* align-items: center; */
 `;
 
 const DatePickerContainer = styled.View`
@@ -96,9 +95,6 @@ const DatePickerContainer = styled.View`
   border-radius: 20px;
   background-color: white;
   justify-content: center;
-  /* align-items: center; */
-  border: 10px solid black;
-  /* align-items: center; */
 `;
 
 const ButtonsContainer = styled.View`
