@@ -2,24 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
-import TextStyled from '../../components/TextStyled';
+import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
 
 const Sevrage = ({ navigation }) => {
   return (
     <ScreenBgStyled>
-      <GoBack onPress={navigation.goBack}>
-        <TextStyled bold>{'<'} Retour </TextStyled>
-      </GoBack>
-      <TopContainer>
+      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <Container>
         <TopTitle>
-          <H1 color="#4030a5">Mes gains</H1>
+          <H1 color="#4030a5">Les signes de sevrage</H1>
         </TopTitle>
-        <SevrageTitle>
-          <H1 color="#000000">Repérez les signes de sevrages</H1>
-        </SevrageTitle>
-      </TopContainer>
-      <TextContainer>
         <DescriptionSymptome>
           Le sevrage à l’alcool peut entraîner des complications graves et possiblement mortelles.
         </DescriptionSymptome>
@@ -48,7 +41,7 @@ const Sevrage = ({ navigation }) => {
           L'agitation est la manifestation physique et motrice, d’un état d’excitation interne. C’est donc bien une
           tension interne qui se manifeste par le corps.
         </DescriptionSymptome>
-      </TextContainer>
+      </Container>
       <CTAButtonContainer>
         <ButtonPrimary content="J’ai compris et je commence " onPress={() => navigation.navigate('GAINS_MAIN_VIEW')} />
       </CTAButtonContainer>
@@ -60,22 +53,14 @@ const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
 `;
 
-const TopContainer = styled.View`
-  padding: 0px 30px 0px;
-`;
-
 const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
   margin-vertical: 20px;
 `;
 
-const SevrageTitle = styled.View`
-  align-items: flex-start;
-`;
-
-const GoBack = styled.TouchableOpacity`
-  padding: 20px 30px 0px;
+const BackButton = styled(UnderlinedButton)`
+  margin-right: auto;
 `;
 
 const CTAButtonContainer = styled.View`
@@ -86,7 +71,7 @@ const CTAButtonContainer = styled.View`
   flex-shrink: 1;
 `;
 
-const TextContainer = styled.View`
+const Container = styled.View`
   padding-horizontal: 20px;
 `;
 
@@ -94,19 +79,19 @@ const Symptome = styled.Text`
   font-size: 16px;
   font-weight: 700;
   color: #4030a5;
-  margin: 20px 10px 10px;
+  margin-top: 30px;
 `;
 
 const DescriptionSymptome = styled.Text`
   font-size: 16px;
   color: #191919;
-  margin: 0 10px 5px;
+  margin-top: 10px;
 `;
 
 const DescriptionPink = styled.Text`
   font-size: 16px;
   color: #de285e;
-  margin: 0 10px 5px;
+  margin-top: 10px;
 `;
 
 export default Sevrage;
