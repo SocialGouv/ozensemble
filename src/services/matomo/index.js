@@ -14,7 +14,7 @@ const initMatomo = async () => {
     storage.set('@UserIdv2', userId);
   }
 
-  const prevVisits = storage.getNumber('@NumberOfVisits');
+  const prevVisits = storage.getString('@NumberOfVisits');
   const newVisits = prevVisits ? Number(prevVisits) + 1 : 1;
   storage.set('@NumberOfVisits', `${newVisits}`);
 

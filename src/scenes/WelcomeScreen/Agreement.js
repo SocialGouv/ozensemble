@@ -24,6 +24,8 @@ const Agreement = ({ onAgree, agreed }) => {
               tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
               //common props
               value={agreed}
+              // android press - compulsory
+              onChange={onAgree}
             />
           </CheckBoxContainer>
         </TouchableWithoutFeedback>

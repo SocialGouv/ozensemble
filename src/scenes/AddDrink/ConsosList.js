@@ -59,7 +59,7 @@ const ConsosList = ({ navigation }) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
   const [startDate, setStartDate] = useRecoilState(startDateState);
-  // const toast = useToast();
+  const toast = useToast();
 
   // const [newDrink, setNewDrink] = useState(initDrinkState);
   const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
@@ -114,9 +114,9 @@ const ConsosList = ({ navigation }) => {
       matomo.logConsoAdd(drink);
     }
     setLocalDrinksState([]);
-    // setTimeout(() => {
-    //   toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
-    // }, 250);
+    setTimeout(() => {
+      toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+    }, 250);
   };
 
   const onClose = useCallback(() => {
