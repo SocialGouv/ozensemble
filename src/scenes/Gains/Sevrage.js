@@ -8,8 +8,8 @@ import { screenHeight } from '../../styles/theme';
 const Sevrage = ({ navigation }) => {
   return (
     <ScreenBgStyled>
-      <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <Container>
+        <BackButton content="< Retour" onPress={navigation.goBack} bold withoutPadding />
         <TopTitle>
           <H1 color="#4030a5">Les signes de sevrage</H1>
         </TopTitle>
@@ -72,7 +72,7 @@ const CTAButtonContainer = styled.View`
 `;
 
 const Container = styled.View`
-  padding-horizontal: 20px;
+  padding-horizontal: 30px;
 `;
 
 const Symptome = styled.Text`
