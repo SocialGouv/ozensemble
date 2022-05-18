@@ -5,7 +5,7 @@ import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled, TopContainer, TopSubTitle, TopTitle } from './styles';
-import { ListConseils } from './ListConseil';
+import { listConseils } from './ListConseil';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
 
@@ -19,17 +19,9 @@ const Conseils = ({ navigation }) => {
             <TextStyled color="#4030a5">Mes conseils</TextStyled>
           </TopTitle>
           <ViewConseilsContainer horizontal={true}>
-            {ListConseils.map((conseil, index) => (
+            {listConseils.map((conseil, index) => (
               <ConseilContainer onPress={() => navigation.navigate(conseil.link)} key={index}>
-                <Image
-                  source={conseil.img}
-                  style={{
-                    width: screenWidth * 0.4,
-                    height: screenHeight * 0.15,
-                    borderTopRightRadius: 20,
-                    borderTopLeftRadius: 20,
-                  }}
-                />
+                <ImageStyled source={conseil.img} />
                 <TitleConseilContainer>
                   <TextStyled> {conseil.title}</TextStyled>
                 </TitleConseilContainer>
@@ -72,7 +64,7 @@ const ConseilContainer = styled.TouchableOpacity`
   elevation: 10;
   width: ${screenWidth * 0.4}px;
   border-radius: 20px;
-  margin-right: 10px;
+  margin-right: 20px;
   margin-bottom: 20px;
   background-color: white;
 `;
@@ -98,6 +90,13 @@ const IconContainer = styled.View`
 
 const TextContainer = styled.View`
   margin: 20px 0px 20px;
+`;
+
+const ImageStyled = styled.Image`
+  width: ${screenWidth * 0.4}px;
+  height: ${screenHeight * 0.15}px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
 `;
 
 export default Conseils;
