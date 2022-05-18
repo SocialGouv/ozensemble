@@ -2,30 +2,20 @@ import React, { useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { findNodeHandle } from 'react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
 import Background from '../../components/Background';
 import DrinksCategory from '../../components/DrinksCategory';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../services/matomo';
 import Diagram from './Diagram';
 import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
-import {
-  FeedAddConsoTodayButton,
-  FeedAddConsoTodayContainer,
-  ScreenBgStyled,
-  SubTitle,
-  Title,
-  TopContainer,
-  Help,
-  HelpText,
-} from './styles';
+import { FeedAddConsoTodayContainer, ScreenBgStyled, SubTitle, Title, TopContainer, Help, HelpText } from './styles';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
-import styled from 'styled-components';
-import ThoughtOfTheDay from './ThoughtOfTheDay';
+import H2 from '../../components/H2';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -63,17 +53,16 @@ const ConsoFollowUp = () => {
           <Title>
             <TextStyled color="#4030a5">Mon suivi de consommation</TextStyled>
           </Title>
-          <SubtileContainer>
-          <SubTitle>
-            <TextStyled color="#000000">Nombre d'unité d'alcool consommé</TextStyled>
-         </SubTitle>
-         <Help onPress={()=>{
+          <SubtitleContainer>
+            <DiagramTitle color="#191919">Nombre d'unité d'alcool consommé</DiagramTitle>
+            <Help
+              onPress={() => {
                 matomo.logConsoDiagramHelp();
-                setShowHelpModal(true)
-                }}>
-            <HelpText>?</HelpText>
-          </Help>
-         </SubtileContainer>
+                setShowHelpModal(true);
+              }}>
+              <HelpText>?</HelpText>
+            </Help>
+          </SubtitleContainer>
           {showWelcomeMessage ? (
             <>
               <SubTitle>
@@ -117,28 +106,8 @@ const ConsoFollowUp = () => {
               setSelectedBar={setSelectedBar}
             />
           )}
-          {/*<ThoughtOfTheDay/> */}
         </TopContainer>
         <FeedAddConsoTodayContainer zIndex={10}>
-          {/* <FeedAddConsoTodayButton
-            content="Ajoutez une consommation"
-            onPress={async () => {
-              let selectedTimestamp = null;
-              if (selectedBar?.timestamp) {
-                // if a bar is selected, we use it, and we set the hours and minutes to present
-                const now = new Date();
-                const h = now.getHours();
-                const m = now.getMinutes();
-                const timestamp = makeSureTimestamp(selectedBar?.timestamp);
-                const tempDate = new Date(timestamp);
-                tempDate.setHours(h);
-                tempDate.setMinutes(m);
-                selectedTimestamp = makeSureTimestamp(tempDate);
-              }
-              addDrinksRequest(selectedTimestamp || Date.now());
-              await matomo.logConsoOpenAddScreen();
-            }}
-          /> */}
           {!!showWelcomeMessage && (
             <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />
           )}
@@ -150,19 +119,15 @@ const ConsoFollowUp = () => {
   );
 };
 
-const SubtileContainer = styled.View`
+const SubtitleContainer = styled.View`
   flex-direction: row;
+  margin-top: 10px;
+  align-items: center;
 `;
 
-const EvolutionContainer = styled.View`
-  background-color: ${({ background }) => background};
-  
-  align-item: center;
-  justify-content: space-around;
-  flex-direction: row;
+const DiagramTitle = styled(H2)`
+  font-weight: 500;
+  flex-shrink: 1;
 `;
-
-const Icon = styled.View``;
-
 
 export default ConsoFollowUp;
