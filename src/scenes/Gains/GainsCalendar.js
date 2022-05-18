@@ -89,7 +89,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           }}
         />
       </CalendarContainer>
-      <TextStyled color="#4030a5">État de ma consommation</TextStyled>
+      <Legend>État de ma consommation</Legend>
       <PartDescription value={"Je n'ai pas bu"} color={'#008001'} />
       <PartDescription value={"J'ai bu"} color={'#DE285E'} />
     </TopContainer>
@@ -104,6 +104,11 @@ const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
   margin-top: 10px;
+`;
+
+const Legend = styled(TextStyled)`
+  color: #4030a5;
+  margin-bottom: 5px;
 `;
 
 const PartDescription = ({ color, value }) => (

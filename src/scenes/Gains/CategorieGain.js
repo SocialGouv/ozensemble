@@ -12,7 +12,7 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
           {!!icon && <IconCategorie>{icon}</IconCategorie>}
           {children}
           <UnitCategorie>
-            <CategorieValue>
+            <CategorieValue value={`${value}`} numberOfLetters={`${value}`?.length}>
               <TextStyled bold>{value}</TextStyled>
             </CategorieValue>
             {!!unit && (
@@ -32,18 +32,17 @@ const CategorieGain = ({ children, icon = null, value = '?', unit = '', descript
   );
 };
 
-const width = Math.max(screenWidth / 3, 100);
+const width = Math.max((screenWidth * 4) / 10);
 
 const Categorie = styled.View`
-  margin-left: ${width * 0.2}px;
   width: ${width * 0.85}px;
-  margin-right: ${width * 0.2}px;
 `;
 
 const ComponentCategorie = styled.View`
   border: 1px solid #4030a5;
   border-radius: 5px;
   width: ${width * 0.85}px;
+  height: ${width * 0.85}px;
   min-height: ${width * 0.85}px;
   justify-content: center;
   align-items: center;
@@ -68,8 +67,16 @@ const CategorieUnit = styled(H1)`
   text-align: center;
 `;
 
+const getFontSizeToFit = (props) => {
+  // we assume letter width is 2/3 the font-size
+  if (isNaN(props.numberOfLetters)) return 35;
+  const maxLetterWidth = (width * 0.85) / props.numberOfLetters;
+  const maxFontSize = Math.min(maxLetterWidth / (3 / 4), 35);
+  return maxFontSize;
+};
+
 const CategorieValue = styled.Text`
-  font-size: 35px;
+  font-size: ${getFontSizeToFit}px;
   margin-top: 5px;
   width: ${width * 0.85}px;
   text-align: center;
@@ -84,6 +91,8 @@ const TextCategorie = styled.Text`
   text-align: center;
 `;
 
-const ButtonTouchable = styled.TouchableOpacity``;
+const ButtonTouchable = styled.TouchableOpacity`
+  heoght: 100%;
+`;
 
 export default CategorieGain;

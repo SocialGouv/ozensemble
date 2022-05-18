@@ -15,7 +15,7 @@ const OnBoardingGain = ({ onPress, visible, hide }) => {
         </Title>
         <SubTitle>
           <TextStyled color={'#3C3C43'}>
-            En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool
+            En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool.
           </TextStyled>
         </SubTitle>
         <Continue>
