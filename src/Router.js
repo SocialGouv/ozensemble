@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -94,54 +94,54 @@ const TabsNavigator = ({ navigation }) => {
 };
 
 const Root = createStackNavigator();
-class Router extends Component {
-  state = {
-    initialRouteName: null,
-  };
+const Router = () => {
+  const [initialRouteName, setInitialRouteName] = useState(null);
 
-  async componentDidMount() {
+  const initApp = async () => {
     NotificationService.init();
-    this.initView();
+    await matomo.initMatomo();
+    await matomo.logAppVisit('initApp');
+    const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
+    if (!onBoardingDone) {
+      setInitialRouteName('WELCOME');
+    } else {
+      setInitialRouteName('TABS');
+    }
+    // storage.clearAll();
     // BUG FIX: on Android, Swiper is jumping the index
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
     RNBootSplash.hide({ fade: true });
-  }
-
-  initView = async () => {
-    await matomo.initMatomo();
-    await matomo.logAppVisit('initApp');
-    const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
-    if (!onBoardingDone) return this.setState({ initialRouteName: 'WELCOME' });
-    // storage.clearAll();
-    return this.setState({ initialRouteName: 'TABS' });
   };
 
-  onStateChange = async () => {
-    if (!this.navigationRef) return;
-    const route = this.navigationRef.getCurrentRoute();
-    if (route.name === this.prevCurrentRouteName) return;
-    this.prevCurrentRouteName = route.name;
+  const navigationRef = useRef(null);
+  const prevCurrentRouteName = useRef(null);
+  const onNavigationStateChange = async () => {
+    if (!navigationRef.current) return;
+    const route = navigationRef.current.getCurrentRoute();
+    if (route.name === prevCurrentRouteName.current) return;
+    prevCurrentRouteName.current = route.name;
     matomo.logOpenPage(route.name);
   };
 
-  render() {
-    const { initialRouteName } = this.state;
-    return (
-      <NavigationContainer ref={(r) => (this.navigationRef = r)} onStateChange={this.onStateChange}>
-        <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
-        {!!initialRouteName && (
-          <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
-            <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
-            <Root.Screen name="TABS" component={TabsNavigator} />
-          </Root.Navigator>
-        )}
-        <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />
-        <NPS />
-      </NavigationContainer>
-    );
-  }
-}
+  useEffect(() => {
+    initApp();
+  }, []);
+
+  return (
+    <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange}>
+      <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
+      {!!initialRouteName && (
+        <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
+          <Root.Screen name="WELCOME" component={WelcomeScreen} />
+          <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
+          <Root.Screen name="TABS" component={TabsNavigator} />
+        </Root.Navigator>
+      )}
+      <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />
+      <NPS />
+    </NavigationContainer>
+  );
+};
 
 export default Router;
