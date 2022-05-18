@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ListConseils = [
+export const listConseils = [
   {
     img: require('../../assets/images/ToSayNo.png'),
     title: 'Comment dire non ?',
