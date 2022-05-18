@@ -1,3 +1,10 @@
+## [1.20.4](https://github.com/SocialGouv/ozensemble/compare/v1.20.3...v1.20.4) (2022-05-18)
+
+
+### Bug Fixes
+
+* help modal on goal ([4e003c3](https://github.com/SocialGouv/ozensemble/commit/4e003c3d18b9d08e24e9f092a9e23ace265f27f6))
+
 ## [1.20.3](https://github.com/SocialGouv/ozensemble/compare/v1.20.2...v1.20.3) (2022-05-18)
 
 
