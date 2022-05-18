@@ -1,3 +1,10 @@
+## [1.20.6](https://github.com/SocialGouv/ozensemble/compare/v1.20.5...v1.20.6) (2022-05-18)
+
+
+### Bug Fixes
+
+* estimations ([29706fc](https://github.com/SocialGouv/ozensemble/commit/29706fc17d269ce8e41f0ff4899b8d87709ce608))
+
 ## [1.20.5](https://github.com/SocialGouv/ozensemble/compare/v1.20.4...v1.20.5) (2022-05-18)
 
 
