@@ -293,9 +293,8 @@ const MyGains = () => {
                 <CocktailGlass size={20} />
                 <TextStyled>
                   {'   '}
-                  {myWeeklyNumberOfDrinksBeforeObjective} verre
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} ( = {myWeeklyNumberOfDrinksBeforeObjective}{' '}
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? "doses d'alcool" : "dose d'alcool"})
+                  {myWeeklyNumberOfDrinksBeforeObjective} unité
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
                 </TextStyled>
               </PartContainer>
             </MyGoalSubContainerInside>
@@ -359,9 +358,10 @@ const TextDescritpion = styled.Text`
 `;
 
 const Categories = styled.View`
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: row;
-  flex-wrap: wrap;
+  margin-top: 15px;
+  margin-bottom: 25px;
 `;
 
 const TextContainer = styled.View`
