@@ -4,7 +4,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { makeSureTimestamp, today } from '../../helpers/dateHelpers';
 import { drinksState, feedDaysSelector, modalTimestampState, startDateState } from '../../recoil/consos';
 import CONSTANTS from '../../reference/constants';
 import { isOnSameDay, isToday } from '../../services/dates';
@@ -14,11 +14,15 @@ import ConsoFeedDisplay from './ConsoFeedDisplay';
 import DateDisplay from './DateDisplay';
 import { NO_CONSO } from './drinksCatalog';
 import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
-import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
+import NoConsoYetFeedDisplay, { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 import ResultsFeedDisplay from './ResultsFeedDisplay';
-import { FeedBottomButton, FeedContainer, FeedDay, FeedDayContent } from './styles';
+import { EvolutionContainer, FeedAddConsoTodayButton, FeedAddConsoTodayContainer, FeedBottomButton, FeedContainer, FeedDay, FeedDayContent } from './styles';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
 import Timeline from './Timeline';
+import Pint from '../../components/Illustrations/Pint';
+import TextStyled from '../../components/TextStyled';
+import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
@@ -94,7 +98,31 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
-        <FeedContainer hideFeed={hideFeed}>
+        <FeedContainer>
+        {!hideFeed &&
+          <LastDrink>
+            <LastDrinkText>
+              <Pint size={30} color="#4030A5" />
+              <MessageContainer>
+                <TextStyled>
+                  Vous n’avez pas saisi de consommations depuis le <TextStyled bold>{dayjs((drinks[0]?.timestamp)).format("dddd D MMMM")}</TextStyled>
+                </TextStyled>
+              </MessageContainer>
+            </LastDrinkText>
+            <LastDrinkButton>
+              <ButtonPrimary
+                content={"Je n'ai rien bu !"}
+                onPress={() => {
+                  setDrinks(() => [{ drinkKey: NO_CONSO, quantity: 1, timestamp: today(), id: uuidv4() }]);
+                }}/>
+              <AddDrinkButton onPress={() => {
+                setModalTimestamp(Date.now());
+                navigation.push('ADD_DRINK', { timestamp: Date.now() })
+                matomo.logConsoOpenAddScreen();
+            }}><AddDrinkText><TextStyled color="#4030A5">Ajoutez une consommation</TextStyled></AddDrinkText></AddDrinkButton>
+            </LastDrinkButton>
+          </LastDrink>
+}
           <NPS forceView={NPSvisible} close={closeNPS} />
           {!hideFeed &&
             days.map((day, index) => {
@@ -111,7 +139,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   <FeedDayContent>
                     <DateDisplay day={day} />
                     {!!isFirst && <ThoughtOfTheDay day={day} selected={timestampSelected === null} />}
-                    {noDrinksYet && !isToday(day) && (
+                    {!!noDrinksYet && !isToday(day) && (
                       <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={day} />
                     )}
                     {noDrinksConfirmed ? (
@@ -147,7 +175,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                     {!isToday(day) && (
                       <FeedBottomButton
                         color="#4030a5"
-                        content="Ajoutez une consommation"
+                        content="Ajouter une consommation"
                         withoutPadding
                         onPress={async () => {
                           let selectedTimestamp = Date.parse(day);
@@ -199,6 +227,45 @@ const ButtonContainer = styled.View`
   margin-top: 28px;
   align-items: center;
   justify-content: center;
+`;
+
+const LastDrink = styled.View`
+  background-color: #efefef;
+  border: #5150A215;
+  padding: 10px 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  elevation: 5;
+  shadow-offset: 0px 5px;
+  shadow-color: #efefef;
+  shadow-opacity: 0.3;
+  shadow-radius: 3.84px;
+`;
+
+const LastDrinkText = styled.View`
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+const LastDrinkButton = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 10px;
+  margin-top: 10px;
+`;
+
+const AddDrinkButton = styled.TouchableOpacity`
+  margin-left: 10px;
+`;
+
+const AddDrinkText = styled.Text`
+  text-decoration-line: underline;
+  width: 90%;
+`;
+
+const MessageContainer = styled.View`
+  width: 88%;
 `;
 
 export default Feed;
