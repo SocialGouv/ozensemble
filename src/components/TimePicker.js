@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Platform } from 'react-native';
 import styled from 'styled-components';
@@ -16,6 +16,8 @@ import UnderlinedButton from './UnderlinedButton';
 
 const TimePicker = ({ visible, selectDate }) => {
   const [date, setDate] = useState(new Date(Date.now() + 60 * 1000));
+  const [show, setShow] = useState(visible);
+
   useEffect(() => {
     if (visible) setDate(new Date(Date.now() + 60 * 1000));
   }, [visible]);
@@ -51,20 +53,28 @@ const TimePicker = ({ visible, selectDate }) => {
     );
   }
 
-  if (!visible) {
-    return null;
-  }
   return (
-    <DateTimePicker
-      testID="dateTimePicker"
-      value={date}
-      mode="time"
-      display="spinner"
-      maximumDate={today(1)}
-      onChange={(_, selectedDate) => {
-        selectDate(selectedDate);
-      }}
-    />
+    <>
+      {useMemo(() => {
+        return (
+          !!show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="time"
+              display="spinner"
+              maximumDate={today(1)}
+              onChange={(_, selectedDate) => {
+                console.log({ selectedDate });
+                setShow(false);
+                selectDate(selectedDate);
+              }}
+            />
+          )
+        );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, [show])}
+    </>
   );
 };
 
