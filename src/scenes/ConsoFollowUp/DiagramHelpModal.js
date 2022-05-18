@@ -3,13 +3,13 @@ import React from 'react';
 import { Modal, ScrollView } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import Stars from '../../components/Illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
 import Diagram from './Diagram';
 import { TopContainer } from './styles';
-import { useRecoilValue } from 'recoil';
-import { maxDrinksPerWeekSelector } from '../../recoil/gains';
+import { drinksByDrinkingDayState } from '../../recoil/gains';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -19,7 +19,7 @@ const Elem = ({ content, lineHeight = 20 }) => (
 );
 
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
+  const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
       <SafeAreaViewStyled>
@@ -43,11 +43,13 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                   <TextStyled>
                     La ligne verte représente{' '}
                     <TextStyled bold color="#4030a5">
-                      le seuil de votre objectif  
-                    </TextStyled>
-                    ({maxDrinksPerWeekGoal===0?(2 + " représentant pour l'instant le seuil fixé par l'OMS"):(maxDrinksPerWeekGoal + " verres maximum par jour autorisé")}).
+                      le seuil de votre objectif
+                    </TextStyled>{' '}
+                    {drinksByDrinkingDay === 0
+                      ? "(2 unités représentant pour l'instant le seuil fixé par l'OMS)"
+                      : `(${drinksByDrinkingDay} unité${drinksByDrinkingDay > 1 ? 's' : ''} par jour)`}
                   </TextStyled>
-                  }
+                }
               />
             </Paragraph>
             <Paragraph>

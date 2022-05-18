@@ -35,7 +35,6 @@ const drinkDay = {
 };
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
-  // const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const dailyDoses = useRecoilValue(dailyDosesSelector());
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
 
