@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
@@ -9,104 +10,35 @@ import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import TextStyled from '../../components/TextStyled';
 import TimePicker from '../../components/TimePicker';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { dateWithTimeAndOffsetFromToday, timeIsAfterNow } from '../../helpers/dateHelpers';
+import { timeIsAfterNow } from '../../helpers/dateHelpers';
 import CONSTANTS from '../../reference/constants';
 import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import { defaultPadding } from '../../styles/theme';
 import { storage } from '../../services/storage';
 
-const notifReminderTitle = "C'est l'heure de votre suivi quotidien !";
+const notifReminderTitle = "C'est l'heure de votre suivi !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
 
-class Reminder extends Component {
-  state = {
-    reminder: null,
-    timePickerVisible: false,
-  };
+const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offset = 'day', repeatTimes = 15 }) => {
+  const [reminder, setReminder] = useState(null);
+  const [timePickerVisible, setTimePickerVisible] = useState(false);
 
-  componentDidMount() {
-    this.getReminder(false);
-    this.notifcationListener = NotificationService.listen(this.handleNotification);
-  }
-
-  componentWillUnmount() {
-    NotificationService.remove(this.notifcationListener);
-  }
-
-  getReminder = async (showAlert = true) => {
+  const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
-    const reminder = storage.getString('@Reminder');
+    const reminder = storage.getString(storageKey);
     // eslint-disable-next-line eqeqeq
     if (Boolean(reminder) && new Date(reminder) == 'Invalid Date') {
-      this.deleteReminder();
+      deleteReminder();
       return;
     }
-    if (!isRegistered && reminder && showAlert) this.showPermissionsAlert();
+    if (!isRegistered && reminder && showAlert) showPermissionsAlert();
     if (!reminder) return;
-    this.setState({ reminder: new Date(reminder) });
+    setReminder(new Date(reminder));
   };
 
-  scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
-    NotificationService.cancelAll();
-    for (let i = !timeIsAfterNow(reminder); i <= 15; i++) {
-      const fireDate = dateWithTimeAndOffsetFromToday(reminder.getHours(), reminder.getMinutes(), i);
-      NotificationService.scheduleNotification({
-        date: fireDate,
-        title: notifReminderTitle,
-        message: notifReminderMessage,
-      });
-    }
-  };
-
-  showTimePicker = async () => {
-    const isRegistered = await NotificationService.checkAndAskForPermission();
-    if (!isRegistered) {
-      this.showPermissionsAlert();
-      return;
-    }
-    this.setState({ timePickerVisible: true });
-  };
-
-  showPermissionsAlert = () => {
-    Alert.alert(
-      'Vous devez autoriser les notifications pour accéder à ce service',
-      'Veuillez cliquer sur Réglages puis Notifications pour activer les notifications',
-      [
-        {
-          text: 'Réglages',
-          onPress: () => openSettings(),
-        },
-        {
-          text: 'Annuler',
-          onPress: () => this.deleteReminder(),
-          style: 'cancel',
-        },
-      ],
-      { cancelable: true }
-    );
-  };
-
-  setReminder = async (reminder) => {
-    if (!reminder) {
-      this.setState({ timePickerVisible: false });
-      return;
-    }
-    storage.set('@Reminder', reminder.toISOString());
-    await this.scheduleNotification(reminder);
-    await matomo.logReminderSet(Date.parse(reminder));
-    this.setState({ reminder, timePickerVisible: false });
-  };
-
-  deleteReminder = async () => {
-    storage.delete('@Reminder');
-    NotificationService.cancelAll();
-    this.setState({ reminder: null, timePickerVisible: false });
-    matomo.logReminderDelete();
-  };
-
-  handleNotification = (notification) => {
-    const { navigation } = this.props;
+  const notifHandled = useRef(false);
+  const handleNotification = (notification) => {
     if (Platform.OS === 'android') {
       if (notification.title === notifReminderTitle) {
         navigation.navigate('CONSO_FOLLOW_UP');
@@ -114,8 +46,8 @@ class Reminder extends Component {
       }
     }
     if (Platform.OS === 'ios') {
-      if (notification.foreground && !this.notifHandled) {
-        this.notifHandled = true;
+      if (notification.foreground && !notifHandled.current) {
+        notifHandled.current = true;
         if (notification.message === notifReminderMessage) {
           Alert.alert(
             notifReminderTitle,
@@ -126,14 +58,14 @@ class Reminder extends Component {
                 onPress: () => {
                   navigation.navigate('CONSO_FOLLOW_UP');
                   matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
-                  this.notifHandled = false;
+                  notifHandled.current = false;
                 },
               },
               {
                 text: 'Annuler',
                 style: 'cancel',
                 onPress: () => {
-                  this.notifHandled = false;
+                  notifHandled.current = false;
                 },
               },
             ],
@@ -149,46 +81,118 @@ class Reminder extends Component {
     }
   };
 
-  render() {
-    const { reminder, timePickerVisible } = this.state;
-    const { navigation, route } = this.props;
-    return (
-      <Container>
-        <BackButton content="< Retour" onPress={navigation.goBack} bold />
-        <ReminderIcon size={80} color="#4030a5" selected={false} />
-        <Title>
-          <TextStyled color="#4030a5">
-            {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
-          </TextStyled>
-        </Title>
-        <SubTitle>
-          {reminder ? (
-            <>
-              <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-              <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
-              <TextStyled color="#191919">tous les jours.</TextStyled>
-            </>
-          ) : (
-            <TextStyled color="#191919">
-              Définissez un rappel quotidien sur votre téléphone pour vous rappeler
-            </TextStyled>
-          )}
-        </SubTitle>
-        <ButtonsContainer>
-          <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={this.showTimePicker} />
-          {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={this.deleteReminder} />}
-          {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
-            <ButtonPrimary
-              content="Continuer"
-              onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
-            />
-          ) : null}
-        </ButtonsContainer>
-        <TimePicker visible={timePickerVisible} selectDate={this.setReminder} />
-      </Container>
+  const notificationListener = useRef();
+  useEffect(() => {
+    getReminder(false);
+    notificationListener.current = NotificationService.listen(handleNotification);
+    return () => NotificationService.remove(notificationListener.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
+    NotificationService.cancelAll();
+    for (let i = timeIsAfterNow(reminder) ? 1 : 0; i <= repeatTimes; i++) {
+      const fireDate = dayjs()
+        .add(i, offset)
+        .set('hours', reminder.getHours())
+        .set('minutes', reminder.getMinutes())
+        .toDate();
+      NotificationService.scheduleNotification({
+        date: fireDate,
+        title: notifReminderTitle,
+        message: notifReminderMessage,
+      });
+    }
+  };
+
+  const showTimePicker = async () => {
+    const isRegistered = await NotificationService.checkAndAskForPermission();
+    if (!isRegistered) {
+      showPermissionsAlert();
+      return;
+    }
+    setTimePickerVisible(true);
+  };
+
+  const showPermissionsAlert = () => {
+    Alert.alert(
+      'Vous devez autoriser les notifications pour accéder à ce service',
+      'Veuillez cliquer sur Réglages puis Notifications pour activer les notifications',
+      [
+        {
+          text: 'Réglages',
+          onPress: openSettings,
+        },
+        {
+          text: 'Annuler',
+          onPress: deleteReminder,
+          style: 'cancel',
+        },
+      ],
+      { cancelable: true }
     );
-  }
-}
+  };
+
+  const setReminderRequest = async (newReminder) => {
+    setTimePickerVisible(false);
+    if (!newReminder) return;
+    storage.set(storageKey, newReminder.toISOString());
+    await scheduleNotification(newReminder);
+    await matomo.logReminderSet(Date.parse(newReminder));
+    setReminder(newReminder);
+    setTimePickerVisible(false);
+  };
+
+  const deleteReminder = async () => {
+    storage.delete(storageKey);
+    NotificationService.cancelAll();
+    setReminder(null);
+    setTimePickerVisible(false);
+    matomo.logReminderDelete();
+  };
+
+  return (
+    <Container>
+      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <ReminderIcon size={80} color="#4030a5" selected={false} />
+      {children ? (
+        children({ showTimePicker, reminder })
+      ) : (
+        <>
+          <Title>
+            <TextStyled color="#4030a5">
+              {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
+            </TextStyled>
+          </Title>
+          <SubTitle>
+            {reminder ? (
+              <>
+                <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
+                <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
+                <TextStyled color="#191919">tous les jours.</TextStyled>
+              </>
+            ) : (
+              <TextStyled color="#191919">
+                Définissez un rappel quotidien sur votre téléphone pour vous rappeler
+              </TextStyled>
+            )}
+          </SubTitle>
+        </>
+      )}
+      <ButtonsContainer>
+        <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showTimePicker} />
+        {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={deleteReminder} />}
+        {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
+          <ButtonPrimary
+            content="Continuer"
+            onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
+          />
+        ) : null}
+      </ButtonsContainer>
+      {!!timePickerVisible && <TimePicker visible={timePickerVisible} selectDate={setReminderRequest} />}
+    </Container>
+  );
+};
 
 const Container = styled.ScrollView.attrs({
   contentContainerStyle: {

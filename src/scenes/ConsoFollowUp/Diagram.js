@@ -104,7 +104,6 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
   const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector());
-  console.log({ diff, decrease, pourcentageOfDecrease });
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
   const drinks = useRecoilValue(drinksState);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);

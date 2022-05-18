@@ -23,6 +23,7 @@ import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWe
 import OnBoardingGain from './OnBoardingGain';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 import { storage } from '../../services/storage';
+import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -32,6 +33,7 @@ const MyGains = () => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
+  const reminder = storage.getString('@GainsReminder');
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToGoal = () => {
@@ -123,6 +125,12 @@ const MyGains = () => {
     const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
     return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
   }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
+
+  const goToReminder = () =>
+    navigation.navigate('GAINS_REMINDER', {
+      enableContinueButton: true,
+      onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
+    });
 
   return (
     <ScreenBgStyled>
@@ -304,6 +312,27 @@ const MyGains = () => {
           <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
             <TextModify>
               <TextStyled>Modifier l'estimation</TextStyled>
+            </TextModify>
+          </ButtonTouchable>
+          <Title onPress={goToReminder}>
+            <H1 color="#4030a5">Mon rappel</H1>
+          </Title>
+          <MyGoalSubContainer onPress={goToReminder}>
+            <MyGoalSubContainerInside>
+              <PartContainer>
+                <ReminderIcon size={20} color="#000" selected />
+                <TextStyled>
+                  {'   '}
+                  {!reminder
+                    ? 'Pas de rappel encore'
+                    : `Tous les jours à ${new Date(reminder)?.getLocalePureTime('fr')}`}
+                </TextStyled>
+              </PartContainer>
+            </MyGoalSubContainerInside>
+          </MyGoalSubContainer>
+          <ButtonTouchable onPress={goToReminder}>
+            <TextModify>
+              <TextStyled>Modifier le rappel</TextStyled>
             </TextModify>
           </ButtonTouchable>
         </MyGoalContainer>

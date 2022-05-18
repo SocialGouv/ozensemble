@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from '@react-navigation/native';
+import { useRecoilState } from 'recoil';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import Estimation from './Estimation';
 import Goal from './Goal';
 import MyGains from './MyGains';
-import Reminder from '../Infos/Reminder';
 import Sevrage from './Sevrage';
-import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from '@react-navigation/native';
-import { useRecoilState } from 'recoil';
 import { showCTAButtonState } from '../AddDrink/AddDrinkCTAButton';
+import WeeklyReminder from './WeeklyReminder';
 
 const GainsStack = createStackNavigator();
 
@@ -51,7 +51,7 @@ const GainsNavigator = () => {
         <GainsStack.Navigator headerMode="none" initialRouteName={initialScreen}>
           <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
           <GainsStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
-          <GainsStack.Screen name="GAINS_REMINDER" component={Reminder} />
+          <GainsStack.Screen name="GAINS_REMINDER" component={WeeklyReminder} />
           <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={Estimation} />
           <GainsStack.Screen name="GAINS_SEVRAGE" component={Sevrage} />
         </GainsStack.Navigator>
