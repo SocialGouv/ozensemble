@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/SocialGouv/ozensemble/compare/v1.20.0...v1.20.1) (2022-05-18)
+
+
+### Bug Fixes
+
+* start date reset on drinks remove ([2ec9c64](https://github.com/SocialGouv/ozensemble/commit/2ec9c647d6f003af0c21b5c16cf28545d5f93bf0))
+
 # [1.20.0](https://github.com/SocialGouv/ozensemble/compare/v1.19.4...v1.20.0) (2022-05-18)
 
 
