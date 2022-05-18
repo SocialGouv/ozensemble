@@ -1,3 +1,19 @@
+# [1.21.0](https://github.com/SocialGouv/ozensemble/compare/v1.20.14...v1.21.0) (2022-05-18)
+
+
+### Bug Fixes
+
+* calcul ([384d3f6](https://github.com/SocialGouv/ozensemble/commit/384d3f639f4813e5b53333a7cd052029ea902f28))
+* calcul pourcentage ([98a3454](https://github.com/SocialGouv/ozensemble/commit/98a34545389bc0c8232004108e27e39bd9ba365e))
+* contact addictologue ([cb7a486](https://github.com/SocialGouv/ozensemble/commit/cb7a48695682d47e986efd6254a2cfc6021467d4))
+* styling + calcul ([95e60c9](https://github.com/SocialGouv/ozensemble/commit/95e60c95a1e96a8626cd6b2784f3a5f698091eec))
+* styling of no drinks since long time ([d2f22c9](https://github.com/SocialGouv/ozensemble/commit/d2f22c93f34d38b182816e8aa592c0bcea620e45))
+
+
+### Features
+
+* Ajout Message Suivi consommation ([cc2b02b](https://github.com/SocialGouv/ozensemble/commit/cc2b02ba72d3a66a81d1755e77597a7688d303fb))
+
 ## [1.20.14](https://github.com/SocialGouv/ozensemble/compare/v1.20.13...v1.20.14) (2022-05-18)
 
 
