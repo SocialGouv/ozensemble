@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 
 import H1 from '../../components/H1';
-import ModalContainer from '../../components/Modal';
+import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
 
 const OnBoardingGain = ({ onPress, visible, hide }) => {
   return (
-    <ModalContainer visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
+    <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
       <Container>
         <Title>
           <TextStyled color="#4030a5">Sans objectif, pas de gains</TextStyled>
@@ -22,7 +22,7 @@ const OnBoardingGain = ({ onPress, visible, hide }) => {
           <ButtonPrimary onPress={onPress} content="Je me fixe un objectif" />
         </Continue>
       </Container>
-    </ModalContainer>
+    </Modal>
   );
 };
 

@@ -32,6 +32,7 @@ const MyGains = () => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
+  const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToGoal = () => {
     navigation.navigate('GAINS_MY_OBJECTIVE');
     setShowOnboardingGainModal(false);
@@ -40,7 +41,6 @@ const MyGains = () => {
     () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
   );
-  const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const [showGoalfix, setShowGoalfix] = useState(true);
 
   const beginDateOfOz = useMemo(() => {
@@ -234,7 +234,7 @@ const MyGains = () => {
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
-          <TouchableOpacity onPress={() => setShowOnboardingGainModal((show) => !show)}>
+          <TouchableOpacity onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
             <Description>
               <InfosIcon size={24} />
               <TextDescritpion>

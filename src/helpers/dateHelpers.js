@@ -9,7 +9,13 @@ export const makeSureTimestamp = (date) => {
   if (date instanceof Date) {
     return Date.parse(date);
   }
-  return date;
+  try {
+    return Date.parse(new Date(date));
+  } catch (e) {
+    console.log(e);
+    console.log(date, 'makeSureTimestamp');
+    return date;
+  }
 };
 
 export const dateWithoutTime = (inputDate, offset = 0) => {

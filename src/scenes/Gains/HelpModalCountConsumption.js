@@ -7,21 +7,13 @@ import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
 import UnderlinedButton from '../../components/UnderlinedButton';
 
-const CountConsumptiom = () => {
+const HelpModalCountConsumption = () => {
   const navigation = useNavigation();
 
   return (
     <ScreenBgStyled>
       <TextBackground>
         <BackButton content="< Retour" onPress={navigation.goBack} bold />
-        <TopContainer>
-          <TopTitle>
-            <H1 color="#4030a5">Se fixer un objectif</H1>
-          </TopTitle>
-          <TopDescription>
-            <TextStyled>Durant la prochaine période, quel sera votre objectif ?</TextStyled>
-          </TopDescription>
-        </TopContainer>
         <HowCountContainer>
           <Title>
             <H1>Comment compter sa consommation d'alcool ?</H1>
@@ -44,30 +36,17 @@ const ScreenBgStyled = styled.ScrollView`
   background-color: #ececec;
 `;
 
-const TopContainer = styled.View`
-  padding: 0px 30px 0px;
-`;
-
-const TopTitle = styled.View`
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
 const BackButton = styled(UnderlinedButton)`
   margin-right: auto;
   margin-bottom: 30px;
 `;
-
-const TopDescription = styled.View``;
 
 const HowCountContainer = styled.View`
   margin-top: ${screenHeight * 0.05}px;
   margin-bottom: ${screenHeight * 0.05}px;
   width: 95%;
   justify-content: center;
-  padding: 0px 30px 0px;
+  padding-horizontal: 30px;
 `;
 
 const TextBackground = styled.View`
@@ -85,6 +64,7 @@ const Description = styled.View`
 const DoseContainer = styled.View`
   padding-top: ${screenHeight * 0.05}px;
   background-color: #ececec;
+  padding-horizontal: 30px;
 `;
 
-export default CountConsumptiom;
+export default HelpModalCountConsumption;

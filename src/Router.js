@@ -22,6 +22,7 @@ import AppStateHandler from './services/AppStateHandler';
 import matomo from './services/matomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
+import HelpModalCountConsumption from './scenes/Gains/HelpModalCountConsumption';
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
@@ -136,6 +137,8 @@ const Router = () => {
           <Root.Screen name="WELCOME" component={WelcomeScreen} />
           <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
           <Root.Screen name="TABS" component={TabsNavigator} />
+          {/* Help modals */}
+          <Root.Screen name="GAINS_HELP_HOW_TO_COUNT" component={HelpModalCountConsumption} />
         </Root.Navigator>
       )}
       <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />

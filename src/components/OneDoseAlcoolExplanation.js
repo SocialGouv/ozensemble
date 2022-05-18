@@ -14,9 +14,9 @@ const doses = [
   { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
 ];
 
-const OneDoseAlcoolExplanation = ({ backgroundColor }) => {
+const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0 }) => {
   return (
-    <ScreenBgStyled backgroundColor={backgroundColor}>
+    <ScreenBgStyled backgroundColor={backgroundColor} marginOffset={marginOffset}>
       <IconsContainer>
         {doses.map(({ Icon, volume, name, degrees }, i) => (
           <React.Fragment key={i}>
@@ -47,11 +47,13 @@ const OneDoseAlcoolExplanation = ({ backgroundColor }) => {
   );
 };
 
-const ScreenBgStyled = styled.ScrollView`
+const ScreenBgStyled = styled.View`
   background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#f9f9f9')};
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
+  ${({ marginOffset }) => !!marginOffset && `margin-left: -${marginOffset}px;`}
+  ${({ marginOffset }) => !!marginOffset && `margin-right: -${marginOffset}px;`}
 `;
 
 const IconsContainer = styled.View`
@@ -59,6 +61,7 @@ const IconsContainer = styled.View`
   justify-content: center;
   align-items: flex-end;
   margin-bottom: 50px;
+  overflow: hidden;
 `;
 const IconWrapper = styled.View`
   align-items: center;
