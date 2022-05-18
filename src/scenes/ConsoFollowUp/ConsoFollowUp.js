@@ -21,16 +21,10 @@ const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
 const ConsoFollowUp = () => {
   const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
-  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedBar, setSelectedBar] = useState({});
-  const navigation = useNavigation();
   const scrollViewRef = useRef(null);
 
-  const addDrinksRequest = (timestamp) => {
-    setModalTimestamp(timestamp);
-    navigation.push('ADD_DRINK');
-  };
   const scrollToInput = (ref) => {
     if (!ref) return;
     if (!scrollViewRef.current) return;
@@ -59,7 +53,8 @@ const ConsoFollowUp = () => {
               onPress={() => {
                 matomo.logConsoDiagramHelp();
                 setShowHelpModal(true);
-              }}>
+              }}
+              hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
               <HelpText>?</HelpText>
             </Help>
           </SubtitleContainer>
@@ -123,6 +118,7 @@ const SubtitleContainer = styled.View`
   flex-direction: row;
   margin-top: 10px;
   align-items: center;
+  justify-content: space-between;
 `;
 
 const DiagramTitle = styled(H2)`

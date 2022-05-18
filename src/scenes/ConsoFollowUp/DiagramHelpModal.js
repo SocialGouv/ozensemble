@@ -62,7 +62,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                 }
               />
             </Paragraph>
-            <OneDoseAlcoolExplanation />
+            <OneDoseAlcoolExplanation marginOffset={20} />
             {/* <DoseContainer>
               <DoseEqualWrapper>
                 <TextStyled color="#191919">=</TextStyled>

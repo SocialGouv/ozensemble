@@ -11,7 +11,6 @@ const ModalContainer = ({
   style = {},
   safeAreaView = true,
 }) => {
-  return null;
   const Wrapper = hideOnTouch ? TouchableWithoutFeedback : React.Fragment;
   const wrapperProps = hideOnTouch ? { onPress: hide, style: styles.touchable } : {};
   return (

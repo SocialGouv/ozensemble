@@ -71,6 +71,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           showSixWeeks
           enableSwipeMonths
           firstDay={1}
+          minDate="2022-01-01"
           maxDate={dayjs().format('YYYY-MM-DD')}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="dot"
