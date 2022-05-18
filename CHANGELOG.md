@@ -1,3 +1,10 @@
+## [1.20.14](https://github.com/SocialGouv/ozensemble/compare/v1.20.13...v1.20.14) (2022-05-18)
+
+
+### Bug Fixes
+
+* fix gaols remove *100 ([47c8424](https://github.com/SocialGouv/ozensemble/commit/47c842489592013d1827ec6763a781400a06919a))
+
 ## [1.20.13](https://github.com/SocialGouv/ozensemble/compare/v1.20.12...v1.20.13) (2022-05-18)
 
 
