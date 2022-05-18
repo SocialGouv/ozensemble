@@ -1,3 +1,12 @@
+## [1.20.5](https://github.com/SocialGouv/ozensemble/compare/v1.20.4...v1.20.5) (2022-05-18)
+
+
+### Bug Fixes
+
+* how to count help in goal ([9476852](https://github.com/SocialGouv/ozensemble/commit/9476852a3fe4089edcea44b5c04b287b3bd9dca6))
+* square to show gains ([e67272e](https://github.com/SocialGouv/ozensemble/commit/e67272e3269c281b96bd1875c9d125196b39b26f))
+* tab bar underline and color ([e2151fa](https://github.com/SocialGouv/ozensemble/commit/e2151fa7d83f717fdc748929e67c194ea6542ade))
+
 ## [1.20.4](https://github.com/SocialGouv/ozensemble/compare/v1.20.3...v1.20.4) (2022-05-18)
 
 
