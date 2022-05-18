@@ -42,7 +42,7 @@ const ChoiceDrinkOrNoDrink = () => {
   return (
     <ScreenBgStyled>
       <SafeAreaView>
-        <GoBackButtonText content="Retour" bold onPress={() => navigation.goBack()} />
+        <GoBackButtonText content="< Retour" bold onPress={() => navigation.goBack()} />
         <TopContainer>
           <TopTitle>
             <H1 color="#4030a5">Mes consommations</H1>

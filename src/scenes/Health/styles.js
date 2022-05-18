@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import H2 from '../../components/H2';
 import H1 from '../../components/H1';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenWidth } from '../../styles/theme';
+import GoBackButtonText from '../../components/GoBackButtonText';
 
 export const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
@@ -24,7 +24,7 @@ export const TopContainer = styled.View`
 
 export const TopTitle = styled(H1)`
   ${commonCss}
-  margin-top: 10px;
+  margin-top: 0px;
   margin-bottom: 20px;
 `;
 
@@ -88,7 +88,7 @@ export const ErrorStyled = styled.Text`
   color: #de285e;
 `;
 
-export const BackButton = styled(UnderlinedButton)`
+export const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
   ${(props) => !props.withoutPadding && 'padding-horizontal: 15px;'}
   ${(props) => !props.withoutPadding && 'margin-bottom: 15px;'}
