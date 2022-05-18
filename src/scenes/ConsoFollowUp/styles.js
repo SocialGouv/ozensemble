@@ -96,21 +96,22 @@ export const FeedButtonStyled = styled.View`
 Diagram styles
 */
 
-const Helpsize = 25; 
+const Helpsize = 25;
 export const Help = styled.TouchableOpacity`
   width: ${Helpsize}px;
   height: ${Helpsize}px;
   border-radius: 40px;
-  border: 1px solid #DE285E;
+  border: 1px solid #de285e;
   background-color: white;
   margin-left: auto;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 `;
 export const HelpText = styled.Text`
-  color: #DE285E;
+  color: #de285e;
   font-weight: bold;
-  font-size: ${Helpsize*0.5}px;
+  font-size: ${Helpsize * 0.5}px;
 `;
 
 export const CloseHelpContainer = styled.View`
@@ -118,10 +119,11 @@ export const CloseHelpContainer = styled.View`
 `;
 
 export const BarsContainer = styled.View`
-  max-width: 100%;
+  width: 100%;
   flex-direction: row;
   height: ${({ height }) => height}px;
   align-items: flex-end;
+  justify-content: space-between;
 `;
 
 export const Bar = styled(TouchableOpacity)`
@@ -131,7 +133,8 @@ export const Bar = styled(TouchableOpacity)`
   border-radius: ${screenHeight * 0.005}px;
   flex-grow: 1;
   flex-shrink: 1;
-  flex-basis: 30px;
+  flex-basis: 20px;
+  max-width: 20px;
   margin-horizontal: 8px;
   overflow: hidden;
   height: ${({ height }) => height}px;
