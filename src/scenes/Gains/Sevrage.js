@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
 
 const Sevrage = ({ navigation }) => {
@@ -59,7 +59,7 @@ const TopTitle = styled.View`
   margin-vertical: 20px;
 `;
 
-const BackButton = styled(UnderlinedButton)`
+const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
 `;
 

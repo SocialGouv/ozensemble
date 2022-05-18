@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import styled from 'styled-components';
 import { today } from '../helpers/dateHelpers';
 import ButtonPrimary from './ButtonPrimary';
-import UnderlinedButton from './UnderlinedButton';
+import GoBackButtonText from './GoBackButtonText';
 
 /*
   onChange:
@@ -45,7 +45,7 @@ const TimePicker = ({ visible, selectDate }) => {
                   selectDate(date);
                 }}
               />
-              <UnderlinedButton content="Retour" bold onPress={() => selectDate(null)} />
+              <GoBackButtonText content="Retour" bold onPress={() => selectDate(null)} />
             </ButtonsContainer>
           </DatePickerContainer>
         </ModalContent>
