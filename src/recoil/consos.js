@@ -64,18 +64,10 @@ export const feedDaysSelector = selector({
     const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp));
     const days = [];
     const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);
-    console.log(startDate, lastDayOfDrinks, amplitudeOfRecords);
     for (let i = 0; i < amplitudeOfRecords + 1; i++) {
       const day = dayjs(lastDayOfDrinks).add(-i, 'day');
       days.push(day.format('YYYY-MM-DD'));
     }
-    console.log(
-      JSON.stringify(
-        days.filter((date) => dayjs(date).isBefore(dayjs())),
-        null,
-        2
-      )
-    );
     return days.filter((date) => dayjs(date).isBefore(dayjs()));
   },
 });
