@@ -91,10 +91,10 @@ const Goal = ({ navigation }) => {
             </TextSemiBold>
           </Row>
           <Row>
-            <HowCount onPress={() => setHelpVisible(true)}>
-              <TextStyled>Comment compter un verre sans me tromper{'   '}</TextStyled>
-              <InfoObjectif size={20} color={'#000000'} />
-            </HowCount>
+            <HelpCount onPress={() => setHelpVisible(true)} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+              <HelpCountCaption>Comment compter un verre sans me tromper</HelpCountCaption>
+              <InfoObjectif size={15} color={'#000000'} />
+            </HelpCount>
           </Row>
           <QuantityContainer>
             <QButton
@@ -235,8 +235,16 @@ const DrinkByWeekContainer = styled.View`
   margin-bottom: ${screenHeight * 0.04}px;
 `;
 
-const HowCount = styled.TouchableOpacity`
+const HelpCount = styled.TouchableOpacity`
   flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+`;
+
+const HelpCountCaption = styled(TextStyled)`
+  font-size: 11px;
+  margin-right: 10px;
 `;
 
 const TextSemiBold = styled.Text`
