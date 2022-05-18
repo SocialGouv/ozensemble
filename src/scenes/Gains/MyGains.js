@@ -167,7 +167,7 @@ const MyGains = () => {
       </Container>
       <TextContainer>
         <TextForm>
-          {!!isOnboarded && (
+          {!!isOnboarded && beginDateOfOz && (
             <TextStyled>
               Depuis le
               <TextStyled color="#DE285E">

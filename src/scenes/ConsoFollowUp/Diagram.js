@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { selectorFamily, useRecoilValue } from 'recoil';
+import { selector, selectorFamily, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { storage } from '../../services/storage';
@@ -10,6 +11,10 @@ import { dailyDosesSelector, drinksState } from '../../recoil/consos';
 import { drinksByDrinkingDayState } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
+import Celebration from '../../components/Illustrations/Celebration';
+import Increase from '../../components/Illustrations/Increase';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import matomo from '../../services/matomo';
 
 const maxDosesOnScreen = 50;
 
@@ -50,8 +55,41 @@ const highestDailyDoseSelector = selectorFamily({
     },
 });
 
+const diffWithPreviousWeekSelector = selectorFamily({
+  key: 'diffWithPreviousWeekSelector',
+  get:
+    ({ asPreview = false } = {}) =>
+    ({ get }) => {
+      const dailyDoses = get(dailyDosesSelector());
+      const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
+      const daysOfLastWeek = [];
+      for (let i = 0; i <= 6; i++) {
+        const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
+        daysOfLastWeek.push(nextDay);
+      }
+      const firstDayThisWeek = dayjs(dayjs().startOf('week'));
+      const daysOfThisWeek = [];
+      for (let i = 0; i <= 6; i++) {
+        const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
+        daysOfThisWeek.push(nextDay);
+      }
+      const lastWeekNumberOfDrinks = daysOfLastWeek
+        .map((day) => dailyDoses[day])
+        .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
+      const thisWeekNumberOfDrinks = daysOfThisWeek
+        .map((day) => dailyDoses[day])
+        .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
+
+      const diff = lastWeekNumberOfDrinks - thisWeekNumberOfDrinks;
+      const decrease = diff > 0;
+      const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
+      return [diff, decrease, pourcentageOfDecrease];
+    },
+});
+
 const minBarHeight = 1;
 const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
+  const navigation = useNavigation();
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
   const days = useMemo(() => {
@@ -62,8 +100,11 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
     }
     return daysOfTheWeek;
   }, [firstDay]);
+
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
+  const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector());
+  console.log({ diff, decrease, pourcentageOfDecrease });
   const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
   const drinks = useRecoilValue(drinksState);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
@@ -172,6 +213,61 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
           );
         })}
       </LegendsContainer>
+      {!asPreview && diff !== 0 && (
+        <>
+          {!decrease ? (
+            <EvolutionMessage
+              background="#F8F0E5"
+              border="#F3C89F"
+              icon={<Increase size={35} />}
+              message={
+                <>
+                  <TextStyled>
+                    Votre consommation a{' '}
+                    <TextStyled bold>
+                      augmenté de {-pourcentageOfDecrease}% ({-diff}
+                      {'\u00A0'}verre{-diff > 1 ? 's' : ''} de plus)
+                    </TextStyled>{' '}
+                    par rapport à la semaine dernière.
+                  </TextStyled>
+                  <TextStyled />
+                  <TextStyled>
+                    Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l’un de nos
+                    addictologue.
+                  </TextStyled>
+                  <TextStyled />
+                </>
+              }
+              button={
+                <ButtonPrimary
+                  content="Contacter un addictologue"
+                  small
+                  onPress={() => {
+                    matomo.logContactTakeRDV();
+                    navigation.navigate('DOCTOLIB');
+                  }}
+                />
+              }
+            />
+          ) : (
+            <EvolutionMessage
+              background="#AAE3B4"
+              border="#81DB95"
+              icon={<Celebration size={35} />}
+              message={
+                <>
+                  <TextStyled>
+                    Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
+                    verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+                  </TextStyled>
+                  <TextStyled />
+                  <TextStyled>Continuez comme cela !</TextStyled>
+                </>
+              }
+            />
+          )}
+        </>
+      )}
     </>
   );
 };
@@ -207,6 +303,46 @@ const LegendContainer = styled.View`
   flex-grow: 0;
   flex-shrink: 1;
   flex-basis: 35px;
+`;
+
+const EvolutionMessage = ({ background, border, icon, message, button }) => {
+  return (
+    <EvolutionContainer background={background} border={border}>
+      <EvolutionContainerText>
+        {icon}
+        <MessageContainer>{message}</MessageContainer>
+      </EvolutionContainerText>
+      {!!button && <ContactAddictologue>{button}</ContactAddictologue>}
+    </EvolutionContainer>
+  );
+};
+
+const MessageContainer = styled.View`
+  width: 88%;
+`;
+
+const EvolutionContainer = styled.View`
+  background-color: ${({ background }) => background};
+  border: ${({ border }) => border};
+  align-item: center;
+  padding: 10px 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  elevation: 5;
+  shadow-offset: 0px 5px;
+  shadow-color: ${({ background }) => background};
+  shadow-opacity: 0.3;
+  shadow-radius: 3.84px;
+  justify-content: center;
+`;
+
+const EvolutionContainerText = styled.View`
+  flex-direction: row;
+`;
+
+const ContactAddictologue = styled.View`
+  margin-horizontal: 15%;
+  margin-top: 10px;
 `;
 
 export default Diagram;

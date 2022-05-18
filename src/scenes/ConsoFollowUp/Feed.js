@@ -4,7 +4,7 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { makeSureTimestamp, today } from '../../helpers/dateHelpers';
 import { drinksState, feedDaysSelector, modalTimestampState, startDateState } from '../../recoil/consos';
 import CONSTANTS from '../../reference/constants';
 import { isOnSameDay, isToday } from '../../services/dates';
@@ -19,6 +19,10 @@ import ResultsFeedDisplay from './ResultsFeedDisplay';
 import { FeedBottomButton, FeedContainer, FeedDay, FeedDayContent } from './styles';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
 import Timeline from './Timeline';
+import Pint from '../../components/Illustrations/Pint';
+import TextStyled from '../../components/TextStyled';
+import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
@@ -91,95 +95,145 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     }
   }, [route?.params?.scrollToDay, scrollToInput]);
 
+  if (hideFeed) {
+    return (
+      <>
+        <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
+          <FeedContainer>
+            <NPS forceView={NPSvisible} close={closeNPS} />
+            <ButtonContainer>
+              <ButtonPrimary
+                small
+                content="Contribuer à Oz Ensemble"
+                shadowColor="#201569"
+                color="#4030A5"
+                onPress={onPressContribute}
+              />
+            </ButtonContainer>
+          </FeedContainer>
+        </TouchableWithoutFeedback>
+      </>
+    );
+  }
+
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
-        <FeedContainer hideFeed={hideFeed}>
+        <FeedContainer>
+          <LastDrink>
+            <LastDrinkText>
+              <Pint size={30} color="#4030A5" />
+              <MessageContainer>
+                <TextStyled>
+                  Vous n’avez pas saisi de consommations depuis le{' '}
+                  <TextStyled bold>{dayjs(drinks[0]?.timestamp).format('dddd D MMMM')}</TextStyled>
+                </TextStyled>
+              </MessageContainer>
+            </LastDrinkText>
+            <LastDrinkButtons>
+              <ButtonPrimary
+                content={"Je n'ai rien bu !"}
+                small
+                onPress={() => {
+                  setDrinks(() => [{ drinkKey: NO_CONSO, quantity: 1, timestamp: today(), id: uuidv4() }]);
+                }}
+              />
+              <AddDrinkButton
+                onPress={() => {
+                  setModalTimestamp(Date.now());
+                  navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                  matomo.logConsoOpenAddScreen();
+                }}>
+                <AddDrinkText>
+                  <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
+                </AddDrinkText>
+              </AddDrinkButton>
+            </LastDrinkButtons>
+          </LastDrink>
           <NPS forceView={NPSvisible} close={closeNPS} />
-          {!hideFeed &&
-            days.map((day, index) => {
-              const isFirst = index === 0;
-              const isLast = index === days.length - 1;
-              const drinksOfTheDay = drinks
-                .filter(({ timestamp }) => isOnSameDay(timestamp, day))
-                .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
-              const noDrinksYet = !drinksOfTheDay.length;
-              const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
-              return (
-                <FeedDay key={index} ref={(r) => (refs.current[day] = r)}>
-                  <Timeline first={isFirst} last={isLast} />
-                  <FeedDayContent>
-                    <DateDisplay day={day} />
-                    {!!isFirst && <ThoughtOfTheDay day={day} selected={timestampSelected === null} />}
-                    {noDrinksYet && !isToday(day) && (
-                      <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={day} />
-                    )}
-                    {noDrinksConfirmed ? (
-                      <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
-                    ) : (
-                      drinksOfTheDay.map((drink) => {
-                        if (drink.drinkKey === NO_CONSO) return null;
-                        if (!drink.quantity) return null;
-                        const position = computePosition(drinksOfTheDay, drink);
-                        const selected = timestampSelected === drink.timestamp;
-                        const showButtons = computeShowButtons(selected, position);
-                        return (
-                          <ConsoFeedDisplay
-                            key={drink.id}
-                            {...drink}
-                            selected={selected}
-                            showButtons={showButtons}
-                            nothingSelected={timestampSelected === null}
-                            onPress={setConsoSelectedRequest}
-                            position={position}
-                            updateDrinkRequest={async () => {
-                              await matomo.logConsoUpdate();
-                              addDrinksRequest(drink.timestamp);
-                            }}
-                            deleteDrinkRequest={async () => {
-                              await matomo.logConsoDelete();
-                              deleteDrinkRequest(drink.timestamp);
-                            }}
-                          />
-                        );
-                      })
-                    )}
-                    {!isToday(day) && (
-                      <FeedBottomButton
-                        color="#4030a5"
-                        content="Ajoutez une consommation"
-                        withoutPadding
-                        onPress={async () => {
-                          let selectedTimestamp = Date.parse(day);
-                          if (Date.parse(day)) {
-                            // if a bar is selected, we use it, and we set the hours and minutes to present
-                            const now = new Date();
-                            const h = now.getHours();
-                            const m = now.getMinutes();
-                            const timestamp = makeSureTimestamp(Date.parse(day));
-                            const tempDate = new Date(timestamp);
-                            tempDate.setHours(h);
-                            tempDate.setMinutes(m);
-                            selectedTimestamp = makeSureTimestamp(tempDate);
-                          }
-                          addDrinksRequest(selectedTimestamp);
-                          await matomo.logConsoOpenAddScreen();
-                        }}
-                      />
-                    )}
-                    {isLast && (
-                      <ResultsFeedDisplay
-                        onPress={async () => {
-                          navigation.navigate('TESTS');
-                          matomo.logQuizzOpen(CONSTANTS.FROM_CONSO);
-                        }}
-                        selected={timestampSelected === null}
-                      />
-                    )}
-                  </FeedDayContent>
-                </FeedDay>
-              );
-            })}
+          {days.map((day, index) => {
+            const isFirst = index === 0;
+            const isLast = index === days.length - 1;
+            const drinksOfTheDay = drinks
+              .filter(({ timestamp }) => isOnSameDay(timestamp, day))
+              .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+            const noDrinksYet = !drinksOfTheDay.length;
+            const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
+            return (
+              <FeedDay key={index} ref={(r) => (refs.current[day] = r)}>
+                <Timeline first={isFirst} last={isLast} />
+                <FeedDayContent>
+                  <DateDisplay day={day} />
+                  {!!isFirst && <ThoughtOfTheDay day={day} selected={timestampSelected === null} />}
+                  {!!noDrinksYet && !isToday(day) && (
+                    <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={day} />
+                  )}
+                  {noDrinksConfirmed ? (
+                    <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
+                  ) : (
+                    drinksOfTheDay.map((drink) => {
+                      if (drink.drinkKey === NO_CONSO) return null;
+                      if (!drink.quantity) return null;
+                      const position = computePosition(drinksOfTheDay, drink);
+                      const selected = timestampSelected === drink.timestamp;
+                      const showButtons = computeShowButtons(selected, position);
+                      return (
+                        <ConsoFeedDisplay
+                          key={drink.id}
+                          {...drink}
+                          selected={selected}
+                          showButtons={showButtons}
+                          nothingSelected={timestampSelected === null}
+                          onPress={setConsoSelectedRequest}
+                          position={position}
+                          updateDrinkRequest={async () => {
+                            await matomo.logConsoUpdate();
+                            addDrinksRequest(drink.timestamp);
+                          }}
+                          deleteDrinkRequest={async () => {
+                            await matomo.logConsoDelete();
+                            deleteDrinkRequest(drink.timestamp);
+                          }}
+                        />
+                      );
+                    })
+                  )}
+                  {!isToday(day) && (
+                    <FeedBottomButton
+                      color="#4030a5"
+                      content="Ajouter une consommation"
+                      withoutPadding
+                      onPress={async () => {
+                        let selectedTimestamp = Date.parse(day);
+                        if (Date.parse(day)) {
+                          // if a bar is selected, we use it, and we set the hours and minutes to present
+                          const now = new Date();
+                          const h = now.getHours();
+                          const m = now.getMinutes();
+                          const timestamp = makeSureTimestamp(Date.parse(day));
+                          const tempDate = new Date(timestamp);
+                          tempDate.setHours(h);
+                          tempDate.setMinutes(m);
+                          selectedTimestamp = makeSureTimestamp(tempDate);
+                        }
+                        addDrinksRequest(selectedTimestamp);
+                        await matomo.logConsoOpenAddScreen();
+                      }}
+                    />
+                  )}
+                  {isLast && (
+                    <ResultsFeedDisplay
+                      onPress={async () => {
+                        navigation.navigate('TESTS');
+                        matomo.logQuizzOpen(CONSTANTS.FROM_CONSO);
+                      }}
+                      selected={timestampSelected === null}
+                    />
+                  )}
+                </FeedDayContent>
+              </FeedDay>
+            );
+          })}
           <ButtonContainer>
             <ButtonPrimary
               small
@@ -199,6 +253,42 @@ const ButtonContainer = styled.View`
   margin-top: 28px;
   align-items: center;
   justify-content: center;
+`;
+
+const LastDrink = styled.View`
+  background-color: #efefef;
+  border: #5150a215;
+  padding: 10px 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  elevation: 5;
+  shadow-offset: 0px 5px;
+  shadow-color: #efefef;
+  shadow-opacity: 0.3;
+  shadow-radius: 3.84px;
+`;
+
+const LastDrinkText = styled.View`
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+const LastDrinkButtons = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const AddDrinkButton = styled.TouchableOpacity``;
+
+const AddDrinkText = styled.Text`
+  text-decoration-line: underline;
+`;
+
+const MessageContainer = styled.View`
+  width: 88%;
 `;
 
 export default Feed;
