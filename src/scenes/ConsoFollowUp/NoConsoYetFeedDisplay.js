@@ -41,8 +41,12 @@ const Content = styled.View`
   padding-top: 15px;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  padding-horizontal: 5px;
 `;
 
-const Caption = styled(H3)``;
+const Caption = styled(H3)`
+  text-align: center;
+`;
 
 export default NoConsoYetFeedDisplay;
