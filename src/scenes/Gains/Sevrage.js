@@ -1,14 +1,11 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
 
-const Sevrage = () => {
-  const navigation = useNavigation();
-
+const Sevrage = ({ navigation }) => {
   return (
     <ScreenBgStyled>
       <GoBack onPress={navigation.goBack}>
@@ -70,8 +67,7 @@ const TopContainer = styled.View`
 const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-vertical: 20px;
 `;
 
 const SevrageTitle = styled.View`
@@ -91,7 +87,7 @@ const CTAButtonContainer = styled.View`
 `;
 
 const TextContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding-horizontal: 20px;
 `;
 
 const Symptome = styled.Text`
