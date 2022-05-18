@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import styled from 'styled-components';
 import { today } from '../helpers/dateHelpers';
 import ButtonPrimary from './ButtonPrimary';
-import UnderlinedButton from './UnderlinedButton';
+import GoBackButtonText from './GoBackButtonText';
 
 /*
   onChange:
@@ -42,7 +42,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
                   selectDate(Date.parse(date));
                 }}
               />
-              <UnderlinedButton content="Retour" bold onPress={() => selectDate(initDate)} />
+              <GoBackButtonText content="Retour" bold onPress={() => selectDate(initDate)} />
             </ButtonsContainer>
           </ModalContent>
         </ModalBackdropContent>

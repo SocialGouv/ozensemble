@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { QuantitySetter } from '../../components/DrinkQuantitySetter';
 import H2 from '../../components/H2';
-import UnderlinedButton from '../../components/UnderlinedButton';
+import GoBackButtonText from '../../components/GoBackButtonText';
 import { OPEN_FOOD_FACT_PASSWORD, OPEN_FOOD_FACT_USER_ID } from '../../config';
 import matomo from '../../services/matomo';
 import { uploadAlcoholProductToOFF } from '../../services/off';
@@ -141,7 +141,7 @@ const NewDrinkForm = ({ route, navigation }) => {
             </LineContainer>
             <ButtonsContainer>
               <ButtonPrimary content="Ajoutez" onPress={handleValidate} />
-              <UnderlinedButton content="Retour" bold onPress={handleCancel} />
+              <GoBackButtonText content="< Retour" bold onPress={handleCancel} />
             </ButtonsContainer>
             {error && <Error>{error}</Error>}
           </FormContainer>
