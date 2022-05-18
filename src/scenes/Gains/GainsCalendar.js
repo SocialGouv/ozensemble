@@ -84,7 +84,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
               setModalTimestamp(new Date(date).getTime());
-              navigation.push('ADD_DRINK', { screen: 'CHOICE_DRINK_OR_NO_DRINK' });
+              navigation.push('ADD_DRINK');
             }
           }}
         />
