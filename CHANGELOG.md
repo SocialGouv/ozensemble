@@ -1,3 +1,10 @@
+## [1.19.3](https://github.com/SocialGouv/ozensemble/compare/v1.19.2...v1.19.3) (2022-05-18)
+
+
+### Bug Fixes
+
+* flasque 20cl ([0b60565](https://github.com/SocialGouv/ozensemble/commit/0b605657f213ad881ad00d94ea2f2d0b120fc0a3))
+
 ## [1.19.2](https://github.com/SocialGouv/ozensemble/compare/v1.19.1...v1.19.2) (2022-05-16)
 
 
