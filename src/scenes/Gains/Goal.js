@@ -122,7 +122,7 @@ const Goal = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate('GAINS_REMINDER', {
                   enableContinueButton: true,
-                  onPressContinueButton: () => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'),
+                  onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
                 })
               }
               disabled={daysWithGoalNoDrink.length === 0 || drinksByDrinkingDay === 0}

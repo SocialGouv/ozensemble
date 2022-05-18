@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { useSetRecoilState } from 'recoil';
+import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import { modalTimestampState } from '../../recoil/consos';
 import matomo from '../../services/matomo';
@@ -8,8 +8,16 @@ import { screenHeight, screenWidth } from '../../styles/theme';
 
 const iconSize = 30;
 
+export const showCTAButtonState = atom({
+  key: 'showCTAButtonState',
+  default: true,
+});
+
 const AddDrinkCTAButton = ({ onCTAPress }) => {
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
+  const showCTAButton = useRecoilValue(showCTAButtonState);
+
+  if (!showCTAButton) return null;
 
   return (
     <TouchableWithoutFeedback
