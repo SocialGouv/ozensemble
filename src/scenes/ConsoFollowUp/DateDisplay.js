@@ -1,12 +1,13 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import styled from 'styled-components';
 import TextStyled from '../../components/TextStyled';
 
 const DateDisplay = ({ day }) => (
   <>
-    <WeekDay color="#4030a5">{day.getLocaleWeekDay('fr').capitalize()}</WeekDay>
+    <WeekDay color="#4030a5">{dayjs(day).format('dddd').capitalize()}</WeekDay>
     <DayAndMonth>
-      {day.getDate()} {day.getLocaleMonth('fr')}
+      {dayjs(day).format('D')} {dayjs(day).format('MMM')}
     </DayAndMonth>
   </>
 );
