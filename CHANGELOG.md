@@ -1,3 +1,10 @@
+## [1.21.2](https://github.com/SocialGouv/ozensemble/compare/v1.21.1...v1.21.2) (2022-05-18)
+
+
+### Bug Fixes
+
+* navigation in my gains + setup reminder + pickers ([89ed535](https://github.com/SocialGouv/ozensemble/commit/89ed53560068b006e3cf04e82d87bdbffae4f762))
+
 ## [1.21.1](https://github.com/SocialGouv/ozensemble/compare/v1.21.0...v1.21.1) (2022-05-18)
 
 
