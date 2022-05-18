@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/SocialGouv/ozensemble/compare/v1.21.0...v1.21.1) (2022-05-18)
+
+
+### Bug Fixes
+
+* remove border in toast ([92f10fa](https://github.com/SocialGouv/ozensemble/commit/92f10fa3850f885a99444dddbbad09c62f8933fc))
+
 # [1.21.0](https://github.com/SocialGouv/ozensemble/compare/v1.20.14...v1.21.0) (2022-05-18)
 
 
