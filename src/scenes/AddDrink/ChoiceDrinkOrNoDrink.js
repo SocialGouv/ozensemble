@@ -42,7 +42,7 @@ const ChoiceDrinkOrNoDrink = () => {
   return (
     <ScreenBgStyled>
       <SafeAreaView>
-        <GoBackButtonText content="< Retour" bold onPress={() => navigation.goBack()} />
+        <BackButton content="< Retour" bold onPress={() => navigation.goBack()} />
         <TopContainer>
           <TopTitle>
             <H1 color="#4030a5">Mes consommations</H1>
@@ -144,6 +144,9 @@ const AskDrinkContainer = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: ${screenHeight * 0.1}px;
+`;
+const BackButton = styled(GoBackButtonText)`
+  margin-right: auto;
 `;
 
 export default ChoiceDrinkOrNoDrink;
