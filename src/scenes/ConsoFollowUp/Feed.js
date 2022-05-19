@@ -5,7 +5,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp, today } from '../../helpers/dateHelpers';
-import { drinksState, feedDaysSelector, modalTimestampState, startDateState } from '../../recoil/consos';
+import { drinksState, feedDaysSelector, modalTimestampState } from '../../recoil/consos';
 import CONSTANTS from '../../reference/constants';
 import { isOnSameDay, isToday } from '../../services/dates';
 import matomo from '../../services/matomo';
@@ -43,13 +43,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   // state for NPS
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
-  const setStartDate = useSetRecoilState(startDateState);
-  useEffect(() => {
-    const firstDayOfDrinksTimestamp = Math.min(
-      ...drinks.filter((d) => d.drinkKey !== NO_CONSO).map(({ timestamp }) => timestamp)
-    );
-    setStartDate(new Date(firstDayOfDrinksTimestamp));
-  }, [drinks, setStartDate]);
 
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [NPSvisible, setNPSvisible] = useState(false);

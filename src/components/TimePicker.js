@@ -23,7 +23,7 @@ const TimePicker = ({ visible, selectDate }) => {
   }, [visible]);
   if (Platform.OS === 'ios') {
     return (
-      <Modal visible={visible} animationType="fade" transparent={true}>
+      <Modal visible={visible} animationType="fade" transparent>
         <ModalContent>
           <DatePickerContainer>
             <DateTimePicker
