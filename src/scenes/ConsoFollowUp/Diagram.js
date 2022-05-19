@@ -344,8 +344,8 @@ const EvolutionContainerText = styled.View`
 `;
 
 const ContactAddictologue = styled.View`
-  margin-horizontal: 15%;
   margin-top: 10px;
+  align-items: center;
 `;
 
 export default Diagram;
