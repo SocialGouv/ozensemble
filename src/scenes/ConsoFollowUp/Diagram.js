@@ -128,6 +128,11 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   );
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
+  const showDecrease = useMemo(() => !asPreview && diff !== 0 && decrease > 0, [asPreview, diff, decrease]);
+  const showIncrease = useMemo(() => !asPreview && diff !== 0 && decrease < 0, [asPreview, diff, decrease]);
+  const showStable = useMemo(() => !asPreview && diff === 0, [asPreview, diff]);
+  const showFillConsosFirst = useMemo(() => !asPreview && false, [asPreview]);
+
   return (
     <>
       {showCloseHelp && (
@@ -216,60 +221,90 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
           );
         })}
       </LegendsContainer>
-      {!asPreview && diff !== 0 && (
-        <>
-          {!decrease ? (
-            <EvolutionMessage
-              background="#F8F0E5"
-              border="#F3C89F"
-              icon={<Increase size={35} />}
-              message={
-                <>
-                  <TextStyled>
-                    Votre consommation a{' '}
-                    <TextStyled bold>
-                      augmenté de {-pourcentageOfDecrease}% ({-diff}
-                      {'\u00A0'}verre{-diff > 1 ? 's' : ''} de plus)
-                    </TextStyled>{' '}
-                    par rapport à la semaine dernière.
-                  </TextStyled>
-                  <TextStyled />
-                  <TextStyled>
-                    Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de nos
-                    addictologue.
-                  </TextStyled>
-                  <TextStyled />
-                </>
-              }
-              button={
-                <ButtonPrimary
-                  content="Contacter un addictologue"
-                  small
-                  onPress={() => {
-                    matomo.logContactTakeRDV();
-                    navigation.navigate('CONTACT_TAB');
-                  }}
-                />
-              }
+      {!!showIncrease && (
+        <EvolutionMessage
+          background="#F8F0E5"
+          border="#F3C89F"
+          icon={<Increase size={35} />}
+          message={
+            <>
+              <TextStyled>
+                Votre consommation a{' '}
+                <TextStyled bold>
+                  augmenté de {-pourcentageOfDecrease}% ({-diff}
+                  {'\u00A0'}verre{-diff > 1 ? 's' : ''} de plus)
+                </TextStyled>{' '}
+                par rapport à la semaine dernière.
+              </TextStyled>
+              <TextStyled />
+              <TextStyled>
+                Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de nos addictologue.
+              </TextStyled>
+              <TextStyled />
+            </>
+          }
+          button={
+            <ButtonPrimary
+              content="Contacter un addictologue"
+              small
+              onPress={() => {
+                matomo.logContactTakeRDV();
+                navigation.navigate('CONTACT_TAB');
+              }}
             />
-          ) : (
-            <EvolutionMessage
-              background="#AAE3B4"
-              border="#81DB95"
-              icon={<Celebration size={35} />}
-              message={
-                <>
-                  <TextStyled>
-                    Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
-                    verre{diff > 1 ? 's' : ''}) que la semaine dernière.
-                  </TextStyled>
-                  <TextStyled />
-                  <TextStyled>Continuez comme cela !</TextStyled>
-                </>
-              }
-            />
-          )}
-        </>
+          }
+        />
+      )}
+      {!!showDecrease && (
+        <EvolutionMessage
+          background="#AAE3B4"
+          border="#81DB95"
+          icon={<Celebration size={35} />}
+          message={
+            <>
+              <TextStyled>
+                Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
+                verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+              </TextStyled>
+              <TextStyled />
+              <TextStyled>Continuez comme cela !</TextStyled>
+            </>
+          }
+        />
+      )}
+      {!!showStable && (
+        <EvolutionMessage
+          background="#AAE3B4"
+          border="#81DB95"
+          icon={<Celebration size={35} />}
+          message={
+            <>
+              <TextStyled>
+                Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
+                verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+              </TextStyled>
+              <TextStyled />
+              <TextStyled>Continuez comme cela !</TextStyled>
+            </>
+          }
+        />
+      )}
+      {!!showFillConsosFirst && (
+        <EvolutionMessage
+          background="#AAE3B4"
+          border="#81DB95"
+          icon={<Celebration size={35} />}
+          message={
+            <>
+              <TextStyled>
+                Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
+                verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+              </TextStyled>
+              <TextStyled />
+              <TextStyled>Continuez comme cela !</TextStyled>
+            </>
+          }
+        />
       )}
     </>
   );
