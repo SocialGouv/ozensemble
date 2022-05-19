@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/SocialGouv/ozensemble/compare/v1.23.0...v1.23.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* a few snav stuff + docolib ([2ed71bd](https://github.com/SocialGouv/ozensemble/commit/2ed71bd23b8770fa9d6f4cac701c28d327fe3f74))
+
 # [1.23.0](https://github.com/SocialGouv/ozensemble/compare/v1.22.2...v1.23.0) (2022-05-19)
 
 
