@@ -59,16 +59,16 @@ const highestDailyDoseSelector = selectorFamily({
 const diffWithPreviousWeekSelector = selectorFamily({
   key: 'diffWithPreviousWeekSelector',
   get:
-    () =>
+    ({ firstDay }) =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector());
-      const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
+      const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfLastWeek.push(nextDay);
       }
-      const firstDayThisWeek = dayjs(dayjs().startOf('week'));
+      const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
@@ -104,7 +104,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
 
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
-  const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector());
+  const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector({ firstDay }));
 
   const [quizzAnswersStored] = useMMKVString('@Quizz_answers');
   const highestAcceptableDosesPerDayByOMS = useMemo(() => {
@@ -235,7 +235,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
                   </TextStyled>
                   <TextStyled />
                   <TextStyled>
-                    Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l’un de nos
+                    Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de nos
                     addictologue.
                   </TextStyled>
                   <TextStyled />
@@ -344,8 +344,8 @@ const EvolutionContainerText = styled.View`
 `;
 
 const ContactAddictologue = styled.View`
-  margin-horizontal: 15%;
   margin-top: 10px;
+  align-items: center;
 `;
 
 export default Diagram;

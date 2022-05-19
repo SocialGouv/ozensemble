@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
@@ -8,7 +8,6 @@ import dayjs from 'dayjs';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import Balance from '../../components/Illustrations/Balance';
 import Economy from '../../components/Illustrations/Economy';
 import InfosIcon from '../../components/Illustrations/InfoObjectif';
 import NoDrink from '../../components/Illustrations/NoDrink';
@@ -34,7 +33,15 @@ const MyGains = () => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
-  const reminder = storage.getString('@GainsReminder');
+  const isFocused = useIsFocused();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const reminder = useMemo(() => storage.getString('@GainsReminder'), [isFocused]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const mode = useMemo(() => storage.getString('@GainsReminder-mode'), [isFocused]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const weekDay = useMemo(() => storage.getString('@GainsReminder-weekDay'), [isFocused]);
+
   const [helpVisible, setHelpVisible] = useState(false);
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
@@ -183,8 +190,8 @@ const MyGains = () => {
               <TextStyled color="#DE285E">
                 {' '}
                 {beginDateOfOz.get('year') < dayjs().get('year')
-                  ? beginDateOfOz.format('D MMM YYYY')
-                  : beginDateOfOz.format('D MMM')}
+                  ? beginDateOfOz.format('D MMMM YYYY')
+                  : beginDateOfOz.format('D MMMM')}
               </TextStyled>
             </TextStyled>
           )}
@@ -192,19 +199,19 @@ const MyGains = () => {
       </TextContainer>
       <Categories>
         <CategorieGain
-          icon={<Economy size={24} />}
-          unit={'€'}
+          unit={<Euros color="#191919">€</Euros>}
           description="Mes économies"
           value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
           maximize
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
         <CategorieGain
-          icon={<Balance size={26} />}
-          unit="kcal"
+          unit={<Kcal color="#191919">kcal</Kcal>}
           description="Mes calories économisées"
           value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
           maximize
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>
@@ -221,6 +228,7 @@ const MyGains = () => {
         <CategorieGain
           description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
           value={isOnboarded ? remaindrink : '?'}
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}>
           <Speedometer
             value={isOnboarded ? remaindrink : 1}
@@ -234,6 +242,7 @@ const MyGains = () => {
           icon={<NoDrink size={24} />}
           description={`Jour${notDrinkDaythisWeek > 1 ? 's' : ''} où je n'ai pas\u00A0bu`}
           value={isOnboarded ? notDrinkDaythisWeek : '?'}
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>
@@ -264,10 +273,10 @@ const MyGains = () => {
         </BottomContainer>
       ) : (
         <MyGoalContainer>
-          <Title onPress={navigateToGoal}>
+          <Title>
             <H1 color="#4030a5">Mon objectif</H1>
           </Title>
-          <MyGoalSubContainer onPress={navigateToGoal}>
+          <MyGoalSubContainer>
             <MyGoalSubContainerInside>
               <PartContainer>
                 <Done size={20} />
@@ -288,11 +297,11 @@ const MyGains = () => {
           <ButtonTouchable onPress={navigateToGoal}>
             <TextModify>Modifier l'objectif</TextModify>
           </ButtonTouchable>
-          <Title onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+          <Title>
             <H1 color="#4030a5">Ma consommation avant OzEnsemble</H1>
             <H2>Estimation par semaine</H2>
           </Title>
-          <MyGoalSubContainer onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+          <MyGoalSubContainer>
             <MyGoalSubContainerInside>
               <PartContainer>
                 <Economy size={20} />
@@ -319,25 +328,30 @@ const MyGains = () => {
               <TextStyled>Modifier l'estimation</TextStyled>
             </TextModify>
           </ButtonTouchable>
-          <Title onPress={goToReminder}>
+          <Title>
             <H1 color="#4030a5">Mon rappel</H1>
           </Title>
-          <MyGoalSubContainer onPress={goToReminder}>
+          <MyGoalSubContainer>
             <MyGoalSubContainerInside>
               <PartContainer>
                 <ReminderIcon size={20} color="#000" selected />
                 <TextStyled>
                   {'   '}
-                  {!reminder
-                    ? 'Pas de rappel encore'
-                    : `Tous les jours à ${new Date(reminder)?.getLocalePureTime('fr')}`}
+                  {!reminder ? (
+                    'Pas de rappel encore'
+                  ) : (
+                    <>
+                      {mode === 'day' ? 'Tous les jours ' : `Tous les ${dayjs().day(weekDay).format('dddd')}s `}à{' '}
+                      {new Date(reminder).getLocalePureTime('fr')}
+                    </>
+                  )}
                 </TextStyled>
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
           <ButtonTouchable onPress={goToReminder}>
             <TextModify>
-              <TextStyled>Modifier le rappel</TextStyled>
+              <TextStyled>{!reminder ? 'Ajouter un rappel' : 'Modifier le rappel'}</TextStyled>
             </TextModify>
           </ButtonTouchable>
         </MyGoalContainer>
@@ -412,7 +426,7 @@ const Bold = styled.Text`
   font-weight: bold;
 `;
 
-const Title = styled.TouchableOpacity`
+const Title = styled.View`
   flex-shrink: 0;
   margin-top: 30px;
   margin-bottom: 15px;
@@ -422,7 +436,7 @@ const MyGoalContainer = styled.View`
   padding: 20px 30px 100px;
 `;
 
-const MyGoalSubContainer = styled.TouchableOpacity`
+const MyGoalSubContainer = styled.View`
   border: 1px solid #ddd;
   border-radius: 5px;
   margin: 10px 5px 10px;
@@ -455,6 +469,16 @@ const InfoContainer = styled.TouchableOpacity`
 
 const CloseShowGoalfix = styled.TouchableOpacity`
   align-self: flex-start;
+`;
+
+const Euros = styled(TextStyled)`
+  font-weight: bold;
+  font-size: 24px;
+`;
+
+const Kcal = styled(TextStyled)`
+  font-weight: bold;
+  font-size: 16px;
 `;
 
 export default MyGains;

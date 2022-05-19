@@ -9,8 +9,8 @@ export const defi7DaysData = [
     description: (
       <>
         <TextStyled bold>L'observation</TextStyled> est une{' '}
-        <TextStyled bold>première étape clé pour faire le point</TextStyled>. L’alcool est très présent dans nos vies,
-        parfois plus qu’on ne le pense. Vous pourriez être surpris de votre consommation.
+        <TextStyled bold>première étape clé pour faire le point</TextStyled>. L'alcool est très présent dans nos vies,
+        parfois plus qu'on ne le pense. Vous pourriez être surpris de votre consommation.
       </>
     ),
     descriptionDone: (
@@ -103,7 +103,7 @@ export const defi7DaysData = [
     title: 'Jour 6',
     tagLine: 'Identifier mes motivations à changer',
     description:
-      'Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d’alcool.',
+      "Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d'alcool.",
     descriptionDone: (
       <>
         <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
@@ -120,13 +120,13 @@ export const defi7DaysData = [
     description: (
       <>
         <TextStyled bold>Bravo !</TextStyled> Vous avez fait un grand premier pas vers une meilleure connaissance et
-        maitrîse de votre consommation d’alcool !
+        maitrîse de votre consommation d'alcool !
       </>
     ),
     descriptionDone: (
       <>
         <TextStyled bold>Feliciations !</TextStyled> Vous avez fait un grand premier pas. Continuez à remplir vos
-        consommations tous les jours et n’hésitez pas à prendre contact avec un professionnel Oz Ensemble.
+        consommations tous les jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
       </>
     ),
     textCTA: 'Consulter mon bilan',
