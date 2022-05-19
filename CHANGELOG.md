@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/SocialGouv/ozensemble/compare/v1.27.1...v1.28.0) (2022-05-19)
+
+
+### Features
+
+* add egality ([fea43b8](https://github.com/SocialGouv/ozensemble/commit/fea43b853ed96a15d53e3583915355e409de2481))
+
 ## [1.27.1](https://github.com/SocialGouv/ozensemble/compare/v1.27.0...v1.27.1) (2022-05-19)
 
 
