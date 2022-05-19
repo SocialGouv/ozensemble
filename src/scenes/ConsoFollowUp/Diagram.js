@@ -59,10 +59,10 @@ const highestDailyDoseSelector = selectorFamily({
 const diffWithPreviousWeekSelector = selectorFamily({
   key: 'diffWithPreviousWeekSelector',
   get:
-    () =>
+    ({ firstDay }) =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector());
-      const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
+      const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
@@ -104,7 +104,9 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
 
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
-  const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector());
+  const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector({ firstDay }));
+
+  console.log({ firstDay, diff, decrease, pourcentageOfDecrease });
 
   const [quizzAnswersStored] = useMMKVString('@Quizz_answers');
   const highestAcceptableDosesPerDayByOMS = useMemo(() => {
