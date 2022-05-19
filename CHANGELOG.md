@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/SocialGouv/ozensemble/compare/v1.27.0...v1.27.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* can cancel reminder ([b01de70](https://github.com/SocialGouv/ozensemble/commit/b01de7066b49c489a1bfe580c8d55d3fe81421e0))
+
 # [1.27.0](https://github.com/SocialGouv/ozensemble/compare/v1.26.0...v1.27.0) (2022-05-19)
 
 
