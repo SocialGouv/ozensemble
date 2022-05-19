@@ -87,6 +87,11 @@ export const getVolume = (drinkKey, catalog) => {
   return drink.volume;
 };
 
+export const getStyle = (drinkKey, catalog) => {
+  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  return drink.style || {};
+};
+
 export const getIcon = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
   if (drink.custom) {
@@ -160,6 +165,7 @@ export const drinksCatalog = [
     icon: PintCider,
     price: 4,
     kcal: 204,
+    style: { marginBottom: 10 },
   },
   {
     categoryKey: WINE,
@@ -184,6 +190,7 @@ export const drinksCatalog = [
     icon: WineBottle,
     price: 10,
     kcal: 600,
+    style: { marginBottom: 20 },
   },
   {
     categoryKey: CHAMPAGNE,
@@ -208,6 +215,7 @@ export const drinksCatalog = [
     icon: ChampagneBottle,
     price: 20,
     kcal: 622,
+    style: { marginBottom: 20 },
   },
   {
     categoryKey: HARD_SMALL,
