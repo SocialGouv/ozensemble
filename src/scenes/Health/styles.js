@@ -25,11 +25,11 @@ export const TopContainer = styled.View`
 export const TopTitle = styled(H1)`
   ${commonCss}
   margin-top: 0px;
-  margin-bottom: 20px;
 `;
 
 export const TopSubTitle = styled(H2)`
-  ${commonCss}
+  ${commonCss};
+  margin-bottom: 10px;
 `;
 
 export const Extra = styled(H2)`
