@@ -8,7 +8,7 @@ import Stars from '../../components/Illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
 import Diagram from './Diagram';
-import { drinksByDrinkingDayState } from '../../recoil/gains';
+import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -18,7 +18,7 @@ const Elem = ({ content, lineHeight = 20 }) => (
 );
 
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
-  const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
+  const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   return (
     <Modal visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
       <SafeAreaViewStyled>
@@ -44,9 +44,9 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                     <TextStyled bold color="#4030a5">
                       le seuil de votre objectif
                     </TextStyled>{' '}
-                    {drinksByDrinkingDay === 0
+                    {totalDrinksByDrinkingDay === 0
                       ? "(2 unités représentant pour l'instant le seuil fixé par l'OMS)"
-                      : `(${drinksByDrinkingDay} unité${drinksByDrinkingDay > 1 ? 's' : ''} par jour)`}
+                      : `(${totalDrinksByDrinkingDay} unité${totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour)`}
                   </TextStyled>
                 }
               />
