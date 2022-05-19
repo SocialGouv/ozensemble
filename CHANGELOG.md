@@ -1,3 +1,17 @@
+# [1.24.0](https://github.com/SocialGouv/ozensemble/compare/v1.23.1...v1.24.0) (2022-05-19)
+
+
+### Bug Fixes
+
+* date Last drink or not drink ([9992dd7](https://github.com/SocialGouv/ozensemble/commit/9992dd798283dd0e2e54b26b7e99ebfc84b67320))
+* dates ([ab1546e](https://github.com/SocialGouv/ozensemble/commit/ab1546e9c614db279b4263d60bc5122a068a9ad7))
+* simplification I don't drink ([4c4c113](https://github.com/SocialGouv/ozensemble/commit/4c4c113d07394edb1f1c1e5c02447ba8dabd3e5e))
+
+
+### Features
+
+* "Je n'ai rien bu" since the last date ([53e2153](https://github.com/SocialGouv/ozensemble/commit/53e21530933d8d4df8f1cc2c9e6acd41248be831))
+
 ## [1.23.1](https://github.com/SocialGouv/ozensemble/compare/v1.23.0...v1.23.1) (2022-05-19)
 
 
