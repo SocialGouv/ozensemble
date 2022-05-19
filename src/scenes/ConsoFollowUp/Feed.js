@@ -73,7 +73,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   };
 
   const drinksTimestamp = drinks.map((drink) => drink.timestamp);
-  const dateLastEntered = dayjs(Math.max(...drinksTimestamp));
+  const dateLastEntered = Math.max(...drinksTimestamp);
 
   const isFocused = useIsFocused();
 
@@ -121,8 +121,8 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               <Pint size={30} color="#4030A5" />
               <MessageContainer>
                 <TextStyled>
-                  Vous n’avez pas saisi de consommations depuis le{' '}
-                  <TextStyled bold>{dateLastEntered.format('dddd D MMMM')}</TextStyled>
+                  Vous n'avez pas saisi de consommations depuis le{' '}
+                  <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
                 </TextStyled>
               </MessageContainer>
             </LastDrinkText>
@@ -131,7 +131,20 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 content={"Je n'ai rien bu !"}
                 small
                 onPress={() => {
-                  setDrinks(() => [{ drinkKey: NO_CONSO, quantity: 1, timestamp: today(), id: uuidv4() }]);
+                  matomo.logNoConso();
+                  let currentDate = dateLastEntered;
+                  const addDays = function (days) {
+                    const date = new Date(this.valueOf());
+                    date.setDate(date.getDate() + days);
+                    return date;
+                  };
+                  while (currentDate <= today()) {
+                    currentDate = addDays.call(currentDate, 1);
+                    setDrinks((state) => [
+                      ...state,
+                      { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(new Date(dayjs(currentDate)).getTime()), id: uuidv4() },
+                    ]);
+                  };
                 }}
               />
               <AddDrinkButton
