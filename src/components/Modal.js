@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal, SafeAreaView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
 
 const ModalContainer = ({
-  animationType = 'slide',
+  animationType = 'fade',
   visible,
   hide,
   withBackground,

@@ -334,7 +334,7 @@ class NPS extends Component {
   render() {
     const { visible, page } = this.state;
     return (
-      <Modal visible={visible} animationType="slide" onDismiss={this.onClose}>
+      <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onDismiss={this.onClose}>
         <SafeAreaProvider>
           <Background color="#f9f9f9">
             <Container>

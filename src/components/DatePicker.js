@@ -14,6 +14,7 @@ import GoBackButtonText from './GoBackButtonText';
 
 // https://github.com/react-native-community/react-native-datetimepicker/issues/114
 
+const minimumDate = new Date(2022, 0, 1);
 const DatePicker = ({ visible, selectDate, initDate, mode }) => {
   const [date, setDate] = useState(new Date(initDate));
   if (Platform.OS === 'ios') {
@@ -28,6 +29,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
                 mode={mode}
                 display="spinner"
                 maximumDate={today(1, true)}
+                minimumDate={minimumDate}
                 locale="fr-FR"
                 onChange={(_, selectedDate) => {
                   const currentDate = selectedDate || date;
@@ -62,6 +64,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
       display="spinner"
       is24Hour
       maximumDate={today(1, true)}
+      minimumDate={minimumDate}
       onChange={(_, selectedDate) => {
         const currentDate = selectedDate || date;
         selectDate(Date.parse(currentDate));

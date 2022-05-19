@@ -51,10 +51,8 @@ export async function migrateFromReduxToRecoil() {
     reduxStore = JSON.parse(JSON.parse(reduxStore).conso);
     const drinksState = reduxStore.drinks;
     const ownDrinksState = reduxStore.ownDrinks;
-    const startDateState = reduxStore.startDate;
     storage.set('@Drinks', JSON.stringify(drinksState));
     storage.set('@OwnDrinks', JSON.stringify(ownDrinksState));
-    storage.set('@StartDate', JSON.stringify(startDateState));
   }
 
   storage.set('hasMigratedFromReduxToRecoil', true);

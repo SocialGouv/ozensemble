@@ -14,7 +14,7 @@ import {
   getDrinkQuantityFromDrinks,
 } from '../ConsoFollowUp/drinksCatalog';
 import DatePicker from '../../components/DatePicker';
-import { firstDateIsBeforeSecondDate, makeSureTimestamp } from '../../helpers/dateHelpers';
+import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../services/matomo';
 import { useToast } from '../../services/toast';
 import {
@@ -28,7 +28,7 @@ import {
 } from './styles';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
-import { drinksState, modalTimestampState, ownDrinksState, startDateState } from '../../recoil/consos';
+import { drinksState, modalTimestampState, ownDrinksState } from '../../recoil/consos';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -58,7 +58,6 @@ const ConsosList = ({ navigation }) => {
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
-  const [startDate, setStartDate] = useRecoilState(startDateState);
   const toast = useToast();
 
   // const [newDrink, setNewDrink] = useState(initDrinkState);
@@ -93,16 +92,12 @@ const ConsosList = ({ navigation }) => {
   };
 
   const updateDrink = ({ drinkKey, quantity, id = uuidv4() }) => {
-    const newStartDate = firstDateIsBeforeSecondDate(addDrinkModalTimestamp, startDate)
-      ? new Date(addDrinkModalTimestamp)
-      : startDate;
     setDrinksState((state) =>
       [
         ...state.filter((drink) => drink.id !== id),
         { drinkKey, quantity, id, timestamp: addDrinkModalTimestamp },
       ].filter((d) => d.quantity > 0)
     );
-    setStartDate(newStartDate);
   };
 
   const onValidateConsos = async () => {
