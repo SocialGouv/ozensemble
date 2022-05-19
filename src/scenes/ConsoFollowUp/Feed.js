@@ -72,6 +72,9 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
   };
 
+  const drinksTimestamp = drinks.map((drink) => drink.timestamp);
+  const dateLastEntered = dayjs(Math.max(...drinksTimestamp));
+
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -119,7 +122,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               <MessageContainer>
                 <TextStyled>
                   Vous n’avez pas saisi de consommations depuis le{' '}
-                  <TextStyled bold>{dayjs(drinks[0]?.timestamp).format('dddd D MMMM')}</TextStyled>
+                  <TextStyled bold>{dateLastEntered.format('dddd D MMMM')}</TextStyled>
                 </TextStyled>
               </MessageContainer>
             </LastDrinkText>
