@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/SocialGouv/ozensemble/compare/v1.24.0...v1.24.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* followup messages ([b2ef19b](https://github.com/SocialGouv/ozensemble/commit/b2ef19bd4a60e627bd8cda90ee2b822f42762897))
+
 # [1.24.0](https://github.com/SocialGouv/ozensemble/compare/v1.23.1...v1.24.0) (2022-05-19)
 
 
