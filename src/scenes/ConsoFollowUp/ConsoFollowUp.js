@@ -81,12 +81,12 @@ const ConsoFollowUp = () => {
                 ))}
               <SubTitle>
                 <TextStyled color="#191919">
-                  Un graphique récapitule vos consommations en unité d’alcool{'\n'}
+                  Un graphique récapitule vos consommations en unité d'alcool{'\n'}
                 </TextStyled>
               </SubTitle>
               <Diagram asPreview />
               <SubTitle last>
-                <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l’OMS</TextStyled>
+                <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
               </SubTitle>
             </>
           ) : null}

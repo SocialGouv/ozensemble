@@ -67,7 +67,7 @@ const QuizzMotivations = ({ navigation, route }) => {
                   </TopTitle>
                 </TopTitleContainer>
                 <Paragraph>
-                  <TextStyled>Sélectionnez vos principales raisons pour changer votre consommation d’alcool</TextStyled>
+                  <TextStyled>Sélectionnez vos principales raisons pour changer votre consommation d'alcool</TextStyled>
                 </Paragraph>
                 {sections.map((section, id) => (
                   <Section

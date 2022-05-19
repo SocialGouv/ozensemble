@@ -16,7 +16,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Quelle est la fréquence de votre consommation d’alcool ?',
+    questionTitle: "Quelle est la fréquence de votre consommation d'alcool ?",
     questionKey: 'frequency',
     answers: [
       {
@@ -47,7 +47,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Combien de verres contenant de l’alcool consommez-vous un jour typique où vous buvez ?',
+    questionTitle: "Combien de verres contenant de l'alcool consommez-vous un jour typique où vous buvez ?",
     questionKey: 'glasses',
     answers: [
       {
@@ -78,7 +78,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Avec quelle fréquence buvez-vous six verres ou davantage lors d’une occasion particulière ?',
+    questionTitle: "Avec quelle fréquence buvez-vous six verres ou davantage lors d'une occasion particulière ?",
     questionKey: 'binge',
     answers: [
       {
@@ -87,7 +87,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },

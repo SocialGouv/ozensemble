@@ -28,7 +28,7 @@ const Header = () => {
             Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
           </TextParagraph>
           <TextParagraph>
-            Vous pourrez retrouver ce questionnaire dans l’onglet <TextStyled bold>Tests</TextStyled> de l’application.
+            Vous pourrez retrouver ce questionnaire dans l'onglet <TextStyled bold>Tests</TextStyled> de l'application.
           </TextParagraph>
         </>
       )}
