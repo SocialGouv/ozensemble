@@ -116,6 +116,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
         <FeedContainer>
+          {dayjs(dateLastEntered).format('dddd D MMMM')!=dayjs().format('dddd D MMMM') && 
           <LastDrink>
             <LastDrinkText>
               <Pint size={30} color="#4030A5" />
@@ -132,15 +133,16 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 small
                 onPress={() => {
                   matomo.logNoConso();
-                  let currentDate = dateLastEntered;
-                  const differenceDay = dayjs().diff(dayjs(dateLastEntered),"d"); 
-                  for(let i = 0; i < differenceDay; i ++) {
-                    currentDate = dayjs(currentDate).add(1, "d")
-                    setDrinks((state) => [
-                      ...state,
-                      { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(new Date(dayjs(currentDate)).getTime()), id: uuidv4() },
-                    ]);
+                  const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
+                  const newNoDrink = [];
+                  for (let i = 0; i < differenceDay+1; i++) {
+                    const currentDate = dayjs(dateLastEntered).add(i, 'd');
+                    newNoDrink.push({ drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(currentDate), id: uuidv4() })
                   };
+                  setDrinks((state) => [
+                    ...state,
+                    ...newNoDrink
+                  ]);
                 }}
               />
               <AddDrinkButton
@@ -155,6 +157,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               </AddDrinkButton>
             </LastDrinkButtons>
           </LastDrink>
+          }
           <NPS forceView={NPSvisible} close={closeNPS} />
           {days.map((day, index) => {
             const isFirst = index === 0;
