@@ -24,7 +24,7 @@ export async function migrateFromAsyncStorage() {
           storage.set(key, value); // because persist:addicto is stringified twice
         }
 
-        // if (key !== 'persist:addicto') AsyncStorage.removeItem(key);
+        AsyncStorage.removeItem(key);
       }
     } catch (error) {
       console.error(`Failed to migrate key "${key}" from AsyncStorage to MMKV!`, error);
@@ -56,6 +56,7 @@ export async function migrateFromReduxToRecoil() {
   }
 
   storage.set('hasMigratedFromReduxToRecoil', true);
+  storage.delete('persist:addicto');
 
   const end = global.performance.now();
   console.log(`Migrated from Redux -> Recoil in ${end - start}ms!`);
