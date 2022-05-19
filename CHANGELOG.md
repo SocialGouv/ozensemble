@@ -1,3 +1,12 @@
+## [1.22.1](https://github.com/SocialGouv/ozensemble/compare/v1.22.0...v1.22.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* diagram red/blue ([25d14b9](https://github.com/SocialGouv/ozensemble/commit/25d14b902997ed33c162dd3d74d07d18f907ed68))
+* goal can choose drinks ([12925d3](https://github.com/SocialGouv/ozensemble/commit/12925d30b77bf7e3e976a21e736695ce64f25ae9))
+* modal formsheet and start date ([715a682](https://github.com/SocialGouv/ozensemble/commit/715a6829389dd123a99e038faf19e70728fe4c53))
+
 # [1.22.0](https://github.com/SocialGouv/ozensemble/compare/v1.21.4...v1.22.0) (2022-05-18)
 
 
