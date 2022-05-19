@@ -122,7 +122,7 @@ const Router = () => {
     } else {
       setInitialRouteName('TABS');
     }
-    storage.clearAll();
+    // storage.clearAll();
     // BUG FIX: on Android, Swiper is jumping the index
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
