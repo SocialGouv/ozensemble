@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/SocialGouv/ozensemble/compare/v1.22.2...v1.23.0) (2022-05-19)
+
+
+### Features
+
+* reminder weekly ([7d6dd17](https://github.com/SocialGouv/ozensemble/commit/7d6dd17fe23ef0635de6e15daabaaa827eec2549))
+
 ## [1.22.2](https://github.com/SocialGouv/ozensemble/compare/v1.22.1...v1.22.2) (2022-05-19)
 
 
