@@ -16,6 +16,7 @@ import Increase from '../../components/Illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import matomo from '../../services/matomo';
 import { useMMKVString } from 'react-native-mmkv';
+import PlusIcon from '../../components/Illustrations/PlusIcon';
 
 const maxDosesOnScreen = 50;
 
@@ -68,6 +69,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfLastWeek.push(nextDay);
       }
+      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day]).length > 0)) return { fillConsoFirst: true };
       const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
@@ -84,7 +86,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
       const diff = lastWeekNumberOfDrinks - thisWeekNumberOfDrinks;
       const decrease = diff > 0;
       const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
-      return [diff, decrease, pourcentageOfDecrease];
+      return { diff, decrease, pourcentageOfDecrease };
     },
 });
 
@@ -104,7 +106,6 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
 
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
-  const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector({ firstDay }));
 
   const [quizzAnswersStored] = useMMKVString('@Quizz_answers');
   const highestAcceptableDosesPerDayByOMS = useMemo(() => {
@@ -128,10 +129,13 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   );
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
+  const { diff, decrease, pourcentageOfDecrease, fillConsoFirst } = useRecoilValue(
+    diffWithPreviousWeekSelector({ firstDay })
+  );
   const showDecrease = useMemo(() => !asPreview && diff !== 0 && decrease > 0, [asPreview, diff, decrease]);
   const showIncrease = useMemo(() => !asPreview && diff !== 0 && decrease < 0, [asPreview, diff, decrease]);
   const showStable = useMemo(() => !asPreview && diff === 0, [asPreview, diff]);
-  const showFillConsosFirst = useMemo(() => !asPreview && false, [asPreview]);
+  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview]);
 
   return (
     <>
@@ -257,8 +261,8 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       )}
       {!!showDecrease && (
         <EvolutionMessage
-          background="#AAE3B4"
-          border="#81DB95"
+          background="#dff6e4"
+          border="#a0e1ac"
           icon={<Celebration size={35} />}
           message={
             <>
@@ -274,9 +278,9 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       )}
       {!!showStable && (
         <EvolutionMessage
-          background="#AAE3B4"
-          border="#81DB95"
-          icon={<Celebration size={35} />}
+          background="#dff6e4"
+          border="#a0e1ac"
+          icon={<Celebration size={25} />}
           message={
             <>
               <TextStyled>
@@ -291,17 +295,15 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       )}
       {!!showFillConsosFirst && (
         <EvolutionMessage
-          background="#AAE3B4"
-          border="#81DB95"
-          icon={<Celebration size={35} />}
+          background="#e8e8f3"
+          border="#4030a5"
+          icon={<PlusIcon size={25} />}
           message={
             <>
               <TextStyled>
-                Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
-                verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+                Pour avoir accès à l'analyse des variations de la quantité d'alcool consommée cette semaine,{' '}
+                <TextStyled bold>pensez à remplir toutes vos consommations de la semaine précédente.</TextStyled>
               </TextStyled>
-              <TextStyled />
-              <TextStyled>Continuez comme cela !</TextStyled>
             </>
           }
         />
@@ -347,7 +349,7 @@ const EvolutionMessage = ({ background, border, icon, message, button }) => {
   return (
     <EvolutionContainer background={background} border={border}>
       <EvolutionContainerText>
-        {icon}
+        <Icon>{icon}</Icon>
         <MessageContainer>{message}</MessageContainer>
       </EvolutionContainerText>
       {!!button && <ContactAddictologue>{button}</ContactAddictologue>}
@@ -356,7 +358,12 @@ const EvolutionMessage = ({ background, border, icon, message, button }) => {
 };
 
 const MessageContainer = styled.View`
-  width: 88%;
+  margin-left: 10px;
+  flex-shrink: 1;
+`;
+
+const Icon = styled.View`
+  margin-top: 5px;
 `;
 
 const EvolutionContainer = styled.View`
