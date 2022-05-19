@@ -1,20 +1,22 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import styled from 'styled-components';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import Reminder from '../Infos/Reminder';
+import Reminder from '../../components/Reminder';
 
 // TODO: weekly ! :)
 const WeeklyReminder = ({ navigation, route }) => (
   <Reminder navigation={navigation} route={route} storageKey="@GainsReminder" offset="day">
-    {({ reminder }) => (
+    {({ reminder, mode, weekDay }) => (
       <>
         <Container>
           {reminder ? (
             <>
               <SubTitle color="#191919">Pour un meilleur suivi, un rappel est programmé : </SubTitle>
               <Title color="#4030a5">
-                TOUS LES JOURS{'\n'}À {reminder.getLocalePureTime('fr')}
+                {mode === 'day' ? 'TOUS LES JOURS' : `TOUS LES ${dayjs().day(weekDay).format('dddd').toUpperCase()}S`}
+                {'\n'}À {reminder.getLocalePureTime('fr')}
               </Title>
             </>
           ) : (

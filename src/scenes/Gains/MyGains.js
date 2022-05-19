@@ -20,7 +20,7 @@ import CocktailGlass from '../../components/Illustrations/CocktailGlassTriangle'
 import Done from '../../components/Illustrations/Done';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
-import OnBoardingGain from './OnBoardingGain';
+import OnBoardingGainModal from './OnBoardingGainModal';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/Illustrations/ReminderIcon';
@@ -237,7 +237,7 @@ const MyGains = () => {
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>
-      <OnBoardingGain
+      <OnBoardingGainModal
         onPress={navigateToGoal}
         visible={showOnboardingGainModal}
         hide={() => setShowOnboardingGainModal(false)}

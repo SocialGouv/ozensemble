@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
 import { storage } from '../../../services/storage';
-import Reminder from '../../Infos/Reminder';
+import Reminder from '../../../components/Reminder';
 import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import QuizzMotivations from '../../Quizzs/QuizzMotivations';
