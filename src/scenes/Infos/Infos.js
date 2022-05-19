@@ -13,7 +13,8 @@ import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
-import Reminder from './Reminder';
+import Reminder from '../../components/Reminder';
+import WeeklyReminder from '../Gains/WeeklyReminder';
 
 const InfosStack = createStackNavigator();
 
@@ -23,7 +24,7 @@ const Infos = () => {
       <HeaderBackground />
       <InfosStack.Navigator initialRouteName="INFOS_TAB" headerMode="none">
         <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
-        <InfosStack.Screen name="REMINDER" component={Reminder} />
+        <InfosStack.Screen name="REMINDER" component={WeeklyReminder} />
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}

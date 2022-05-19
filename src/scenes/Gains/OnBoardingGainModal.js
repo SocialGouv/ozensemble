@@ -6,7 +6,7 @@ import H1 from '../../components/H1';
 import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
 
-const OnBoardingGain = ({ onPress, visible, hide }) => {
+const OnBoardingGainModal = ({ onPress, visible, hide }) => {
   return (
     <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
       <Container>
@@ -48,4 +48,4 @@ const SubTitle = styled.Text`
   text-align: center;
 `;
 
-export default OnBoardingGain;
+export default OnBoardingGainModal;

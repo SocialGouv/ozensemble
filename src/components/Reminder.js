@@ -3,27 +3,30 @@ import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
-import H2 from '../../components/H2';
-import ReminderIcon from '../../components/Illustrations/ReminderIcon';
-import TextStyled from '../../components/TextStyled';
-import TimePicker from '../../components/TimePicker';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import { timeIsAfterNow } from '../../helpers/dateHelpers';
-import CONSTANTS from '../../reference/constants';
-import matomo from '../../services/matomo';
-import NotificationService from '../../services/notifications';
-import { defaultPadding } from '../../styles/theme';
-import { storage } from '../../services/storage';
-import GoBackButtonText from '../../components/GoBackButtonText';
+import ButtonPrimary from './ButtonPrimary';
+import H1 from './H1';
+import H2 from './H2';
+import Modal from './Modal';
+import ReminderIcon from './Illustrations/ReminderIcon';
+import TextStyled from './TextStyled';
+import TimePicker from './TimePicker';
+import UnderlinedButton from './UnderlinedButton';
+import { timeIsAfterNow } from '../helpers/dateHelpers';
+import CONSTANTS from '../reference/constants';
+import matomo from '../services/matomo';
+import NotificationService from '../services/notifications';
+import { defaultPadding, defaultPaddingFontScale } from '../styles/theme';
+import { storage } from '../services/storage';
+import GoBackButtonText from './GoBackButtonText';
 
 const notifReminderTitle = "C'est l'heure de votre suivi !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
 
-const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offset = 'day', repeatTimes = 15 }) => {
+const Reminder = ({ navigation, route, storageKey = '@Reminder', children, repeatTimes = 15 }) => {
   const [reminder, setReminder] = useState(null);
-  const [timePickerVisible, setTimePickerVisible] = useState(false);
+  const [mode, setMode] = useState('day'); // 'week'
+  const [weekDay, setWeekDay] = useState(0); // 0 Sunday, 1 Monday -> 6 Saturday
+  const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
 
   const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
@@ -90,13 +93,23 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000)) => {
+  const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
     NotificationService.cancelAll();
-    for (let i = timeIsAfterNow(reminder) ? 1 : 0; i <= repeatTimes; i++) {
-      const fireDate = dayjs()
-        .add(i, offset)
+    const firstDate = (() => {
+      if (mode === 'day') return dayjs();
+      if (weekDay < dayjs().get('day')) return dayjs().day(weekDay);
+      if (weekDay === dayjs().get('day')) {
+        if (!timeIsAfterNow(reminder)) return dayjs().day(weekDay);
+        return dayjs();
+      }
+      return dayjs().add(weekDay - dayjs().get('day'), 'day');
+    })();
+    for (let i = timeIsAfterNow(reminder) ? 0 : 1; i <= repeatTimes; i++) {
+      const fireDate = firstDate
+        .add(i, mode)
         .set('hours', reminder.getHours())
         .set('minutes', reminder.getMinutes())
+        .set('seconds', 0)
         .toDate();
       NotificationService.scheduleNotification({
         date: fireDate,
@@ -106,13 +119,13 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
     }
   };
 
-  const showTimePicker = async () => {
+  const showReminderSetup = async () => {
     const isRegistered = await NotificationService.checkAndAskForPermission();
     if (!isRegistered) {
       showPermissionsAlert();
       return;
     }
-    setTimePickerVisible(true);
+    setReminderSetupVisible(true);
   };
 
   const showPermissionsAlert = () => {
@@ -134,21 +147,29 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
     );
   };
 
-  const setReminderRequest = async (newReminder) => {
-    setTimePickerVisible(false);
+  const setReminderRequest = async (newReminder, newMode, newWeekDay) => {
+    setReminderSetupVisible(false);
     if (!newReminder) return;
-    storage.set(storageKey, newReminder.toISOString());
-    await scheduleNotification(newReminder);
+    await scheduleNotification(newReminder, newMode, newWeekDay);
     await matomo.logReminderSet(Date.parse(newReminder));
     setReminder(newReminder);
-    setTimePickerVisible(false);
+    setMode(newMode);
+    setWeekDay(newWeekDay);
+    storage.set(storageKey, newReminder.toISOString());
+    storage.set(`${storageKey}-mode`, newMode);
+    if (newWeekDay) {
+      storage.set(`${storageKey}-weekDay`, newWeekDay);
+    } else {
+      storage.delete(`${storageKey}-weekDay`);
+    }
+    setReminderSetupVisible(false);
   };
 
   const deleteReminder = async () => {
     storage.delete(storageKey);
     NotificationService.cancelAll();
     setReminder(null);
-    setTimePickerVisible(false);
+    setReminderSetupVisible(false);
     matomo.logReminderDelete();
   };
 
@@ -157,7 +178,7 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
       <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <ReminderIcon size={80} color="#4030a5" selected={false} />
       {children ? (
-        children({ showTimePicker, reminder })
+        children({ showReminderSetup, reminder, mode, weekDay })
       ) : (
         <>
           <Title>
@@ -181,7 +202,7 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
         </>
       )}
       <ButtonsContainer>
-        <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showTimePicker} />
+        <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showReminderSetup} />
         {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={deleteReminder} />}
         {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
           <ButtonPrimary
@@ -190,7 +211,12 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, offse
           />
         ) : null}
       </ButtonsContainer>
-      {!!timePickerVisible && <TimePicker visible={timePickerVisible} selectDate={setReminderRequest} />}
+      <ModeAndWeekDayChooseModal
+        key={reminderSetupVisible}
+        visible={reminderSetupVisible}
+        hide={() => setReminderSetupVisible(false)}
+        setReminderRequest={setReminderRequest}
+      />
     </Container>
   );
 };
@@ -245,3 +271,112 @@ const RemoveButton = styled(UnderlinedButton)`
 `;
 
 export default Reminder;
+
+const ModeAndWeekDayChooseModal = ({ onPress, visible, hide, setReminderRequest }) => {
+  const [mode, setMode] = useState(null); // 'week'
+  const [weekDay, setWeekDay] = useState(null); // 0 Sunday, 1 Monday -> 6 Saturday
+  const [timePickerVisible, setTimePickerVisible] = useState(false);
+
+  const onModeChoose = (newMode) => {
+    if (newMode === 'week') return setMode(newMode);
+    setMode(newMode);
+    setTimePickerVisible(true);
+  };
+
+  const onWeekdayChoose = (newWeekDay) => {
+    setWeekDay(newWeekDay);
+    setTimePickerVisible(true);
+  };
+
+  const onSelectDate = (newDate) => setReminderRequest(newDate, mode, weekDay);
+
+  return (
+    <>
+      <Modal visible={visible && !timePickerVisible} animationType="fade" hide={hide} withBackground hideOnTouch>
+        {!mode && (
+          <ModalContainer>
+            <ModalTitle>
+              <TextStyled color="#4030a5">Quand préférez-vous votre rappel ?</TextStyled>
+            </ModalTitle>
+            <ModalContent>
+              <ModeSelectButton onPress={() => onModeChoose('day')}>Tous les jours</ModeSelectButton>
+              <ModeSelectButton onPress={() => onModeChoose('week')}>Une fois par semaine</ModeSelectButton>
+            </ModalContent>
+            <ModalContinue>
+              <ButtonPrimary onPress={onPress} content="Continuer" />
+            </ModalContinue>
+          </ModalContainer>
+        )}
+        {mode === 'week' && weekDay === null && (
+          <ModalContainer>
+            <ModalTitle>
+              <TextStyled color="#4030a5">Quel jour ?</TextStyled>
+            </ModalTitle>
+            <ModalContent>
+              {['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'].map((weekDay, index) => (
+                <ModeSelectButton key={index} onPress={() => onWeekdayChoose((index + 1) % 7)}>
+                  {weekDay}
+                </ModeSelectButton>
+              ))}
+            </ModalContent>
+            <ModalContinue>
+              <ButtonPrimary onPress={onPress} content="Continuer" />
+            </ModalContinue>
+          </ModalContainer>
+        )}
+      </Modal>
+      {!!timePickerVisible && <TimePicker visible={timePickerVisible} selectDate={onSelectDate} />}
+    </>
+  );
+};
+
+const ModalContainer = styled.View`
+  background-color: white;
+  padding-vertical: 15px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
+  border-radius: 15px;
+`;
+const ModalContinue = styled.View`
+  align-items: center;
+`;
+
+const ModalTitle = styled(H1)`
+  flex-shrink: 0;
+  text-align: center;
+  margin-bottom: 30px;
+`;
+
+const ModalContent = styled.View`
+  margin-bottom: 30px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+`;
+
+const ModeSelectButton = ({ onPress, disabled, children }) => (
+  <ModeSelectButtonStyled onPress={onPress} disabled={disabled}>
+    <ModeSelectButtonContent color="#4030a5">{children}</ModeSelectButtonContent>
+  </ModeSelectButtonStyled>
+);
+
+const qButtonSize = 40;
+const ModeSelectButtonStyled = styled.TouchableOpacity`
+  height: ${qButtonSize}px;
+  border-radius: ${qButtonSize}px;
+  padding-vertical: 5px;
+  padding-horizontal: 15px;
+  border: 1px solid #4030a5;
+  /* background: #eaeaed; */
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  overflow: hidden;
+`;
+
+const ModeSelectButtonContent = styled(TextStyled)`
+  justify-content: center;
+  align-items: center;
+  text-align-vertical: center;
+  flex-shrink: 1;
+`;
