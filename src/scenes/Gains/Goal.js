@@ -116,7 +116,6 @@ const Goal = ({ navigation }) => {
             <CocktailGlassTriangle size={24} />
             <TextSemiBold>
               <TextStyled>
-                {' '}
                 Verre{!totalDrinksByDrinkingDay || totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour que je m'autorise
                 quand je bois de l'alcool
               </TextStyled>
@@ -158,7 +157,7 @@ const Goal = ({ navigation }) => {
               content="Continuer"
               onPress={() =>
                 isOnboarded
-                  ? navigation.navigate('GAINS_MAIN_VIEW')
+                  ? navigation.navigate('GAINS_SEVRAGE')
                   : navigation.navigate('GAINS_REMINDER', {
                       enableContinueButton: true,
                       onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],

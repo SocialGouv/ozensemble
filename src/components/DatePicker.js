@@ -39,7 +39,7 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
             </DatePickerContainer>
             <ButtonsContainer>
               <ButtonPrimary
-                content="Validez"
+                content="Valider"
                 onPress={() => {
                   selectDate(Date.parse(date));
                 }}

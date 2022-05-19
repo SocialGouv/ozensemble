@@ -183,8 +183,8 @@ const MyGains = () => {
               <TextStyled color="#DE285E">
                 {' '}
                 {beginDateOfOz.get('year') < dayjs().get('year')
-                  ? beginDateOfOz.format('D MMM YYYY')
-                  : beginDateOfOz.format('D MMM')}
+                  ? beginDateOfOz.format('D MMMM YYYY')
+                  : beginDateOfOz.format('D MMMM')}
               </TextStyled>
             </TextStyled>
           )}
@@ -197,6 +197,7 @@ const MyGains = () => {
           description="Mes économies"
           value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
           maximize
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
         <CategorieGain
@@ -205,6 +206,7 @@ const MyGains = () => {
           description="Mes calories économisées"
           value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
           maximize
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>
@@ -221,6 +223,7 @@ const MyGains = () => {
         <CategorieGain
           description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
           value={isOnboarded ? remaindrink : '?'}
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}>
           <Speedometer
             value={isOnboarded ? remaindrink : 1}
@@ -234,6 +237,7 @@ const MyGains = () => {
           icon={<NoDrink size={24} />}
           description={`Jour${notDrinkDaythisWeek > 1 ? 's' : ''} où je n'ai pas\u00A0bu`}
           value={isOnboarded ? notDrinkDaythisWeek : '?'}
+          disabled={isOnboarded}
           onPress={() => setShowOnboardingGainModal((show) => !show)}
         />
       </Categories>

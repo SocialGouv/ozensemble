@@ -40,7 +40,7 @@ const TimePicker = ({ visible, selectDate }) => {
             />
             <ButtonsContainer>
               <ButtonPrimary
-                content="Validez"
+                content="Valider"
                 onPress={() => {
                   selectDate(date);
                 }}

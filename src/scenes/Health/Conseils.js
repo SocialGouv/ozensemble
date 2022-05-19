@@ -40,7 +40,7 @@ const Conseils = ({ navigation }) => {
             </IconContainer>
             <TextContainer>
               <TextStyled> Prendre un RDV</TextStyled>
-              <TextStyled> avec DoctoLib</TextStyled>
+              <TextStyled> avec Doctolib</TextStyled>
             </TextContainer>
           </TakeAppointement>
         </TopContainer>
