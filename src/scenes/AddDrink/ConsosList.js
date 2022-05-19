@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
 import { selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
@@ -248,7 +249,7 @@ const ConsosList = ({ navigation }) => {
       <ButtonsContainerSafe>
         <ButtonsContainer>
           <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
-          <GoBackButtonText content="Retour" bold onPress={onCancelConsos} />
+          <BackButton content="Retour" bold onPress={onCancelConsos} />
         </ButtonsContainer>
       </ButtonsContainerSafe>
       <DatePicker
@@ -274,5 +275,9 @@ const ConsosList = ({ navigation }) => {
     </Container>
   );
 };
+
+const BackButton = styled(GoBackButtonText)`
+  margin-right: 0;
+`;
 
 export default ConsosList;

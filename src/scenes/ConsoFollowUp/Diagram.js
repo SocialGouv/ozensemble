@@ -70,7 +70,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfLastWeek.push(nextDay);
       }
-      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day]).length > 0)) return { fillConsoFirst: true };
+      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0) return { fillConsoFirst: true };
       const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
@@ -132,10 +132,19 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const { diff, decrease, pourcentageOfDecrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
   );
-  const showDecrease = useMemo(() => !asPreview && diff !== 0 && decrease > 0, [asPreview, diff, decrease]);
-  const showIncrease = useMemo(() => !asPreview && diff !== 0 && decrease < 0, [asPreview, diff, decrease]);
-  const showStable = useMemo(() => !asPreview && diff === 0, [asPreview, diff]);
   const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview, fillConsoFirst]);
+  const showDecrease = useMemo(
+    () => !showFillConsosFirst && !asPreview && diff !== 0 && decrease,
+    [asPreview, diff, decrease, showFillConsosFirst]
+  );
+  const showIncrease = useMemo(
+    () => !showFillConsosFirst && !asPreview && diff !== 0 && !decrease,
+    [asPreview, diff, decrease, showFillConsosFirst]
+  );
+  const showStable = useMemo(
+    () => !showFillConsosFirst && !asPreview && diff === 0,
+    [asPreview, diff, showFillConsosFirst]
+  );
 
   return (
     <>
@@ -279,7 +288,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
                 Votre consommation est <TextStyled bold>identique </TextStyled>à la semaine précédente (soit{' '}
                 {thisWeekNumberOfDrinks} verres).
               </TextStyled>
-              <TextStyled></TextStyled>
+              <TextStyled />
               <TextStyled>
                 Si besoin d'un coup de pouce, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de
                 nos addictologues.{' '}
