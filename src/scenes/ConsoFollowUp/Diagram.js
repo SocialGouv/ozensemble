@@ -58,7 +58,7 @@ const highestDailyDoseSelector = selectorFamily({
 const diffWithPreviousWeekSelector = selectorFamily({
   key: 'diffWithPreviousWeekSelector',
   get:
-    ({ asPreview = false } = {}) =>
+    () =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector());
       const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
@@ -104,7 +104,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
   const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector());
-  const [highestAcceptableDosesPerDay, setHighestAcceptableDosesPerDay] = useState(2);
+  const [highestAcceptableDosesPerDayByOMS, setHighestAcceptableDosesPerDayByOMS] = useState(2);
   const drinks = useRecoilValue(drinksState);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
 
@@ -115,15 +115,19 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
         if (!storedValue) return;
         const quizzAnswers = JSON.parse(storedValue);
         if (!quizzAnswers) return;
-        setHighestAcceptableDosesPerDay(getAcceptableDosePerDay(quizzAnswers.gender));
+        setHighestAcceptableDosesPerDayByOMS(getAcceptableDosePerDay(quizzAnswers.gender));
       } catch (e) {}
     })();
   }, []);
 
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const highestAcceptableDosesPerDay = useMemo(
+    () => totalDrinksByDrinkingDay || highestAcceptableDosesPerDayByOMS,
+    [totalDrinksByDrinkingDay, highestAcceptableDosesPerDayByOMS]
+  );
   const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
     highestDailyDose,
-    totalDrinksByDrinkingDay || 2
+    highestAcceptableDosesPerDay
   );
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
