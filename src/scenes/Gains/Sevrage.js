@@ -14,10 +14,10 @@ const Sevrage = ({ navigation }) => {
           <H1 color="#4030a5">Les signes de sevrage</H1>
         </TopTitle>
         <DescriptionSymptome>
-          Le sevrage à l’alcool peut entraîner des complications graves et possiblement mortelles.
+          Le sevrage à l'alcool peut entraîner des complications graves et possiblement mortelles.
         </DescriptionSymptome>
         <DescriptionPink>
-          Si vous présentez l’un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de santé.
+          Si vous présentez l'un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de santé.
         </DescriptionPink>
         <Symptome>Tremblements</Symptome>
         <DescriptionSymptome>
@@ -26,8 +26,8 @@ const Sevrage = ({ navigation }) => {
         </DescriptionSymptome>
         <Symptome>Sueurs</Symptome>
         <DescriptionSymptome>
-          Pouls accéléré Elles apparaissent généralement sous 24h à 48h et se manifestent quelques heures après les
-          dernières consommations.
+          Elles apparaissent généralement sous 24h à 48h et se manifestent quelques heures après les dernières
+          consommations.
         </DescriptionSymptome>
         <Symptome>Hyperventillation</Symptome>
         <DescriptionSymptome>
@@ -38,12 +38,12 @@ const Sevrage = ({ navigation }) => {
         </DescriptionSymptome>
         <Symptome>Forte agitation</Symptome>
         <DescriptionSymptome>
-          L'agitation est la manifestation physique et motrice, d’un état d’excitation interne. C’est donc bien une
+          L'agitation est la manifestation physique et motrice, d'un état d'excitation interne. C'est donc bien une
           tension interne qui se manifeste par le corps.
         </DescriptionSymptome>
       </Container>
       <CTAButtonContainer>
-        <ButtonPrimary content="J’ai compris et je commence " onPress={() => navigation.navigate('GAINS_MAIN_VIEW')} />
+        <ButtonPrimary content="J'ai compris et je commence " onPress={() => navigation.navigate('GAINS_MAIN_VIEW')} />
       </CTAButtonContainer>
     </ScreenBgStyled>
   );

@@ -31,7 +31,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                   <TextStyled>
                     Le graphique représente{' '}
                     <TextStyled bold color="#4030a5">
-                      les unités d’alcool
+                      les unités d'alcool
                     </TextStyled>{' '}
                     consommées sur une journée.
                   </TextStyled>
@@ -55,7 +55,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
               <Elem
                 content={
                   <TextStyled>
-                    Une unité d’alcool correspond à environ 10 grammes d’alcool pur, soit environ un verre de vin de
+                    Une unité d'alcool correspond à environ 10 grammes d'alcool pur, soit environ un verre de vin de
                     13cl à 12°c ou un demi de bière à 4°c par exemple.
                   </TextStyled>
                 }
@@ -75,8 +75,8 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
               <Elem
                 content={
                   <TextStyled>
-                    Lorsque vous saisisez une consommation, l’application{' '}
-                    <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité d’alcool.
+                    Lorsque vous saisisez une consommation, l'application{' '}
+                    <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité d'alcool.
                   </TextStyled>
                 }
               />
@@ -86,7 +86,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                 content={
                   <TextStyled>
                     <TextStyled color="#4030a5">Compter ses consommations</TextStyled> est un pas essentiel pour prendre
-                    conscience de ce que l’on consomme.
+                    conscience de ce que l'on consomme.
                   </TextStyled>
                 }
               />

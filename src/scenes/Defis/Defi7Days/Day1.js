@@ -43,8 +43,8 @@ export default ({ navigation, route }) => {
                 <>
                   <TextStyled>
                     Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre
-                    agenda de consommation disponible dans l’onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez
-                    saisir une consommation depuis l’agenda ou en appuyant sur le bouton{' '}
+                    agenda de consommation disponible dans l'onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez
+                    saisir une consommation depuis l'agenda ou en appuyant sur le bouton{' '}
                   </TextStyled>
                   <CTAContainer>
                     <CTASubContainer>
@@ -59,7 +59,7 @@ export default ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content={
-                'Quand vous saisissez une consommation d’alcool, celle-ci est automatiquement comptabilisée en unité d’alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d’alcool :'
+                "Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement comptabilisée en unité d'alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :"
               }
             />
           </Paragraph>
@@ -67,7 +67,7 @@ export default ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
-              aussi scanner l’étiquette de la bouteille."
+              aussi scanner l'étiquette de la bouteille."
             />
           </Paragraph>
           <Paragraph>
@@ -79,7 +79,7 @@ export default ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content={
-                'Un graphique vous permet de suivre vos consommations en unité d’alcool consommées sur une journée. \n\nLa ligne verte représente le seuil de l’OMS (2 verres par jour).'
+                "Un graphique vous permet de suivre vos consommations en unité d'alcool consommées sur une journée. \n\nLa ligne verte représente le seuil de l'OMS (2 verres par jour)."
               }
             />
           </Paragraph>
@@ -88,7 +88,7 @@ export default ({ navigation, route }) => {
             <Elem
               content={
                 <TextStyled>
-                  Retrouvez le détail de vos consommations dans le fil du journal de l’onglet{' '}
+                  Retrouvez le détail de vos consommations dans le fil du journal de l'onglet{' '}
                   <TextStyled bold>Suivi</TextStyled>. Vous pouvez les modifier ou les compléter pour les jours
                   précédents.
                 </TextStyled>
