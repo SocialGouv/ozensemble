@@ -235,7 +235,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
                   </TextStyled>
                   <TextStyled />
                   <TextStyled>
-                    Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l’un de nos
+                    Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de nos
                     addictologue.
                   </TextStyled>
                   <TextStyled />

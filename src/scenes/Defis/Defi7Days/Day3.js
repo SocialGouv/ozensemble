@@ -51,14 +51,14 @@ const Day3 = ({ navigation, route }) => {
             <GoBackButton onPress={navigation.goBack} />
             <Spacer />
             <H1 color="#4030a5">
-              Avez-vous une dépendance physique à l’alcool qui necessite de consulter un professionel de santé ?
+              Avez-vous une dépendance physique à l'alcool qui necessite de consulter un professionel de santé ?
             </H1>
           </TopTitle>
           <ElemContainer>
             <TextStyled style={{ flex: 1 }}>
-              Le sevrage à l’alcool peut entrainer des complications graves et possiblement mortelles.{'\n\n'}
+              Le sevrage à l'alcool peut entrainer des complications graves et possiblement mortelles.{'\n\n'}
               <TextStyled bold color="#de285e">
-                Si vous présentez l’un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de
+                Si vous présentez l'un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de
                 santé.
               </TextStyled>
             </TextStyled>
@@ -76,7 +76,7 @@ const Day3 = ({ navigation, route }) => {
             <Elem content="Votre respiration s'accèlere nettement, même au repos, au delà de 17 cycles/minutes." />
           </ToggleContent>
           <ToggleContent title="Forte agitation">
-            <Elem content="L'agitation est la manifestation physique et motrice, d’un état d’excitation interne. C’est donc bien une tension interne qui se manifeste par le corps." />
+            <Elem content="L'agitation est la manifestation physique et motrice, d'un état d'excitation interne. C'est donc bien une tension interne qui se manifeste par le corps." />
           </ToggleContent>
           <>
             <ButtonContainer>

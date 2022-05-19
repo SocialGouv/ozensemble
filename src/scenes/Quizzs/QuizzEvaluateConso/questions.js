@@ -42,7 +42,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'À quelle fréquence consommez-vous de l’alcool ?',
+    questionTitle: "À quelle fréquence consommez-vous de l'alcool ?",
     questionKey: '0',
     answers: [
       {
@@ -73,7 +73,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Combien de verres d’alcool consommez-vous un jour typique où vous buvez ?',
+    questionTitle: "Combien de verres d'alcool consommez-vous un jour typique où vous buvez ?",
     questionKey: '1',
     answers: [
       {
@@ -113,7 +113,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },
@@ -136,7 +136,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de l’année écoulée, combien de fois avez-vous constaté que vous n’étiez plus capable de vous arrêter de boire une fois que vous aviez commencé ?',
+      "Au cours de l'année écoulée, combien de fois avez-vous constaté que vous n'étiez plus capable de vous arrêter de boire une fois que vous aviez commencé ?",
     questionKey: '3',
     answers: [
       {
@@ -145,7 +145,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },
@@ -168,7 +168,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de l’année écoulée, à quelle fréquence le fait d’avoir bu de l’alcool vous a-t-il empêché de faire ce qui était normalement attendu de vous ?',
+      "Au cours de l'année écoulée, à quelle fréquence le fait d'avoir bu de l'alcool vous a-t-il empêché de faire ce qui était normalement attendu de vous ?",
     questionKey: '4',
     answers: [
       {
@@ -177,7 +177,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },
@@ -200,7 +200,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de l’année écoulée, à quelle fréquence, après une période de forte consommation, avez-vous dû boire de l’alcool dès le matin pour vous sentir en forme ?',
+      "Au cours de l'année écoulée, à quelle fréquence, après une période de forte consommation, avez-vous dû boire de l'alcool dès le matin pour vous sentir en forme ?",
     questionKey: '5',
     answers: [
       {
@@ -209,7 +209,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },
@@ -232,7 +232,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de l’année écoulée, combien de fois avez-vous eu un sentiment de culpabilité ou des remords après avoir bu ?',
+      "Au cours de l'année écoulée, combien de fois avez-vous eu un sentiment de culpabilité ou des remords après avoir bu ?",
     questionKey: '6',
     answers: [
       {
@@ -241,7 +241,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },
@@ -264,7 +264,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Au cours de l’année écoulée, combien de fois avez-vous été incapable de vous rappeler ce qui s’était passé la soirée précédente parce que vous aviez bu ?',
+      "Au cours de l'année écoulée, combien de fois avez-vous été incapable de vous rappeler ce qui s'était passé la soirée précédente parce que vous aviez bu ?",
     questionKey: '7',
     answers: [
       {
@@ -273,7 +273,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Moins d’une fois par mois',
+        content: "Moins d'une fois par mois",
         answerKey: 'less-than-once-a-month',
         score: 1,
       },
@@ -295,7 +295,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Vous êtes-vous blessé ou avez-vous blessé quelqu’un parce que vous aviez bu ?',
+    questionTitle: "Vous êtes-vous blessé ou avez-vous blessé quelqu'un parce que vous aviez bu ?",
     questionKey: '8',
     answers: [
       {
@@ -317,7 +317,7 @@ const questions = [
   },
   {
     questionTitle:
-      'Un parent, un ami, un médecin ou autre soignant s’est-il inquiété de votre consommation d’alcool ou a-t-il suggéré que vous la réduisiez ?',
+      "Un parent, un ami, un médecin ou autre soignant s'est-il inquiété de votre consommation d'alcool ou a-t-il suggéré que vous la réduisiez ?",
     questionKey: '9',
     answers: [
       {
