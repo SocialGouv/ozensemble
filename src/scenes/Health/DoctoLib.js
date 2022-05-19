@@ -7,7 +7,7 @@ import Background from '../../components/Background';
 import matomo from '../../services/matomo';
 import { BackButton } from './styles';
 
-const DoctoLib = ({ navigation }) => {
+const Doctolib = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
 
   const hide = () => {
@@ -107,4 +107,4 @@ const WebViewContainer = styled.View`
   width: ${Dimensions.get('window').width}px;
 `;
 
-export default DoctoLib;
+export default Doctolib;
