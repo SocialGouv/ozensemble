@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { getDisplayDrinksModalName, getIcon, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
+import { getDisplayDrinksModalName, getIcon, getStyle, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
 import H3 from './H3';
 import QButton from './QButton';
 import TextStyled from './TextStyled';
@@ -18,6 +18,7 @@ const DrinkQuantitySetter = ({
 }) => {
   const Icon = getIcon(drinkKey, catalog);
   const volume = getVolume(drinkKey, catalog);
+  const style = getStyle(drinkKey, catalog);
   const name = getDisplayDrinksModalName(drinkKey, catalog);
 
   const onSetQuantity = (q) => {
@@ -49,6 +50,7 @@ const DrinkQuantitySetter = ({
       quantity={quantity}
       onSetQuantity={onSetQuantity}
       Icon={Icon}
+      style={style}
       volume={volume}
       name={name}
     />
@@ -81,12 +83,12 @@ const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, nam
   </TouchableDelete>
 );
 
-const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, name }) => {
+const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, name, style }) => {
   return (
     <Container>
       <TopContainer>
         <QButton content="-" disabled={!asPreview && quantity <= 0} onPress={() => onSetQuantity(quantity - 1)} />
-        <Icon size={50} />
+        <Icon size={50} style={style} />
         {Boolean(quantity) && (
           <QuantityDisplayContainer absolute>
             <QuantityDisplay>{quantity}</QuantityDisplay>
