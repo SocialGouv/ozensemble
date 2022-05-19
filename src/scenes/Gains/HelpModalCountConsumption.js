@@ -16,9 +16,7 @@ const HelpModalCountConsumption = ({ visible, onClose }) => {
           <TextBackground>
             <BackButton content="< Retour" onPress={onClose} bold />
             <HowCountContainer>
-              <Title>
-                <H1>Comment compter sa consommation d'alcool ?</H1>
-              </Title>
+              <H1>Comment compter sa consommation d'alcool ?</H1>
               <Description>
                 <TextStyled>Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement</TextStyled>
                 <TextStyled bold>comptabilisée en unité d'alcool.{'\n'}</TextStyled>
@@ -53,9 +51,8 @@ const BackButton = styled(GoBackButtonText)`
 const HowCountContainer = styled.View`
   margin-top: 20px;
   margin-bottom: ${screenHeight * 0.05}px;
-  width: 95%;
   justify-content: center;
-  padding-horizontal: 30px;
+  padding-horizontal: 20px;
 `;
 
 const TextBackground = styled.View`

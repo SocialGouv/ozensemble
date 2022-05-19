@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal } from 'react-native';
+import { Dimensions, Modal } from 'react-native';
 import { atom, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
@@ -34,8 +34,8 @@ const FullScreen = styled.View`
 `;
 
 const StyledImage = styled.Image`
-  width: 250px;
-  height: 250px;
+  width: ${Dimensions.get('window').width / 2}px;
+  height: ${Dimensions.get('window').width / 2}px;
 `;
 
 export default CustomBootsplash;
