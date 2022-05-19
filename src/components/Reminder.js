@@ -302,9 +302,9 @@ const ModeAndWeekDayChooseModal = ({ onPress, visible, hide, setReminderRequest 
               <ModeSelectButton onPress={() => onModeChoose('day')}>Tous les jours</ModeSelectButton>
               <ModeSelectButton onPress={() => onModeChoose('week')}>Une fois par semaine</ModeSelectButton>
             </ModalContent>
-            <ModalContinue>
-              <ButtonPrimary onPress={onPress} content="Continuer" />
-            </ModalContinue>
+            <ModalCancel>
+              <CancelButton bold content="Annuler" onPress={hide} />
+            </ModalCancel>
           </ModalContainer>
         )}
         {mode === 'week' && weekDay === null && (
@@ -319,9 +319,9 @@ const ModeAndWeekDayChooseModal = ({ onPress, visible, hide, setReminderRequest 
                 </ModeSelectButton>
               ))}
             </ModalContent>
-            <ModalContinue>
-              <ButtonPrimary onPress={onPress} content="Continuer" />
-            </ModalContinue>
+            <ModalCancel>
+              <CancelButton bold content="Annuler" onPress={hide} />
+            </ModalCancel>
           </ModalContainer>
         )}
       </Modal>
@@ -336,7 +336,7 @@ const ModalContainer = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
   border-radius: 15px;
 `;
-const ModalContinue = styled.View`
+const ModalCancel = styled.View`
   align-items: center;
 `;
 
@@ -379,4 +379,8 @@ const ModeSelectButtonContent = styled(TextStyled)`
   align-items: center;
   text-align-vertical: center;
   flex-shrink: 1;
+`;
+
+const CancelButton = styled(GoBackButtonText)`
+  margin-right: 0;
 `;
