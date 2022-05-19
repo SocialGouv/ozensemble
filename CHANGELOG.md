@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/SocialGouv/ozensemble/compare/v1.24.3...v1.25.0) (2022-05-19)
+
+
+### Features
+
+* dashed circles on calendar ([30da163](https://github.com/SocialGouv/ozensemble/commit/30da16343080dd99224a9d5771a9cea6288a45b9))
+
 ## [1.24.3](https://github.com/SocialGouv/ozensemble/compare/v1.24.2...v1.24.3) (2022-05-19)
 
 
