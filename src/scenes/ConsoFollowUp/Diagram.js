@@ -247,7 +247,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
                   small
                   onPress={() => {
                     matomo.logContactTakeRDV();
-                    navigation.navigate('DOCTOLIB');
+                    navigation.navigate('CONTACT_TAB');
                   }}
                 />
               }

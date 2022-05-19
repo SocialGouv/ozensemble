@@ -8,6 +8,7 @@ import { ScreenBgStyled, TopContainer, TopSubTitle, TopTitle } from './styles';
 import { listConseils } from './ListConseil';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
+import QuizzElement from '../Quizzs/QuizzElement';
 
 const Conseils = ({ navigation }) => {
   return (
@@ -15,6 +16,21 @@ const Conseils = ({ navigation }) => {
       <HeaderBackground />
       <ScreenBgStyled>
         <TopContainer>
+          <TopTitle>
+            <TextStyled color="#4030a5">Évaluer ma consommation</TextStyled>
+          </TopTitle>
+          <TopSubTitle>
+            <TextStyled color="#000000">Pour détecter des comportements à risque</TextStyled>
+          </TopSubTitle>
+          <QuizzElement
+            topTitle="Questionnaire d’auto-évaluation"
+            title="Ma consommation d'alcool"
+            quizzRoute="ONBOARDING_QUIZZ"
+            memoryKeyResult={'@Quizz_result'}
+            memoryKeyAnswers={'@Quizz_answers'}
+            showEvenNotDone
+            fromHealth
+          />
           <TopTitle>
             <TextStyled color="#4030a5">Mes conseils</TextStyled>
           </TopTitle>
@@ -28,21 +44,21 @@ const Conseils = ({ navigation }) => {
               </ConseilContainer>
             ))}
           </ViewConseilsContainer>
-          <TopSubTitle>
+          <TopTitle>
             <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
-          </TopSubTitle>
+          </TopTitle>
           <TopSubTitle>
             <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
           </TopSubTitle>
-          <TakeAppointement onPress={() => navigation.navigate('DOCTOLIB')}>
+          <CategorieContainer onPress={() => navigation.navigate('CONTACT_TAB')}>
             <IconContainer>
-              <AppointmentHeart size={20} />
+              <AppointmentHeart size={40} />
             </IconContainer>
             <TextContainer>
               <TextStyled> Prendre un RDV</TextStyled>
               <TextStyled> avec DoctoLib</TextStyled>
             </TextContainer>
-          </TakeAppointement>
+          </CategorieContainer>
         </TopContainer>
       </ScreenBgStyled>
     </Background>
@@ -53,6 +69,7 @@ const ViewConseilsContainer = styled.ScrollView`
   margin-bottom: ${screenHeight * 0.05}px;
   margin-left: -30px;
   margin-right: -30px;
+  margin-top: 20px;
   padding-left: 30px;
 `;
 
@@ -75,12 +92,17 @@ const TitleConseilContainer = styled.Text`
   margin-bottom: 10px;
 `;
 
-const TakeAppointement = styled.TouchableOpacity`
+const CategorieContainer = styled.TouchableOpacity`
   margin-top: 10px;
   border: 1px solid #4030a5;
   border-radius: 5px;
   flex-direction: row;
   align-items: center;
+  background-color: #f9f9f9;
+  shadow-color: #4030a5;
+  shadow-offset: 0px 5px;
+  shadow-opacity: 0.09;
+  shadow-radius: 2px;
 `;
 
 const IconContainer = styled.View`
