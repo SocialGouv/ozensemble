@@ -1,5 +1,5 @@
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -72,8 +72,15 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
   };
 
-  const drinksTimestamp = drinks.map((drink) => drink.timestamp);
-  const dateLastEntered = Math.max(...drinksTimestamp);
+  const dateLastEntered = useMemo(() => {
+    const drinksTimestamp = drinks.map((drink) => drink.timestamp);
+    return Math.max(...drinksTimestamp);
+  }, [drinks]);
+
+  const showNoConsoSinceLongTime = useMemo(
+    () => dayjs(dateLastEntered).format('dddd D MMMM') !== dayjs().format('dddd D MMMM'),
+    [dateLastEntered]
+  );
 
   const isFocused = useIsFocused();
 
@@ -116,48 +123,50 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
         <FeedContainer>
-          {dayjs(dateLastEntered).format('dddd D MMMM')!=dayjs().format('dddd D MMMM') && 
-          <LastDrink>
-            <LastDrinkText>
-              <Pint size={30} color="#4030A5" />
-              <MessageContainer>
-                <TextStyled>
-                  Vous n'avez pas saisi de consommations depuis le{' '}
-                  <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
-                </TextStyled>
-              </MessageContainer>
-            </LastDrinkText>
-            <LastDrinkButtons>
-              <ButtonPrimary
-                content={"Je n'ai rien bu !"}
-                small
-                onPress={() => {
-                  matomo.logNoConso();
-                  const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
-                  const newNoDrink = [];
-                  for (let i = 0; i < differenceDay+1; i++) {
-                    const currentDate = dayjs(dateLastEntered).add(i, 'd');
-                    newNoDrink.push({ drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(currentDate), id: uuidv4() })
-                  };
-                  setDrinks((state) => [
-                    ...state,
-                    ...newNoDrink
-                  ]);
-                }}
-              />
-              <AddDrinkButton
-                onPress={() => {
-                  setModalTimestamp(Date.now());
-                  navigation.push('ADD_DRINK', { timestamp: Date.now() });
-                  matomo.logConsoOpenAddScreen();
-                }}>
-                <AddDrinkText>
-                  <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
-                </AddDrinkText>
-              </AddDrinkButton>
-            </LastDrinkButtons>
-          </LastDrink>
-          }
+          {!!showNoConsoSinceLongTime && (
+            <LastDrink>
+              <LastDrinkText>
+                <Pint size={30} color="#4030A5" />
+                <MessageContainer>
+                  <TextStyled>
+                    Vous n'avez pas saisi de consommations depuis le{' '}
+                    <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
+                  </TextStyled>
+                </MessageContainer>
+              </LastDrinkText>
+              <LastDrinkButtons>
+                <ButtonPrimary
+                  content={"Je n'ai rien bu !"}
+                  small
+                  onPress={() => {
+                    matomo.logNoConso();
+                    const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
+                    const newNoDrink = [];
+                    for (let i = 0; i < differenceDay + 1; i++) {
+                      const currentDate = dayjs(dateLastEntered).add(i, 'd');
+                      newNoDrink.push({
+                        drinkKey: NO_CONSO,
+                        quantity: 1,
+                        timestamp: makeSureTimestamp(currentDate),
+                        id: uuidv4(),
+                      });
+                    }
+                    setDrinks((state) => [...state, ...newNoDrink]);
+                  }}
+                />
+                <AddDrinkButton
+                  onPress={() => {
+                    setModalTimestamp(Date.now());
+                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                    matomo.logConsoOpenAddScreen();
+                  }}>
+                  <AddDrinkText>
+                    <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
+                  </AddDrinkText>
+                </AddDrinkButton>
+              </LastDrinkButtons>
+            </LastDrink>
+          )}
           <NPS forceView={NPSvisible} close={closeNPS} />
           {days.map((day, index) => {
             const isFirst = index === 0;
