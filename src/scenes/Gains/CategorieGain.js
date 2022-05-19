@@ -4,23 +4,20 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { screenWidth } from '../../styles/theme';
 
-const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, onPress }) => {
+const CategorieGain = ({ children, icon = null, value = '?', unit = '', description, onPress, disabled }) => {
   return (
-    <ButtonTouchable onPress={onPress}>
+    <ButtonTouchable onPress={onPress} disabled={disabled}>
       <Categorie>
         <ComponentCategorie>
           {!!icon && <IconCategorie>{icon}</IconCategorie>}
+          {!!unit && <CategorieUnit>{unit}</CategorieUnit>}
           {children}
           <UnitCategorie>
             <CategorieValue value={`${value}`} numberOfLetters={`${value}`?.length}>
               <TextStyled bold>{value}</TextStyled>
             </CategorieValue>
-            {!!unit && (
-              <CategorieUnit>
-                <TextStyled bold> {unit}</TextStyled>
-              </CategorieUnit>
-            )}
           </UnitCategorie>
+          <CategorieUnit />
         </ComponentCategorie>
         <TextCategorieContainer>
           <TextCategorie>
@@ -44,9 +41,10 @@ const ComponentCategorie = styled.View`
   width: ${width * 0.85}px;
   height: ${width * 0.85}px;
   min-height: ${width * 0.85}px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   overflow: hidden;
+  padding: 4px;
 `;
 
 const IconCategorie = styled.View`
