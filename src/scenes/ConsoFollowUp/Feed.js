@@ -133,13 +133,9 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 onPress={() => {
                   matomo.logNoConso();
                   let currentDate = dateLastEntered;
-                  const addDays = function (days) {
-                    const date = new Date(this.valueOf());
-                    date.setDate(date.getDate() + days);
-                    return date;
-                  };
-                  while (currentDate <= today()) {
-                    currentDate = addDays.call(currentDate, 1);
+                  const differenceDay = dayjs().diff(dayjs(dateLastEntered),"d"); 
+                  for(let i = 0; i < differenceDay; i ++) {
+                    currentDate = dayjs(currentDate).add(1, "d")
                     setDrinks((state) => [
                       ...state,
                       { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(new Date(dayjs(currentDate)).getTime()), id: uuidv4() },
