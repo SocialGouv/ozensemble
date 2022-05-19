@@ -93,7 +93,6 @@ const diffWithPreviousWeekSelector = selectorFamily({
 
 const minBarHeight = 1;
 const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
-  const navigation = useNavigation();
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
   const days = useMemo(() => {
@@ -130,13 +129,13 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   );
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
-  const { thisWeekNumberOfDrinks, diff, decrease, pourcentageOfDecrease, fillConsoFirst } = useRecoilValue(
+  const { diff, decrease, pourcentageOfDecrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
   );
   const showDecrease = useMemo(() => !asPreview && diff !== 0 && decrease > 0, [asPreview, diff, decrease]);
   const showIncrease = useMemo(() => !asPreview && diff !== 0 && decrease < 0, [asPreview, diff, decrease]);
   const showStable = useMemo(() => !asPreview && diff === 0, [asPreview, diff]);
-  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview]);
+  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview, fillConsoFirst]);
 
   return (
     <>
@@ -270,16 +269,20 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       )}
       {!!showStable && (
         <EvolutionMessage
-          background="#dff6e4"
-          border="#a0e1ac"
-          icon={<Celebration size={25} />}
+          background="#F9F9F9"
+          border="#C4C4C4"
+          icon={<Equality size={25} />}
+          button
           message={
             <>
               <TextStyled>
-                Votre consommation est identique à la semaine précédente (soit {thisWeekNumberOfDrinks} verres).
+                Votre consommation est <TextStyled bold>identique </TextStyled>à la semaine précédente (soit{' '}
+                {thisWeekNumberOfDrinks} verres).
               </TextStyled>
+              <TextStyled></TextStyled>
               <TextStyled>
-                Si besoin d'un coup de pouce, vous pouvez parler gratuitement avec l'un de nos addictologues.{' '}
+                Si besoin d'un coup de pouce, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de
+                nos addictologues.{' '}
               </TextStyled>
             </>
           }
