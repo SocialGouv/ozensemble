@@ -22,7 +22,7 @@ const noDrinkDay = {
   selected: true,
   startingDay: true,
   endingDay: true,
-  selectedColor: '#008001',
+  selectedColor: '#2c864d',
   isNoDrinkDay: true,
 };
 
@@ -30,7 +30,7 @@ const drinkDay = {
   selected: true,
   startingDay: true,
   endingDay: true,
-  selectedColor: '#DE285E',
+  selectedColor: '#de295e',
   isDrinkDay: true,
 };
 
@@ -90,8 +90,8 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
         />
       </CalendarContainer>
       <Legend>État de ma consommation</Legend>
-      <PartDescription value={"Je n'ai pas bu"} color={'#008001'} />
-      <PartDescription value={"J'ai bu"} color={'#DE285E'} />
+      <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
+      <PartDescription value={"J'ai bu"} color={'#de295e'} />
     </TopContainer>
   );
 };

@@ -10,7 +10,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 
 const HelpModalCountConsumption = ({ visible, onClose }) => {
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+    <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onClose}>
       <SafeAreaViewStyled>
         <ScreenBgStyled>
           <TextBackground>

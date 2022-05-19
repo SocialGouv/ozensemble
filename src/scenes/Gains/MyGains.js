@@ -49,7 +49,7 @@ const MyGains = () => {
   const [showGoalfix, setShowGoalfix] = useState(storage.getBoolean('@ShowGoalFix') ?? true);
 
   const beginDateOfOz = useMemo(() => {
-    if (!days.length) return dayjs();
+    if (!days.length) return null;
     return dayjs(days[days.length - 1]);
   }, [days]);
 
@@ -177,14 +177,14 @@ const MyGains = () => {
       </Container>
       <TextContainer>
         <TextForm>
-          {!!isOnboarded  && (
+          {!!isOnboarded && beginDateOfOz && (
             <TextStyled>
               Depuis le
               <TextStyled color="#DE285E">
                 {' '}
                 {beginDateOfOz.get('year') < dayjs().get('year')
                   ? beginDateOfOz.format('D MMM YYYY')
-                  : beginDateOfOz.format('D MMM')}  
+                  : beginDateOfOz.format('D MMM')}
               </TextStyled>
             </TextStyled>
           )}

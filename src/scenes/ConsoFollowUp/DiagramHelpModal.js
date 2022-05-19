@@ -20,7 +20,7 @@ const Elem = ({ content, lineHeight = 20 }) => (
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onCloseHelp}>
+    <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onCloseHelp}>
       <SafeAreaViewStyled>
         <ScrollView>
           <TopContainer>

@@ -15,6 +15,7 @@ import Celebration from '../../components/Illustrations/Celebration';
 import Increase from '../../components/Illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import matomo from '../../services/matomo';
+import { useMMKVString } from 'react-native-mmkv';
 
 const maxDosesOnScreen = 50;
 
@@ -104,21 +105,17 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
   const [diff, decrease, pourcentageOfDecrease] = useRecoilValue(diffWithPreviousWeekSelector());
-  const [highestAcceptableDosesPerDayByOMS, setHighestAcceptableDosesPerDayByOMS] = useState(2);
+
+  const [quizzAnswersStored] = useMMKVString('@Quizz_answers');
+  const highestAcceptableDosesPerDayByOMS = useMemo(() => {
+    if (!quizzAnswersStored) return 2;
+    const quizzAnswers = JSON.parse(quizzAnswersStored);
+    if (!quizzAnswers) return 2;
+    return getAcceptableDosePerDay(quizzAnswers.gender);
+  }, [quizzAnswersStored]);
+
   const drinks = useRecoilValue(drinksState);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const storedValue = storage.getString('@Quizz_answers');
-        if (!storedValue) return;
-        const quizzAnswers = JSON.parse(storedValue);
-        if (!quizzAnswers) return;
-        setHighestAcceptableDosesPerDayByOMS(getAcceptableDosePerDay(quizzAnswers.gender));
-      } catch (e) {}
-    })();
-  }, []);
 
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const highestAcceptableDosesPerDay = useMemo(

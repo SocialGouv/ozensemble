@@ -20,12 +20,6 @@ export const ownDrinksState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@OwnDrinks', newValue))],
 });
 
-export const startDateState = atom({
-  key: 'startDateState',
-  default: getInitValueFromStorage('@StartDate', today()),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@StartDate', JSON.stringify(newValue)))],
-});
-
 export const modalTimestampState = atom({
   key: 'modalTimestampState',
   default: today(),
@@ -59,11 +53,14 @@ export const consolidatedCatalogSelector = selector({
 export const feedDaysSelector = selector({
   key: 'feedDaysSelector',
   get: ({ get }) => {
-    const startDate = get(startDateState);
-    const drinks = get(drinksState);
-    const lastDayOfDrinks = Math.max(...drinks.map(({ timestamp }) => timestamp), Date.now());
+    const allDrinks = get(drinksState);
+    const fiveMonthsAgo = dayjs().add(-4, 'month');
+    const drinks = allDrinks.filter(({ timestamp }) => dayjs(timestamp).isAfter(fiveMonthsAgo));
+    const timestamps = drinks.map(({ timestamp }) => timestamp);
+    const lastDayOfDrinks = Math.max(...timestamps, Date.now());
+    const firstDayOfDrinks = Math.min(...timestamps, Date.now());
     const days = [];
-    const amplitudeOfRecords = differenceOfDays(startDate, lastDayOfDrinks);
+    const amplitudeOfRecords = differenceOfDays(firstDayOfDrinks, lastDayOfDrinks);
     for (let i = 0; i < amplitudeOfRecords + 1; i++) {
       const day = dayjs(lastDayOfDrinks).add(-i, 'day');
       days.push(day.format('YYYY-MM-DD'));
