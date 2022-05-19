@@ -11,11 +11,13 @@ const Results = ({ navigation, route, resultKey }) => {
     case null:
       return <EmptyView />;
     case 'good':
-      return <ResultGood navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
+      return <ResultGood route={route} navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
     case 'risk':
-      return <ResultRisk navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
+      return <ResultRisk route={route} navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
     case 'addicted':
-      return <ResultAddicted navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
+      return (
+        <ResultAddicted route={route} navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />
+      );
   }
 };
 

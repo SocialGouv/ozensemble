@@ -29,14 +29,14 @@ export const fetchStoredAnswers = async ({ memoryKeyAnswers, memoryKeyResult, qu
   const toReturn = { answers: null, result: null };
   try {
     const storedAnswers = storage.getString(memoryKeyAnswers);
-    if (storedAnswers !== null) {
+    if (storedAnswers) {
       toReturn.answers = JSON.parse(storedAnswers);
     } else {
       toReturn.answers = computeInitAnswersState();
     }
     if (memoryKeyResult) {
-      const storedResultKey = storage.getBoolean(memoryKeyResult);
-      if (storedResultKey !== null) {
+      const storedResultKey = storage.getString(memoryKeyResult);
+      if (storedResultKey) {
         toReturn.result = JSON.parse(storedResultKey);
       }
     }

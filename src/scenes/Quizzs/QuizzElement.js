@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/Illustrations/TickDone';
 import { fetchStoredAnswers } from '../../components/Quizz/utils';
+import Form from '../../components/Illustrations/Form';
 
 const QuizzElement = ({
   topTitle,
@@ -16,6 +17,7 @@ const QuizzElement = ({
   memoryKeyAnswers,
   memoryKeyResult,
   showEvenNotDone,
+  fromHealth = false,
 }) => {
   const [quizzInitialState, setQuizzInitialState] = useState({ answers: null, result: null });
   const navigation = useNavigation();
@@ -44,9 +46,9 @@ const QuizzElement = ({
   if (!done && !showEvenNotDone) return null;
 
   return (
-    <Container done={done} disabled={disabled}>
+    <Container done={done} disabled={disabled} fromHealth={fromHealth}>
       <ContainerIcon>
-        <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />
+        {fromHealth ? <Form size={25} /> : <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />}
       </ContainerIcon>
       <Content>
         <View>
@@ -60,7 +62,7 @@ const QuizzElement = ({
               <ButtonRedoTest onPress={onStart}>Refaire le test</ButtonRedoTest>
             </ButtonContainer>
           ) : (
-            <Button small content="Passer le test" onPress={onStart} />
+            <Button small content="Je fais le test" onPress={onStart} />
           ))}
       </Content>
     </Container>
@@ -80,8 +82,9 @@ const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   border-radius: 10px;
+  overflow: hidden;
   background-color: ${(props) => getBackgroundColor(props)};
-  border: 1px solid ${({ done }) => (done ? '#81DBD37F' : '#5150A226')};
+  border: 1px solid ${({ done, fromHealth }) => (fromHealth ? '#4030A5' : done ? '#81DBD37F' : '#5150A226')};
   padding: 15px;
   height: ${({ disabled }) => (disabled ? '70' : '120')}px;
   margin-bottom: 20px;
@@ -93,6 +96,8 @@ const ContainerIcon = styled.View`
 const ButtonContainer = styled.View`
   flex-direction: row;
   align-items: center;
+  overflow: hidden;
+  flex-shrink: 1;
 `;
 
 const Content = styled.View`
@@ -117,8 +122,10 @@ const ButtonRedoTest = styled.Text`
   color: #4030a5;
   text-decoration: underline;
   margin-left: 10px;
+  flex-shrink: 1;
 `;
 
 const Button = styled(ButtonPrimary)`
   flex-grow: 0;
+  margin-left: auto;
 `;
