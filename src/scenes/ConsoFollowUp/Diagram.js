@@ -227,8 +227,8 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       </LegendsContainer>
       {!!showIncrease && (
         <EvolutionMessage
-          background="#F8F0E5"
-          border="#F3C89F"
+          background="#f9f2e8"
+          border="#f4cda9"
           icon={<Increase size={35} />}
           message={
             <>
