@@ -17,6 +17,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import matomo from '../../services/matomo';
 import { useMMKVString } from 'react-native-mmkv';
 import PlusIcon from '../../components/Illustrations/PlusIcon';
+import Equality from '../../components/Illustrations/Equality';
 
 const maxDosesOnScreen = 50;
 
@@ -86,13 +87,12 @@ const diffWithPreviousWeekSelector = selectorFamily({
       const diff = lastWeekNumberOfDrinks - thisWeekNumberOfDrinks;
       const decrease = diff > 0;
       const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
-      return { diff, decrease, pourcentageOfDecrease };
+      return { diff, decrease, pourcentageOfDecrease, thisWeekNumberOfDrinks };
     },
 });
 
 const minBarHeight = 1;
 const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
-  const navigation = useNavigation();
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
   const days = useMemo(() => {
@@ -129,13 +129,13 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   );
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
-  const { diff, decrease, pourcentageOfDecrease, fillConsoFirst } = useRecoilValue(
+  const { diff, decrease, pourcentageOfDecrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
   );
   const showDecrease = useMemo(() => !asPreview && diff !== 0 && decrease > 0, [asPreview, diff, decrease]);
   const showIncrease = useMemo(() => !asPreview && diff !== 0 && decrease < 0, [asPreview, diff, decrease]);
   const showStable = useMemo(() => !asPreview && diff === 0, [asPreview, diff]);
-  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview]);
+  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview, fillConsoFirst]);
 
   return (
     <>
@@ -230,6 +230,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
           background="#f9f2e8"
           border="#f4cda9"
           icon={<Increase size={35} />}
+          button
           message={
             <>
               <TextStyled>
@@ -246,16 +247,6 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
               </TextStyled>
               <TextStyled />
             </>
-          }
-          button={
-            <ButtonPrimary
-              content="Contacter un addictologue"
-              small
-              onPress={() => {
-                matomo.logContactTakeRDV();
-                navigation.navigate('CONTACT_TAB');
-              }}
-            />
           }
         />
       )}
@@ -278,17 +269,21 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       )}
       {!!showStable && (
         <EvolutionMessage
-          background="#dff6e4"
-          border="#a0e1ac"
-          icon={<Celebration size={25} />}
+          background="#F9F9F9"
+          border="#C4C4C4"
+          icon={<Equality size={25} />}
+          button
           message={
             <>
               <TextStyled>
-                Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
-                verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+                Votre consommation est <TextStyled bold>identique </TextStyled>à la semaine précédente (soit{' '}
+                {thisWeekNumberOfDrinks} verres).
               </TextStyled>
-              <TextStyled />
-              <TextStyled>Continuez comme cela !</TextStyled>
+              <TextStyled></TextStyled>
+              <TextStyled>
+                Si besoin d'un coup de pouce, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de
+                nos addictologues.{' '}
+              </TextStyled>
             </>
           }
         />
@@ -352,7 +347,18 @@ const EvolutionMessage = ({ background, border, icon, message, button }) => {
         <Icon>{icon}</Icon>
         <MessageContainer>{message}</MessageContainer>
       </EvolutionContainerText>
-      {!!button && <ContactAddictologue>{button}</ContactAddictologue>}
+      {!!button && (
+        <ContactAddictologue>
+          <ButtonPrimary
+            content="Contacter un addictologue"
+            small
+            onPress={() => {
+              matomo.logContactTakeRDV();
+              navigation.navigate('CONTACT_TAB');
+            }}
+          />
+        </ContactAddictologue>
+      )}
     </EvolutionContainer>
   );
 };
