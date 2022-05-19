@@ -102,19 +102,17 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   if (hideFeed) {
     return (
       <>
+        <NPS forceView={NPSvisible} close={closeNPS} />
         <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
-          <FeedContainer>
-            <NPS forceView={NPSvisible} close={closeNPS} />
-            <ButtonContainer>
-              <ButtonPrimary
-                small
-                content="Contribuer à Oz Ensemble"
-                shadowColor="#201569"
-                color="#4030A5"
-                onPress={onPressContribute}
-              />
-            </ButtonContainer>
-          </FeedContainer>
+          <ButtonContainer>
+            <ButtonPrimary
+              small
+              content="Contribuer à Oz Ensemble"
+              shadowColor="#201569"
+              color="#4030A5"
+              onPress={onPressContribute}
+            />
+          </ButtonContainer>
         </TouchableWithoutFeedback>
       </>
     );
