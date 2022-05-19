@@ -1,3 +1,12 @@
+## [1.24.2](https://github.com/SocialGouv/ozensemble/compare/v1.24.1...v1.24.2) (2022-05-19)
+
+
+### Bug Fixes
+
+* design details ([014a210](https://github.com/SocialGouv/ozensemble/commit/014a210a06f775ea20be1a8c4263ef17e625c1b9))
+* force light mode ([fac4104](https://github.com/SocialGouv/ozensemble/commit/fac4104f87065b7708407760809092283864ffb1))
+* reminder in mygains ([d2bc2af](https://github.com/SocialGouv/ozensemble/commit/d2bc2af3b89bf3dd78937230313f7c574e56eac1))
+
 ## [1.24.1](https://github.com/SocialGouv/ozensemble/compare/v1.24.0...v1.24.1) (2022-05-19)
 
 
