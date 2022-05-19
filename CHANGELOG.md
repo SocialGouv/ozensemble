@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/SocialGouv/ozensemble/compare/v1.28.0...v1.28.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* increase decrease ([3dccac0](https://github.com/SocialGouv/ozensemble/commit/3dccac0ff4121aacaca46f5c020cb0cd17467092))
+
 # [1.28.0](https://github.com/SocialGouv/ozensemble/compare/v1.27.1...v1.28.0) (2022-05-19)
 
 
