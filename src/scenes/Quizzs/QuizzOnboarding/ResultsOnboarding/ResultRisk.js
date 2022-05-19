@@ -28,7 +28,7 @@ const ResultRisk = ({ navigation, isInOnboarding, route }) => (
         <TextStyled color="#191919">Nous avons besoin d'en savoir plus pour affiner ce résultat.</TextStyled>
       </TopSubTitle>
       <TopSubTitle>
-        <TextStyled color="#191919">Nous vous conseillons de vous informer, d’échanger</TextStyled>
+        <TextStyled color="#191919">Nous vous conseillons de vous informer, d'échanger</TextStyled>
         <TextStyled color="#4030a5"> gratuitement </TextStyled>
         <TextStyled color="#191919">avec l'un de nos professionnels ou de faire le défi 7 jours</TextStyled>
       </TopSubTitle>

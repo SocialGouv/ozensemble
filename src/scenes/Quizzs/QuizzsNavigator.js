@@ -70,14 +70,14 @@ const QuizzMenu = () => {
         </Title>
         <SubTitle>
           <TextStyled>
-            Évaluez votre situation, vos motivations et risques liés à votre consommation d’alcool avec ces
+            Évaluez votre situation, vos motivations et risques liés à votre consommation d'alcool avec ces
             questionnaires
           </TextStyled>
         </SubTitle>
       </TopContainer>
       <Quizzcontainer>
         <QuizzElement
-          topTitle="Questionnaire d’auto-évaluation"
+          topTitle="Questionnaire d'auto-évaluation"
           title="Ma consommation d'alcool"
           quizzRoute="ONBOARDING_QUIZZ"
           memoryKeyResult={'@Quizz_result'}

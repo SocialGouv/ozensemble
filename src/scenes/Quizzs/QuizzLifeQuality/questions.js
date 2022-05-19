@@ -5,7 +5,7 @@
 
 const questions = [
   {
-    questionTitle: 'Dans l’ensemble, comment évalueriez-vous votre santé durant les 4 semaines passées ?',
+    questionTitle: "Dans l'ensemble, comment évalueriez-vous votre santé durant les 4 semaines passées ?",
     questionKey: '0',
     resultLabel: 'Santé ressentie',
     answers: [
@@ -118,7 +118,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Au cours de ces 4 dernières semaines, quelle a été l’intensité de vos douleurs physiques ?',
+    questionTitle: "Au cours de ces 4 dernières semaines, quelle a été l'intensité de vos douleurs physiques ?",
     questionKey: '3',
     resultLabel: 'Douleurs physiques',
     answers: [
@@ -161,7 +161,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Au cours des 4 dernières semaines, comment évalueriez-vous votre niveau d’énergie au global ?',
+    questionTitle: "Au cours des 4 dernières semaines, comment évalueriez-vous votre niveau d'énergie au global ?",
     questionKey: '4',
     resultLabel: 'Vitalité',
     answers: [

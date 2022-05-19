@@ -1,3 +1,47 @@
+## [1.24.3](https://github.com/SocialGouv/ozensemble/compare/v1.24.2...v1.24.3) (2022-05-19)
+
+
+### Bug Fixes
+
+* icons margins ([2090803](https://github.com/SocialGouv/ozensemble/commit/20908039c6484c4a2ec734bc18d448218f44c4ed))
+
+## [1.24.2](https://github.com/SocialGouv/ozensemble/compare/v1.24.1...v1.24.2) (2022-05-19)
+
+
+### Bug Fixes
+
+* design details ([014a210](https://github.com/SocialGouv/ozensemble/commit/014a210a06f775ea20be1a8c4263ef17e625c1b9))
+* force light mode ([fac4104](https://github.com/SocialGouv/ozensemble/commit/fac4104f87065b7708407760809092283864ffb1))
+* reminder in mygains ([d2bc2af](https://github.com/SocialGouv/ozensemble/commit/d2bc2af3b89bf3dd78937230313f7c574e56eac1))
+
+## [1.24.1](https://github.com/SocialGouv/ozensemble/compare/v1.24.0...v1.24.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* followup messages ([b2ef19b](https://github.com/SocialGouv/ozensemble/commit/b2ef19bd4a60e627bd8cda90ee2b822f42762897))
+
+# [1.24.0](https://github.com/SocialGouv/ozensemble/compare/v1.23.1...v1.24.0) (2022-05-19)
+
+
+### Bug Fixes
+
+* date Last drink or not drink ([9992dd7](https://github.com/SocialGouv/ozensemble/commit/9992dd798283dd0e2e54b26b7e99ebfc84b67320))
+* dates ([ab1546e](https://github.com/SocialGouv/ozensemble/commit/ab1546e9c614db279b4263d60bc5122a068a9ad7))
+* simplification I don't drink ([4c4c113](https://github.com/SocialGouv/ozensemble/commit/4c4c113d07394edb1f1c1e5c02447ba8dabd3e5e))
+
+
+### Features
+
+* "Je n'ai rien bu" since the last date ([53e2153](https://github.com/SocialGouv/ozensemble/commit/53e21530933d8d4df8f1cc2c9e6acd41248be831))
+
+## [1.23.1](https://github.com/SocialGouv/ozensemble/compare/v1.23.0...v1.23.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* a few snav stuff + docolib ([2ed71bd](https://github.com/SocialGouv/ozensemble/commit/2ed71bd23b8770fa9d6f4cac701c28d327fe3f74))
+
 # [1.23.0](https://github.com/SocialGouv/ozensemble/compare/v1.22.2...v1.23.0) (2022-05-19)
 
 

@@ -51,12 +51,12 @@ const Day5 = ({ navigation, route }) => {
           <TopTitle>
             <GoBackButton onPress={navigation.goBack} />
             <Spacer />
-            <H1 color="#4030a5">Conseils pour diminuer ma consommation d’alcool </H1>
+            <H1 color="#4030a5">Conseils pour diminuer ma consommation d'alcool </H1>
           </TopTitle>
           <ToggleContent title="Planifier">
-            <Elem content="Eviter les personnes et les endroits qui incitent à consommer plus qu’on ne le souhaite" />
-            <Elem content="Ne pas conserver d’alcool chez soi lorsqu'on a des difficultés à ne pas boire" />
-            <Elem content="Se souvenir qu’une envie de consommer finira toujours par passer" />
+            <Elem content="Eviter les personnes et les endroits qui incitent à consommer plus qu'on ne le souhaite" />
+            <Elem content="Ne pas conserver d'alcool chez soi lorsqu'on a des difficultés à ne pas boire" />
+            <Elem content="Se souvenir qu'une envie de consommer finira toujours par passer" />
             <Elem
               content="Ne pas oublier les raisons pour lesquelles on souhaite changer et se concentrer sur des façons plus saines
               de passer le temps"
@@ -68,30 +68,30 @@ const Day5 = ({ navigation, route }) => {
               notre bien-être"
             />
             <Elem
-              content="Trouver de meilleurs façons d’être à l’aise dans nos activités sociales, de gérer notre humeur et de faire
+              content="Trouver de meilleurs façons d'être à l'aise dans nos activités sociales, de gérer notre humeur et de faire
               face à nos problèmes"
             />
-            <Elem content="Participer à une activité qui n’implique aucune consommation d’alcool" />
+            <Elem content="Participer à une activité qui n'implique aucune consommation d'alcool" />
           </ToggleContent>
           <ToggleContent title="Prendre son temps">
             <Elem
-              content="Ne pas consommer plus d’un verre standard par heure et, pour chaque verre d’alcool, boire une boisson non
+              content="Ne pas consommer plus d'un verre standard par heure et, pour chaque verre d'alcool, boire une boisson non
               alcoolisée"
             />
-            <Elem content="Ne pas boire l’estomac vide. Manger quelque chose pour que l’organisme absorbe l’alcool plus lentement" />
+            <Elem content="Ne pas boire l'estomac vide. Manger quelque chose pour que l'organisme absorbe l'alcool plus lentement" />
             <Elem
-              content="Tout en mangeant sainement, ne pas oublier qu’un des effets secondaire de l’alcool est la prise de poids.
+              content="Tout en mangeant sainement, ne pas oublier qu'un des effets secondaire de l'alcool est la prise de poids.
               Un seul verre de vin contient plus de 120 calories et une bouteille de bière près de 130"
             />
           </ToggleContent>
           <ToggleContent title='Se préparer à dire "Non merci"'>
-            <Elem content='"Non merci, je conduis."' />
-            <Elem content='"Non merci, je viens de finir un verre."' />
-            <Elem content='"Non merci, je suis au régime."' />
-            <Elem content='"Non merci, j’ai un examen demain pour lequel je veux être en forme."' />
-            <Elem content='"Non merci, j’ai un match important demain pour lequel je veux être en forme."' />
-            <Elem content='"Non merci, j’ai dit à ma famille que je boirai moins."' />
-            <Elem content='"Non merci, je fais Dry January."' />
+            <Elem content={'"Non merci, je conduis."'} />
+            <Elem content={'"Non merci, je viens de finir un verre."'} />
+            <Elem content={'"Non merci, je suis au régime."'} />
+            <Elem content={'"Non merci, j\'ai un examen demain pour lequel je veux être en forme."'} />
+            <Elem content={'"Non merci, j\'ai un match important demain pour lequel je veux être en forme."'} />
+            <Elem content={'"Non merci, j\'ai dit à ma famille que je boirai moins."'} />
+            <Elem content={'"Non merci, je fais Dry January."'} />
           </ToggleContent>
           <Sources
             content={

@@ -42,16 +42,16 @@ export default ({ navigation, route }) => {
           <Paragraph>
             <Elem
               bold
-              content="Oz ensemble a été conçu pour les adultes qui désirent modifier leurs habitudes sans nécessairement viser l’abstinence."
+              content="Oz ensemble a été conçu pour les adultes qui désirent modifier leurs habitudes sans nécessairement viser l'abstinence."
             />
           </Paragraph>
           <Paragraph>
             <ElemContainer>
               <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
               <TextStyled style={{ flex: 1 }}>
-                Toutefois, si vous êtes dans l’une des situations ci-dessous,{' '}
+                Toutefois, si vous êtes dans l'une des situations ci-dessous,{' '}
                 <TextStyled bold>
-                  vous devez prendre conseil auprès de votre médecin ou d’un professionnel Oz Ensemble
+                  vous devez prendre conseil auprès de votre médecin ou d'un professionnel Oz Ensemble
                 </TextStyled>{' '}
                 avant de commencer ce défi 7 jours :
                 <Br lines={2} />
@@ -78,7 +78,7 @@ export default ({ navigation, route }) => {
                     <TextStyled bold color="#de285e">
                       Vous ressentez des symptômes de sevrage
                     </TextStyled>{' '}
-                    lorsque vous cessez de consommer de l’alcool tel que le besoin de prendre un verre d’alcool le
+                    lorsque vous cessez de consommer de l'alcool tel que le besoin de prendre un verre d'alcool le
                     matin, tremblements, transpiration excessive, hallucinations, besoin de consommer.
                   </TextStyled>
                 </View>
@@ -94,7 +94,7 @@ export default ({ navigation, route }) => {
                     <TextStyled bold color="#de285e">
                       Vous prenez des médicaments prescrits{' '}
                     </TextStyled>
-                    : l’alcool entre en interaction avec plusieurs médicaments
+                    : l'alcool entre en interaction avec plusieurs médicaments
                   </TextStyled>
                 </View>
                 <Br />
@@ -110,8 +110,8 @@ export default ({ navigation, route }) => {
                     <TextStyled bold color="#de285e">
                       drogues illégales
                     </TextStyled>{' '}
-                    en association avec l’alcool. Ce défi n’a pas été conçu pour les personnes qui consomment des
-                    substances autres que l’alcool.
+                    en association avec l'alcool. Ce défi n'a pas été conçu pour les personnes qui consomment des
+                    substances autres que l'alcool.
                   </TextStyled>
                 </View>
               </TextStyled>
@@ -121,9 +121,9 @@ export default ({ navigation, route }) => {
             <ElemContainer>
               <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
               <TextStyled style={{ flex: 1 }}>
-                D’une façon générale, l’option la plus sûre est de{' '}
+                D'une façon générale, l'option la plus sûre est de{' '}
                 <TextStyled bold color="#de285e">
-                  NE PAS CONSOMMER D’ALCOOL
+                  NE PAS CONSOMMER D'ALCOOL
                 </TextStyled>{' '}
                 en cas de :
                 <Br lines={2} />

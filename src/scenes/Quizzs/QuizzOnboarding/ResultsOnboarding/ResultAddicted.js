@@ -33,7 +33,7 @@ const ResultAddicted = ({ navigation, isInOnboarding, route }) => (
       </TopButtonContainer>
       <TopTitle>
         <TextStyled color="#4030a5">
-          Vous souhaitez d'abord essayer de réduire votre consommation d’alcool par vous-même ?
+          Vous souhaitez d'abord essayer de réduire votre consommation d'alcool par vous-même ?
         </TextStyled>
       </TopTitle>
       <TopSubTitle>

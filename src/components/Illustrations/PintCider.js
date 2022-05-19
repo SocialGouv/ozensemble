@@ -2,9 +2,7 @@ import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import styled from 'styled-components';
 
-const StyledSvg = styled(Svg)`
-  /* margin-bottom: 10px; */
-`;
+const StyledSvg = styled(Svg)``;
 
 const PintCider = ({ size, ...props }) => (
   <StyledSvg width={size} height={(size * 114) / 98} viewBox="0 0 98 114" fill="none" {...props}>
