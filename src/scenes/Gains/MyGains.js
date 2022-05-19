@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
@@ -33,9 +33,15 @@ const MyGains = () => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
-  const reminder = storage.getString('@GainsReminder');
-  const mode = storage.getString('@GainsReminder-mode');
-  const weekDay = storage.getString('@GainsReminder-weekDay');
+  const isFocused = useIsFocused();
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const reminder = useMemo(() => storage.getString('@GainsReminder'), [isFocused]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const mode = useMemo(() => storage.getString('@GainsReminder-mode'), [isFocused]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const weekDay = useMemo(() => storage.getString('@GainsReminder-weekDay'), [isFocused]);
+
   const [helpVisible, setHelpVisible] = useState(false);
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
@@ -335,8 +341,8 @@ const MyGains = () => {
                     'Pas de rappel encore'
                   ) : (
                     <>
-                      {mode === 'day' ? 'Tous les jours' : `Tous les ${dayjs().day(weekDay).format('dddd')}s`}
-                      {'\n'}à {reminder.getLocalePureTime('fr')}
+                      {mode === 'day' ? 'Tous les jours ' : `Tous les ${dayjs().day(weekDay).format('dddd')}s `}à{' '}
+                      {new Date(reminder).getLocalePureTime('fr')}
                     </>
                   )}
                 </TextStyled>
@@ -345,7 +351,7 @@ const MyGains = () => {
           </MyGoalSubContainer>
           <ButtonTouchable onPress={goToReminder}>
             <TextModify>
-              <TextStyled>Modifier le rappel</TextStyled>
+              <TextStyled>{!reminder ? 'Ajouter un rappel' : 'Modifier le rappel'}</TextStyled>
             </TextModify>
           </ButtonTouchable>
         </MyGoalContainer>
