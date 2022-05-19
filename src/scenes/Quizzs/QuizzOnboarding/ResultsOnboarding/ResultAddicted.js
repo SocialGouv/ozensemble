@@ -13,7 +13,7 @@ import {
   UnderlinedButtonStyled,
 } from './styles';
 
-const ResultAddicted = ({ navigation, isInOnboarding }) => (
+const ResultAddicted = ({ navigation, isInOnboarding, route }) => (
   <FullScreenBackground>
     <TopContainer>
       <ResultTitle>Résultat</ResultTitle>
@@ -64,8 +64,8 @@ const ResultAddicted = ({ navigation, isInOnboarding }) => (
           />
           <UnderlinedButtonStyled
             withoutPadding
-            content="Retour aux tests"
-            onPress={() => navigation.navigate('QUIZZ_MENU')}
+            content={route?.params?.backToRoot || 'Retour aux tests'}
+            onPress={() => navigation.navigate(route?.params?.root || 'QUIZZ_MENU')}
             bold
           />
         </>

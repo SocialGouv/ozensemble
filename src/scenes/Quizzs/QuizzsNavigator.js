@@ -12,6 +12,8 @@ import QuizzMotivations from './QuizzMotivations';
 import QuizzOnboarding from './QuizzOnboarding';
 
 import QuizzElement from './QuizzElement';
+import GoBackButtonText from '../../components/GoBackButtonText';
+import { useNavigation } from '@react-navigation/native';
 
 const QuizzsStack = createStackNavigator();
 
@@ -46,9 +48,14 @@ const QuizzsNavigator = () => (
   </QuizzsStack.Navigator>
 );
 const QuizzMenu = () => {
+  const navigation = useNavigation();
+
   return (
     <ScreenBgStyled>
       <TopContainer>
+        <GoBackButton>
+          <GoBackButtonText content="< Retour" onPress={navigation.goBack} bold withoutPadding />
+        </GoBackButton>
         <Title>
           <TextStyled color="#4030a5">
             Vos{' '}
@@ -124,6 +131,10 @@ const Title = styled(H2)`
   margin-bottom: 10px;
 `;
 const SubTitle = styled(H3)``;
+
+const GoBackButton = styled.View`
+  margin-right: auto;
+`;
 
 export const Quizzcontainer = styled.View`
   background-color: #efefef;
