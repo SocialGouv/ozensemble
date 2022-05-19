@@ -1,3 +1,10 @@
+## [1.24.3](https://github.com/SocialGouv/ozensemble/compare/v1.24.2...v1.24.3) (2022-05-19)
+
+
+### Bug Fixes
+
+* icons margins ([2090803](https://github.com/SocialGouv/ozensemble/commit/20908039c6484c4a2ec734bc18d448218f44c4ed))
+
 ## [1.24.2](https://github.com/SocialGouv/ozensemble/compare/v1.24.1...v1.24.2) (2022-05-19)
 
 
