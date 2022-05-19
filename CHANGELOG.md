@@ -1,3 +1,10 @@
+## [1.25.1](https://github.com/SocialGouv/ozensemble/compare/v1.25.0...v1.25.1) (2022-05-19)
+
+
+### Bug Fixes
+
+* small designs ([5286e91](https://github.com/SocialGouv/ozensemble/commit/5286e919573859eae2ea824077cc1a5316540481))
+
 # [1.25.0](https://github.com/SocialGouv/ozensemble/compare/v1.24.3...v1.25.0) (2022-05-19)
 
 
