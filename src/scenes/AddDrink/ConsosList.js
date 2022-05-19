@@ -247,7 +247,7 @@ const ConsosList = ({ navigation }) => {
       </ModalContent>
       <ButtonsContainerSafe>
         <ButtonsContainer>
-          <ButtonPrimary content="Validez" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
+          <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
           <GoBackButtonText content="Retour" bold onPress={onCancelConsos} />
         </ButtonsContainer>
       </ButtonsContainerSafe>
