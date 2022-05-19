@@ -13,7 +13,7 @@ const ResultAddiction = ({ value }) => {
         return (
           <View>
             <ResultParagraph color="#191919">
-              Votre consommation d’alcool ne devrait pas provoquer de risque pour votre santé.
+              Votre consommation d'alcool ne devrait pas provoquer de risque pour votre santé.
             </ResultParagraph>
           </View>
         );
@@ -22,16 +22,16 @@ const ResultAddiction = ({ value }) => {
           <View>
             <ResultParagraph color="#191919">
               <TextStyled bold>
-                Votre consommation d’alcool comporte vraisemblablement des risques pour votre santé
+                Votre consommation d'alcool comporte vraisemblablement des risques pour votre santé
               </TextStyled>
               , même si actuellement vous ne souffrez de rien.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              N’hésitez pas à demander conseil de manière{' '}
+              N'hésitez pas à demander conseil de manière{' '}
               <TextStyled bold color="#de285e">
                 anonyme et gratuite
               </TextStyled>{' '}
-              à l’équipe Oz Ensemble.
+              à l'équipe Oz Ensemble.
             </ResultParagraph>
           </View>
         );
@@ -39,11 +39,11 @@ const ResultAddiction = ({ value }) => {
         return (
           <View>
             <ResultParagraph color="#191919">
-              <TextStyled bold>Il est possible que vous soyez dépendant de l’alcool.</TextStyled>
+              <TextStyled bold>Il est possible que vous soyez dépendant de l'alcool.</TextStyled>
             </ResultParagraph>
             <ResultParagraph color="#191919">
               Cette dépendance peut être psychologique si vous ressentez un besoin de consommer malgré les inconvénients
-              de cette consommation et/ou physique si la dimunution ou l’arrêt de votre consommation entraîne des signes
+              de cette consommation et/ou physique si la dimunution ou l'arrêt de votre consommation entraîne des signes
               de “manque”.
             </ResultParagraph>
             <ResultParagraph color="#191919">

@@ -46,7 +46,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
               Vous avez une consommation <TextStyled bold>inférieure</TextStyled> à la plupart des Français.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
+              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d'alcool par jour.
             </ResultParagraph>
           </View>
         );
@@ -57,7 +57,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
               Vous avez une consommation <TextStyled bold>égale</TextStyled> à la plupart des Français.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
+              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d'alcool par jour.
             </ResultParagraph>
             {!hideButtons && renderFooter()}
           </View>
@@ -70,7 +70,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
               Vous avez une consommation <TextStyled bold>supérieure</TextStyled> à la plupart des Français.
             </ResultParagraph>
             <ResultParagraph color="#191919">
-              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d’alcool par jour.
+              La majorité des Français consomme moins de <TextStyled bold>2 à 3 verres</TextStyled> d'alcool par jour.
             </ResultParagraph>
             {!hideButtons && renderFooter()}
           </View>
