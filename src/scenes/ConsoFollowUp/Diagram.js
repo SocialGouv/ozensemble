@@ -8,7 +8,7 @@ import { storage } from '../../services/storage';
 import { screenHeight } from '../../styles/theme';
 import { Bar, BarsContainer, CloseHelpContainer, Dose, doseTextHeight, Line, LowerBar, UpperBar } from './styles';
 import { dailyDosesSelector, drinksState } from '../../recoil/consos';
-import { drinksByDrinkingDayState } from '../../recoil/gains';
+import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
 import Celebration from '../../components/Illustrations/Celebration';
@@ -120,8 +120,11 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
     })();
   }, []);
 
-  const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
-  const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(highestDailyDose, drinksByDrinkingDay || 2);
+  const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
+    highestDailyDose,
+    totalDrinksByDrinkingDay || 2
+  );
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
 
   return (
