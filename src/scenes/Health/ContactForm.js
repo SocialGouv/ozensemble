@@ -2,6 +2,7 @@ import React from 'react';
 import { Linking } from 'react-native';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import GoBackButtonText from '../../components/GoBackButtonText';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import matomo from '../../services/matomo';
@@ -12,6 +13,7 @@ const ContactForm = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
       <ScreenBgStyled>
+        <GoBackButtonText onPress={navigation.goBack} content="< Retour" bold />
         <TopContainer>
           <TopTitle>
             <TextStyled color="#4030a5">Échangez</TextStyled>

@@ -15,6 +15,7 @@ const GoBackButtonTextStyled = styled.TouchableOpacity`
   ${({ withoutPadding }) => !withoutPadding && 'padding: 10px 20px;'}
   justify-content: center;
   align-items: center;
+  margin-right: auto;
 `;
 
 const bigContent = css`
