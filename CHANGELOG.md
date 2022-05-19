@@ -1,3 +1,10 @@
+## [1.22.2](https://github.com/SocialGouv/ozensemble/compare/v1.22.1...v1.22.2) (2022-05-19)
+
+
+### Bug Fixes
+
+* sentry to new sentry ([434fa5a](https://github.com/SocialGouv/ozensemble/commit/434fa5a32e5ba872e3dbfd2591bff3a40289234d))
+
 ## [1.22.1](https://github.com/SocialGouv/ozensemble/compare/v1.22.0...v1.22.1) (2022-05-19)
 
 
