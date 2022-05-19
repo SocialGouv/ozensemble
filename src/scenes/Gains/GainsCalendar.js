@@ -23,7 +23,7 @@ const noDrinkDay = {
   startingDay: true,
   endingDay: true,
   selectedColor: '#2c864d',
-  isNoDrinkDay: true,
+  isDrinkDay: true,
 };
 
 const drinkDay = {
@@ -32,6 +32,17 @@ const drinkDay = {
   endingDay: true,
   selectedColor: '#de295e',
   isDrinkDay: true,
+};
+
+const needToFillupConso = {
+  startingDay: true,
+  endingDay: true,
+  customStyles: {
+    container: {
+      borderStyle: 'dashed',
+      borderWidth: 1,
+    },
+  },
 };
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
@@ -45,6 +56,13 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
     for (const [day, doses] of Object.entries(dailyDoses)) {
       days[day] = doses > 0 ? drinkDay : noDrinkDay;
       days[day] = { ...days[day], marked: day === today };
+    }
+    const firstTrackedDay = dayjs().startOf('week').add(-1, 'week');
+    const differenceDays = dayjs().diff(firstTrackedDay, 'day');
+    for (let i = 0; i < differenceDays; i++) {
+      const day = dayjs(firstTrackedDay).add(i, 'day').format('YYYY-MM-DD');
+      if (days[day]) continue;
+      days[day] = needToFillupConso;
     }
     return days;
   }, [dailyDoses]);
@@ -74,11 +92,11 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           minDate="2022-01-01"
           maxDate={dayjs().format('YYYY-MM-DD')}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
-          markingType="dot"
+          markingType="custom"
           disableAllTouchEventsForDisabledDays
           onDayPress={({ dateString }) => {
             if (!isOnboarded) return setShowOnboardingGainModal(true);
-            if (markedDays[dateString]?.isDrinkDay || markedDays[dateString]?.isNoDrinkDay) {
+            if (markedDays[dateString]?.isDrinkDay) {
               navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
             } else {
               const now = dayjs();
@@ -92,6 +110,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
       <Legend>État de ma consommation</Legend>
       <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
       <PartDescription value={"J'ai bu"} color={'#de295e'} />
+      <PartDescription value={'Je saisis ma consommation'} color={'transparent'} dashed />
     </TopContainer>
   );
 };
@@ -111,9 +130,9 @@ const Legend = styled(TextStyled)`
   margin-bottom: 5px;
 `;
 
-const PartDescription = ({ color, value }) => (
+const PartDescription = ({ color, value, dashed }) => (
   <PartContainer>
-    <Dot color={color} />
+    <Dot color={color} dashed={dashed} />
     <TextStyled>{value}</TextStyled>
   </PartContainer>
 );
@@ -139,6 +158,8 @@ const Dot = styled.View`
   ${dotCss}
   margin-top: ${dotSize * 0.12}px;
   background-color: ${({ color }) => color};
+  ${(props) => props.dashed && 'border-style: dashed;'}
+  ${(props) => props.dashed && 'border-width: 1px;'}
 `;
 
 const CalendarContainer = styled.View`
