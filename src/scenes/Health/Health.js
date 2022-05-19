@@ -8,7 +8,7 @@ import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 
 const HealthStack = createStackNavigator();
 const Health = () => (
-  <HealthStack.Navigator headerMode="none" initialRouteName="HEALTH" mode="modal">
+  <HealthStack.Navigator headerMode="none" initialRouteName="HEALTH">
     <HealthStack.Screen
       name="ONBOARDING_QUIZZ"
       component={QuizzOnboarding}

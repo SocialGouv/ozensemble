@@ -25,6 +25,7 @@ export const TopContainer = styled.View`
 export const TopTitle = styled(H1)`
   ${commonCss}
   margin-top: 0px;
+  margin-bottom: 10px;
 `;
 
 export const TopSubTitle = styled(H2)`
