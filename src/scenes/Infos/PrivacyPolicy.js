@@ -25,17 +25,17 @@ const PrivacyPolicy = ({ onClose }) => (
         <H2>Traitement des données à caractère personnel</H2>
         <Spacer size={30} />
         <P>
-          Le présent site « Oz-Ensemble » est un service développé et opéré par l’association CaPASSCité avec le soutien
+          Le présent site « Oz-Ensemble » est un service développé et opéré par l'association CaPASSCité avec le soutien
           de la Fabrique des Ministères Sociaux.
         </P>
         <P>
-          Le Responsable de traitement est madame la directrice de l’Association CaPASSCité, le docteur Géraldine
+          Le Responsable de traitement est madame la directrice de l'Association CaPASSCité, le docteur Géraldine
           TALBOT.
         </P>
         <Spacer size={30} />
         <H2>Finalités</H2>
         <Spacer size={30} />
-        <P>Le site vise à présenter l’application OzEnsemble et ses fonctionnalités pour les différents acteurs.</P>
+        <P>Le site vise à présenter l'application OzEnsemble et ses fonctionnalités pour les différents acteurs.</P>
         <Spacer size={20} />
         <H2>Données à caractère personnel traitées</H2>
         <Spacer size={20} />
@@ -46,31 +46,31 @@ const PrivacyPolicy = ({ onClose }) => (
         <H2>Bases juridiques des traitements de données</H2>
         <Spacer size={30} />
         <P>
-          Le traitement de données à caractère personnel est nécessaire au respect d’une obligation légale pesant sur le
-          responsable de traitement telle qu’entendue par l’article 6-c du règlement (UE) n°2016/679 du Parlement
-          européen et du Conseil du 27 avril 2016 relatif à la protection des personnes physiques à l’égard du
+          Le traitement de données à caractère personnel est nécessaire au respect d'une obligation légale pesant sur le
+          responsable de traitement telle qu'entendue par l'article 6-c du règlement (UE) n°2016/679 du Parlement
+          européen et du Conseil du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du
           traitement des données à caractère personnel et à la libre circulation de ces données.
         </P>
         <P>
           Cette obligation légale est posée par la loi LCEN n° 2004-575 du 21 juin 2004 pour la confiance dans
-          l'économie numérique et par l’article 1 du décret n°2021-1363 portant injonction, au regard de la menace grave
+          l'économie numérique et par l'article 1 du décret n°2021-1363 portant injonction, au regard de la menace grave
           et actuelle contre la sécurité nationale, de conservation pour une durée d'un an de certaines catégories de
           données de connexion.
         </P>
         <P>
-          En application de l’article 5(3) de la directive 2002/58/CE modifiée concernant le traitement des données à
+          En application de l'article 5(3) de la directive 2002/58/CE modifiée concernant le traitement des données à
           caractère personnel et la protection de la vie privée dans le secteur des communications électroniques,
-          transposée à l’article 82 de la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux
+          transposée à l'article 82 de la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux
           libertés, les traceurs ou cookies suivent deux régimes distincts.
         </P>
         <P>
           Les cookies strictement nécessaires au service ou ayant pour finalité exclusive de faciliter la communication
-          par voie électronique sont dispensés de consentement préalable au titre de l’article 82 de la loi n°78-17 du 6
+          par voie électronique sont dispensés de consentement préalable au titre de l'article 82 de la loi n°78-17 du 6
           janvier 1978.
         </P>
         <P>
-          Les cookies n’étant pas strictement nécessaires au service ou n’ayant pas pour finalité exclusive de faciliter
-          la communication par voie électronique doivent être consenti par l’utilisateur.
+          Les cookies n'étant pas strictement nécessaires au service ou n'ayant pas pour finalité exclusive de faciliter
+          la communication par voie électronique doivent être consenti par l'utilisateur.
         </P>
         <P>
           Ce consentement de la personne concernée pour une ou plusieurs finalités spécifiques constitue une base légale
@@ -81,7 +81,7 @@ const PrivacyPolicy = ({ onClose }) => (
         <Spacer size={30} />
         <H2>Durée de conservation</H2>
         <Spacer size={30} />
-        <P>Les données de connexion sont conservées par l’hébergeur pour une durée de 12 mois.</P>
+        <P>Les données de connexion sont conservées par l'hébergeur pour une durée de 12 mois.</P>
         <P>Les cookies sont conservés pour une durée de 13 mois.</P>
         <Spacer size={30} />
         <H2>Droit des personnes concernées</H2>
@@ -117,16 +117,16 @@ const PrivacyPolicy = ({ onClose }) => (
         <H2>Destinataires des données</H2>
         <Spacer size={30} />
         <P>
-          Le responsable de traitement s’engage à ce que les données à caractère personnel soient traitées par les
-          seules personnes autorisées : les acteurs partenaires dans le cadre de l’utilisation de « OzEnsemble » et
-          l’équipe de la plateforme OzEnsemble.
+          Le responsable de traitement s'engage à ce que les données à caractère personnel soient traitées par les
+          seules personnes autorisées : les acteurs partenaires dans le cadre de l'utilisation de « OzEnsemble » et
+          l'équipe de la plateforme OzEnsemble.
         </P>
         <Spacer size={30} />
         <H2>Sécurité et confidentialité des données</H2>
         <Spacer size={30} />
         <P>
-          Les mesures techniques et organisationnelles de sécurité adoptées pour assurer la confidentialité, l’intégrité
-          et protéger l’accès des données sont notamment :
+          Les mesures techniques et organisationnelles de sécurité adoptées pour assurer la confidentialité, l'intégrité
+          et protéger l'accès des données sont notamment :
         </P>
         <P>- Chiffrement des données</P>
         <P>- Journalisation</P>
@@ -140,7 +140,7 @@ const PrivacyPolicy = ({ onClose }) => (
         <P>- Protection contre les virus, malwares et logiciels espions</P>
         <P>- Protection des réseaux</P>
         <P>- Sauvegarde</P>
-        <P>- Mesures restrictives limitant l’accès physiques aux données à caractère personnel</P>
+        <P>- Mesures restrictives limitant l'accès physiques aux données à caractère personnel</P>
         <Spacer size={30} />
         <H2>Sous-traitants</H2>
         <Spacer size={30} />
@@ -149,32 +149,32 @@ const PrivacyPolicy = ({ onClose }) => (
         <H2>Cookies</H2>
         <Spacer size={30} />
         <P>
-          Un cookie est un fichier déposé sur votre terminal lors de la visite d’un site. Il a pour but de collecter des
+          Un cookie est un fichier déposé sur votre terminal lors de la visite d'un site. Il a pour but de collecter des
           informations relatives à votre navigation et de vous adresser des services adaptés à votre terminal
           (ordinateur, mobile ou tablette).
         </P>
         <P>
-          Le site dépose des cookies de mesure d’audience (nombre de visites, pages consultées), respectant les
-          conditions d’exemption du consentement de l’internaute définies par la recommandation « Cookies » de la
+          Le site dépose des cookies de mesure d'audience (nombre de visites, pages consultées), respectant les
+          conditions d'exemption du consentement de l'internaute définies par la recommandation « Cookies » de la
           Commission nationale informatique et libertés (CNIL). Cela signifie, notamment, que ces cookies ne servent
-          qu’à la production de statistiques anonymes et ne permettent pas de suivre la navigation de l’internaute sur
-          d’autres sites. Le site dépose également des cookies de navigation, aux fins strictement techniques, qui ne
-          sont pas conservés. La consultation de la plateforme n’est pas affectée lorsque les utilisateurs utilisent des
+          qu'à la production de statistiques anonymes et ne permettent pas de suivre la navigation de l'internaute sur
+          d'autres sites. Le site dépose également des cookies de navigation, aux fins strictement techniques, qui ne
+          sont pas conservés. La consultation de la plateforme n'est pas affectée lorsque les utilisateurs utilisent des
           navigateurs désactivant les cookies.
         </P>
         <P>
-          <Bold>Nous utilisons pour cela Matomo,</Bold> un outil de mesure d’audience web libre, paramétré pour être en
+          <Bold>Nous utilisons pour cela Matomo,</Bold> un outil de mesure d'audience web libre, paramétré pour être en
           conformité avec la recommandation « Cookies » de la CNIL. Cela signifie que votre adresse IP, par exemple, est
-          anonymisée avant d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre
+          anonymisée avant d'être enregistrée. Il est donc impossible d'associer vos visites sur ce site à votre
           personne.
         </P>
         <P>
-          Les données anonymisées issues de Matomo sont exportées vers un Metabase auquel aura accès l’équipe
-          d’OzEnsemble.
+          Les données anonymisées issues de Matomo sont exportées vers un Metabase auquel aura accès l'équipe
+          d'OzEnsemble.
         </P>
-        <P>Il convient d’indiquer que :</P>
-        <P> - Les données collectées ne sont pas recoupées avec d’autres traitements.</P>
-        <P> - Les cookies ne permettent pas de suivre la navigation de l’internaute sur d’autres sites.</P>
+        <P>Il convient d'indiquer que :</P>
+        <P> - Les données collectées ne sont pas recoupées avec d'autres traitements.</P>
+        <P> - Les cookies ne permettent pas de suivre la navigation de l'internaute sur d'autres sites.</P>
       </Container>
     </Background>
   </SafeAreaProvider>
