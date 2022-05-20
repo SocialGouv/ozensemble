@@ -1,5 +1,5 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useMemo, useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
@@ -24,8 +24,7 @@ import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import { useRecoilState } from 'recoil';
-import { reminderWeeklyDay } from '../../recoil/reminder';
+import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -35,15 +34,10 @@ const MyGains = () => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
-  const isFocused = useIsFocused();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const reminder = useMemo(() => storage.getString('@GainsReminder'), [isFocused]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const mode = useMemo(() => storage.getString('@GainsReminder-mode'), [isFocused]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  //const weekDay = useMemo(() => storage.getString('@GainsReminder-weekDay'), [isFocused]);
-  const [weekDay] = useRecoilState(reminderWeeklyDay);
+  const reminder = useRecoilValue(reminderGain);
+  const mode = useRecoilValue(reminderGainMode);
+  const weekDay = useRecoilValue(reminderGainWeekDay);
 
   const [helpVisible, setHelpVisible] = useState(false);
 
@@ -340,12 +334,12 @@ const MyGains = () => {
                 <ReminderIcon size={20} color="#000" selected />
                 <TextStyled>
                   {'   '}
-                  {!reminder ? (
+                  {!dayjs(reminder).isValid() ? (
                     'Pas de rappel encore'
                   ) : (
                     <>
                       {mode === 'day' ? 'Tous les jours ' : `Tous les ${dayjs().day(weekDay).format('dddd')}s `}à{' '}
-                      {new Date(reminder).getLocalePureTime('fr')}
+                      {dayjs(reminder).format('HH:mm')}
                     </>
                   )}
                 </TextStyled>
