@@ -18,6 +18,8 @@ import NotificationService from '../services/notifications';
 import { defaultPadding, defaultPaddingFontScale } from '../styles/theme';
 import { storage } from '../services/storage';
 import GoBackButtonText from './GoBackButtonText';
+import { reminderWeeklyDay } from '../recoil/reminder';
+import { useRecoilState } from 'recoil';
 
 const notifReminderTitle = "C'est l'heure de votre suivi !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
@@ -25,8 +27,9 @@ const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
 const Reminder = ({ navigation, route, storageKey = '@Reminder', children, repeatTimes = 15 }) => {
   const [reminder, setReminder] = useState(null);
   const [mode, setMode] = useState('day'); // 'week'
-  const [weekDay, setWeekDay] = useState(0); // 0 Sunday, 1 Monday -> 6 Saturday
+  //const [weekDay, setWeekDay] = useState(0); // 0 Sunday, 1 Monday -> 6 Saturday
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
+  const [weekDay, setWeekDay] = useRecoilState(reminderWeeklyDay); // 0 Sunday, 1 Monday -> 6 Saturday
 
   const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();

@@ -24,6 +24,8 @@ import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
+import { useRecoilState } from 'recoil';
+import { reminderWeeklyDay } from '../../recoil/reminder';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -40,7 +42,8 @@ const MyGains = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const mode = useMemo(() => storage.getString('@GainsReminder-mode'), [isFocused]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const weekDay = useMemo(() => storage.getString('@GainsReminder-weekDay'), [isFocused]);
+  //const weekDay = useMemo(() => storage.getString('@GainsReminder-weekDay'), [isFocused]);
+  const [weekDay] = useRecoilState(reminderWeeklyDay);
 
   const [helpVisible, setHelpVisible] = useState(false);
 
