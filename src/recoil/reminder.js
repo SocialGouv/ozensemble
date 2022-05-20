@@ -5,5 +5,5 @@ import { getInitValueFromStorage } from './utils';
 export const reminderWeeklyDay = atom({
   key: 'reminderWeeklyDay',
   default: getInitValueFromStorage('@ReminderWeeklyDay', 0),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@ReminderWeeklyDay', newValue))],
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@ReminderWeeklyDay', newValue ? newValue : 0))],
 });
