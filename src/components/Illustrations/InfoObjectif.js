@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const InfosIcon = ({ color, size, ...props }) => (
+const InfosIcon = ({ color = '#000000', size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 24 24" {...props}>
     <G id="Infos" fillRule="evenodd" clip-rule="evenodd">
       <Path
