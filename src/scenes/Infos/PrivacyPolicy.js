@@ -145,6 +145,22 @@ const PrivacyPolicy = ({ onClose }) => (
         <H2>Sous-traitants</H2>
         <Spacer size={30} />
         <P>Certaines données sont envoyées à de sous-traitants pour réaliser certaines missions.</P>
+        <P>
+          <Bold>Partenaire</Bold>
+          <Text>{'   '} Microsoft Azure</Text>
+        </P>
+        <P>
+          <Bold>Pays destinataire</Bold>
+          <Text> {'   '}Union européenne</Text>
+        </P>
+        <P>
+          <Bold>Traitement réalisé</Bold>
+          <Text>{'   '} Hébergement des données</Text>
+        </P>
+        <P>
+          <Bold>Garanties</Bold>
+          <Text>{'   '}https://privacy.microsoft.com/fr-fr/privacystatement</Text>
+        </P>
         <Spacer size={30} />
         <H2>Cookies</H2>
         <Spacer size={30} />
@@ -205,6 +221,14 @@ const BackButton = styled(GoBackButtonText)`
 
 const Bold = styled.Text`
   font-weight: bold;
+`;
+
+const Table = styled.View`
+  border: 2px;
+`;
+
+const Row = styled.Text`
+  border: 2px;
 `;
 
 export default PrivacyPolicy;
