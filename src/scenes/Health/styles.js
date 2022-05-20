@@ -3,6 +3,7 @@ import H2 from '../../components/H2';
 import H1 from '../../components/H1';
 import { screenWidth } from '../../styles/theme';
 import GoBackButtonText from '../../components/GoBackButtonText';
+import { defaultPadding } from '../../styles/theme';
 
 export const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
@@ -19,7 +20,7 @@ export const commonCss = css`
 
 const paddingHorizontal = 30;
 export const TopContainer = styled.View`
-  padding: 20px ${paddingHorizontal}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
+  padding: 5px ${paddingHorizontal}px;
 `;
 
 export const TopTitle = styled(H1)`
@@ -93,4 +94,18 @@ export const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
   ${(props) => !props.withoutPadding && 'padding-horizontal: 15px;'}
   ${(props) => !props.withoutPadding && 'margin-bottom: 15px;'}
+`;
+
+export const P = styled.Text`
+  margin-bottom: 15px;
+`;
+
+export const Spacer = styled.View`
+  height: ${(props) => props.size}px;
+  width: ${(props) => props.size}px;
+`;
+
+export const Bold = styled.Text`
+  font-weight: bold;
+  color: ${(props) => (props.color ? props.color : '#000')};
 `;
