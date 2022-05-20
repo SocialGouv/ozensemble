@@ -50,6 +50,7 @@ const SubTitle = styled(H2)`
 const Container = styled.View`
   width: 100%;
   margin-bottom: 15px;
+  margin-top: 20px;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
