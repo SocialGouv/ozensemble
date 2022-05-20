@@ -1,3 +1,10 @@
+## [1.28.5](https://github.com/SocialGouv/ozensemble/compare/v1.28.4...v1.28.5) (2022-05-20)
+
+
+### Bug Fixes
+
+* reminder wording ([738e063](https://github.com/SocialGouv/ozensemble/commit/738e06377bfb64b9ca7e4249ad8e722ecbbd6942))
+
 ## [1.28.4](https://github.com/SocialGouv/ozensemble/compare/v1.28.3...v1.28.4) (2022-05-20)
 
 
