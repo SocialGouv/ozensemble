@@ -12,7 +12,7 @@ import InfosIcon from './components/Illustrations/Infos';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
-import Health from './scenes/Health/Health';
+import HealthNavigator from './scenes/Health/HealthNavigator';
 import Defi7DaysNavigator from './scenes/Defis/Defi7Days/Defi7Days';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
@@ -91,7 +91,7 @@ const TabsNavigator = ({ navigation }) => {
             tabBarLabel: (props) => <Label {...props}>Santé</Label>,
             tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
           }}
-          component={Health}
+          component={HealthNavigator}
         />
         <Tabs.Screen
           name="INFOS"
