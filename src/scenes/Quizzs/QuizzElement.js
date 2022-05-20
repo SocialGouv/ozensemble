@@ -48,7 +48,7 @@ const QuizzElement = ({
   return (
     <Container done={done} disabled={disabled} fromHealth={fromHealth}>
       <ContainerIcon>
-        {fromHealth ? <Form size={25} /> : <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />}
+        {fromHealth && !done ? <Form size={25} /> : <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />}
       </ContainerIcon>
       <Content>
         <View>
