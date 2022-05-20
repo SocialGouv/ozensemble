@@ -109,3 +109,7 @@ export const Bold = styled.Text`
   font-weight: bold;
   color: ${(props) => (props.color ? props.color : '#000')};
 `;
+
+export const Underline = styled.Text`
+  text-decoration: underline;
+`;
