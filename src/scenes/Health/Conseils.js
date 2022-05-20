@@ -93,6 +93,7 @@ const TitleConseilContainer = styled.Text`
 
 const CategorieContainer = styled.TouchableOpacity`
   margin-top: 10px;
+  margin-bottom: 100px;
   border: 1px solid #4030a5;
   border-radius: 5px;
   flex-direction: row;
