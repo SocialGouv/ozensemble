@@ -32,7 +32,7 @@ const WeeklyReminder = ({ navigation, route }) => (
                   Un rappel permet de remplir plus souvent l'application et obtenir des résultats plus efficaces
                 </Title>
                 <SubTitle color="#191919">
-                  Définissez un rappel quotidien sur votre téléphone pour vous rappeler
+                  Définissez un rappel quotidien ou hebdomadaire sur votre téléphone pour vous rappeler
                 </SubTitle>
               </>
             )}

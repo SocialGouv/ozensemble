@@ -197,7 +197,7 @@ const Reminder = ({
               </>
             ) : (
               <TextStyled color="#191919">
-                Définissez un rappel quotidien sur votre téléphone pour vous rappeler
+                Définissez un rappel quotidien ou hebdomadaire sur votre téléphone pour vous rappeler
               </TextStyled>
             )}
           </SubTitle>
