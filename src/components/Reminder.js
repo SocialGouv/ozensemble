@@ -168,8 +168,9 @@ const Reminder = ({
 
   const deleteReminder = async () => {
     NotificationService.cancelAll();
-    resetReminder();
-    resetWeekDay();
+    setReminder('');
+    setMode('');
+    setWeekDay(0);
     setReminderSetupVisible(false);
     matomo.logReminderDelete();
   };
