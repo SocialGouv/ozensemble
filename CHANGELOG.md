@@ -1,3 +1,11 @@
+## [1.28.3](https://github.com/SocialGouv/ozensemble/compare/v1.28.2...v1.28.3) (2022-05-20)
+
+
+### Bug Fixes
+
+* recoil for all reminders ([d59d8c5](https://github.com/SocialGouv/ozensemble/commit/d59d8c5e43856047c5476f1ec6ab036803194c0d))
+* reminder day ([5a811bb](https://github.com/SocialGouv/ozensemble/commit/5a811bbd203ca145bdbae4f3fec9c6f77e0b1d71))
+
 ## [1.28.2](https://github.com/SocialGouv/ozensemble/compare/v1.28.1...v1.28.2) (2022-05-20)
 
 
