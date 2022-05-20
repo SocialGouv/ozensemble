@@ -3,6 +3,7 @@ import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import { useRecoilState, useResetRecoilState } from 'recoil';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import H2 from './H2';
@@ -16,29 +17,36 @@ import CONSTANTS from '../reference/constants';
 import matomo from '../services/matomo';
 import NotificationService from '../services/notifications';
 import { defaultPadding, defaultPaddingFontScale } from '../styles/theme';
-import { storage } from '../services/storage';
 import GoBackButtonText from './GoBackButtonText';
 
 const notifReminderTitle = "C'est l'heure de votre suivi !";
 const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
 
-const Reminder = ({ navigation, route, storageKey = '@Reminder', children, repeatTimes = 15 }) => {
-  const [reminder, setReminder] = useState(null);
-  const [mode, setMode] = useState('day'); // 'week'
-  const [weekDay, setWeekDay] = useState(0); // 0 Sunday, 1 Monday -> 6 Saturday
+const Reminder = ({
+  navigation,
+  route,
+  reminderState,
+  reminderModeState,
+  reminderWeekDayState,
+  children,
+  repeatTimes = 15,
+}) => {
+  const [reminder, setReminder] = useRecoilState(reminderState);
+  const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
+  const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
+  const resetReminder = useResetRecoilState(reminderState);
+  const resetWeekDay = useResetRecoilState(reminderWeekDayState);
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
 
   const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
-    const reminder = storage.getString(storageKey);
-    // eslint-disable-next-line eqeqeq
-    if (Boolean(reminder) && new Date(reminder) == 'Invalid Date') {
+    if (Boolean(reminder) && !dayjs(reminder).isValid()) {
       deleteReminder();
       return;
     }
     if (!isRegistered && reminder && showAlert) showPermissionsAlert();
     if (!reminder) return;
-    setReminder(new Date(reminder));
+    setReminder(dayjs(reminder));
   };
 
   const notifHandled = useRef(false);
@@ -149,26 +157,19 @@ const Reminder = ({ navigation, route, storageKey = '@Reminder', children, repea
 
   const setReminderRequest = async (newReminder, newMode, newWeekDay) => {
     setReminderSetupVisible(false);
-    if (!newReminder) return;
+    if (!dayjs(newReminder).isValid()) return;
     await scheduleNotification(newReminder, newMode, newWeekDay);
     await matomo.logReminderSet(Date.parse(newReminder));
-    setReminder(newReminder);
+    setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
-    storage.set(storageKey, newReminder.toISOString());
-    storage.set(`${storageKey}-mode`, newMode);
-    if (newWeekDay) {
-      storage.set(`${storageKey}-weekDay`, newWeekDay);
-    } else {
-      storage.delete(`${storageKey}-weekDay`);
-    }
     setReminderSetupVisible(false);
   };
 
   const deleteReminder = async () => {
-    storage.delete(storageKey);
     NotificationService.cancelAll();
-    setReminder(null);
+    resetReminder();
+    resetWeekDay();
     setReminderSetupVisible(false);
     matomo.logReminderDelete();
   };

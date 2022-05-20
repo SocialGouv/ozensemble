@@ -4,32 +4,42 @@ import styled from 'styled-components';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Reminder from '../../components/Reminder';
+import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 
-// TODO: weekly ! :)
 const WeeklyReminder = ({ navigation, route }) => (
-  <Reminder navigation={navigation} route={route} storageKey="@GainsReminder" offset="day">
-    {({ reminder, mode, weekDay }) => (
-      <>
-        <Container>
-          {reminder ? (
-            <>
-              <SubTitle color="#191919">Pour un meilleur suivi, un rappel est programmé : </SubTitle>
-              <Title color="#4030a5">
-                {mode === 'day' ? 'TOUS LES JOURS' : `TOUS LES ${dayjs().day(weekDay).format('dddd').toUpperCase()}S`}
-                {'\n'}À {reminder.getLocalePureTime('fr')}
-              </Title>
-            </>
-          ) : (
-            <>
-              <Title color="#4030a5">
-                Un rappel permet de remplir plus souvent l'application et obtenir des résultats plus efficaces
-              </Title>
-              <SubTitle color="#191919">Définissez un rappel quotidien sur votre téléphone pour vous rappeler</SubTitle>
-            </>
-          )}
-        </Container>
-      </>
-    )}
+  <Reminder
+    navigation={navigation}
+    route={route}
+    reminderState={reminderGain}
+    reminderModeState={reminderGainMode}
+    reminderWeekDayState={reminderGainWeekDay}>
+    {({ reminder, mode, weekDay }) => {
+      console.log({ reminder });
+      return (
+        <>
+          <Container>
+            {dayjs(reminder).isValid() ? (
+              <>
+                <SubTitle color="#191919">Pour un meilleur suivi, un rappel est programmé : </SubTitle>
+                <Title color="#4030a5">
+                  {mode === 'day' ? 'TOUS LES JOURS' : `TOUS LES ${dayjs().day(weekDay).format('dddd').toUpperCase()}S`}
+                  {'\n'}À {dayjs(reminder).format('HH:mm')}
+                </Title>
+              </>
+            ) : (
+              <>
+                <Title color="#4030a5">
+                  Un rappel permet de remplir plus souvent l'application et obtenir des résultats plus efficaces
+                </Title>
+                <SubTitle color="#191919">
+                  Définissez un rappel quotidien sur votre téléphone pour vous rappeler
+                </SubTitle>
+              </>
+            )}
+          </Container>
+        </>
+      );
+    }}
   </Reminder>
 );
 
