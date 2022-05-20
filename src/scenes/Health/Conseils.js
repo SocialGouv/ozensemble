@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Image } from 'react-native';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
