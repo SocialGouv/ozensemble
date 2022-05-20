@@ -262,6 +262,7 @@ const ButtonsContainer = styled.View`
 const BackButton = styled(GoBackButtonText)`
   margin-right: auto;
   margin-left: -20px;
+  margin-bottom: 20px;
 `;
 
 const EditButton = styled(UnderlinedButton)``;
