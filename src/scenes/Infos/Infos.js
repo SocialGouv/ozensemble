@@ -13,7 +13,6 @@ import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
-import Reminder from '../../components/Reminder';
 import WeeklyReminder from '../Gains/WeeklyReminder';
 
 const InfosStack = createStackNavigator();

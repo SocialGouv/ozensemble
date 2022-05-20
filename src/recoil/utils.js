@@ -1,18 +1,29 @@
 import { storage } from '../services/storage';
 
 export const getInitValueFromStorage = (key, defaultValue) => {
-  const valueType = typeof defaultValue;
-  if (valueType === 'number') {
-    const foundValue = storage.getNumber(key);
+  try {
+    const valueType = typeof defaultValue;
+    if (valueType === 'number') {
+      const foundValue = storage.getNumber(key);
+      if (!foundValue) return defaultValue;
+      return Number(foundValue);
+    }
+    if (valueType === 'boolean') {
+      const foundValue = storage.getBoolean(key);
+      if (!foundValue) return defaultValue;
+      return foundValue;
+    }
+    const foundValue = storage.getString(key);
     if (!foundValue) return defaultValue;
-    return Number(foundValue);
+    try {
+      return JSON.parse(foundValue);
+    } catch (e) {
+      return foundValue;
+    }
+  } catch (e) {
+    console.log('error recoil', e);
+    const foundValue = storage.getString(key);
+    console.log(foundValue, key, defaultValue);
   }
-  if (valueType === 'boolean') {
-    const foundValue = storage.getBoolean(key);
-    if (!foundValue) return defaultValue;
-    return foundValue;
-  }
-  const foundValue = storage.getString(key);
-  if (!foundValue) return defaultValue;
-  return JSON.parse(foundValue);
+  return defaultValue;
 };
