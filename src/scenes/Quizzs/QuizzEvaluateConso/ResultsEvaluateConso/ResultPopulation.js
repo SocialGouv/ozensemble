@@ -11,7 +11,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
   const navigation = useNavigation();
   const renderFooter = () =>
     ['RESULT_ARROW_ADDICTED', 'RESULT_ARROW_HARMFUL_USAGE'].includes(value) ? (
-      <>
+      <ButtonsContainer>
         <ButtonPrimary
           content="Échanger avec un conseiller"
           onPress={() => navigation.navigate('CONTACT')}
@@ -22,7 +22,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
           onPress={() => navigation.navigate('ADVISE')}
           color="#4030a5"
         />
-      </>
+      </ButtonsContainer>
     ) : (
       <ButtonContainer>
         <ButtonPrimary
@@ -93,4 +93,8 @@ export default ResultPopulation;
 const ButtonContainer = styled.View`
   flex-direction: row;
   justify-content: center;
+`;
+
+const ButtonsContainer = styled.View`
+  align-items: center;
 `;
