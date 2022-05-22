@@ -3,7 +3,7 @@ import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import H2 from './H2';
@@ -34,8 +34,6 @@ const Reminder = ({
   const [reminder, setReminder] = useRecoilState(reminderState);
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
-  const resetReminder = useResetRecoilState(reminderState);
-  const resetWeekDay = useResetRecoilState(reminderWeekDayState);
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
 
   const getReminder = async (showAlert = true) => {
@@ -112,6 +110,9 @@ const Reminder = ({
       }
       return dayjs().add(weekDay - dayjs().get('day'), 'day');
     })();
+    console.log(dayjs());
+    console.log({ reminder, mode, weekDay });
+    console.log({ firstDate }, timeIsAfterNow(reminder));
     for (let i = timeIsAfterNow(reminder) ? 0 : 1; i <= repeatTimes; i++) {
       const fireDate = firstDate
         .add(i, mode)
@@ -119,6 +120,7 @@ const Reminder = ({
         .set('minutes', reminder.getMinutes())
         .set('seconds', 0)
         .toDate();
+      console.log({ fireDate });
       NotificationService.scheduleNotification({
         date: fireDate,
         title: notifReminderTitle,

@@ -13,7 +13,8 @@ import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
-import WeeklyReminder from '../Gains/WeeklyReminder';
+import Reminder from '../../components/Reminder';
+import { reminderDefis, reminderDefisMode, reminderDefisWeekDay } from '../../recoil/reminder';
 
 const InfosStack = createStackNavigator();
 
@@ -23,7 +24,16 @@ const Infos = () => {
       <HeaderBackground />
       <InfosStack.Navigator initialRouteName="INFOS_TAB" headerMode="none">
         <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
-        <InfosStack.Screen name="REMINDER" component={WeeklyReminder} />
+        <InfosStack.Screen name="DEFI_7_DAYS_REMINDER">
+          {(props) => (
+            <Reminder
+              {...props}
+              reminderState={reminderDefis}
+              reminderModeState={reminderDefisMode}
+              reminderWeekDayState={reminderDefisWeekDay}
+            />
+          )}
+        </InfosStack.Screen>
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
@@ -48,7 +58,7 @@ const InfosMenu = ({ navigation }) => {
           <TopTitle>
             <TextStyled color="#4030a5">Mes informations</TextStyled>
           </TopTitle>
-          <MenuItem caption="Rappel" onPress={() => navigation.push('REMINDER')} />
+          <MenuItem caption="Rappel de mon défi 7 jours" onPress={() => navigation.push('REMINDER_DEFI_7_DAYS')} />
           <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
           <MenuItem
             caption="Mentions Légales & Politique de Confidentialité"

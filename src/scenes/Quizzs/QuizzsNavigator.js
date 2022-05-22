@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import TextStyled from '../../components/TextStyled';
@@ -13,7 +14,8 @@ import QuizzOnboarding from './QuizzOnboarding';
 
 import QuizzElement from './QuizzElement';
 import GoBackButtonText from '../../components/GoBackButtonText';
-import { useNavigation } from '@react-navigation/native';
+import ContactForm from '../Health/ContactForm';
+import Doctolib from '../Health/Doctolib';
 
 const QuizzsStack = createStackNavigator();
 
@@ -45,6 +47,8 @@ const QuizzsNavigator = () => (
         rootRoute: 'QUIZZ_MENU',
       }}
     />
+    <QuizzsStack.Screen name="CONTACT" component={ContactForm} />
+    <QuizzsStack.Screen name="DOCTOLIB" component={Doctolib} />
   </QuizzsStack.Navigator>
 );
 const QuizzMenu = () => {

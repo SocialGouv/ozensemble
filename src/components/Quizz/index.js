@@ -59,8 +59,8 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
     }
   };
 
-  const setInitAnswers = async () => {
-    const fetchedInitialState = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
+  const setInitAnswers = () => {
+    const fetchedInitialState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
     if (fetchedInitialState?.answers || fetchedInitialState?.result) {
       setGlobalState({
         answers: fetchedInitialState.answers,
