@@ -25,6 +25,7 @@ import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
+import matomo from '../../services/matomo';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -145,7 +146,11 @@ const MyGains = () => {
           <H1 color="#4030a5">Mes gains</H1>
         </TopTitle>
         {!isOnboarded ? (
-          <TouchableOpacity onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
+          <TouchableOpacity
+            onPress={() => {
+              matomo.logTooltipGoal();
+              navigation.navigate('GAINS_MY_OBJECTIVE');
+            }}>
             <Description>
               <InfosIcon size={24} />
               <TextDescritpion>
@@ -201,7 +206,7 @@ const MyGains = () => {
           value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
           maximize
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal((show) => !show)}
+          onPress={() => setShowOnboardingGainModal(true)}
         />
         <CategorieGain
           unit={<Kcal color="#191919">kcal</Kcal>}
@@ -209,7 +214,7 @@ const MyGains = () => {
           value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
           maximize
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal((show) => !show)}
+          onPress={() => setShowOnboardingGainModal(true)}
         />
       </Categories>
       <TextContainer>
@@ -226,7 +231,7 @@ const MyGains = () => {
           description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
           value={isOnboarded ? remaindrink : '?'}
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal((show) => !show)}>
+          onPress={() => setShowOnboardingGainModal(true)}>
           <Speedometer
             value={isOnboarded ? remaindrink : 1}
             totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
@@ -240,7 +245,7 @@ const MyGains = () => {
           description={`Jour${notDrinkDaythisWeek > 1 ? 's' : ''} où je n'ai pas\u00A0bu`}
           value={isOnboarded ? notDrinkDaythisWeek : '?'}
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal((show) => !show)}
+          onPress={() => setShowOnboardingGainModal(true)}
         />
       </Categories>
       <OnBoardingGainModal
