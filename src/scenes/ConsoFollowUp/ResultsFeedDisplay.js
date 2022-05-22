@@ -18,8 +18,6 @@ const ResultsFeedDisplay = ({ onPress, selected }) => {
     }
   }, [isDone, isFocused]);
 
-  console.log({ isDone });
-
   return (
     <TouchableOpacity onPress={onPress}>
       <FeedButtonStyled backgroundColor="#deeceb" borderColor="#aae3dd" showAsSelected={selected}>

@@ -9,7 +9,7 @@ import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
 import NoDrink from '../../components/Illustrations/NoDrink';
 import TextStyled from '../../components/TextStyled';
-import { screenHeight } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
@@ -112,7 +112,7 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const TopContainer = styled.View`
-  padding: 0px 30px 0px;
+  padding-horizontal: ${defaultPaddingFontScale()};
 `;
 
 const TopTitle = styled.View`

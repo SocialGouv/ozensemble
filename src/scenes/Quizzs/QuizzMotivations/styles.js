@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 
 export const commonCss = css`
   width: 100%;
@@ -19,10 +20,8 @@ export const Paragraph = styled.View`
   margin-bottom: 25px;
 `;
 
-const paddingHorizontal = 30;
-
 export const TopContainer = styled.View`
-  padding: 20px ${paddingHorizontal}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
+  padding: 20px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
 `;
 
 export const TopTitleContainer = styled.View`

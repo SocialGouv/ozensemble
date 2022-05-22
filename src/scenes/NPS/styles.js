@@ -2,21 +2,20 @@ import styled, { css } from 'styled-components';
 import { Dimensions } from 'react-native';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
-import { screenWidth } from '../../styles/theme';
+import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 
 export const Container = styled.View`
   height: 100%;
   width: ${Dimensions.get('window').width}px;
 `;
 
-const paddingHorizontal = 30;
 export const ScreenBgStyled = styled.ScrollView`
   background-color: #f9f9f9;
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
   min-height: 100%;
-  padding: 20px ${paddingHorizontal}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
+  padding: 20px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
 `;
 
 export const KeyboardAvoidingViewStyled = styled.KeyboardAvoidingView`
@@ -58,7 +57,7 @@ export const ButtonContainer = styled.View`
   flex-grow: 0;
   flex-direction: row;
   justify-content: space-around;
-  margin-left: -${paddingHorizontal}px;
+  margin-left: -${defaultPaddingFontScale()}px;
   width: ${screenWidth}px;
   margin-bottom: 150px;
 `;

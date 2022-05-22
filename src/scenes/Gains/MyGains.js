@@ -5,7 +5,7 @@ import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { screenHeight, screenWidth } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Economy from '../../components/Illustrations/Economy';
@@ -366,11 +366,11 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const Container = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
 `;
 
 const BottomContainer = styled.View`
-  padding: 20px 30px 100px;
+  padding: 20px ${defaultPaddingFontScale()}px 100px;
 `;
 
 const TopTitle = styled.View`
@@ -430,7 +430,7 @@ const Title = styled.View`
 `;
 
 const MyGoalContainer = styled.View`
-  padding: 20px 30px 100px;
+  padding: 20px ${defaultPaddingFontScale()}px 100px;
 `;
 
 const MyGoalSubContainer = styled.View`
