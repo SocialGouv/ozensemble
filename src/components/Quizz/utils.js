@@ -17,7 +17,7 @@ export const getGenderFromLocalStorage = async () => {
   return null;
 };
 
-export const fetchStoredAnswers = async ({ memoryKeyAnswers, memoryKeyResult, questions = [] }) => {
+export const fetchStoredAnswers = ({ memoryKeyAnswers, memoryKeyResult, questions = [] }) => {
   const computeInitAnswersState = () => {
     const initAnswerState = {};
     for (let question of questions) {

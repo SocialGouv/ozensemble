@@ -110,9 +110,9 @@ const Reminder = ({
       }
       return dayjs().add(weekDay - dayjs().get('day'), 'day');
     })();
-    console.log(dayjs());
-    console.log({ reminder, mode, weekDay });
-    console.log({ firstDate }, timeIsAfterNow(reminder));
+    // console.log(dayjs());
+    // console.log({ reminder, mode, weekDay });
+    // console.log({ firstDate }, timeIsAfterNow(reminder));
     for (let i = timeIsAfterNow(reminder) ? 0 : 1; i <= repeatTimes; i++) {
       const fireDate = firstDate
         .add(i, mode)
@@ -120,7 +120,7 @@ const Reminder = ({
         .set('minutes', reminder.getMinutes())
         .set('seconds', 0)
         .toDate();
-      console.log({ fireDate });
+      // console.log({ fireDate });
       NotificationService.scheduleNotification({
         date: fireDate,
         title: notifReminderTitle,

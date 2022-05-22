@@ -18,8 +18,6 @@ const atLeastOneAnswerIsNotNever = (answers) => {
     const answerKey = answers[curr];
     return (answerKey !== 'never' && answerKey !== 'no') || !!prev;
   }, false);
-  console.log({ answers });
-  console.log({ hasNotAnsweredNeverAtLeastOne });
   return hasNotAnsweredNeverAtLeastOne;
 };
 
@@ -93,8 +91,6 @@ const mapScoreToResult = ({ computedScore, answers }) => {
     if (atLeastOneAnswerIsNotNever(answers)) scores.scoreArrow = 'RESULT_ARROW_HARMFUL_USAGE';
     if (score >= 12) scores.scoreArrow = 'RESULT_ARROW_ADDICTED';
   }
-  console.log({ score });
-  console.log({ scores });
   return scores;
 };
 

@@ -21,8 +21,8 @@ const QuizzMotivations = ({ navigation, route }) => {
   const memoryKeyAnswers = '@QuizzMotivations_answers';
   const memoryKeyResult = '@QuizzMotivations_result';
 
-  const setInitAnswers = async () => {
-    const fetchedInitialState = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
+  const setInitAnswers = () => {
+    const fetchedInitialState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
     if (fetchedInitialState?.answers || fetchedInitialState?.result) {
       setAnswers(fetchedInitialState.answers);
     }

@@ -65,7 +65,6 @@ const TimePicker = ({ visible, selectDate }) => {
               display="spinner"
               maximumDate={today(1)}
               onChange={(_, selectedDate) => {
-                console.log({ selectedDate });
                 setShow(false);
                 selectDate(selectedDate);
               }}

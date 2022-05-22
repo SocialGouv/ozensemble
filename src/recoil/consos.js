@@ -86,7 +86,6 @@ export const diffWithPreviousWeekSelector = selectorFamily({
     ({ asPreview = false } = {}) =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector);
-      console.log({ dailyDoses });
       const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
