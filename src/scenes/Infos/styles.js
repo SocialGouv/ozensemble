@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import H1 from '../../components/H1';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 export const ScreenBgStyled = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -35,7 +36,7 @@ export const Arrow = styled.Text`
 
 export const TopTitle = styled(H1)`
   ${commonCss}
-  padding-horizontal: 30px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   padding-top: 20px;
   margin-top: 10px;
   margin-bottom: 20px;

@@ -7,6 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -116,7 +117,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
 };
 
 const TopContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
 `;
 
 const TopTitle = styled.View`

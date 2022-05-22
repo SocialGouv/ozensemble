@@ -193,7 +193,7 @@ const BackButton = styled(GoBackButtonText)`
 `;
 
 const Container = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()};
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   overflow: hidden;
 `;
 
