@@ -42,6 +42,7 @@ const Conseils = ({ navigation }) => {
                 </TitleConseilContainer>
               </ConseilContainer>
             ))}
+            <Space />
           </ViewConseilsContainer>
           <TopTitle>
             <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
@@ -93,11 +94,12 @@ const TitleConseilContainer = styled.Text`
 
 const CategorieContainer = styled.TouchableOpacity`
   margin-top: 10px;
+  margin-bottom: 100px;
   border: 1px solid #4030a5;
   border-radius: 5px;
   flex-direction: row;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   shadow-color: #4030a5;
   shadow-offset: 0px 5px;
   shadow-opacity: 0.09;
@@ -118,6 +120,10 @@ const ImageStyled = styled.Image`
   height: ${screenHeight * 0.15}px;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
+`;
+
+const Space = styled.View`
+  width: 50px;
 `;
 
 export default Conseils;
