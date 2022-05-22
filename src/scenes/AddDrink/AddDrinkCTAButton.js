@@ -24,7 +24,7 @@ const AddDrinkCTAButton = ({ onCTAPress }) => {
       onPress={() => {
         setModalTimestamp(Date.now());
         onCTAPress();
-        matomo.logConsoOpenAddScreen();
+        matomo.logConsoOpenAddScreen('CTA');
       }}>
       <CTAContainer>
         <CTASubContainer>
