@@ -104,6 +104,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
     return daysOfTheWeek;
   }, [firstDay]);
 
+  const navigation = useNavigation();
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
 
@@ -240,6 +241,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
           border="#f4cda9"
           icon={<Increase size={35} />}
           button
+          navigation={navigation}
           message={
             <>
               <TextStyled>
@@ -282,6 +284,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
           border="#C4C4C4"
           icon={<Equality size={25} />}
           button
+          navigation={navigation}
           message={
             <>
               <TextStyled>
@@ -349,7 +352,7 @@ const LegendContainer = styled.View`
   flex-basis: 35px;
 `;
 
-const EvolutionMessage = ({ background, border, icon, message, button }) => {
+const EvolutionMessage = ({ background, border, icon, message, button, navigation }) => {
   return (
     <EvolutionContainer background={background} border={border}>
       <EvolutionContainerText>

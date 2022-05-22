@@ -11,7 +11,7 @@ const Sevrage = ({ navigation }) => {
       <Container>
         <BackButton content="< Retour" onPress={navigation.goBack} bold withoutPadding />
         <TopTitle>
-          <H1 color="#4030a5">Les signes de sevrage</H1>
+          <H1 color="#4030a5">Les signes de sevrages</H1>
         </TopTitle>
         <DescriptionSymptome>
           Le sevrage à l'alcool peut entraîner des complications graves et possiblement mortelles.
@@ -29,10 +29,11 @@ const Sevrage = ({ navigation }) => {
           Elles apparaissent généralement sous 24h à 48h et se manifestent quelques heures après les dernières
           consommations.
         </DescriptionSymptome>
-        <Symptome>Hyperventillation</Symptome>
+        <Symptome>Pouls accéléré</Symptome>
         <DescriptionSymptome>
           Normalement la fréquence cardiaque de l'adulte se situe en dessous de 80 battements/minutes au repos.
         </DescriptionSymptome>
+        <Symptome>Hyperventillation</Symptome>
         <DescriptionSymptome>
           Votre respiration s'accèlere nettement, même au repos, au delà de 17 cycles/minutes.
         </DescriptionSymptome>
