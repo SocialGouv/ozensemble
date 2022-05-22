@@ -26,10 +26,7 @@ const ResultAddicted = ({ navigation, isInOnboarding, route }) => (
         <TextStyled color="#191919">avec l'un de nos psychologues</TextStyled>
       </TopSubTitle>
       <TopButtonContainer>
-        <ButtonPrimary
-          content="Échanger avec un conseiller"
-          onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
-        />
+        <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
       </TopButtonContainer>
       <TopTitle>
         <TextStyled color="#4030a5">
