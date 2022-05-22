@@ -60,13 +60,13 @@ class NPS extends Component {
     if (__DEV__) {
       // this.reset(); // useful in dev mode
     }
-    AppState.addEventListener('change', this.handleAppStateChange);
+    this.appStateListener = AppState.addEventListener('change', this.handleAppStateChange);
     this.notificationsListener = NotificationService.listen(this.handleNotification);
     this.checkNeedNPS();
   }
 
   componentWillUnmount() {
-    AppState.removeEventListener('change', this.handleAppStateChange);
+    this.appStateListener?.remove();
     NotificationService.remove(this.notificationsListener);
   }
 
