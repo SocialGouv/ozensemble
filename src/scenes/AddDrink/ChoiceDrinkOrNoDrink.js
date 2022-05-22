@@ -112,7 +112,7 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const TopContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()};
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const TopTitle = styled.View`

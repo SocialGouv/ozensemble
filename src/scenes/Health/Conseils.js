@@ -5,7 +5,7 @@ import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled, TopContainer, TopSubTitle } from './styles';
 import { listConseils } from './ListConseil';
-import { screenHeight, screenWidth } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
 import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
@@ -74,10 +74,10 @@ export const TopTitle = styled(H1)`
 `;
 
 const ViewConseilsContainer = styled.ScrollView`
-  margin-left: -30px;
-  margin-right: -30px;
+  margin-left: -${defaultPaddingFontScale()}px;
+  margin-right: -${defaultPaddingFontScale()}px;
   margin-top: 20px;
-  padding-left: 30px;
+  padding-left: ${defaultPaddingFontScale()}px;
 `;
 
 const ConseilContainer = styled.TouchableOpacity`

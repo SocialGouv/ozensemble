@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
-import { screenHeight } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 
 const Sevrage = ({ navigation }) => {
   return (
@@ -73,7 +73,7 @@ const CTAButtonContainer = styled.View`
 `;
 
 const Container = styled.View`
-  padding-horizontal: 30px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const Symptome = styled.Text`

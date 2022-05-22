@@ -9,7 +9,7 @@ import TextStyled from '../../components/TextStyled';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
-import { defaultPadding } from '../../styles/theme';
+import { defaultPaddingFontScale } from '../../styles/theme';
 import { getDisplayName, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
 
 export const HTMLExportSelector = selector({
@@ -137,7 +137,7 @@ const Container = styled.View`
   align-items: center;
   background-color: #f9f9f9;
   flex: 1;
-  padding-horizontal: ${defaultPadding}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const SubContainer = styled.View`

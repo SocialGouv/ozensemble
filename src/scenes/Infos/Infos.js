@@ -7,7 +7,7 @@ import Background from '../../components/Background';
 import H1 from '../../components/H1';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
-import { defaultPadding } from '../../styles/theme';
+import { defaultPaddingFontScale } from '../../styles/theme';
 import NPS from '../NPS/NPS';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
@@ -115,7 +115,7 @@ const MenuItemStyled = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-horizontal: ${defaultPadding}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const commonCss = css`
@@ -130,7 +130,7 @@ const Arrow = styled.Text`
 
 const TopTitle = styled(H1)`
   ${commonCss}
-  padding-horizontal: 30px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   padding-top: 20px;
   margin-top: 10px;
   margin-bottom: 20px;

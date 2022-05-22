@@ -6,7 +6,7 @@ import H2 from '../../../components/H2';
 import TextStyled from '../../../components/TextStyled';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import matomo from '../../../services/matomo';
-import { defaultPadding } from '../../../styles/theme';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/Illustrations/DefiLanding';
 
@@ -64,7 +64,7 @@ export default ({ navigation }) => {
 
 const Container = styled.View`
   background-color: #f9f9f9;
-  padding: 0 ${defaultPadding}px;
+  padding: 0 ${defaultPaddingFontScale()}px;
   padding-top: 20px;
   align-items: center;
   padding-bottom: 100px;

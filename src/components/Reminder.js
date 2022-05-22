@@ -16,7 +16,7 @@ import { timeIsAfterNow } from '../helpers/dateHelpers';
 import CONSTANTS from '../reference/constants';
 import matomo from '../services/matomo';
 import NotificationService from '../services/notifications';
-import { defaultPadding, defaultPaddingFontScale } from '../styles/theme';
+import { defaultPaddingFontScale } from '../styles/theme';
 import GoBackButtonText from './GoBackButtonText';
 
 const notifReminderTitle = "C'est l'heure de votre suivi !";
@@ -238,7 +238,7 @@ const Container = styled.ScrollView.attrs({
   },
 })`
   background-color: #f9f9f9;
-  padding-horizontal: ${defaultPadding}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const Title = styled(H1)`
