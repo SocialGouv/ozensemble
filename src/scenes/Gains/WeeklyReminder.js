@@ -14,7 +14,6 @@ const WeeklyReminder = ({ navigation, route }) => (
     reminderModeState={reminderGainMode}
     reminderWeekDayState={reminderGainWeekDay}>
     {({ reminder, mode, weekDay }) => {
-      console.log({ reminder });
       return (
         <>
           <Container>

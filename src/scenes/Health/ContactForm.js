@@ -11,7 +11,6 @@ import { Extra, ScreenBgStyled, TopButtonContainer, TopContainer, TopSubTitle, T
 const ContactForm = ({ navigation }) => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <ScreenBgStyled>
         <GoBackButtonText onPress={navigation.goBack} content="< Retour" bold />
         <TopContainer>

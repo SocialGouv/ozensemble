@@ -17,8 +17,8 @@ export default ({ navigation }) => {
   const [{ resultEvaluateConso, resultLifeQuality, resultMotivation }, setGlobalResults] = useState({});
   const setResults = (newState) => setGlobalResults((oldState) => ({ ...oldState, ...newState }));
 
-  const getResultsFromStorage = async (memoryKeyAnswers, memoryKeyResult, key, cb) => {
-    const r = await fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
+  const getResultsFromStorage = (memoryKeyAnswers, memoryKeyResult, key, cb) => {
+    const r = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
     cb({ [key]: r });
   };
   useEffect(() => {

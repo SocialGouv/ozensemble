@@ -64,12 +64,12 @@ export default ({ navigation, route }) => {
             />
           </Paragraph>
           <OneDoseAlcoolExplanation />
-          <Paragraph>
+          {/* <Paragraph>
             <Elem
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
               aussi scanner l'étiquette de la bouteille."
             />
-          </Paragraph>
+          </Paragraph> */}
           <Paragraph>
             <Elem
               content="Nous vous conseillons de noter vos consommations au fur et à mesure de la journée sans attendre le

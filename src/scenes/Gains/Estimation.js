@@ -11,6 +11,7 @@ import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { ModalContent } from '../AddDrink/styles';
 import GoBackButtonText from '../../components/GoBackButtonText';
+import H2 from '../../components/H2';
 
 const Estimation = () => {
   const navigation = useNavigation();
@@ -49,6 +50,7 @@ const Estimation = () => {
       <TextContainer>
         <TopTitle>
           <H1 color="#4030a5">Ma consommation avant OzEnsemble</H1>
+          <H2>Estimation par semaine</H2>
         </TopTitle>
         <DescriptionText>
           <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
@@ -111,7 +113,6 @@ const TextContainer = styled.View`
 `;
 
 const TopTitle = styled.View`
-  flex-direction: row;
   flex-shrink: 0;
   margin-bottom: 10px;
 `;
