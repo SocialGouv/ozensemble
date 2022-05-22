@@ -1,3 +1,17 @@
+## [1.28.8](https://github.com/SocialGouv/ozensemble/compare/v1.28.7...v1.28.8) (2022-05-22)
+
+
+### Bug Fixes
+
+* back butotn in timepicker ([3878324](https://github.com/SocialGouv/ozensemble/commit/3878324d7ab556ff4ac08cb23e10cefcb8f69633))
+* capital letter where no need ([e967435](https://github.com/SocialGouv/ozensemble/commit/e967435e2137e1eeb322940d4ed5c767bd7d13f9))
+* margin-bottom champagne ([a9beb39](https://github.com/SocialGouv/ozensemble/commit/a9beb3943d324e359d25f33d148db7e80f0f3f51))
+* move tab label up ([7953305](https://github.com/SocialGouv/ozensemble/commit/7953305738edc8affa624f30043faee26961485c))
+* navigate to CONTACT ([00e5cfc](https://github.com/SocialGouv/ozensemble/commit/00e5cfcd79661e9ee2a3c47a73677f71271f805b))
+* remove arrows on onboarding ([b08d087](https://github.com/SocialGouv/ozensemble/commit/b08d087a4e2d1cb343e57656074f347428b4eb6f))
+* spacing in screens ([5996683](https://github.com/SocialGouv/ozensemble/commit/59966838005db194b2c6bfce055c8becc7751a66))
+* start fixing padding ([3828b26](https://github.com/SocialGouv/ozensemble/commit/3828b26b060cfa21d3bdbd81ade4059fe1bfb84c))
+
 ## [1.28.7](https://github.com/SocialGouv/ozensemble/compare/v1.28.6...v1.28.7) (2022-05-22)
 
 
