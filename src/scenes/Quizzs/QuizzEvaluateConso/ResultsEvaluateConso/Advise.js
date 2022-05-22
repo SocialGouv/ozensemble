@@ -7,6 +7,7 @@ import GoBackButton from '../../../../components/GoBackButton';
 import H1 from '../../../../components/H1';
 import Stars from '../../../../components/Illustrations/Stars';
 import TextStyled from '../../../../components/TextStyled';
+import { defaultPaddingFontScale } from '../../../../styles/theme';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -105,7 +106,7 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
 `;
 
 const Spacer = styled.View`

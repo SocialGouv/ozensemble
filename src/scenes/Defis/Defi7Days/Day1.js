@@ -10,6 +10,7 @@ import H1 from '../../../components/H1';
 import Stars from '../../../components/Illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../../components/TextStyled';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 import Diagram from '../../ConsoFollowUp/Diagram';
 import { setValidatedDays } from './utils';
 
@@ -125,7 +126,7 @@ const Paragraph = styled.View`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
 `;
 
 const Spacer = styled.View`

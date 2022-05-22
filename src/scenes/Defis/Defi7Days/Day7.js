@@ -7,6 +7,7 @@ import GoBackButton from '../../../components/GoBackButton';
 import H1 from '../../../components/H1';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 import { Content as ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
 import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/Result';
 import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
@@ -82,7 +83,7 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
   padding-bottom: 100px;
 `;
 

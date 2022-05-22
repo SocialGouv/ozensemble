@@ -8,6 +8,7 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import GoBackButton from '../../../components/GoBackButton';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from './utils';
 
@@ -126,7 +127,7 @@ const ScreenBgStyled = styled.ScrollView`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 30px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
   padding-bottom: 100px;
 `;
 

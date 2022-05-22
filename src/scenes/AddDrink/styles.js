@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Platform } from 'react-native';
 import H2 from '../../components/H2';
-import { buttonHeight } from '../../styles/theme';
+import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 
 export const Container = styled.View`
   background-color: #f9f9f9;
@@ -17,7 +17,7 @@ export const ModalContent = styled.ScrollView`
 export const Title = styled(H2)`
   font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
   color: #4030a5;
-  margin: 50px 30px 15px;
+  margin: 50px ${defaultPaddingFontScale()}px15px;
 `;
 
 export const DateAndTimeContainer = styled.View`

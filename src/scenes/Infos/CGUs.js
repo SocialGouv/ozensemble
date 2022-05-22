@@ -5,7 +5,7 @@ import Background from '../../components/Background';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import { defaultPadding } from '../../styles/theme';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const CGUs = ({ onClose }) => (
   <SafeAreaProvider>
@@ -206,7 +206,7 @@ const Container = styled.ScrollView.attrs({
     paddingBottom: 150,
   },
 })`
-  padding-horizontal: ${defaultPadding}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const P = styled.Text`

@@ -61,7 +61,6 @@ const ConsosList = ({ navigation }) => {
   const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
   const toast = useToast();
 
-  // const [newDrink, setNewDrink] = useState(initDrinkState);
   const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
 
   const scrollRef = useRef(null);
@@ -126,16 +125,6 @@ const ConsosList = ({ navigation }) => {
     return true;
   }, [navigation]);
 
-  // const onAddDrinkToCatalog = async ({ name, volume, degrees, drinkKey, quantity }) => {
-  //   setNewDrink(initDrinkState);
-  //   const formattedDrink = formatNewDrink(name, volume, degrees, drinkKey);
-  //   setOwnDrinks((ownDrinks) => [...ownDrinks.filter((d) => d.drinkKey !== drink.drinkKey), formattedDrink]);
-  //   setDrinkQuantityRequest(formattedDrink.drinkKey, quantity);
-  //   setTimeout(() => {
-  //     scrollRef.current.scrollTo({ y: 0, animated: true });
-  //   }, 150);
-  // };
-
   const removeOwnDrinkRequest = (drinkKey) => {
     setDrinkQuantityRequest(drinkKey, 0);
     setOwnDrinks((ownDrinks) =>
@@ -173,27 +162,6 @@ const ConsosList = ({ navigation }) => {
     return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
   }, [isFocused, onCancelConsos, drinksPerCurrentaTimestamp]);
 
-  /*
-  useEffect(() => {
-    if (route?.params?.addBarCodeDrink) {
-      const newDrink = route?.params?.addBarCodeDrink;
-      setNewDrink(route?.params?.addBarCodeDrink);
-      navigation.setParams({ addBarCodeDrink: null });
-      navigation.push('CONSO_NEW_DRINK', { init: newDrink });
-    } else {
-      setNewDrink(initDrinkState);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [route?.params?.addBarCodeDrink?.timestamp]);
-  useEffect(() => {
-    if (route?.params?.addNewDrinkFromForm) {
-      onAddDrinkToCatalog(route?.params?.addNewDrinkFromForm);
-    } else {
-      setNewDrink(initDrinkState);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [route?.params?.addNewDrinkFromForm?.timestamp]);
- */
   return (
     <Container>
       <ModalContent ref={scrollRef} disableHorizontal>
@@ -233,17 +201,6 @@ const ConsosList = ({ navigation }) => {
               setDrinkQuantity={setDrinkQuantityRequest}
             />
           ))}
-        {/* <>
-          <SmallMarginBottom />
-          <ButtonsContainer>
-            <ButtonPrimary content="Scannez une boisson" onPress={() => navigation.push('CONSO_SCAN_BAR_CODE')} />
-          </ButtonsContainer>
-          <UnderlinedButton
-            content="Ajoutez manuellement"
-            bold
-            onPress={() => navigation.push('CONSO_NEW_DRINK', { init: newDrink })}
-          />
-        </> */}
         <MarginBottom />
       </ModalContent>
       <ButtonsContainerSafe>
