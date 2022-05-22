@@ -9,7 +9,7 @@ import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassT
 import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
-import { screenHeight, screenWidth } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import {
   daysWithGoalNoDrinkState,
   drinksByDrinkingDayState,
@@ -193,7 +193,7 @@ const BackButton = styled(GoBackButtonText)`
 `;
 
 const Container = styled.View`
-  padding: 0px 30px 0px;
+  padding-horizontal: ${defaultPaddingFontScale()};
   overflow: hidden;
 `;
 
