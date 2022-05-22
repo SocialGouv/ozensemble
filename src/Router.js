@@ -102,7 +102,7 @@ const TabsNavigator = ({ navigation }) => {
             tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
           }}
           component={Infos}
-          listeners={(props) => tabPressListener({ ...props, rootName: 'INFOS_TAB' })}
+          listeners={(props) => tabPressListener({ ...props, rootName: 'INFOS_MENU' })}
         />
       </Tabs.Navigator>
       <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />

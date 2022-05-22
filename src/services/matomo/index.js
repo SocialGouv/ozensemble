@@ -7,6 +7,8 @@ import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
 import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
 import { storage } from '../storage';
 
+// https://docs.google.com/spreadsheets/d/1FzFrt-JsNK-OXqBz8f5sop3BcHhcvjGieZUF4gXHBJg/edit#gid=367769533
+
 const initMatomo = async () => {
   let userId = storage.getString('@UserIdv2');
   if (!userId) {
@@ -164,10 +166,11 @@ const logConsoOpen = async (value) => {
   });
 };
 
-const logConsoOpenAddScreen = async () => {
+const logConsoOpenAddScreen = async (name) => {
   await logEvent({
     category: CONSO,
     action: CONSO_OPEN_CONSO_ADDSCREEN,
+    name,
   });
 };
 
@@ -396,6 +399,15 @@ const logValidateDayInDefi7Days = async (day) => {
   });
 };
 
+// GAINS
+const GAINS = 'GAINS';
+const logTooltipGoal = async () => {
+  logEvent({
+    category: GAINS,
+    action: 'TOOLTIP_GOAL',
+  });
+};
+
 export default {
   initMatomo,
   logAppVisit,
@@ -434,4 +446,5 @@ export default {
   logClickStartDefi7Days,
   logClickNotStartDefi7Days,
   logValidateDayInDefi7Days,
+  logTooltipGoal,
 };

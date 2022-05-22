@@ -22,8 +22,8 @@ const Infos = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <InfosStack.Navigator initialRouteName="INFOS_TAB" headerMode="none">
-        <InfosStack.Screen name="INFOS_TAB" component={InfosMenu} />
+      <InfosStack.Navigator initialRouteName="INFOS_MENU" headerMode="none">
+        <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
         <InfosStack.Screen name="DEFI_7_DAYS_REMINDER">
           {(props) => (
             <Reminder
