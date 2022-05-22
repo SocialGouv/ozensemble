@@ -73,7 +73,7 @@ const ResultRisk = ({ navigation, isInOnboarding, route }) => (
           color="#de285e"
           bold
           content="Échanger avec un conseiller"
-          onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
+          onPress={() => navigation.navigate('CONTACT')}
         />
       </BottomSubContainer>
     </BottomContainer>

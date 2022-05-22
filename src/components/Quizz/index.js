@@ -7,6 +7,8 @@ import Question from './Question';
 import { fetchStoredAnswers } from './utils';
 import { storage } from '../../services/storage';
 import GoBackButtonText from '../GoBackButtonText';
+import ContactForm from '../../scenes/Health/ContactForm';
+import Doctolib from '../../scenes/Health/Doctolib';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -86,6 +88,8 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
         <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
           {(props) => <Results resultKey={resultKey} {...props} />}
         </QuizzAndResultsStack.Screen>
+        <QuizzAndResultsStack.Screen name="CONTACT" component={ContactForm} />
+        <QuizzAndResultsStack.Screen name="DOCTOLIB" component={Doctolib} />
       </QuizzAndResultsStack.Navigator>
     </Background>
   );

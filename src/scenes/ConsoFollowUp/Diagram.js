@@ -366,7 +366,7 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
             small
             onPress={() => {
               matomo.logContactTakeRDV();
-              navigation.navigate('CONTACT_TAB');
+              navigation.navigate('CONTACT');
             }}
           />
         </ContactAddictologue>

@@ -20,7 +20,7 @@ const Health = () => (
       }}
     />
     <HealthStack.Screen name="HEALTH" component={Conseils} />
-    <HealthStack.Screen name="CONTACT_TAB" component={ContactForm} />
+    <HealthStack.Screen name="CONTACT" component={ContactForm} />
     <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
     <HealthStack.Screen name="TO_SAY_NO" component={ToSayNo} />
     <HealthStack.Screen name="TO_HELP_ME_REDUCE" component={ToHelpMeReduce} />
