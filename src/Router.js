@@ -18,7 +18,7 @@ import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
 import NPS from './scenes/NPS/NPS';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
-import AppStateHandler from './services/AppStateHandler';
+import useAppState from './services/useAppState';
 import matomo from './services/matomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
@@ -113,6 +113,7 @@ const TabsNavigator = ({ navigation }) => {
 const Root = createStackNavigator();
 const Router = () => {
   const [initialRouteName, setInitialRouteName] = useState(null);
+  useAppState({ isActive: matomo.logAppVisit, isInactive: matomo.logAppClose });
 
   const initApp = async () => {
     NotificationService.init();
@@ -156,7 +157,6 @@ const Router = () => {
             <Root.Screen name="TABS" component={TabsNavigator} />
           </Root.Navigator>
         )}
-        <AppStateHandler isActive={matomo.logAppVisit} isInactive={matomo.logAppClose} />
         <NPS />
       </NavigationContainer>
       <CustomBootsplash />
