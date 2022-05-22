@@ -1,3 +1,10 @@
+## [1.28.6](https://github.com/SocialGouv/ozensemble/compare/v1.28.5...v1.28.6) (2022-05-22)
+
+
+### Bug Fixes
+
+* Les signes de sevrage ([0cc19b4](https://github.com/SocialGouv/ozensemble/commit/0cc19b4b53d20a309f7a730d6f1d03dcc0112e44))
+
 ## [1.28.5](https://github.com/SocialGouv/ozensemble/compare/v1.28.4...v1.28.5) (2022-05-20)
 
 
