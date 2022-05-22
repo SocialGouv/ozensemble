@@ -36,6 +36,8 @@ const LabelStyled = styled(TextStyled)`
   ${(props) => `color: ${props.color};`}
   ${(props) => props.focused && 'text-decoration-line: underline;'}
   font-size: 12px;
+  margin-top: -3px;
+  margin-bottom: 3px;
 `;
 
 const Tabs = createBottomTabNavigator();
