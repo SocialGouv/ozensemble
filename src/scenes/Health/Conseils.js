@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled, TopContainer, TopSubTitle, TopTitle } from './styles';
+import { ScreenBgStyled, TopContainer, TopSubTitle } from './styles';
 import { listConseils } from './ListConseil';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
 import QuizzElement from '../Quizzs/QuizzElement';
+import H1 from '../../components/H1';
 
 const Conseils = ({ navigation }) => {
   return (
@@ -65,8 +66,14 @@ const Conseils = ({ navigation }) => {
   );
 };
 
+export const TopTitle = styled(H1)`
+  width: 95%;
+  flex-shrink: 0;
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+
 const ViewConseilsContainer = styled.ScrollView`
-  margin-bottom: ${screenHeight * 0.05}px;
   margin-left: -30px;
   margin-right: -30px;
   margin-top: 20px;
