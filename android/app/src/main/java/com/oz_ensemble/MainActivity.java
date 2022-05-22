@@ -1,5 +1,6 @@
 package com.addicto;
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
@@ -15,6 +16,12 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "oz_ensemble";
   }
+
+  // https://stackoverflow.com/a/57712204/5225096
+  @Override
+    protected void onCreate(Bundle savedInstanceState) {
+       super.onCreate(null);
+   }
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
