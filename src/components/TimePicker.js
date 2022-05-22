@@ -45,7 +45,7 @@ const TimePicker = ({ visible, selectDate }) => {
                   selectDate(date);
                 }}
               />
-              <GoBackButtonText content="Retour" bold onPress={() => selectDate(null)} />
+              <BackButton content="Retour" bold onPress={() => selectDate(null)} />
             </ButtonsContainer>
           </DatePickerContainer>
         </ModalContent>
@@ -103,6 +103,10 @@ const ButtonsContainer = styled.View`
   justify-content: space-around;
   align-items: center;
   margin-vertical: 15px;
+`;
+
+const BackButton = styled(GoBackButtonText)`
+  margin-right: 0;
 `;
 
 export default TimePicker;
