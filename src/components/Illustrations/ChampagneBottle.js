@@ -2,9 +2,7 @@ import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import styled from 'styled-components';
 
-const StyledSvg = styled(Svg)`
-  margin-bottom: 20px;
-`;
+const StyledSvg = styled(Svg)``;
 
 const ChampagneBottle = ({ size, ...props }) => (
   <StyledSvg width={size} height={size * 1.5} viewBox="0 0 19 58" {...props}>
