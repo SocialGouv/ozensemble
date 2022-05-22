@@ -1,3 +1,10 @@
+## [1.28.7](https://github.com/SocialGouv/ozensemble/compare/v1.28.6...v1.28.7) (2022-05-22)
+
+
+### Bug Fixes
+
+* android bug ([ac4143b](https://github.com/SocialGouv/ozensemble/commit/ac4143b2ed2f02f870bdb63644e9e9bdd4bd9eac))
+
 ## [1.28.6](https://github.com/SocialGouv/ozensemble/compare/v1.28.5...v1.28.6) (2022-05-22)
 
 
