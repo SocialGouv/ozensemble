@@ -12,12 +12,18 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { ModalContent } from '../AddDrink/styles';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H2 from '../../components/H2';
+import matomo from '../../services/matomo';
 
 const Estimation = () => {
   const navigation = useNavigation();
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
+  const numberDrinkEstimation = previousDrinksPerWeek.reduce(
+    (sum, drink) =>
+      sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
+    0
+  );
 
   const scrollRef = useRef(null);
 
@@ -96,7 +102,10 @@ const Estimation = () => {
         <ButtonPrimary
           disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
           content="Je finalise"
-          onPress={() => navigation.navigate('GAINS_MAIN_VIEW')}
+          onPress={() => {
+            matomo.logGoalEstimationDrink(numberDrinkEstimation);
+            navigation.navigate('GAINS_MAIN_VIEW');
+          }}
         />
       </CTAButtonContainer>
     </ScreenBgStyled>
