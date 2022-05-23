@@ -125,7 +125,7 @@ const TopTitle = styled.View`
 
 export const DateAndTimeContainer = styled.View`
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 `;
 
