@@ -69,7 +69,7 @@ const ChoiceDrinkOrNoDrink = () => {
           icon={<CocktailGlassTriangle size={40} />}
           value={"J'ai bu"}
           onPress={() => {
-            matomo.logConsoDrink;
+            matomo.logConsoDrink();
             navigation.replace('CONSOS_LIST');
           }}
         />
