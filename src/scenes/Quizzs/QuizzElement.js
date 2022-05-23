@@ -8,6 +8,7 @@ import TickDone from '../../components/Illustrations/TickDone';
 import { fetchStoredAnswers } from '../../components/Quizz/utils';
 import Form from '../../components/Illustrations/Form';
 import { screenWidth } from '../../styles/theme';
+import matomo from '../../services/matomo';
 
 const QuizzElement = ({
   topTitle,
@@ -24,6 +25,7 @@ const QuizzElement = ({
   const navigation = useNavigation();
 
   const onStart = () => {
+    matomo.logQuizzOpen(quizzRoute);
     navigation.navigate(quizzRoute, { initialState: quizzInitialState, initialRouteName: 'QUIZZ_QUESTIONS' });
   };
   const onShowResult = () => {

@@ -86,7 +86,7 @@ const logAppClose = async () => {
 };
 
 const logOpenPage = async (category, value) => {
-  await logEvent({ category, action: `${category}_OPEN`, name: ORIGIN, value });
+  await logEvent({ category: 'MENU', action: category, name: ORIGIN, value });
 };
 
 /*
@@ -104,8 +104,7 @@ const logQuizzOpen = async (value) => {
   await logEvent({
     category: QUIZZ,
     action: QUIZZ_OPEN,
-    name: ORIGIN,
-    value,
+    name: value,
   });
 };
 
@@ -156,6 +155,8 @@ const CONSO_SCAN_OWN_OPEN = 'CONSO_SCAN_OWN_OPEN';
 const CONSO_SCAN_OWN = 'CONSO_SCAN_OWN';
 const CONSO_ADD_OWN_MANUALLY_OPEN = 'CONSO_ADD_OWN_MANUALLY_OPEN';
 const CONSO_ADD_OWN_MANUALLY = 'CONSO_ADD_OWN_MANUALLY';
+const CONSO_DRINK = 'CONSO_DRINK';
+const CONSO_DRINKLESS = 'CONSO_DRINKLESS';
 
 const logConsoOpen = async (value) => {
   await logEvent({
@@ -243,6 +244,20 @@ const logNoConso = async () => {
   await logEvent({
     category: CONSO,
     action: NO_CONSO,
+  });
+};
+
+const logConsoDrink = async () => {
+  await logEvent({
+    category: CONSO,
+    action: CONSO_DRINK,
+  });
+};
+
+const logConsoDrinkless = async () => {
+  await logEvent({
+    category: CONSO,
+    action: CONSO_DRINKLESS,
   });
 };
 
@@ -400,11 +415,110 @@ const logValidateDayInDefi7Days = async (day) => {
 };
 
 // GAINS
-const GAINS = 'GAINS';
+const GAINS = 'GOAL';
+
 const logTooltipGoal = async () => {
   logEvent({
     category: GAINS,
     action: 'TOOLTIP_GOAL',
+  });
+};
+
+const logEarningsSection = async (value) => {
+  await logEvent({
+    category: GAINS,
+    action: 'EARNINGS_SECTION',
+    name: value,
+  });
+};
+
+const logGoalOpen = async () => {
+  await logEvent({
+    category: GAINS,
+    action: 'GOAL_OPEN',
+  });
+};
+
+const logGoalDrinkless = async (days, number) => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_DRINKLESS',
+    name: days,
+    value: number,
+  });
+};
+
+const logGoalDrinkWeek = async (value) => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_DRINKWEEK',
+    value: value,
+  });
+};
+
+const logGoalDrinkHelp = async () => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_DRINK_HELP',
+  });
+};
+
+const logGoalReminderWeeks = async () => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_REMINDER_WEEKS',
+  });
+};
+
+const logGoalReminderDay = async () => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_REMINDER_DAY',
+  });
+};
+
+const logGoalEstimationDrink = async (value) => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_ESTIMATION_DRINK',
+    value: value,
+  });
+};
+
+const logGoalFinish = async () => {
+  logEvent({
+    category: GAINS,
+    action: 'GOAL_FINISH',
+  });
+};
+
+// ANALYSIS
+
+const ANALYSIS = 'ANALYSIS';
+
+const logAnalysisDate = async () => {
+  logEvent({
+    category: ANALYSIS,
+    action: 'ANALYSIS_DATE',
+  });
+};
+
+const logAnalysisContact = async () => {
+  logEvent({
+    category: ANALYSIS,
+    action: 'ANALYSIS_CONTACT',
+  });
+};
+
+//HEALTH
+
+const HEALTH = 'HEALTH';
+
+const logHealthArticle = async (value) => {
+  logEvent({
+    category: GAINS,
+    action: 'HEALTH_ARTICLE',
+    name: value,
   });
 };
 
@@ -447,4 +561,18 @@ export default {
   logClickNotStartDefi7Days,
   logValidateDayInDefi7Days,
   logTooltipGoal,
+  logEarningsSection,
+  logGoalOpen,
+  logGoalDrinkless,
+  logGoalDrinkWeek,
+  logGoalDrinkHelp,
+  logGoalReminderWeeks,
+  logGoalReminderDay,
+  logGoalEstimationDrink,
+  logGoalFinish,
+  logConsoDrink,
+  logConsoDrinkless,
+  logAnalysisDate,
+  logAnalysisContact,
+  logHealthArticle,
 };
