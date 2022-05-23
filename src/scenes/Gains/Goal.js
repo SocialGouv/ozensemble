@@ -21,6 +21,7 @@ import HelpModalCountConsumption from './HelpModalCountConsumption';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
+import matomo from '../../services/matomo';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
@@ -122,7 +123,12 @@ const Goal = ({ navigation }) => {
             </TextSemiBold>
           </Row>
           <Row>
-            <HelpCount onPress={() => setHelpVisible(true)} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+            <HelpCount
+              onPress={() => {
+                matomo.logGoalDrinkHelp();
+                setHelpVisible(true);
+              }}
+              hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
               <HelpCountCaption>Comment compter un verre sans me tromper</HelpCountCaption>
               <InfoObjectif size={15} color={'#000000'} />
             </HelpCount>
@@ -155,14 +161,16 @@ const Goal = ({ navigation }) => {
           <CTAButtonContainer>
             <ButtonPrimary
               content="Continuer"
-              onPress={() =>
+              onPress={() => {
+                matomo.logGoalDrinkless(daysWithGoalNoDrink, daysWithGoalNoDrink.length);
+                matomo.logGoalDrinkWeek(drinkByWeek);
                 isOnboarded
                   ? navigation.navigate('GAINS_SEVRAGE')
                   : navigation.navigate('GAINS_REMINDER', {
                       enableContinueButton: true,
                       onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
-                    })
-              }
+                    });
+              }}
               disabled={!totalDrinksByDrinkingDay}
             />
           </CTAButtonContainer>
