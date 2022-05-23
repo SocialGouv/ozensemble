@@ -59,8 +59,9 @@ const MyGains = () => {
   }, [days]);
 
   const notDrinkDaythisWeek = useMemo(() => {
-    return days.filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week'))).filter((day) => !dailyDoses[day])
-      .length;
+    return days
+      .filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week')))
+      .filter((day) => dailyDoses[day] === 0).length;
   }, [days, dailyDoses]);
 
   const numberDrinkThisWeek = useMemo(
