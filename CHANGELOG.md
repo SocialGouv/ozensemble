@@ -1,3 +1,11 @@
+## [1.28.11](https://github.com/SocialGouv/ozensemble/compare/v1.28.10...v1.28.11) (2022-05-23)
+
+
+### Bug Fixes
+
+* beug first day with no conso sabrina ([0e67fd0](https://github.com/SocialGouv/ozensemble/commit/0e67fd0d395d7aad6f5ec7c160a6c47694cb0745))
+* space bottom reminder ([fe415e9](https://github.com/SocialGouv/ozensemble/commit/fe415e90cc2fecfc18aff323ab73d922bdbd975f))
+
 ## [1.28.10](https://github.com/SocialGouv/ozensemble/compare/v1.28.9...v1.28.10) (2022-05-23)
 
 
