@@ -516,7 +516,7 @@ const HEALTH = 'HEALTH';
 
 const logHealthArticle = async (value) => {
   logEvent({
-    category: GAINS,
+    category: HEALTH,
     action: 'HEALTH_ARTICLE',
     name: value,
   });
