@@ -228,13 +228,9 @@ const Reminder = ({
 const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
     backgroundColor: '#f9f9f9',
-    flexShrink: 1,
-    flexGrow: 1,
-    flexBasis: '100%',
-    minHeight: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 100,
+    paddingBottom: 50,
   },
 })`
   background-color: #f9f9f9;
