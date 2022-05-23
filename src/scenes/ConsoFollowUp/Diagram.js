@@ -157,7 +157,10 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
       {!asPreview && (
         <ChangeDateContainer>
           <ChangeDateButton
-            onPress={() => setFirstDay(dayjs(firstDay).add(-1, 'week'))}
+            onPress={() => {
+              matomo.logAnalysisDate();
+              setFirstDay(dayjs(firstDay).add(-1, 'week'));
+            }}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <TextStyled>{'<'}</TextStyled>
           </ChangeDateButton>
@@ -172,7 +175,10 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
             </TextStyled>
           )}
           <ChangeDateButton
-            onPress={() => setFirstDay(dayjs(firstDay).add(1, 'week'))}
+            onPress={() => {
+              matomo.logAnalysisDate();
+              setFirstDay(dayjs(firstDay).add(1, 'week'));
+            }}
             disabled={dayjs(lastDay).add(1, 'days').isAfter(dayjs())}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <TextStyled>{'>'}</TextStyled>
@@ -366,6 +372,7 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
             small
             onPress={() => {
               matomo.logContactTakeRDV();
+              matomo.logAnalysisContact();
               navigation.navigate('CONTACT');
             }}
           />
