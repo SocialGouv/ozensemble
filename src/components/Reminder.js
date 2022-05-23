@@ -194,7 +194,7 @@ const Reminder = ({
             {reminder ? (
               <>
                 <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
+                <TextStyled color="#4030a5">{`\n ${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
                 <TextStyled color="#191919">tous les jours.</TextStyled>
               </>
             ) : (
