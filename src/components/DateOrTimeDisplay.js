@@ -25,7 +25,6 @@ const DateOrTimeDisplay = ({ date, onPress, mode }) => {
 
 const DatesContainer = styled.View`
   flex-direction: row;
-  margin: 0px 30px 15px;
 `;
 
 const CurrentDateContainer = styled.View`
