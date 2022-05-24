@@ -218,7 +218,7 @@ const ToSayNo = ({ navigation }) => {
           </P>
           <P>
             Les amis qui ne respectent pas vos choix n'ont pas votre meilleur intérêt à l'esprit.
-            <Bold> dÉloignez-vous des personnes qui vous poussent à boire</Bold> et évitez les situations autour d'elles
+            <Bold> Éloignez-vous des personnes qui vous poussent à boire</Bold> et évitez les situations autour d'elles
             qui impliquent de l'alcool.{'\n'} Faites-vous des amis avec des gens qui acceptent vos décisions, même s'ils
             ne les comprennent pas.
           </P>
