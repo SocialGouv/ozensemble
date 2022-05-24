@@ -25,7 +25,7 @@ const QuizzElement = ({
   const navigation = useNavigation();
 
   const onStart = () => {
-    matomo.logQuizzOpen(quizzRoute);
+    matomo.logQuizzStart();
     navigation.navigate(quizzRoute, { initialState: quizzInitialState, initialRouteName: 'QUIZZ_QUESTIONS' });
   };
   const onShowResult = () => {
