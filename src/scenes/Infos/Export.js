@@ -10,7 +10,7 @@ import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
 import { defaultPaddingFontScale } from '../../styles/theme';
-import { getDisplayName, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
+import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 
 export const HTMLExportSelector = selector({
   key: 'HTMLExportSelector',
@@ -51,8 +51,9 @@ const formatHtmlTable = (drinks, catalog) => {
             })
             .map((drink) => {
               const doses = mapDrinkToDose(drink, catalog);
-              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
               const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
+              if (drink.drinkKey === NO_CONSO) return `<tr><td>${time}</td><td>Pas bu ce jour</td></tr>`;
+              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
               return `<tr>
                   <td>${time}</td>
                   <td>${drink.quantity} ${name} (${doses} dose${doses > 1 ? 's' : ''})</td>
@@ -123,6 +124,7 @@ const Export = ({ navigation }) => {
           returnKeyType="go"
           textContentType="emailAddress"
           onSubmitEditing={exportData}
+          placeholderTextColor="#c9c9cc"
         />
         <ButtonsContainer>
           <ButtonPrimary content="Envoyer" disabled={!email} onPress={exportData} />
