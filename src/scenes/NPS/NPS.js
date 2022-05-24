@@ -335,7 +335,7 @@ class NPS extends Component {
 
   render() {
     const { visible, page } = this.state;
-    if (__DEV__) return null; // uncomment to play with NPS
+    //if (__DEV__) return null; // uncomment to play with NPS
     return (
       <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onDismiss={this.onClose}>
         <SafeAreaProvider>

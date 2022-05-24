@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
+import matomo from '../../services/matomo';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 
 const Sevrage = ({ navigation }) => {
@@ -44,7 +45,13 @@ const Sevrage = ({ navigation }) => {
         </DescriptionSymptome>
       </Container>
       <CTAButtonContainer>
-        <ButtonPrimary content="J'ai compris et je commence " onPress={() => navigation.navigate('GAINS_MAIN_VIEW')} />
+        <ButtonPrimary
+          content="J'ai compris et je commence "
+          onPress={() => {
+            matomo.logGoalFinish();
+            navigation.navigate('GAINS_MAIN_VIEW');
+          }}
+        />
       </CTAButtonContainer>
     </ScreenBgStyled>
   );

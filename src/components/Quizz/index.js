@@ -9,7 +9,7 @@ import { storage } from '../../services/storage';
 import GoBackButtonText from '../GoBackButtonText';
 import ContactForm from '../../scenes/Health/ContactForm';
 import Doctolib from '../../scenes/Health/Doctolib';
-
+import matomo from '../../services/matomo';
 /*
 HOW DOES THE QUESTIONS WORK:
 -> The user can't pass a question.
@@ -45,13 +45,13 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
 
     const endOfQuestions = questionIndex === questions.length - 1;
 
-    // await matomo.logQuizzAnswer({ questionKey, answerKey, score });
+    await matomo.logQuizzAnswer({ questionKey, answerKey, score });
     storage.set(memoryKeyAnswers, JSON.stringify(newAnswers));
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(questions, newAnswers);
       // await matomo.logAddictionResult(addictionResult);
-      // await matomo.logQuizzFinish();
+      await matomo.logQuizzFinish();
       if (addictionResult) {
         storage.set(memoryKeyResult, JSON.stringify(addictionResult));
       }

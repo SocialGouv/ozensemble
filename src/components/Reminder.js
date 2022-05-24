@@ -164,7 +164,6 @@ const Reminder = ({
     setReminderSetupVisible(false);
     if (!dayjs(newReminder).isValid()) return;
     await scheduleNotification(newReminder, newMode, newWeekDay);
-    await matomo.logReminderSet(Date.parse(newReminder));
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
@@ -196,12 +195,12 @@ const Reminder = ({
             {reminder ? (
               <>
                 <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                <TextStyled color="#4030a5">{`\n ${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
+                <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
                 <TextStyled color="#191919">tous les jours.</TextStyled>
               </>
             ) : (
               <TextStyled color="#191919">
-                Définissez un rappel quotidien ou hebdomadaire sur votre téléphone pour vous rappeler
+                Définissez un rappel quotidien sur votre téléphone pour vous rappeler
               </TextStyled>
             )}
           </SubTitle>
@@ -234,7 +233,7 @@ const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50,
-    flex: 1,
+    flexGrow: 1,
   },
 })`
   background-color: #f9f9f9;
