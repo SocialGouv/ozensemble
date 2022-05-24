@@ -1,3 +1,24 @@
+## [1.28.16](https://github.com/SocialGouv/ozensemble/compare/v1.28.15...v1.28.16) (2022-05-24)
+
+
+### Bug Fixes
+
+* switch reminders if not in defi ([333ff5d](https://github.com/SocialGouv/ozensemble/commit/333ff5d80ce4acf1d0b4625fd9f7a4e1503c5959))
+
+## [1.28.15](https://github.com/SocialGouv/ozensemble/compare/v1.28.14...v1.28.15) (2022-05-24)
+
+
+### Bug Fixes
+
+* dark mode on textinput ([2fd7141](https://github.com/SocialGouv/ozensemble/commit/2fd714105c74c07e4cd4f09556c01fd1d38b4df1))
+
+## [1.28.14](https://github.com/SocialGouv/ozensemble/compare/v1.28.13...v1.28.14) (2022-05-24)
+
+
+### Bug Fixes
+
+* articles ([7056c5a](https://github.com/SocialGouv/ozensemble/commit/7056c5ad04253ac28f8cbdc053ae1bb37fa73c38))
+
 ## [1.28.13](https://github.com/SocialGouv/ozensemble/compare/v1.28.12...v1.28.13) (2022-05-24)
 
 

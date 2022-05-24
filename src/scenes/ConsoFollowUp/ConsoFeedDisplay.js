@@ -20,28 +20,28 @@ const ConsoFeedDisplay = ({
   nothingSelected,
   drinkKey,
   timestamp,
-  quantity: q,
+  quantity,
   updateDrinkRequest,
   deleteDrinkRequest,
-  position: p,
+  position,
 }) => {
   const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
-  const n = getDisplayName(drinkKey, q, consolidatedCatalog);
-  const v = getVolume(drinkKey, consolidatedCatalog);
+  const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
+  const drinkVolumne = getVolume(drinkKey, consolidatedCatalog);
   const Icon = getIcon(drinkKey, consolidatedCatalog);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
-        <FeedButton pos={p} showAsSelected={selected || nothingSelected}>
+        <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
           <Content>
             <Icon size={25} />
             <Drink>
-              {q} {n}{' '}
+              {quantity} {drinkName}{' '}
             </Drink>
             <Volume numberOfLines={1} ellipsizeMode="tail">
-              ({v})
+              ({drinkVolumne})
             </Volume>
-            {(isFirst(p) || isAlone(p)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
+            {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
           </Content>
         </FeedButton>
       </TouchableWithoutFeedback>
@@ -82,10 +82,10 @@ const middleCss = css`
 `;
 
 const FeedButton = styled(FeedButtonStyled)`
-  ${({ pos }) => {
-    if (isFirst(pos)) return firstCss;
-    if (isMiddle(pos)) return middleCss;
-    if (isLast(pos)) return lastCss;
+  ${({ positionInFeed }) => {
+    if (isFirst(positionInFeed)) return firstCss;
+    if (isMiddle(positionInFeed)) return middleCss;
+    if (isLast(positionInFeed)) return lastCss;
   }}
 `;
 
