@@ -168,6 +168,7 @@ const Goal = ({ navigation }) => {
                   navigation.navigate('GAINS_SEVRAGE');
                   return;
                 }
+                matomo.logReminderOpen('GOAL');
                 navigation.navigate('GAINS_REMINDER', {
                   enableContinueButton: true,
                   onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
