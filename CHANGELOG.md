@@ -1,3 +1,10 @@
+## [1.28.12](https://github.com/SocialGouv/ozensemble/compare/v1.28.11...v1.28.12) (2022-05-24)
+
+
+### Bug Fixes
+
+* reminder only daily for defi 7 jours ([032c5de](https://github.com/SocialGouv/ozensemble/commit/032c5de7533ce340bdf2e46fef7ee55e7d1a1420))
+
 ## [1.28.11](https://github.com/SocialGouv/ozensemble/compare/v1.28.10...v1.28.11) (2022-05-23)
 
 
