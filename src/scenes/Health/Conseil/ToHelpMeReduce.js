@@ -1,10 +1,10 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
 import { ScreenBgStyled, Spacer, P, TopContainer, Bold, Underline } from '../styles';
 import TopArticle from './TopArticle';
 import H2 from '../../../components/H2';
+import { Text } from 'react-native';
 
 const ToHelpMeReduce = ({ navigation }) => {
   return (
@@ -84,7 +84,7 @@ const ToHelpMeReduce = ({ navigation }) => {
             spa, ou pour faire des économies ? {'\n'}
             {'    - '}Vous pouvez vous engager à ne dépenser que la moitié de ce montant, et profiter de cet argent pour
             vous.{'\n'} En vous fixant un objectif vous aurez accès directement à vos{' '}
-            <TouchableOpacity
+            <Text
               onPress={() =>
                 navigation.navigate('GAINS_MAIN_VIEW', {
                   onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
@@ -93,7 +93,7 @@ const ToHelpMeReduce = ({ navigation }) => {
               <Bold color={'#4030a5'}>
                 <Underline>gains</Underline>{' '}
               </Bold>
-            </TouchableOpacity>
+            </Text>
             (les euros que vous économisez en réduisant votre consommation d'alcool).
           </P>
           <Spacer size={20} />
