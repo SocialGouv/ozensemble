@@ -166,12 +166,10 @@ const Goal = ({ navigation }) => {
                 matomo.logGoalDrinkWeek(drinkByWeek);
                 isOnboarded
                   ? navigation.navigate('GAINS_SEVRAGE')
-                  : {(
-                    console.log("tes");
-                    navigation.navigate('GAINS_REMINDER', {
+                  : navigation.navigate('GAINS_REMINDER', {
                       enableContinueButton: true,
                       onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
-                    }))};
+                    });
               }}
               disabled={!totalDrinksByDrinkingDay}
             />
