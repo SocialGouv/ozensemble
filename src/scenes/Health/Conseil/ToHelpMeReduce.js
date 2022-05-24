@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
-import { ScreenBgStyled, Spacer, P, TopContainer, Bold } from '../styles';
+import { ScreenBgStyled, Spacer, P, TopContainer, Bold, Underline } from '../styles';
 import TopArticle from './TopArticle';
 import H2 from '../../../components/H2';
 
@@ -11,17 +11,17 @@ const ToHelpMeReduce = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
       <ScreenBgStyled>
-        <TopArticle navigation={navigation} title={"Pour m'aider à réduire"} timeReading={5} />
+        <TopArticle navigation={navigation} title={"Pour m'aider à réduire"} timeReading={3} />
         <TopContainer>
           <H2 color={'#4030a5'}>Quelques conseils génériques ...</H2>
           <Spacer size={20} />
           <P>Avant de boire de l'alcool, mangez quelque chose si vous avez faim.</P>
           <P>
             Avant de boire de l'alcool, mangez quelque chose si vous avez faim. Buvez de l'eau si vous avez soif.
-            L'alcool ne permet pas de calmer la soif. C'est même le contraire.{'\n'} A chaque fois que vous consommez de
+            L'alcool ne permet pas de calmer la soif. C'est même le contraire.{'\n'}À chaque fois que vous consommez de
             l'alcool, prenez le réflexe de <Bold>boire un verre d'eau.</Bold>
           </P>
-          <P> Ne buvez pas systématiquement de l'alcool si vous êtes fatigué, stressé ou préoccupé.</P>
+          <P>Ne buvez pas systématiquement de l'alcool si vous êtes fatigué, stressé ou préoccupé.</P>
           <P>
             <Bold>Lors des sorties</Bold>
           </P>
@@ -90,12 +90,15 @@ const ToHelpMeReduce = ({ navigation }) => {
                   onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
                 })
               }>
-              <Bold color={'#4030a5'}>gains </Bold>
+              <Bold color={'#4030a5'}>
+                <Underline>gains</Underline>{' '}
+              </Bold>
             </TouchableOpacity>
             (les euros que vous économisez en réduisant votre consommation d'alcool).
           </P>
           <Spacer size={20} />
           <H2 color={'#4030a5'}>En société ...</H2>
+          <Spacer size={20} />
           <P>
             Prévoyez toujours des <Bold>boissons non alcoolisées lors d'une fête</Bold> ou lors de vos courses en cas de
             visite.
@@ -121,7 +124,7 @@ const ToHelpMeReduce = ({ navigation }) => {
             Regardez les événements sportifs avec vos amis en les invitant chez vous : vous pourrez proposer des
             boissons rafraîchissantes qui ne contiennent pas d'alcool (thé glacé, eau fruitée, virgin mojito, punch sans
             alcool…). A chaque fois que vous consommez de l'alcool, prenez le réflexe de
-            <Bold>boire un verre d'eau.</Bold>
+            <Bold> boire un verre d'eau.</Bold>
           </P>
           <Spacer size={20} />
           <Spacer size={100} />

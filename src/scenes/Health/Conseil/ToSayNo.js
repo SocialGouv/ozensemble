@@ -10,7 +10,7 @@ const ToSayNo = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
       <ScreenBgStyled>
-        <TopArticle navigation={navigation} title={'Pour dire Non ? '} timeReading={5} />
+        <TopArticle navigation={navigation} title={'Comment dire Non ? '} timeReading={5} />
         <TopContainer>
           <P>
             Elles sont nombreuses les occasions où nous sommes <Bold>invités à boire un ou plusieurs verres </Bold>
@@ -144,6 +144,7 @@ const ToSayNo = ({ navigation }) => {
           </P>
           <Spacer size={20} />
           <H2 color={'#4030a5'}>Á une fête</H2>
+          <Spacer size={20} />
           <P>
             <Bold>1. Croyez en votre décision.</Bold>
           </P>
@@ -217,7 +218,7 @@ const ToSayNo = ({ navigation }) => {
           </P>
           <P>
             Les amis qui ne respectent pas vos choix n'ont pas votre meilleur intérêt à l'esprit.
-            <Bold>Éloignez-vous des personnes qui vous poussent à boire</Bold> et évitez les situations autour d'elles
+            <Bold> Éloignez-vous des personnes qui vous poussent à boire</Bold> et évitez les situations autour d'elles
             qui impliquent de l'alcool.{'\n'} Faites-vous des amis avec des gens qui acceptent vos décisions, même s'ils
             ne les comprennent pas.
           </P>
