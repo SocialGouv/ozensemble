@@ -19,17 +19,20 @@ import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
 import GoBackButtonText from './GoBackButtonText';
 
-const notifReminderTitle = "C'est l'heure de votre suivi !";
-const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
-
 const Reminder = ({
   navigation,
   route,
   reminderState,
   reminderModeState,
   reminderWeekDayState,
-  children,
   repeatTimes = 15,
+  children,
+  onSetReminderConfirm,
+  title,
+  notifReminderTitle = "C'est l'heure de votre suivi !",
+  notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
+  name,
+  onlyDaily,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
   console.log({ reminder });
@@ -166,6 +169,7 @@ const Reminder = ({
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
+    onSetReminderConfirm?.(newReminder, newMode, newWeekDay);
     setReminderSetupVisible(false);
   };
 
@@ -183,20 +187,17 @@ const Reminder = ({
       <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <ReminderIcon size={80} color="#4030a5" selected={false} />
       {children ? (
-        children({ showReminderSetup, reminder, mode, weekDay })
+        children({ reminder, mode, weekDay })
       ) : (
         <>
           <Title>
-            <TextStyled color="#4030a5">
-              {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
-            </TextStyled>
+            <TextStyled color="#4030a5">{title || 'Une aide pour penser à noter vos consommations'}</TextStyled>
           </Title>
           <SubTitle>
             {reminder ? (
               <>
                 <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                <TextStyled color="#4030a5">{`\n  \n `}</TextStyled>
-                {/*${reminder.getLocalePureTime('fr')} */}
+                <TextStyled color="#4030a5">{`\n ${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
                 <TextStyled color="#191919">tous les jours.</TextStyled>
               </>
             ) : (
@@ -219,6 +220,7 @@ const Reminder = ({
       </ButtonsContainer>
       <ModeAndWeekDayChooseModal
         key={reminderSetupVisible}
+        onlyDaily={onlyDaily}
         visible={reminderSetupVisible}
         hide={() => setReminderSetupVisible(false)}
         setReminderRequest={setReminderRequest}
@@ -230,13 +232,10 @@ const Reminder = ({
 const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
     backgroundColor: '#f9f9f9',
-    flexShrink: 1,
-    flexGrow: 1,
-    flexBasis: '100%',
-    minHeight: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 100,
+    paddingBottom: 50,
+    flex: 1,
   },
 })`
   background-color: #f9f9f9;
@@ -279,10 +278,10 @@ const RemoveButton = styled(UnderlinedButton)`
 
 export default Reminder;
 
-const ModeAndWeekDayChooseModal = ({ onPress, visible, hide, setReminderRequest }) => {
-  const [mode, setMode] = useState(null); // 'week'
+const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDaily }) => {
+  const [mode, setMode] = useState(onlyDaily ? 'day' : null); // 'week'
   const [weekDay, setWeekDay] = useState(null); // 0 Sunday, 1 Monday -> 6 Saturday
-  const [timePickerVisible, setTimePickerVisible] = useState(false);
+  const [timePickerVisible, setTimePickerVisible] = useState(onlyDaily ? visible : false);
 
   const onModeChoose = (newMode) => {
     if (newMode === 'week') return setMode(newMode);
