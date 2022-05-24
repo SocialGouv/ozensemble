@@ -134,11 +134,13 @@ const MyGains = () => {
     return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
   }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
-  const goToReminder = () =>
+  const goToReminder = () => {
+    matomo.logReminderOpen('GAINS');
     navigation.navigate('GAINS_REMINDER', {
       enableContinueButton: true,
       onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
     });
+  };
 
   return (
     <ScreenBgStyled>
