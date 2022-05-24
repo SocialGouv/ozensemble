@@ -91,9 +91,9 @@ const ToHelpMeReduce = ({ navigation }) => {
                 })
               }>
               <Bold color={'#4030a5'}>
-                <Underline>gains</Underline>{' '}
+                <Underline>gains</Underline>
               </Bold>
-            </Text>
+            </Text>{' '}
             (les euros que vous économisez en réduisant votre consommation d'alcool).
           </P>
           <Spacer size={20} />
