@@ -158,7 +158,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
         <ChangeDateContainer>
           <ChangeDateButton
             onPress={() => {
-              matomo.logAnalysisDate();
+              matomo.logAnalysisDate(dayjs(firstDay).add(-1, 'week'));
               setFirstDay(dayjs(firstDay).add(-1, 'week'));
             }}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
