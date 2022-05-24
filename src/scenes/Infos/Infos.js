@@ -16,6 +16,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Defi7DaysReminder from '../Defis/Defi7Days/Defi7DaysReminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
+import matomo from '../../services/matomo';
 
 const InfosStack = createStackNavigator();
 
@@ -57,7 +58,10 @@ const InfosMenu = ({ navigation }) => {
           </TopTitle>
           <MenuItem
             caption={reminderCaption}
-            onPress={() => navigation.push(isWithinDefi7Days ? 'DEFI_7_DAYS_REMINDER' : 'GAINS_REMINDER')}
+            onPress={() => {
+              matomo.logReminderOpen();
+              navigation.push(isWithinDefi7Days ? 'DEFI_7_DAYS_REMINDER' : 'GAINS_REMINDER');
+            }}
           />
           <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
           <MenuItem
@@ -67,7 +71,13 @@ const InfosMenu = ({ navigation }) => {
           <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
           {/* todo : open nps */}
           <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
-          <MenuItem caption="Mes tests " onPress={() => navigation.push('TESTS')} />
+          <MenuItem
+            caption="Mes tests "
+            onPress={() => {
+              matomo.logQuizzOpen('FROM_INFOS');
+              navigation.push('TESTS');
+            }}
+          />
           <VersionContainer>
             <VersionLabel>version {pck.version}</VersionLabel>
           </VersionContainer>

@@ -271,12 +271,10 @@ const REMINDER_OPEN = 'REMINDER_OPEN';
 const REMINDER_SET = 'REMINDER_SET';
 const REMINDER_DELETE = 'REMINDER_DELETE';
 
-const logReminderOpen = async (value) => {
+const logReminderOpen = async () => {
   await logEvent({
     category: REMINDER,
     action: REMINDER_OPEN,
-    name: ORIGIN,
-    value,
   });
 };
 const logReminderSet = async (timestamp) => {
@@ -308,11 +306,11 @@ const CONTACT_ASKCALL = 'CONTACT_ASKCALL';
 const CONTACT_RDV = 'CONTACT_RDV';
 // const CONTACT_RDV_CONFIRM = 'CONTACT_RDV_CONFIRM';
 
-const logContactOpen = async (value) => {
+const logContactOpen = async (origin, value) => {
   await logEvent({
     category: CONTACT,
     action: CONTACT_OPEN,
-    name: ORIGIN,
+    name: origin,
     value,
   });
 };
@@ -575,4 +573,5 @@ export default {
   logAnalysisDate,
   logAnalysisContact,
   logHealthArticle,
+  logReminderOpen,
 };
