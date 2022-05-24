@@ -59,13 +59,8 @@ const InfosMenu = ({ navigation }) => {
           <MenuItem
             caption={reminderCaption}
             onPress={() => {
-<<<<<<< HEAD
-              matomo.logReminderOpen();
+              matomo.logReminderOpen(isWithinDefi7Days ? 'DEFI_7_DAYS_REMINDER' : 'GAINS_REMINDER');
               navigation.push(isWithinDefi7Days ? 'DEFI_7_DAYS_REMINDER' : 'GAINS_REMINDER');
-=======
-              matomo.logReminderOpen('GAINS');
-              navigation.push('DEFI_7_DAYS_REMINDER');
->>>>>>> f33e751 (new matomo)
             }}
           />
           <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
