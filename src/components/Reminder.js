@@ -28,8 +28,10 @@ const Reminder = ({
   reminderState,
   reminderModeState,
   reminderWeekDayState,
-  children,
   repeatTimes = 15,
+  children,
+  onSetReminderConfirm,
+  name,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
@@ -165,6 +167,7 @@ const Reminder = ({
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
+    onSetReminderConfirm?.(newReminder, newMode, newWeekDay);
     setReminderSetupVisible(false);
   };
 
@@ -182,7 +185,7 @@ const Reminder = ({
       <BackButton content="< Retour" onPress={navigation.goBack} bold />
       <ReminderIcon size={80} color="#4030a5" selected={false} />
       {children ? (
-        children({ showReminderSetup, reminder, mode, weekDay })
+        children({ reminder, mode, weekDay })
       ) : (
         <>
           <Title>
@@ -273,7 +276,7 @@ const RemoveButton = styled(UnderlinedButton)`
 
 export default Reminder;
 
-const ModeAndWeekDayChooseModal = ({ onPress, visible, hide, setReminderRequest }) => {
+const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest }) => {
   const [mode, setMode] = useState(null); // 'week'
   const [weekDay, setWeekDay] = useState(null); // 0 Sunday, 1 Monday -> 6 Saturday
   const [timePickerVisible, setTimePickerVisible] = useState(false);
