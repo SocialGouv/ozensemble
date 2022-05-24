@@ -18,7 +18,7 @@ const ToHelpMeReduce = ({ navigation }) => {
           <P>Avant de boire de l'alcool, mangez quelque chose si vous avez faim.</P>
           <P>
             Avant de boire de l'alcool, mangez quelque chose si vous avez faim. Buvez de l'eau si vous avez soif.
-            L'alcool ne permet pas de calmer la soif. C'est même le contraire.{'\n'}A chaque fois que vous consommez de
+            L'alcool ne permet pas de calmer la soif. C'est même le contraire.{'\n'}À chaque fois que vous consommez de
             l'alcool, prenez le réflexe de <Bold>boire un verre d'eau.</Bold>
           </P>
           <P>Ne buvez pas systématiquement de l'alcool si vous êtes fatigué, stressé ou préoccupé.</P>
