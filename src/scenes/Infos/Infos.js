@@ -31,6 +31,10 @@ const Infos = () => {
               reminderState={reminderDefis}
               reminderModeState={reminderDefisMode}
               reminderWeekDayState={reminderDefisWeekDay}
+              name="DEFI_7_DAYS_REMINDER"
+              onSetReminderConfirm={(reminder, mode, weekDay) => {
+                // matomo
+              }}
             />
           )}
         </InfosStack.Screen>

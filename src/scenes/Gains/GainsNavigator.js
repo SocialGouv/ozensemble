@@ -8,8 +8,8 @@ import Estimation from './Estimation';
 import Goal from './Goal';
 import MyGains from './MyGains';
 import Sevrage from './Sevrage';
+import GainsReminder from './GainsReminder';
 import { showCTAButtonState } from '../AddDrink/AddDrinkCTAButton';
-import WeeklyReminder from './WeeklyReminder';
 
 const GainsStack = createStackNavigator();
 
@@ -51,7 +51,7 @@ const GainsNavigator = () => {
         <GainsStack.Navigator headerMode="none" initialRouteName={initialScreen}>
           <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
           <GainsStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
-          <GainsStack.Screen name="GAINS_REMINDER" component={WeeklyReminder} />
+          <GainsStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
           <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={Estimation} />
           <GainsStack.Screen name="GAINS_SEVRAGE" component={Sevrage} />
         </GainsStack.Navigator>
