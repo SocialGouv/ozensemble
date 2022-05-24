@@ -1,3 +1,39 @@
+## [1.28.13](https://github.com/SocialGouv/ozensemble/compare/v1.28.12...v1.28.13) (2022-05-24)
+
+
+### Bug Fixes
+
+* reminder message ([dee53e1](https://github.com/SocialGouv/ozensemble/commit/dee53e1d3c129057511c6c7781320dea36ef741d))
+
+## [1.28.12](https://github.com/SocialGouv/ozensemble/compare/v1.28.11...v1.28.12) (2022-05-24)
+
+
+### Bug Fixes
+
+* reminder only daily for defi 7 jours ([032c5de](https://github.com/SocialGouv/ozensemble/commit/032c5de7533ce340bdf2e46fef7ee55e7d1a1420))
+
+## [1.28.11](https://github.com/SocialGouv/ozensemble/compare/v1.28.10...v1.28.11) (2022-05-23)
+
+
+### Bug Fixes
+
+* beug first day with no conso sabrina ([0e67fd0](https://github.com/SocialGouv/ozensemble/commit/0e67fd0d395d7aad6f5ec7c160a6c47694cb0745))
+* space bottom reminder ([fe415e9](https://github.com/SocialGouv/ozensemble/commit/fe415e90cc2fecfc18aff323ab73d922bdbd975f))
+
+## [1.28.10](https://github.com/SocialGouv/ozensemble/compare/v1.28.9...v1.28.10) (2022-05-23)
+
+
+### Bug Fixes
+
+* onbackpress ([ca88692](https://github.com/SocialGouv/ozensemble/commit/ca886925186e241ce164434492c44a208bc72749))
+
+## [1.28.9](https://github.com/SocialGouv/ozensemble/compare/v1.28.8...v1.28.9) (2022-05-23)
+
+
+### Bug Fixes
+
+* reminder show ([c6136ee](https://github.com/SocialGouv/ozensemble/commit/c6136ee3afa494c249508118b70fa07d3cfc28fd))
+
 ## [1.28.8](https://github.com/SocialGouv/ozensemble/compare/v1.28.7...v1.28.8) (2022-05-22)
 
 

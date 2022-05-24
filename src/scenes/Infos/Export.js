@@ -67,7 +67,7 @@ const formatHtmlTable = (drinks, catalog) => {
 };
 
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
-const Export = ({ navigation, onBackPress }) => {
+const Export = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const toast = useToast();
   const htmlExport = useRecoilValue(HTMLExportSelector);
@@ -102,7 +102,7 @@ const Export = ({ navigation, onBackPress }) => {
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
-    onBackPress();
+    navigation.goBack();
   };
 
   return (

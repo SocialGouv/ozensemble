@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
 import { storage } from '../../../services/storage';
-import Reminder from '../../../components/Reminder';
 import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import QuizzMotivations from '../../Quizzs/QuizzMotivations';
@@ -17,7 +16,7 @@ import { defi7DaysData } from './defi7DaysData';
 import Onboarding from './Onboarding';
 import OnboardingInfo from './OnboardingInfo';
 import { setValidatedDays } from './utils';
-import { reminderDefis, reminderDefisMode, reminderDefisWeekDay } from '../../../recoil/reminder';
+import Defi7DaysReminder from './Defi7DaysReminder';
 
 const Defi7DaysStack = createStackNavigator();
 
@@ -37,16 +36,7 @@ const Defi7DaysNavigator = () => {
       {!!initialScreen && (
         <Defi7DaysStack.Navigator headerMode="none" initialRouteName={initialScreen}>
           <Defi7DaysStack.Screen name="ONBOARDING" component={Onboarding} />
-          <Defi7DaysStack.Screen name="DEFI_7_DAYS_REMINDER">
-            {(props) => (
-              <Reminder
-                {...props}
-                reminderState={reminderDefis}
-                reminderModeState={reminderDefisMode}
-                reminderWeekDayState={reminderDefisWeekDay}
-              />
-            )}
-          </Defi7DaysStack.Screen>
+          <Defi7DaysStack.Screen name="DEFI_7_DAYS_REMINDER" component={Defi7DaysReminder} />
           <Defi7DaysStack.Screen name="ONBOARDING_INFO" component={OnboardingInfo} />
           <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
           <Defi7DaysStack.Screen
