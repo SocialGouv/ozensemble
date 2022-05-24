@@ -134,11 +134,13 @@ const MyGains = () => {
     return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
   }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
-  const goToReminder = () =>
+  const goToReminder = () => {
+    matomo.logReminderOpen('GAINS');
     navigation.navigate('GAINS_REMINDER', {
       enableContinueButton: true,
       onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
     });
+  };
 
   return (
     <ScreenBgStyled>
@@ -207,7 +209,10 @@ const MyGains = () => {
           value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
           maximize
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal(true)}
+          onPress={() => {
+            setShowOnboardingGainModal(true);
+            matomo.logEarningsSection('euro');
+          }}
         />
         <CategorieGain
           unit={<Kcal color="#191919">kcal</Kcal>}
@@ -215,7 +220,10 @@ const MyGains = () => {
           value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
           maximize
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal(true)}
+          onPress={() => {
+            setShowOnboardingGainModal(true);
+            matomo.logEarningsSection('calories');
+          }}
         />
       </Categories>
       <TextContainer>
@@ -232,7 +240,10 @@ const MyGains = () => {
           description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
           value={isOnboarded ? remaindrink : '?'}
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal(true)}>
+          onPress={() => {
+            setShowOnboardingGainModal(true);
+            matomo.logEarningsSection('drinks');
+          }}>
           <Speedometer
             value={isOnboarded ? remaindrink : 1}
             totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
@@ -246,13 +257,21 @@ const MyGains = () => {
           description={`Jour${notDrinkDaythisWeek > 1 ? 's' : ''} où je n'ai pas\u00A0bu`}
           value={isOnboarded ? notDrinkDaythisWeek : '?'}
           disabled={isOnboarded}
-          onPress={() => setShowOnboardingGainModal(true)}
+          onPress={() => {
+            setShowOnboardingGainModal(true);
+            matomo.logEarningsSection('drinkless');
+          }}
         />
       </Categories>
       <OnBoardingGainModal
-        onPress={navigateToGoal}
+        onPress={() => {
+          matomo.logGoalOpen();
+          navigateToGoal();
+        }}
         visible={showOnboardingGainModal}
-        hide={() => setShowOnboardingGainModal(false)}
+        hide={() => {
+          setShowOnboardingGainModal(false);
+        }}
       />
       <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       {!isOnboarded ? (
@@ -320,7 +339,11 @@ const MyGains = () => {
                   {myWeeklyNumberOfDrinksBeforeObjective} unité
                   {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
                 </TextStyled>
-                <InfoContainer onPress={() => setHelpVisible(true)}>
+                <InfoContainer
+                  onPress={() => {
+                    matomo.logGoalDrinkHelp();
+                    setHelpVisible(true);
+                  }}>
                   <InfosIcon size={15} color={'#000000'} />
                 </InfoContainer>
               </PartContainer>

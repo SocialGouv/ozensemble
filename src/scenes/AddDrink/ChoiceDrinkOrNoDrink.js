@@ -15,6 +15,7 @@ import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
+import matomo from '../../services/matomo';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -56,6 +57,7 @@ const ChoiceDrinkOrNoDrink = () => {
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
+            matomo.logConsoDrinkless();
             setDrinksState((state) => [
               ...state,
               { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
@@ -66,7 +68,10 @@ const ChoiceDrinkOrNoDrink = () => {
         <Option
           icon={<CocktailGlassTriangle size={40} />}
           value={"J'ai bu"}
-          onPress={() => navigation.replace('CONSOS_LIST')}
+          onPress={() => {
+            matomo.logConsoDrink();
+            navigation.replace('CONSOS_LIST');
+          }}
         />
         <DatePicker
           visible={Boolean(showDatePicker)}

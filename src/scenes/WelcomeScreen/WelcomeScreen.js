@@ -40,7 +40,7 @@ const WelcomeScreen = ({ navigation }) => {
     await new Promise((res) => setTimeout(res, 750));
     // RNBootSplash.hide({ fade: true });
     setShowBootsplash(false);
-    matomo.logQuizzOpen(CONSTANTS.FROM_WELCOME);
+    matomo.logQuizzOpen('FROM_ONBOARDING');
   };
 
   const onPressNext = () => swiperRef?.current?.scrollBy(1);
