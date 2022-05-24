@@ -195,7 +195,7 @@ const Reminder = ({
             {reminder ? (
               <>
                 <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                <TextStyled color="#4030a5">{`\n ${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
+                <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
                 <TextStyled color="#191919">tous les jours.</TextStyled>
               </>
             ) : (
@@ -233,6 +233,7 @@ const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50,
+    flexGrow: 1,
   },
 })`
   background-color: #f9f9f9;
