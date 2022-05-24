@@ -15,6 +15,7 @@ import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
 import Defi7DaysReminder from '../Defis/Defi7Days/Defi7DaysReminder';
 import { storage } from '../../services/storage';
+import matomo from '../../services/matomo';
 
 const InfosStack = createStackNavigator();
 
@@ -53,7 +54,13 @@ const InfosMenu = ({ navigation }) => {
           <TopTitle>
             <TextStyled color="#4030a5">Mes informations</TextStyled>
           </TopTitle>
-          <MenuItem caption={reminderCaption} onPress={() => navigation.push('DEFI_7_DAYS_REMINDER')} />
+          <MenuItem
+            caption={reminderCaption}
+            onPress={() => {
+              matomo.logReminderOpen('GAINS');
+              navigation.push('DEFI_7_DAYS_REMINDER');
+            }}
+          />
           <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
           <MenuItem
             caption="Mentions Légales & Politique de Confidentialité"

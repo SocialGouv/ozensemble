@@ -5,6 +5,7 @@ import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Reminder from '../../components/Reminder';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
+import matomo from '../../services/matomo';
 
 const GainsReminder = ({ navigation, route }) => (
   <Reminder
@@ -14,7 +15,8 @@ const GainsReminder = ({ navigation, route }) => (
     reminderModeState={reminderGainMode}
     name="GAINS_REMINDER"
     onSetReminderConfirm={(reminder, mode, weekDay) => {
-      // matomo
+      matomo.logReminderSetMode(mode);
+      matomo.logReminderSet(reminder);
     }}
     reminderWeekDayState={reminderGainWeekDay}>
     {({ reminder, mode, weekDay }) => {

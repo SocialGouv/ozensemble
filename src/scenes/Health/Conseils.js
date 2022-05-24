@@ -57,7 +57,11 @@ const Conseils = ({ navigation }) => {
           <TopSubTitle>
             <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
           </TopSubTitle>
-          <CategorieContainer onPress={() => navigation.navigate('CONTACT')}>
+          <CategorieContainer
+            onPress={() => {
+              matomo.logContactOpen('HEALTH');
+              navigation.navigate('CONTACT');
+            }}>
             <IconContainer>
               <AppointmentHeart size={40} />
             </IconContainer>
