@@ -274,6 +274,7 @@ class NPS extends Component {
           returnKeyType="go"
           textContentType="emailAddress"
           onSubmitEditing={this.sendNPS}
+          placeholderTextColor="#c9c9cc"
         />
         <ButtonContainer>
           <ButtonPrimary content={sendButton} disabled={!useful || !reco} onPress={this.sendNPS} />
@@ -323,6 +324,7 @@ class NPS extends Component {
           returnKeyType="go"
           textContentType="emailAddress"
           onSubmitEditing={this.sendNPS}
+          placeholderTextColor="#c9c9cc"
         />
         <ButtonContainer>
           <ButtonPrimary disabled={sendButton === 'Merci !'} content={sendButton} onPress={this.sendNPS} />
@@ -333,7 +335,7 @@ class NPS extends Component {
 
   render() {
     const { visible, page } = this.state;
-    if (__DEV__) return null;
+    if (__DEV__) return null; // uncomment to play with NPS
     return (
       <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onDismiss={this.onClose}>
         <SafeAreaProvider>
