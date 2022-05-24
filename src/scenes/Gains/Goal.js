@@ -125,7 +125,7 @@ const Goal = ({ navigation }) => {
           <Row>
             <HelpCount
               onPress={() => {
-                matomo.logGoalDrinkHelp();
+                matomo.logGoalDrinkHelp('GOAL');
                 setHelpVisible(true);
               }}
               hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
