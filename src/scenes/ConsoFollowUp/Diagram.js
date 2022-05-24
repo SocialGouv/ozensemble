@@ -372,6 +372,7 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
             small
             onPress={() => {
               matomo.logContactTakeRDV();
+              matomo.logContactOpen('SUIVI');
               matomo.logAnalysisContact();
               navigation.navigate('CONTACT');
             }}
