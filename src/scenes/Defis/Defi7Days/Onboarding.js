@@ -16,9 +16,6 @@ export default ({ navigation }) => {
     storage.set('DEFI_7_JOURS_STARTED_AT', startAt);
     matomo.logClickStartDefi7Days();
     navigation.navigate('DEFI_7_DAYS_REMINDER', {
-      title: 'Un rappel pour penser à faire votre défi 7 jours',
-      notifReminderTitle: "C'est l'heure de votre défi 7 jours !",
-      notifReminderMessage: '',
       enableContinueButton: true,
       onPressContinueNavigation: ['DEFI_7_DAYS_MENU'],
     });
