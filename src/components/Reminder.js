@@ -19,9 +19,6 @@ import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
 import GoBackButtonText from './GoBackButtonText';
 
-const notifReminderTitle = "C'est l'heure de votre suivi !";
-const notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz";
-
 const Reminder = ({
   navigation,
   route,
@@ -31,7 +28,11 @@ const Reminder = ({
   repeatTimes = 15,
   children,
   onSetReminderConfirm,
+  title,
+  notifReminderTitle = "C'est l'heure de votre suivi !",
+  notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
   name,
+  onlyDaily,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
@@ -189,9 +190,7 @@ const Reminder = ({
       ) : (
         <>
           <Title>
-            <TextStyled color="#4030a5">
-              {route?.params?.title || 'Une aide pour penser à noter vos consommations'}
-            </TextStyled>
+            <TextStyled color="#4030a5">{title || 'Une aide pour penser à noter vos consommations'}</TextStyled>
           </Title>
           <SubTitle>
             {reminder ? (
@@ -220,6 +219,7 @@ const Reminder = ({
       </ButtonsContainer>
       <ModeAndWeekDayChooseModal
         key={reminderSetupVisible}
+        onlyDaily={onlyDaily}
         visible={reminderSetupVisible}
         hide={() => setReminderSetupVisible(false)}
         setReminderRequest={setReminderRequest}
@@ -234,6 +234,7 @@ const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50,
+    flex: 1,
   },
 })`
   background-color: #f9f9f9;
@@ -276,10 +277,10 @@ const RemoveButton = styled(UnderlinedButton)`
 
 export default Reminder;
 
-const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest }) => {
-  const [mode, setMode] = useState(null); // 'week'
+const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDaily }) => {
+  const [mode, setMode] = useState(onlyDaily ? 'day' : null); // 'week'
   const [weekDay, setWeekDay] = useState(null); // 0 Sunday, 1 Monday -> 6 Saturday
-  const [timePickerVisible, setTimePickerVisible] = useState(false);
+  const [timePickerVisible, setTimePickerVisible] = useState(onlyDaily ? visible : false);
 
   const onModeChoose = (newMode) => {
     if (newMode === 'week') return setMode(newMode);

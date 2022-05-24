@@ -42,7 +42,6 @@ export default ({ navigation }) => {
             <Spacer />
             <H1 color="#4030a5">Le bilan de mon Défi 7 jours</H1>
           </TopTitle>
-          {/* TODO HERE */}
           <ResultsEvaluateConso resultKey={resultEvaluateConso?.result} hideButtons />
           <ResultLifeQuality values={resultLifeQuality?.result} />
           <ResultMotivation results={resultMotivation?.answers} />
@@ -97,4 +96,5 @@ const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
+  align-items: center;
 `;
