@@ -1,3 +1,10 @@
+## [1.28.17](https://github.com/SocialGouv/ozensemble/compare/v1.28.16...v1.28.17) (2022-05-24)
+
+
+### Bug Fixes
+
+* resetOnTapListener ([4a7a322](https://github.com/SocialGouv/ozensemble/commit/4a7a322b2387a423ff5ac8064fca79030ab58f9d))
+
 ## [1.28.16](https://github.com/SocialGouv/ozensemble/compare/v1.28.15...v1.28.16) (2022-05-24)
 
 
