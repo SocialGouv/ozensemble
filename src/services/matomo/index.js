@@ -573,5 +573,4 @@ export default {
   logAnalysisDate,
   logAnalysisContact,
   logHealthArticle,
-  logReminderOpen,
 };
