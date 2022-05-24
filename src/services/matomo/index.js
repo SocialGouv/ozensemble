@@ -167,11 +167,10 @@ const logConsoOpen = async (value) => {
   });
 };
 
-const logConsoOpenAddScreen = async (name) => {
+const logConsoOpenAddScreen = async () => {
   await logEvent({
     category: CONSO,
     action: CONSO_OPEN_CONSO_ADDSCREEN,
-    name,
   });
 };
 
@@ -462,10 +461,11 @@ const logGoalDrinkWeek = async (value) => {
   });
 };
 
-const logGoalDrinkHelp = async () => {
+const logGoalDrinkHelp = async (name) => {
   logEvent({
     category: GAINS,
     action: 'GOAL_DRINK_HELP',
+    name: name,
   });
 };
 
