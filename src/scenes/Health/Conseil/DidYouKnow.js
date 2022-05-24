@@ -13,8 +13,6 @@ const DidYouKnow = ({ navigation }) => {
       <ScreenBgStyled>
         <TopArticle navigation={navigation} title={'Le saviez-vous ?'} timeReading={2} />
         <TopContainer>
-          <H2 color={'#4030a5'}>Quelques conseils génériques ...</H2>
-          <Spacer size={20} />
           <P>Pour une santé optimale, il est conseillé de limiter au maximum la consommation d'alcool.</P>
           <P>
             La règle d'or : ne pas dépasser les{' '}
@@ -32,9 +30,8 @@ const DidYouKnow = ({ navigation }) => {
           </P>
           <OneDoseAlcoolExplanation />
           <P>
-            {'    - '} Six minutes suffisent après la consommation de deux doses d'<Bold>alcool</Bold> pour que le
-            fonctionnement des neurones
-            <Bold>cérébraux</Bold> soit modifié <Bold>par</Bold> cette quantité d'alcool.
+            {'    - '} <Bold>Six minutes </Bold>suffisent après la consommation de deux doses d'alcool pour que le
+            <Bold> fonctionnement des neurones cérébraux</Bold> soit modifié par cette quantité d'alcool.
           </P>
           <P>
             {'    - '}Mais il faudra environ 1h30 pour éliminer chaque verre d'alcool et ce temps dépend de nombreux
