@@ -13,9 +13,8 @@ import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
-import Reminder from '../../components/Reminder';
-import { reminderDefis, reminderDefisMode, reminderDefisWeekDay } from '../../recoil/reminder';
-import matomo from '../../services/matomo';
+import Defi7DaysReminder from '../Defis/Defi7Days/Defi7DaysReminder';
+import { storage } from '../../services/storage';
 
 const InfosStack = createStackNavigator();
 
@@ -25,16 +24,7 @@ const Infos = () => {
       <HeaderBackground />
       <InfosStack.Navigator initialRouteName="INFOS_MENU" headerMode="none">
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
-        <InfosStack.Screen name="DEFI_7_DAYS_REMINDER">
-          {(props) => (
-            <Reminder
-              {...props}
-              reminderState={reminderDefis}
-              reminderModeState={reminderDefisMode}
-              reminderWeekDayState={reminderDefisWeekDay}
-            />
-          )}
-        </InfosStack.Screen>
+        <InfosStack.Screen name="DEFI_7_DAYS_REMINDER" component={Defi7DaysReminder} />
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
@@ -51,6 +41,10 @@ const InfosMenu = ({ navigation }) => {
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 
+  const isWithinDefi7Days =
+    storage.getString('DEFI_7_JOURS_STARTED_AT')?.length && storage.getString('DEFI_7_JOURS_VALIDATED_DAYS') !== '6';
+  const reminderCaption = isWithinDefi7Days ? 'Rappel de mon défi 7 jours' : 'Rappel de mon suivi de consommations';
+
   return (
     <>
       <ScreenBgStyled>
@@ -59,13 +53,7 @@ const InfosMenu = ({ navigation }) => {
           <TopTitle>
             <TextStyled color="#4030a5">Mes informations</TextStyled>
           </TopTitle>
-          <MenuItem
-            caption="Rappel de mon défi 7 jours"
-            onPress={() => {
-              matomo.logReminderOpen();
-              navigation.push('DEFI_7_DAYS_REMINDER');
-            }}
-          />
+          <MenuItem caption={reminderCaption} onPress={() => navigation.push('DEFI_7_DAYS_REMINDER')} />
           <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
           <MenuItem
             caption="Mentions Légales & Politique de Confidentialité"

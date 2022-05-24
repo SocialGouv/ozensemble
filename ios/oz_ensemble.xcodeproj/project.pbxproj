@@ -501,7 +501,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
-				CURRENT_PROJECT_VERSION = 70;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 71;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
@@ -518,6 +520,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
 				PRODUCT_NAME = oz_ensemble;
+				PROVISIONING_PROFILE_SPECIFIER = "Oz Ensemble Disrtribution";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -531,7 +534,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
-				CURRENT_PROJECT_VERSION = 70;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 71;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -547,6 +552,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
 				PRODUCT_NAME = oz_ensemble;
+				PROVISIONING_PROFILE_SPECIFIER = "Oz Ensemble Disrtribution";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
