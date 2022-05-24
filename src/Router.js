@@ -42,7 +42,7 @@ const LabelStyled = styled(TextStyled)`
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
-  const tabPressListener = ({ navigation, rootName }) => {
+  const resetOnTapListener = ({ navigation, rootName }) => {
     return {
       blur: () => {
         navigation.reset({
@@ -102,7 +102,7 @@ const TabsNavigator = ({ navigation }) => {
             tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
           }}
           component={Infos}
-          listeners={(props) => tabPressListener({ ...props, rootName: 'INFOS_MENU' })}
+          listeners={(props) => resetOnTapListener({ ...props, rootName: 'INFOS_MENU' })}
         />
       </Tabs.Navigator>
       <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />

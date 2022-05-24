@@ -85,8 +85,8 @@ const logAppClose = async () => {
   });
 };
 
-const logOpenPage = async (category, value) => {
-  await logEvent({ category, action: `${category}_OPEN`, name: ORIGIN, value });
+const logOpenPage = async (category) => {
+  await logEvent({ category: 'NAVIGATION', action: `${category}_OPEN` });
 };
 
 /*
