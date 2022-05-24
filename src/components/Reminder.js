@@ -35,7 +35,6 @@ const Reminder = ({
   onlyDaily,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
-  console.log({ reminder });
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
@@ -165,7 +164,6 @@ const Reminder = ({
     setReminderSetupVisible(false);
     if (!dayjs(newReminder).isValid()) return;
     await scheduleNotification(newReminder, newMode, newWeekDay);
-    await matomo.logReminderSet(Date.parse(newReminder));
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
@@ -202,7 +200,7 @@ const Reminder = ({
               </>
             ) : (
               <TextStyled color="#191919">
-                Définissez un rappel quotidien ou hebdomadaire sur votre téléphone pour vous rappeler
+                Définissez un rappel quotidien sur votre téléphone pour vous rappeler
               </TextStyled>
             )}
           </SubTitle>
@@ -235,7 +233,6 @@ const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50,
-    flex: 1,
   },
 })`
   background-color: #f9f9f9;
