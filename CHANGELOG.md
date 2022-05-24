@@ -1,3 +1,13 @@
+## [1.28.18](https://github.com/SocialGouv/ozensemble/compare/v1.28.17...v1.28.18) (2022-05-24)
+
+
+### Bug Fixes
+
+* HEALTH ([dd84df0](https://github.com/SocialGouv/ozensemble/commit/dd84df0039820dd6fc9bcde2f928e462cca2e0f3))
+* HEALTH ([5d1b97d](https://github.com/SocialGouv/ozensemble/commit/5d1b97dc44dc4d13e9ce0907274e955b8ceac99e))
+* sonarcloud matomo drink ([1459edb](https://github.com/SocialGouv/ozensemble/commit/1459edbcaf8176074e59ab06f85a301de583650b))
+* sonarcloud matomo drink ([75f24a4](https://github.com/SocialGouv/ozensemble/commit/75f24a436c653fcf3896822060b9494fb70dbe17))
+
 ## [1.28.17](https://github.com/SocialGouv/ozensemble/compare/v1.28.16...v1.28.17) (2022-05-24)
 
 
