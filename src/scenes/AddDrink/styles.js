@@ -23,6 +23,7 @@ export const Title = styled(H2)`
 export const DateAndTimeContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
+  margin-bottom: 10px;
 `;
 
 const buttonsPadding = 10;
