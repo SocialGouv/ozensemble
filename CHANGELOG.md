@@ -1,3 +1,10 @@
+## [1.28.15](https://github.com/SocialGouv/ozensemble/compare/v1.28.14...v1.28.15) (2022-05-24)
+
+
+### Bug Fixes
+
+* dark mode on textinput ([2fd7141](https://github.com/SocialGouv/ozensemble/commit/2fd714105c74c07e4cd4f09556c01fd1d38b4df1))
+
 ## [1.28.14](https://github.com/SocialGouv/ozensemble/compare/v1.28.13...v1.28.14) (2022-05-24)
 
 
