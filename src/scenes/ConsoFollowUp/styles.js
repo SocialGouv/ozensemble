@@ -106,6 +106,7 @@ export const Help = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  margin: 5px;
 `;
 export const HelpText = styled.Text`
   color: #de285e;

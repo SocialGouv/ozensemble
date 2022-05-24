@@ -9,6 +9,7 @@ import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
 import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
+import matomo from '../../services/matomo';
 
 const Conseils = ({ navigation }) => {
   return (
@@ -36,7 +37,12 @@ const Conseils = ({ navigation }) => {
           </TopTitle>
           <ViewConseilsContainer horizontal={true}>
             {listConseils.map((conseil, index) => (
-              <ConseilContainer onPress={() => navigation.navigate(conseil.link)} key={index}>
+              <ConseilContainer
+                onPress={() => {
+                  matomo.logHealthArticle(conseil.title);
+                  navigation.navigate(conseil.link);
+                }}
+                key={index}>
                 <ImageStyled source={conseil.img} />
                 <TitleConseilContainer>
                   <TextStyled> {conseil.title}</TextStyled>
@@ -51,7 +57,11 @@ const Conseils = ({ navigation }) => {
           <TopSubTitle>
             <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
           </TopSubTitle>
-          <CategorieContainer onPress={() => navigation.navigate('CONTACT')}>
+          <CategorieContainer
+            onPress={() => {
+              matomo.logContactOpen('HEALTH');
+              navigation.navigate('CONTACT');
+            }}>
             <IconContainer>
               <AppointmentHeart size={40} />
             </IconContainer>
