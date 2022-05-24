@@ -233,6 +233,7 @@ const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50,
+    flexGrow: 1,
   },
 })`
   background-color: #f9f9f9;
