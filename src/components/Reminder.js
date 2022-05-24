@@ -32,6 +32,7 @@ const Reminder = ({
   repeatTimes = 15,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
+  console.log({ reminder });
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
@@ -194,7 +195,8 @@ const Reminder = ({
             {reminder ? (
               <>
                 <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                <TextStyled color="#4030a5">{`\n ${reminder.getLocalePureTime('fr')} \n `}</TextStyled>
+                <TextStyled color="#4030a5">{`\n  \n `}</TextStyled>
+                {/*${reminder.getLocalePureTime('fr')} */}
                 <TextStyled color="#191919">tous les jours.</TextStyled>
               </>
             ) : (

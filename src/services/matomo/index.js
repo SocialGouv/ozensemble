@@ -494,10 +494,11 @@ const logGoalFinish = async () => {
 
 const ANALYSIS = 'ANALYSIS';
 
-const logAnalysisDate = async () => {
+const logAnalysisDate = async (value) => {
   logEvent({
     category: ANALYSIS,
     action: 'ANALYSIS_DATE',
+    value: value,
   });
 };
 
