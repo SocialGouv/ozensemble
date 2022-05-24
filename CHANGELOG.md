@@ -1,3 +1,10 @@
+## [1.28.16](https://github.com/SocialGouv/ozensemble/compare/v1.28.15...v1.28.16) (2022-05-24)
+
+
+### Bug Fixes
+
+* switch reminders if not in defi ([333ff5d](https://github.com/SocialGouv/ozensemble/commit/333ff5d80ce4acf1d0b4625fd9f7a4e1503c5959))
+
 ## [1.28.15](https://github.com/SocialGouv/ozensemble/compare/v1.28.14...v1.28.15) (2022-05-24)
 
 
