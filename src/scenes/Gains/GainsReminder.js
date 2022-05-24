@@ -6,12 +6,16 @@ import H2 from '../../components/H2';
 import Reminder from '../../components/Reminder';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 
-const WeeklyReminder = ({ navigation, route }) => (
+const GainsReminder = ({ navigation, route }) => (
   <Reminder
     navigation={navigation}
     route={route}
     reminderState={reminderGain}
     reminderModeState={reminderGainMode}
+    name="GAINS_REMINDER"
+    onSetReminderConfirm={(reminder, mode, weekDay) => {
+      // matomo
+    }}
     reminderWeekDayState={reminderGainWeekDay}>
     {({ reminder, mode, weekDay }) => {
       return (
@@ -66,4 +70,4 @@ const Container = styled.View`
   text-align: center;
 `;
 
-export default WeeklyReminder;
+export default GainsReminder;
