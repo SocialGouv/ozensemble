@@ -105,7 +105,7 @@ const Estimation = () => {
               0
             );
             matomo.logGoalEstimationDrink(numberDrinkEstimation);
-            navigation.navigate('GAINS_MAIN_VIEW');
+            navigation.navigate('GAINS_SEVRAGE');
           }}
         />
       </CTAButtonContainer>
