@@ -75,6 +75,7 @@ const logAppVisit = async () => {
   await logEvent({
     category: APP,
     action: APP_OPEN,
+    name: DeviceInfo.getVersion(),
   });
 };
 
