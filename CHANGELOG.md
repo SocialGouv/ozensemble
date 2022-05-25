@@ -1,3 +1,10 @@
+## [1.28.19](https://github.com/SocialGouv/ozensemble/compare/v1.28.18...v1.28.19) (2022-05-25)
+
+
+### Bug Fixes
+
+* darkmode ([46c58a1](https://github.com/SocialGouv/ozensemble/commit/46c58a11e656b2571ad3e09f793bf7344f868b13))
+
 ## [1.28.18](https://github.com/SocialGouv/ozensemble/compare/v1.28.17...v1.28.18) (2022-05-24)
 
 
