@@ -157,7 +157,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   onPress={() => {
                     setModalTimestamp(Date.now());
                     navigation.push('ADD_DRINK', { timestamp: Date.now() });
-                    matomo.logConsoOpenAddScreen('noConsoSinceLongTime');
                   }}>
                   <AddDrinkText>
                     <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
@@ -231,7 +230,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                           selectedTimestamp = makeSureTimestamp(tempDate);
                         }
                         addDrinksRequest(selectedTimestamp);
-                        matomo.logConsoOpenAddScreen('day');
                       }}
                     />
                   )}

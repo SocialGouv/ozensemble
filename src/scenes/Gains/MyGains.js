@@ -341,7 +341,7 @@ const MyGains = () => {
                 </TextStyled>
                 <InfoContainer
                   onPress={() => {
-                    matomo.logGoalDrinkHelp();
+                    matomo.logGoalDrinkHelp('ESTIMATION');
                     setHelpVisible(true);
                   }}>
                   <InfosIcon size={15} color={'#000000'} />

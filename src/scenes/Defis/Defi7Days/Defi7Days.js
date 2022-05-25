@@ -25,7 +25,7 @@ const Defi7DaysNavigator = () => {
   const initNavigator = async () => {
     const defiStartedAt = storage.getString('DEFI_7_JOURS_STARTED_AT');
     if (defiStartedAt) return setInitialScreen('DEFI_7_DAYS_MENU');
-    return setInitialScreen('ONBOARDING');
+    return setInitialScreen('DEFI_7_ONBOARDING');
   };
   useEffect(() => {
     initNavigator();
@@ -35,7 +35,7 @@ const Defi7DaysNavigator = () => {
       <HeaderBackground />
       {!!initialScreen && (
         <Defi7DaysStack.Navigator headerMode="none" initialRouteName={initialScreen}>
-          <Defi7DaysStack.Screen name="ONBOARDING" component={Onboarding} />
+          <Defi7DaysStack.Screen name="DEFI_7_ONBOARDING" component={Onboarding} />
           <Defi7DaysStack.Screen name="DEFI_7_DAYS_REMINDER" component={Defi7DaysReminder} />
           <Defi7DaysStack.Screen name="ONBOARDING_INFO" component={OnboardingInfo} />
           <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
