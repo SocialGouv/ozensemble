@@ -49,6 +49,7 @@ export const FeedBackStyled = styled.TextInput`
   margin-top: 15px;
   justify-content: flex-start;
   align-items: flex-start;
+  color: #4030a5;
 `;
 
 export const ButtonContainer = styled.View`
