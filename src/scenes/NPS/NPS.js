@@ -248,6 +248,7 @@ class NPS extends Component {
           multiline
           textAlignVertical="top"
           returnKeyType="next"
+          placeholderTextColor="#c9c9cc"
         />
         <TopSubTitle>
           <TextStyled color="#191919">
@@ -305,6 +306,7 @@ class NPS extends Component {
           multiline
           textAlignVertical="top"
           returnKeyType="next"
+          placeholderTextColor="#c9c9cc"
         />
         <TopSubTitle>
           <TextStyled color="#191919">
