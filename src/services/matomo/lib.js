@@ -31,12 +31,28 @@ class Api {
     };
   }
 
-  computeCvar(cvarObject = {}) {
+  setCustomDimensions(newDimensions) {
+    this.dimensions = {
+      ...(this.dimensions || {}),
+      ...newDimensions,
+    };
+  }
+
+  computeCvar(cvarObject) {
     const _cvar = {};
     for (let [index, key] of Object.keys(cvarObject).entries()) {
       _cvar[`${index}`] = [key, cvarObject[key]];
     }
     return JSON.stringify(_cvar);
+  }
+
+  computeCustomDimensions(dimensions) {
+    // Get something like this:
+    const d = {};
+    for (let [key, value] of Object.entries(dimensions)) {
+      d[`dimension${key}`] = value;
+    }
+    return d;
   }
 
   computeParams(params, idsite) {
@@ -49,6 +65,7 @@ class Api {
       rand: Date.now(),
       _idvc: this._idvc,
       ...params,
+      ...this.computeCustomDimensions(this.dimensions),
     };
     return Object.keys(params).reduce((paramString, key, index) => {
       const computedParam = `${key}=${params[key]}`;
@@ -77,10 +94,7 @@ class Api {
       const url = `${this.baseUrl}?${this.computeParams(params, this.idsite)}`;
       if (__DEV__) return console.log(params);
       const res = await fetch(encodeURI(url));
-      // if (__DEV__) {
-      //   console.log(url);
-      //   console.log(res.status);
-      // }
+
       if (__DEV__ && res.status !== 200) {
         console.log(res);
         throw new Error('error fetching matomo');
