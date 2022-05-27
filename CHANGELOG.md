@@ -1,3 +1,10 @@
+## [1.29.1](https://github.com/SocialGouv/ozensemble/compare/v1.29.0...v1.29.1) (2022-05-27)
+
+
+### Bug Fixes
+
+* matomo custom domension ([0d48f4b](https://github.com/SocialGouv/ozensemble/commit/0d48f4b76f9317fa50ccecef3e9f10ae81629b63))
+
 # [1.29.0](https://github.com/SocialGouv/ozensemble/compare/v1.28.19...v1.29.0) (2022-05-27)
 
 
