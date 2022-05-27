@@ -6,6 +6,7 @@ import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../.
 import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
 import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
 import { storage } from '../storage';
+import CONSTANTS from '../../reference/constants';
 
 // https://docs.google.com/spreadsheets/d/1FzFrt-JsNK-OXqBz8f5sop3BcHhcvjGieZUF4gXHBJg/edit#gid=367769533
 
@@ -34,11 +35,19 @@ const initMatomo = async () => {
 
   const resultKey = storage.getString('@Quizz_result');
   const gender = await getGenderFromLocalStorage();
+
   Matomo.setUserProperties({
     version: DeviceInfo.getVersion(),
     system: Platform.OS,
     profile: mapOnboardingResultToMatomoProfile(resultKey),
     gender,
+  });
+
+  Matomo.setCustomDimensions({
+    [CONSTANTS.MATOMO_CUSTOM_DIM_VERSION]: DeviceInfo.getVersion(),
+    [CONSTANTS.MATOMO_CUSTOM_DIM_SYSTEM]: Platform.OS,
+    [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(resultKey),
+    [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
   });
 };
 
