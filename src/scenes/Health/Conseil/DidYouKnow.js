@@ -16,7 +16,7 @@ const DidYouKnow = ({ navigation }) => {
           <P>Pour une santé optimale, il est conseillé de limiter au maximum la consommation d'alcool.</P>
           <P>
             La règle d'or : ne pas dépasser les{' '}
-            <Bold>deux verres par jour pour les hommes et les femmes avec une journée sans consommer d'alcool</Bold>.
+            <Bold>deux verres par jour pour les hommes et les femmes, avec une journée sans consommer d'alcool</Bold>.
             {/* (pour
             plus de renseignements, voir notre article sur les normes) */}
           </P>
