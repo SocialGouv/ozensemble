@@ -5,6 +5,7 @@ import fetchRetry from 'fetch-retry';
 import deviceInfoModule from 'react-native-device-info';
 
 import { SCHEME, MW_API_HOST } from '../config';
+import matomo from './matomo';
 
 const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
@@ -49,7 +50,7 @@ class ApiService {
 
       if (response.json) {
         const readableRes = await response.json();
-        if (readableRes.sendInApp) Alert.alert(...readableRes.sendInApp);
+        if (readableRes.sendInApp) this.handleInAppMessage(readableRes.sendInApp);
         return readableRes;
       }
 
@@ -67,6 +68,21 @@ class ApiService {
   post = async (args) => this.execute({ method: 'POST', ...args });
   put = async (args) => this.execute({ method: 'PUT', ...args });
   delete = async (args) => this.execute({ method: 'DELETE', ...args });
+
+  handleInAppMessage = (inAppMessage) => {
+    const [title, subTitle, actions = [], options = {}] = inAppMessage;
+    if (!actions || !actions.length) return Alert.alert(title, subTitle);
+    const actionsWithNavigation = actions.map((action) => {
+      if (action.navigate) {
+        action.onPress = () => {
+          API.navigation.navigate(...action.navigate);
+          if (action.event) matomo.logEvent(action.event);
+        };
+      }
+      return action;
+    });
+    Alert.alert(title, subTitle, actionsWithNavigation, options);
+  };
 }
 
 const API = new ApiService();
