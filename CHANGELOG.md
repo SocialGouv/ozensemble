@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/SocialGouv/ozensemble/compare/v1.30.0...v1.31.0) (2022-05-30)
+
+
+### Features
+
+* oms limit is 2 everywhere ([6f4bfc5](https://github.com/SocialGouv/ozensemble/commit/6f4bfc5d6377b3e4eceaf7fd4e58e33c41a1447c))
+
 # [1.30.0](https://github.com/SocialGouv/ozensemble/compare/v1.29.1...v1.30.0) (2022-05-30)
 
 
