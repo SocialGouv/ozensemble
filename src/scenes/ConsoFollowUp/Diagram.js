@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { selector, selectorFamily, useRecoilValue } from 'recoil';
+import React, { useMemo, useState } from 'react';
+import { selectorFamily, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { storage } from '../../services/storage';
 import { screenHeight } from '../../styles/theme';
 import { Bar, BarsContainer, CloseHelpContainer, Dose, doseTextHeight, Line, LowerBar, UpperBar } from './styles';
 import { dailyDosesSelector, drinksState } from '../../recoil/consos';
@@ -15,17 +14,10 @@ import Celebration from '../../components/Illustrations/Celebration';
 import Increase from '../../components/Illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import matomo from '../../services/matomo';
-import { useMMKVString } from 'react-native-mmkv';
 import PlusIcon from '../../components/Illustrations/PlusIcon';
 import Equality from '../../components/Illustrations/Equality';
 
 const maxDosesOnScreen = 50;
-
-const getAcceptableDosePerDay = (gender) => {
-  if (!gender) return 3;
-  if (gender === 'man') return 3;
-  return 2;
-};
 
 const computeBarsHeight = (highestDailyDose, highestAcceptableDosesPerDay) => {
   const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
@@ -108,13 +100,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
   const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
 
-  const [quizzAnswersStored] = useMMKVString('@Quizz_answers');
-  const highestAcceptableDosesPerDayByOMS = useMemo(() => {
-    if (!quizzAnswersStored) return 2;
-    const quizzAnswers = JSON.parse(quizzAnswersStored);
-    if (!quizzAnswers) return 2;
-    return getAcceptableDosePerDay(quizzAnswers.gender);
-  }, [quizzAnswersStored]);
+  const highestAcceptableDosesPerDayByOMS = 2;
 
   const drinks = useRecoilValue(drinksState);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
