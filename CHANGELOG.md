@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/SocialGouv/ozensemble/compare/v1.29.1...v1.30.0) (2022-05-30)
+
+
+### Features
+
+* 2 drinks ([fcb9a15](https://github.com/SocialGouv/ozensemble/commit/fcb9a15c375c14910fdc9b0e77496385ab7bdcec))
+
 ## [1.29.1](https://github.com/SocialGouv/ozensemble/compare/v1.29.0...v1.29.1) (2022-05-27)
 
 
