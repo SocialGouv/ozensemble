@@ -1,3 +1,10 @@
+## [1.32.2](https://github.com/SocialGouv/ozensemble/compare/v1.32.1...v1.32.2) (2022-05-30)
+
+
+### Bug Fixes
+
+* test event in api ([f23f8e2](https://github.com/SocialGouv/ozensemble/commit/f23f8e21f9da2abc3f5b9d284ddba67fe2c7d5d7))
+
 ## [1.32.1](https://github.com/SocialGouv/ozensemble/compare/v1.32.0...v1.32.1) (2022-05-30)
 
 
