@@ -44,9 +44,9 @@ const newAppJson = appJson
 fs.writeFileSync('app.json', newAppJson);
 
 // Replace the version in the badge in ../README.md via regex and save it
-const readme = fs.readFileSync('./README.md', 'utf8');
+const readme = fs.readFileSync('../README.md', 'utf8');
 const newReadme = readme.replace(/version-(\d+\.\d+\.\d+)-blue/, `version-${newBuildName}-blue`);
-fs.writeFileSync('./README.md', newReadme);
+fs.writeFileSync('../README.md', newReadme);
 
 console.log('🥳 Bumped version number to ' + newBuildNumber);
 if (release !== 'bump') {
