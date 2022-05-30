@@ -549,6 +549,7 @@ const logHealthArticle = async (value) => {
 
 export default {
   initMatomo,
+  logEvent,
   logAppVisit,
   logAppClose,
   logOpenPage,
