@@ -1,3 +1,10 @@
+## [1.32.1](https://github.com/SocialGouv/ozensemble/compare/v1.32.0...v1.32.1) (2022-05-30)
+
+
+### Bug Fixes
+
+* **ci:** add deploy workflows ([c8bf0ef](https://github.com/SocialGouv/ozensemble/commit/c8bf0ef81a7e590b4dbc55862999cfb0ab890bbb))
+
 # [1.32.0](https://github.com/SocialGouv/ozensemble/compare/v1.31.0...v1.32.0) (2022-05-30)
 
 
