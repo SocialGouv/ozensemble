@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/SocialGouv/ozensemble/compare/v1.32.2...v1.33.0) (2022-05-30)
+
+
+### Features
+
+* api test ([1d022d7](https://github.com/SocialGouv/ozensemble/commit/1d022d7298eefcc02884ae56389ded4361f17b23))
+
 ## [1.32.2](https://github.com/SocialGouv/ozensemble/compare/v1.32.1...v1.32.2) (2022-05-30)
 
 
