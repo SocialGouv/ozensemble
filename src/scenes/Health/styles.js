@@ -96,6 +96,8 @@ export const BackButton = styled(GoBackButtonText)`
 
 export const P = styled.Text`
   margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 24px;
 `;
 
 export const Spacer = styled.View`
