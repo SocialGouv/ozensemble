@@ -1,3 +1,11 @@
+# [1.32.0](https://github.com/SocialGouv/ozensemble/compare/v1.31.0...v1.32.0) (2022-05-30)
+
+
+### Features
+
+* Alert.alert handle server messages ([0eee38b](https://github.com/SocialGouv/ozensemble/commit/0eee38b3f91e2e5a5c618c60245d79f90b04388f))
+* connect OZ to api to interact with events ([fae7254](https://github.com/SocialGouv/ozensemble/commit/fae7254b28e18213a1cd2b893f8e6a53d4f1c9fe))
+
 # [1.31.0](https://github.com/SocialGouv/ozensemble/compare/v1.30.0...v1.31.0) (2022-05-30)
 
 
