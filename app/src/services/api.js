@@ -1,5 +1,5 @@
 import URI from 'urijs';
-import { Alert, Platform } from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import fetchRetry from 'fetch-retry';
 import deviceInfoModule from 'react-native-device-info';
@@ -76,6 +76,12 @@ class ApiService {
       if (action.navigate) {
         action.onPress = () => {
           API.navigation.navigate(...action.navigate);
+          if (action.event) matomo.logEvent(action.event);
+        };
+      }
+      if (action.link) {
+        action.onPress = () => {
+          Linking.openURL(action.link);
           if (action.event) matomo.logEvent(action.event);
         };
       }
