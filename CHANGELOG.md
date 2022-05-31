@@ -1,3 +1,10 @@
+## [1.33.4](https://github.com/SocialGouv/ozensemble/compare/v1.33.3...v1.33.4) (2022-05-31)
+
+
+### Bug Fixes
+
+* sentry ([9fcf692](https://github.com/SocialGouv/ozensemble/commit/9fcf6924481733d605c0471ef56f4fbc1aea9966))
+
 ## [1.33.3](https://github.com/SocialGouv/ozensemble/compare/v1.33.2...v1.33.3) (2022-05-31)
 
 
