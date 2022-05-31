@@ -1,3 +1,10 @@
+## [1.33.2](https://github.com/SocialGouv/ozensemble/compare/v1.33.1...v1.33.2) (2022-05-31)
+
+
+### Bug Fixes
+
+* dummy ([eb7a1f8](https://github.com/SocialGouv/ozensemble/commit/eb7a1f8ea453770e685de4bf1c5561c28edb4e6b))
+
 ## [1.33.1](https://github.com/SocialGouv/ozensemble/compare/v1.33.0...v1.33.1) (2022-05-31)
 
 
