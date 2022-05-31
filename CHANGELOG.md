@@ -1,3 +1,10 @@
+## [1.33.1](https://github.com/SocialGouv/ozensemble/compare/v1.33.0...v1.33.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* **ci:** workflow typo ([74524fe](https://github.com/SocialGouv/ozensemble/commit/74524fe1895dfecedf814a53ded7daa49b22e195))
+
 # [1.33.0](https://github.com/SocialGouv/ozensemble/compare/v1.32.2...v1.33.0) (2022-05-30)
 
 
