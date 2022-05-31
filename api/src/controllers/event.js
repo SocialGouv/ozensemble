@@ -30,6 +30,7 @@ router.post(
   catchErrors(async (req, res) => {
     const { body } = req;
 
+    capture("test connection to url", { extra: { body } });
     if (body.event?.category === "IN_APP_CLICK" && body.event?.action === "COMMENT_CLICK") {
       capture("test ok baby", { extra: { body } });
       return res.status(200).send({ ok: true });
