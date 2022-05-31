@@ -1,3 +1,10 @@
+## [1.33.5](https://github.com/SocialGouv/ozensemble/compare/v1.33.4...v1.33.5) (2022-05-31)
+
+
+### Bug Fixes
+
+* test again event handler ([4003e67](https://github.com/SocialGouv/ozensemble/commit/4003e673decb5e05573fd905bc18c76a8f4ecdd3))
+
 ## [1.33.4](https://github.com/SocialGouv/ozensemble/compare/v1.33.3...v1.33.4) (2022-05-31)
 
 
