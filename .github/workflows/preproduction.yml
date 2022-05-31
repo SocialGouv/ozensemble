@@ -34,7 +34,7 @@ jobs:
       url: https://api-ozensemble-preprod.dev.fabrique.social.gouv.fr
     steps:
     - name: Use kube-workflow deployment
-      uses: SocialGouv/kube-workflow@b1
+      uses: SocialGouv/kube-workflow@v1
       with:
         environment: preprod
         token: ${{ secrets.GITHUB_TOKEN }}
