@@ -1,3 +1,10 @@
+## [1.33.9](https://github.com/SocialGouv/ozensemble/compare/v1.33.8...v1.33.9) (2022-05-31)
+
+
+### Bug Fixes
+
+* log userId ([04910c9](https://github.com/SocialGouv/ozensemble/commit/04910c9b59195cd7b1e3f2de5059cd81e8601053))
+
 ## [1.33.8](https://github.com/SocialGouv/ozensemble/compare/v1.33.7...v1.33.8) (2022-05-31)
 
 
