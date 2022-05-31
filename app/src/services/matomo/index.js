@@ -67,6 +67,7 @@ const logEvent = async ({ category, action, name, value }) => {
       path: '/event',
       body: {
         event: { category, action, name, value },
+        userId: Matomo.userId,
         userProperties: Matomo.userProperties,
         dimensions: Matomo.dimensions,
       },
