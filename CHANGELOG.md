@@ -1,3 +1,10 @@
+## [1.33.3](https://github.com/SocialGouv/ozensemble/compare/v1.33.2...v1.33.3) (2022-05-31)
+
+
+### Bug Fixes
+
+* disable event test ([d763c2a](https://github.com/SocialGouv/ozensemble/commit/d763c2a59086477c2962e18813249e585f98c88e))
+
 ## [1.33.2](https://github.com/SocialGouv/ozensemble/compare/v1.33.1...v1.33.2) (2022-05-31)
 
 
