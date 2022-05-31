@@ -1,3 +1,10 @@
+## [1.33.6](https://github.com/SocialGouv/ozensemble/compare/v1.33.5...v1.33.6) (2022-05-31)
+
+
+### Bug Fixes
+
+* **ci:** use PAT token for release ([d1d53b2](https://github.com/SocialGouv/ozensemble/commit/d1d53b252755695624b7270c41556283ce0ec840))
+
 ## [1.33.5](https://github.com/SocialGouv/ozensemble/compare/v1.33.4...v1.33.5) (2022-05-31)
 
 
