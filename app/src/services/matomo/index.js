@@ -331,7 +331,7 @@ const CONTACT_CALL = 'CONTACT_CALL';
 const CONTACT_WEBSITE_OPEN = 'CONTACT_WEBSITE_OPEN';
 const CONTACT_ASKCALL = 'CONTACT_ASKCALL';
 const CONTACT_RDV = 'CONTACT_RDV';
-// const CONTACT_RDV_CONFIRM = 'CONTACT_RDV_CONFIRM';
+const CONTACT_RDV_CONFIRM = 'CONTACT_RDV_CONFIRM';
 
 const logContactOpen = async (origin) => {
   await logEvent({
@@ -369,12 +369,12 @@ const logContactTakeRDV = async () => {
   });
 };
 
-// const logContactConfirmRDV = async () => {
-//   await logEvent({
-//     category: CONTACT,
-//     action: CONTACT_RDV_CONFIRM,
-//   });
-// };
+const logContactConfirmRDV = async () => {
+  await logEvent({
+    category: CONTACT,
+    action: CONTACT_RDV_CONFIRM,
+  });
+};
 
 const logNPSOpen = async () => {
   await logEvent({
@@ -579,6 +579,7 @@ export default {
   logContactWebsiteOpened,
   logContactAskForBeingCalled,
   logContactTakeRDV,
+  logContactConfirmRDV,
   logNPSOpen,
   logNPSSend,
   getUserId,
