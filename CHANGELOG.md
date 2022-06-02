@@ -1,3 +1,10 @@
+## [1.33.10](https://github.com/SocialGouv/ozensemble/compare/v1.33.9...v1.33.10) (2022-06-02)
+
+
+### Bug Fixes
+
+* app crashing when finish taking rdv in doctolib ([df10a8e](https://github.com/SocialGouv/ozensemble/commit/df10a8e83e817b13292769df246cf9c5f1689497))
+
 ## [1.33.9](https://github.com/SocialGouv/ozensemble/compare/v1.33.8...v1.33.9) (2022-05-31)
 
 
