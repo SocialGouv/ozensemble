@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
-import { TopContainer, TopTitle, ScreenBgStyled } from '../styles';
+import { TopContainer, TopTitle, ScreenBgStyled, Spacer } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
@@ -43,6 +43,7 @@ const NavigationWrapper = ({ children, title, timeReading }) => {
           </TextStyled>
         </InformationArticle>
       </TopContainer>
+      <Spacer size={25} />
       <BackButton content="< Retour" bold onPress={() => navigation.goBack()} bottom />
     </ScreenBgStyled>
   );
