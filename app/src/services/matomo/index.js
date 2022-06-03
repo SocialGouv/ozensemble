@@ -551,7 +551,7 @@ const logHealthArticle = async (value) => {
 const logScrollToEndArticle = async (value) => {
   logEvent({
     category: HEALTH,
-    action: 'HEALTH_ARTICLE',
+    action: 'HEALTH_SCROLL_TO_BOTTOM_ARTICLE',
     name: value,
   });
 };
