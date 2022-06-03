@@ -10,10 +10,9 @@ import matomo from '../../../services/matomo';
 const NavigationWrapper = ({ children, title, timeReading }) => {
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
-  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    const paddingToBottom = 10;
-    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
-  };
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
+    layoutMeasurement.height + contentOffset.y >= contentSize.height - 300; // almost to bottom
+
   return (
     <ScreenBgStyled
       onScroll={({ nativeEvent }) => {
