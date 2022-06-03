@@ -1,3 +1,11 @@
+# [1.34.0](https://github.com/SocialGouv/ozensemble/compare/v1.33.11...v1.34.0) (2022-06-03)
+
+
+### Features
+
+* add scroll end article + source ([266574b](https://github.com/SocialGouv/ozensemble/commit/266574b33897261f2d3cbb122f5e367dc3c8b768))
+* name + hasScrollToEnd ([4ef3078](https://github.com/SocialGouv/ozensemble/commit/4ef30789fa51ab2657d4f2042f78970f2352a684))
+
 ## [1.33.11](https://github.com/SocialGouv/ozensemble/compare/v1.33.10...v1.33.11) (2022-06-03)
 
 
