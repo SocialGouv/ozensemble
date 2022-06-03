@@ -1,3 +1,10 @@
+## [1.33.11](https://github.com/SocialGouv/ozensemble/compare/v1.33.10...v1.33.11) (2022-06-03)
+
+
+### Bug Fixes
+
+* better debug for error catching stored answers ([56ff2ec](https://github.com/SocialGouv/ozensemble/commit/56ff2ecf4d509b7f82eafe222d96968914244103))
+
 ## [1.33.10](https://github.com/SocialGouv/ozensemble/compare/v1.33.9...v1.33.10) (2022-06-02)
 
 
