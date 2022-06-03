@@ -222,7 +222,6 @@ const ToSayNo = () => {
             qui impliquent de l'alcool.{'\n'}Faites-vous des amis avec des gens qui acceptent vos décisions, même s'ils
             ne les comprennent pas.
           </P>
-          <Spacer size={50} />
         </TopContainer>
       </NavigationWrapper>
     </Background>

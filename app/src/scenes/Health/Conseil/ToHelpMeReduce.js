@@ -125,7 +125,6 @@ const ToHelpMeReduce = ({ navigation }) => {
             alcool…). À chaque fois que vous consommez de l'alcool, prenez le réflexe de
             <Bold> boire un verre d'eau.</Bold>
           </P>
-          <Spacer size={50} />
         </TopContainer>
       </NavigationWrapper>
     </Background>
