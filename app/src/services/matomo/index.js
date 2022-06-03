@@ -548,6 +548,14 @@ const logHealthArticle = async (value) => {
   });
 };
 
+const logScrollToEndArticle = async (value) => {
+  logEvent({
+    category: HEALTH,
+    action: 'HEALTH_SCROLL_ARTICLE_TO_BOTTOM',
+    name: value,
+  });
+};
+
 export default {
   initMatomo,
   logEvent,
@@ -604,4 +612,5 @@ export default {
   logAnalysisDate,
   logAnalysisContact,
   logHealthArticle,
+  logScrollToEndArticle,
 };
