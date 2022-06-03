@@ -41,7 +41,7 @@ export const fetchStoredAnswers = ({ memoryKeyAnswers, memoryKeyResult, question
       }
     }
   } catch (e) {
-    capture('error catching stored answers', e);
+    capture(e, { extra: { message: 'error catching stored answers', memoryKeyAnswers, memoryKeyResult, questions } });
   }
   return toReturn;
 };
