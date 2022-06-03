@@ -7,13 +7,27 @@ import H2 from '../../../components/H2';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import NavigationWrapper from './NavigationWrapper';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import matomo from '../../../services/matomo';
 
 const DidYouKnow = () => {
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 10;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+  };
+
+  const title = 'Le saviez-vous ?';
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <ScreenBgStyled>
-        <NavigationWrapper title={'Le saviez-vous ?'} timeReading={2}>
+      <ScreenBgStyled
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent)) {
+            matomo.logScrollToEndArticle(title);
+          }
+        }}
+        scrollEventThrottle={400}>
+        <NavigationWrapper title={title} timeReading={2}>
           <TopContainer>
             <P>Pour une santé optimale, il est conseillé de limiter au maximum la consommation d'alcool.</P>
             <P>
@@ -101,7 +115,7 @@ const DidYouKnow = () => {
               sans protection), ce qui peut générer des infections sexuellement transmissibles ou des grosesses non
               désirées.{' '}
             </P>
-            <Spacer size={100} />
+            <Spacer size={50} />
           </TopContainer>
         </NavigationWrapper>
       </ScreenBgStyled>
