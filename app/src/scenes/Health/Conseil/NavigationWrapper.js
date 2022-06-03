@@ -2,14 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
-import { TopContainer, TopTitle } from '../styles';
+import { TopContainer, TopTitle, ScreenBgStyled } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
+import matomo from '../../../services/matomo';
 
 const NavigationWrapper = ({ children, title, timeReading }) => {
   const navigation = useNavigation();
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 10;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+  };
   return (
-    <>
+    <ScreenBgStyled
+      onScroll={({ nativeEvent }) => {
+        if (isCloseToBottom(nativeEvent)) {
+          matomo.logScrollToEndArticle(title);
+        }
+      }}
+      scrollEventThrottle={400}>
       <BackButton content="< Retour" bold onPress={() => navigation.goBack()} />
       <TopContainer>
         <TopTitle>
@@ -31,7 +42,7 @@ const NavigationWrapper = ({ children, title, timeReading }) => {
         </InformationArticle>
       </TopContainer>
       <BackButton content="< Retour" bold onPress={() => navigation.goBack()} bottom />
-    </>
+    </ScreenBgStyled>
   );
 };
 
