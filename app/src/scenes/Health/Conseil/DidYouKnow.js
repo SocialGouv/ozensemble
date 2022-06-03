@@ -2,7 +2,6 @@ import React from 'react';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
 import { Spacer, P, TopContainer, Bold } from '../styles';
-import TopArticle from './TopArticle';
 import H2 from '../../../components/H2';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import NavigationWrapper from './NavigationWrapper';
@@ -101,7 +100,6 @@ const DidYouKnow = () => {
             {'    - '}L'alcool peut pousser à des <Bold>comportements à risques</Bold> (comme des rapports sexuels sans
             protection), ce qui peut générer des infections sexuellement transmissibles ou des grosesses non désirées.{' '}
           </P>
-          <Spacer size={50} />
         </TopContainer>
       </NavigationWrapper>
     </Background>
