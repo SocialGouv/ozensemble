@@ -4,13 +4,25 @@ import HeaderBackground from '../../../components/HeaderBackground';
 import { ScreenBgStyled, Spacer, P, TopContainer, Bold, Underline } from '../styles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
+import matomo from '../../../services/matomo';
 
 const ToSayNo = () => {
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 10;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+  };
+  const title = 'Comment dire Non ?';
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <ScreenBgStyled>
-        <NavigationWrapper title={'Comment dire Non ? '} timeReading={5}>
+      <ScreenBgStyled
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent)) {
+            matomo.logScrollToEndArticle(title);
+          }
+        }}
+        scrollEventThrottle={400}>
+        <NavigationWrapper title={title} timeReading={5}>
           <TopContainer>
             <P>
               Elles sont nombreuses les occasions où nous sommes <Bold>invités à boire un ou plusieurs verres </Bold>
@@ -223,8 +235,7 @@ const ToSayNo = () => {
               qui impliquent de l'alcool.{'\n'}Faites-vous des amis avec des gens qui acceptent vos décisions, même
               s'ils ne les comprennent pas.
             </P>
-            <Spacer size={20} />
-            <Spacer size={100} />
+            <Spacer size={50} />
           </TopContainer>
         </NavigationWrapper>
       </ScreenBgStyled>

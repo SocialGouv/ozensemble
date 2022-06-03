@@ -5,13 +5,26 @@ import HeaderBackground from '../../../components/HeaderBackground';
 import { ScreenBgStyled, Spacer, P, TopContainer, Bold, Underline } from '../styles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
+import matomo from '../../../services/matomo';
 
 const ToHelpMeReduce = ({ navigation }) => {
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 10;
+    return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
+  };
+
+  const title = "Pour m'aider à réduire";
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <ScreenBgStyled>
-        <NavigationWrapper title={"Pour m'aider à réduire"} timeReading={3}>
+      <ScreenBgStyled
+        onScroll={({ nativeEvent }) => {
+          if (isCloseToBottom(nativeEvent)) {
+            matomo.logScrollToEndArticle(title);
+          }
+        }}
+        scrollEventThrottle={400}>
+        <NavigationWrapper title={title} timeReading={3}>
           <TopContainer>
             <H2 color={'#4030a5'}>Quelques conseils génériques...</H2>
             <Spacer size={20} />
@@ -125,8 +138,7 @@ const ToHelpMeReduce = ({ navigation }) => {
               sans alcool…). À chaque fois que vous consommez de l'alcool, prenez le réflexe de
               <Bold> boire un verre d'eau.</Bold>
             </P>
-            <Spacer size={20} />
-            <Spacer size={100} />
+            <Spacer size={50} />
           </TopContainer>
         </NavigationWrapper>
       </ScreenBgStyled>

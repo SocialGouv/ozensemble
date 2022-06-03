@@ -17,12 +17,19 @@ const NavigationWrapper = ({ children, title, timeReading }) => {
         </TopTitle>
         <ReadTimeContainer>
           <Clock size={20} />
-          <ReadTimeText>
+          <InformationArticle>
             <TextStyled>Lecture: {timeReading} min </TextStyled>
-          </ReadTimeText>
+          </InformationArticle>
         </ReadTimeContainer>
       </TopContainer>
       {children}
+      <TopContainer>
+        <InformationArticle>
+          <TextStyled>
+            Source: Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité
+          </TextStyled>
+        </InformationArticle>
+      </TopContainer>
       <BackButton content="< Retour" bold onPress={() => navigation.goBack()} bottom />
     </>
   );
@@ -37,7 +44,7 @@ const ReadTimeContainer = styled.View`
   flex-direction: row;
 `;
 
-const ReadTimeText = styled.Text`
+const InformationArticle = styled.Text`
   font-size: 10px;
 `;
 export default NavigationWrapper;
