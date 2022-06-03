@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
@@ -9,6 +9,7 @@ import matomo from '../../../services/matomo';
 
 const NavigationWrapper = ({ children, title, timeReading }) => {
   const navigation = useNavigation();
+  const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 10;
     return layoutMeasurement.height + contentOffset.y >= contentSize.height - paddingToBottom;
@@ -16,7 +17,8 @@ const NavigationWrapper = ({ children, title, timeReading }) => {
   return (
     <ScreenBgStyled
       onScroll={({ nativeEvent }) => {
-        if (isCloseToBottom(nativeEvent)) {
+        if (isCloseToBottom(nativeEvent) && !hasScrollToEnd.current) {
+          hasScrollToEnd.current = true;
           matomo.logScrollToEndArticle(title);
         }
       }}
