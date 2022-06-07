@@ -1,13 +1,14 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
+import { Linking } from 'react-native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
 import { TopContainer, TopTitle, ScreenBgStyled, Spacer } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
 
-const NavigationWrapper = ({ children, title, timeReading }) => {
+const NavigationWrapper = ({ children, title, timeReading, link }) => {
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
@@ -37,8 +38,15 @@ const NavigationWrapper = ({ children, title, timeReading }) => {
       {children}
       <TopContainer>
         <InformationArticle>
-          <TextStyled>
-            Source: Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité
+          <TextStyled>Source: </TextStyled>
+          <TextStyled
+            italic
+            color="#4030a5"
+            onPress={() => {
+              matomo.logContactWebsiteOpened();
+              Linking.openURL(link);
+            }}>
+            {link}
           </TextStyled>
         </InformationArticle>
       </TopContainer>
