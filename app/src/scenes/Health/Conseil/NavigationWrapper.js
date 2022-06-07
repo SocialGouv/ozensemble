@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
-import { TopContainer, TopTitle, ScreenBgStyled, Spacer } from '../styles';
+import { TopContainer, TopTitle, ScreenBgStyled, Spacer, Underline } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
@@ -38,7 +38,12 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
       {children}
       <TopContainer>
         <InformationArticle>
-          <TextStyled>Source: </TextStyled>
+          <Underline>
+            <TextStyled>Sources:{'\n'}</TextStyled>
+          </Underline>
+          <TextStyled>
+            Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n\n'}
+          </TextStyled>
           <TextStyled
             color="#4030a5"
             onPress={() => {
@@ -65,5 +70,6 @@ const ReadTimeContainer = styled.View`
 
 const InformationArticle = styled.Text`
   font-size: 10px;
+  display: flex;
 `;
 export default NavigationWrapper;
