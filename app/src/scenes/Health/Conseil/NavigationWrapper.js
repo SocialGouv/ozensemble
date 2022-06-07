@@ -40,7 +40,6 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
         <InformationArticle>
           <TextStyled>Source: </TextStyled>
           <TextStyled
-            italic
             color="#4030a5"
             onPress={() => {
               Linking.openURL(link);
