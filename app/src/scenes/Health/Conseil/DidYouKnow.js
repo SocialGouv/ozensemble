@@ -103,7 +103,7 @@ const DidYouKnow = () => {
           </P>
           <P>
             {'    - '}L'alcool peut pousser à des <Bold>comportements à risques</Bold> (comme des rapports sexuels sans
-            protection), ce qui peut générer des infections sexuellement transmissibles ou des grosesses non désirées.{' '}
+            protection), ce qui peut générer des infections sexuellement transmissibles ou des grosesses non désirées.
           </P>
         </TopContainer>
       </NavigationWrapper>
