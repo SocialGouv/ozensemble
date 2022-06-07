@@ -43,7 +43,6 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
             italic
             color="#4030a5"
             onPress={() => {
-              matomo.logContactWebsiteOpened();
               Linking.openURL(link);
             }}>
             {link}
