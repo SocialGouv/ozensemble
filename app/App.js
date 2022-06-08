@@ -17,6 +17,8 @@ import {
   hasMigratedFromReduxToRecoil,
   migrateFromAsyncStorage,
   migrateFromReduxToRecoil,
+  hasMigratedGenderAndAge,
+  migrateGenderAndAge,
 } from './src/services/storage';
 
 dayjs.extend(isSameOrAfter);
@@ -30,15 +32,18 @@ const App = () => {
   // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
   const [hasMigrated, setHasMigrated] = useState(hasMigratedFromAsyncStorage);
   const [hasMigratedToRecoil, setHasMigratedToRecoil] = useState(hasMigratedFromReduxToRecoil);
+  const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
 
   useEffect(() => {
-    if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil) {
+    if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
       InteractionManager.runAfterInteractions(async () => {
         try {
           await migrateFromAsyncStorage();
           setHasMigrated(true);
           await migrateFromReduxToRecoil();
           setHasMigratedToRecoil(true);
+          await migrateGenderAndAge();
+          setHasGenderAndAge(true);
         } catch (e) {
           console.log('error migrating', e);
           // TODO: fall back to AsyncStorage? Wipe storage clean and use MMKV? Crash app?
@@ -48,7 +53,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!hasMigrated || !hasMigratedToRecoil) return null;
+  if (!hasMigrated || !hasMigratedToRecoil || !hasGenderAndAge) return null;
 
   return (
     <RecoilRoot>

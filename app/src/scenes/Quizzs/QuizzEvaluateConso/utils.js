@@ -2,15 +2,6 @@ import { getAnswerScore } from '../../../components/Quizz/utils';
 import { capture } from '../../../services/sentry';
 import { storage } from '../../../services/storage';
 
-export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = storage.getString('@Quizz_answers');
-  if (storedAnswers !== null) {
-    const newAnswers = JSON.parse(storedAnswers);
-    return newAnswers.gender;
-  }
-  return null;
-};
-
 const atLeastOneAnswerIsNotNever = (answers) => {
   const questionKeys = Object.keys(answers).filter((key) => key !== 'gender' && key !== 'age');
   const hasNotAnsweredNeverAtLeastOne = questionKeys.reduce((prev, curr) => {

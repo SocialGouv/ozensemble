@@ -8,15 +8,6 @@ const findAnswer = ({ answers }, answerKey) => answers.find((answer) => answer.a
 export const getAnswerScore = (questions, answers, questionKey) =>
   findAnswer(findQuestion(questions, questionKey), answers[questionKey])?.score;
 
-export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = storage.getString('@Quizz_answers');
-  if (typeof storedAnswers === 'string') {
-    const newAnswers = JSON.parse(storedAnswers);
-    return newAnswers.gender;
-  }
-  return null;
-};
-
 export const fetchStoredAnswers = ({ memoryKeyAnswers, memoryKeyResult, questions = [] }) => {
   const computeInitAnswersState = () => {
     const initAnswerState = {};
