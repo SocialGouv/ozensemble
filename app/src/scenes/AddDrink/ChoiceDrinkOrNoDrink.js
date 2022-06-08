@@ -16,6 +16,7 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -109,13 +110,6 @@ const Option = ({ icon, value, onPress }) => {
     </AskDrinkContainer>
   );
 };
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const TopContainer = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;

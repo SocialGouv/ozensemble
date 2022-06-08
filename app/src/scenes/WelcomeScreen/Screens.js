@@ -9,9 +9,10 @@ import TextStyled from '../../components/TextStyled';
 import { mediaHeight } from '../../styles/mediaQueries';
 import { screenHeight, screenWidth } from '../../styles/theme';
 import Agreement from './Agreement';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 export const Screen1 = () => (
-  <ScreenBgStyled>
+  <ScreenBgStyled WelcomeScreen>
     <StyledScreen1 />
     <Title>
       <TextStyled color="#4030a5">Bravo de vouloir réduire votre consommation</TextStyled>
@@ -27,7 +28,7 @@ export const Screen1 = () => (
 );
 
 export const Screen2 = () => (
-  <ScreenBgStyled>
+  <ScreenBgStyled WelcomeScreen>
     <StyledScreen2 />
     <Title>
       <TextStyled color="#4030a5">Comment cela marche ?</TextStyled>
@@ -50,7 +51,7 @@ export const Screen2 = () => (
 );
 
 export const Screen3 = ({ setAgreed, agreed }) => (
-  <ScreenBgStyled>
+  <ScreenBgStyled WelcomeScreen>
     <StyledScreen3 />
     <Title>
       <TextStyled color="#4030a5">Mesurez vos gains</TextStyled>
@@ -63,15 +64,6 @@ export const Screen3 = ({ setAgreed, agreed }) => (
     <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
   </ScreenBgStyled>
 );
-
-const ScreenBgStyled = styled.View`
-  background-color: #f9f9f9;
-  justify-content: flex-end;
-  align-items: center;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const Title = styled(H1)`
   margin-bottom: ${screenHeight * 0.025}px;

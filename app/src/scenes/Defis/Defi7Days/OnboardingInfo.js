@@ -10,6 +10,7 @@ import Stars from '../../../components/Illustrations/Stars';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from './utils';
+import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -197,13 +198,6 @@ const ElemContainer = styled.View`
   display: flex;
   flex-direction: row;
   margin: 10px 0;
-`;
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
 `;
 
 const Paragraph = styled.View`

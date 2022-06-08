@@ -3,16 +3,6 @@ import styled, { css } from 'styled-components';
 import H1 from '../../components/H1';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
-export const ScreenBgStyled = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    backgroundColor: '#f9f9f9',
-    flexShrink: 1,
-    flexGrow: 1,
-    flexBasis: '100%',
-    minHeight: '100%',
-  },
-})``;
-
 export const MenuItemStyled = styled.View`
   height: 70px;
   border-bottom-width: 1px;

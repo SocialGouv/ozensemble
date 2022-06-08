@@ -5,6 +5,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const Sevrage = ({ navigation }) => {
   return (
@@ -56,10 +57,6 @@ const Sevrage = ({ navigation }) => {
     </ScreenBgStyled>
   );
 };
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-`;
 
 const TopTitle = styled.View`
   flex-direction: row;

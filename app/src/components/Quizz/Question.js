@@ -1,5 +1,5 @@
 import React from 'react';
-import ScreenBgStyled from '../ScreenBgStyled';
+import { ScreenBgStyled } from '../Styles/SreenByStyled';
 import { AnswerButton, AnswerContent, AnswersContainer, QuestionNumber, QuestionTitle } from './styles';
 
 const Question = ({
@@ -12,7 +12,7 @@ const Question = ({
   saveAnswer,
   navigation,
 }) => (
-  <ScreenBgStyled>
+  <ScreenBgStyled defaultPadding>
     <QuestionNumber>
       Question {questionIndex + 1} / {numberOfQuestions}
     </QuestionNumber>

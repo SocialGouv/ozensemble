@@ -4,14 +4,6 @@ import H1 from '../../components/H1';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import GoBackButtonText from '../../components/GoBackButtonText';
 
-export const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-`;
-
 export const commonCss = css`
   width: 95%;
   flex-shrink: 0;

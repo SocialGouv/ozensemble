@@ -17,12 +17,12 @@ import {
   Container,
   FeedBackStyled,
   KeyboardAvoidingViewStyled,
-  ScreenBgStyled,
   TextInputStyled,
   TopSubTitle,
   TopTitle,
 } from './styles';
 import { storage } from '../../services/storage';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -346,7 +346,7 @@ class NPS extends Component {
               <KeyboardAvoidingViewStyled
                 behavior={Platform.select({ ios: 'padding', android: null })}
                 keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
-                <ScreenBgStyled>
+                <ScreenBgStyled defaultPadding>
                   <CloseNPS>
                     <UnderlinedButton content="Fermer" bold onPress={this.onClose} />
                   </CloseNPS>

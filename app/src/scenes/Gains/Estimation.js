@@ -12,6 +12,7 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const Estimation = () => {
   const navigation = useNavigation();
@@ -111,10 +112,6 @@ const Estimation = () => {
     </ScreenBgStyled>
   );
 };
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-`;
 
 const TextContainer = styled.View`
   padding-horizontal: 20px;

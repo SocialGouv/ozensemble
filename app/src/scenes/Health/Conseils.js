@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled, TopContainer, TopSubTitle } from './styles';
+import { TopContainer, TopSubTitle } from './styles';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
 import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const Conseils = ({ navigation }) => {
   return (
