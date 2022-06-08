@@ -24,26 +24,11 @@ class Api {
     return result;
   }
 
-  setUserProperties(newProperties) {
-    this.userProperties = {
-      ...this.userProperties,
-      ...newProperties,
-    };
-  }
-
   setCustomDimensions(newDimensions) {
     this.dimensions = {
       ...(this.dimensions || {}),
       ...newDimensions,
     };
-  }
-
-  computeCvar(cvarObject) {
-    const _cvar = {};
-    for (let [index, key] of Object.keys(cvarObject).entries()) {
-      _cvar[`${index}`] = [key, cvarObject[key]];
-    }
-    return JSON.stringify(_cvar);
   }
 
   computeCustomDimensions(dimensions) {
@@ -57,7 +42,6 @@ class Api {
 
   computeParams(params, idsite) {
     params = {
-      _cvar: this.computeCvar(this.userProperties),
       idsite,
       _id: this.userId,
       uid: this.userId,
@@ -92,7 +76,7 @@ class Api {
     try {
       if (!this.initDone) throw new Error('matomo not initialized yet');
       const url = `${this.baseUrl}?${this.computeParams(params, this.idsite)}`;
-      if (__DEV__) return console.log(params);
+      if (__DEV__) return console.log(this.computeParams(params, this.idsite));
       const res = await fetch(encodeURI(url));
 
       if (__DEV__ && res.status !== 200) {

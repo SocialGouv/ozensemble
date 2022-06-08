@@ -1,18 +1,7 @@
 import { capture } from '../../../services/sentry';
 import { getAnswerScore } from '../../../components/Quizz/utils';
-import { storage } from '../../../services/storage';
 
 // Utils
-
-export const getGenderFromLocalStorage = async () => {
-  const storedAnswers = storage.getString('@Quizz_answers');
-  if (storedAnswers !== null) {
-    const newAnswers = JSON.parse(storedAnswers);
-    return newAnswers.gender;
-  }
-  return null;
-};
-
 export const computeScore = (questions, answers) => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
