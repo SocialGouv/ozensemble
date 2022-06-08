@@ -11,17 +11,17 @@ const questions = [
       {
         content: '18 à 25 ans',
         answerKey: '18-25',
-        score: 0,
+        score: 1,
       },
       {
         content: '25 à 45 ans',
         answerKey: '25-45',
-        score: 0,
+        score: 2,
       },
       {
         content: 'Plus de 45 ans',
         answerKey: '+45',
-        score: 0,
+        score: 3,
       },
     ],
   },
