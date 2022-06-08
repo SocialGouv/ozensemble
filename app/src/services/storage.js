@@ -61,3 +61,12 @@ export async function migrateFromReduxToRecoil() {
   const end = global.performance.now();
   console.log(`Migrated from Redux -> Recoil in ${end - start}ms!`);
 }
+
+export const hasMigratedGenderAndAge = storage.getBoolean('hasMigratedGenderAndAge');
+// TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
+export async function migrateGenderAndAge() {
+  const storedAnswers = storage.getString('@Quizz_answers');
+  const gender = typeof storedAnswers === 'string' ? JSON.parse(storedAnswers)?.gender : null;
+  storage.set('@Gender', gender);
+  storage.set('hasMigratedGenderAndAge', true);
+}
