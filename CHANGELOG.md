@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/SocialGouv/ozensemble/compare/v1.34.3...v1.35.0) (2022-06-08)
+
+
+### Features
+
+* **app:** new custom dimension ([8fc3a11](https://github.com/SocialGouv/ozensemble/commit/8fc3a113b7a2f75d1718d098ae2b569a4a8910d0))
+
 ## [1.34.3](https://github.com/SocialGouv/ozensemble/compare/v1.34.2...v1.34.3) (2022-06-08)
 
 
