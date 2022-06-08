@@ -34,12 +34,12 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
 
   const setState = (newState) => setGlobalState((oldState) => ({ ...oldState, ...newState }));
 
-  // eslint-disable-next-line no-unused-vars
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
     const newAnswers = {
       ...answers,
       [questionKey]: answerKey,
     };
+
     const newProgress = (questionIndex + 1) / questions.length;
     setState({ answers: newAnswers, progress: newProgress });
 
@@ -50,7 +50,6 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(questions, newAnswers);
-      // await matomo.logAddictionResult(addictionResult);
       await matomo.logQuizzFinish();
       if (addictionResult) {
         storage.set(memoryKeyResult, JSON.stringify(addictionResult));
