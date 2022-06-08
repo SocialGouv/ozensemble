@@ -12,7 +12,8 @@ import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
-import { FeedAddConsoTodayContainer, ScreenBgStyled, SubTitle, Title, TopContainer, Help, HelpText } from './styles';
+import { FeedAddConsoTodayContainer, SubTitle, Title, TopContainer, Help, HelpText } from './styles';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 

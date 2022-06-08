@@ -7,12 +7,13 @@ import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation'
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
 import GoBackButtonText from '../../components/GoBackButtonText';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const HelpModalCountConsumption = ({ visible, onClose }) => {
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onClose}>
       <SafeAreaViewStyled>
-        <ScreenBgStyled>
+        <ScreenBgStyled backgroundColor="#ececec">
           <TextBackground>
             <BackButton content="< Retour" onPress={onClose} bold />
             <HowCountContainer>
@@ -38,10 +39,6 @@ const HelpModalCountConsumption = ({ visible, onClose }) => {
 const SafeAreaViewStyled = styled(SafeAreaView)`
   background-color: #f9f9f9;
   flex: 1;
-`;
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #ececec;
 `;
 
 const BackButton = styled(GoBackButtonText)`

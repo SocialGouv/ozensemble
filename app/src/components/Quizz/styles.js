@@ -71,17 +71,6 @@ export const AnswerContent = styled(H2)`
 QUESTION
 */
 
-export const ScreenBgStyled = styled.View`
-  background-color: #f9f9f9;
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-  padding-top: ${defaultPaddingFontScale() / 2}px;
-  flex-shrink: 1;
-  flex-grow: 1;
-  width: ${screenWidth}px;
-  max-width: ${screenWidth}px;
-  ${({ debug }) => debug && 'border: 2px solid #000;'}
-`;
-
 const commonCss = css`
   margin-bottom: 15px;
   flex-shrink: 0;

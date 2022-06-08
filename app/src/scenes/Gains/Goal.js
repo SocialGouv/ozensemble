@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,7 +7,6 @@ import H1 from '../../components/H1';
 import Calendar from '../../components/Illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
 import InfoObjectif from '../../components/Illustrations/InfoObjectif';
-import QButton from '../../components/QButton';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import {
@@ -22,6 +21,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
@@ -183,13 +183,6 @@ const Goal = ({ navigation }) => {
     </>
   );
 };
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const TopTitle = styled.View`
   width: 95%;

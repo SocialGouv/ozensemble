@@ -3,10 +3,10 @@ import { Linking } from 'react-native';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
-import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import matomo from '../../services/matomo';
-import { Extra, ScreenBgStyled, TopButtonContainer, TopContainer, TopSubTitle, TopTitle } from './styles';
+import { Extra, TopButtonContainer, TopContainer, TopSubTitle, TopTitle } from './styles';
+import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
 
 const ContactForm = ({ navigation }) => {
   return (

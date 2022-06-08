@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
-import { TopContainer, TopTitle, ScreenBgStyled, Spacer, Underline } from '../styles';
+import { TopContainer, TopTitle, Spacer, Underline } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
+import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
 
 const NavigationWrapper = ({ children, title, timeReading, link }) => {
   const navigation = useNavigation();

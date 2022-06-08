@@ -8,6 +8,7 @@ import H1 from '../../../../components/H1';
 import Stars from '../../../../components/Illustrations/Stars';
 import TextStyled from '../../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
+import { ScreenBgStyled } from '../../../../components/Styles/SreenByStyled';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -97,13 +98,6 @@ const Elem = ({ content }) => (
     <TextStyled style={{ flex: 1 }}>{content}</TextStyled>
   </ElemContainer>
 );
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const TopContainer = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;
