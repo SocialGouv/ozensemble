@@ -13,7 +13,12 @@ const DidYouKnow = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <NavigationWrapper title={title} timeReading={2}>
+      <NavigationWrapper
+        title={title}
+        timeReading={2}
+        link={
+          'https://www.santepubliquefrance.fr/determinants-de-sante/alcool/documents/brochure/alcool-vous-en-savez-quoi'
+        }>
         <TopContainer>
           <P>Pour une santé optimale, il est conseillé de limiter au maximum la consommation d'alcool.</P>
           <P>
@@ -98,7 +103,7 @@ const DidYouKnow = () => {
           </P>
           <P>
             {'    - '}L'alcool peut pousser à des <Bold>comportements à risques</Bold> (comme des rapports sexuels sans
-            protection), ce qui peut générer des infections sexuellement transmissibles ou des grosesses non désirées.{' '}
+            protection), ce qui peut générer des infections sexuellement transmissibles ou des grosesses non désirées.
           </P>
         </TopContainer>
       </NavigationWrapper>

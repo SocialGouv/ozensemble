@@ -1,13 +1,14 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
+import { Linking } from 'react-native';
 import GoBackButtonText from '../../../components/GoBackButtonText';
-import { TopContainer, TopTitle, ScreenBgStyled, Spacer } from '../styles';
+import { TopContainer, TopTitle, ScreenBgStyled, Spacer, Underline } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
 
-const NavigationWrapper = ({ children, title, timeReading }) => {
+const NavigationWrapper = ({ children, title, timeReading, link }) => {
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
@@ -37,8 +38,18 @@ const NavigationWrapper = ({ children, title, timeReading }) => {
       {children}
       <TopContainer>
         <InformationArticle>
+          <Underline>
+            <TextStyled>Sources:{'\n'}</TextStyled>
+          </Underline>
           <TextStyled>
-            Source: Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité
+            Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n\n'}
+          </TextStyled>
+          <TextStyled
+            color="#4030a5"
+            onPress={() => {
+              Linking.openURL(link);
+            }}>
+            {link}
           </TextStyled>
         </InformationArticle>
       </TopContainer>
@@ -59,5 +70,6 @@ const ReadTimeContainer = styled.View`
 
 const InformationArticle = styled.Text`
   font-size: 10px;
+  display: flex;
 `;
 export default NavigationWrapper;
