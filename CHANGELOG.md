@@ -1,3 +1,10 @@
+## [1.34.3](https://github.com/SocialGouv/ozensemble/compare/v1.34.2...v1.34.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* score age ([55627a3](https://github.com/SocialGouv/ozensemble/commit/55627a3f660d00f78f7074a8abdb80ba00ea855e))
+
 ## [1.34.2](https://github.com/SocialGouv/ozensemble/compare/v1.34.1...v1.34.2) (2022-06-08)
 
 
