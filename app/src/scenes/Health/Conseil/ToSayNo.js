@@ -10,7 +10,10 @@ const ToSayNo = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <NavigationWrapper title={title} timeReading={5}>
+      <NavigationWrapper
+        title={title}
+        timeReading={5}
+        link={'https://www.respadd.org/blog/2020/08/03/livret-accompagner-la-reduction-de-la-consommation-dalcool/'}>
         <TopContainer>
           <P>
             Elles sont nombreuses les occasions où nous sommes <Bold>invités à boire un ou plusieurs verres </Bold>
