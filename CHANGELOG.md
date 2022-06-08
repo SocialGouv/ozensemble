@@ -1,3 +1,10 @@
+## [1.35.1](https://github.com/SocialGouv/ozensemble/compare/v1.35.0...v1.35.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* gender migration ([d28b033](https://github.com/SocialGouv/ozensemble/commit/d28b0336665ed686b5415fc6d89e488e5de7b162))
+
 # [1.35.0](https://github.com/SocialGouv/ozensemble/compare/v1.34.3...v1.35.0) (2022-06-08)
 
 
