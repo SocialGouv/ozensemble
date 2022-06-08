@@ -9,6 +9,7 @@ export const hasMigratedFromAsyncStorage = storage.getBoolean('hasMigratedFromAs
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
 export async function migrateFromAsyncStorage() {
+  if (hasMigratedFromAsyncStorage) return;
   const start = global.performance.now();
 
   const keys = await AsyncStorage.getAllKeys();
@@ -65,8 +66,9 @@ export async function migrateFromReduxToRecoil() {
 export const hasMigratedGenderAndAge = storage.getBoolean('hasMigratedGenderAndAge');
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
 export async function migrateGenderAndAge() {
+  if (hasMigratedGenderAndAge) return;
   const storedAnswers = storage.getString('@Quizz_answers');
   const gender = typeof storedAnswers === 'string' ? JSON.parse(storedAnswers)?.gender : null;
-  storage.set('@Gender', gender);
+  if (gender) storage.set('@Gender', gender);
   storage.set('hasMigratedGenderAndAge', true);
 }
