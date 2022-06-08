@@ -3,7 +3,6 @@ import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
 import Matomo from './lib';
 import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../../config';
-import { getGenderFromLocalStorage } from '../../components/Quizz/utils';
 import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
 import { storage } from '../storage';
 import CONSTANTS from '../../reference/constants';
@@ -35,20 +34,15 @@ const initMatomo = async () => {
   });
 
   const resultKey = storage.getString('@Quizz_result');
-  const gender = await getGenderFromLocalStorage();
-
-  Matomo.setUserProperties({
-    version: DeviceInfo.getVersion(),
-    system: Platform.OS,
-    profile: mapOnboardingResultToMatomoProfile(resultKey),
-    gender,
-  });
+  const gender = storage.getString('@Gender');
+  const age = storage.getString('@Age');
 
   Matomo.setCustomDimensions({
     [CONSTANTS.MATOMO_CUSTOM_DIM_VERSION]: DeviceInfo.getVersion(),
     [CONSTANTS.MATOMO_CUSTOM_DIM_SYSTEM]: Platform.OS,
     [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(resultKey),
     [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
+    [CONSTANTS.MATOMO_CUSTOM_DIM_AGE]: age,
   });
 };
 
@@ -146,15 +140,22 @@ const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
   const action = QUIZZ_ANSWER;
   const name = questionKey;
   const value = score;
+  if (questionKey === 'age') {
+    const age = score;
+    Matomo.setCustomDimensions({
+      [CONSTANTS.MATOMO_CUSTOM_DIM_AGE]: age,
+    });
+    storage.set('@Age', age);
+  }
   if (questionKey === 'gender') {
-    Matomo.setUserProperties({ gender: answerKey });
+    const gender = answerKey;
+    console.log({ gender });
+    Matomo.setCustomDimensions({
+      [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
+    });
+    storage.set('@Gender', gender);
   }
   await logEvent({ category, action, name, value });
-};
-
-const logAddictionResult = (resultKey) => {
-  const profile = mapOnboardingResultToMatomoProfile(resultKey);
-  Matomo.setUserProperties({ profile });
 };
 
 /*
@@ -566,7 +567,6 @@ export default {
   logQuizzStart,
   logQuizzFinish,
   logQuizzAnswer,
-  logAddictionResult,
   logConsoOpen,
   logConsoOpenAddScreen,
   logConsoCloseAddScreen,
