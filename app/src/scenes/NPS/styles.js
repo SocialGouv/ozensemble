@@ -9,15 +9,6 @@ export const Container = styled.View`
   width: ${Dimensions.get('window').width}px;
 `;
 
-export const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  padding: 20px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
-`;
-
 export const KeyboardAvoidingViewStyled = styled.KeyboardAvoidingView`
   flex: 1;
   min-height: 100%;

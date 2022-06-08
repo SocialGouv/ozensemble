@@ -7,6 +7,7 @@ import Dose from './Illustrations/Dose';
 import HalfBeer from './Illustrations/HalfBeer';
 import WineGlass from './Illustrations/WineGlass';
 import TextStyled from './TextStyled';
+import { ScreenBgStyled } from './Styles/SreenByStyled';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -46,15 +47,6 @@ const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0 }) => {
     </ScreenBgStyled>
   );
 };
-
-const ScreenBgStyled = styled.View`
-  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#f9f9f9')};
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  ${({ marginOffset }) => !!marginOffset && `margin-left: -${marginOffset}px;`}
-  ${({ marginOffset }) => !!marginOffset && `margin-right: -${marginOffset}px;`}
-`;
 
 const IconsContainer = styled.View`
   flex-direction: row;

@@ -9,6 +9,7 @@ import matomo from '../../../services/matomo';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/Illustrations/DefiLanding';
+import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
 
 export default ({ navigation }) => {
   const startDefi = async () => {
@@ -86,11 +87,4 @@ export const SubTitle = styled(H2)`
 const ButtonsContainer = styled.View`
   justify-content: space-around;
   margin-vertical: 15px;
-`;
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
 `;

@@ -8,8 +8,9 @@ import TextStyled from '../../../components/TextStyled';
 import Results from './ResultsMotivations';
 import Section from './Section';
 import sections from './sections';
-import { Paragraph, ScreenBgStyled, TopContainer, TopTitle, TopTitleContainer } from './styles';
+import { Paragraph, TopContainer, TopTitle, TopTitleContainer } from './styles';
 import { storage } from '../../../services/storage';
+import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
 
 const QuizzMotivationsStack = createStackNavigator();
 
