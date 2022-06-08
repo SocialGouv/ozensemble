@@ -9,7 +9,6 @@ import TextStyled from '../../components/TextStyled';
 import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import { ModalContent } from '../AddDrink/styles';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
@@ -148,6 +147,11 @@ const CTAButtonContainer = styled.View`
   flex-shrink: 1;
   padding-top: 30px;
   padding-bottom: 100px;
+`;
+
+const ModalContent = styled.ScrollView`
+  width: 100%;
+  background-color: #f9f9f9;
 `;
 
 export default Estimation;
