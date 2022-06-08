@@ -11,7 +11,10 @@ const ToHelpMeReduce = ({ navigation }) => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <NavigationWrapper title={title} timeReading={3}>
+      <NavigationWrapper
+        title={title}
+        timeReading={3}
+        link={'https://www.ameli.fr/assure/sante/themes/alcool-sante/conseils-reduire-consommation'}>
         <TopContainer>
           <H2 color={'#4030a5'}>Quelques conseils génériques...</H2>
           <Spacer size={20} />
