@@ -1,6 +1,6 @@
 {
   "name": "oz_ensemble",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "private": true,
   "scripts": {
     "get-ip": "./get-ip.sh",
