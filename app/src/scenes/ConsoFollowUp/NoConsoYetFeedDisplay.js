@@ -7,7 +7,8 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState } from '../../recoil/consos';
 import matomo from '../../services/matomo';
 import { NO_CONSO } from './drinksCatalog';
-import { FeedButtonStyled, FeedNoDrinkTodayTopButton } from './styles';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import { FeedButtonStyled } from '../../components/Styles/FeedButtonStyled';
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   return (
@@ -47,6 +48,11 @@ const Content = styled.View`
 
 const Caption = styled(H3)`
   text-align: center;
+`;
+
+const FeedNoDrinkTodayTopButton = styled(ButtonPrimary)`
+  margin-vertical: 20px;
+  flex-grow: 0;
 `;
 
 export default NoConsoYetFeedDisplay;
