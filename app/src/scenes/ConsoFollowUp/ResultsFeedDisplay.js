@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import H3 from '../../components/H3';
 import QuizzIcon from '../../components/Illustrations/QuizzIcon';
 import { storage } from '../../services/storage';
-import { FeedButtonStyled } from './styles';
+import { FeedButtonStyled } from '../../components/Styles/FeedButtonStyled';
 
 const ResultsFeedDisplay = ({ onPress, selected }) => {
   const [isDone, setIsDone] = useState(storage.getString('@Quizz_result'));
