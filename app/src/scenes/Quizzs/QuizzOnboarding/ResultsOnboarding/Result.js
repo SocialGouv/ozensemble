@@ -1,27 +1,35 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import H3 from '../../../../components/H3';
 import H2 from '../../../../components/H2';
 import H1 from '../../../../components/H1';
-import UnderlinedButton from '../../../../components/UnderlinedButton';
 import { screenWidth } from '../../../../styles/theme';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import TextStyled from '../../../../components/TextStyled';
 import Sources from '../../Sources';
-import ResultsIllustration from '../../../../components/Illustrations/ResultsIllustration';
-import NoSmiley from '../../../../components/Illustrations/NoSmiley';
-import YesSmiley from '../../../../components/Illustrations/YesSmiley';
-import { BackButton } from '../../../../components/Styles/BackButton';
+import NoSmiley from '../../../../components/illustrations/NoSmiley';
+import YesSmiley from '../../../../components/illustrations/YesSmiley';
+import { BackButton } from '../../../../components/BackButton';
+import { Bold, P, Spacer } from '../../../../components/Articles';
 
-const Result = ({ navigation, isInOnboarding, route, result }) => {
+const Result = ({ navigation, result }) => {
+  const [feeling, setFeeling] = useState(null);
+
   return (
     <FullScreenBackground>
       <TopContainer>
         <BackButton onPress={() => navigation.goBack()} marginBottom />
         <ResultTitle>Résultat</ResultTitle>
-        {result === 'risk' && <ResultRisk navigation={navigation} />}
-      </TopContainer>
-      <TopContainer>
+        {result === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+        {result === 'good' && <ResultGood />}
+        {result === 'addicted' && <ResultAddicted />}
+        {feeling != null && (
+          <TopButtonContainer>
+            <ButtonPrimary
+              content="Je commence le défi"
+              onPress={() => navigation.navigate('TABS', { screen: 'DEFI' })}
+            />
+          </TopButtonContainer>
+        )}
         <Sources
           content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
         Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
@@ -32,28 +40,89 @@ const Result = ({ navigation, isInOnboarding, route, result }) => {
   );
 };
 
-const ResultRisk = ({ navigation }) => {
-  const [feeling, setFeeling] = useState(null);
+const ResultGood = () => {
+  return (
+    <>
+      <TopTitle>
+        <TextStyled color="#4030a5">Vous ne présentez pas de risque particulier, bravo !</TextStyled>
+      </TopTitle>
+      <P>
+        Vous pouvez utiliser l'application pour <Bold>suivre plus finement votre consommation d'alcool.</Bold>
+      </P>
+      <Spacer size={20} />
+      <P>
+        Si vous souhaitez en <Bold>apprendre plus sur une démarche de réduction,</Bold> faite le premier défi.{' '}
+      </P>
+    </>
+  );
+};
 
+const ResultAddicted = () => {
+  return (
+    <>
+      <TopTitle>
+        <TextStyled color="#4030a5">Votre consommation pourrait être risquée</TextStyled>
+      </TopTitle>
+      <P>Ne vous inquiétez pas car le premier pas vient d'être franchi.</P>
+      <Spacer size={20} />
+      <P>
+        Vous êtes <Bold>prêt à entamer une démarche de maîtrise de votre consommation d’alcool en autonomie</Bold>, à
+        travers un premier challenge pour faire le point en 7 jours.
+      </P>
+      <Spacer size={20} />
+      <P>Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction.</P>
+    </>
+  );
+};
+
+const ResultRisk = ({ navigation, feeling, setFeeling }) => {
   return (
     <>
       <TopTitle>
         <TextStyled color="#4030a5">Vous pourriez présenter des risques d’addiction à l’alcool !</TextStyled>
       </TopTitle>
-      <TextStyled>Nous sommes éonscients que ce résultat peut être un choc.</TextStyled>
-      <TextStyled>Mais nous pouvons vous aider à reprendre le contrôle ...</TextStyled>
+      <P>Nous sommes conscients que ce résultat peut être un choc.</P>
+      <P>Mais nous pouvons vous aider à reprendre le contrôle ...</P>
       <FeelingOfResult feeling={feeling} setFeeling={setFeeling} />
-      <ButtonPrimary
-        content="J'échange avec un conseiller"
-        onPress={() => navigation.navigate('TABS', { screen: 'DEFI' })}
-      />
+      {feeling === true ? (
+        <>
+          <P>
+            <Bold>Cela peut-être un choc</Bold> mais c'est une image à instant T sur laquelle
+            <Bold> vous pouvez faire face.</Bold> Nous ne parlons pas d'alcoolisme mais d'un risque alcool.
+          </P>
+          <P>
+            A tout moment, nous vous recommandons de
+            <Bold> discuter gratuitement sous 48H avec un professionnel formé en addictologie</Bold> pour vous aider
+            dans votre parcours.
+          </P>
+          <TopButtonContainer>
+            <ButtonPrimary
+              content="J'échange avec un conseiller"
+              onPress={() => navigation.navigate('TABS', { screen: 'CONTACT' })}
+            />
+          </TopButtonContainer>
+        </>
+      ) : null}
+      {feeling != null && (
+        <>
+          <P>
+            <Bold>Commencer votre démarche de réduction</Bold>
+          </P>
+          <P>
+            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d’alcool en autonomie, à travers un
+            <Bold> premier challenge pour faire le point en 7 jours.</Bold>
+          </P>
+        </>
+      )}
     </>
   );
 };
 
 const FeelingOfResult = ({ feeling, setFeeling }) => (
   <>
-    <TextStyled bold>Êtes-vous surpris par ce résultat ?</TextStyled>
+    <P>
+      <Bold>Êtes-vous surpris par ce résultat ?</Bold>
+    </P>
     <ContainerAnswer>
       <Answer onPress={() => setFeeling(false)}>
         <NoSmiley size={72} color={feeling === false ? '#DE285E' : '#000000'} />
@@ -74,6 +143,7 @@ const FeelingOfResult = ({ feeling, setFeeling }) => (
     </ContainerAnswer>
   </>
 );
+
 const WindUp = styled.View`
   margin-top: -15px;
 `;
@@ -87,6 +157,7 @@ const ContainerAnswer = styled.View`
   border: 1px solid #d3d3e880;
   flex-direction: row;
   justify-content: space-around;
+  margin-bottom: 20px;
 `;
 
 const FullScreenBackground = styled.ScrollView`
@@ -118,48 +189,11 @@ const TopTitle = styled(H1)`
   margin-bottom: 20px;
 `;
 
-const TopSubTitle = styled(H3)`
-  ${commonCss}
-`;
-
 const TopButtonContainer = styled.View`
   margin: 20px 0 30px 0;
-  align-items: flex-start;
+  align-items: center;
   flex-grow: 0;
   width: auto;
 `;
 
-const BottomContainer = styled.View`
-  padding: 20px;
-  ${(props) => props.longPaddingBottom && 'padding-bottom: 100px;'}
-  background-color: #efefef;
-  flex-direction: row;
-  margin-top: auto;
-`;
-
-const BottomSubContainer = styled.View`
-  padding: ${({ shrink }) => (shrink ? 15 : 0)}px;
-  flex-shrink: ${({ shrink }) => (shrink ? 1 : 0)};
-  align-items: flex-start;
-`;
-
-const BottomTitle = styled(H2)`
-  ${commonCss}
-  margin-bottom: 20px;
-`;
-
-const BottomSubTitle = styled(H2)`
-  ${commonCss}
-  font-weight: 500;
-  margin-bottom: 20px;
-`;
-
-const ResultsIllustrationStyled = styled(ResultsIllustration)`
-  height: 40px;
-  margin-top: 8px;
-`;
-
-const UnderlinedButtonStyled = styled(UnderlinedButton)`
-  align-items: flex-start;
-`;
 export default Result;
