@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
-import { Spacer, P, TopContainer, Bold, Underline } from '../styles';
+import { Spacer, P, TopContainer, Bold, Underline } from '../../../components/Styles/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 

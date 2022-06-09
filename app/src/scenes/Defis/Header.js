@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styled, { css } from 'styled-components';
-import { BackButton } from '../../components/Styles/BackButton';
+import GoBackButton from '../../components/GoBackButton';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 
@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <TopContainer>
       <TopTitleContainer>
-        <BackButton
+        <GoBackButton
           onPress={() =>
             route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
           }
