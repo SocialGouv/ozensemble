@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import TextStyled from '../../components/TextStyled';
-import { screenWidth } from '../../styles/theme';
 
 import QuizzEvaluateConso from './QuizzEvaluateConso';
 import QuizzLifeQuality from './QuizzLifeQuality';
@@ -16,6 +15,8 @@ import QuizzElement from './QuizzElement';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import ContactForm from '../Health/ContactForm';
 import Doctolib from '../Health/Doctolib';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import BackButton from '../../components/Styles/BackButton';
 
 const QuizzsStack = createStackNavigator();
 
@@ -57,9 +58,7 @@ const QuizzMenu = () => {
   return (
     <ScreenBgStyled>
       <TopContainer>
-        <GoBackButton>
-          <GoBackButtonText content="< Retour" onPress={navigation.goBack} bold withoutPadding />
-        </GoBackButton>
+        <BackButton onPress={navigation.goBack} />
         <Title>
           <TextStyled color="#4030a5">
             Vos{' '}
@@ -116,18 +115,8 @@ const QuizzMenu = () => {
 
 export default QuizzsNavigator;
 
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  max-width: ${screenWidth}px;
-  min-width: ${screenWidth}px;
-`;
-
 const TopContainer = styled.View`
-  padding: 20px 20px 40px;
+  padding: 0px 20px 40px;
 `;
 
 const Title = styled(H2)`
@@ -135,10 +124,6 @@ const Title = styled(H2)`
   margin-bottom: 10px;
 `;
 const SubTitle = styled(H3)``;
-
-const GoBackButton = styled.View`
-  margin-right: auto;
-`;
 
 export const Quizzcontainer = styled.View`
   background-color: #efefef;

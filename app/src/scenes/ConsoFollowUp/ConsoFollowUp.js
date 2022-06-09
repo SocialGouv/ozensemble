@@ -12,9 +12,13 @@ import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
-import { FeedAddConsoTodayContainer, ScreenBgStyled, SubTitle, Title, TopContainer, Help, HelpText } from './styles';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
+import UnderlinedButton from '../../components/UnderlinedButton';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import { Title } from '../../components/Styles/Title';
+import { SubTitle } from '../../components/Styles/SubTitle';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -123,6 +127,32 @@ const SubtitleContainer = styled.View`
 const DiagramTitle = styled(H2)`
   font-weight: 500;
   flex-shrink: 1;
+`;
+
+const FeedAddConsoTodayContainer = styled.View`
+  align-items: center;
+`;
+
+const helpsize = 25;
+const Help = styled.TouchableOpacity`
+  width: ${helpsize}px;
+  height: ${helpsize}px;
+  border-radius: ${helpsize}px;
+  border: 1px solid #de285e;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 5px;
+`;
+const HelpText = styled.Text`
+  color: #de285e;
+  font-weight: bold;
+  font-size: ${helpsize * 0.5}px;
+`;
+
+const TopContainer = styled.View`
+  padding: 20px 20px 0px;
 `;
 
 export default ConsoFollowUp;

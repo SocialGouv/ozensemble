@@ -26,6 +26,7 @@ import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -386,13 +387,6 @@ const MyGains = () => {
     </ScreenBgStyled>
   );
 };
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: white;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const Container = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;

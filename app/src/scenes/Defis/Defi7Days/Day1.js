@@ -13,6 +13,7 @@ import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Diagram from '../../ConsoFollowUp/Diagram';
 import { setValidatedDays } from './utils';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -112,13 +113,6 @@ const ElemContainer = styled.View`
   display: flex;
   flex-direction: row;
   margin: 10px 0;
-`;
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
 `;
 
 const Paragraph = styled.View`

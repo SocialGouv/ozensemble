@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 import Background from '../Background';
 import ProgressBar from '../ProgressBar';
 import Question from './Question';
 import { fetchStoredAnswers } from './utils';
 import { storage } from '../../services/storage';
-import GoBackButtonText from '../GoBackButtonText';
 import ContactForm from '../../scenes/Health/ContactForm';
 import Doctolib from '../../scenes/Health/Doctolib';
 import matomo from '../../services/matomo';
+import BackButton from '../Styles/BackButton';
 /*
 HOW DOES THE QUESTIONS WORK:
 -> The user can't pass a question.
@@ -95,8 +95,10 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
 };
 
 const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
+  const navigation = useNavigation();
   return (
     <>
+      <BackButton onPress={navigation.goBack} marginLeft />
       <ProgressBar progress={progress} />
       <QuizzStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
@@ -114,7 +116,6 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
                   selectedAnswerKey={answers?.[content.questionKey]}
                   {...props}
                 />
-                <QuizzBackButton bold content="< Retour" onPress={props.navigation.goBack} />
               </>
             )}
           </QuizzStack.Screen>
@@ -125,14 +126,3 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
 };
 
 export default Quizz;
-
-/*
-QUIZZ
-*/
-
-const QuizzBackButton = styled(GoBackButtonText)`
-  margin-top: auto;
-  margin-right: auto;
-  margin-left: 10px;
-  margin-bottom: 3%;
-`;
