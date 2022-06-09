@@ -2,8 +2,9 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { TopContainer, TopTitle, Spacer, Underline } from '../styles';
+import { TopContainer, Spacer, Underline } from '../../../components/Styles/Articles';
 import Clock from '../../../components/Illustrations/Clock';
+import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
 import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
@@ -67,5 +68,12 @@ const ReadTimeContainer = styled.View`
 const InformationArticle = styled.Text`
   font-size: 10px;
   display: flex;
+`;
+
+const TopTitle = styled(H1)`
+  width: 95%;
+  flex-shrink: 0;
+  margin-top: 0px;
+  margin-bottom: 10px;
 `;
 export default NavigationWrapper;

@@ -1,7 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
+import styled, { css } from 'styled-components';
+import H3 from '../../../../components/H3';
 import TextStyled from '../../../../components/TextStyled';
-import { ContainerSection, ResultParagraph, ResultTitle } from './styles';
 
 const ResultAddiction = ({ value }) => {
   const getResultScore = () => {
@@ -73,5 +74,28 @@ const ResultAddiction = ({ value }) => {
     </ContainerSection>
   );
 };
+
+export const ContainerSection = styled.View`
+  margin: 5px 0 20px 0;
+`;
+export const ResultParagraph = styled(TextStyled)`
+  margin: 8px 0;
+`;
+
+export const commonCss = css`
+  width: 85%;
+  flex-shrink: 0;
+`;
+
+export const TopContainer = styled.View`
+  padding: 20px 25px 40px;
+`;
+
+export const ResultTitle = styled(H3)`
+  ${commonCss}
+  font-weight: bold;
+  color: #4030a5;
+  font-size: 15px;
+`;
 
 export default ResultAddiction;

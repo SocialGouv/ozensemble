@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
@@ -7,7 +8,7 @@ import Sources from '../../Sources';
 import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
-import { FullScreenBackground, ResultContainer } from './styles';
+import { screenWidth } from '../../../../styles/theme';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -55,3 +56,20 @@ export const Content = ({ resultKey, hideButtons }) => (
     <ResultPopulation value={resultKey?.scoreArrow} hideButtons={hideButtons} />
   </>
 );
+
+const ResultContainer = styled.View`
+  background-color: #efefef;
+  padding: 20px;
+  padding-bottom: 100px;
+  height: 100%;
+`;
+
+const FullScreenBackground = styled.ScrollView`
+  background-color: #f9f9f9;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 100%;
+  min-height: 100%;
+  max-width: ${screenWidth}px;
+  min-width: ${screenWidth}px;
+`;
