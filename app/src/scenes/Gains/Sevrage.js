@@ -5,7 +5,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const Sevrage = ({ navigation }) => {
   return (

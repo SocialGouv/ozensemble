@@ -7,7 +7,7 @@ import Dose from './Illustrations/Dose';
 import HalfBeer from './Illustrations/HalfBeer';
 import WineGlass from './Illustrations/WineGlass';
 import TextStyled from './TextStyled';
-import { ScreenBgStyled } from './Styles/SreenByStyled';
+import { ScreenBgStyled } from './Styles/ScreenBgStyled';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },

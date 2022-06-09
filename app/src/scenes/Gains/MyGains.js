@@ -26,7 +26,7 @@ import ReminderIcon from '../../components/Illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const MyGains = () => {
   const navigation = useNavigation();

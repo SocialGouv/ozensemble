@@ -10,7 +10,7 @@ import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
 import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const Conseils = ({ navigation }) => {
   return (

@@ -17,7 +17,7 @@ import Defi7DaysReminder from '../Defis/Defi7Days/Defi7DaysReminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const InfosStack = createStackNavigator();
 

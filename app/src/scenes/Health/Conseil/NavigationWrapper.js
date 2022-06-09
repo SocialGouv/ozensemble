@@ -7,7 +7,7 @@ import { TopContainer, TopTitle, Spacer, Underline } from '../styles';
 import Clock from '../../../components/Illustrations/Clock';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
-import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 const NavigationWrapper = ({ children, title, timeReading, link }) => {
   const navigation = useNavigation();

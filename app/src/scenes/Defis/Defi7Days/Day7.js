@@ -11,7 +11,7 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import { Content as ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
 import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/Result';
 import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
-import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
 
