@@ -2,12 +2,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CocktailGlass from './Illustrations/CocktailGlass';
-import Dose from './Illustrations/Dose';
-import HalfBeer from './Illustrations/HalfBeer';
-import WineGlass from './Illustrations/WineGlass';
+import CocktailGlass from './illustrations/CocktailGlass';
+import Dose from './illustrations/Dose';
+import HalfBeer from './illustrations/HalfBeer';
+import WineGlass from './illustrations/WineGlass';
 import TextStyled from './TextStyled';
-import { ScreenBgStyled } from './Styles/ScreenBgStyled';
+import { ScreenBgStyled } from './ScreenBgStyled';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },

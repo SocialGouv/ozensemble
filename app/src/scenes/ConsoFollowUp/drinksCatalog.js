@@ -1,15 +1,15 @@
-import CocktailBottle from '../../components/Illustrations/CocktailBottle';
-import CocktailGlass from '../../components/Illustrations/CocktailGlass';
-import HalfBeer from '../../components/Illustrations/HalfBeer';
-import Pint from '../../components/Illustrations/Pint';
-import WineBottle from '../../components/Illustrations/WineBottle';
-import WineGlass from '../../components/Illustrations/WineGlass';
-import PintCider from '../../components/Illustrations/PintCider';
-import HalfCider from '../../components/Illustrations/HalfCider';
-import Shoot from '../../components/Illustrations/Shoot';
-import Flasque from '../../components/Illustrations/Flasque';
-import ChampagneBottle from '../../components/Illustrations/ChampagneBottle';
-import ChampagneGlass from '../../components/Illustrations/ChampagneGlass';
+import CocktailBottle from '../../components/illustrations/CocktailBottle';
+import CocktailGlass from '../../components/illustrations/CocktailGlass';
+import HalfBeer from '../../components/illustrations/HalfBeer';
+import Pint from '../../components/illustrations/Pint';
+import WineBottle from '../../components/illustrations/WineBottle';
+import WineGlass from '../../components/illustrations/WineGlass';
+import PintCider from '../../components/illustrations/PintCider';
+import HalfCider from '../../components/illustrations/HalfCider';
+import Shoot from '../../components/illustrations/Shoot';
+import Flasque from '../../components/illustrations/Flasque';
+import ChampagneBottle from '../../components/illustrations/ChampagneBottle';
+import ChampagneGlass from '../../components/illustrations/ChampagneGlass';
 
 // categories
 export const BEER = 'Bières';

@@ -4,7 +4,7 @@ import H3 from '../../../../components/H3';
 import H2 from '../../../../components/H2';
 import H1 from '../../../../components/H1';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
-import ResultsIllustration from '../../../../components/Illustrations/ResultsIllustration';
+import ResultsIllustration from '../../../../components/illustrations/ResultsIllustration';
 import { screenWidth } from '../../../../styles/theme';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import TextStyled from '../../../../components/TextStyled';
@@ -50,7 +50,7 @@ const ResultRisk = ({ navigation, isInOnboarding, route }) => (
     </TopContainer>
     <BottomContainer longPaddingBottom>
       <BottomSubContainer>
-        <ResultsIllustrationStyled />
+        <Resultsillustrationstyled />
       </BottomSubContainer>
       <BottomSubContainer shrink>
         <BottomTitle>
@@ -145,7 +145,7 @@ const BottomSubTitle = styled(H2)`
   margin-bottom: 20px;
 `;
 
-const ResultsIllustrationStyled = styled(ResultsIllustration)`
+const Resultsillustrationstyled = styled(ResultsIllustration)`
   height: 40px;
   margin-top: 8px;
 `;

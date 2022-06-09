@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import styled, { css } from 'styled-components';
-import { mediaHeight } from '../../styles/mediaQueries';
+import { mediaHeight } from '../styles/mediaQueries';
 
 export const BackButton = ({ onPress, marginBottom, marginLeft }) => (
   <Container onPress={onPress} marginBottom={marginBottom} marginLeft={marginLeft}>

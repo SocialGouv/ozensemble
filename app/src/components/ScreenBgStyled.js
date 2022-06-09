@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { defaultPaddingFontScale } from '../../styles/theme';
+import { defaultPaddingFontScale } from '../styles/theme';
 
 export const ScreenBgStyled = styled.ScrollView`
   background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#f9f9f9')};

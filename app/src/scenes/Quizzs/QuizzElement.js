@@ -4,9 +4,9 @@ import { View } from 'react-native';
 import styled from 'styled-components';
 
 import ButtonPrimary from '../../components/ButtonPrimary';
-import TickDone from '../../components/Illustrations/TickDone';
+import TickDone from '../../components/illustrations/TickDone';
 import { fetchStoredAnswers } from '../../components/Quizz/utils';
-import Form from '../../components/Illustrations/Form';
+import Form from '../../components/illustrations/Form';
 import { screenWidth } from '../../styles/theme';
 import matomo from '../../services/matomo';
 
@@ -138,7 +138,7 @@ const ButtonRedoTest = styled.Text`
 
 const ResultsButton = styled(ButtonPrimary)`
   flex-grow: 0;
-  margin-bottom: 0;
+  margin-bottom: 0px;
 `;
 
 const Button = styled(ButtonPrimary)`

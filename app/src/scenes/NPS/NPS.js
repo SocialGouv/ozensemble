@@ -14,7 +14,7 @@ import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import Mark from './Mark';
 import { storage } from '../../services/storage';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';

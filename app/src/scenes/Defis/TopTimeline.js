@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
-import Lock from '../../components/Illustrations/Lock';
-import StarButton from '../../components/Illustrations/StarButton';
+import Lock from '../../components/illustrations/Lock';
+import StarButton from '../../components/illustrations/StarButton';
 import { Dot } from './Timeline';
 import { storage } from '../../services/storage';
 

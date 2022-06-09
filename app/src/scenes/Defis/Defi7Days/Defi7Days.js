@@ -21,84 +21,75 @@ import Defi7DaysReminder from './Defi7DaysReminder';
 const Defi7DaysStack = createStackNavigator();
 
 const Defi7DaysNavigator = () => {
-  const [initialScreen, setInitialScreen] = useState(null);
-  const initNavigator = async () => {
-    const defiStartedAt = storage.getString('DEFI_7_JOURS_STARTED_AT');
-    if (defiStartedAt) return setInitialScreen('DEFI_7_DAYS_MENU');
-    return setInitialScreen('DEFI_7_ONBOARDING');
-  };
-  useEffect(() => {
-    initNavigator();
-  }, []);
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      {!!initialScreen && (
-        <Defi7DaysStack.Navigator headerMode="none" initialRouteName={initialScreen}>
-          <Defi7DaysStack.Screen name="DEFI_7_ONBOARDING" component={Onboarding} />
-          <Defi7DaysStack.Screen name="DEFI_7_DAYS_REMINDER" component={Defi7DaysReminder} />
-          <Defi7DaysStack.Screen name="ONBOARDING_INFO" component={OnboardingInfo} />
-          <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
-          <Defi7DaysStack.Screen
-            name="DAY_1"
-            component={Day1}
-            initialParams={{
-              inDefi7Days: true,
-              rootRoute: 'DEFI_7_DAYS_MENU',
-              day: 1,
-            }}
-          />
-          <Defi7DaysStack.Screen
-            name="DAY_2"
-            component={QuizzEvaluateConso}
-            initialParams={{
-              title: 'Évaluer sa consommation',
-              inDefi7Days: true,
-              rootRoute: 'DEFI_7_DAYS_MENU',
-              day: 2,
-            }}
-          />
-          <Defi7DaysStack.Screen
-            name="DAY_3"
-            component={Day3}
-            initialParams={{
-              inDefi7Days: true,
-              rootRoute: 'DEFI_7_DAYS_MENU',
-              day: 3,
-            }}
-          />
-          <Defi7DaysStack.Screen
-            name="DAY_4"
-            component={QuizzLifeQuality}
-            initialParams={{
-              title: 'Évaluer sa qualité de vie',
-              inDefi7Days: true,
-              rootRoute: 'DEFI_7_DAYS_MENU',
-              day: 4,
-            }}
-          />
-          <Defi7DaysStack.Screen
-            name="DAY_5"
-            component={Day5}
-            initialParams={{
-              inDefi7Days: true,
-              rootRoute: 'DEFI_7_DAYS_MENU',
-              day: 5,
-            }}
-          />
-          <Defi7DaysStack.Screen
-            name="DAY_6"
-            component={QuizzMotivations}
-            initialParams={{
-              title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
-              inDefi7Days: true,
-              rootRoute: 'DEFI_7_DAYS_MENU',
-              day: 6,
-            }}
-          />
-          <Defi7DaysStack.Screen name="DAY_7" component={Day7} />
-        </Defi7DaysStack.Navigator>
-      )}
+      <Defi7DaysStack.Navigator
+        headerMode="none"
+        initialRouteName={storage.getString('DEFI_7_JOURS_STARTED_AT') ? 'DEFI_7_DAYS_MENU' : 'DEFI_7_ONBOARDING'}>
+        <Defi7DaysStack.Screen name="DEFI_7_ONBOARDING" component={Onboarding} />
+        <Defi7DaysStack.Screen name="DEFI_7_DAYS_REMINDER" component={Defi7DaysReminder} />
+        <Defi7DaysStack.Screen name="ONBOARDING_INFO" component={OnboardingInfo} />
+        <Defi7DaysStack.Screen name="DEFI_7_DAYS_MENU" component={Defi7DaysMenu} />
+        <Defi7DaysStack.Screen
+          name="DAY_1"
+          component={Day1}
+          initialParams={{
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 1,
+          }}
+        />
+        <Defi7DaysStack.Screen
+          name="DAY_2"
+          component={QuizzEvaluateConso}
+          initialParams={{
+            title: 'Évaluer sa consommation',
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 2,
+          }}
+        />
+        <Defi7DaysStack.Screen
+          name="DAY_3"
+          component={Day3}
+          initialParams={{
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 3,
+          }}
+        />
+        <Defi7DaysStack.Screen
+          name="DAY_4"
+          component={QuizzLifeQuality}
+          initialParams={{
+            title: 'Évaluer sa qualité de vie',
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 4,
+          }}
+        />
+        <Defi7DaysStack.Screen
+          name="DAY_5"
+          component={Day5}
+          initialParams={{
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 5,
+          }}
+        />
+        <Defi7DaysStack.Screen
+          name="DAY_6"
+          component={QuizzMotivations}
+          initialParams={{
+            title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
+            inDefi7Days: true,
+            rootRoute: 'DEFI_7_DAYS_MENU',
+            day: 6,
+          }}
+        />
+        <Defi7DaysStack.Screen name="DAY_7" component={Day7} />
+      </Defi7DaysStack.Navigator>
     </Background>
   );
 };
