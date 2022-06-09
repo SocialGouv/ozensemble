@@ -1,3 +1,10 @@
+## [1.36.1](https://github.com/SocialGouv/ozensemble/compare/v1.36.0...v1.36.1) (2022-06-09)
+
+
+### Bug Fixes
+
+* from defi7jours to defi 1 ([aa5ae88](https://github.com/SocialGouv/ozensemble/commit/aa5ae886e493a0fd9dd15b9253c78227d56bd29d))
+
 # [1.36.0](https://github.com/SocialGouv/ozensemble/compare/v1.35.1...v1.36.0) (2022-06-09)
 
 
