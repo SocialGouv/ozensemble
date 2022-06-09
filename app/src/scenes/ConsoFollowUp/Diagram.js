@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
-import { Bar, BarsContainer, CloseHelpContainer, Dose, doseTextHeight, Line, LowerBar, UpperBar } from './styles';
 import { dailyDosesSelector, drinksState } from '../../recoil/consos';
 import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
@@ -16,6 +16,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import matomo from '../../services/matomo';
 import PlusIcon from '../../components/Illustrations/PlusIcon';
 import Equality from '../../components/Illustrations/Equality';
+import H3 from '../../components/H3';
 
 const maxDosesOnScreen = 50;
 
@@ -400,6 +401,81 @@ const EvolutionContainerText = styled.View`
 const ContactAddictologue = styled.View`
   margin-top: 10px;
   align-items: center;
+`;
+
+const BarsContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  height: ${({ height }) => height}px;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+
+const Bar = styled(TouchableOpacity)`
+  border-color: #4030a5;
+  border-style: ${({ empty }) => (empty ? 'dashed' : 'solid')};
+  border-width: ${({ empty }) => (empty ? 1 : 0)}px;
+  border-radius: ${screenHeight * 0.005}px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 20px;
+  max-width: 20px;
+  margin-horizontal: 8px;
+  overflow: hidden;
+  height: ${({ height }) => height}px;
+`;
+
+const topRadius = css`
+  border-top-left-radius: ${screenHeight * 0.005}px;
+  border-top-right-radius: ${screenHeight * 0.005}px;
+`;
+
+const UpperBar = styled.View`
+  position: absolute;
+  bottom: ${({ bottom }) => bottom}px;
+  height: ${({ height }) => height}px;
+  width: 100%;
+  ${topRadius}
+  background: #de285e;
+`;
+
+const borderBottomRed = css`
+  border-bottom-width: 4px;
+  border-bottom-color: #de285e;
+`;
+const LowerBar = styled.View`
+  position: absolute;
+  bottom: 0px;
+  height: ${({ height }) => height}px;
+  width: 100%;
+  background: #4030a5;
+  ${({ borderBottom }) => borderBottom && borderBottomRed}
+  ${({ withTopRadius }) => withTopRadius && topRadius}
+`;
+
+const doseTextHeight = 25;
+const Dose = styled(H3)`
+  height: ${doseTextHeight}px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: ${({ overLine }) => (overLine ? '#de285e' : '#4030a5')};
+`;
+
+const Line = styled.View`
+  position: absolute;
+  bottom: ${({ bottom }) => bottom - 1}px;
+  width: 100%;
+  height: 0px;
+  border-style: dashed;
+  border-width: 1px;
+  border-radius: 1px;
+  border-color: #39cec0;
+`;
+
+const CloseHelpContainer = styled.View`
+  margin-left: auto;
 `;
 
 export default Diagram;
