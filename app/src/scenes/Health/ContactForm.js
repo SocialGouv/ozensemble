@@ -1,12 +1,15 @@
 import React from 'react';
 import { Linking } from 'react-native';
+import styled, { css } from 'styled-components';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
 import matomo from '../../services/matomo';
-import { Extra, TopButtonContainer, TopContainer, TopSubTitle, TopTitle } from './styles';
 import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 import BackButton from '../../components/Styles/BackButton';
+import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
+import H2 from '../../components/H2';
+import H1 from '../../components/H1';
 
 const ContactForm = ({ navigation }) => {
   return (
@@ -56,5 +59,43 @@ const ContactForm = ({ navigation }) => {
     </Background>
   );
 };
+
+const commonCss = css`
+  width: 95%;
+  flex-shrink: 0;
+`;
+
+const TopContainer = styled.View`
+  padding: 5px ${defaultPaddingFontScale()}px;
+`;
+
+const TopTitle = styled(H1)`
+  ${commonCss}
+  margin-top: 0px;
+  margin-bottom: 10px;
+`;
+
+const TopSubTitle = styled(H2)`
+  ${commonCss};
+  margin-bottom: 10px;
+`;
+
+const Extra = styled(H2)`
+  ${commonCss}
+  font-style: italic;
+  font-weight: normal;
+  margin-bottom: 10px;
+  color: #191919;
+`;
+
+const TopButtonContainer = styled.View`
+  margin-vertical: 20px;
+  align-items: flex-start;
+  flex-grow: 0;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: ${-defaultPaddingFontScale()}px;
+  width: ${screenWidth}px;
+`;
 
 export default ContactForm;

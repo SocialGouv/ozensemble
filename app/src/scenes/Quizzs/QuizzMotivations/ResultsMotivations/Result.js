@@ -1,8 +1,9 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
+import H3 from '../../../../components/H3';
 import TextStyled from '../../../../components/TextStyled';
 import Item from '../Item';
 import sections from '../sections';
-import { ContainerSection, ItemsContainer, ResultTitle } from './styles';
 
 const Results = ({ results }) => {
   if (!results) return null;
@@ -41,5 +42,28 @@ const Results = ({ results }) => {
     </ContainerSection>
   );
 };
+
+const commonCss = css`
+  width: 100%;
+  flex-shrink: 0;
+`;
+
+const ContainerSection = styled.View`
+  margin: 5px 0 20px 0;
+`;
+
+const ItemsContainer = styled.View`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  flex-wrap: wrap;
+`;
+
+const ResultTitle = styled(H3)`
+  ${commonCss}
+  font-weight: bold;
+  color: #4030a5;
+  margin-bottom: 10;
+`;
 
 export default Results;

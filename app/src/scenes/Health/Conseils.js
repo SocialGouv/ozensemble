@@ -1,9 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Background from '../../components/Background';
+import H2 from '../../components/H2';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
-import { TopContainer, TopSubTitle } from './styles';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
@@ -142,6 +142,20 @@ const ImageStyled = styled.Image`
 
 const Space = styled.View`
   width: 50px;
+`;
+
+const TopContainer = styled.View`
+  padding: 5px ${defaultPaddingFontScale()}px;
+`;
+
+const commonCss = css`
+  width: 95%;
+  flex-shrink: 0;
+`;
+
+const TopSubTitle = styled(H2)`
+  ${commonCss};
+  margin-bottom: 10px;
 `;
 
 export default Conseils;
