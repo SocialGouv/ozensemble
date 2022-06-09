@@ -9,7 +9,7 @@ import matomo from '../../../services/matomo';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/Illustrations/DefiLanding';
-import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 export default ({ navigation }) => {
   const startDefi = async () => {

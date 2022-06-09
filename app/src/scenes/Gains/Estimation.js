@@ -12,7 +12,7 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const Estimation = () => {
   const navigation = useNavigation();

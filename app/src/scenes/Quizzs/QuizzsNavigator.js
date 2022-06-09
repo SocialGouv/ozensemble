@@ -15,7 +15,7 @@ import QuizzElement from './QuizzElement';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import ContactForm from '../Health/ContactForm';
 import Doctolib from '../Health/Doctolib';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const QuizzsStack = createStackNavigator();
 

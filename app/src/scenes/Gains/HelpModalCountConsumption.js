@@ -7,7 +7,7 @@ import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation'
 import TextStyled from '../../components/TextStyled';
 import { screenHeight } from '../../styles/theme';
 import GoBackButtonText from '../../components/GoBackButtonText';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const HelpModalCountConsumption = ({ visible, onClose }) => {
   return (

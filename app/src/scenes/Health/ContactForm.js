@@ -6,7 +6,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 import TextStyled from '../../components/TextStyled';
 import matomo from '../../services/matomo';
 import { Extra, TopButtonContainer, TopContainer, TopSubTitle, TopTitle } from './styles';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const ContactForm = ({ navigation }) => {
   return (
