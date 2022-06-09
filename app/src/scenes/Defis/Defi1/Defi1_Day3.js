@@ -10,7 +10,7 @@ import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Sources from '../../Quizzs/Sources';
-import { setValidatedDays } from './utils';
+import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 const ToggleContent = ({ children, title }) => {
@@ -38,11 +38,11 @@ const TitleStyled = styled.View`
   margin: 15px 0;
 `;
 
-const Day3 = ({ navigation, route }) => {
+const Defi1_Day3 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused]);
 
   return (
@@ -149,4 +149,4 @@ const ButtonContainer = styled.View`
   justify-content: center;
 `;
 
-export default Day3;
+export default Defi1_Day3;

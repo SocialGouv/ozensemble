@@ -6,17 +6,18 @@ import StarButton from '../../components/illustrations/StarButton';
 import { Dot } from './Timeline';
 import { storage } from '../../services/storage';
 
-const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay }) => {
+const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay, defiStorageKey }) => {
   return (
     <Container>
       {[...Array(nbdays)].map((_, dayIndex) => {
         return (
-          <Day
+          <DayIcon
             key={dayIndex}
             index={dayIndex}
             done={validatedDays > dayIndex}
             locked={dayIndex !== 0 && activeDay < dayIndex}
             unLock={hackAndUnlockDay}
+            defiStorageKey={defiStorageKey}
           />
         );
       })}
@@ -24,7 +25,7 @@ const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay }) => 
   );
 };
 
-const Day = ({ locked, done, index, unLock }) => {
+const DayIcon = ({ locked, done, index, unLock, defiStorageKey }) => {
   const [pressed, setPressed] = useState(0);
 
   const renderItem = () => {
@@ -46,7 +47,7 @@ const Day = ({ locked, done, index, unLock }) => {
   const unLockLevel = async () => {
     setPressed(0);
     await unLock(index);
-    storage.set('DEFI_7_JOURS_LAST_UPDATE', 'UNLOCK');
+    storage.set(`${defiStorageKey}_LastUpdate`, 'UNLOCK');
   };
 
   useEffect(() => {

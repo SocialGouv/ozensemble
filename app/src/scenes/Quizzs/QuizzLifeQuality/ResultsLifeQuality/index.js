@@ -3,7 +3,7 @@ import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import Header from '../../../Defis/Header';
 import Result from './Result';
-import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
+import { setValidatedDays } from '../../../Defis/utils';
 import Sources from '../../Sources';
 import { screenWidth } from '../../../../styles/theme';
 
@@ -11,7 +11,7 @@ const Results = ({ resultKey, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (resultKey && route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+    if (resultKey && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused, resultKey]);
 
   if (!resultKey) return null;

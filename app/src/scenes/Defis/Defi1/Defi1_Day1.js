@@ -12,7 +12,7 @@ import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanati
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Diagram from '../../ConsoFollowUp/Diagram';
-import { setValidatedDays } from './utils';
+import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 const Elem = ({ content, lineHeight = 20 }) => (
@@ -22,11 +22,11 @@ const Elem = ({ content, lineHeight = 20 }) => (
   </ElemContainer>
 );
 
-export default ({ navigation, route }) => {
+const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused]);
 
   return (
@@ -186,3 +186,5 @@ const PlusVertical = styled.View`
   top: ${(CTAInner - plusSize) / 2}px;
   background: white;
 `;
+
+export default Defi1_Day1;

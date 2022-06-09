@@ -76,6 +76,15 @@ export async function migrateGenderAndAge() {
 export const hasMigratedDefi7JoursStored = storage.getBoolean('hasMigratedDefi7Jours');
 
 export async function migratedDefi7Jours() {
-  const keys = storage.getAllKeys();
-  console.log(JSON.stringify(keys, null, 2));
+  if (hasMigratedDefi7JoursStored) return;
+  if (storage.getString('DEFI_7_JOURS_LAST_UPDATE')?.length) {
+    storage.set('@Defi1_LastUpdate', storage.getString('DEFI_7_JOURS_LAST_UPDATE'));
+  }
+  if (storage.getString('DEFI_7_JOURS_VALIDATED_DAYS')?.length) {
+    storage.set('@Defi1_ValidatedDays', Number(storage.getString('DEFI_7_JOURS_VALIDATED_DAYS')));
+  }
+  if (storage.getString('DEFI_7_JOURS_STARTED_AT')?.length) {
+    storage.set('@Defi1_StartedAt', storage.getString('DEFI_7_JOURS_STARTED_AT'));
+  }
+  storage.set('hasMigratedDefi7JoursStored', true);
 }
