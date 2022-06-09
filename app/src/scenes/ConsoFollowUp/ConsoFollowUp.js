@@ -17,7 +17,6 @@ import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { TopContainer } from '../../components/Styles/TopContainer';
 import { Title } from '../../components/Styles/Title';
 import { SubTitle } from '../../components/Styles/SubTitle';
 
@@ -130,45 +129,12 @@ const DiagramTitle = styled(H2)`
   flex-shrink: 1;
 `;
 
-export const FeedContainer = styled.View`
-  background-color: #f9f9f9;
-  padding: 20px;
-  padding-right: 0px;
-  padding-bottom: 100px;
-`;
-
-export const FeedDay = styled.View`
-  flex-direction: row;
-  flex-shrink: 1;
-  flex-grow: 0;
-`;
-
-export const FeedDayContent = styled.View`
-  flex-grow: 1;
-  padding-horizontal: 15px;
-  padding-vertical: 10px;
-`;
-
-export const FeedBottomButton = styled(UnderlinedButton)`
+const FeedAddConsoTodayContainer = styled.View`
   align-items: center;
-  margin-bottom: 15px;
-`;
-
-export const FeedAddConsoTodayContainer = styled.View`
-  align-items: center;
-`;
-
-export const FeedAddConsoTodayButton = styled(ButtonPrimary)`
-  flex-grow: 0;
-`;
-
-export const FeedNoDrinkTodayTopButton = styled(ButtonPrimary)`
-  margin-vertical: 20px;
-  flex-grow: 0;
 `;
 
 const helpsize = 25;
-export const Help = styled.TouchableOpacity`
+const Help = styled.TouchableOpacity`
   width: ${helpsize}px;
   height: ${helpsize}px;
   border-radius: ${helpsize}px;
@@ -179,10 +145,14 @@ export const Help = styled.TouchableOpacity`
   flex-shrink: 0;
   margin: 5px;
 `;
-export const HelpText = styled.Text`
+const HelpText = styled.Text`
   color: #de285e;
   font-weight: bold;
   font-size: ${helpsize * 0.5}px;
+`;
+
+const TopContainer = styled.View`
+  padding: 20px 20px 0px;
 `;
 
 export default ConsoFollowUp;
