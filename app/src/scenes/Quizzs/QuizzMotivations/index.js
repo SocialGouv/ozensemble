@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import GoBackButton from '../../../components/GoBackButton';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
 import Results from './ResultsMotivations';
@@ -11,6 +10,7 @@ import sections from './sections';
 import { Paragraph, TopContainer, TopTitle, TopTitleContainer } from './styles';
 import { storage } from '../../../services/storage';
 import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
+import BackButton from '../../../components/Styles/BackButton';
 
 const QuizzMotivationsStack = createStackNavigator();
 
@@ -60,7 +60,7 @@ const QuizzMotivations = ({ navigation, route }) => {
             <ScreenBgStyled>
               <TopContainer>
                 <TopTitleContainer>
-                  <GoBackButton onPress={navigation.goBack} />
+                  <BackButton onPress={navigation.goBack} />
                   <TopTitle>
                     <TextStyled color="#4030a5">
                       Quelles raisons vous motivent à changer votre consommation ?

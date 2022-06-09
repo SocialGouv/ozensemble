@@ -3,8 +3,8 @@ import { Alert } from 'react-native';
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import GoBackButtonText from '../../components/GoBackButtonText';
 import H2 from '../../components/H2';
+import BackButton from '../../components/Styles/BackButton';
 import TextStyled from '../../components/TextStyled';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
@@ -108,7 +108,7 @@ const Export = ({ navigation }) => {
 
   return (
     <Container>
-      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <BackButton onPress={() => navigation.goBack()} />
       <SubContainer>
         <Title>
           <TextStyled color="#4030a5">Exporter mes données</TextStyled>
@@ -176,11 +176,6 @@ const TextInputStyled = styled.TextInput`
   justify-content: center;
   margin-bottom: 10px;
   margin-top: 15px;
-`;
-
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
-  margin-left: -20px;
 `;
 
 export default Export;

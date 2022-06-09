@@ -8,7 +8,7 @@ import Calendar from '../../components/Illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
 import InfoObjectif from '../../components/Illustrations/InfoObjectif';
 import TextStyled from '../../components/TextStyled';
-import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import {
   daysWithGoalNoDrinkState,
   drinksByDrinkingDayState,
@@ -17,11 +17,11 @@ import {
   totalDrinksByDrinkingDaySelector,
 } from '../../recoil/gains';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import GoBackButtonText from '../../components/GoBackButtonText';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import BackButton from '../../components/Styles/BackButton';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
@@ -60,7 +60,7 @@ const Goal = ({ navigation }) => {
   return (
     <>
       <ScreenBgStyled>
-        <BackButton content="< Retour" onPress={navigation.goBack} bold />
+        <BackButton onPress={navigation.goBack} marginLeft />
         <Container>
           <TopTitle>
             <H1 color="#4030a5">Se fixer un objectif</H1>
@@ -190,10 +190,6 @@ const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
-`;
-
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
 `;
 
 const Container = styled.View`
