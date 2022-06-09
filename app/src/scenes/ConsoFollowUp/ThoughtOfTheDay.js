@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import H3 from '../../components/H3';
 import Screen2 from '../../components/Illustrations/Screen2';
-import { FeedButtonStyled } from './styles';
+import { FeedButtonStyled } from '../../components/Styles/FeedButtonStyled';
 
 const numberOfDaysSinceBeginningOfTimes = (day) => Math.round(Date.parse(day) / 1000 / 60 / 60 / 24);
 

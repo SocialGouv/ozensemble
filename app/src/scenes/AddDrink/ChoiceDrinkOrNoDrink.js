@@ -10,12 +10,13 @@ import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassT
 import NoDrink from '../../components/Illustrations/NoDrink';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
-import GoBackButtonText from '../../components/GoBackButtonText';
 import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import BackButton from '../../components/Styles/BackButton';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -43,8 +44,8 @@ const ChoiceDrinkOrNoDrink = () => {
   return (
     <ScreenBgStyled>
       <SafeAreaView>
-        <BackButton content="< Retour" bold onPress={() => navigation.goBack()} />
         <TopContainer>
+          <BackButton onPress={() => navigation.goBack()} />
           <TopTitle>
             <H1 color="#4030a5">Mes consommations</H1>
           </TopTitle>
@@ -110,13 +111,6 @@ const Option = ({ icon, value, onPress }) => {
   );
 };
 
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
-
 const TopContainer = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
@@ -150,9 +144,6 @@ const AskDrinkContainer = styled.View`
   justify-content: center;
   align-items: center;
   margin-top: ${screenHeight * 0.1}px;
-`;
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
 `;
 
 export default ChoiceDrinkOrNoDrink;

@@ -2,11 +2,13 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import GoBackButtonText from '../../../components/GoBackButtonText';
-import { TopContainer, TopTitle, ScreenBgStyled, Spacer, Underline } from '../styles';
+import { TopContainer, Spacer, Underline } from '../../../components/Styles/Articles';
 import Clock from '../../../components/Illustrations/Clock';
+import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
+import BackButton from '../../../components/Styles/BackButton';
 
 const NavigationWrapper = ({ children, title, timeReading, link }) => {
   const navigation = useNavigation();
@@ -23,7 +25,7 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
         }
       }}
       scrollEventThrottle={400}>
-      <BackButton content="< Retour" bold onPress={() => navigation.goBack()} />
+      <BackButton content="< Retour" bold onPress={() => navigation.goBack()} marginLeft />
       <TopContainer>
         <TopTitle>
           <TextStyled color="#4030a5">{title}</TextStyled>
@@ -59,11 +61,6 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
   );
 };
 
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
-  ${(props) => props.bottom && 'margin-bottom: 100px;'}
-`;
-
 const ReadTimeContainer = styled.View`
   flex-direction: row;
 `;
@@ -71,5 +68,12 @@ const ReadTimeContainer = styled.View`
 const InformationArticle = styled.Text`
   font-size: 10px;
   display: flex;
+`;
+
+const TopTitle = styled(H1)`
+  width: 95%;
+  flex-shrink: 0;
+  margin-top: 0px;
+  margin-bottom: 10px;
 `;
 export default NavigationWrapper;

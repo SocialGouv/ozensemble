@@ -1,6 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import Item from './Item';
-import { Paragraph, SectionTitle } from './styles';
+import TextStyled from '../../../components/TextStyled';
 
 const Section = ({ section, onToggle, answers, ...props }) => (
   <Paragraph>
@@ -18,5 +19,14 @@ const Section = ({ section, onToggle, answers, ...props }) => (
     ))}
   </Paragraph>
 );
+
+const Paragraph = styled.View`
+  margin-bottom: 25px;
+`;
+
+const SectionTitle = styled(TextStyled)`
+  color: #4030a5;
+  font-weight: bold;
+`;
 
 export default Section;

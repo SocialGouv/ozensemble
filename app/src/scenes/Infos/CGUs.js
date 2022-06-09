@@ -2,17 +2,16 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import styled from 'styled-components';
 import Background from '../../components/Background';
-import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
+import BackButton from '../../components/Styles/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 const CGUs = ({ onClose }) => (
   <SafeAreaProvider>
     <Background color="#f9f9f9">
       <Container>
-        <BackButton content="< Retour" onPress={onClose} bold />
-
+        <BackButton onPress={onClose} marginBottom />
         <H1>Conditions Générales d'Utilisation - Oz Ensemble</H1>
         <Spacer size={50} />
         <P>
@@ -216,12 +215,6 @@ const P = styled.Text`
 const Spacer = styled.View`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
-`;
-
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
-  margin-left: -20px;
-  margin-bottom: 30px;
 `;
 
 export default CGUs;

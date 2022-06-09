@@ -1,7 +1,9 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 import TextStyled from '../../../../components/TextStyled';
 import questionsLifeQuality from '../questions';
-import { ContainerSection, EmojiStyled, ItemContainer, ItemsContainer, ItemStyled, ResultTitle } from './styles';
+import H3 from '../../../../components/H3';
+import { screenWidth } from '../../../../styles/theme';
 
 const Results = ({ values }) => {
   if (!values) return null;
@@ -45,3 +47,47 @@ const Item = ({ response, question }) => {
     </ItemContainer>
   );
 };
+
+const ItemStyled = styled.View`
+  margin: 10px;
+  max-width: ${screenWidth / 3}px;
+  min-width: ${screenWidth / 3}px;
+  max-height: ${screenWidth / 3}px;
+  min-height: ${screenWidth / 3}px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ color }) => color || '#fff'};
+  border-radius: 30px;
+`;
+
+const EmojiStyled = styled(TextStyled)`
+  font-size: ${(screenWidth / 3) * 0.4}px;
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+`;
+
+const ItemContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+const ItemsContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ContainerSection = styled.View`
+  margin: 5px 0 20px 0;
+`;
+
+const commonCss = css`
+  width: 85%;
+  flex-shrink: 0;
+`;
+
+const ResultTitle = styled(H3)`
+  ${commonCss}
+  font-weight: bold;
+  color: #4030a5;
+`;

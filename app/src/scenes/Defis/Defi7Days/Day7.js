@@ -11,6 +11,7 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import { Content as ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
 import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/Result';
 import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
 
@@ -73,13 +74,6 @@ export default ({ navigation }) => {
     </Background>
   );
 };
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const TopContainer = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;

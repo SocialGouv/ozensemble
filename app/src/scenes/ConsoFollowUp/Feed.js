@@ -18,11 +18,11 @@ import { NO_CONSO } from './drinksCatalog';
 import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
 import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
 import ResultsFeedDisplay from './ResultsFeedDisplay';
-import { FeedBottomButton, FeedContainer, FeedDay, FeedDayContent } from './styles';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
 import Timeline from './Timeline';
 import Pint from '../../components/Illustrations/Pint';
 import TextStyled from '../../components/TextStyled';
+import UnderlinedButton from '../../components/UnderlinedButton';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
@@ -301,6 +301,29 @@ const AddDrinkText = styled.Text`
 
 const MessageContainer = styled.View`
   width: 88%;
+`;
+const FeedContainer = styled.View`
+  background-color: #f9f9f9;
+  padding: 20px;
+  padding-right: 0px;
+  padding-bottom: 100px;
+`;
+
+const FeedDay = styled.View`
+  flex-direction: row;
+  flex-shrink: 1;
+  flex-grow: 0;
+`;
+
+const FeedDayContent = styled.View`
+  flex-grow: 1;
+  padding-horizontal: 15px;
+  padding-vertical: 10px;
+`;
+
+const FeedBottomButton = styled(UnderlinedButton)`
+  align-items: center;
+  margin-bottom: 15px;
 `;
 
 export default Feed;

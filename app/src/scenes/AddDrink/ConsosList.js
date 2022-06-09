@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler } from 'react-native';
+import { BackHandler, Platform } from 'react-native';
 import { selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -18,18 +18,11 @@ import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import matomo from '../../services/matomo';
 import { useToast } from '../../services/toast';
-import {
-  Container,
-  ModalContent,
-  Title,
-  DateAndTimeContainer,
-  ButtonsContainerSafe,
-  ButtonsContainer,
-  MarginBottom,
-} from './styles';
+import H2 from '../../components/H2';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
 import { drinksState, modalTimestampState, ownDrinksState } from '../../recoil/consos';
+import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -235,6 +228,56 @@ const ConsosList = ({ navigation }) => {
 
 const BackButton = styled(GoBackButtonText)`
   margin-right: 0;
+`;
+
+const Container = styled.View`
+  background-color: #f9f9f9;
+  flex: 1;
+  padding-top: 45px;
+`;
+
+const ModalContent = styled.ScrollView`
+  width: 100%;
+  background-color: #f9f9f9;
+`;
+
+const Title = styled(H2)`
+  font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
+  color: #4030a5;
+  margin: 50px ${defaultPaddingFontScale()}px 15px;
+`;
+
+const DateAndTimeContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 10px;
+`;
+
+const buttonsPadding = 10;
+
+const ButtonsContainerSafe = styled.SafeAreaView`
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #f9f9f9;
+  border-top-color: #eee;
+  border-top-width: 1px;
+`;
+
+const ButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: ${(props) => (props.flexStart ? 'flex-start' : 'space-around')};
+  margin: 0;
+  width: 100%;
+  padding: ${buttonsPadding}px;
+  align-items: center;
+`;
+
+const MarginBottom = styled.View`
+  height: ${({ small }) => buttonHeight * (small ? 0 : 2) + 2 * buttonsPadding}px;
+  flex-shrink: 0;
 `;
 
 export default ConsosList;
