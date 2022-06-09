@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ArrowDown from '../../components/ArrowDown';
-import Lock from '../../components/Illustrations/Lock';
-import StarButton from '../../components/Illustrations/StarButton';
+import Lock from '../../components/illustrations/Lock';
+import StarButton from '../../components/illustrations/StarButton';
 
 const Timeline = ({ first, last, done = false, locked = true, active = false }) => {
   const renderIcon = () => {

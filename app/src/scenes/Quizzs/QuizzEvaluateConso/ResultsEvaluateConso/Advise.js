@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import Background from '../../../../components/Background';
 import GoBackButton from '../../../../components/GoBackButton';
 import H1 from '../../../../components/H1';
-import Stars from '../../../../components/Illustrations/Stars';
+import Stars from '../../../../components/illustrations/Stars';
 import TextStyled from '../../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
-import { ScreenBgStyled } from '../../../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);

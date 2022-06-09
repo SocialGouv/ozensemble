@@ -9,8 +9,8 @@ import Results from './ResultsMotivations';
 import Section from './Section';
 import sections from './sections';
 import { storage } from '../../../services/storage';
-import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
-import BackButton from '../../../components/Styles/BackButton';
+import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
 import H1 from '../../../components/H1';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 

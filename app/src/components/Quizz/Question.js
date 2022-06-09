@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import H2 from '../H2';
 import { screenWidth } from '../../styles/theme';
-import { ScreenBgStyled } from '../Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../ScreenBgStyled';
 
 const Question = ({
   questionIndex,

@@ -8,7 +8,7 @@ import { drinksState } from '../../recoil/consos';
 import matomo from '../../services/matomo';
 import { NO_CONSO } from './drinksCatalog';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { FeedButtonStyled } from '../../components/Styles/FeedButtonStyled';
+import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   return (

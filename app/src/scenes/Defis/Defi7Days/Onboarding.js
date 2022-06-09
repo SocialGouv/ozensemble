@@ -8,8 +8,8 @@ import UnderlinedButton from '../../../components/UnderlinedButton';
 import matomo from '../../../services/matomo';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
-import DefiLanding from '../../../components/Illustrations/DefiLanding';
-import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
+import DefiLanding from '../../../components/illustrations/DefiLanding';
+import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 export default ({ navigation }) => {
   const startDefi = async () => {

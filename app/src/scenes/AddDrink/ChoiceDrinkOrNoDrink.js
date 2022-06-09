@@ -6,8 +6,8 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import H1 from '../../components/H1';
-import CocktailGlassTriangle from '../../components/Illustrations/CocktailGlassTriangle';
-import NoDrink from '../../components/Illustrations/NoDrink';
+import CocktailGlassTriangle from '../../components/illustrations/CocktailGlassTriangle';
+import NoDrink from '../../components/illustrations/NoDrink';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import DatePicker from '../../components/DatePicker';
@@ -15,8 +15,8 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
-import BackButton from '../../components/Styles/BackButton';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import BackButton from '../../components/BackButton';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);

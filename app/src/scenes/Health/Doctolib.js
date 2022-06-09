@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import styled from 'styled-components';
 import Background from '../../components/Background';
-import BackButton from '../../components/Styles/BackButton';
+import BackButton from '../../components/BackButton';
 import matomo from '../../services/matomo';
 
 const Doctolib = ({ navigation }) => {

@@ -2,13 +2,13 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { TopContainer, Spacer, Underline } from '../../../components/Styles/Articles';
-import Clock from '../../../components/Illustrations/Clock';
+import { TopContainer, Spacer, Underline } from './styles';
+import Clock from '../../../components/illustrations/Clock';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import matomo from '../../../services/matomo';
-import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
-import BackButton from '../../../components/Styles/BackButton';
+import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
 
 const NavigationWrapper = ({ children, title, timeReading, link }) => {
   const navigation = useNavigation();

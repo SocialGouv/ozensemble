@@ -10,12 +10,12 @@ import { dailyDosesSelector, drinksState } from '../../recoil/consos';
 import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
-import Celebration from '../../components/Illustrations/Celebration';
-import Increase from '../../components/Illustrations/Increase';
+import Celebration from '../../components/illustrations/Celebration';
+import Increase from '../../components/illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import matomo from '../../services/matomo';
-import PlusIcon from '../../components/Illustrations/PlusIcon';
-import Equality from '../../components/Illustrations/Equality';
+import PlusIcon from '../../components/illustrations/PlusIcon';
+import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
 
 const maxDosesOnScreen = 50;

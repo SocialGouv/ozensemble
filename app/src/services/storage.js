@@ -72,3 +72,10 @@ export async function migrateGenderAndAge() {
   if (gender) storage.set('@Gender', gender);
   storage.set('hasMigratedGenderAndAge', true);
 }
+
+export const hasMigratedDefi7JoursStored = storage.getBoolean('hasMigratedDefi7Jours');
+
+export async function migratedDefi7Jours() {
+  const keys = storage.getAllKeys();
+  console.log(JSON.stringify(keys, null, 2));
+}

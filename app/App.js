@@ -19,6 +19,8 @@ import {
   migrateFromReduxToRecoil,
   hasMigratedGenderAndAge,
   migrateGenderAndAge,
+  hasMigratedDefi7JoursStored,
+  migratedDefi7Jours,
 } from './src/services/storage';
 
 dayjs.extend(isSameOrAfter);
@@ -33,6 +35,7 @@ const App = () => {
   const [hasMigrated, setHasMigrated] = useState(hasMigratedFromAsyncStorage);
   const [hasMigratedToRecoil, setHasMigratedToRecoil] = useState(hasMigratedFromReduxToRecoil);
   const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
+  const [hasMigratedDefi7Jours, setHasMigratedDefi7Jours] = useState(hasMigratedDefi7JoursStored);
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
@@ -49,6 +52,10 @@ const App = () => {
           // TODO: fall back to AsyncStorage? Wipe storage clean and use MMKV? Crash app?
         }
       });
+    }
+    if (!hasMigratedDefi7Jours) {
+      migratedDefi7Jours();
+      setHasMigratedDefi7Jours(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -7,13 +7,13 @@ import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import GoBackButton from '../../../components/GoBackButton';
 import H1 from '../../../components/H1';
-import Stars from '../../../components/Illustrations/Stars';
+import Stars from '../../../components/illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Diagram from '../../ConsoFollowUp/Diagram';
 import { setValidatedDays } from './utils';
-import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>

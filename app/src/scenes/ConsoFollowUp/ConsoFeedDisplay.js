@@ -6,7 +6,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import H3 from '../../components/H3';
 import { consolidatedCatalogSelector } from '../../recoil/consos';
 import { getDisplayName, getIcon, getVolume } from './drinksCatalog';
-import { FeedButtonStyled } from '../../components/Styles/FeedButtonStyled';
+import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 
 const isFirst = (position) => position === 'first';
 const isAlone = (position) => position === 'alone';
