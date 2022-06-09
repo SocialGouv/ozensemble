@@ -1,3 +1,13 @@
+# [1.36.0](https://github.com/SocialGouv/ozensemble/compare/v1.35.1...v1.36.0) (2022-06-09)
+
+
+### Features
+
+* **app:** delete all styles ([a109840](https://github.com/SocialGouv/ozensemble/commit/a1098406d238941761eda37ee48494a0375d5931))
+* **app:** infos NPS ([72adcf2](https://github.com/SocialGouv/ozensemble/commit/72adcf258a8d900fdfa530e68eefe70dea49c5c2))
+* BackButton ([06e621b](https://github.com/SocialGouv/ozensemble/commit/06e621bf5f62812550ec45cdb4cefd69c10c1603))
+* **app:** Feed ([fa5271b](https://github.com/SocialGouv/ozensemble/commit/fa5271b0e3944fc5ff1640e9dc179f0a562d0a58))
+
 ## [1.35.1](https://github.com/SocialGouv/ozensemble/compare/v1.35.0...v1.35.1) (2022-06-08)
 
 
