@@ -9,7 +9,7 @@ import TextStyled from '../../components/TextStyled';
 import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import GoBackButtonText from '../../components/GoBackButtonText';
+import BackButton from '../../components/Styles/BackButton';
 import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
@@ -47,7 +47,7 @@ const Estimation = () => {
 
   return (
     <ScreenBgStyled>
-      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <BackButton onPress={() => navigation.goBack()} marginLeft />
       <TextContainer>
         <TopTitle>
           <H1 color="#4030a5">Ma consommation avant Oz Ensemble</H1>
@@ -126,10 +126,6 @@ const TopTitle = styled.View`
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
   ${(props) => props.big && 'font-size: 16px;'}
-`;
-
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
 `;
 
 export const Container = styled.View`

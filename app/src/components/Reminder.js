@@ -17,7 +17,7 @@ import CONSTANTS from '../reference/constants';
 import matomo from '../services/matomo';
 import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
-import GoBackButtonText from './GoBackButtonText';
+import BackButton from './Styles/BackButton';
 
 const Reminder = ({
   navigation,
@@ -182,7 +182,7 @@ const Reminder = ({
 
   return (
     <Container>
-      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <BackButton onPress={navigation.goBack} marginBottom />
       <ReminderIcon size={80} color="#4030a5" selected={false} />
       {children ? (
         children({ reminder, mode, weekDay })
@@ -262,12 +262,6 @@ const ButtonsContainer = styled.View`
   margin-bottom: 20%;
 `;
 
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
-  margin-left: -20px;
-  margin-bottom: 20px;
-`;
-
 const EditButton = styled(UnderlinedButton)``;
 
 const RemoveButton = styled(UnderlinedButton)`
@@ -306,8 +300,8 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
               <ModeSelectButton onPress={() => onModeChoose('day')}>Tous les jours</ModeSelectButton>
               <ModeSelectButton onPress={() => onModeChoose('week')}>Une fois par semaine</ModeSelectButton>
             </ModalContent>
-            <ModalCancel>
-              <CancelButton bold content="Annuler" onPress={hide} />
+            <ModalCancel onPress={hide}>
+              <TextStyled bold>Annuler</TextStyled>
             </ModalCancel>
           </ModalContainer>
         )}
@@ -324,7 +318,9 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
               ))}
             </ModalContent>
             <ModalCancel>
-              <CancelButton bold content="Annuler" onPress={hide} />
+              <ModalCancel onPress={hide}>
+                <TextStyled bold>Annuler</TextStyled>
+              </ModalCancel>
             </ModalCancel>
           </ModalContainer>
         )}
@@ -340,8 +336,8 @@ const ModalContainer = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
   border-radius: 15px;
 `;
-const ModalCancel = styled.View`
-  align-items: center;
+const ModalCancel = styled(H1)`
+  text-align: center;
 `;
 
 const ModalTitle = styled(H1)`
@@ -385,6 +381,6 @@ const ModeSelectButtonContent = styled(TextStyled)`
   flex-shrink: 1;
 `;
 
-const CancelButton = styled(GoBackButtonText)`
+const CancelButton = styled.TouchableOpacity`
   margin-right: 0;
 `;
