@@ -4,9 +4,9 @@ import { reminderDefis, reminderDefisMode, reminderDefisWeekDay } from '../../..
 import matomo from '../../../services/matomo';
 import { storage } from '../../../services/storage';
 
-const Defi7DaysReminder = (props) => {
-  const isWithinDefi7Days =
-    storage.getString('DEFI_7_JOURS_STARTED_AT')?.length && storage.getString('DEFI_7_JOURS_VALIDATED_DAYS') !== '6';
+const Defi1_Reminder = (props) => {
+  const isWithinDefi1 =
+    storage.getString('@Defi1_StartedAt')?.length && storage.getString('@Defi1_ValidatedDays') !== 6;
 
   return (
     <Reminder
@@ -14,10 +14,10 @@ const Defi7DaysReminder = (props) => {
       reminderState={reminderDefis}
       reminderModeState={reminderDefisMode}
       reminderWeekDayState={reminderDefisWeekDay}
-      name="DEFI_7_DAYS_REMINDER"
-      title={isWithinDefi7Days ? 'Un rappel pour penser à faire votre défi 7 jours' : undefined}
-      notifReminderTitle={isWithinDefi7Days ? "C'est l'heure de votre défi 7 jours !" : undefined}
-      notifReminderMessage={isWithinDefi7Days ? '' : undefined}
+      name="DEFI1_REMINDER"
+      title={isWithinDefi1 ? 'Un rappel pour penser à faire votre défi 7 jours' : undefined}
+      notifReminderTitle={isWithinDefi1 ? "C'est l'heure de votre défi 7 jours !" : undefined}
+      notifReminderMessage={isWithinDefi1 ? '' : undefined}
       onlyDaily
       onSetReminderConfirm={(reminder, mode, weekDay) => {
         matomo.logReminderSetMode(mode);
@@ -27,4 +27,4 @@ const Defi7DaysReminder = (props) => {
   );
 };
 
-export default Defi7DaysReminder;
+export default Defi1_Reminder;

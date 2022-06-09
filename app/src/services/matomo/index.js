@@ -411,29 +411,31 @@ const logNPSRecoSend = async (value) => {
   });
 };
 
-// DEFI 7 DAYS
-const DEFI_7_DAYS = 'DEFI_7_DAYS';
-const DEFI_7_DAYS_CLICK_START = 'DEFI_7_DAYS_CLICK_START';
-const DEFI_7_DAYS_CLICK_NOT_START = 'DEFI_7_DAYS_CLICK_NOT_START';
-const DEFI_7_DAYS_VALIDATE_DAY = 'DEFI_7_DAYS_VALIDATE_DAY';
+// DEFI 1
+// it uses to be called Defi7Days so we keep the event like that for retrocompatibility
+const DEFI1 = 'DEFI_7_DAYS';
+const DEFI1_CLICK_START = 'DEFI_7_DAYS_CLICK_START';
+const DEFI1_CLICK_NOT_START = 'DEFI_7_DAYS_CLICK_NOT_START';
+const DEFI1_VALIDATE_DAY = 'DEFI_7_DAYS_VALIDATE_DAY';
 
-const logClickStartDefi7Days = async () => {
+const logDefi1ClickStart = async () => {
   await logEvent({
-    category: DEFI_7_DAYS,
-    action: DEFI_7_DAYS_CLICK_START,
-  });
-};
-const logClickNotStartDefi7Days = async () => {
-  await logEvent({
-    category: DEFI_7_DAYS,
-    action: DEFI_7_DAYS_CLICK_NOT_START,
+    category: DEFI1,
+    action: DEFI1_CLICK_START,
   });
 };
 
-const logValidateDayInDefi7Days = async (day) => {
+const logDefi1ClickNotStart = async () => {
   await logEvent({
-    category: DEFI_7_DAYS,
-    action: DEFI_7_DAYS_VALIDATE_DAY,
+    category: DEFI1,
+    action: DEFI1_CLICK_NOT_START,
+  });
+};
+
+const logDefi1ValidateDay = async (day) => {
+  await logEvent({
+    category: DEFI1,
+    action: DEFI1_VALIDATE_DAY,
     name: 'day',
     value: day,
   });
@@ -594,9 +596,9 @@ export default {
   logNoConso,
   logNPSUsefulSend,
   logNPSRecoSend,
-  logClickStartDefi7Days,
-  logClickNotStartDefi7Days,
-  logValidateDayInDefi7Days,
+  logDefi1ClickStart,
+  logDefi1ClickNotStart,
+  logDefi1ValidateDay,
   logTooltipGoal,
   logEarningsSection,
   logGoalOpen,

@@ -22,7 +22,7 @@ const Header = () => {
       </TopTitleContainer>
       <SectionTitle color="#de285e">C'est déjà terminé !</SectionTitle>
       <TextParagraph>Merci d'avoir répondu au questionnaire !</TextParagraph>
-      {!!route?.params?.inDefi7Days && (
+      {!!route?.params?.inDefi1 && (
         <>
           <TextParagraph>
             Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>

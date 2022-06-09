@@ -12,7 +12,16 @@ import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
-const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
+const Defi = ({
+  navigation,
+  data,
+  title,
+  validatedDays,
+  updateValidatedDays,
+  ActiveDayIndex,
+  hackAndUnlockDay,
+  defiStorageKey,
+}) => {
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
@@ -44,6 +53,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
         validatedDays={validatedDays}
         activeDay={activeDay}
         hackAndUnlockDay={hackAndUnlockDay}
+        defiStorageKey={defiStorageKey}
       />
       <FeedCTAContainer zIndex={10}>
         {!activeDayIsDone && !!data[activeDay]?.screenCTA ? (
@@ -81,7 +91,7 @@ const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, Act
                 activeOpacity={0.47}
                 disabled={activeDay < dayIndex || !dayData?.screenCTA}
                 onPress={() => {
-                  navigation.push(dayData?.screenCTA, { inDefi7Days: validatedDays <= dayIndex });
+                  navigation.push(dayData?.screenCTA, { inDefi1: validatedDays <= dayIndex });
                 }}>
                 <View style={{ flex: 1 }}>
                   <TitleDay color={getTitleColor(dayIndex)}>{dayData?.title}</TitleDay>

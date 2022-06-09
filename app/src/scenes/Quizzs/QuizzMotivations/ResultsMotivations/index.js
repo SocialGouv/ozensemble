@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
-import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
+import { setValidatedDays } from '../../../Defis/utils';
 import Header from '../../../Defis/Header';
 import Result from './Result';
 import { screenWidth } from '../../../../styles/theme';
@@ -10,7 +10,7 @@ const Results = ({ results, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (results && route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+    if (results && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused, results]);
 
   if (!results) return null;

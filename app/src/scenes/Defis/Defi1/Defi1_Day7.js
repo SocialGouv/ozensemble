@@ -15,7 +15,7 @@ import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
 
-export default ({ navigation }) => {
+const Defi1_Day7 = ({ navigation }) => {
   const [{ resultEvaluateConso, resultLifeQuality, resultMotivation }, setGlobalResults] = useState({});
   const setResults = (newState) => setGlobalResults((oldState) => ({ ...oldState, ...newState }));
 
@@ -92,3 +92,5 @@ const TopTitle = styled.View`
   margin-bottom: 20px;
   align-items: center;
 `;
+
+export default Defi1_Day7;

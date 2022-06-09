@@ -10,7 +10,7 @@ import Stars from '../../../components/illustrations/Stars';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Sources from '../../Quizzs/Sources';
-import { setValidatedDays } from './utils';
+import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 const ToggleContent = ({ children, title }) => {
@@ -38,11 +38,11 @@ const TitleStyled = styled.View`
   margin: 15px;
 `;
 
-const Day5 = ({ navigation, route }) => {
+const Defi1_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused]);
 
   return (
@@ -146,4 +146,4 @@ const ElemContainer = styled.View`
   margin: 10px 0;
 `;
 
-export default Day5;
+export default Defi1_Day5;

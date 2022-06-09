@@ -1,7 +1,7 @@
 import React from 'react';
 import TextStyled from '../../../components/TextStyled';
 
-export const defi7DaysData = [
+export const defi1_Data = [
   {
     actionType: 'content',
     title: 'Jour 1',
@@ -20,7 +20,7 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Comment compter',
-    screenCTA: 'DAY_1',
+    screenCTA: 'DEFI1_DAY_1',
   },
   {
     actionType: 'quizz',
@@ -39,7 +39,7 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Passer le test',
-    screenCTA: 'DAY_2',
+    screenCTA: 'DEFI1_DAY_2',
   },
   {
     actionType: 'content',
@@ -58,7 +58,7 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Mes conseils réduction',
-    screenCTA: 'DAY_3',
+    screenCTA: 'DEFI1_DAY_3',
   },
   {
     actionType: 'quizz',
@@ -77,7 +77,7 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Passer le test',
-    screenCTA: 'DAY_4',
+    screenCTA: 'DEFI1_DAY_4',
   },
   {
     actionType: 'content',
@@ -96,7 +96,7 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Mes conseils réduction',
-    screenCTA: 'DAY_5',
+    screenCTA: 'DEFI1_DAY_5',
   },
   {
     actionType: 'quizz',
@@ -111,7 +111,7 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Mes motivations à changer',
-    screenCTA: 'DAY_6',
+    screenCTA: 'DEFI1_DAY_6',
   },
   {
     actionType: 'content',
@@ -130,6 +130,6 @@ export const defi7DaysData = [
       </>
     ),
     textCTA: 'Consulter mon bilan',
-    screenCTA: 'DAY_7',
+    screenCTA: 'DEFI1_DAY_7',
   },
 ];

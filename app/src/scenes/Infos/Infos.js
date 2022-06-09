@@ -13,7 +13,7 @@ import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
-import Defi7DaysReminder from '../Defis/Defi7Days/Defi7DaysReminder';
+import Defi1_Reminder from '../Defis/Defi1/Defi1_Reminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import matomo from '../../services/matomo';
@@ -27,7 +27,7 @@ const Infos = () => {
       <HeaderBackground />
       <InfosStack.Navigator initialRouteName="INFOS_MENU" headerMode="none">
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
-        <InfosStack.Screen name="DEFI_7_DAYS_REMINDER" component={Defi7DaysReminder} />
+        <InfosStack.Screen name="DEFI1_REMINDER" component={Defi1_Reminder} />
         <InfosStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
@@ -45,9 +45,9 @@ const InfosMenu = ({ navigation }) => {
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 
-  const isWithinDefi7Days =
-    storage.getString('DEFI_7_JOURS_STARTED_AT')?.length && storage.getString('DEFI_7_JOURS_VALIDATED_DAYS') !== '6';
-  const reminderCaption = isWithinDefi7Days ? 'Rappel de mon défi 7 jours' : 'Rappel de mon suivi de consommations';
+  const isWithinDefi1 =
+    storage.getString('@Defi1_StartedAt')?.length && storage.getString('@Defi1_ValidatedDays') !== 6;
+  const reminderCaption = isWithinDefi1 ? 'Rappel de mon défi 7 jours' : 'Rappel de mon suivi de consommations';
 
   return (
     <>
@@ -60,8 +60,8 @@ const InfosMenu = ({ navigation }) => {
           <MenuItem
             caption={reminderCaption}
             onPress={() => {
-              matomo.logReminderOpen(isWithinDefi7Days ? 'DEFI_7_DAYS_REMINDER' : 'GAINS_REMINDER');
-              navigation.push(isWithinDefi7Days ? 'DEFI_7_DAYS_REMINDER' : 'GAINS_REMINDER');
+              matomo.logReminderOpen(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
+              navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
             }}
           />
           <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />

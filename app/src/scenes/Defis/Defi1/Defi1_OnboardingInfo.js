@@ -9,7 +9,7 @@ import H1 from '../../../components/H1';
 import Stars from '../../../components/illustrations/Stars';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { setValidatedDays } from './utils';
+import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 const screenWidth = Dimensions.get('window').width;
@@ -25,11 +25,11 @@ const Elem = ({ content, bold }) => (
 
 const Br = ({ lines = 1 }) => <TextStyled>{'\n'.repeat(lines)}</TextStyled>;
 
-export default ({ navigation, route }) => {
+const Defi1_OnboardingInfo = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi7Days) setValidatedDays(route?.params?.day);
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused]);
 
   return (
@@ -219,3 +219,5 @@ const TopTitle = styled.View`
   margin-top: 10px;
   margin-bottom: 20px;
 `;
+
+export default Defi1_OnboardingInfo;
