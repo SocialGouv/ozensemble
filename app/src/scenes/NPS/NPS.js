@@ -22,7 +22,7 @@ import {
   TopTitle,
 } from './styles';
 import { storage } from '../../services/storage';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 

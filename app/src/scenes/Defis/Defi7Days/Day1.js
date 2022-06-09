@@ -13,7 +13,7 @@ import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Diagram from '../../ConsoFollowUp/Diagram';
 import { setValidatedDays } from './utils';
-import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>

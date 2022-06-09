@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScreenBgStyled } from '../Styles/SreenByStyled';
+import { ScreenBgStyled } from '../Styles/ScreenBgStyled';
 import { AnswerButton, AnswerContent, AnswersContainer, QuestionNumber, QuestionTitle } from './styles';
 
 const Question = ({

@@ -16,7 +16,7 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);

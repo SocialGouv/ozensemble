@@ -8,7 +8,7 @@ import H1 from '../../../../components/H1';
 import Stars from '../../../../components/Illustrations/Stars';
 import TextStyled from '../../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
-import { ScreenBgStyled } from '../../../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../../../components/Styles/ScreenBgStyled';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);

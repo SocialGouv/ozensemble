@@ -10,7 +10,7 @@ import Stars from '../../../components/Illustrations/Stars';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from './utils';
-import { ScreenBgStyled } from '../../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
 
 const screenWidth = Dimensions.get('window').width;
 

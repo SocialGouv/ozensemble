@@ -21,7 +21,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);

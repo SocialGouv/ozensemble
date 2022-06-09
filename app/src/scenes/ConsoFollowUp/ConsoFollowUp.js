@@ -12,7 +12,7 @@ import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
-import { ScreenBgStyled } from '../../components/Styles/SreenByStyled';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 import UnderlinedButton from '../../components/UnderlinedButton';
