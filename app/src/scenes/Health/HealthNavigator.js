@@ -3,10 +3,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ContactForm from './ContactForm';
 import Doctolib from './Doctolib';
 import Conseils from './Conseils';
-import ToSayNo from './Conseil/ToSayNo';
+import ToSayNo from './Articles/ToSayNo';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
-import ToHelpMeReduce from './Conseil/ToHelpMeReduce';
-import DidYouKnow from './Conseil/DidYouKnow';
+import ToHelpMeReduce from './Articles/ToHelpMeReduce';
+import DidYouKnow from './Articles/DidYouKnow';
 
 const HealthStack = createStackNavigator();
 const Health = () => (

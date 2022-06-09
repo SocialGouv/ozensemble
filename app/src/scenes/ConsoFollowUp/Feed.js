@@ -20,7 +20,7 @@ import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
 import ResultsFeedDisplay from './ResultsFeedDisplay';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
 import Timeline from './Timeline';
-import Pint from '../../components/Illustrations/Pint';
+import Pint from '../../components/illustrations/Pint';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
 

@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import TextStyled from '../../../../components/TextStyled';
 import H2 from '../../../../components/H2';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
-import ResultsIllustration from '../../../../components/Illustrations/ResultsIllustration';
+import ResultsIllustration from '../../../../components/illustrations/ResultsIllustration';
 
 const Bottom = ({
   onActionButtonPress,
@@ -13,7 +13,7 @@ const Bottom = ({
 }) => (
   <BottomContainer>
     <BottomSubContainer>
-      <ResultsIllustrationStyled />
+      <Resultsillustrationstyled />
     </BottomSubContainer>
     <BottomSubContainer shrink>
       <BottomTitle>
@@ -57,7 +57,7 @@ const BottomSubTitle = styled(H2)`
   margin-bottom: 20px;
 `;
 
-const ResultsIllustrationStyled = styled(ResultsIllustration)`
+const Resultsillustrationstyled = styled(ResultsIllustration)`
   height: 40px;
   margin-top: 8px;
 `;

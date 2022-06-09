@@ -6,11 +6,11 @@ import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
-import AppointmentHeart from '../../components/Illustrations/AppointmentHeart';
+import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
 import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
 const Conseils = ({ navigation }) => {
   return (

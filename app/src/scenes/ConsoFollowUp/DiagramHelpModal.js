@@ -4,7 +4,7 @@ import { Modal, ScrollView } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import Stars from '../../components/Illustrations/Stars';
+import Stars from '../../components/illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
 import Diagram from './Diagram';

@@ -12,13 +12,10 @@ import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { Title } from '../../components/Styles/Title';
-import { SubTitle } from '../../components/Styles/SubTitle';
+import H1 from '../../components/H1';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -116,6 +113,19 @@ const ConsoFollowUp = () => {
     </Background>
   );
 };
+
+const Title = styled(H1)`
+  width: 85%;
+  flex-shrink: 0;
+  margin-top: 10px;
+`;
+
+const SubTitle = styled(H2)`
+  width: 85%;
+  flex-shrink: 0;
+  font-weight: 500;
+  ${(props) => props.last && 'margin-bottom: 40px;'}
+`;
 
 const SubtitleContainer = styled.View`
   flex-direction: row;

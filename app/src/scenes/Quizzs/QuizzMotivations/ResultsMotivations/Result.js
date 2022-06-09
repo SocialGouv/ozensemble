@@ -63,7 +63,7 @@ const ResultTitle = styled(H3)`
   ${commonCss}
   font-weight: bold;
   color: #4030a5;
-  margin-bottom: 10;
+  margin-bottom: 10px;
 `;
 
 export default Results;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Background from '../../components/Background';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import BackButton from '../../components/Styles/BackButton';
+import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 const PrivacyPolicy = ({ onClose }) => (

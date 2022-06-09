@@ -10,7 +10,7 @@ import NPS from '../NPS/NPS';
 import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
 const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
   const [NPSvisible, setNPSvisible] = useState(false);

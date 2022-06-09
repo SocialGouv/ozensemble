@@ -4,8 +4,8 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
-import BackButton from '../../components/Styles/BackButton';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import BackButton from '../../components/BackButton';
 
 const Sevrage = ({ navigation }) => {
   return (

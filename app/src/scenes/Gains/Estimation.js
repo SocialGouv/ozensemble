@@ -9,10 +9,10 @@ import TextStyled from '../../components/TextStyled';
 import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import BackButton from '../../components/Styles/BackButton';
+import BackButton from '../../components/BackButton';
 import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
-import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
 const Estimation = () => {
   const navigation = useNavigation();

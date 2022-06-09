@@ -5,10 +5,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components';
 import RNBootSplash from 'react-native-bootsplash';
-import DefisIcon from './components/Illustrations/Defis';
-import FollowUpIcon from './components/Illustrations/FollowUpIcon';
-import GuidanceIcon from './components/Illustrations/GuidanceIcon';
-import InfosIcon from './components/Illustrations/Infos';
+import DefisIcon from './components/illustrations/Defis';
+import FollowUpIcon from './components/illustrations/FollowUpIcon';
+import GuidanceIcon from './components/illustrations/GuidanceIcon';
+import InfosIcon from './components/illustrations/Infos';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
@@ -24,7 +24,7 @@ import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
 import CustomBootsplash from './components/CustomBootsplash';
-import StarsTabIcon from './components/Illustrations/StarsTabIcon';
+import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
 
 const Label = ({ children, focused, color }) => (

@@ -9,7 +9,7 @@ import { storage } from '../../services/storage';
 import ContactForm from '../../scenes/Health/ContactForm';
 import Doctolib from '../../scenes/Health/Doctolib';
 import matomo from '../../services/matomo';
-import BackButton from '../Styles/BackButton';
+import BackButton from '../BackButton';
 /*
 HOW DOES THE QUESTIONS WORK:
 -> The user can't pass a question.

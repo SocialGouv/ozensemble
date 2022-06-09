@@ -8,7 +8,7 @@ import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import H2 from './H2';
 import Modal from './Modal';
-import ReminderIcon from './Illustrations/ReminderIcon';
+import ReminderIcon from './illustrations/ReminderIcon';
 import TextStyled from './TextStyled';
 import TimePicker from './TimePicker';
 import UnderlinedButton from './UnderlinedButton';
@@ -17,7 +17,7 @@ import CONSTANTS from '../reference/constants';
 import matomo from '../services/matomo';
 import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
-import BackButton from './Styles/BackButton';
+import BackButton from './BackButton';
 
 const Reminder = ({
   navigation,
