@@ -11,19 +11,19 @@ import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
-export default ({ navigation }) => {
+const Defi1_Onboarding = ({ navigation }) => {
   const startDefi = async () => {
     const startAt = new Date().toISOString().split('T')[0];
-    storage.set('DEFI_7_JOURS_STARTED_AT', startAt);
-    matomo.logClickStartDefi7Days();
-    navigation.navigate('DEFI_7_DAYS_REMINDER', {
+    storage.set('@Defi1_StartedAt', startAt);
+    matomo.logDefi1ClickStart();
+    navigation.navigate('DEFI1_REMINDER', {
       enableContinueButton: true,
-      onPressContinueNavigation: ['DEFI_7_DAYS_MENU'],
+      onPressContinueNavigation: ['DEFI1_MENU'],
     });
   };
   const noThankYou = () => {
-    matomo.logClickNotStartDefi7Days();
-    navigation.navigate('DEFI_7_DAYS_REMINDER', {
+    matomo.logDefi1ClickNotStart();
+    navigation.navigate('DEFI1_REMINDER', {
       enableContinueButton: true,
       onPressContinueNavigation: ['TABS', { screen: 'CONSO_FOLLOW_UP' }],
     });
@@ -43,7 +43,7 @@ export default ({ navigation }) => {
         <UnderlinedButton
           withoutPadding
           content="À qui s'adresse ce défi 7 jours ?"
-          onPress={() => navigation.navigate('ONBOARDING_INFO')}
+          onPress={() => navigation.navigate('DEFI1_ONBOARDING_INFO')}
         />
         <ButtonsContainer>
           <ButtonPrimary content="Oui, je veux le faire" onPress={startDefi} />
@@ -88,3 +88,5 @@ const ButtonsContainer = styled.View`
   justify-content: space-around;
   margin-vertical: 15px;
 `;
+
+export default Defi1_Onboarding;
