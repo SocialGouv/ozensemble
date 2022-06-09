@@ -17,6 +17,7 @@ import Defi7DaysReminder from '../Defis/Defi7Days/Defi7DaysReminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const InfosStack = createStackNavigator();
 
@@ -105,13 +106,6 @@ const VersionContainer = styled.View`
 `;
 const VersionLabel = styled(TextStyled)`
   color: #ddd;
-`;
-
-export const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
 `;
 
 const Container = styled.View`

@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import GoBackButton from '../../../components/GoBackButton';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
 import Results from './ResultsMotivations';
 import Section from './Section';
 import sections from './sections';
-import { Paragraph, ScreenBgStyled, TopContainer, TopTitle, TopTitleContainer } from './styles';
 import { storage } from '../../../services/storage';
+import { ScreenBgStyled } from '../../../components/Styles/ScreenBgStyled';
+import BackButton from '../../../components/Styles/BackButton';
+import H1 from '../../../components/H1';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 
 const QuizzMotivationsStack = createStackNavigator();
 
@@ -59,7 +62,7 @@ const QuizzMotivations = ({ navigation, route }) => {
             <ScreenBgStyled>
               <TopContainer>
                 <TopTitleContainer>
-                  <GoBackButton onPress={navigation.goBack} />
+                  <BackButton onPress={navigation.goBack} />
                   <TopTitle>
                     <TextStyled color="#4030a5">
                       Quelles raisons vous motivent à changer votre consommation ?
@@ -90,5 +93,31 @@ const QuizzMotivations = ({ navigation, route }) => {
     </Background>
   );
 };
+
+const commonCss = css`
+  width: 100%;
+  flex-shrink: 0;
+`;
+
+const Paragraph = styled.View`
+  margin-bottom: 25px;
+`;
+
+const TopContainer = styled.View`
+  padding: 20px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
+`;
+
+const TopTitleContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  ${commonCss}
+  margin-top: 10px;
+  margin-bottom: 20px;
+  max-width: 95%;
+`;
+
+const TopTitle = styled(H1)`
+  padding: 0 10px;
+`;
 
 export default QuizzMotivations;

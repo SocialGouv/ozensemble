@@ -4,8 +4,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 import styled from 'styled-components';
 import Background from '../../components/Background';
+import BackButton from '../../components/Styles/BackButton';
 import matomo from '../../services/matomo';
-import { BackButton } from './styles';
 
 const Doctolib = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
@@ -57,7 +57,7 @@ const Doctolib = ({ navigation }) => {
         <Background color="#f9f9f9">
           <Container>
             <TopBar>
-              <BackButton withoutPadding content="< Retour" onPress={hide} bold />
+              <BackButton onPress={hide} />
             </TopBar>
             <WebViewContainer>
               <WebView

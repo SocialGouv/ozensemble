@@ -9,10 +9,10 @@ import TextStyled from '../../components/TextStyled';
 import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import { ModalContent } from '../AddDrink/styles';
-import GoBackButtonText from '../../components/GoBackButtonText';
+import BackButton from '../../components/Styles/BackButton';
 import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const Estimation = () => {
   const navigation = useNavigation();
@@ -47,7 +47,7 @@ const Estimation = () => {
 
   return (
     <ScreenBgStyled>
-      <BackButton content="< Retour" onPress={navigation.goBack} bold />
+      <BackButton onPress={() => navigation.goBack()} marginLeft />
       <TextContainer>
         <TopTitle>
           <H1 color="#4030a5">Ma consommation avant Oz Ensemble</H1>
@@ -113,10 +113,6 @@ const Estimation = () => {
   );
 };
 
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-`;
-
 const TextContainer = styled.View`
   padding-horizontal: 20px;
   margin-top: 20px;
@@ -132,10 +128,6 @@ const DescriptionText = styled.Text`
   ${(props) => props.big && 'font-size: 16px;'}
 `;
 
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
-`;
-
 export const Container = styled.View`
   background-color: #f9f9f9;
   flex: 1;
@@ -148,6 +140,11 @@ const CTAButtonContainer = styled.View`
   flex-shrink: 1;
   padding-top: 30px;
   padding-bottom: 100px;
+`;
+
+const ModalContent = styled.ScrollView`
+  width: 100%;
+  background-color: #f9f9f9;
 `;
 
 export default Estimation;

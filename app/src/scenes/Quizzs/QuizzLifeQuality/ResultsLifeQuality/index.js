@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
+import styled from 'styled-components';
 import Header from '../../../Defis/Header';
 import Result from './Result';
-import { FullScreenBackground, ResultContainer } from './styles';
 import { setValidatedDays } from '../../../Defis/Defi7Days/utils';
 import Sources from '../../Sources';
+import { screenWidth } from '../../../../styles/theme';
 
 const Results = ({ resultKey, route }) => {
   const isFocused = useIsFocused();
@@ -29,5 +30,22 @@ const Results = ({ resultKey, route }) => {
     </FullScreenBackground>
   );
 };
+
+const FullScreenBackground = styled.ScrollView`
+  background-color: #f9f9f9;
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 100%;
+  min-height: 100%;
+  max-width: ${screenWidth}px;
+  min-width: ${screenWidth}px;
+`;
+
+const ResultContainer = styled.View`
+  background-color: #efefef;
+  padding: 20px;
+  padding-bottom: 100px;
+  height: 100%;
+`;
 
 export default Results;

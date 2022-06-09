@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import styled, { css } from 'styled-components';
+import { Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { Alert, AppState, Modal, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -11,18 +13,11 @@ import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAI
 import matomo from '../../services/matomo';
 import NotificationService from '../../services/notifications';
 import Mark from './Mark';
-import {
-  ButtonContainer,
-  CloseNPS,
-  Container,
-  FeedBackStyled,
-  KeyboardAvoidingViewStyled,
-  ScreenBgStyled,
-  TextInputStyled,
-  TopSubTitle,
-  TopTitle,
-} from './styles';
 import { storage } from '../../services/storage';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import H2 from '../../components/H2';
+import H3 from '../../components/H3';
+import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -346,7 +341,7 @@ class NPS extends Component {
               <KeyboardAvoidingViewStyled
                 behavior={Platform.select({ ios: 'padding', android: null })}
                 keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
-                <ScreenBgStyled>
+                <ScreenBgStyled defaultPadding>
                   <CloseNPS>
                     <UnderlinedButton content="Fermer" bold onPress={this.onClose} />
                   </CloseNPS>
@@ -373,5 +368,72 @@ NPS.defaultProps = {
   notifMessage: 'Avez-vous quelques secondes pour donner votre avis ?',
   userIdLocalStorageKey: '@UserIdv2',
 };
+
+const Container = styled.View`
+  height: 100%;
+  width: ${Dimensions.get('window').width}px;
+`;
+
+const KeyboardAvoidingViewStyled = styled.KeyboardAvoidingView`
+  flex: 1;
+  min-height: 100%;
+`;
+
+const commonCss = css`
+  width: 95%;
+  flex-shrink: 0;
+`;
+
+const TopTitle = styled(H2)`
+  ${commonCss}
+  margin-top: 10px;
+`;
+
+const TopSubTitle = styled(H3)`
+  ${commonCss}
+  margin-top: 35px;
+`;
+
+const FeedBackStyled = styled.TextInput`
+  width: 100%;
+  height: 100px;
+  border-radius: 3px;
+  border: 1px solid #dbdbe9;
+  background-color: #f3f3f6;
+  border-radius: 7px;
+  padding: 15px;
+  margin-top: 15px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #4030a5;
+`;
+
+const ButtonContainer = styled.View`
+  margin-vertical: 20px;
+  align-items: flex-start;
+  flex-grow: 0;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-left: -${defaultPaddingFontScale()}px;
+  width: ${screenWidth}px;
+  margin-bottom: 150px;
+`;
+
+const CloseNPS = styled.View`
+  margin-left: auto;
+`;
+
+const TextInputStyled = styled.TextInput`
+  width: 100%;
+  height: 50px;
+  background-color: #f3f3f6;
+  border: 1px solid #dbdbe9;
+  color: #4030a5;
+  border-radius: 7px;
+  padding-left: 15px;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 15px;
+`;
 
 export default NPS;

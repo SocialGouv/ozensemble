@@ -3,7 +3,6 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import { modalTimestampState } from '../../recoil/consos';
-import matomo from '../../services/matomo';
 import { screenHeight, screenWidth } from '../../styles/theme';
 
 const iconSize = 30;

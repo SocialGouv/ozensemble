@@ -10,6 +10,7 @@ import NPS from '../NPS/NPS';
 import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
+import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
 
 const Defi = ({ navigation, data, title, validatedDays, updateValidatedDays, ActiveDayIndex, hackAndUnlockDay }) => {
   const [NPSvisible, setNPSvisible] = useState(false);
@@ -136,13 +137,6 @@ const commonCss = css`
 /*
   Top part
 */
-
-const ScreenBgStyled = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
 
 const TopContainer = styled.View`
   padding: 20px;
