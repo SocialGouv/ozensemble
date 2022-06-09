@@ -16,6 +16,7 @@ import GoBackButtonText from '../../components/GoBackButtonText';
 import ContactForm from '../Health/ContactForm';
 import Doctolib from '../Health/Doctolib';
 import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import BackButton from '../../components/Styles/BackButton';
 
 const QuizzsStack = createStackNavigator();
 
@@ -57,9 +58,7 @@ const QuizzMenu = () => {
   return (
     <ScreenBgStyled>
       <TopContainer>
-        <GoBackButton>
-          <GoBackButtonText content="< Retour" onPress={navigation.goBack} bold withoutPadding />
-        </GoBackButton>
+        <BackButton onPress={navigation.goBack} />
         <Title>
           <TextStyled color="#4030a5">
             Vos{' '}
@@ -117,7 +116,7 @@ const QuizzMenu = () => {
 export default QuizzsNavigator;
 
 const TopContainer = styled.View`
-  padding: 20px 20px 40px;
+  padding: 0px 20px 40px;
 `;
 
 const Title = styled(H2)`
@@ -125,10 +124,6 @@ const Title = styled(H2)`
   margin-bottom: 10px;
 `;
 const SubTitle = styled(H3)``;
-
-const GoBackButton = styled.View`
-  margin-right: auto;
-`;
 
 export const Quizzcontainer = styled.View`
   background-color: #efefef;

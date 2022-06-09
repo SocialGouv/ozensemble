@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import GoBackButtonText from '../../components/GoBackButtonText';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import { ScreenBgStyled } from '../../components/Styles/ScreenBgStyled';
+import BackButton from '../../components/Styles/BackButton';
 
 const Sevrage = ({ navigation }) => {
   return (
     <ScreenBgStyled>
       <Container>
-        <BackButton content="< Retour" onPress={navigation.goBack} bold withoutPadding />
+        <BackButton onPress={navigation.goBack} />
         <TopTitle>
           <H1 color="#4030a5">Les signes de sevrages</H1>
         </TopTitle>
@@ -62,10 +62,6 @@ const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
   margin-vertical: 20px;
-`;
-
-const BackButton = styled(GoBackButtonText)`
-  margin-right: auto;
 `;
 
 const CTAButtonContainer = styled.View`
