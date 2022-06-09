@@ -13,8 +13,4 @@ export const ScreenBgStyled = styled.ScrollView`
     !!defaultPadding &&
     `padding-horizontal: ${defaultPaddingFontScale()}px;padding-top: ${defaultPaddingFontScale() / 2}px;`}
   ${({ debug }) => debug && 'border: 2px solid #000;'}
-  ${({ WelcomeScreen }) =>
-    WelcomeScreen &&
-    `justify-content: flex-end;
-  align-items: center;`}
 `;
