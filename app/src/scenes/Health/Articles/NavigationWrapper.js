@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { TopContainer, Spacer, Underline } from './styles';
+import { TopContainer, Spacer, Underline } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';

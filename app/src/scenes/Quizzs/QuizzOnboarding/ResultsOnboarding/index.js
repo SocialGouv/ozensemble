@@ -1,24 +1,19 @@
 import React from 'react';
 import EmptyView from '../../../../components/EmptyView';
-import ResultAddicted from './ResultAddicted';
-import ResultGood from './ResultGood';
-import ResultRisk from './ResultRisk';
+import Result from './Result';
 
 const Results = ({ navigation, route, resultKey }) => {
   if (!resultKey) return null;
-  switch (resultKey) {
-    default:
-    case null:
-      return <EmptyView />;
-    case 'good':
-      return <ResultGood route={route} navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
-    case 'risk':
-      return <ResultRisk route={route} navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />;
-    case 'addicted':
-      return (
-        <ResultAddicted route={route} navigation={navigation} isInOnboarding={Boolean(route?.params?.onboarding)} />
-      );
-  }
+  return resultKey ? (
+    <Result
+      result={resultKey}
+      route={route}
+      navigation={navigation}
+      isInOnboarding={Boolean(route?.params?.onboarding)}
+    />
+  ) : (
+    <EmptyView />
+  );
 };
 
 export default Results;
