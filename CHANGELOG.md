@@ -1,3 +1,10 @@
+## [1.38.1](https://github.com/SocialGouv/ozensemble/compare/v1.38.0...v1.38.1) (2022-06-10)
+
+
+### Bug Fixes
+
+* **app:** Goal obligation to put day no drink ([1658ae7](https://github.com/SocialGouv/ozensemble/commit/1658ae773984fa89c674a8a5811813f2c5b8da66))
+
 # [1.38.0](https://github.com/SocialGouv/ozensemble/compare/v1.37.0...v1.38.0) (2022-06-10)
 
 
