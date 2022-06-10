@@ -23,7 +23,6 @@ const Defi1_Stack = createStackNavigator();
 const Defi1_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <Defi1_Stack.Navigator
         headerMode="none"
         initialRouteName={storage.getString('@Defi1_StartedAt') ? 'DEFI1_MENU' : 'DEFI1_ONBOARDING'}>

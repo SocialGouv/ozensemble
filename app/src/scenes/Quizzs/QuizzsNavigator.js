@@ -12,7 +12,6 @@ import QuizzMotivations from './QuizzMotivations';
 import QuizzOnboarding from './QuizzOnboarding';
 
 import QuizzElement from './QuizzElement';
-import GoBackButtonText from '../../components/GoBackButtonText';
 import ContactForm from '../Health/ContactForm';
 import Doctolib from '../Health/Doctolib';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
