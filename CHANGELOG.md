@@ -1,3 +1,10 @@
+# [1.39.0](https://github.com/SocialGouv/ozensemble/compare/v1.38.1...v1.39.0) (2022-06-10)
+
+
+### Features
+
+* **app:** Menu Defis ([4e4636f](https://github.com/SocialGouv/ozensemble/commit/4e4636f1bb0e42ecbc33489c251ed37e035a0605))
+
 ## [1.38.1](https://github.com/SocialGouv/ozensemble/compare/v1.38.0...v1.38.1) (2022-06-10)
 
 
