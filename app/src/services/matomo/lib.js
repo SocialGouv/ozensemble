@@ -76,7 +76,7 @@ class Api {
     try {
       if (!this.initDone) throw new Error('matomo not initialized yet');
       const url = `${this.baseUrl}?${this.computeParams(params, this.idsite)}`;
-      if (__DEV__) return console.log(this.computeParams(params, this.idsite));
+      // if (__DEV__) return console.log(this.computeParams(params, this.idsite));
       const res = await fetch(encodeURI(url));
 
       if (__DEV__ && res.status !== 200) {
@@ -86,10 +86,10 @@ class Api {
 
       const url2 = `${this.baseUrl2}?${this.computeParams(params, this.idsite2)}`;
       const res2 = await fetch(encodeURI(url2));
-      if (__DEV__) {
-        console.log(url2);
-        console.log(res2.status);
-      }
+      // if (__DEV__) {
+      //   console.log(url2);
+      //   console.log(res2.status);
+      // }
       if (__DEV__ && res2.status !== 200) {
         console.log(res);
         throw new Error('error fetching matomo');
