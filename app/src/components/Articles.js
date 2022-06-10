@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { defaultPaddingFontScale } from '../../../styles/theme';
+import { defaultPaddingFontScale } from '../styles/theme';
 
 export const TopContainer = styled.View`
   padding: 5px ${defaultPaddingFontScale()}px;
