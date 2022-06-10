@@ -1,3 +1,10 @@
+# [1.37.0](https://github.com/SocialGouv/ozensemble/compare/v1.36.1...v1.37.0) (2022-06-10)
+
+
+### Features
+
+* **app:** menu ([e864045](https://github.com/SocialGouv/ozensemble/commit/e864045c4fd324daae06d407a745ad0a6a6d5c0b))
+
 ## [1.36.1](https://github.com/SocialGouv/ozensemble/compare/v1.36.0...v1.36.1) (2022-06-09)
 
 
