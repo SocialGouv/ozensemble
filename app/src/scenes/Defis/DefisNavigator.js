@@ -18,7 +18,6 @@ const DefisNavigator = () => (
         name="ONBOARDING_QUIZZ"
         component={QuizzOnboarding}
         initialParams={{
-          backToRoot: 'Retour à la rubrique santegté',
           root: 'DEFIS',
         }}
       />

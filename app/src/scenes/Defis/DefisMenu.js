@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import { Underlined } from '../../components/Articles';
+import Cadena from '../../components/illustrations/Cadena';
 
 const DefisMenu = () => {
   const navigation = useNavigation();
+  const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
 
   return (
     <ScreenBgStyled>
@@ -18,45 +21,57 @@ const DefisMenu = () => {
         <CategorieMenu
           title={'Évaluer ma consommation'}
           description={'Pour détecter des comportements à risque'}
-          buttonTitle={'Je consulte'}
           onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
           image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
+          done={true}
         />
-        <TextStyled color="#4030A5">Pourquoi faire cette auto-évaluation ? </TextStyled>
+        <HowMakeSelfEvaluation onPress={() => setOpenHowMakeSelfEvaluation(true)}>
+          <Underlined>
+            <TextStyled color="#4030A5">Pourquoi faire cette auto-évaluation ? </TextStyled>
+          </Underlined>
+        </HowMakeSelfEvaluation>
         <CategorieMenu
           title={'Premier challenge'}
           description={'Faire le point en 7 jours '}
-          buttonTitle={'Je consulte'}
-          link="DEFI1"
+          onPress={() => navigation.navigate('DEFI1')}
           image={require('../../assets/images/Defi1.png')}
         />
         <CategorieMenu
           title={'Deuxième challenge'}
           description={'Aller plus loin ...'}
-          buttonTitle={'Je commence'}
-          onPress="DEFI2"
+          onPress={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
+          disabled
         />
         <CategorieMenu
           title={'Tests des défis'}
           description={'Retrouver mes résultats'}
-          buttonTitle={'Je consulte'}
-          onPress="TESTS_DEFIS"
+          onPress={() => navigation.navigate('TESTS_DEFIS')}
           image={require('../../assets/images/TestsDesDefis.png')}
         />
       </Container>
+      {openHowMakeSelfEvaluation && <TextStyled>HowMakeSelfEvaluation</TextStyled>}
     </ScreenBgStyled>
   );
 };
 
-const CategorieMenu = ({ title, description, buttonTitle, onPress, image }) => (
+const CategorieMenu = ({ title, description, done, onPress, image, disabled }) => (
   <CategorieContainer>
     <ImageStyled source={image} />
     <TextContainer>
-      <TextStyled bold>{title}</TextStyled>
+      {disabled ? (
+        <TitleDisabledContainer>
+          <TextStyled bold>{title}</TextStyled>
+          <Cadena size={16} />
+        </TitleDisabledContainer>
+      ) : (
+        <TitleContainer>
+          <TextStyled bold>{title}</TextStyled>
+        </TitleContainer>
+      )}
       <TextStyled>{description}</TextStyled>
       <ButtonContainer>
-        <ButtonPrimary content={buttonTitle} onPress={onPress} />
+        <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
       </ButtonContainer>
     </TextContainer>
   </CategorieContainer>
@@ -64,6 +79,10 @@ const CategorieMenu = ({ title, description, buttonTitle, onPress, image }) => (
 
 const Container = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;
+`;
+
+const HowMakeSelfEvaluation = styled.TouchableOpacity`
+  align-items: center;
 `;
 
 const CategorieContainer = styled.View`
@@ -78,6 +97,17 @@ const TextContainer = styled.View`
   justify-content: space-around;
   padding: 5px
   width: ${screenWidth * 0.7 - defaultPaddingFontScale()}px;
+`;
+
+const TitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: ${screenWidth * 0.68 - defaultPaddingFontScale()}px;
+`;
+const TitleDisabledContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: ${screenWidth * 0.65 - defaultPaddingFontScale()}px;
 `;
 
 const ButtonContainer = styled.View`
