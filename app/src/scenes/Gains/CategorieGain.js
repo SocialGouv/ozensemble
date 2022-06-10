@@ -90,7 +90,7 @@ const TextCategorie = styled.Text`
 `;
 
 const ButtonTouchable = styled.TouchableOpacity`
-  heoght: 100%;
+  height: 100%;
 `;
 
 export default CategorieGain;

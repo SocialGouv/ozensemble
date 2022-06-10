@@ -21,6 +21,7 @@ export const Spacer = styled.View`
   width: ${(props) => props.size}px;
 `;
 
-export const Underline = styled.Text`
+export const Underlined = styled.Text`
+  color: ${(props) => (props.color ? props.color : '#000')};
   text-decoration: underline;
 `;
