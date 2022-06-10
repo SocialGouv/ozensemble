@@ -1,7 +1,7 @@
 import React from 'react';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
-import { Spacer, P, TopContainer, Bold, Underline } from './../../../components/Articles';
+import { Spacer, P, TopContainer, Bold, Underlined } from './../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 
@@ -167,7 +167,7 @@ const ToSayNo = () => {
           </P>
           <P>
             <Bold>
-              3. Demandez une <Underline>boisson non alcoolisée</Underline> comme alternative
+              3. Demandez une <Underlined>boisson non alcoolisée</Underlined> comme alternative
             </Bold>
           </P>
           <P>
