@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import { Underlined } from '../../components/Articles';
+import OnBoardingModal from '../../components/OnBoardingModal';
+import { fetchStoredAnswers } from '../../components/Quizz/utils';
+import Lock from '../../components/illustrations/Lock';
+import { storage } from '../../services/storage';
 
 const DefisMenu = () => {
   const navigation = useNavigation();
+  const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
 
   return (
     <ScreenBgStyled>
@@ -18,55 +24,101 @@ const DefisMenu = () => {
         <CategorieMenu
           title={'Évaluer ma consommation'}
           description={'Pour détecter des comportements à risque'}
-          buttonTitle={'Je consulte'}
           onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
           image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
+          isAutoEvalutation
         />
-        <TextStyled color="#4030A5">Pourquoi faire cette auto-évaluation ? </TextStyled>
+        <HowMakeSelfEvaluation onPress={() => setOpenHowMakeSelfEvaluation(true)}>
+          <Underlined>
+            <TextStyled color="#4030A5">Pourquoi faire cette auto-évaluation ? </TextStyled>
+          </Underlined>
+        </HowMakeSelfEvaluation>
         <CategorieMenu
           title={'Premier challenge'}
           description={'Faire le point en 7 jours '}
-          buttonTitle={'Je consulte'}
-          link="DEFI1"
+          onPress={() => navigation.navigate('DEFI1')}
           image={require('../../assets/images/Defi1.png')}
         />
         <CategorieMenu
           title={'Deuxième challenge'}
           description={'Aller plus loin ...'}
-          buttonTitle={'Je commence'}
-          onPress="DEFI2"
+          onPress={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
         />
         <CategorieMenu
           title={'Tests des défis'}
           description={'Retrouver mes résultats'}
-          buttonTitle={'Je consulte'}
-          onPress="TESTS_DEFIS"
+          onPress={() => navigation.navigate('TESTS_DEFIS')}
           image={require('../../assets/images/TestsDesDefis.png')}
         />
       </Container>
+      {openHowMakeSelfEvaluation && <TextStyled>HowMakeSelfEvaluation</TextStyled>}
     </ScreenBgStyled>
   );
 };
 
-const CategorieMenu = ({ title, description, buttonTitle, onPress, image }) => (
-  <CategorieContainer>
-    <ImageStyled source={image} />
-    <TextContainer>
-      <TextStyled bold>{title}</TextStyled>
-      <TextStyled>{description}</TextStyled>
-      <ButtonContainer>
-        <ButtonPrimary content={buttonTitle} onPress={onPress} />
-      </ButtonContainer>
-    </TextContainer>
-  </CategorieContainer>
-);
+const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvalutation }) => {
+  const navigation = useNavigation();
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
+  const [autoEvaluationDone, setAutoEvaluationDone] = useState(storage.getString('@Quizz_result'));
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) setAutoEvaluationDone(storage.getString('@Quizz_result'));
+  }, [isFocused]);
+
+  const disabled = !isAutoEvalutation && !autoEvaluationDone;
+
+  return (
+    <>
+      <CategorieContainer
+        disabled={isAutoEvalutation || autoEvaluationDone}
+        onPress={() => (disabled ? setShowOnboardingModal(true) : onPress())}>
+        <ImageStyled source={image} />
+        <TextContainer>
+          {disabled ? (
+            <TitleDisabledContainer>
+              <TextStyled bold>{title}</TextStyled>
+              <Lock size={16} />
+            </TitleDisabledContainer>
+          ) : (
+            <TitleContainer>
+              <TextStyled bold>{title}</TextStyled>
+            </TitleContainer>
+          )}
+          <TextStyled>{description}</TextStyled>
+          <ButtonContainer>
+            <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
+          </ButtonContainer>
+        </TextContainer>
+      </CategorieContainer>
+      <OnBoardingModal
+        title="Sans évaluation, pas de défis"
+        description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
+        boutonTitle="Je m’évalue"
+        onPress={() => {
+          setShowOnboardingModal(false);
+          navigation.navigate('ONBOARDING_QUIZZ');
+        }}
+        visible={showOnboardingModal}
+        hide={() => {
+          setShowOnboardingModal(false);
+        }}
+      />
+    </>
+  );
+};
 
 const Container = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;
 `;
 
-const CategorieContainer = styled.View`
+const HowMakeSelfEvaluation = styled.TouchableOpacity`
+  align-items: center;
+`;
+
+const CategorieContainer = styled.TouchableOpacity`
   border: 1px solid #79747e;
   border-radius: 12px;
   flex-direction: row;
@@ -78,6 +130,17 @@ const TextContainer = styled.View`
   justify-content: space-around;
   padding: 5px
   width: ${screenWidth * 0.7 - defaultPaddingFontScale()}px;
+`;
+
+const TitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: ${screenWidth * 0.68 - defaultPaddingFontScale()}px;
+`;
+const TitleDisabledContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  width: ${screenWidth * 0.65 - defaultPaddingFontScale()}px;
 `;
 
 const ButtonContainer = styled.View`

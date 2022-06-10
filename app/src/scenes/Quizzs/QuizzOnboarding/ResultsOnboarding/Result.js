@@ -22,14 +22,14 @@ const Result = ({ navigation, result }) => {
         {result === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
         {result === 'good' && <ResultGood />}
         {result === 'addicted' && <ResultAddicted />}
-        {feeling != null && (
+        {feeling != null || result === 'good' || result === 'addicted' ? (
           <TopButtonContainer>
             <ButtonPrimary
               content="Je commence le défi"
-              onPress={() => navigation.navigate('TABS', { screen: 'DEFI' })}
+              onPress={() => navigation.navigate('DEFI', { screen: 'DEFI1' })}
             />
           </TopButtonContainer>
-        )}
+        ) : null}
         <Sources
           content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
         Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
