@@ -15,7 +15,6 @@ const Health = () => (
       name="ONBOARDING_QUIZZ"
       component={QuizzOnboarding}
       initialParams={{
-        backToRoot: 'Retour à la rubrique santé',
         root: 'HEALTH',
       }}
     />

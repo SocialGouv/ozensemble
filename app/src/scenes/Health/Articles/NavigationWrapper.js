@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { TopContainer, Spacer, Underline } from './../../../components/Articles';
+import { TopContainer, Spacer, Underlined } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
@@ -40,9 +40,9 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
       {children}
       <TopContainer>
         <InformationArticle>
-          <Underline>
+          <Underlined>
             <TextStyled>Sources:{'\n'}</TextStyled>
-          </Underline>
+          </Underlined>
           <TextStyled>
             Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n\n'}
           </TextStyled>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import Background from '../../../components/Background';
 import HeaderBackground from '../../../components/HeaderBackground';
-import { Spacer, P, TopContainer, Bold, Underline } from './../../../components/Articles';
+import { Spacer, P, TopContainer, Bold, Underlined } from './../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 
@@ -93,7 +93,7 @@ const ToHelpMeReduce = ({ navigation }) => {
                 })
               }>
               <Bold color={'#4030a5'}>
-                <Underline>gains</Underline>
+                <Underlined>gains</Underlined>
               </Bold>
             </Text>{' '}
             (les euros que vous économisez en réduisant votre consommation d'alcool).
