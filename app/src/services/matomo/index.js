@@ -149,7 +149,6 @@ const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
   }
   if (questionKey === 'gender') {
     const gender = answerKey;
-    console.log({ gender });
     Matomo.setCustomDimensions({
       [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
     });
