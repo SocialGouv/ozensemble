@@ -159,6 +159,7 @@ const Goal = ({ navigation }) => {
             </DrinkByWeekContainer>
           )}
           <CTAButtonContainer>
+            {console.log(daysWithGoalNoDrink.length)}
             <ButtonPrimary
               content="Continuer"
               onPress={() => {
@@ -174,7 +175,7 @@ const Goal = ({ navigation }) => {
                   onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
                 });
               }}
-              disabled={!totalDrinksByDrinkingDay}
+              disabled={!totalDrinksByDrinkingDay || daysWithGoalNoDrink.length === 0}
             />
           </CTAButtonContainer>
         </Container>
