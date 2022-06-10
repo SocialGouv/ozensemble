@@ -19,7 +19,7 @@ import CocktailGlass from '../../components/illustrations/CocktailGlassTriangle'
 import Done from '../../components/illustrations/Done';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
-import OnBoardingGainModal from './OnBoardingGainModal';
+import OnBoardingModal from '../../components/OnBoardingModal';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/illustrations/ReminderIcon';
@@ -264,7 +264,10 @@ const MyGains = () => {
           }}
         />
       </Categories>
-      <OnBoardingGainModal
+      <OnBoardingModal
+        title="Sans objectif, pas de gains"
+        description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
+        boutonTitle="Je me fixe un objectif"
         onPress={() => {
           matomo.logGoalOpen();
           navigateToGoal();

@@ -1,25 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import ButtonPrimary from '../../components/ButtonPrimary';
+import ButtonPrimary from './ButtonPrimary';
 
-import H1 from '../../components/H1';
-import Modal from '../../components/Modal';
-import TextStyled from '../../components/TextStyled';
+import H1 from './H1';
+import Modal from './Modal';
+import TextStyled from './TextStyled';
 
-const OnBoardingGainModal = ({ onPress, visible, hide }) => {
+const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTitle }) => {
   return (
     <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
       <Container>
         <Title>
-          <TextStyled color="#4030a5">Sans objectif, pas de gains</TextStyled>
+          <TextStyled color="#4030a5">{title}</TextStyled>
         </Title>
         <SubTitle>
-          <TextStyled color={'#3C3C43'}>
-            En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool.
-          </TextStyled>
+          <TextStyled color={'#3C3C43'}>{description}</TextStyled>
         </SubTitle>
         <Continue>
-          <ButtonPrimary onPress={onPress} content="Je me fixe un objectif" />
+          <ButtonPrimary onPress={onPress} content={boutonTitle} />
         </Continue>
       </Container>
     </Modal>
@@ -48,4 +46,4 @@ const SubTitle = styled.Text`
   text-align: center;
 `;
 
-export default OnBoardingGainModal;
+export default OnBoardingModal;

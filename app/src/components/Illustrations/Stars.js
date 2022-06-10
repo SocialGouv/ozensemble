@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const Lock = ({ color, size = 25, ...props }) => (
+const Stars = ({ color, size = 25, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 25 25" {...props}>
     <Path
       fill-rule="evenodd"
@@ -57,4 +57,4 @@ const Lock = ({ color, size = 25, ...props }) => (
   </StyledSvg>
 );
 
-export default Lock;
+export default Stars;
