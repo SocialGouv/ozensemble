@@ -13,7 +13,6 @@ import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
 import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
 import HealthNavigator from './scenes/Health/HealthNavigator';
-import Defi1_Navigator from './scenes/Defis/Defi1/Defi1_Navigator';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
 import NPS from './scenes/NPS/NPS';
@@ -26,6 +25,7 @@ import TextStyled from './components/TextStyled';
 import CustomBootsplash from './components/CustomBootsplash';
 import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
+import DefisNavigator from './scenes/Defis/DefisNavigator';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -78,7 +78,7 @@ const TabsNavigator = ({ navigation }) => {
             tabBarLabel: (props) => <Label {...props}>Défis</Label>,
             tabBarIcon: ({ size, color }) => <DefisIcon size={size} color={color} />,
           }}
-          component={Defi1_Navigator}
+          component={DefisNavigator}
         />
         <Tabs.Screen
           name="CONSO_FOLLOW_UP"
