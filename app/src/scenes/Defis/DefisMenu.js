@@ -7,10 +7,17 @@ import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { Underlined } from '../../components/Articles';
 import Cadena from '../../components/illustrations/Cadena';
+import OnBoardingModal from '../../components/OnBoardingModal';
+import { fetchStoredAnswers } from '../../components/Quizz/utils';
 
 const DefisMenu = () => {
   const navigation = useNavigation();
   const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
+  const [showOnboardingModal, setShowOnboardingModal] = useState(false);
+  const memoryKeyResult = '@Quizz_result';
+  const memoryKeyAnswers = '@Quizz_answers';
+  const nextState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
+  const autoEvaluationDone = nextState.result !== null;
 
   return (
     <ScreenBgStyled>
@@ -21,9 +28,11 @@ const DefisMenu = () => {
         <CategorieMenu
           title={'Évaluer ma consommation'}
           description={'Pour détecter des comportements à risque'}
-          onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
+          onPressButton={() => navigation.navigate('ONBOARDING_QUIZZ')}
           image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-          done={true}
+          done={autoEvaluationDone}
+          disabledContainer={autoEvaluationDone === true}
+          onPressContainer={() => setShowOnboardingModal(true)}
         />
         <HowMakeSelfEvaluation onPress={() => setOpenHowMakeSelfEvaluation(true)}>
           <Underlined>
@@ -33,21 +42,42 @@ const DefisMenu = () => {
         <CategorieMenu
           title={'Premier challenge'}
           description={'Faire le point en 7 jours '}
-          onPress={() => navigation.navigate('DEFI1')}
+          onPressButton={() => navigation.navigate('DEFI1')}
           image={require('../../assets/images/Defi1.png')}
+          disabledButton={autoEvaluationDone === false}
+          disabledContainer={autoEvaluationDone === true}
+          onPressContainer={() => setShowOnboardingModal(true)}
         />
         <CategorieMenu
           title={'Deuxième challenge'}
           description={'Aller plus loin ...'}
-          onPress={() => navigation.navigate('DEFI2')}
+          onPressButton={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
-          disabled
+          disabledButton={autoEvaluationDone === false}
+          disabledContainer={autoEvaluationDone === true}
+          onPressContainer={() => setShowOnboardingModal(true)}
         />
         <CategorieMenu
           title={'Tests des défis'}
           description={'Retrouver mes résultats'}
-          onPress={() => navigation.navigate('TESTS_DEFIS')}
+          onPressButton={() => navigation.navigate('TESTS_DEFIS')}
           image={require('../../assets/images/TestsDesDefis.png')}
+          disabledButton={autoEvaluationDone === false}
+          disabledContainer={autoEvaluationDone === true}
+          onPressContainer={() => setShowOnboardingModal(true)}
+        />
+        <OnBoardingModal
+          title="Sans évaluation, pas de défis"
+          description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
+          boutonTitle="Je m’évalue"
+          onPress={() => {
+            setShowOnboardingModal(false);
+            navigation.navigate('ONBOARDING_QUIZZ');
+          }}
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
         />
       </Container>
       {openHowMakeSelfEvaluation && <TextStyled>HowMakeSelfEvaluation</TextStyled>}
@@ -55,11 +85,20 @@ const DefisMenu = () => {
   );
 };
 
-const CategorieMenu = ({ title, description, done, onPress, image, disabled }) => (
-  <CategorieContainer>
+const CategorieMenu = ({
+  title,
+  description,
+  done,
+  onPressButton,
+  onPressContainer,
+  image,
+  disabledButton,
+  disabledContainer,
+}) => (
+  <CategorieContainer disabled={disabledContainer} onPress={onPressContainer}>
     <ImageStyled source={image} />
     <TextContainer>
-      {disabled ? (
+      {disabledButton ? (
         <TitleDisabledContainer>
           <TextStyled bold>{title}</TextStyled>
           <Cadena size={16} />
@@ -71,7 +110,11 @@ const CategorieMenu = ({ title, description, done, onPress, image, disabled }) =
       )}
       <TextStyled>{description}</TextStyled>
       <ButtonContainer>
-        <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
+        <ButtonPrimary
+          content={done ? 'Je consulte' : 'Je commence'}
+          onPress={onPressButton}
+          disabled={disabledButton}
+        />
       </ButtonContainer>
     </TextContainer>
   </CategorieContainer>
@@ -85,7 +128,7 @@ const HowMakeSelfEvaluation = styled.TouchableOpacity`
   align-items: center;
 `;
 
-const CategorieContainer = styled.View`
+const CategorieContainer = styled.TouchableOpacity`
   border: 1px solid #79747e;
   border-radius: 12px;
   flex-direction: row;
