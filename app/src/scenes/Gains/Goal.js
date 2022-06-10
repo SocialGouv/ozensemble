@@ -159,7 +159,6 @@ const Goal = ({ navigation }) => {
             </DrinkByWeekContainer>
           )}
           <CTAButtonContainer>
-            {console.log(daysWithGoalNoDrink.length)}
             <ButtonPrimary
               content="Continuer"
               onPress={() => {
