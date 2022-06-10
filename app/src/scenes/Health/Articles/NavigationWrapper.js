@@ -56,7 +56,7 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
         </InformationArticle>
       </TopContainer>
       <Spacer size={25} />
-      <BackButton content="< Retour" bold onPress={() => navigation.goBack()} bottom />
+      <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
     </ScreenBgStyled>
   );
 };
