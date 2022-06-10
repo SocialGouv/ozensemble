@@ -25,7 +25,7 @@ const Conseils = ({ navigation }) => {
             <TextStyled color="#000000">Pour détecter des comportements à risque</TextStyled>
           </TopSubTitle>
           <QuizzElement
-            topTitle="Questionnaire d’auto-évaluation"
+            topTitle="Questionnaire d'auto-évaluation"
             title="Ma consommation d'alcool"
             quizzRoute="ONBOARDING_QUIZZ"
             memoryKeyResult={'@Quizz_result'}
