@@ -18,7 +18,7 @@ const Result = ({ navigation, result }) => {
     <FullScreenBackground>
       <TopContainer>
         <BackButton onPress={() => navigation.goBack()} marginBottom />
-        <ResultTitle>Résultat</ResultTitle>
+        <ResultTitle color="#000">Résultat</ResultTitle>
         {result === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
         {result === 'good' && <ResultGood />}
         {result === 'addicted' && <ResultAddicted />}
@@ -66,7 +66,7 @@ const ResultAddicted = () => {
       <P>Ne vous inquiétez pas car le premier pas vient d'être franchi.</P>
       <Spacer size={20} />
       <P>
-        Vous êtes <Bold>prêt à entamer une démarche de maîtrise de votre consommation d’alcool en autonomie</Bold>, à
+        Vous êtes <Bold>prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie</Bold>, à
         travers un premier challenge pour faire le point en 7 jours.
       </P>
       <Spacer size={20} />
@@ -79,7 +79,7 @@ const ResultRisk = ({ navigation, feeling, setFeeling }) => {
   return (
     <>
       <TopTitle>
-        <TextStyled color="#4030a5">Vous pourriez présenter des risques d’addiction à l’alcool !</TextStyled>
+        <TextStyled color="#4030a5">Vous pourriez présenter des risques d'addiction à l'alcool !</TextStyled>
       </TopTitle>
       <P>Nous sommes conscients que ce résultat peut être un choc.</P>
       <P>Mais nous pouvons vous aider à reprendre le contrôle ...</P>
@@ -109,7 +109,7 @@ const ResultRisk = ({ navigation, feeling, setFeeling }) => {
             <Bold>Commencer votre démarche de réduction</Bold>
           </P>
           <P>
-            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d’alcool en autonomie, à travers un
+            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers un
             <Bold> premier challenge pour faire le point en 7 jours.</Bold>
           </P>
         </>
@@ -179,7 +179,7 @@ const TopContainer = styled.View`
   padding: 20px 25px 40px;
 `;
 
-const ResultTitle = styled(H2)`
+const ResultTitle = styled(H1)`
   ${commonCss}
 `;
 
