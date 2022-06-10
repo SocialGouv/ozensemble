@@ -56,10 +56,6 @@ const TextBackground = styled.View`
   background-color: #f9f9f9;
 `;
 
-const Title = styled.View`
-  align-items: center;
-`;
-
 const Description = styled.View`
   margin-top: ${screenHeight * 0.04}px;
 `;
