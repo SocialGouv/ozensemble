@@ -1,30 +1,28 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import H1 from '../../../../components/H1';
-import { screenWidth } from '../../../../styles/theme';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
-import TextStyled from '../../../../components/TextStyled';
-import Sources from '../../Sources';
-import NoSmiley from '../../../../components/illustrations/NoSmiley';
-import YesSmiley from '../../../../components/illustrations/YesSmiley';
-import { BackButton } from '../../../../components/BackButton';
-import { Bold, P, Spacer } from '../../../../components/Articles';
-import UnderlinedButton from '../../../../components/UnderlinedButton';
-import { storage } from '../../../../services/storage';
+import H1 from '../../../components/H1';
+import { screenWidth } from '../../../styles/theme';
+import ButtonPrimary from '../../../components/ButtonPrimary';
+import TextStyled from '../../../components/TextStyled';
+import Sources from '../Sources';
+import NoSmiley from '../../../components/illustrations/NoSmiley';
+import YesSmiley from '../../../components/illustrations/YesSmiley';
+import { BackButton } from '../../../components/BackButton';
+import { Bold, P, Spacer } from '../../../components/Articles';
+import UnderlinedButton from '../../../components/UnderlinedButton';
 
-const Result = ({ navigation, result }) => {
+const ResultsOnboarding = ({ navigation, resultKey }) => {
   const [feeling, setFeeling] = useState(null);
-  result = result ? result : storage.getString('@Quizz_result').split('"')[1];
 
   return (
     <FullScreenBackground>
       <TopContainer>
         <BackButton onPress={() => navigation.goBack()} marginBottom />
         <ResultTitle color="#000">Résultat</ResultTitle>
-        {result === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
-        {result === 'good' && <ResultGood />}
-        {result === 'addicted' && <ResultAddicted />}
-        {feeling != null || result === 'good' || result === 'addicted' ? (
+        {resultKey === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+        {resultKey === 'good' && <ResultGood />}
+        {resultKey === 'addicted' && <ResultAddicted />}
+        {feeling != null || resultKey === 'good' || resultKey === 'addicted' ? (
           <TopButtonContainer>
             <ButtonPrimary
               content="Je commence le défi"
@@ -205,4 +203,4 @@ const TopButtonContainer = styled.View`
   width: auto;
 `;
 
-export default Result;
+export default ResultsOnboarding;
