@@ -8,7 +8,6 @@ import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import Defi1_Navigator from './Defi1/Defi1_Navigator';
 import Defi2_Navigator from './Defi2/Defi2_Navigator';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
-import Result from '../Quizzs/QuizzOnboarding/ResultsOnboarding/Result';
 
 const DefisStack = createStackNavigator();
 
