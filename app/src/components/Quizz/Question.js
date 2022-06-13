@@ -13,35 +13,37 @@ const Question = ({
   answers,
   saveAnswer,
   navigation,
-}) => (
-  <ScreenBgStyled defaultPadding>
-    <QuestionNumber>
-      Question {questionIndex + 1} / {numberOfQuestions}
-    </QuestionNumber>
-    <QuestionTitle>{questionTitle}</QuestionTitle>
-    <AnswersContainer>
-      {answers.map(({ answerKey, content, score }, i) => (
-        <AnswerButton
-          key={answerKey}
-          onPress={async () => {
-            saveAnswer(questionIndex, questionKey, answerKey, score);
-            setTimeout(() => {
-              const endOfQuestions = questionIndex === numberOfQuestions - 1;
-              if (!endOfQuestions) {
-                navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
-              } else {
-                navigation.push('QUIZZ_RESULTS');
-              }
-            }, 500);
-          }}
-          selected={answerKey === selectedAnswerKey}
-          last={i === answers.length - 1}>
-          <AnswerContent selected={answerKey === selectedAnswerKey}>{content}</AnswerContent>
-        </AnswerButton>
-      ))}
-    </AnswersContainer>
-  </ScreenBgStyled>
-);
+}) => {
+  return (
+    <ScreenBgStyled defaultPadding>
+      <QuestionNumber>
+        Question {questionIndex + 1} / {numberOfQuestions}
+      </QuestionNumber>
+      <QuestionTitle>{questionTitle}</QuestionTitle>
+      <AnswersContainer>
+        {answers.map(({ answerKey, content, score }, i) => (
+          <AnswerButton
+            key={answerKey}
+            onPress={async () => {
+              saveAnswer(questionIndex, questionKey, answerKey, score);
+              setTimeout(() => {
+                const endOfQuestions = questionIndex === numberOfQuestions - 1;
+                if (!endOfQuestions) {
+                  navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
+                } else {
+                  navigation.push('QUIZZ_RESULTS');
+                }
+              }, 500);
+            }}
+            selected={answerKey === selectedAnswerKey}
+            last={i === answers.length - 1}>
+            <AnswerContent selected={answerKey === selectedAnswerKey}>{content}</AnswerContent>
+          </AnswerButton>
+        ))}
+      </AnswersContainer>
+    </ScreenBgStyled>
+  );
+};
 
 const AnswersContainer = styled.ScrollView`
   background-color: #f9f9f9;
