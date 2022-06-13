@@ -44,7 +44,7 @@ const DefisMenu = () => {
           description={'Aller plus loin ...'}
           onPress={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
-          disabledButton
+          disabledButton={false}
         />
         <CategorieMenu
           title={'Tests des défis'}
