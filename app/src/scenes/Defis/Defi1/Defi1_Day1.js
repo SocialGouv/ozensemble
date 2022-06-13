@@ -2,10 +2,10 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
+import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import GoBackButton from '../../../components/GoBackButton';
 import H1 from '../../../components/H1';
 import Stars from '../../../components/illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
@@ -14,6 +14,8 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import Diagram from '../../ConsoFollowUp/Diagram';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
+import { maxDrinksPerWeekSelector } from '../../../recoil/gains';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -25,6 +27,8 @@ const Elem = ({ content, lineHeight = 20 }) => (
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
+  const drinkByWeek = useRecoilValue(maxDrinksPerWeekSelector);
+
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused]);
@@ -34,9 +38,8 @@ const Defi1_Day1 = ({ navigation, route }) => {
       {/* <HeaderBackground /> */}
       <ScreenBgStyled>
         <TopContainer>
+          <BackButton onPress={navigation.goBack} />
           <TopTitle>
-            <GoBackButton onPress={navigation.goBack} />
-            <Spacer />
             <H1 color="#4030a5">Comment compter sa consommation d'alcool ?</H1>
           </TopTitle>
           <Paragraph>
@@ -61,11 +64,14 @@ const Defi1_Day1 = ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content={
-                "Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement comptabilisée en unité d'alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :"
+                <TextStyled>
+                  Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement comptabilisée en unité
+                  d'alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :
+                </TextStyled>
               }
             />
           </Paragraph>
-          <OneDoseAlcoolExplanation />
+          <OneDoseAlcoolExplanation marginOffset={20} minHeight />
           {/* <Paragraph>
             <Elem
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
@@ -81,7 +87,13 @@ const Defi1_Day1 = ({ navigation, route }) => {
           <Paragraph>
             <Elem
               content={
-                "Un graphique vous permet de suivre vos consommations en unité d'alcool consommées sur une journée. \n\nLa ligne verte représente le seuil de l'OMS (2 verres par jour)."
+                <TextStyled>
+                  Un graphique vous permet de suivre vos consommations en unité d'alcool consommées sur une journée.
+                  {'\n\n'}
+                  {drinkByWeek
+                    ? `La ligne verte représente votre objectif (${drinkByWeek} unités d'alcool par jour)`
+                    : "La ligne verte représente le seuil de l'OMS (2 verres par jour) ou votre objectif quand il sera fixé"}
+                </TextStyled>
               }
             />
           </Paragraph>
@@ -120,11 +132,7 @@ const Paragraph = styled.View`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const Spacer = styled.View`
-  width: 5%;
+  padding: 0px ${defaultPaddingFontScale()}px 0px;
 `;
 
 const TopTitle = styled.View`

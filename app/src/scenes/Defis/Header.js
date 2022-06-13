@@ -1,21 +1,19 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import styled, { css } from 'styled-components';
-import GoBackButton from '../../components/GoBackButton';
+import styled from 'styled-components';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
+import BackButton from '../../components/BackButton';
 
 const Header = () => {
   const route = useRoute();
   const navigation = useNavigation();
   return (
     <TopContainer>
+      <BackButton
+        onPress={() => (route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack())}
+      />
       <TopTitleContainer>
-        <GoBackButton
-          onPress={() =>
-            route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
-          }
-        />
         <TopTitle>
           <TextStyled color="#4030a5">{route?.params?.title}</TextStyled>
         </TopTitle>
@@ -28,7 +26,8 @@ const Header = () => {
             Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
           </TextParagraph>
           <TextParagraph>
-            Vous pourrez retrouver ce questionnaire dans l'onglet <TextStyled bold>Tests</TextStyled> de l'application.
+            Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
+            <TextStyled bold> Défis</TextStyled>.
           </TextParagraph>
         </>
       )}
@@ -48,24 +47,18 @@ const TextParagraph = styled(TextStyled)`
   font-size: 13px;
 `;
 
-const commonCss = css`
-  width: 85%;
-  flex-shrink: 0;
-`;
-
 const TopContainer = styled.View`
-  padding: 20px 25px;
+  padding: 20px 20px;
 `;
 
 const TopTitleContainer = styled.View`
   display: flex;
   flex-direction: row;
-  ${commonCss}
+  flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
 `;
 
 const TopTitle = styled(H1)`
-  padding: 0 10px;
   margin-top: 10px;
 `;

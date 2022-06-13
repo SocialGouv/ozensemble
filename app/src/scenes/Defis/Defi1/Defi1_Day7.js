@@ -3,7 +3,6 @@ import { Linking } from 'react-native';
 import styled from 'styled-components';
 
 import Background from '../../../components/Background';
-import GoBackButton from '../../../components/GoBackButton';
 import H1 from '../../../components/H1';
 import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
@@ -14,6 +13,7 @@ import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/R
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
+import BackButton from '../../../components/BackButton';
 
 const Defi1_Day7 = ({ navigation }) => {
   const [{ resultEvaluateConso, resultLifeQuality, resultMotivation }, setGlobalResults] = useState({});
@@ -38,9 +38,8 @@ const Defi1_Day7 = ({ navigation }) => {
     <Background color="#39cec0" withSwiperContainer>
       <ScreenBgStyled>
         <TopContainer>
+          <BackButton onPress={navigation.goBack} />
           <TopTitle>
-            <GoBackButton onPress={navigation.goBack} />
-            <Spacer />
             <H1 color="#4030a5">Le bilan de mon Défi 7 jours</H1>
           </TopTitle>
           <ResultsEvaluateConso resultKey={resultEvaluateConso?.result} hideButtons />
@@ -76,12 +75,8 @@ const Defi1_Day7 = ({ navigation }) => {
 };
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
+  padding: 0px ${defaultPaddingFontScale()}px 0px;
   padding-bottom: 100px;
-`;
-
-const Spacer = styled.View`
-  width: 5%;
 `;
 
 const TopTitle = styled.View`

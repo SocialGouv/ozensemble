@@ -4,13 +4,13 @@ import React, { useEffect } from 'react';
 import { Dimensions, View } from 'react-native';
 import styled from 'styled-components';
 import Background from '../../../components/Background';
-import GoBackButton from '../../../components/GoBackButton';
 import H1 from '../../../components/H1';
 import Stars from '../../../components/illustrations/Stars';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -36,9 +36,8 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
     <Background color="#39cec0" withSwiperContainer>
       <ScreenBgStyled>
         <TopContainer>
+          <BackButton onPress={navigation.goBack} />
           <TopTitle>
-            <GoBackButton onPress={navigation.goBack} />
-            <Spacer />
             <H1 color="#4030a5">À qui s'adresse ce défi 7 jours ?</H1>
           </TopTitle>
           <Paragraph>
@@ -206,10 +205,6 @@ const Paragraph = styled.View`
 
 const TopContainer = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const Spacer = styled.View`
-  width: 5%;
 `;
 
 const TopTitle = styled.View`

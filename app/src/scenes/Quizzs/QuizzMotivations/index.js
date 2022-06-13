@@ -53,8 +53,8 @@ const QuizzMotivations = ({ navigation, route }) => {
           {({ navigation }) => (
             <ScreenBgStyled>
               <TopContainer>
+                <BackButton onPress={navigation.goBack} />
                 <TopTitleContainer>
-                  <BackButton onPress={navigation.goBack} />
                   <TopTitle>
                     <TextStyled color="#4030a5">
                       Quelles raisons vous motivent à changer votre consommation ?
@@ -73,7 +73,7 @@ const QuizzMotivations = ({ navigation, route }) => {
                     navigation={navigation}
                   />
                 ))}
-                <ButtonPrimary onPress={validateAnswers} content="Valider mes réponses" />
+                <ButtonPrimary onPress={validateAnswers} content="Je valide" />
               </TopContainer>
             </ScreenBgStyled>
           )}
@@ -96,7 +96,7 @@ const Paragraph = styled.View`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
+  padding: 0px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
 `;
 
 const TopTitleContainer = styled.View`
@@ -108,8 +108,6 @@ const TopTitleContainer = styled.View`
   max-width: 95%;
 `;
 
-const TopTitle = styled(H1)`
-  padding: 0 10px;
-`;
+const TopTitle = styled(H1)``;
 
 export default QuizzMotivations;
