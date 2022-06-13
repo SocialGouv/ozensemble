@@ -1,21 +1,23 @@
 import React from 'react';
-import { Bold } from '../../../components/Articles';
+import TextStyled from '../../../components/TextStyled';
 
-export const defi1_Data = [
+export const defi2_Data = [
   {
     actionType: 'content',
     title: 'J1',
     tagLine: 'Premier pas pour changer mes habitudes de consommation ?',
     description: (
       <>
-        La <Bold>motivation à changer</Bold> est plus forte si vous identifiez consciement ce que vous avez{' '}
-        <Bold>à gagner ou à préserver ce qui est important pour vous.</Bold>
+        La <TextStyled bold>motivation à changer</TextStyled> est plus forte si vous identifiez consciement ce que vous
+        avez
+        <TextStyled bold> à gagner ou à préserver ce qui est important pour vous.</TextStyled>
       </>
     ),
     descriptionDone: (
       <>
-        La <Bold>motivation à changer</Bold> est plus forte si vous identifiez consciement ce que vous avez{' '}
-        <Bold>à gagner ou à préserver ce qui est important pour vous.</Bold>
+        La <TextStyled bold>motivation à changer</TextStyled> est plus forte si vous identifiez consciement ce que vous
+        avez
+        <TextStyled bold> à gagner ou à préserver ce qui est important pour vous.</TextStyled>
       </>
     ),
     textCTA: 'Je change mes habitudes',
@@ -27,17 +29,17 @@ export const defi1_Data = [
     tagLine: 'Comprendre les normes',
     description: (
       <>
-        <Bold>Renforcez</Bold> vos connaissances sur les “normes recommandées” avant de pousser plus loin votre
-        réflexion.
+        <TextStyled bold>Renforcez</TextStyled> vos connaissances sur les “normes recommandées” avant de pousser plus
+        loin votre réflexion.
       </>
     ),
     descriptionDone: (
       <>
-        <Bold>Renforcez</Bold> vos connaissances sur les “normes recommandées” avant de pousser plus loin votre
-        réflexion.
+        <TextStyled bold>Renforcez</TextStyled> vos connaissances sur les “normes recommandées” avant de pousser plus
+        loin votre réflexion.
       </>
     ),
-    textCTA: 'Je m’informe',
+    textCTA: "Je m'informe",
     screenCTA: 'DEFI2_DAY_2',
   },
   {
@@ -46,14 +48,16 @@ export const defi1_Data = [
     tagLine: 'Identifier mes situations à risques',
     description: (
       <>
-        Identifiez vos “situations à risque” afin de réfléchir aux <Bold>besoins que remplit l’alcool</Bold> dans ces
-        occasions. C’est la première étapes pour <Bold>trouver des solutions pour remplir ce besoin autrement.</Bold>
+        Identifiez vos “situations à risque” afin de réfléchir aux
+        <TextStyled bold> besoins que remplit l'alcool</TextStyled> dans ces occasions. C'est la première étapes pour
+        <TextStyled bold> trouver des solutions pour remplir ce besoin autrement.</TextStyled>
       </>
     ),
     descriptionDone: (
       <>
-        Identifiez vos “situations à risque” afin de réfléchir aux <Bold>besoins que remplit l’alcool</Bold> dans ces
-        occasions. C’est la première étapes pour <Bold>trouver des solutions pour remplir ce besoin autrement.</Bold>
+        Identifiez vos “situations à risque” afin de réfléchir aux
+        <TextStyled bold> besoins que remplit l'alcool</TextStyled> dans ces occasions. C'est la première étapes pour
+        <TextStyled bold> trouver des solutions pour remplir ce besoin autrement.</TextStyled>
       </>
     ),
     textCTA: 'Je reconnais mes situations',
@@ -66,13 +70,13 @@ export const defi1_Data = [
     description: (
       <>
         Toutes les situations à risque ne sont pas égales :
-        <Bold> classez-les par ordre de motivation à réduire votre consommation.</Bold>
+        <TextStyled bold> classez-les par ordre de motivation à réduire votre consommation.</TextStyled>
       </>
     ),
     descriptionDone: (
       <>
-        <Bold>Remplissez vos consommations</Bold> tout au long de la journée et revenez <Bold>demain</Bold> pour la
-        suite de ce point de 7 jours.
+        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez
+        <TextStyled bold> demain</TextStyled> pour la suite de ce point de 7 jours.
       </>
     ),
     textCTA: 'Je classe',
@@ -84,16 +88,16 @@ export const defi1_Data = [
     tagLine: 'Affronter une situation à risque',
     description: (
       <>
-        En plus de vous aider à <Bold>identifier vos forces</Bold> (les situations que vous contrôlez) et vos faiblesses
-        (celles à haut risque) il est important de vous aider à réflechir au{' '}
-        <Bold>pourquoi vous buvez dans cette situation ?</Bold>
+        En plus de vous aider à <TextStyled bold>identifier vos forces</TextStyled> (les situations que vous contrôlez)
+        et vos faiblesses (celles à haut risque) il est important de vous aider à réflechir au
+        <TextStyled bold> pourquoi vous buvez dans cette situation ?</TextStyled>
       </>
     ),
     descriptionDone: (
       <>
-        En plus de vous aider à <Bold>identifier vos forces</Bold> (les situations que vous contrôlez) et vos faiblesses
-        (celles à haut risque) il est important de vous aider à réflechir au{' '}
-        <Bold>pourquoi vous buvez dans cette situation ?</Bold>
+        En plus de vous aider à <TextStyled bold>identifier vos forces</TextStyled> (les situations que vous contrôlez)
+        et vos faiblesses (celles à haut risque) il est important de vous aider à réflechir au
+        <TextStyled bold> pourquoi vous buvez dans cette situation ?</TextStyled>
       </>
     ),
     textCTA: 'Je suis prêt ',
@@ -105,14 +109,16 @@ export const defi1_Data = [
     tagLine: 'Savoir dire Non',
     description: (
       <>
-        <Bold>Préparez votre discours</Bold> pour dire “non” en situation : refuser un verre sans que cela soit un refus
-        social, du groupe. Sachez faire passer le message que vous <Bold>refusez l'alcool et pas la personne !</Bold>
+        <TextStyled bold>Préparez votre discours</TextStyled> pour dire “non” en situation : refuser un verre sans que
+        cela soit un refus social, du groupe. Sachez faire passer le message que vous
+        <TextStyled bold> refusez l'alcool et pas la personne !</TextStyled>
       </>
     ),
     descriptionDone: (
       <>
-        <Bold>Préparez votre discours</Bold> pour dire “non” en situation : refuser un verre sans que cela soit un refus
-        social, du groupe. Sachez faire passer le message que vous <Bold>refusez l'alcool et pas la personne !</Bold>
+        <TextStyled bold>Préparez votre discours</TextStyled> pour dire “non” en situation : refuser un verre sans que
+        cela soit un refus social, du groupe. Sachez faire passer le message que vous
+        <TextStyled bold> refusez l'alcool et pas la personne !</TextStyled>
       </>
     ),
     textCTA: 'Je peux dire Non',
@@ -124,14 +130,18 @@ export const defi1_Data = [
     tagLine: 'Bilan de ma semaine ',
     description: (
       <>
-        Bravo, vous avez fait de nouveau un pas vers une meilleure connaissance du rôle addictif de l’alcool.{' '}
-        <Bold>Vous n’êtes pas la seule personne à ressentir ses émotions qui impactent sur l’envie de boire !</Bold>
+        Bravo, vous avez fait de nouveau un pas vers une meilleure connaissance du rôle addictif de l'alcool.{' '}
+        <TextStyled bold>
+          Vous n'êtes pas la seule personne à ressentir ses émotions qui impactent sur l'envie de boire !
+        </TextStyled>
       </>
     ),
     descriptionDone: (
       <>
-        Bravo, vous avez fait de nouveau un pas vers une meilleure connaissance du rôle addictif de l’alcool.{' '}
-        <Bold>Vous n’êtes pas la seule personne à ressentir ses émotions qui impactent sur l’envie de boire !</Bold>
+        Bravo, vous avez fait de nouveau un pas vers une meilleure connaissance du rôle addictif de l'alcool.{' '}
+        <TextStyled bold>
+          Vous n'êtes pas la seule personne à ressentir ses émotions qui impactent sur l'envie de boire !
+        </TextStyled>
       </>
     ),
     textCTA: 'Je consulte mon bilan',
