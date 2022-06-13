@@ -1,3 +1,10 @@
+# [1.44.0](https://github.com/SocialGouv/ozensemble/compare/v1.43.0...v1.44.0) (2022-06-13)
+
+
+### Features
+
+* **app:** add close ModalOnboarding ([cb9ddb7](https://github.com/SocialGouv/ozensemble/commit/cb9ddb7930e77c8748d7ed8f27d94a8fea3bcc16))
+
 # [1.43.0](https://github.com/SocialGouv/ozensemble/compare/v1.42.0...v1.43.0) (2022-06-13)
 
 
