@@ -11,6 +11,7 @@ import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import BackButton from '../../components/BackButton';
 
 const Defi = ({
   navigation,
@@ -43,6 +44,7 @@ const Defi = ({
   return (
     <ScreenBgStyled>
       <NPS forceView={NPSvisible} close={closeNPS} />
+      <BackButton onPress={navigation.goBack} marginLeft />
       <TopContainer>
         <Title>
           <TextStyled color="#4030a5">{title}</TextStyled>
@@ -152,7 +154,7 @@ const commonCss = css`
 */
 
 const TopContainer = styled.View`
-  padding: 20px;
+  padding: 10px 20px;
 `;
 
 const Title = styled(H1)`
