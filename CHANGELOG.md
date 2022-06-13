@@ -1,3 +1,10 @@
+# [1.42.0](https://github.com/SocialGouv/ozensemble/compare/v1.41.0...v1.42.0) (2022-06-13)
+
+
+### Features
+
+* **app:** Result onboardink quizz and links ([cc8404c](https://github.com/SocialGouv/ozensemble/commit/cc8404c8386eae7e9e8b5067f0ec4375dc7c623b))
+
 # [1.41.0](https://github.com/SocialGouv/ozensemble/compare/v1.40.0...v1.41.0) (2022-06-13)
 
 
