@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import styled from 'styled-components';
 
@@ -21,30 +21,17 @@ const QuizzElement = ({
   showEvenNotDone,
   fromHealth = false,
 }) => {
-  const [quizzInitialState, setQuizzInitialState] = useState({ answers: null, result: null });
+  const result = fetchStoredAnswers({ questions, memoryKeyAnswers, memoryKeyResult })?.result;
+  const done = result !== null;
   const navigation = useNavigation();
 
   const onStart = () => {
     matomo.logQuizzStart();
-    navigation.navigate(quizzRoute, { initialState: quizzInitialState, initialRouteName: 'QUIZZ_QUESTIONS' });
+    navigation.navigate(quizzRoute, { initialRouteName: 'QUIZZ_QUESTIONS' });
   };
   const onShowResult = () => {
-    navigation.navigate(quizzRoute, { initialState: quizzInitialState, initialRouteName: 'QUIZZ_RESULTS' });
+    navigation.navigate(quizzRoute, { initialRouteName: 'QUIZZ_RESULTS' });
   };
-
-  const isFocused = useIsFocused();
-
-  const getQuizzInitialState = () => {
-    const nextState = fetchStoredAnswers({ questions, memoryKeyAnswers, memoryKeyResult });
-    setQuizzInitialState(nextState);
-  };
-
-  useEffect(() => {
-    if (isFocused) getQuizzInitialState();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
-
-  const done = quizzInitialState.result !== null;
 
   if (!done && !showEvenNotDone) return null;
 

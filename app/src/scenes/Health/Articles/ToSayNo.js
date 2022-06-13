@@ -142,8 +142,8 @@ const ToSayNo = () => {
             compétition sportive. Peut-être que vous êtes enceinte ou que vous voulez faire plus attention à votre
             hygiène de vie.{'\n'}Quelle que soit votre raison,<Bold> dites-la calmement</Bold> et{' '}
             <Bold>répondez à toutes les questions avec lesquelles vous vous sentez à l'aise.</Bold>
-            {'\n'}Par exemple, vous pourriez dire : « Je me suis lancé un challenge de moins boire d'alcool pour ma
-            santé globale . Ce serait dommage de briser la séquence maintenant. »
+            {'\n'}Par exemple, vous pourriez dire : « Je me suis lancé un défi de moins boire d'alcool pour ma santé
+            globale . Ce serait dommage de briser la séquence maintenant. »
           </P>
           <Spacer size={20} />
           <H2 color={'#4030a5'}>À une fête</H2>
