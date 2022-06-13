@@ -9,7 +9,6 @@ import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import NPS from '../NPS/NPS';
-import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
@@ -34,7 +33,6 @@ const Infos = () => {
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
         </InfosStack.Screen>
         <InfosStack.Screen name="EXPORT" component={Export} />
-        <InfosStack.Screen name="TESTS" component={QuizzsNavigator} />
       </InfosStack.Navigator>
     </Background>
   );
@@ -70,15 +68,7 @@ const InfosMenu = ({ navigation }) => {
             onPress={() => navigation.push('PRIVACY_POLICY')}
           />
           <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-          {/* todo : open nps */}
           <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
-          <MenuItem
-            caption="Mes tests "
-            onPress={() => {
-              matomo.logQuizzOpen('FROM_INFOS');
-              navigation.push('TESTS');
-            }}
-          />
           <VersionContainer>
             <VersionLabel>version {pck.version}</VersionLabel>
           </VersionContainer>
