@@ -1,3 +1,10 @@
+# [1.41.0](https://github.com/SocialGouv/ozensemble/compare/v1.40.0...v1.41.0) (2022-06-13)
+
+
+### Features
+
+* **app:** add backbutton in defi ([68e4c7b](https://github.com/SocialGouv/ozensemble/commit/68e4c7b134a050b4c542703d4e931b99b8aa3f18))
+
 # [1.40.0](https://github.com/SocialGouv/ozensemble/compare/v1.39.1...v1.40.0) (2022-06-13)
 
 
