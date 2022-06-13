@@ -5,11 +5,11 @@ import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { Underlined } from '../../components/Articles';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
 import { storage } from '../../services/storage';
 import HowMakeSelfEvaluation from './HowMakeSelfEvaluation';
+import UnderlinedButton from '../../components/UnderlinedButton';
 
 const DefisMenu = () => {
   const navigation = useNavigation();
@@ -22,17 +22,18 @@ const DefisMenu = () => {
           J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
         </TextStyled>
         <CategorieMenu
-          title={'Évaluer ma consommation'}
+          title={"Ma consommation d'alcool"}
           description={'Pour détecter des comportements à risque'}
           onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
           image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
           isAutoEvalutation
         />
-        <HowMakeSelfEvaluationContainer onPress={() => setOpenHowMakeSelfEvaluation(true)}>
-          <Underlined>
-            <TextStyled color="#4030A5">Pourquoi faire cette auto-évaluation ? </TextStyled>
-          </Underlined>
-        </HowMakeSelfEvaluationContainer>
+        <UnderlinedButton
+          color="#4030a5"
+          withoutPadding
+          content="Pourquoi faire cette auto-évaluation ?"
+          onPress={() => setOpenHowMakeSelfEvaluation(true)}
+        />
         <CategorieMenu
           title={'Premier challenge'}
           description={'Faire le point en 7 jours '}
@@ -44,10 +45,10 @@ const DefisMenu = () => {
           description={'Aller plus loin ...'}
           onPress={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
-          disabledButton={true}
+          disabledButton={false}
         />
         <CategorieMenu
-          title={'Tests des défis'}
+          title={'Mes tests'}
           description={'Retrouver mes résultats'}
           onPress={() => navigation.navigate('TESTS_DEFIS')}
           image={require('../../assets/images/TestsDesDefis.png')}
@@ -136,10 +137,6 @@ const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvaluta
 
 const Container = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const HowMakeSelfEvaluationContainer = styled.TouchableOpacity`
-  align-items: center;
 `;
 
 const CategorieContainer = styled.TouchableOpacity`

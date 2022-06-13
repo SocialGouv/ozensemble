@@ -38,13 +38,13 @@ const DatePicker = ({ visible, selectDate, initDate, mode }) => {
               />
             </DatePickerContainer>
             <ButtonsContainer>
+              <BackButton content="Retour" bold onPress={() => selectDate(initDate)} />
               <ButtonPrimary
                 content="Valider"
                 onPress={() => {
                   selectDate(Date.parse(date));
                 }}
               />
-              <BackButton content="Retour" bold onPress={() => selectDate(initDate)} />
             </ButtonsContainer>
           </ModalContent>
         </ModalBackdropContent>

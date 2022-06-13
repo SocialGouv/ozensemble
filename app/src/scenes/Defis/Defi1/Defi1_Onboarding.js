@@ -21,13 +21,7 @@ const Defi1_Onboarding = ({ navigation }) => {
       onPressContinueNavigation: ['DEFI1_MENU'],
     });
   };
-  const noThankYou = () => {
-    matomo.logDefi1ClickNotStart();
-    navigation.navigate('DEFI1_REMINDER', {
-      enableContinueButton: true,
-      onPressContinueNavigation: ['TABS', { screen: 'CONSO_FOLLOW_UP' }],
-    });
-  };
+
   return (
     <ScreenBgStyled>
       <Container>
@@ -41,19 +35,13 @@ const Defi1_Onboarding = ({ navigation }) => {
           </TextStyled>
         </SubTitle>
         <UnderlinedButton
+          color="#4030a5"
           withoutPadding
           content="À qui s'adresse ce défi 7 jours ?"
           onPress={() => navigation.navigate('DEFI1_ONBOARDING_INFO')}
         />
         <ButtonsContainer>
-          <ButtonPrimary content="Oui, je veux le faire" onPress={startDefi} />
-          <UnderlinedButton
-            withoutPadding
-            color="#4030a5"
-            content="Non merci, peut-être plus tard"
-            bold
-            onPress={noThankYou}
-          />
+          <ButtonPrimary content="Je commence" onPress={startDefi} />
         </ButtonsContainer>
       </Container>
     </ScreenBgStyled>

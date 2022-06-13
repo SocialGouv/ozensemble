@@ -19,7 +19,7 @@ export const defi1_Data = [
         jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
       </>
     ),
-    textCTA: 'Comment compter',
+    textCTA: 'Je commence à compter',
     screenCTA: 'DEFI1_DAY_1',
   },
   {
@@ -38,7 +38,7 @@ export const defi1_Data = [
         <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
       </>
     ),
-    textCTA: 'Passer le test',
+    textCTA: 'Je passe le test',
     screenCTA: 'DEFI1_DAY_2',
   },
   {
@@ -57,7 +57,7 @@ export const defi1_Data = [
         jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
       </>
     ),
-    textCTA: 'Mes conseils réduction',
+    textCTA: 'Je repère les signes',
     screenCTA: 'DEFI1_DAY_3',
   },
   {
@@ -76,7 +76,7 @@ export const defi1_Data = [
         <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
       </>
     ),
-    textCTA: 'Passer le test',
+    textCTA: 'Je passe le test',
     screenCTA: 'DEFI1_DAY_4',
   },
   {
@@ -101,7 +101,7 @@ export const defi1_Data = [
   {
     actionType: 'quizz',
     title: 'Jour 6',
-    tagLine: 'Identifier mes motivations à changer',
+    tagLine: 'Identifier mes motivations \nà changer',
     description:
       "Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d'alcool.",
     descriptionDone: (
@@ -129,7 +129,7 @@ export const defi1_Data = [
         consommations tous les jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
       </>
     ),
-    textCTA: 'Consulter mon bilan',
+    textCTA: 'Je consulte mon bilan',
     screenCTA: 'DEFI1_DAY_7',
   },
 ];
