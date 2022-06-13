@@ -1,3 +1,11 @@
+# [1.40.0](https://github.com/SocialGouv/ozensemble/compare/v1.39.1...v1.40.0) (2022-06-13)
+
+
+### Features
+
+* **app:** styles + name ([4ed6b78](https://github.com/SocialGouv/ozensemble/commit/4ed6b78f3f5c8c9f63d089927e1e46df01827dec))
+* **app:** update defi1 ([cbfd550](https://github.com/SocialGouv/ozensemble/commit/cbfd5500ac93d5d7bbac699e6a755c69fad5596d))
+
 ## [1.39.1](https://github.com/SocialGouv/ozensemble/compare/v1.39.0...v1.39.1) (2022-06-13)
 
 
