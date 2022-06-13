@@ -6,7 +6,7 @@ export const ScreenBgStyled = styled.ScrollView`
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
-  min-height: 100%;
+  ${({ minHeight }) => !minHeight && ` min-height: 100%;`}
   ${({ marginOffset }) => !!marginOffset && `margin-left: -${marginOffset}px;`}
   ${({ marginOffset }) => !!marginOffset && `margin-right: -${marginOffset}px;`}
   ${({ defaultPadding }) =>

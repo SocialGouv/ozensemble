@@ -39,13 +39,13 @@ const TimePicker = ({ visible, selectDate }) => {
               }}
             />
             <ButtonsContainer>
+              <BackButton content="Retour" bold onPress={() => selectDate(null)} />
               <ButtonPrimary
                 content="Valider"
                 onPress={() => {
                   selectDate(date);
                 }}
               />
-              <BackButton content="Retour" bold onPress={() => selectDate(null)} />
             </ButtonsContainer>
           </DatePickerContainer>
         </ModalContent>
