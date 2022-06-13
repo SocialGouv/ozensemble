@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled, { css } from 'styled-components';
+import { useRecoilState } from 'recoil';
 import ArrowRight from '../../components/ArrowRight';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
@@ -12,6 +13,8 @@ import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
+import OnBoardingModal from '../../components/OnBoardingModal';
+import { defi2OnBoardingDone } from '../../recoil/defis';
 
 const Defi = ({
   navigation,
@@ -27,6 +30,7 @@ const Defi = ({
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 
+  const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDone);
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, ActiveDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
@@ -119,6 +123,24 @@ const Defi = ({
           />
         </ButtonContainer>
       </FeedContainer>
+      <OnBoardingModal
+        title="Poursuivez votre parcours"
+        description={
+          <TextStyled>
+            Cette semaine, nous vous proposons de <TextStyled bold>pousser plus loin la réflexion</TextStyled> sur les
+            <TextStyled bold>situations qui vous portent à boire</TextStyled>.{'\n'}À la fin, vous aurez l’occasion de
+            faire quelques exercices.
+          </TextStyled>
+        }
+        boutonTitle="Je commence"
+        onPress={() => {
+          setOnBoardingDefi2Done(true);
+        }}
+        visible={!onBoardingDefi2Done && defiStorageKey !== '@Defi1'}
+        hide={() => {
+          setOnBoardingDefi2Done(true);
+        }}
+      />
     </ScreenBgStyled>
   );
 };
