@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import Background from '../Background';
@@ -25,14 +25,21 @@ const QuizzStack = createStackNavigator();
 const QuizzAndResultsStack = createStackNavigator();
 
 const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswersToResult, Results }) => {
-  const initialState = route?.params?.initialState || {};
-  const [{ answers, progress, resultKey }, setGlobalState] = useState({
-    answers: initialState.answers,
-    resultKey: initialState.result,
-    progress: 0,
+  const [progress, setProgress] = useState(0);
+  const [{ answers, resultKey }, setState] = useState(() => {
+    const fetchedInitialState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
+    if (fetchedInitialState?.answers || fetchedInitialState?.result) {
+      return {
+        answers: fetchedInitialState.answers,
+        resultKey: fetchedInitialState.result,
+      };
+    } else {
+      return {
+        answers: {},
+        resultKey: null,
+      };
+    }
   });
-
-  const setState = (newState) => setGlobalState((oldState) => ({ ...oldState, ...newState }));
 
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
     const newAnswers = {
@@ -41,8 +48,8 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
     };
 
     const newProgress = (questionIndex + 1) / questions.length;
-    setState({ answers: newAnswers, progress: newProgress });
-
+    setState((prevState) => ({ ...prevState, answers: newAnswers }));
+    setProgress(newProgress);
     const endOfQuestions = questionIndex === questions.length - 1;
 
     await matomo.logQuizzAnswer({ questionKey, answerKey, score });
@@ -54,25 +61,11 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
       if (addictionResult) {
         storage.set(memoryKeyResult, JSON.stringify(addictionResult));
       }
-      setState({ resultKey: addictionResult });
+      setState((prevState) => ({ ...prevState, resultKey: addictionResult }));
     }
   };
 
-  const setInitAnswers = () => {
-    const fetchedInitialState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
-    if (fetchedInitialState?.answers || fetchedInitialState?.result) {
-      setGlobalState({
-        answers: fetchedInitialState.answers,
-        resultKey: fetchedInitialState.result,
-        progress: 0,
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (!answers) setInitAnswers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  console.log(progress, answers);
 
   return (
     <Background color="#39cec0" withSwiperContainer>

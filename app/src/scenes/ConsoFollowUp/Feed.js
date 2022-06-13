@@ -236,7 +236,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   {isLast && (
                     <ResultsFeedDisplay
                       onPress={async () => {
-                        navigation.navigate('TESTS');
+                        navigation.navigate('TESTS_DEFIS');
                         matomo.logQuizzOpen('FROM_CONSO');
                       }}
                       selected={timestampSelected === null}
