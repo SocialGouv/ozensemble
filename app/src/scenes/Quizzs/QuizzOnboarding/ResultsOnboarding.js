@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import H2 from '../../../../components/H2';
-import H1 from '../../../../components/H1';
-import { screenWidth } from '../../../../styles/theme';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
-import TextStyled from '../../../../components/TextStyled';
-import Sources from '../../Sources';
-import NoSmiley from '../../../../components/illustrations/NoSmiley';
-import YesSmiley from '../../../../components/illustrations/YesSmiley';
-import { BackButton } from '../../../../components/BackButton';
-import { Bold, P, Spacer } from '../../../../components/Articles';
-import UnderlinedButton from '../../../../components/UnderlinedButton';
+import H1 from '../../../components/H1';
+import { screenWidth } from '../../../styles/theme';
+import ButtonPrimary from '../../../components/ButtonPrimary';
+import TextStyled from '../../../components/TextStyled';
+import Sources from '../Sources';
+import NoSmiley from '../../../components/illustrations/NoSmiley';
+import YesSmiley from '../../../components/illustrations/YesSmiley';
+import { BackButton } from '../../../components/BackButton';
+import { Bold, P, Spacer } from '../../../components/Articles';
+import UnderlinedButton from '../../../components/UnderlinedButton';
 
-const Result = ({ navigation, result }) => {
+const ResultsOnboarding = ({ navigation, resultKey }) => {
   const [feeling, setFeeling] = useState(null);
 
   return (
@@ -20,10 +19,10 @@ const Result = ({ navigation, result }) => {
       <TopContainer>
         <BackButton onPress={() => navigation.goBack()} marginBottom />
         <ResultTitle color="#000">Résultat</ResultTitle>
-        {result === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
-        {result === 'good' && <ResultGood />}
-        {result === 'addicted' && <ResultAddicted />}
-        {feeling != null || result === 'good' || result === 'addicted' ? (
+        {resultKey === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+        {resultKey === 'good' && <ResultGood />}
+        {resultKey === 'addicted' && <ResultAddicted />}
+        {feeling != null || resultKey === 'good' || resultKey === 'addicted' ? (
           <TopButtonContainer>
             <ButtonPrimary
               content="Je commence le défi"
@@ -31,7 +30,13 @@ const Result = ({ navigation, result }) => {
             />
           </TopButtonContainer>
         ) : null}
-        <UnderlinedButton content={"< Recommencer l'auto-évaluation"} withoutPadding bold alignStart />
+        <UnderlinedButton
+          content={"Recommencer l'auto-évaluation"}
+          withoutPadding
+          bold
+          alignStart
+          onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
+        />
         <Sources
           content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
         Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
@@ -198,4 +203,4 @@ const TopButtonContainer = styled.View`
   width: auto;
 `;
 
-export default Result;
+export default ResultsOnboarding;

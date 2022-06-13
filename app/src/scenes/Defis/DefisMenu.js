@@ -24,7 +24,11 @@ const DefisMenu = () => {
         <CategorieMenu
           title={"Ma consommation d'alcool"}
           description={'Pour détecter des comportements à risque'}
-          onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
+          onPress={() =>
+            navigation.navigate('ONBOARDING_QUIZZ', {
+              screen: storage.getString('@Quizz_result') ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
+            })
+          }
           image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
           isAutoEvalutation
         />
