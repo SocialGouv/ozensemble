@@ -1,5 +1,5 @@
 import React from 'react';
-import TextStyled from '../../../components/TextStyled';
+import { Bold } from '../../../components/Articles';
 
 export const defi1_Data = [
   {
@@ -8,15 +8,14 @@ export const defi1_Data = [
     tagLine: 'Comment compter sa consommation',
     description: (
       <>
-        <TextStyled bold>L'observation</TextStyled> est une{' '}
-        <TextStyled bold>première étape clé pour faire le point</TextStyled>. L'alcool est très présent dans nos vies,
-        parfois plus qu'on ne le pense. Vous pourriez être surpris de votre consommation.
+        <Bold>L'observation</Bold> est une <Bold>première étape clé pour faire le point</Bold>. L'alcool est très
+        présent dans nos vies, parfois plus qu'on ne le pense. Vous pourriez être surpris de votre consommation.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Courage ! continuez à remplir vos consommations</TextStyled> tout au long de la journée. Chaque
-        jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
+        <Bold>Courage ! continuez à remplir vos consommations</Bold> tout au long de la journée. Chaque jour de la
+        semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
       </>
     ),
     textCTA: 'Comment compter',
@@ -28,14 +27,13 @@ export const defi1_Data = [
     tagLine: 'Évaluer sa consommation',
     description: (
       <>
-        <TextStyled bold>Affinez</TextStyled> votre première évaluation avec un questionnaire plus complet de 12
-        questions.
+        <Bold>Affinez</Bold> votre première évaluation avec un questionnaire plus complet de 12 questions.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
-        <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
+        <Bold>Remplissez vos consommations</Bold> tout au long de la journée et revenez <Bold>demain</Bold> pour la
+        suite de ce point de 7 jours.
       </>
     ),
     textCTA: 'Passer le test',
@@ -47,14 +45,14 @@ export const defi1_Data = [
     tagLine: 'Repérer les signes de sevrage',
     description: (
       <>
-        <TextStyled bold>Apprenez à repérer les symptômes de sevrage</TextStyled> nécessitants de consulter votre
-        médecin ou un professionel Oz Ensemble.
+        <Bold>Apprenez à repérer les symptômes de sevrage</Bold> nécessitants de consulter votre médecin ou un
+        professionel Oz Ensemble.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Courage ! continuez à remplir vos consommations</TextStyled> tout au long de la journée. Chaque
-        jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
+        <Bold>Courage ! continuez à remplir vos consommations</Bold> tout au long de la journée. Chaque jour de la
+        semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
       </>
     ),
     textCTA: 'Mes conseils réduction',
@@ -66,14 +64,13 @@ export const defi1_Data = [
     tagLine: 'Évaluer sa qualité de vie',
     description: (
       <>
-        <TextStyled bold>Evaluez</TextStyled> votre niveau de qualité de vie et l'impact éventuel de l'alcool sur
-        celle-ci.
+        <Bold>Evaluez</Bold> votre niveau de qualité de vie et l'impact éventuel de l'alcool sur celle-ci.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
-        <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
+        <Bold>Remplissez vos consommations</Bold> tout au long de la journée et revenez <Bold>demain</Bold> pour la
+        suite de ce point de 7 jours.
       </>
     ),
     textCTA: 'Passer le test',
@@ -85,14 +82,13 @@ export const defi1_Data = [
     tagLine: 'Comment réduire ?',
     description: (
       <>
-        Voici quelques conseils simples pour vous aider à <TextStyled bold>réduire</TextStyled> votre consommation
-        d'alcool
+        Voici quelques conseils simples pour vous aider à <Bold>réduire</Bold> votre consommation d'alcool
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Courage ! continuez à remplir vos consommations</TextStyled> tout au long de la journée. Chaque
-        jour de la semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
+        <Bold>Courage ! continuez à remplir vos consommations</Bold> tout au long de la journée. Chaque jour de la
+        semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
       </>
     ),
     textCTA: 'Mes conseils réduction',
@@ -106,8 +102,8 @@ export const defi1_Data = [
       "Vos motivations sont une réelle force pour vous aider à comprendre et réduire votre consommation d'alcool.",
     descriptionDone: (
       <>
-        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez{' '}
-        <TextStyled bold>demain</TextStyled> pour la suite de ce point de 7 jours.
+        <Bold>Remplissez vos consommations</Bold> tout au long de la journée et revenez <Bold>demain</Bold> pour la
+        suite de ce point de 7 jours.
       </>
     ),
     textCTA: 'Mes motivations à changer',
@@ -119,14 +115,14 @@ export const defi1_Data = [
     tagLine: 'Bilan de votre point sur 7 jours',
     description: (
       <>
-        <TextStyled bold>Bravo !</TextStyled> Vous avez fait un grand premier pas vers une meilleure connaissance et
-        maitrîse de votre consommation d'alcool !
+        <Bold>Bravo !</Bold> Vous avez fait un grand premier pas vers une meilleure connaissance et maitrîse de votre
+        consommation d'alcool !
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Feliciations !</TextStyled> Vous avez fait un grand premier pas. Continuez à remplir vos
-        consommations tous les jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
+        <Bold>Feliciations !</Bold> Vous avez fait un grand premier pas. Continuez à remplir vos consommations tous les
+        jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
       </>
     ),
     textCTA: 'Consulter mon bilan',
