@@ -1,3 +1,10 @@
+## [1.39.1](https://github.com/SocialGouv/ozensemble/compare/v1.39.0...v1.39.1) (2022-06-13)
+
+
+### Bug Fixes
+
+* refacto a bit the quizz initial state ([3e638b4](https://github.com/SocialGouv/ozensemble/commit/3e638b42b5fd8821507608eb35867e86e771bd9b))
+
 # [1.39.0](https://github.com/SocialGouv/ozensemble/compare/v1.38.1...v1.39.0) (2022-06-10)
 
 

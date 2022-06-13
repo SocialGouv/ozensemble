@@ -35,13 +35,13 @@ const DefisMenu = () => {
           onPress={() => setOpenHowMakeSelfEvaluation(true)}
         />
         <CategorieMenu
-          title={'Premier challenge'}
+          title={'Premier défi'}
           description={'Faire le point en 7 jours '}
           onPress={() => navigation.navigate('DEFI1')}
           image={require('../../assets/images/Defi1.png')}
         />
         <CategorieMenu
-          title={'Deuxième challenge'}
+          title={'Deuxième défi'}
           description={'Aller plus loin ...'}
           onPress={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
@@ -52,6 +52,7 @@ const DefisMenu = () => {
           description={'Retrouver mes résultats'}
           onPress={() => navigation.navigate('TESTS_DEFIS')}
           image={require('../../assets/images/TestsDesDefis.png')}
+          done
         />
       </Container>
       {openHowMakeSelfEvaluation && (
