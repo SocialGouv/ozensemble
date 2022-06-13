@@ -12,6 +12,7 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -49,9 +50,8 @@ const Defi1_Day3 = ({ navigation, route }) => {
     <Background color="#39cec0" withSwiperContainer>
       <ScreenBgStyled>
         <TopContainer>
+          <BackButton onPress={navigation.goBack} />
           <TopTitle>
-            <GoBackButton onPress={navigation.goBack} />
-            <Spacer />
             <H1 color="#4030a5">
               Avez-vous une dépendance physique à l'alcool qui necessite de consulter un professionel de santé ?
             </H1>
