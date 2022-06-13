@@ -1,4 +1,5 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import styled from 'styled-components';
 import ButtonPrimary from './ButtonPrimary';
 
@@ -10,9 +11,14 @@ const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTit
   return (
     <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
       <Container>
-        <Title>
-          <TextStyled color="#4030a5">{title}</TextStyled>
-        </Title>
+        <TitleContainer>
+          <Title>
+            <TextStyled>{title}</TextStyled>
+          </Title>
+          <TouchableOpacity onPress={hide}>
+            <TextStyled>X</TextStyled>
+          </TouchableOpacity>
+        </TitleContainer>
         <SubTitle>
           <TextStyled color={'#3C3C43'}>{description}</TextStyled>
         </SubTitle>
@@ -38,6 +44,12 @@ const Title = styled(H1)`
   flex-shrink: 0;
   text-align: center;
   margin-bottom: 30px;
+  width: 90%;
+`;
+
+const TitleContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const SubTitle = styled.Text`
