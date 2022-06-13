@@ -85,7 +85,6 @@ const Defi1_Day1 = ({ navigation, route }) => {
             />
           </Paragraph>
           <Paragraph>
-            {/* drinkByWeek */}
             <Elem
               content={
                 <TextStyled>
