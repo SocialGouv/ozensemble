@@ -36,14 +36,14 @@ const Continue = styled.View`
 
 const Title = styled(H1)`
   flex-shrink: 0;
-  text-align: center;
+  text-align: left;
   margin-bottom: 30px;
 `;
 
 const SubTitle = styled.Text`
   font-size: 18px;
   margin-bottom: 15px;
-  text-align: center;
+  text-align: left;
 `;
 
 export default OnBoardingModal;

@@ -7,6 +7,8 @@ import Defi from '../Defi';
 import { defi2_Data } from './defi2_Data';
 import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
+import Defi2_Day2 from './Defi2_Day2';
+import Defi2_Day5 from './Defi2_Day5';
 
 const Defi2_Stack = createStackNavigator();
 
@@ -26,7 +28,7 @@ const Defi2_Navigator = () => {
         />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_2"
-          component={Defi2_Day1}
+          component={Defi2_Day2}
           initialParams={{
             title: 'Évaluer sa consommation',
             inDefi2: true,
@@ -55,7 +57,7 @@ const Defi2_Navigator = () => {
         />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_5"
-          component={Defi2_Day1}
+          component={Defi2_Day5}
           initialParams={{
             inDefi2: true,
             rootRoute: 'DEFI2_MENU',

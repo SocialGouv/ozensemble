@@ -24,7 +24,7 @@ const ButtonPrimaryStyled = styled.TouchableOpacity`
   /* background-color: ${({ shadowColor }) => shadowColor || '#c0184a'}; */
   height: ${({ small }) => computeButtonHeight(small) + shadowHeight}px;
   border-radius: ${({ small }) => computeButtonHeight(small)}px;
-  ${({ disabled }) => disabled && 'opacity: 0.5;'}/* SHADOW NOT WORKING IN ANDROID */
+  ${({ disabled }) => disabled && 'opacity: 0.5;'} /* SHADOW NOT WORKING IN ANDROID */
   /*
   elevation: 1;
   border-width: 0;
@@ -33,6 +33,7 @@ const ButtonPrimaryStyled = styled.TouchableOpacity`
   shadow-opacity: 1;
   shadow-radius: 0;
   */
+  ${({ widthSmall }) => widthSmall && ` align-items: center`}
 `;
 
 const bigPadding = css`
