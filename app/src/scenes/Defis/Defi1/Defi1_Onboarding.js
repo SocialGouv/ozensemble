@@ -10,6 +10,7 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
 
 const Defi1_Onboarding = ({ navigation }) => {
   const startDefi = async () => {
@@ -24,6 +25,7 @@ const Defi1_Onboarding = ({ navigation }) => {
 
   return (
     <ScreenBgStyled>
+      <BackButton marginLeft={20} onPress={navigation.goBack} />
       <Container>
         <DefiLanding size={200} color="#4030a5" selected={false} />
         <Title>
