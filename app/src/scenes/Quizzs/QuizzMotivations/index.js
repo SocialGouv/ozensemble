@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../../components/Background';
@@ -17,24 +17,16 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 const QuizzMotivationsStack = createStackNavigator();
 
 const QuizzMotivations = ({ navigation, route }) => {
-  const initialState = route.params.initialState || {};
-
-  const [answers, setAnswers] = useState(initialState.answers);
-
   const memoryKeyAnswers = '@QuizzMotivations_answers';
   const memoryKeyResult = '@QuizzMotivations_result';
 
-  const setInitAnswers = () => {
-    const fetchedInitialState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
-    if (fetchedInitialState?.answers || fetchedInitialState?.result) {
-      setAnswers(fetchedInitialState.answers);
+  const [answers, setAnswers] = useState(() => {
+    const storedQuizz = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
+    if (storedQuizz?.answers || storedQuizz?.result) {
+      return storedQuizz.answers || {};
     }
-  };
-
-  useEffect(() => {
-    if (!answers) setInitAnswers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    return {};
+  });
 
   const toggleAnswer = async (answerKey, checked) => {
     setAnswers((prevAnswers) => {
