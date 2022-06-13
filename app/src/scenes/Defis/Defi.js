@@ -94,10 +94,15 @@ const Defi = ({
                   navigation.push(dayData?.screenCTA, { inDefi1: validatedDays <= dayIndex });
                 }}>
                 <View style={{ flex: 1 }}>
-                  <TitleDay color={getTitleColor(dayIndex)}>{dayData?.title}</TitleDay>
-                  <SubtitleDay color={getSubtitleColor(dayIndex)}>{dayData?.tagLine}</SubtitleDay>
+                  <TitleDay color={getTitleColor(dayIndex)}>
+                    {dayData?.title} : {dayData?.tagLine}
+                  </TitleDay>
                 </View>
-                {!(activeDay < dayIndex || !dayData?.screenCTA) ? <ArrowRight size={10} color="#4030a5" /> : null}
+                {activeDay === dayIndex ? (
+                  <ArrowRight size={10} color="#de285e" />
+                ) : (
+                  <ArrowRight size={10} color="#c4c4c4" />
+                )}
               </FeedDayContent>
             </FeedDay>
           );
@@ -121,9 +126,7 @@ const TitleDay = styled(TextStyled)`
   font-weight: bold;
   color: ${({ color }) => color || '#c4c4c4'};
 `;
-const SubtitleDay = styled(TextStyled)`
-  color: ${({ color }) => color || '#c4c4c4'};
-`;
+
 const Separator = styled.View`
   background-color: #c4c4c4;
   height: 1px;
