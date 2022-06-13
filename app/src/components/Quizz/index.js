@@ -65,8 +65,6 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
     }
   };
 
-  console.log(progress, answers);
-
   return (
     <Background color="#39cec0" withSwiperContainer>
       <QuizzAndResultsStack.Navigator

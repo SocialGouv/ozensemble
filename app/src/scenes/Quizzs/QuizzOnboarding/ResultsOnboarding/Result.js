@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import H2 from '../../../../components/H2';
 import H1 from '../../../../components/H1';
 import { screenWidth } from '../../../../styles/theme';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
@@ -34,11 +33,11 @@ const Result = ({ navigation, result }) => {
           </TopButtonContainer>
         ) : null}
         <UnderlinedButton
-          content={"< Recommencer l'auto-évaluation"}
+          content={"Recommencer l'auto-évaluation"}
           withoutPadding
           bold
           alignStart
-          onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
+          onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
         />
         <Sources
           content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
