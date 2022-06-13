@@ -67,7 +67,7 @@ const ResultAddicted = () => {
       <Spacer size={20} />
       <P>
         Vous êtes <Bold>prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie</Bold>, à
-        travers un premier challenge pour faire le point en 7 jours.
+        travers un premier défi pour faire le point en 7 jours.
       </P>
       <Spacer size={20} />
       <P>Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction.</P>
@@ -110,7 +110,7 @@ const ResultRisk = ({ navigation, feeling, setFeeling }) => {
           </P>
           <P>
             Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers un
-            <Bold> premier challenge pour faire le point en 7 jours.</Bold>
+            <Bold> premier défi pour faire le point en 7 jours.</Bold>
           </P>
         </>
       )}
