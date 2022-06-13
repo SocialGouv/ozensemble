@@ -42,7 +42,7 @@ const DefisMenu = () => {
         />
         <CategorieMenu
           title={'Deuxième défi'}
-          description={'Aller plus loin ...'}
+          description={'Aller plus loin...'}
           onPress={() => navigation.navigate('DEFI2')}
           image={require('../../assets/images/Defi2.png')}
           disabledButton={false}
@@ -138,6 +138,7 @@ const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvaluta
 
 const Container = styled.View`
   padding: 20px ${defaultPaddingFontScale()}px 0px;
+  margin-bottom: 75px;
 `;
 
 const CategorieContainer = styled.TouchableOpacity`
