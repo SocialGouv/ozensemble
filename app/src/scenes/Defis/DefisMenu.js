@@ -102,7 +102,11 @@ const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvaluta
           )}
           <TextStyled>{description}</TextStyled>
           <ButtonContainer>
-            <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
+            <ButtonPrimary
+              content={done ? 'Je consulte' : 'Je commence'}
+              onPress={done && isAutoEvalutation ? () => navigation.navigate('ONBOARDING_QUIZZ_RESULT') : onPress}
+              disabled={disabled}
+            />
           </ButtonContainer>
         </TextContainer>
       </CategorieContainer>
