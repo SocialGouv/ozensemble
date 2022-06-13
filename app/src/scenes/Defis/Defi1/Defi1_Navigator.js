@@ -2,7 +2,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 import Background from '../../../components/Background';
-import HeaderBackground from '../../../components/HeaderBackground';
 import { storage } from '../../../services/storage';
 import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';

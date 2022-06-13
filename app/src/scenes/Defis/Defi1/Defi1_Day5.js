@@ -12,6 +12,7 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import BackButton from '../../../components/BackButton';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -50,9 +51,8 @@ const Defi1_Day5 = ({ navigation, route }) => {
       {/* <HeaderBackground /> */}
       <ScreenBgStyled>
         <TopContainer>
+          <BackButton onPress={navigation.goBack} />
           <TopTitle>
-            <GoBackButton onPress={navigation.goBack} />
-            <Spacer />
             <H1 color="#4030a5">Conseils pour diminuer ma consommation d'alcool </H1>
           </TopTitle>
           <ToggleContent title="Planifier">
@@ -125,12 +125,8 @@ const Elem = ({ content }) => (
 );
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
+  padding: 0px ${defaultPaddingFontScale()}px 0px;
   padding-bottom: 100px;
-`;
-
-const Spacer = styled.View`
-  width: 5%;
 `;
 
 const TopTitle = styled.View`
