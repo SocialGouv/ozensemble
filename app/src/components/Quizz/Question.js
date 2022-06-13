@@ -31,7 +31,7 @@ const Question = ({
                 if (!endOfQuestions) {
                   navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
                 } else {
-                  navigation.push('QUIZZ_RESULTS');
+                  navigation.navigate('QUIZZ_RESULTS');
                 }
               }, 500);
             }}
