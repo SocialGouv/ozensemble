@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
-import { defi1_Data } from './defi2_Data';
+import { defi2_Data } from './defi2_Data';
 import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 
@@ -122,7 +122,7 @@ const Defi2_Menu = ({ navigation }) => {
     <Defi
       navigation={navigation}
       title="Aller plus loin sur 7 jours"
-      data={defi1_Data}
+      data={defi2_Data}
       validatedDays={validatedDays}
       ActiveDayIndex={ActiveDayIndex}
       updateValidatedDays={updateValidatedDays}
