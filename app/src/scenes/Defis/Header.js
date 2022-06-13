@@ -1,11 +1,9 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import styled, { css } from 'styled-components';
-import GoBackButton from '../../components/GoBackButton';
+import styled from 'styled-components';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import BackButton from '../../components/BackButton';
-import { Bold } from '../../components/Articles';
 
 const Header = () => {
   const route = useRoute();
@@ -25,10 +23,11 @@ const Header = () => {
       {!!route?.params?.inDefi1 && (
         <>
           <TextParagraph>
-            Vos réponses seront intégrées à votre <Bold>bilan de fin de semaine.</Bold>
+            Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
           </TextParagraph>
           <TextParagraph>
-            Vous pourrez retrouver ce questionnaire dans la rubrique <Bold>Mes tests</Bold> dans <Bold>Défis</Bold>.
+            Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
+            <TextStyled bold> Défis</TextStyled>.
           </TextParagraph>
         </>
       )}
