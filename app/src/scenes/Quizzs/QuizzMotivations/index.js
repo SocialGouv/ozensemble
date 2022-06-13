@@ -73,7 +73,9 @@ const QuizzMotivations = ({ navigation, route }) => {
                     navigation={navigation}
                   />
                 ))}
-                <ButtonPrimary onPress={validateAnswers} content="Je valide" />
+                <ButtonsContainer>
+                  <ButtonPrimary onPress={validateAnswers} content="Je valide" />
+                </ButtonsContainer>
               </TopContainer>
             </ScreenBgStyled>
           )}
@@ -106,6 +108,11 @@ const TopTitleContainer = styled.View`
   margin-top: 10px;
   margin-bottom: 20px;
   max-width: 95%;
+`;
+
+const ButtonsContainer = styled.View`
+  align-items: center;
+  width: 100%;
 `;
 
 const TopTitle = styled(H1)``;
