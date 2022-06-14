@@ -9,6 +9,7 @@ import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 import Defi2_Day2 from './Defi2_Day2';
 import Defi2_Day5 from './Defi2_Day5';
+import Defi2_Day6_Navigator from './Day6/Defi2_Day6_Navigator';
 
 const Defi2_Stack = createStackNavigator();
 
@@ -66,7 +67,7 @@ const Defi2_Navigator = () => {
         />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_6"
-          component={Defi2_Day1}
+          component={Defi2_Day6_Navigator}
           initialParams={{
             title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
             inDefi2: true,
