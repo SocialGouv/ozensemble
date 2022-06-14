@@ -104,7 +104,7 @@ export const defi2_Data = [
     screenCTA: 'DEFI2_DAY_5',
   },
   {
-    actionType: 'quizz',
+    actionType: 'content',
     title: 'J6',
     tagLine: 'Savoir dire Non',
     description: (
