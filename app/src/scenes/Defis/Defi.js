@@ -14,7 +14,7 @@ import TopTimeline from './TopTimeline';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 import OnBoardingModal from '../../components/OnBoardingModal';
-import { defi2OnBoardingDone } from '../../recoil/defis';
+import { defi2OnBoardingDoneState } from '../../recoil/defis';
 
 const Defi = ({
   navigation,
@@ -30,7 +30,7 @@ const Defi = ({
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
 
-  const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDone);
+  const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, ActiveDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
@@ -128,7 +128,7 @@ const Defi = ({
         description={
           <TextStyled>
             Cette semaine, nous vous proposons de <TextStyled bold>pousser plus loin la réflexion</TextStyled> sur les
-            <TextStyled bold>situations qui vous portent à boire</TextStyled>.{'\n'}À la fin, vous aurez l’occasion de
+            <TextStyled bold> situations qui vous portent à boire</TextStyled>.{'\n'}À la fin, vous aurez l'occasion de
             faire quelques exercices.
           </TextStyled>
         }
