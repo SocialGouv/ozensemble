@@ -2,10 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import TextStyled from './TextStyled';
 
-const QButton = ({ small, content, onPress, disabled }) => (
+const QButton = ({
+  small,
+  content,
+  onPress,
+  disabled,
+  colorText = '#4030a5',
+  colorBorder = '#dbdbe9',
+  colorBackground = ' #eaeaed',
+}) => (
   <QButtonStyled onPress={onPress} disabled={disabled}>
-    <QButtonContentContainer small={small}>
-      <QButtonContent color="#4030a5">{content}</QButtonContent>
+    <QButtonContentContainer small={small} colorBorder={colorBorder} colorBackground={colorBackground}>
+      <QButtonContent color={colorText}>{content}</QButtonContent>
     </QButtonContentContainer>
   </QButtonStyled>
 );
@@ -18,8 +26,8 @@ const QButtonContentContainer = styled.View`
   height: ${qButtonSize}px;
   width: ${qButtonSize}px;
   border-radius: ${qButtonSize}px;
-  border: 1px solid #dbdbe9;
-  background: #eaeaed;
+  border: 1px solid ${({ colorBorder }) => colorBorder};
+  background: ${({ colorBackground }) => colorBackground};
   justify-content: center;
   align-items: center;
 `;
