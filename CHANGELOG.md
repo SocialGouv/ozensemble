@@ -1,3 +1,10 @@
+# [1.45.0](https://github.com/SocialGouv/ozensemble/compare/v1.44.0...v1.45.0) (2022-06-14)
+
+
+### Features
+
+* **app:** tests des defis ([7a0c0e5](https://github.com/SocialGouv/ozensemble/commit/7a0c0e587369e5324df3bd6889a00e882d50434b))
+
 # [1.44.0](https://github.com/SocialGouv/ozensemble/compare/v1.43.0...v1.44.0) (2022-06-13)
 
 
