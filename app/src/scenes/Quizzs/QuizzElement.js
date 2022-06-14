@@ -9,6 +9,7 @@ import { fetchStoredAnswers } from '../../components/Quizz/utils';
 import Form from '../../components/illustrations/Form';
 import { screenWidth } from '../../styles/theme';
 import matomo from '../../services/matomo';
+import Lock from '../../components/illustrations/Lock';
 
 const QuizzElement = ({
   topTitle,
@@ -38,28 +39,24 @@ const QuizzElement = ({
   return (
     <Container done={done} disabled={disabled} fromHealth={fromHealth}>
       <ContainerIcon>
-        {fromHealth && !done ? <Form size={25} /> : <TickDone size={25} color={done ? '#DE285E' : '#5150A226'} />}
+        {fromHealth && !done ? <Form size={25} /> : done ? <TickDone size={25} color="#DE285E" /> : <Lock size={15} />}
       </ContainerIcon>
       <Content>
         <View>
           <TopTitle>{topTitle}</TopTitle>
           <Title>{title}</Title>
         </View>
-        {!disabled &&
-          (done ? (
-            <ButtonsContainer>
-              <ResultsButton
-                small
-                content="Mes résultats"
-                color="#4030A5"
-                shadowColor="#201569"
-                onPress={onShowResult}
-              />
-              <ButtonRedoTest onPress={onStart}>Refaire le test</ButtonRedoTest>
-            </ButtonsContainer>
-          ) : (
-            <Button small content="Je fais le test" onPress={onStart} />
-          ))}
+        <ButtonsContainer>
+          {!disabled &&
+            (done ? (
+              <>
+                <ButtonRedoTest onPress={onShowResult}>Mes résultats</ButtonRedoTest>
+                <ButtonPrimary onPress={onStart} content={'Refaire le test'} small />
+              </>
+            ) : (
+              <Button small content="Je refais le test" onPress={onStart} disabled />
+            ))}
+        </ButtonsContainer>
       </Content>
     </Container>
   );
@@ -69,8 +66,8 @@ export default QuizzElement;
 
 const getBackgroundColor = ({ done, disabled }) => {
   if (done) return '#81DBD326';
-  if (disabled) return '#d5d5d5';
-  return '#F9F9F9';
+  if (disabled) return '#D3D3E825';
+  return '#D3D3E825';
 };
 
 const Container = styled.View`
@@ -80,7 +77,7 @@ const Container = styled.View`
   border-radius: 10px;
   overflow: hidden;
   background-color: ${(props) => getBackgroundColor(props)};
-  border: 1px solid ${({ done, fromHealth }) => (fromHealth ? '#4030A5' : done ? '#81DBD37F' : '#5150A226')};
+  border: 1px solid ${({ done }) => (done ? '#81DBD37F' : '#79747E')};
   padding-vertical: 15px;
   padding-horizontal: ${Math.min(15, screenWidth * 0.02)}px;
   height: ${({ disabled }) => (disabled ? '70' : '120')}px;
@@ -94,8 +91,9 @@ const ButtonsContainer = styled.View`
   flex-direction: row;
   align-items: center;
   overflow: hidden;
-  flex-shrink: 1;
   width: 100%;
+  justify-content: space-between;
+  padding-right: 5px;
 `;
 
 const Content = styled.View`
@@ -119,13 +117,7 @@ const ButtonRedoTest = styled.Text`
   font-size: 14px;
   color: #4030a5;
   text-decoration: underline;
-  margin-left: auto;
   flex-shrink: 1;
-`;
-
-const ResultsButton = styled(ButtonPrimary)`
-  flex-grow: 0;
-  margin-bottom: 0px;
 `;
 
 const Button = styled(ButtonPrimary)`
