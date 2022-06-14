@@ -9,6 +9,7 @@ import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 import Defi2_Day2 from './Defi2_Day2';
 import Defi2_Day5 from './Defi2_Day5';
+import QuizzDefi2RiskSituations from '../../Quizzs/QuizzDefi2RiskSituations';
 
 const Defi2_Stack = createStackNavigator();
 
@@ -38,7 +39,7 @@ const Defi2_Navigator = () => {
         />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_3"
-          component={Defi2_Day1}
+          component={QuizzDefi2RiskSituations}
           initialParams={{
             inDefi2: true,
             rootRoute: 'DEFI2_MENU',
