@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import styled, { css } from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { selector, useRecoilValue } from 'recoil';
 import Header from '../../Defis/Header';
 import { setValidatedDays } from '../../Defis/utils';
 import Sources from '../Sources';
@@ -10,6 +10,27 @@ import { lifeQualityQuizzResultState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
 import questionsLifeQuality from './questions';
 import H3 from '../../../components/H3';
+
+const resultsToDisplaySelector = selector({
+  key: 'resultsToDisplaySelector',
+  get: ({ get }) => {
+    const resultKey = get(lifeQualityQuizzResultState);
+    return [...resultKey]
+      .sort((a, b) => Number(b.score) - Number(a.score))
+      .map((result) => {
+        const question = questionsLifeQuality.find((q) => q.resultLabel === result.title);
+        const response = question?.answers.find((a) => a.score === result.score);
+
+        //hide if good score for these questions
+        if (['Handicap physique', 'Frein psychique'].includes(question.resultLabel) && response.score > 0) {
+          return null;
+        }
+
+        return { response, question };
+      })
+      .filter(Boolean);
+  },
+});
 
 const Wrapper = ({ children, wrapped }) => {
   const resultKey = useRecoilValue(lifeQualityQuizzResultState);
@@ -32,6 +53,7 @@ const Wrapper = ({ children, wrapped }) => {
 const ResultsLifeQuality = ({ wrapped = true, route }) => {
   const isFocused = useIsFocused();
   const resultKey = useRecoilValue(lifeQualityQuizzResultState);
+  const resultsToDisplay = useRecoilValue(resultsToDisplaySelector);
 
   useEffect(() => {
     if (resultKey && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
@@ -45,19 +67,9 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
         <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
         <ItemsContainer>
           {resultKey.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
-          {resultKey
-            .sort((a, b) => Number(b.score) - Number(a.score))
-            .map((r, i) => {
-              const question = questionsLifeQuality.find((q) => q.resultLabel === r.title);
-              const response = question?.answers.find((a) => a.score === r.score);
-
-              //hide if good score for these questions
-              if (['Handicap physique', 'Frein psychique'].includes(question.resultLabel) && response.score > 0) {
-                return null;
-              }
-
-              return <Item key={i} response={response} question={question} />;
-            })}
+          {resultsToDisplay.map(({ response, question }, i) => (
+            <Item key={i} response={response} question={question} />
+          ))}
         </ItemsContainer>
       </ContainerSection>
     </Wrapper>

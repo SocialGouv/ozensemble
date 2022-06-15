@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import Background from '../Background';
 import ProgressBar from '../ProgressBar';
 import Question from './Question';
@@ -25,8 +25,8 @@ const QuizzAndResultsStack = createStackNavigator();
 
 const Quizz = ({ questions, recoilAnswersState, recoilResultState, route, mapAnswersToResult, Results }) => {
   const [progress, setProgress] = useState(0);
-  const [answers, setAnswers] = useSetRecoilState(recoilAnswersState);
-  const [resultKey, setResultKey] = useSetRecoilState(recoilResultState);
+  const [answers, setAnswers] = useRecoilState(recoilAnswersState);
+  const setResultKey = useSetRecoilState(recoilResultState);
 
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
     const newAnswers = {
@@ -57,9 +57,7 @@ const Quizz = ({ questions, recoilAnswersState, recoilResultState, route, mapAns
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
           {() => <QuizzQuestions progress={progress} questions={questions} answers={answers} saveAnswer={saveAnswer} />}
         </QuizzAndResultsStack.Screen>
-        <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
-          {(props) => <Results resultKey={resultKey} {...props} />}
-        </QuizzAndResultsStack.Screen>
+        <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params} component={Results} />
         <QuizzAndResultsStack.Screen name="CONTACT" component={ContactForm} />
         <QuizzAndResultsStack.Screen name="DOCTOLIB" component={Doctolib} />
       </QuizzAndResultsStack.Navigator>
