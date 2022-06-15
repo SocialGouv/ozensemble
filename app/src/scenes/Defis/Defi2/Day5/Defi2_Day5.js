@@ -2,7 +2,7 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import H1 from '../../../../components/H1';
-import { defaultPaddingFontScale, screenHeight } from '../../../../styles/theme';
+import { defaultPaddingFontScale } from '../../../../styles/theme';
 import { setValidatedDays } from '../../utils';
 import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
 import BackButton from '../../../../components/BackButton';
