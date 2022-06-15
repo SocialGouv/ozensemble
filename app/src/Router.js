@@ -25,7 +25,7 @@ import TextStyled from './components/TextStyled';
 import CustomBootsplash from './components/CustomBootsplash';
 import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
-// import DefisNavigator from './scenes/Defis/DefisNavigator';
+import DefisNavigator from './scenes/Defis/DefisNavigator';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -72,14 +72,14 @@ const TabsNavigator = ({ navigation }) => {
           }}
           component={GainsNavigator}
         />
-        {/*  <Tabs.Screen
+        <Tabs.Screen
           name="DEFI"
           options={{
             tabBarLabel: (props) => <Label {...props}>Défis</Label>,
             tabBarIcon: ({ size, color }) => <DefisIcon size={size} color={color} />,
           }}
           component={DefisNavigator}
-        /> */}
+        />
         <Tabs.Screen
           name="CONSO_FOLLOW_UP"
           options={{
