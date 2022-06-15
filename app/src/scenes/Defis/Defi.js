@@ -40,11 +40,6 @@ const Defi = ({
     if (validatedDays > dayIndex) return '#4030a5';
     if (activeDay === dayIndex) return '#de285e';
   };
-  const getSubtitleColor = (dayIndex) => {
-    if (activeDay < dayIndex) return '#c4c4c4';
-    if (validatedDays > dayIndex) return '#191919';
-    if (activeDay === dayIndex) return '#191919';
-  };
   return (
     <ScreenBgStyled>
       <NPS forceView={NPSvisible} close={closeNPS} />
@@ -85,7 +80,7 @@ const Defi = ({
         <Separator />
         {data.map((dayData, dayIndex) => {
           return (
-            <FeedDay key={dayIndex}>
+            <DefiDay key={dayIndex}>
               <Timeline
                 first={dayIndex === 0}
                 last={dayIndex === data.length - 1}
@@ -95,6 +90,7 @@ const Defi = ({
               />
               <FeedDayContent
                 activeOpacity={0.47}
+                last={dayIndex === data.length - 1}
                 disabled={activeDay < dayIndex || !dayData?.screenCTA}
                 onPress={() => {
                   navigation.push(dayData?.screenCTA, { inDefi1: validatedDays <= dayIndex });
@@ -110,7 +106,7 @@ const Defi = ({
                   <ArrowRight size={10} color="#c4c4c4" />
                 )}
               </FeedDayContent>
-            </FeedDay>
+            </DefiDay>
           );
         })}
         <ButtonContainer>
@@ -184,7 +180,7 @@ const Title = styled(H1)`
   margin-top: 10px;
 `;
 
-const FeedDay = styled.View`
+const DefiDay = styled.View`
   flex-direction: row;
   flex-shrink: 1;
   flex-grow: 0;
@@ -196,8 +192,8 @@ const FeedDayContent = styled.TouchableOpacity`
   flex-grow: 1;
   padding-horizontal: 15px;
   padding-vertical: 10px;
-  margin-top: 8px;
   margin-left: 5px;
+  ${(props) => props.last && 'margin-top: -10px;'}
 `;
 
 const FeedCTAContainer = styled.View`

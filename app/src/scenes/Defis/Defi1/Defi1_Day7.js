@@ -1,38 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Linking } from 'react-native';
 import styled from 'styled-components';
+import { useIsFocused } from '@react-navigation/native';
 
 import Background from '../../../components/Background';
 import H1 from '../../../components/H1';
-import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { Content as ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
-import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/Result';
-import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
+import { ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
+import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality';
+import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
 import BackButton from '../../../components/BackButton';
+import { setValidatedDays } from '../utils';
 
-const Defi1_Day7 = ({ navigation }) => {
-  const [{ resultEvaluateConso, resultLifeQuality, resultMotivation }, setGlobalResults] = useState({});
-  const setResults = (newState) => setGlobalResults((oldState) => ({ ...oldState, ...newState }));
+const Defi1_Day7 = ({ navigation, route }) => {
+  const isFocused = useIsFocused();
 
-  const getResultsFromStorage = (memoryKeyAnswers, memoryKeyResult, key, cb) => {
-    const r = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
-    cb({ [key]: r });
-  };
   useEffect(() => {
-    getResultsFromStorage(
-      '@QuizzEvaluateConso_answers',
-      '@QuizzEvaluateConso_result',
-      'resultEvaluateConso',
-      setResults
-    );
-    getResultsFromStorage('@QuizzLifeQuality_answers', '@QuizzLifeQuality_result', 'resultLifeQuality', setResults);
-    getResultsFromStorage('@QuizzMotivations_answers', '@QuizzMotivations_result', 'resultMotivation', setResults);
-  }, []);
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+  }, [route?.params, isFocused]);
 
   return (
     <Background color="#39cec0" withSwiperContainer>
@@ -42,9 +31,9 @@ const Defi1_Day7 = ({ navigation }) => {
           <TopTitle>
             <H1 color="#4030a5">Le bilan de mon Défi 7 jours</H1>
           </TopTitle>
-          <ResultsEvaluateConso resultKey={resultEvaluateConso?.result} hideButtons />
-          <ResultLifeQuality values={resultLifeQuality?.result} />
-          <ResultMotivation results={resultMotivation?.answers} />
+          <ResultsEvaluateConso wrapped={false} hideButtons />
+          <ResultLifeQuality wrapped={false} />
+          <ResultMotivation wrapped={false} />
           <Sources
             content={
               <TextStyled>
