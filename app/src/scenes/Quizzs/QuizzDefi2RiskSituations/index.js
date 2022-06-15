@@ -103,7 +103,7 @@ const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
             description1={
               <>
                 Parmi les situations suivantes, lesquelles vous semblent à risque (c'est à dire que vous allez
-                <TextStyled bold> surconsommer de l'alcool) ?</TextStyled>
+                <TextStyled bold> surconsommer de l'alcool</TextStyled>) ?
               </>
             }
             description2={
