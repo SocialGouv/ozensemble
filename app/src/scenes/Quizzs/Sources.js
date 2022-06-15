@@ -19,7 +19,6 @@ const TextParagraph = styled(TextStyled)`
 const Title = styled(TextStyled)`
   margin-bottom: 8px;
   font-size: 13px;
-  font-weight: bold;
   font-style: italic;
 `;
 
