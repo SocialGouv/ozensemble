@@ -1,5 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import H1 from '../../../../components/H1';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
@@ -8,6 +9,7 @@ import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
 import BackButton from '../../../../components/BackButton';
 import TextStyled from '../../../../components/TextStyled';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
+import { defi2EmotionState } from '../../../../recoil/defis';
 import emotions from './emotions';
 
 const Defi2_Day5 = ({ navigation, route }) => {
@@ -18,6 +20,7 @@ const Defi2_Day5 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   const [smileySelect, setSmileySelect] = useState(0);
+  const [emotion, setEmotion] = useRecoilState(defi2EmotionState);
 
   const TipsSelected = () => {
     switch (smileySelect) {
@@ -51,12 +54,12 @@ const Defi2_Day5 = ({ navigation, route }) => {
             <SmileyContainer
               index={index}
               color={emotion.value}
-              onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
-              {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
+              onPress={() => setSmileySelect(emotion.value === smileySelect.value ? 0 : emotion)}>
+              {smileySelect.value === emotion.value ? emotion.iconclicked : emotion.icon}
               <TextEmotionView>
                 <TextStyled
-                  color={smileySelect === emotion.value ? '#DE285E' : '#000'}
-                  bold={smileySelect === emotion.value}>
+                  color={smileySelect.value === emotion.value ? '#DE285E' : '#000'}
+                  bold={smileySelect.value === emotion.value}>
                   <TextEmotion>{emotion.description}</TextEmotion>
                 </TextStyled>
               </TextEmotionView>
@@ -65,7 +68,14 @@ const Defi2_Day5 = ({ navigation, route }) => {
         </SmileysContainer>
         {TipsSelected()}
         {smileySelect !== 0 ? (
-          <ButtonPrimary content="J'ai compris" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
+          <ButtonPrimary
+            content="J'ai compris"
+            widthSmall
+            onPress={() => {
+              navigation.navigate('DEFI2_MENU');
+              setEmotion(smileySelect);
+            }}
+          />
         ) : null}
       </TopContainer>
     </ScreenBgStyled>
