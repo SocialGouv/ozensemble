@@ -24,7 +24,7 @@ const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
 
   useEffect(() => {
     const answersRiskSituationsTemp = [];
-    answerKeys.map((answerKey) => {
+    answerKeys.forEach((answerKey) => {
       answersRiskSituationsTemp.push(
         riskSituations
           .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
