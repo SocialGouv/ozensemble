@@ -9,12 +9,13 @@ import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Defi1_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi2');
+    if (route?.params?.inDefi2) setValidatedDays(route?.params?.day, '@Defi2');
   }, [route?.params, isFocused]);
 
   return (
@@ -22,7 +23,7 @@ const Defi1_Day5 = ({ navigation, route }) => {
       <TopContainer>
         <BackButton onPress={navigation.goBack} />
         <TopTitle>
-          <H1 color="#4030a5">Pourquoi changer mes habitudes de consommation?</H1>
+          <H1 color="#4030a5">Savoir dire Non</H1>
         </TopTitle>
         <ElementDayDefi
           content={
@@ -62,10 +63,12 @@ const Defi1_Day5 = ({ navigation, route }) => {
         />
         <ContainerText>
           <TextStyled>
-            Pour aller plus loin, lisez notre article pour savoir{' '}
-            <TextStyled underline color="#4030a5">
-              comment dire non, dans la rubrique Santé.
-            </TextStyled>
+            Pour aller plus loin, lisez notre article pour savoir :
+            <TouchableOpacity onPress={() => navigation.navigate('TO_SAY_NO')}>
+              <TextStyled underline color="#4030a5">
+                comment dire non, dans la rubrique Santé.
+              </TextStyled>
+            </TouchableOpacity>
           </TextStyled>
         </ContainerText>
         <ButtonPrimary content="Je peux dire Non" widthSmall onPress={() => navigation.navigate('TO_SAY_NO')} />
