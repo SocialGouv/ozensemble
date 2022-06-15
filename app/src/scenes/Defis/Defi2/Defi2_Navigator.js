@@ -11,7 +11,7 @@ import Defi2_Day2 from './Defi2_Day2';
 import QuizzDefi2RiskSituations from '../../Quizzs/QuizzDefi2RiskSituations';
 import Defi2_Day7 from './Defi2_Day7';
 import Defi2_Day6 from './Defi2_Day6';
-import Defi2_Day5_Navigator from './Day6/Defi2_Day5_Navigator';
+import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
 
 const Defi2_Stack = createStackNavigator();
 
