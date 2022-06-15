@@ -9,9 +9,9 @@ import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
-import MenAndGirl from '../../../components/illustrations/MenAndGirl';
+import MenAndWomen from '../../../components/illustrations/MenAndWomen';
 
-const Defi1_Day2 = ({ navigation, route }) => {
+const Defi2_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Defi1_Day2 = ({ navigation, route }) => {
           }
         />
         <OMSContainer>
-          <MenAndGirl size={120} />
+          <MenAndWomen size={120} />
           <TextOMSContainer>
             <TextDescription>
               <TextStyled bold textAlign={'center'}>
@@ -129,4 +129,4 @@ const TextOMSContainer = styled.View`
 const TextDescription = styled.Text`
   text-align: center;
 `;
-export default Defi1_Day2;
+export default Defi2_Day2;
