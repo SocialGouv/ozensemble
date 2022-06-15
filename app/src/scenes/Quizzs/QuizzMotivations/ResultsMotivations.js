@@ -4,7 +4,7 @@ import { selector, useRecoilValue } from 'recoil';
 import Header from '../../Defis/Header';
 import H3 from '../../../components/H3';
 import TextStyled from '../../../components/TextStyled';
-import Item from './Item';
+import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import sections from './sections';
 import { screenWidth } from '../../../styles/theme';
 import { motivationsQuizzAnswersState } from '../../../recoil/quizzs';
@@ -55,7 +55,7 @@ const ResultsMotivations = ({ wrapped = true }) => {
               .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
               ?.answers?.find((a) => a.answerKey === answerKey);
             return (
-              <Item
+              <CheckboxLabelled
                 key={item?.answerKey}
                 answerKey={item?.answerKey}
                 content={item?.content}

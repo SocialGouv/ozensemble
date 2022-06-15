@@ -6,8 +6,8 @@ import Stars from './illustrations/Stars';
 const ElementDayDefi = ({ content, lineHeight = 20 }) => (
   <Paragraph>
     <ElemContainer>
-      <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
-      <TextStyled style={{ flex: 1, lineHeight }}>{content}</TextStyled>
+      <StarsStyled color="#4030a5" size={20} />
+      <TextContent lineHeight={lineHeight}>{content}</TextContent>
     </ElemContainer>
   </Paragraph>
 );
@@ -19,6 +19,16 @@ const Paragraph = styled.View`
 const ElemContainer = styled.View`
   display: flex;
   flex-direction: row;
-  margin: 10px 0;
+  margin-vertical: 10px;
 `;
+
+const StarsStyled = styled(Stars)`
+  margin-right: 10px;
+`;
+
+const TextContent = styled(TextStyled)`
+  flex: 1;
+  line-height: ${(props) => props.lineHeight};
+`;
+
 export default ElementDayDefi;

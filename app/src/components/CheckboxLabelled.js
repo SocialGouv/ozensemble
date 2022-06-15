@@ -3,10 +3,10 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import styled from 'styled-components';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import TextStyled from '../../../components/TextStyled';
+import ButtonPrimary from './ButtonPrimary';
+import TextStyled from './TextStyled';
 
-export const Item = ({ answerKey, content, alertText, onPress, checked = false, disabled = false }) => {
+const CheckboxLabelled = ({ answerKey, content, alertText, onPress, checked = false, disabled = false }) => {
   const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback onPress={() => onPress?.(answerKey)}>
@@ -76,4 +76,4 @@ const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 20px;
 `;
 
-export default Item;
+export default CheckboxLabelled;
