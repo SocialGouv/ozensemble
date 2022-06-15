@@ -1,6 +1,7 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import { storage } from '../services/storage';
 import { capture } from '../services/sentry';
+import riskSituations from '../scenes/Quizzs/QuizzRiskSituations/riskSituations';
 
 const getInitStoredAnswers = (memoryKeyAnswers) => {
   const storedAnswers = storage.getString(memoryKeyAnswers);
@@ -80,4 +81,21 @@ export const riskSituationsQuizzResultState = atom({
   key: 'riskSituationsQuizzResultState',
   default: getInitStoredResult('@QuizzRiskSituations_result'),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzRiskSituations_result', JSON.stringify(newValue)))],
+});
+
+export const riskSituationsAnswersKeysSelector = selector({
+  key: 'riskSituationsAnswersKeysSelector',
+  get: ({ get }) => {
+    const riskSituationsQuizzAnswers = get(riskSituationsQuizzAnswersState);
+    const onlyTrueResults = Object.keys(riskSituationsQuizzAnswers).reduce((acc, current) => {
+      if (riskSituationsQuizzAnswers[current]) acc[current] = riskSituationsQuizzAnswers[current];
+      return acc;
+    }, {});
+    console.log('selector', Object.keys(onlyTrueResults));
+    return Object.keys(onlyTrueResults).map((answerKey) =>
+      riskSituations
+        .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
+        ?.answers?.find((a) => a.answerKey === answerKey)
+    );
+  },
 });

@@ -1,6 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native';
 import H1 from '../../../components/H1';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
@@ -9,9 +10,8 @@ import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Defi1_Day5 = ({ navigation, route }) => {
+const Defi1_Day6 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const Defi1_Day5 = ({ navigation, route }) => {
             </TouchableOpacity>
           </TextStyled>
         </ContainerText>
-        <ButtonPrimary content="Je peux dire Non" widthSmall onPress={() => navigation.navigate('TO_SAY_NO')} />
+        <ButtonPrimary content="Je peux dire Non" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
       </TopContainer>
     </ScreenBgStyled>
   );
@@ -95,4 +95,4 @@ const ContainerText = styled.View`
   margin-bottom: 30px;
 `;
 
-export default Defi1_Day5;
+export default Defi1_Day6;

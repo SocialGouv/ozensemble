@@ -36,11 +36,11 @@ const Defi2_Day5_OnBoarding = ({ navigation, route }) => {
         <ElementDayDefi
           content={
             <TextStyled>
-              Vous allez <TextStyled bold>réfléchir à l'émotion que vous ressentez </TextStyled>. {'\n\n'} Il est plus
+              Vous allez <TextStyled bold>réfléchir à l'émotion que vous ressentez</TextStyled>. {'\n\n'} Il est plus
               facile de{' '}
               <TextStyled bold>se préparer en amont de la situation en ayant planifié ces stratégies</TextStyled>, que
-              de devoir réagir sur de l'émotionnel lorsque l'on est pris par la situation.{'\n\n'} Comme pour un
-              sportif, il est nécessaire de s'entraîner avant une compétition pour pouvoir la gagner.
+              de devoir réagir sur de l'émotionnel lorsque l'on est pris par la situation.{'\n\n'}Comme pour un sportif,
+              il est nécessaire de s'entraîner avant une compétition pour pouvoir la gagner.
             </TextStyled>
           }
         />

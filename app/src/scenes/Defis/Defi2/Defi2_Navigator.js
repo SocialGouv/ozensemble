@@ -77,7 +77,15 @@ const Defi2_Navigator = () => {
             day: 6,
           }}
         />
-        <Defi2_Stack.Screen name="DEFI2_DAY_7" component={Defi2_Day7} />
+        <Defi2_Stack.Screen
+          initialParams={{
+            inDefi2: true,
+            rootRoute: 'DEFI2_MENU',
+            day: 7,
+          }}
+          name="DEFI2_DAY_7"
+          component={Defi2_Day7}
+        />
       </Defi2_Stack.Navigator>
     </Background>
   );

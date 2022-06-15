@@ -28,7 +28,7 @@ const StarsStyled = styled(Stars)`
 
 const TextContent = styled(TextStyled)`
   flex: 1;
-  line-height: ${(props) => props.lineHeight};
+  line-height: ${(props) => props.lineHeight}px;
 `;
 
 export default ElementDayDefi;
