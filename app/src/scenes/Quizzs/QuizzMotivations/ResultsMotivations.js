@@ -21,45 +21,53 @@ const answersKeysSelector = selector({
   },
 });
 
-const ResultsMotivations = () => {
+const Wrapper = ({ children, wrapped }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
-  const answersKeys = useRecoilValue(answersKeysSelector);
-
+  if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
       <Header />
-      {!!motivationsQuizzAnswers && (
-        <ResultContainer>
-          <ContainerSection>
-            <ResultTitle>Vos motivations à changer</ResultTitle>
-            {!answersKeys.length && (
-              <TextStyled>
-                Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en
-                allant dans l'onglet <TextStyled bold>Mes infos</TextStyled> et en cliquant sur{' '}
-                <TextStyled bold>Mes tests</TextStyled>.
-              </TextStyled>
-            )}
-            <ItemsContainer>
-              {answersKeys.map((answerKey) => {
-                const item = sections
-                  .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
-                  ?.answers?.find((a) => a.answerKey === answerKey);
-                return (
-                  <Item
-                    key={item?.answerKey}
-                    answerKey={item?.answerKey}
-                    content={item?.content}
-                    alertText={item?.alertText}
-                    checked
-                    disabled
-                  />
-                );
-              })}
-            </ItemsContainer>
-          </ContainerSection>
-        </ResultContainer>
-      )}
+      {!!motivationsQuizzAnswers && <ResultContainer>{children}</ResultContainer>}
     </FullScreenBackground>
+  );
+};
+
+const ResultsMotivations = ({ wrapped = true }) => {
+  const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
+  const answersKeys = useRecoilValue(answersKeysSelector);
+
+  if (!motivationsQuizzAnswers) return null;
+
+  return (
+    <Wrapper wrapped={wrapped}>
+      <ContainerSection>
+        <ResultTitle>Vos motivations à changer</ResultTitle>
+        {!answersKeys.length && (
+          <TextStyled>
+            Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en
+            allant dans l'onglet <TextStyled bold>Mes infos</TextStyled> et en cliquant sur{' '}
+            <TextStyled bold>Mes tests</TextStyled>.
+          </TextStyled>
+        )}
+        <ItemsContainer>
+          {answersKeys.map((answerKey) => {
+            const item = sections
+              .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
+              ?.answers?.find((a) => a.answerKey === answerKey);
+            return (
+              <Item
+                key={item?.answerKey}
+                answerKey={item?.answerKey}
+                content={item?.content}
+                alertText={item?.alertText}
+                checked
+                disabled
+              />
+            );
+          })}
+        </ItemsContainer>
+      </ContainerSection>
+    </Wrapper>
   );
 };
 
