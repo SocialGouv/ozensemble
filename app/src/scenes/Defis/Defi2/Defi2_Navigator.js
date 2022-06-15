@@ -9,6 +9,7 @@ import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 import Defi2_Day2 from './Defi2_Day2';
 import Defi2_Day5 from './Defi2_Day5';
+import Defi2_Day7 from './Defi2_Day7';
 
 const Defi2_Stack = createStackNavigator();
 
@@ -74,7 +75,7 @@ const Defi2_Navigator = () => {
             day: 6,
           }}
         />
-        <Defi2_Stack.Screen name="DEFI2_DAY_7" component={Defi2_Day1} />
+        <Defi2_Stack.Screen name="DEFI2_DAY_7" component={Defi2_Day7} />
       </Defi2_Stack.Navigator>
     </Background>
   );
