@@ -147,8 +147,6 @@ const Router = () => {
     initApp();
   }, []);
 
-  return null;
-
   return (
     <>
       <NavigationContainer

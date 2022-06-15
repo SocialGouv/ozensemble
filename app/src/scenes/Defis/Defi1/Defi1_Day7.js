@@ -7,23 +7,17 @@ import Background from '../../../components/Background';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { Content as ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
-import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality/Result';
-import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations/Result';
+import { ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
+import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality';
+import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
 import BackButton from '../../../components/BackButton';
-import {
-  betterEvaluateQuizzResultState,
-  lifeQualityQuizzResultState,
-  motivationsQuizzResultState,
-} from '../../../recoil/quizzs';
+import { betterEvaluateQuizzResultState } from '../../../recoil/quizzs';
 
 const Defi1_Day7 = ({ navigation }) => {
   const betterEvaluateQuizzResult = useRecoilValue(betterEvaluateQuizzResultState);
-  const lifeQualityQuizzResult = useRecoilValue(lifeQualityQuizzResultState);
-  const motivationsQuizzResult = useRecoilValue(motivationsQuizzResultState);
 
   return (
     <Background color="#39cec0" withSwiperContainer>
@@ -33,9 +27,9 @@ const Defi1_Day7 = ({ navigation }) => {
           <TopTitle>
             <H1 color="#4030a5">Le bilan de mon Défi 7 jours</H1>
           </TopTitle>
-          <ResultsEvaluateConso resultKey={betterEvaluateQuizzResult} hideButtons />
-          <ResultLifeQuality values={lifeQualityQuizzResult} />
-          <ResultMotivation results={motivationsQuizzResult} />
+          <ResultsEvaluateConso wrapped={false} hideButtons />
+          <ResultLifeQuality wrapped={false} />
+          <ResultMotivation wrapped={false} />
           <Sources
             content={
               <TextStyled>
