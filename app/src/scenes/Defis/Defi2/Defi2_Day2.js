@@ -9,7 +9,7 @@ import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
-import MenAndWomen from '../../../components/illustrations/MenAndWomen';
+import ManAndWoman from '../../../components/illustrations/ManAndWoman';
 
 const Defi2_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -56,7 +56,7 @@ const Defi2_Day2 = ({ navigation, route }) => {
           }
         />
         <OMSContainer>
-          <MenAndWomen size={120} />
+          <ManAndWoman size={120} />
           <TextOMSContainer>
             <TextDescription>
               <TextStyled bold textAlign={'center'}>
