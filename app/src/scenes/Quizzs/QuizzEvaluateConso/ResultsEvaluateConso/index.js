@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../../../Defis/utils';
 import Header from '../../../Defis/Header';
 import Sources from '../../Sources';
@@ -9,24 +10,12 @@ import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
 import { screenWidth } from '../../../../styles/theme';
+import { betterEvaluateQuizzResultState } from '../../../../recoil/quizzs';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
-export default (props) => (
-  <QuizzEvaluateResultStack.Navigator headerMode="none">
-    <QuizzEvaluateResultStack.Screen
-      name="RESULT"
-      initialParams={{
-        title: 'Évaluer sa consommation',
-        ...props?.route?.params,
-      }}>
-      {() => <Results {...props} />}
-    </QuizzEvaluateResultStack.Screen>
-    <QuizzEvaluateResultStack.Screen name="ADVISE" component={Advise} />
-  </QuizzEvaluateResultStack.Navigator>
-);
-
-const Results = ({ resultKey, route }) => {
+const ResultsEvaluateConsoNavigator = ({ route }) => {
+  const resultKey = useRecoilValue(betterEvaluateQuizzResultState);
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -34,28 +23,48 @@ const Results = ({ resultKey, route }) => {
   }, [route?.params, isFocused, resultKey]);
 
   if (!resultKey) return null;
-
   return (
-    <FullScreenBackground>
-      <Header />
-      <ResultContainer>
-        <Content resultKey={resultKey} />
-        <Sources
-          content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-        Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
-        Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
-        />
-      </ResultContainer>
-    </FullScreenBackground>
+    <QuizzEvaluateResultStack.Navigator headerMode="none">
+      <QuizzEvaluateResultStack.Screen
+        name="RESULT"
+        initialParams={{
+          title: 'Évaluer sa consommation',
+        }}
+        component={ResultsEvaluateConso}
+      />
+      <QuizzEvaluateResultStack.Screen name="ADVISE" component={Advise} />
+    </QuizzEvaluateResultStack.Navigator>
   );
 };
 
-export const Content = ({ resultKey, hideButtons }) => (
-  <>
-    <ResultAddiction value={resultKey?.scoreAddiction} />
-    <ResultPopulation value={resultKey?.scoreArrow} hideButtons={hideButtons} />
-  </>
-);
+const Wrapper = ({ wrapped, children }) => {
+  if (!wrapped) return <>{children}</>;
+  if (wrapped) {
+    return (
+      <FullScreenBackground>
+        <Header />
+        <ResultContainer>
+          {children}
+          <Sources
+            content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+          Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+          Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+          />
+        </ResultContainer>
+      </FullScreenBackground>
+    );
+  }
+};
+
+export const ResultsEvaluateConso = ({ wrapped = true, hideButtons = false }) => {
+  const resultKey = useRecoilValue(betterEvaluateQuizzResultState);
+  return (
+    <Wrapper wrapped={wrapped}>
+      <ResultAddiction value={resultKey?.scoreAddiction} />
+      <ResultPopulation value={resultKey?.scoreArrow} hideButtons={hideButtons} />
+    </Wrapper>
+  );
+};
 
 const ResultContainer = styled.View`
   background-color: #efefef;
@@ -73,3 +82,5 @@ const FullScreenBackground = styled.ScrollView`
   max-width: ${screenWidth}px;
   min-width: ${screenWidth}px;
 `;
+
+export default ResultsEvaluateConsoNavigator;

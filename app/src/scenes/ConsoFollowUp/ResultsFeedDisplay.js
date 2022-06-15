@@ -1,22 +1,14 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import H3 from '../../components/H3';
 import QuizzIcon from '../../components/illustrations/QuizzIcon';
-import { storage } from '../../services/storage';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
+import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 
 const ResultsFeedDisplay = ({ onPress, selected }) => {
-  const [isDone, setIsDone] = useState(storage.getString('@Quizz_result'));
-
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    if (isFocused) {
-      const newIsDone = storage.getString('@Quizz_result');
-      if (isDone !== newIsDone) setIsDone(newIsDone);
-    }
-  }, [isDone, isFocused]);
+  const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -25,7 +17,7 @@ const ResultsFeedDisplay = ({ onPress, selected }) => {
           <QuizzIcon size={25} color="#de285e" selected />
           <TextContent>
             <Caption>Questionnaire d'auto-évaluation</Caption>
-            <CTA>{isDone ? 'Refaire' : 'Faire'} le questionnaire</CTA>
+            <CTA>{autoEvaluationDone ? 'Refaire' : 'Faire'} le questionnaire</CTA>
           </TextContent>
         </Content>
       </FeedButtonStyled>
