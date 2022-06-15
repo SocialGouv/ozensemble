@@ -92,7 +92,7 @@ const Defi1_Day1 = ({ navigation, route }) => {
                   {'\n\n'}
                   {drinkByWeek
                     ? `La ligne verte représente votre objectif (${drinkByWeek} unités d'alcool par jour)`
-                    : "La ligne verte représente le seuil de l'OMS (2 verres par jour) ou votre objectif quand il sera fixé"}
+                    : "La ligne verte représente le seuil de l'OMS (2 unités d'alcool par jour) ou votre objectif quand il sera fixé"}
                 </TextStyled>
               }
             />

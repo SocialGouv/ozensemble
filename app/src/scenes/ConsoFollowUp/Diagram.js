@@ -282,7 +282,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
             <>
               <TextStyled>
                 Votre consommation est <TextStyled bold>identique </TextStyled>à la semaine précédente (soit{' '}
-                {thisWeekNumberOfDrinks} verres).
+                {thisWeekNumberOfDrinks} unités d'alcool).
               </TextStyled>
               <TextStyled />
               <TextStyled>
