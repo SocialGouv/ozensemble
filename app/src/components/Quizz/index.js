@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
+import { useSetRecoilState } from 'recoil';
 import Background from '../Background';
 import ProgressBar from '../ProgressBar';
 import Question from './Question';
-import { fetchStoredAnswers } from './utils';
-import { storage } from '../../services/storage';
 import ContactForm from '../../scenes/Health/ContactForm';
 import Doctolib from '../../scenes/Health/Doctolib';
 import matomo from '../../services/matomo';
@@ -24,22 +23,10 @@ HOW DOES THE QUESTIONS WORK:
 const QuizzStack = createStackNavigator();
 const QuizzAndResultsStack = createStackNavigator();
 
-const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswersToResult, Results }) => {
+const Quizz = ({ questions, recoilAnswersState, recoilResultState, route, mapAnswersToResult, Results }) => {
   const [progress, setProgress] = useState(0);
-  const [{ answers, resultKey }, setState] = useState(() => {
-    const fetchedInitialState = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult, questions });
-    if (fetchedInitialState?.answers || fetchedInitialState?.result) {
-      return {
-        answers: fetchedInitialState.answers,
-        resultKey: fetchedInitialState.result,
-      };
-    } else {
-      return {
-        answers: {},
-        resultKey: null,
-      };
-    }
-  });
+  const [answers, setAnswers] = useSetRecoilState(recoilAnswersState);
+  const [resultKey, setResultKey] = useSetRecoilState(recoilResultState);
 
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
     const newAnswers = {
@@ -47,21 +34,16 @@ const Quizz = ({ memoryKeyAnswers, memoryKeyResult, questions, route, mapAnswers
       [questionKey]: answerKey,
     };
 
-    const newProgress = (questionIndex + 1) / questions.length;
-    setState((prevState) => ({ ...prevState, answers: newAnswers }));
-    setProgress(newProgress);
+    setAnswers(newAnswers);
+    setProgress((questionIndex + 1) / questions.length);
     const endOfQuestions = questionIndex === questions.length - 1;
 
     await matomo.logQuizzAnswer({ questionKey, answerKey, score });
-    storage.set(memoryKeyAnswers, JSON.stringify(newAnswers));
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(questions, newAnswers);
       await matomo.logQuizzFinish();
-      if (addictionResult) {
-        storage.set(memoryKeyResult, JSON.stringify(addictionResult));
-      }
-      setState((prevState) => ({ ...prevState, resultKey: addictionResult }));
+      if (addictionResult) setResultKey(addictionResult);
     }
   };
 

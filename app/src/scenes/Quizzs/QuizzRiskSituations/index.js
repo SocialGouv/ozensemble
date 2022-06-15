@@ -1,33 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
-import { storage } from '../../../services/storage';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import H1 from '../../../components/H1';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import ElementDayDefi from '../../../components/ElementDayDefi';
-import QuizzDefi2RiskSituationsResult from './Result';
+import ResultRiskSituations from './ResultRiskSituations';
 import Situation from './Situation';
 import riskSituations from './riskSituations';
+import { riskSituationsQuizzAnswersState, riskSituationsQuizzResultState } from '../../../recoil/quizzs';
 
-const QuizzDefi2RiskSituationsStack = createStackNavigator();
+const QuizzRiskSituationsStack = createStackNavigator();
 
-const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
-  const memoryKeyAnswers = '@QuizzDefi2RiskSituations_answers';
-  const memoryKeyResult = '@QuizzDefi2RiskSituations_result';
-
-  const [answers, setAnswers] = useState(() => {
-    const storedQuizz = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
-    if (storedQuizz?.answers || storedQuizz?.result) {
-      return storedQuizz.answers || {};
-    }
-    return {};
-  });
-
+const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
+  const [answers, setAnswers] = useRecoilState(riskSituationsQuizzAnswersState);
+  const setResult = useSetRecoilState(riskSituationsQuizzResultState);
   const toggleAnswer = async (answerKey, checked) => {
     setAnswers((prevAnswers) => {
       return {
@@ -38,8 +29,7 @@ const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
   };
 
   const validateAnswers = async () => {
-    storage.set(memoryKeyAnswers, JSON.stringify(answers));
-    storage.set(memoryKeyResult, true);
+    setResult(true);
     navigation.push('QUIZZ_RESULTS');
   };
 
@@ -52,10 +42,8 @@ const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
   };
 
   return (
-    <QuizzDefi2RiskSituationsStack.Navigator
-      headerMode="none"
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}>
-      <QuizzDefi2RiskSituationsStack.Screen name="QUIZZ_ONBOARDING">
+    <QuizzRiskSituationsStack.Navigator headerMode="none" screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}>
+      <QuizzRiskSituationsStack.Screen name="QUIZZ_ONBOARDING">
         {({ navigation }) => (
           <ScreenBgStyled>
             <TopContainer>
@@ -91,8 +79,8 @@ const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
             </TopContainer>
           </ScreenBgStyled>
         )}
-      </QuizzDefi2RiskSituationsStack.Screen>
-      <QuizzDefi2RiskSituationsStack.Screen name="QUIZZ_INTERNAL_SITUATIONS">
+      </QuizzRiskSituationsStack.Screen>
+      <QuizzRiskSituationsStack.Screen name="QUIZZ_INTERNAL_SITUATIONS">
         {({ navigation }) => (
           <Situation
             section={riskSituations[0]}
@@ -113,8 +101,8 @@ const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
             }
           />
         )}
-      </QuizzDefi2RiskSituationsStack.Screen>
-      <QuizzDefi2RiskSituationsStack.Screen name="QUIZZ_EXTERNAL_SITUATIONS" initialParams={route?.params}>
+      </QuizzRiskSituationsStack.Screen>
+      <QuizzRiskSituationsStack.Screen name="QUIZZ_EXTERNAL_SITUATIONS" initialParams={route?.params}>
         {({ navigation }) => (
           <Situation
             section={riskSituations[1]}
@@ -135,11 +123,11 @@ const QuizzDefi2RiskSituationsOnBoarding = ({ navigation, route }) => {
             }
           />
         )}
-      </QuizzDefi2RiskSituationsStack.Screen>
-      <QuizzDefi2RiskSituationsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
-        {({ navigation }) => <QuizzDefi2RiskSituationsResult navigation={navigation} answers={answers} />}
-      </QuizzDefi2RiskSituationsStack.Screen>
-    </QuizzDefi2RiskSituationsStack.Navigator>
+      </QuizzRiskSituationsStack.Screen>
+      <QuizzRiskSituationsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
+        {({ navigation }) => <ResultRiskSituations navigation={navigation} answers={answers} />}
+      </QuizzRiskSituationsStack.Screen>
+    </QuizzRiskSituationsStack.Navigator>
   );
 };
 
@@ -149,4 +137,4 @@ const TopContainer = styled.View`
 
 const Title = styled(H1)``;
 
-export default QuizzDefi2RiskSituationsOnBoarding;
+export default QuizzRiskSituationsOnBoarding;

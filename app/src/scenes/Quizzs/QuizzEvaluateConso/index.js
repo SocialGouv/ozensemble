@@ -1,5 +1,6 @@
 import React from 'react';
 import Quizz from '../../../components/Quizz';
+import { betterEvaluateQuizzAnswersState, betterEvaluateQuizzResultState } from '../../../recoil/quizzs';
 import questionsEvaluateConso from './questions';
 import ResultsEvaluateConso from './ResultsEvaluateConso';
 import { mapEvaluateConsoAnswersToResult } from './utils';
@@ -9,8 +10,8 @@ const QuizzEvaluateConso = (props) => {
     <Quizz
       {...props}
       questions={questionsEvaluateConso}
-      memoryKeyResult={'@QuizzEvaluateConso_result'}
-      memoryKeyAnswers={'@QuizzEvaluateConso_answers'}
+      recoilAnswersState={betterEvaluateQuizzAnswersState}
+      recoilResultState={betterEvaluateQuizzResultState}
       mapAnswersToResult={mapEvaluateConsoAnswersToResult}
       Results={ResultsEvaluateConso}
     />

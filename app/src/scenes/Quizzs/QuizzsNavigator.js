@@ -17,6 +17,11 @@ import ContactForm from '../Health/ContactForm';
 import Doctolib from '../Health/Doctolib';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
+import {
+  betterEvaluateQuizzResultState,
+  lifeQualityQuizzResultState,
+  motivationsQuizzResultState,
+} from '../../recoil/quizzs';
 
 const QuizzsStack = createStackNavigator();
 
@@ -70,24 +75,21 @@ const QuizzMenu = () => {
           topTitle="Défi 7 jours"
           title="Évaluer sa consommation"
           quizzRoute="EVALUATE_CONSO_QUIZZ"
-          memoryKeyResult={'@QuizzEvaluateConso_result'}
-          memoryKeyAnswers={'@QuizzEvaluateConso_answers'}
+          recoilResultState={betterEvaluateQuizzResultState}
           showEvenNotDone
         />
         <QuizzElement
           topTitle="Défi 7 jours"
           title="Qualité de vie"
           quizzRoute="LIFE_QUALITY_QUIZZ"
-          memoryKeyResult={'@QuizzLifeQuality_result'}
-          memoryKeyAnswers={'@QuizzLifeQuality_answers'}
+          recoilResultState={lifeQualityQuizzResultState}
           showEvenNotDone
         />
         <QuizzElement
           topTitle="Défi 7 jours"
           title="Mes motivations à diminuer"
           quizzRoute="MOTIVATIONS_QUIZZ"
-          memoryKeyResult={'@QuizzMotivations_result'}
-          memoryKeyAnswers={'@QuizzMotivations_answers'}
+          recoilResultState={motivationsQuizzResultState}
           showEvenNotDone
         />
         <DefiCategorieTitle color="#4030a5">Deuxième défi</DefiCategorieTitle>
