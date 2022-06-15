@@ -10,7 +10,7 @@ import TextStyled from '../../../../components/TextStyled';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../../components/ElementDayDefi';
 
-const Defi2_Day6_OnBoarding = ({ navigation, route }) => {
+const Defi2_Day5_OnBoarding = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -86,4 +86,4 @@ const TopTitle = styled.View`
   margin-bottom: 20px;
 `;
 
-export default Defi2_Day6_OnBoarding;
+export default Defi2_Day5_OnBoarding;

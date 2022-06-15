@@ -23,7 +23,7 @@ const Defi1_Day2 = ({ navigation, route }) => {
       <TopContainer>
         <BackButton onPress={navigation.goBack} />
         <TopTitle>
-          <H1 color="#4030a5">Pourquoi changer mes habitudes de consommation?</H1>
+          <H1 color="#4030a5">Comprendre les normes</H1>
         </TopTitle>
         <ElementDayDefi
           content={
