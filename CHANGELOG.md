@@ -1,3 +1,11 @@
+# [1.46.0](https://github.com/SocialGouv/ozensemble/compare/v1.45.0...v1.46.0) (2022-06-15)
+
+
+### Features
+
+* **app:** Defi2 day5 + day6 ([3620111](https://github.com/SocialGouv/ozensemble/commit/362011125cebbecd7ec47a807d5de58cef3ab6be))
+* **app:** defi2 day6 ([46f9c6d](https://github.com/SocialGouv/ozensemble/commit/46f9c6d8ac7945ec01625f1cac962e00f1765c5a))
+
 # [1.45.0](https://github.com/SocialGouv/ozensemble/compare/v1.44.0...v1.45.0) (2022-06-14)
 
 
