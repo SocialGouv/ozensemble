@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useIsFocused } from '@react-navigation/native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
@@ -13,6 +14,7 @@ import ResultRiskSituations from './ResultRiskSituations';
 import Situation from './Situation';
 import riskSituations from './riskSituations';
 import { riskSituationsQuizzAnswersState, riskSituationsQuizzResultState } from '../../../recoil/quizzs';
+import { setValidatedDays } from '../../Defis/utils';
 
 const QuizzRiskSituationsStack = createStackNavigator();
 
@@ -33,13 +35,18 @@ const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
     navigation.push('QUIZZ_RESULTS');
   };
 
-  const GoToStep1 = () => {
+  const goToStep1 = () => {
     navigation.push('QUIZZ_INTERNAL_SITUATIONS');
   };
 
-  const GoToStep2 = () => {
+  const goToStep2 = () => {
     navigation.push('QUIZZ_EXTERNAL_SITUATIONS');
   };
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (route?.params?.inDefi2) setValidatedDays(route?.params?.day, '@Defi2');
+  }, [route?.params, isFocused]);
 
   return (
     <QuizzRiskSituationsStack.Navigator headerMode="none" screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}>
@@ -48,7 +55,9 @@ const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
           <ScreenBgStyled>
             <TopContainer>
               <BackButton onPress={navigation.goBack} marginBottom />
-              <Title color="#4030a5">Identifier mes situations à risques</Title>
+              <TopTitle>
+                <H1 color="#4030a5">Identifier mes situations à risques</H1>
+              </TopTitle>
               <ElementDayDefi
                 content={
                   <TextStyled>
@@ -75,7 +84,7 @@ const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
                   </TextStyled>
                 }
               />
-              <ButtonPrimary onPress={GoToStep1} content="Je reconnais mes situations" widthSmall />
+              <ButtonPrimary onPress={goToStep1} content="Je reconnais mes situations" widthSmall />
             </TopContainer>
           </ScreenBgStyled>
         )}
@@ -87,7 +96,7 @@ const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
             toggleAnswer={toggleAnswer}
             answers={answers}
             navigation={navigation}
-            onPress={GoToStep2}
+            onPress={goToStep2}
             description1={
               <>
                 Parmi les situations suivantes, lesquelles vous semblent à risque (c'est à dire que vous allez
@@ -135,6 +144,12 @@ const TopContainer = styled.View`
   padding: 0px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
 `;
 
-const Title = styled(H1)``;
+const TopTitle = styled.View`
+  width: 95%;
+  flex-direction: row;
+  flex-shrink: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
 
 export default QuizzRiskSituationsOnBoarding;

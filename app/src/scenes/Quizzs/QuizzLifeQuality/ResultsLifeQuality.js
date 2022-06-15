@@ -68,7 +68,7 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
         <ItemsContainer>
           {resultKey.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
           {resultsToDisplay.map(({ response, question }, i) => (
-            <Item key={i} response={response} question={question} />
+            <EmojiBlock key={i} response={response} question={question} />
           ))}
         </ItemsContainer>
       </ContainerSection>
@@ -93,7 +93,7 @@ const ResultContainer = styled.View`
   height: 100%;
 `;
 
-const Item = ({ response, question }) => {
+const EmojiBlock = ({ response, question }) => {
   const scoreToColor = (score) => {
     if (score < 0) return '#c0184a';
     if (score > 0) return '#39cec0';

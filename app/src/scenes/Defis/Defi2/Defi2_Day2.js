@@ -48,8 +48,8 @@ const Defi2_Day2 = ({ navigation, route }) => {
           content={
             <TextStyled>
               Chez l'adulte, cette valeur repère est de :{'\n    • '}
-              <TextStyled bold>10 verres d'alcool standard par semaine</TextStyled> maximum,{'\n    • '}
-              sans dépasser 2<TextStyled bold> verres standard par jour</TextStyled>
+              <TextStyled bold>10 verres d'alcool standards par semaine</TextStyled> maximum,{'\n    • '}
+              sans dépasser <TextStyled bold>2 verres standards par jour</TextStyled>
               {'\n    • '}et
               <TextStyled bold> pas tous les jours</TextStyled>
             </TextStyled>
@@ -115,7 +115,7 @@ const OMSContainer = styled.View`
   border: 1px solid #4030a5;
   border-radius: 3px;
   flex-direction: row;
-  justify-content:space-around 
+  justify-content:space-around
   padding: 10px;
   margin-bottom: 25px;
 `;
@@ -129,4 +129,5 @@ const TextOMSContainer = styled.View`
 const TextDescription = styled.Text`
   text-align: center;
 `;
+
 export default Defi2_Day2;
