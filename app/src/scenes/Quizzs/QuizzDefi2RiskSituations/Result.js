@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import TextStyled from '../../../components/TextStyled';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
@@ -9,13 +10,29 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import riskSituations from './riskSituations';
 import QButton from '../../../components/QButton';
 import ButtonPrimary from '../../../components/ButtonPrimary';
+import { defi2AnswersRiskSituationsState } from '../../../recoil/defis';
 
 const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
   const onlyTrueResults = Object.keys(answers).reduce((acc, current) => {
     if (answers[current]) acc[current] = answers[current];
     return acc;
   }, {});
+
   const answerKeys = Object.keys(onlyTrueResults);
+
+  const [answersRiskSituations, setAnswersRiskSituations] = useRecoilState(defi2AnswersRiskSituationsState);
+
+  useEffect(() => {
+    const answersRiskSituationsTemp = [];
+    answerKeys.forEach((answerKey) => {
+      answersRiskSituationsTemp.push(
+        riskSituations
+          .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
+          ?.answers?.find((a) => a.answerKey === answerKey)
+      );
+    });
+    setAnswersRiskSituations(answersRiskSituationsTemp);
+  }, []);
 
   return (
     <ScreenBgStyled>
@@ -29,28 +46,24 @@ const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
         <H2>Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : </H2>
       </TopContainer>
       <ResultsContainer>
-        {answerKeys.map((answerKey, index) => {
-          const item = riskSituations
-            .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
-            ?.answers?.find((a) => a.answerKey === answerKey);
-          return (
-            <Result>
-              <QButton
-                content={index + 1}
-                disabled
-                colorText="#ffffff"
-                colorBorder="#4030A5"
-                colorBackground=" #4030A5"
-              />
-              <TextContainer>
-                <TextStyled>{item?.content}</TextStyled>
-              </TextContainer>
-            </Result>
-          );
-        })}
+        {answersRiskSituations.map((riskSituations, index) => (
+          <Result>
+            <QButton
+              key={index}
+              content={index + 1}
+              disabled
+              colorText="#ffffff"
+              colorBorder="#4030A5"
+              colorBackground=" #4030A5"
+            />
+            <TextContainer>
+              <TextStyled>{riskSituations?.content}</TextStyled>
+            </TextContainer>
+          </Result>
+        ))}
       </ResultsContainer>
       <BottomContainer>
-        <ButtonPrimary content={"J'ai finis d'identifier"} widthSmall />
+        <ButtonPrimary content={"J'ai finis d'identifier"} widthSmall onPress={() => navigation.push('DEFI2_MENU')} />
       </BottomContainer>
     </ScreenBgStyled>
   );
