@@ -9,13 +9,13 @@ import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
-import MenAndGirl from '../../../components/illustrations/MenAndGirl';
+import ManAndWoman from '../../../components/illustrations/ManAndWoman';
 
-const Defi1_Day2 = ({ navigation, route }) => {
+const Defi2_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi2');
+    if (route?.params?.inDefi2) setValidatedDays(route?.params?.day, '@Defi2');
   }, [route?.params, isFocused]);
 
   return (
@@ -23,7 +23,7 @@ const Defi1_Day2 = ({ navigation, route }) => {
       <TopContainer>
         <BackButton onPress={navigation.goBack} />
         <TopTitle>
-          <H1 color="#4030a5">Pourquoi changer mes habitudes de consommation?</H1>
+          <H1 color="#4030a5">Comprendre les normes</H1>
         </TopTitle>
         <ElementDayDefi
           content={
@@ -56,7 +56,7 @@ const Defi1_Day2 = ({ navigation, route }) => {
           }
         />
         <OMSContainer>
-          <MenAndGirl size={120} />
+          <ManAndWoman size={120} />
           <TextOMSContainer>
             <TextDescription>
               <TextStyled bold textAlign={'center'}>
@@ -129,4 +129,4 @@ const TextOMSContainer = styled.View`
 const TextDescription = styled.Text`
   text-align: center;
 `;
-export default Defi1_Day2;
+export default Defi2_Day2;
