@@ -1,6 +1,7 @@
 import { useRecoilValue } from 'recoil';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
+import { useIsFocused } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
@@ -10,12 +11,37 @@ import Lock from '../../components/illustrations/Lock';
 import HowMakeSelfEvaluation from './HowMakeSelfEvaluation';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
+import { storage } from '../../services/storage';
 
 const DefisMenu = ({ navigation }) => {
   const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showDefi2Modal, setshowDefi2Modal] = useState(false);
+  const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
+  const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
+
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused) setDefi1Day(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
+    if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
+  }, [isFocused]);
+
+  const defi1CallToAction = useMemo(() => {
+    if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
+    if (defi1Day === 7) return 'Je consulte';
+    // if (defi1Day === 6) return 'Je finis';
+    return 'Je continue';
+  }, [defi1Day, autoEvaluationDone]);
+
+  const defi2CallToAction = useMemo(() => {
+    if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
+    if (defi2Day === 7) return 'Je consulte';
+    // if (defi2Day === 6) return 'Je finis';
+    return 'Je continue';
+  }, [defi2Day, autoEvaluationDone]);
+
   return (
     <>
       <ScreenBgStyled>
@@ -26,14 +52,13 @@ const DefisMenu = ({ navigation }) => {
           <CategorieMenu
             title={"Ma consommation d'alcool"}
             description={'Pour détecter des comportements à risque'}
-            onContainerPress
             onButtonPress={() =>
               navigation.navigate('ONBOARDING_QUIZZ', {
                 screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
               })
             }
             image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-            isAutoEvalutation
+            callToAction={autoEvaluationDone ? 'Je consulte' : 'Je commence'}
           />
           {!autoEvaluationDone && (
             <UnderlinedButton
@@ -46,24 +71,30 @@ const DefisMenu = ({ navigation }) => {
           <CategorieMenu
             title={'Premier défi'}
             description={'Faire le point en 7 jours '}
-            onPress={() => navigation.navigate('DEFI1')}
+            onButtonPress={() => navigation.navigate('DEFI1')}
             image={require('../../assets/images/Defi1.png')}
-            disabled={autoEvaluationDone}
+            disabled={!autoEvaluationDone}
+            disabledContainer={autoEvaluationDone}
+            callToAction={defi1CallToAction}
+            onContainerPress={() => setShowOnboardingModal(true)}
           />
           <CategorieMenu
             title={'Deuxième défi'}
             description={'Aller plus loin...'}
-            onPress={() => navigation.navigate('DEFI2')}
+            onButtonPress={() => navigation.navigate('DEFI2')}
             image={require('../../assets/images/Defi2.png')}
-            disabledButton={false}
-            disabled={autoEvaluationDone}
+            disabled={!autoEvaluationDone && defi1Day < 7}
+            disabledContainer={autoEvaluationDone}
+            callToAction={defi2CallToAction}
+            onContainerPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
           />
           <CategorieMenu
             title={'Mes tests'}
             description={'Retrouver mes résultats'}
-            onPress={() => navigation.navigate('TESTS_DEFIS')}
+            onButtonPress={() => navigation.navigate('TESTS_DEFIS')}
             image={require('../../assets/images/TestsDesDefis.png')}
-            disabled={autoEvaluationDone}
+            callToAction="Je consulte"
+            disabled={!autoEvaluationDone}
           />
         </Container>
         {openHowMakeSelfEvaluation && (
@@ -106,16 +137,16 @@ const DefisMenu = ({ navigation }) => {
 const CategorieMenu = ({
   title,
   description,
-  onPress,
-  done,
+  onButtonPress,
   image,
-  isAutoEvalutation,
+  callToAction,
   disabled,
+  disabledContainer = true,
   onContainerPress = null,
 }) => {
   return (
     <>
-      <CategorieContainer disabled={!onContainerPress} onPress={onContainerPress ? onContainerPress : null}>
+      <CategorieContainer disabled={disabledContainer} onPress={!disabledContainer ? onContainerPress : null}>
         <ImageStyled source={image} />
         <TextContainer>
           {disabled ? (
@@ -130,7 +161,7 @@ const CategorieMenu = ({
           )}
           <TextStyled>{description}</TextStyled>
           <ButtonContainer>
-            <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
+            <ButtonPrimary content={callToAction} onPress={onButtonPress} disabled={disabled} />
           </ButtonContainer>
         </TextContainer>
       </CategorieContainer>

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Linking } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useIsFocused } from '@react-navigation/native';
 
 import Background from '../../../components/Background';
 import H1 from '../../../components/H1';
@@ -14,10 +14,14 @@ import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
 import BackButton from '../../../components/BackButton';
-import { betterEvaluateQuizzResultState } from '../../../recoil/quizzs';
+import { setValidatedDays } from '../utils';
 
-const Defi1_Day7 = ({ navigation }) => {
-  const betterEvaluateQuizzResult = useRecoilValue(betterEvaluateQuizzResultState);
+const Defi1_Day7 = ({ navigation, route }) => {
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+  }, [route?.params, isFocused]);
 
   return (
     <Background color="#39cec0" withSwiperContainer>
