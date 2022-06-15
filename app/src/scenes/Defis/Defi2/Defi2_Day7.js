@@ -36,11 +36,11 @@ const Defi2_Day7 = ({ navigation, route }) => {
           </TopTitle>
           <H2 color="#4030a5">Ma situation la plus facile à changer</H2>
           <FirstSituationContainer>
-            <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+            <QButtonCentered>
+              <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+            </QButtonCentered>
             <FirstTextContainer>
-              <TextStyled>
-                {answersRiskSituations[0]?.content} {answersRiskSituations[0]?.content}
-              </TextStyled>
+              <TextStyled>{answersRiskSituations[0]?.content}</TextStyled>
             </FirstTextContainer>
             <FirstTextContainer>
               <TextEmotion>Et je bois pour :</TextEmotion>
@@ -170,11 +170,14 @@ const BackgroundEFEFEF = styled.View`
   margin-bottom: 20px;
 `;
 
+const QButtonCentered = styled.View`
+  align-self: center;
+`;
+
 const FirstSituationContainer = styled.View`
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   margin-bottom: 20px;
-  height: auto;
 `;
 
 const FirstTextContainer = styled.View`
