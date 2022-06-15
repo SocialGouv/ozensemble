@@ -27,6 +27,9 @@ const Defi2_Day7 = ({ navigation, route }) => {
           <H1 color="#4030a5">Bilan de la semaine</H1>
         </TopTitle>
         <H2 color="#4030a5">Ma situation la plus facile à changer</H2>
+        <BackgroundEFEFEF>
+          <H2 color="#4030a5">Mes autres situations à risques</H2>
+        </BackgroundEFEFEF>
         <TextStyled>
           Si vous êtes parvenu à <TextStyled bold>gérer la situation</TextStyled> dans le cadre de ce défi, vous êtes{' '}
           <TextStyled bold>capable de trouver seul(e) des solutions pour faire autrement.</TextStyled>
@@ -48,7 +51,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
           varient en fonction du type d'alcool consommé.
         </TextStyled>
         <Spacer />
-        <EmotionsConsommateursContainer>
+        <BackgroundEFEFEF>
           <EmotionsConsommateurs
             drinkCategorie="spiritueux"
             emotion1="59% plus confiants"
@@ -71,8 +74,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
           <TextStyled>
             Bien évidemment, ces émotions peuvent être affectées par l'humeur du consommateur avant le premier verre.
           </TextStyled>
-        </EmotionsConsommateursContainer>
-        <Spacer />
+        </BackgroundEFEFEF>
         <TextStyled>
           Comme les deux faces d'une même pièce, l'alcool comporte des plaisirs mais aussi des effets négatifs. Alors
           quand vous choissiez de consommer :
@@ -115,10 +117,11 @@ const Spacer = styled.View`
   height: 20px;
 `;
 
-const EmotionsConsommateursContainer = styled.View`
+const BackgroundEFEFEF = styled.View`
   background-color: #efefef;
   margin-horizontal: -20px;
   padding: 20px;
+  margin-bottom: 20px;
 `;
 
 const EmotionsConsommateurs = ({ drinkCategorie, emotion1, emotion2, emotion3 }) => (
