@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Item from './Item';
+import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import TextStyled from '../../../components/TextStyled';
 
 const Section = ({ section, onToggle, answers, ...props }) => {
@@ -10,7 +10,7 @@ const Section = ({ section, onToggle, answers, ...props }) => {
     <Paragraph>
       <SectionTitle>{section.sectionTitle[0].toUpperCase() + section.sectionTitle.slice(1)} </SectionTitle>
       {section.answers.map((item) => (
-        <Item
+        <CheckboxLabelled
           key={item.answerKey}
           answerKey={item.answerKey}
           content={item.content}
