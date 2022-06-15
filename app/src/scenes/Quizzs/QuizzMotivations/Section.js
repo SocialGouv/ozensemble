@@ -3,22 +3,27 @@ import styled from 'styled-components';
 import Item from './Item';
 import TextStyled from '../../../components/TextStyled';
 
-const Section = ({ section, onToggle, answers, ...props }) => (
-  <Paragraph>
-    <SectionTitle>{section.sectionTitle} </SectionTitle>
-    {section.answers.map((item) => (
-      <Item
-        key={item.answerKey}
-        answerKey={item.answerKey}
-        content={item.content}
-        alertText={item.alertText}
-        onPress={() => onToggle(item.answerKey, !answers?.[item.answerKey])}
-        checked={!!answers?.[item.answerKey]}
-        {...props}
-      />
-    ))}
-  </Paragraph>
-);
+const Section = ({ section, onToggle, answers, ...props }) => {
+  const disabled = section.answers.reduce((add, answer) => add + (answers[answer.answerKey] === true ? 1 : 0), 0) >= 2;
+
+  return (
+    <Paragraph>
+      <SectionTitle>{section.sectionTitle[0].toUpperCase() + section.sectionTitle.slice(1)} </SectionTitle>
+      {section.answers.map((item) => (
+        <Item
+          key={item.answerKey}
+          answerKey={item.answerKey}
+          content={item.content}
+          alertText={item.alertText}
+          onPress={() => onToggle(item.answerKey, !answers?.[item.answerKey])}
+          checked={!!answers?.[item.answerKey]}
+          disabled={disabled}
+          {...props}
+        />
+      ))}
+    </Paragraph>
+  );
+};
 
 const Paragraph = styled.View`
   margin-bottom: 25px;
