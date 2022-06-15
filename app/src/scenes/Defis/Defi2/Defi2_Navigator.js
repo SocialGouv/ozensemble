@@ -8,6 +8,8 @@ import { defi2_Data } from './defi2_Data';
 import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 import Defi2_Day2 from './Defi2_Day2';
+import Defi2_Day5 from './Defi2_Day5';
+import Defi2_Day7 from './Defi2_Day7';
 import Defi2_Day6 from './Defi2_Day6';
 import Defi2_Day5_Navigator from './Day6/Defi2_Day5_Navigator';
 
@@ -75,7 +77,7 @@ const Defi2_Navigator = () => {
             day: 6,
           }}
         />
-        <Defi2_Stack.Screen name="DEFI2_DAY_7" component={Defi2_Day1} />
+        <Defi2_Stack.Screen name="DEFI2_DAY_7" component={Defi2_Day7} />
       </Defi2_Stack.Navigator>
     </Background>
   );
