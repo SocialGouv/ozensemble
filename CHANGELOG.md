@@ -1,3 +1,10 @@
+# [1.48.0](https://github.com/SocialGouv/ozensemble/compare/v1.47.0...v1.48.0) (2022-06-15)
+
+
+### Features
+
+* **app:** snarcloud ([bd1455d](https://github.com/SocialGouv/ozensemble/commit/bd1455d2f83b312efbc6baa0517f00fa5308c0db))
+
 # [1.47.0](https://github.com/SocialGouv/ozensemble/compare/v1.46.0...v1.47.0) (2022-06-15)
 
 
