@@ -1,8 +1,9 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import H1 from '../../../components/H1';
-import { defaultPaddingFontScale } from '../../../styles/theme';
+import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
@@ -11,6 +12,8 @@ import ElementDayDefi from '../../../components/ElementDayDefi';
 import H2 from '../../../components/H2';
 import ManAndWomanBust from '../../../components/illustrations/ManAndWomanBust';
 import Sources from '../../Quizzs/Sources';
+import { defi2AnswersRiskSituationsState, defi2EmotionState } from '../../../recoil/defis';
+import QButton from '../../../components/QButton';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -18,6 +21,9 @@ const Defi2_Day7 = ({ navigation, route }) => {
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi2');
   }, [route?.params, isFocused]);
+
+  const [answersRiskSituations] = useRecoilState(defi2AnswersRiskSituationsState);
+  const [emotion] = useRecoilState(defi2EmotionState);
 
   return (
     <ScreenBgStyled>
@@ -27,8 +33,38 @@ const Defi2_Day7 = ({ navigation, route }) => {
           <H1 color="#4030a5">Bilan de la semaine</H1>
         </TopTitle>
         <H2 color="#4030a5">Ma situation la plus facile à changer</H2>
+        <FirstSituationContainer>
+          <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+          <FirstTextContainer>
+            <TextStyled>{answersRiskSituations[0]?.content}</TextStyled>
+          </FirstTextContainer>
+          <FirstTextContainer>
+            <TextEmotion>Et je bois pour :</TextEmotion>
+            <Spacer size={10} />
+            {emotion?.iconBilan}
+            <Spacer size={10} />
+            <TextEmotion color="#4030A5">{emotion?.description}</TextEmotion>
+          </FirstTextContainer>
+        </FirstSituationContainer>
         <BackgroundEFEFEF>
           <H2 color="#4030a5">Mes autres situations à risques</H2>
+          {answersRiskSituations.slice(1).map((riskSituation, index) => {
+            return (
+              <RiskSituationsContainer>
+                <QButton
+                  key={index}
+                  content={index + 2}
+                  disabled
+                  colorText="#ffffff"
+                  colorBorder="#4030A5"
+                  colorBackground=" #4030A5"
+                />
+                <TextContainer>
+                  <TextStyled>{riskSituation.content}</TextStyled>
+                </TextContainer>
+              </RiskSituationsContainer>
+            );
+          })}
         </BackgroundEFEFEF>
         <TextStyled>
           Si vous êtes parvenu à <TextStyled bold>gérer la situation</TextStyled> dans le cadre de ce défi, vous êtes{' '}
@@ -114,7 +150,7 @@ const TopTitle = styled.View`
 `;
 
 const Spacer = styled.View`
-  height: 20px;
+  height: ${({ size }) => size || 20}px;
 `;
 
 const BackgroundEFEFEF = styled.View`
@@ -122,6 +158,42 @@ const BackgroundEFEFEF = styled.View`
   margin-horizontal: -20px;
   padding: 20px;
   margin-bottom: 20px;
+`;
+
+const FirstSituationContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const FirstTextContainer = styled.View`
+  background-color: #ffffff;
+  border: 1px solid #d3d3e8;
+  border-radius: 3px;
+  width: ${screenWidth * 0.4 - 20}px;
+  margin-left: 10px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TextContainer = styled.View`
+  background-color: #ffffff;
+  border: 1px solid #d3d3e8;
+  border-radius: 3px;
+  margin-left: 10px;
+  margin-vertical: 10px;
+  padding: 10px;
+  width: ${screenWidth * 0.77 - 20}px;
+`;
+
+const RiskSituationsContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const TextEmotion = styled(TextStyled)`
+  text-align: center;
 `;
 
 const EmotionsConsommateurs = ({ drinkCategorie, emotion1, emotion2, emotion3 }) => (
