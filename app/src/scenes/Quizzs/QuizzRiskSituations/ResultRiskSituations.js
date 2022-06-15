@@ -12,7 +12,7 @@ import QButton from '../../../components/QButton';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import { defi2AnswersRiskSituationsState } from '../../../recoil/defis';
 
-const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
+const ResultRiskSituations = ({ navigation, answers }) => {
   const onlyTrueResults = Object.keys(answers).reduce((acc, current) => {
     if (answers[current]) acc[current] = answers[current];
     return acc;
@@ -104,4 +104,4 @@ const TextContainer = styled.View`
   padding: 5px;
 `;
 
-export default QuizzDefi2RiskSituationsResult;
+export default ResultRiskSituations;

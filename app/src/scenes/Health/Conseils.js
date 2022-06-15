@@ -11,6 +11,7 @@ import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 
 const Conseils = ({ navigation }) => {
   return (
@@ -28,8 +29,7 @@ const Conseils = ({ navigation }) => {
             topTitle="Questionnaire d'auto-évaluation"
             title="Ma consommation d'alcool"
             quizzRoute="ONBOARDING_QUIZZ"
-            memoryKeyResult={'@Quizz_result'}
-            memoryKeyAnswers={'@Quizz_answers'}
+            recoilResultState={autoEvaluationQuizzResultState}
             showEvenNotDone
             fromHealth
           />

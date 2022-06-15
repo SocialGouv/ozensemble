@@ -1,115 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
-import { storage } from '../../services/storage';
 import HowMakeSelfEvaluation from './HowMakeSelfEvaluation';
 import UnderlinedButton from '../../components/UnderlinedButton';
+import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 
-const DefisMenu = () => {
-  const navigation = useNavigation();
+const DefisMenu = ({ navigation }) => {
   const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
-
-  return (
-    <ScreenBgStyled>
-      <Container>
-        <TextStyled>
-          J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
-        </TextStyled>
-        <CategorieMenu
-          title={"Ma consommation d'alcool"}
-          description={'Pour détecter des comportements à risque'}
-          onPress={() =>
-            navigation.navigate('ONBOARDING_QUIZZ', {
-              screen: storage.getString('@Quizz_result') ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
-            })
-          }
-          image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-          isAutoEvalutation
-        />
-        <UnderlinedButton
-          color="#4030a5"
-          withoutPadding
-          content="Pourquoi faire cette auto-évaluation ?"
-          onPress={() => setOpenHowMakeSelfEvaluation(true)}
-        />
-        <CategorieMenu
-          title={'Premier défi'}
-          description={'Faire le point en 7 jours '}
-          onPress={() => navigation.navigate('DEFI1')}
-          image={require('../../assets/images/Defi1.png')}
-        />
-        <CategorieMenu
-          title={'Deuxième défi'}
-          description={'Aller plus loin...'}
-          onPress={() => navigation.navigate('DEFI2')}
-          image={require('../../assets/images/Defi2.png')}
-          disabledButton={false}
-        />
-        <CategorieMenu
-          title={'Mes tests'}
-          description={'Retrouver mes résultats'}
-          onPress={() => navigation.navigate('TESTS_DEFIS')}
-          image={require('../../assets/images/TestsDesDefis.png')}
-          done
-        />
-      </Container>
-      {openHowMakeSelfEvaluation && (
-        <HowMakeSelfEvaluation
-          visible={openHowMakeSelfEvaluation}
-          onClose={() => setOpenHowMakeSelfEvaluation(false)}
-        />
-      )}
-    </ScreenBgStyled>
-  );
-};
-
-const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvalutation, disabledButton }) => {
-  const navigation = useNavigation();
+  const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showDefi2Modal, setshowDefi2Modal] = useState(false);
-  const [autoEvaluationDone, setAutoEvaluationDone] = useState(storage.getString('@Quizz_result'));
-
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (isFocused) setAutoEvaluationDone(storage.getString('@Quizz_result'));
-  }, [isFocused]);
-
-  const disabled = (!isAutoEvalutation && !autoEvaluationDone) || disabledButton;
-
-  done = isAutoEvalutation ? autoEvaluationDone : done;
-
   return (
     <>
-      <CategorieContainer
-        disabled={disabledButton ? false : isAutoEvalutation || autoEvaluationDone}
-        onPress={() =>
-          disabledButton ? setshowDefi2Modal(true) : disabled ? setShowOnboardingModal(true) : onPress()
-        }>
-        <ImageStyled source={image} />
-        <TextContainer>
-          {disabled ? (
-            <TitleDisabledContainer>
-              <TextStyled bold>{title}</TextStyled>
-              <Lock size={16} />
-            </TitleDisabledContainer>
-          ) : (
-            <TitleContainer>
-              <TextStyled bold>{title}</TextStyled>
-            </TitleContainer>
+      <ScreenBgStyled>
+        <Container>
+          <TextStyled>
+            J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
+          </TextStyled>
+          <CategorieMenu
+            title={"Ma consommation d'alcool"}
+            description={'Pour détecter des comportements à risque'}
+            onContainerPress
+            onButtonPress={() =>
+              navigation.navigate('ONBOARDING_QUIZZ', {
+                screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
+              })
+            }
+            image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
+            isAutoEvalutation
+          />
+          {!autoEvaluationDone && (
+            <UnderlinedButton
+              color="#4030a5"
+              withoutPadding
+              content="Pourquoi faire cette auto-évaluation ?"
+              onPress={() => setOpenHowMakeSelfEvaluation(true)}
+            />
           )}
-          <TextStyled>{description}</TextStyled>
-          <ButtonContainer>
-            <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
-          </ButtonContainer>
-        </TextContainer>
-      </CategorieContainer>
+          <CategorieMenu
+            title={'Premier défi'}
+            description={'Faire le point en 7 jours '}
+            onPress={() => navigation.navigate('DEFI1')}
+            image={require('../../assets/images/Defi1.png')}
+            disabled={autoEvaluationDone}
+          />
+          <CategorieMenu
+            title={'Deuxième défi'}
+            description={'Aller plus loin...'}
+            onPress={() => navigation.navigate('DEFI2')}
+            image={require('../../assets/images/Defi2.png')}
+            disabledButton={false}
+            disabled={autoEvaluationDone}
+          />
+          <CategorieMenu
+            title={'Mes tests'}
+            description={'Retrouver mes résultats'}
+            onPress={() => navigation.navigate('TESTS_DEFIS')}
+            image={require('../../assets/images/TestsDesDefis.png')}
+            disabled={autoEvaluationDone}
+          />
+        </Container>
+        {openHowMakeSelfEvaluation && (
+          <HowMakeSelfEvaluation
+            visible={openHowMakeSelfEvaluation}
+            onClose={() => setOpenHowMakeSelfEvaluation(false)}
+          />
+        )}
+      </ScreenBgStyled>
       <OnBoardingModal
         title="Sans évaluation, pas de défis"
         description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
@@ -136,6 +99,41 @@ const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvaluta
           setshowDefi2Modal(false);
         }}
       />
+    </>
+  );
+};
+
+const CategorieMenu = ({
+  title,
+  description,
+  onPress,
+  done,
+  image,
+  isAutoEvalutation,
+  disabled,
+  onContainerPress = null,
+}) => {
+  return (
+    <>
+      <CategorieContainer disabled={!onContainerPress} onPress={onContainerPress ? onContainerPress : null}>
+        <ImageStyled source={image} />
+        <TextContainer>
+          {disabled ? (
+            <TitleDisabledContainer>
+              <TextStyled bold>{title}</TextStyled>
+              <Lock size={16} />
+            </TitleDisabledContainer>
+          ) : (
+            <TitleContainer>
+              <TextStyled bold>{title}</TextStyled>
+            </TitleContainer>
+          )}
+          <TextStyled>{description}</TextStyled>
+          <ButtonContainer>
+            <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
+          </ButtonContainer>
+        </TextContainer>
+      </CategorieContainer>
     </>
   );
 };
