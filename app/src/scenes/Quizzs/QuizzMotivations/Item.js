@@ -62,6 +62,7 @@ const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
   margin: 5px;
+  width: 87%;
 `;
 
 const AlertContainer = styled.View`
