@@ -8,7 +8,7 @@ import { defi2_Data } from './defi2_Data';
 import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 import Defi2_Day2 from './Defi2_Day2';
-import QuizzDefi2RiskSituations from '../../Quizzs/QuizzDefi2RiskSituations';
+import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
 import Defi2_Day7 from './Defi2_Day7';
 import Defi2_Day6 from './Defi2_Day6';
 import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
@@ -42,7 +42,7 @@ const Defi2_Navigator = () => {
         />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_3"
-          component={QuizzDefi2RiskSituations}
+          component={QuizzRiskSituations}
           initialParams={{
             inDefi2: true,
             rootRoute: 'DEFI2_MENU',
@@ -78,7 +78,15 @@ const Defi2_Navigator = () => {
             day: 6,
           }}
         />
-        <Defi2_Stack.Screen name="DEFI2_DAY_7" component={Defi2_Day7} />
+        <Defi2_Stack.Screen
+          initialParams={{
+            inDefi2: true,
+            rootRoute: 'DEFI2_MENU',
+            day: 7,
+          }}
+          name="DEFI2_DAY_7"
+          component={Defi2_Day7}
+        />
       </Defi2_Stack.Navigator>
     </Background>
   );

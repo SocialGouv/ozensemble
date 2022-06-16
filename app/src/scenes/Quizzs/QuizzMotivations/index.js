@@ -1,35 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { fetchStoredAnswers } from '../../../components/Quizz/utils';
 import TextStyled from '../../../components/TextStyled';
-import Results from './ResultsMotivations';
+import ResultsMotivations from './ResultsMotivations';
 import Section from './Section';
 import sections from './sections';
-import { storage } from '../../../services/storage';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import H1 from '../../../components/H1';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import { motivationsQuizzAnswersState, motivationsQuizzResultState } from '../../../recoil/quizzs';
+import { setValidatedDays } from '../../Defis/utils';
 
 const QuizzMotivationsStack = createStackNavigator();
 
 const QuizzMotivations = ({ navigation, route }) => {
-  const memoryKeyAnswers = '@QuizzMotivations_answers';
-  const memoryKeyResult = '@QuizzMotivations_result';
-
-  const [answers, setAnswers] = useState(() => {
-    const storedQuizz = fetchStoredAnswers({ memoryKeyAnswers, memoryKeyResult });
-    if (storedQuizz?.answers || storedQuizz?.result) {
-      return storedQuizz.answers || {};
-    }
-    return {};
-  });
+  const [motivationsQuizzAnswers, setMotivationsQuizzAnswers] = useRecoilState(motivationsQuizzAnswersState);
+  const setMotivationsQuizzResult = useSetRecoilState(motivationsQuizzResultState);
 
   const toggleAnswer = async (answerKey, checked) => {
-    setAnswers((prevAnswers) => {
+    setMotivationsQuizzAnswers((prevAnswers) => {
       return {
         ...prevAnswers,
         [answerKey]: checked,
@@ -38,8 +31,8 @@ const QuizzMotivations = ({ navigation, route }) => {
   };
 
   const validateAnswers = async () => {
-    storage.set(memoryKeyAnswers, JSON.stringify(answers));
-    storage.set(memoryKeyResult, true);
+    setMotivationsQuizzResult(true);
+    setValidatedDays(route?.params?.day, '@Defi1');
     navigation.push('QUIZZ_RESULTS');
   };
 
@@ -69,7 +62,7 @@ const QuizzMotivations = ({ navigation, route }) => {
                     key={id}
                     section={section}
                     onToggle={toggleAnswer}
-                    answers={answers}
+                    answers={motivationsQuizzAnswers}
                     navigation={navigation}
                   />
                 ))}
@@ -80,9 +73,11 @@ const QuizzMotivations = ({ navigation, route }) => {
             </ScreenBgStyled>
           )}
         </QuizzMotivationsStack.Screen>
-        <QuizzMotivationsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
-          {(props) => <Results results={answers} {...props} />}
-        </QuizzMotivationsStack.Screen>
+        <QuizzMotivationsStack.Screen
+          name="QUIZZ_RESULTS"
+          initialParams={route?.params}
+          component={ResultsMotivations}
+        />
       </QuizzMotivationsStack.Navigator>
     </Background>
   );

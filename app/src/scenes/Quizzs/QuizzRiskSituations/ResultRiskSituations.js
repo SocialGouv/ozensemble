@@ -1,38 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import TextStyled from '../../../components/TextStyled';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import riskSituations from './riskSituations';
 import QButton from '../../../components/QButton';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { defi2AnswersRiskSituationsState } from '../../../recoil/defis';
+import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 
-const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
-  const onlyTrueResults = Object.keys(answers).reduce((acc, current) => {
-    if (answers[current]) acc[current] = answers[current];
-    return acc;
-  }, {});
-
-  const answerKeys = Object.keys(onlyTrueResults);
-
-  const [answersRiskSituations, setAnswersRiskSituations] = useRecoilState(defi2AnswersRiskSituationsState);
-
-  useEffect(() => {
-    const answersRiskSituationsTemp = [];
-    answerKeys.forEach((answerKey) => {
-      answersRiskSituationsTemp.push(
-        riskSituations
-          .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
-          ?.answers?.find((a) => a.answerKey === answerKey)
-      );
-    });
-    setAnswersRiskSituations(answersRiskSituationsTemp);
-  }, []);
+const ResultRiskSituations = ({ navigation }) => {
+  const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
 
   return (
     <ScreenBgStyled>
@@ -46,7 +26,7 @@ const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
         <H2>Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : </H2>
       </TopContainer>
       <ResultsContainer>
-        {answersRiskSituations.map((riskSituations, index) => (
+        {answersKeys.map((riskSituation, index) => (
           <Result>
             <QButton
               key={index}
@@ -57,13 +37,17 @@ const QuizzDefi2RiskSituationsResult = ({ navigation, answers }) => {
               colorBackground=" #4030A5"
             />
             <TextContainer>
-              <TextStyled>{riskSituations?.content}</TextStyled>
+              <TextStyled>{riskSituation?.content}</TextStyled>
             </TextContainer>
           </Result>
         ))}
       </ResultsContainer>
       <BottomContainer>
-        <ButtonPrimary content={"J'ai finis d'identifier"} widthSmall onPress={() => navigation.push('DEFI2_MENU')} />
+        <ButtonPrimary
+          content={"J'ai finis d'identifier"}
+          widthSmall
+          onPress={() => navigation.navigate('DEFI2_MENU')}
+        />
       </BottomContainer>
     </ScreenBgStyled>
   );
@@ -104,4 +88,4 @@ const TextContainer = styled.View`
   padding: 5px;
 `;
 
-export default QuizzDefi2RiskSituationsResult;
+export default ResultRiskSituations;

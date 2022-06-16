@@ -1,5 +1,6 @@
 import React from 'react';
 import Quizz from '../../../components/Quizz';
+import { autoEvaluationQuizzAnswersState, autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import questionsOnboarding from './questions';
 import ResultsOnboarding from './ResultsOnboarding';
 import { mapOnboardingAnswersToResult } from './utils';
@@ -8,8 +9,8 @@ const QuizzOnboarding = (props) => (
   <Quizz
     {...props}
     questions={questionsOnboarding}
-    memoryKeyResult={'@Quizz_result'}
-    memoryKeyAnswers={'@Quizz_answers'}
+    recoilAnswersState={autoEvaluationQuizzAnswersState}
+    recoilResultState={autoEvaluationQuizzResultState}
     mapAnswersToResult={mapOnboardingAnswersToResult}
     Results={ResultsOnboarding}
   />

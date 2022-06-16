@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import H1 from '../../../components/H1';
 import { screenWidth } from '../../../styles/theme';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -10,8 +11,10 @@ import YesSmiley from '../../../components/illustrations/smiley/YesSmiley';
 import { BackButton } from '../../../components/BackButton';
 import { Bold, P, Spacer } from '../../../components/Articles';
 import UnderlinedButton from '../../../components/UnderlinedButton';
+import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 
-const ResultsOnboarding = ({ navigation, resultKey }) => {
+const ResultsOnboarding = ({ navigation }) => {
+  const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
   const [feeling, setFeeling] = useState(null);
 
   return (
