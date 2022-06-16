@@ -86,5 +86,13 @@ export async function migratedDefi7Jours() {
   if (storage.getString('DEFI_7_JOURS_STARTED_AT')?.length) {
     storage.set('@Defi1_StartedAt', storage.getString('DEFI_7_JOURS_STARTED_AT'));
   }
+  if (storage.getString('@QuizzMotivations_answers')?.length) {
+    const answersKeysObject = storage.getString('@QuizzMotivations_answers');
+    const answersKeysArray = Object.keys(answersKeysObject).reduce((onlyTrue, answerKey) => {
+      if (answersKeysObject[answerKey]) onlyTrue.push(answerKey);
+      return onlyTrue;
+    }, []);
+    storage.set('@QuizzMotivations_answers', JSON.stringify(answersKeysArray));
+  }
   storage.set('hasMigratedDefi7Jours', true);
 }
