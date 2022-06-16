@@ -11,7 +11,7 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Defi1_Day5 = ({ navigation, route }) => {
+const Defi2_Day6 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -95,4 +95,4 @@ const ContainerText = styled.View`
   margin-bottom: 30px;
 `;
 
-export default Defi1_Day5;
+export default Defi2_Day6;
