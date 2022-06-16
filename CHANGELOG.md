@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/SocialGouv/ozensemble/compare/v1.48.0...v1.49.0) (2022-06-16)
+
+
+### Features
+
+* **app:** begin day4 ([3fcfddb](https://github.com/SocialGouv/ozensemble/commit/3fcfddb10bb73b45298fc8ef325f7f3d618e757b))
+
 # [1.48.0](https://github.com/SocialGouv/ozensemble/compare/v1.47.0...v1.48.0) (2022-06-15)
 
 
