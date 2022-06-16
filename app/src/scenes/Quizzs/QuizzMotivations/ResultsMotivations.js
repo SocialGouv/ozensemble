@@ -48,7 +48,6 @@ const ResultsMotivations = ({ wrapped = true }) => {
                 content={item?.content}
                 alertText={item?.alertText}
                 checked
-                disabled
               />
             );
           })}

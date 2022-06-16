@@ -9,7 +9,8 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import Section from '../QuizzMotivations/Section';
 
 const Situation = ({ section, toggleAnswer, answers, navigation, description1, description2, onPress }) => {
-  const numberChecked = section.answers.reduce((add, answer) => add + (answers[answer.answerKey] === true ? 1 : 0), 0);
+  const currentSituationAnswers = section.answers.map((a) => a.answerKey).filter((key) => answers.includes(key));
+  const numberChecked = currentSituationAnswers.length;
   return (
     <ScreenBgStyled>
       <BackButton onPress={navigation.goBack} marginBottom marginLeft />
@@ -20,12 +21,17 @@ const Situation = ({ section, toggleAnswer, answers, navigation, description1, d
         </DescriptionContainer>
         <DescriptionContainer>
           <TextStyled>{description2}</TextStyled>
+          <Section
+            section={section}
+            onToggle={toggleAnswer}
+            answers={currentSituationAnswers}
+            navigation={navigation}
+          />
         </DescriptionContainer>
-        <Section section={section} onToggle={toggleAnswer} answers={answers} navigation={navigation} />
         <ButtonPrimary
           small
           content={numberChecked === 0 ? 'Je continue' : `J'ai identifié ${numberChecked} ${section.sectionTitle}`}
-          disabled={numberChecked === 0 || numberChecked > 2}
+          disabled={numberChecked > 2}
           onPress={onPress}
         />
       </TopContainer>

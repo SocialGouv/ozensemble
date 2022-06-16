@@ -73,7 +73,8 @@ export const motivationsQuizzResultState = atom({
 
 export const riskSituationsQuizzAnswersState = atom({
   key: 'riskSituationsQuizzAnswersState',
-  default: getInitStoredAnswers('@QuizzRiskSituations_answers'),
+  // default: getInitStoredAnswers('@QuizzRiskSituations_answers'),
+  default: [],
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzRiskSituations_answers', JSON.stringify(newValue)))],
 });
 
