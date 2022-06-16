@@ -4,10 +4,7 @@ import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import TextStyled from '../../../components/TextStyled';
 
 const Section = ({ section, onToggle, answers, ...props }) => {
-  const disabled = useMemo(
-    () => section.answers.reduce((add, answer) => add + (answers[answer.answerKey] === true ? 1 : 0), 0) >= 2,
-    [answers, section.answers]
-  );
+  const disabled = useMemo(() => answers.length >= 2, [answers]);
 
   return (
     <Paragraph>
@@ -20,7 +17,7 @@ const Section = ({ section, onToggle, answers, ...props }) => {
             answerKey={item.answerKey}
             content={item.content}
             alertText={item.alertText}
-            onPress={() => onToggle(item.answerKey, !answers?.[item.answerKey])}
+            onPress={() => onToggle(item.answerKey, !checked)}
             checked={checked}
             disabled={!checked && disabled}
             {...props}

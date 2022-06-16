@@ -8,7 +8,6 @@ const useAppState = ({ isActive, isInactive }) => {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-        console.log('App has come to the foreground!');
         isActive();
       }
       if (nextAppState.match(/inactive|background/) && !appState.current.match(/inactive|background/)) {
@@ -17,7 +16,6 @@ const useAppState = ({ isActive, isInactive }) => {
 
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      console.log('AppState', appState.current);
     });
 
     return () => {

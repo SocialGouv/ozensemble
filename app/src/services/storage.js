@@ -73,10 +73,10 @@ export async function migrateGenderAndAge() {
   storage.set('hasMigratedGenderAndAge', true);
 }
 
-export const hasMigratedDefi7JoursStored = storage.getBoolean('hasMigratedDefi7Jours');
+export const hasMigratedDefi1Stored = storage.getBoolean('hasMigratedDefi1');
 
 export async function migratedDefi7Jours() {
-  if (hasMigratedDefi7JoursStored) return;
+  if (hasMigratedDefi1Stored) return;
   if (storage.getString('DEFI_7_JOURS_LAST_UPDATE')?.length) {
     storage.set('@Defi1_LastUpdate', storage.getString('DEFI_7_JOURS_LAST_UPDATE'));
   }
@@ -87,12 +87,14 @@ export async function migratedDefi7Jours() {
     storage.set('@Defi1_StartedAt', storage.getString('DEFI_7_JOURS_STARTED_AT'));
   }
   if (storage.getString('@QuizzMotivations_answers')?.length) {
-    const answersKeysObject = storage.getString('@QuizzMotivations_answers');
-    const answersKeysArray = Object.keys(answersKeysObject).reduce((onlyTrue, answerKey) => {
-      if (answersKeysObject[answerKey]) onlyTrue.push(answerKey);
-      return onlyTrue;
-    }, []);
-    storage.set('@QuizzMotivations_answers', JSON.stringify(answersKeysArray));
+    try {
+      const answersKeysObject = JSON.parse(storage.getString('@QuizzMotivations_answers') || '');
+      const answersKeysArray = Object.keys(answersKeysObject).reduce((onlyTrue, answerKey) => {
+        if (answersKeysObject[answerKey]) onlyTrue.push(answerKey);
+        return onlyTrue;
+      }, []);
+      storage.set('@QuizzMotivations_answers', JSON.stringify(answersKeysArray));
+    } catch (e) {}
   }
-  storage.set('hasMigratedDefi7Jours', true);
+  storage.set('hasMigratedDefi1', true);
 }
