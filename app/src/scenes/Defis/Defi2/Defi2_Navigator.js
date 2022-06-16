@@ -12,6 +12,7 @@ import QuizzDefi2RiskSituations from '../../Quizzs/QuizzDefi2RiskSituations';
 import Defi2_Day7 from './Defi2_Day7';
 import Defi2_Day6 from './Defi2_Day6';
 import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
+import Defi2_Day4 from './Defi2_Day4';
 
 const Defi2_Stack = createStackNavigator();
 
@@ -50,7 +51,7 @@ const Defi2_Navigator = () => {
         />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_4"
-          component={Defi2_Day1}
+          component={Defi2_Day4}
           initialParams={{
             title: 'Évaluer sa qualité de vie',
             inDefi2: true,
