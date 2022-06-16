@@ -24,21 +24,22 @@ const Defi2_Day4 = ({ navigation, route }) => {
   const [answersRiskSituations, setAnswersRiskSituations] = useRecoilState(riskSituationsAnswersKeysSelector);
 
   return (
-    <ScreenBgStyled>
-      <TopContainer>
-        <BackButton onPress={navigation.goBack} />
-        <TopTitle>
-          <H1 color="#4030a5">Hiérachiser mes situations</H1>
-        </TopTitle>
-        <TextStyled>
-          Toutes les situations à risque ne sont pas égales : classez-les par ordre de motivation à réduire votre
-          consommation. Placez les plus motivantes au début et les plus difficiles à la fin de la liste.
-        </TextStyled>
-        <H2 color="#4030a5">Je suis plus motivé(e) à réduire l'alcool : </H2>
-        {/* <DraggableFlatListDay4 /> */}
-        <ButtonPrimary content="J'ai fini de classer" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
-      </TopContainer>
-    </ScreenBgStyled>
+    <DraggableFlatListDay4 data={answersRiskSituations} setData={setAnswersRiskSituations} />
+    // <ScreenBgStyled>
+    //   <TopContainer>
+    //     <BackButton onPress={navigation.goBack} />
+    //     <TopTitle>
+    //       <H1 color="#4030a5">Hiérachiser mes situations</H1>
+    //     </TopTitle>
+    //     <TextStyled>
+    //       Toutes les situations à risque ne sont pas égales : classez-les par ordre de motivation à réduire votre
+    //       consommation. Placez les plus motivantes au début et les plus difficiles à la fin de la liste.
+    //     </TextStyled>
+    //     <H2 color="#4030a5">Je suis plus motivé(e) à réduire l'alcool : </H2>
+    //     <DraggableFlatListDay4 />
+    //     <ButtonPrimary content="J'ai fini de classer" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
+    //   </TopContainer>
+    // </ScreenBgStyled>
   );
 };
 
