@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 import TextStyled from '../../../components/TextStyled';
 
 const DraggableFlatListDay4 = ({ data, setData }) => {
   const renderItem = ({ item, drag, isActive }) => {
     return (
       <TouchableOpacity
+        key={item}
         onLongPress={drag}
         disabled={isActive}
         style={[styles.rowItem, { backgroundColor: isActive ? 'red' : item.backgroundColor }]}>
@@ -15,14 +16,14 @@ const DraggableFlatListDay4 = ({ data, setData }) => {
     );
   };
 
-  return (
-    <DraggableFlatList
-      data={data}
-      onDragEnd={({ data }) => setData(data)}
-      keyExtractor={(item) => item.answerKey}
-      renderItem={renderItem}
-    />
-  );
+  console.log(data);
+  return null;
+  // <DraggableFlatList
+  //   data={data}
+  //   onDragEnd={({ data }) => setData(data)}
+  //   keyExtractor={(item) => item.answerKey}
+  //   renderItem={renderItem}
+  // />
 };
 
 {
