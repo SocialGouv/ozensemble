@@ -13,7 +13,7 @@ const Section = ({ section, onToggle, answers, ...props }) => {
     <Paragraph>
       <SectionTitle>{section.sectionTitle[0].toUpperCase() + section.sectionTitle.slice(1)} </SectionTitle>
       {section.answers.map((item) => {
-        const checked = !!answers?.[item.answerKey];
+        const checked = !!answers?.includes(item.answerKey);
         return (
           <CheckboxLabelled
             key={item.answerKey}
