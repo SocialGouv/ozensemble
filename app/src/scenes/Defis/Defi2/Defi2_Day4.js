@@ -2,7 +2,6 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import SortableList from 'react-native-sortable-list';
 import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import { defaultPaddingFontScale } from '../../../styles/theme';

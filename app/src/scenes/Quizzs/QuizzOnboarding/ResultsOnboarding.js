@@ -22,9 +22,9 @@ const ResultsOnboarding = ({ navigation }) => {
       <TopContainer>
         <BackButton onPress={() => navigation.goBack()} marginBottom />
         <ResultTitle color="#000">Résultat</ResultTitle>
-        {resultKey === 'risk' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+        {resultKey === 'addicted' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
         {resultKey === 'good' && <ResultGood />}
-        {resultKey === 'addicted' && <ResultAddicted />}
+        {resultKey === 'risk' && <ResultAddicted />}
         {feeling != null || resultKey === 'good' || resultKey === 'addicted' ? (
           <TopButtonContainer>
             <ButtonPrimary
