@@ -1,3 +1,10 @@
+## [1.49.1](https://github.com/SocialGouv/ozensemble/compare/v1.49.0...v1.49.1) (2022-06-16)
+
+
+### Bug Fixes
+
+* **app:** Je peux dire non ElementDayDefi ([24e9776](https://github.com/SocialGouv/ozensemble/commit/24e97767faba17d60fd9078f181d09730650fa0e))
+
 # [1.49.0](https://github.com/SocialGouv/ozensemble/compare/v1.48.0...v1.49.0) (2022-06-16)
 
 
