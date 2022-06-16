@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/illustrations/TickDone';
-import { fetchStoredAnswers } from '../../components/Quizz/utils';
 import Form from '../../components/illustrations/Form';
 import { screenWidth } from '../../styles/theme';
 import matomo from '../../services/matomo';
@@ -16,13 +16,11 @@ const QuizzElement = ({
   title,
   disabled,
   quizzRoute,
-  questions,
-  memoryKeyAnswers,
-  memoryKeyResult,
+  recoilResultState,
   showEvenNotDone,
   fromHealth = false,
 }) => {
-  const result = fetchStoredAnswers({ questions, memoryKeyAnswers, memoryKeyResult })?.result;
+  const result = useRecoilValue(recoilResultState);
   const done = result !== null;
   const navigation = useNavigation();
 

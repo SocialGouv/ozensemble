@@ -1,115 +1,109 @@
-import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
-import { storage } from '../../services/storage';
 import HowMakeSelfEvaluation from './HowMakeSelfEvaluation';
 import UnderlinedButton from '../../components/UnderlinedButton';
+import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
+import { storage } from '../../services/storage';
 
-const DefisMenu = () => {
-  const navigation = useNavigation();
+const DefisMenu = ({ navigation }) => {
   const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
-
-  return (
-    <ScreenBgStyled>
-      <Container>
-        <TextStyled>
-          J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
-        </TextStyled>
-        <CategorieMenu
-          title={"Ma consommation d'alcool"}
-          description={'Pour détecter des comportements à risque'}
-          onPress={() =>
-            navigation.navigate('ONBOARDING_QUIZZ', {
-              screen: storage.getString('@Quizz_result') ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
-            })
-          }
-          image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-          isAutoEvalutation
-        />
-        <UnderlinedButton
-          color="#4030a5"
-          withoutPadding
-          content="Pourquoi faire cette auto-évaluation ?"
-          onPress={() => setOpenHowMakeSelfEvaluation(true)}
-        />
-        <CategorieMenu
-          title={'Premier défi'}
-          description={'Faire le point en 7 jours '}
-          onPress={() => navigation.navigate('DEFI1')}
-          image={require('../../assets/images/Defi1.png')}
-        />
-        <CategorieMenu
-          title={'Deuxième défi'}
-          description={'Aller plus loin...'}
-          onPress={() => navigation.navigate('DEFI2')}
-          image={require('../../assets/images/Defi2.png')}
-          disabledButton={false}
-        />
-        <CategorieMenu
-          title={'Mes tests'}
-          description={'Retrouver mes résultats'}
-          onPress={() => navigation.navigate('TESTS_DEFIS')}
-          image={require('../../assets/images/TestsDesDefis.png')}
-          done
-        />
-      </Container>
-      {openHowMakeSelfEvaluation && (
-        <HowMakeSelfEvaluation
-          visible={openHowMakeSelfEvaluation}
-          onClose={() => setOpenHowMakeSelfEvaluation(false)}
-        />
-      )}
-    </ScreenBgStyled>
-  );
-};
-
-const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvalutation, disabledButton }) => {
-  const navigation = useNavigation();
+  const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showDefi2Modal, setshowDefi2Modal] = useState(false);
-  const [autoEvaluationDone, setAutoEvaluationDone] = useState(storage.getString('@Quizz_result'));
+  const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
+  const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused) setAutoEvaluationDone(storage.getString('@Quizz_result'));
+    if (isFocused) setDefi1Day(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
+    if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
   }, [isFocused]);
 
-  const disabled = (!isAutoEvalutation && !autoEvaluationDone) || disabledButton;
+  const defi1CallToAction = useMemo(() => {
+    if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
+    if (defi1Day === 7) return 'Je consulte';
+    // if (defi1Day === 6) return 'Je finis';
+    return 'Je continue';
+  }, [defi1Day, autoEvaluationDone]);
 
-  done = isAutoEvalutation ? autoEvaluationDone : done;
+  const defi2CallToAction = useMemo(() => {
+    if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
+    if (defi2Day === 7) return 'Je consulte';
+    // if (defi2Day === 6) return 'Je finis';
+    return 'Je continue';
+  }, [defi2Day, autoEvaluationDone]);
 
   return (
     <>
-      <CategorieContainer
-        disabled={disabledButton ? false : isAutoEvalutation || autoEvaluationDone}
-        onPress={() =>
-          disabledButton ? setshowDefi2Modal(true) : disabled ? setShowOnboardingModal(true) : onPress()
-        }>
-        <ImageStyled source={image} />
-        <TextContainer>
-          {disabled ? (
-            <TitleDisabledContainer>
-              <TextStyled bold>{title}</TextStyled>
-              <Lock size={16} />
-            </TitleDisabledContainer>
-          ) : (
-            <TitleContainer>
-              <TextStyled bold>{title}</TextStyled>
-            </TitleContainer>
+      <ScreenBgStyled>
+        <Container>
+          <TextStyled>
+            J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
+          </TextStyled>
+          <CategorieMenu
+            title={"Ma consommation d'alcool"}
+            description={'Pour détecter des comportements à risque'}
+            onButtonPress={() =>
+              navigation.navigate('ONBOARDING_QUIZZ', {
+                screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
+              })
+            }
+            image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
+            callToAction={autoEvaluationDone ? 'Je consulte' : 'Je commence'}
+          />
+          {!autoEvaluationDone && (
+            <UnderlinedButton
+              color="#4030a5"
+              withoutPadding
+              content="Pourquoi faire cette auto-évaluation ?"
+              onPress={() => setOpenHowMakeSelfEvaluation(true)}
+            />
           )}
-          <TextStyled>{description}</TextStyled>
-          <ButtonContainer>
-            <ButtonPrimary content={done ? 'Je consulte' : 'Je commence'} onPress={onPress} disabled={disabled} />
-          </ButtonContainer>
-        </TextContainer>
-      </CategorieContainer>
+          <CategorieMenu
+            title={'Premier défi'}
+            description={'Faire le point en 7 jours '}
+            onButtonPress={() => navigation.navigate('DEFI1')}
+            image={require('../../assets/images/Defi1.png')}
+            disabled={!autoEvaluationDone}
+            disabledContainer={autoEvaluationDone}
+            callToAction={defi1CallToAction}
+            onContainerPress={() => setShowOnboardingModal(true)}
+          />
+          <CategorieMenu
+            title={'Deuxième défi'}
+            description={'Aller plus loin...'}
+            onButtonPress={() => navigation.navigate('DEFI2')}
+            image={require('../../assets/images/Defi2.png')}
+            disabled={!autoEvaluationDone && defi1Day < 7}
+            disabledContainer={autoEvaluationDone}
+            callToAction={defi2CallToAction}
+            onContainerPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
+          />
+          <CategorieMenu
+            title={'Mes tests'}
+            description={'Retrouver mes résultats'}
+            onButtonPress={() => navigation.navigate('TESTS_DEFIS')}
+            image={require('../../assets/images/TestsDesDefis.png')}
+            callToAction="Je consulte"
+            disabled={!autoEvaluationDone}
+          />
+        </Container>
+        {openHowMakeSelfEvaluation && (
+          <HowMakeSelfEvaluation
+            visible={openHowMakeSelfEvaluation}
+            onClose={() => setOpenHowMakeSelfEvaluation(false)}
+          />
+        )}
+      </ScreenBgStyled>
       <OnBoardingModal
         title="Sans évaluation, pas de défis"
         description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
@@ -136,6 +130,41 @@ const CategorieMenu = ({ title, description, onPress, done, image, isAutoEvaluta
           setshowDefi2Modal(false);
         }}
       />
+    </>
+  );
+};
+
+const CategorieMenu = ({
+  title,
+  description,
+  onButtonPress,
+  image,
+  callToAction,
+  disabled,
+  disabledContainer = true,
+  onContainerPress = null,
+}) => {
+  return (
+    <>
+      <CategorieContainer disabled={disabledContainer} onPress={!disabledContainer ? onContainerPress : null}>
+        <ImageStyled source={image} />
+        <TextContainer>
+          {disabled ? (
+            <TitleDisabledContainer>
+              <TextStyled bold>{title}</TextStyled>
+              <Lock size={16} />
+            </TitleDisabledContainer>
+          ) : (
+            <TitleContainer>
+              <TextStyled bold>{title}</TextStyled>
+            </TitleContainer>
+          )}
+          <TextStyled>{description}</TextStyled>
+          <ButtonContainer>
+            <ButtonPrimary content={callToAction} onPress={onButtonPress} disabled={disabled} />
+          </ButtonContainer>
+        </TextContainer>
+      </CategorieContainer>
     </>
   );
 };
