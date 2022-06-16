@@ -125,10 +125,6 @@ const TopContainer = styled.View`
   padding-bottom: 100px;
 `;
 
-const Spacer = styled.View`
-  width: 5%;
-`;
-
 const TopTitle = styled.View`
   width: 95%;
   flex-direction: row;

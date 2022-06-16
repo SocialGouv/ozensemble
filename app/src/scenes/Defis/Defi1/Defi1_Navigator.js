@@ -86,7 +86,14 @@ const Defi1_Navigator = () => {
             day: 6,
           }}
         />
-        <Defi1_Stack.Screen name="DEFI1_DAY_7" component={Defi1_Day7} />
+        <Defi1_Stack.Screen
+          initialParams={{
+            inDefi1: true,
+            day: 7,
+          }}
+          name="DEFI1_DAY_7"
+          component={Defi1_Day7}
+        />
       </Defi1_Stack.Navigator>
     </Background>
   );

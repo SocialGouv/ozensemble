@@ -86,5 +86,5 @@ export async function migratedDefi7Jours() {
   if (storage.getString('DEFI_7_JOURS_STARTED_AT')?.length) {
     storage.set('@Defi1_StartedAt', storage.getString('DEFI_7_JOURS_STARTED_AT'));
   }
-  storage.set('hasMigratedDefi7JoursStored', true);
+  storage.set('hasMigratedDefi7Jours', true);
 }
