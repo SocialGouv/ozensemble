@@ -27,9 +27,8 @@ const ResultRiskSituations = ({ navigation }) => {
       </TopContainer>
       <ResultsContainer>
         {answersKeys.map((riskSituation, index) => (
-          <Result>
+          <Result key={index}>
             <QButton
-              key={riskSituation.answerKey}
               content={index + 1}
               disabled
               colorText="#ffffff"
