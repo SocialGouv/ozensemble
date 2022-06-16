@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextStyled from './TextStyled';
 import Stars from './illustrations/Stars';
+import { P } from './Articles';
 
 const ElementDayDefi = ({ content, lineHeight = 20 }) => (
   <Paragraph>
@@ -26,7 +27,7 @@ const StarsStyled = styled(Stars)`
   margin-right: 10px;
 `;
 
-const TextContent = styled(TextStyled)`
+const TextContent = styled(P)`
   flex: 1;
   line-height: ${(props) => props.lineHeight}px;
 `;
