@@ -11,7 +11,7 @@ import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
+import { riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
 import DraggableFlatListDay4 from './DraggableFlatListDay4';
 
 const Defi2_Day4 = ({ navigation, route }) => {
@@ -21,7 +21,7 @@ const Defi2_Day4 = ({ navigation, route }) => {
     if (route?.params?.inDefi2) setValidatedDays(route?.params?.day, '@Defi2');
   }, [route?.params, isFocused]);
 
-  const [answersRiskSituations, setAnswersRiskSituations] = useRecoilState(riskSituationsAnswersKeysSelector);
+  const [answersRiskSituations, setAnswersRiskSituations] = useRecoilState(riskSituationsQuizzAnswersState);
 
   return (
     <DraggableFlatListDay4 data={answersRiskSituations} setData={setAnswersRiskSituations} />
