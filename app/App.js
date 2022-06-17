@@ -19,8 +19,8 @@ import {
   migrateFromReduxToRecoil,
   hasMigratedGenderAndAge,
   migrateGenderAndAge,
-  hasMigratedDefi7JoursStored,
   migratedDefi7Jours,
+  hasMigratedDefi1Stored,
 } from './src/services/storage';
 
 dayjs.extend(isSameOrAfter);
@@ -35,7 +35,7 @@ const App = () => {
   const [hasMigrated, setHasMigrated] = useState(hasMigratedFromAsyncStorage);
   const [hasMigratedToRecoil, setHasMigratedToRecoil] = useState(hasMigratedFromReduxToRecoil);
   const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
-  const [hasMigratedDefi7Jours, setHasMigratedDefi7Jours] = useState(hasMigratedDefi7JoursStored);
+  const [hasMigratedDefi1, setHasMigratedDefi1] = useState(hasMigratedDefi1Stored);
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
@@ -53,9 +53,9 @@ const App = () => {
         }
       });
     }
-    if (!hasMigratedDefi7Jours) {
+    if (!hasMigratedDefi1) {
       migratedDefi7Jours();
-      setHasMigratedDefi7Jours(true);
+      setHasMigratedDefi1(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

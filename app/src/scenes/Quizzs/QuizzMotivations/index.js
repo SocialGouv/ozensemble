@@ -23,10 +23,9 @@ const QuizzMotivations = ({ navigation, route }) => {
 
   const toggleAnswer = async (answerKey, checked) => {
     setMotivationsQuizzAnswers((prevAnswers) => {
-      return {
-        ...prevAnswers,
-        [answerKey]: checked,
-      };
+      if (checked && !prevAnswers.includes(answerKey)) return [...prevAnswers, answerKey];
+      if (!checked && prevAnswers.includes(answerKey)) return prevAnswers.filter((key) => key !== answerKey);
+      return prevAnswers;
     });
   };
 
