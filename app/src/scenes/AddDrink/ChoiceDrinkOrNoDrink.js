@@ -17,6 +17,7 @@ import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
+import { P } from '../../components/Articles';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -106,7 +107,7 @@ const Option = ({ icon, value, onPress }) => {
       <ButtonTouchable onPress={onPress}>
         <Box>{icon}</Box>
       </ButtonTouchable>
-      <TextStyled> {value}</TextStyled>
+      <P> {value}</P>
     </AskDrinkContainer>
   );
 };

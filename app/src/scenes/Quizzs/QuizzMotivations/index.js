@@ -64,6 +64,7 @@ const QuizzMotivations = ({ navigation, route }) => {
                     onToggle={toggleAnswer}
                     answers={motivationsQuizzAnswers}
                     navigation={navigation}
+                    defi={1}
                   />
                 ))}
                 <ButtonsContainer>

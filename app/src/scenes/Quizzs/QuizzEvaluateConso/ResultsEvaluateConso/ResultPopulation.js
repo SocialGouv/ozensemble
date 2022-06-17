@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import styled, { css } from 'styled-components';
-import H3 from '../../../../components/H3';
+import H2 from '../../../../components/H2';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import UnderlinedButton from '../../../../components/UnderlinedButton';
 import ArrowUsage from './ArrowUsage';
@@ -103,14 +103,9 @@ const ContainerSection = styled.View`
   margin: 5px 0 20px 0;
 `;
 
-const commonCss = css`
+const ResultTitle = styled(H2)`
   width: 85%;
   flex-shrink: 0;
-`;
-
-const ResultTitle = styled(H3)`
-  ${commonCss}
   font-weight: bold;
   color: #4030a5;
-  font-size: 15px;
 `;

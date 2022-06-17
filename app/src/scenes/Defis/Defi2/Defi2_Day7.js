@@ -7,7 +7,6 @@ import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
-import TextStyled from '../../../components/TextStyled';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import H2 from '../../../components/H2';
 import ManAndWomanBust from '../../../components/illustrations/ManAndWomanBust';
@@ -16,6 +15,9 @@ import { defi2EmotionState } from '../../../recoil/defis';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 import emotions from './Day5/emotions';
+import { Bold, P, Underlined } from '../../../components/Articles';
+import TextStyled from '../../../components/TextStyled';
+import { TouchableOpacity } from 'react-native';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -40,7 +42,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
               <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
             </QButtonCentered>
             <FirstTextContainer>
-              <TextStyled>{answersRiskSituations[0]?.content}</TextStyled>
+              <P noMarginBottom>{answersRiskSituations[0]?.content}</P>
             </FirstTextContainer>
             <FirstTextContainer>
               <TextEmotion>Et je bois pour :</TextEmotion>
@@ -66,32 +68,33 @@ const Defi2_Day7 = ({ navigation, route }) => {
                       colorBackground=" #4030A5"
                     />
                     <TextContainer>
-                      <TextStyled>{riskSituation.content}</TextStyled>
+                      <P noMarginBottom>{riskSituation.content}</P>
                     </TextContainer>
                   </RiskSituationsContainer>
                 );
               })}
           </BackgroundEFEFEF>
-          <TextStyled>
-            Si vous êtes parvenu à <TextStyled bold>gérer la situation</TextStyled> dans le cadre de ce défi, vous êtes{' '}
-            <TextStyled bold>capable de trouver seul(e) des solutions pour faire autrement.</TextStyled>
+          <P noMarginBottom>
+            Si vous êtes parvenu à <Bold>gérer la situation</Bold> dans le cadre de ce défi, vous êtes{' '}
+            <Bold>capable de trouver seul(e) des solutions pour faire autrement.</Bold>
             {'\n\n'}
-            <TextStyled bold>Sinon, vous avez pu mieux identifier quels sont vos points de blocage.</TextStyled>
-            {'\n\n'}A tout moment: contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
-          </TextStyled>
-          <ElementDayDefi content={<H2 color="#4030a5">Conclusion de ma semaine</H2>} />
-          <TextStyled bold>
-            Vous n'êtes pas la seule personne à ressentir ces émotions qui impactent sur l'envie de boire !
-          </TextStyled>
+            <Bold>Sinon, vous avez pu mieux identifier quels sont vos points de blocage.</Bold>
+            {'\n\n'}A tout moment:
+          </P>
+          <TouchableOpacity onPress={() => navigation.navigate('CONTACT')}>
+            <P color="#4030a5" underlined>
+              contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
+            </P>
+          </TouchableOpacity>
+          <ElementDayDefi content={<H2 color="#4030a5">Conclusion de ma semaine</H2>} noMarginBottom />
+          <P bold>Vous n'êtes pas la seule personne à ressentir ces émotions qui impactent sur l'envie de boire !</P>
           <Spacer />
-          <TextStyled>
-            Chacun réagit différemment à l'alcool. Et les émotions peuvent aussi bien positives que négatives.
-          </TextStyled>
+          <P>Chacun réagit différemment à l'alcool. Et les émotions peuvent aussi bien positives que négatives.</P>
           <Spacer />
-          <TextStyled>
-            L'enquête du <TextStyled bold>British Medical Journal Open</TextStyled> montre que les émotions perçues
-            varient en fonction du type d'alcool consommé.
-          </TextStyled>
+          <P>
+            L'enquête du <Bold>British Medical Journal Open</Bold> montre que les émotions perçues varient en fonction
+            du type d'alcool consommé.
+          </P>
           <Spacer />
           <BackgroundEFEFEF>
             <EmotionsConsommateurs
@@ -108,24 +111,24 @@ const Defi2_Day7 = ({ navigation, route }) => {
               emotion3="17 % tristes"
             />
             <Spacer />
-            <TextStyled>
-              L'<TextStyled bold>intensité des émotions augmente avec la vitesse et la quantité consommée</TextStyled>,
-              et plus particuliérement pour l'agressivité.
-            </TextStyled>
+            <P>
+              L'<Bold>intensité des émotions augmente avec la vitesse et la quantité consommée</Bold>, et plus
+              particuliérement pour l'agressivité.
+            </P>
             <Spacer />
-            <TextStyled>
+            <P>
               Bien évidemment, ces émotions peuvent être affectées par l'humeur du consommateur avant le premier verre.
-            </TextStyled>
+            </P>
           </BackgroundEFEFEF>
-          <TextStyled>
+          <P>
             Comme les deux faces d'une même pièce, l'alcool comporte des plaisirs mais aussi des effets négatifs. Alors
             quand vous choissiez de consommer :
-            <TextStyled bold>
+            <Bold>
               {'\n    • '}identifiez votre état émotionnel avant le premier verre,{'\n    • '} choisissez le type de
               boisson,
               {'\n    • '} sachez fixer une limite, {'\n    • '}veillez à boire lentement.
-            </TextStyled>
-          </TextStyled>
+            </Bold>
+          </P>
           <Spacer />
           <Sources
             content={
@@ -178,6 +181,7 @@ const FirstSituationContainer = styled.View`
   flex-direction: row;
   align-items: stretch;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const FirstTextContainer = styled.View`
@@ -207,15 +211,17 @@ const RiskSituationsContainer = styled.View`
   align-items: center;
 `;
 
-const TextEmotion = styled(TextStyled)`
+const TextEmotion = styled(P)`
   text-align: center;
 `;
 
+const UnderlinedButton = styled.TouchableOpacity``;
+
 const EmotionsConsommateurs = ({ drinkCategorie, emotion1, emotion2, emotion3 }) => (
   <EmotionsContainer>
-    <TextStyled>
-      Les consommateurs de <TextStyled bold>{drinkCategorie}</TextStyled> ont déclaré être à :
-    </TextStyled>
+    <P>
+      Les consommateurs de <Bold>{drinkCategorie}</Bold> ont déclaré être à :
+    </P>
     <ManAndWomanBustsContainer>
       <ManAndWomanBustContainer>
         <ManAndWomanBust size={60} color={'#4030A5'} />
@@ -245,7 +251,7 @@ const ManAndWomanBustContainer = styled.View`
   align-items: center;
 `;
 
-const ManAndWomanBustText = styled(TextStyled)`
+const ManAndWomanBustText = styled(P)`
   text-align: center;
 `;
 
