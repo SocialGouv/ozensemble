@@ -391,7 +391,7 @@ PODS:
     - React-Core
   - RNDeviceInfo (8.7.1):
     - React-Core
-  - RNGestureHandler (2.4.2):
+  - RNGestureHandler (1.10.3):
     - React-Core
   - RNPermissions (3.3.1):
     - React-Core
