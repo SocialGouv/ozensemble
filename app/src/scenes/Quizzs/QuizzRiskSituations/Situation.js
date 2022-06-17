@@ -31,7 +31,7 @@ const Situation = ({ section, toggleAnswer, answers, navigation, description1, d
         <ButtonPrimary
           small
           content={numberChecked === 0 ? 'Je continue' : `J'ai identifié ${numberChecked} ${section.sectionTitle}`}
-          disabled={numberChecked > 2}
+          disabled={numberChecked === 0 || numberChecked > 2}
           onPress={onPress}
         />
       </TopContainer>

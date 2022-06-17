@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import DraggableClick from '../../../components/illustrations/DraggableClick';
 import QButton from '../../../components/QButton';
 import TextStyled from '../../../components/TextStyled';
 import { riskSituationsAnswersKeysSelector, riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
@@ -17,7 +18,12 @@ export default function App() {
       <>
         <ScaleDecorator key={item}>
           <AnswerContainer onLongPress={drag} disabled={isActive} isActive={isActive}>
-            <TextStyled>{item.content}</TextStyled>
+            <AnswerText>
+              <TextStyled>{item.content}</TextStyled>
+            </AnswerText>
+            <DraggableClickContainer>
+              <DraggableClick size={20} color={isActive ? '#fff' : '#4030A5'} />
+            </DraggableClickContainer>
           </AnswerContainer>
         </ScaleDecorator>
       </>
@@ -28,9 +34,8 @@ export default function App() {
     <DraggableFlagListContainer>
       <QButtons>
         {answers.map((a, index) => (
-          <QButtonContainer>
+          <QButtonContainer key={index}>
             <QButton
-              key={index}
               content={index + 1}
               disabled
               colorText="#ffffff"
@@ -68,12 +73,22 @@ const QButtonContainer = styled.View`
 
 const AnswerContainer = styled(TouchableOpacity)`
   height: 70px;
-  justify-content: center;
-  padding: 5px;
-  width: ${screenWidth * 0.7}px;
+  align-items: center;
+  flex-direction: row;
+  padding-left: 10px;
+  width: ${screenWidth * 0.78 - 20}px;
   border: 1px solid #d3d3e8;
   border-radius: 3px;
   margin-vertical: 5px;
   margin-horizontal: 20px;
   background-color: ${({ isActive }) => (isActive ? '#4030A540' : '#FFFFFF')};
+`;
+
+const AnswerText = styled.View`
+  flex: 1;
+  padding-right: 5px;
+`;
+
+const DraggableClickContainer = styled.View`
+  margin-right: 10px;
 `;
