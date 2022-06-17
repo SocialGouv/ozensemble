@@ -14,11 +14,9 @@ export default Sources;
 
 const TextParagraph = styled(TextStyled)`
   margin-bottom: 8px;
-  font-size: 11px;
 `;
 const Title = styled(TextStyled)`
   margin-bottom: 8px;
-  font-size: 13px;
   font-style: italic;
 `;
 

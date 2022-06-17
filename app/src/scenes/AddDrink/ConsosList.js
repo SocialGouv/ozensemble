@@ -198,8 +198,8 @@ const ConsosList = ({ navigation }) => {
       </ModalContent>
       <ButtonsContainerSafe>
         <ButtonsContainer>
-          <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
           <BackButton content="Retour" bold onPress={onCancelConsos} />
+          <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
         </ButtonsContainer>
       </ButtonsContainerSafe>
       <DatePicker

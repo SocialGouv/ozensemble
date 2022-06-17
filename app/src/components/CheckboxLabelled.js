@@ -1,16 +1,23 @@
 import React from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
 import styled from 'styled-components';
 import ButtonPrimary from './ButtonPrimary';
 import TextStyled from './TextStyled';
 
-const CheckboxLabelled = ({ answerKey, content, alertText, onPress, checked = false, disabled = false }) => {
+const CheckboxLabelled = ({
+  answerKey,
+  content,
+  alertText,
+  onPress,
+  checked = false,
+  disabled = false,
+  result = false,
+}) => {
   const navigation = useNavigation();
   return (
-    <Container onPress={() => onPress?.(answerKey)} showDisabled={disabled} disabled={disabled}>
-      <ItemContainer showDisabled={disabled}>
+    <Container onPress={() => onPress?.(answerKey)} showDisabled={disabled && !result} disabled={disabled}>
+      <ItemContainer showDisabled={disabled && !result}>
         <CheckBoxContainer>
           <CheckBoxStyled
             // ios style
@@ -44,7 +51,7 @@ const CheckboxLabelled = ({ answerKey, content, alertText, onPress, checked = fa
 };
 
 const Container = styled.TouchableOpacity`
-  ${(props) => props.showDisabled && 'opacity: 0.5;'}
+  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'}
 `;
 
 const CheckBoxContainer = styled.View`
@@ -65,7 +72,7 @@ const ItemContainer = styled.View`
   flex-direction: row;
   margin: 5px;
   width: 87%;
-  ${(props) => props.showDisabled && 'opacity: 0.5;'}
+  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'}
 `;
 
 const AlertContainer = styled.View`

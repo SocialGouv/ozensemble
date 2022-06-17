@@ -3,28 +3,21 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import TextStyled from '../../../components/TextStyled';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
-import H1 from '../../../components/H1';
-import H2 from '../../../components/H2';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import QButton from '../../../components/QButton';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
+import Header from '../../Defis/Header';
 
 const ResultRiskSituations = ({ navigation }) => {
   const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
 
   return (
     <ScreenBgStyled>
-      <TopContainer>
-        <BackButton onPress={navigation.goBack} marginBottom />
-        <H1>Identifier mes situations à risques</H1>
-        <Spacer />
-        <Spacer />
-        <H2 color="#DE285E">C'est déjà terminé !</H2>
-        <Spacer />
-        <H2>Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : </H2>
-      </TopContainer>
+      <Header
+        title={'Identifier mes situations à risques'}
+        description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}
+      />
       <ResultsContainer>
         {answersKeys.map((riskSituation, index) => (
           <Result key={index}>
@@ -52,10 +45,6 @@ const ResultRiskSituations = ({ navigation }) => {
   );
 };
 
-const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px;
-`;
-
 const BottomContainer = styled.View`
   padding: 0px ${defaultPaddingFontScale()}px;
   margin-bottom: 100px;
@@ -63,7 +52,6 @@ const BottomContainer = styled.View`
 `;
 const ResultsContainer = styled.View`
   background-color: #efefef;
-  margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 10px;
 `;
@@ -75,16 +63,13 @@ const Result = styled.View`
   align-items: center;
 `;
 
-const Spacer = styled.View`
-  height: 10px;
-`;
 const TextContainer = styled.View`
   background-color: #ffffff;
   border: 1px solid #d3d3e8;
   border-radius: 3px;
   width: 80%;
   margin-left: 10px;
-  padding: 5px;
+  padding: 10px;
 `;
 
 export default ResultRiskSituations;

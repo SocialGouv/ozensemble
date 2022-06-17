@@ -13,6 +13,7 @@ import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
+import { P } from '../../../components/Articles';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -20,9 +21,9 @@ const ToggleContent = ({ children, title }) => {
     <View>
       <TouchableOpacity onPress={() => setVisible(!visible)}>
         <TitleStyled>
-          <TextStyled color="#4030a5" bold>
+          <P color="#4030a5" noMarginBottom bold>
             {title}
-          </TextStyled>
+          </P>
           <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
         </TitleStyled>
       </TouchableOpacity>
@@ -57,13 +58,13 @@ const Defi1_Day3 = ({ navigation, route }) => {
             </H1>
           </TopTitle>
           <ElemContainer>
-            <TextStyled style={{ flex: 1 }}>
+            <P style={{ flex: 1 }}>
               Le sevrage à l'alcool peut entrainer des complications graves et possiblement mortelles.{'\n\n'}
-              <TextStyled bold color="#de285e">
+              <P bold color="#de285e">
                 Si vous présentez l'un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de
                 santé.
-              </TextStyled>
-            </TextStyled>
+              </P>
+            </P>
           </ElemContainer>
           <ToggleContent title="Tremblements">
             <Elem content="Il s'agit de tremblements involontaires et incontrôlables en particulier des mains, mais aussi parfois de la tête et de la langue. Il peut aller de légers tremblements à une trémulation forte." />
@@ -116,7 +117,7 @@ const Defi1_Day3 = ({ navigation, route }) => {
 
 const Elem = ({ content }) => (
   <ElemContainer>
-    <TextStyled style={{ flex: 1 }}>{content}</TextStyled>
+    <P style={{ flex: 1 }}>{content}</P>
   </ElemContainer>
 );
 
