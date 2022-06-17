@@ -5,17 +5,15 @@ import questionsEvaluateConso from './questions';
 import ResultsEvaluateConsoNavigator from './ResultsEvaluateConso';
 import { mapEvaluateConsoAnswersToResult } from './utils';
 
-const QuizzEvaluateConso = (props) => {
-  return (
-    <Quizz
-      {...props}
-      questions={questionsEvaluateConso}
-      recoilAnswersState={betterEvaluateQuizzAnswersState}
-      recoilResultState={betterEvaluateQuizzResultState}
-      mapAnswersToResult={mapEvaluateConsoAnswersToResult}
-      Results={ResultsEvaluateConsoNavigator}
-    />
-  );
-};
+const QuizzEvaluateConso = (props) => (
+  <Quizz
+    {...props}
+    questions={questionsEvaluateConso}
+    recoilAnswersState={betterEvaluateQuizzAnswersState}
+    recoilResultState={betterEvaluateQuizzResultState}
+    mapAnswersToResult={mapEvaluateConsoAnswersToResult}
+    Results={ResultsEvaluateConsoNavigator}
+  />
+);
 
 export default QuizzEvaluateConso;

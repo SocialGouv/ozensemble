@@ -4,7 +4,13 @@ import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import TextStyled from '../../../components/TextStyled';
 
 const Section = ({ section, onToggle, answers, ...props }) => {
-  const disabled = useMemo(() => answers.length >= 2, [answers]);
+  const disabled = useMemo(
+    () =>
+      props.defi === 1
+        ? false
+        : section.answers.reduce((add, answer) => add + (answers[answer.answerKey] === true ? 1 : 0), 0) >= 2,
+    [answers, section.answers]
+  );
 
   return (
     <Paragraph>

@@ -71,7 +71,7 @@ const Defi2_Day6 = ({ navigation, route }) => {
             </TouchableOpacity>
           </TextStyled>
         </ContainerText>
-        <ButtonPrimary content="Je peux dire Non" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
+        <ButtonPrimary content="Je peux dire Non" widthSmall onPress={() => navigation.navigate('TO_SAY_NO')} />
       </TopContainer>
     </ScreenBgStyled>
   );
