@@ -3,11 +3,11 @@ import { storage } from '../services/storage';
 import { capture } from '../services/sentry';
 import riskSituations from '../scenes/Quizzs/QuizzRiskSituations/riskSituations';
 
-const getInitStoredAnswers = (memoryKeyAnswers) => {
+const getInitStoredAnswers = (memoryKeyAnswers, defaultValue = {}) => {
   const storedAnswers = storage.getString(memoryKeyAnswers);
   try {
     if (storedAnswers) return JSON.parse(storedAnswers);
-    return {};
+    return defaultValue;
   } catch (e) {
     capture(e, { extra: { memoryKeyAnswers, storedAnswers } });
   }
@@ -61,7 +61,7 @@ export const lifeQualityQuizzResultState = atom({
 
 export const motivationsQuizzAnswersState = atom({
   key: 'motivationsQuizzAnswersState',
-  default: getInitStoredAnswers('@QuizzMotivations_answers'),
+  default: getInitStoredAnswers('@QuizzMotivations_answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzMotivations_answers', JSON.stringify(newValue)))],
 });
 
@@ -73,7 +73,7 @@ export const motivationsQuizzResultState = atom({
 
 export const riskSituationsQuizzAnswersState = atom({
   key: 'riskSituationsQuizzAnswersState',
-  default: getInitStoredAnswers('@QuizzRiskSituations_answers'),
+  default: getInitStoredAnswers('@QuizzRiskSituations_answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzRiskSituations_answers', JSON.stringify(newValue)))],
 });
 

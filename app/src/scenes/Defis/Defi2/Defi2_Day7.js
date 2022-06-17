@@ -15,14 +15,14 @@ import { defi2EmotionState } from '../../../recoil/defis';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 import emotions from './Day5/emotions';
-import { Bold, P, Underlined } from '../../../components/Articles';
+import { Bold, P } from '../../../components/Articles';
 import TextStyled from '../../../components/TextStyled';
-import { TouchableOpacity } from 'react-native';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const answersRiskSituations = useRecoilValue(riskSituationsAnswersKeysSelector);
-  const emotion = useRecoilValue(defi2EmotionState);
+  const emotionValue = useRecoilValue(defi2EmotionState);
+  const emotion = emotions.find((e) => e.value === emotionValue);
 
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi2');
@@ -46,9 +46,9 @@ const Defi2_Day7 = ({ navigation, route }) => {
           <FirstTextContainer>
             <TextEmotion>Et je bois pour :</TextEmotion>
             <Spacer size={10} />
-            {emotions[emotion]?.iconBilan}
+            {emotion?.iconBilan}
             <Spacer size={10} />
-            <TextEmotion color="#4030A5">{emotions[emotion]?.description}</TextEmotion>
+            <TextEmotion color="#4030A5">{emotion?.description}</TextEmotion>
           </FirstTextContainer>
         </FirstSituationContainer>
         <BackgroundEFEFEF>
@@ -140,7 +140,6 @@ const Defi2_Day7 = ({ navigation, route }) => {
       </TopContainer>
     </ScreenBgStyled>
   );
-
 };
 
 const TopContainer = styled.View`

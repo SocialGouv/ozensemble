@@ -26,6 +26,7 @@ const Situation = ({ section, toggleAnswer, answers, navigation, description1, d
             onToggle={toggleAnswer}
             answers={currentSituationAnswers}
             navigation={navigation}
+            maxNumberOfCheckedBoxes={2}
           />
         </DescriptionContainer>
         <ButtonPrimary

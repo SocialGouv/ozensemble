@@ -66,7 +66,7 @@ const Defi2_Day5_OnBoarding = ({ navigation, route }) => {
         <ButtonPrimary
           content="Je sélectionne mon émotions"
           widthSmall
-          onPress={() => navigation.navigate('DEFI2_DAY6')}
+          onPress={() => navigation.navigate('DEFI2_DAY5')}
         />
       </TopContainer>
     </ScreenBgStyled>

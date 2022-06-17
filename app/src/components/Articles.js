@@ -11,6 +11,7 @@ export const P = styled.Text`
   ${({ bold }) => bold && 'font-weight: bold'};
   font-size: 16px;
   line-height: 24px;
+  align-items: center;
   ${({ underlined, color }) =>
     underlined &&
     `text-decoration: underline;

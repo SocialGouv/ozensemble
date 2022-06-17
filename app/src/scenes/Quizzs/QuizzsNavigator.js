@@ -22,6 +22,10 @@ import {
   lifeQualityQuizzResultState,
   motivationsQuizzResultState,
 } from '../../recoil/quizzs';
+import QuizzRiskSituations from './QuizzRiskSituations';
+import Defi2_Day4 from '../Defis/Defi2/Defi2_Day4';
+import Defi2_Day5_Navigator from '../Defis/Defi2/Day5/Defi2_Day5_Navigator';
+import { defi2EmotionState } from '../../recoil/defis';
 
 const QuizzsStack = createStackNavigator();
 
@@ -53,6 +57,9 @@ const QuizzsNavigator = () => (
         rootRoute: 'QUIZZ_MENU',
       }}
     />
+    <QuizzsStack.Screen name="RISK_SITUATIONS_QUIZZ" component={QuizzRiskSituations} />
+    <QuizzsStack.Screen name="RISK_SITUATIONS_HIERARCHISE" component={Defi2_Day4} />
+    <QuizzsStack.Screen name="AFFRONTER_SITUATION" component={Defi2_Day5_Navigator} />
     <QuizzsStack.Screen name="CONTACT" component={ContactForm} />
     <QuizzsStack.Screen name="DOCTOLIB" component={Doctolib} />
   </QuizzsStack.Navigator>
@@ -72,27 +79,52 @@ const QuizzMenu = () => {
         </SubTitle>
         <DefiCategorieTitle color="#4030a5">Premier défi</DefiCategorieTitle>
         <QuizzElement
-          topTitle="Défi 7 jours"
+          topTitle="Premier défi"
           title="Évaluer sa consommation"
-          quizzRoute="EVALUATE_CONSO_QUIZZ"
+          onStart={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
+          onShowResult={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
           recoilResultState={betterEvaluateQuizzResultState}
-          showEvenNotDone
+          showOnlyIfDone
         />
         <QuizzElement
-          topTitle="Défi 7 jours"
+          topTitle="Premier défi"
           title="Qualité de vie"
-          quizzRoute="LIFE_QUALITY_QUIZZ"
+          onStart={() => navigation.navigate('LIFE_QUALITY_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
+          onShowResult={() => navigation.navigate('LIFE_QUALITY_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
           recoilResultState={lifeQualityQuizzResultState}
-          showEvenNotDone
+          showOnlyIfDone
         />
         <QuizzElement
-          topTitle="Défi 7 jours"
+          topTitle="Premier défi"
           title="Mes motivations à diminuer"
-          quizzRoute="MOTIVATIONS_QUIZZ"
+          onStart={() => navigation.navigate('MOTIVATIONS_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
+          onShowResult={() => navigation.navigate('MOTIVATIONS_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
           recoilResultState={motivationsQuizzResultState}
-          showEvenNotDone
+          showOnlyIfDone
         />
         <DefiCategorieTitle color="#4030a5">Deuxième défi</DefiCategorieTitle>
+        <QuizzElement
+          topTitle="Deuxième défi"
+          title="Mes situations à risque"
+          onStart={() => navigation.navigate('RISK_SITUATIONS_QUIZZ')}
+          onShowResult={() => navigation.navigate('RISK_SITUATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' })}
+          recoilResultState={motivationsQuizzResultState}
+          showOnlyIfDone
+        />
+        <QuizzElement
+          topTitle="Deuxième défi"
+          title="Hiérarchiser mes situations"
+          onStart={() => navigation.navigate('RISK_SITUATIONS_HIERARCHISE')}
+          recoilResultState={motivationsQuizzResultState}
+          showOnlyIfDone
+        />
+        <QuizzElement
+          topTitle="Deuxième défi"
+          title="Affronter une situation"
+          onStart={() => navigation.navigate('AFFRONTER_SITUATION')}
+          recoilResultState={defi2EmotionState}
+          showOnlyIfDone
+        />
       </TopContainer>
     </ScreenBgStyled>
   );
