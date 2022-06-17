@@ -16,14 +16,14 @@ const Section = ({ section, onToggle, answers, ...props }) => {
     <Paragraph>
       <SectionTitle>{section.sectionTitle[0].toUpperCase() + section.sectionTitle.slice(1)} </SectionTitle>
       {section.answers.map((item) => {
-        const checked = !!answers?.[item.answerKey];
+        const checked = !!answers?.includes(item.answerKey);
         return (
           <CheckboxLabelled
             key={item.answerKey}
             answerKey={item.answerKey}
             content={item.content}
             alertText={item.alertText}
-            onPress={() => onToggle(item.answerKey, !answers?.[item.answerKey])}
+            onPress={() => onToggle(item.answerKey, !checked)}
             checked={checked}
             disabled={!checked && disabled}
             {...props}

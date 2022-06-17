@@ -23,10 +23,9 @@ const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
   const setResult = useSetRecoilState(riskSituationsQuizzResultState);
   const toggleAnswer = async (answerKey, checked) => {
     setAnswers((prevAnswers) => {
-      return {
-        ...prevAnswers,
-        [answerKey]: checked,
-      };
+      if (checked && !prevAnswers.includes(answerKey)) return [...prevAnswers, answerKey];
+      if (!checked && prevAnswers.includes(answerKey)) return prevAnswers.filter((key) => key !== answerKey);
+      return prevAnswers;
     });
   };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { selector, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import Header from '../../Defis/Header';
 import H3 from '../../../components/H3';
 import TextStyled from '../../../components/TextStyled';
@@ -8,18 +8,6 @@ import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import sections from './sections';
 import { screenWidth } from '../../../styles/theme';
 import { motivationsQuizzAnswersState } from '../../../recoil/quizzs';
-
-const answersKeysSelector = selector({
-  key: 'answersKeysSelector',
-  get: ({ get }) => {
-    const motivationsQuizzAnswers = get(motivationsQuizzAnswersState);
-    const onlyTrueResults = Object.keys(motivationsQuizzAnswers).reduce((acc, current) => {
-      if (motivationsQuizzAnswers[current]) acc[current] = motivationsQuizzAnswers[current];
-      return acc;
-    }, {});
-    return Object.keys(onlyTrueResults);
-  },
-});
 
 const Wrapper = ({ children, wrapped }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
@@ -34,7 +22,6 @@ const Wrapper = ({ children, wrapped }) => {
 
 const ResultsMotivations = ({ wrapped = true }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
-  const answersKeys = useRecoilValue(answersKeysSelector);
 
   if (!motivationsQuizzAnswers) return null;
 
@@ -42,7 +29,7 @@ const ResultsMotivations = ({ wrapped = true }) => {
     <Wrapper wrapped={wrapped}>
       <ContainerSection>
         <ResultTitle>Vos motivations à changer</ResultTitle>
-        {!answersKeys.length && (
+        {!motivationsQuizzAnswers.length && (
           <TextStyled>
             Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en
             allant dans l'onglet <TextStyled bold>Mes infos</TextStyled> et en cliquant sur{' '}
@@ -50,7 +37,7 @@ const ResultsMotivations = ({ wrapped = true }) => {
           </TextStyled>
         )}
         <ItemsContainer>
-          {answersKeys.map((answerKey) => {
+          {motivationsQuizzAnswers.map((answerKey) => {
             const item = sections
               .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
               ?.answers?.find((a) => a.answerKey === answerKey);
@@ -63,6 +50,7 @@ const ResultsMotivations = ({ wrapped = true }) => {
                 checked
                 disabled
                 result
+                
               />
             );
           })}
