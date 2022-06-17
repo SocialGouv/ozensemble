@@ -18,7 +18,6 @@ const DayModule = ({ dayData, activeDayIsDone }) => {
 };
 
 const TitleDay = styled(TextStyled)`
-  font-size: 12px;
   font-weight: bold;
   color: #de285e;
   margin-bottom: 10px;

@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import BackButton from '../../components/BackButton';
+import { P } from '../../components/Articles';
 
-const Header = () => {
+const Header = ({ title, description }) => {
   const route = useRoute();
   const navigation = useNavigation();
   return (
@@ -15,11 +16,13 @@ const Header = () => {
       />
       <TopTitleContainer>
         <TopTitle>
-          <TextStyled color="#4030a5">{route?.params?.title}</TextStyled>
+          <TextStyled color="#4030a5">{title ? title : route?.params?.title}</TextStyled>
         </TopTitle>
       </TopTitleContainer>
-      <SectionTitle color="#de285e">C'est déjà terminé !</SectionTitle>
-      <TextParagraph>Merci d'avoir répondu au questionnaire !</TextParagraph>
+      <SectionTitle color="#de285e" noMarginBottom>
+        C'est déjà terminé !
+      </SectionTitle>
+      <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
       {!!route?.params?.inDefi1 && (
         <>
           <TextParagraph>
@@ -36,15 +39,13 @@ const Header = () => {
 };
 export default Header;
 
-const SectionTitle = styled(TextStyled)`
+const SectionTitle = styled(P)`
   font-weight: bold;
-  font-size: 15px;
   margin-bottom: 5px;
 `;
 
-const TextParagraph = styled(TextStyled)`
+const TextParagraph = styled(P)`
   margin-bottom: 8px;
-  font-size: 13px;
 `;
 
 const TopContainer = styled.View`

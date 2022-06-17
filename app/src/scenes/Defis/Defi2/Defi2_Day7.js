@@ -7,7 +7,6 @@ import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
-import TextStyled from '../../../components/TextStyled';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import H2 from '../../../components/H2';
 import ManAndWomanBust from '../../../components/illustrations/ManAndWomanBust';
@@ -16,6 +15,9 @@ import { defi2EmotionState } from '../../../recoil/defis';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 import emotions from './Day5/emotions';
+import { Bold, P, Underlined } from '../../../components/Articles';
+import TextStyled from '../../../components/TextStyled';
+import { TouchableOpacity } from 'react-native';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -138,6 +140,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
       </TopContainer>
     </ScreenBgStyled>
   );
+
 };
 
 const TopContainer = styled.View`
@@ -172,6 +175,7 @@ const FirstSituationContainer = styled.View`
   flex-direction: row;
   align-items: stretch;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const FirstTextContainer = styled.View`
@@ -201,15 +205,17 @@ const RiskSituationsContainer = styled.View`
   align-items: center;
 `;
 
-const TextEmotion = styled(TextStyled)`
+const TextEmotion = styled(P)`
   text-align: center;
 `;
 
+const UnderlinedButton = styled.TouchableOpacity``;
+
 const EmotionsConsommateurs = ({ drinkCategorie, emotion1, emotion2, emotion3 }) => (
   <EmotionsContainer>
-    <TextStyled>
-      Les consommateurs de <TextStyled bold>{drinkCategorie}</TextStyled> ont déclaré être à :
-    </TextStyled>
+    <P>
+      Les consommateurs de <Bold>{drinkCategorie}</Bold> ont déclaré être à :
+    </P>
     <ManAndWomanBustsContainer>
       <ManAndWomanBustContainer>
         <ManAndWomanBust size={60} color={'#4030A5'} />
@@ -239,7 +245,7 @@ const ManAndWomanBustContainer = styled.View`
   align-items: center;
 `;
 
-const ManAndWomanBustText = styled(TextStyled)`
+const ManAndWomanBustText = styled(P)`
   text-align: center;
 `;
 

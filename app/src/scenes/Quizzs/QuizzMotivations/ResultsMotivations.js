@@ -48,6 +48,9 @@ const ResultsMotivations = ({ wrapped = true }) => {
                 content={item?.content}
                 alertText={item?.alertText}
                 checked
+                disabled
+                result
+                
               />
             );
           })}
@@ -74,11 +77,6 @@ const ResultContainer = styled.View`
   height: 100%;
 `;
 
-const commonCss = css`
-  width: 100%;
-  flex-shrink: 0;
-`;
-
 const ContainerSection = styled.View`
   margin: 5px 0 20px 0;
 `;
@@ -91,7 +89,8 @@ const ItemsContainer = styled.View`
 `;
 
 const ResultTitle = styled(H3)`
-  ${commonCss}
+  width: 100%;
+  flex-shrink: 0;
   font-weight: bold;
   color: #4030a5;
   margin-bottom: 10px;
