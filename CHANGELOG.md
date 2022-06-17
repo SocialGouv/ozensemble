@@ -1,3 +1,18 @@
+# [1.50.0](https://github.com/SocialGouv/ozensemble/compare/v1.49.1...v1.50.0) (2022-06-17)
+
+
+### Bug Fixes
+
+* hierarchiser mes situations ([267d031](https://github.com/SocialGouv/ozensemble/commit/267d0312d4f8b9373f38dea3cd968b69f82d29aa))
+* migration ([adbb4d8](https://github.com/SocialGouv/ozensemble/commit/adbb4d8392d6022709d2db9e72df5a3e5bce4415))
+* seems to work ([387cd88](https://github.com/SocialGouv/ozensemble/commit/387cd88b982d2d60be7f5efc84dbcb4ced171b20))
+
+
+### Features
+
+* **app:** adapt to answersRiskSituations ([d532079](https://github.com/SocialGouv/ozensemble/commit/d5320799ff4fc78842df0c4bb662b461076bdcbe))
+* **app:** flatlist + index ([7b4bdfe](https://github.com/SocialGouv/ozensemble/commit/7b4bdfe1ce6ec3b703c9368a81dab3e61dbaadd4))
+
 ## [1.49.1](https://github.com/SocialGouv/ozensemble/compare/v1.49.0...v1.49.1) (2022-06-16)
 
 
