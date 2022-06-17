@@ -16,13 +16,7 @@ import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import { maxDrinksPerWeekSelector } from '../../../recoil/gains';
-
-const Elem = ({ content, lineHeight = 20 }) => (
-  <ElemContainer>
-    <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
-    <TextStyled style={{ flex: 1, lineHeight }}>{content}</TextStyled>
-  </ElemContainer>
-);
+import ElementDayDefi from '../../../components/ElementDayDefi';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -42,73 +36,62 @@ const Defi1_Day1 = ({ navigation, route }) => {
           <TopTitle>
             <H1 color="#4030a5">Comment compter sa consommation d'alcool ?</H1>
           </TopTitle>
-          <Paragraph>
-            <Elem
-              content={
-                <>
-                  <TextStyled>
-                    Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre
-                    agenda de consommation disponible dans l'onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez
-                    saisir une consommation depuis l'agenda ou en appuyant sur le bouton{' '}
-                  </TextStyled>
-                  <CTAContainer>
-                    <CTASubContainer>
-                      <PlusHorizontal />
-                      <PlusVertical />
-                    </CTASubContainer>
-                  </CTAContainer>
-                </>
-              }
-            />
-          </Paragraph>
-          <Paragraph>
-            <Elem
-              content={
+          <ElementDayDefi
+            content={
+              <>
                 <TextStyled>
-                  Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement comptabilisée en unité
-                  d'alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :
+                  Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre
+                  agenda de consommation disponible dans l'onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez
+                  saisir une consommation depuis l'agenda ou en appuyant sur le bouton{' '}
                 </TextStyled>
-              }
-            />
-          </Paragraph>
+                <CTAContainer>
+                  <CTASubContainer>
+                    <PlusHorizontal />
+                    <PlusVertical />
+                  </CTASubContainer>
+                </CTAContainer>
+              </>
+            }
+          />
+          <ElementDayDefi
+            content={
+              <TextStyled>
+                Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement comptabilisée en unité
+                d'alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :
+              </TextStyled>
+            }
+          />
           <OneDoseAlcoolExplanation marginOffset={20} minHeight />
-          {/* <Paragraph>
-            <Elem
+          {/* <ElementDayDefi
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
               aussi scanner l'étiquette de la bouteille."
             />
-          </Paragraph> */}
-          <Paragraph>
-            <Elem
-              content="Nous vous conseillons de noter vos consommations au fur et à mesure de la journée sans attendre le
+           */}
+          <ElementDayDefi
+            content="Nous vous conseillons de noter vos consommations au fur et à mesure de la journée sans attendre le
               lendemain !"
-            />
-          </Paragraph>
-          <Paragraph>
-            <Elem
-              content={
-                <TextStyled>
-                  Un graphique vous permet de suivre vos consommations en unité d'alcool consommées sur une journée.
-                  {'\n\n'}
-                  {drinkByWeek
-                    ? `La ligne verte représente votre objectif (${drinkByWeek} unités d'alcool par jour)`
-                    : "La ligne verte représente le seuil de l'OMS (2 verres par jour) ou votre objectif quand il sera fixé"}
-                </TextStyled>
-              }
-            />
-          </Paragraph>
+          />
+          <ElementDayDefi
+            content={
+              <TextStyled>
+                Un graphique vous permet de suivre vos consommations en unité d'alcool consommées sur une journée.
+                {'\n\n'}
+                {drinkByWeek
+                  ? `La ligne verte représente votre objectif (${drinkByWeek} unités d'alcool par jour)`
+                  : "La ligne verte représente le seuil de l'OMS (2 verres par jour) ou votre objectif quand il sera fixé"}
+              </TextStyled>
+            }
+          />
           <Diagram asPreview />
-          <Paragraph>
-            <Elem
-              content={
-                <TextStyled>
-                  Retrouvez le détail de vos consommations dans le fil du journal de l'onglet{' '}
-                  <TextStyled bold>Suivi</TextStyled>. Vous pouvez les modifier ou les compléter pour les jours
-                  précédents.
-                </TextStyled>
-              }
-            />
-          </Paragraph>
+          <ElementDayDefi
+            content={
+              <TextStyled>
+                Retrouvez le détail de vos consommations dans le fil du journal de l'onglet{' '}
+                <TextStyled bold>Suivi</TextStyled>. Vous pouvez les modifier ou les compléter pour les jours
+                précédents.
+              </TextStyled>
+            }
+          />
         </TopContainer>
         <AddConsoCTAContainer>
           <ButtonPrimary

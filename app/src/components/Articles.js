@@ -6,9 +6,15 @@ export const TopContainer = styled.View`
 `;
 
 export const P = styled.Text`
-  margin-bottom: 15px;
+  color: ${({ color }) => color || '#000'};
+  ${({ noMarginBottom }) => !noMarginBottom && 'margin-bottom: 15px'};
+  ${({ bold }) => bold && 'font-weight: bold'};
   font-size: 16px;
   line-height: 24px;
+  ${({ underlined, color }) =>
+    underlined &&
+    `text-decoration: underline;
+    text-decoration-color: ${color || '#000'}`};
 `;
 
 export const Bold = styled.Text`
@@ -24,4 +30,5 @@ export const Spacer = styled.View`
 export const Underlined = styled.Text`
   color: ${(props) => (props.color ? props.color : '#000')};
   text-decoration: underline;
+  text-decoration-color: ${(props) => (props.color ? props.color : '#000')};
 `;

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { selector, useRecoilValue } from 'recoil';
 import Header from '../../Defis/Header';
 import { setValidatedDays } from '../../Defis/utils';
@@ -10,6 +10,7 @@ import { lifeQualityQuizzResultState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
 import questionsLifeQuality from './questions';
 import H3 from '../../../components/H3';
+import { P } from '../../../components/Articles';
 
 const resultsToDisplaySelector = selector({
   key: 'resultsToDisplaySelector',
@@ -62,11 +63,11 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
   if (!resultKey) return null;
 
   return (
-    <Wrapper wrapper={wrapped}>
+    <Wrapper wrapped={wrapped}>
       <ContainerSection>
         <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
         <ItemsContainer>
-          {resultKey.length === 0 ? <TextStyled>Aucun élément à afficher.</TextStyled> : null}
+          {resultKey.length === 0 ? <P>Aucun élément à afficher.</P> : null}
           {resultsToDisplay.map(({ response, question }, i) => (
             <EmojiBlock key={i} response={response} question={question} />
           ))}
@@ -142,13 +143,9 @@ const ContainerSection = styled.View`
   margin: 5px 0 20px 0;
 `;
 
-const commonCss = css`
+const ResultTitle = styled(H3)`
   width: 85%;
   flex-shrink: 0;
-`;
-
-const ResultTitle = styled(H3)`
-  ${commonCss}
   font-weight: bold;
   color: #4030a5;
 `;
