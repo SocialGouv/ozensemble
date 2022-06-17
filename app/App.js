@@ -19,7 +19,6 @@ import {
   migrateFromReduxToRecoil,
   hasMigratedGenderAndAge,
   migrateGenderAndAge,
-  hasMigratedDefi1,
   migratedDefi7Jours,
   hasMigratedDefi1Stored,
 } from './src/services/storage';

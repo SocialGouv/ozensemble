@@ -10,6 +10,8 @@ import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import DraggableFlatListDay4 from './DraggableFlatListDay4';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
+import DraggableHand from '../../../components/illustrations/DraggableHand';
+import { Bold, P } from '../../../components/Articles';
 
 const Defi2_Day4 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -25,10 +27,18 @@ const Defi2_Day4 = ({ navigation, route }) => {
         <TopTitle>
           <H1 color="#4030a5">Hiérachiser mes situations</H1>
         </TopTitle>
-        <TextStyled>
-          Toutes les situations à risque ne sont pas égales : classez-les par ordre de motivation à réduire votre
-          consommation. Placez les plus motivantes au début et les plus difficiles à la fin de la liste.
-        </TextStyled>
+        <P>
+          Toutes les situations à risque ne sont pas égales :{' '}
+          <Bold>classez-les par ordre de motivation à réduire votre consommation.</Bold>
+          {'\n'}
+          <Bold>Placez les plus motivantes au début</Bold> et les plus difficiles à la fin de la liste.
+        </P>
+        <DraggableContainer>
+          <DraggableHand size={40} />
+          <DraggableTextContainer>
+            <TextStyled bold>Vous pouvez faire glisser les situations pour changer leur ordre</TextStyled>
+          </DraggableTextContainer>
+        </DraggableContainer>
         <H2 color="#4030a5">Je suis plus motivé(e) à réduire l'alcool : </H2>
       </TopContainer>
       <FlatListStyled
@@ -65,6 +75,18 @@ const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
+`;
+
+const DraggableContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
+
+const DraggableTextContainer = styled.View`
+  margin-left: 15px;
+  width: 80%;
 `;
 
 export default Defi2_Day4;
