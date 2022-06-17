@@ -28,125 +28,119 @@ const Defi2_Day7 = ({ navigation, route }) => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi2');
   }, [route?.params, isFocused]);
 
-  try {
-    return (
-      <ScreenBgStyled>
-        <TopContainer>
-          <BackButton onPress={navigation.goBack} />
-          <TopTitle>
-            <H1 color="#4030a5">Bilan de la semaine</H1>
-          </TopTitle>
-          <H2 color="#4030a5">Ma situation la plus facile à changer</H2>
-          <FirstSituationContainer>
-            <QButtonCentered>
-              <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
-            </QButtonCentered>
-            <FirstTextContainer>
-              <P noMarginBottom>{answersRiskSituations[0]?.content}</P>
-            </FirstTextContainer>
-            <FirstTextContainer>
-              <TextEmotion>Et je bois pour :</TextEmotion>
-              <Spacer size={10} />
-              {emotions[emotion]?.iconBilan}
-              <Spacer size={10} />
-              <TextEmotion color="#4030A5">{emotions[emotion]?.description}</TextEmotion>
-            </FirstTextContainer>
-          </FirstSituationContainer>
-          <BackgroundEFEFEF>
-            <H2 color="#4030a5">Mes autres situations à risques</H2>
-            {answersRiskSituations
-              ?.filter((k, i) => i > 0)
-              .map((riskSituation, index) => {
-                return (
-                  <RiskSituationsContainer>
-                    <QButton
-                      key={index}
-                      content={index + 2}
-                      disabled
-                      colorText="#ffffff"
-                      colorBorder="#4030A5"
-                      colorBackground=" #4030A5"
-                    />
-                    <TextContainer>
-                      <P noMarginBottom>{riskSituation.content}</P>
-                    </TextContainer>
-                  </RiskSituationsContainer>
-                );
-              })}
-          </BackgroundEFEFEF>
-          <P noMarginBottom>
-            Si vous êtes parvenu à <Bold>gérer la situation</Bold> dans le cadre de ce défi, vous êtes{' '}
-            <Bold>capable de trouver seul(e) des solutions pour faire autrement.</Bold>
-            {'\n\n'}
-            <Bold>Sinon, vous avez pu mieux identifier quels sont vos points de blocage.</Bold>
-            {'\n\n'}A tout moment:
-          </P>
-          <TouchableOpacity onPress={() => navigation.navigate('CONTACT')}>
-            <P color="#4030a5" underlined>
-              contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
-            </P>
-          </TouchableOpacity>
-          <ElementDayDefi content={<H2 color="#4030a5">Conclusion de ma semaine</H2>} noMarginBottom />
-          <P bold>Vous n'êtes pas la seule personne à ressentir ces émotions qui impactent sur l'envie de boire !</P>
-          <Spacer />
-          <P>Chacun réagit différemment à l'alcool. Et les émotions peuvent aussi bien positives que négatives.</P>
-          <Spacer />
-          <P>
-            L'enquête du <Bold>British Medical Journal Open</Bold> montre que les émotions perçues varient en fonction
-            du type d'alcool consommé.
-          </P>
-          <Spacer />
-          <BackgroundEFEFEF>
-            <EmotionsConsommateurs
-              drinkCategorie="spiritueux"
-              emotion1="59% plus confiants"
-              emotion2="58% sous tension"
-              emotion3="29 % plus aggressifs"
-            />
-            <Spacer />
-            <EmotionsConsommateurs
-              drinkCategorie="vin"
-              emotion1="53% plus détendus"
-              emotion2="60 % fatigués"
-              emotion3="17 % tristes"
-            />
-            <Spacer />
-            <P>
-              L'<Bold>intensité des émotions augmente avec la vitesse et la quantité consommée</Bold>, et plus
-              particuliérement pour l'agressivité.
-            </P>
-            <Spacer />
-            <P>
-              Bien évidemment, ces émotions peuvent être affectées par l'humeur du consommateur avant le premier verre.
-            </P>
-          </BackgroundEFEFEF>
-          <P>
-            Comme les deux faces d'une même pièce, l'alcool comporte des plaisirs mais aussi des effets négatifs. Alors
-            quand vous choissiez de consommer :
-            <Bold>
-              {'\n    • '}identifiez votre état émotionnel avant le premier verre,{'\n    • '} choisissez le type de
-              boisson,
-              {'\n    • '} sachez fixer une limite, {'\n    • '}veillez à boire lentement.
-            </Bold>
-          </P>
-          <Spacer />
-          <Sources
-            content={
-              <TextStyled>
-                {'\n    • '}BMJ Open November 22 2017 DOI: 10.1136 bmjopen-2017-016089 {'\n    • '}Le site Améli
-                “L'alcool : définition et repères de consommation”
-                https://www.ameli.fr/assure/sante/themes/alcool-sante/definition-reperes-consommation {'\n    • '}OMS -
-                Organisation mondiale de la Santé
-              </TextStyled>
-            }
+  return (
+    <ScreenBgStyled>
+      <TopContainer>
+        <BackButton onPress={navigation.goBack} />
+        <TopTitle>
+          <H1 color="#4030a5">Bilan de la semaine</H1>
+        </TopTitle>
+        <H2 color="#4030a5">Ma situation la plus facile à changer</H2>
+        <FirstSituationContainer>
+          <QButtonCentered>
+            <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+          </QButtonCentered>
+          <FirstTextContainer>
+            <TextStyled>{answersRiskSituations[0]?.content}</TextStyled>
+          </FirstTextContainer>
+          <FirstTextContainer>
+            <TextEmotion>Et je bois pour :</TextEmotion>
+            <Spacer size={10} />
+            {emotions[emotion]?.iconBilan}
+            <Spacer size={10} />
+            <TextEmotion color="#4030A5">{emotions[emotion]?.description}</TextEmotion>
+          </FirstTextContainer>
+        </FirstSituationContainer>
+        <BackgroundEFEFEF>
+          <H2 color="#4030a5">Mes autres situations à risques</H2>
+          {answersRiskSituations
+            ?.filter((k, i) => i > 0)
+            .map((riskSituation, index) => {
+              return (
+                <RiskSituationsContainer key={index}>
+                  <QButton
+                    content={index + 2}
+                    disabled
+                    colorText="#ffffff"
+                    colorBorder="#4030A5"
+                    colorBackground=" #4030A5"
+                  />
+                  <TextContainer>
+                    <TextStyled>{riskSituation.content}</TextStyled>
+                  </TextContainer>
+                </RiskSituationsContainer>
+              );
+            })}
+        </BackgroundEFEFEF>
+        <TextStyled>
+          Si vous êtes parvenu à <TextStyled bold>gérer la situation</TextStyled> dans le cadre de ce défi, vous êtes{' '}
+          <TextStyled bold>capable de trouver seul(e) des solutions pour faire autrement.</TextStyled>
+          {'\n\n'}
+          <TextStyled bold>Sinon, vous avez pu mieux identifier quels sont vos points de blocage.</TextStyled>
+          {'\n\n'}A tout moment: contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
+        </TextStyled>
+        <ElementDayDefi content={<H2 color="#4030a5">Conclusion de ma semaine</H2>} />
+        <TextStyled bold>
+          Vous n'êtes pas la seule personne à ressentir ces émotions qui impactent sur l'envie de boire !
+        </TextStyled>
+        <Spacer />
+        <TextStyled>
+          Chacun réagit différemment à l'alcool. Et les émotions peuvent aussi bien positives que négatives.
+        </TextStyled>
+        <Spacer />
+        <TextStyled>
+          L'enquête du <TextStyled bold>British Medical Journal Open</TextStyled> montre que les émotions perçues
+          varient en fonction du type d'alcool consommé.
+        </TextStyled>
+        <Spacer />
+        <BackgroundEFEFEF>
+          <EmotionsConsommateurs
+            drinkCategorie="spiritueux"
+            emotion1="59% plus confiants"
+            emotion2="58% sous tension"
+            emotion3="29 % plus aggressifs"
           />
-        </TopContainer>
-      </ScreenBgStyled>
-    );
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
+          <Spacer />
+          <EmotionsConsommateurs
+            drinkCategorie="vin"
+            emotion1="53% plus détendus"
+            emotion2="60 % fatigués"
+            emotion3="17 % tristes"
+          />
+          <Spacer />
+          <TextStyled>
+            L'<TextStyled bold>intensité des émotions augmente avec la vitesse et la quantité consommée</TextStyled>, et
+            plus particuliérement pour l'agressivité.
+          </TextStyled>
+          <Spacer />
+          <TextStyled>
+            Bien évidemment, ces émotions peuvent être affectées par l'humeur du consommateur avant le premier verre.
+          </TextStyled>
+        </BackgroundEFEFEF>
+        <TextStyled>
+          Comme les deux faces d'une même pièce, l'alcool comporte des plaisirs mais aussi des effets négatifs. Alors
+          quand vous choissiez de consommer :
+          <TextStyled bold>
+            {'\n    • '}identifiez votre état émotionnel avant le premier verre,{'\n    • '} choisissez le type de
+            boisson,
+            {'\n    • '} sachez fixer une limite, {'\n    • '}veillez à boire lentement.
+          </TextStyled>
+        </TextStyled>
+        <Spacer />
+        <Sources
+          content={
+            <TextStyled>
+              {'\n    • '}BMJ Open November 22 2017 DOI: 10.1136 bmjopen-2017-016089 {'\n    • '}Le site Améli “L'alcool
+              : définition et repères de consommation”
+              https://www.ameli.fr/assure/sante/themes/alcool-sante/definition-reperes-consommation {'\n    • '}OMS -
+              Organisation mondiale de la Santé
+            </TextStyled>
+          }
+        />
+      </TopContainer>
+    </ScreenBgStyled>
+  );
+
 };
 
 const TopContainer = styled.View`

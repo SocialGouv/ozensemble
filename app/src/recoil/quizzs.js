@@ -87,12 +87,7 @@ export const riskSituationsAnswersKeysSelector = selector({
   key: 'riskSituationsAnswersKeysSelector',
   get: ({ get }) => {
     const riskSituationsQuizzAnswers = get(riskSituationsQuizzAnswersState);
-    const onlyTrueResults = Object.keys(riskSituationsQuizzAnswers).reduce((acc, current) => {
-      if (riskSituationsQuizzAnswers[current]) acc[current] = riskSituationsQuizzAnswers[current];
-      return acc;
-    }, {});
-    console.log('selector', Object.keys(onlyTrueResults));
-    return Object.keys(onlyTrueResults).map((answerKey) =>
+    return riskSituationsQuizzAnswers.map((answerKey) =>
       riskSituations
         .find((section) => section.answers.map((a) => a.answerKey).includes(answerKey))
         ?.answers?.find((a) => a.answerKey === answerKey)
