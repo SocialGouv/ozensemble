@@ -30,7 +30,7 @@ const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
   };
 
   const validateAnswers = async () => {
-    setResult(answers);
+    setResult(true);
     navigation.push('QUIZZ_RESULTS');
   };
 
