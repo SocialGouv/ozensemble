@@ -17,6 +17,7 @@ import matomo from '../../services/matomo';
 import PlusIcon from '../../components/illustrations/PlusIcon';
 import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
+import { P } from '../../components/Articles';
 
 const maxDosesOnScreen = 50;
 
@@ -152,14 +153,14 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
             <TextStyled>{'<'}</TextStyled>
           </ChangeDateButton>
           {firstDay.get('month') === lastDay.get('month') ? (
-            <TextStyled color="#7e7e7e">
+            <P color="#7e7e7e" noMarginBottom>
               Semaine du {dayjs(firstDay).format('D')} au {dayjs(lastDay).format('D')} {dayjs(lastDay).format('MMMM')}
-            </TextStyled>
+            </P>
           ) : (
-            <TextStyled color="#7e7e7e">
+            <P color="#7e7e7e" noMarginBottom>
               Semaine du {dayjs(firstDay).format('D')} {dayjs(firstDay).format('MMM')} au {dayjs(lastDay).format('D')}{' '}
               {dayjs(lastDay).format('MMM')}
-            </TextStyled>
+            </P>
           )}
           <ChangeDateButton
             onPress={() => {

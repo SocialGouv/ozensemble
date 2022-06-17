@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 import styled, { css } from 'styled-components';
-import H3 from '../../../../components/H3';
-import TextStyled from '../../../../components/TextStyled';
+import H2 from '../../../../components/H2';
+import { P } from '../../../../components/Articles';
 
 const ResultAddiction = ({ value }) => {
   const getResultScore = () => {
@@ -22,16 +22,14 @@ const ResultAddiction = ({ value }) => {
         return (
           <View>
             <ResultParagraph color="#191919">
-              <TextStyled bold>
-                Votre consommation d'alcool comporte vraisemblablement des risques pour votre santé
-              </TextStyled>
-              , même si actuellement vous ne souffrez de rien.
+              <P bold>Votre consommation d'alcool comporte vraisemblablement des risques pour votre santé</P>, même si
+              actuellement vous ne souffrez de rien.
             </ResultParagraph>
             <ResultParagraph color="#191919">
               N'hésitez pas à demander conseil de manière{' '}
-              <TextStyled bold color="#de285e">
+              <P bold color="#de285e">
                 anonyme et gratuite
-              </TextStyled>{' '}
+              </P>{' '}
               à l'équipe Oz Ensemble.
             </ResultParagraph>
           </View>
@@ -40,7 +38,7 @@ const ResultAddiction = ({ value }) => {
         return (
           <View>
             <ResultParagraph color="#191919">
-              <TextStyled bold>Il est possible que vous soyez dépendant de l'alcool.</TextStyled>
+              <P bold>Il est possible que vous soyez dépendant de l'alcool.</P>
             </ResultParagraph>
             <ResultParagraph color="#191919">
               Cette dépendance peut être psychologique si vous ressentez un besoin de consommer malgré les inconvénients
@@ -49,17 +47,17 @@ const ResultAddiction = ({ value }) => {
             </ResultParagraph>
             <ResultParagraph color="#191919">
               Nous vous conseillons de{' '}
-              <TextStyled bold color="#de285e">
+              <P bold color="#de285e">
                 faire appel gratuitement
-              </TextStyled>{' '}
+              </P>{' '}
               et de manière{' '}
-              <TextStyled bold color="#de285e">
+              <P bold color="#de285e">
                 anonyme
-              </TextStyled>{' '}
+              </P>{' '}
               à un{' '}
-              <TextStyled bold color="#de285e">
+              <P bold color="#de285e">
                 professionnel Oz Ensemble
-              </TextStyled>
+              </P>
               .
             </ResultParagraph>
           </View>
@@ -78,24 +76,19 @@ const ResultAddiction = ({ value }) => {
 export const ContainerSection = styled.View`
   margin: 5px 0 20px 0;
 `;
-export const ResultParagraph = styled(TextStyled)`
+export const ResultParagraph = styled(P)`
   margin: 8px 0;
-`;
-
-export const commonCss = css`
-  width: 85%;
-  flex-shrink: 0;
 `;
 
 export const TopContainer = styled.View`
   padding: 20px 25px 40px;
 `;
 
-export const ResultTitle = styled(H3)`
-  ${commonCss}
+export const ResultTitle = styled(H2)`
+  width: 85%;
+  flex-shrink: 0;
   font-weight: bold;
   color: #4030a5;
-  font-size: 15px;
 `;
 
 export default ResultAddiction;

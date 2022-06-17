@@ -8,16 +8,16 @@ import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
-import HowMakeSelfEvaluation from './HowMakeSelfEvaluation';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
+import { Bold, P } from '../../components/Articles';
 
 const DefisMenu = ({ navigation }) => {
-  const [openHowMakeSelfEvaluation, setOpenHowMakeSelfEvaluation] = useState(false);
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showDefi2Modal, setshowDefi2Modal] = useState(false);
+  const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
 
@@ -65,7 +65,7 @@ const DefisMenu = ({ navigation }) => {
               color="#4030a5"
               withoutPadding
               content="Pourquoi faire cette auto-évaluation ?"
-              onPress={() => setOpenHowMakeSelfEvaluation(true)}
+              onPress={() => setShowHowMakeSelfEvaluation(true)}
             />
           )}
           <CategorieMenu
@@ -83,7 +83,7 @@ const DefisMenu = ({ navigation }) => {
             description={'Aller plus loin...'}
             onButtonPress={() => navigation.navigate('DEFI2')}
             image={require('../../assets/images/Defi2.png')}
-            disabled={!autoEvaluationDone && defi1Day < 7}
+            disabled={!autoEvaluationDone || defi1Day < 7}
             disabledContainer={autoEvaluationDone}
             callToAction={defi2CallToAction}
             onContainerPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
@@ -97,12 +97,6 @@ const DefisMenu = ({ navigation }) => {
             disabled={!autoEvaluationDone}
           />
         </Container>
-        {openHowMakeSelfEvaluation && (
-          <HowMakeSelfEvaluation
-            visible={openHowMakeSelfEvaluation}
-            onClose={() => setOpenHowMakeSelfEvaluation(false)}
-          />
-        )}
       </ScreenBgStyled>
       <OnBoardingModal
         title="Sans évaluation, pas de défis"
@@ -128,6 +122,30 @@ const DefisMenu = ({ navigation }) => {
         visible={showDefi2Modal}
         hide={() => {
           setshowDefi2Modal(false);
+        }}
+      />
+      <OnBoardingModal
+        title="Pourquoi faire cette auto-évaluation ?"
+        description={
+          <>
+            <P>
+              En faisant cette évaluation en 4 questions, nous pourrons <Bold>améliorer votre expérience</Bold> au sein
+              de l'application en vous donnant des <Bold>conseils adaptés</Bold>.{'\n\n'}
+            </P>
+            <P>
+              De vous même, vous prendez <Bold>consicence du résultat</Bold> et vous pourrez alors y remédier en
+              apprenant à réduire votre consommation d'alcool.
+            </P>
+          </>
+        }
+        boutonTitle="Je m'évalue"
+        onPress={() => {
+          setShowHowMakeSelfEvaluation(false);
+          navigation.navigate('ONBOARDING_QUIZZ');
+        }}
+        visible={showHowMakeSelfEvaluation}
+        hide={() => {
+          setShowHowMakeSelfEvaluation(false);
         }}
       />
     </>
