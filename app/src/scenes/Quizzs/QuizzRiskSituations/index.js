@@ -18,7 +18,7 @@ import { setValidatedDays } from '../../Defis/utils';
 
 const QuizzRiskSituationsStack = createStackNavigator();
 
-const QuizzRiskSituationsOnBoarding = ({ navigation, route }) => {
+const QuizzRiskSituations = ({ navigation, route }) => {
   const [answers, setAnswers] = useRecoilState(riskSituationsQuizzAnswersState);
   const setResult = useSetRecoilState(riskSituationsQuizzResultState);
   const toggleAnswer = async (answerKey, checked) => {
@@ -151,4 +151,4 @@ const TopTitle = styled.View`
   margin-bottom: 20px;
 `;
 
-export default QuizzRiskSituationsOnBoarding;
+export default QuizzRiskSituations;

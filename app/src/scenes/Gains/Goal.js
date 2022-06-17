@@ -22,11 +22,12 @@ import DrinksCategory from '../../components/DrinksCategory';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
+import { reminderGain } from '../../recoil/reminder';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
-  const isOnboarded = useRecoilValue(previousDrinksPerWeekState)?.length;
+  const isOnboarded = useRecoilValue(reminderGain);
 
   const toggleDayWithGoalNoDrink = (day) =>
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
@@ -63,7 +64,7 @@ const Goal = ({ navigation }) => {
         <BackButton onPress={navigation.goBack} marginLeft />
         <Container>
           <TopTitle>
-            <H1 color="#4030a5">Se fixer un objectif</H1>
+            <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
           <ContainerTime>
             <TextStyled>
@@ -117,7 +118,7 @@ const Goal = ({ navigation }) => {
             <CocktailGlassTriangle size={24} />
             <TextSemiBold>
               <TextStyled>
-                Verre{!totalDrinksByDrinkingDay || totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour que je m'autorise
+                Unité{!totalDrinksByDrinkingDay || totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour que je m'autorise
                 quand je bois de l'alcool
               </TextStyled>
             </TextSemiBold>
@@ -152,10 +153,10 @@ const Goal = ({ navigation }) => {
             <DrinkByWeekContainer>
               <TextStyled>
                 {' '}
-                {7 - daysWithGoalNoDrink.length} jours avec {totalDrinksByDrinkingDay} verre
+                {7 - daysWithGoalNoDrink.length} jours avec {totalDrinksByDrinkingDay} unité
                 {totalDrinksByDrinkingDay > 1 ? 's' : ''}
               </TextStyled>
-              <TextStyled bold> soit {drinkByWeek} verres par semaine</TextStyled>
+              <TextStyled bold> soit {drinkByWeek} unités par semaine</TextStyled>
             </DrinkByWeekContainer>
           )}
           <CTAButtonContainer>
@@ -171,7 +172,7 @@ const Goal = ({ navigation }) => {
                 matomo.logReminderOpen('GOAL');
                 navigation.navigate('GAINS_REMINDER', {
                   enableContinueButton: true,
-                  onPressContinueNavigation: ['GAINS_ESTIMATE_PREVIOUS_CONSUMPTION'],
+                  onPressContinueNavigation: ['GAINS_SEVRAGE'],
                 });
               }}
               disabled={!totalDrinksByDrinkingDay || daysWithGoalNoDrink.length === 0}

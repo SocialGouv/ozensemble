@@ -23,7 +23,7 @@ const Wrapper = ({ children, wrapped }) => {
 const ResultsMotivations = ({ wrapped = true }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
 
-  if (!motivationsQuizzAnswers) return null;
+  if (!motivationsQuizzAnswers?.length) return null;
 
   return (
     <Wrapper wrapped={wrapped}>
@@ -50,7 +50,6 @@ const ResultsMotivations = ({ wrapped = true }) => {
                 checked
                 disabled
                 result
-                
               />
             );
           })}

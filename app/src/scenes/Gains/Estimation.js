@@ -2,22 +2,21 @@ import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
+import { previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import BackButton from '../../components/BackButton';
-import H2 from '../../components/H2';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import { P } from '../../components/Articles';
 
 const Estimation = () => {
   const navigation = useNavigation();
 
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
 
   const scrollRef = useRef(null);
@@ -50,11 +49,10 @@ const Estimation = () => {
       <BackButton onPress={() => navigation.goBack()} marginLeft />
       <TextContainer>
         <TopTitle>
-          <H1 color="#4030a5">Ma consommation avant Oz Ensemble</H1>
-          <H2>Estimation par semaine</H2>
+          <H1 color="#4030a5">Ma conso actuelle avant objectif</H1>
         </TopTitle>
         <DescriptionText>
-          <TextStyled>Sur une semaine type, combien de verres consommez-vous ?</TextStyled>
+          <P bold>Sur une semaine type, combien d'unités d'alcool consommez-vous ?</P>
         </DescriptionText>
       </TextContainer>
       <Container>
@@ -75,28 +73,22 @@ const Estimation = () => {
         </ModalContent>
       </Container>
       <TextContainer>
-        <DescriptionText>
+        <P>
           <TextStyled>
             <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
           </TextStyled>
-        </DescriptionText>
+        </P>
         <DescriptionText>
-          <TextStyled>
+          <P>
             <TextStyled bold>Cette estimation sera comparée à ce que vous consommerez par la suite</TextStyled>, pour
             calculer vos gains en&nbsp;€ et kCal.
-          </TextStyled>
-        </DescriptionText>
-        <DescriptionText big>
-          <TextStyled>
-            Pour rappel votre objectif est de ne pas dépasser
-            <TextStyled color={'#4030a5'}> {maxDrinksPerWeekGoal}&nbsp;verres par semaine.</TextStyled>
-          </TextStyled>
+          </P>
         </DescriptionText>
       </TextContainer>
       <CTAButtonContainer>
         <ButtonPrimary
           disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
-          content="Je finalise"
+          content="Je continue"
           onPress={() => {
             const numberDrinkEstimation = previousDrinksPerWeek.reduce(
               (sum, drink) =>
@@ -105,7 +97,7 @@ const Estimation = () => {
               0
             );
             matomo.logGoalEstimationDrink(numberDrinkEstimation);
-            navigation.navigate('GAINS_SEVRAGE');
+            navigation.navigate('GAINS_MY_OBJECTIVE');
           }}
         />
       </CTAButtonContainer>

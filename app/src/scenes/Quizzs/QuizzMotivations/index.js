@@ -57,14 +57,7 @@ const QuizzMotivations = ({ navigation, route }) => {
                   <TextStyled>Sélectionnez vos principales raisons pour changer votre consommation d'alcool</TextStyled>
                 </Paragraph>
                 {sections.map((section, id) => (
-                  <Section
-                    key={id}
-                    section={section}
-                    onToggle={toggleAnswer}
-                    answers={motivationsQuizzAnswers}
-                    navigation={navigation}
-                    defi={1}
-                  />
+                  <Section key={id} section={section} onToggle={toggleAnswer} answers={motivationsQuizzAnswers} />
                 ))}
                 <ButtonsContainer>
                   <ButtonPrimary onPress={validateAnswers} content="Je valide" />

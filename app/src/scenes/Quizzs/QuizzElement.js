@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
 import { View } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
@@ -8,31 +7,22 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/illustrations/TickDone';
 import Form from '../../components/illustrations/Form';
 import { screenWidth } from '../../styles/theme';
-import matomo from '../../services/matomo';
 import Lock from '../../components/illustrations/Lock';
 
 const QuizzElement = ({
   topTitle,
   title,
   disabled,
-  quizzRoute,
   recoilResultState,
-  showEvenNotDone,
+  showOnlyIfDone,
   fromHealth = false,
+  onStart,
+  onShowResult,
 }) => {
   const result = useRecoilValue(recoilResultState);
   const done = result !== null;
-  const navigation = useNavigation();
 
-  const onStart = () => {
-    matomo.logQuizzStart();
-    navigation.navigate(quizzRoute, { initialRouteName: 'QUIZZ_QUESTIONS' });
-  };
-  const onShowResult = () => {
-    navigation.navigate(quizzRoute, { initialRouteName: 'QUIZZ_RESULTS' });
-  };
-
-  if (!done && !showEvenNotDone) return null;
+  if (!done && !showOnlyIfDone) return null;
 
   return (
     <Container done={done} disabled={disabled} fromHealth={fromHealth}>
@@ -48,7 +38,7 @@ const QuizzElement = ({
           {!disabled &&
             (done ? (
               <>
-                <ButtonRedoTest onPress={onShowResult}>Mes résultats</ButtonRedoTest>
+                {!!onShowResult && <ButtonRedoTest onPress={onShowResult}>Mes résultats</ButtonRedoTest>}
                 <ButtonPrimary onPress={onStart} content={'Refaire le test'} small />
               </>
             ) : (
@@ -90,7 +80,7 @@ const ButtonsContainer = styled.View`
   align-items: center;
   overflow: hidden;
   width: 100%;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding-right: 5px;
 `;
 
@@ -116,6 +106,7 @@ const ButtonRedoTest = styled.Text`
   color: #4030a5;
   text-decoration: underline;
   flex-shrink: 1;
+  margin-right: auto;
 `;
 
 const Button = styled(ButtonPrimary)`
