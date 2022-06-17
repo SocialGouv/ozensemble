@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import DraggableFlatList, { ScaleDecorator } from 'react-native-draggable-flatlist';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import DraggableClick from '../../../components/illustrations/DraggableClick';
@@ -15,18 +15,14 @@ export default function App() {
 
   const renderItem = ({ item, drag, isActive }) => {
     return (
-      <>
-        <ScaleDecorator key={item}>
-          <AnswerContainer onLongPress={drag} disabled={isActive} isActive={isActive}>
-            <AnswerText>
-              <TextStyled>{item.content}</TextStyled>
-            </AnswerText>
-            <DraggableClickContainer>
-              <DraggableClick size={20} color={isActive ? '#fff' : '#4030A5'} />
-            </DraggableClickContainer>
-          </AnswerContainer>
-        </ScaleDecorator>
-      </>
+      <AnswerContainer onPress={drag} onLongPress={drag} disabled={isActive} isActive={isActive}>
+        <AnswerText>
+          <TextStyled>{item.content}</TextStyled>
+        </AnswerText>
+        <DraggableClickContainer>
+          <DraggableClick size={20} color={isActive ? '#4030A5CC' : '#4030A5'} />
+        </DraggableClickContainer>
+      </AnswerContainer>
     );
   };
 
@@ -81,7 +77,16 @@ const AnswerContainer = styled(TouchableOpacity)`
   border-radius: 3px;
   margin-vertical: 5px;
   margin-horizontal: 20px;
-  background-color: ${({ isActive }) => (isActive ? '#4030A540' : '#FFFFFF')};
+  ${({ isActive }) =>
+    isActive &&
+    `
+    elevation: 5;
+    shadow-offset: 0px 0px;
+    shadow-color: #CCC;
+    shadow-opacity: 1;
+    shadow-radius: 3.84px;
+  `};
+  background-color: ${({ isActive }) => (isActive ? '#FFFFFF' : '#FFFFFF')};
 `;
 
 const AnswerText = styled.View`

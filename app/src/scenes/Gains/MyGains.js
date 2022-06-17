@@ -44,8 +44,8 @@ const MyGains = () => {
   const [helpVisible, setHelpVisible] = useState(false);
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
-  const navigateToGoal = () => {
-    navigation.navigate('GAINS_MY_OBJECTIVE');
+  const navigateToPreviousConsumption = () => {
+    navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
   const isOnboarded = useMemo(
@@ -153,7 +153,7 @@ const MyGains = () => {
           <TouchableOpacity
             onPress={() => {
               matomo.logTooltipGoal();
-              navigation.navigate('GAINS_MY_OBJECTIVE');
+              navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
             }}>
             <Description>
               <InfosIcon size={24} />
@@ -270,7 +270,7 @@ const MyGains = () => {
         boutonTitle="Je me fixe un objectif"
         onPress={() => {
           matomo.logGoalOpen();
-          navigateToGoal();
+          navigateToPreviousConsumption();
         }}
         visible={showOnboardingGainModal}
         hide={() => {
@@ -284,7 +284,7 @@ const MyGains = () => {
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
           <TouchableOpacity
-            onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}
+            onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <Description>
               <InfosIcon size={24} />
@@ -320,11 +320,11 @@ const MyGains = () => {
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
-          <ButtonTouchable onPress={navigateToGoal}>
+          <ButtonTouchable onPress={navigateToPreviousConsumption}>
             <TextModify>Modifier l'objectif</TextModify>
           </ButtonTouchable>
           <Title>
-            <H1 color="#4030a5">Ma consommation avant Oz Ensemble</H1>
+            <H1 color="#4030a5">Ma conso actuelle avant objectif</H1>
             <H2>Estimation par semaine</H2>
           </Title>
           <MyGoalSubContainer>

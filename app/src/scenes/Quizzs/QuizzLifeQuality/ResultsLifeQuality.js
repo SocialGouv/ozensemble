@@ -16,6 +16,7 @@ const resultsToDisplaySelector = selector({
   key: 'resultsToDisplaySelector',
   get: ({ get }) => {
     const resultKey = get(lifeQualityQuizzResultState);
+    if (!resultKey?.length) return null;
     return [...resultKey]
       .sort((a, b) => Number(b.score) - Number(a.score))
       .map((result) => {
@@ -35,6 +36,7 @@ const resultsToDisplaySelector = selector({
 
 const Wrapper = ({ children, wrapped }) => {
   const resultKey = useRecoilValue(lifeQualityQuizzResultState);
+  if (!resultKey) return null;
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
@@ -60,7 +62,7 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
     if (resultKey && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused, resultKey]);
 
-  if (!resultKey) return null;
+  if (!resultKey || !resultsToDisplay) return null;
 
   return (
     <Wrapper wrapped={wrapped}>

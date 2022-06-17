@@ -28,9 +28,10 @@ const Conseils = ({ navigation }) => {
           <QuizzElement
             topTitle="Questionnaire d'auto-évaluation"
             title="Ma consommation d'alcool"
-            quizzRoute="ONBOARDING_QUIZZ"
+            onStart={() => navigation.navigate('ONBOARDING_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
+            onShowResult={() => navigation.navigate('ONBOARDING_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
             recoilResultState={autoEvaluationQuizzResultState}
-            showEvenNotDone
+            showOnlyIfDone
             fromHealth
           />
           <TopTitle>
