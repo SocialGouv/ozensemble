@@ -34,13 +34,13 @@ const resultsToDisplaySelector = selector({
   },
 });
 
-const Wrapper = ({ children, wrapped }) => {
+const Wrapper = ({ children, wrapped, inMyTests }) => {
   const resultKey = useRecoilValue(lifeQualityQuizzResultState);
   if (!resultKey) return null;
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
-      <Header />
+      <Header inMyTests={inMyTests} />
       <ResultContainer>
         {resultKey ? (
           <>
@@ -64,8 +64,10 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
 
   if (!resultKey || !resultsToDisplay) return null;
 
+  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
+
   return (
-    <Wrapper wrapped={wrapped}>
+    <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
       <ContainerSection>
         <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
         <ItemsContainer>

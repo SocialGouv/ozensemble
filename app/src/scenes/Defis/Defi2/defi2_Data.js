@@ -5,7 +5,7 @@ export const defi2_Data = [
   {
     actionType: 'content',
     title: 'J1',
-    tagLine: 'Premier pas pour changer mes habitudes de consommation ?',
+    tagLine: 'Premier pas pour changer mes habitudes de consommation',
     description: (
       <>
         La <TextStyled bold>motivation à changer</TextStyled> est plus forte si vous identifiez consciement ce que vous

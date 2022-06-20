@@ -1,22 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TickDone from '../../components/illustrations/TickDone';
-import Form from '../../components/illustrations/Form';
 import { screenWidth } from '../../styles/theme';
 import Lock from '../../components/illustrations/Lock';
 import TextStyled from '../../components/TextStyled';
 
-const QuizzElement = ({ title, disabled, showOnlyIfDone, fromHealth = false, onStart, done, onShowResult }) => {
+const QuizzElement = ({ title, disabled, showOnlyIfDone, onStart, done, onShowResult }) => {
   if (!done && !showOnlyIfDone) return null;
 
   return (
-    <Container done={done} disabled={disabled} fromHealth={fromHealth}>
+    <Container done={done} disabled={disabled}>
       <ContainerIconTitle>
-        {fromHealth && !done ? <Form size={20} /> : done ? <TickDone size={20} color="#DE285E" /> : <Lock size={20} />}
+        {done ? <TickDone size={20} color="#DE285E" /> : <Lock size={20} />}
         <Title>
           <TextStyled>{title}</TextStyled>
         </Title>
@@ -54,7 +51,7 @@ const Container = styled.View`
   background-color: ${(props) => getBackgroundColor(props)};
   border: 1px solid ${({ done }) => (done ? '#81DBD37F' : '#79747E')};
   padding-vertical: 15px;
-  height: ${({ disabled }) => (disabled ? '70' : '120')}px;
+  height: ${({ disabled }) => (disabled ? '70' : '105')}px;
   margin-bottom: 20px;
   padding-horizontal: ${Math.min(15, screenWidth * 0.03)}px;
 `;

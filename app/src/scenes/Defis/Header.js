@@ -6,9 +6,10 @@ import TextStyled from '../../components/TextStyled';
 import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
 
-const Header = ({ title, description }) => {
+const Header = ({ title, description, inMyTests }) => {
   const route = useRoute();
   const navigation = useNavigation();
+
   return (
     <TopContainer>
       <BackButton
@@ -23,7 +24,7 @@ const Header = ({ title, description }) => {
         C'est déjà terminé !
       </SectionTitle>
       <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
-      {!!route?.params?.inDefi1 && (
+      {!inMyTests && (
         <>
           <TextParagraph>
             Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
@@ -49,7 +50,7 @@ const TextParagraph = styled(P)`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 20px;
+  padding: 0px 20px;
 `;
 
 const TopTitleContainer = styled.View`

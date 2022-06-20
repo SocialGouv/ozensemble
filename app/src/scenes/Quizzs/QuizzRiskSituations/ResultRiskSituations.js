@@ -11,10 +11,12 @@ import Header from '../../Defis/Header';
 
 const ResultRiskSituations = ({ navigation, route }) => {
   const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
+  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
 
   return (
     <ScreenBgStyled>
       <Header
+        inMyTests={inMyTests}
         title={'Identifier mes situations à risques'}
         description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}
       />

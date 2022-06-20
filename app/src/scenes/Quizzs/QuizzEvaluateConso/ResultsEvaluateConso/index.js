@@ -29,6 +29,7 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
         name="RESULT"
         initialParams={{
           title: 'Évaluer sa consommation',
+          rootRoute: route?.params?.rootRoute,
         }}
         component={ResultsEvaluateConso}
       />
@@ -37,12 +38,12 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
   );
 };
 
-const Wrapper = ({ wrapped, children }) => {
+const Wrapper = ({ wrapped, children, inMyTests }) => {
   if (!wrapped) return <>{children}</>;
   if (wrapped) {
     return (
       <FullScreenBackground>
-        <Header />
+        <Header inMyTests={inMyTests} />
         <ResultContainer>
           {children}
           <Sources
@@ -56,10 +57,13 @@ const Wrapper = ({ wrapped, children }) => {
   }
 };
 
-export const ResultsEvaluateConso = ({ wrapped = true, hideButtons = false }) => {
+export const ResultsEvaluateConso = ({ wrapped = true, hideButtons = false, route }) => {
   const resultKey = useRecoilValue(betterEvaluateQuizzResultState);
+
+  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
+
   return (
-    <Wrapper wrapped={wrapped}>
+    <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
       <ResultAddiction value={resultKey?.scoreAddiction} />
       <ResultPopulation value={resultKey?.scoreArrow} hideButtons={hideButtons} />
     </Wrapper>

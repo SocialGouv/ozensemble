@@ -45,7 +45,7 @@ const MyGains = () => {
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToPreviousConsumption = () => {
-    navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+    navigation.navigate('GAINS_MY_OBJECTIVE');
     setShowOnboardingGainModal(false);
   };
   const isOnboarded = useMemo(
@@ -284,7 +284,7 @@ const MyGains = () => {
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
           <TouchableOpacity
-            onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}
+            onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <Description>
               <InfosIcon size={24} />
