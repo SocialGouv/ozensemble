@@ -15,9 +15,9 @@ const doses = [
   { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
 ];
 
-const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0, minHeight }) => {
+const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0, noMinHeight }) => {
   return (
-    <ScreenBgStyled backgroundColor={backgroundColor} marginOffset={marginOffset} minHeight={minHeight}>
+    <ScreenBgStyled backgroundColor={backgroundColor} marginOffset={marginOffset} noMinHeight={noMinHeight}>
       <IconsContainer>
         {doses.map(({ Icon, volume, name, degrees }, i) => (
           <React.Fragment key={i}>

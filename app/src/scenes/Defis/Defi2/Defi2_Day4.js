@@ -49,7 +49,11 @@ const Defi2_Day4 = ({ navigation, route }) => {
         ListEmptyComponent={<DraggableFlatListDay4 />}
       />
       <ButtonContainer>
-        <ButtonPrimary content="J'ai fini de classer" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
+        <ButtonPrimary
+          content="J'ai fini de classer"
+          widthSmall
+          onPress={() => navigation.navigate(route?.params?.rootRoute)}
+        />
       </ButtonContainer>
     </ScreenBgStyled>
   );
