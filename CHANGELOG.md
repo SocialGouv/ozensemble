@@ -1,3 +1,10 @@
+# [1.52.0](https://github.com/SocialGouv/ozensemble/compare/v1.51.0...v1.52.0) (2022-06-20)
+
+
+### Features
+
+* **app:** Retour de la version 1.7.0 ([eda08b4](https://github.com/SocialGouv/ozensemble/commit/eda08b46675deee298a0fcfc809fda4d364e5fa6))
+
 # [1.51.0](https://github.com/SocialGouv/ozensemble/compare/v1.50.1...v1.51.0) (2022-06-20)
 
 
