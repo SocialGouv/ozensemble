@@ -25,7 +25,7 @@ const ResultsOnboarding = ({ navigation }) => {
         {resultKey === 'addicted' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
         {resultKey === 'good' && <ResultGood />}
         {resultKey === 'risk' && <ResultAddicted />}
-        {feeling != null || resultKey === 'good' || resultKey === 'addicted' ? (
+        {feeling !== null || resultKey === 'good' || resultKey === 'risk' ? (
           <TopButtonContainer>
             <ButtonPrimary
               content="Je commence le défi"
