@@ -6,6 +6,7 @@ import deviceInfoModule from 'react-native-device-info';
 
 import { SCHEME, MW_API_HOST } from '../config';
 import matomo from './matomo';
+import { NewFeaturePop } from './NewFeaturePopup';
 
 const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
@@ -26,6 +27,10 @@ class ApiService {
   };
   execute = async ({ method = 'GET', path = '', query = {}, headers = {}, body = null }) => {
     try {
+      if (path === '/event' && body) {
+        body.newFeaturesLastShownId = NewFeaturePop.lastShownId;
+      }
+
       const config = {
         method,
         headers: {
@@ -51,6 +56,9 @@ class ApiService {
       if (response.json) {
         const readableRes = await response.json();
         if (readableRes.sendInApp) this.handleInAppMessage(readableRes.sendInApp);
+        if (readableRes.newFeatures) {
+          NewFeaturePop.handleShowNewFeaturePopup(readableRes.newFeatures);
+        }
         return readableRes;
       }
 
