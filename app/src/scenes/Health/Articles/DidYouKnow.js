@@ -35,7 +35,7 @@ const DidYouKnow = () => {
             boisson alcoolisée que vous consommez (vin, bière ou alcool fort). (illustration à récupérer dans Figma sur
             le frame : Bottom sheet Compter verre d'alcool )
           </P>
-          <OneDoseAlcoolExplanation marginOffset={defaultPaddingFontScale()} minHeight />
+          <OneDoseAlcoolExplanation marginOffset={defaultPaddingFontScale()} noMinHeight />
           <P>
             {'    - '} <Bold>Six minutes </Bold>suffisent après la consommation de deux doses d'alcool pour que le
             <Bold> fonctionnement des neurones cérébraux</Bold> soit modifié par cette quantité d'alcool.
