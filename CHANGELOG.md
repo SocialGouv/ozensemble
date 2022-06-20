@@ -1,3 +1,10 @@
+## [1.50.1](https://github.com/SocialGouv/ozensemble/compare/v1.50.0...v1.50.1) (2022-06-20)
+
+
+### Bug Fixes
+
+* **app:** onboardingmodal hide + resultOnBoarding ([6d1782e](https://github.com/SocialGouv/ozensemble/commit/6d1782ed98cf0630b994c17760376e16590e5cf2))
+
 # [1.50.0](https://github.com/SocialGouv/ozensemble/compare/v1.49.1...v1.50.0) (2022-06-17)
 
 
