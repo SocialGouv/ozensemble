@@ -5,7 +5,7 @@ export const defi1_Data = [
   {
     actionType: 'content',
     title: 'Jour 1',
-    tagLine: 'Comment compter sa consommation',
+    tagLine: 'Comment compter sa consommation ?',
     description: (
       <>
         <Bold>L'observation</Bold> est une <Bold>première étape clé pour faire le point</Bold>. L'alcool est très

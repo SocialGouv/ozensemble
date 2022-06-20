@@ -5,8 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
-import H3 from '../../components/H3';
-import TextStyled from '../../components/TextStyled';
+import { P } from '../../components/Articles';
 
 import QuizzEvaluateConso from './QuizzEvaluateConso';
 import QuizzLifeQuality from './QuizzLifeQuality';
@@ -94,13 +93,11 @@ const QuizzMenu = () => {
         <BackButton onPress={navigation.goBack} />
         <Title color="#4030a5">Tests des défis</Title>
         <SubTitle>
-          <TextStyled>
-            Pour refaire les tests si besoin et continuer à réfléchir au rôle de l’alcool dans ma vie quotidienne.
-          </TextStyled>
+          Pour refaire les tests si besoin et continuer à réfléchir au rôle de l’alcool dans ma vie quotidienne.
         </SubTitle>
         <DefiCategorieTitle color="#4030a5">Premier défi</DefiCategorieTitle>
         <QuizzElement
-          title="Évaluer sa consommation"
+          title="Mieux mesurer ma consommation"
           onStart={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
           onShowResult={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
           done={useRecoilValue(betterEvaluateQuizzResultState) !== null}
@@ -161,7 +158,7 @@ const Title = styled(H1)`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
-const SubTitle = styled(H3)`
+const SubTitle = styled(P)`
   margin-bottom: 20px;
 `;
 

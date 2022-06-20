@@ -9,6 +9,7 @@ import Stars from '../../../../components/illustrations/Stars';
 import TextStyled from '../../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
 import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
+import BackButton from '../../../../components/BackButton';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -41,9 +42,8 @@ export default ({ navigation }) => {
       {/* <HeaderBackground /> */}
       <ScreenBgStyled>
         <TopContainer>
+          <BackButton onPress={navigation.goBack} />
           <TopTitle>
-            <GoBackButton onPress={navigation.goBack} />
-            <Spacer />
             <H1 color="#4030a5">Conseils pour diminuer ma consommation d'alcool </H1>
           </TopTitle>
           <ToggleContent title="Planifier">
@@ -100,15 +100,10 @@ const Elem = ({ content }) => (
 );
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const Spacer = styled.View`
-  width: 5%;
+  padding: 0px ${defaultPaddingFontScale()}px 100px;
 `;
 
 const TopTitle = styled.View`
-  width: 95%;
   flex-direction: row;
   flex-shrink: 0;
   margin-top: 10px;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const Lock = ({ color, size, ...props }) => (
+const Lock = ({ color = '#000', size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 24 24" {...props}>
     <Path
       fill={color}

@@ -179,21 +179,13 @@ const FullScreenBackground = styled.ScrollView`
   min-width: ${screenWidth}px;
 `;
 
-const commonCss = css`
-  flex-shrink: 0;
-`;
-
 const TopContainer = styled.View`
   padding: 0px 25px 40px;
 `;
 
-const ResultTitle = styled(H1)`
-  ${commonCss}
-`;
+const ResultTitle = styled(H1)``;
 
 const TopTitle = styled(H1)`
-  ${commonCss}
-  margin-top: 10px;
   margin-bottom: 20px;
 `;
 

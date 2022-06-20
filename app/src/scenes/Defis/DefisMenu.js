@@ -51,7 +51,7 @@ const DefisMenu = ({ navigation }) => {
           </TextStyled>
           <CategorieMenu
             title={"Ma consommation d'alcool"}
-            description={'Pour détecter des comportements à risque'}
+            description={"S'évaluer pour détecter des comportements à risque"}
             onButtonPress={() =>
               navigation.navigate('ONBOARDING_QUIZZ', {
                 screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
@@ -84,7 +84,7 @@ const DefisMenu = ({ navigation }) => {
             onButtonPress={() => navigation.navigate('DEFI2')}
             image={require('../../assets/images/Defi2.png')}
             disabled={!autoEvaluationDone || defi1Day < 7}
-            disabledContainer={autoEvaluationDone}
+            disabledContainer={defi1Day === 7}
             callToAction={defi2CallToAction}
             onContainerPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
           />
@@ -170,7 +170,7 @@ const CategorieMenu = ({
           {disabled ? (
             <TitleDisabledContainer>
               <TextStyled bold>{title}</TextStyled>
-              <Lock size={16} />
+              <Lock color={'#000'} size={16} />
             </TitleDisabledContainer>
           ) : (
             <TitleContainer>
@@ -202,9 +202,8 @@ const CategorieContainer = styled.TouchableOpacity`
 const TextContainer = styled.View`
   flex-direction: column;
   justify-content: space-around;
-  padding: 5px;
   margin-horizontal: 10px;
-  width: ${screenWidth * 0.7 - defaultPaddingFontScale() - 20}px;
+  flex: 1;
 `;
 
 const TitleContainer = styled.View`
