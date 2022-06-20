@@ -1,3 +1,10 @@
+# [1.53.0](https://github.com/SocialGouv/ozensemble/compare/v1.52.0...v1.53.0) (2022-06-20)
+
+
+### Features
+
+* **app:** Header delete oblique ([0a2b141](https://github.com/SocialGouv/ozensemble/commit/0a2b1416320739252f62e6c7245500ba9017067e))
+
 # [1.52.0](https://github.com/SocialGouv/ozensemble/compare/v1.51.0...v1.52.0) (2022-06-20)
 
 
