@@ -7,7 +7,6 @@ import styled, { css } from 'styled-components';
 import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import H1 from '../../../components/H1';
-import Stars from '../../../components/illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
@@ -103,16 +102,6 @@ const Defi1_Day1 = ({ navigation, route }) => {
     </Background>
   );
 };
-
-const ElemContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0;
-`;
-
-const Paragraph = styled.View`
-  margin-bottom: 25px;
-`;
 
 const TopContainer = styled.View`
   padding: 0px ${defaultPaddingFontScale()}px 0px;

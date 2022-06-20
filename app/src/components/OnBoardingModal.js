@@ -15,9 +15,9 @@ const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTit
           <Title>
             <TextStyled>{title}</TextStyled>
           </Title>
-          <TouchableOpacity onPress={hide}>
+          <HideContainer onPress={hide}>
             <TextStyled>X</TextStyled>
-          </TouchableOpacity>
+          </HideContainer>
         </TitleContainer>
         <SubTitle>
           <TextStyled color={'#3C3C43'}>{description}</TextStyled>
@@ -56,6 +56,10 @@ const SubTitle = styled.Text`
   font-size: 18px;
   margin-bottom: 15px;
   text-align: left;
+`;
+
+const HideContainer = styled(TouchableOpacity)`
+  padding: 10px;
 `;
 
 export default OnBoardingModal;
