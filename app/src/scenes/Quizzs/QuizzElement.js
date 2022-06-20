@@ -10,19 +10,7 @@ import { screenWidth } from '../../styles/theme';
 import Lock from '../../components/illustrations/Lock';
 import TextStyled from '../../components/TextStyled';
 
-const QuizzElement = ({
-  title,
-  disabled,
-  recoilResultState,
-  showOnlyIfDone,
-  fromHealth = false,
-  onStart,
-  quizzDone,
-  onShowResult,
-}) => {
-  const result = useRecoilValue(recoilResultState);
-  const done = result !== null || quizzDone;
-
+const QuizzElement = ({ title, disabled, showOnlyIfDone, fromHealth = false, onStart, done, onShowResult }) => {
   if (!done && !showOnlyIfDone) return null;
 
   return (
