@@ -60,7 +60,7 @@ const Defi1_Day1 = ({ navigation, route }) => {
               </TextStyled>
             }
           />
-          <OneDoseAlcoolExplanation marginOffset={20} minHeight />
+          <OneDoseAlcoolExplanation marginOffset={20} noMinHeight />
           {/* <ElementDayDefi
               content="Si vous ne trouvez pas votre boisson dans les choix de base, vous pouvez en paramétrer une. Vous pouvez
               aussi scanner l'étiquette de la bouteille."

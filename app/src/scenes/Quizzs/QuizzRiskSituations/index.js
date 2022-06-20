@@ -132,9 +132,11 @@ const QuizzRiskSituations = ({ navigation, route }) => {
           />
         )}
       </QuizzRiskSituationsStack.Screen>
-      <QuizzRiskSituationsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params}>
-        {({ navigation }) => <ResultRiskSituations navigation={navigation} answers={answers} />}
-      </QuizzRiskSituationsStack.Screen>
+      <QuizzRiskSituationsStack.Screen
+        name="QUIZZ_RESULTS"
+        component={ResultRiskSituations}
+        initialParams={route?.params}
+      />
     </QuizzRiskSituationsStack.Navigator>
   );
 };
