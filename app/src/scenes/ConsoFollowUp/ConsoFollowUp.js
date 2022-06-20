@@ -108,6 +108,7 @@ const ConsoFollowUp = () => {
           )}
         </FeedAddConsoTodayContainer>
         <Feed hideFeed={showWelcomeMessage} scrollToInput={scrollToInput} />
+        <Spacer size={100} />
       </ScreenBgStyled>
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
     </Background>
@@ -125,6 +126,10 @@ const SubTitle = styled(H2)`
   flex-shrink: 0;
   font-weight: 500;
   ${(props) => props.last && 'margin-bottom: 40px;'}
+`;
+
+const Spacer = styled.View`
+  height: ${({ size }) => size || 0}px;
 `;
 
 const SubtitleContainer = styled.View`

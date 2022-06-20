@@ -7,11 +7,9 @@ import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
-import QuizzElement from '../Quizzs/QuizzElement';
 import H1 from '../../components/H1';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 
 const Conseils = ({ navigation }) => {
   return (
@@ -19,21 +17,6 @@ const Conseils = ({ navigation }) => {
       <HeaderBackground />
       <ScreenBgStyled>
         <TopContainer>
-          <TopTitle>
-            <TextStyled color="#4030a5">Évaluer ma consommation</TextStyled>
-          </TopTitle>
-          <TopSubTitle>
-            <TextStyled color="#000000">Pour détecter des comportements à risque</TextStyled>
-          </TopSubTitle>
-          <QuizzElement
-            topTitle="Questionnaire d'auto-évaluation"
-            title="Ma consommation d'alcool"
-            onStart={() => navigation.navigate('ONBOARDING_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
-            onShowResult={() => navigation.navigate('ONBOARDING_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
-            recoilResultState={autoEvaluationQuizzResultState}
-            showOnlyIfDone
-            fromHealth
-          />
           <TopTitle>
             <TextStyled color="#4030a5">Mes conseils</TextStyled>
           </TopTitle>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import Header from '../../Defis/Header';
 import H3 from '../../../components/H3';
@@ -9,31 +9,33 @@ import sections from './sections';
 import { screenWidth } from '../../../styles/theme';
 import { motivationsQuizzAnswersState } from '../../../recoil/quizzs';
 
-const Wrapper = ({ children, wrapped }) => {
+const Wrapper = ({ children, wrapped, inMyTests }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
-      <Header />
+      <Header inMyTests={inMyTests} />
       {!!motivationsQuizzAnswers && <ResultContainer>{children}</ResultContainer>}
     </FullScreenBackground>
   );
 };
 
-const ResultsMotivations = ({ wrapped = true }) => {
+const ResultsMotivations = ({ wrapped = true, route }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
 
   if (!motivationsQuizzAnswers?.length) return null;
 
+  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
+
   return (
-    <Wrapper wrapped={wrapped}>
+    <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
       <ContainerSection>
         <ResultTitle>Vos motivations à changer</ResultTitle>
         {!motivationsQuizzAnswers.length && (
           <TextStyled>
             Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en
-            allant dans l'onglet <TextStyled bold>Mes infos</TextStyled> et en cliquant sur{' '}
-            <TextStyled bold>Mes tests</TextStyled>.
+            allant dans la rubrique<TextStyled bold>Mes tests</TextStyled> dynamiques
+            <TextStyled bold> Défis</TextStyled>.
           </TextStyled>
         )}
         <ItemsContainer>

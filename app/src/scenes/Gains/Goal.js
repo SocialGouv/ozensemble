@@ -13,8 +13,8 @@ import {
   daysWithGoalNoDrinkState,
   drinksByDrinkingDayState,
   maxDrinksPerWeekSelector,
-  previousDrinksPerWeekState,
   totalDrinksByDrinkingDaySelector,
+  previousDrinksPerWeekState,
 } from '../../recoil/gains';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
@@ -22,12 +22,11 @@ import DrinksCategory from '../../components/DrinksCategory';
 import matomo from '../../services/matomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
-import { reminderGain } from '../../recoil/reminder';
 
 const Goal = ({ navigation }) => {
   const [helpVisible, setHelpVisible] = useState(false);
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
-  const isOnboarded = useRecoilValue(reminderGain);
+  const isOnboarded = useRecoilValue(previousDrinksPerWeekState);
 
   const toggleDayWithGoalNoDrink = (day) =>
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));

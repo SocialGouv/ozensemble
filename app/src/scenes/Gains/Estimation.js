@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
@@ -16,6 +16,7 @@ import { P } from '../../components/Articles';
 
 const Estimation = () => {
   const navigation = useNavigation();
+  const isOnboarded = useRecoilValue(previousDrinksPerWeekState);
 
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
 
@@ -97,7 +98,7 @@ const Estimation = () => {
               0
             );
             matomo.logGoalEstimationDrink(numberDrinkEstimation);
-            navigation.navigate('GAINS_MY_OBJECTIVE');
+            isOnboarded ? navigation.navigate('GAINS_MAIN_VIEW') : navigation.navigate('GAINS_MY_OBJECTIVE');
           }}
         />
       </CTAButtonContainer>

@@ -8,6 +8,7 @@ import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import Defi1_Navigator from './Defi1/Defi1_Navigator';
 import Defi2_Navigator from './Defi2/Defi2_Navigator';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
+import ContactForm from '../Health/ContactForm';
 
 const DefisStack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const DefisNavigator = () => (
       <DefisStack.Screen name="DEFI1" component={Defi1_Navigator} />
       <DefisStack.Screen name="DEFI2" component={Defi2_Navigator} />
       <DefisStack.Screen name="TESTS_DEFIS" component={QuizzsNavigator} />
+      <DefisStack.Screen name="CONTACT" component={ContactForm} />
     </DefisStack.Navigator>
   </Background>
 );
