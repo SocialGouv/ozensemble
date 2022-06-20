@@ -30,14 +30,14 @@ const DefisMenu = ({ navigation }) => {
 
   const defi1CallToAction = useMemo(() => {
     if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
-    if (defi1Day === 7) return 'Je consulte';
+    if (defi1Day === 7) return 'Mes résultats';
     // if (defi1Day === 6) return 'Je finis';
     return 'Je continue';
   }, [defi1Day, autoEvaluationDone]);
 
   const defi2CallToAction = useMemo(() => {
     if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
-    if (defi2Day === 7) return 'Je consulte';
+    if (defi2Day === 7) return 'Mes résultats';
     // if (defi2Day === 6) return 'Je finis';
     return 'Je continue';
   }, [defi2Day, autoEvaluationDone]);
@@ -58,7 +58,7 @@ const DefisMenu = ({ navigation }) => {
               })
             }
             image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-            callToAction={autoEvaluationDone ? 'Je consulte' : 'Je commence'}
+            callToAction={autoEvaluationDone ? 'Mes résultats' : 'Je commence'}
           />
           {!autoEvaluationDone && (
             <UnderlinedButton
@@ -93,7 +93,7 @@ const DefisMenu = ({ navigation }) => {
             description={'Retrouver mes résultats'}
             onButtonPress={() => navigation.navigate('TESTS_DEFIS')}
             image={require('../../assets/images/TestsDesDefis.png')}
-            callToAction="Je consulte"
+            callToAction="Mes résultats"
             disabled={!autoEvaluationDone}
           />
         </Container>
