@@ -1,3 +1,11 @@
+# [1.51.0](https://github.com/SocialGouv/ozensemble/compare/v1.50.1...v1.51.0) (2022-06-20)
+
+
+### Features
+
+* **app:** condition done ([9688275](https://github.com/SocialGouv/ozensemble/commit/96882751146b0d9cf95878dc5ad8cca3e6ede9b2))
+* **app:** tests des defis ([1b0ba74](https://github.com/SocialGouv/ozensemble/commit/1b0ba746dee34aef66d1ce198d4f910cb405eb55))
+
 ## [1.50.1](https://github.com/SocialGouv/ozensemble/compare/v1.50.0...v1.50.1) (2022-06-20)
 
 
