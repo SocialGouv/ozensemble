@@ -8,38 +8,26 @@ import TickDone from '../../components/illustrations/TickDone';
 import Form from '../../components/illustrations/Form';
 import { screenWidth } from '../../styles/theme';
 import Lock from '../../components/illustrations/Lock';
+import TextStyled from '../../components/TextStyled';
 
-const QuizzElement = ({
-  topTitle,
-  title,
-  disabled,
-  recoilResultState,
-  showOnlyIfDone,
-  fromHealth = false,
-  onStart,
-  onShowResult,
-}) => {
-  const result = useRecoilValue(recoilResultState);
-  const done = result !== null;
-
+const QuizzElement = ({ title, disabled, showOnlyIfDone, fromHealth = false, onStart, done, onShowResult }) => {
   if (!done && !showOnlyIfDone) return null;
 
   return (
     <Container done={done} disabled={disabled} fromHealth={fromHealth}>
-      <ContainerIcon>
-        {fromHealth && !done ? <Form size={25} /> : done ? <TickDone size={25} color="#DE285E" /> : <Lock size={15} />}
-      </ContainerIcon>
+      <ContainerIconTitle>
+        {fromHealth && !done ? <Form size={20} /> : done ? <TickDone size={20} color="#DE285E" /> : <Lock size={20} />}
+        <Title>
+          <TextStyled>{title}</TextStyled>
+        </Title>
+      </ContainerIconTitle>
       <Content>
-        <View>
-          <TopTitle>{topTitle}</TopTitle>
-          <Title>{title}</Title>
-        </View>
         <ButtonsContainer>
           {!disabled &&
             (done ? (
               <>
                 {!!onShowResult && <ButtonRedoTest onPress={onShowResult}>Mes résultats</ButtonRedoTest>}
-                <ButtonPrimary onPress={onStart} content={'Refaire le test'} small />
+                <ButtonPrimary onPress={onStart} content={'Je refais le test'} small />
               </>
             ) : (
               <Button small content="Je refais le test" onPress={onStart} disabled />
@@ -60,20 +48,20 @@ const getBackgroundColor = ({ done, disabled }) => {
 
 const Container = styled.View`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   border-radius: 10px;
   overflow: hidden;
   background-color: ${(props) => getBackgroundColor(props)};
   border: 1px solid ${({ done }) => (done ? '#81DBD37F' : '#79747E')};
   padding-vertical: 15px;
-  padding-horizontal: ${Math.min(15, screenWidth * 0.02)}px;
   height: ${({ disabled }) => (disabled ? '70' : '120')}px;
   margin-bottom: 20px;
+  padding-horizontal: ${Math.min(15, screenWidth * 0.03)}px;
 `;
 
-const ContainerIcon = styled.View`
-  margin-right: ${Math.min(15, screenWidth * 0.02)}px;
+const ContainerIconTitle = styled.View`
+  flex-direction: row;
+  align-items: center;
 `;
 const ButtonsContainer = styled.View`
   flex-direction: row;
@@ -85,21 +73,12 @@ const ButtonsContainer = styled.View`
 `;
 
 const Content = styled.View`
-  justify-content: space-between;
-  align-items: flex-start;
-  flex: 1;
+  margin-left: 25px;
 `;
 
-const TopTitle = styled.Text`
-  font-size: 12px;
-  color: #1a1a1a;
-  margin-bottom: 5px;
-`;
 const Title = styled.Text`
-  font-size: 14px;
-  color: #1a1a1a;
-  font-weight: 700;
-  margin-bottom: 5px;
+  font-weight: 600;
+  margin-left: 5px;
 `;
 const ButtonRedoTest = styled.Text`
   font-size: 14px;

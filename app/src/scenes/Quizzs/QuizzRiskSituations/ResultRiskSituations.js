@@ -9,7 +9,7 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 import Header from '../../Defis/Header';
 
-const ResultRiskSituations = ({ navigation }) => {
+const ResultRiskSituations = ({ navigation, route }) => {
   const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
 
   return (
@@ -38,7 +38,7 @@ const ResultRiskSituations = ({ navigation }) => {
         <ButtonPrimary
           content={"J'ai finis d'identifier"}
           widthSmall
-          onPress={() => navigation.navigate('DEFI2_MENU')}
+          onPress={() => navigation.navigate(route?.params?.rootRoute)}
         />
       </BottomContainer>
     </ScreenBgStyled>

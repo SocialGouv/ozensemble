@@ -52,7 +52,11 @@ const Defi2_Day5 = ({ navigation, route }) => {
         </SmileysContainer>
         <TipsSelected smileySelectValue={smileySelect} />
         {!!smileySelect && (
-          <ButtonPrimary content="J'ai compris" widthSmall onPress={() => navigation.navigate('DEFI2_MENU')} />
+          <ButtonPrimary
+            content="J'ai compris"
+            widthSmall
+            onPress={() => navigation.navigate(route?.params?.rootRoute)}
+          />
         )}
       </TopContainer>
     </ScreenBgStyled>
