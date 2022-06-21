@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import H2 from '../../../../components/H2';
 import { P } from '../../../../components/Articles';
 

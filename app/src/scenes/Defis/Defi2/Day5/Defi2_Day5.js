@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import H1 from '../../../../components/H1';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
@@ -10,7 +10,9 @@ import BackButton from '../../../../components/BackButton';
 import { P } from '../../../../components/Articles';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { defi2EmotionState } from '../../../../recoil/defis';
+import { riskSituationsQuizzAnswersState } from '../../../../recoil/quizzs';
 import emotions from './emotions';
+import riskSituations from '../../../Quizzs/QuizzRiskSituations/riskSituations';
 
 const Defi2_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -20,7 +22,10 @@ const Defi2_Day5 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   const [smileySelect, setSmileySelect] = useRecoilState(defi2EmotionState);
-
+  const riskSituationsQuizzAnswers = useRecoilValue(riskSituationsQuizzAnswersState);
+  const firstRiskSituations = riskSituations
+    .find((section) => section.answers.map((a) => a.answerKey).includes(riskSituationsQuizzAnswers[0]))
+    ?.answers?.find((a) => a.answerKey === riskSituationsQuizzAnswers[0]);
   return (
     <ScreenBgStyled>
       <TopContainer>
@@ -31,21 +36,20 @@ const Defi2_Day5 = ({ navigation, route }) => {
         <P bold noMarginBottom>
           Dans cette situation, sélectionner l'émotion que vous ressentez.
         </P>
-        <P>
-          {'\n'}“Quand ma relation avec quelqu'un de mon entourage m'inquiète ou me rend anxieux(se) “ je bois pour :{' '}
-        </P>
+        <P>{firstRiskSituations?.content}</P>
         <SmileysContainer>
           {emotions.map((emotion, index) => (
             <SmileyContainer
               key={emotion.value}
               index={index}
-              color={emotion.value}
               onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
               {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
               <TextEmotionView>
-                <P color={smileySelect === emotion.value ? '#DE285E' : '#000'} bold={smileySelect === emotion.value}>
-                  <TextEmotion>{emotion.description}</TextEmotion>
-                </P>
+                <TextEmotion
+                  color={smileySelect === emotion.value ? '#DE285E' : '#000'}
+                  bold={smileySelect === emotion.value}>
+                  {emotion.description}
+                </TextEmotion>
               </TextEmotionView>
             </SmileyContainer>
           ))}
@@ -95,28 +99,33 @@ const SmileysContainer = styled.View`
   shadow-opacity: 0.3;
   shadow-radius: 3.84px;
   margin-top: 20px;
-`;
+  padding-top: 15px;
+  `;
 
 const SmileyContainer = styled.TouchableOpacity`
   align-items: center;
   width: 33%;
   padding: 5px;
-  margin-vertical: 15px;
+  margin-bottom: 15px;
 `;
 
 const TextEmotionView = styled.View`
-  margin-vertical: 10px;
+  margin-top: 10px;
+  align-self: center;
 `;
 
 const TextEmotion = styled.Text`
   text-align: center;
+  color: ${({ color }) => color || '#000'};
+  ${({ bold }) => bold && 'font-weight: bold'};
+  align-items: center;
 `;
 
 const TipsNoReassuredSmiley = () => (
   <TipsContainer>
     <H1>Les conseils d'Oz Ensemble</H1>
     <P>
-      {'\n'}Désormais, quand la situation se présente, je teste ces stratégies :{'\n\n'}1/ Jes
+      {'\n'}Désormais, quand la situation se présente, je teste ces stratégies :{'\n\n'}1/ Je
       <P bold> parle de ce qui m'inquiète</P> à mes proches, à des professionnels, à des groupes de paroles pour prendre
       du recul et m'aider,
       {'\n\n'}2/ Je continue à chercher de l'information pour diminuer mon anxiété,
@@ -153,7 +162,7 @@ const TipsAngrySmiley = () => (
       {'\n\n'}2/ Je fais un <P bold>exercice de sport</P> ou je m'inscris à un cours d'
       <P bold>arts martiaux pour libérer ma tension,</P> {'\n\n'}3/ Je tente un{' '}
       <P bold>exercice de respiration profonde</P> (à répéter 3 fois): je prends une profonde inspiration par le nez en
-      comptant lentement jusqu'à 4 je laisse l'air gonfler mon ventre j'expire doucement par la bouche en comptant
+      comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en comptant
       jusqu'à 8. {'\n\n'}4/ J'écris ce qui me vient à l'esprit et je le déchire, {'\n\n'}
       5/ J'apprends à<P bold> reconnaître les signes de colère</P> pour mieux les contrôler et verbaliser mon
       insatisfaction et mes désirs.
@@ -184,10 +193,10 @@ const TipsIllSmiley = () => (
       2/ Je pratique des techniques de
       <P bold> relaxation</P> pour baisser mon stress, chasser les pensées négatives… Cet{' '}
       <P bold>exercice de respiration profonde</P> (à répéter 3 fois): je prends une profonde inspiration par le nez en
-      comptant lentement jusqu'à 4 je laisse l'air gonfler mon ventre j'expire doucement par la bouche en comptant
+      comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en comptant
       jusqu'à 8. {'\n\n'}3/ Si mon état de santé le permet, je fais du
       <P bold> sport régulièrement</P> car cela aide à contrôler la douleur et me donne de l'énergie, {'\n\n'}4/ Je sors
-      pour <P bold>voir du monde</P> et ne pas rester seul.e
+      pour <P bold>voir du monde</P> et ne pas rester seul(e).
     </P>
   </TipsContainer>
 );
