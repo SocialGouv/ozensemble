@@ -1,6 +1,7 @@
-import { useFocusEffect } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
@@ -16,10 +17,31 @@ import Defi1_Onboarding from './Defi1_Onboarding';
 import Defi1_OnboardingInfo from './Defi1_OnboardingInfo';
 import { setValidatedDays } from '../utils';
 import Defi1_Reminder from './Defi1_Reminder';
+import { showCTAButtonState } from '../../AddDrink/AddDrinkCTAButton';
 
 const Defi1_Stack = createStackNavigator();
 
-const Defi1_Navigator = () => {
+const Defi1_Navigator = ({ route }) => {
+  const [showCTAButton, setShowCTAButton] = useRecoilState(showCTAButtonState);
+  const focusedRoute = getFocusedRouteNameFromRoute(route);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (!isFocused) {
+      if (!showCTAButton) setShowCTAButton(true);
+    } else {
+      if (focusedRoute?.includes('DEFI1_DAY_')) {
+        if (showCTAButton) {
+          setShowCTAButton(false);
+        }
+      } else {
+        if (!showCTAButton) {
+          setShowCTAButton(true);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedRoute, isFocused]);
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <Defi1_Stack.Navigator
@@ -42,7 +64,7 @@ const Defi1_Navigator = () => {
           name="DEFI1_DAY_2"
           component={QuizzEvaluateConso}
           initialParams={{
-            title: 'Évaluer sa consommation',
+            title: 'Mieux mesurer ma consommation',
             inDefi1: true,
             rootRoute: 'DEFI1_MENU',
             day: 2,
@@ -121,9 +143,16 @@ const Defi1_Menu = ({ navigation }) => {
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
-    storage.set('@Defi1_ValidatedDays', day);
+    if (day === 0) {
+      storage.delete('@Defi1_ValidatedDays');
+      storage.delete('@Defi1_LastUpdate');
+      storage.delete('@Defi1_StartedAt');
+      setValidateDays(0);
+    } else {
+      storage.set('@Defi1_ValidatedDays', day);
+      setValidateDays(day);
+    }
     setLastUpdate('UNLOCK');
-    setValidateDays(day);
   };
 
   useFocusEffect(() => {

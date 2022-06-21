@@ -10,7 +10,6 @@ const ToHelpMeReduce = ({ navigation }) => {
   const title = "Pour m'aider à réduire";
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <NavigationWrapper
         title={title}
         timeReading={3}

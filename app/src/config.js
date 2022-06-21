@@ -12,7 +12,7 @@ const SENTRY_XXX = envConfig.SENTRY_XXX;
 const OPEN_FOOD_FACT_PASSWORD = envConfig.OPEN_FOOD_FACT_PASSWORD;
 const OPEN_FOOD_FACT_USER_ID = envConfig.OPEN_FOOD_FACT_USER_ID;
 const SCHEME = envConfig.SCHEME;
-const MW_API_HOST = envConfig.MW_API_HOST;
+const API_HOST = envConfig.API_HOST;
 
 export {
   MATOMO_URL,
@@ -27,5 +27,5 @@ export {
   OPEN_FOOD_FACT_PASSWORD,
   OPEN_FOOD_FACT_USER_ID,
   SCHEME,
-  MW_API_HOST,
+  API_HOST,
 };

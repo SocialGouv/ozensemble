@@ -58,7 +58,7 @@ const DefisMenu = ({ navigation }) => {
               })
             }
             image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-            callToAction={autoEvaluationDone ? 'Mes résultats' : 'Je commence'}
+            callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
           />
           {!autoEvaluationDone && (
             <UnderlinedButton
@@ -114,7 +114,7 @@ const DefisMenu = ({ navigation }) => {
       <OnBoardingModal
         title="Faites le premier défi avant"
         description="Commencez le défi pour faire le point en 7 jours avant d'aller plus loin :) "
-        boutonTitle="Je commence le défi 1"
+        boutonTitle={`${defi1CallToAction} le défi 1`}
         onPress={() => {
           setshowDefi2Modal(false);
           navigation.navigate('DEFI1');

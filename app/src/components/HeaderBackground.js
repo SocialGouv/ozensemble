@@ -1,11 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HeaderBackground = () => (
-  <>
-    <HeaderBackgroundStyled />
-  </>
-);
+const HeaderBackground = () => <>{/* <HeaderBackgroundStyled /> */}</>;
 
 const HeaderBackgroundStyled = styled.View`
   width: 100%;

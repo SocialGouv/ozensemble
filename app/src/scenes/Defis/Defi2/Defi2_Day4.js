@@ -2,7 +2,6 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import H1 from '../../../components/H1';
-import H2 from '../../../components/H2';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
 import BackButton from '../../../components/BackButton';
@@ -36,10 +35,14 @@ const Defi2_Day4 = ({ navigation, route }) => {
         <DraggableContainer>
           <DraggableHand size={40} />
           <DraggableTextContainer>
-            <TextStyled bold>Vous pouvez faire glisser les situations pour changer leur ordre</TextStyled>
+            <TextStyled bold>
+              Vous pouvez faire glisser les situations pour changer leur ordre en appuyant longtemps sur chacune
+            </TextStyled>
           </DraggableTextContainer>
         </DraggableContainer>
-        <H2 color="#4030a5">Je suis plus motivé(e) à réduire l'alcool : </H2>
+        <P bold color="#4030a5">
+          Je suis plus motivé(e) à réduire l'alcool :{' '}
+        </P>
       </TopContainer>
       <FlatListStyled
         horizontal
@@ -65,7 +68,7 @@ const FlatListStyled = styled.FlatList`
 `;
 
 const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px 0px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const ButtonContainer = styled.View`

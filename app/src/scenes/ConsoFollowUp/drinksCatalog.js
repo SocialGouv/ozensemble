@@ -87,6 +87,11 @@ export const getVolume = (drinkKey, catalog) => {
   return drink.volume;
 };
 
+export const getDoses = (drinkKey, catalog) => {
+  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  return drink.doses;
+};
+
 export const getStyle = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
   return drink.style || {};

@@ -42,7 +42,8 @@ const GainsNavigator = () => {
         if (!showCTAButton) setShowCTAButton(true);
       }
     }
-  }, [showCTAButton, focusedRoute, setShowCTAButton, isFocused]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedRoute, isFocused]);
 
   return (
     <Background color="#39cec0" withSwiperContainer>

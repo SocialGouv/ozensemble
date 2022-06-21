@@ -11,7 +11,7 @@ const Header = ({ title, description, inMyTests }) => {
   const navigation = useNavigation();
 
   return (
-    <TopContainer>
+    <HeaderContainer>
       <BackButton
         onPress={() => (route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack())}
       />
@@ -35,7 +35,7 @@ const Header = ({ title, description, inMyTests }) => {
           </TextParagraph>
         </>
       )}
-    </TopContainer>
+    </HeaderContainer>
   );
 };
 export default Header;
@@ -49,8 +49,9 @@ const TextParagraph = styled(P)`
   margin-bottom: 8px;
 `;
 
-const TopContainer = styled.View`
+const HeaderContainer = styled.View`
   padding: 0px 20px;
+  margin-bottom: 15px;
 `;
 
 const TopTitleContainer = styled.View`
