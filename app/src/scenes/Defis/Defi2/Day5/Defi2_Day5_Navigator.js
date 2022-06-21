@@ -7,7 +7,7 @@ import Defi2_Day5 from './Defi2_Day5';
 
 const Defi2Day5Stack = createStackNavigator();
 
-const Defi2_Day5_Navigator = ({ navigation, route }) => {
+const Defi2_Day5_Navigator = ({ route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {

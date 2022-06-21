@@ -1,3 +1,24 @@
+# [1.55.0](https://github.com/SocialGouv/ozensemble/compare/v1.54.0...v1.55.0) (2022-06-21)
+
+
+### Features
+
+* **app:** defi2 ([b99c952](https://github.com/SocialGouv/ozensemble/commit/b99c952e158973b443c6a4017a1bca371e21ac78))
+
+# [1.54.0](https://github.com/SocialGouv/ozensemble/compare/v1.53.1...v1.54.0) (2022-06-21)
+
+
+### Features
+
+* **app:** color smiley ([c02b08c](https://github.com/SocialGouv/ozensemble/commit/c02b08c7bca9b9ddcea85f494aaa882f957c5dbc))
+
+## [1.53.1](https://github.com/SocialGouv/ozensemble/compare/v1.53.0...v1.53.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* **app:** begin defi2 ([f8fcd05](https://github.com/SocialGouv/ozensemble/commit/f8fcd052f16fca3f3ff0d31fdef2e1aab2843710))
+
 # [1.53.0](https://github.com/SocialGouv/ozensemble/compare/v1.52.0...v1.53.0) (2022-06-20)
 
 

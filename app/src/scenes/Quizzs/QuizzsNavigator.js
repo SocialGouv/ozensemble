@@ -39,7 +39,7 @@ const QuizzsNavigator = () => (
       name="EVALUATE_CONSO_QUIZZ"
       component={QuizzEvaluateConso}
       initialParams={{
-        title: 'Évaluer sa consommation',
+        title: 'Mieux mesurer ma consommation',
         rootRoute: 'QUIZZ_MENU',
       }}
     />
@@ -86,6 +86,7 @@ const QuizzsNavigator = () => (
 );
 const QuizzMenu = () => {
   const navigation = useNavigation();
+  const rsultsRiskSituation = useRecoilValue(riskSituationsQuizzAnswersState);
 
   return (
     <ScreenBgStyled>
@@ -120,8 +121,8 @@ const QuizzMenu = () => {
         <DefiCategorieTitle color="#4030a5">Deuxième défi</DefiCategorieTitle>
         <QuizzElement
           title="Mes situations à risque"
-          onStart={() => navigation.navigate('RISK_SITUATIONS_QUIZZ')}
-          onShowResult={() => navigation.navigate('RISK_SITUATIONS_QUIZZ')}
+          onStart={() => navigation.navigate('RISK_SITUATIONS_QUIZZ', { screen: 'QUIZZ_INTERNAL_SITUATIONS' })}
+          onShowResult={() => navigation.navigate('RISK_SITUATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' })}
           done={useRecoilValue(riskSituationsQuizzAnswersState) !== null}
           showOnlyIfDone
         />
@@ -129,16 +130,13 @@ const QuizzMenu = () => {
           topTitle="Deuxième défi"
           title="Hiérarchiser mes situations"
           onStart={() => navigation.navigate('RISK_SITUATIONS_HIERARCHISE')}
-          done={
-            Number(storage.getNumber('@Defi2_ValidatedDays')) > 3 &&
-            useRecoilValue(riskSituationsQuizzAnswersState) !== null
-          }
+          done={Number(storage.getNumber('@Defi2_ValidatedDays')) > 3 && rsultsRiskSituation}
           showOnlyIfDone
         />
         <QuizzElement
           topTitle="Deuxième défi"
           title="Affronter une situation"
-          onStart={() => navigation.navigate('AFFRONTER_SITUATION')}
+          onStart={() => navigation.navigate('AFFRONTER_SITUATION', { screen: 'DEFI2_DAY5' })}
           done={useRecoilValue(defi2EmotionState) !== null}
           showOnlyIfDone
         />

@@ -3,7 +3,6 @@ import { TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import Lock from '../../components/illustrations/Lock';
 import StarButton from '../../components/illustrations/StarButton';
-import { Dot } from './Timeline';
 import { storage } from '../../services/storage';
 
 const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay, defiStorageKey }) => {
@@ -35,11 +34,11 @@ const DayIcon = ({ locked, done, index, unLock, defiStorageKey }) => {
     if (done) {
       return <StarButton color="#4030a5" size="20px" />;
     }
-    return <Dot active />;
+    return <StarButton color="#de285e" size="20px" />;
   };
 
   const getTextColor = () => {
-    if (locked) return '#C4C4C4';
+    if (locked) return '#5150A260';
     if (done) return '#4030a5';
     return '#de285e';
   };
@@ -83,3 +82,10 @@ const DayNumber = styled.Text`
   margin-top: 4px;
   color: ${({ color }) => color || '#C4C4C4'};
 `;
+/*
+const NewDayStar = styled(StarButton)`
+  border-color: #de285e;
+  border-width: 2px;
+  border-radius: 10px;
+`;
+ */

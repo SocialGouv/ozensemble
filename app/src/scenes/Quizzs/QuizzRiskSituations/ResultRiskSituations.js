@@ -37,11 +37,7 @@ const ResultRiskSituations = ({ navigation, route }) => {
         ))}
       </ResultsContainer>
       <BottomContainer>
-        <ButtonPrimary
-          content={"J'ai finis d'identifier"}
-          widthSmall
-          onPress={() => navigation.navigate(route?.params?.rootRoute)}
-        />
+        <ButtonPrimary content={'Je valide'} widthSmall onPress={() => navigation.navigate(route?.params?.rootRoute)} />
       </BottomContainer>
     </ScreenBgStyled>
   );

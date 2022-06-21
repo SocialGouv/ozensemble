@@ -1,6 +1,5 @@
 import React from 'react';
 import Background from '../../../components/Background';
-import HeaderBackground from '../../../components/HeaderBackground';
 import { Spacer, P, TopContainer, Bold, Underlined } from './../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
@@ -9,7 +8,6 @@ const ToSayNo = () => {
   const title = 'Comment dire Non ?';
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <NavigationWrapper
         title={title}
         timeReading={5}

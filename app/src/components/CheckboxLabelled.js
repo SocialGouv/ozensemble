@@ -3,7 +3,7 @@ import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import ButtonPrimary from './ButtonPrimary';
-import TextStyled from './TextStyled';
+import { P } from './Articles';
 
 const CheckboxLabelled = ({
   answerKey,
@@ -34,13 +34,16 @@ const CheckboxLabelled = ({
             value={checked}
           />
         </CheckBoxContainer>
-        <TextStyled>{content}</TextStyled>
+        <P noMarginBottom>{content}</P>
       </ItemContainer>
       {!!checked && !!alertText && (
         <AlertContainer>
-          <TextStyled color="#1a1a1a">{alertText}</TextStyled>
+          <P color="#1a1a1a" noMarginBottom>
+            {alertText}
+          </P>
           <ButtonPrimaryStyled
             small
+            widthSmall
             content="Échanger avec un conseiller"
             onPress={() => navigation.navigate('CONTACT')}
           />
@@ -70,6 +73,7 @@ const CheckBoxStyled = styled(CheckBox)`
 const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
+  align-items: center;
   margin: 5px;
   width: 87%;
   ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'}

@@ -1,6 +1,7 @@
-import { useFocusEffect } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, useFocusEffect, useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
@@ -13,14 +14,36 @@ import Defi2_Day7 from './Defi2_Day7';
 import Defi2_Day6 from './Defi2_Day6';
 import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
 import Defi2_Day4 from './Defi2_Day4';
+import ToSayNo from '../../Health/Articles/ToSayNo';
+import { showCTAButtonState } from '../../AddDrink/AddDrinkCTAButton';
 
 const Defi2_Stack = createStackNavigator();
 
-const Defi2_Navigator = () => {
+const Defi2_Navigator = ({ route }) => {
+  const [showCTAButton, setShowCTAButton] = useRecoilState(showCTAButtonState);
+  const focusedRoute = getFocusedRouteNameFromRoute(route);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (!isFocused) {
+      if (!showCTAButton) setShowCTAButton(true);
+    } else {
+      if (focusedRoute?.includes('DEFI2_DAY_')) {
+        if (showCTAButton) {
+          setShowCTAButton(false);
+        }
+      } else {
+        if (!showCTAButton) {
+          setShowCTAButton(true);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedRoute, isFocused]);
   return (
     <Background color="#39cec0" withSwiperContainer>
       <Defi2_Stack.Navigator headerMode="none" initialRouteName={'DEFI2_MENU'}>
         <Defi2_Stack.Screen name="DEFI2_MENU" component={Defi2_Menu} />
+        <Defi2_Stack.Screen name="TO_SAY_NO" component={ToSayNo} />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_1"
           component={Defi2_Day1}
@@ -34,7 +57,7 @@ const Defi2_Navigator = () => {
           name="DEFI2_DAY_2"
           component={Defi2_Day2}
           initialParams={{
-            title: 'Évaluer sa consommation',
+            title: 'Mieux mesurer ma consommation',
             inDefi2: true,
             rootRoute: 'DEFI2_MENU',
             day: 2,
@@ -114,9 +137,17 @@ const Defi2_Menu = ({ navigation }) => {
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
-    storage.set('@Defi2_ValidatedDays', day);
+    if (day === 0) {
+      storage.delete('@Defi2_ValidatedDays');
+      storage.delete('@Defi2_LastUpdate');
+      storage.delete('@Defi2_StartedAt');
+      storage.delete('@Defi2_OnBoardingDoneState');
+      setValidateDays(0);
+    } else {
+      storage.set('@Defi2_ValidatedDays', day);
+      setValidateDays(day);
+    }
     setLastUpdate('UNLOCK');
-    setValidateDays(day);
   };
 
   useFocusEffect(() => {

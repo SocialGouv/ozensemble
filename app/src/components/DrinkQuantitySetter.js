@@ -1,6 +1,12 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { getDisplayDrinksModalName, getIcon, getStyle, getVolume } from '../scenes/ConsoFollowUp/drinksCatalog';
+import {
+  getDisplayDrinksModalName,
+  getDoses,
+  getIcon,
+  getStyle,
+  getVolume,
+} from '../scenes/ConsoFollowUp/drinksCatalog';
 import H3 from './H3';
 import QButton from './QButton';
 import TextStyled from './TextStyled';
@@ -18,6 +24,7 @@ const DrinkQuantitySetter = ({
 }) => {
   const Icon = getIcon(drinkKey, catalog);
   const volume = getVolume(drinkKey, catalog);
+  const doses = getDoses(drinkKey, catalog);
   const style = getStyle(drinkKey, catalog);
   const name = getDisplayDrinksModalName(drinkKey, catalog);
 
@@ -53,6 +60,7 @@ const DrinkQuantitySetter = ({
       style={style}
       volume={volume}
       name={name}
+      doses={doses}
     />
   );
 };
@@ -83,7 +91,7 @@ const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, nam
   </TouchableDelete>
 );
 
-const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, name, style }) => {
+const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, doses, name, style }) => {
   return (
     <Container>
       <TopContainer>
@@ -102,6 +110,11 @@ const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, v
           {' - '}
           {volume}
         </Volume>
+      </BottomContainer>
+      <BottomContainer>
+        <Doses>
+          {doses} unité{doses > 1 ? 's' : ''}
+        </Doses>
       </BottomContainer>
     </Container>
   );
@@ -158,6 +171,9 @@ const DisplayName = styled(TextStyled).attrs({
 `;
 
 const Volume = styled(H3)``;
+const Doses = styled.Text`
+  font-size: 14px;
+`;
 
 const qButtonSize = 40;
 

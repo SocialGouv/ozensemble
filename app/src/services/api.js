@@ -4,7 +4,7 @@ import NetInfo from '@react-native-community/netinfo';
 import fetchRetry from 'fetch-retry';
 import deviceInfoModule from 'react-native-device-info';
 
-import { SCHEME, MW_API_HOST } from '../config';
+import { SCHEME, API_HOST } from '../config';
 import matomo from './matomo';
 import { NewFeaturePop } from './NewFeaturePopup';
 
@@ -19,7 +19,7 @@ const checkNetwork = async (test = false) => {
 };
 
 class ApiService {
-  host = MW_API_HOST;
+  host = API_HOST;
   scheme = SCHEME;
   fetch = fetchRetry(fetch);
   getUrl = (path, query) => {

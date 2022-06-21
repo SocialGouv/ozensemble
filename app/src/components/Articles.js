@@ -20,6 +20,8 @@ export const P = styled.Text`
 
 export const Bold = styled.Text`
   font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
   color: ${(props) => (props.color ? props.color : '#000')};
 `;
 
@@ -30,6 +32,8 @@ export const Spacer = styled.View`
 
 export const Underlined = styled.Text`
   color: ${(props) => (props.color ? props.color : '#000')};
+  font-size: 16px;
+  line-height: 24px;
   text-decoration: underline;
   text-decoration-color: ${(props) => (props.color ? props.color : '#000')};
 `;
