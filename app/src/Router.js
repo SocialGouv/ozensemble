@@ -26,6 +26,7 @@ import CustomBootsplash from './components/CustomBootsplash';
 import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
+import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -107,6 +108,7 @@ const TabsNavigator = ({ navigation }) => {
         />
       </Tabs.Navigator>
       <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
+      <NewFeaturePopupDisplay />
     </>
   );
 };
