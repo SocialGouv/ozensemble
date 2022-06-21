@@ -93,7 +93,7 @@ const DefisMenu = ({ navigation }) => {
             description={'Retrouver mes résultats'}
             onButtonPress={() => navigation.navigate('TESTS_DEFIS')}
             image={require('../../assets/images/TestsDesDefis.png')}
-            callToAction="Je découvre"
+            callToAction="Mes résultats"
             disabled={!autoEvaluationDone}
           />
         </Container>
