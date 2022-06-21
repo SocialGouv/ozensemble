@@ -146,7 +146,6 @@ const TopTitle = styled.View`
   width: 95%;
   flex-direction: row;
   flex-shrink: 0;
-  margin-top: 10px;
   margin-bottom: 20px;
 `;
 

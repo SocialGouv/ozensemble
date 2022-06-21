@@ -12,7 +12,6 @@ const DidYouKnow = () => {
 
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <NavigationWrapper
         title={title}
         timeReading={2}
