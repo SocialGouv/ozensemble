@@ -33,7 +33,7 @@ const ButtonPrimaryStyled = styled.TouchableOpacity`
   shadow-opacity: 1;
   shadow-radius: 0;
   */
-  ${({ widthSmall }) => widthSmall && ` align-items: center`}
+  ${({ widthSmall }) => widthSmall && 'align-items: center'}
 `;
 
 const bigPadding = css`
