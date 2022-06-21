@@ -64,6 +64,8 @@ class ApiService {
 
       return response;
     } catch (e) {
+      console.log(' error in api');
+      console.log(e);
       return {
         ok: false,
         error:

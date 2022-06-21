@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import Calendar from '../../components/illustrations/Calendar';
-import CocktailGlassTriangle from '../../components/illustrations/CocktailGlassTriangle';
+import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import InfoObjectif from '../../components/illustrations/InfoObjectif';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';

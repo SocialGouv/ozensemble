@@ -14,7 +14,7 @@ import UnderlinedButton from '../../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
 
-const ResultsOnboarding = ({ navigation }) => {
+const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
   const [feeling, setFeeling] = useState(() => storage.getBoolean('@Quizz_surprised') || null);
   useEffect(() => {
@@ -24,7 +24,12 @@ const ResultsOnboarding = ({ navigation }) => {
   return (
     <FullScreenBackground>
       <TopContainer>
-        <BackButton onPress={() => navigation.goBack()} marginBottom />
+        <BackButton
+          onPress={() =>
+            route?.params?.rootRoute === 'HEALTH' ? navigation.navigate('ALCOHOL_ADDICTION') : navigation.goBack()
+          }
+          marginBottom
+        />
         <ResultTitle color="#000">Résultat</ResultTitle>
         {resultKey === 'addicted' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
         {resultKey === 'good' && <ResultGood />}

@@ -2,14 +2,14 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import H1 from '../../../components/H1';
-import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
-import ManAndWoman from '../../../components/illustrations/ManAndWoman';
+import OMSIllustationsManAndWoman from '../../../components/OMSIllustationsManAndWoman';
 
 const Defi2_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -55,17 +55,7 @@ const Defi2_Day2 = ({ navigation, route }) => {
             </TextStyled>
           }
         />
-        <OMSContainer>
-          <ManAndWoman size={120} />
-          <TextOMSContainer>
-            <TextDescription>
-              <TextStyled bold textAlign={'center'}>
-                Pour votre santé, l'alcool c'est
-                <TextStyled color="#4030a5"> maximum 2 verres par jour et pas tous les jours.</TextStyled>{' '}
-              </TextStyled>
-            </TextDescription>
-          </TextOMSContainer>
-        </OMSContainer>
+        <OMSIllustationsManAndWoman />
         <ElementDayDefi
           content={
             <TextStyled>
@@ -91,7 +81,7 @@ const Defi2_Day2 = ({ navigation, route }) => {
         <ButtonPrimary
           content="Je m'informe sur les normes"
           widthSmall
-          onPress={() => console.log('To normes article')}
+          onPress={() => navigation.navigate('ALCOHOL_AND_NORMS')}
         />
       </TopContainer>
     </ScreenBgStyled>
@@ -109,25 +99,6 @@ const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
-`;
-
-const OMSContainer = styled.View`
-  border: 1px solid #4030a5;
-  border-radius: 3px;
-  flex-direction: row;
-  justify-content:space-around
-  padding: 10px;
-  margin-bottom: 25px;
-`;
-
-const TextOMSContainer = styled.View`
-  width: ${screenWidth * 0.5 - 20}px;
-  justify-content: center;
-  align-items: center;
-`;
-
-const TextDescription = styled.Text`
-  text-align: center;
 `;
 
 export default Defi2_Day2;

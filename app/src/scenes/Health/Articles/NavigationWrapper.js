@@ -11,7 +11,7 @@ import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import Sources from '../../Quizzs/Sources';
 
-const NavigationWrapper = ({ children, title, timeReading, link }) => {
+const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink2 }) => {
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
@@ -51,6 +51,19 @@ const NavigationWrapper = ({ children, title, timeReading, link }) => {
                 }}>
                 {link}
               </TextStyled>
+
+              {link2 && (
+                <>
+                  <TextStyled>{'\n\n'}</TextStyled>
+                  <TextStyled
+                    color="#4030a5"
+                    onPress={() => {
+                      Linking.openURL(link2);
+                    }}>
+                    {textLink2}
+                  </TextStyled>
+                </>
+              )}
             </>
           }
         />
