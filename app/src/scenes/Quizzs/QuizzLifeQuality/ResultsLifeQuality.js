@@ -144,7 +144,8 @@ const ItemsContainer = styled.View`
 `;
 
 const ContainerSection = styled.View`
-  margin: 5px 0 20px 0;
+  margin-top: 5px;
+  margin-bottom: 20px;
 `;
 
 const ResultTitle = styled(H3)`

@@ -39,7 +39,7 @@ const QuizzsNavigator = () => (
       name="EVALUATE_CONSO_QUIZZ"
       component={QuizzEvaluateConso}
       initialParams={{
-        title: 'Évaluer sa consommation',
+        title: 'Mieux mesurer ma consommation',
         rootRoute: 'QUIZZ_MENU',
       }}
     />

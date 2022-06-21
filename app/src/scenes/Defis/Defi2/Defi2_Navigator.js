@@ -34,7 +34,7 @@ const Defi2_Navigator = () => {
           name="DEFI2_DAY_2"
           component={Defi2_Day2}
           initialParams={{
-            title: 'Évaluer sa consommation',
+            title: 'Mieux mesurer ma consommation',
             inDefi2: true,
             rootRoute: 'DEFI2_MENU',
             day: 2,
@@ -114,9 +114,17 @@ const Defi2_Menu = ({ navigation }) => {
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
-    storage.set('@Defi2_ValidatedDays', day);
+    if (day === 0) {
+      storage.delete('@Defi2_ValidatedDays');
+      storage.delete('@Defi2_LastUpdate');
+      storage.delete('@Defi2_StartedAt');
+      storage.delete('@Defi2_OnBoardingDoneState');
+      setValidateDays(0);
+    } else {
+      storage.set('@Defi2_ValidatedDays', day);
+      setValidateDays(day);
+    }
     setLastUpdate('UNLOCK');
-    setValidateDays(day);
   };
 
   useFocusEffect(() => {

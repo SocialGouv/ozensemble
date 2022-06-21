@@ -9,7 +9,7 @@ import TextStyled from '../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
 import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality';
-import ResultMotivation from '../../Quizzs/QuizzMotivations/ResultsMotivations';
+import ResultsMotivations from '../../Quizzs/QuizzMotivations/ResultsMotivations';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 
 import Sources from '../../Quizzs/Sources';
@@ -33,7 +33,7 @@ const Defi1_Day7 = ({ navigation, route }) => {
           </TopTitle>
           <ResultsEvaluateConso wrapped={false} hideButtons />
           <ResultLifeQuality wrapped={false} />
-          <ResultMotivation wrapped={false} />
+          <ResultsMotivations wrapped={false} />
           <Sources
             content={
               <TextStyled>
