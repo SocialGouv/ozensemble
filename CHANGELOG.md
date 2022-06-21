@@ -1,3 +1,10 @@
+# [1.54.0](https://github.com/SocialGouv/ozensemble/compare/v1.53.1...v1.54.0) (2022-06-21)
+
+
+### Features
+
+* **app:** color smiley ([c02b08c](https://github.com/SocialGouv/ozensemble/commit/c02b08c7bca9b9ddcea85f494aaa882f957c5dbc))
+
 ## [1.53.1](https://github.com/SocialGouv/ozensemble/compare/v1.53.0...v1.53.1) (2022-06-21)
 
 
