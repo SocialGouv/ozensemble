@@ -122,7 +122,7 @@ const Elem = ({ content }) => (
 );
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   padding-bottom: 100px;
 `;
 

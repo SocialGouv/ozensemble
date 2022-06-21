@@ -45,9 +45,11 @@ const Defi2_Day5 = ({ navigation, route }) => {
               onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
               {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
               <TextEmotionView>
-                <P color={smileySelect === emotion.value ? '#DE285E' : '#000'} bold={smileySelect === emotion.value}>
-                  <TextEmotion>{emotion.description}</TextEmotion>
-                </P>
+                <TextEmotion
+                  color={smileySelect === emotion.value ? '#DE285E' : '#000'}
+                  bold={smileySelect === emotion.value}>
+                  {emotion.description}
+                </TextEmotion>
               </TextEmotionView>
             </SmileyContainer>
           ))}
@@ -97,21 +99,26 @@ const SmileysContainer = styled.View`
   shadow-opacity: 0.3;
   shadow-radius: 3.84px;
   margin-top: 20px;
-`;
+  padding-top: 15px;
+  `;
 
 const SmileyContainer = styled.TouchableOpacity`
   align-items: center;
   width: 33%;
   padding: 5px;
-  margin-vertical: 15px;
+  margin-bottom: 15px;
 `;
 
 const TextEmotionView = styled.View`
-  margin-vertical: 10px;
+  margin-top: 10px;
+  align-self: center;
 `;
 
 const TextEmotion = styled.Text`
   text-align: center;
+  color: ${({ color }) => color || '#000'};
+  ${({ bold }) => bold && 'font-weight: bold'};
+  align-items: center;
 `;
 
 const TipsNoReassuredSmiley = () => (
