@@ -3,9 +3,9 @@ import { TouchableOpacity } from 'react-native';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { P } from '../../../components/Articles';
 import DraggableClick from '../../../components/illustrations/DraggableClick';
 import QButton from '../../../components/QButton';
-import TextStyled from '../../../components/TextStyled';
 import { riskSituationsAnswersKeysSelector, riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
 import { screenWidth } from '../../../styles/theme';
 
@@ -13,34 +13,24 @@ export default function App() {
   const setAnswersRiskSituations = useSetRecoilState(riskSituationsQuizzAnswersState);
   const answers = useRecoilValue(riskSituationsAnswersKeysSelector);
 
-  const renderItem = ({ item, drag, isActive }) => {
+  const renderItem = ({ item, index, drag, isActive }) => {
     return (
-      <AnswerContainer onPress={drag} onLongPress={drag} disabled={isActive} isActive={isActive}>
-        <AnswerText>
-          <TextStyled>{item.content}</TextStyled>
-        </AnswerText>
-        <DraggableClickContainer>
-          <DraggableClick size={20} color={isActive ? '#4030A5CC' : '#4030A5'} />
-        </DraggableClickContainer>
-      </AnswerContainer>
+      <DraggableContainer onPress={drag} onLongPress={drag} disabled={isActive}>
+        <QButton content={index + 1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+        <AnswerContainer isActive={isActive}>
+          <AnswerText>
+            <P noMarginBottom>{item.content}</P>
+          </AnswerText>
+          <DraggableClickContainer>
+            <DraggableClick size={20} color={isActive ? '#4030A5CC' : '#4030A5'} />
+          </DraggableClickContainer>
+        </AnswerContainer>
+      </DraggableContainer>
     );
   };
 
   return (
     <DraggableFlagListContainer>
-      <QButtons>
-        {answers.map((a, index) => (
-          <QButtonContainer key={index}>
-            <QButton
-              content={index + 1}
-              disabled
-              colorText="#ffffff"
-              colorBorder="#4030A5"
-              colorBackground=" #4030A5"
-            />
-          </QButtonContainer>
-        ))}
-      </QButtons>
       <DraggableFlatList
         data={answers}
         onDragEnd={({ data }) => {
@@ -56,21 +46,19 @@ export default function App() {
 const DraggableFlagListContainer = styled.View`
   flex-direction: row;
   margin-left: 20px;
+  align-items: stretch;
+`;
+
+const DraggableContainer = styled.TouchableOpacity`
+  flex-direction: row;
   align-items: center;
+  min-height: 60px;
 `;
 
-const QButtons = styled.View`
-  margin-top: 20px;
-`;
-
-const QButtonContainer = styled.View`
-  height: 80px;
-`;
-
-const AnswerContainer = styled(TouchableOpacity)`
-  height: 70px;
+const AnswerContainer = styled.View`
   align-items: center;
   flex-direction: row;
+  padding-vertical: 10px;
   padding-left: 10px;
   width: ${screenWidth * 0.78 - 20}px;
   border: 1px solid #d3d3e8;
