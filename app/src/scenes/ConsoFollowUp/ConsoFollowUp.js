@@ -116,13 +116,11 @@ const ConsoFollowUp = () => {
 };
 
 const Title = styled(H1)`
-  width: 85%;
   flex-shrink: 0;
   margin-top: 10px;
 `;
 
 const SubTitle = styled(H2)`
-  width: 85%;
   flex-shrink: 0;
   font-weight: 500;
   ${(props) => props.last && 'margin-bottom: 40px;'}
