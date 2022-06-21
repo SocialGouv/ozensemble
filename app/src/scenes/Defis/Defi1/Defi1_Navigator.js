@@ -42,7 +42,7 @@ const Defi1_Navigator = () => {
           name="DEFI1_DAY_2"
           component={QuizzEvaluateConso}
           initialParams={{
-            title: 'Évaluer sa consommation',
+            title: 'Mieux mesurer ma consommation',
             inDefi1: true,
             rootRoute: 'DEFI1_MENU',
             day: 2,
@@ -121,9 +121,16 @@ const Defi1_Menu = ({ navigation }) => {
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
-    storage.set('@Defi1_ValidatedDays', day);
+    if (day === 0) {
+      storage.delete('@Defi1_ValidatedDays');
+      storage.delete('@Defi1_LastUpdate');
+      storage.delete('@Defi1_StartedAt');
+      setValidateDays(0);
+    } else {
+      storage.set('@Defi1_ValidatedDays', day);
+      setValidateDays(day);
+    }
     setLastUpdate('UNLOCK');
-    setValidateDays(day);
   };
 
   useFocusEffect(() => {

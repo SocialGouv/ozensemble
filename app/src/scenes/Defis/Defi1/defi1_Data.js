@@ -24,7 +24,7 @@ export const defi1_Data = [
   {
     actionType: 'quizz',
     title: 'Jour 2',
-    tagLine: 'Évaluer sa consommation',
+    tagLine: 'Mieux mesurer ma consommation',
     description: (
       <>
         <Bold>Affinez</Bold> votre première évaluation avec un questionnaire plus complet de 12 questions.

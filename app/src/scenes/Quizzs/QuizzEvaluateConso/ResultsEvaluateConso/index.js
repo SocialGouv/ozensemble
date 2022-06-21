@@ -28,7 +28,7 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
       <QuizzEvaluateResultStack.Screen
         name="RESULT"
         initialParams={{
-          title: 'Évaluer sa consommation',
+          title: 'Mieux mesurer ma consommation',
           rootRoute: route?.params?.rootRoute,
         }}
         component={ResultsEvaluateConso}

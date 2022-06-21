@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../../components/H1';
@@ -12,10 +12,14 @@ import { BackButton } from '../../../components/BackButton';
 import { Bold, P, Spacer } from '../../../components/Articles';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
+import { storage } from '../../../services/storage';
 
 const ResultsOnboarding = ({ navigation }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
-  const [feeling, setFeeling] = useState(null);
+  const [feeling, setFeeling] = useState(() => storage.getBoolean('@Quizz_surprised') || null);
+  useEffect(() => {
+    if (feeling !== null) storage.set('@Quizz_surprised', feeling);
+  }, [feeling]);
 
   return (
     <FullScreenBackground>
