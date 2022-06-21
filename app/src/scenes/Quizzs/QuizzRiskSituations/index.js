@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useIsFocused } from '@react-navigation/native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import TextStyled from '../../../components/TextStyled';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import H1 from '../../../components/H1';
@@ -15,6 +14,7 @@ import Situation from './Situation';
 import riskSituations from './riskSituations';
 import { riskSituationsQuizzAnswersState, riskSituationsQuizzResultState } from '../../../recoil/quizzs';
 import { setValidatedDays } from '../../Defis/utils';
+import { P } from '../../../components/Articles';
 
 const QuizzRiskSituationsStack = createStackNavigator();
 
@@ -59,28 +59,26 @@ const QuizzRiskSituations = ({ navigation, route }) => {
               </TopTitle>
               <ElementDayDefi
                 content={
-                  <TextStyled>
-                    Lorsqu'une personne a l'impression qu'elle a{' '}
-                    <TextStyled bold>moins de contrôle sur sa consommation</TextStyled> dans une situation particulière,
-                    on dit que cette situation est à risque.
-                  </TextStyled>
+                  <P>
+                    Lorsqu'une personne a l'impression qu'elle a <P bold>moins de contrôle sur sa consommation</P> dans
+                    une situation particulière, on dit que cette situation est à risque.
+                  </P>
                 }
               />
               <ElementDayDefi
                 content={
-                  <TextStyled>
-                    Une situation à haut risque peut provenir de l'<TextStyled bold>extérieur</TextStyled> (Ex. : quand
-                    quelqu'un insiste pour que je prenne un verre, quand je vois une publicité qui me fait penser à
-                    boire).
-                  </TextStyled>
+                  <P>
+                    Une situation à haut risque peut provenir de l'<P bold>extérieur</P> (Ex. : quand quelqu'un insiste
+                    pour que je prenne un verre, quand je vois une publicité qui me fait penser à boire).
+                  </P>
                 }
               />
               <ElementDayDefi
                 content={
-                  <TextStyled>
-                    Ou de l'<TextStyled bold>intérieur</TextStyled> (Ex. : quand je suis fâché(e), quand je m'ennuie,
-                    quand je suis stressé(e) ou quand je suis triste).
-                  </TextStyled>
+                  <P>
+                    Ou de l'<P bold>intérieur</P> (Ex. : quand je suis fâché(e), quand je m'ennuie, quand je suis
+                    stressé(e) ou quand je suis triste).
+                  </P>
                 }
               />
               <ButtonPrimary onPress={goToStep1} content="Je reconnais mes situations" widthSmall />
@@ -99,12 +97,12 @@ const QuizzRiskSituations = ({ navigation, route }) => {
             description1={
               <>
                 Parmi les situations suivantes, lesquelles vous semblent à risque (c'est à dire que vous allez
-                <TextStyled bold> surconsommer de l'alcool</TextStyled>) ?
+                <P bold> surconsommer de l'alcool</P>) ?
               </>
             }
             description2={
               <>
-                Ici, choissisez <TextStyled bold>jusqu'à 2 situations extérieures</TextStyled>
+                Ici, choissisez <P bold>jusqu'à 2 situations extérieures</P>
               </>
             }
           />
@@ -120,13 +118,12 @@ const QuizzRiskSituations = ({ navigation, route }) => {
             onPress={validateAnswers}
             description1={
               <>
-                Puis choissisez <TextStyled bold>jusqu'à 2 situations intérieures.</TextStyled>
+                Puis choissisez <P bold>jusqu'à 2 situations intérieures.</P>
               </>
             }
             description2={
               <>
-                Lesquelles vous semblent à risque (c'est à dire que vous allez{' '}
-                <TextStyled bold>surconsommer de l'alcool</TextStyled>) ?
+                Lesquelles vous semblent à risque (c'est à dire que vous allez <P bold>surconsommer de l'alcool</P>) ?
               </>
             }
           />

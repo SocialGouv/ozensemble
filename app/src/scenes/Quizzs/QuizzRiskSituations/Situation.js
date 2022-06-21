@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import TextStyled from '../../../components/TextStyled';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import H1 from '../../../components/H1';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import Section from '../QuizzMotivations/Section';
+import { P } from '../../../components/Articles';
 
 const Situation = ({ section, toggleAnswer, answers, navigation, description1, description2, onPress }) => {
   const currentSituationAnswers = section.answers.map((a) => a.answerKey).filter((key) => answers.includes(key));
@@ -17,10 +17,10 @@ const Situation = ({ section, toggleAnswer, answers, navigation, description1, d
       <TopContainer>
         <H1>Identifier mes situations à risques</H1>
         <DescriptionContainer>
-          <TextStyled>{description1}</TextStyled>
+          <P>{description1}</P>
         </DescriptionContainer>
         <DescriptionContainer>
-          <TextStyled>{description2}</TextStyled>
+          <P>{description2}</P>
           <Section
             section={section}
             onToggle={toggleAnswer}
