@@ -125,7 +125,7 @@ const TipsNoReassuredSmiley = () => (
   <TipsContainer>
     <H1>Les conseils d'Oz Ensemble</H1>
     <P>
-      {'\n'}Désormais, quand la situation se présente, je teste ces stratégies :{'\n\n'}1/ Jes
+      {'\n'}Désormais, quand la situation se présente, je teste ces stratégies :{'\n\n'}1/ Je
       <P bold> parle de ce qui m'inquiète</P> à mes proches, à des professionnels, à des groupes de paroles pour prendre
       du recul et m'aider,
       {'\n\n'}2/ Je continue à chercher de l'information pour diminuer mon anxiété,
@@ -162,7 +162,7 @@ const TipsAngrySmiley = () => (
       {'\n\n'}2/ Je fais un <P bold>exercice de sport</P> ou je m'inscris à un cours d'
       <P bold>arts martiaux pour libérer ma tension,</P> {'\n\n'}3/ Je tente un{' '}
       <P bold>exercice de respiration profonde</P> (à répéter 3 fois): je prends une profonde inspiration par le nez en
-      comptant lentement jusqu'à 4 je laisse l'air gonfler mon ventre j'expire doucement par la bouche en comptant
+      comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en comptant
       jusqu'à 8. {'\n\n'}4/ J'écris ce qui me vient à l'esprit et je le déchire, {'\n\n'}
       5/ J'apprends à<P bold> reconnaître les signes de colère</P> pour mieux les contrôler et verbaliser mon
       insatisfaction et mes désirs.
@@ -193,10 +193,10 @@ const TipsIllSmiley = () => (
       2/ Je pratique des techniques de
       <P bold> relaxation</P> pour baisser mon stress, chasser les pensées négatives… Cet{' '}
       <P bold>exercice de respiration profonde</P> (à répéter 3 fois): je prends une profonde inspiration par le nez en
-      comptant lentement jusqu'à 4 je laisse l'air gonfler mon ventre j'expire doucement par la bouche en comptant
+      comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en comptant
       jusqu'à 8. {'\n\n'}3/ Si mon état de santé le permet, je fais du
       <P bold> sport régulièrement</P> car cela aide à contrôler la douleur et me donne de l'énergie, {'\n\n'}4/ Je sors
-      pour <P bold>voir du monde</P> et ne pas rester seul.e
+      pour <P bold>voir du monde</P> et ne pas rester seul(e).
     </P>
   </TipsContainer>
 );
