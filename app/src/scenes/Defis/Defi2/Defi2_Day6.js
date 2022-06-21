@@ -10,6 +10,7 @@ import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
+import { P, Underlined } from '../../../components/Articles';
 
 const Defi2_Day6 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -62,14 +63,12 @@ const Defi2_Day6 = ({ navigation, route }) => {
           }
         />
         <ContainerText>
-          <TextStyled>
+          <P>
             Pour aller plus loin, lisez notre article pour savoir :
             <TouchableOpacity onPress={() => navigation.navigate('TO_SAY_NO')}>
-              <TextStyled underline color="#4030a5">
-                comment dire non, dans la rubrique Santé.
-              </TextStyled>
+              <Underlined color="#4030a5">comment dire non, dans la rubrique Santé.</Underlined>
             </TouchableOpacity>
-          </TextStyled>
+          </P>
         </ContainerText>
         <ButtonPrimary content="Je peux dire Non" widthSmall onPress={() => navigation.navigate('TO_SAY_NO')} />
       </TopContainer>

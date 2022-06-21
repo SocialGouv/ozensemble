@@ -13,6 +13,7 @@ import Defi2_Day7 from './Defi2_Day7';
 import Defi2_Day6 from './Defi2_Day6';
 import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
 import Defi2_Day4 from './Defi2_Day4';
+import ToSayNo from '../../Health/Articles/ToSayNo';
 
 const Defi2_Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ const Defi2_Navigator = () => {
     <Background color="#39cec0" withSwiperContainer>
       <Defi2_Stack.Navigator headerMode="none" initialRouteName={'DEFI2_MENU'}>
         <Defi2_Stack.Screen name="DEFI2_MENU" component={Defi2_Menu} />
+        <Defi2_Stack.Screen name="TO_SAY_NO" component={ToSayNo} />
         <Defi2_Stack.Screen
           name="DEFI2_DAY_1"
           component={Defi2_Day1}
