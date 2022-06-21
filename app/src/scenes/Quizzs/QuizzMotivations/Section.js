@@ -11,7 +11,7 @@ const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers, .
 
   return (
     <Paragraph>
-      <SectionTitle>{section.sectionTitle[0].toUpperCase() + section.sectionTitle.slice(1)} </SectionTitle>
+      <SectionTitle>{'Situations ' + section.sectionTitle + 's'} </SectionTitle>
       {section.answers.map((item) => {
         const checked = !!answers?.includes(item.answerKey);
         return (
@@ -33,6 +33,7 @@ const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers, .
 
 const Paragraph = styled.View`
   margin-bottom: 25px;
+  margin-top: 10px;
 `;
 
 const SectionTitle = styled(TextStyled)`
