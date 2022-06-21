@@ -16,6 +16,7 @@ export const P = styled.Text`
     underlined &&
     `text-decoration: underline;
     text-decoration-color: ${color || '#000'}`};
+  ${({ textCenter }) => textCenter && 'text-align:center'}
 `;
 
 export const Bold = styled.Text`

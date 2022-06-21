@@ -65,8 +65,6 @@ const ToHelpMeReduce = ({ navigation }) => {
             remplis ils peuvent en réalité contenir jusqu'à 5 verres de 10 cl.
           </P>
           <Spacer size={20} />
-          <H2 color={'#4030a5'}>Oz Ensemble est là pour vous aider</H2>
-          <Spacer size={20} />
           <P>
             Vous voulez réduire votre consommation d'alcool ? Changez également vos habitudes liées à cette
             consommation.
@@ -127,6 +125,8 @@ const ToHelpMeReduce = ({ navigation }) => {
             alcool…). À chaque fois que vous consommez de l'alcool, prenez le réflexe de
             <Bold> boire un verre d'eau.</Bold>
           </P>
+          <Spacer size={20} />
+          <H2 color={'#4030a5'}>Oz Ensemble est là pour vous aider</H2>
         </TopContainer>
       </NavigationWrapper>
     </Background>

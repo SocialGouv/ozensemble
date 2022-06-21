@@ -94,7 +94,7 @@ const QuizzMenu = () => {
         <BackButton onPress={navigation.goBack} />
         <Title color="#4030a5">Tests des défis</Title>
         <SubTitle>
-          Pour refaire les tests si besoin et continuer à réfléchir au rôle de l’alcool dans ma vie quotidienne.
+          Pour refaire les tests si besoin et continuer à réfléchir au rôle de l'alcool dans ma vie quotidienne.
         </SubTitle>
         <DefiCategorieTitle color="#4030a5">Premier défi</DefiCategorieTitle>
         <QuizzElement
