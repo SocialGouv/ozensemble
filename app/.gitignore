@@ -71,3 +71,5 @@ ios/sentry.properties
 # Ruby / CocoaPods
 /ios/Pods/
 *.sh
+
+!get-ip.sh

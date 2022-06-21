@@ -13,6 +13,21 @@ export const listConseils = [
   },
   {
     img: require('../../assets/images/DidYouKnow.png'),
+    title: "L'alcool et les normes",
+    link: 'ALCOHOL_AND_NORMS',
+  },
+  {
+    img: require('../../assets/images/DidYouKnow.png'),
+    title: "L'alcool et les calories",
+    link: 'ALCOHOL_AND_CALORIES',
+  },
+  {
+    img: require('../../assets/images/DidYouKnow.png'),
+    title: "L'addiction à l'alcool",
+    link: 'ALCOHOL_ADDICTION',
+  },
+  {
+    img: require('../../assets/images/DidYouKnow.png'),
     title: 'Le saviez-vous ?',
     link: 'DID_YOU_KNOW',
   },

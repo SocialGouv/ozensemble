@@ -14,29 +14,26 @@ const ToSayNo = () => {
         link={'https://www.respadd.org/blog/2020/08/03/livret-accompagner-la-reduction-de-la-consommation-dalcool/'}>
         <TopContainer>
           <P>
-            Elles sont nombreuses les occasions où nous sommes <Bold>invités à boire un ou plusieurs verres </Bold>
-            d'alcool : un repas de famille, un apéritif entre collègues, une fête de famille... Lors de ces moments, il
-            n'est pas toujours facile de refuser un verre de plus (ou le verre de trop) sans passer pour le moralisateur
-            de la bande.
+            Les occasions où nous sommes <Bold>invités à boire un ou plusieurs verres </Bold>
+            d'alcool : un repas de famille, un apéritif entre collègues, une fête de famille...{'\n'}Il n'est pas
+            toujours facile de refuser un verre de plus (ou le verre de trop) sans passer pour le moralisateur de la
+            bande.
           </P>
           <P>
-            Au niveau mondial, <Bold>la France</Bold> figure parmi les <Bold>pays les plus consommateurs d'alcool</Bold>
-            . Si la consommation globale a considérablement diminué depuis les années 50, dans notre pays, boire de
-            l'alcool reste synonyme de convivialité. C'est pourquoi la nouvelle campagne de l'INPES tente de valoriser
-            les <Bold>moyens d'agir au quotidien pour refuser le verre de trop</Bold>. Les spots évitent tout discours
-            moralisateur et ne pointent pas les dangers liés à la consommation d'alcool mais nous encouragent à
-            considérer que ceux qui refusent un verre
-            <Bold> ne gâchent pas la fête et ne font pas figure de rabat-joie.</Bold>
+            <Bold>La France</Bold> figure parmi les <Bold>pays les plus consommateurs d'alcool</Bold>. Si la
+            consommation globale a considérablement diminué depuis les années 50, dans notre pays, boire de l'alcool
+            reste synonyme de convivialité. C'est pourquoi il peut sembler difficile{' '}
+            <Bold>au quotidien de refuser le verre de trop</Bold>.
           </P>
           <P>
-            Le but est d'amener chacun d'entre nous à considérer que
-            <Bold> dire non à l'alcool devrait être simple, possible et naturel</Bold>.
+            Le but de cet article est d'amener chacun d'entre nous à considérer que{' '}
+            <Bold>dire non à l'alcool devrait être simple, possible et naturel</Bold>. Ce n'est pas parce qu'on refuse
+            un verre que l'on <Bold>gâche la fête et qu'on doit faire figure de rabat-joie</Bold>.
           </P>
           <P>
             Vous verrez que le plus souvent, c'est de ne pas s'être préparé à émettre un refus qui fait que sur le
-            moment on se sent obligé d'accepter.{'\n'}Préparez tranquillement votre refus et tenez-y tranquillement.
-            {'\n'}
-            <Bold>« Je ne t'empêche pas, mais pour moi ça ira »</Bold> peut devenir votre <Bold>mantra</Bold> !
+            moment on se sent obligé d'accepter.{'\n'}Préparez tranquillement votre refus et tenez-y tranquillement :
+            <Bold>« Je ne t'empêche pas, mais pour moi ça ira »</Bold>.
           </P>
           <Spacer size={20} />
           <H2 color={'#4030a5'}>Aux repas :</H2>
@@ -60,11 +57,12 @@ const ToSayNo = () => {
             <Bold>{'    - '}“Je veux garder une tête claire.”</Bold>
           </P>
           <P>
-            Les variations sur cette réponse sont: {'\n'}- "Non merci, j'ai du travail demain",{'\n'}- "Non merci, j'ai
-            un départ tôt le matin," {'\n'}- ou "Non merci, je ne veux pas avoir une gueule de bois." {'\n'}C'est une
-            excellente façon de faire savoir aux gens que l'
-            <Bold>alcool ne gouverne pas votre vie</Bold>, et que vous ne le laisserez pas interférer avec votre
-            fonctionnement au jour le jour.
+            Les variations sur cette réponse peuvent être "Non merci, j'ai du travail demain", ou "Non merci, j'ai un
+            départ tôt le matin," ou encore "Non merci, je ne veux pas avoir une gueule de bois."
+          </P>
+          <P>
+            C'est une excellente façon de faire savoir aux gens que l'alcool ne gouverne pas votre vie, et que vous ne
+            le laisserez pas interférer avec votre fonctionnement au jour le jour.
           </P>
           <P>
             <Bold>{'    - '}“Je ne bois pas”</Bold>
@@ -72,20 +70,27 @@ const ToSayNo = () => {
           <Spacer size={20} />
           <H2 color={'#4030a5'}>En soirée :</H2>
           <Spacer size={20} />
-          <P>{'   - '}Proposer de conduire</P>
-          <P>
-            {'   - '}Répondez que vous faites attention à votre hygiène de vie en ce moment : sommeil, alimentation,
-            sport…
+          <P noMarginBottom>
+            {'   - '}
+            <Bold>“Je ne bois pas d'alcool, car je vais prendre le volant"</Bold>
           </P>
           <P>
-            {'   - '}Prenez le contrôle de la bouteille d'alcool – si c'est vous qui servez, vous pourrez mieux
-            quantifier la dose{' '}
+            Il existe également des campagnes de promotion du conducteur désigné, appelé “Capitaine de soirée” ou “Sam”,
+            celui qui conduit c'est celui qui ne boit pas en France.
+          </P>
+          <P noMarginBottom>
+            {'   - '}
+            <Bold>“Je fais plus attention à moi en ce moment”</Bold>
+          </P>
+          <P>“C'est assez d'alcool pour moi maintenant, je vais passer au soft”</P>
+          <P noMarginBottom>
+            {'   - '}
+            <Bold>“Je ne bois pas d'alcool, car je vais prendre le volant"</Bold>
           </P>
           <P>
-            {'   - '}Commander un cocktail sans alcool ou une bière sans alcool : rien n'empêche de trinquer et partager
-            avec un verre de soft
+            Il est toujours possible de commander un cocktail sans alcool ou une bière sans alcool : rien n'empêche de
+            trinquer et partager un moment convivial avec un verre de soft.
           </P>
-          <P>{'   - '}Répondez que vous avez assez bu et que vous passez aux softs.</P>
           <Spacer size={20} />
           <H2 color={'#4030a5'}>Et quelques mises en situation...</H2>
           <Spacer size={20} />
@@ -132,16 +137,14 @@ const ToSayNo = () => {
             Respecte ma décision ! » ou encore l'<Bold>encourager plutôt à parler</Bold> de lui/elle « Comment
             allez-vous ces derniers temps ? Avez-vous terminé cette présentation qui vous stressez ? ».
           </P>
-          <P>
-            <Bold>4. Expliquez vos raisons de rester sobre, si vous le souhaitez</Bold>
-          </P>
+          <P bold>Expliquez vos raisons de ne pas consommer d'alcool, si vous le souhaitez.</P>
           <P>
             Peut-être que votre médecin vous a conseillé d'arrêter de boire ou que vous vous entraînez pour une
             compétition sportive. Peut-être que vous êtes enceinte ou que vous voulez faire plus attention à votre
             hygiène de vie.{'\n'}Quelle que soit votre raison,<Bold> dites-la calmement</Bold> et{' '}
-            <Bold>répondez à toutes les questions avec lesquelles vous vous sentez à l'aise.</Bold>
-            {'\n'}Par exemple, vous pourriez dire : « Je me suis lancé un défi de moins boire d'alcool pour ma santé
-            globale . Ce serait dommage de briser la séquence maintenant. »
+            <Bold>répondez à toutes les questions avec lesquelles vous vous sentez à l'aise.</Bold> Par exemple, vous
+            pourriez dire : « Je me suis lancé un défi de moins boire d'alcool pour ma santé globale . Ce serait dommage
+            de briser la séquence maintenant. »
           </P>
           <Spacer size={20} />
           <H2 color={'#4030a5'}>À une fête</H2>

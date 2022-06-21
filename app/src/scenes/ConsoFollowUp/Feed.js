@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, feedDaysSelector, modalTimestampState } from '../../recoil/consos';
-import CONSTANTS from '../../reference/constants';
 import { isOnSameDay, isToday } from '../../services/dates';
 import matomo from '../../services/matomo';
 import NPS from '../NPS/NPS';
@@ -20,7 +19,7 @@ import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
 import ResultsFeedDisplay from './ResultsFeedDisplay';
 import ThoughtOfTheDay from './ThoughtOfTheDay';
 import Timeline from './Timeline';
-import Pint from '../../components/illustrations/Pint';
+import Pint from '../../components/illustrations/drinksAndFood/Pint';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
 

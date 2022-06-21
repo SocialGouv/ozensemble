@@ -2,10 +2,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CocktailGlass from './illustrations/CocktailGlass';
+import CocktailGlass from './illustrations/drinksAndFood/CocktailGlass';
 import Dose from './illustrations/Dose';
-import HalfBeer from './illustrations/HalfBeer';
-import WineGlass from './illustrations/WineGlass';
+import HalfBeer from './illustrations/drinksAndFood/HalfBeer';
+import WineGlass from './illustrations/drinksAndFood/WineGlass';
 import TextStyled from './TextStyled';
 import { ScreenBgStyled } from './ScreenBgStyled';
 
