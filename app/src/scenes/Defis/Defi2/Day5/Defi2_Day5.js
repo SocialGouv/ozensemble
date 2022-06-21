@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import H1 from '../../../../components/H1';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
@@ -10,7 +10,9 @@ import BackButton from '../../../../components/BackButton';
 import { P } from '../../../../components/Articles';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { defi2EmotionState } from '../../../../recoil/defis';
+import { riskSituationsQuizzAnswersState } from '../../../../recoil/quizzs';
 import emotions from './emotions';
+import riskSituations from '../../../Quizzs/QuizzRiskSituations/riskSituations';
 
 const Defi2_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -20,7 +22,10 @@ const Defi2_Day5 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   const [smileySelect, setSmileySelect] = useRecoilState(defi2EmotionState);
-
+  const riskSituationsQuizzAnswers = useRecoilValue(riskSituationsQuizzAnswersState);
+  const firstRiskSituations = riskSituations
+    .find((section) => section.answers.map((a) => a.answerKey).includes(riskSituationsQuizzAnswers[0]))
+    ?.answers?.find((a) => a.answerKey === riskSituationsQuizzAnswers[0]);
   return (
     <ScreenBgStyled>
       <TopContainer>
@@ -31,9 +36,7 @@ const Defi2_Day5 = ({ navigation, route }) => {
         <P bold noMarginBottom>
           Dans cette situation, sélectionner l'émotion que vous ressentez.
         </P>
-        <P>
-          {'\n'}“Quand ma relation avec quelqu'un de mon entourage m'inquiète ou me rend anxieux(se) “ je bois pour :{' '}
-        </P>
+        <P>{firstRiskSituations.content}</P>
         <SmileysContainer>
           {emotions.map((emotion, index) => (
             <SmileyContainer
