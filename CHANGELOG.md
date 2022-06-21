@@ -1,3 +1,10 @@
+## [1.53.1](https://github.com/SocialGouv/ozensemble/compare/v1.53.0...v1.53.1) (2022-06-21)
+
+
+### Bug Fixes
+
+* **app:** begin defi2 ([f8fcd05](https://github.com/SocialGouv/ozensemble/commit/f8fcd052f16fca3f3ff0d31fdef2e1aab2843710))
+
 # [1.53.0](https://github.com/SocialGouv/ozensemble/compare/v1.52.0...v1.53.0) (2022-06-20)
 
 
