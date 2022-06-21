@@ -1,3 +1,10 @@
+# [1.56.0](https://github.com/SocialGouv/ozensemble/compare/v1.55.0...v1.56.0) (2022-06-21)
+
+
+### Features
+
+* **api,app:** new feature popup handler ([8e5f1b8](https://github.com/SocialGouv/ozensemble/commit/8e5f1b8b17a2f1b77cdc9011049133839593368c))
+
 # [1.55.0](https://github.com/SocialGouv/ozensemble/compare/v1.54.0...v1.55.0) (2022-06-21)
 
 
