@@ -167,7 +167,7 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
               matomo.logAnalysisDate();
               setFirstDay(dayjs(firstDay).add(1, 'week'));
             }}
-            disabled={dayjs(lastDay).add(1, 'days').isAfter(dayjs())}
+            disabled={dayjs(lastDay).add(0, 'days').isAfter(dayjs())}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <TextStyled>{'>'}</TextStyled>
           </ChangeDateButton>

@@ -36,7 +36,7 @@ const Defi2_Day4 = ({ navigation, route }) => {
         <DraggableContainer>
           <DraggableHand size={40} />
           <DraggableTextContainer>
-            <TextStyled bold>Vous pouvez faire glisser les situations pour changer leur ordre</TextStyled>
+            <TextStyled bold>En appuyant, vous pouvez faire glisser les situations pour changer leur ordre</TextStyled>
           </DraggableTextContainer>
         </DraggableContainer>
         <H2 color="#4030a5">Je suis plus motivé(e) à réduire l'alcool : </H2>
