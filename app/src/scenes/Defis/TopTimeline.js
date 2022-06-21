@@ -34,13 +34,13 @@ const DayIcon = ({ locked, done, index, unLock, defiStorageKey }) => {
     if (done) {
       return <StarButton color="#4030a5" size="20px" />;
     }
-    return <StarButton color="#C4C4C4" size="20px" />;
+    return <StarButton color="#de285e" size="20px" />;
   };
 
   const getTextColor = () => {
     if (locked) return '#5150A260';
     if (done) return '#4030a5';
-    return '#4030a5';
+    return '#de285e';
   };
 
   const unLockLevel = async () => {
@@ -82,3 +82,10 @@ const DayNumber = styled.Text`
   margin-top: 4px;
   color: ${({ color }) => color || '#C4C4C4'};
 `;
+/*
+const NewDayStar = styled(StarButton)`
+  border-color: #de285e;
+  border-width: 2px;
+  border-radius: 10px;
+`;
+ */

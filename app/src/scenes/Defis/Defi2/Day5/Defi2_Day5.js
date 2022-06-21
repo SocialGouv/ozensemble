@@ -36,13 +36,12 @@ const Defi2_Day5 = ({ navigation, route }) => {
         <P bold noMarginBottom>
           Dans cette situation, sélectionner l'émotion que vous ressentez.
         </P>
-        <P>{firstRiskSituations.content}</P>
+        <P>{firstRiskSituations?.content}</P>
         <SmileysContainer>
           {emotions.map((emotion, index) => (
             <SmileyContainer
               key={emotion.value}
               index={index}
-              color={emotion.value}
               onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
               {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
               <TextEmotionView>
