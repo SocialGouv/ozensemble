@@ -41,14 +41,16 @@ const Defi2_Day7 = ({ navigation, route }) => {
             <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
           </QButtonCentered>
           <FirstTextContainer>
-            <P>{answersRiskSituations[0]?.content}</P>
+            <P noMarginBottom>{answersRiskSituations[0]?.content}</P>
           </FirstTextContainer>
           <FirstTextContainer>
-            <TextEmotion>Et je bois pour :</TextEmotion>
+            <TextEmotion noMarginBottom>Et je bois pour :</TextEmotion>
             <Spacer size={10} />
             {emotion?.iconBilan}
             <Spacer size={10} />
-            <TextEmotion color="#4030A5">{emotion?.description}</TextEmotion>
+            <TextEmotion noMarginBottom color="#4030A5">
+              {emotion?.description}
+            </TextEmotion>
           </FirstTextContainer>
         </FirstSituationContainer>
         <BackgroundEFEFEF>
@@ -66,7 +68,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
                     colorBackground=" #4030A5"
                   />
                   <TextContainer>
-                    <P>{riskSituation.content}</P>
+                    <P noMarginBottom>{riskSituation.content}</P>
                   </TextContainer>
                 </RiskSituationsContainer>
               );
