@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions } from 'react-native';
+import { Dimensions, Alert, AppState, Modal, Platform } from 'react-native';
 import PropTypes from 'prop-types';
-import { Alert, AppState, Modal, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
@@ -10,7 +9,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import NotificationService from '../../services/notifications';
 import Mark from './Mark';
 import { storage } from '../../services/storage';
@@ -54,6 +53,7 @@ class NPS extends Component {
   async componentDidMount() {
     if (__DEV__) {
       // this.reset(); // useful in dev mode
+      return;
     }
     this.appStateListener = AppState.addEventListener('change', this.handleAppStateChange);
     this.notificationsListener = NotificationService.listen(this.handleNotification);
@@ -102,7 +102,10 @@ class NPS extends Component {
     const opening = storage.getString(STORE_KEYS.INITIAL_OPENING);
     const timeForNPS = Date.now() - Date.parse(new Date(opening)) > NPSTimeoutMS;
     if (!timeForNPS) return;
-    matomo.logNPSOpen();
+    logEvent({
+      category: 'NPS',
+      action: 'NPS_OPEN',
+    });
     storage.set(STORE_KEYS.NPS_DONE, 'true');
     this.setState({ visible: true });
   };
@@ -184,8 +187,18 @@ class NPS extends Component {
     const { userIdLocalStorageKey } = this.props;
     const userId = storage.getString(userIdLocalStorageKey);
     this.setSendButton('Merci !');
-    matomo.logNPSUsefulSend(useful);
-    matomo.logNPSRecoSend(reco);
+    logEvent({
+      category: 'NPS',
+      action: 'NPS_SEND',
+      name: 'notes-useful',
+      value: useful,
+    });
+    logEvent({
+      category: 'NPS',
+      action: 'NPS_SEND',
+      name: 'notes-reco',
+      value: reco,
+    });
     await fetch('https://api.tipimail.com/v1/messages/send', {
       method: 'POST',
       headers: {

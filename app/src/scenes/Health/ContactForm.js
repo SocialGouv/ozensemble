@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
@@ -15,7 +15,7 @@ const ContactForm = ({ navigation }) => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <ScreenBgStyled>
-        <BackButton onPress={() => navigation.goBack()} marginLeft />
+        <BackButton onPress={() => navigation.goBack()} marginLeft marginBottom />
         <TopContainer>
           <TopTitle>
             <TextStyled color="#4030a5">Échangez</TextStyled>
@@ -35,7 +35,10 @@ const ContactForm = ({ navigation }) => {
             <ButtonPrimary
               content="Prendre RDV téléphonique"
               onPress={() => {
-                matomo.logContactTakeRDV();
+                logEvent({
+                  category: 'CONTACT',
+                  action: 'CONTACT_RDV',
+                });
                 navigation.navigate('DOCTOLIB');
               }}
             />
@@ -48,7 +51,10 @@ const ContactForm = ({ navigation }) => {
             <TextStyled
               color="#4030a5"
               onPress={() => {
-                matomo.logContactWebsiteOpened();
+                logEvent({
+                  category: 'CONTACT',
+                  action: 'CONTACT_WEBSITE_OPEN',
+                });
                 Linking.openURL('https://www.capasscite.fr/');
               }}>
               Qui sommes nous ?
@@ -66,12 +72,11 @@ const commonCss = css`
 `;
 
 const TopContainer = styled.View`
-  padding: 5px ${defaultPaddingFontScale()}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const TopTitle = styled(H1)`
   ${commonCss}
-  margin-top: 0px;
   margin-bottom: 10px;
 `;
 

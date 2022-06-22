@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import H3 from '../../components/H3';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState } from '../../recoil/consos';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { NO_CONSO } from './drinksCatalog';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
@@ -28,7 +28,10 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
       content={content}
       disabled={disabled}
       onPress={() => {
-        matomo.logNoConso();
+        logEvent({
+          category: 'CONSO',
+          action: 'NO_CONSO',
+        });
         setDrinksState((state) => [
           ...state,
           { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(timestamp), id: uuidv4() },
