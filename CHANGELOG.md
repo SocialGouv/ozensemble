@@ -1,3 +1,10 @@
+# [1.58.0](https://github.com/SocialGouv/ozensemble/compare/v1.57.0...v1.58.0) (2022-06-22)
+
+
+### Features
+
+* **app:** table + icon + image ([1ad7985](https://github.com/SocialGouv/ozensemble/commit/1ad7985c3acda98dab3fb1897434c2242e00abfb))
+
 # [1.57.0](https://github.com/SocialGouv/ozensemble/compare/v1.56.0...v1.57.0) (2022-06-21)
 
 
