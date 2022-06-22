@@ -12,17 +12,17 @@ export const listConseils = [
     link: 'TO_HELP_ME_REDUCE',
   },
   {
-    img: require('../../assets/images/DidYouKnow.png'),
+    img: require('../../assets/images/AlcoholAndNorms.png'),
     title: "L'alcool et les normes",
     link: 'ALCOHOL_AND_NORMS',
   },
   {
-    img: require('../../assets/images/DidYouKnow.png'),
+    img: require('../../assets/images/AlcoholAndCalories.png'),
     title: "L'alcool et les calories",
     link: 'ALCOHOL_AND_CALORIES',
   },
   {
-    img: require('../../assets/images/DidYouKnow.png'),
+    img: require('../../assets/images/AlcoholAddiction.png'),
     title: "L'addiction à l'alcool",
     link: 'ALCOHOL_ADDICTION',
   },

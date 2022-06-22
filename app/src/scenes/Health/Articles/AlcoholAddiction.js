@@ -1,10 +1,10 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import Background from '../../../components/Background';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { useNavigation } from '@react-navigation/native';
 
 const AlcoholAddiction = () => {
   const title = "L'addiction à l'alcool";
@@ -13,7 +13,6 @@ const AlcoholAddiction = () => {
     <Background color="#39cec0" withSwiperContainer>
       <NavigationWrapper title={title} timeReading={2} link={'https://www.inserm.fr/dossier/alcool-sante/'}>
         <TopContainer>
-          <Spacer size={20} />
           <H2 color={'#4030a5'}>Qu'est-ce que l'addiction à l'alcool ?</H2>
           <Spacer size={20} />
           <P>
