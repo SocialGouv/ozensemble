@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { findNodeHandle } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -6,7 +7,7 @@ import Background from '../../components/Background';
 import DrinksCategory from '../../components/DrinksCategory';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import Diagram from './Diagram';
 import DiagramHelpModal from './DiagramHelpModal';
 import { BEER, BEER_HALF, drinksCatalog } from './drinksCatalog';
@@ -16,8 +17,23 @@ import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 import H1 from '../../components/H1';
+import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
+
+const ConsoFollowUpStack = createStackNavigator();
+const ConsoFollowUpNavigator = () => (
+  <ConsoFollowUpStack.Navigator headerMode="none" initialRouteName="CONSO_FOLLOW_UP">
+    <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={ConsoFollowUp} />
+    <ConsoFollowUpStack.Screen
+      name="ONBOARDING_QUIZZ"
+      component={QuizzOnboarding}
+      initialParams={{ root: 'CONSO_FOLLOW_UP' }}
+    />
+  </ConsoFollowUpStack.Navigator>
+);
+
+export default ConsoFollowUpNavigator;
 
 const ConsoFollowUp = () => {
   const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
@@ -51,7 +67,10 @@ const ConsoFollowUp = () => {
             <DiagramTitle color="#191919">Nombre d'unité d'alcool consommé</DiagramTitle>
             <Help
               onPress={() => {
-                matomo.logConsoDiagramHelp();
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_HELP',
+                });
                 setShowHelpModal(true);
               }}
               hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
@@ -94,7 +113,10 @@ const ConsoFollowUp = () => {
           {!showWelcomeMessage && (
             <Diagram
               onShowHelp={() => {
-                matomo.logConsoDiagramHelp();
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_HELP',
+                });
                 setShowHelpModal(true);
               }}
               selectedBar={selectedBar}
@@ -167,5 +189,3 @@ const HelpText = styled.Text`
 const TopContainer = styled.View`
   padding: 20px 20px 0px;
 `;
-
-export default ConsoFollowUp;

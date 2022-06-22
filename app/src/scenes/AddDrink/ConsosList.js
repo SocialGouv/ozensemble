@@ -16,7 +16,7 @@ import {
 } from '../ConsoFollowUp/drinksCatalog';
 import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
@@ -99,7 +99,12 @@ const ConsosList = ({ navigation }) => {
     for (let drink of localDrinksState) {
       drinkNumber++;
       updateDrink(drink);
-      matomo.logConsoAdd(drink);
+      logEvent({
+        category: 'CONSO',
+        action: 'CONSO_ADD',
+        name: drink.drinkKey,
+        value: Number(drink.quantity),
+      });
     }
     setLocalDrinksState([]);
     setTimeout(() => {
@@ -114,7 +119,10 @@ const ConsosList = ({ navigation }) => {
   const onCancelConsos = useCallback(() => {
     navigation.goBack();
     setLocalDrinksState([]);
-    matomo.logConsoCloseAddScreen();
+    logEvent({
+      category: 'CONSO',
+      action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+    });
     return true;
   }, [navigation]);
 

@@ -15,6 +15,7 @@ import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { defi2OnBoardingDoneState } from '../../recoil/defis';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 const Defi = ({
   navigation,
@@ -71,6 +72,10 @@ const Defi = ({
             onPress={() => {
               if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
               navigation.push('ADD_DRINK', { timestamp: Date.now() });
+              logEvent({
+                category: 'CONSO',
+                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+              });
             }}
           />
         )}

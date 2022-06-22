@@ -25,7 +25,7 @@ import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
 const MyGains = () => {
@@ -136,7 +136,11 @@ const MyGains = () => {
   }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
   const goToReminder = () => {
-    matomo.logReminderOpen('GAINS');
+    logEvent({
+      category: 'REMINDER',
+      action: 'REMINDER_OPEN',
+      name: 'GAIN',
+    });
     navigation.navigate('GAINS_REMINDER', {
       enableContinueButton: true,
       onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
@@ -152,7 +156,10 @@ const MyGains = () => {
         {!isOnboarded ? (
           <TouchableOpacity
             onPress={() => {
-              matomo.logTooltipGoal();
+              logEvent({
+                category: 'GAINS',
+                action: 'TOOLTIP_GOAL',
+              });
               navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
             }}>
             <Description>
@@ -212,7 +219,11 @@ const MyGains = () => {
           disabled={isOnboarded}
           onPress={() => {
             setShowOnboardingGainModal(true);
-            matomo.logEarningsSection('euro');
+            logEvent({
+              category: 'GAINS',
+              action: 'EARNINGS_SECTION',
+              name: 'euro',
+            });
           }}
         />
         <CategorieGain
@@ -223,7 +234,11 @@ const MyGains = () => {
           disabled={isOnboarded}
           onPress={() => {
             setShowOnboardingGainModal(true);
-            matomo.logEarningsSection('calories');
+            logEvent({
+              category: 'GAINS',
+              action: 'EARNINGS_SECTION',
+              name: 'calories',
+            });
           }}
         />
       </Categories>
@@ -243,7 +258,11 @@ const MyGains = () => {
           disabled={isOnboarded}
           onPress={() => {
             setShowOnboardingGainModal(true);
-            matomo.logEarningsSection('drinks');
+            logEvent({
+              category: 'GAINS',
+              action: 'EARNINGS_SECTION',
+              name: 'drinks',
+            });
           }}>
           <Speedometer
             value={isOnboarded ? remaindrink : 1}
@@ -260,7 +279,11 @@ const MyGains = () => {
           disabled={isOnboarded}
           onPress={() => {
             setShowOnboardingGainModal(true);
-            matomo.logEarningsSection('drinkless');
+            logEvent({
+              category: 'GAINS',
+              action: 'EARNINGS_SECTION',
+              name: 'drinkless',
+            });
           }}
         />
       </Categories>
@@ -269,7 +292,10 @@ const MyGains = () => {
         description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
         boutonTitle="Je me fixe un objectif"
         onPress={() => {
-          matomo.logGoalOpen();
+          logEvent({
+            category: 'GAINS',
+            action: 'GOAL_OPEN',
+          });
           navigateToPreviousConsumption();
         }}
         visible={showOnboardingGainModal}
@@ -345,7 +371,11 @@ const MyGains = () => {
                 </TextStyled>
                 <InfoContainer
                   onPress={() => {
-                    matomo.logGoalDrinkHelp('ESTIMATION');
+                    logEvent({
+                      category: 'GAINS',
+                      action: 'GOAL_DRINK_HELP',
+                      name: 'ESTIMATION',
+                    });
                     setHelpVisible(true);
                   }}>
                   <InfosIcon size={15} color={'#000000'} />

@@ -19,7 +19,7 @@ import {
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 
@@ -125,7 +125,11 @@ const Goal = ({ navigation }) => {
           <Row>
             <HelpCount
               onPress={() => {
-                matomo.logGoalDrinkHelp('GOAL');
+                logEvent({
+                  category: 'GAINS',
+                  action: 'GOAL_DRINK_HELP',
+                  name: 'GOAL',
+                });
                 setHelpVisible(true);
               }}
               hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
@@ -162,13 +166,26 @@ const Goal = ({ navigation }) => {
             <ButtonPrimary
               content="Continuer"
               onPress={() => {
-                matomo.logGoalDrinkless(daysWithGoalNoDrink, daysWithGoalNoDrink.length);
-                matomo.logGoalDrinkWeek(drinkByWeek);
+                logEvent({
+                  category: 'GAINS',
+                  action: 'GOAL_DRINKLESS',
+                  name: daysWithGoalNoDrink,
+                  value: daysWithGoalNoDrink.length,
+                });
+                logEvent({
+                  category: 'GAINS',
+                  action: 'GOAL_DRINKWEEK',
+                  value: drinkByWeek,
+                });
                 if (isOnboarded) {
                   navigation.navigate('GAINS_SEVRAGE');
                   return;
                 }
-                matomo.logReminderOpen('GOAL');
+                logEvent({
+                  category: 'REMINDER',
+                  action: 'REMINDER_OPEN',
+                  name: 'GOAL',
+                });
                 navigation.navigate('GAINS_REMINDER', {
                   enableContinueButton: true,
                   onPressContinueNavigation: ['GAINS_SEVRAGE'],

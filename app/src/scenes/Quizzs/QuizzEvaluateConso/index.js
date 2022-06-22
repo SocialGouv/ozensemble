@@ -8,6 +8,7 @@ import { mapEvaluateConsoAnswersToResult } from './utils';
 const QuizzEvaluateConso = (props) => (
   <Quizz
     {...props}
+    event="_MIEUX_MESURER_MA_CONSO"
     questions={questionsEvaluateConso}
     recoilAnswersState={betterEvaluateQuizzAnswersState}
     recoilResultState={betterEvaluateQuizzResultState}

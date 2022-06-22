@@ -7,8 +7,11 @@ import ProgressBar from '../ProgressBar';
 import Question from './Question';
 import ContactForm from '../../scenes/Health/ContactForm';
 import Doctolib from '../../scenes/Health/Doctolib';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
+import Matomo from '../../services/matomo';
 import BackButton from '../BackButton';
+import CONSTANTS from '../../reference/constants';
+import { storage } from '../../services/storage';
 /*
 HOW DOES THE QUESTIONS WORK:
 -> The user can't pass a question.
@@ -23,12 +26,43 @@ HOW DOES THE QUESTIONS WORK:
 const QuizzStack = createStackNavigator();
 const QuizzAndResultsStack = createStackNavigator();
 
-const Quizz = ({ questions, recoilAnswersState, recoilResultState, route, mapAnswersToResult, Results }) => {
+const Quizz = ({
+  questions,
+  recoilAnswersState,
+  recoilResultState,
+  route,
+  mapAnswersToResult,
+  Results,
+  event = '',
+}) => {
   const [progress, setProgress] = useState(0);
   const [answers, setAnswers] = useRecoilState(recoilAnswersState);
   const setResultKey = useSetRecoilState(recoilResultState);
 
+  const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
+    const category = `QUIZZ${event}`;
+    const action = 'QUIZZ_ANSWER';
+    const name = questionKey;
+    const value = score;
+    if (questionKey === 'age') {
+      const age = score;
+      Matomo.setCustomDimensions({
+        [CONSTANTS.MATOMO_CUSTOM_DIM_AGE]: age,
+      });
+      storage.set('@Age', age);
+    }
+    if (questionKey === 'gender') {
+      const gender = answerKey;
+      Matomo.setCustomDimensions({
+        [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
+      });
+      storage.set('@Gender', gender);
+    }
+    await logEvent({ category, action, name, value });
+  };
+
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
+    if (questionIndex === 0) logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
     const newAnswers = {
       ...answers,
       [questionKey]: answerKey,
@@ -38,11 +72,11 @@ const Quizz = ({ questions, recoilAnswersState, recoilResultState, route, mapAns
     setProgress((questionIndex + 1) / questions.length);
     const endOfQuestions = questionIndex === questions.length - 1;
 
-    await matomo.logQuizzAnswer({ questionKey, answerKey, score });
+    logQuizzAnswer({ questionKey, answerKey, score });
 
     if (endOfQuestions) {
       const addictionResult = mapAnswersToResult(questions, newAnswers);
-      await matomo.logQuizzFinish();
+      logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
       if (addictionResult) setResultKey(addictionResult);
     }
   };
