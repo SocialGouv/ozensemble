@@ -32,7 +32,7 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
           <TextStyled color="#4030a5">{title}</TextStyled>
         </TopTitle>
         <ReadTimeContainer>
-          <Clock size={20} />
+          <ClockStyled size={20} />
           <TextStyled>Lecture: {timeReading} min </TextStyled>
         </ReadTimeContainer>
       </TopContainer>
@@ -75,8 +75,13 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
   );
 };
 
+const ClockStyled = styled(Clock)`
+  margin-right: 10px;
+`;
+
 const ReadTimeContainer = styled.View`
   flex-direction: row;
+  align-items: center;
 `;
 
 const TopTitle = styled(H1)`

@@ -14,10 +14,9 @@ import Banasplit from '../../../components/illustrations/drinksAndFood/Banasplit
 import Esquimau from '../../../components/illustrations/drinksAndFood/Esquimau';
 import Glace from '../../../components/illustrations/drinksAndFood/Glace';
 import Mojito from '../../../components/illustrations/drinksAndFood/Mojito';
-import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 
 const energetiquesValuesDrinks = [
-  { boisson: 'Boissons (1 unité d’alcool)', glucide: 'Glucides', kcal: 'Kcal' }, //title
+  { boisson: "Boissons\u000A(1 unité d'alcool)", glucide: 'Glucides', kcal: 'Kcal' }, //title
   { boisson: 'Vin blanc sec', glucide: 0, kcal: 70 },
   { boisson: 'Vin rouge', glucide: 0, kcal: 70 },
   { boisson: 'Champagne brut', glucide: 0, kcal: 70 },
@@ -99,8 +98,8 @@ const AlcoholAndCalories = () => {
             icon1={<CiderBottle size={70} />}
             icon2={
               <>
-                <SpagettiPlate size={50} />
-                <SpagettiPlate size={50} />
+                <SpagettiPlateStyled size={50} />
+                <SpagettiPlateStyled size={50} />
               </>
             }
             kcal1="262"
@@ -121,9 +120,9 @@ const AlcoholAndCalories = () => {
             text2="1 banasplit de 200g + 1 esquimau chocolat"
             icon1={
               <>
-                <Shoot size={60} marginHorizontal />
-                <Shoot size={60} marginHorizontal />
-                <Shoot size={60} marginHorizontal />
+                <ShootStyled size={45} />
+                <ShootStyled size={45} />
+                <ShootStyled size={45} />
               </>
             }
             icon2={
@@ -137,10 +136,10 @@ const AlcoholAndCalories = () => {
           />
           <Spacer size={20} />
           <P>
-            De plus, voici une liste de boissons avec leurs valeurs énergétiques.{'\n'}Pour rappel, une unité d’alcool
-            équivaut à 10 g d’alcool quelque soit le contenant.
+            De plus, voici une liste de boissons avec leurs valeurs énergétiques.{'\n'}Pour rappel, une unité d'alcool
+            équivaut à 10 g d'alcool quelque soit le contenant.
           </P>
-          <Table value={energetiquesValuesDrinks} firstWidth={55} />
+          <Table value={energetiquesValuesDrinks} firstWidth={50} />
           <Spacer size={20} />
           <P>
             Ci-dessous, vous trouverez les 10 cocktails préférés des Français associés à leur valeurs énergétiques. Les
@@ -190,6 +189,7 @@ const CorrespondanceContainer = styled.View`
   border-radius: 3px;
   padding: 8px;
   flex-direction: row;
+  overflow: hidden;
 `;
 
 const CorrespondanceTitleContainer = styled.View`
@@ -208,6 +208,9 @@ const EqualityContainer = styled.View`
 
 const CorrespondanceIconContainer = styled.View`
   flex-direction: row;
+  flex-shrink: 1;
+  justify-content: space-evenly;
+  align-items: center;
 `;
 
 const KcalText = styled.Text`
@@ -240,13 +243,9 @@ const Table = ({ value, firstWidth }) => {
         <Tr key={index}>
           {values.map((a, index) => (
             <TdContainer key={index} width={index === 0 ? firstWidth : (100 - firstWidth) / (titles.length - 1)}>
-              {index === 0 ? (
-                <Td noMarginBottom>{a}</Td>
-              ) : (
-                <Td noMarginBottom textCenter>
-                  {a}
-                </Td>
-              )}
+              <Td noMarginBottom textCenter={index !== 0}>
+                {a}
+              </Td>
             </TdContainer>
           ))}
         </Tr>
@@ -260,9 +259,10 @@ const TableContainer = styled.View``;
 const TdContainer = styled.View`
   width: ${({ width }) => width}%;
   border: 0.5px solid #eee;
+  padding-horizontal: 5px;
+  justify-content: center;
 `;
 const Td = styled(P)`
-  min-height: 100%;
   padding-horizontal: 5px;
   padding-vertical: 10px;
 `;
@@ -270,6 +270,14 @@ const Td = styled(P)`
 const Tr = styled.View`
   flex-direction: row;
   background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#fff')};
+`;
+
+const ShootStyled = styled(Shoot)`
+  margin-bottom: 5px;
+`;
+
+const SpagettiPlateStyled = styled(SpagettiPlate)`
+  margin-left: 5px;
 `;
 
 export default AlcoholAndCalories;
