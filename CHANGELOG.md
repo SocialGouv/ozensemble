@@ -1,3 +1,10 @@
+# [1.59.0](https://github.com/SocialGouv/ozensemble/compare/v1.58.0...v1.59.0) (2022-06-22)
+
+
+### Features
+
+* **app:** matomo events ([61206c8](https://github.com/SocialGouv/ozensemble/commit/61206c8b9fc7227dc75574ed134644e793a606d2))
+
 # [1.58.0](https://github.com/SocialGouv/ozensemble/compare/v1.57.0...v1.58.0) (2022-06-22)
 
 
