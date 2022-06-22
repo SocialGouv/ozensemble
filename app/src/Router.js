@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'react-native';
+import { Alert, Linking, StatusBar } from 'react-native';
 import styled from 'styled-components';
 import RNBootSplash from 'react-native-bootsplash';
 import DefisIcon from './components/illustrations/Defis';
@@ -11,14 +11,14 @@ import GuidanceIcon from './components/illustrations/GuidanceIcon';
 import InfosIcon from './components/illustrations/Infos';
 import AddDrinkCTAButton from './scenes/AddDrink/AddDrinkCTAButton';
 import AddDrinkNavigator from './scenes/AddDrink/AddDrinkNavigator';
-import ConsoFollowUp from './scenes/ConsoFollowUp/ConsoFollowUp';
+import ConsoFollowupNavigator from './scenes/ConsoFollowUp/ConsoFollowUp';
 import HealthNavigator from './scenes/Health/HealthNavigator';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
 import NPS from './scenes/NPS/NPS';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
 import useAppState from './services/useAppState';
-import matomo from './services/matomo';
+import { initMatomo, logEvent } from './services/logEventsWithMatomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
@@ -82,12 +82,12 @@ const TabsNavigator = ({ navigation }) => {
           component={DefisNavigator}
         />
         <Tabs.Screen
-          name="CONSO_FOLLOW_UP"
+          name="CONSO_FOLLOW_UP_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Suivi</Label>,
             tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
           }}
-          component={ConsoFollowUp}
+          component={ConsoFollowupNavigator}
         />
         <Tabs.Screen
           name="HEALTH"
@@ -115,19 +115,20 @@ const TabsNavigator = ({ navigation }) => {
 
 const Root = createStackNavigator();
 const Router = () => {
-  const [initialRouteName, setInitialRouteName] = useState(null);
-  useAppState({ isActive: matomo.logAppVisit, isInactive: matomo.logAppClose });
+  const initialRouteName = useMemo(() => {
+    const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
+    if (!onBoardingDone) return 'WELCOME';
+    return 'TABS';
+  }, []);
+  useAppState({
+    isActive: () => logEvent({ category: 'APP', action: 'APP_OPEN' }),
+    isInactive: () => logEvent({ category: 'APP', action: 'APP_CLOSE' }),
+  });
 
   const initApp = async () => {
     NotificationService.init();
-    await matomo.initMatomo();
-    await matomo.logAppVisit('initApp');
-    const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
-    if (!onBoardingDone) {
-      setInitialRouteName('WELCOME');
-    } else {
-      setInitialRouteName('TABS');
-    }
+    await initMatomo();
+    await logEvent({ category: 'APP', action: 'APP_OPEN' });
     // storage.clearAll();
     // BUG FIX: on Android, Swiper is jumping the index
     // -> we prefer to make the splash a bit longer to hide the jump
@@ -142,29 +143,44 @@ const Router = () => {
     const route = navigationRef.current.getCurrentRoute();
     if (route.name === prevCurrentRouteName.current) return;
     prevCurrentRouteName.current = route.name;
-    matomo.logOpenPage(route.name);
+    logEvent({ category: 'NAVIGATION', action: route.name });
+  };
+
+  const handleInAppMessage = (inAppMessage) => {
+    const [title, subTitle, actions = [], options = {}] = inAppMessage;
+    if (!actions || !actions.length) return Alert.alert(title, subTitle);
+    const actionsWithNavigation = actions.map((action) => {
+      if (action.navigate) {
+        action.onPress = () => {
+          navigationRef.current.navigate(...action.navigate);
+          if (action.event) logEvent(action.event);
+        };
+      }
+      if (action.link) {
+        action.onPress = () => {
+          Linking.openURL(action.link);
+          if (action.event) logEvent(action.event);
+        };
+      }
+      return action;
+    });
+    Alert.alert(title, subTitle, actionsWithNavigation, options);
   };
 
   useEffect(() => {
     initApp();
+    API.handleInAppMessage = handleInAppMessage;
   }, []);
 
   return (
     <>
-      <NavigationContainer
-        ref={navigationRef}
-        onReady={() => {
-          API.navigation = navigationRef.current;
-        }}
-        onStateChange={onNavigationStateChange}>
+      <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange}>
         <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
-        {!!initialRouteName && (
-          <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
-            <Root.Screen name="WELCOME" component={WelcomeScreen} />
-            <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
-            <Root.Screen name="TABS" component={TabsNavigator} />
-          </Root.Navigator>
-        )}
+        <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
+          <Root.Screen name="WELCOME" component={WelcomeScreen} />
+          <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
+          <Root.Screen name="TABS" component={TabsNavigator} />
+        </Root.Navigator>
         <NPS />
       </NavigationContainer>
       <CustomBootsplash />

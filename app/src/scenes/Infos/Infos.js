@@ -15,7 +15,7 @@ import PrivacyPolicy from './PrivacyPolicy';
 import Defi1_Reminder from '../Defis/Defi1/Defi1_Reminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
 const InfosStack = createStackNavigator();
@@ -58,7 +58,11 @@ const InfosMenu = ({ navigation }) => {
           <MenuItem
             caption={reminderCaption}
             onPress={() => {
-              matomo.logReminderOpen(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
+              logEvent({
+                category: 'REMINDER',
+                action: 'REMINDER_OPEN',
+                name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
+              });
               navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
             }}
           />

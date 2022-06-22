@@ -10,7 +10,7 @@ import { previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import BackButton from '../../components/BackButton';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { P } from '../../components/Articles';
 
@@ -97,7 +97,11 @@ const Estimation = () => {
                 drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
               0
             );
-            matomo.logGoalEstimationDrink(numberDrinkEstimation);
+            logEvent({
+              category: 'GAINS',
+              action: 'GOAL_ESTIMATION_DRINK',
+              value: numberDrinkEstimation,
+            });
             isOnboarded ? navigation.navigate('GAINS_MAIN_VIEW') : navigation.navigate('GAINS_MY_OBJECTIVE');
           }}
         />

@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Platform, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../styles/theme';
-import matomo from './matomo';
+import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
 
 /*
@@ -30,11 +30,9 @@ featuresShown = [
  */
 const NewFeaturePopupDisplay = () => {
   const [featuresShownIds, setFeaturesShownIds] = useState(() => {
-    // storage.delete('@NewFeaturesPopupIdsShown');
     return JSON.parse(storage.getString('@NewFeaturesPopupIdsShown') || JSON.stringify([]));
   });
   const [lastShownId, setLastShownId] = useState(() => {
-    // storage.delete('@NewFeaturesLastShownId');
     return storage.getString('@NewFeaturesLastShownId') || '';
   });
   const [featuresToShow, setFeaturesToShow] = useState([]);
@@ -66,7 +64,7 @@ const NewFeaturePopupDisplay = () => {
   const featureToShow = featuresToShow?.[0];
 
   const onOkPress = () => {
-    if (featureToShow.onOkEvent) matomo.logEvent(featureToShow.onOkEvent);
+    if (featureToShow.onOkEvent) logEvent(featureToShow.onOkEvent);
     setFeaturesToShow((features) => features.filter((f) => f.id !== featureToShow?.id));
     setLastShownId(featureToShow?.id);
     setFeaturesShownIds((featureIds) => [...new Set([...featureIds, featureToShow?.id].filter(Boolean))]);
