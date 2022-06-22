@@ -61,7 +61,7 @@ const AlcoholAddiction = () => {
             <Bold>évaluer avec le plus de bienveillance et de transparence possible :</Bold>
           </P>
           <ButtonPrimary
-            content={'faites le test !'}
+            content={'Faites le test !'}
             onPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
             widthSmall
             small
