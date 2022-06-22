@@ -1,11 +1,10 @@
 import URI from 'urijs';
-import { Alert, Linking, Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import fetchRetry from 'fetch-retry';
 import deviceInfoModule from 'react-native-device-info';
 
 import { SCHEME, API_HOST } from '../config';
-import matomo from './matomo';
 import { NewFeaturePop } from './NewFeaturePopup';
 
 const checkNetwork = async (test = false) => {
@@ -47,7 +46,7 @@ class ApiService {
       };
 
       const url = this.getUrl(path, query);
-      // console.log('url: ', url);
+      console.log('url: ', url);
       const canFetch = await checkNetwork();
       if (!canFetch) return;
 
@@ -55,7 +54,7 @@ class ApiService {
 
       if (response.json) {
         const readableRes = await response.json();
-        if (readableRes.sendInApp) this.handleInAppMessage(readableRes.sendInApp);
+        if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
         if (readableRes.newFeatures) {
           NewFeaturePop.handleShowNewFeaturePopup(readableRes.newFeatures);
         }
@@ -78,27 +77,6 @@ class ApiService {
   post = async (args) => this.execute({ method: 'POST', ...args });
   put = async (args) => this.execute({ method: 'PUT', ...args });
   delete = async (args) => this.execute({ method: 'DELETE', ...args });
-
-  handleInAppMessage = (inAppMessage) => {
-    const [title, subTitle, actions = [], options = {}] = inAppMessage;
-    if (!actions || !actions.length) return Alert.alert(title, subTitle);
-    const actionsWithNavigation = actions.map((action) => {
-      if (action.navigate) {
-        action.onPress = () => {
-          API.navigation.navigate(...action.navigate);
-          if (action.event) matomo.logEvent(action.event);
-        };
-      }
-      if (action.link) {
-        action.onPress = () => {
-          Linking.openURL(action.link);
-          if (action.event) matomo.logEvent(action.event);
-        };
-      }
-      return action;
-    });
-    Alert.alert(title, subTitle, actionsWithNavigation, options);
-  };
 }
 
 const API = new ApiService();

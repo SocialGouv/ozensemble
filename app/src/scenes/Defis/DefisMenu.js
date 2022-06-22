@@ -65,7 +65,9 @@ const DefisMenu = ({ navigation }) => {
               color="#4030a5"
               withoutPadding
               content="Pourquoi faire cette auto-évaluation ?"
-              onPress={() => setShowHowMakeSelfEvaluation(true)}
+              onPress={() => {
+                setShowHowMakeSelfEvaluation(true);
+              }}
             />
           )}
           <CategorieMenu

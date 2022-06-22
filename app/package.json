@@ -3,7 +3,7 @@
   "version": "1.7.0",
   "private": true,
   "scripts": {
-    "get-ip": "./get-ip.sh",
+    "get-ip": "./get-ip.sh && echo \"this script updates the API IP to your own IP, because that's what Android Emulator needs to work. It's based on your wifi IP, if you need ethernet it won't work (needs en1 instead of en0)\"",
     "android": "npm run get-ip && react-native run-android",
     "ios": "npm run get-ip && echo .env.local > /tmp/envfile && react-native run-ios",
     "ios:5": "npm run ios --simulator=\"iPhone SE\"",

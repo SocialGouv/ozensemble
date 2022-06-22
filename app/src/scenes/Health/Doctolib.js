@@ -5,7 +5,7 @@ import { WebView } from 'react-native-webview';
 import styled from 'styled-components';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 const Doctolib = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
@@ -47,7 +47,10 @@ const Doctolib = ({ navigation }) => {
     const { url } = newNavState;
     if (url.includes('confirmed-appointment') && !rdvHasBeenTaken.current) {
       rdvHasBeenTaken.current = true;
-      matomo.logContactConfirmRDV();
+      logEvent({
+        category: 'CONTACT',
+        action: 'CONTACT_RDV_CONFIRM',
+      });
     }
   };
 
