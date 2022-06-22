@@ -151,7 +151,6 @@ const FeelingOfResult = ({ feeling, setFeeling }) => (
             category: 'QUIZZ',
             action: 'QUIZZ_SUPRISED',
             name: 'IS_NOT_SURPRISED',
-            value: 0,
           });
           setFeeling(false);
         }}>
@@ -168,7 +167,6 @@ const FeelingOfResult = ({ feeling, setFeeling }) => (
             category: 'QUIZZ',
             action: 'QUIZZ_SUPRISED',
             name: 'IS_SURPRISED',
-            value: 1,
           });
           setFeeling(true);
         }}>
