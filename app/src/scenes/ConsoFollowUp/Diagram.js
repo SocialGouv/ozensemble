@@ -13,7 +13,7 @@ import { isToday } from '../../services/dates';
 import Celebration from '../../components/illustrations/Celebration';
 import Increase from '../../components/illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import PlusIcon from '../../components/illustrations/PlusIcon';
 import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
@@ -146,8 +146,13 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
         <ChangeDateContainer>
           <ChangeDateButton
             onPress={() => {
-              matomo.logAnalysisDate(dayjs(firstDay).add(-1, 'week'));
-              setFirstDay(dayjs(firstDay).add(-1, 'week'));
+              const newFirstDay = dayjs(firstDay).add(-1, 'week');
+              setFirstDay(newFirstDay);
+              logEvent({
+                category: 'ANALYSIS',
+                action: 'ANALYSIS_DATE',
+                value: newFirstDay,
+              });
             }}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <TextStyled>{'<'}</TextStyled>
@@ -164,8 +169,13 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
           )}
           <ChangeDateButton
             onPress={() => {
-              matomo.logAnalysisDate();
-              setFirstDay(dayjs(firstDay).add(1, 'week'));
+              const newFirstDay = dayjs(firstDay).add(1, 'week');
+              setFirstDay(newFirstDay);
+              logEvent({
+                category: 'ANALYSIS',
+                action: 'ANALYSIS_DATE',
+                value: newFirstDay,
+              });
             }}
             disabled={dayjs(lastDay).add(0, 'days').isAfter(dayjs())}
             hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
@@ -359,9 +369,19 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
             content="Contacter un addictologue"
             small
             onPress={() => {
-              matomo.logContactTakeRDV();
-              matomo.logContactOpen('SUIVI');
-              matomo.logAnalysisContact();
+              logEvent({
+                category: 'CONTACT',
+                action: 'CONTACT_RDV',
+              });
+              logEvent({
+                category: 'CONTACT',
+                action: 'CONTACT_OPEN',
+                name: 'SUIVI',
+              });
+              logEvent({
+                category: 'ANALYSIS',
+                action: 'ANALYSIS_CONTACT',
+              });
               navigation.navigate('CONTACT');
             }}
           />

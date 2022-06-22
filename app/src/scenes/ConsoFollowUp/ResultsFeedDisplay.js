@@ -2,13 +2,31 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import { useNavigation } from '@react-navigation/native';
 import H3 from '../../components/H3';
 import QuizzIcon from '../../components/illustrations/QuizzIcon';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
-const ResultsFeedDisplay = ({ onPress, selected }) => {
-  const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
+const mapResultToDisplay = (result) => {
+  if (result === 'addicted') return "Résultat: risque d'addiction";
+  if (result === 'risk') return 'Résultat: risque de dépendance';
+  if (result === 'good') return 'Résultat: pas de dépendance';
+  return 'Faire le questionnaire';
+};
+
+const ResultsFeedDisplay = ({ selected }) => {
+  const navigation = useNavigation();
+  const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
+  const onPress = () => {
+    navigation.navigate('ONBOARDING_QUIZZ', { screen: resultKey ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS' });
+    logEvent({
+      category: 'QUIZZ',
+      action: 'QUIZZ_OPEN',
+      name: 'FROM_CONSO',
+    });
+  };
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -17,7 +35,7 @@ const ResultsFeedDisplay = ({ onPress, selected }) => {
           <QuizzIcon size={25} color="#de285e" selected />
           <TextContent>
             <Caption>Questionnaire d'auto-évaluation</Caption>
-            <CTA>{autoEvaluationDone ? 'Refaire' : 'Faire'} le questionnaire</CTA>
+            <CTA>{mapResultToDisplay(resultKey)}</CTA>
           </TextContent>
         </Content>
       </FeedButtonStyled>

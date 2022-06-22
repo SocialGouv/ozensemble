@@ -8,6 +8,7 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
 import { defaultPaddingFontScale } from '../../styles/theme';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -98,12 +99,19 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           onDayPress={({ dateString }) => {
             if (!isOnboarded) return setShowOnboardingGainModal(true);
             if (markedDays[dateString]?.isDrinkDay) {
-              navigation.navigate('CONSO_FOLLOW_UP', { scrollToDay: dateString });
+              navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', {
+                screen: 'CONSO_FOLLOW_UP',
+                params: { scrollToDay: dateString },
+              });
             } else {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
               setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK');
+              logEvent({
+                category: 'CONSO',
+                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+              });
             }
           }}
         />

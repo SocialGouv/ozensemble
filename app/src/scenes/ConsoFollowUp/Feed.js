@@ -9,7 +9,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, feedDaysSelector, modalTimestampState } from '../../recoil/consos';
 import { isOnSameDay, isToday } from '../../services/dates';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import NPS from '../NPS/NPS';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
 import DateDisplay from './DateDisplay';
@@ -64,6 +64,10 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const addDrinksRequest = (timestamp) => {
     setModalTimestamp(timestamp);
     navigation.push('ADD_DRINK');
+    logEvent({
+      category: 'CONSO',
+      action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+    });
   };
 
   const deleteDrinkRequest = (timestamp) => {
@@ -137,7 +141,10 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   content={"Je n'ai rien bu !"}
                   small
                   onPress={() => {
-                    matomo.logNoConso();
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'NO_CONSO',
+                    });
                     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
                     const newNoDrink = [];
                     for (let i = 1; i <= differenceDay; i++) {
@@ -156,6 +163,10 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   onPress={() => {
                     setModalTimestamp(Date.now());
                     navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                    });
                   }}>
                   <AddDrinkText>
                     <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
@@ -199,11 +210,17 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                           onPress={setConsoSelectedRequest}
                           position={position}
                           updateDrinkRequest={async () => {
-                            await matomo.logConsoUpdate();
+                            logEvent({
+                              category: 'CONSO',
+                              action: 'CONSO_UPDATE',
+                            });
                             addDrinksRequest(drink.timestamp);
                           }}
                           deleteDrinkRequest={async () => {
-                            await matomo.logConsoDelete();
+                            logEvent({
+                              category: 'CONSO',
+                              action: 'CONSO_DELETE',
+                            });
                             deleteDrinkRequest(drink.timestamp);
                           }}
                         />
@@ -232,15 +249,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                       }}
                     />
                   )}
-                  {isLast && (
-                    <ResultsFeedDisplay
-                      onPress={async () => {
-                        navigation.navigate('TESTS_DEFIS');
-                        matomo.logQuizzOpen('FROM_CONSO');
-                      }}
-                      selected={timestampSelected === null}
-                    />
-                  )}
+                  {isLast && <ResultsFeedDisplay selected={timestampSelected === null} />}
                 </FeedDayContent>
               </FeedDay>
             );

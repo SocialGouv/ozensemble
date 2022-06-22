@@ -16,6 +16,7 @@ import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import { maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import ElementDayDefi from '../../../components/ElementDayDefi';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -94,7 +95,13 @@ const Defi1_Day1 = ({ navigation, route }) => {
         </TopContainer>
         <AddConsoCTAContainer>
           <ButtonPrimary
-            onPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })}
+            onPress={() => {
+              navigation.push('ADD_DRINK', { timestamp: Date.now() });
+              logEvent({
+                category: 'CONSO',
+                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+              });
+            }}
             content="Ajouter une consommation"
           />
         </AddConsoCTAContainer>

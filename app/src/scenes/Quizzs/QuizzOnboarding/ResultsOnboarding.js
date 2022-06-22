@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../../components/H1';
 import { screenWidth } from '../../../styles/theme';
@@ -13,6 +13,7 @@ import { Bold, P, Spacer } from '../../../components/Articles';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 
 const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
@@ -31,9 +32,11 @@ const ResultsOnboarding = ({ navigation, route }) => {
           marginBottom
         />
         <ResultTitle color="#000">Résultat</ResultTitle>
-        {resultKey === 'addicted' && <ResultRisk navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+        {resultKey === 'addicted' && (
+          <ResultAddicted navigation={navigation} feeling={feeling} setFeeling={setFeeling} />
+        )}
         {resultKey === 'good' && <ResultGood />}
-        {resultKey === 'risk' && <ResultAddicted />}
+        {resultKey === 'risk' && <ResultRisk />}
         {feeling !== null || resultKey === 'good' || resultKey === 'risk' ? (
           <>
             <TopButtonContainer>
@@ -78,7 +81,7 @@ const ResultGood = () => {
   );
 };
 
-const ResultAddicted = () => {
+const ResultRisk = () => {
   return (
     <>
       <TopTitle>
@@ -96,7 +99,7 @@ const ResultAddicted = () => {
   );
 };
 
-const ResultRisk = ({ navigation, feeling, setFeeling }) => {
+const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
   return (
     <>
       <TopTitle>
@@ -142,7 +145,16 @@ const FeelingOfResult = ({ feeling, setFeeling }) => (
       <Bold>Êtes-vous surpris par ce résultat ?</Bold>
     </P>
     <ContainerAnswer>
-      <Answer onPress={() => setFeeling(false)}>
+      <Answer
+        onPress={() => {
+          logEvent({
+            category: 'QUIZZ',
+            action: 'QUIZZ_SUPRISED',
+            name: 'IS_NOT_SURPRISED',
+            value: 0,
+          });
+          setFeeling(false);
+        }}>
         <NoSmiley size={72} color={feeling === false ? '#DE285E' : '#000000'} />
         <WindUp>
           <TextStyled bold color={feeling === false ? '#DE285E' : '#000000'}>
@@ -150,7 +162,16 @@ const FeelingOfResult = ({ feeling, setFeeling }) => (
           </TextStyled>
         </WindUp>
       </Answer>
-      <Answer onPress={() => setFeeling(true)}>
+      <Answer
+        onPress={() => {
+          logEvent({
+            category: 'QUIZZ',
+            action: 'QUIZZ_SUPRISED',
+            name: 'IS_SURPRISED',
+            value: 1,
+          });
+          setFeeling(true);
+        }}>
         <YesSmiley size={72} color={feeling === true ? '#DE285E' : '#000000'} />
         <WindUp>
           <TextStyled bold color={feeling === true ? '#DE285E' : '#000000'}>
