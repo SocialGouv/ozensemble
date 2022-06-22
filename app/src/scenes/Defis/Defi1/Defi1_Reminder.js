@@ -1,7 +1,7 @@
 import React from 'react';
 import Reminder from '../../../components/Reminder';
 import { reminderDefis, reminderDefisMode, reminderDefisWeekDay } from '../../../recoil/reminder';
-import matomo from '../../../services/matomo';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 import { storage } from '../../../services/storage';
 
 const Defi1_Reminder = (props) => {
@@ -20,8 +20,17 @@ const Defi1_Reminder = (props) => {
       notifReminderMessage={isWithinDefi1 ? '' : undefined}
       onlyDaily
       onSetReminderConfirm={(reminder, mode, weekDay) => {
-        matomo.logReminderSetMode(mode);
-        matomo.logReminderSet(reminder);
+        logEvent({
+          category: 'REMINDER',
+          action: 'REMINDER_SET_MODE',
+          name: mode,
+        });
+        logEvent({
+          category: 'REMINDER',
+          action: 'REMINDER_SET',
+          name: 'timestamp',
+          value: reminder,
+        });
       }}
     />
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
@@ -49,7 +49,10 @@ const Sevrage = ({ navigation }) => {
         <ButtonPrimary
           content="J'ai compris et je commence "
           onPress={() => {
-            matomo.logGoalFinish();
+            logEvent({
+              category: 'GAINS',
+              action: 'GOAL_FINISH',
+            });
             navigation.navigate('GAINS_MAIN_VIEW');
           }}
         />

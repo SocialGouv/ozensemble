@@ -5,7 +5,7 @@ import H1 from '../../../components/H1';
 import H2 from '../../../components/H2';
 import TextStyled from '../../../components/TextStyled';
 import UnderlinedButton from '../../../components/UnderlinedButton';
-import matomo from '../../../services/matomo';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
@@ -16,7 +16,10 @@ const Defi1_Onboarding = ({ navigation }) => {
   const startDefi = async () => {
     const startAt = new Date().toISOString().split('T')[0];
     storage.set('@Defi1_StartedAt', startAt);
-    matomo.logDefi1ClickStart();
+    logEvent({
+      category: 'DEFI1',
+      action: 'DEFI1_CLICK_START',
+    });
     navigation.navigate('DEFI1_REMINDER', {
       enableContinueButton: true,
       onPressContinueNavigation: ['DEFI1_MENU'],

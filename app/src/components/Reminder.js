@@ -14,7 +14,7 @@ import TimePicker from './TimePicker';
 import UnderlinedButton from './UnderlinedButton';
 import { timeIsAfterNow } from '../helpers/dateHelpers';
 import CONSTANTS from '../reference/constants';
-import matomo from '../services/matomo';
+import { logEvent } from '../services/logEventsWithMatomo';
 import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
 import BackButton from './BackButton';
@@ -54,8 +54,13 @@ const Reminder = ({
   const handleNotification = (notification) => {
     if (Platform.OS === 'android') {
       if (notification.title === notifReminderTitle) {
-        navigation.navigate('CONSO_FOLLOW_UP');
-        matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
+        navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', { screen: 'CONSO_FOLLOW_UP' });
+        logEvent({
+          category: 'CONSO',
+          action: 'CONSO_OPEN',
+          name: 'ORIGIN',
+          value: CONSTANTS.FROM_BACKGROUND_NOTIFICATION,
+        });
       }
     }
     if (Platform.OS === 'ios') {
@@ -69,8 +74,13 @@ const Reminder = ({
               {
                 text: 'Suivi',
                 onPress: () => {
-                  navigation.navigate('CONSO_FOLLOW_UP');
-                  matomo.logConsoOpen(CONSTANTS.FROM_LOCAL_NOTIFICATION);
+                  navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', { screen: 'CONSO_FOLLOW_UP' });
+                  logEvent({
+                    category: 'CONSO',
+                    action: 'CONSO_OPEN',
+                    name: 'ORIGIN',
+                    value: CONSTANTS.FROM_LOCAL_NOTIFICATION,
+                  });
                   notifHandled.current = false;
                 },
               },
@@ -87,8 +97,13 @@ const Reminder = ({
         }
       } else {
         if (notification.message === notifReminderMessage) {
-          navigation.navigate('CONSO_FOLLOW_UP');
-          matomo.logConsoOpen(CONSTANTS.FROM_BACKGROUND_NOTIFICATION);
+          navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', { screen: 'CONSO_FOLLOW_UP' });
+          logEvent({
+            category: 'CONSO',
+            action: 'CONSO_OPEN',
+            name: 'ORIGIN',
+            value: CONSTANTS.FROM_BACKGROUND_NOTIFICATION,
+          });
         }
       }
     }
@@ -177,7 +192,10 @@ const Reminder = ({
     setMode('');
     setWeekDay(0);
     setReminderSetupVisible(false);
-    matomo.logReminderDelete();
+    logEvent({
+      category: 'REMINDER',
+      action: 'REMINDER_DELETE',
+    });
   };
 
   return (

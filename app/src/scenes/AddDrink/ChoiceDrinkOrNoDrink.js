@@ -13,7 +13,7 @@ import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
@@ -45,7 +45,15 @@ const ChoiceDrinkOrNoDrink = () => {
     <ScreenBgStyled>
       <SafeAreaView>
         <TopContainer>
-          <BackButton onPress={() => navigation.goBack()} />
+          <BackButton
+            onPress={() => {
+              navigation.goBack();
+              logEvent({
+                category: 'CONSO',
+                action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+              });
+            }}
+          />
           <TopTitle>
             <H1 color="#4030a5">Mes consommations</H1>
           </TopTitle>
@@ -58,7 +66,10 @@ const ChoiceDrinkOrNoDrink = () => {
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
-            matomo.logConsoDrinkless();
+            logEvent({
+              category: 'CONSO',
+              action: 'CONSO_DRINKLESS',
+            });
             setDrinksState((state) => [
               ...state,
               { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
@@ -70,8 +81,10 @@ const ChoiceDrinkOrNoDrink = () => {
           icon={<CocktailGlassTriangle size={40} />}
           value={"J'ai bu"}
           onPress={() => {
-            matomo.logConsoOpenAddScreen();
-            matomo.logConsoDrink();
+            logEvent({
+              category: 'CONSO',
+              action: 'CONSO_DRINK',
+            });
             navigation.replace('CONSOS_LIST');
           }}
         />

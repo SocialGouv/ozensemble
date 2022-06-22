@@ -1,18 +1,14 @@
 import React, { useRef, useState } from 'react';
 import Swiper from 'react-native-swiper';
 import styled from 'styled-components';
-// import ArrowLeft from '../../components/ArrowLeft';
-// import ArrowRight from '../../components/ArrowRight';
+import { useSetRecoilState } from 'recoil';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import HeaderBackground from '../../components/HeaderBackground';
 import Dot from '../../components/SwiperDot';
-import CONSTANTS from '../../reference/constants';
-import matomo from '../../services/matomo';
 import { screenHeight } from '../../styles/theme';
 import { Screen1, Screen2, Screen3 } from './Screens';
 import { storage } from '../../services/storage';
-import { useSetRecoilState } from 'recoil';
 import { showBootSplashState } from '../../components/CustomBootsplash';
 
 const WelcomeScreen = ({ navigation }) => {

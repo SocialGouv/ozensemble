@@ -6,7 +6,7 @@ import { TopContainer, Spacer } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
 import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
-import matomo from '../../../services/matomo';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import Sources from '../../Quizzs/Sources';
@@ -22,7 +22,11 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
       onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent) && !hasScrollToEnd.current) {
           hasScrollToEnd.current = true;
-          matomo.logScrollToEndArticle(title);
+          logEvent({
+            category: 'HEALTH',
+            action: 'HEALTH_SCROLL_ARTICLE_TO_BOTTOM',
+            name: title,
+          });
         }
       }}
       scrollEventThrottle={400}>

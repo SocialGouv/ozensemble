@@ -8,7 +8,7 @@ import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
 import H1 from '../../components/H1';
-import matomo from '../../services/matomo';
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 
 const Conseils = ({ navigation }) => {
@@ -24,7 +24,11 @@ const Conseils = ({ navigation }) => {
             {listConseils.map((conseil, index) => (
               <ConseilContainer
                 onPress={() => {
-                  matomo.logHealthArticle(conseil.title);
+                  logEvent({
+                    category: 'HEALTH',
+                    action: 'HEALTH_ARTICLE',
+                    name: conseil.title,
+                  });
                   navigation.navigate(conseil.link);
                 }}
                 key={index}>
@@ -44,7 +48,11 @@ const Conseils = ({ navigation }) => {
           </TopSubTitle>
           <CategorieContainer
             onPress={() => {
-              matomo.logContactOpen('HEALTH');
+              logEvent({
+                category: 'CONTACT',
+                action: 'CONTACT_OPEN',
+                name: 'HEALTH',
+              });
               navigation.navigate('CONTACT');
             }}>
             <IconContainer>
