@@ -1,5 +1,4 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';

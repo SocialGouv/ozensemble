@@ -1,6 +1,5 @@
 import { getAnswerScore } from '../../../components/Quizz/utils';
 import { capture } from '../../../services/sentry';
-import { storage } from '../../../services/storage';
 
 const atLeastOneAnswerIsNotNever = (answers) => {
   const questionKeys = Object.keys(answers).filter((key) => key !== 'gender' && key !== 'age');

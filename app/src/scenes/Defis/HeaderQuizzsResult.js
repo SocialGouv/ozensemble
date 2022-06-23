@@ -1,42 +1,47 @@
 import React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styled from 'styled-components';
-import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import BackButton from '../../components/BackButton';
-import { P } from '../../components/Articles';
+import { P, Spacer } from '../../components/Articles';
+import WrapperContainer from '../../components/WrapperContainer';
+import { defaultPaddingFontScale } from '../../styles/theme';
+import ButtonPrimary from '../../components/ButtonPrimary';
 
-const HeaderQuizzsResult = ({ title, description, inMyTests, children }) => {
+const HeaderQuizzsResult = ({ title, description, inMyTests, children, buttonCTA, onPressCTA, noMarginBottom }) => {
   const route = useRoute();
   const navigation = useNavigation();
 
   return (
-    <HeaderContainer>
-      <BackButton
-        onPress={() => (route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack())}
-      />
-      <TopTitleContainer>
-        <TopTitle>
-          <TextStyled color="#4030a5">{title ? title : route?.params?.title}</TextStyled>
-        </TopTitle>
-      </TopTitleContainer>
-      <SectionTitle color="#de285e" noMarginBottom>
-        C'est déjà terminé !
-      </SectionTitle>
-      <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
-      {!inMyTests && (
-        <TextParagraph>
-          Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
-        </TextParagraph>
-      )}
+    <WrapperContainer
+      title={title ? title : route?.params?.title}
+      onPressBackButton={() =>
+        route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
+      }
+      noPaddingHorizontal
+      noMarginBottom={noMarginBottom}>
+      <Content>
+        <SectionTitle color="#de285e" noMarginBottom>
+          C'est déjà terminé !
+        </SectionTitle>
+        <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
+        {!inMyTests && (
+          <TextParagraph>
+            Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
+          </TextParagraph>
+        )}
+      </Content>
       {children}
-      {!inMyTests && (
-        <TextParagraph>
-          Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
-          <TextStyled bold> Défis</TextStyled>.
-        </TextParagraph>
-      )}
-    </HeaderContainer>
+      <Content>
+        {!inMyTests && (
+          <TextParagraph>
+            Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
+            <TextStyled bold> Défis</TextStyled>.
+          </TextParagraph>
+        )}
+      </Content>
+      <Spacer size={5} />
+      {!!buttonCTA && <ButtonPrimary content={buttonCTA} onPress={onPressCTA} widthSmall />}
+    </WrapperContainer>
   );
 };
 export default HeaderQuizzsResult;
@@ -50,19 +55,7 @@ const TextParagraph = styled(P)`
   margin-bottom: 8px;
 `;
 
-const HeaderContainer = styled.View`
-  padding: 0px 20px;
-  margin-bottom: 15px;
-`;
-
-const TopTitleContainer = styled.View`
-  display: flex;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
+const Content = styled.View`
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   margin-bottom: 20px;
-`;
-
-const TopTitle = styled(H1)`
-  margin-top: 10px;
 `;

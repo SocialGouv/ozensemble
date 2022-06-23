@@ -5,7 +5,7 @@ import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
+import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Economy from '../../components/illustrations/Economy';
@@ -26,7 +26,7 @@ import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -150,53 +150,48 @@ const MyGains = () => {
   };
 
   return (
-    <ScreenBgStyled>
-      <Container>
-        <TopTitle>
-          <H1 color="#4030a5">Mes gains</H1>
-        </TopTitle>
-        {!isOnboarded ? (
-          <TouchableOpacity
-            onPress={() => {
-              logEvent({
-                category: 'GAINS',
-                action: 'TOOLTIP_GOAL',
-              });
-              navigateToFirstStep();
-            }}>
+    <WrapperContainer title={'Mes gains'}>
+      {!isOnboarded ? (
+        <TouchableOpacity
+          onPress={() => {
+            logEvent({
+              category: 'GAINS',
+              action: 'TOOLTIP_GOAL',
+            });
+            navigateToFirstStep();
+          }}>
+          <Description>
+            <InfosIcon size={24} />
+            <TextDescritpion>
+              <Text>
+                Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+              </Text>
+            </TextDescritpion>
+            <Arrow>{'>'}</Arrow>
+          </Description>
+        </TouchableOpacity>
+      ) : (
+        <>
+          {showGoalfix && (
             <Description>
-              <InfosIcon size={24} />
+              <Rocket size={24} />
               <TextDescritpion>
                 <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+                  Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
                 </Text>
               </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
+              <CloseShowGoalfix
+                onPress={() => {
+                  storage.set('@ShowGoalFix', false);
+                  setShowGoalfix(false);
+                }}
+                hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                <Arrow>{'x'}</Arrow>
+              </CloseShowGoalfix>
             </Description>
-          </TouchableOpacity>
-        ) : (
-          <>
-            {showGoalfix && (
-              <Description>
-                <Rocket size={24} />
-                <TextDescritpion>
-                  <Text>
-                    Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
-                  </Text>
-                </TextDescritpion>
-                <CloseShowGoalfix
-                  onPress={() => {
-                    storage.set('@ShowGoalFix', false);
-                    setShowGoalfix(false);
-                  }}
-                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-                  <Arrow>{'x'}</Arrow>
-                </CloseShowGoalfix>
-              </Description>
-            )}
-          </>
-        )}
-      </Container>
+          )}
+        </>
+      )}
       <TextContainer>
         <TextForm>
           {!!isOnboarded && beginDateOfOz && (
@@ -301,7 +296,7 @@ const MyGains = () => {
       />
       <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       {!isOnboarded ? (
-        <BottomContainer>
+        <>
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
@@ -316,9 +311,9 @@ const MyGains = () => {
               <Arrow>{'>'}</Arrow>
             </Description>
           </TouchableOpacity>
-        </BottomContainer>
+        </>
       ) : (
-        <MyGoalContainer>
+        <>
           <Title>
             <H1 color="#4030a5">Mon objectif</H1>
           </Title>
@@ -400,24 +395,16 @@ const MyGains = () => {
               <TextStyled>{!reminder ? 'Ajouter un rappel' : 'Modifier le rappel'}</TextStyled>
             </TextModify>
           </ButtonTouchable>
-        </MyGoalContainer>
+        </>
       )}
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
-
-const Container = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const BottomContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 100px;
-`;
 
 const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 
 const Description = styled.View`
@@ -431,7 +418,6 @@ const Description = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: ${screenHeight * 0.02}px;
 `;
 
 const Arrow = styled.Text`
@@ -466,12 +452,8 @@ const Bold = styled.Text`
 
 const Title = styled.View`
   flex-shrink: 0;
-  margin-top: 30px;
-  margin-bottom: 15px;
-`;
-
-const MyGoalContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 100px;
+  margin-top: 35px;
+  margin-bottom: 20px;
 `;
 
 const MyGoalSubContainer = styled.View`
@@ -499,10 +481,6 @@ const ButtonTouchable = styled.TouchableOpacity`
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
-`;
-
-const InfoContainer = styled.TouchableOpacity`
-  padding-left: 10px;
 `;
 
 const CloseShowGoalfix = styled.TouchableOpacity`

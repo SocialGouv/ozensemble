@@ -1,71 +1,61 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Background from '../../components/Background';
 import H2 from '../../components/H2';
-import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
 import H1 from '../../components/H1';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
   return (
-    <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
-      <ScreenBgStyled>
-        <TopContainer>
-          <TopTitle>
-            <TextStyled color="#4030a5">Mes conseils</TextStyled>
-          </TopTitle>
-          <ViewConseilsContainer horizontal={true}>
-            {listConseils.map((conseil, index) => (
-              <ConseilContainer
-                onPress={() => {
-                  logEvent({
-                    category: 'HEALTH',
-                    action: 'HEALTH_ARTICLE',
-                    name: conseil.title,
-                  });
-                  navigation.navigate(conseil.link);
-                }}
-                key={index}>
-                <ImageStyled source={conseil.img} />
-                <TitleConseilContainer>
-                  <TextStyled> {conseil.title}</TextStyled>
-                </TitleConseilContainer>
-              </ConseilContainer>
-            ))}
-            <Space />
-          </ViewConseilsContainer>
-          <TopTitle>
-            <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
-          </TopTitle>
-          <TopSubTitle>
-            <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
-          </TopSubTitle>
-          <CategorieContainer
+    <WrapperContainer title="Mes conseils">
+      <ViewConseilsContainer horizontal={true}>
+        {listConseils.map((conseil, index) => (
+          <ConseilContainer
             onPress={() => {
               logEvent({
-                category: 'CONTACT',
-                action: 'CONTACT_OPEN',
-                name: 'HEALTH',
+                category: 'HEALTH',
+                action: 'HEALTH_ARTICLE',
+                name: conseil.title,
               });
-              navigation.navigate('CONTACT');
-            }}>
-            <IconContainer>
-              <AppointmentHeart size={40} />
-            </IconContainer>
-            <TextContainer>
-              <TextStyled> Prendre un RDV</TextStyled>
-              <TextStyled> avec Doctolib</TextStyled>
-            </TextContainer>
-          </CategorieContainer>
-        </TopContainer>
-      </ScreenBgStyled>
-    </Background>
+              navigation.navigate(conseil.link);
+            }}
+            key={index}>
+            <ImageStyled source={conseil.img} />
+            <TitleConseilContainer>
+              <TextStyled> {conseil.title}</TextStyled>
+            </TitleConseilContainer>
+          </ConseilContainer>
+        ))}
+        <Space />
+      </ViewConseilsContainer>
+      <TopTitle>
+        <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
+      </TopTitle>
+      <TopSubTitle>
+        <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
+      </TopSubTitle>
+      <CategorieContainer
+        onPress={() => {
+          logEvent({
+            category: 'CONTACT',
+            action: 'CONTACT_OPEN',
+            name: 'HEALTH',
+          });
+          navigation.navigate('CONTACT');
+        }}>
+        <IconContainer>
+          <AppointmentHeart size={40} />
+        </IconContainer>
+        <TextContainer>
+          <TextStyled> Prendre un RDV</TextStyled>
+          <TextStyled> avec Doctolib</TextStyled>
+        </TextContainer>
+      </CategorieContainer>
+    </WrapperContainer>
   );
 };
 
@@ -134,10 +124,6 @@ const ImageStyled = styled.Image`
 
 const Space = styled.View`
   width: 50px;
-`;
-
-const TopContainer = styled.View`
-  padding: 10px ${defaultPaddingFontScale()}px;
 `;
 
 const commonCss = css`

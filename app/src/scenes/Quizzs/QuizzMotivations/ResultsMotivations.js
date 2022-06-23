@@ -14,8 +14,9 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
-      <HeaderQuizzsResult inMyTests={inMyTests} />
-      {!!motivationsQuizzAnswers && <ResultContainer>{children}</ResultContainer>}
+      <HeaderQuizzsResult inMyTests={inMyTests}>
+        {!!motivationsQuizzAnswers && <ResultContainer>{children}</ResultContainer>}
+      </HeaderQuizzsResult>
     </FullScreenBackground>
   );
 };

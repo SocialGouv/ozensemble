@@ -4,18 +4,16 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
-import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
-import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
+import { screenHeight } from '../../styles/theme';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
 import DateAndTimePickers from './DateAndTimePickers';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -23,22 +21,17 @@ const ChoiceDrinkOrNoDrink = () => {
   const navigation = useNavigation();
 
   return (
-    <ScreenBgStyled>
-      <SafeAreaView>
-        <TopContainer>
-          <BackButton
-            onPress={() => {
-              navigation.goBack();
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
-              });
-            }}
-          />
-          <TopTitle>
-            <H1 color="#4030a5">Mes consommations</H1>
-          </TopTitle>
-        </TopContainer>
+    <SafeWrapper>
+      <WrapperContainer
+        title={'Mes consommations'}
+        onPressBackButton={() => {
+          navigation.goBack();
+          logEvent({
+            category: 'CONSO',
+            action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+          });
+        }}
+        marginTop>
         <DateAndTimePickers />
         <Option
           icon={<NoDrink size={40} />}
@@ -66,8 +59,8 @@ const ChoiceDrinkOrNoDrink = () => {
             navigation.replace('CONSOS_LIST');
           }}
         />
-      </SafeAreaView>
-    </ScreenBgStyled>
+      </WrapperContainer>
+    </SafeWrapper>
   );
 };
 
@@ -82,16 +75,8 @@ const Option = ({ icon, value, onPress }) => {
   );
 };
 
-const TopContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
+const SafeWrapper = styled(SafeAreaView)`
+  flex: 1;
 `;
 
 export const DateAndTimeContainer = styled.View`

@@ -14,7 +14,7 @@ const GainsReminder = ({ navigation, route }) => (
     reminderState={reminderGain}
     reminderModeState={reminderGainMode}
     name="GAINS_REMINDER"
-    onSetReminderConfirm={(reminder, mode, weekDay) => {
+    onSetReminderConfirm={(reminder, mode) => {
       logEvent({
         category: 'REMINDER',
         action: 'REMINDER_SET_MODE',

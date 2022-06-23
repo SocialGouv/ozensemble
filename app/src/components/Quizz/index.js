@@ -103,7 +103,7 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
   const navigation = useNavigation();
   return (
     <>
-      <BackButton onPress={navigation.goBack} marginLeft />
+      <BackButton onPress={navigation.goBack} marginLeft marginTop />
       <ProgressBar progress={progress} />
       <QuizzStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
