@@ -199,7 +199,7 @@ const BackButton = styled(GoBackButtonText)`
 const Container = styled.View`
   background-color: #f9f9f9;
   flex: 1;
-  padding-top: 45px;
+  padding-top: 20px;
 `;
 
 const ModalContent = styled.ScrollView`

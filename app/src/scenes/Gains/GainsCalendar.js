@@ -70,7 +70,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
   }, [dailyDoses]);
 
   return (
-    <TopContainer>
+    <Container>
       <TopTitle>
         <H1 color="#4030a5">Mon Calendrier</H1>
       </TopTitle>
@@ -120,12 +120,12 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
       <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
       <PartDescription value={"J'ai bu"} color={'#de295e'} />
       <PartDescription value={'Je saisis ma consommation'} color={'transparent'} dashed />
-    </TopContainer>
+    </Container>
   );
 };
 
-const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
+const Container = styled.View`
+  padding-vertical: 20px;
 `;
 
 const TopTitle = styled.View`

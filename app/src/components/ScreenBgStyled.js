@@ -11,6 +11,7 @@ export const ScreenBgStyled = styled.ScrollView`
   ${({ marginOffset }) => !!marginOffset && `margin-right: -${marginOffset}px;`}
   ${({ defaultPadding }) =>
     !!defaultPadding &&
-    `padding-horizontal: ${defaultPaddingFontScale()}px;padding-top: ${defaultPaddingFontScale() / 2}px;`}
+    `padding-horizontal: ${defaultPaddingFontScale()}px;
+    padding-top: ${defaultPaddingFontScale() / 2}px;`}
   ${({ debug }) => debug && 'border: 2px solid #000;'}
 `;

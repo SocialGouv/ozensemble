@@ -11,7 +11,6 @@ export const BackButton = ({ onPress, marginBottom, marginLeft }) => (
 
 const Container = styled.TouchableOpacity`
   margin-right: auto;
-  margin-top: 20px;
   ${({ marginLeft }) => marginLeft && 'margin-left: 20px'};
   ${({ marginBottom }) => marginBottom && 'margin-bottom: 20px'};
 `;
