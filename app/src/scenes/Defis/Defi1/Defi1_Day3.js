@@ -97,18 +97,24 @@ const Defi1_Day3 = ({ navigation, route }) => {
               />
             </ButtonContainer>
           </>
-          <Sources
-            content={
-              <TextStyled>
-                -Mayo-Smith M.F. Pharmacological management of alcohol withdrawal: a meta-analysis and evidence-based
-                practice guideline. JAMA 1997 ; 278(2) : 144-51.{'\n'}-Moore M., Gray M.G. Delirium tremens: a study of
-                cases at the Boston City Hospital, 1915-1936. NEJM 1939 ; 220(23) : 953-6.{'\n'}-Ferguson J.A., Suelzer
-                C.J., Eckert G.J., et al. Risk factors for delirium tremens development. J Gen Intern Med 1996 ; 11(7) :
-                410-4.{'\n'}-Thiercelin N., et al. Facteurs de risque du delirium tremens : revue de la littérature. La
-                Revue de médecine interne 2012 : 33 ; 18-22.
-              </TextStyled>
-            }
-          />
+          <Sources>
+            <TextStyled>
+              - Mayo-Smith M.F. Pharmacological management of alcohol withdrawal: a meta-analysis and evidence-based
+              practice guideline. JAMA 1997 ; 278(2) : 144-51.
+            </TextStyled>
+            <TextStyled>
+              - Moore M., Gray M.G. Delirium tremens: a study of cases at the Boston City Hospital, 1915-1936. NEJM 1939
+              ; 220(23) : 953-6.
+            </TextStyled>
+            <TextStyled>
+              -Ferguson J.A., Suelzer C.J., Eckert G.J., et al. Risk factors for delirium tremens development. J Gen
+              Intern Med 1996 ; 11(7) : 410-4.
+            </TextStyled>
+            <TextStyled>
+              -Thiercelin N., et al. Facteurs de risque du delirium tremens : revue de la littérature. La Revue de
+              médecine interne 2012 : 33 ; 18-22.
+            </TextStyled>
+          </Sources>
         </TopContainer>
       </ScreenBgStyled>
     </Background>

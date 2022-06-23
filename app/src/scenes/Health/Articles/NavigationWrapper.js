@@ -42,35 +42,33 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
       </TopContainer>
       {children}
       <TopContainer>
-        <Sources
-          content={
-            <>
-              <TextStyled>
-                Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n\n'}
-              </TextStyled>
-              <TextStyled
-                color="#4030a5"
-                onPress={() => {
-                  Linking.openURL(link);
-                }}>
-                {link}
-              </TextStyled>
+        <Sources>
+          <>
+            <TextStyled>
+              Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n'}
+            </TextStyled>
+            <TextStyled
+              color="#4030a5"
+              onPress={() => {
+                Linking.openURL(link);
+              }}>
+              {link}
+            </TextStyled>
 
-              {link2 && (
-                <>
-                  <TextStyled>{'\n\n'}</TextStyled>
-                  <TextStyled
-                    color="#4030a5"
-                    onPress={() => {
-                      Linking.openURL(link2);
-                    }}>
-                    {textLink2}
-                  </TextStyled>
-                </>
-              )}
-            </>
-          }
-        />
+            {link2 && (
+              <>
+                <TextStyled />
+                <TextStyled
+                  color="#4030a5"
+                  onPress={() => {
+                    Linking.openURL(link2);
+                  }}>
+                  {textLink2}
+                </TextStyled>
+              </>
+            )}
+          </>
+        </Sources>
         <Spacer size={25} />
         <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
       </TopContainer>

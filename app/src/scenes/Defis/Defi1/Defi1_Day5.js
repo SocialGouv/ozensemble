@@ -99,22 +99,20 @@ const Defi1_Day5 = ({ navigation, route }) => {
             <ElementDayDefi content={'"Non merci, j\'ai dit à ma famille que je boirai moins."'} />
             <ElementDayDefi content={'"Non merci, je fais Dry January."'} />
           </ToggleContent>
-          <Sources
-            content={
-              <TextStyled>
-                Santé publique France,{'\n'}
-                <TextStyled
-                  color="#4030a5"
-                  onPress={() => {
-                    Linking.openURL(
-                      'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
-                    );
-                  }}>
-                  Voir l'article sur santepubliquefrance.fr
-                </TextStyled>
+          <Sources>
+            <TextStyled>
+              Santé publique France,{'\n'}
+              <TextStyled
+                color="#4030a5"
+                onPress={() => {
+                  Linking.openURL(
+                    'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
+                  );
+                }}>
+                Voir l'article sur santepubliquefrance.fr
               </TextStyled>
-            }
-          />
+            </TextStyled>
+          </Sources>
         </TopContainer>
       </ScreenBgStyled>
     </Background>
