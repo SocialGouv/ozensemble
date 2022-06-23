@@ -1,3 +1,10 @@
+## [1.59.1](https://github.com/SocialGouv/ozensemble/compare/v1.59.0...v1.59.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* cta button not in defis ([998141f](https://github.com/SocialGouv/ozensemble/commit/998141f17af26989cd8a6830e1d51ad626a0806d))
+
 # [1.59.0](https://github.com/SocialGouv/ozensemble/compare/v1.58.0...v1.59.0) (2022-06-22)
 
 
