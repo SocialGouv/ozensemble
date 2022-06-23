@@ -4,7 +4,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../../../Defis/utils';
-import Header from '../../../Defis/Header';
+import HeaderQuizzsResult from '../../../Defis/HeaderQuizzsResult';
 import Sources from '../../Sources';
 import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
@@ -43,7 +43,7 @@ const Wrapper = ({ wrapped, children, inMyTests }) => {
   if (wrapped) {
     return (
       <FullScreenBackground>
-        <Header inMyTests={inMyTests} />
+        <HeaderQuizzsResult inMyTests={inMyTests} />
         <ResultContainer>
           {children}
           <Sources
