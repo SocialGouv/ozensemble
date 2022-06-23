@@ -2,7 +2,7 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { Linking, TouchableOpacity } from 'react-native';
+import { Linking } from 'react-native';
 import H1 from '../../../components/H1';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
@@ -17,6 +17,7 @@ import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 import emotions from './Day5/emotions';
 import { Bold, P, Underlined } from '../../../components/Articles';
+import TextStyled from '../../../components/TextStyled';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -127,28 +128,23 @@ const Defi2_Day7 = ({ navigation, route }) => {
           </P>
         </P>
         <Spacer />
-        <Sources
-          content={
-            <>
-              <P>
-                {'\n    • '}BMJ Open November 22 2017 DOI: 10.1136 bmjopen-2017-016089 {'\n    • '}Le site Améli
-                “L'alcool : définition et repères de consommation”{'\n'}
-              </P>
-              <TouchableOpacity>
-                <Underlined
-                  color="#4030a5"
-                  onPress={() => {
-                    Linking.openURL(
-                      'https://www.ameli.fr/assure/sante/themes/alcool-sante/definition-reperes-consommation'
-                    );
-                  }}>
-                  https://www.ameli.fr/assure/sante/themes/alcool-sante/definition-reperes-consommation
-                </Underlined>
-              </TouchableOpacity>
-              <P>{'\n    • '}OMS - Organisation mondiale de la Santé</P>
-            </>
-          }
-        />
+        <Sources>
+          <>
+            <TextStyled>{'\n    • '}BMJ Open November 22 2017 DOI: 10.1136 bmjopen-2017-016089</TextStyled>
+            <TextStyled>{'\n    • '}Le site Améli “L'alcool: définition et repères de consommation”</TextStyled>
+            <LinkContainer
+              onPress={() => {
+                Linking.openURL(
+                  'https://www.ameli.fr/assure/sante/themes/alcool-sante/definition-reperes-consommation'
+                );
+              }}>
+              <TextStyled color="#4030a5" underline>
+                https://www.ameli.fr/assure/sante/themes/alcool-sante/definition-reperes-consommation
+              </TextStyled>
+            </LinkContainer>
+            <TextStyled>{'\n    • '}OMS - Organisation mondiale de la Santé</TextStyled>
+          </>
+        </Sources>
       </TopContainer>
     </ScreenBgStyled>
   );
@@ -257,6 +253,11 @@ const ManAndWomanBustContainer = styled.View`
 
 const ManAndWomanBustText = styled(P)`
   text-align: center;
+`;
+
+const LinkContainer = styled.TouchableOpacity`
+  flex-direction: row;
+  flex: 1;
 `;
 
 export default Defi2_Day7;

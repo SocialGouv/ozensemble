@@ -11,6 +11,7 @@ import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
 import { screenWidth } from '../../../../styles/theme';
 import { betterEvaluateQuizzResultState } from '../../../../recoil/quizzs';
+import TextStyled from '../../../../components/TextStyled';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -46,11 +47,13 @@ const Wrapper = ({ wrapped, children, inMyTests }) => {
         <HeaderQuizzsResult inMyTests={inMyTests} />
         <ResultContainer>
           {children}
-          <Sources
-            content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-          Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
-          Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
-          />
+          <Sources>
+            <TextStyled>
+              Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+              Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+              Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+            </TextStyled>
+          </Sources>
         </ResultContainer>
       </FullScreenBackground>
     );

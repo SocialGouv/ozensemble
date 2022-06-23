@@ -34,29 +34,27 @@ const Defi1_Day7 = ({ navigation, route }) => {
           <ResultsEvaluateConso wrapped={false} hideButtons />
           <ResultLifeQuality wrapped={false} />
           <ResultsMotivations wrapped={false} />
-          <Sources
-            content={
-              <TextStyled>
-                Santé publique France,{'\n'}
-                <TextStyled
-                  color="#4030a5"
-                  onPress={() => {
-                    Linking.openURL(
-                      'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
-                    );
-                  }}>
-                  Voir l'article sur santepubliquefrance.fr
-                </TextStyled>
-                {'\n\n'}
-                Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-                Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful
-                Alcohol Consumption II. Addiction 1993 Jun ; 88(6) : 791-804.
-                {'\n\n'}
-                “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health
-                Survey” Ware, Kosinski, Dewey & Gandek, 2001.
+          <Sources>
+            <TextStyled>
+              Santé publique France,{'\n'}
+              <TextStyled
+                color="#4030a5"
+                onPress={() => {
+                  Linking.openURL(
+                    'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
+                  );
+                }}>
+                Voir l'article sur santepubliquefrance.fr
               </TextStyled>
-            }
-          />
+              {'\n\n'}
+              Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+              Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+              Consumption II. Addiction 1993 Jun ; 88(6) : 791-804.
+              {'\n\n'}
+              “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health
+              Survey” Ware, Kosinski, Dewey & Gandek, 2001.
+            </TextStyled>
+          </Sources>
         </TopContainer>
       </ScreenBgStyled>
     </Background>
