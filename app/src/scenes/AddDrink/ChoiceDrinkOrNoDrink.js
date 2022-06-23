@@ -12,10 +12,9 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
 import DateAndTimePickers from './DateAndTimePickers';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -23,22 +22,18 @@ const ChoiceDrinkOrNoDrink = () => {
   const navigation = useNavigation();
 
   return (
-    <ScreenBgStyled>
+    <WrapperContainer
+      title={'Mes consommations'}
+      backButton
+      onPressBackButton={() => {
+        navigation.goBack();
+        logEvent({
+          category: 'CONSO',
+          action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+        });
+      }}
+      marginTop>
       <SafeAreaView>
-        <TopContainer>
-          <BackButton
-            onPress={() => {
-              navigation.goBack();
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
-              });
-            }}
-          />
-          <TopTitle>
-            <H1 color="#4030a5">Mes consommations</H1>
-          </TopTitle>
-        </TopContainer>
         <DateAndTimePickers />
         <Option
           icon={<NoDrink size={40} />}
@@ -67,7 +62,7 @@ const ChoiceDrinkOrNoDrink = () => {
           }}
         />
       </SafeAreaView>
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
 
@@ -81,18 +76,6 @@ const Option = ({ icon, value, onPress }) => {
     </AskDrinkContainer>
   );
 };
-
-const TopContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
 
 export const DateAndTimeContainer = styled.View`
   flex-direction: row;
