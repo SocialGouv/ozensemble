@@ -1,3 +1,12 @@
+# [1.61.0](https://github.com/SocialGouv/ozensemble/compare/v1.60.2...v1.61.0) (2022-06-23)
+
+
+### Features
+
+* **app:** begin quizz and defi2 -> to day3 ([99bc8f5](https://github.com/SocialGouv/ozensemble/commit/99bc8f5f8df4fd5b5a060cfcadfb9cf80002d2ab))
+* **app:** Mygains ([58307be](https://github.com/SocialGouv/ozensemble/commit/58307be66205d9514113358acbaa8e339c7c9c7a))
+* **app:** WrapperContainer consoFollowUp ([20ce66e](https://github.com/SocialGouv/ozensemble/commit/20ce66e3489af92612b14075cc2a86be228fc728))
+
 ## [1.60.2](https://github.com/SocialGouv/ozensemble/compare/v1.60.1...v1.60.2) (2022-06-23)
 
 
