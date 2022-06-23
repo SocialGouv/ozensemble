@@ -66,7 +66,7 @@ export const defi2_Data = [
   {
     actionType: 'quizz',
     title: 'J4',
-    tagLine: 'Hiérachiser mes situations à risques',
+    tagLine: 'Hiérarchiser mes situations à risques',
     description: (
       <>
         Toutes les situations à risque ne sont pas égales :

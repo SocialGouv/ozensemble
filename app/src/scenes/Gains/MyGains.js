@@ -5,7 +5,7 @@ import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
+import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Economy from '../../components/illustrations/Economy';
@@ -314,7 +314,7 @@ const MyGains = () => {
           </TouchableOpacity>
         </>
       ) : (
-        <MyGoalContainer>
+        <>
           <Title>
             <H1 color="#4030a5">Mon objectif</H1>
           </Title>
@@ -396,7 +396,7 @@ const MyGains = () => {
               <TextStyled>{!reminder ? 'Ajouter un rappel' : 'Modifier le rappel'}</TextStyled>
             </TextModify>
           </ButtonTouchable>
-        </MyGoalContainer>
+        </>
       )}
     </WrapperContainer>
   );
@@ -405,7 +405,7 @@ const MyGains = () => {
 const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 
 const Description = styled.View`
@@ -419,7 +419,6 @@ const Description = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: ${screenHeight * 0.02}px;
 `;
 
 const Arrow = styled.Text`
@@ -454,12 +453,8 @@ const Bold = styled.Text`
 
 const Title = styled.View`
   flex-shrink: 0;
-  margin-top: 30px;
-  margin-bottom: 15px;
-`;
-
-const MyGoalContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 100px;
+  margin-top: 35px;
+  margin-bottom: 20px;
 `;
 
 const MyGoalSubContainer = styled.View`

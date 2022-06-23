@@ -13,6 +13,7 @@ import { maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -24,10 +25,7 @@ const Defi1_Day1 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer
-      title={"Comment compter sa consommation d'alcool ?"}
-      backButton
-      onPressBackButton={navigation.goBack}>
+    <WrapperContainer title={"Comment compter sa consommation d'alcool ?"} onPressBackButton={navigation.goBack}>
       <ElementDayDefi
         content={
           <>
@@ -49,11 +47,11 @@ const Defi1_Day1 = ({ navigation, route }) => {
         content={
           <TextStyled>
             Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement comptabilisée en unité
-            d'alcool.\n\nÀ titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :
+            d'alcool.{'\n\n'}À titre indicatif, chaque consommation ci-dessous compte pour une unité d'alcool :
           </TextStyled>
         }
       />
-      <OneDoseAlcoolExplanation marginOffset={20} noMinHeight />
+      <OneDoseAlcoolExplanation marginOffset={defaultPaddingFontScale()} noMinHeight />
       <ElementDayDefi
         content="Nous vous conseillons de noter vos consommations au fur et à mesure de la journée sans attendre le
               lendemain !"
@@ -95,7 +93,6 @@ const Defi1_Day1 = ({ navigation, route }) => {
 };
 
 const AddConsoCTAContainer = styled.View`
-  margin-bottom: 100px;
   align-items: center;
 `;
 const roundCss = (size) => css`

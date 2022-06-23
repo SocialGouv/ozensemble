@@ -200,7 +200,7 @@ const Reminder = ({
   };
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} backButton>
+    <WrapperContainer onPressBackButton={navigation.goBack}>
       <Container>
         <ReminderIcon size={80} color="#4030a5" selected={false} />
         {children ? (
