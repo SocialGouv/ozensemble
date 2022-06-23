@@ -2,16 +2,17 @@ import React from 'react';
 import { Platform } from 'react-native';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
+import { defaultPaddingFontScale } from '../styles/theme';
 
 export const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
   <Container onPress={onPress} marginBottom={marginBottom} marginLeft={marginLeft} marginTop={marginTop}>
-    <TextStyled bold> {'< Retour'} </TextStyled>
+    <TextStyled bold>{'< Retour'}</TextStyled>
   </Container>
 );
 
 const Container = styled.TouchableOpacity`
   margin-right: auto;
-  ${({ marginLeft }) => marginLeft && 'margin-left: 20px'};
+  ${({ marginLeft }) => marginLeft && `margin-left: ${defaultPaddingFontScale()}px`};
   ${({ marginBottom }) => marginBottom && 'margin-bottom: 20px'};
   ${({ marginTop }) => marginTop && 'margin-top: 20px'};
 `;

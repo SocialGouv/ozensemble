@@ -7,6 +7,7 @@ const TextStyled = styled.Text`
   ${(props) => props.bold && `font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};`}
   textDecoration: ${({ underline }) => underline && 'underline'};
   text-decoration-color: ${({ color }) => color || '#191919'};
+  ${({ center }) => !!center && 'text-align: center;'}
 `;
 
 export default TextStyled;

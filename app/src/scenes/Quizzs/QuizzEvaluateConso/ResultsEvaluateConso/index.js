@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../../../Defis/utils';
@@ -9,10 +9,9 @@ import Sources from '../../Sources';
 import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
-import { defaultPaddingFontScale, screenWidth } from '../../../../styles/theme';
 import { betterEvaluateQuizzResultState } from '../../../../recoil/quizzs';
 import TextStyled from '../../../../components/TextStyled';
-import WrapperContainer from '../../../../components/WrapperContainer';
+import { defaultPaddingFontScale } from '../../../../styles/theme';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -42,20 +41,12 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
 
 const Wrapper = ({ wrapped, children, inMyTests }) => {
   const route = useRoute();
-  const navigation = useNavigation();
   if (!wrapped) return <>{children}</>;
   if (wrapped) {
     return (
-      <WrapperContainer
-        backButton
-        onPressBackButton={() =>
-          route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
-        }
-        title={route?.params?.title}
-        noMarginBottom>
-        <HeaderQuizzsResult inMyTests={inMyTests} />
-        <ResultContainer>
-          {children}
+      <HeaderQuizzsResult title={route?.params?.title} inMyTests={inMyTests}>
+        <ResultContainer backgroundColor="#efefef">{children}</ResultContainer>
+        <ResultContainer backgroundColor="transparent">
           <Sources>
             <TextStyled>
               Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
@@ -64,7 +55,7 @@ const Wrapper = ({ wrapped, children, inMyTests }) => {
             </TextStyled>
           </Sources>
         </ResultContainer>
-      </WrapperContainer>
+      </HeaderQuizzsResult>
     );
   }
 };
@@ -83,9 +74,7 @@ export const ResultsEvaluateConso = ({ wrapped = true, hideButtons = false, rout
 };
 
 const ResultContainer = styled.View`
-  background-color: #efefef;
-  margin-horizontal: -${defaultPaddingFontScale()}px;
+  ${(props) => `background-color: ${props.backgroundColor};`}
   padding-horizontal: ${defaultPaddingFontScale()}px;
-  padding-bottom: 150px;
 `;
 export default ResultsEvaluateConsoNavigator;

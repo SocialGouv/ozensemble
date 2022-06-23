@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
-import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
+import { screenHeight } from '../../styles/theme';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
@@ -22,18 +22,17 @@ const ChoiceDrinkOrNoDrink = () => {
   const navigation = useNavigation();
 
   return (
-    <WrapperContainer
-      title={'Mes consommations'}
-      backButton
-      onPressBackButton={() => {
-        navigation.goBack();
-        logEvent({
-          category: 'CONSO',
-          action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
-        });
-      }}
-      marginTop>
-      <SafeAreaView>
+    <SafeWrapper>
+      <WrapperContainer
+        title={'Mes consommations'}
+        onPressBackButton={() => {
+          navigation.goBack();
+          logEvent({
+            category: 'CONSO',
+            action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+          });
+        }}
+        marginTop>
         <DateAndTimePickers />
         <Option
           icon={<NoDrink size={40} />}
@@ -61,8 +60,8 @@ const ChoiceDrinkOrNoDrink = () => {
             navigation.replace('CONSOS_LIST');
           }}
         />
-      </SafeAreaView>
-    </WrapperContainer>
+      </WrapperContainer>
+    </SafeWrapper>
   );
 };
 
@@ -76,6 +75,10 @@ const Option = ({ icon, value, onPress }) => {
     </AskDrinkContainer>
   );
 };
+
+const SafeWrapper = styled(SafeAreaView)`
+  flex: 1;
+`;
 
 export const DateAndTimeContainer = styled.View`
   flex-direction: row;

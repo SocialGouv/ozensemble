@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnBoardingModal from '../../components/OnBoardingModal';
@@ -12,7 +11,6 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import { Bold, P } from '../../components/Articles';
-import H1 from '../../components/H1';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const DefisMenu = ({ navigation }) => {
@@ -33,14 +31,12 @@ const DefisMenu = ({ navigation }) => {
   const defi1CallToAction = useMemo(() => {
     if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
     if (defi1Day === 7) return 'Mes résultats';
-    // if (defi1Day === 6) return 'Je finis';
     return 'Je continue';
   }, [defi1Day, autoEvaluationDone]);
 
   const defi2CallToAction = useMemo(() => {
     if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
     if (defi2Day === 7) return 'Mes résultats';
-    // if (defi2Day === 6) return 'Je finis';
     return 'Je continue';
   }, [defi2Day, autoEvaluationDone]);
 
@@ -227,7 +223,6 @@ const ImageStyled = styled.Image`
   height: ${screenWidth * 0.4}px;
 `;
 
-const SubTitle = styled.View`
-  margin-top: 10px;
-`;
+const SubTitle = styled.View``;
+
 export default DefisMenu;

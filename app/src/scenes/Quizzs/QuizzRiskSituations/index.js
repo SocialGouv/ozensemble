@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useIsFocused } from '@react-navigation/native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
-import H1 from '../../../components/H1';
-import { defaultPaddingFontScale } from '../../../styles/theme';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import ResultRiskSituations from './ResultRiskSituations';
 import Situation from './Situation';
@@ -15,6 +10,7 @@ import riskSituations from './riskSituations';
 import { riskSituationsQuizzAnswersState, riskSituationsQuizzResultState } from '../../../recoil/quizzs';
 import { setValidatedDays } from '../../Defis/utils';
 import { P } from '../../../components/Articles';
+import WrapperContainer from '../../../components/WrapperContainer';
 
 const QuizzRiskSituationsStack = createStackNavigator();
 
@@ -51,39 +47,33 @@ const QuizzRiskSituations = ({ navigation, route }) => {
     <QuizzRiskSituationsStack.Navigator headerMode="none" screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}>
       <QuizzRiskSituationsStack.Screen name="QUIZZ_ONBOARDING">
         {({ navigation }) => (
-          <ScreenBgStyled>
-            <TopContainer>
-              <BackButton onPress={navigation.goBack} marginBottom />
-              <TopTitle>
-                <H1 color="#4030a5">Identifier mes situations à risques</H1>
-              </TopTitle>
-              <ElementDayDefi
-                content={
-                  <P>
-                    Lorsqu'une personne a l'impression qu'elle a <P bold>moins de contrôle sur sa consommation</P> dans
-                    une situation particulière, on dit que cette situation est à risque.
-                  </P>
-                }
-              />
-              <ElementDayDefi
-                content={
-                  <P>
-                    Une situation à haut risque peut provenir de l'<P bold>extérieur</P> (Ex. : quand quelqu'un insiste
-                    pour que je prenne un verre, quand je vois une publicité qui me fait penser à boire).
-                  </P>
-                }
-              />
-              <ElementDayDefi
-                content={
-                  <P>
-                    Ou de l'<P bold>intérieur</P> (Ex. : quand je suis fâché(e), quand je m'ennuie, quand je suis
-                    stressé(e) ou quand je suis triste).
-                  </P>
-                }
-              />
-              <ButtonPrimary onPress={goToStep1} content="Je reconnais mes situations" widthSmall />
-            </TopContainer>
-          </ScreenBgStyled>
+          <WrapperContainer onPressBackButton={navigation.goBack} title="Identifier mes situations à risques">
+            <ElementDayDefi
+              content={
+                <P>
+                  Lorsqu'une personne a l'impression qu'elle a <P bold>moins de contrôle sur sa consommation</P> dans
+                  une situation particulière, on dit que cette situation est à risque.
+                </P>
+              }
+            />
+            <ElementDayDefi
+              content={
+                <P>
+                  Une situation à haut risque peut provenir de l'<P bold>extérieur</P> (Ex. : quand quelqu'un insiste
+                  pour que je prenne un verre, quand je vois une publicité qui me fait penser à boire).
+                </P>
+              }
+            />
+            <ElementDayDefi
+              content={
+                <P>
+                  Ou de l'<P bold>intérieur</P> (Ex. : quand je suis fâché(e), quand je m'ennuie, quand je suis
+                  stressé(e) ou quand je suis triste).
+                </P>
+              }
+            />
+            <ButtonPrimary onPress={goToStep1} content="Je reconnais mes situations" widthSmall />
+          </WrapperContainer>
         )}
       </QuizzRiskSituationsStack.Screen>
       <QuizzRiskSituationsStack.Screen name="QUIZZ_INTERNAL_SITUATIONS">
@@ -137,16 +127,5 @@ const QuizzRiskSituations = ({ navigation, route }) => {
     </QuizzRiskSituationsStack.Navigator>
   );
 };
-
-const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px ${(props) => (props.shortPaddingBottom ? 30 : 100)}px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-bottom: 20px;
-`;
 
 export default QuizzRiskSituations;
