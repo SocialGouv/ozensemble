@@ -137,7 +137,7 @@ const Space = styled.View`
 `;
 
 const TopContainer = styled.View`
-  padding: 5px ${defaultPaddingFontScale()}px;
+  padding: 10px ${defaultPaddingFontScale()}px;
 `;
 
 const commonCss = css`
