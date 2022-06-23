@@ -52,11 +52,13 @@ const ResultsOnboarding = ({ navigation, route }) => {
               alignStart
               onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
             />
-            <Sources
-              content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-         Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
-         Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
-            />
+            <Sources>
+              <TextStyled>
+                "Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+                Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful
+                Alcohol Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+              </TextStyled>
+            </Sources>
           </>
         ) : null}
       </TopContainer>

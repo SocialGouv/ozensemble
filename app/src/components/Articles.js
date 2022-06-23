@@ -36,5 +36,7 @@ export const Underlined = styled.Text`
   font-size: 16px;
   line-height: 24px;
   text-decoration: underline;
+  flex: 1;
+  max-width: 100%;
   text-decoration-color: ${(props) => (props.color ? props.color : '#000')};
 `;

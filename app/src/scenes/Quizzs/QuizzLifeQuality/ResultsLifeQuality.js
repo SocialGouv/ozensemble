@@ -45,7 +45,12 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
         {resultKey ? (
           <>
             {children}
-            <Sources content="“How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health Survey” Ware, Kosinski, Dewey & Gandek, 2001." />
+            <Sources>
+              <TextStyled>
+                “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health
+                Survey” Ware, Kosinski, Dewey & Gandek, 2001
+              </TextStyled>
+            </Sources>
           </>
         ) : null}
       </ResultContainer>
