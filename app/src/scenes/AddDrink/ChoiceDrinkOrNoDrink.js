@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
-import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
 import { screenHeight } from '../../styles/theme';

@@ -9,8 +9,6 @@ import { logEvent } from '../../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
 import WrapperContainer from '../../../components/WrapperContainer';
 
 const Defi1_Onboarding = ({ navigation }) => {

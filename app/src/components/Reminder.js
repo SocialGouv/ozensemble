@@ -17,7 +17,6 @@ import CONSTANTS from '../reference/constants';
 import { logEvent } from '../services/logEventsWithMatomo';
 import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
-import BackButton from './BackButton';
 import WrapperContainer from './WrapperContainer';
 
 const Reminder = ({
@@ -32,7 +31,6 @@ const Reminder = ({
   title,
   notifReminderTitle = "C'est l'heure de votre suivi !",
   notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
-  name,
   onlyDaily,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);

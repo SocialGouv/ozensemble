@@ -3,13 +3,10 @@ import { Alert } from 'react-native';
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import H2 from '../../components/H2';
-import BackButton from '../../components/BackButton';
-import TextStyled from '../../components/TextStyled';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
-import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
+import { screenHeight } from '../../styles/theme';
 import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import WrapperContainer from '../../components/WrapperContainer';
 

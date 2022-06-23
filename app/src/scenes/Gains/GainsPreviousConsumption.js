@@ -1,17 +1,14 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { P, Spacer } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
@@ -22,8 +19,6 @@ const GainsPreviousConsumption = () => {
   const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
 
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
-
-  const scrollRef = useRef(null);
 
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = previousDrinksPerWeek.find((drink) => drink.drinkKey === drinkKey);

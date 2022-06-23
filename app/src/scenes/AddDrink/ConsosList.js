@@ -213,12 +213,6 @@ const Title = styled(H2)`
   margin: 50px ${defaultPaddingFontScale()}px 15px;
 `;
 
-const DateAndTimeContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 10px;
-`;
-
 const buttonsPadding = 10;
 
 const ButtonsContainerSafe = styled.SafeAreaView`

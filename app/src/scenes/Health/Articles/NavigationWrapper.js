@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { Spacer } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
-import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import BackButton from '../../../components/BackButton';

@@ -26,7 +26,6 @@ import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const MyGains = () => {
@@ -482,10 +481,6 @@ const ButtonTouchable = styled.TouchableOpacity`
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
-`;
-
-const InfoContainer = styled.TouchableOpacity`
-  padding-left: 10px;
 `;
 
 const CloseShowGoalfix = styled.TouchableOpacity`
