@@ -24,17 +24,17 @@ const HeaderQuizzsResult = ({ title, description, inMyTests, children }) => {
         C'est déjà terminé !
       </SectionTitle>
       <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
+      {!inMyTests && (
+        <TextParagraph>
+          Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
+        </TextParagraph>
+      )}
       {children}
       {!inMyTests && (
-        <>
-          <TextParagraph>
-            Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
-          </TextParagraph>
-          <TextParagraph>
-            Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
-            <TextStyled bold> Défis</TextStyled>.
-          </TextParagraph>
-        </>
+        <TextParagraph>
+          Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
+          <TextStyled bold> Défis</TextStyled>.
+        </TextParagraph>
       )}
     </HeaderContainer>
   );
