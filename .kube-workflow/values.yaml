@@ -2,3 +2,6 @@ app:
   enabled: true
   containerPort: 3000
   probesPath: /healthz
+  envFrom:
+    - secretRef:
+        name: "pg-user"
