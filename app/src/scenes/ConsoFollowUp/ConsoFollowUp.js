@@ -65,7 +65,6 @@ const ConsoFollowUp = () => {
             <TextStyled color="#4030a5">Mon suivi de consommation</TextStyled>
           </Title>
           <SubtitleContainer>
-            <DiagramTitle color="#191919">Nombre d'unité d'alcool consommé</DiagramTitle>
             <Help
               onPress={() => {
                 logEvent({
@@ -77,6 +76,7 @@ const ConsoFollowUp = () => {
               hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
               <HelpText>?</HelpText>
             </Help>
+            <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
           </SubtitleContainer>
           {showWelcomeMessage ? (
             <>
@@ -154,7 +154,7 @@ const Spacer = styled.View`
 `;
 
 const SubtitleContainer = styled.View`
-  flex-direction: row;
+  flex-direction: row-reverse;
   margin-top: 10px;
   align-items: center;
   justify-content: space-between;

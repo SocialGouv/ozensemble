@@ -13,6 +13,8 @@ import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { P } from '../../components/Articles';
+import { defaultPaddingFontScale } from '../../styles/theme';
+import HelpModalCountConsumption from './HelpModalCountConsumption';
 
 const Estimation = () => {
   const navigation = useNavigation();
@@ -56,6 +58,9 @@ const Estimation = () => {
           <P bold>Sur une semaine type, combien d'unités d'alcool consommez-vous ?</P>
         </DescriptionText>
       </TextContainer>
+      <Row>
+        <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
+      </Row>
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
           {drinksCatalog
@@ -111,7 +116,7 @@ const Estimation = () => {
 };
 
 const TextContainer = styled.View`
-  padding-horizontal: 20px;
+  padding-horizontal: ${defaultPaddingFontScale()};
   margin-top: 20px;
 `;
 
@@ -142,6 +147,15 @@ const CTAButtonContainer = styled.View`
 const ModalContent = styled.ScrollView`
   width: 100%;
   background-color: #f9f9f9;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  padding-horizontal: ${defaultPaddingFontScale()};
 `;
 
 export default Estimation;
