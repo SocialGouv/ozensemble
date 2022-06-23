@@ -155,7 +155,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
 };
 
 const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px 0px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   margin-bottom: 100px;
 `;
 

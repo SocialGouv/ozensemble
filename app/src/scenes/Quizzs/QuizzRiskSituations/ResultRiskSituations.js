@@ -7,7 +7,7 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import QButton from '../../../components/QButton';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
-import Header from '../../Defis/Header';
+import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 
 const ResultRiskSituations = ({ navigation, route }) => {
   const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
@@ -15,27 +15,27 @@ const ResultRiskSituations = ({ navigation, route }) => {
 
   return (
     <ScreenBgStyled>
-      <Header
+      <HeaderQuizzsResult
         inMyTests={inMyTests}
         title={'Identifier mes situations à risques'}
-        description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}
-      />
-      <ResultsContainer>
-        {answersKeys.map((riskSituation, index) => (
-          <Result key={index}>
-            <QButton
-              content={index + 1}
-              disabled
-              colorText="#ffffff"
-              colorBorder="#4030A5"
-              colorBackground=" #4030A5"
-            />
-            <TextContainer>
-              <TextStyled>{riskSituation?.content}</TextStyled>
-            </TextContainer>
-          </Result>
-        ))}
-      </ResultsContainer>
+        description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}>
+        <ResultsContainer>
+          {answersKeys.map((riskSituation, index) => (
+            <Result key={index}>
+              <QButton
+                content={index + 1}
+                disabled
+                colorText="#ffffff"
+                colorBorder="#4030A5"
+                colorBackground=" #4030A5"
+              />
+              <TextContainer>
+                <TextStyled>{riskSituation?.content}</TextStyled>
+              </TextContainer>
+            </Result>
+          ))}
+        </ResultsContainer>
+      </HeaderQuizzsResult>
       <BottomContainer>
         <ButtonPrimary content={'Je valide'} widthSmall onPress={() => navigation.navigate(route?.params?.rootRoute)} />
       </BottomContainer>

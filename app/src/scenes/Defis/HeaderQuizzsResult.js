@@ -6,7 +6,7 @@ import TextStyled from '../../components/TextStyled';
 import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
 
-const Header = ({ title, description, inMyTests }) => {
+const HeaderQuizzsResult = ({ title, description, inMyTests, children }) => {
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -24,6 +24,7 @@ const Header = ({ title, description, inMyTests }) => {
         C'est déjà terminé !
       </SectionTitle>
       <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
+      {children}
       {!inMyTests && (
         <>
           <TextParagraph>
@@ -38,7 +39,7 @@ const Header = ({ title, description, inMyTests }) => {
     </HeaderContainer>
   );
 };
-export default Header;
+export default HeaderQuizzsResult;
 
 const SectionTitle = styled(P)`
   font-weight: bold;
