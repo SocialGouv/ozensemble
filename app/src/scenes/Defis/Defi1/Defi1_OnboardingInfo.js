@@ -204,7 +204,7 @@ const Paragraph = styled.View`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const TopTitle = styled.View`
