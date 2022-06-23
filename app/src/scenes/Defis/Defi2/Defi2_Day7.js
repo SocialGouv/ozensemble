@@ -196,7 +196,7 @@ const FirstTextContainer = styled.View`
   border-radius: 3px;
   width: ${screenWidth * 0.4 - 20}px;
   margin-left: 10px;
-  padding: 10px;
+  padding: 7px;
   align-items: center;
   justify-content: center;
   /* height: 100%; */
