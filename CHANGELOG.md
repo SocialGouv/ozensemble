@@ -1,3 +1,10 @@
+## [1.60.2](https://github.com/SocialGouv/ozensemble/compare/v1.60.1...v1.60.2) (2022-06-23)
+
+
+### Bug Fixes
+
+* button primary ([053234d](https://github.com/SocialGouv/ozensemble/commit/053234d5ff382adb5dad0fa091284dc00a8cbd69))
+
 ## [1.60.1](https://github.com/SocialGouv/ozensemble/compare/v1.60.0...v1.60.1) (2022-06-23)
 
 
