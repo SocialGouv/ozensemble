@@ -33,10 +33,8 @@ const Defi2_Day5 = ({ navigation, route }) => {
         <TopTitle>
           <H1 color="#4030a5">Affronter une situation à risque</H1>
         </TopTitle>
-        <P bold noMarginBottom>
-          Dans cette situation, sélectionner l'émotion que vous ressentez.
-        </P>
-        <P>{firstRiskSituations?.content}</P>
+        <P bold>Dans cette situation, sélectionner l'émotion que vous ressentez.</P>
+        <P>"{firstRiskSituations?.content}"</P>
         <SmileysContainer>
           {emotions.map((emotion, index) => (
             <SmileyContainer
