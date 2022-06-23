@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
-import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
-import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
@@ -17,29 +15,12 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
+import DateAndTimePickers from './DateAndTimePickers';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
-  const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
+  const addDrinkModalTimestamp = useRecoilValue(modalTimestampState);
   const navigation = useNavigation();
-
-  const [showDatePicker, setShowDatePicker] = useState(false);
-
-  const updateModalTimestamp = (newTimestamp) => {
-    const oldTimestamp = addDrinkModalTimestamp;
-    setDrinksState((drinks) =>
-      drinks.map((drink) => {
-        if (drink.timestamp === oldTimestamp) {
-          return {
-            ...drink,
-            timestamp: newTimestamp,
-          };
-        }
-        return drink;
-      })
-    );
-    setAddDrinkModalTimestamp(newTimestamp);
-  };
 
   return (
     <ScreenBgStyled>
@@ -58,10 +39,7 @@ const ChoiceDrinkOrNoDrink = () => {
             <H1 color="#4030a5">Mes consommations</H1>
           </TopTitle>
         </TopContainer>
-        <DateAndTimeContainer>
-          <DateOrTimeDisplay mode="date" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('date')} />
-          <DateOrTimeDisplay mode="time" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('time')} />
-        </DateAndTimeContainer>
+        <DateAndTimePickers />
         <Option
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
@@ -86,26 +64,6 @@ const ChoiceDrinkOrNoDrink = () => {
               action: 'CONSO_DRINK',
             });
             navigation.replace('CONSOS_LIST');
-          }}
-        />
-        <DatePicker
-          visible={Boolean(showDatePicker)}
-          mode={showDatePicker}
-          initDate={addDrinkModalTimestamp}
-          selectDate={(newDate) => {
-            if (newDate && showDatePicker === 'date') {
-              const newDateObject = new Date(newDate);
-              const oldDateObject = new Date(addDrinkModalTimestamp);
-              newDate = new Date(
-                newDateObject.getFullYear(),
-                newDateObject.getMonth(),
-                newDateObject.getDate(),
-                oldDateObject.getHours(),
-                oldDateObject.getMinutes()
-              );
-            }
-            setShowDatePicker(false);
-            if (newDate) updateModalTimestamp(makeSureTimestamp(newDate));
           }}
         />
       </SafeAreaView>
