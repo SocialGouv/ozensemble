@@ -18,6 +18,7 @@ import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
 import H1 from '../../components/H1';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -187,5 +188,5 @@ const HelpText = styled.Text`
 `;
 
 const TopContainer = styled.View`
-  padding: 20px 20px 0px;
+  padding: 20px ${defaultPaddingFontScale()}px 0px;
 `;

@@ -12,6 +12,7 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import { Bold, P } from '../../components/Articles';
+import H1 from '../../components/H1';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
@@ -46,6 +47,9 @@ const DefisMenu = ({ navigation }) => {
     <>
       <ScreenBgStyled>
         <Container>
+          <TopTitle>
+            <H1>Mes défis</H1>
+          </TopTitle>
           <TextStyled>
             J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
           </TextStyled>
@@ -201,6 +205,10 @@ const CategorieContainer = styled.TouchableOpacity`
   margin-vertical: 30px;
 `;
 
+const TopTitle = styled.View`
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
 const TextContainer = styled.View`
   flex-direction: column;
   justify-content: space-around;
