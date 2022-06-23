@@ -120,7 +120,7 @@ const DefisMenu = ({ navigation }) => {
       <OnBoardingModal
         title="Faites le premier défi avant"
         description="Commencez le défi pour faire le point en 7 jours avant d'aller plus loin :) "
-        boutonTitle={`${defi1CallToAction} le défi 1`}
+        boutonTitle={`${defi1CallToAction} le\u000Apremier\u00A0défi`}
         onPress={() => {
           setshowDefi2Modal(false);
           navigation.navigate('DEFI1');
