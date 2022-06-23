@@ -135,12 +135,6 @@ const Defi2_Menu = ({ navigation }) => {
     getValidatedDays();
   });
 
-  useEffect(() => {
-    if (validatedDays === 4) {
-      setValidatedDays(5, '@Defi2');
-    }
-  }, [validatedDays]);
-
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
   const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
