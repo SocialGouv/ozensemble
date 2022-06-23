@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { previousDrinksPerWeekState } from '../../recoil/gains';
+import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import BackButton from '../../components/BackButton';
@@ -16,9 +16,9 @@ import { P } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 
-const Estimation = () => {
+const GainsPreviousConsumption = () => {
   const navigation = useNavigation();
-  const isOnboarded = useRecoilValue(previousDrinksPerWeekState);
+  const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
 
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
 
@@ -107,7 +107,9 @@ const Estimation = () => {
               action: 'GOAL_ESTIMATION_DRINK',
               value: numberDrinkEstimation,
             });
-            isOnboarded ? navigation.navigate('GAINS_MAIN_VIEW') : navigation.navigate('GAINS_MY_OBJECTIVE');
+            isOnboarded
+              ? navigation.navigate('GAINS_MAIN_VIEW')
+              : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
           }}
         />
       </CTAButtonContainer>
@@ -116,7 +118,7 @@ const Estimation = () => {
 };
 
 const TextContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()};
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   margin-top: 20px;
 `;
 
@@ -155,7 +157,7 @@ const Row = styled.View`
   align-items: center;
   overflow: hidden;
   width: 100%;
-  padding-horizontal: ${defaultPaddingFontScale()};
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
-export default Estimation;
+export default GainsPreviousConsumption;
