@@ -20,7 +20,7 @@ import Defi1_Reminder from './Defi1_Reminder';
 
 const Defi1_Stack = createStackNavigator();
 
-const Defi1_Navigator = ({ route }) => {
+const Defi1_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <Defi1_Stack.Navigator
