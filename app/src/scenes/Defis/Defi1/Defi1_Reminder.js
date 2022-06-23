@@ -19,7 +19,7 @@ const Defi1_Reminder = (props) => {
       notifReminderTitle={isWithinDefi1 ? "C'est l'heure de votre défi 7 jours !" : undefined}
       notifReminderMessage={isWithinDefi1 ? '' : undefined}
       onlyDaily
-      onSetReminderConfirm={(reminder, mode, weekDay) => {
+      onSetReminderConfirm={(reminder, mode) => {
         logEvent({
           category: 'REMINDER',
           action: 'REMINDER_SET_MODE',

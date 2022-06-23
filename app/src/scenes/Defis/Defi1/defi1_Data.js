@@ -121,7 +121,7 @@ export const defi1_Data = [
     ),
     descriptionDone: (
       <>
-        <Bold>Feliciations !</Bold> Vous avez fait un grand premier pas. Continuez à remplir vos consommations tous les
+        <Bold>Félicitations !</Bold> Vous avez fait un grand premier pas. Continuez à remplir vos consommations tous les
         jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
       </>
     ),

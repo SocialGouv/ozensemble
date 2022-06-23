@@ -356,7 +356,7 @@ class NPS extends Component {
                 keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
                 <ScreenBgStyled defaultPadding>
                   <CloseNPS>
-                    <UnderlinedButton content="Fermer" bold onPress={this.onClose} />
+                    <UnderlinedButton content="< Retour" bold onPress={this.onClose} withoutPadding />
                   </CloseNPS>
                   {page === 1 && this.renderFirstPage()}
                   {page === 2 && this.renderSecondPage()}
@@ -433,7 +433,7 @@ const ButtonContainer = styled.View`
 `;
 
 const CloseNPS = styled.View`
-  margin-left: auto;
+  margin-right: auto;
 `;
 
 const TextInputStyled = styled.TextInput`

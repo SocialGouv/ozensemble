@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../../components/H1';
-import { screenWidth } from '../../../styles/theme';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
 import Sources from '../Sources';
 import NoSmiley from '../../../components/illustrations/smiley/NoSmiley';
 import YesSmiley from '../../../components/illustrations/smiley/YesSmiley';
-import { BackButton } from '../../../components/BackButton';
 import { Bold, P, Spacer } from '../../../components/Articles';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
 import { logEvent } from '../../../services/logEventsWithMatomo';
+import WrapperContainer from '../../../components/WrapperContainer';
 
 const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
@@ -23,46 +22,39 @@ const ResultsOnboarding = ({ navigation, route }) => {
   }, [feeling]);
 
   return (
-    <FullScreenBackground>
-      <TopContainer>
-        <BackButton
-          onPress={() =>
-            route?.params?.rootRoute === 'HEALTH' ? navigation.navigate('ALCOHOL_ADDICTION') : navigation.goBack()
-          }
-          marginBottom
-        />
-        <ResultTitle color="#000">Résultat</ResultTitle>
-        {resultKey === 'addicted' && (
-          <ResultAddicted navigation={navigation} feeling={feeling} setFeeling={setFeeling} />
-        )}
-        {resultKey === 'good' && <ResultGood />}
-        {resultKey === 'risk' && <ResultRisk />}
-        {feeling !== null || resultKey === 'good' || resultKey === 'risk' ? (
-          <>
-            <TopButtonContainer>
-              <ButtonPrimary
-                content="Je commence le défi"
-                onPress={() => navigation.navigate('DEFI', { screen: 'DEFI1' })}
-              />
-            </TopButtonContainer>
-            <UnderlinedButton
-              content={"Recommencer l'auto-évaluation"}
-              withoutPadding
-              bold
-              alignStart
-              onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
+    <WrapperContainer
+      onPressBackButton={() =>
+        route?.params?.rootRoute === 'HEALTH' ? navigation.navigate('ALCOHOL_ADDICTION') : navigation.goBack()
+      }>
+      <ResultTitle color="#000">Résultat</ResultTitle>
+      {resultKey === 'good' && <ResultGood />}
+      {resultKey === 'risk' && <ResultRisk />}
+      {resultKey === 'addicted' && <ResultAddicted navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+      {feeling !== null || resultKey === 'good' || resultKey === 'risk' ? (
+        <>
+          <TopButtonContainer>
+            <ButtonPrimary
+              content="Je commence le défi"
+              onPress={() => navigation.navigate('DEFI', { screen: 'DEFI1' })}
             />
-            <Sources>
-              <TextStyled>
-                "Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-                Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful
-                Alcohol Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
-              </TextStyled>
-            </Sources>
-          </>
-        ) : null}
-      </TopContainer>
-    </FullScreenBackground>
+          </TopButtonContainer>
+          <UnderlinedButton
+            content={"Recommencer l'auto-évaluation"}
+            withoutPadding
+            bold
+            alignStart
+            onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
+          />
+          <Sources>
+            <TextStyled>
+              "Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+              Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+              Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+            </TextStyled>
+          </Sources>
+        </>
+      ) : null}
+    </WrapperContainer>
   );
 };
 
@@ -197,20 +189,6 @@ const ContainerAnswer = styled.View`
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 20px;
-`;
-
-const FullScreenBackground = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  max-width: ${screenWidth}px;
-  min-width: ${screenWidth}px;
-`;
-
-const TopContainer = styled.View`
-  padding: 0px 25px 40px;
 `;
 
 const ResultTitle = styled(H1)``;

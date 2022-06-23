@@ -55,6 +55,7 @@ const TimePicker = ({ visible, selectDate }) => {
 
   return (
     <>
+      {/* eslint-disable-next-line react-hooks/rules-of-hooks */}
       {useMemo(() => {
         return (
           !!show && (

@@ -5,12 +5,13 @@ import { selector, useRecoilValue } from 'recoil';
 import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 import { setValidatedDays } from '../../Defis/utils';
 import Sources from '../Sources';
-import { screenWidth } from '../../../styles/theme';
+import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { lifeQualityQuizzResultState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
+import WrapperContainer from '../../../components/WrapperContainer';
 import questionsLifeQuality from './questions';
 import H3 from '../../../components/H3';
-import { P } from '../../../components/Articles';
+import { P, Spacer } from '../../../components/Articles';
 
 const resultsToDisplaySelector = selector({
   key: 'resultsToDisplaySelector',
@@ -39,22 +40,23 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   if (!resultKey) return null;
   if (!wrapped) return <>{children}</>;
   return (
-    <FullScreenBackground>
-      <HeaderQuizzsResult inMyTests={inMyTests} />
-      <ResultContainer>
-        {resultKey ? (
-          <>
-            {children}
-            <Sources>
-              <TextStyled>
-                “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health
-                Survey” Ware, Kosinski, Dewey & Gandek, 2001
-              </TextStyled>
-            </Sources>
-          </>
-        ) : null}
-      </ResultContainer>
-    </FullScreenBackground>
+    <WrapperContainer noPaddingHorizontal>
+      <HeaderQuizzsResult inMyTests={inMyTests}>
+        <ResultContainer>
+          {resultKey ? (
+            <>
+              {children}
+              <Sources>
+                <TextStyled>
+                  “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health
+                  Survey” Ware, Kosinski, Dewey & Gandek, 2001
+                </TextStyled>
+              </Sources>
+            </>
+          ) : null}
+        </ResultContainer>
+      </HeaderQuizzsResult>
+    </WrapperContainer>
   );
 };
 
@@ -75,6 +77,7 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
     <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
       <ContainerSection>
         <ResultTitle>Votre bilan "Qualité de vie"</ResultTitle>
+        <Spacer size={20} />
         <ItemsContainer>
           {resultKey.length === 0 ? <P>Aucun élément à afficher.</P> : null}
           {resultsToDisplay.map(({ response, question }, i) => (
@@ -86,20 +89,9 @@ const ResultsLifeQuality = ({ wrapped = true, route }) => {
   );
 };
 
-const FullScreenBackground = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  max-width: ${screenWidth}px;
-  min-width: ${screenWidth}px;
-`;
-
 const ResultContainer = styled.View`
   background-color: #efefef;
-  padding: 20px;
-  padding-bottom: 100px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   height: 100%;
 `;
 
@@ -114,17 +106,19 @@ const EmojiBlock = ({ response, question }) => {
       <ItemStyled color={scoreToColor(response.score)}>
         <EmojiStyled>{response.emoji}</EmojiStyled>
       </ItemStyled>
-      <TextStyled bold>{question.resultLabel}</TextStyled>
+      <TextStyled bold center>
+        {question.resultLabel}
+      </TextStyled>
     </ItemContainer>
   );
 };
 
 const ItemStyled = styled.View`
-  margin: 10px;
-  max-width: ${screenWidth / 3}px;
-  min-width: ${screenWidth / 3}px;
-  max-height: ${screenWidth / 3}px;
-  min-height: ${screenWidth / 3}px;
+  width: ${screenWidth / 3}px;
+  height: ${screenWidth / 3}px;
+  margin-bottom: 5px;
+  flex-shrink: 0;
+  flex-grow: 0;
   justify-content: center;
   align-items: center;
   background-color: ${({ color }) => color || '#fff'};
@@ -137,20 +131,22 @@ const EmojiStyled = styled(TextStyled)`
 `;
 
 const ItemContainer = styled.View`
+  width: ${screenWidth / 3}px;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
+  overflow: hidden;
 `;
+
 const ItemsContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  align-items: flex-start;
 `;
 
 const ContainerSection = styled.View`
-  margin-top: 5px;
-  margin-bottom: 20px;
+  padding-vertical: 20px;
 `;
 
 const ResultTitle = styled(H3)`

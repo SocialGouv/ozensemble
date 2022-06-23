@@ -3,18 +3,16 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import H1 from '../../../components/H1';
 import { defaultPaddingFontScale, screenHeight } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
-import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import DraggableHand from '../../../components/illustrations/DraggableHand';
 import { Bold, P } from '../../../components/Articles';
 import DraggableClick from '../../../components/illustrations/DraggableClick';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector, riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
+import WrapperContainer from '../../../components/WrapperContainer';
 
 const Defi2_Day4 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -42,71 +40,48 @@ const Defi2_Day4 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <ScreenBgStyled>
-      <DraggableFlatListStyled
-        data={answers}
-        ListHeaderComponent={() => (
-          <TopContainer>
-            <BackButton onPress={navigation.goBack} />
-            <TopTitle>
-              <H1 color="#4030a5">Hiérachiser mes situations</H1>
-            </TopTitle>
-            <P>
-              Toutes les situations à risque ne sont pas égales :{' '}
-              <Bold>classez-les par ordre de motivation à réduire votre consommation.</Bold>
-              {'\n'}
-              <Bold>Placez les plus motivantes au début</Bold> et les plus difficiles à la fin de la liste.
-            </P>
-            <HelpContainer>
-              <DraggableHand size={40} />
-              <DraggableTextContainer>
-                <TextStyled bold>
-                  Vous pouvez faire glisser les situations pour changer leur ordre en appuyant longtemps sur chacune
-                </TextStyled>
-              </DraggableTextContainer>
-            </HelpContainer>
-            <P bold color="#4030a5">
-              Je suis plus motivé(e) à réduire l'alcool :{' '}
-            </P>
-          </TopContainer>
-        )}
-        onDragEnd={({ data }) => setAnswersRiskSituations(data?.map((answer) => answer.answerKey))}
-        keyExtractor={(item) => item.answerKey}
-        renderItem={renderItem}
-        ListFooterComponent={() => (
-          <ButtonContainer>
-            <ButtonPrimary
-              content="J'ai fini de classer"
-              widthSmall
-              onPress={() => navigation.navigate(route?.params?.rootRoute)}
-            />
-          </ButtonContainer>
-        )}
-      />
-    </ScreenBgStyled>
+    <DraggableFlatListStyled
+      data={answers}
+      ListHeaderComponent={() => (
+        <WrapperContainer noMarginBottom onPressBackButton={navigation.goBack} title="Hiérarchiser mes situations">
+          <P>
+            Toutes les situations à risque ne sont pas égales :{' '}
+            <Bold>classez-les par ordre de motivation à réduire votre consommation.</Bold>
+            {'\n'}
+            <Bold>Placez les plus motivantes au début</Bold> et les plus difficiles à la fin de la liste.
+          </P>
+          <HelpContainer>
+            <DraggableHand size={40} />
+            <DraggableTextContainer>
+              <TextStyled bold>
+                Vous pouvez faire glisser les situations pour changer leur ordre en appuyant longtemps sur chacune
+              </TextStyled>
+            </DraggableTextContainer>
+          </HelpContainer>
+          <P bold color="#4030a5">
+            Je suis plus motivé(e) à réduire l'alcool :{' '}
+          </P>
+        </WrapperContainer>
+      )}
+      onDragEnd={({ data }) => setAnswersRiskSituations(data?.map((answer) => answer.answerKey))}
+      keyExtractor={(item) => item.answerKey}
+      renderItem={renderItem}
+      ListFooterComponent={() => (
+        <ButtonContainer>
+          <ButtonPrimary
+            content="J'ai fini de classer"
+            widthSmall
+            onPress={() => navigation.navigate(route?.params?.rootRoute)}
+          />
+        </ButtonContainer>
+      )}
+    />
   );
 };
-
-const FlatListStyled = styled.FlatList`
-  flex-grow: 1;
-  flex-shrink: 0;
-`;
-
-const TopContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
 
 const ButtonContainer = styled.View`
   margin-top: 40px;
   margin-bottom: 150px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
 `;
 
 const DraggableContainer = styled.TouchableOpacity`

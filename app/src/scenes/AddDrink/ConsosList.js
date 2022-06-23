@@ -199,7 +199,7 @@ const BackButton = styled(GoBackButtonText)`
 const Container = styled.View`
   background-color: #f9f9f9;
   flex: 1;
-  padding-top: 45px;
+  padding-top: 20px;
 `;
 
 const ModalContent = styled.ScrollView`
@@ -211,12 +211,6 @@ const Title = styled(H2)`
   font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
   color: #4030a5;
   margin: 50px ${defaultPaddingFontScale()}px 15px;
-`;
-
-const DateAndTimeContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: 10px;
 `;
 
 const buttonsPadding = 10;

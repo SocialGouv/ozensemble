@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { defaultPaddingFontScale } from '../styles/theme';
 
 export const TopContainer = styled.View`
-  padding: 5px ${defaultPaddingFontScale()}px;
+  margin-top: 20px;
 `;
 
 export const P = styled.Text`
@@ -29,6 +28,7 @@ export const Bold = styled.Text`
 export const Spacer = styled.View`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
+  flex-shrink: 0;
 `;
 
 export const Underlined = styled.Text`

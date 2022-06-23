@@ -3,16 +3,14 @@ import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import H1 from '../../../../components/H1';
-import { defaultPaddingFontScale } from '../../../../styles/theme';
 import { setValidatedDays } from '../../utils';
-import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
-import BackButton from '../../../../components/BackButton';
 import { P } from '../../../../components/Articles';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { defi2EmotionState } from '../../../../recoil/defis';
 import { riskSituationsQuizzAnswersState } from '../../../../recoil/quizzs';
 import emotions from './emotions';
 import riskSituations from '../../../Quizzs/QuizzRiskSituations/riskSituations';
+import WrapperContainer from '../../../../components/WrapperContainer';
 
 const Defi2_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -27,41 +25,35 @@ const Defi2_Day5 = ({ navigation, route }) => {
     .find((section) => section.answers.map((a) => a.answerKey).includes(riskSituationsQuizzAnswers[0]))
     ?.answers?.find((a) => a.answerKey === riskSituationsQuizzAnswers[0]);
   return (
-    <ScreenBgStyled>
-      <TopContainer>
-        <BackButton onPress={navigation.goBack} />
-        <TopTitle>
-          <H1 color="#4030a5">Affronter une situation à risque</H1>
-        </TopTitle>
-        <P bold>Dans cette situation, sélectionner l'émotion que vous ressentez.</P>
-        <P>"{firstRiskSituations?.content}"</P>
-        <SmileysContainer>
-          {emotions.map((emotion, index) => (
-            <SmileyContainer
-              key={emotion.value}
-              index={index}
-              onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
-              {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
-              <TextEmotionView>
-                <TextEmotion
-                  color={smileySelect === emotion.value ? '#DE285E' : '#000'}
-                  bold={smileySelect === emotion.value}>
-                  {emotion.description}
-                </TextEmotion>
-              </TextEmotionView>
-            </SmileyContainer>
-          ))}
-        </SmileysContainer>
-        <TipsSelected smileySelectValue={smileySelect} />
-        {!!smileySelect && (
-          <ButtonPrimary
-            content="J'ai compris"
-            widthSmall
-            onPress={() => navigation.navigate(route?.params?.rootRoute)}
-          />
-        )}
-      </TopContainer>
-    </ScreenBgStyled>
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Affronter une situation à risque">
+      <P bold>Dans cette situation, sélectionner l'émotion que vous ressentez.</P>
+      <P>"{firstRiskSituations?.content}"</P>
+      <SmileysContainer>
+        {emotions.map((emotion, index) => (
+          <SmileyContainer
+            key={emotion.value}
+            index={index}
+            onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
+            {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
+            <TextEmotionView>
+              <TextEmotion
+                color={smileySelect === emotion.value ? '#DE285E' : '#000'}
+                bold={smileySelect === emotion.value}>
+                {emotion.description}
+              </TextEmotion>
+            </TextEmotionView>
+          </SmileyContainer>
+        ))}
+      </SmileysContainer>
+      <TipsSelected smileySelectValue={smileySelect} />
+      {!!smileySelect && (
+        <ButtonPrimary
+          content="J'ai compris"
+          widthSmall
+          onPress={() => navigation.navigate(route?.params?.rootRoute)}
+        />
+      )}
+    </WrapperContainer>
   );
 };
 
@@ -73,19 +65,6 @@ const TipsSelected = ({ smileySelectValue }) => {
   if (smileySelectValue === 5) return <TipsIllSmiley />;
   return null;
 };
-
-const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px 0px;
-  margin-bottom: 150px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
 
 const SmileysContainer = styled.View`
   flex-direction: row;
