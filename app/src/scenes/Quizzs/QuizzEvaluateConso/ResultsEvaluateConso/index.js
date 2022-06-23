@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../../../Defis/utils';
@@ -9,9 +9,10 @@ import Sources from '../../Sources';
 import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
-import { screenWidth } from '../../../../styles/theme';
+import { defaultPaddingFontScale, screenWidth } from '../../../../styles/theme';
 import { betterEvaluateQuizzResultState } from '../../../../recoil/quizzs';
 import TextStyled from '../../../../components/TextStyled';
+import WrapperContainer from '../../../../components/WrapperContainer';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -40,10 +41,18 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
 };
 
 const Wrapper = ({ wrapped, children, inMyTests }) => {
+  const route = useRoute();
+  const navigation = useNavigation();
   if (!wrapped) return <>{children}</>;
   if (wrapped) {
     return (
-      <FullScreenBackground>
+      <WrapperContainer
+        backButton
+        onPressBackButton={() =>
+          route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
+        }
+        title={route?.params?.title}
+        noMarginBottom>
         <HeaderQuizzsResult inMyTests={inMyTests} />
         <ResultContainer>
           {children}
@@ -55,7 +64,7 @@ const Wrapper = ({ wrapped, children, inMyTests }) => {
             </TextStyled>
           </Sources>
         </ResultContainer>
-      </FullScreenBackground>
+      </WrapperContainer>
     );
   }
 };
@@ -75,19 +84,8 @@ export const ResultsEvaluateConso = ({ wrapped = true, hideButtons = false, rout
 
 const ResultContainer = styled.View`
   background-color: #efefef;
-  padding: 20px;
-  padding-bottom: 100px;
-  height: 100%;
+  margin-horizontal: -${defaultPaddingFontScale()}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
+  padding-bottom: 150px;
 `;
-
-const FullScreenBackground = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  max-width: ${screenWidth}px;
-  min-width: ${screenWidth}px;
-`;
-
 export default ResultsEvaluateConsoNavigator;

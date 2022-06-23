@@ -2,7 +2,9 @@ import React from 'react';
 import Svg, { Line, Circle, Path } from 'react-native-svg';
 import styled from 'styled-components';
 
-const StyledSvg = styled(Svg)``;
+const StyledSvg = styled(Svg)`
+  margin-top: -30px;
+`;
 
 const DefiLanding = ({ color, size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 179 108" {...props}>
