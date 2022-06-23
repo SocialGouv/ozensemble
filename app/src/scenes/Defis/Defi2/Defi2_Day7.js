@@ -18,6 +18,7 @@ import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
 import emotions from './Day5/emotions';
 import { Bold, P, Underlined } from '../../../components/Articles';
 import TextStyled from '../../../components/TextStyled';
+import ButtonPrimary from '../../../components/ButtonPrimary';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -82,6 +83,9 @@ const Defi2_Day7 = ({ navigation, route }) => {
           <P bold>Sinon, vous avez pu mieux identifier quels sont vos points de blocage.</P>
           {'\n\n'}A tout moment: contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
         </P>
+        <ButtonsContainer>
+          <ButtonPrimary content="Échanger avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
+        </ButtonsContainer>
         <Spacer />
         <Spacer />
         <ElementDayDefi content={<H2 color="#4030a5">Conclusion de ma semaine</H2>} noMarginBottom />
@@ -260,4 +264,8 @@ const LinkContainer = styled.TouchableOpacity`
   flex: 1;
 `;
 
+const ButtonsContainer = styled.View`
+  align-items: center;
+  margin-top: 20px;
+`;
 export default Defi2_Day7;
