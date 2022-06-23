@@ -52,13 +52,14 @@ const DefisMenu = ({ navigation }) => {
           <CategorieMenu
             title={"Ma consommation d'alcool"}
             description={"S'évaluer pour détecter des comportements à risque"}
-            onButtonPress={() =>
+            onPress={() =>
               navigation.navigate('ONBOARDING_QUIZZ', {
                 screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
               })
             }
             image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
             callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
+            onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
           />
           {!autoEvaluationDone && (
             <UnderlinedButton
@@ -73,30 +74,29 @@ const DefisMenu = ({ navigation }) => {
           <CategorieMenu
             title={'Premier défi'}
             description={'Faire le point en 7 jours '}
-            onButtonPress={() => navigation.navigate('DEFI1')}
+            onPress={() => navigation.navigate('DEFI1')}
             image={require('../../assets/images/Defi1.png')}
             disabled={!autoEvaluationDone}
-            disabledContainer={autoEvaluationDone}
             callToAction={defi1CallToAction}
-            onContainerPress={() => setShowOnboardingModal(true)}
+            onBoardingPress={() => setShowOnboardingModal(true)}
           />
           <CategorieMenu
             title={'Deuxième défi'}
             description={'Aller plus loin...'}
-            onButtonPress={() => navigation.navigate('DEFI2')}
+            onPress={() => navigation.navigate('DEFI2')}
             image={require('../../assets/images/Defi2.png')}
             disabled={!autoEvaluationDone || defi1Day < 7}
-            disabledContainer={defi1Day === 7}
             callToAction={defi2CallToAction}
-            onContainerPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
+            onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
           />
           <CategorieMenu
             title={'Mes tests'}
             description={'Retrouver mes résultats'}
-            onButtonPress={() => navigation.navigate('TESTS_DEFIS')}
+            onPress={() => navigation.navigate('TESTS_DEFIS')}
             image={require('../../assets/images/TestsDesDefis.png')}
             callToAction="Mes résultats"
             disabled={!autoEvaluationDone}
+            disabledContainer={!autoEvaluationDone}
           />
         </Container>
       </ScreenBgStyled>
@@ -157,16 +157,16 @@ const DefisMenu = ({ navigation }) => {
 const CategorieMenu = ({
   title,
   description,
-  onButtonPress,
+  onBoardingPress,
+  onPress,
   image,
   callToAction,
   disabled,
-  disabledContainer = true,
-  onContainerPress = null,
+  disabledContainer,
 }) => {
   return (
     <>
-      <CategorieContainer disabled={disabledContainer} onPress={!disabledContainer ? onContainerPress : null}>
+      <CategorieContainer disabled={disabledContainer} onPress={disabled ? onBoardingPress : onPress}>
         <ImageStyled source={image} />
         <TextContainer>
           {disabled ? (
@@ -181,7 +181,7 @@ const CategorieMenu = ({
           )}
           <TextStyled>{description}</TextStyled>
           <ButtonContainer>
-            <ButtonPrimary content={callToAction} onPress={onButtonPress} disabled={disabled} />
+            <ButtonPrimary content={callToAction} onPress={onPress} disabled={disabled} />
           </ButtonContainer>
         </TextContainer>
       </CategorieContainer>
