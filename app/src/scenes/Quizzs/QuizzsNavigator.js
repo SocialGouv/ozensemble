@@ -86,7 +86,12 @@ const QuizzsNavigator = () => (
 );
 const QuizzMenu = () => {
   const navigation = useNavigation();
-  const rsultsRiskSituation = useRecoilValue(riskSituationsQuizzAnswersState);
+  const resultsRiskSituation = useRecoilValue(riskSituationsQuizzAnswersState);
+  const betterEvaluateQuizzResult = useRecoilValue(betterEvaluateQuizzResultState);
+  const lifeQualityQuizzResult = useRecoilValue(lifeQualityQuizzResultState);
+  const motivationsQuizzResult = useRecoilValue(motivationsQuizzResultState);
+  const riskSituationsQuizzAnswers = useRecoilValue(riskSituationsQuizzAnswersState);
+  const defi2Emotion = useRecoilValue(defi2EmotionState);
 
   return (
     <ScreenBgStyled>
@@ -101,21 +106,21 @@ const QuizzMenu = () => {
           title="Mieux mesurer ma consommation"
           onStart={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
           onShowResult={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
-          done={useRecoilValue(betterEvaluateQuizzResultState) !== null}
+          done={Object.keys(betterEvaluateQuizzResult || {})?.length > 0}
           showOnlyIfDone
         />
         <QuizzElement
           title="Qualité de vie"
           onStart={() => navigation.navigate('LIFE_QUALITY_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
           onShowResult={() => navigation.navigate('LIFE_QUALITY_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
-          done={useRecoilValue(lifeQualityQuizzResultState) !== null}
+          done={lifeQualityQuizzResult?.length > 0}
           showOnlyIfDone
         />
         <QuizzElement
           title="Mes motivations à diminuer"
           onStart={() => navigation.navigate('MOTIVATIONS_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
           onShowResult={() => navigation.navigate('MOTIVATIONS_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
-          done={useRecoilValue(motivationsQuizzResultState) !== null}
+          done={motivationsQuizzResult !== null}
           showOnlyIfDone
         />
         <DefiCategorieTitle color="#4030a5">Deuxième défi</DefiCategorieTitle>
@@ -123,21 +128,21 @@ const QuizzMenu = () => {
           title="Mes situations à risque"
           onStart={() => navigation.navigate('RISK_SITUATIONS_QUIZZ', { screen: 'QUIZZ_INTERNAL_SITUATIONS' })}
           onShowResult={() => navigation.navigate('RISK_SITUATIONS_QUIZZ', { screen: 'QUIZZ_RESULTS' })}
-          done={useRecoilValue(riskSituationsQuizzAnswersState) !== null}
+          done={riskSituationsQuizzAnswers?.length > 0}
           showOnlyIfDone
         />
         <QuizzElement
           topTitle="Deuxième défi"
           title="Hiérarchiser mes situations"
           onStart={() => navigation.navigate('RISK_SITUATIONS_HIERARCHISE')}
-          done={Number(storage.getNumber('@Defi2_ValidatedDays')) > 3 && rsultsRiskSituation}
+          done={Number(storage.getNumber('@Defi2_ValidatedDays')) > 3 && !!resultsRiskSituation}
           showOnlyIfDone
         />
         <QuizzElement
           topTitle="Deuxième défi"
           title="Affronter une situation"
           onStart={() => navigation.navigate('AFFRONTER_SITUATION', { screen: 'DEFI2_DAY5' })}
-          done={useRecoilValue(defi2EmotionState) !== null}
+          done={defi2Emotion !== null}
           showOnlyIfDone
         />
       </TopContainer>
