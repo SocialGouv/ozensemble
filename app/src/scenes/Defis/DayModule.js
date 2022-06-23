@@ -32,8 +32,8 @@ const DescriptionContainer = styled.View`
 
 export const FeedDayContent = styled.View`
   flex-grow: 1;
-  padding-horizontal: 15px;
-  padding-vertical: 10px;
+  margin-vertical: 10px;
+  margin-horizontal: 5px;
 `;
 
 export default DayModule;

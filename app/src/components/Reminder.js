@@ -17,7 +17,7 @@ import CONSTANTS from '../reference/constants';
 import { logEvent } from '../services/logEventsWithMatomo';
 import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
-import BackButton from './BackButton';
+import WrapperContainer from './WrapperContainer';
 
 const Reminder = ({
   navigation,
@@ -31,7 +31,6 @@ const Reminder = ({
   title,
   notifReminderTitle = "C'est l'heure de votre suivi !",
   notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
-  name,
   onlyDaily,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
@@ -199,49 +198,50 @@ const Reminder = ({
   };
 
   return (
-    <Container>
-      <BackButton onPress={navigation.goBack} marginBottom />
-      <ReminderIcon size={80} color="#4030a5" selected={false} />
-      {children ? (
-        children({ reminder, mode, weekDay })
-      ) : (
-        <>
-          <Title>
-            <TextStyled color="#4030a5">{title || 'Une aide pour penser à noter vos consommations'}</TextStyled>
-          </Title>
-          <SubTitle>
-            {reminder ? (
-              <>
-                <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
-                <TextStyled color="#191919">tous les jours.</TextStyled>
-              </>
-            ) : (
-              <TextStyled color="#191919">
-                Définissez un rappel quotidien sur votre téléphone pour vous rappeler
-              </TextStyled>
-            )}
-          </SubTitle>
-        </>
-      )}
-      <ButtonsContainer>
-        <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showReminderSetup} />
-        {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={deleteReminder} />}
-        {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
-          <ButtonPrimary
-            content="Continuer"
-            onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
-          />
-        ) : null}
-      </ButtonsContainer>
-      <ModeAndWeekDayChooseModal
-        key={reminderSetupVisible}
-        onlyDaily={onlyDaily}
-        visible={reminderSetupVisible}
-        hide={() => setReminderSetupVisible(false)}
-        setReminderRequest={setReminderRequest}
-      />
-    </Container>
+    <WrapperContainer onPressBackButton={navigation.goBack}>
+      <Container>
+        <ReminderIcon size={80} color="#4030a5" selected={false} />
+        {children ? (
+          children({ reminder, mode, weekDay })
+        ) : (
+          <>
+            <Title>
+              <TextStyled color="#4030a5">{title || 'Une aide pour penser à noter vos consommations'}</TextStyled>
+            </Title>
+            <SubTitle>
+              {reminder ? (
+                <>
+                  <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
+                  <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
+                  <TextStyled color="#191919">tous les jours.</TextStyled>
+                </>
+              ) : (
+                <TextStyled color="#191919">
+                  Définissez un rappel quotidien sur votre téléphone pour vous rappeler
+                </TextStyled>
+              )}
+            </SubTitle>
+          </>
+        )}
+        <ButtonsContainer>
+          <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showReminderSetup} />
+          {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={deleteReminder} />}
+          {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
+            <ButtonPrimary
+              content="Continuer"
+              onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
+            />
+          ) : null}
+        </ButtonsContainer>
+        <ModeAndWeekDayChooseModal
+          key={reminderSetupVisible}
+          onlyDaily={onlyDaily}
+          visible={reminderSetupVisible}
+          hide={() => setReminderSetupVisible(false)}
+          setReminderRequest={setReminderRequest}
+        />
+      </Container>
+    </WrapperContainer>
   );
 };
 
@@ -253,10 +253,7 @@ const Container = styled.ScrollView.attrs({
     paddingBottom: 50,
     flexGrow: 1,
   },
-})`
-  background-color: #f9f9f9;
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
+})``;
 
 const Title = styled(H1)`
   margin-bottom: 15px;
@@ -397,8 +394,4 @@ const ModeSelectButtonContent = styled(TextStyled)`
   align-items: center;
   text-align-vertical: center;
   flex-shrink: 1;
-`;
-
-const CancelButton = styled.TouchableOpacity`
-  margin-right: 0;
 `;

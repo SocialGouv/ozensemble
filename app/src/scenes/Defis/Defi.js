@@ -1,21 +1,20 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
 import ArrowRight from '../../components/ArrowRight';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import NPS from '../NPS/NPS';
 import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import BackButton from '../../components/BackButton';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { defi2OnBoardingDoneState } from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import WrapperContainer from '../../components/WrapperContainer';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const Defi = ({
   navigation,
@@ -42,14 +41,8 @@ const Defi = ({
     if (activeDay === dayIndex) return '#de285e';
   };
   return (
-    <ScreenBgStyled>
+    <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal>
       <NPS forceView={NPSvisible} close={closeNPS} />
-      <BackButton onPress={navigation.goBack} marginLeft />
-      <TopContainer>
-        <Title>
-          <TextStyled color="#4030a5">{title}</TextStyled>
-        </Title>
-      </TopContainer>
       <TopTimeline
         nbdays={nbdays}
         validatedDays={validatedDays}
@@ -142,7 +135,7 @@ const Defi = ({
           setOnBoardingDefi2Done(true);
         }}
       />
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
 
@@ -162,31 +155,17 @@ const Separator = styled.View`
 
 const FeedContainer = styled.View`
   background-color: #efefef;
-  padding: 20px;
-  padding-bottom: 100px;
   padding-top: 30px;
-`;
-
-const commonCss = css`
-  width: 85%;
-  flex-shrink: 0;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 /*
   Top part
 */
 
-const TopContainer = styled.View`
-  padding: 10px 20px;
-`;
-
-const Title = styled(H1)`
-  ${commonCss}
-  margin-top: 10px;
-`;
-
 const DefiDay = styled.View`
   flex-direction: row;
+  justify-content: space-between;
   flex-shrink: 1;
   flex-grow: 0;
 `;
@@ -195,9 +174,8 @@ const FeedDayContent = styled.TouchableOpacity`
   align-items: center;
   flex-direction: row;
   flex-grow: 1;
-  padding-horizontal: 15px;
   padding-vertical: 10px;
-  margin-left: 5px;
+  margin-left: ${defaultPaddingFontScale()}px;
   ${(props) => props.last && 'margin-top: -10px;'}
 `;
 

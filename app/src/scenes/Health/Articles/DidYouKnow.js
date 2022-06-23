@@ -1,6 +1,5 @@
 import React from 'react';
 import Background from '../../../components/Background';
-import HeaderBackground from '../../../components/HeaderBackground';
 import { Spacer, P, TopContainer, Bold } from './../../../components/Articles';
 import H2 from '../../../components/H2';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';

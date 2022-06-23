@@ -4,7 +4,6 @@ import { Text, TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
-import H1 from '../../components/H1';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -16,7 +15,7 @@ import Defi1_Reminder from '../Defis/Defi1/Defi1_Reminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const InfosStack = createStackNavigator();
 
@@ -49,35 +48,30 @@ const InfosMenu = ({ navigation }) => {
 
   return (
     <>
-      <ScreenBgStyled>
-        <NPS forceView={NPSvisible} close={closeNPS} />
-        <Container>
-          <TopTitle>
-            <TextStyled color="#4030a5">Mes informations</TextStyled>
-          </TopTitle>
-          <MenuItem
-            caption={reminderCaption}
-            onPress={() => {
-              logEvent({
-                category: 'REMINDER',
-                action: 'REMINDER_OPEN',
-                name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
-              });
-              navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
-            }}
-          />
-          <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
-          <MenuItem
-            caption="Mentions Légales & Politique de Confidentialité"
-            onPress={() => navigation.push('PRIVACY_POLICY')}
-          />
-          <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-          <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
-          <VersionContainer>
-            <VersionLabel>version {pck.version}</VersionLabel>
-          </VersionContainer>
-        </Container>
-      </ScreenBgStyled>
+      <NPS forceView={NPSvisible} close={closeNPS} />
+      <WrapperContainer title="Mes Informations">
+        <MenuItem
+          caption={reminderCaption}
+          onPress={() => {
+            logEvent({
+              category: 'REMINDER',
+              action: 'REMINDER_OPEN',
+              name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
+            });
+            navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
+          }}
+        />
+        <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
+        <MenuItem
+          caption="Mentions Légales & Politique de Confidentialité"
+          onPress={() => navigation.push('PRIVACY_POLICY')}
+        />
+        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+        <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
+        <VersionContainer>
+          <VersionLabel>version {pck.version}</VersionLabel>
+        </VersionContainer>
+      </WrapperContainer>
     </>
   );
 };
@@ -102,10 +96,6 @@ const VersionLabel = styled(TextStyled)`
   color: #ddd;
 `;
 
-const Container = styled.View`
-  padding-bottom: 100px;
-`;
-
 const MenuItemStyled = styled.View`
   height: 70px;
   border-bottom-width: 1px;
@@ -116,20 +106,7 @@ const MenuItemStyled = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
-const commonCss = css`
-  width: 95%;
-  flex-shrink: 0;
-`;
-
 const Arrow = styled.Text`
   color: #4030a5;
   font-weight: bold;
-`;
-
-const TopTitle = styled(H1)`
-  ${commonCss}
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-  padding-top: 20px;
-  margin-top: 10px;
-  margin-bottom: 20px;
 `;

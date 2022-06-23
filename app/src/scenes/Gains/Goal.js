@@ -3,7 +3,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
 import Calendar from '../../components/illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import TextStyled from '../../components/TextStyled';
@@ -18,8 +17,7 @@ import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import BackButton from '../../components/BackButton';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const Goal = ({ navigation, route }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -56,147 +54,133 @@ const Goal = ({ navigation, route }) => {
   };
 
   return (
-    <>
-      <ScreenBgStyled>
-        <BackButton onPress={navigation.goBack} marginLeft />
-        <Container>
-          <TopTitle>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </TopTitle>
-          <ContainerTime>
+    <WrapperContainer noPaddingHorizontal onPressBackButton={navigation.goBack} title="Mon objectif">
+      <Container>
+        <ContainerTime>
+          <TextStyled>
+            La durée de votre objectif est d'<TextStyled bold>un mois</TextStyled>
+          </TextStyled>
+        </ContainerTime>
+        <Row>
+          <Calendar size={24} />
+          <TextSemiBold>
+            <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
+          </TextSemiBold>
+        </Row>
+        <DayContainer>
+          <DayButton
+            content="L"
+            active={daysWithGoalNoDrink.includes('monday')}
+            onPress={() => toggleDayWithGoalNoDrink('monday')}
+          />
+          <DayButton
+            content="M"
+            active={daysWithGoalNoDrink.includes('tuesday')}
+            onPress={() => toggleDayWithGoalNoDrink('tuesday')}
+          />
+          <DayButton
+            content="M"
+            active={daysWithGoalNoDrink.includes('wednesday')}
+            onPress={() => toggleDayWithGoalNoDrink('wednesday')}
+          />
+          <DayButton
+            content="J"
+            active={daysWithGoalNoDrink.includes('thursday')}
+            onPress={() => toggleDayWithGoalNoDrink('thursday')}
+          />
+          <DayButton
+            content="V"
+            active={daysWithGoalNoDrink.includes('friday')}
+            onPress={() => toggleDayWithGoalNoDrink('friday')}
+          />
+          <DayButton
+            content="S"
+            active={daysWithGoalNoDrink.includes('saturday')}
+            onPress={() => toggleDayWithGoalNoDrink('saturday')}
+          />
+          <DayButton
+            content="D"
+            active={daysWithGoalNoDrink.includes('sunday')}
+            onPress={() => toggleDayWithGoalNoDrink('sunday')}
+          />
+        </DayContainer>
+        <Row>
+          <CocktailGlassTriangle size={24} />
+          <TextSemiBold>
             <TextStyled>
-              La durée de votre objectif est d'<TextStyled bold>un mois</TextStyled>
+              Unité{!totalDrinksByDrinkingDay || totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour que je m'autorise
+              quand je bois de l'alcool
             </TextStyled>
-          </ContainerTime>
-          <Row>
-            <Calendar size={24} />
-            <TextSemiBold>
-              <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
-            </TextSemiBold>
-          </Row>
-          <DayContainer>
-            <DayButton
-              content="L"
-              active={daysWithGoalNoDrink.includes('monday')}
-              onPress={() => toggleDayWithGoalNoDrink('monday')}
-            />
-            <DayButton
-              content="M"
-              active={daysWithGoalNoDrink.includes('tuesday')}
-              onPress={() => toggleDayWithGoalNoDrink('tuesday')}
-            />
-            <DayButton
-              content="M"
-              active={daysWithGoalNoDrink.includes('wednesday')}
-              onPress={() => toggleDayWithGoalNoDrink('wednesday')}
-            />
-            <DayButton
-              content="J"
-              active={daysWithGoalNoDrink.includes('thursday')}
-              onPress={() => toggleDayWithGoalNoDrink('thursday')}
-            />
-            <DayButton
-              content="V"
-              active={daysWithGoalNoDrink.includes('friday')}
-              onPress={() => toggleDayWithGoalNoDrink('friday')}
-            />
-            <DayButton
-              content="S"
-              active={daysWithGoalNoDrink.includes('saturday')}
-              onPress={() => toggleDayWithGoalNoDrink('saturday')}
-            />
-            <DayButton
-              content="D"
-              active={daysWithGoalNoDrink.includes('sunday')}
-              onPress={() => toggleDayWithGoalNoDrink('sunday')}
-            />
-          </DayContainer>
-          <Row>
-            <CocktailGlassTriangle size={24} />
-            <TextSemiBold>
-              <TextStyled>
-                Unité{!totalDrinksByDrinkingDay || totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour que je m'autorise
-                quand je bois de l'alcool
-              </TextStyled>
-            </TextSemiBold>
-          </Row>
-          <Row>
-            <HelpModalCountConsumption event="GOAL" />
-          </Row>
-        </Container>
-        {drinksCatalog
-          .map(({ categoryKey }) => categoryKey)
-          .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-          .map((category, index) => (
-            <DrinksCategory
-              key={index}
-              drinksCatalog={drinksCatalog}
-              category={category}
-              index={index}
-              drinks={drinksByDrinkingDay}
-              setDrinkQuantity={setDrinkQuantityRequest}
-            />
-          ))}
-        <Container>
-          {!!totalDrinksByDrinkingDay && (
-            <DrinkByWeekContainer>
-              <TextStyled>
-                {' '}
-                {7 - daysWithGoalNoDrink.length} jours avec {totalDrinksByDrinkingDay} unité
-                {totalDrinksByDrinkingDay > 1 ? 's' : ''}
-              </TextStyled>
-              <TextStyled bold> soit {drinkByWeek} unités par semaine</TextStyled>
-            </DrinkByWeekContainer>
-          )}
-          <CTAButtonContainer>
-            <ButtonPrimary
-              content="Continuer"
-              onPress={() => {
-                logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_DRINKLESS',
-                  name: daysWithGoalNoDrink,
-                  value: daysWithGoalNoDrink.length,
-                });
-                logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_DRINKWEEK',
-                  value: drinkByWeek,
-                });
-                if (isOnboarded) {
-                  navigation.navigate('GAINS_SEVRAGE');
-                  return;
-                }
-                logEvent({
-                  category: 'REMINDER',
-                  action: 'REMINDER_OPEN',
-                  name: 'GOAL',
-                });
-                navigation.navigate('GAINS_REMINDER', {
-                  enableContinueButton: true,
-                  onPressContinueNavigation: ['GAINS_SEVRAGE'],
-                });
-              }}
-              disabled={!totalDrinksByDrinkingDay || daysWithGoalNoDrink.length === 0}
-            />
-          </CTAButtonContainer>
-        </Container>
-      </ScreenBgStyled>
-    </>
+          </TextSemiBold>
+        </Row>
+        <Row>
+          <HelpModalCountConsumption event="GOAL" />
+        </Row>
+      </Container>
+      {drinksCatalog
+        .map(({ categoryKey }) => categoryKey)
+        .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+        .map((category, index) => (
+          <DrinksCategory
+            key={index}
+            drinksCatalog={drinksCatalog}
+            category={category}
+            index={index}
+            drinks={drinksByDrinkingDay}
+            setDrinkQuantity={setDrinkQuantityRequest}
+          />
+        ))}
+      <Container>
+        {!!totalDrinksByDrinkingDay && (
+          <DrinkByWeekContainer>
+            <TextStyled>
+              {' '}
+              {7 - daysWithGoalNoDrink.length} jours avec {totalDrinksByDrinkingDay} unité
+              {totalDrinksByDrinkingDay > 1 ? 's' : ''}
+            </TextStyled>
+            <TextStyled bold> soit {drinkByWeek} unités par semaine</TextStyled>
+          </DrinkByWeekContainer>
+        )}
+        <CTAButtonContainer>
+          <ButtonPrimary
+            content="Continuer"
+            onPress={() => {
+              logEvent({
+                category: 'GAINS',
+                action: 'GOAL_DRINKLESS',
+                name: daysWithGoalNoDrink,
+                value: daysWithGoalNoDrink.length,
+              });
+              logEvent({
+                category: 'GAINS',
+                action: 'GOAL_DRINKWEEK',
+                value: drinkByWeek,
+              });
+              if (isOnboarded) {
+                navigation.navigate('GAINS_SEVRAGE');
+                return;
+              }
+              logEvent({
+                category: 'REMINDER',
+                action: 'REMINDER_OPEN',
+                name: 'GOAL',
+              });
+              navigation.navigate('GAINS_REMINDER', {
+                enableContinueButton: true,
+                onPressContinueNavigation: ['GAINS_SEVRAGE'],
+              });
+            }}
+            disabled={!totalDrinksByDrinkingDay || daysWithGoalNoDrink.length === 0}
+          />
+        </CTAButtonContainer>
+      </Container>
+    </WrapperContainer>
   );
 };
 
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
-
 const Container = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
   overflow: hidden;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const ContainerTime = styled.View`
@@ -213,8 +197,7 @@ const Row = styled.View`
 `;
 
 const CTAButtonContainer = styled.View`
-  margin-top: ${screenHeight * 0.04}px;
-  height: ${screenHeight * 0.22}px;
+  margin-top: 30px;
   align-items: center;
   background-color: #f9f9f9;
   flex-shrink: 1;
@@ -261,20 +244,6 @@ const DrinkByWeekContainer = styled.View`
   align-items: center;
   margin-top: ${screenHeight * 0.01}px;
 `;
-
-const HelpCount = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 15px;
-`;
-
-const HelpCountCaption = styled(TextStyled)`
-  font-size: 11px;
-  margin-right: 8px;
-  flex-shrink: 1;
-`;
-
 const TextSemiBold = styled.Text`
   font-weight: 700;
   margin-left: 10px;

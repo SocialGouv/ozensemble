@@ -9,8 +9,7 @@ import { logEvent } from '../../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
+import WrapperContainer from '../../../components/WrapperContainer';
 
 const Defi1_Onboarding = ({ navigation }) => {
   const startDefi = async () => {
@@ -27,8 +26,7 @@ const Defi1_Onboarding = ({ navigation }) => {
   };
 
   return (
-    <ScreenBgStyled>
-      <BackButton marginLeft={20} onPress={navigation.goBack} />
+    <WrapperContainer onPressBackButton={navigation.goBack}>
       <Container>
         <DefiLanding size={200} color="#4030a5" selected={false} />
         <Title>
@@ -49,7 +47,7 @@ const Defi1_Onboarding = ({ navigation }) => {
           <ButtonPrimary content="Je commence" onPress={startDefi} />
         </ButtonsContainer>
       </Container>
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
 
@@ -69,7 +67,7 @@ const Title = styled(H1)`
   text-align: center;
 `;
 
-export const SubTitle = styled(H2)`
+const SubTitle = styled(H2)`
   width: 80%;
   margin-bottom: 15px;
   flex-shrink: 0;
