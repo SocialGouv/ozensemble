@@ -22,6 +22,7 @@ import Timeline from './Timeline';
 import Pint from '../../components/illustrations/drinksAndFood/Pint';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
@@ -312,9 +313,7 @@ const MessageContainer = styled.View`
 `;
 const FeedContainer = styled.View`
   background-color: #f9f9f9;
-  padding: 20px;
-  padding-right: 0px;
-  padding-bottom: 100px;
+  padding-horizontal: -${defaultPaddingFontScale()}px;
 `;
 
 const FeedDay = styled.View`
