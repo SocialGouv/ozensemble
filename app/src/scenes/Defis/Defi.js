@@ -16,6 +16,7 @@ import BackButton from '../../components/BackButton';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { defi2OnBoardingDoneState } from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import WrapperContainer, { NoPaddingHorizontal } from '../../components/WrapperContainer';
 
 const Defi = ({
   navigation,
@@ -42,107 +43,103 @@ const Defi = ({
     if (activeDay === dayIndex) return '#de285e';
   };
   return (
-    <ScreenBgStyled>
+    <WrapperContainer title={title} onPressBackButton={navigation.goBack} backButton noMarginBottom>
       <NPS forceView={NPSvisible} close={closeNPS} />
-      <BackButton onPress={navigation.goBack} marginLeft />
-      <TopContainer>
-        <Title>
-          <TextStyled color="#4030a5">{title}</TextStyled>
-        </Title>
-      </TopContainer>
-      <TopTimeline
-        nbdays={nbdays}
-        validatedDays={validatedDays}
-        activeDay={activeDay}
-        hackAndUnlockDay={hackAndUnlockDay}
-        defiStorageKey={defiStorageKey}
-      />
-      <FeedCTAContainer zIndex={10}>
-        {!activeDayIsDone && !!data[activeDay]?.screenCTA ? (
-          <FeedCTAButton
-            content={data[activeDay]?.textCTA}
-            color="#4030a5"
-            onPress={() => {
-              navigation.push(data[activeDay]?.screenCTA);
-            }}
-          />
-        ) : (
-          <FeedCTAButton
-            content="Ajouter une consommation"
-            onPress={() => {
-              if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
-              navigation.push('ADD_DRINK', { timestamp: Date.now() });
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-              });
-            }}
-          />
-        )}
-      </FeedCTAContainer>
-      <FeedContainer>
-        <DayModule dayData={data[activeDay]} activeDayIsDone={activeDayIsDone} />
-        <Separator />
-        {data.map((dayData, dayIndex) => {
-          return (
-            <DefiDay key={dayIndex}>
-              <Timeline
-                first={dayIndex === 0}
-                last={dayIndex === data.length - 1}
-                done={validatedDays > dayIndex}
-                locked={activeDay < dayIndex}
-                active={activeDay === dayIndex}
-              />
-              <FeedDayContent
-                activeOpacity={0.47}
-                last={dayIndex === data.length - 1}
-                disabled={activeDay < dayIndex || !dayData?.screenCTA}
-                onPress={() => {
-                  navigation.push(dayData?.screenCTA, { inDefi1: validatedDays <= dayIndex });
-                }}>
-                <View style={{ flex: 1 }}>
-                  <TitleDay color={getTitleColor(dayIndex)}>
-                    {dayData?.title} : {dayData?.tagLine}
-                  </TitleDay>
-                </View>
-                {activeDay === dayIndex ? (
-                  <ArrowRight size={10} color="#de285e" />
-                ) : (
-                  <ArrowRight size={10} color="#c4c4c4" />
-                )}
-              </FeedDayContent>
-            </DefiDay>
-          );
-        })}
-        <ButtonContainer>
-          <ButtonPrimary
-            small
-            content="Contribuer à Oz Ensemble"
-            shadowColor="#201569"
-            color="#4030A5"
-            onPress={onPressContribute}
-          />
-        </ButtonContainer>
-      </FeedContainer>
-      <OnBoardingModal
-        title="Poursuivez votre parcours"
-        description={
-          <TextStyled>
-            Cette semaine, nous vous proposons de <TextStyled bold>pousser plus loin la réflexion</TextStyled> sur les
-            <TextStyled bold> situations qui vous portent à boire</TextStyled>.{'\n'}À la fin, vous aurez l'occasion de
-            faire quelques exercices.
-          </TextStyled>
-        }
-        boutonTitle="Je commence"
-        onPress={() => {
-          setOnBoardingDefi2Done(true);
-        }}
-        visible={!onBoardingDefi2Done && defiStorageKey !== '@Defi1'}
-        hide={() => {
-          setOnBoardingDefi2Done(true);
-        }}
-      />
-    </ScreenBgStyled>
+      <NoPaddingHorizontal>
+        <TopTimeline
+          nbdays={nbdays}
+          validatedDays={validatedDays}
+          activeDay={activeDay}
+          hackAndUnlockDay={hackAndUnlockDay}
+          defiStorageKey={defiStorageKey}
+        />
+        <FeedCTAContainer zIndex={10}>
+          {!activeDayIsDone && !!data[activeDay]?.screenCTA ? (
+            <FeedCTAButton
+              content={data[activeDay]?.textCTA}
+              color="#4030a5"
+              onPress={() => {
+                navigation.push(data[activeDay]?.screenCTA);
+              }}
+            />
+          ) : (
+            <FeedCTAButton
+              content="Ajouter une consommation"
+              onPress={() => {
+                if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
+                navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                });
+              }}
+            />
+          )}
+        </FeedCTAContainer>
+        <FeedContainer>
+          <DayModule dayData={data[activeDay]} activeDayIsDone={activeDayIsDone} />
+          <Separator />
+          {data.map((dayData, dayIndex) => {
+            return (
+              <DefiDay key={dayIndex}>
+                <Timeline
+                  first={dayIndex === 0}
+                  last={dayIndex === data.length - 1}
+                  done={validatedDays > dayIndex}
+                  locked={activeDay < dayIndex}
+                  active={activeDay === dayIndex}
+                />
+                <FeedDayContent
+                  activeOpacity={0.47}
+                  last={dayIndex === data.length - 1}
+                  disabled={activeDay < dayIndex || !dayData?.screenCTA}
+                  onPress={() => {
+                    navigation.push(dayData?.screenCTA, { inDefi1: validatedDays <= dayIndex });
+                  }}>
+                  <View style={{ flex: 1 }}>
+                    <TitleDay color={getTitleColor(dayIndex)}>
+                      {dayData?.title} : {dayData?.tagLine}
+                    </TitleDay>
+                  </View>
+                  {activeDay === dayIndex ? (
+                    <ArrowRight size={10} color="#de285e" />
+                  ) : (
+                    <ArrowRight size={10} color="#c4c4c4" />
+                  )}
+                </FeedDayContent>
+              </DefiDay>
+            );
+          })}
+          <ButtonContainer>
+            <ButtonPrimary
+              small
+              content="Contribuer à Oz Ensemble"
+              shadowColor="#201569"
+              color="#4030A5"
+              onPress={onPressContribute}
+            />
+          </ButtonContainer>
+        </FeedContainer>
+        <OnBoardingModal
+          title="Poursuivez votre parcours"
+          description={
+            <TextStyled>
+              Cette semaine, nous vous proposons de <TextStyled bold>pousser plus loin la réflexion</TextStyled> sur les
+              <TextStyled bold> situations qui vous portent à boire</TextStyled>.{'\n'}À la fin, vous aurez l'occasion
+              de faire quelques exercices.
+            </TextStyled>
+          }
+          boutonTitle="Je commence"
+          onPress={() => {
+            setOnBoardingDefi2Done(true);
+          }}
+          visible={!onBoardingDefi2Done && defiStorageKey !== '@Defi1'}
+          hide={() => {
+            setOnBoardingDefi2Done(true);
+          }}
+        />
+      </NoPaddingHorizontal>
+    </WrapperContainer>
   );
 };
 
@@ -167,23 +164,9 @@ const FeedContainer = styled.View`
   padding-top: 30px;
 `;
 
-const commonCss = css`
-  width: 85%;
-  flex-shrink: 0;
-`;
-
 /*
   Top part
 */
-
-const TopContainer = styled.View`
-  padding: 10px 20px;
-`;
-
-const Title = styled(H1)`
-  ${commonCss}
-  margin-top: 10px;
-`;
 
 const DefiDay = styled.View`
   flex-direction: row;

@@ -12,14 +12,14 @@ const HeaderQuizzsResult = ({ title, description, inMyTests, children }) => {
 
   return (
     <HeaderContainer>
-      <BackButton
+      {/* <BackButton
         onPress={() => (route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack())}
       />
       <TopTitleContainer>
         <TopTitle>
           <TextStyled color="#4030a5">{title ? title : route?.params?.title}</TextStyled>
         </TopTitle>
-      </TopTitleContainer>
+      </TopTitleContainer> */}
       <SectionTitle color="#de285e" noMarginBottom>
         C'est déjà terminé !
       </SectionTitle>
@@ -51,7 +51,6 @@ const TextParagraph = styled(P)`
 `;
 
 const HeaderContainer = styled.View`
-  padding: 0px 20px;
   margin-bottom: 15px;
 `;
 
