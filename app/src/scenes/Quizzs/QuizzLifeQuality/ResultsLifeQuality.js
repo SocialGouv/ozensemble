@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { selector, useRecoilValue } from 'recoil';
 import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';

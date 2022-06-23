@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
@@ -18,7 +18,7 @@ import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
 
 const Defi2_Stack = createStackNavigator();
 
-const Defi2_Navigator = ({ route }) => {
+const Defi2_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <Defi2_Stack.Navigator headerMode="none" initialRouteName={'DEFI2_MENU'}>

@@ -7,7 +7,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
-import { defaultPaddingFontScale } from '../../styles/theme';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
 /*

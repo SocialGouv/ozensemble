@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
