@@ -6,7 +6,6 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import Calendar from '../../components/illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
-import InfoObjectif from '../../components/illustrations/InfoObjectif';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import {
@@ -24,7 +23,6 @@ import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 
 const Goal = ({ navigation }) => {
-  const [helpVisible, setHelpVisible] = useState(false);
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
   const isOnboarded = useRecoilValue(previousDrinksPerWeekState);
 
@@ -123,19 +121,7 @@ const Goal = ({ navigation }) => {
             </TextSemiBold>
           </Row>
           <Row>
-            <HelpCount
-              onPress={() => {
-                logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_DRINK_HELP',
-                  name: 'GOAL',
-                });
-                setHelpVisible(true);
-              }}
-              hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-              <HelpCountCaption>Comment compter un verre sans me tromper</HelpCountCaption>
-              <InfoObjectif size={15} color={'#000000'} />
-            </HelpCount>
+            <HelpModalCountConsumption event="GOAL" />
           </Row>
         </Container>
         {drinksCatalog
@@ -196,7 +182,6 @@ const Goal = ({ navigation }) => {
           </CTAButtonContainer>
         </Container>
       </ScreenBgStyled>
-      <HelpModalCountConsumption visible={helpVisible} onClose={() => setHelpVisible(false)} />
     </>
   );
 };

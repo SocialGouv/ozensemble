@@ -369,17 +369,9 @@ const MyGains = () => {
                   {myWeeklyNumberOfDrinksBeforeObjective} unité
                   {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
                 </TextStyled>
-                <InfoContainer
-                  onPress={() => {
-                    logEvent({
-                      category: 'GAINS',
-                      action: 'GOAL_DRINK_HELP',
-                      name: 'ESTIMATION',
-                    });
-                    setHelpVisible(true);
-                  }}>
+                <HelpModalCountConsumption event="ESTIMATION">
                   <InfosIcon size={15} color={'#000000'} />
-                </InfoContainer>
+                </HelpModalCountConsumption>
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
@@ -416,7 +408,6 @@ const MyGains = () => {
           </ButtonTouchable>
         </MyGoalContainer>
       )}
-      <HelpModalCountConsumption visible={helpVisible} onClose={() => setHelpVisible(false)} />
     </ScreenBgStyled>
   );
 };
