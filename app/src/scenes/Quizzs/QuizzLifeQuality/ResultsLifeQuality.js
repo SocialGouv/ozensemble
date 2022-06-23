@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { selector, useRecoilValue } from 'recoil';
-import Header from '../../Defis/Header';
+import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 import { setValidatedDays } from '../../Defis/utils';
 import Sources from '../Sources';
 import { screenWidth } from '../../../styles/theme';
@@ -40,7 +40,7 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
-      <Header inMyTests={inMyTests} />
+      <HeaderQuizzsResult inMyTests={inMyTests} />
       <ResultContainer>
         {resultKey ? (
           <>
