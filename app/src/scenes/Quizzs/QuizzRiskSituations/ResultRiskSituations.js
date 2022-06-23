@@ -52,6 +52,7 @@ const ResultsContainer = styled.View`
   background-color: #efefef;
   padding-top: 20px;
   padding-bottom: 10px;
+  margin-vertical: 20px;
 `;
 
 const Result = styled.View`
