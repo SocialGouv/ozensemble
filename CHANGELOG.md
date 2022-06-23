@@ -1,3 +1,10 @@
+# [1.60.0](https://github.com/SocialGouv/ozensemble/compare/v1.59.1...v1.60.0) (2022-06-23)
+
+
+### Features
+
+* **app:** checkbox ([c055685](https://github.com/SocialGouv/ozensemble/commit/c05568505a61157bc2cf4da9ee8eb1581b966918))
+
 ## [1.59.1](https://github.com/SocialGouv/ozensemble/compare/v1.59.0...v1.59.1) (2022-06-23)
 
 
