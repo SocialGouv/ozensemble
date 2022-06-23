@@ -28,7 +28,7 @@ const Defi1_Onboarding = ({ navigation }) => {
   };
 
   return (
-    <WrapperContainer backButton onPressBackButton={navigation.goBack}>
+    <WrapperContainer onPressBackButton={navigation.goBack}>
       <Container>
         <DefiLanding size={200} color="#4030a5" selected={false} />
         <Title>

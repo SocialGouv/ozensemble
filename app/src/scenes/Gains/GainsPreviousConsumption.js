@@ -12,9 +12,10 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import { P } from '../../components/Articles';
+import { P, Spacer } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const GainsPreviousConsumption = () => {
   const navigation = useNavigation();
@@ -48,37 +49,32 @@ const GainsPreviousConsumption = () => {
   };
 
   return (
-    <ScreenBgStyled>
-      <BackButton onPress={() => navigation.goBack()} marginLeft />
-      <TextContainer>
-        <TopTitle>
-          <H1 color="#4030a5">Ma conso actuelle avant objectif</H1>
-        </TopTitle>
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title="Ma conso actuelle avant objectif"
+      noPaddingHorizontal>
+      <Container>
         <DescriptionText>
           <P bold>Sur une semaine type, combien d'unités d'alcool consommez-vous ?</P>
         </DescriptionText>
-      </TextContainer>
-      <Row>
         <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
-      </Row>
-      <Container>
-        <ModalContent ref={scrollRef} disableHorizontal>
-          {drinksCatalog
-            .map(({ categoryKey }) => categoryKey)
-            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-            .map((category, index) => (
-              <DrinksCategory
-                key={category}
-                drinksCatalog={drinksCatalog}
-                category={category}
-                index={index}
-                drinks={previousDrinksPerWeek}
-                setDrinkQuantity={setDrinkQuantityRequest}
-              />
-            ))}
-        </ModalContent>
       </Container>
-      <TextContainer>
+      <Spacer size={20} />
+      {drinksCatalog
+        .map(({ categoryKey }) => categoryKey)
+        .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+        .map((category, index) => (
+          <DrinksCategory
+            key={category}
+            drinksCatalog={drinksCatalog}
+            category={category}
+            index={index}
+            drinks={previousDrinksPerWeek}
+            setDrinkQuantity={setDrinkQuantityRequest}
+          />
+        ))}
+      <Spacer size={20} />
+      <Container>
         <P>
           <TextStyled>
             <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
@@ -90,7 +86,8 @@ const GainsPreviousConsumption = () => {
             calculer vos gains en&nbsp;€ et kCal.
           </P>
         </DescriptionText>
-      </TextContainer>
+      </Container>
+      <Spacer size={25} />
       <CTAButtonContainer>
         <ButtonPrimary
           disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
@@ -113,19 +110,9 @@ const GainsPreviousConsumption = () => {
           }}
         />
       </CTAButtonContainer>
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
-
-const TextContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-  margin-top: 20px;
-`;
-
-const TopTitle = styled.View`
-  flex-shrink: 0;
-  margin-bottom: 10px;
-`;
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
@@ -133,31 +120,13 @@ const DescriptionText = styled.Text`
 `;
 
 export const Container = styled.View`
-  background-color: #f9f9f9;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   flex: 1;
-  margin-top: 20px;
 `;
 
 const CTAButtonContainer = styled.View`
   align-items: center;
-  background-color: #f9f9f9;
   flex-shrink: 1;
-  padding-top: 30px;
-  padding-bottom: 100px;
-`;
-
-const ModalContent = styled.ScrollView`
-  width: 100%;
-  background-color: #f9f9f9;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  overflow: hidden;
-  width: 100%;
-  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 export default GainsPreviousConsumption;

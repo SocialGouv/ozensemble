@@ -22,8 +22,8 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onCloseHelp}>
-      <WrapperContainer>
-        <Diagram asPreview showCloseHelp onCloseHelp={onCloseHelp} />
+      <WrapperContainer onPressBackButton={onCloseHelp}>
+        <Diagram asPreview />
         <Paragraph>
           <Elem
             content={

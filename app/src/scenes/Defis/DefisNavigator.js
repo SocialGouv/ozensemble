@@ -13,7 +13,6 @@ import ContactForm from '../Health/ContactForm';
 import { showCTAButtonState } from '../AddDrink/AddDrinkCTAButton';
 
 const DefisStack = createStackNavigator();
-
 const DefisNavigator = () => {
   const [showCTAButton, setShowCTAButton] = useRecoilState(showCTAButtonState);
   const isFocused = useIsFocused();

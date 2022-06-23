@@ -9,8 +9,9 @@ import TextStyled from '../../components/TextStyled';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
-import { defaultPaddingFontScale } from '../../styles/theme';
+import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
 import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
+import WrapperContainer from '../../components/WrapperContainer';
 
 export const HTMLExportSelector = selector({
   key: 'HTMLExportSelector',
@@ -107,12 +108,8 @@ const Export = ({ navigation }) => {
   };
 
   return (
-    <Container>
-      <BackButton onPress={() => navigation.goBack()} />
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes données">
       <SubContainer>
-        <Title>
-          <TextStyled color="#4030a5">Exporter mes données</TextStyled>
-        </Title>
         <TextInputStyled
           value={email}
           placeholder="Adresse email"
@@ -130,33 +127,17 @@ const Export = ({ navigation }) => {
           <ButtonPrimary content="Envoyer" disabled={!email} onPress={exportData} />
         </ButtonsContainer>
       </SubContainer>
-    </Container>
+    </WrapperContainer>
   );
 };
-
-const Container = styled.View`
-  justify-content: center;
-  align-items: center;
-  background-color: #f9f9f9;
-  flex: 1;
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
 
 const SubContainer = styled.View`
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-bottom: 100px;
+  padding-top: ${screenHeight * 0.2}px;
   background-color: #f9f9f9;
   flex: 1;
-`;
-
-const Title = styled(H2)`
-  margin-vertical: 15px;
-  margin-horizontal: 15px;
-  flex-shrink: 0;
-  text-align: left;
-  width: 100%;
 `;
 
 const ButtonsContainer = styled.View`
