@@ -4,7 +4,7 @@ import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from '@react-nav
 import { useRecoilState } from 'recoil';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
-import Estimation from './Estimation';
+import GainsPreviousConsumption from './GainsPreviousConsumption';
 import Goal from './Goal';
 import MyGains from './MyGains';
 import Sevrage from './Sevrage';
@@ -53,7 +53,7 @@ const GainsNavigator = () => {
           <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
           <GainsStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
           <GainsStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
-          <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={Estimation} />
+          <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
           <GainsStack.Screen name="GAINS_SEVRAGE" component={Sevrage} />
         </GainsStack.Navigator>
       )}

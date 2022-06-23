@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { hitSlop } from '../styles/theme';
 import TextStyled from './TextStyled';
 
 const QButton = ({
@@ -12,7 +13,11 @@ const QButton = ({
   colorBackground = ' #eaeaed',
 }) => (
   <QButtonStyled onPress={onPress} disabled={disabled}>
-    <QButtonContentContainer small={small} colorBorder={colorBorder} colorBackground={colorBackground}>
+    <QButtonContentContainer
+      hitSlop={hitSlop(qButtonSize)}
+      small={small}
+      colorBorder={colorBorder}
+      colorBackground={colorBackground}>
       <QButtonContent color={colorText}>{content}</QButtonContent>
     </QButtonContentContainer>
   </QButtonStyled>

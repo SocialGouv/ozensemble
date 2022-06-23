@@ -10,3 +10,10 @@ export const defaultPaddingFontScale = () => {
 export const screenWidth = Dimensions.get('window').width;
 export const screenHeight = Dimensions.get('window').height;
 export const menuHeight = 80;
+
+export const hitSlop = (buttonSize) => ({
+  top: 44 - buttonSize,
+  bottom: 44 - buttonSize,
+  left: 44 - buttonSize,
+  right: 44 - buttonSize,
+});
