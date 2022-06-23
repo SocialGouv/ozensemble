@@ -1,7 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import { Modal, ScrollView } from 'react-native';
-import SafeAreaView from 'react-native-safe-area-view';
+import { Modal } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import Stars from '../../components/illustrations/Stars';

@@ -12,7 +12,6 @@ import Matomo from '../../services/matomo';
 import BackButton from '../BackButton';
 import CONSTANTS from '../../reference/constants';
 import { storage } from '../../services/storage';
-import { Spacer } from '../Articles';
 /*
 HOW DOES THE QUESTIONS WORK:
 -> The user can't pass a question.

@@ -13,7 +13,6 @@ import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 import { drinksState } from '../../recoil/consos';
 import H2 from '../../components/H2';
-import H1 from '../../components/H1';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import WrapperContainer from '../../components/WrapperContainer';
 import HeaderBackground from '../../components/HeaderBackground';

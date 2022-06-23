@@ -4,7 +4,6 @@ import { Text, TouchableOpacity } from 'react-native';
 import styled, { css } from 'styled-components';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
-import H1 from '../../components/H1';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -16,7 +15,6 @@ import Defi1_Reminder from '../Defis/Defi1/Defi1_Reminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const InfosStack = createStackNavigator();
@@ -108,20 +106,7 @@ const MenuItemStyled = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
-const commonCss = css`
-  width: 95%;
-  flex-shrink: 0;
-`;
-
 const Arrow = styled.Text`
   color: #4030a5;
   font-weight: bold;
-`;
-
-const TopTitle = styled(H1)`
-  ${commonCss}
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-  padding-top: 20px;
-  margin-top: 10px;
-  margin-bottom: 20px;
 `;

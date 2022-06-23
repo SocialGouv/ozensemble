@@ -1,17 +1,12 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import Background from '../../../components/Background';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
 import ResultsMotivations from './ResultsMotivations';
 import Section from './Section';
 import sections from './sections';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
-import H1 from '../../../components/H1';
-import { defaultPaddingFontScale } from '../../../styles/theme';
 import { motivationsQuizzAnswersState, motivationsQuizzResultState } from '../../../recoil/quizzs';
 import { setValidatedDays } from '../../Defis/utils';
 import WrapperContainer from '../../../components/WrapperContainer';

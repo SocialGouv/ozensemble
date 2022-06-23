@@ -1,12 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
-import H1 from '../../../components/H1';
-import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
@@ -70,19 +65,6 @@ const Defi2_Day6 = ({ navigation, route }) => {
     </WrapperContainer>
   );
 };
-
-const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px 0px;
-  margin-bottom: 100px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
 
 const ContainerText = styled.View`
   margin-left: 30px;

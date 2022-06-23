@@ -6,7 +6,6 @@ import TextStyled from '../../components/TextStyled';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import H2 from '../../components/H2';
-import H1 from '../../components/H1';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const ContactForm = ({ navigation }) => {
@@ -65,11 +64,6 @@ const ContactForm = ({ navigation }) => {
 const commonCss = css`
   width: 95%;
   flex-shrink: 0;
-`;
-
-const TopTitle = styled(H1)`
-  ${commonCss}
-  margin-bottom: 10px;
 `;
 
 const TopSubTitle = styled(H2)`
