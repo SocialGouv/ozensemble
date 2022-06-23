@@ -201,7 +201,7 @@ const TipsIllSmiley = () => (
 
 const TipsContainer = styled.View`
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 `;
 
 export default Defi2_Day5;

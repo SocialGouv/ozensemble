@@ -6,7 +6,6 @@ import { selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'rec
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
-import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import DrinksCategory from '../../components/DrinksCategory';
 import {
   drinksCatalog,
@@ -14,8 +13,6 @@ import {
   getDrinksKeysFromCatalog,
   getDrinkQuantityFromDrinks,
 } from '../ConsoFollowUp/drinksCatalog';
-import DatePicker from '../../components/DatePicker';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
@@ -23,6 +20,7 @@ import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
 import { drinksState, modalTimestampState, ownDrinksState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
+import DateAndTimePickers from './DateAndTimePickers';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -50,8 +48,7 @@ const ConsosList = ({ navigation }) => {
   const drinksPerCurrentaTimestamp = useRecoilValue(drinksPerCurrenTimestampSelector);
   const setDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
+  const addDrinkModalTimestamp = useRecoilValue(modalTimestampState);
   const toast = useToast();
 
   const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
@@ -139,22 +136,6 @@ const ConsosList = ({ navigation }) => {
     );
   };
 
-  const updateModalTimestamp = (newTimestamp) => {
-    const oldTimestamp = addDrinkModalTimestamp;
-    setDrinksState((drinks) =>
-      drinks.map((drink) => {
-        if (drink.timestamp === oldTimestamp) {
-          return {
-            ...drink,
-            timestamp: newTimestamp,
-          };
-        }
-        return drink;
-      })
-    );
-    setAddDrinkModalTimestamp(newTimestamp);
-  };
-
   useEffect(() => {
     if (isFocused) {
       setLocalDrinksState(drinksPerCurrentaTimestamp);
@@ -167,10 +148,7 @@ const ConsosList = ({ navigation }) => {
     <Container>
       <ModalContent ref={scrollRef} disableHorizontal>
         <Title>Sélectionnez vos consommations</Title>
-        <DateAndTimeContainer>
-          <DateOrTimeDisplay mode="date" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('date')} />
-          <DateOrTimeDisplay mode="time" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('time')} />
-        </DateAndTimeContainer>
+        <DateAndTimePickers />
         {withOwnDrinks && (
           <>
             <DrinksHeader content="Mes boissons" />
@@ -210,26 +188,6 @@ const ConsosList = ({ navigation }) => {
           <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
         </ButtonsContainer>
       </ButtonsContainerSafe>
-      <DatePicker
-        visible={Boolean(showDatePicker)}
-        mode={showDatePicker}
-        initDate={addDrinkModalTimestamp}
-        selectDate={(newDate) => {
-          if (newDate && showDatePicker === 'date') {
-            const newDateObject = new Date(newDate);
-            const oldDateObject = new Date(addDrinkModalTimestamp);
-            newDate = new Date(
-              newDateObject.getFullYear(),
-              newDateObject.getMonth(),
-              newDateObject.getDate(),
-              oldDateObject.getHours(),
-              oldDateObject.getMinutes()
-            );
-          }
-          setShowDatePicker(false);
-          if (newDate) updateModalTimestamp(makeSureTimestamp(newDate));
-        }}
-      />
     </Container>
   );
 };
