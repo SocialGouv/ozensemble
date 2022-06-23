@@ -1,3 +1,10 @@
+## [1.60.1](https://github.com/SocialGouv/ozensemble/compare/v1.60.0...v1.60.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* **app:** risk situations emotions ([f4d3de7](https://github.com/SocialGouv/ozensemble/commit/f4d3de7fe5156a8593d375f0726f292744ead895))
+
 # [1.60.0](https://github.com/SocialGouv/ozensemble/compare/v1.59.1...v1.60.0) (2022-06-23)
 
 
