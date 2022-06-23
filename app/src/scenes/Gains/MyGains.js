@@ -27,6 +27,7 @@ import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -150,53 +151,48 @@ const MyGains = () => {
   };
 
   return (
-    <ScreenBgStyled>
-      <Container>
-        <TopTitle>
-          <H1 color="#4030a5">Mes gains</H1>
-        </TopTitle>
-        {!isOnboarded ? (
-          <TouchableOpacity
-            onPress={() => {
-              logEvent({
-                category: 'GAINS',
-                action: 'TOOLTIP_GOAL',
-              });
-              navigateToFirstStep();
-            }}>
+    <WrapperContainer title={'Mes gains'}>
+      {!isOnboarded ? (
+        <TouchableOpacity
+          onPress={() => {
+            logEvent({
+              category: 'GAINS',
+              action: 'TOOLTIP_GOAL',
+            });
+            navigateToFirstStep();
+          }}>
+          <Description>
+            <InfosIcon size={24} />
+            <TextDescritpion>
+              <Text>
+                Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+              </Text>
+            </TextDescritpion>
+            <Arrow>{'>'}</Arrow>
+          </Description>
+        </TouchableOpacity>
+      ) : (
+        <>
+          {showGoalfix && (
             <Description>
-              <InfosIcon size={24} />
+              <Rocket size={24} />
               <TextDescritpion>
                 <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+                  Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
                 </Text>
               </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
+              <CloseShowGoalfix
+                onPress={() => {
+                  storage.set('@ShowGoalFix', false);
+                  setShowGoalfix(false);
+                }}
+                hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                <Arrow>{'x'}</Arrow>
+              </CloseShowGoalfix>
             </Description>
-          </TouchableOpacity>
-        ) : (
-          <>
-            {showGoalfix && (
-              <Description>
-                <Rocket size={24} />
-                <TextDescritpion>
-                  <Text>
-                    Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
-                  </Text>
-                </TextDescritpion>
-                <CloseShowGoalfix
-                  onPress={() => {
-                    storage.set('@ShowGoalFix', false);
-                    setShowGoalfix(false);
-                  }}
-                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-                  <Arrow>{'x'}</Arrow>
-                </CloseShowGoalfix>
-              </Description>
-            )}
-          </>
-        )}
-      </Container>
+          )}
+        </>
+      )}
       <TextContainer>
         <TextForm>
           {!!isOnboarded && beginDateOfOz && (
@@ -301,7 +297,7 @@ const MyGains = () => {
       />
       <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       {!isOnboarded ? (
-        <BottomContainer>
+        <>
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
@@ -316,7 +312,7 @@ const MyGains = () => {
               <Arrow>{'>'}</Arrow>
             </Description>
           </TouchableOpacity>
-        </BottomContainer>
+        </>
       ) : (
         <MyGoalContainer>
           <Title>
@@ -402,17 +398,9 @@ const MyGains = () => {
           </ButtonTouchable>
         </MyGoalContainer>
       )}
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
-
-const Container = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const BottomContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 100px;
-`;
 
 const TopTitle = styled.View`
   flex-shrink: 0;
