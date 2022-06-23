@@ -85,7 +85,7 @@ const Defi1_Day3 = ({ navigation, route }) => {
             <ButtonContainer>
               <ButtonPrimary
                 content="Échanger avec un conseiller"
-                onPress={() => navigation.navigate('HEALTH')}
+                onPress={() => navigation.navigate('CONTACT')}
                 style={{ marginVertical: 30 }}
               />
               <Button
