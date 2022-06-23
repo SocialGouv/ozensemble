@@ -41,11 +41,13 @@ const MyGains = () => {
   const mode = useRecoilValue(reminderGainMode);
   const weekDay = useRecoilValue(reminderGainWeekDay);
 
-  const [helpVisible, setHelpVisible] = useState(false);
-
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
-  const navigateToPreviousConsumption = () => {
-    navigation.navigate('GAINS_MY_OBJECTIVE');
+  const navigateToFirstStep = () => {
+    logEvent({
+      category: 'GAINS',
+      action: 'GOAL_OPEN',
+    });
+    navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
   const isOnboarded = useMemo(
@@ -160,7 +162,7 @@ const MyGains = () => {
                 category: 'GAINS',
                 action: 'TOOLTIP_GOAL',
               });
-              navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+              navigateToFirstStep();
             }}>
             <Description>
               <InfosIcon size={24} />
@@ -291,13 +293,7 @@ const MyGains = () => {
         title="Sans objectif, pas de gains"
         description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
         boutonTitle="Je me fixe un objectif"
-        onPress={() => {
-          logEvent({
-            category: 'GAINS',
-            action: 'GOAL_OPEN',
-          });
-          navigateToPreviousConsumption();
-        }}
+        onPress={navigateToFirstStep}
         visible={showOnboardingGainModal}
         hide={() => {
           setShowOnboardingGainModal(false);
@@ -309,9 +305,7 @@ const MyGains = () => {
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}
-            hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+          <TouchableOpacity onPress={navigateToFirstStep} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <Description>
               <InfosIcon size={24} />
               <TextDescritpion>
@@ -346,7 +340,7 @@ const MyGains = () => {
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
-          <ButtonTouchable onPress={navigateToPreviousConsumption}>
+          <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
             <TextModify>Modifier l'objectif</TextModify>
           </ButtonTouchable>
           <Title>

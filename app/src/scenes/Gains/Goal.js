@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,13 +7,12 @@ import H1 from '../../components/H1';
 import Calendar from '../../components/illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import TextStyled from '../../components/TextStyled';
-import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
+import { defaultPaddingFontScale, hitSlop, screenHeight } from '../../styles/theme';
 import {
   daysWithGoalNoDrinkState,
   drinksByDrinkingDayState,
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
-  previousDrinksPerWeekState,
 } from '../../recoil/gains';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
@@ -22,9 +21,8 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 
-const Goal = ({ navigation }) => {
+const Goal = ({ navigation, route }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
-  const isOnboarded = useRecoilValue(previousDrinksPerWeekState);
 
   const toggleDayWithGoalNoDrink = (day) =>
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
@@ -32,6 +30,8 @@ const Goal = ({ navigation }) => {
   const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const drinkByWeek = useRecoilValue(maxDrinksPerWeekSelector);
+
+  const isOnboarded = !route.params?.forOnboarding;
 
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
@@ -226,9 +226,9 @@ const DayContainer = styled.View`
   margin-bottom: ${screenHeight * 0.06}px;
 `;
 
-const DayButton = ({ small, content, onPress, active }) => (
+const DayButton = ({ content, onPress, active }) => (
   <QButtonStyled onPress={onPress}>
-    <QButtonContentContainer small={small} backgroundColor={active ? '#4030A5' : '#eeeeee'}>
+    <QButtonContentContainer hitSlop={hitSlop(qButtonSize)} backgroundColor={active ? '#4030A5' : '#eeeeee'}>
       <QButtonContent color={active ? '#eeeeee' : '#000000'}>{content}</QButtonContent>
     </QButtonContentContainer>
   </QButtonStyled>
