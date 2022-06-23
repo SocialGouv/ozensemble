@@ -74,9 +74,9 @@ const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 5px;
-  width: 87%;
-  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'}
+  margin-vertical: 12px;
+  margin-right: 10px;
+  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'};
 `;
 
 const AlertContainer = styled.View`
