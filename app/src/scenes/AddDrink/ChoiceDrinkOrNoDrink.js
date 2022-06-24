@@ -30,8 +30,7 @@ const ChoiceDrinkOrNoDrink = () => {
             category: 'CONSO',
             action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
           });
-        }}
-        marginTop>
+        }}>
         <DateAndTimePickers />
         <Option
           icon={<NoDrink size={40} />}
