@@ -14,7 +14,7 @@ const Container = styled.TouchableOpacity`
   margin-right: auto;
   ${({ marginLeft }) => marginLeft && `margin-left: ${defaultPaddingFontScale()}px`};
   ${({ marginBottom }) => marginBottom && 'margin-bottom: 20px'};
-  ${({ marginTop }) => marginTop && 'margin-top: 20px'};
+  ${({ marginTop }) => !!marginTop && 'margin-top: 20px'};
 `;
 
 const bigContent = css`
