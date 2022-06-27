@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import ButtonPrimary from './ButtonPrimary';
 import { P } from './Articles';
+import { Platform } from 'react-native';
 
 const CheckboxLabelled = ({
   answerKey,
@@ -62,7 +63,8 @@ const CheckBoxContainer = styled.View`
   height: 20px;
   width: 20px;
   flex-shrink: 0;
-  margin-right: 10px;
+  margin-left: ${Platform.select({ ios: 0, android: -10 })}px;
+  margin-right: ${Platform.select({ ios: 10, android: 20 })}px; ;
 `;
 
 const CheckBoxStyled = styled(CheckBox)`
