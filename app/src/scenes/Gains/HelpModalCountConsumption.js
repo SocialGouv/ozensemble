@@ -48,7 +48,7 @@ const HelpModalCountConsumption = ({ event, children }) => {
                   <TextStyled>Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement</TextStyled>
                   <TextStyled bold>comptabilisée en unité d'alcool.{'\n'}</TextStyled>
                   <TextStyled>
-                    A titre indicatif chaque consommation ci-dessous compte pour une unité d'alcool.
+                    À titre indicatif chaque consommation ci-dessous compte pour une unité d'alcool.
                   </TextStyled>
                 </Description>
               </HowCountContainer>

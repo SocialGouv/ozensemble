@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Background from '../../../components/Background';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
@@ -15,14 +14,14 @@ const AlcoholAddiction = () => {
         <H2 color={'#4030a5'}>Qu'est-ce que l'addiction à l'alcool ?</H2>
         <Spacer size={20} />
         <P>
-          Vous aimez boire un verre avec des amis ? Vous consommez souvent de l'alcool ? C'est néfaste pour votre santé
-          mais ça ne fait pas nécessairement de vous une personne « alcoolique ».{'\n'}On parle d'addiction à l'alcool,
-          ou <Bold>alcoolodépendance</Bold>, quand on a du mal à se passer de boire. On identifie qu'on a des effets
-          néfastes sur le sommeil, ses performances, son moral ou dans ses relations interpersonnelles par exemple, ce
-          qui amène naturellement à se dire qu'on ne va plus boire d'alcool pendant quelque temps. Mais curieusement on
-          se retrouve quand même avec un verre à la main. C'est insidieux !{'\n'}On se fabrique des bonnes raisons «
-          exceptionnelles » pour ne pas y parvenir comme un anniversaire une fête, un pot de départ, une sale journée…
-          mais le fait est que votre organisme est toujours exposé à l'alcool.
+          Vous aimez boire un verre avec des amis&nbsp;? Vous consommez souvent de l'alcool&nbsp;? C'est néfaste pour
+          votre santé mais ça ne fait pas nécessairement de vous une personne «&nbsp;alcoolique&nbsp;».{'\n'}On parle
+          d'addiction à l'alcool, ou <Bold>alcoolodépendance</Bold>, quand on a du mal à se passer de boire. On
+          identifie qu'on a des effets néfastes sur le sommeil, ses performances, son moral ou dans ses relations
+          interpersonnelles par exemple, ce qui amène naturellement à se dire qu'on ne va plus boire d'alcool pendant
+          quelque temps. Mais curieusement on se retrouve quand même avec un verre à la main. C'est insidieux !{'\n'}On
+          se fabrique des bonnes raisons «&nbsp;exceptionnelles&nbsp;» pour ne pas y parvenir comme un anniversaire une
+          fête, un pot de départ, une sale journée… mais le fait est que votre organisme est toujours exposé à l'alcool.
         </P>
         <P>L'addiction à l'alcool s'accompagne parfois d'addiction au tabac ou à la drogue.</P>
         <Spacer size={20} />
@@ -37,8 +36,8 @@ const AlcoholAddiction = () => {
           maîtrise.
         </P>
         <P>
-          De nos jours on ne parle plus « d'alcoolisme » qui renvoyait à l'idée fausse que seules les personnes
-          présentant des signes d'ivresse étaient dépendantes à l'alcool. C'est bien la{' '}
+          De nos jours on ne parle plus «&nbsp;d'alcoolisme&nbsp;» qui renvoyait à l'idée fausse que seules les
+          personnes présentant des signes d'ivresse étaient dépendantes à l'alcool. C'est bien la{' '}
           <Bold>perte du contrôle de la consommation qui signe la dépendance</Bold> et pas votre capacité à « tenir
           l'alcool ».
         </P>

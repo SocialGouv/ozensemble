@@ -2,14 +2,9 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
-import Background from '../../../../components/Background';
 import GoBackButton from '../../../../components/GoBackButton';
-import H1 from '../../../../components/H1';
 import Stars from '../../../../components/illustrations/Stars';
 import TextStyled from '../../../../components/TextStyled';
-import { defaultPaddingFontScale } from '../../../../styles/theme';
-import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
-import BackButton from '../../../../components/BackButton';
 import WrapperContainer from '../../../../components/WrapperContainer';
 
 const ToggleContent = ({ children, title }) => {
@@ -91,16 +86,6 @@ const Elem = ({ content }) => (
   </ElemContainer>
 );
 
-const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px 100px;
-`;
-
-const TopTitle = styled.View`
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
 const ElemContainer = styled.View`
   display: flex;
   flex-direction: row;

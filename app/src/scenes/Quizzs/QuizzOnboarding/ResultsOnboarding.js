@@ -106,12 +106,12 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
         <>
           <P>
             <Bold>Cela peut-être un choc</Bold> mais c'est une image à instant T sur laquelle
-            <Bold> vous pouvez faire face.</Bold> Nous ne parlons pas d'alcoolisme mais d'un risque alcool.
+            <Bold> vous pouvez agir.</Bold>
           </P>
           <P>
-            A tout moment, nous vous recommandons de
-            <Bold> discuter gratuitement sous 48H avec un professionnel formé en addictologie</Bold> pour vous aider
-            dans votre parcours.
+            Si cela ne vous semble pas refléter votre situation, vous pouvez en parler
+            <Bold> gratuitement sous 48H avec un professionnel formé en addictologie</Bold> pour vous aider dans votre
+            parcours.
           </P>
           <TopButtonContainer>
             <ButtonPrimary content="J'échange avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
@@ -119,15 +119,10 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
         </>
       ) : null}
       {feeling != null && (
-        <>
-          <P>
-            <Bold>Commencer votre démarche de réduction</Bold>
-          </P>
-          <P>
-            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers un
-            <Bold> premier défi pour faire le point en 7 jours.</Bold>
-          </P>
-        </>
+        <P>
+          Nous vous proposons une démarche de maîtrise de votre consommation d'alcool en autonomie,{' '}
+          <Bold>voici un premier défi pour faire le point en 7 jours.</Bold>
+        </P>
       )}
     </>
   );
