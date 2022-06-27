@@ -67,7 +67,7 @@ const Defi2_Day1 = ({ navigation, route }) => {
       <ButtonPrimary
         content="Je vois mon progrès"
         widthSmall
-        onPress={() => navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', { screen: 'CONSO_FOLLOW_UP' })}
+        onPress={() => navigation.navigate('GAINS_NAVIGATOR', { screen: 'GAINS_MAIN_VIEW' })}
       />
     </WrapperContainer>
   );

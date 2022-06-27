@@ -28,11 +28,13 @@ featuresShown = [
   }
 ]
  */
-const NewFeaturePopupDisplay = () => {
+const NewFeaturePopupDisplay = ({ canShow }) => {
   const [featuresShownIds, setFeaturesShownIds] = useState(() => {
+    // storage.delete('@NewFeaturesPopupIdsShown');
     return JSON.parse(storage.getString('@NewFeaturesPopupIdsShown') || JSON.stringify([]));
   });
   const [lastShownId, setLastShownId] = useState(() => {
+    // storage.delete('@NewFeaturesLastShownId');
     return storage.getString('@NewFeaturesLastShownId') || '';
   });
   const [featuresToShow, setFeaturesToShow] = useState([]);
@@ -69,6 +71,8 @@ const NewFeaturePopupDisplay = () => {
     setLastShownId(featureToShow?.id);
     setFeaturesShownIds((featureIds) => [...new Set([...featureIds, featureToShow?.id].filter(Boolean))]);
   };
+
+  if (!canShow) return null;
 
   return (
     <>
