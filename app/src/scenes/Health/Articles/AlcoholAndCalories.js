@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Background from '../../../components/Background';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
@@ -74,7 +73,7 @@ const AlcoholAndCalories = () => {
           fringales !
         </P>
         <P>
-          A titre indicatif, voici 4 équivalences alcool / nourriture pour mieux se rendre compte de la teneur en sucre
+          À titre indicatif, voici 4 équivalences alcool / nourriture pour mieux se rendre compte de la teneur en sucre
           des boissons alcoolisées :
         </P>
         <Correspondance
@@ -191,7 +190,7 @@ const CorrespondanceContainer = styled.View`
 `;
 
 const CorrespondanceTitleContainer = styled.View`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const CategorieContainer = styled.View`

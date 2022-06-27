@@ -46,8 +46,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
 
-  console.log(JSON.stringify(drinks, null, 2));
-
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);

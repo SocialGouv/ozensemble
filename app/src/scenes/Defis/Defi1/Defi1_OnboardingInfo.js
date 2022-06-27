@@ -3,14 +3,9 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { Dimensions, View } from 'react-native';
 import styled from 'styled-components';
-import Background from '../../../components/Background';
-import H1 from '../../../components/H1';
 import Stars from '../../../components/illustrations/Stars';
 import TextStyled from '../../../components/TextStyled';
-import { defaultPaddingFontScale } from '../../../styles/theme';
 import { setValidatedDays } from '../utils';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
-import BackButton from '../../../components/BackButton';
 import WrapperContainer from '../../../components/WrapperContainer';
 
 const screenWidth = Dimensions.get('window').width;
@@ -192,18 +187,6 @@ const ElemContainer = styled.View`
 
 const Paragraph = styled.View`
   margin-bottom: 25px;
-`;
-
-const TopContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
 `;
 
 export default Defi1_OnboardingInfo;

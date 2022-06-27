@@ -1,10 +1,10 @@
 import React from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
+import { Platform } from 'react-native';
 import styled from 'styled-components';
 import ButtonPrimary from './ButtonPrimary';
 import { P } from './Articles';
-import { Platform } from 'react-native';
 
 const CheckboxLabelled = ({
   answerKey,

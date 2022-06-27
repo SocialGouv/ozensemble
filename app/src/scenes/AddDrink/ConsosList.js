@@ -22,7 +22,6 @@ import { drinksState, modalTimestampState, ownDrinksState } from '../../recoil/c
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import dayjs from 'dayjs';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 

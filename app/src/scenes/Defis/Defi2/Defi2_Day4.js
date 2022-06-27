@@ -8,7 +8,7 @@ import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import DraggableHand from '../../../components/illustrations/DraggableHand';
-import { Bold, P, Spacer } from '../../../components/Articles';
+import { Bold, P } from '../../../components/Articles';
 import DraggableClick from '../../../components/illustrations/DraggableClick';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector, riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
