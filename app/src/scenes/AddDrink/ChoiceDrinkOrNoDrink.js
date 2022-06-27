@@ -17,7 +17,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
-  const addDrinkModalTimestamp = useRecoilValue(modalTimestampState);
+  const drinkModalTimestamp = useRecoilValue(modalTimestampState);
   const navigation = useNavigation();
 
   return (
@@ -42,7 +42,7 @@ const ChoiceDrinkOrNoDrink = () => {
             });
             setDrinksState((state) => [
               ...state,
-              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
+              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(drinkModalTimestamp), id: uuidv4() },
             ]);
             navigation.goBack();
           }}
