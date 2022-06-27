@@ -1,23 +1,25 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../../components/TextStyled';
 import Diagram from '../../ConsoFollowUp/Diagram';
 import { setValidatedDays } from '../utils';
-import { maxDrinksPerWeekSelector } from '../../../recoil/gains';
+import { totalDrinksByDrinkingDaySelector } from '../../../recoil/gains';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import { modalTimestampState } from '../../../recoil/consos';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
-  const drinkByWeek = useRecoilValue(maxDrinksPerWeekSelector);
+  const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
 
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
@@ -60,8 +62,10 @@ const Defi1_Day1 = ({ navigation, route }) => {
           <TextStyled>
             Un graphique vous permet de suivre vos consommations en unité d'alcool consommées sur une journée.
             {'\n\n'}
-            {drinkByWeek
-              ? `La ligne verte représente votre objectif (${drinkByWeek} unités d'alcool par jour)`
+            {totalDrinksByDrinkingDay
+              ? `La ligne verte représente votre objectif (${totalDrinksByDrinkingDay}\u00A0unité${
+                  totalDrinksByDrinkingDay > 1 ? 's' : ''
+                } d'alcool par jour)`
               : "La ligne verte représente le seuil de l'OMS (2 verres par jour) ou votre objectif quand il sera fixé"}
           </TextStyled>
         }
@@ -78,7 +82,8 @@ const Defi1_Day1 = ({ navigation, route }) => {
       <AddConsoCTAContainer>
         <ButtonPrimary
           onPress={() => {
-            navigation.push('ADD_DRINK', { timestamp: Date.now() });
+            setModalTimestamp(Date.now());
+            navigation.push('ADD_DRINK');
             logEvent({
               category: 'CONSO',
               action: 'CONSO_OPEN_CONSO_ADDSCREEN',

@@ -25,7 +25,9 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 const computePosition = (drinksOfTheDay, drink) => {
-  const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
+  const sameTimeStamp = drinksOfTheDay
+    .filter((d) => d.timestamp === drink.timestamp)
+    .filter((d) => d.drinkKey !== NO_CONSO);
   if (sameTimeStamp.length === 1) return 'alone';
   const position = sameTimeStamp.findIndex((d) => d.id === drink.id);
   if (position === 0) return 'first';
@@ -43,6 +45,8 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   // state for NPS
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
+
+  console.log(JSON.stringify(drinks, null, 2));
 
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [NPSvisible, setNPSvisible] = useState(false);
@@ -163,7 +167,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 <AddDrinkButton
                   onPress={() => {
                     setModalTimestamp(Date.now());
-                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                    navigation.push('ADD_DRINK');
                     logEvent({
                       category: 'CONSO',
                       action: 'CONSO_OPEN_CONSO_ADDSCREEN',

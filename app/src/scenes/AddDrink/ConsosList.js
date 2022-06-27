@@ -21,6 +21,8 @@ import DrinksHeader from '../../components/DrinksHeader';
 import { drinksState, modalTimestampState, ownDrinksState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
+import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import dayjs from 'dayjs';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -85,7 +87,7 @@ const ConsosList = ({ navigation }) => {
     setDrinksState((state) =>
       [
         ...state.filter((drink) => drink.id !== id),
-        { drinkKey, quantity, id, timestamp: addDrinkModalTimestamp },
+        { drinkKey, quantity, id, timestamp: makeSureTimestamp(addDrinkModalTimestamp) },
       ].filter((d) => d.quantity > 0)
     );
   };

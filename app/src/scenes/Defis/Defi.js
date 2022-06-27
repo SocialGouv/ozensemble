@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import ArrowRight from '../../components/ArrowRight';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
@@ -15,6 +15,7 @@ import { defi2OnBoardingDoneState } from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../styles/theme';
+import { modalTimestampState } from '../../recoil/consos';
 
 const Defi = ({
   navigation,
@@ -29,7 +30,7 @@ const Defi = ({
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
-
+  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, ActiveDayIndex);
@@ -64,7 +65,8 @@ const Defi = ({
             content="Ajouter une consommation"
             onPress={() => {
               if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
-              navigation.push('ADD_DRINK', { timestamp: Date.now() });
+              setModalTimestamp(Date.now());
+              navigation.push('ADD_DRINK');
               logEvent({
                 category: 'CONSO',
                 action: 'CONSO_OPEN_CONSO_ADDSCREEN',
