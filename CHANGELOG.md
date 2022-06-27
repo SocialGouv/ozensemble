@@ -1,3 +1,10 @@
+## [1.61.1](https://github.com/SocialGouv/ozensemble/compare/v1.61.0...v1.61.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* **api:** better timeing for whowing new stuff popup ([0eff58b](https://github.com/SocialGouv/ozensemble/commit/0eff58b05bf869d241a6b8d94e94847492201049))
+
 # [1.61.0](https://github.com/SocialGouv/ozensemble/compare/v1.60.2...v1.61.0) (2022-06-23)
 
 
