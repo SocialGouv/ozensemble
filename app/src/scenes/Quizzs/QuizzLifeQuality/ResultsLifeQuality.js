@@ -40,7 +40,7 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   if (!resultKey) return null;
   if (!wrapped) return <>{children}</>;
   return (
-    <WrapperContainer noPaddingHorizontal>
+    <WrapperContainer noPaddingHorizontal noMarginBottom>
       <HeaderQuizzsResult inMyTests={inMyTests}>
         <ResultContainer>
           {resultKey ? (
