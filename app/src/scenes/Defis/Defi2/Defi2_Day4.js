@@ -8,7 +8,7 @@ import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import DraggableHand from '../../../components/illustrations/DraggableHand';
-import { Bold, P } from '../../../components/Articles';
+import { Bold, P, Spacer } from '../../../components/Articles';
 import DraggableClick from '../../../components/illustrations/DraggableClick';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector, riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
@@ -61,6 +61,7 @@ const Defi2_Day4 = ({ navigation, route }) => {
           <P bold color="#4030a5">
             Je suis plus motivé(e) à réduire l'alcool :{' '}
           </P>
+          <PaddingTop size={20} />
         </WrapperContainer>
       )}
       onDragEnd={({ data }) => setAnswersRiskSituations(data?.map((answer) => answer.answerKey))}
@@ -79,6 +80,8 @@ const Defi2_Day4 = ({ navigation, route }) => {
   );
 };
 
+export default Defi2_Day4;
+
 const ButtonContainer = styled.View`
   margin-top: 40px;
   margin-bottom: 150px;
@@ -93,15 +96,14 @@ const DraggableContainer = styled.TouchableOpacity`
 
 const DraggableTextContainer = styled.View`
   margin-left: 15px;
-  width: 80%;
+  flex-shrink: 1;
 `;
-
-export default Defi2_Day4;
 
 const HelpContainer = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  min-height: 60px;
+  margin-top: 5px;
+  margin-bottom: 20px;
 `;
 
 const AnswerContainer = styled.View`
@@ -123,7 +125,13 @@ const AnswerContainer = styled.View`
     shadow-opacity: 1;
     shadow-radius: 3.84px;
   `};
-  background-color: ${({ isActive }) => (isActive ? '#FFFFFF' : '#FFFFFF')};
+  background-color: #ffffff;
+`;
+
+const PaddingTop = styled.View`
+  height: 20px;
+  margin-horizontal: -${defaultPaddingFontScale}px;
+  background-color: #efefef;
 `;
 
 const AnswerText = styled.View`
