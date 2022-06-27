@@ -68,7 +68,7 @@ const AlcoholAndNorms = () => {
         <P>
           L'alcoolodépendance est une addiction à l'alcool sous forme de boissons plus ou moins « fortes». La
           <Bold> consommation répétée</Bold> de boissons alcoolisées peut prendre différentes formes selon le rythme de
-          consommation et la quantité d'alcool ingérée.{'\n'} On distingue divers degrés de sévérité qui vont de
+          consommation et la quantité d'alcool ingérée.{'\n'}On distingue divers degrés de sévérité qui vont de
           l'abstinence (aucune prise d'alcool) à la dépendance avérée, selon un continuum d'intensité.
         </P>
         <P>
@@ -77,7 +77,7 @@ const AlcoholAndNorms = () => {
         </P>
         <P>
           En France, on estime qu'environ 1,5 millions de personnes sont alcoolodépendantes et que 2,5 millions de
-          personnes ont une consommation à risque.{'\n'} L'addiction à l'alcool est plus souvent masculine : 14 % des
+          personnes ont une consommation à risque.{'\n'}L'addiction à l'alcool est plus souvent masculine : 14 % des
           hommes contre 5 % de la population féminine. La consommation excessive d'alcool serait responsable, selon les
           sources, de 33 000 à 49 000 décès par an en France.
         </P>
@@ -97,31 +97,6 @@ const AlcoholAndNorms = () => {
         </P>
         <Spacer size={20} />
         <P color={'#4030a5'} bold>
-          La France, un pays où l'on boit moins qu'avant
-        </P>
-        <P>
-          <Bold>En France, la consommation de boissons alcoolisées a fortement baissé en quarante ans : </Bold>
-          de 22 litres d'alcool pur par personne de plus de 15 ans et par an en 1970, nous sommes passés à environ 12
-          litres (en nombre de verres par jour, cela correspond à respectivement 5 verres par jour et par personne et
-          2,6 verres par jour et par personne). Cette diminution de moitié de la consommation globale est
-          essentiellement due à une baisse de la consommation de vin. Mais ces chiffres optimistes ne doivent pas cacher
-          la réalité :
-          <Bold>
-            {' '}
-            la consommation moyenne des hommes en France reste autour de 4,4 verres par jour et par personne !
-          </Bold>{' '}
-          20% des Français et 7 % des Françaises de 12 à 75 ans déclarent consommer une boisson alcoolisée tous les
-          jours de l'année et les mêmes pourcentages déclarent avoir été au moins une fois en état d'ivresse au cours
-          des douze derniers mois. Entre 65 et 75 ans, les consommateurs quotidiens représentent 56 % des hommes et 23 %
-          des femmes. {'\n'}
-          <Bold>En France, la consommation de boissons alcoolisées se compose essentiellement de vins</Bold> (58 %, en
-          baisse sensible), de spiritueux (22 % avec une tendance à l'augmentation) et de bière (17,5 %, une valeur
-          constante depuis des années).{'\n'} Dans l'Union européenne, la France se place en 15e position en terme de
-          consommation d'alcool par habitant, un peu au dessus de la moyenne. Les pays d'Europe centrale et de l'Est
-          restent les plus gros consommateurs de boissons alcoolisées.
-        </P>
-        <Spacer size={20} />
-        <P color={'#4030a5'} bold>
           Zoom sur la France, un pays où l'on boit moins qu'avant
         </P>
         <P>
@@ -129,7 +104,7 @@ const AlcoholAndNorms = () => {
           litres d'alcool pur par an et par personne de plus de 15 ans (soit 5 verres par jour), à environ
           <Bold> 12 litres</Bold> (soit 2,6 verres par jour).
         </P>
-        <P> Cette diminution de moitié est essentiellement due à une baisse de la consommation de vin. </P>
+        <P>Cette diminution de moitié est essentiellement due à une baisse de la consommation de vin. </P>
         <P>
           Mais ces chiffres optimistes ne doivent pas cacher la réalité :{' '}
           <Bold>
@@ -138,13 +113,13 @@ const AlcoholAndNorms = () => {
         </P>
         <P>
           <Bold>Que boivent les Français ?</Bold>
-          {'\n'} Majoritairement, 58% boivent du <Bold>vin</Bold> (en baisse sensible), 22% des <Bold>spiritueux</Bold>{' '}
+          {'\n'}Majoritairement, 58% boivent du <Bold>vin</Bold> (en baisse sensible), 22% des <Bold>spiritueux</Bold>{' '}
           (en augmentation) et 17,5% de la <Bold>bière</Bold> (stable depuis des années).
         </P>
         <P>
-          <Bold>Qui sont les consommateurs quotidiens ?</Bold> 20% des hommes et 7 % des femmes de 12 à 75 ans déclarent
-          consommer une boisson alcoolisée tous les jours, et pour la tranche d'âge 65-75 ans, ce taux montent à 56 %
-          des hommes et 23 % des femmes.
+          <Bold>Qui sont les consommateurs quotidiens ?</Bold>
+          {'\n'}20% des hommes et 7 % des femmes de 12 à 75 ans déclarent consommer une boisson alcoolisée tous les
+          jours, et pour la tranche d'âge 65-75 ans, ce taux montent à 56 % des hommes et 23 % des femmes.
         </P>
         <P>
           Dans l'Union européenne, la France se place en 15e position en terme de consommation d'alcool par habitant, un
