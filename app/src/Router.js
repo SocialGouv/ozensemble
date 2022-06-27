@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Alert, Linking, StatusBar } from 'react-native';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import DefisIcon from './components/illustrations/Defis';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
@@ -27,7 +28,6 @@ import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
-import { useRecoilValue } from 'recoil';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>

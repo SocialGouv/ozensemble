@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Text, TouchableOpacity } from 'react-native';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
