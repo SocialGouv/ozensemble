@@ -41,7 +41,7 @@ const Defi = ({
     if (activeDay === dayIndex) return '#de285e';
   };
   return (
-    <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal>
+    <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
       <NPS forceView={NPSvisible} close={closeNPS} />
       <TopTimeline
         nbdays={nbdays}
@@ -157,6 +157,7 @@ const FeedContainer = styled.View`
   background-color: #efefef;
   padding-top: 30px;
   padding-horizontal: ${defaultPaddingFontScale()}px;
+  padding-bottom: 150px;
 `;
 
 /*

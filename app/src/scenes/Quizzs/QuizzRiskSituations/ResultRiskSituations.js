@@ -42,12 +42,12 @@ const ResultsContainer = styled.View`
   background-color: #efefef;
   padding-top: 20px;
   padding-bottom: 10px;
-  margin-vertical: 20px;
+  margin-bottom: 20px;
 `;
 
 const Result = styled.View`
   flex-direction: row;
-  padding: 0px ${defaultPaddingFontScale()}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   margin-bottom: 10px;
   align-items: center;
 `;
