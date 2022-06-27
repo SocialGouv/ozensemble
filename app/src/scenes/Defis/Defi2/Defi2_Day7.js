@@ -84,7 +84,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
       <ElementDayDefi content={<H2 color="#4030a5">Conclusion de ma semaine</H2>} noMarginBottom />
       <P bold>Vous n'êtes pas la seule personne à ressentir ces émotions qui impactent sur l'envie de boire !</P>
       <Spacer />
-      <P>Chacun réagit différemment à l'alcool. Et les émotions peuvent aussi bien positives que négatives.</P>
+      <P>Chacun réagit différemment à l'alcool. Et les émotions peuvent aussi bien être positives que négatives.</P>
       <Spacer />
       <P>
         L'enquête du <P bold>British Medical Journal Open</P> montre que les émotions perçues varient en fonction du

@@ -41,7 +41,7 @@ const MyGains = () => {
   const mode = useRecoilValue(reminderGainMode);
   const weekDay = useRecoilValue(reminderGainWeekDay);
 
-  const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
+  const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(true);
   const navigateToFirstStep = () => {
     logEvent({
       category: 'GAINS',

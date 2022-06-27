@@ -87,7 +87,7 @@ const QuizzRiskSituations = ({ navigation, route }) => {
             description1={
               <>
                 Parmi les situations suivantes, lesquelles vous semblent à risque (c'est à dire que vous allez
-                <P bold> surconsommer de l'alcool</P>) ?
+                <P bold> consommer plus d'alcool</P>) ?
               </>
             }
             description2={
@@ -113,7 +113,7 @@ const QuizzRiskSituations = ({ navigation, route }) => {
             }
             description2={
               <>
-                Lesquelles vous semblent à risque (c'est à dire que vous allez <P bold>surconsommer de l'alcool</P>) ?
+                Lesquelles vous semblent à risque (c'est à dire que vous allez <P bold>consommer plus d'alcool</P>) ?
               </>
             }
           />

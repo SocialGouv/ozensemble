@@ -32,7 +32,7 @@ const HelpModalCountConsumption = ({ event, children }) => {
           children
         ) : (
           <>
-            <HelpCountCaption>Comment compter un verre sans me tromper</HelpCountCaption>
+            <HelpCountCaption>Comment compter un verre sans me tromper ?</HelpCountCaption>
             <InfoObjectif size={15} color={'#000000'} />
           </>
         )}
