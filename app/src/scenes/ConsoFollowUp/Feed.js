@@ -324,8 +324,8 @@ const FeedDay = styled.View`
 
 const FeedDayContent = styled.View`
   flex-grow: 1;
-  padding-horizontal: 15px;
-  padding-vertical: 10px;
+  margin-left: 10px;
+  margin-vertical: 10px;
 `;
 
 const FeedBottomButton = styled(UnderlinedButton)`
