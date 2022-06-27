@@ -1,4 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
+import styled from 'styled-components';
 import React, { useEffect } from 'react';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
@@ -6,6 +7,7 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import OMSIllustationsManAndWoman from '../../../components/OMSIllustationsManAndWoman';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { P, Underlined } from '../../../components/Articles';
 
 const Defi2_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -69,6 +71,14 @@ const Defi2_Day2 = ({ navigation, route }) => {
           </TextStyled>
         }
       />
+      <ContainerText>
+        <P>
+          Pour aller plus loin, lisez notre article sur{' '}
+          <Underlined onPress={() => navigation.navigate('ALCOHOL_AND_NORMS')} color="#4030a5">
+            l'alcool et les normes, dans la rubrique Santé.
+          </Underlined>
+        </P>
+      </ContainerText>
       <ButtonPrimary
         content="Je m'informe sur les normes"
         widthSmall
@@ -77,5 +87,10 @@ const Defi2_Day2 = ({ navigation, route }) => {
     </WrapperContainer>
   );
 };
+
+const ContainerText = styled.View`
+  margin-left: 30px;
+  margin-bottom: 30px;
+`;
 
 export default Defi2_Day2;

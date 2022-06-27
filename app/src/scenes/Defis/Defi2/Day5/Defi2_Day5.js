@@ -27,7 +27,7 @@ const Defi2_Day5 = ({ navigation, route }) => {
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Affronter une situation à risque">
       <P bold>Dans cette situation, sélectionner l'émotion que vous ressentez.</P>
-      <P>"{firstRiskSituations?.content}"</P>
+      <P>"{firstRiskSituations?.content}", je bois pour&nbsp;:</P>
       <SmileysContainer>
         {emotions.map((emotion, index) => (
           <SmileyContainer

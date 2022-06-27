@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text } from 'react-native';
-import Background from '../../../components/Background';
 import { Spacer, P, TopContainer, Bold, Underlined } from './../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
@@ -79,12 +78,7 @@ const ToHelpMeReduce = ({ navigation }) => {
           spa, ou pour faire des économies ? {'\n'}
           {'    - '}Vous pouvez vous engager à ne dépenser que la moitié de ce montant, et profiter de cet argent pour
           vous.{'\n'}En vous fixant un objectif vous aurez accès directement à vos{' '}
-          <Text
-            onPress={() =>
-              navigation.navigate('GAINS_MAIN_VIEW', {
-                onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
-              })
-            }>
+          <Text onPress={() => navigation.navigate('GAINS_NAVIGATOR')}>
             <Bold color={'#4030a5'}>
               <Underlined>gains</Underlined>
             </Bold>

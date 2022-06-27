@@ -19,8 +19,10 @@ const Defi2_Day5_OnBoarding = ({ navigation, route }) => {
         content={
           <TextStyled>
             Nous vous proposons un exercice basé sur l'identification de vos situations à risque. Commençons par{' '}
-            <TextStyled bold>la plus facile (celle où vous êtes le plus motivé.e à changer)</TextStyled> car c'est aussi
-            la plus accessible pour vous au changement.
+            <TextStyled bold>
+              la plus facile (celle pour laquelle votre motivation à changer est la plus forte)
+            </TextStyled>{' '}
+            car c'est aussi la plus accessible pour vous au changement.
           </TextStyled>
         }
       />

@@ -22,11 +22,12 @@ import { initMatomo, logEvent } from './services/logEventsWithMatomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
-import CustomBootsplash from './components/CustomBootsplash';
+import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
 import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
+import { useRecoilValue } from 'recoil';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -44,6 +45,7 @@ const LabelStyled = styled(TextStyled)`
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
+  const showBootSplash = useRecoilValue(showBootSplashState);
   const resetOnTapListener = ({ navigation, rootName }) => {
     return {
       blur: () => {
@@ -58,7 +60,7 @@ const TabsNavigator = ({ navigation }) => {
   return (
     <>
       <Tabs.Navigator
-        initialRouteName={'GAINS_MAIN_VIEW'}
+        initialRouteName={'GAINS_NAVIGATOR'}
         lazy={false}
         tabBarOptions={{
           activeTintColor: '#4030A5',
@@ -66,7 +68,7 @@ const TabsNavigator = ({ navigation }) => {
           keyboardHidesTabBar: true,
         }}>
         <Tabs.Screen
-          name="GAINS_MAIN_VIEW"
+          name="GAINS_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Gains</Label>,
             tabBarIcon: ({ size, color }) => <StarsTabIcon size={size} color={color} fillOpacity={1} />,
@@ -108,7 +110,7 @@ const TabsNavigator = ({ navigation }) => {
         />
       </Tabs.Navigator>
       <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
-      <NewFeaturePopupDisplay />
+      <NewFeaturePopupDisplay canShow={!showBootSplash} />
     </>
   );
 };
