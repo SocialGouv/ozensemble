@@ -21,10 +21,9 @@ const AlcoholAndNorms = () => {
       <TopContainer>
         <P>
           Dans le langage courant, la consommation excessive, répétée et incontrôlable de boissons alcoolisées est le
-          plus souvent nommée « alcoolisme ». Cependant, le manque de précision de ce terme a amené l'Organisation
-          mondiale de la santé <Bold>(OMS)</Bold> à proposer un terme plus précis, « <Bold>alcoolodépendance</Bold> »,
-          qui met en avant le <Bold>caractère addictif de l'alcool</Bold> et le parallèle qui existe avec les autres
-          troubles de l'addiction (dépendance aux dérivés de l'opium, aux jeux d'argent, au sexe, etc.).
+          plus souvent nommée «&nbsp;alcoolisme&nbsp;». Cependant, le manque de précision de ce terme a amené
+          l'Organisation mondiale de la santé <Bold>(OMS)</Bold> à proposer un terme plus précis, «&nbsp;
+          <Bold>alcoolodépendance</Bold> &nbsp;», qui met en avant le <Bold>caractère addictif de l'alcool</Bold>.
         </P>
         <Spacer size={20} />
         <H2 color={'#4030a5'}>1/ Qu'est-ce qu'une consommation d'alcool à risque ?</H2>
@@ -32,8 +31,9 @@ const AlcoholAndNorms = () => {
         <P>
           Pour les autorités sanitaires françaises, il n'y a <Bold>pas de consommation d'alcool sans risque</Bold>, mais
           des consommations à risque plus ou moins élevé.{'\n'}
-          On parle de consommation de boissons alcoolisées « <Bold>à risque</Bold> » lorsque la quantité d'alcool
-          ingérée et la fréquence des prises est telle que, si ce comportement persiste sur une durée prolongée, des
+          On parle de consommation de boissons alcoolisées «&nbsp;<Bold>à risque</Bold>&nbsp;» lorsque la quantité
+          d'alcool ingérée et la fréquence des prises est telle que, si ce comportement persiste sur une durée
+          prolongée, des
           <Bold> complications physiques, psychiques et sociales</Bold> surviendront inévitablement.
         </P>
         <P>
@@ -66,10 +66,12 @@ const AlcoholAndNorms = () => {
         <H2 color={'#4030a5'}>2/ Qu'appelle t-on alcoolodépendance ?</H2>
         <Spacer size={20} />
         <P>
-          L'alcoolodépendance est une addiction à l'alcool sous forme de boissons plus ou moins « fortes». La
-          <Bold> consommation répétée</Bold> de boissons alcoolisées peut prendre différentes formes selon le rythme de
-          consommation et la quantité d'alcool ingérée.{'\n'}On distingue divers degrés de sévérité qui vont de
-          l'abstinence (aucune prise d'alcool) à la dépendance avérée, selon un continuum d'intensité.
+          <Bold>
+            L'alcoolodépendance est une addiction à l'alcool sous forme de boissons plus ou moins «&nbsp;fortes&nbsp;».
+            La consommation répétée de boissons alcoolisées peut prendre différentes formes selon le rythme de
+            consommation et la quantité d'alcool ingérée.{'\n'}On distingue divers degrés de sévérité qui vont de
+            l'abstinence (aucune prise d'alcool) à la dépendance avérée, selon un continuum d'intensité.
+          </Bold>
         </P>
         <P>
           L'alcoolodépendance a des <Bold>conséquences néfastes sur la santé</Bold>, la <Bold>vie sociale</Bold> et la
@@ -82,27 +84,28 @@ const AlcoholAndNorms = () => {
           sources, de 33 000 à 49 000 décès par an en France.
         </P>
         <P>
-          Selon l'OMS, l'alcoolodépendance est avérée lorsque la consommation de boissons alcoolisées devient
-          prioritaire par rapport aux autres comportements auparavant prédominants chez une personne. Le
-          <Bold> désir de boire de l'alcool devient impossible à maîtriser</Bold> et doit être assouvi au détriment de
-          toute autre considération. L'alcool devient une <Bold>obsession</Bold>. Sa consommation doit être poursuivie
-          même lorsqu'elle entraîne des conséquences manifestement problématiques. Tout d'abord, le buveur développe une
-          tolérance. Il doit <Bold>boire des quantités toujours plus importantes</Bold> d'alcool pour obtenir les effets
-          recherchés.
+          <Bold>
+            Selon l'OMS, l'alcoolodépendance est avérée lorsque la consommation de boissons alcoolisées devient
+            prioritaire par rapport aux autres comportements auparavant prédominants chez une personne.
+          </Bold>
+          Le désir de boire de l'alcool devient impossible à maîtriser et doit être assouvi au détriment de toute autre
+          considération. L'alcool devient une obsession. Sa consommation doit être poursuivie même lorsqu'elle entraîne
+          des conséquences manifestement problématiques. Tout d'abord, le buveur développe une tolérance. Il doit boire
+          des quantités toujours plus importantes d'alcool pour obtenir les effets recherchés.
         </P>
         <P>
           Puis le buveur passe à un stade où il ne peut plus contrôler sa consommation. Une dépendance physique
-          s'installe. L'arrêt des boissons alcoolisées provoque alors des <Bold>symptômes de manque</Bold> (sueurs,
-          tremblements, vertiges, etc.) qui sont difficiles à supporter.
+          s'installe. L'arrêt des boissons alcoolisées provoque alors des symptômes de manque (sueurs, tremblements,
+          vertiges, etc.) qui sont difficiles à supporter.
         </P>
         <Spacer size={20} />
         <P color={'#4030a5'} bold>
           Zoom sur la France, un pays où l'on boit moins qu'avant
         </P>
         <P>
-          La consommation de boissons alcoolisées <Bold>a fortement baissé depuis 1970</Bold> : nous sommes passés de 22
-          litres d'alcool pur par an et par personne de plus de 15 ans (soit 5 verres par jour), à environ
-          <Bold> 12 litres</Bold> (soit 2,6 verres par jour).
+          La consommation de boissons alcoolisées a fortement baissé depuis 1970&nbsp;: nous sommes passés de 22 litres
+          d'alcool pur par an et par personne de plus de 15 ans (soit 5 verres par jour), à environ 12 litres (soit 2,6
+          verres par jour).
         </P>
         <P>Cette diminution de moitié est essentiellement due à une baisse de la consommation de vin. </P>
         <P>
@@ -131,15 +134,15 @@ const AlcoholAndNorms = () => {
         <Spacer size={20} />
         <P>
           Certaines personnes boivent des quantités d'alcool importantes (au moins six verres) en un minimum de temps.
-          Cette consommation occasionnelle et massive, également appelée « binge drinking » ou «{' '}
-          <Bold>biture express</Bold> », est devenue fréquente chez les adolescents et les jeunes adultes. Elle est
-          particulièrement dangereuse, car elle peut être responsable d'intoxication aiguë (déliriums) pouvant entraîner
-          le décès par arrêt cardiaque.
+          Cette consommation occasionnelle et massive, également appelée «&nbsp;binge drinking&nbsp;» ou « biture
+          express&nbsp;», est devenue fréquente chez les adolescents et les jeunes adultes. Elle est particulièrement
+          dangereuse, car elle peut être responsable d'intoxication aiguë (déliriums) pouvant entraîner le décès par
+          arrêt cardiaque.
         </P>
         <P>
-          Récemment, une forme particulière de binge drinking est apparue, la « <Bold>neknomination</Bold> », où des
+          Récemment, une forme particulière de binge drinking est apparue, la «&nbsp;neknomination&nbsp;», où des
           adolescents se lancent des défis via la mise en ligne de vidéos où ils ingurgitent de grandes quantités
-          d'alcool « cul sec ».
+          d'alcool «&nbsp;cul sec&nbsp;».
         </P>
       </TopContainer>
     </NavigationWrapper>

@@ -12,12 +12,12 @@ const ToHelpMeReduce = ({ navigation }) => {
       timeReading={3}
       link={'https://www.ameli.fr/assure/sante/themes/alcool-sante/conseils-reduire-consommation'}>
       <TopContainer>
-        <H2 color={'#4030a5'}>Quelques conseils génériques...</H2>
+        <H2 color={'#4030a5'}>Quelques conseils généraux...</H2>
         <Spacer size={20} />
-        <P>Avant de boire de l'alcool, mangez quelque chose si vous avez faim.</P>
         <P>
-          Buvez de l'eau si vous avez soif. L'alcool ne permet pas de calmer la soif. C'est même le contraire.{'\n'}À
-          chaque fois que vous consommez de l'alcool, prenez le réflexe de <Bold>boire un verre d'eau.</Bold>
+          Avant de boire de l'alcool, mangez quelque chose si vous avez faim et buvez de l'eau si vous avez soif.
+          L'alcool ne permet pas de calmer la soif. C'est même le contraire.{'\n'}
+          <Bold>À chaque fois que vous consommez de l'alcool, prenez le réflexe de boire un verre d'eau.</Bold>
         </P>
         <P>Ne buvez pas systématiquement de l'alcool si vous êtes fatigué, stressé ou préoccupé.</P>
         <P>
@@ -49,9 +49,10 @@ const ToHelpMeReduce = ({ navigation }) => {
         </P>
         <P>
           Ne buvez pas seul, il est trop facile de <Bold>commencer à boire en quantité excessive</Bold>. Imposez-vous
-          cette règle : ne boire qu'entre amis, pour le plaisir.{'\n'} « Après le boulot, je bois toujours un verre de
-          vin blanc »... <Bold>ces routines de consommation d'alcool</Bold> sont de véritables pièges. Essayez de les
-          reconnaître et de trouver une alternative. Il peut s'agir d'un thé, d'un smoothie, ou d'une simple promenade.
+          cette règle : ne boire qu'entre amis, pour le plaisir.{'\n'} «&nbsp;Après le boulot, je bois toujours un verre
+          de vin blanc&nbsp;»... <Bold>ces routines de consommation d'alcool</Bold> sont de véritables pièges. Essayez
+          de les reconnaître et de trouver une alternative. Il peut s'agir d'un thé, d'un smoothie, ou d'une simple
+          promenade.
         </P>
         <P>
           N'utilisez pas l'alcool pour étancher votre soif, mais uniquement <Bold>pour le plaisir</Bold>.
