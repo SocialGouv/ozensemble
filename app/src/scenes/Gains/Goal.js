@@ -113,7 +113,7 @@ const Goal = ({ navigation, route }) => {
             </TextStyled>
           </TextSemiBold>
         </Row>
-        <Row>
+        <Row margins>
           <HelpModalCountConsumption event="GOAL" />
         </Row>
       </Container>
@@ -194,6 +194,8 @@ const Row = styled.View`
   align-items: center;
   overflow: hidden;
   width: 100%;
+  ${(props) => props.margins && 'margin-top: 10px;'}
+  ${(props) => props.margins && 'margin-bottom: 15px;'}
 `;
 
 const CTAButtonContainer = styled.View`

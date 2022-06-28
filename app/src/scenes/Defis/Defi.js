@@ -26,6 +26,7 @@ const Defi = ({
   ActiveDayIndex,
   hackAndUnlockDay,
   defiStorageKey,
+  defiNumber,
 }) => {
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
@@ -70,6 +71,7 @@ const Defi = ({
               logEvent({
                 category: 'CONSO',
                 action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                name: `FROM_DEFI_${defiNumber}`,
               });
             }}
           />

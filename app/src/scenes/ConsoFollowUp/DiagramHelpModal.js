@@ -9,6 +9,7 @@ import TextStyled from '../../components/TextStyled';
 import Diagram from './Diagram';
 import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import WrapperContainer from '../../components/WrapperContainer';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const Elem = ({ content, lineHeight = 20 }) => (
   <ElemContainer>
@@ -59,16 +60,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
             }
           />
         </Paragraph>
-        <OneDoseAlcoolExplanation marginOffset={20} />
-        {/* <DoseContainer>
-              <DoseEqualWrapper>
-                <TextStyled color="#191919">=</TextStyled>
-              </DoseEqualWrapper>
-              <IconWrapper>
-                <Dose size={60} style={{ borderWidth: 0 }} />
-                <Volume color="#4030a5">1 dose</Volume>
-              </IconWrapper>
-            </DoseContainer> */}
+        <OneDoseAlcoolExplanation marginOffset={defaultPaddingFontScale()} noMinHeight />
         <Paragraph>
           <Elem
             content={

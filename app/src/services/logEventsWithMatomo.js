@@ -34,13 +34,16 @@ export const initMatomo = async () => {
   });
 
   const resultKey = storage.getString('@Quizz_result');
+  const betterEval = storage.getString('@QuizzEvaluateConso_result');
+  const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
+  console.log({ resultKey, betterEval }, mapOnboardingResultToMatomoProfile(result));
   const gender = storage.getString('@Gender');
   const age = storage.getString('@Age');
 
   Matomo.setCustomDimensions({
     [CONSTANTS.MATOMO_CUSTOM_DIM_VERSION]: DeviceInfo.getVersion(),
     [CONSTANTS.MATOMO_CUSTOM_DIM_SYSTEM]: Platform.OS,
-    [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(resultKey),
+    [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(result),
     [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
     [CONSTANTS.MATOMO_CUSTOM_DIM_AGE]: age,
   });

@@ -356,7 +356,7 @@ const MyGains = () => {
                 <TextStyled>
                   {'   '}
                   {myWeeklyNumberOfDrinksBeforeObjective} unité
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
                 </TextStyled>
                 <HelpModalCountConsumption event="ESTIMATION">
                   <InfosIcon size={15} color={'#000000'} />

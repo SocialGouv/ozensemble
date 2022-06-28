@@ -14,7 +14,7 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
-    layoutMeasurement.height + contentOffset.y >= contentSize.height - 300; // almost to bottom
+    layoutMeasurement.height + contentOffset.y >= contentSize.height - 1500; // almost to bottom
 
   return (
     <WrapperContainer

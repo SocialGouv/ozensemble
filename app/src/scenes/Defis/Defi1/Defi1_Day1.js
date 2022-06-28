@@ -87,6 +87,7 @@ const Defi1_Day1 = ({ navigation, route }) => {
             logEvent({
               category: 'CONSO',
               action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+              name: 'FROM_DEFI_1_DAY_1',
             });
           }}
           content="Ajouter une consommation"

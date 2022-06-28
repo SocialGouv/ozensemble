@@ -4,6 +4,7 @@ import H2 from '../../../components/H2';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';
 import NavigationWrapper from './NavigationWrapper';
 import OMSIllustationsManAndWoman from '../../../components/OMSIllustationsManAndWoman';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 
 const AlcoholAndNorms = () => {
   const title = "L'alcool et les normes";
@@ -33,7 +34,7 @@ const AlcoholAndNorms = () => {
           des consommations à risque plus ou moins élevé.{'\n'}
           On parle de consommation de boissons alcoolisées « <Bold>à risque</Bold> » lorsque la quantité d'alcool
           ingérée et la fréquence des prises est telle que, si ce comportement persiste sur une durée prolongée, des
-          <Bold>complications physiques, psychiques et sociales</Bold> surviendront inévitablement.
+          <Bold> complications physiques, psychiques et sociales</Bold> surviendront inévitablement.
         </P>
         <P>
           Des experts de Santé publique France et de l'Institut national du cancer ont tenté de définir des risques
@@ -61,7 +62,7 @@ const AlcoholAndNorms = () => {
           supposés contenir. Nous parlerons d'unité d'alcool car dans tous les cas un verre de boisson apporte 10
           grammes d'alcool pur :
         </P>
-        <OneDoseAlcoolExplanation noMinHeight />
+        <OneDoseAlcoolExplanation marginOffset={defaultPaddingFontScale()} noMinHeight />
         <H2 color={'#4030a5'}>2/ Qu'appelle t-on alcoolodépendance ?</H2>
         <Spacer size={20} />
         <P>
