@@ -1,3 +1,10 @@
+# [1.62.0](https://github.com/SocialGouv/ozensemble/compare/v1.61.1...v1.62.0) (2022-06-28)
+
+
+### Features
+
+* new reminder auto at 8pm + small design fixes + new matomo events ([58b0018](https://github.com/SocialGouv/ozensemble/commit/58b0018a1e12b65d4ea03b05a1f05b25d14b3156))
+
 ## [1.61.1](https://github.com/SocialGouv/ozensemble/compare/v1.61.0...v1.61.1) (2022-06-27)
 
 
