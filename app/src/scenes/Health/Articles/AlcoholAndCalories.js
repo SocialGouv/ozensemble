@@ -51,8 +51,10 @@ const AlcoholAndCalories = () => {
         <H2 color={'#4030a5'}>Beaucoup de personnes ignorent que l'alcool fait grossir</H2>
         <Spacer size={20} />
         <P>
-          Les études montrent que l'alcool est une boisson très calorique et sa consommation peut provoquer une
-          <Bold> prise de poids</Bold>.
+          <Bold>
+            Les études montrent que l'alcool est une boisson très calorique et sa consommation peut provoquer une prise
+            de poids.
+          </Bold>
         </P>
         <P>
           De nombreuses études révèlent que l'alcool représente en moyenne entre 4 et 6% des apports énergétiques des
@@ -64,9 +66,8 @@ const AlcoholAndCalories = () => {
         <Spacer size={20} />
         <P>
           L'alcool diminue l'élimination des graisses car les calories apportées par l'alcool sont brûlées très
-          rapidement avant celles des graisses.{'\n'}La consommation d'alcool favorise ainsi
-          <Bold> l'accumulation des graisses</Bold>, essentiellement au niveau abdominal, situation fréquente chez les
-          grands consommateurs de bière.
+          rapidement avant celles des graisses.{'\n'}La consommation d'alcool favorise ainsi l'accumulation des
+          graisses, essentiellement au niveau abdominal, situation fréquente chez les grands consommateurs de bière.
         </P>
         <P bold>
           L'alcool stimule l'appétit en induisant une hypoglycémie: plus on boit d'alcool et plus on ressent des
@@ -140,8 +141,10 @@ const AlcoholAndCalories = () => {
         <Table value={energetiquesValuesDrinks} firstWidth={50} />
         <Spacer size={20} />
         <P>
-          Ci-dessous, vous trouverez les 10 cocktails préférés des Français associés à leur valeurs énergétiques. Les
-          cocktails comprenant aussi plus de sucre, ils sont donc plus caloriques :
+          <Bold>
+            Ci-dessous, vous trouverez les 10 cocktails préférés des Français associés à leur valeurs énergétiques.
+          </Bold>{' '}
+          Les cocktails comprenant aussi plus de sucre, ils sont donc plus caloriques :
         </P>
         <Table value={energetiquesValuesCocktails} firstWidth={50} />
         <Spacer size={20} />
