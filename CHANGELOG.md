@@ -1,3 +1,10 @@
+## [1.62.2](https://github.com/SocialGouv/ozensemble/compare/v1.62.1...v1.62.2) (2022-06-28)
+
+
+### Bug Fixes
+
+* reminder and end of quizz onboarding ([ff5ec38](https://github.com/SocialGouv/ozensemble/commit/ff5ec382bace4ecab58cc792ad22acd89862f8be))
+
 ## [1.62.1](https://github.com/SocialGouv/ozensemble/compare/v1.62.0...v1.62.1) (2022-06-28)
 
 
