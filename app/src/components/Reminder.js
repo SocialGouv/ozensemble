@@ -121,6 +121,7 @@ const Reminder = ({
 
   const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
     NotificationService.cancelAll();
+
     const fireDate = (() => {
       if (mode === 'day') return dayjs();
       if (weekDay < dayjs().get('day')) return dayjs().day(weekDay);
@@ -129,10 +130,14 @@ const Reminder = ({
         return dayjs();
       }
       return dayjs().add(weekDay - dayjs().get('day'), 'day');
-    })();
+    })()
+      .set('hours', reminder.getHours())
+      .set('minutes', reminder.getMinutes())
+      .set('seconds', 0)
+      .toDate();
 
     NotificationService.scheduleNotification({
-      date: fireDate.set('seconds', 0).toDate(),
+      date: fireDate,
       title: notifReminderTitle,
       message: notifReminderMessage,
       repeatType: mode,
@@ -259,6 +264,7 @@ const Container = styled.ScrollView.attrs({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: 50,
+    paddingTop: 15,
     flexGrow: 1,
   },
 })``;
