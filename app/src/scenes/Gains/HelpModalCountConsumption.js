@@ -95,8 +95,6 @@ const DoseContainer = styled.View`
 const HelpCount = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 15px;
 `;
 
 const HelpCountCaption = styled(TextStyled)`

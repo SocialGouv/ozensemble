@@ -148,6 +148,7 @@ const Defi1_Menu = ({ navigation }) => {
     <Defi
       navigation={navigation}
       title="Faire le point sur 7 jours"
+      defiNumber={1}
       data={defi1_Data}
       validatedDays={validatedDays}
       ActiveDayIndex={ActiveDayIndex}

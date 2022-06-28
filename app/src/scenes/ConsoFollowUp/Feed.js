@@ -64,12 +64,13 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     }
   };
 
-  const addDrinksRequest = (timestamp) => {
+  const addDrinksRequest = (timestamp, fromButton) => {
     setModalTimestamp(timestamp);
     navigation.push('ADD_DRINK');
     logEvent({
       category: 'CONSO',
       action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+      name: fromButton,
     });
   };
 
@@ -217,7 +218,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                               category: 'CONSO',
                               action: 'CONSO_UPDATE',
                             });
-                            addDrinksRequest(drink.timestamp);
+                            addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
                           }}
                           deleteDrinkRequest={async () => {
                             logEvent({
@@ -248,7 +249,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                           tempDate.setMinutes(m);
                           selectedTimestamp = makeSureTimestamp(tempDate);
                         }
-                        addDrinksRequest(selectedTimestamp);
+                        addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
                       }}
                     />
                   )}

@@ -13,8 +13,9 @@ const ToSayNo = () => {
       <TopContainer>
         <P>
           Les occasions où nous sommes <Bold>invités à boire un ou plusieurs verres </Bold>
-          d'alcool : un repas de famille, un apéritif entre collègues, une fête de famille...{'\n'}Il n'est pas toujours
-          facile de refuser un verre de plus (ou le verre de trop) sans passer pour le moralisateur de la bande.
+          d'alcool sont nombreuses&nbsp;: un repas de famille, un apéritif entre collègues, une fête de famille...{'\n'}
+          Il n'est pas toujours facile de refuser un verre de plus (ou le verre de trop) sans passer pour le
+          moralisateur de la bande.
         </P>
         <P>
           <Bold>La France</Bold> figure parmi les <Bold>pays les plus consommateurs d'alcool</Bold>. Si la consommation
@@ -68,20 +69,19 @@ const ToSayNo = () => {
         <Spacer size={20} />
         <P noMarginBottom>
           {'   - '}
-          <Bold>“Je ne bois pas d'alcool, car je vais prendre le volant"</Bold>
+          <Bold>“Je ne bois pas d'alcool, car je vais prendre le volant”</Bold>
         </P>
         <P>
           Il existe également des campagnes de promotion du conducteur désigné, appelé “Capitaine de soirée” ou “Sam”,
           celui qui conduit c'est celui qui ne boit pas en France.
         </P>
-        <P noMarginBottom>
+        <P>
           {'   - '}
           <Bold>“Je fais plus attention à moi en ce moment”</Bold>
         </P>
-        <P>“C'est assez d'alcool pour moi maintenant, je vais passer au soft”</P>
         <P noMarginBottom>
           {'   - '}
-          <Bold>“Je ne bois pas d'alcool, car je vais prendre le volant"</Bold>
+          <Bold>“C'est assez d'alcool pour moi maintenant, je vais passer au soft”</Bold>
         </P>
         <P>
           Il est toujours possible de commander un cocktail sans alcool ou une bière sans alcool : rien n'empêche de

@@ -143,6 +143,7 @@ const Defi2_Menu = ({ navigation }) => {
       navigation={navigation}
       title="Aller plus loin sur 7 jours"
       data={defi2_Data}
+      defiNumber={2}
       validatedDays={validatedDays}
       ActiveDayIndex={ActiveDayIndex}
       updateValidatedDays={updateValidatedDays}
