@@ -61,7 +61,7 @@ const thoughts = [
   "Si vous buvez principalement à domicile, ne faites plus de grande réserve d'alcool et/ou faites en sorte de ne pas en avoir du tout chez vous à intervalles réguliers.",
   'Notez votre consommation. Tenez un journal de bord de votre consommation journalière sur plusieurs semaines. En effet, il est plus difficile de nier sa consommation quand celle-ci apparaît «noir sur blanc».',
   "Ne buvez pas seul, il est trop facile de commencer à boire en quantité excessive.\nImposez-vous cette règle : ne boire qu'entre amis, pour le plaisir.",
-  "« Après le boulot, je bois toujours un verre de vin blanc »…ces routines de consommation d'alcool sont de véritables pièges. Essayez de les reconnaître et de trouver une alternative. Il peut s'agir d'un thé, d'un smoothie, ou d'une simple promenade.",
+  "«&nbsp;Après le boulot, je bois toujours un verre de vin blanc&nbsp;»…ces routines de consommation d'alcool sont de véritables pièges. Essayez de les reconnaître et de trouver une alternative. Il peut s'agir d'un thé, d'un smoothie, ou d'une simple promenade.",
   "N'utilisez pas l'alcool pour étancher votre soif, mais uniquement pour le plaisir.",
   "Calculez la quantité d'argent que vous dépensez en alcool chaque semaine. Est-ce que vous ne pourriez pas l'utiliser pour un après-midi au spa, ou pour faire des économies ?",
   "Calculez la quantité d'argent que vous dépensez en alcool chaque semaine. Vous pouvez vous engager à ne dépenser que la moitié de ce montant, et profiter de cet argent pour vous.",

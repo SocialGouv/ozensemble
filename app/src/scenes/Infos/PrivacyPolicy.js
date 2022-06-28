@@ -105,8 +105,8 @@ const PrivacyPolicy = ({ onClose }) => (
     <Spacer size={30} />
     <P>
       Le responsable de traitement s'engage à ce que les données à caractère personnel soient traitées par les seules
-      personnes autorisées : les acteurs partenaires dans le cadre de l'utilisation de « Oz Ensemble » et l'équipe de
-      l'application Oz Ensemble, ainsi que les sous-traitants de l'association CaPASSCité dans le cadre de
+      personnes autorisées : les acteurs partenaires dans le cadre de l'utilisation de « Oz Ensemble&nbsp;» et l'équipe
+      de l'application Oz Ensemble, ainsi que les sous-traitants de l'association CaPASSCité dans le cadre de
       l'application.
     </P>
     <Spacer size={30} />
@@ -149,7 +149,7 @@ const PrivacyPolicy = ({ onClose }) => (
     <P>
       La mesure d'audience (nombre de visites, pages consultées) est réalisée par un outil libre intitulé Matomo
       spécifiquement paramétré, respectant les conditions d'exemption du consentement de l'internaute définies par la
-      recommandation « Cookies » de la Commission nationale informatique et libertés (CNIL).
+      recommandation «&nbsp;Cookies&nbsp;» de la Commission nationale informatique et libertés (CNIL).
     </P>
   </WrapperContainer>
 );
