@@ -102,7 +102,7 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
       <P>Nous sommes conscients que ce résultat peut être un choc.</P>
       <P>Mais nous pouvons vous aider à reprendre le contrôle ...</P>
       <FeelingOfResult feeling={feeling} setFeeling={setFeeling} />
-      {feeling === true ? (
+      {feeling === true && (
         <>
           <P>
             <Bold>Cela peut-être un choc</Bold> mais c'est une image à instant T sur laquelle
@@ -121,7 +121,8 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
             <Bold>voici un premier défi pour faire le point en 7 jours.</Bold>
           </P>
         </>
-      ) : (
+      )}
+      {feeling === false && (
         <>
           <P>
             <Bold>Commencer votre démarche de réduction</Bold>
