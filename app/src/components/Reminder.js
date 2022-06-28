@@ -130,14 +130,9 @@ const Reminder = ({
         return dayjs();
       }
       return dayjs().add(weekDay - dayjs().get('day'), 'day');
-    })()
-      .set('hours', reminder.getHours())
-      .set('minutes', reminder.getMinutes())
-      .set('seconds', 0)
-      .toDate();
-
+    })();
     NotificationService.scheduleNotification({
-      date: fireDate,
+      date: fireDate.set('hours', reminder.getHours()).set('minutes', reminder.getMinutes()).set('seconds', 0).toDate(),
       title: notifReminderTitle,
       message: notifReminderMessage,
       repeatType: mode,
