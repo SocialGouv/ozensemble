@@ -109,7 +109,16 @@ const TabsNavigator = ({ navigation }) => {
           listeners={(props) => resetOnTapListener({ ...props, rootName: 'INFOS_MENU' })}
         />
       </Tabs.Navigator>
-      <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
+      <AddDrinkCTAButton
+        onCTAPress={() => {
+          navigation.push('ADD_DRINK', { timestamp: Date.now() });
+          logEvent({
+            category: 'CONSO',
+            action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+            name: 'FROM_FLOATING_BUTTON',
+          });
+        }}
+      />
       <NewFeaturePopupDisplay canShow={!showBootSplash} />
     </>
   );

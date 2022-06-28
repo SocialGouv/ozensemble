@@ -25,13 +25,16 @@ const Reminder = ({
   reminderState,
   reminderModeState,
   reminderWeekDayState,
-  repeatTimes = 15,
   children,
   onSetReminderConfirm,
   title,
+  wrapperTitle = null,
   notifReminderTitle = "C'est l'heure de votre suivi !",
   notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
   onlyDaily,
+  prescheduledTime = null,
+  prescheduledMode = null,
+  prescheduledWeekday = null,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
@@ -118,7 +121,7 @@ const Reminder = ({
 
   const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
     NotificationService.cancelAll();
-    const firstDate = (() => {
+    const fireDate = (() => {
       if (mode === 'day') return dayjs();
       if (weekDay < dayjs().get('day')) return dayjs().day(weekDay);
       if (weekDay === dayjs().get('day')) {
@@ -127,23 +130,13 @@ const Reminder = ({
       }
       return dayjs().add(weekDay - dayjs().get('day'), 'day');
     })();
-    // console.log(dayjs());
-    // console.log({ reminder, mode, weekDay });
-    // console.log({ firstDate }, timeIsAfterNow(reminder));
-    for (let i = timeIsAfterNow(reminder) ? 0 : 1; i <= repeatTimes; i++) {
-      const fireDate = firstDate
-        .add(i, mode)
-        .set('hours', reminder.getHours())
-        .set('minutes', reminder.getMinutes())
-        .set('seconds', 0)
-        .toDate();
-      // console.log({ fireDate });
-      NotificationService.scheduleNotification({
-        date: fireDate,
-        title: notifReminderTitle,
-        message: notifReminderMessage,
-      });
-    }
+
+    NotificationService.scheduleNotification({
+      date: fireDate.set('seconds', 0).toDate(),
+      title: notifReminderTitle,
+      message: notifReminderMessage,
+      repeatType: mode,
+    });
   };
 
   const showReminderSetup = async () => {
@@ -197,8 +190,16 @@ const Reminder = ({
     });
   };
 
+  useEffect(() => {
+    console.log(prescheduledTime && !reminder, { prescheduledTime, reminder });
+    if (prescheduledTime && !reminder) {
+      setReminderRequest(prescheduledTime, prescheduledMode, prescheduledWeekday);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prescheduledTime, prescheduledMode, prescheduledWeekday]);
+
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack}>
+    <WrapperContainer onPressBackButton={navigation.goBack} title={wrapperTitle}>
       <Container>
         <ReminderIcon size={80} color="#4030a5" selected={false} />
         {children ? (
@@ -225,11 +226,18 @@ const Reminder = ({
         )}
         <ButtonsContainer>
           <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showReminderSetup} />
-          {Boolean(reminder) && <RemoveButton content="Retirer le rappel" onPress={deleteReminder} />}
+          {Boolean(reminder) && <RemoveButton content="Désactiver le rappel" onPress={deleteReminder} />}
           {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
             <ButtonPrimary
               content="Continuer"
-              onPress={() => navigation.navigate(...route.params.onPressContinueNavigation)}
+              onPress={async () => {
+                const isRegistered = await NotificationService.checkAndAskForPermission();
+                if (!isRegistered) {
+                  showPermissionsAlert();
+                  return;
+                }
+                navigation.navigate(...route.params.onPressContinueNavigation);
+              }}
             />
           ) : null}
         </ButtonsContainer>
@@ -273,8 +281,7 @@ export const SubTitle = styled(H2)`
 
 const ButtonsContainer = styled.View`
   justify-content: space-around;
-  margin-vertical: 15px;
-  margin-bottom: 20%;
+  margin-top: 15px;
 `;
 
 const EditButton = styled(UnderlinedButton)``;

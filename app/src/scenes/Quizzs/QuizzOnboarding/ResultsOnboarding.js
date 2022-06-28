@@ -116,13 +116,22 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
           <TopButtonContainer>
             <ButtonPrimary content="J'échange avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
           </TopButtonContainer>
+          <P>
+            Nous vous proposons une démarche de maîtrise de votre consommation d'alcool en autonomie,{' '}
+            <Bold>voici un premier défi pour faire le point en 7 jours.</Bold>
+          </P>
         </>
-      ) : null}
-      {feeling != null && (
-        <P>
-          Nous vous proposons une démarche de maîtrise de votre consommation d'alcool en autonomie,{' '}
-          <Bold>voici un premier défi pour faire le point en 7 jours.</Bold>
-        </P>
+      ) : (
+        <>
+          <P>
+            <Bold>Commencer votre démarche de réduction</Bold>
+          </P>
+          <P>
+            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers{' '}
+            <Bold>un premier défi pour faire le point en 7 jours.</Bold>
+          </P>
+          <P>Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction.</P>
+        </>
       )}
     </>
   );

@@ -4,7 +4,7 @@ const pointerHorizontalPositions = ["6%", "27%", "47%", "67%", "94%"];
 
 module.exports = {
   "new-defis": {
-    id: "new-defis-show-again",
+    id: "new-defis-show-again-again",
     position: {
       // top: 0,
       bottom: 0,
@@ -30,7 +30,7 @@ module.exports = {
     // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
   },
   "new-articles": {
-    id: "new-defis-show-again",
+    id: "new-defis-show-again-and-again",
     position: {
       // top: 0,
       bottom: 0,
