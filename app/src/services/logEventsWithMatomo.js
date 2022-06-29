@@ -36,7 +36,6 @@ export const initMatomo = async () => {
   const resultKey = storage.getString('@Quizz_result');
   const betterEval = storage.getString('@QuizzEvaluateConso_result');
   const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
-  console.log({ resultKey, betterEval }, mapOnboardingResultToMatomoProfile(result));
   const gender = storage.getString('@Gender');
   const age = storage.getString('@Age');
 

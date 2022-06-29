@@ -96,6 +96,7 @@ class NotificationService {
 
   //Appears after a specified time. App does not have to be open.
   scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
+    console.log({ date, title, message, playSound, soundName, repeatType });
     PushNotification.localNotificationSchedule({
       date,
       title,

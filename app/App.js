@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import { InteractionManager } from 'react-native';
 import 'dayjs/locale/fr';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import weekday from 'dayjs/plugin/weekday';
 import Router from './src/Router';
 import './src/services/polyfills';
 
@@ -23,8 +24,9 @@ import {
   hasMigratedDefi1Stored,
 } from './src/services/storage';
 
-dayjs.extend(isSameOrAfter);
 dayjs.locale('fr');
+dayjs.extend(isSameOrAfter);
+dayjs.extend(weekday);
 
 if (!__DEV__) {
   Sentry.init({ dsn: SENTRY_XXX });
