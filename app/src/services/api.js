@@ -7,8 +7,6 @@ import deviceInfoModule from 'react-native-device-info';
 import { SCHEME, API_HOST } from '../config';
 import { NewFeaturePop } from './NewFeaturePopup';
 
-console.log({ SCHEME, API_HOST });
-
 const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
   if (!isConnected || test) {

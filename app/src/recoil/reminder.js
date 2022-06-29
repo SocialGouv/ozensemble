@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { atom } from 'recoil';
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';
@@ -26,7 +27,7 @@ import { getInitValueFromStorage } from './utils';
 
 export const reminderDefis = atom({
   key: 'reminderDefis',
-  default: getInitValueFromStorage('@DefisReminder', ''),
+  default: getInitValueFromStorage('@DefisReminder', dayjs().set('hours', 20).set('minutes', 0).toISOString()),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@DefisReminder', JSON.stringify(newValue)))],
 });
 
@@ -46,7 +47,7 @@ export const reminderDefisWeekDay = atom({
 
 export const reminderGain = atom({
   key: 'reminderGain',
-  default: getInitValueFromStorage('@GainsReminder', ''),
+  default: getInitValueFromStorage('@GainsReminder', dayjs().set('hours', 20).set('minutes', 0).toISOString()),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@GainsReminder', JSON.stringify(newValue)))],
 });
 

@@ -54,40 +54,9 @@ const ToHelpMeReduce = ({ navigation }) => {
           de les reconnaître et de trouver une alternative. Il peut s'agir d'un thé, d'un smoothie, ou d'une simple
           promenade.
         </P>
-        <P>
-          N'utilisez pas l'alcool pour étancher votre soif, mais uniquement <Bold>pour le plaisir</Bold>.
-        </P>
-        <P>
-          Procurez-vous des verres de taille “bistrot” : il existe des verres à dégustation pour le vin, mais une fois
-          remplis ils peuvent en réalité contenir jusqu'à 5 verres de 10 cl.
-        </P>
+        <P>N'utilisez pas l'alcool pour étancher votre soif, mais uniquement pour le plaisir.</P>
         <Spacer size={20} />
-        <P>
-          Vous voulez réduire votre consommation d'alcool ? Changez également vos habitudes liées à cette consommation.
-        </P>
-        <P>
-          Fixez vous un nombre maximum de verres d'alcool à ne pas dépasser. Ou encore choisissez des jours où vous
-          n'allez pas consommer de boissons alcoolisées.{'\n'}
-          <Bold>N'hésitez pas à utiliser la possibilité de vous fixer un objectif grâce à Oz Ensemble !{'\n'}</Bold>
-          Notez votre consommation : tenez un journal de bord de votre consommation journalière sur plusieurs semaines.
-          En effet, il est plus facile de prendre conscience de sa consommation réelle quand celle-ci apparaît «noir sur
-          blanc». Il suffit de cliquer sur (+) pour ajouter une consommation.
-        </P>
-        <P>
-          Calculez la <Bold>quantité d'argent que vous dépensez en alcool</Bold> chaque semaine : {'\n'}
-          {'    - '}Est-ce que vous ne pourriez pas l'utiliser pour vous faire plaisir ? Vous offrir un après-midi au
-          spa, ou pour faire des économies ? {'\n'}
-          {'    - '}Vous pouvez vous engager à ne dépenser que la moitié de ce montant, et profiter de cet argent pour
-          vous.{'\n'}En vous fixant un objectif vous aurez accès directement à vos{' '}
-          <Text onPress={() => navigation.navigate('GAINS_NAVIGATOR')}>
-            <Bold color={'#4030a5'}>
-              <Underlined>gains</Underlined>
-            </Bold>
-          </Text>{' '}
-          (les euros que vous économisez en réduisant votre consommation d'alcool).
-        </P>
-        <Spacer size={20} />
-        <H2 color={'#4030a5'}>En société...</H2>
+        <H2 color={'#4030a5'}>Dans la vie de tous les jours...</H2>
         <Spacer size={20} />
         <P>
           Prévoyez toujours des <Bold>boissons non alcoolisées lors d'une fête</Bold> ou lors de vos courses en cas de
@@ -113,11 +82,39 @@ const ToHelpMeReduce = ({ navigation }) => {
         <P>
           Regardez les événements sportifs avec vos amis en les invitant chez vous : vous pourrez proposer des boissons
           rafraîchissantes qui ne contiennent pas d'alcool (thé glacé, eau fruitée, virgin mojito, punch sans alcool…).
+        </P>
+        <P>
           À chaque fois que vous consommez de l'alcool, prenez le réflexe de
           <Bold> boire un verre d'eau.</Bold>
         </P>
         <Spacer size={20} />
         <H2 color={'#4030a5'}>Oz Ensemble est là pour vous aider</H2>
+        <Spacer size={20} />
+        <P>
+          <Bold>Vous voulez réduire votre consommation d'alcool&nbsp;?</Bold>
+        </P>
+        <P>
+          <Bold>Changez également vos habitudes liées à cette consommation.</Bold>
+          {'\n'}
+          Fixez vous un nombre maximum de verres d'alcool à ne pas dépasser. Ou encore choisissez des jours où vous
+          n'allez pas consommer de boissons alcoolisées.
+        </P>
+        <P>
+          <Bold>
+            N'hésitez pas à utiliser la possibilité de vous fixer un objectif grâce à Oz Ensemble&nbsp;!{'\n'}
+          </Bold>
+          Notez votre consommation : tenez un journal de bord de votre consommation journalière sur plusieurs semaines.
+          En effet, il est plus facile de prendre conscience de sa consommation réelle quand celle-ci apparaît «noir sur
+          blanc». Il suffit de cliquer sur (+) pour ajouter une consommation.
+        </P>
+        <P>
+          <Bold>Constatez la quantité d'argent que vous économisez en réduisant l'alcool chaque semaine&nbsp;:</Bold>
+          {'\n'}
+          {'    - '}Est-ce que vous ne pourriez pas l'utiliser pour vous faire plaisir&nbsp;? Vous offrir un après-midi
+          au spa&nbsp;?{'\n'}
+          {'    - '}Vous pouvez vous engager à ne dépenser que la moitié de ce montant en loisir, pour constituer une
+          épargne avec le reste.
+        </P>
       </TopContainer>
     </NavigationWrapper>
   );

@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: '#ffffff',
-    fontWeight: Platform.OS === 'android' ? 'thin' : '300',
+    fontWeight: '300',
   },
   okButton: {
     fontWeight: Platform.OS === 'android' ? 'bold' : '800',
