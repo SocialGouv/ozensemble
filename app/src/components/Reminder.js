@@ -32,9 +32,6 @@ const Reminder = ({
   notifReminderTitle = "C'est l'heure de votre suivi !",
   notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
   onlyDaily,
-  prescheduledTime = null,
-  prescheduledMode = null,
-  prescheduledWeekday = null,
 }) => {
   const [reminder, setReminder] = useRecoilState(reminderState);
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
@@ -111,25 +108,19 @@ const Reminder = ({
     }
   };
 
-  const notificationListener = useRef();
-  useEffect(() => {
-    getReminder(false);
-    notificationListener.current = NotificationService.listen(handleNotification);
-    return () => NotificationService.remove(notificationListener.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
     NotificationService.cancelAll();
 
     const fireDate = (() => {
       if (mode === 'day') return dayjs();
-      if (weekDay < dayjs().get('day')) return dayjs().day(weekDay);
-      if (weekDay === dayjs().get('day')) {
-        if (!timeIsAfterNow(reminder)) return dayjs().day(weekDay);
+      if (weekDay > dayjs().get('weekday')) {
+        return dayjs().add(weekDay - dayjs().get('weekday'), 'day');
+      }
+      if (weekDay === dayjs().get('weekday')) {
+        if (!timeIsAfterNow(reminder)) return dayjs().day(7);
         return dayjs();
       }
-      return dayjs().add(weekDay - dayjs().get('day'), 'day');
+      return dayjs().add(7 - dayjs().get('weekday') + weekDay, 'day');
     })();
     NotificationService.scheduleNotification({
       date: fireDate.set('hours', reminder.getHours()).set('minutes', reminder.getMinutes()).set('seconds', 0).toDate(),
@@ -190,13 +181,13 @@ const Reminder = ({
     });
   };
 
+  const notificationListener = useRef();
   useEffect(() => {
-    console.log(prescheduledTime && !reminder, { prescheduledTime, reminder });
-    if (prescheduledTime && !reminder) {
-      setReminderRequest(prescheduledTime, prescheduledMode, prescheduledWeekday);
-    }
+    getReminder(false);
+    notificationListener.current = NotificationService.listen(handleNotification);
+    return () => NotificationService.remove(notificationListener.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prescheduledTime, prescheduledMode, prescheduledWeekday]);
+  }, []);
 
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title={wrapperTitle}>
@@ -335,7 +326,7 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
             </ModalTitle>
             <ModalContent>
               {['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'].map((weekDay, index) => (
-                <ModeSelectButton key={index} onPress={() => onWeekdayChoose((index + 1) % 7)}>
+                <ModeSelectButton key={index} onPress={() => onWeekdayChoose(index % 7)}>
                   {weekDay}
                 </ModeSelectButton>
               ))}

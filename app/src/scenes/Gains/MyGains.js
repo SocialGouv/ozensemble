@@ -266,6 +266,7 @@ const MyGains = () => {
             totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
+            innerColor="#f9f9f9"
             internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
           />
         </CategorieGain>

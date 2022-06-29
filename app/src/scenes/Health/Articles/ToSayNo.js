@@ -19,18 +19,18 @@ const ToSayNo = () => {
           Il n'est pas toujours facile de refuser un verre de plus sans passer pour le moralisateur de la bande.
         </P>
         <P>
-          <Bold>La France</Bold> figure parmi les <Bold>pays les plus consommateurs d'alcool</Bold>. Si la consommation
-          globale a considérablement diminué depuis les années 50, dans notre pays, boire de l'alcool reste synonyme de
-          convivialité. C'est pourquoi il peut sembler difficile <Bold>au quotidien de refuser le verre de trop</Bold>.
+          La France figure parmi les pays les plus consommateurs d'alcool. Si la consommation globale a considérablement
+          diminué depuis les années 50, dans notre pays, boire de l'alcool reste synonyme de convivialité. C'est
+          pourquoi il peut sembler difficile au quotidien de refuser le verre de trop.
         </P>
         <P>
-          Le but de cet article est d'amener chacun d'entre nous à considérer que{' '}
-          <Bold>dire non à l'alcool devrait être simple, possible et naturel</Bold>. Ce n'est pas parce qu'on refuse un
-          verre que l'on <Bold>gâche la fête et qu'on doit faire figure de rabat-joie</Bold>.
+          Le but de cet article est d'amener chacun d'entre nous à considérer que dire non à l'alcool devrait être
+          simple, possible et naturel. Ce n'est pas parce qu'on refuse un verre que l'on gâche la fête et qu'on doit
+          faire figure de rabat-joie.
         </P>
         <P>
           Vous verrez que le plus souvent, c'est de ne pas s'être préparé à émettre un refus qui fait que sur le moment
-          on se sent obligé d'accepter.{'\n'}Préparez tranquillement votre refus et tenez-y tranquillement :
+          on se sent obligé d'accepter.{'\n'}Préparez tranquillement votre refus et tenez-y tranquillement&nbsp;:{' '}
           <Bold>«&nbsp;Je ne t'empêche pas, mais pour moi ça ira&nbsp;»</Bold>.
         </P>
         <Spacer size={20} />
@@ -72,7 +72,7 @@ const ToSayNo = () => {
           <Bold>“C'est assez d'alcool pour moi maintenant, je vais passer au soft.”</Bold>
         </P>
         <P>
-          Il est toujours possible de commander un cocktail sans alcool ou une bière sans alcool&nbps;: rien n'empêche
+          Il est toujours possible de commander un cocktail sans alcool ou une bière sans alcool&nbsp;: rien n'empêche
           de trinquer et partager un moment convivial avec un verre de soft.
         </P>
         <Spacer size={20} />

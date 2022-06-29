@@ -107,10 +107,7 @@ const Goal = ({ navigation, route }) => {
         <Row>
           <CocktailGlassTriangle size={24} />
           <TextSemiBold>
-            <TextStyled>
-              Unité{!totalDrinksByDrinkingDay || totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour que je m'autorise
-              quand je bois de l'alcool
-            </TextStyled>
+            <TextStyled>Unité(s) par jour que je m'autorise quand je bois de l'alcool</TextStyled>
           </TextSemiBold>
         </Row>
         <Row margins>

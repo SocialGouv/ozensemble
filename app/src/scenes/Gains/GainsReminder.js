@@ -15,8 +15,6 @@ const GainsReminder = ({ navigation, route }) => (
     reminderModeState={reminderGainMode}
     name="GAINS_REMINDER"
     wrapperTitle="Mon Rappel"
-    prescheduledMode="day"
-    prescheduledTime={dayjs().set('hours', 20).set('minutes', 0)}
     onSetReminderConfirm={(reminder, mode) => {
       logEvent({
         category: 'REMINDER',
