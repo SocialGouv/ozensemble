@@ -37,7 +37,12 @@ const GainsReminder = ({ navigation, route }) => (
               <>
                 <SubTitle color="#191919">Pour un meilleur suivi, un rappel est programmé : </SubTitle>
                 <Title color="#4030a5">
-                  {mode === 'day' ? 'TOUS LES JOURS' : `TOUS LES ${dayjs().day(weekDay).format('dddd').toUpperCase()}S`}
+                  {mode === 'day'
+                    ? 'TOUS LES JOURS'
+                    : `TOUS LES ${dayjs()
+                        .day(weekDay + 1)
+                        .format('dddd')
+                        .toUpperCase()}S`}
                   {'\n'}À {dayjs(reminder).format('HH:mm')}
                 </Title>
               </>
