@@ -50,27 +50,29 @@ const InfosMenu = ({ navigation }) => {
     <>
       <NPS forceView={NPSvisible} close={closeNPS} />
       <WrapperContainer title="Mes Informations">
-        <MenuItem
-          caption={reminderCaption}
-          onPress={() => {
-            logEvent({
-              category: 'REMINDER',
-              action: 'REMINDER_OPEN',
-              name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
-            });
-            navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
-          }}
-        />
-        <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
-        <MenuItem
-          caption="Mentions Légales & Politique de Confidentialité"
-          onPress={() => navigation.push('PRIVACY_POLICY')}
-        />
-        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-        <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
-        <VersionContainer>
-          <VersionLabel>version {pck.version}</VersionLabel>
-        </VersionContainer>
+        <Container>
+          <MenuItem
+            caption={reminderCaption}
+            onPress={() => {
+              logEvent({
+                category: 'REMINDER',
+                action: 'REMINDER_OPEN',
+                name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
+              });
+              navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
+            }}
+          />
+          <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
+          <MenuItem
+            caption="Mentions Légales & Politique de Confidentialité"
+            onPress={() => navigation.push('PRIVACY_POLICY')}
+          />
+          <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+          <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
+          <VersionContainer>
+            <VersionLabel>version {pck.version}</VersionLabel>
+          </VersionContainer>
+        </Container>
       </WrapperContainer>
     </>
   );
@@ -86,6 +88,10 @@ const MenuItem = ({ caption, onPress }) => (
 );
 
 export default Infos;
+
+const Container = styled.View`
+  margin-horizontal: -${defaultPaddingFontScale}px;
+`;
 
 const VersionContainer = styled.View`
   margin-top: 30px;
