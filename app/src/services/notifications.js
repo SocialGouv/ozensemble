@@ -1,7 +1,8 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import { Platform } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
+import API from './api';
 
 class NotificationService {
   listeners = {};
@@ -11,13 +12,15 @@ class NotificationService {
   };
 
   delete = () => {
+    this.appStateListener?.remove();
     PushNotificationIOS.removeEventListener('registrationError', this.failIOSToken);
   };
 
   async configure() {
+    const onRegister = this.handleRegister('configure');
     PushNotification.configure({
       onNotification: this.handleNotification,
-      onRegister: () => null,
+      onRegister,
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
@@ -28,14 +31,31 @@ class NotificationService {
       popInitialNotification: true,
       requestPermissions: false,
     });
+    this.checkAndGetPermissionIfAlreadyGiven('configure');
     this.initAndroidLocalScheduledNotifications();
     if (Platform.OS === 'ios') {
       PushNotificationIOS.addEventListener('registrationError', this.failIOSToken);
     }
     await new Promise((resolve) => setTimeout(resolve, 1000));
+    this.appStateListener = AppState.addEventListener('change', this.handleAppStateChange);
   }
 
-  failIOSToken = () => {
+  handleAppStateChange = (newState) => {
+    if (newState === 'active') {
+      this.checkAndGetPermissionIfAlreadyGiven('appstate change');
+    }
+  };
+
+  handleRegister =
+    (from) =>
+    async ({ token }) => {
+      if (token) API.pushToken = token;
+      await API.put({ path: '/user', body: { pushToken: API.pushToken, userId: API.userId } });
+      if (Platform.OS === 'android') return;
+    };
+
+  failIOSToken = (error) => {
+    API.put({ path: '/user', body: { error, userId: API.userId } });
     if (Platform.OS === 'android') return;
   };
 

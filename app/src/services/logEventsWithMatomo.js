@@ -16,6 +16,7 @@ export const initMatomo = async () => {
     userId = Matomo.makeid();
     storage.set('@UserIdv2', userId);
   }
+  API.userId = userId;
 
   const prevVisits = storage.getString('@NumberOfVisits');
   const newVisits = prevVisits ? Number(prevVisits) + 1 : 1;
