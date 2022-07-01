@@ -21,43 +21,45 @@ const ChoiceDrinkOrNoDrink = () => {
   const navigation = useNavigation();
 
   return (
-    <WrapperContainer
-      title={'Mes consommations'}
-      onPressBackButton={() => {
-        navigation.goBack();
-        logEvent({
-          category: 'CONSO',
-          action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
-        });
-      }}>
-      <DateAndTimePickers />
-      <Option
-        icon={<NoDrink size={40} />}
-        value={"Je n'ai pas bu"}
-        onPress={() => {
-          logEvent({
-            category: 'CONSO',
-            action: 'CONSO_DRINKLESS',
-          });
-          setDrinksState((state) => [
-            ...state,
-            { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(drinkModalTimestamp), id: uuidv4() },
-          ]);
+    <SafeWrapper>
+      <WrapperContainer
+        title={'Mes consommations'}
+        onPressBackButton={() => {
           navigation.goBack();
-        }}
-      />
-      <Option
-        icon={<CocktailGlassTriangle size={40} />}
-        value={"J'ai bu"}
-        onPress={() => {
           logEvent({
             category: 'CONSO',
-            action: 'CONSO_DRINK',
+            action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
           });
-          navigation.replace('CONSOS_LIST');
-        }}
-      />
-    </WrapperContainer>
+        }}>
+        <DateAndTimePickers />
+        <Option
+          icon={<NoDrink size={40} />}
+          value={"Je n'ai pas bu"}
+          onPress={() => {
+            logEvent({
+              category: 'CONSO',
+              action: 'CONSO_DRINKLESS',
+            });
+            setDrinksState((state) => [
+              ...state,
+              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(drinkModalTimestamp), id: uuidv4() },
+            ]);
+            navigation.goBack();
+          }}
+        />
+        <Option
+          icon={<CocktailGlassTriangle size={40} />}
+          value={"J'ai bu"}
+          onPress={() => {
+            logEvent({
+              category: 'CONSO',
+              action: 'CONSO_DRINK',
+            });
+            navigation.replace('CONSOS_LIST');
+          }}
+        />
+      </WrapperContainer>
+    </SafeWrapper>
   );
 };
 
@@ -71,6 +73,10 @@ const Option = ({ icon, value, onPress }) => {
     </AskDrinkContainer>
   );
 };
+
+const SafeWrapper = styled(SafeAreaView)`
+  flex: 1;
+`;
 
 export const DateAndTimeContainer = styled.View`
   flex-direction: row;
