@@ -3,7 +3,7 @@ import { Alert, Platform } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import H2 from './H2';
@@ -22,6 +22,7 @@ import WrapperContainer from './WrapperContainer';
 const Reminder = ({
   navigation,
   route,
+  reminderHasBeenSetState,
   reminderState,
   reminderModeState,
   reminderWeekDayState,
@@ -33,6 +34,7 @@ const Reminder = ({
   notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
   onlyDaily,
 }) => {
+  const setReminderHasBeenSet = useSetRecoilState(reminderHasBeenSetState);
   const [reminder, setReminder] = useRecoilState(reminderState);
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
@@ -222,6 +224,8 @@ const Reminder = ({
             <ButtonPrimary
               content="Continuer"
               onPress={async () => {
+                if (!reminder) return navigation.navigate(...route.params.onPressContinueNavigation);
+                setReminderHasBeenSet(true);
                 const isRegistered = await NotificationService.checkAndAskForPermission();
                 if (!isRegistered) {
                   showPermissionsAlert();
