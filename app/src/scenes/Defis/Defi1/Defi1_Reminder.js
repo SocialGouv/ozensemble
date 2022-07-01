@@ -1,6 +1,11 @@
 import React from 'react';
 import Reminder from '../../../components/Reminder';
-import { reminderDefis, reminderDefisMode, reminderDefisWeekDay } from '../../../recoil/reminder';
+import {
+  reminderDefis,
+  reminderDefisHasBeenSetState,
+  reminderDefisMode,
+  reminderDefisWeekDay,
+} from '../../../recoil/reminder';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import { storage } from '../../../services/storage';
 
@@ -14,6 +19,7 @@ const Defi1_Reminder = (props) => {
       reminderState={reminderDefis}
       reminderModeState={reminderDefisMode}
       reminderWeekDayState={reminderDefisWeekDay}
+      reminderHasBeenSetState={reminderDefisHasBeenSetState}
       name="DEFI1_REMINDER"
       title={isWithinDefi1 ? 'Un rappel pour penser à faire votre défi 7 jours' : undefined}
       notifReminderTitle={isWithinDefi1 ? "C'est l'heure de votre défi 7 jours !" : undefined}
