@@ -11,6 +11,10 @@ router.put(
   catchErrors(async (req, res) => {
     const { body } = req;
     if (body.pushToken && req.headers.appdevice === "ios") capture("push token coming", { extra: body });
+    setTimeout(() => {
+      console.log("send push notif");
+      sendPushNotification([{ pushTokens: [body.pushToken] }], { title: "Test OZ", body: "Test notifications push" });
+    }, 5000);
     return res.status(200).send({ ok: true });
   })
 );
