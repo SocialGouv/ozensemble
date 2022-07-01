@@ -1,3 +1,10 @@
+## [1.65.3](https://github.com/SocialGouv/ozensemble/compare/v1.65.2...v1.65.3) (2022-07-01)
+
+
+### Bug Fixes
+
+* reminder when not setup yet ([4a82228](https://github.com/SocialGouv/ozensemble/commit/4a82228279e0a490622fd53f54e60b02c0e87a9c))
+
 ## [1.65.2](https://github.com/SocialGouv/ozensemble/compare/v1.65.1...v1.65.2) (2022-07-01)
 
 
