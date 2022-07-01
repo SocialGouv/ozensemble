@@ -49,6 +49,7 @@ class NotificationService {
   handleRegister =
     (from) =>
     async ({ token }) => {
+      console.log({ from, token });
       if (token) API.pushToken = token;
       await API.put({ path: '/user', body: { pushToken: API.pushToken, userId: API.userId } });
       if (Platform.OS === 'android') return;
@@ -94,6 +95,7 @@ class NotificationService {
   checkAndGetPermissionIfAlreadyGiven = async (from) => {
     console.log('check permission from', from);
     const { granted } = await this.checkPermission();
+    console.log({ granted });
     if (!granted) return true;
     const permission = await PushNotification.requestPermissions();
     return permission;
