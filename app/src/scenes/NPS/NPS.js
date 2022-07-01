@@ -7,7 +7,6 @@ import pck from '../../../package.json';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import NotificationService from '../../services/notifications';
@@ -17,6 +16,7 @@ import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
+import BackButton from '../../components/BackButton';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -355,9 +355,7 @@ class NPS extends Component {
                 behavior={Platform.select({ ios: 'padding', android: null })}
                 keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
                 <ScreenBgStyled defaultPadding>
-                  <CloseNPS>
-                    <UnderlinedButton content="< Retour" bold onPress={this.onClose} withoutPadding />
-                  </CloseNPS>
+                  <BackButton content="< Retour" bold onPress={this.onClose} marginTop />
                   {page === 1 && this.renderFirstPage()}
                   {page === 2 && this.renderSecondPage()}
                 </ScreenBgStyled>
@@ -430,10 +428,6 @@ const ButtonContainer = styled.View`
   margin-left: -${defaultPaddingFontScale()}px;
   width: ${screenWidth}px;
   margin-bottom: 150px;
-`;
-
-const CloseNPS = styled.View`
-  margin-right: auto;
 `;
 
 const TextInputStyled = styled.TextInput`
