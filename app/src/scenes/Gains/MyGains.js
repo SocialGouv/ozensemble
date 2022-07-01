@@ -403,7 +403,9 @@ const MyGains = () => {
           </MyGoalSubContainer>
           <ButtonTouchable onPress={goToReminder}>
             <TextModify>
-              <TextStyled>{!reminder ? 'Ajouter un rappel' : 'Modifier le rappel'}</TextStyled>
+              <TextStyled>
+                {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
+              </TextStyled>
             </TextModify>
           </ButtonTouchable>
         </>
