@@ -169,6 +169,7 @@ const Reminder = ({
     setWeekDay(newWeekDay);
     onSetReminderConfirm?.(newReminder, newMode, newWeekDay);
     setReminderSetupVisible(false);
+    setReminderHasBeenSet(true);
   };
 
   const deleteReminder = async () => {
