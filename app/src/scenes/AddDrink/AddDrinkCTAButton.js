@@ -21,6 +21,7 @@ export const useToggleCTA = ({ routesToHideCTA = [], hideCTA = false, navigator 
 
   useEffect(() => {
     if (isFocused) {
+      console.log('ici bebe');
       if (hideCTA) {
         if (showCTAButton) setShowCTAButton(false);
       } else {

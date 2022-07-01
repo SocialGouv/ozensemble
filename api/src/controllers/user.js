@@ -9,7 +9,7 @@ router.put(
   "/",
   catchErrors(async (req, res) => {
     const { body } = req;
-    if (body.pushToken) capture("push token coming", { extra: body });
+    if (body.pushToken && req.headers.appdevice === "ios") capture("push token coming", { extra: body });
     return res.status(200).send({ ok: true });
   })
 );
