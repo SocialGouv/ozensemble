@@ -1,3 +1,10 @@
+# [1.65.0](https://github.com/SocialGouv/ozensemble/compare/v1.64.0...v1.65.0) (2022-07-01)
+
+
+### Features
+
+* handle push notifications ([9a1442e](https://github.com/SocialGouv/ozensemble/commit/9a1442e058209a5ed106bdf82f49e37b5581919f))
+
 # [1.64.0](https://github.com/SocialGouv/ozensemble/compare/v1.63.1...v1.64.0) (2022-07-01)
 
 
