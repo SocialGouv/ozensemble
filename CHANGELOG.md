@@ -1,3 +1,11 @@
+# [1.64.0](https://github.com/SocialGouv/ozensemble/compare/v1.63.1...v1.64.0) (2022-07-01)
+
+
+### Features
+
+* activate push token sending to server ([29d41cd](https://github.com/SocialGouv/ozensemble/commit/29d41cdf4562a5f26b8299f361115283a778ccd2))
+* activate push token sending to server for android ([a04531b](https://github.com/SocialGouv/ozensemble/commit/a04531bb5634001d70a1e6e74b69eda7d4ca9bb3))
+
 ## [1.63.1](https://github.com/SocialGouv/ozensemble/compare/v1.63.0...v1.63.1) (2022-07-01)
 
 
