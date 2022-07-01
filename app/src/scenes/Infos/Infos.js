@@ -16,10 +16,12 @@ import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
+import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 
 const InfosStack = createStackNavigator();
 
 const Infos = () => {
+  useToggleCTA({ navigator: 'Infos' });
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
