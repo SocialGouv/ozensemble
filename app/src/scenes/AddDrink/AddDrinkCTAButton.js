@@ -1,6 +1,7 @@
-import React from 'react';
+import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled, { css } from 'styled-components';
 import { modalTimestampState } from '../../recoil/consos';
 import { screenHeight, screenWidth } from '../../styles/theme';
@@ -11,6 +12,32 @@ export const showCTAButtonState = atom({
   key: 'showCTAButtonState',
   default: true,
 });
+
+export const useToggleCTA = ({ routesToHideCTA = [], hideCTA = false, navigator } = {}) => {
+  const route = useRoute();
+  const focusedRoute = getFocusedRouteNameFromRoute(route);
+  const isFocused = useIsFocused();
+  const [showCTAButton, setShowCTAButton] = useRecoilState(showCTAButtonState);
+
+  useEffect(() => {
+    if (isFocused) {
+      if (hideCTA) {
+        if (showCTAButton) setShowCTAButton(false);
+      } else {
+        if (routesToHideCTA.length) {
+          if (routesToHideCTA.includes(focusedRoute)) {
+            if (showCTAButton) setShowCTAButton(false);
+          } else {
+            if (!showCTAButton) setShowCTAButton(true);
+          }
+        } else {
+          if (!showCTAButton) setShowCTAButton(true);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focusedRoute, hideCTA, isFocused, routesToHideCTA, showCTAButton]);
+};
 
 const AddDrinkCTAButton = ({ onCTAPress }) => {
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
