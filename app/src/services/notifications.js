@@ -3,6 +3,7 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { AppState, Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
 import API from './api';
+import { capture } from './sentry';
 
 class NotificationService {
   listeners = {};
@@ -51,12 +52,14 @@ class NotificationService {
     async ({ token }) => {
       console.log('token ', from, token);
       if (token) API.pushToken = token;
+      if (token) capture('token capture', { extra: { token } });
       await API.put({ path: '/user', body: { pushToken: API.pushToken, userId: API.userId } });
       if (Platform.OS === 'android') return;
     };
 
   failIOSToken = (error) => {
     API.put({ path: '/user', body: { error, userId: API.userId } });
+    if (error) capture('error token capture', { extra: { error } });
     if (Platform.OS === 'android') return;
   };
 
