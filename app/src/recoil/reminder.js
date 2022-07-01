@@ -25,6 +25,12 @@ import { getInitValueFromStorage } from './utils';
 
 /* DEFIS */
 
+export const reminderDefisHasBeenSetState = atom({
+  key: 'reminderDefisHasBeenSetState',
+  default: getInitValueFromStorage('@DefisReminder-setup', false),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@DefisReminder-setup', newValue))],
+});
+
 export const reminderDefis = atom({
   key: 'reminderDefis',
   default: getInitValueFromStorage('@DefisReminder', dayjs().set('hours', 20).set('minutes', 0).toISOString()),
@@ -44,6 +50,12 @@ export const reminderDefisWeekDay = atom({
 });
 
 /* GAINS */
+
+export const reminderGainsHasBeenSetState = atom({
+  key: 'reminderGainsHasBeenSetState',
+  default: getInitValueFromStorage('@GainsReminder-setup', false),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@GainsReminder-setup', newValue))],
+});
 
 export const reminderGain = atom({
   key: 'reminderGain',

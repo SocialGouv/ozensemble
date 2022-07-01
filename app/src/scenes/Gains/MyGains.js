@@ -24,7 +24,12 @@ import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
+import {
+  reminderGain,
+  reminderGainMode,
+  reminderGainsHasBeenSetState,
+  reminderGainWeekDay,
+} from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 
@@ -40,6 +45,7 @@ const MyGains = () => {
   const reminder = useRecoilValue(reminderGain);
   const mode = useRecoilValue(reminderGainMode);
   const weekDay = useRecoilValue(reminderGainWeekDay);
+  const reminderHasBeenSet = useRecoilValue(reminderGainsHasBeenSetState);
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToFirstStep = () => {
@@ -379,12 +385,16 @@ const MyGains = () => {
                 <ReminderIcon size={20} color="#000" selected />
                 <TextStyled>
                   {'   '}
-                  {!dayjs(reminder).isValid() ? (
+                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
                     'Pas de rappel encore'
                   ) : (
                     <>
-                      {mode === 'day' ? 'Tous les jours ' : `Tous les ${dayjs().day(weekDay).format('dddd')}s `}à{' '}
-                      {dayjs(reminder).format('HH:mm')}
+                      {mode === 'day'
+                        ? 'Tous les jours '
+                        : `Tous les ${dayjs()
+                            .day(weekDay + 1)
+                            .format('dddd')}s `}
+                      à {dayjs(reminder).format('HH:mm')}
                     </>
                   )}
                 </TextStyled>

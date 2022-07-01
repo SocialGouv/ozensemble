@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Reminder from '../../components/Reminder';
-import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
+import {
+  reminderGain,
+  reminderGainMode,
+  reminderGainsHasBeenSetState,
+  reminderGainWeekDay,
+} from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
 const GainsReminder = ({ navigation, route }) => (
@@ -13,6 +18,7 @@ const GainsReminder = ({ navigation, route }) => (
     route={route}
     reminderState={reminderGain}
     reminderModeState={reminderGainMode}
+    reminderHasBeenSetState={reminderGainsHasBeenSetState}
     name="GAINS_REMINDER"
     wrapperTitle="Mon Rappel"
     onSetReminderConfirm={(reminder, mode) => {
