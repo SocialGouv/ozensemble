@@ -22,6 +22,8 @@ import {
   migrateGenderAndAge,
   migratedDefi7Jours,
   hasMigratedDefi1Stored,
+  hasMigratedRemindersStored,
+  migrateReminders,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -38,6 +40,7 @@ const App = () => {
   const [hasMigratedToRecoil, setHasMigratedToRecoil] = useState(hasMigratedFromReduxToRecoil);
   const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
   const [hasMigratedDefi1, setHasMigratedDefi1] = useState(hasMigratedDefi1Stored);
+  const [hasMigratedReminders, setHasMigratedReminders] = useState(hasMigratedRemindersStored);
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
@@ -58,6 +61,10 @@ const App = () => {
     if (!hasMigratedDefi1) {
       migratedDefi7Jours();
       setHasMigratedDefi1(true);
+    }
+    if (!hasMigratedReminders) {
+      migrateReminders();
+      setHasMigratedReminders(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -102,3 +102,16 @@ export async function migratedDefi7Jours() {
   }
   storage.set('hasMigratedDefi1', true);
 }
+
+export const hasMigratedRemindersStored = storage.getBoolean('hasMigratedReminders');
+
+export async function migrateReminders() {
+  if (hasMigratedRemindersStored) return;
+  if (storage.getString('@DefisReminder')?.length) {
+    storage.set('@DefisReminder-setup', true);
+  }
+  if (storage.getString('@GainsReminder')?.length) {
+    storage.set('@GainsReminder-setup', true);
+  }
+  storage.set('hasMigratedReminders', true);
+}
