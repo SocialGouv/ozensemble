@@ -4,6 +4,7 @@ const { capture } = require("../third-parties/sentry");
 const router = express.Router();
 const inappMessages = require("../in-app-messages");
 const newFeatures = require("../new-features");
+const { sendPushNotification } = require("../services/push-notifications");
 
 router.put(
   "/",
