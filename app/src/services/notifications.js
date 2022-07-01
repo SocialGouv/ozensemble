@@ -49,7 +49,7 @@ class NotificationService {
   handleRegister =
     (from) =>
     async ({ token }) => {
-      console.log({ from, token });
+      console.log('token ', from, token);
       if (token) API.pushToken = token;
       await API.put({ path: '/user', body: { pushToken: API.pushToken, userId: API.userId } });
       if (Platform.OS === 'android') return;
@@ -95,7 +95,6 @@ class NotificationService {
   checkAndGetPermissionIfAlreadyGiven = async (from) => {
     console.log('check permission from', from);
     const { granted } = await this.checkPermission();
-    console.log({ granted });
     if (!granted) return true;
     const permission = await PushNotification.requestPermissions();
     return permission;
@@ -118,7 +117,6 @@ class NotificationService {
 
   //Appears after a specified time. App does not have to be open.
   scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
-    console.log({ date, title, message, playSound, soundName, repeatType });
     PushNotification.localNotificationSchedule({
       date,
       title,
@@ -160,7 +158,7 @@ class NotificationService {
     if (Platform.OS === 'android') {
       // if not the line below, the notification is launched without notifying
       // with the line below, there is a local notification triggered
-      if (notification.foreground && !notification.userInteraction) return;
+      if (notification.foreground && !notification.userInteraction && notification.channelId === this.channelId) return;
     }
     /* LISTENERS */
 
