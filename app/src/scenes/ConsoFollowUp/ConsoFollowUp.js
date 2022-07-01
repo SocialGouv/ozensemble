@@ -17,23 +17,27 @@ import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import WrapperContainer from '../../components/WrapperContainer';
 import HeaderBackground from '../../components/HeaderBackground';
 import Background from '../../components/Background';
+import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
 const ConsoFollowUpStack = createStackNavigator();
-const ConsoFollowUpNavigator = () => (
-  <Background color="#39cec0" withSwiperContainer>
-    <HeaderBackground />
-    <ConsoFollowUpStack.Navigator headerMode="none" initialRouteName="CONSO_FOLLOW_UP">
-      <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={ConsoFollowUp} />
-      <ConsoFollowUpStack.Screen
-        name="ONBOARDING_QUIZZ"
-        component={QuizzOnboarding}
-        initialParams={{ root: 'CONSO_FOLLOW_UP' }}
-      />
-    </ConsoFollowUpStack.Navigator>
-  </Background>
-);
+const ConsoFollowUpNavigator = () => {
+  useToggleCTA({ navigator: 'Consos' });
+  return (
+    <Background color="#39cec0" withSwiperContainer>
+      <HeaderBackground />
+      <ConsoFollowUpStack.Navigator headerMode="none" initialRouteName="CONSO_FOLLOW_UP">
+        <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={ConsoFollowUp} />
+        <ConsoFollowUpStack.Screen
+          name="ONBOARDING_QUIZZ"
+          component={QuizzOnboarding}
+          initialParams={{ root: 'CONSO_FOLLOW_UP' }}
+        />
+      </ConsoFollowUpStack.Navigator>
+    </Background>
+  );
+};
 
 export default ConsoFollowUpNavigator;
 
