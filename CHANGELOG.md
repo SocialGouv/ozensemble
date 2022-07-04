@@ -1,3 +1,16 @@
+# [1.66.0](https://github.com/SocialGouv/ozensemble/compare/v1.65.4...v1.66.0) (2022-07-04)
+
+
+### Bug Fixes
+
+* add dev mode ([c742302](https://github.com/SocialGouv/ozensemble/commit/c7423025a2e3a9ec651dfa989c8307171c62c497))
+* move envFrom to kube root ([a7be1ec](https://github.com/SocialGouv/ozensemble/commit/a7be1ecc7b1a6518681af21d245c99eb4c1de5b5))
+
+
+### Features
+
+* **api:** sealed secrets ([5b403ee](https://github.com/SocialGouv/ozensemble/commit/5b403ee78d1b11336d1ac626b741ed43f981b0f3))
+
 ## [1.65.4](https://github.com/SocialGouv/ozensemble/compare/v1.65.3...v1.65.4) (2022-07-04)
 
 
