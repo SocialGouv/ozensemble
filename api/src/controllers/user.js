@@ -9,11 +9,12 @@ const { sendPushNotification } = require("../services/push-notifications");
 router.put(
   "/",
   catchErrors(async (req, res) => {
-    const { body } = req;
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    const result = await sendPushNotification([{ pushTokens: [body.pushToken] }], { title: "Test OZ", body: "Test notifications push" });
-    console.log({ ok: true, data: result });
-    return res.status(200).send({ ok: true, data: JSON.stringify(result, null, 2) });
+    // const { body } = req;
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
+    // const result = await sendPushNotification([{ pushTokens: [body.pushToken] }], { title: "Test OZ", body: "Test notifications push" });
+    // console.log({ ok: true, data: result });
+    // return res.status(200).send({ ok: true, data: JSON.stringify(result, null, 2) });
+    return res.status(200).send({ ok: true });
   })
 );
 
