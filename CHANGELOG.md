@@ -1,3 +1,10 @@
+## [1.65.4](https://github.com/SocialGouv/ozensemble/compare/v1.65.3...v1.65.4) (2022-07-04)
+
+
+### Bug Fixes
+
+* enable test push notification ([334ba64](https://github.com/SocialGouv/ozensemble/commit/334ba64c9ead7f8596781c32acf8f1ac4db52ffe))
+
 ## [1.65.3](https://github.com/SocialGouv/ozensemble/compare/v1.65.2...v1.65.3) (2022-07-01)
 
 
