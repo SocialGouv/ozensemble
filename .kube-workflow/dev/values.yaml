@@ -1,4 +1,0 @@
-app:
-  envFrom:
-    - secretRef:
-        name: api
