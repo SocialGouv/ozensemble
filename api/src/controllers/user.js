@@ -10,11 +10,10 @@ router.put(
   "/",
   catchErrors(async (req, res) => {
     const { body } = req;
-    setTimeout(() => {
-      console.log("send push notif");
-      sendPushNotification([{ pushTokens: [body.pushToken] }], { title: "Test OZ", body: "Test notifications push" });
-    }, 5000);
-    return res.status(200).send({ ok: true });
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    const result = await sendPushNotification([{ pushTokens: [body.pushToken] }], { title: "Test OZ", body: "Test notifications push" });
+    console.log({ ok: true, data: result });
+    return res.status(200).send({ ok: true, data: JSON.stringify(result, null, 2) });
   })
 );
 
