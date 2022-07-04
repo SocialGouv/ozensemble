@@ -1,2 +1,5 @@
 app:
   host: api-ozensemble-preprod.dev.fabrique.social.gouv.fr
+  envFrom:
+    - secretRef:
+        name: api
