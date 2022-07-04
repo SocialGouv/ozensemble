@@ -18,7 +18,6 @@ const config = {
   isAlwaysUseFCM: false,
 };
 
-// console.log({ config });
 const NotificationService = new PushNotifications(config);
 
 NotificationService.sendNotifications = function (tokens, data) {
