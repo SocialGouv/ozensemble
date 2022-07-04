@@ -1,2 +1,6 @@
 app:
   host: api-ozensemble.fabrique.social.gouv.fr
+  certSecretName: api-crt
+  envFrom:
+    - secretRef:
+        name: api

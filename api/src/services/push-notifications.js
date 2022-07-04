@@ -18,7 +18,7 @@ const config = {
   isAlwaysUseFCM: false,
 };
 
-console.log({ config });
+// console.log({ config });
 const NotificationService = new PushNotifications(config);
 
 NotificationService.sendNotifications = function (tokens, data) {
@@ -96,20 +96,20 @@ exports.sendPushNotification = async (users = [], payload = {}, admin = false) =
       // payload.notificationId = notification._id;
       console.log(JSON.stringify({ user, payload }, null, 2));
       if (!user.pushTokens) continue;
-      await NotificationService.sendNotifications(user.pushTokens, payload)
-        .then(async (notifResults) => {
-          console.log(JSON.stringify({ notifResults }, null, 2));
-          // for (let result of notifResults) {
-          //   if (!Boolean(result.failure)) continue;
-          //   for (let message of result.message) {
-          //     if (message.errorMsg === "BadDeviceToken") {
-          //       user.pushTokens = user.pushTokens.filter((token) => token !== message.regId);
-          //     }
-          //   }
-          //   await user.save();
-          // }
-        })
-        .catch((err) => console.log("error sending push", err));
+      return NotificationService.sendNotifications(user.pushTokens, payload);
+      // .then(async (notifResults) => {
+      // console.log(JSON.stringify({ notifResults }, null, 2));
+      // for (let result of notifResults) {
+      //   if (!Boolean(result.failure)) continue;
+      //   for (let message of result.message) {
+      //     if (message.errorMsg === "BadDeviceToken") {
+      //       user.pushTokens = user.pushTokens.filter((token) => token !== message.regId);
+      //     }
+      //   }
+      //   await user.save();
+      // }
+      // })
+      // .catch((err) => console.log("error sending push", err));
     }
   } catch (e) {
     capture(e, { extra: { users, payload } });
