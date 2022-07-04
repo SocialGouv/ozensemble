@@ -1,3 +1,10 @@
+## [1.66.1](https://github.com/SocialGouv/ozensemble/compare/v1.66.0...v1.66.1) (2022-07-04)
+
+
+### Bug Fixes
+
+* disable push notif testing ([dabec5c](https://github.com/SocialGouv/ozensemble/commit/dabec5c6fcac765119b7bf88c4df1d6199483c7f))
+
 # [1.66.0](https://github.com/SocialGouv/ozensemble/compare/v1.65.4...v1.66.0) (2022-07-04)
 
 
