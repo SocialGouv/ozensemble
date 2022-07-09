@@ -6,6 +6,7 @@ const inappMessages = require("../in-app-messages");
 const newFeatures = require("../new-features");
 const { sendPushNotification } = require("../services/push-notifications");
 const prisma = require("../prisma");
+const config = require("../config");
 
 router.put(
   "/",
@@ -22,12 +23,16 @@ router.put(
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    const newUser = await prisma.user.create({
-      data: {
-        matomo_id: "12345",
-      },
-    });
-    return res.status(200).send({ ok: true, data: newUser });
+    try {
+      const newUser = await prisma.user.create({
+        data: {
+          matomo_id: "12345",
+        },
+      });
+      return res.status(200).send({ ok: true, data: newUser, config });
+    } catch (e) {
+      return res.status(200).send({ ok: false, config });
+    }
   })
 );
 

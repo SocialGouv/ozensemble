@@ -8,6 +8,7 @@ const PGPORT = process.env.PGPORT;
 const PGUSER = process.env.PGUSER;
 const PGPASSWORD = process.env.PGPASSWORD || null;
 const PGDATABASE = process.env.PGDATABASE;
+const DATABASE_URL = process.env.DATABASE_URL;
 
 const SENTRY_KEY = process.env.SENTRY_KEY || "https://b43d73353b7b48b8857deb69bca98da2@o348403.ingest.sentry.io/2213011";
 
@@ -21,6 +22,7 @@ module.exports = {
   PGUSER,
   PGPASSWORD,
   PGDATABASE,
+  DATABASE_URL,
   ENVIRONMENT,
   SENTRY_KEY,
   VERSION,
