@@ -3,12 +3,12 @@ FROM node:16-alpine
 WORKDIR /app
 
 RUN chown node:node /app
-RUN chown -R node_modules/.prisma node:node
 
 COPY . .
 
 RUN yarn --production --frozen-lockfile
 
+RUN chown -R /app/node_modules/.prisma node:node
 
 USER node
 
