@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { screenHeight } from '../../styles/theme';
 import { dailyDosesSelector, drinksState } from '../../recoil/consos';
 import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
@@ -86,7 +85,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
 });
 
 const minBarHeight = 1;
-const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
+const Diagram = ({ asPreview }) => {
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
   const days = useMemo(() => {
@@ -137,11 +136,6 @@ const Diagram = ({ asPreview, showCloseHelp = null, onCloseHelp = null }) => {
 
   return (
     <>
-      {showCloseHelp && (
-        <CloseHelpContainer>
-          <UnderlinedButton content="Fermer" bold onPress={onCloseHelp} />
-        </CloseHelpContainer>
-      )}
       {!asPreview && (
         <ChangeDateContainer>
           <ChangeDateButton
@@ -493,10 +487,6 @@ const Line = styled.View`
   border-width: 1px;
   border-radius: 1px;
   border-color: #39cec0;
-`;
-
-const CloseHelpContainer = styled.View`
-  margin-left: auto;
 `;
 
 export default Diagram;

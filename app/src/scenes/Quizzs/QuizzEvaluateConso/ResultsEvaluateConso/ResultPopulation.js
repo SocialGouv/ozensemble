@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import H2 from '../../../../components/H2';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import UnderlinedButton from '../../../../components/UnderlinedButton';

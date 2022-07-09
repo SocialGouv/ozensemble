@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import Header from '../../Defis/Header';
+import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 import H3 from '../../../components/H3';
 import TextStyled from '../../../components/TextStyled';
 import CheckboxLabelled from '../../../components/CheckboxLabelled';
@@ -14,8 +14,9 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
-      <Header inMyTests={inMyTests} />
-      {!!motivationsQuizzAnswers && <ResultContainer>{children}</ResultContainer>}
+      <HeaderQuizzsResult inMyTests={inMyTests}>
+        {!!motivationsQuizzAnswers && <ResultContainer>{children}</ResultContainer>}
+      </HeaderQuizzsResult>
     </FullScreenBackground>
   );
 };

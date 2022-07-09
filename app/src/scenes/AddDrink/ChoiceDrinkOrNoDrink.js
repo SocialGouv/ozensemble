@@ -1,67 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
-import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
-import H1 from '../../components/H1';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
-import { defaultPaddingFontScale, screenHeight } from '../../styles/theme';
-import DatePicker from '../../components/DatePicker';
+import { screenHeight } from '../../styles/theme';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, modalTimestampState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import BackButton from '../../components/BackButton';
 import { P } from '../../components/Articles';
+import DateAndTimePickers from './DateAndTimePickers';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const ChoiceDrinkOrNoDrink = () => {
   const setDrinksState = useSetRecoilState(drinksState);
-  const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
+  const drinkModalTimestamp = useRecoilValue(modalTimestampState);
   const navigation = useNavigation();
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
-
-  const updateModalTimestamp = (newTimestamp) => {
-    const oldTimestamp = addDrinkModalTimestamp;
-    setDrinksState((drinks) =>
-      drinks.map((drink) => {
-        if (drink.timestamp === oldTimestamp) {
-          return {
-            ...drink,
-            timestamp: newTimestamp,
-          };
-        }
-        return drink;
-      })
-    );
-    setAddDrinkModalTimestamp(newTimestamp);
-  };
-
   return (
-    <ScreenBgStyled>
-      <SafeAreaView>
-        <TopContainer>
-          <BackButton
-            onPress={() => {
-              navigation.goBack();
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
-              });
-            }}
-          />
-          <TopTitle>
-            <H1 color="#4030a5">Mes consommations</H1>
-          </TopTitle>
-        </TopContainer>
-        <DateAndTimeContainer>
-          <DateOrTimeDisplay mode="date" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('date')} />
-          <DateOrTimeDisplay mode="time" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('time')} />
-        </DateAndTimeContainer>
+    <SafeWrapper>
+      <WrapperContainer
+        title={'Mes consommations'}
+        onPressBackButton={() => {
+          navigation.goBack();
+          logEvent({
+            category: 'CONSO',
+            action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+          });
+        }}>
+        <DateAndTimePickers />
         <Option
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
@@ -72,7 +42,7 @@ const ChoiceDrinkOrNoDrink = () => {
             });
             setDrinksState((state) => [
               ...state,
-              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
+              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(drinkModalTimestamp), id: uuidv4() },
             ]);
             navigation.goBack();
           }}
@@ -88,28 +58,8 @@ const ChoiceDrinkOrNoDrink = () => {
             navigation.replace('CONSOS_LIST');
           }}
         />
-        <DatePicker
-          visible={Boolean(showDatePicker)}
-          mode={showDatePicker}
-          initDate={addDrinkModalTimestamp}
-          selectDate={(newDate) => {
-            if (newDate && showDatePicker === 'date') {
-              const newDateObject = new Date(newDate);
-              const oldDateObject = new Date(addDrinkModalTimestamp);
-              newDate = new Date(
-                newDateObject.getFullYear(),
-                newDateObject.getMonth(),
-                newDateObject.getDate(),
-                oldDateObject.getHours(),
-                oldDateObject.getMinutes()
-              );
-            }
-            setShowDatePicker(false);
-            if (newDate) updateModalTimestamp(makeSureTimestamp(newDate));
-          }}
-        />
-      </SafeAreaView>
-    </ScreenBgStyled>
+      </WrapperContainer>
+    </SafeWrapper>
   );
 };
 
@@ -124,16 +74,8 @@ const Option = ({ icon, value, onPress }) => {
   );
 };
 
-const TopContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
+const SafeWrapper = styled(SafeAreaView)`
+  flex: 1;
 `;
 
 export const DateAndTimeContainer = styled.View`

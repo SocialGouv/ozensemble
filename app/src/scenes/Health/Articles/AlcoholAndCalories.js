@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import Background from '../../../components/Background';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
@@ -44,117 +43,118 @@ const AlcoholAndCalories = () => {
   const title = "L'alcool et les calories";
 
   return (
-    <Background color="#39cec0" withSwiperContainer>
-      <NavigationWrapper
-        title={title}
-        timeReading={2}
-        link={'https://www.rsph.org.uk/our-work/policy/drugs/alcohol-calorie-labelling-.html '}>
-        <TopContainer>
-          <H2 color={'#4030a5'}>Beaucoup de personnes ignorent que l'alcool fait grossir</H2>
-          <Spacer size={20} />
-          <P>
-            Les études montrent que l'alcool est une boisson très calorique et sa consommation peut provoquer une
-            <Bold> prise de poids</Bold>.
-          </P>
-          <P>
-            De nombreuses études révèlent que l'alcool représente en moyenne entre 4 et 6% des apports énergétiques des
-            régimes alimentaires occidentaux.
-          </P>
-          <P>Pour autant, cette valeur énergétique n'apparaît pas sur les bouteilles d'alcool.</P>
-          <Spacer size={20} />
-          <H2 color={'#4030a5'}>L'alcool diminue l'élimination de graisse</H2>
-          <Spacer size={20} />
-          <P>
-            L'alcool diminue l'élimination des graisses car les calories apportées par l'alcool sont brûlées très
-            rapidement avant celles des graisses.{'\n'}La consommation d'alcool favorise ainsi
-            <Bold> l'accumulation des graisses</Bold>, essentiellement au niveau abdominal, situation fréquente chez les
-            grands consommateurs de bière.
-          </P>
-          <P bold>
-            L'alcool stimule l'appétit en induisant une hypoglycémie: plus on boit d'alcool et plus on ressent des
-            fringales !
-          </P>
-          <P>
-            A titre indicatif, voici 4 équivalences alcool / nourriture pour mieux se rendre compte de la teneur en
-            sucre des boissons alcoolisées :
-          </P>
-          <Correspondance
-            text1="2 piña colada de 20"
-            text2="4 hot-dogs de 140g "
-            icon1={
-              <PinaColadaContainer>
-                <PinaColada size={60} />
-                <PinaColada size={60} />
-              </PinaColadaContainer>
-            }
-            icon2={<HotDog size={70} />}
-            kcal1="1280"
-            kcal2="1305"
-          />
-          <Spacer size={20} />
-          <Correspondance
-            text1="1 bouteille de cidre de 75 cl "
-            text2="2 assiettes de spaghetti de 100g "
-            icon1={<CiderBottle size={70} />}
-            icon2={
-              <>
-                <SpagettiPlateStyled size={50} />
-                <SpagettiPlateStyled size={50} />
-              </>
-            }
-            kcal1="262"
-            kcal2="264"
-          />
-          <Spacer size={20} />
-          <Correspondance
-            text1="1 mojito de 24 cl "
-            text2="1 glace vanille de 100g "
-            icon1={<Mojito size={50} />}
-            icon2={<Glace size={50} />}
-            kcal1="242"
-            kcal2="207"
-          />
-          <Spacer size={20} />
-          <Correspondance
-            text1="3 verres de rhum de 6 cl"
-            text2="1 banasplit de 200g + 1 esquimau chocolat"
-            icon1={
-              <>
-                <ShootStyled size={45} />
-                <ShootStyled size={45} />
-                <ShootStyled size={45} />
-              </>
-            }
-            icon2={
-              <>
-                <Banasplit size={50} />
-                <Esquimau size={50} />
-              </>
-            }
-            kcal1="516"
-            kcal2="524"
-          />
-          <Spacer size={20} />
-          <P>
-            De plus, voici une liste de boissons avec leurs valeurs énergétiques.{'\n'}Pour rappel, une unité d'alcool
-            équivaut à 10 g d'alcool quelque soit le contenant.
-          </P>
-          <Table value={energetiquesValuesDrinks} firstWidth={50} />
-          <Spacer size={20} />
-          <P>
-            Ci-dessous, vous trouverez les 10 cocktails préférés des Français associés à leur valeurs énergétiques. Les
-            cocktails comprenant aussi plus de sucre, ils sont donc plus caloriques :
-          </P>
-          <Table value={energetiquesValuesCocktails} firstWidth={50} />
-          <Spacer size={20} />
-          <P>
-            Et sinon… <Bold>l'eau est un bon substitut</Bold> car quand vous buvez 100 ml, 200 ml ou 300 ml, vous
-            absorbez <Bold>0 calorie !</Bold>
-            {'\n'}L'eau est également une excellente manière d'<Bold>éviter la gueule de bois</Bold> à coup sûr.
-          </P>
-        </TopContainer>
-      </NavigationWrapper>
-    </Background>
+    <NavigationWrapper
+      title={title}
+      timeReading={2}
+      link={'https://www.rsph.org.uk/our-work/policy/drugs/alcohol-calorie-labelling-.html '}>
+      <TopContainer>
+        <H2 color={'#4030a5'}>Beaucoup de personnes ignorent que l'alcool fait grossir</H2>
+        <Spacer size={20} />
+        <P>
+          <Bold>
+            Les études montrent que l'alcool est une boisson très calorique et sa consommation peut provoquer une prise
+            de poids.
+          </Bold>
+        </P>
+        <P>
+          De nombreuses études révèlent que l'alcool représente en moyenne entre 4 et 6% des apports énergétiques des
+          régimes alimentaires occidentaux.
+        </P>
+        <P>Pour autant, cette valeur énergétique n'apparaît pas sur les bouteilles d'alcool.</P>
+        <Spacer size={20} />
+        <H2 color={'#4030a5'}>L'alcool diminue l'élimination de graisse</H2>
+        <Spacer size={20} />
+        <P>
+          L'alcool diminue l'élimination des graisses car les calories apportées par l'alcool sont brûlées très
+          rapidement avant celles des graisses.{'\n'}La consommation d'alcool favorise ainsi l'accumulation des
+          graisses, essentiellement au niveau abdominal, situation fréquente chez les grands consommateurs de bière.
+        </P>
+        <P bold>
+          L'alcool stimule l'appétit en induisant une hypoglycémie: plus on boit d'alcool et plus on ressent des
+          fringales !
+        </P>
+        <P>
+          À titre indicatif, voici 4 équivalences alcool / nourriture pour mieux se rendre compte de la teneur en sucre
+          des boissons alcoolisées :
+        </P>
+        <Correspondance
+          text1="2 piña colada de 20"
+          text2="4 hot-dogs de 140g "
+          icon1={
+            <PinaColadaContainer>
+              <PinaColada size={60} />
+              <PinaColada size={60} />
+            </PinaColadaContainer>
+          }
+          icon2={<HotDog size={70} />}
+          kcal1="1280"
+          kcal2="1305"
+        />
+        <Spacer size={20} />
+        <Correspondance
+          text1="1 bouteille de cidre de 75 cl "
+          text2="2 assiettes de spaghetti de 100g "
+          icon1={<CiderBottle size={70} />}
+          icon2={
+            <>
+              <SpagettiPlateStyled size={50} />
+              <SpagettiPlateStyled size={50} />
+            </>
+          }
+          kcal1="262"
+          kcal2="264"
+        />
+        <Spacer size={20} />
+        <Correspondance
+          text1="1 mojito de 24 cl "
+          text2="1 glace vanille de 100g "
+          icon1={<Mojito size={50} />}
+          icon2={<Glace size={50} />}
+          kcal1="242"
+          kcal2="207"
+        />
+        <Spacer size={20} />
+        <Correspondance
+          text1="3 verres de rhum de 6 cl"
+          text2="1 banasplit de 200g + 1 esquimau chocolat"
+          icon1={
+            <>
+              <ShootStyled size={45} />
+              <ShootStyled size={45} />
+              <ShootStyled size={45} />
+            </>
+          }
+          icon2={
+            <>
+              <Banasplit size={50} />
+              <Esquimau size={50} />
+            </>
+          }
+          kcal1="516"
+          kcal2="524"
+        />
+        <Spacer size={20} />
+        <P>
+          De plus, voici une liste de boissons avec leurs valeurs énergétiques.{'\n'}Pour rappel, une unité d'alcool
+          équivaut à 10 g d'alcool quelque soit le contenant.
+        </P>
+        <Table value={energetiquesValuesDrinks} firstWidth={50} />
+        <Spacer size={20} />
+        <P>
+          <Bold>
+            Ci-dessous, vous trouverez les 10 cocktails préférés des Français associés à leur valeurs énergétiques.
+          </Bold>{' '}
+          Les cocktails comprenant aussi plus de sucre, ils sont donc plus caloriques :
+        </P>
+        <Table value={energetiquesValuesCocktails} firstWidth={50} />
+        <Spacer size={20} />
+        <P>
+          Et sinon… <Bold>l'eau est un bon substitut</Bold> car quand vous buvez 100 ml, 200 ml ou 300 ml, vous absorbez{' '}
+          <Bold>0 calorie !</Bold>
+          {'\n'}L'eau est également une excellente manière d'<Bold>éviter la gueule de bois</Bold> à coup sûr.
+        </P>
+      </TopContainer>
+    </NavigationWrapper>
   );
 };
 
@@ -193,7 +193,7 @@ const CorrespondanceContainer = styled.View`
 `;
 
 const CorrespondanceTitleContainer = styled.View`
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 `;
 
 const CategorieContainer = styled.View`

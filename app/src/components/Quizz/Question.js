@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import H2 from '../H2';
 import { screenWidth } from '../../styles/theme';
-import { ScreenBgStyled } from '../ScreenBgStyled';
+import WrapperContainer from '../WrapperContainer';
 
 const Question = ({
   questionIndex,
@@ -15,7 +15,7 @@ const Question = ({
   navigation,
 }) => {
   return (
-    <ScreenBgStyled defaultPadding>
+    <WrapperContainer noPaddingTop>
       <QuestionNumber>
         Question {questionIndex + 1} / {numberOfQuestions}
       </QuestionNumber>
@@ -41,7 +41,7 @@ const Question = ({
           </AnswerButton>
         ))}
       </AnswersContainer>
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
 

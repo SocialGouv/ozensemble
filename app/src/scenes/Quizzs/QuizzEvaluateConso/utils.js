@@ -1,6 +1,5 @@
 import { getAnswerScore } from '../../../components/Quizz/utils';
 import { capture } from '../../../services/sentry';
-import { storage } from '../../../services/storage';
 
 const atLeastOneAnswerIsNotNever = (answers) => {
   const questionKeys = Object.keys(answers).filter((key) => key !== 'gender' && key !== 'age');
@@ -59,7 +58,8 @@ const mapScoreToResult = ({ computedScore, answers }) => {
   if (gender === 'woman') {
     // score for the first part, addiction
     if (score <= 4) scores.scoreAddiction = 'good';
-    if (score >= 5) scores.scoreAddiction = 'risk';
+    if (score >= 5 && score <= 6) scores.scoreAddiction = 'risk';
+    if (score >= 7 && score <= 11) scores.scoreAddiction = 'nocif';
     if (score >= 12) scores.scoreAddiction = 'addicted';
 
     //score for the second part, the arrow
@@ -72,7 +72,8 @@ const mapScoreToResult = ({ computedScore, answers }) => {
   // then men
   else if (gender === 'man') {
     if (score <= 5) scores.scoreAddiction = 'good';
-    if (score >= 6) scores.scoreAddiction = 'risk';
+    if (score >= 6 && score <= 7) scores.scoreAddiction = 'risk';
+    if (score >= 8 && score <= 11) scores.scoreAddiction = 'nocif';
     if (score >= 12) scores.scoreAddiction = 'addicted';
 
     //score for the second part, the arrow

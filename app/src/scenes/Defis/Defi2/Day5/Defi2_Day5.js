@@ -3,16 +3,14 @@ import React, { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import H1 from '../../../../components/H1';
-import { defaultPaddingFontScale } from '../../../../styles/theme';
 import { setValidatedDays } from '../../utils';
-import { ScreenBgStyled } from '../../../../components/ScreenBgStyled';
-import BackButton from '../../../../components/BackButton';
 import { P } from '../../../../components/Articles';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { defi2EmotionState } from '../../../../recoil/defis';
 import { riskSituationsQuizzAnswersState } from '../../../../recoil/quizzs';
 import emotions from './emotions';
 import riskSituations from '../../../Quizzs/QuizzRiskSituations/riskSituations';
+import WrapperContainer from '../../../../components/WrapperContainer';
 
 const Defi2_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -27,43 +25,35 @@ const Defi2_Day5 = ({ navigation, route }) => {
     .find((section) => section.answers.map((a) => a.answerKey).includes(riskSituationsQuizzAnswers[0]))
     ?.answers?.find((a) => a.answerKey === riskSituationsQuizzAnswers[0]);
   return (
-    <ScreenBgStyled>
-      <TopContainer>
-        <BackButton onPress={navigation.goBack} />
-        <TopTitle>
-          <H1 color="#4030a5">Affronter une situation à risque</H1>
-        </TopTitle>
-        <P bold noMarginBottom>
-          Dans cette situation, sélectionner l'émotion que vous ressentez.
-        </P>
-        <P>{firstRiskSituations?.content}</P>
-        <SmileysContainer>
-          {emotions.map((emotion, index) => (
-            <SmileyContainer
-              key={emotion.value}
-              index={index}
-              onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
-              {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
-              <TextEmotionView>
-                <TextEmotion
-                  color={smileySelect === emotion.value ? '#DE285E' : '#000'}
-                  bold={smileySelect === emotion.value}>
-                  {emotion.description}
-                </TextEmotion>
-              </TextEmotionView>
-            </SmileyContainer>
-          ))}
-        </SmileysContainer>
-        <TipsSelected smileySelectValue={smileySelect} />
-        {!!smileySelect && (
-          <ButtonPrimary
-            content="J'ai compris"
-            widthSmall
-            onPress={() => navigation.navigate(route?.params?.rootRoute)}
-          />
-        )}
-      </TopContainer>
-    </ScreenBgStyled>
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Affronter une situation à risque">
+      <P bold>Dans cette situation, sélectionner l'émotion que vous ressentez.</P>
+      <P>"{firstRiskSituations?.content}", je bois pour&nbsp;:</P>
+      <SmileysContainer>
+        {emotions.map((emotion, index) => (
+          <SmileyContainer
+            key={emotion.value}
+            index={index}
+            onPress={() => setSmileySelect(emotion.value === smileySelect ? 0 : emotion.value)}>
+            {smileySelect === emotion.value ? emotion.iconclicked : emotion.icon}
+            <TextEmotionView>
+              <TextEmotion
+                color={smileySelect === emotion.value ? '#DE285E' : '#000'}
+                bold={smileySelect === emotion.value}>
+                {emotion.description}
+              </TextEmotion>
+            </TextEmotionView>
+          </SmileyContainer>
+        ))}
+      </SmileysContainer>
+      <TipsSelected smileySelectValue={smileySelect} />
+      {!!smileySelect && (
+        <ButtonPrimary
+          content="J'ai compris"
+          widthSmall
+          onPress={() => navigation.navigate(route?.params?.rootRoute)}
+        />
+      )}
+    </WrapperContainer>
   );
 };
 
@@ -75,19 +65,6 @@ const TipsSelected = ({ smileySelectValue }) => {
   if (smileySelectValue === 5) return <TipsIllSmiley />;
   return null;
 };
-
-const TopContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px 0px;
-  margin-bottom: 150px;
-`;
-
-const TopTitle = styled.View`
-  width: 95%;
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
 
 const SmileysContainer = styled.View`
   flex-direction: row;
@@ -161,9 +138,9 @@ const TipsAngrySmiley = () => (
       pour me changer les idées,
       {'\n\n'}2/ Je fais un <P bold>exercice de sport</P> ou je m'inscris à un cours d'
       <P bold>arts martiaux pour libérer ma tension,</P> {'\n\n'}3/ Je tente un{' '}
-      <P bold>exercice de respiration profonde</P> (à répéter 3 fois): je prends une profonde inspiration par le nez en
-      comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en comptant
-      jusqu'à 8. {'\n\n'}4/ J'écris ce qui me vient à l'esprit et je le déchire, {'\n\n'}
+      <P bold>exercice de respiration profonde</P> est à répéter 3 fois&nbsp;: je prends une profonde inspiration par le
+      nez en comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en
+      comptant jusqu'à 8. {'\n\n'}4/ J'écris ce qui me vient à l'esprit et je le déchire, {'\n\n'}
       5/ J'apprends à<P bold> reconnaître les signes de colère</P> pour mieux les contrôler et verbaliser mon
       insatisfaction et mes désirs.
     </P>
@@ -192,9 +169,9 @@ const TipsIllSmiley = () => (
       la connaître favorise sa maîtrise) et j'en <P bold>parle à un professionnel,</P> {'\n\n'}
       2/ Je pratique des techniques de
       <P bold> relaxation</P> pour baisser mon stress, chasser les pensées négatives… Cet{' '}
-      <P bold>exercice de respiration profonde</P> (à répéter 3 fois): je prends une profonde inspiration par le nez en
-      comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en comptant
-      jusqu'à 8. {'\n\n'}3/ Si mon état de santé le permet, je fais du
+      <P bold>exercice de respiration profonde</P> est à répéter 3 fois&nbsp;: je prends une profonde inspiration par le
+      nez en comptant lentement jusqu'à 4, je laisse l'air gonfler mon ventre, j'expire doucement par la bouche en
+      comptant jusqu'à 8. {'\n\n'}3/ Si mon état de santé le permet, je fais du
       <P bold> sport régulièrement</P> car cela aide à contrôler la douleur et me donne de l'énergie, {'\n\n'}4/ Je sors
       pour <P bold>voir du monde</P> et ne pas rester seul(e).
     </P>
@@ -203,7 +180,7 @@ const TipsIllSmiley = () => (
 
 const TipsContainer = styled.View`
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 `;
 
 export default Defi2_Day5;

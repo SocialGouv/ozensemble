@@ -1,3 +1,145 @@
+## [1.66.1](https://github.com/SocialGouv/ozensemble/compare/v1.66.0...v1.66.1) (2022-07-04)
+
+
+### Bug Fixes
+
+* disable push notif testing ([dabec5c](https://github.com/SocialGouv/ozensemble/commit/dabec5c6fcac765119b7bf88c4df1d6199483c7f))
+
+# [1.66.0](https://github.com/SocialGouv/ozensemble/compare/v1.65.4...v1.66.0) (2022-07-04)
+
+
+### Bug Fixes
+
+* add dev mode ([c742302](https://github.com/SocialGouv/ozensemble/commit/c7423025a2e3a9ec651dfa989c8307171c62c497))
+* move envFrom to kube root ([a7be1ec](https://github.com/SocialGouv/ozensemble/commit/a7be1ecc7b1a6518681af21d245c99eb4c1de5b5))
+
+
+### Features
+
+* **api:** sealed secrets ([5b403ee](https://github.com/SocialGouv/ozensemble/commit/5b403ee78d1b11336d1ac626b741ed43f981b0f3))
+
+## [1.65.4](https://github.com/SocialGouv/ozensemble/compare/v1.65.3...v1.65.4) (2022-07-04)
+
+
+### Bug Fixes
+
+* enable test push notification ([334ba64](https://github.com/SocialGouv/ozensemble/commit/334ba64c9ead7f8596781c32acf8f1ac4db52ffe))
+
+## [1.65.3](https://github.com/SocialGouv/ozensemble/compare/v1.65.2...v1.65.3) (2022-07-01)
+
+
+### Bug Fixes
+
+* reminder when not setup yet ([4a82228](https://github.com/SocialGouv/ozensemble/commit/4a82228279e0a490622fd53f54e60b02c0e87a9c))
+
+## [1.65.2](https://github.com/SocialGouv/ozensemble/compare/v1.65.1...v1.65.2) (2022-07-01)
+
+
+### Bug Fixes
+
+* reminder when not setup yet ([cdb8935](https://github.com/SocialGouv/ozensemble/commit/cdb89358ccb7a23f30634c9657a91f72c53c5b6f))
+
+## [1.65.1](https://github.com/SocialGouv/ozensemble/compare/v1.65.0...v1.65.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* test push notif send ([f9408a6](https://github.com/SocialGouv/ozensemble/commit/f9408a6c47728c1387c5823e24bcadb8b0614ed9))
+
+# [1.65.0](https://github.com/SocialGouv/ozensemble/compare/v1.64.0...v1.65.0) (2022-07-01)
+
+
+### Features
+
+* handle push notifications ([9a1442e](https://github.com/SocialGouv/ozensemble/commit/9a1442e058209a5ed106bdf82f49e37b5581919f))
+
+# [1.64.0](https://github.com/SocialGouv/ozensemble/compare/v1.63.1...v1.64.0) (2022-07-01)
+
+
+### Features
+
+* activate push token sending to server ([29d41cd](https://github.com/SocialGouv/ozensemble/commit/29d41cdf4562a5f26b8299f361115283a778ccd2))
+* activate push token sending to server for android ([a04531b](https://github.com/SocialGouv/ozensemble/commit/a04531bb5634001d70a1e6e74b69eda7d4ca9bb3))
+
+## [1.63.1](https://github.com/SocialGouv/ozensemble/compare/v1.63.0...v1.63.1) (2022-07-01)
+
+
+### Bug Fixes
+
+* show cta when necessary ([62a1725](https://github.com/SocialGouv/ozensemble/commit/62a1725c327702d2843331cb6411a7bf4b65eb55))
+
+# [1.63.0](https://github.com/SocialGouv/ozensemble/compare/v1.62.2...v1.63.0) (2022-07-01)
+
+
+### Features
+
+* **app:** fixe Reminder 3 + some front fixe ([9b5b003](https://github.com/SocialGouv/ozensemble/commit/9b5b00323ff588ad7dc5ea51e2ee7e70741f17d6))
+
+## [1.62.2](https://github.com/SocialGouv/ozensemble/compare/v1.62.1...v1.62.2) (2022-06-28)
+
+
+### Bug Fixes
+
+* reminder and end of quizz onboarding ([ff5ec38](https://github.com/SocialGouv/ozensemble/commit/ff5ec382bace4ecab58cc792ad22acd89862f8be))
+
+## [1.62.1](https://github.com/SocialGouv/ozensemble/compare/v1.62.0...v1.62.1) (2022-06-28)
+
+
+### Bug Fixes
+
+* reminder ([3f3250d](https://github.com/SocialGouv/ozensemble/commit/3f3250d4b9586e3601b395519f8b7947937baac2))
+
+# [1.62.0](https://github.com/SocialGouv/ozensemble/compare/v1.61.1...v1.62.0) (2022-06-28)
+
+
+### Features
+
+* new reminder auto at 8pm + small design fixes + new matomo events ([58b0018](https://github.com/SocialGouv/ozensemble/commit/58b0018a1e12b65d4ea03b05a1f05b25d14b3156))
+
+## [1.61.1](https://github.com/SocialGouv/ozensemble/compare/v1.61.0...v1.61.1) (2022-06-27)
+
+
+### Bug Fixes
+
+* **api:** better timeing for whowing new stuff popup ([0eff58b](https://github.com/SocialGouv/ozensemble/commit/0eff58b05bf869d241a6b8d94e94847492201049))
+
+# [1.61.0](https://github.com/SocialGouv/ozensemble/compare/v1.60.2...v1.61.0) (2022-06-23)
+
+
+### Features
+
+* **app:** begin quizz and defi2 -> to day3 ([99bc8f5](https://github.com/SocialGouv/ozensemble/commit/99bc8f5f8df4fd5b5a060cfcadfb9cf80002d2ab))
+* **app:** Mygains ([58307be](https://github.com/SocialGouv/ozensemble/commit/58307be66205d9514113358acbaa8e339c7c9c7a))
+* **app:** WrapperContainer consoFollowUp ([20ce66e](https://github.com/SocialGouv/ozensemble/commit/20ce66e3489af92612b14075cc2a86be228fc728))
+
+## [1.60.2](https://github.com/SocialGouv/ozensemble/compare/v1.60.1...v1.60.2) (2022-06-23)
+
+
+### Bug Fixes
+
+* button primary ([053234d](https://github.com/SocialGouv/ozensemble/commit/053234d5ff382adb5dad0fa091284dc00a8cbd69))
+
+## [1.60.1](https://github.com/SocialGouv/ozensemble/compare/v1.60.0...v1.60.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* **app:** risk situations emotions ([f4d3de7](https://github.com/SocialGouv/ozensemble/commit/f4d3de7fe5156a8593d375f0726f292744ead895))
+
+# [1.60.0](https://github.com/SocialGouv/ozensemble/compare/v1.59.1...v1.60.0) (2022-06-23)
+
+
+### Features
+
+* **app:** checkbox ([c055685](https://github.com/SocialGouv/ozensemble/commit/c05568505a61157bc2cf4da9ee8eb1581b966918))
+
+## [1.59.1](https://github.com/SocialGouv/ozensemble/compare/v1.59.0...v1.59.1) (2022-06-23)
+
+
+### Bug Fixes
+
+* cta button not in defis ([998141f](https://github.com/SocialGouv/ozensemble/commit/998141f17af26989cd8a6830e1d51ad626a0806d))
+
 # [1.59.0](https://github.com/SocialGouv/ozensemble/compare/v1.58.0...v1.59.0) (2022-06-22)
 
 
