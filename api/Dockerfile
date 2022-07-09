@@ -4,15 +4,19 @@ WORKDIR /app
 
 RUN chown node:node /app
 
-COPY . .
-
+COPY api/. .
+COPY api/package.json .
+COPY api/yarn.lock .
 RUN yarn --production --frozen-lockfile
+
+COPY api/prisma .
+
+RUN npx prisma migrate deploy
+RUN npx prisma generate
 
 USER 1000
 
 ENV NODE_ENV=production
 
-RUN npx prisma generate
-RUN npx prisma migrate deploy
 
 ENTRYPOINT ["yarn", "start"]
