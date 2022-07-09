@@ -23,16 +23,12 @@ router.put(
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    try {
-      const newUser = await prisma.user.create({
-        data: {
-          matomo_id: "12345",
-        },
-      });
-      return res.status(200).send({ ok: true, data: newUser, config });
-    } catch (e) {
-      return res.status(200).send({ ok: false, config });
-    }
+    const newUser = await prisma.user.create({
+      data: {
+        matomo_id: "12345",
+      },
+    });
+    return res.status(200).send({ ok: true, data: newUser });
   })
 );
 
