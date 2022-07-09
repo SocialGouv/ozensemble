@@ -50,6 +50,7 @@ app.use(helmet());
 // Routes
 
 app.use("/event", require("./controllers/event"));
+app.use("/user", require("./controllers/user"));
 
 app.use(errors.sendError);
 

@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Alert, Linking, StatusBar } from 'react-native';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import DefisIcon from './components/illustrations/Defis';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
@@ -22,7 +23,7 @@ import { initMatomo, logEvent } from './services/logEventsWithMatomo';
 import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
-import CustomBootsplash from './components/CustomBootsplash';
+import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
 import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
@@ -44,6 +45,7 @@ const LabelStyled = styled(TextStyled)`
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
+  const showBootSplash = useRecoilValue(showBootSplashState);
   const resetOnTapListener = ({ navigation, rootName }) => {
     return {
       blur: () => {
@@ -58,7 +60,7 @@ const TabsNavigator = ({ navigation }) => {
   return (
     <>
       <Tabs.Navigator
-        initialRouteName={'GAINS_MAIN_VIEW'}
+        initialRouteName={'GAINS_NAVIGATOR'}
         lazy={false}
         tabBarOptions={{
           activeTintColor: '#4030A5',
@@ -66,7 +68,7 @@ const TabsNavigator = ({ navigation }) => {
           keyboardHidesTabBar: true,
         }}>
         <Tabs.Screen
-          name="GAINS_MAIN_VIEW"
+          name="GAINS_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Gains</Label>,
             tabBarIcon: ({ size, color }) => <StarsTabIcon size={size} color={color} fillOpacity={1} />,
@@ -107,8 +109,17 @@ const TabsNavigator = ({ navigation }) => {
           listeners={(props) => resetOnTapListener({ ...props, rootName: 'INFOS_MENU' })}
         />
       </Tabs.Navigator>
-      <AddDrinkCTAButton onCTAPress={() => navigation.push('ADD_DRINK', { timestamp: Date.now() })} />
-      <NewFeaturePopupDisplay />
+      <AddDrinkCTAButton
+        onCTAPress={() => {
+          navigation.push('ADD_DRINK', { timestamp: Date.now() });
+          logEvent({
+            category: 'CONSO',
+            action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+            name: 'FROM_FLOATING_BUTTON',
+          });
+        }}
+      />
+      <NewFeaturePopupDisplay canShow={!showBootSplash} />
     </>
   );
 };

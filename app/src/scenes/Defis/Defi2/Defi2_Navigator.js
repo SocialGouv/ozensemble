@@ -1,7 +1,6 @@
-import { getFocusedRouteNameFromRoute, useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useState } from 'react';
 import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
@@ -15,31 +14,11 @@ import Defi2_Day6 from './Defi2_Day6';
 import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
 import Defi2_Day4 from './Defi2_Day4';
 import ToSayNo from '../../Health/Articles/ToSayNo';
-import { showCTAButtonState } from '../../AddDrink/AddDrinkCTAButton';
 import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
 
 const Defi2_Stack = createStackNavigator();
 
-const Defi2_Navigator = ({ route }) => {
-  const [showCTAButton, setShowCTAButton] = useRecoilState(showCTAButtonState);
-  const focusedRoute = getFocusedRouteNameFromRoute(route);
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    if (!isFocused) {
-      if (!showCTAButton) setShowCTAButton(true);
-    } else {
-      if (focusedRoute?.includes('DEFI2_DAY_')) {
-        if (showCTAButton) {
-          setShowCTAButton(false);
-        }
-      } else {
-        if (!showCTAButton) {
-          setShowCTAButton(true);
-        }
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focusedRoute, isFocused]);
+const Defi2_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <Defi2_Stack.Navigator headerMode="none" initialRouteName={'DEFI2_MENU'}>
@@ -156,12 +135,6 @@ const Defi2_Menu = ({ navigation }) => {
     getValidatedDays();
   });
 
-  useEffect(() => {
-    if (validatedDays === 4) {
-      setValidatedDays(5, '@Defi2');
-    }
-  }, [validatedDays]);
-
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
   const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
@@ -170,6 +143,7 @@ const Defi2_Menu = ({ navigation }) => {
       navigation={navigation}
       title="Aller plus loin sur 7 jours"
       data={defi2_Data}
+      defiNumber={2}
       validatedDays={validatedDays}
       ActiveDayIndex={ActiveDayIndex}
       updateValidatedDays={updateValidatedDays}

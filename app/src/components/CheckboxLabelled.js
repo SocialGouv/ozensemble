@@ -1,6 +1,7 @@
 import React from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import { useNavigation } from '@react-navigation/native';
+import { Platform } from 'react-native';
 import styled from 'styled-components';
 import ButtonPrimary from './ButtonPrimary';
 import { P } from './Articles';
@@ -62,7 +63,8 @@ const CheckBoxContainer = styled.View`
   height: 20px;
   width: 20px;
   flex-shrink: 0;
-  margin-right: 10px;
+  margin-left: ${Platform.select({ ios: 0, android: -10 })}px;
+  margin-right: ${Platform.select({ ios: 10, android: 20 })}px; ;
 `;
 
 const CheckBoxStyled = styled(CheckBox)`
@@ -74,9 +76,9 @@ const ItemContainer = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 5px;
-  width: 87%;
-  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'}
+  margin-vertical: 12px;
+  margin-right: 10px;
+  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'};
 `;
 
 const AlertContainer = styled.View`

@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../../components/H1';
-import { screenWidth } from '../../../styles/theme';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
 import Sources from '../Sources';
 import NoSmiley from '../../../components/illustrations/smiley/NoSmiley';
 import YesSmiley from '../../../components/illustrations/smiley/YesSmiley';
-import { BackButton } from '../../../components/BackButton';
 import { Bold, P, Spacer } from '../../../components/Articles';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
 import { logEvent } from '../../../services/logEventsWithMatomo';
+import WrapperContainer from '../../../components/WrapperContainer';
 
 const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
@@ -23,44 +22,39 @@ const ResultsOnboarding = ({ navigation, route }) => {
   }, [feeling]);
 
   return (
-    <FullScreenBackground>
-      <TopContainer>
-        <BackButton
-          onPress={() =>
-            route?.params?.rootRoute === 'HEALTH' ? navigation.navigate('ALCOHOL_ADDICTION') : navigation.goBack()
-          }
-          marginBottom
-        />
-        <ResultTitle color="#000">Résultat</ResultTitle>
-        {resultKey === 'addicted' && (
-          <ResultAddicted navigation={navigation} feeling={feeling} setFeeling={setFeeling} />
-        )}
-        {resultKey === 'good' && <ResultGood />}
-        {resultKey === 'risk' && <ResultRisk />}
-        {feeling !== null || resultKey === 'good' || resultKey === 'risk' ? (
-          <>
-            <TopButtonContainer>
-              <ButtonPrimary
-                content="Je commence le défi"
-                onPress={() => navigation.navigate('DEFI', { screen: 'DEFI1' })}
-              />
-            </TopButtonContainer>
-            <UnderlinedButton
-              content={"Recommencer l'auto-évaluation"}
-              withoutPadding
-              bold
-              alignStart
-              onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
+    <WrapperContainer
+      onPressBackButton={() =>
+        route?.params?.rootRoute === 'HEALTH' ? navigation.navigate('ALCOHOL_ADDICTION') : navigation.goBack()
+      }>
+      <ResultTitle color="#000">Résultat</ResultTitle>
+      {resultKey === 'good' && <ResultGood />}
+      {resultKey === 'risk' && <ResultRisk />}
+      {resultKey === 'addicted' && <ResultAddicted navigation={navigation} feeling={feeling} setFeeling={setFeeling} />}
+      {feeling !== null || resultKey === 'good' || resultKey === 'risk' ? (
+        <>
+          <TopButtonContainer>
+            <ButtonPrimary
+              content="Je commence le défi"
+              onPress={() => navigation.navigate('DEFI', { screen: 'DEFI1' })}
             />
-            <Sources
-              content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-         Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
-         Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
-            />
-          </>
-        ) : null}
-      </TopContainer>
-    </FullScreenBackground>
+          </TopButtonContainer>
+          <UnderlinedButton
+            content={"Recommencer l'auto-évaluation"}
+            withoutPadding
+            bold
+            alignStart
+            onPress={() => navigation.navigate('ONBOARDING_QUIZZ', { screen: 'QUIZZ_QUESTIONS' })}
+          />
+          <Sources>
+            <TextStyled>
+              "Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+              Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+              Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+            </TextStyled>
+          </Sources>
+        </>
+      ) : null}
+    </WrapperContainer>
   );
 };
 
@@ -108,31 +102,36 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
       <P>Nous sommes conscients que ce résultat peut être un choc.</P>
       <P>Mais nous pouvons vous aider à reprendre le contrôle ...</P>
       <FeelingOfResult feeling={feeling} setFeeling={setFeeling} />
-      {feeling === true ? (
+      {feeling === true && (
         <>
           <P>
             <Bold>Cela peut-être un choc</Bold> mais c'est une image à instant T sur laquelle
-            <Bold> vous pouvez faire face.</Bold> Nous ne parlons pas d'alcoolisme mais d'un risque alcool.
+            <Bold> vous pouvez agir.</Bold>
           </P>
           <P>
-            A tout moment, nous vous recommandons de
-            <Bold> discuter gratuitement sous 48H avec un professionnel formé en addictologie</Bold> pour vous aider
-            dans votre parcours.
+            Si cela ne vous semble pas refléter votre situation, vous pouvez en parler
+            <Bold> gratuitement sous 48H avec un professionnel formé en addictologie</Bold> pour vous aider dans votre
+            parcours.
           </P>
           <TopButtonContainer>
             <ButtonPrimary content="J'échange avec un conseiller" onPress={() => navigation.navigate('CONTACT')} />
           </TopButtonContainer>
+          <P>
+            Nous vous proposons une démarche de maîtrise de votre consommation d'alcool en autonomie,{' '}
+            <Bold>voici un premier défi pour faire le point en 7 jours.</Bold>
+          </P>
         </>
-      ) : null}
-      {feeling != null && (
+      )}
+      {feeling === false && (
         <>
           <P>
             <Bold>Commencer votre démarche de réduction</Bold>
           </P>
           <P>
-            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers un
-            <Bold> premier défi pour faire le point en 7 jours.</Bold>
+            Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers{' '}
+            <Bold>un premier défi pour faire le point en 7 jours.</Bold>
           </P>
+          <P>Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction.</P>
         </>
       )}
     </>
@@ -195,20 +194,6 @@ const ContainerAnswer = styled.View`
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 20px;
-`;
-
-const FullScreenBackground = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  max-width: ${screenWidth}px;
-  min-width: ${screenWidth}px;
-`;
-
-const TopContainer = styled.View`
-  padding: 0px 25px 40px;
 `;
 
 const ResultTitle = styled(H1)``;

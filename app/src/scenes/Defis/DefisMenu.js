@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnBoardingModal from '../../components/OnBoardingModal';
@@ -12,6 +11,7 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import { Bold, P } from '../../components/Articles';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
@@ -31,75 +31,71 @@ const DefisMenu = ({ navigation }) => {
   const defi1CallToAction = useMemo(() => {
     if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
     if (defi1Day === 7) return 'Mes résultats';
-    // if (defi1Day === 6) return 'Je finis';
     return 'Je continue';
   }, [defi1Day, autoEvaluationDone]);
 
   const defi2CallToAction = useMemo(() => {
     if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
     if (defi2Day === 7) return 'Mes résultats';
-    // if (defi2Day === 6) return 'Je finis';
     return 'Je continue';
   }, [defi2Day, autoEvaluationDone]);
 
   return (
-    <>
-      <ScreenBgStyled>
-        <Container>
-          <TextStyled>
-            J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
-          </TextStyled>
-          <CategorieMenu
-            title={"Ma consommation d'alcool"}
-            description={"S'évaluer pour détecter des comportements à risque"}
-            onButtonPress={() =>
-              navigation.navigate('ONBOARDING_QUIZZ', {
-                screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
-              })
-            }
-            image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
-            callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
-          />
-          {!autoEvaluationDone && (
-            <UnderlinedButton
-              color="#4030a5"
-              withoutPadding
-              content="Pourquoi faire cette auto-évaluation ?"
-              onPress={() => {
-                setShowHowMakeSelfEvaluation(true);
-              }}
-            />
-          )}
-          <CategorieMenu
-            title={'Premier défi'}
-            description={'Faire le point en 7 jours '}
-            onButtonPress={() => navigation.navigate('DEFI1')}
-            image={require('../../assets/images/Defi1.png')}
-            disabled={!autoEvaluationDone}
-            disabledContainer={autoEvaluationDone}
-            callToAction={defi1CallToAction}
-            onContainerPress={() => setShowOnboardingModal(true)}
-          />
-          <CategorieMenu
-            title={'Deuxième défi'}
-            description={'Aller plus loin...'}
-            onButtonPress={() => navigation.navigate('DEFI2')}
-            image={require('../../assets/images/Defi2.png')}
-            disabled={!autoEvaluationDone || defi1Day < 7}
-            disabledContainer={defi1Day === 7}
-            callToAction={defi2CallToAction}
-            onContainerPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
-          />
-          <CategorieMenu
-            title={'Mes tests'}
-            description={'Retrouver mes résultats'}
-            onButtonPress={() => navigation.navigate('TESTS_DEFIS')}
-            image={require('../../assets/images/TestsDesDefis.png')}
-            callToAction="Mes résultats"
-            disabled={!autoEvaluationDone}
-          />
-        </Container>
-      </ScreenBgStyled>
+    <WrapperContainer title={'Mes défis'}>
+      <SubTitle>
+        <TextStyled>
+          J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
+        </TextStyled>
+      </SubTitle>
+      <CategorieMenu
+        title={"Ma consommation d'alcool"}
+        description={"S'évaluer pour détecter des comportements à risque"}
+        onPress={() =>
+          navigation.navigate('ONBOARDING_QUIZZ', {
+            screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
+          })
+        }
+        image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
+        callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
+        onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
+      />
+      {!autoEvaluationDone && (
+        <UnderlinedButton
+          color="#4030a5"
+          withoutPadding
+          content="Pourquoi faire cette auto-évaluation ?"
+          onPress={() => {
+            setShowHowMakeSelfEvaluation(true);
+          }}
+        />
+      )}
+      <CategorieMenu
+        title={'Premier défi'}
+        description={'Faire le point en 7 jours '}
+        onPress={() => navigation.navigate('DEFI1')}
+        image={require('../../assets/images/Defi1.png')}
+        disabled={!autoEvaluationDone}
+        callToAction={defi1CallToAction}
+        onBoardingPress={() => setShowOnboardingModal(true)}
+      />
+      <CategorieMenu
+        title={'Deuxième défi'}
+        description={'Aller plus loin...'}
+        onPress={() => navigation.navigate('DEFI2')}
+        image={require('../../assets/images/Defi2.png')}
+        disabled={!autoEvaluationDone || defi1Day < 7}
+        callToAction={defi2CallToAction}
+        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
+      />
+      <CategorieMenu
+        title={'Mes tests'}
+        description={'Retrouver mes résultats'}
+        onPress={() => navigation.navigate('TESTS_DEFIS')}
+        image={require('../../assets/images/TestsDesDefis.png')}
+        callToAction="Mes résultats"
+        disabled={!autoEvaluationDone}
+        disabledContainer={!autoEvaluationDone}
+      />
       <OnBoardingModal
         title="Sans évaluation, pas de défis"
         description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
@@ -116,7 +112,7 @@ const DefisMenu = ({ navigation }) => {
       <OnBoardingModal
         title="Faites le premier défi avant"
         description="Commencez le défi pour faire le point en 7 jours avant d'aller plus loin :) "
-        boutonTitle={`${defi1CallToAction} le défi 1`}
+        boutonTitle={`${defi1CallToAction} le\u000Apremier\u00A0défi`}
         onPress={() => {
           setshowDefi2Modal(false);
           navigation.navigate('DEFI1');
@@ -150,23 +146,23 @@ const DefisMenu = ({ navigation }) => {
           setShowHowMakeSelfEvaluation(false);
         }}
       />
-    </>
+    </WrapperContainer>
   );
 };
 
 const CategorieMenu = ({
   title,
   description,
-  onButtonPress,
+  onBoardingPress,
+  onPress,
   image,
   callToAction,
   disabled,
-  disabledContainer = true,
-  onContainerPress = null,
+  disabledContainer,
 }) => {
   return (
     <>
-      <CategorieContainer disabled={disabledContainer} onPress={!disabledContainer ? onContainerPress : null}>
+      <CategorieContainer disabled={disabledContainer} onPress={disabled ? onBoardingPress : onPress}>
         <ImageStyled source={image} />
         <TextContainer>
           {disabled ? (
@@ -181,18 +177,13 @@ const CategorieMenu = ({
           )}
           <TextStyled>{description}</TextStyled>
           <ButtonContainer>
-            <ButtonPrimary content={callToAction} onPress={onButtonPress} disabled={disabled} />
+            <ButtonPrimary content={callToAction} onPress={onPress} disabled={disabled} />
           </ButtonContainer>
         </TextContainer>
       </CategorieContainer>
     </>
   );
 };
-
-const Container = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
-  margin-bottom: 75px;
-`;
 
 const CategorieContainer = styled.TouchableOpacity`
   border: 1px solid #79747e;
@@ -231,5 +222,7 @@ const ImageStyled = styled.Image`
   width: ${screenWidth * 0.3 - defaultPaddingFontScale()}px;
   height: ${screenWidth * 0.4}px;
 `;
+
+const SubTitle = styled.View``;
 
 export default DefisMenu;

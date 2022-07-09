@@ -5,3 +5,5 @@ app:
   envFrom:
     - secretRef:
         name: "pg-user"
+    - secretRef:
+        name: api

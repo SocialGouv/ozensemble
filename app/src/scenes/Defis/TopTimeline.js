@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Lock from '../../components/illustrations/Lock';
 import StarButton from '../../components/illustrations/StarButton';
 import { storage } from '../../services/storage';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay, defiStorageKey }) => {
   return (
@@ -67,7 +68,8 @@ const DayIcon = ({ locked, done, index, unLock, defiStorageKey }) => {
 export default TopTimeline;
 
 const Container = styled.View`
-  padding: 20px;
+  padding-vertical: 20px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

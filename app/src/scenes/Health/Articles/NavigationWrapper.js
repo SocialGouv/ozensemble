@@ -2,23 +2,24 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
-import { TopContainer, Spacer } from './../../../components/Articles';
+import { Spacer } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
-import H1 from '../../../components/H1';
 import TextStyled from '../../../components/TextStyled';
 import { logEvent } from '../../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import BackButton from '../../../components/BackButton';
 import Sources from '../../Quizzs/Sources';
+import WrapperContainer from '../../../components/WrapperContainer';
 
 const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink2 }) => {
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
-    layoutMeasurement.height + contentOffset.y >= contentSize.height - 300; // almost to bottom
+    layoutMeasurement.height + contentOffset.y >= contentSize.height - 1500; // almost to bottom
 
   return (
-    <ScreenBgStyled
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title={title}
       onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent) && !hasScrollToEnd.current) {
           hasScrollToEnd.current = true;
@@ -30,52 +31,41 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
         }
       }}
       scrollEventThrottle={400}>
-      <BackButton content="< Retour" bold onPress={() => navigation.goBack()} marginLeft />
-      <TopContainer>
-        <TopTitle>
-          <TextStyled color="#4030a5">{title}</TextStyled>
-        </TopTitle>
-        <ReadTimeContainer>
-          <ClockStyled size={20} />
-          <TextStyled>Lecture: {timeReading} min </TextStyled>
-        </ReadTimeContainer>
-      </TopContainer>
+      <ReadTimeContainer>
+        <ClockStyled size={20} />
+        <TextStyled>Lecture: {timeReading} min </TextStyled>
+      </ReadTimeContainer>
       {children}
-      <TopContainer>
-        <Sources
-          content={
+      <Sources>
+        <>
+          <TextStyled>
+            Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n'}
+          </TextStyled>
+          <TextStyled
+            color="#4030a5"
+            onPress={() => {
+              Linking.openURL(link);
+            }}>
+            {link}
+          </TextStyled>
+
+          {link2 && (
             <>
-              <TextStyled>
-                Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n\n'}
-              </TextStyled>
+              <TextStyled />
               <TextStyled
                 color="#4030a5"
                 onPress={() => {
-                  Linking.openURL(link);
+                  Linking.openURL(link2);
                 }}>
-                {link}
+                {textLink2}
               </TextStyled>
-
-              {link2 && (
-                <>
-                  <TextStyled>{'\n\n'}</TextStyled>
-                  <TextStyled
-                    color="#4030a5"
-                    onPress={() => {
-                      Linking.openURL(link2);
-                    }}>
-                    {textLink2}
-                  </TextStyled>
-                </>
-              )}
             </>
-          }
-        />
-        <Spacer size={25} />
-        <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
-      </TopContainer>
-      <Spacer size={100} />
-    </ScreenBgStyled>
+          )}
+        </>
+      </Sources>
+      <Spacer size={25} />
+      <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
+    </WrapperContainer>
   );
 };
 
@@ -88,10 +78,4 @@ const ReadTimeContainer = styled.View`
   align-items: center;
 `;
 
-const TopTitle = styled(H1)`
-  width: 95%;
-  flex-shrink: 0;
-  margin-top: 0px;
-  margin-bottom: 10px;
-`;
 export default NavigationWrapper;

@@ -7,7 +7,6 @@ import Dose from './illustrations/Dose';
 import HalfBeer from './illustrations/drinksAndFood/HalfBeer';
 import WineGlass from './illustrations/drinksAndFood/WineGlass';
 import TextStyled from './TextStyled';
-import { ScreenBgStyled } from './ScreenBgStyled';
 
 const doses = [
   { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
@@ -17,7 +16,7 @@ const doses = [
 
 const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0, noMinHeight }) => {
   return (
-    <ScreenBgStyled backgroundColor={backgroundColor} marginOffset={marginOffset} noMinHeight={noMinHeight}>
+    <ContainerOneDoseAlcool backgroundColor={backgroundColor} marginOffset={marginOffset} noMinHeight={noMinHeight}>
       <IconsContainer>
         {doses.map(({ Icon, volume, name, degrees }, i) => (
           <React.Fragment key={i}>
@@ -44,10 +43,18 @@ const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0, noMinHeig
           <Volume color="#4030a5">d'alcool</Volume>
         </IconWrapper>
       </IconsContainer>
-    </ScreenBgStyled>
+    </ContainerOneDoseAlcool>
   );
 };
 
+const ContainerOneDoseAlcool = styled.View`
+  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#f9f9f9')};
+  flex-shrink: 1;
+  flex-grow: 1;
+  flex-basis: 100%;
+  ${({ noMinHeight }) => !noMinHeight && 'min-height: 100%'}
+  ${({ marginOffset }) => !!marginOffset && `margin-horizontal: -${marginOffset}px;`}
+`;
 const IconsContainer = styled.View`
   flex-direction: row;
   justify-content: center;

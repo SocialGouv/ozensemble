@@ -87,7 +87,7 @@ export const defi1_Data = [
     ),
     descriptionDone: (
       <>
-        <Bold>Courage ! continuez à remplir vos consommations</Bold> tout au long de la journée. Chaque jour de la
+        <Bold>Courage ! Continuez à remplir vos consommations</Bold> tout au long de la journée. Chaque jour de la
         semaine, vous trouverez ici une nouvelle aide pour vous accompagner dans ce point sur 7 jours.
       </>
     ),
@@ -115,13 +115,13 @@ export const defi1_Data = [
     tagLine: 'Bilan de votre point sur 7 jours',
     description: (
       <>
-        <Bold>Bravo !</Bold> Vous avez fait un grand premier pas vers une meilleure connaissance et maitrîse de votre
+        <Bold>Bravo !</Bold> Vous avez fait un grand premier pas vers une meilleure connaissance et maîtrise de votre
         consommation d'alcool !
       </>
     ),
     descriptionDone: (
       <>
-        <Bold>Feliciations !</Bold> Vous avez fait un grand premier pas. Continuez à remplir vos consommations tous les
+        <Bold>Félicitations !</Bold> Vous avez fait un grand premier pas. Continuez à remplir vos consommations tous les
         jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
       </>
     ),

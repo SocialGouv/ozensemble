@@ -1,26 +1,24 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { previousDrinksPerWeekState } from '../../recoil/gains';
+import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import { P } from '../../components/Articles';
+import { P, Spacer } from '../../components/Articles';
+import { defaultPaddingFontScale } from '../../styles/theme';
+import HelpModalCountConsumption from './HelpModalCountConsumption';
+import WrapperContainer from '../../components/WrapperContainer';
 
-const Estimation = () => {
+const GainsPreviousConsumption = () => {
   const navigation = useNavigation();
-  const isOnboarded = useRecoilValue(previousDrinksPerWeekState);
+  const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
 
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
-
-  const scrollRef = useRef(null);
 
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = previousDrinksPerWeek.find((drink) => drink.drinkKey === drinkKey);
@@ -46,34 +44,32 @@ const Estimation = () => {
   };
 
   return (
-    <ScreenBgStyled>
-      <BackButton onPress={() => navigation.goBack()} marginLeft />
-      <TextContainer>
-        <TopTitle>
-          <H1 color="#4030a5">Ma conso actuelle avant objectif</H1>
-        </TopTitle>
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title="Ma conso actuelle avant objectif"
+      noPaddingHorizontal>
+      <Container>
         <DescriptionText>
           <P bold>Sur une semaine type, combien d'unités d'alcool consommez-vous ?</P>
         </DescriptionText>
-      </TextContainer>
-      <Container>
-        <ModalContent ref={scrollRef} disableHorizontal>
-          {drinksCatalog
-            .map(({ categoryKey }) => categoryKey)
-            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-            .map((category, index) => (
-              <DrinksCategory
-                key={category}
-                drinksCatalog={drinksCatalog}
-                category={category}
-                index={index}
-                drinks={previousDrinksPerWeek}
-                setDrinkQuantity={setDrinkQuantityRequest}
-              />
-            ))}
-        </ModalContent>
+        <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
       </Container>
-      <TextContainer>
+      <Spacer size={20} />
+      {drinksCatalog
+        .map(({ categoryKey }) => categoryKey)
+        .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+        .map((category, index) => (
+          <DrinksCategory
+            key={category}
+            drinksCatalog={drinksCatalog}
+            category={category}
+            index={index}
+            drinks={previousDrinksPerWeek}
+            setDrinkQuantity={setDrinkQuantityRequest}
+          />
+        ))}
+      <Spacer size={20} />
+      <Container>
         <P>
           <TextStyled>
             <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
@@ -85,7 +81,8 @@ const Estimation = () => {
             calculer vos gains en&nbsp;€ et kCal.
           </P>
         </DescriptionText>
-      </TextContainer>
+      </Container>
+      <Spacer size={25} />
       <CTAButtonContainer>
         <ButtonPrimary
           disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
@@ -102,23 +99,15 @@ const Estimation = () => {
               action: 'GOAL_ESTIMATION_DRINK',
               value: numberDrinkEstimation,
             });
-            isOnboarded ? navigation.navigate('GAINS_MAIN_VIEW') : navigation.navigate('GAINS_MY_OBJECTIVE');
+            isOnboarded
+              ? navigation.navigate('GAINS_MAIN_VIEW')
+              : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
           }}
         />
       </CTAButtonContainer>
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
-
-const TextContainer = styled.View`
-  padding-horizontal: 20px;
-  margin-top: 20px;
-`;
-
-const TopTitle = styled.View`
-  flex-shrink: 0;
-  margin-bottom: 10px;
-`;
 
 const DescriptionText = styled.Text`
   margin-bottom: 14px;
@@ -126,22 +115,13 @@ const DescriptionText = styled.Text`
 `;
 
 export const Container = styled.View`
-  background-color: #f9f9f9;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   flex: 1;
-  margin-top: 20px;
 `;
 
 const CTAButtonContainer = styled.View`
   align-items: center;
-  background-color: #f9f9f9;
   flex-shrink: 1;
-  padding-top: 30px;
-  padding-bottom: 100px;
 `;
 
-const ModalContent = styled.ScrollView`
-  width: 100%;
-  background-color: #f9f9f9;
-`;
-
-export default Estimation;
+export default GainsPreviousConsumption;

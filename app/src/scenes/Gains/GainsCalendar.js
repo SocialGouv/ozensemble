@@ -7,7 +7,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
-import { defaultPaddingFontScale } from '../../styles/theme';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
 /*
@@ -70,7 +69,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
   }, [dailyDoses]);
 
   return (
-    <TopContainer>
+    <Container>
       <TopTitle>
         <H1 color="#4030a5">Mon Calendrier</H1>
       </TopTitle>
@@ -103,14 +102,23 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
                 screen: 'CONSO_FOLLOW_UP',
                 params: { scrollToDay: dateString },
               });
+              logEvent({
+                category: 'GAINS',
+                action: 'CALENDAR_DAY_PRESS_TO_CONSO_FOLLOW_UP',
+              });
             } else {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
               setModalTimestamp(new Date(date).getTime());
               navigation.push('ADD_DRINK');
               logEvent({
+                category: 'GAINS',
+                action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
+              });
+              logEvent({
                 category: 'CONSO',
                 action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                name: 'FROM_GAINS',
               });
             }
           }}
@@ -120,12 +128,12 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
       <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
       <PartDescription value={"J'ai bu"} color={'#de295e'} />
       <PartDescription value={'Je saisis ma consommation'} color={'transparent'} dashed />
-    </TopContainer>
+    </Container>
   );
 };
 
-const TopContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
+const Container = styled.View`
+  padding-vertical: 20px;
 `;
 
 const TopTitle = styled.View`

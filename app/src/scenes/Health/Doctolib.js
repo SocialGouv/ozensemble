@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const Doctolib = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
@@ -90,8 +91,8 @@ const Container = styled.View`
 `;
 
 const TopBar = styled.View`
-  height: 50px;
-  padding-left: 20px;
+  padding-vertical: ${defaultPaddingFontScale() / 2}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   justify-content: flex-start;
   flex-grow: 0;
 `;

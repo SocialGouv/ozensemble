@@ -60,6 +60,8 @@ const mapScoreToResult = (scoreAndGender) => {
 
 export const mapOnboardingResultToMatomoProfile = (resultKey) => {
   switch (resultKey) {
+    case 'nocif':
+      return 4;
     case 'addicted':
       return 3;
     case 'risk':
