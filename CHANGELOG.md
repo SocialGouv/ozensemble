@@ -1,3 +1,10 @@
+# [1.67.0](https://github.com/SocialGouv/ozensemble/compare/v1.66.1...v1.67.0) (2022-07-09)
+
+
+### Features
+
+* **ci:** add database ([19328a4](https://github.com/SocialGouv/ozensemble/commit/19328a4cad73e4a7a34f7593f1bf9f51d6c19dac))
+
 ## [1.66.1](https://github.com/SocialGouv/ozensemble/compare/v1.66.0...v1.66.1) (2022-07-04)
 
 
