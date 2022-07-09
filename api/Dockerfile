@@ -8,7 +8,7 @@ COPY . .
 
 RUN yarn --production --frozen-lockfile
 
-RUN yarn prisma migrate deploy
+RUN npx prisma migrate deploy
 
 USER 1000
 
