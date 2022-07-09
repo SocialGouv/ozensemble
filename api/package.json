@@ -25,13 +25,13 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "helmet": "^4.0.0",
+    "prisma": "^4.0.0",
     "morgan": "^1.10.0",
     "node-pushnotifications": "^2.0.3"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "nodemon": "^2.0.15",
-    "prisma": "^4.0.0"
+    "nodemon": "^2.0.15"
   },
   "engines": {
     "npm": "please-use-yarn",
