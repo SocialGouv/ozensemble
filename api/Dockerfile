@@ -8,10 +8,11 @@ COPY . .
 
 RUN yarn --production --frozen-lockfile
 
-RUN npx prisma migrate deploy
-
 USER 1000
 
 ENV NODE_ENV=production
+
+RUN npx prisma generate
+RUN npx prisma migrate deploy
 
 ENTRYPOINT ["yarn", "start"]
