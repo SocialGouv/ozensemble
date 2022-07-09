@@ -22,9 +22,12 @@ import Timeline from './Timeline';
 import Pint from '../../components/illustrations/drinksAndFood/Pint';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const computePosition = (drinksOfTheDay, drink) => {
-  const sameTimeStamp = drinksOfTheDay.filter((d) => d.timestamp === drink.timestamp);
+  const sameTimeStamp = drinksOfTheDay
+    .filter((d) => d.timestamp === drink.timestamp)
+    .filter((d) => d.drinkKey !== NO_CONSO);
   if (sameTimeStamp.length === 1) return 'alone';
   const position = sameTimeStamp.findIndex((d) => d.id === drink.id);
   if (position === 0) return 'first';
@@ -61,12 +64,13 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     }
   };
 
-  const addDrinksRequest = (timestamp) => {
+  const addDrinksRequest = (timestamp, fromButton) => {
     setModalTimestamp(timestamp);
     navigation.push('ADD_DRINK');
     logEvent({
       category: 'CONSO',
       action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+      name: fromButton,
     });
   };
 
@@ -162,7 +166,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 <AddDrinkButton
                   onPress={() => {
                     setModalTimestamp(Date.now());
-                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                    navigation.push('ADD_DRINK');
                     logEvent({
                       category: 'CONSO',
                       action: 'CONSO_OPEN_CONSO_ADDSCREEN',
@@ -214,7 +218,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                               category: 'CONSO',
                               action: 'CONSO_UPDATE',
                             });
-                            addDrinksRequest(drink.timestamp);
+                            addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
                           }}
                           deleteDrinkRequest={async () => {
                             logEvent({
@@ -245,7 +249,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                           tempDate.setMinutes(m);
                           selectedTimestamp = makeSureTimestamp(tempDate);
                         }
-                        addDrinksRequest(selectedTimestamp);
+                        addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
                       }}
                     />
                   )}
@@ -312,9 +316,7 @@ const MessageContainer = styled.View`
 `;
 const FeedContainer = styled.View`
   background-color: #f9f9f9;
-  padding: 20px;
-  padding-right: 0px;
-  padding-bottom: 100px;
+  padding-horizontal: -${defaultPaddingFontScale()}px;
 `;
 
 const FeedDay = styled.View`
@@ -325,8 +327,8 @@ const FeedDay = styled.View`
 
 const FeedDayContent = styled.View`
   flex-grow: 1;
-  padding-horizontal: 15px;
-  padding-vertical: 10px;
+  margin-left: 10px;
+  margin-vertical: 10px;
 `;
 
 const FeedBottomButton = styled(UnderlinedButton)`

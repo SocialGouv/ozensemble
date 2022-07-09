@@ -2,24 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import TextStyled from '../../../components/TextStyled';
-import { ScreenBgStyled } from '../../../components/ScreenBgStyled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import QButton from '../../../components/QButton';
-import ButtonPrimary from '../../../components/ButtonPrimary';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
-import Header from '../../Defis/Header';
+import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 
 const ResultRiskSituations = ({ navigation, route }) => {
   const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
   const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
 
   return (
-    <ScreenBgStyled>
-      <Header
-        inMyTests={inMyTests}
-        title={'Identifier mes situations à risques'}
-        description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}
-      />
+    <HeaderQuizzsResult
+      inMyTests={inMyTests}
+      title={'Identifier mes situations à risques'}
+      buttonCTA="Je valide"
+      onPressCTA={() => navigation.navigate(route?.params?.rootRoute)}
+      description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}>
       <ResultsContainer>
         {answersKeys.map((riskSituation, index) => (
           <Result key={index}>
@@ -36,27 +34,20 @@ const ResultRiskSituations = ({ navigation, route }) => {
           </Result>
         ))}
       </ResultsContainer>
-      <BottomContainer>
-        <ButtonPrimary content={'Je valide'} widthSmall onPress={() => navigation.navigate(route?.params?.rootRoute)} />
-      </BottomContainer>
-    </ScreenBgStyled>
+    </HeaderQuizzsResult>
   );
 };
 
-const BottomContainer = styled.View`
-  padding: 0px ${defaultPaddingFontScale()}px;
-  margin-bottom: 100px;
-  margin-top: 20px;
-`;
 const ResultsContainer = styled.View`
   background-color: #efefef;
   padding-top: 20px;
   padding-bottom: 10px;
+  margin-bottom: 20px;
 `;
 
 const Result = styled.View`
   flex-direction: row;
-  padding: 0px ${defaultPaddingFontScale()}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
   margin-bottom: 10px;
   align-items: center;
 `;

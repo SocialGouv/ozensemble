@@ -1,16 +1,17 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../../../Defis/utils';
-import Header from '../../../Defis/Header';
+import HeaderQuizzsResult from '../../../Defis/HeaderQuizzsResult';
 import Sources from '../../Sources';
 import Advise from './Advise';
 import ResultAddiction from './ResultAddiction';
 import ResultPopulation from './ResultPopulation';
-import { screenWidth } from '../../../../styles/theme';
 import { betterEvaluateQuizzResultState } from '../../../../recoil/quizzs';
+import TextStyled from '../../../../components/TextStyled';
+import { defaultPaddingFontScale } from '../../../../styles/theme';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -39,20 +40,22 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
 };
 
 const Wrapper = ({ wrapped, children, inMyTests }) => {
+  const route = useRoute();
   if (!wrapped) return <>{children}</>;
   if (wrapped) {
     return (
-      <FullScreenBackground>
-        <Header inMyTests={inMyTests} />
-        <ResultContainer>
-          {children}
-          <Sources
-            content="Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
-          Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
-          Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
-          />
+      <HeaderQuizzsResult title={route?.params?.title} inMyTests={inMyTests}>
+        <ResultContainer backgroundColor="#efefef">{children}</ResultContainer>
+        <ResultContainer backgroundColor="transparent">
+          <Sources>
+            <TextStyled>
+              Saunders JB, Aasland OG, Babor TF, de la Fuente JR, Grant M. Development of the Alcohol Use Disorders
+              Identification Test (AUDIT): WHO Collaborative Project on Early Detection of Persons with Harmful Alcohol
+              Consumption II. Addiction 1993 Jun ; 88(6) : 791-804."
+            </TextStyled>
+          </Sources>
         </ResultContainer>
-      </FullScreenBackground>
+      </HeaderQuizzsResult>
     );
   }
 };
@@ -71,20 +74,7 @@ export const ResultsEvaluateConso = ({ wrapped = true, hideButtons = false, rout
 };
 
 const ResultContainer = styled.View`
-  background-color: #efefef;
-  padding: 20px;
-  padding-bottom: 100px;
-  height: 100%;
+  ${(props) => `background-color: ${props.backgroundColor};`}
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
-
-const FullScreenBackground = styled.ScrollView`
-  background-color: #f9f9f9;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-  min-height: 100%;
-  max-width: ${screenWidth}px;
-  min-width: ${screenWidth}px;
-`;
-
 export default ResultsEvaluateConsoNavigator;

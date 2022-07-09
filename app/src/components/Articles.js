@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { defaultPaddingFontScale } from '../styles/theme';
 
 export const TopContainer = styled.View`
-  padding: 5px ${defaultPaddingFontScale()}px;
+  margin-top: 20px;
 `;
 
 export const P = styled.Text`
@@ -29,6 +28,7 @@ export const Bold = styled.Text`
 export const Spacer = styled.View`
   height: ${(props) => props.size}px;
   width: ${(props) => props.size}px;
+  flex-shrink: 0;
 `;
 
 export const Underlined = styled.Text`
@@ -36,5 +36,7 @@ export const Underlined = styled.Text`
   font-size: 16px;
   line-height: 24px;
   text-decoration: underline;
+  flex: 1;
+  max-width: 100%;
   text-decoration-color: ${(props) => (props.color ? props.color : '#000')};
 `;

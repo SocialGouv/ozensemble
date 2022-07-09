@@ -55,7 +55,7 @@ export const lifeQualityQuizzAnswersState = atom({
 
 export const lifeQualityQuizzResultState = atom({
   key: 'lifeQualityQuizzResultState',
-  default: getInitStoredAnswers('@QuizzLifeQuality_result'),
+  default: getInitStoredAnswers('@QuizzLifeQuality_result', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzLifeQuality_result', JSON.stringify(newValue)))],
 });
 

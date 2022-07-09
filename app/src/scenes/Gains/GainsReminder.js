@@ -4,7 +4,12 @@ import styled from 'styled-components';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Reminder from '../../components/Reminder';
-import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
+import {
+  reminderGain,
+  reminderGainMode,
+  reminderGainsHasBeenSetState,
+  reminderGainWeekDay,
+} from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
 const GainsReminder = ({ navigation, route }) => (
@@ -13,8 +18,10 @@ const GainsReminder = ({ navigation, route }) => (
     route={route}
     reminderState={reminderGain}
     reminderModeState={reminderGainMode}
+    reminderHasBeenSetState={reminderGainsHasBeenSetState}
     name="GAINS_REMINDER"
-    onSetReminderConfirm={(reminder, mode, weekDay) => {
+    wrapperTitle="Mon Rappel"
+    onSetReminderConfirm={(reminder, mode) => {
       logEvent({
         category: 'REMINDER',
         action: 'REMINDER_SET_MODE',
@@ -36,7 +43,12 @@ const GainsReminder = ({ navigation, route }) => (
               <>
                 <SubTitle color="#191919">Pour un meilleur suivi, un rappel est programmé : </SubTitle>
                 <Title color="#4030a5">
-                  {mode === 'day' ? 'TOUS LES JOURS' : `TOUS LES ${dayjs().day(weekDay).format('dddd').toUpperCase()}S`}
+                  {mode === 'day'
+                    ? 'TOUS LES JOURS'
+                    : `TOUS LES ${dayjs()
+                        .day(weekDay + 1)
+                        .format('dddd')
+                        .toUpperCase()}S`}
                   {'\n'}À {dayjs(reminder).format('HH:mm')}
                 </Title>
               </>

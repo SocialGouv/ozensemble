@@ -5,7 +5,7 @@ import Speedometer from 'react-native-speedometer-chart';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
+import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Economy from '../../components/illustrations/Economy';
@@ -24,9 +24,14 @@ import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/
 import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import { reminderGain, reminderGainMode, reminderGainWeekDay } from '../../recoil/reminder';
+import {
+  reminderGain,
+  reminderGainMode,
+  reminderGainsHasBeenSetState,
+  reminderGainWeekDay,
+} from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
+import WrapperContainer from '../../components/WrapperContainer';
 
 const MyGains = () => {
   const navigation = useNavigation();
@@ -40,12 +45,15 @@ const MyGains = () => {
   const reminder = useRecoilValue(reminderGain);
   const mode = useRecoilValue(reminderGainMode);
   const weekDay = useRecoilValue(reminderGainWeekDay);
-
-  const [helpVisible, setHelpVisible] = useState(false);
+  const reminderHasBeenSet = useRecoilValue(reminderGainsHasBeenSetState);
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
-  const navigateToPreviousConsumption = () => {
-    navigation.navigate('GAINS_MY_OBJECTIVE');
+  const navigateToFirstStep = () => {
+    logEvent({
+      category: 'GAINS',
+      action: 'GOAL_OPEN',
+    });
+    navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
   const isOnboarded = useMemo(
@@ -148,53 +156,48 @@ const MyGains = () => {
   };
 
   return (
-    <ScreenBgStyled>
-      <Container>
-        <TopTitle>
-          <H1 color="#4030a5">Mes gains</H1>
-        </TopTitle>
-        {!isOnboarded ? (
-          <TouchableOpacity
-            onPress={() => {
-              logEvent({
-                category: 'GAINS',
-                action: 'TOOLTIP_GOAL',
-              });
-              navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
-            }}>
+    <WrapperContainer title={'Mes gains'}>
+      {!isOnboarded ? (
+        <TouchableOpacity
+          onPress={() => {
+            logEvent({
+              category: 'GAINS',
+              action: 'TOOLTIP_GOAL',
+            });
+            navigateToFirstStep();
+          }}>
+          <Description>
+            <InfosIcon size={24} />
+            <TextDescritpion>
+              <Text>
+                Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+              </Text>
+            </TextDescritpion>
+            <Arrow>{'>'}</Arrow>
+          </Description>
+        </TouchableOpacity>
+      ) : (
+        <>
+          {showGoalfix && (
             <Description>
-              <InfosIcon size={24} />
+              <Rocket size={24} />
               <TextDescritpion>
                 <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+                  Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
                 </Text>
               </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
+              <CloseShowGoalfix
+                onPress={() => {
+                  storage.set('@ShowGoalFix', false);
+                  setShowGoalfix(false);
+                }}
+                hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                <Arrow>{'x'}</Arrow>
+              </CloseShowGoalfix>
             </Description>
-          </TouchableOpacity>
-        ) : (
-          <>
-            {showGoalfix && (
-              <Description>
-                <Rocket size={24} />
-                <TextDescritpion>
-                  <Text>
-                    Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
-                  </Text>
-                </TextDescritpion>
-                <CloseShowGoalfix
-                  onPress={() => {
-                    storage.set('@ShowGoalFix', false);
-                    setShowGoalfix(false);
-                  }}
-                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-                  <Arrow>{'x'}</Arrow>
-                </CloseShowGoalfix>
-              </Description>
-            )}
-          </>
-        )}
-      </Container>
+          )}
+        </>
+      )}
       <TextContainer>
         <TextForm>
           {!!isOnboarded && beginDateOfOz && (
@@ -269,6 +272,7 @@ const MyGains = () => {
             totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
             size={screenWidth / 4}
             outerColor="#d3d3d3"
+            innerColor="#f9f9f9"
             internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
           />
         </CategorieGain>
@@ -291,13 +295,7 @@ const MyGains = () => {
         title="Sans objectif, pas de gains"
         description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
         boutonTitle="Je me fixe un objectif"
-        onPress={() => {
-          logEvent({
-            category: 'GAINS',
-            action: 'GOAL_OPEN',
-          });
-          navigateToPreviousConsumption();
-        }}
+        onPress={navigateToFirstStep}
         visible={showOnboardingGainModal}
         hide={() => {
           setShowOnboardingGainModal(false);
@@ -305,13 +303,11 @@ const MyGains = () => {
       />
       <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       {!isOnboarded ? (
-        <BottomContainer>
+        <>
           <TopTitle>
             <H1 color="#4030a5">Mon objectif</H1>
           </TopTitle>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}
-            hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+          <TouchableOpacity onPress={navigateToFirstStep} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
             <Description>
               <InfosIcon size={24} />
               <TextDescritpion>
@@ -322,9 +318,9 @@ const MyGains = () => {
               <Arrow>{'>'}</Arrow>
             </Description>
           </TouchableOpacity>
-        </BottomContainer>
+        </>
       ) : (
-        <MyGoalContainer>
+        <>
           <Title>
             <H1 color="#4030a5">Mon objectif</H1>
           </Title>
@@ -346,7 +342,7 @@ const MyGains = () => {
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
-          <ButtonTouchable onPress={navigateToPreviousConsumption}>
+          <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
             <TextModify>Modifier l'objectif</TextModify>
           </ButtonTouchable>
           <Title>
@@ -367,19 +363,11 @@ const MyGains = () => {
                 <TextStyled>
                   {'   '}
                   {myWeeklyNumberOfDrinksBeforeObjective} unité
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool
+                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
                 </TextStyled>
-                <InfoContainer
-                  onPress={() => {
-                    logEvent({
-                      category: 'GAINS',
-                      action: 'GOAL_DRINK_HELP',
-                      name: 'ESTIMATION',
-                    });
-                    setHelpVisible(true);
-                  }}>
+                <HelpModalCountConsumption event="ESTIMATION">
                   <InfosIcon size={15} color={'#000000'} />
-                </InfoContainer>
+                </HelpModalCountConsumption>
               </PartContainer>
             </MyGoalSubContainerInside>
           </MyGoalSubContainer>
@@ -397,12 +385,16 @@ const MyGains = () => {
                 <ReminderIcon size={20} color="#000" selected />
                 <TextStyled>
                   {'   '}
-                  {!dayjs(reminder).isValid() ? (
+                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
                     'Pas de rappel encore'
                   ) : (
                     <>
-                      {mode === 'day' ? 'Tous les jours ' : `Tous les ${dayjs().day(weekDay).format('dddd')}s `}à{' '}
-                      {dayjs(reminder).format('HH:mm')}
+                      {mode === 'day'
+                        ? 'Tous les jours '
+                        : `Tous les ${dayjs()
+                            .day(weekDay + 1)
+                            .format('dddd')}s `}
+                      à {dayjs(reminder).format('HH:mm')}
                     </>
                   )}
                 </TextStyled>
@@ -411,28 +403,21 @@ const MyGains = () => {
           </MyGoalSubContainer>
           <ButtonTouchable onPress={goToReminder}>
             <TextModify>
-              <TextStyled>{!reminder ? 'Ajouter un rappel' : 'Modifier le rappel'}</TextStyled>
+              <TextStyled>
+                {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
+              </TextStyled>
             </TextModify>
           </ButtonTouchable>
-        </MyGoalContainer>
+        </>
       )}
-      <HelpModalCountConsumption visible={helpVisible} onClose={() => setHelpVisible(false)} />
-    </ScreenBgStyled>
+    </WrapperContainer>
   );
 };
-
-const Container = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 0px;
-`;
-
-const BottomContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 100px;
-`;
 
 const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 `;
 
 const Description = styled.View`
@@ -446,7 +431,6 @@ const Description = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  margin-top: ${screenHeight * 0.02}px;
 `;
 
 const Arrow = styled.Text`
@@ -481,12 +465,8 @@ const Bold = styled.Text`
 
 const Title = styled.View`
   flex-shrink: 0;
-  margin-top: 30px;
-  margin-bottom: 15px;
-`;
-
-const MyGoalContainer = styled.View`
-  padding: 20px ${defaultPaddingFontScale()}px 100px;
+  margin-top: 35px;
+  margin-bottom: 20px;
 `;
 
 const MyGoalSubContainer = styled.View`
@@ -514,10 +494,6 @@ const ButtonTouchable = styled.TouchableOpacity`
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
-`;
-
-const InfoContainer = styled.TouchableOpacity`
-  padding-left: 10px;
 `;
 
 const CloseShowGoalfix = styled.TouchableOpacity`
