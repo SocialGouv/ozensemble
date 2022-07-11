@@ -8,7 +8,7 @@ COPY . .
 
 RUN yarn --production --frozen-lockfile
 
-USER 1000
+USER node
 
 ENV NODE_ENV=production
 

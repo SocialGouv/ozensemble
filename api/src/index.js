@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const logger = require("morgan");
+const prisma = require("./prisma");
 
 const { PORT, VERSION } = require("./config");
 const errors = require("./middlewares/errors");
