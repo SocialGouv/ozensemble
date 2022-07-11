@@ -1,3 +1,26 @@
+# [1.68.0](https://github.com/SocialGouv/ozensemble/compare/v1.67.0...v1.68.0) (2022-07-11)
+
+
+### Bug Fixes
+
+* change with npm scripts ([8e44af7](https://github.com/SocialGouv/ozensemble/commit/8e44af771cae31cef011091838166cec791c9acf))
+* clean user post example creation ([839f687](https://github.com/SocialGouv/ozensemble/commit/839f68725f9ed4df48676f87add60b5f2fc1fe47))
+* dockerfile ([e864025](https://github.com/SocialGouv/ozensemble/commit/e8640257c7472d040a560fdd0769d4994fb37c3e))
+* dockerfile chmode prisma ([488cbe3](https://github.com/SocialGouv/ozensemble/commit/488cbe3f03f0ba9e8475a7c5457941bd60352eef))
+* dockerfile chmode prisma ([959b8ff](https://github.com/SocialGouv/ozensemble/commit/959b8ff5aa9c3a32338309378b0de6f43e93487c))
+* dockerfile npx ([f4fc193](https://github.com/SocialGouv/ozensemble/commit/f4fc19352e8f112b29f551d27a226415dbb42d61))
+* dockerfile order ([089ad04](https://github.com/SocialGouv/ozensemble/commit/089ad04659024ad80a88a44dca743699277637f4))
+* dockerfile order ([735b760](https://github.com/SocialGouv/ozensemble/commit/735b760523e892125c2911bdf803c5c3abea2766))
+* dockerfile revert ([1b32b6f](https://github.com/SocialGouv/ozensemble/commit/1b32b6fabeff94d109250adfe486c75621847152))
+* log config ([311187f](https://github.com/SocialGouv/ozensemble/commit/311187f00bc32183ee829466b2c0baf832f09de4))
+* prisma dep ([741c97e](https://github.com/SocialGouv/ozensemble/commit/741c97ef896fc08c3cab637fc3f8e37eff407f7c))
+* prisma generate ([7735316](https://github.com/SocialGouv/ozensemble/commit/773531612aea58099acd82d6cc215b6a7a6f7f14))
+
+
+### Features
+
+* setup prisma ([01b68dd](https://github.com/SocialGouv/ozensemble/commit/01b68ddf682d074dd173867a29c68e6639b9801b))
+
 # [1.67.0](https://github.com/SocialGouv/ozensemble/compare/v1.66.1...v1.67.0) (2022-07-09)
 
 
