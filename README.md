@@ -14,3 +14,10 @@ https://play.google.com/store/apps/details?id=com.addicto
 
 https://www.ozensemble.fr/
 
+# Installation environnement
+
+à ajouter :
+
+.env
+.env.local
+google-services.json
