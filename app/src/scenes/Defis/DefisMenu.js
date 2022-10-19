@@ -17,15 +17,18 @@ const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
   const [showDefi2Modal, setshowDefi2Modal] = useState(false);
+  const [showDefi3Modal, setshowDefi3Modal] = useState(false);
   const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
+  const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
 
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (isFocused) setDefi1Day(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
     if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
+    if (isFocused) setDefi3Day(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
   }, [isFocused]);
 
   const defi1CallToAction = useMemo(() => {
@@ -39,6 +42,12 @@ const DefisMenu = ({ navigation }) => {
     if (defi2Day === 7) return 'Mes résultats';
     return 'Je continue';
   }, [defi2Day, autoEvaluationDone]);
+
+  const defi3CallToAction = useMemo(() => {
+    if (!autoEvaluationDone || defi3Day === 0) return 'Je commence';
+    if (defi3Day === 7) return 'Mes résultats';
+    return 'Je continue';
+  }, [defi3Day, autoEvaluationDone]);
 
   return (
     <WrapperContainer title={'Mes défis'}>
@@ -81,7 +90,10 @@ const DefisMenu = ({ navigation }) => {
       <CategorieMenu
         title={'Deuxième défi'}
         description={'Aller plus loin...'}
-        onPress={() => navigation.navigate('DEFI2')}
+        onPress={() => {
+          console.log('2e defi press');
+          navigation.navigate('DEFI2');
+        }}
         image={require('../../assets/images/Defi2.png')}
         disabled={!autoEvaluationDone || defi1Day < 7}
         callToAction={defi2CallToAction}
@@ -90,11 +102,14 @@ const DefisMenu = ({ navigation }) => {
       <CategorieMenu
         title={'Troisième défi'}
         description={'Ma vie quotidienne'}
-        onPress={() => navigation.navigate('DEFI3')}
+        onPress={() => {
+          console.log('3e defi press');
+          navigation.navigate('DEFI3');
+        }}
         image={require('../../assets/images/Defi3.png')}
-        disabled={!autoEvaluationDone || defi1Day < 7}
-        callToAction={defi2CallToAction}
-        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
+        disabled={!autoEvaluationDone || defi2Day < 7}
+        callToAction={defi3CallToAction}
+        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi3Modal(true))}
       />
       <CategorieMenu
         title={'Mes tests'}
@@ -129,6 +144,19 @@ const DefisMenu = ({ navigation }) => {
         visible={showDefi2Modal}
         hide={() => {
           setshowDefi2Modal(false);
+        }}
+      />
+      <OnBoardingModal
+        title="Faites le deuxième défi avant"
+        description="Commencez le défi pour faire le point en 7 jours avant d'aller plus loin :) "
+        boutonTitle={`${defi2CallToAction} le\u000Adeuxième\u00A0défi`}
+        onPress={() => {
+          setshowDefi3Modal(false);
+          navigation.navigate('DEFI2');
+        }}
+        visible={showDefi3Modal}
+        hide={() => {
+          setshowDefi3Modal(false);
         }}
       />
       <OnBoardingModal
