@@ -243,7 +243,7 @@ const DrinkByWeekContainer = styled.View`
   align-items: center;
   margin-top: ${screenHeight * 0.01}px;
 `;
-const TextSemiBold = styled.Text`
+const TextSemiBold = styled(TextStyled)`
   font-weight: 700;
   margin-left: 10px;
   flex-shrink: 1;

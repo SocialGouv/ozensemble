@@ -4,6 +4,7 @@ import { Modal, Platform, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import CGUs from '../Infos/CGUs';
 import PrivacyPolicy from '../Infos/PrivacyPolicy';
+import TextStyled from '../../components/TextStyled';
 
 const Agreement = ({ onAgree, agreed }) => {
   const [showCGUs, setShowCGUs] = useState(false);
@@ -81,18 +82,18 @@ const CheckBoxStyled = styled(CheckBox)`
   width: 100%;
 `;
 
-const TextContainer = styled.Text`
+const TextContainer = styled(TextStyled)`
   margin-left: 15px;
   flex-shrink: 1;
   line-height: 19.2px;
 `;
 
-const Content = styled.Text`
+const Content = styled(TextStyled)`
   font-size: 12px;
   color: ${color};
 `;
 
-const Link = styled.Text`
+const Link = styled(TextStyled)`
   font-size: 12px;
   text-decoration: underline;
   color: ${color};

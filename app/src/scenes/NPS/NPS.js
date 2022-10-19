@@ -7,6 +7,7 @@ import pck from '../../../package.json';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
+import TextInputStyled from '../../components/TextInputStyled';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import NotificationService from '../../services/notifications';
@@ -271,7 +272,7 @@ class NPS extends Component {
             renseigner votre adresse email ci-dessous.
           </TextStyled>
         </TopSubTitle>
-        <TextInputStyled
+        <EmailTextInput
           value={email}
           ref={(r) => (this.emailInput = r)}
           placeholder="Adresse email (facultatif)"
@@ -322,7 +323,7 @@ class NPS extends Component {
             renseigner votre adresse email ci-dessous.
           </TextStyled>
         </TopSubTitle>
-        <TextInputStyled
+        <EmailTextInput
           value={email}
           ref={(r) => (this.emailInput = r)}
           placeholder="Adresse email (facultatif)"
@@ -405,7 +406,7 @@ const TopSubTitle = styled(H3)`
   margin-top: 35px;
 `;
 
-const FeedBackStyled = styled.TextInput`
+const FeedBackStyled = styled(TextInputStyled)`
   width: 100%;
   height: 100px;
   border-radius: 3px;
@@ -430,7 +431,7 @@ const ButtonContainer = styled.View`
   margin-bottom: 150px;
 `;
 
-const TextInputStyled = styled.TextInput`
+const EmailTextInput = styled(TextInputStyled)`
   width: 100%;
   height: 50px;
   background-color: #f3f3f6;

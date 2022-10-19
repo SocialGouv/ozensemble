@@ -13,6 +13,7 @@ import Banasplit from '../../../components/illustrations/drinksAndFood/Banasplit
 import Esquimau from '../../../components/illustrations/drinksAndFood/Esquimau';
 import Glace from '../../../components/illustrations/drinksAndFood/Glace';
 import Mojito from '../../../components/illustrations/drinksAndFood/Mojito';
+import TextStyled from '../../../components/TextStyled';
 
 const energetiquesValuesDrinks = [
   { boisson: "Boissons\u000A(1 unité d'alcool)", glucide: 'Glucides', kcal: 'Kcal' }, //title
@@ -213,7 +214,7 @@ const CorrespondanceIconContainer = styled.View`
   align-items: center;
 `;
 
-const KcalText = styled.Text`
+const KcalText = styled(TextStyled)`
   text-align: center;
   font-size: 10px;
   font-weight: 700;
