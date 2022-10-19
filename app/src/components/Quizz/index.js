@@ -12,6 +12,8 @@ import Matomo from '../../services/matomo';
 import BackButton from '../BackButton';
 import CONSTANTS from '../../reference/constants';
 import { storage } from '../../services/storage';
+import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
+
 /*
 HOW DOES THE QUESTIONS WORK:
 -> The user can't pass a question.
@@ -57,6 +59,16 @@ const Quizz = ({
         [CONSTANTS.MATOMO_CUSTOM_DIM_GENDER]: gender,
       });
       storage.set('@Gender', gender);
+    }
+    if (questionKey === 'binge') {
+      const resultKey = storage.getString('@Quizz_result');
+      const betterEval = storage.getString('@QuizzEvaluateConso_result');
+      const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
+      console.log('------');
+      console.log('mapOnboardingResultToMatomoProfile(result) :', mapOnboardingResultToMatomoProfile(result));
+      Matomo.setCustomDimensions({
+        [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(result),
+      });
     }
     await logEvent({ category, action, name, value });
   };
