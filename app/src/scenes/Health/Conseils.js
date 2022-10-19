@@ -86,7 +86,7 @@ const ConseilContainer = styled.TouchableOpacity`
   background-color: white;
 `;
 
-const TitleConseilContainer = styled.Text`
+const TitleConseilContainer = styled(TextStyled)`
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;

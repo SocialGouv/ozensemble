@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
+import TextStyled from './TextStyled';
 
 const bigH3 = css`
   font-size: 16px;
@@ -17,7 +18,7 @@ const smallH3 = css`
   line-height: 16px;
 `;
 
-const H3 = styled.Text`
+const H3 = styled(TextStyled)`
   color: ${({ color }) => (color ? color : '#191919')};
   ${bigH3}
   ${mediaHeight.medium`${mediumH3}`}

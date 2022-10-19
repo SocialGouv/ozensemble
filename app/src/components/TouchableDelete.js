@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, TouchableOpacity } from 'react-native';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import styled from 'styled-components';
+import TextStyled from './TextStyled';
 
 const DeleteBackground = styled.View`
   flex: 1;
@@ -11,7 +12,7 @@ const DeleteBackground = styled.View`
   flex-direction: row;
 `;
 
-const DeleteText = styled.Text`
+const DeleteText = styled(TextStyled)`
   color: white;
   font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
   width: 130px;

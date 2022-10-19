@@ -307,7 +307,7 @@ const LastDrinkButtons = styled.View`
 
 const AddDrinkButton = styled.TouchableOpacity``;
 
-const AddDrinkText = styled.Text`
+const AddDrinkText = styled(TextStyled)`
   text-decoration-line: underline;
 `;
 

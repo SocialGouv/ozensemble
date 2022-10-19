@@ -88,6 +88,15 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
       />
       <CategorieMenu
+        title={'Troisième défi'}
+        description={'Ma vie quotidienne'}
+        onPress={() => navigation.navigate('DEFI3')}
+        image={require('../../assets/images/Defi3.png')}
+        disabled={!autoEvaluationDone || defi1Day < 7}
+        callToAction={defi2CallToAction}
+        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
+      />
+      <CategorieMenu
         title={'Mes tests'}
         description={'Retrouver mes résultats'}
         onPress={() => navigation.navigate('TESTS_DEFIS')}
