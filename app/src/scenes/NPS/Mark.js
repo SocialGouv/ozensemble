@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import H2 from '../../components/H2';
+import TextStyled from '../../components/TextStyled';
 
 const Mark = ({ onPress, selected, bad, good }) => (
   <>
@@ -59,7 +60,7 @@ const MarkHint = styled.View`
   margin-top: 5px;
 `;
 
-const MarkHintText = styled.Text`
+const MarkHintText = styled(TextStyled)`
   color: #999999;
 `;
 

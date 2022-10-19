@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
+import TextStyled from '../../components/TextStyled';
 
 const Sevrage = ({ navigation }) => {
   return (
@@ -59,20 +60,20 @@ const CTAButtonContainer = styled.View`
   flex-shrink: 1;
 `;
 
-const Symptome = styled.Text`
+const Symptome = styled(TextStyled)`
   font-size: 16px;
   font-weight: 700;
   color: #4030a5;
   margin-top: 30px;
 `;
 
-const DescriptionSymptome = styled.Text`
+const DescriptionSymptome = styled(TextStyled)`
   font-size: 16px;
   color: #191919;
   margin-top: 10px;
 `;
 
-const DescriptionPink = styled.Text`
+const DescriptionPink = styled(TextStyled)`
   font-size: 16px;
   color: #de285e;
   margin-top: 10px;

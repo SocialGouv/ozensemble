@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
+import TextStyled from './TextStyled';
 
 const DrinksHeader = ({ content }) => (
   <HeaderWrapper>
@@ -50,7 +51,7 @@ const smallContent = css`
   font-size: 15px;
 `;
 
-const ContentStyled = styled.Text`
+const ContentStyled = styled(TextStyled)`
   color: ${({ color }) => color || '#de285e'};
   font-weight: bold;
   flex-grow: 0;

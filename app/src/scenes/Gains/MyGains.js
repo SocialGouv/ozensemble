@@ -433,12 +433,12 @@ const Description = styled.View`
   justify-content: space-around;
 `;
 
-const Arrow = styled.Text`
+const Arrow = styled(TextStyled)`
   color: #4030a5;
   font-weight: bold;
 `;
 
-const TextDescritpion = styled.Text`
+const TextDescritpion = styled(TextStyled)`
   padding: 10px;
   font-size: 16px;
   line-height: 20px;
@@ -459,7 +459,7 @@ const TextContainer = styled.View`
 
 const TextForm = styled(H2)``;
 
-const Bold = styled.Text`
+const Bold = styled(TextStyled)`
   font-weight: bold;
 `;
 
@@ -486,7 +486,7 @@ const MyGoalSubContainerInside = styled.View`
   margin-bottom: 10px;
 `;
 
-const TextModify = styled.Text`
+const TextModify = styled(TextStyled)`
   text-decoration: underline;
 `;
 

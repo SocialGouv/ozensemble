@@ -5,6 +5,7 @@ import Lock from '../../components/illustrations/Lock';
 import StarButton from '../../components/illustrations/StarButton';
 import { storage } from '../../services/storage';
 import { defaultPaddingFontScale } from '../../styles/theme';
+import TextStyled from '../../components/TextStyled';
 
 const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay, defiStorageKey }) => {
   return (
@@ -80,7 +81,7 @@ const DayContainer = styled.View`
   justify-content: center;
   align-items: center;
 `;
-const DayNumber = styled.Text`
+const DayNumber = styled(TextStyled)`
   margin-top: 4px;
   color: ${({ color }) => color || '#C4C4C4'};
 `;

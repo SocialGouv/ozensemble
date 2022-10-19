@@ -11,6 +11,7 @@ import { riskSituationsQuizzAnswersState } from '../../../../recoil/quizzs';
 import emotions from './emotions';
 import riskSituations from '../../../Quizzs/QuizzRiskSituations/riskSituations';
 import WrapperContainer from '../../../../components/WrapperContainer';
+import TextStyled from '../../../../components/TextStyled';
 
 const Defi2_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -91,7 +92,7 @@ const TextEmotionView = styled.View`
   align-self: center;
 `;
 
-const TextEmotion = styled.Text`
+const TextEmotion = styled(TextStyled)`
   text-align: center;
   color: ${({ color }) => color || '#000'};
   ${({ bold }) => bold && 'font-weight: bold'};

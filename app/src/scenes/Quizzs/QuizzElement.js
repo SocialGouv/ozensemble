@@ -73,11 +73,11 @@ const Content = styled.View`
   margin-left: 25px;
 `;
 
-const Title = styled.Text`
+const Title = styled(TextStyled)`
   font-weight: 600;
   margin-left: 5px;
 `;
-const ButtonRedoTest = styled.Text`
+const ButtonRedoTest = styled(TextStyled)`
   font-size: 14px;
   color: #4030a5;
   text-decoration: underline;

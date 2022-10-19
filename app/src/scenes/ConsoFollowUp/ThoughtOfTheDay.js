@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import H3 from '../../components/H3';
 import Screen2 from '../../components/illustrations/Screen2';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
+import TextStyled from '../../components/TextStyled';
 
 const numberOfDaysSinceBeginningOfTimes = (day) => Math.round(Date.parse(day) / 1000 / 60 / 60 / 24);
 
@@ -34,7 +35,7 @@ const TextContent = styled.View`
   flex-shrink: 1;
 `;
 
-const Caption = styled.Text`
+const Caption = styled(TextStyled)`
   font-size: 11px;
   margin-bottom: 3px;
   flex-shrink: 1;
