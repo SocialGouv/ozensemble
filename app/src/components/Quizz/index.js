@@ -60,16 +60,6 @@ const Quizz = ({
       });
       storage.set('@Gender', gender);
     }
-    if (questionKey === 'binge') {
-      const resultKey = storage.getString('@Quizz_result');
-      const betterEval = storage.getString('@QuizzEvaluateConso_result');
-      const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
-      console.log('------');
-      console.log('mapOnboardingResultToMatomoProfile(result) :', mapOnboardingResultToMatomoProfile(result));
-      Matomo.setCustomDimensions({
-        [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(result),
-      });
-    }
     await logEvent({ category, action, name, value });
   };
 
