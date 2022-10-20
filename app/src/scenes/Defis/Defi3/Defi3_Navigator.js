@@ -7,7 +7,7 @@ import Defi from '../Defi';
 import { defi3_Data } from './defi3_Data';
 import { setValidatedDays } from '../utils';
 import Defi3_Day1 from './Defi3_Day1';
-// import Defi3_Day2 from './defi3_Day2';
+import Defi3_Day2 from './Defi3_Day2';
 // import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
 import Defi3_Day7 from './Defi3_Day7';
 // import Defi2_Day6 from './Defi2_Day6';
@@ -34,7 +34,6 @@ const Defi3_Navigator = () => {
             day: 1,
           }}
         />
-        {/* 
         <Defi3_Stack.Screen
           name="DEFI3_DAY_2"
           component={Defi3_Day2}
@@ -45,6 +44,7 @@ const Defi3_Navigator = () => {
             day: 2,
           }}
         />
+        {/* 
         <Defi3_Stack.Screen
           name="DEFI3_DAY_3"
           component={QuizzRiskSituations}
