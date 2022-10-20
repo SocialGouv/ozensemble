@@ -8,6 +8,7 @@ import QuizzIcon from '../../components/illustrations/QuizzIcon';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import TextStyled from '../../components/TextStyled';
 
 const mapResultToDisplay = (result) => {
   if (result === 'addicted') return "Résultat: risque d'addiction";
@@ -52,7 +53,7 @@ const TextContent = styled.View`
   margin-left: 5px;
 `;
 
-const Caption = styled.Text`
+const Caption = styled(TextStyled)`
   font-size: 11px;
   margin-bottom: 3px;
 `;

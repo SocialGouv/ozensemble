@@ -73,7 +73,7 @@ const getFontSizeToFit = (props) => {
   return maxFontSize;
 };
 
-const CategorieValue = styled.Text`
+const CategorieValue = styled(TextStyled)`
   font-size: ${getFontSizeToFit}px;
   margin-top: 5px;
   width: ${width * 0.85}px;
@@ -85,7 +85,7 @@ const TextCategorieContainer = styled.View`
   align-items: center;
 `;
 
-const TextCategorie = styled.Text`
+const TextCategorie = styled(TextStyled)`
   text-align: center;
 `;
 

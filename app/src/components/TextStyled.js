@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Platform } from 'react-native';
 
 const TextStyled = styled.Text`
+  ${Platform.OS === 'android' && 'font-family: Raleway;'}
   color: ${({ color }) => color || '#191919'};
   ${(props) => props.bold && `font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};`}
   textDecoration: ${({ underline }) => underline && 'underline'};
