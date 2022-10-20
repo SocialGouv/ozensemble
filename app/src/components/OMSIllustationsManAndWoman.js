@@ -35,7 +35,7 @@ const TextOMSContainer = styled.View`
   align-items: center;
 `;
 
-const TextDescription = styled.Text`
+const TextDescription = styled(TextStyled)`
   text-align: center;
 `;
 export default OMSIllustationsManAndWoman;

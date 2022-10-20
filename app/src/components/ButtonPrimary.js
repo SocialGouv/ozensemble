@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
+import TextStyled from './TextStyled';
 
 const ButtonPrimary = ({ content, onPress, small, color, shadowColor, ...props }) => (
   <ButtonPrimaryStyled
@@ -56,7 +57,7 @@ const smallContent = css`
   font-size: ${({ small }) => (small ? 13 : 15)}px;
 `;
 
-const ContentStyled = styled.Text`
+const ContentStyled = styled(TextStyled)`
   color: #f9f9f9;
   font-weight: bold;
   text-align: center;

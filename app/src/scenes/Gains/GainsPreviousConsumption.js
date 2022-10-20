@@ -109,7 +109,7 @@ const GainsPreviousConsumption = () => {
   );
 };
 
-const DescriptionText = styled.Text`
+const DescriptionText = styled(TextStyled)`
   margin-bottom: 14px;
   ${(props) => props.big && 'font-size: 16px;'}
 `;

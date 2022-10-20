@@ -1,10 +1,11 @@
 import styled from 'styled-components';
+import TextStyled from './TextStyled';
 
 export const TopContainer = styled.View`
   margin-top: 20px;
 `;
 
-export const P = styled.Text`
+export const P = styled(TextStyled)`
   color: ${({ color }) => color || '#000'};
   ${({ noMarginBottom }) => !noMarginBottom && 'margin-bottom: 15px'};
   ${({ bold }) => bold && 'font-weight: bold'};
@@ -18,7 +19,7 @@ export const P = styled.Text`
   ${({ textCenter }) => textCenter && 'text-align:center'}
 `;
 
-export const Bold = styled.Text`
+export const Bold = styled(TextStyled)`
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
@@ -31,7 +32,7 @@ export const Spacer = styled.View`
   flex-shrink: 0;
 `;
 
-export const Underlined = styled.Text`
+export const Underlined = styled(TextStyled)`
   color: ${(props) => (props.color ? props.color : '#000')};
   font-size: 16px;
   line-height: 24px;

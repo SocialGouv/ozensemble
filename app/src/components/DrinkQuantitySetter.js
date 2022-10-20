@@ -171,7 +171,7 @@ const DisplayName = styled(TextStyled).attrs({
 `;
 
 const Volume = styled(H3)``;
-const Doses = styled.Text`
+const Doses = styled(TextStyled)`
   font-size: 14px;
 `;
 
@@ -193,7 +193,7 @@ const QuantityDisplayContainer = styled.View`
   align-items: center;
 `;
 
-const QuantityDisplay = styled.Text`
+const QuantityDisplay = styled(TextStyled)`
   font-weight: bold;
   font-size: 12px;
   color: #f9f9f9;

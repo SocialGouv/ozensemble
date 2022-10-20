@@ -2,12 +2,13 @@ import React from 'react';
 import { Platform } from 'react-native';
 import styled from 'styled-components';
 import { buttonHeight, defaultPaddingFontScale } from '../styles/theme';
+import TextStyled from './TextStyled';
 
 const UnderlinedButton = ({ content, onPress, color, withoutPadding, bold, alignStart, ...props }) => (
   <UnderlinedButtonStyled withoutPadding={withoutPadding} onPress={onPress} alignStart={alignStart} {...props}>
-    <TextStyled bold={bold} color={color}>
+    <TextContent bold={bold} color={color}>
       {content}
-    </TextStyled>
+    </TextContent>
   </UnderlinedButtonStyled>
 );
 
@@ -18,7 +19,7 @@ const UnderlinedButtonStyled = styled.TouchableOpacity`
   align-items: ${({ alignStart }) => (alignStart ? 'flex-start' : 'center')};
 `;
 
-const TextStyled = styled.Text`
+const TextContent = styled(TextStyled)`
   text-decoration-line: underline;
   color: ${({ color }) => color || '#191919'};
   font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
