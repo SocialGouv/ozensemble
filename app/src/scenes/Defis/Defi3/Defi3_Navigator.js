@@ -9,7 +9,7 @@ import { setValidatedDays } from '../utils';
 import Defi3_Day1 from './Defi3_Day1';
 // import Defi3_Day2 from './defi3_Day2';
 // import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
-// import Defi2_Day7 from './Defi2_Day7';
+import Defi3_Day7 from './Defi3_Day7';
 // import Defi2_Day6 from './Defi2_Day6';
 // import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
 // import Defi2_Day4 from './Defi2_Day4';
@@ -82,7 +82,7 @@ const Defi3_Navigator = () => {
             rootRoute: 'DEFI3_MENU',
             day: 6,
           }}
-        />
+        /> */}
         <Defi3_Stack.Screen
           initialParams={{
             inDefi3: true,
@@ -91,7 +91,7 @@ const Defi3_Navigator = () => {
           }}
           name="DEFI3_DAY_7"
           component={Defi3_Day7}
-        /> */}
+        />
       </Defi3_Stack.Navigator>
     </Background>
   );
