@@ -1,3 +1,10 @@
+## [1.68.1](https://github.com/SocialGouv/ozensemble/compare/v1.68.0...v1.68.1) (2022-10-20)
+
+
+### Bug Fixes
+
+* remove DefisMenu changes ([c5d8876](https://github.com/SocialGouv/ozensemble/commit/c5d88760df7c178f2af3a2ea84eebbd3a0d67e36))
+
 # [1.68.0](https://github.com/SocialGouv/ozensemble/compare/v1.67.0...v1.68.0) (2022-07-11)
 
 
