@@ -3,6 +3,7 @@ import { Linking, Text } from 'react-native';
 import styled from 'styled-components';
 import H2 from '../../components/H2';
 import WrapperContainer from '../../components/WrapperContainer';
+import TextStyled from '../../components/TextStyled';
 
 const PrivacyPolicy = ({ onClose }) => (
   <WrapperContainer
@@ -154,7 +155,7 @@ const PrivacyPolicy = ({ onClose }) => (
   </WrapperContainer>
 );
 
-const P = styled.Text`
+const P = styled(TextStyled)`
   margin-bottom: 15px;
 `;
 

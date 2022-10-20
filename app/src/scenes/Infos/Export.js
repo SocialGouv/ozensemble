@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import TextInputStyled from '../../components/TextInputStyled';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
@@ -107,7 +108,7 @@ const Export = ({ navigation }) => {
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes données">
       <SubContainer>
-        <TextInputStyled
+        <EmailInput
           value={email}
           placeholder="Adresse email"
           onChangeText={setEmail}
@@ -143,7 +144,7 @@ const ButtonsContainer = styled.View`
   width: 100%;
 `;
 
-const TextInputStyled = styled.TextInput`
+const EmailInput = styled(TextInputStyled)`
   width: 100%;
   height: 50px;
   background-color: #f3f3f6;

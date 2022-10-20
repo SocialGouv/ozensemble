@@ -165,7 +165,7 @@ const Help = styled.TouchableOpacity`
   flex-shrink: 0;
   margin: 5px;
 `;
-const HelpText = styled.Text`
+const HelpText = styled(TextStyled)`
   color: #de285e;
   font-weight: bold;
   font-size: ${helpsize * 0.5}px;

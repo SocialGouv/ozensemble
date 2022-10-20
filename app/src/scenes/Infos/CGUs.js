@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import H2 from '../../components/H2';
 import WrapperContainer from '../../components/WrapperContainer';
+import TextStyled from '../../components/TextStyled';
 
 const CGUs = ({ onClose }) => (
   <WrapperContainer title="Conditions Générales d'Utilisation - Oz Ensemble" onPressBackButton={onClose}>
@@ -187,7 +188,7 @@ const CGUs = ({ onClose }) => (
   </WrapperContainer>
 );
 
-const P = styled.Text`
+const P = styled(TextStyled)`
   margin-bottom: 15px;
 `;
 

@@ -337,7 +337,7 @@ const LegendsContainer = styled.View`
   margin-bottom: 35px;
 `;
 
-const Legend = styled.Text`
+const Legend = styled(TextStyled)`
   color: ${({ color }) => color};
   font-weight: 600;
   text-align: center;

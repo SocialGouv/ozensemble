@@ -2,12 +2,13 @@ import React from 'react';
 import { Platform } from 'react-native';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
+import TextStyled from './TextStyled';
 
 const GoBackButtonText = ({ content, onPress, color, withoutPadding, bold, ...props }) => (
   <GoBackButtonTextStyled withoutPadding={withoutPadding} onPress={onPress} {...props}>
-    <TextStyled bold={bold} color={color}>
+    <TextContent bold={bold} color={color}>
       {content}
-    </TextStyled>
+    </TextContent>
   </GoBackButtonTextStyled>
 );
 
@@ -30,7 +31,7 @@ const smallContent = css`
   font-size: ${({ small }) => (small ? 13 : 15)}px;
 `;
 
-const TextStyled = styled.Text`
+const TextContent = styled(TextStyled)`
   color: ${({ color }) => color || '#191919'};
   font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
   flex-shrink: 0;

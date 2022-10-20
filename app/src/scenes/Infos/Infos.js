@@ -114,7 +114,7 @@ const MenuItemStyled = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
-const Arrow = styled.Text`
+const Arrow = styled(TextStyled)`
   color: #4030a5;
   font-weight: bold;
 `;

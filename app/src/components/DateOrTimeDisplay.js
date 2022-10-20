@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components';
 import { isToday, makeSureDate } from '../helpers/dateHelpers';
 import ValidateIcon from './ValidateIcon';
+import TextStyled from './TextStyled';
 
 const DateOrTimeDisplay = ({ date, onPress, mode }) => {
   if (!date) return null;
@@ -37,7 +38,7 @@ const CurrentDateContainer = styled.View`
   flex-direction: row;
 `;
 
-const CurrentDate = styled.Text`
+const CurrentDate = styled(TextStyled)`
   color: #f9f9f9;
 `;
 

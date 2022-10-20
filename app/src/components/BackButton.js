@@ -3,10 +3,11 @@ import { Platform } from 'react-native';
 import styled, { css } from 'styled-components';
 import { mediaHeight } from '../styles/mediaQueries';
 import { defaultPaddingFontScale } from '../styles/theme';
+import TextStyled from './TextStyled';
 
 export const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
   <Container onPress={onPress} marginBottom={marginBottom} marginLeft={marginLeft} marginTop={marginTop}>
-    <TextStyled bold>{'< Retour'}</TextStyled>
+    <ReturnButton bold>{'< Retour'}</ReturnButton>
   </Container>
 );
 
@@ -29,7 +30,7 @@ const smallContent = css`
   font-size: ${({ small }) => (small ? 13 : 15)}px;
 `;
 
-const TextStyled = styled.Text`
+const ReturnButton = styled(TextStyled)`
   color: #191919;
   font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
   flex-shrink: 0;
