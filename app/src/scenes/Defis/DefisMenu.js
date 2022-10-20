@@ -106,7 +106,7 @@ const DefisMenu = ({ navigation }) => {
           console.log('3e defi press');
           navigation.navigate('DEFI3');
         }}
-        image={require('../../assets/images/Defi3.png')}
+        image={require('../../assets/images/Defi3.jpg')}
         disabled={!autoEvaluationDone || defi2Day < 7}
         callToAction={defi3CallToAction}
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi3Modal(true))}
