@@ -24,125 +24,114 @@ export const defi3_Data = [
   {
     actionType: 'quizz',
     title: 'J2',
-    tagLine: 'Comprendre les normes',
+    tagLine: 'Comment maintenir ma motivation ?',
     description: (
       <>
-        <TextStyled bold>Renforcez</TextStyled> vos connaissances sur les “normes recommandées” avant de pousser plus
-        loin votre réflexion.
+        Il est important de comprendre <TextStyled bold>l’impact de votre environnement</TextStyled> sur votre
+        consommation et votre motivation.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Renforcez</TextStyled> vos connaissances sur les “normes recommandées” avant de pousser plus
-        loin votre réflexion.
+        Il est important de comprendre <TextStyled bold>l’impact de votre environnement</TextStyled> sur votre
+        consommation et votre motivation.
       </>
     ),
-    textCTA: "Je m'informe",
-    screenCTA: 'DEFI2_DAY_2',
+    textCTA: 'Mieux comprendre',
+    screenCTA: 'DEFI3_DAY_2',
   },
   {
     actionType: 'content',
     title: 'J3',
-    tagLine: 'Identifier mes situations à risques',
+    tagLine: 'À quoi est liée ma motivation ?',
     description: (
       <>
-        Identifiez vos “situations à risque” afin de réfléchir aux
-        <TextStyled bold> besoins que remplit l'alcool</TextStyled> dans ces occasions. C'est la première étapes pour
-        <TextStyled bold> trouver des solutions pour remplir ce besoin autrement.</TextStyled>
+        Allons plus loin dans l’<TextStyled bold>analyse de votre environnement</TextStyled> en identifiant ce qui vous
+        expose au risque de consommer ou vous en protège.
       </>
     ),
     descriptionDone: (
       <>
-        Identifiez vos “situations à risque” afin de réfléchir aux
-        <TextStyled bold> besoins que remplit l'alcool</TextStyled> dans ces occasions. C'est la première étapes pour
-        <TextStyled bold> trouver des solutions pour remplir ce besoin autrement.</TextStyled>
+        Allons plus loin dans l’<TextStyled bold>analyse de votre environnement</TextStyled> en identifiant ce qui vous
+        expose au risque de consommer ou vous en protège.
       </>
     ),
-    textCTA: 'Je reconnais mes situations',
-    screenCTA: 'DEFI2_DAY_3',
+    textCTA: 'Je continue',
+    screenCTA: 'DEFI3_DAY_3',
   },
   {
     actionType: 'quizz',
     title: 'J4',
-    tagLine: 'Hiérarchiser mes situations à risques',
+    tagLine: 'Je ne suis pas seul(e) : témoignages',
     description: (
       <>
-        Toutes les situations à risque ne sont pas égales :
-        <TextStyled bold> classez-les par ordre de motivation à réduire votre consommation.</TextStyled>
+        <TextStyled bold>Vous n’êtes pas la seule personne</TextStyled> qui cherche à diminuer sa consommation d’alcool
+        au quotidien.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Remplissez vos consommations</TextStyled> tout au long de la journée et revenez
-        <TextStyled bold> demain</TextStyled> pour la suite de ce point de 7 jours.
+        <TextStyled bold>Vous n’êtes pas la seule personne</TextStyled> qui cherche à diminuer sa consommation d’alcool
+        au quotidien.
       </>
     ),
-    textCTA: 'Je classe',
-    screenCTA: 'DEFI2_DAY_4',
+    textCTA: 'Je découvre',
+    screenCTA: 'DEFI3_DAY_4',
   },
   {
     actionType: 'content',
     title: 'J5',
-    tagLine: 'Affronter une situation à risque',
+    tagLine: 'Halte aux idées reçues !',
     description: (
       <>
-        En plus de vous aider à <TextStyled bold>identifier vos forces</TextStyled> (les situations que vous contrôlez)
-        et vos faiblesses (celles à haut risque) il est important de vous aider à réflechir au
-        <TextStyled bold> pourquoi vous buvez dans cette situation ?</TextStyled>
+        Certains alcools sont "<TextStyled italic>moins pires</TextStyled>" que d'autres. Un verre de whisky "
+        <TextStyled italic>donne des forces</TextStyled>". La bière “désaltère”. Les{' '}
+        <TextStyled bold>idées reçues sur l'alcool sont nombreuses mais rarement vraies</TextStyled>.
       </>
     ),
-    descriptionDone: (
-      <>
-        En plus de vous aider à <TextStyled bold>identifier vos forces</TextStyled> (les situations que vous contrôlez)
-        et vos faiblesses (celles à haut risque) il est important de vous aider à réflechir au
-        <TextStyled bold> pourquoi vous buvez dans cette situation ?</TextStyled>
-      </>
-    ),
-    textCTA: 'Je suis prêt ',
-    screenCTA: 'DEFI2_DAY_5',
+    textCTA: 'Je fais le quizz ',
+    screenCTA: 'DEFI3_DAY_5',
   },
   {
     actionType: 'content',
     title: 'J6',
-    tagLine: 'Savoir dire Non',
+    tagLine: 'Allons plus loin',
     description: (
       <>
-        <TextStyled bold>Préparez votre discours</TextStyled> pour dire “non” en situation : refuser un verre sans que
-        cela soit un refus social, du groupe. Sachez faire passer le message que vous
-        <TextStyled bold> refusez l'alcool et pas la personne !</TextStyled>
+        Aujourd’hui, capitalisons sur votre défi 2 pour{' '}
+        <TextStyled bold>mieux comprendre les facteurs qui vous donnent envie de consommer</TextStyled>, mettant à mal
+        parfois le cap que vous vous êtes fixé.
       </>
     ),
     descriptionDone: (
       <>
-        <TextStyled bold>Préparez votre discours</TextStyled> pour dire “non” en situation : refuser un verre sans que
-        cela soit un refus social, du groupe. Sachez faire passer le message que vous
-        <TextStyled bold> refusez l'alcool et pas la personne !</TextStyled>
+        Aujourd’hui, capitalisons sur votre défi 2 pour{' '}
+        <TextStyled bold>mieux comprendre les facteurs qui vous donnent envie de consommer</TextStyled>, mettant à mal
+        parfois le cap que vous vous êtes fixé.
       </>
     ),
-    textCTA: 'Je peux dire Non',
-    screenCTA: 'DEFI2_DAY_6',
+    textCTA: 'Je vais plus loin',
+    screenCTA: 'DEFI3_DAY_6',
   },
   {
     actionType: 'content',
     title: 'J7',
-    tagLine: 'Bilan de ma semaine ',
+    tagLine: 'Bilan de ma semaine',
     description: (
       <>
-        Bravo, vous avez fait de nouveau un pas vers une meilleure connaissance du rôle addictif de l'alcool.{' '}
-        <TextStyled bold>
-          Vous n'êtes pas la seule personne à ressentir ses émotions qui impactent sur l'envie de boire !
-        </TextStyled>
+        Bravo, vous avez fait de nouveau un pas vers une{' '}
+        <TextStyled bold>meilleure connaissance du rôle de l’alcool dans votre environnement</TextStyled>. Changer prend
+        du temps et nous sommes là pour vous accompagner.
       </>
     ),
     descriptionDone: (
       <>
-        Bravo, vous avez fait de nouveau un pas vers une meilleure connaissance du rôle addictif de l'alcool.{' '}
-        <TextStyled bold>
-          Vous n'êtes pas la seule personne à ressentir ses émotions qui impactent sur l'envie de boire !
-        </TextStyled>
+        Bravo, vous avez fait de nouveau un pas vers une{' '}
+        <TextStyled bold>meilleure connaissance du rôle de l’alcool dans votre environnement</TextStyled>. Changer prend
+        du temps et nous sommes là pour vous accompagner.
       </>
     ),
     textCTA: 'Je consulte mon bilan',
-    screenCTA: 'DEFI2_DAY_7',
+    screenCTA: 'DEFI3_DAY_7',
   },
 ];
