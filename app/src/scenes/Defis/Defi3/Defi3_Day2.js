@@ -107,25 +107,6 @@ const Defi3_Day2 = ({ navigation, route }) => {
         </ToggleContent>
       </Dropdown>
 
-      {/* <H2 color="#4030A5">Les conseils d’Oz Ensemble</H2>
-      <BulletPoint>
-        <TextStyled>{'\u2022'} Prenez de la hauteur et cherchez de nouvelles activités.</TextStyled>
-      </BulletPoint>
-      <BulletPoint>
-        <TextStyled>{'\u2022'} Faites un pas de coté pour penser à votre contexte actuel.</TextStyled>
-      </BulletPoint>
-      <BulletPoint>
-        <TextStyled>
-          {'\u2022'} Demandez de l’aide à un proche ou à un professionnel s’il vous est difficile d’atteindre seul votre
-          objectif.
-        </TextStyled>
-      </BulletPoint>
-      <BulletPoint>
-        <TextStyled>
-          {'\u2022'} Sachez qu’il existe des traitements qui peuvent réduire les envies d’alcool et vous soulager.
-        </TextStyled>
-      </BulletPoint> */}
-
       <TextStyled bold>
         Rappelez-vous que les envies de consommer ne sont pas seulement dûes à vous-même et à votre motivation !
       </TextStyled>
@@ -142,10 +123,6 @@ const Defi3_Day2 = ({ navigation, route }) => {
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
-`;
-
-const BulletPoint = styled.View`
-  margin: 20px;
 `;
 
 const SchemaStyled = styled(Defi3_day2_Schema)`
