@@ -71,6 +71,26 @@ export const motivationsQuizzResultState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzMotivations_result', JSON.stringify(newValue)))],
 });
 
+export const Defi3_Day3_Answers_Difficulties_State = atom({
+  key: 'Defi3_Day3_Answers_Difficulties_State',
+  default: getInitStoredAnswers('@Defi3_Day3_answers_Difficulties', []),
+  effects: [
+    ({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_answers_Difficulties', JSON.stringify(newValue))),
+  ],
+});
+
+export const Defi3_Day3_Answers_Help_State = atom({
+  key: 'Defi3_Day3_Answers_Help_State',
+  default: getInitStoredAnswers('@Defi3_Day3_answers_Help', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_answers_Help', JSON.stringify(newValue)))],
+});
+
+export const Defi3_Day3_ResultState = atom({
+  key: 'Defi3_Day3_ResultState',
+  default: getInitStoredResult('@Defi3_Day3_result'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_result', JSON.stringify(newValue)))],
+});
+
 export const riskSituationsQuizzAnswersState = atom({
   key: 'riskSituationsQuizzAnswersState',
   default: getInitStoredAnswers('@QuizzRiskSituations_answers', []),

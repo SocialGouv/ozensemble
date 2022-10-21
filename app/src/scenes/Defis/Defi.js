@@ -42,6 +42,7 @@ const Defi = ({
     if (validatedDays > dayIndex) return '#4030a5';
     if (activeDay === dayIndex) return '#de285e';
   };
+
   return (
     <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
       <NPS forceView={NPSvisible} close={closeNPS} />

@@ -8,6 +8,8 @@ import { defi3_Data } from './defi3_Data';
 import { setValidatedDays } from '../utils';
 import Defi3_Day1 from './Defi3_Day1';
 import Defi3_Day2 from './Defi3_Day2';
+import Defi3_Day3 from './Day3';
+// import Defi3_Day3_Navigator from './Day3/Defi3_Day3_Navigator';
 // import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
 import Defi3_Day7 from './Defi3_Day7';
 // import Defi2_Day6 from './Defi2_Day6';
@@ -44,16 +46,16 @@ const Defi3_Navigator = () => {
             day: 2,
           }}
         />
-        {/* 
         <Defi3_Stack.Screen
           name="DEFI3_DAY_3"
-          component={QuizzRiskSituations}
+          component={Defi3_Day3}
           initialParams={{
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 3,
           }}
         />
+        {/* 
         <Defi3_Stack.Screen
           name="DEFI3_DAY_4"
           component={Defi3_Day4}
