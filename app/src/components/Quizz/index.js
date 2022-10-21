@@ -12,7 +12,6 @@ import Matomo from '../../services/matomo';
 import BackButton from '../BackButton';
 import CONSTANTS from '../../reference/constants';
 import { storage } from '../../services/storage';
-import { mapOnboardingResultToMatomoProfile } from '../../scenes/Quizzs/QuizzOnboarding/utils';
 
 /*
 HOW DOES THE QUESTIONS WORK:
