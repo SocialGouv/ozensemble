@@ -2,6 +2,9 @@ import { atom, selector } from 'recoil';
 import { storage } from '../services/storage';
 import { capture } from '../services/sentry';
 import riskSituations from '../scenes/Quizzs/QuizzRiskSituations/riskSituations';
+import Matomo from '../services/matomo';
+import { mapOnboardingResultToMatomoProfile } from '../scenes/Quizzs/QuizzOnboarding/utils';
+import CONSTANTS from '../reference/constants';
 
 const getInitStoredAnswers = (memoryKeyAnswers, defaultValue = {}) => {
   const storedAnswers = storage.getString(memoryKeyAnswers);
@@ -32,7 +35,15 @@ export const autoEvaluationQuizzAnswersState = atom({
 export const autoEvaluationQuizzResultState = atom({
   key: 'autoEvaluationQuizzResultState',
   default: getInitStoredResult('@Quizz_result'),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@Quizz_result', JSON.stringify(newValue)))],
+  effects: [
+    ({ onSet }) =>
+      onSet((newValue) => {
+        storage.set('@Quizz_result', JSON.stringify(newValue));
+        Matomo.setCustomDimensions({
+          [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(newValue),
+        });
+      }),
+  ],
 });
 
 export const betterEvaluateQuizzAnswersState = atom({
@@ -44,7 +55,15 @@ export const betterEvaluateQuizzAnswersState = atom({
 export const betterEvaluateQuizzResultState = atom({
   key: 'betterEvaluateQuizzResultState',
   default: getInitStoredResult('@QuizzEvaluateConso_result'),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzEvaluateConso_result', JSON.stringify(newValue)))],
+  effects: [
+    ({ onSet }) =>
+      onSet((newValue) => {
+        storage.set('@QuizzEvaluateConso_result', JSON.stringify(newValue));
+        Matomo.setCustomDimensions({
+          [CONSTANTS.MATOMO_CUSTOM_DIM_PROFILE]: mapOnboardingResultToMatomoProfile(newValue.scoreAddiction),
+        });
+      }),
+  ],
 });
 
 export const lifeQualityQuizzAnswersState = atom({
