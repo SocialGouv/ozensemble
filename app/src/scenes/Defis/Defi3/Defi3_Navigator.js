@@ -9,12 +9,10 @@ import { setValidatedDays } from '../utils';
 import Defi3_Day1 from './Defi3_Day1';
 import Defi3_Day2 from './Defi3_Day2';
 import Defi3_Day3 from './Day3';
-// import Defi3_Day3_Navigator from './Day3/Defi3_Day3_Navigator';
-// import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
-import Defi3_Day7 from './Defi3_Day7';
-// import Defi2_Day6 from './Defi2_Day6';
-// import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
 // import Defi2_Day4 from './Defi2_Day4';
+import Defi3_Day5 from './Defi3_Day5';
+// import Defi2_Day6 from './Defi2_Day6';
+import Defi3_Day7 from './Defi3_Day7';
 // import ToSayNo from '../../Health/Articles/ToSayNo';
 // import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
 
@@ -55,8 +53,7 @@ const Defi3_Navigator = () => {
             day: 3,
           }}
         />
-        {/* 
-        <Defi3_Stack.Screen
+        {/* <Defi3_Stack.Screen
           name="DEFI3_DAY_4"
           component={Defi3_Day4}
           initialParams={{
@@ -65,16 +62,17 @@ const Defi3_Navigator = () => {
             rootRoute: 'DEFI3_MENU',
             day: 4,
           }}
-        />
+        /> */}
         <Defi3_Stack.Screen
           name="DEFI3_DAY_5"
-          component={Defi3_Day5_Navigator}
+          component={Defi3_Day5}
           initialParams={{
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 5,
           }}
         />
+        {/* 
         <Defi3_Stack.Screen
           name="DEFI3_DAY_6"
           component={Defi3_Day6}

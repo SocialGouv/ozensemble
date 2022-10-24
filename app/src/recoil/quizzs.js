@@ -126,3 +126,15 @@ export const QuizzDefi3Day1ResultState = atom({
   default: getInitStoredResult('@QuizzDefi3Day1_result'),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day1_result', JSON.stringify(newValue)))],
 });
+
+export const QuizzDefi3Day5AnswersState = atom({
+  key: 'QuizzDefi3Day5AnswersState',
+  default: getInitStoredAnswers('@QuizzDefi3Day5_answers', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day5_answers', JSON.stringify(newValue)))],
+});
+
+export const QuizzDefi3Day5ResultState = atom({
+  key: 'QuizzDefi3Day5ResultState',
+  default: getInitStoredResult('@QuizzDefi3Day5_result'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day5_result', JSON.stringify(newValue)))],
+});
