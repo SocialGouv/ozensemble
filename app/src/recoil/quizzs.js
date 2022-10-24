@@ -114,3 +114,15 @@ export const riskSituationsAnswersKeysSelector = selector({
     );
   },
 });
+
+export const QuizzDefi3Day1AnswersState = atom({
+  key: 'QuizzDefi3Day1AnswersState',
+  default: getInitStoredAnswers('@QuizzDefi3Day1_answers', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day1_answers', JSON.stringify(newValue)))],
+});
+
+export const QuizzDefi3Day1ResultState = atom({
+  key: 'QuizzDefi3Day1ResultState',
+  default: getInitStoredResult('@QuizzDefi3Day1_result'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day1_result', JSON.stringify(newValue)))],
+});
