@@ -1,3 +1,12 @@
+## [1.68.2](https://github.com/SocialGouv/ozensemble/compare/v1.68.1...v1.68.2) (2022-10-25)
+
+
+### Bug Fixes
+
+* tipi to api ([c02fe72](https://github.com/SocialGouv/ozensemble/commit/c02fe72485b9aa5fa747b13b433234f1521ab1f4))
+* tipi to api - clean ([df9d011](https://github.com/SocialGouv/ozensemble/commit/df9d01136b224b57f1947d4ce92141ffee3c729f))
+* tipi to api - forgotten import ([4240635](https://github.com/SocialGouv/ozensemble/commit/4240635ee5ecb68eeeeebadd58fb6dd73d353af0))
+
 ## [1.68.1](https://github.com/SocialGouv/ozensemble/compare/v1.68.0...v1.68.1) (2022-10-20)
 
 
