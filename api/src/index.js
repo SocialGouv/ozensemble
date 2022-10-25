@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const logger = require("morgan");
 const prisma = require("./prisma");
 
-const { PORT, VERSION } = require("./config");
+const { PORT, VERSION, MOBILE_VERSION } = require("./config");
 const errors = require("./middlewares/errors");
 const versionCheck = require("./middlewares/versionCheck");
 
@@ -30,6 +30,9 @@ app.get("/healthz", async (req, res) => {
 const now = new Date();
 app.get("/", async (req, res) => {
   res.send(`Hello World at ${now.toISOString()}`);
+});
+app.get("/config", async (req, res) => {
+  res.send({ VERSION, MOBILE_VERSION });
 });
 
 // Add header with API version to compare with client.
