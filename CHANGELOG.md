@@ -1,3 +1,10 @@
+## [1.69.1](https://github.com/SocialGouv/ozensemble/compare/v1.69.0...v1.69.1) (2022-10-25)
+
+
+### Bug Fixes
+
+* new sealed secrets ([08c1a03](https://github.com/SocialGouv/ozensemble/commit/08c1a03fb608e0b5d62b9cdf51cfb8c46016c548))
+
 # [1.69.0](https://github.com/SocialGouv/ozensemble/compare/v1.68.2...v1.69.0) (2022-10-25)
 
 
