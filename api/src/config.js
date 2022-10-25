@@ -15,6 +15,11 @@ const SENTRY_KEY = process.env.SENTRY_KEY || "https://b43d73353b7b48b8857deb69bc
 const VERSION = version;
 const MOBILE_VERSION = mobileAppVersion;
 
+const TIPIMAIL_API_USER = process.env.TIPIMAIL_API_USER;
+const TIPIMAIL_API_KEY = process.env.TIPIMAIL_API_KEY;
+const TIPIMAIL_EMAIL_TO = process.env.TIPIMAIL_EMAIL_TO;
+const TIPIMAIL_EMAIL_FROM = process.env.TIPIMAIL_EMAIL_FROM;
+
 module.exports = {
   PORT,
   PGHOST,
@@ -27,4 +32,8 @@ module.exports = {
   SENTRY_KEY,
   VERSION,
   MOBILE_VERSION,
+  TIPIMAIL_API_USER,
+  TIPIMAIL_API_KEY,
+  TIPIMAIL_EMAIL_TO,
+  TIPIMAIL_EMAIL_FROM,
 };
