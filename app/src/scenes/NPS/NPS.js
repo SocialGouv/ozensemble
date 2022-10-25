@@ -200,29 +200,9 @@ class NPS extends Component {
       name: 'notes-reco',
       value: reco,
     });
-    await fetch('https://api.tipimail.com/v1/messages/send', {
-      method: 'POST',
-      headers: {
-        'X-Tipimail-ApiUser': TIPIMAIL_API_USER,
-        'X-Tipimail-ApiKey': TIPIMAIL_API_KEY,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        apiKey: TIPIMAIL_API_KEY,
-        to: [
-          {
-            address: TIPIMAIL_EMAIL_TO,
-          },
-        ],
-        msg: {
-          from: {
-            address: TIPIMAIL_EMAIL_FROM,
-            personalName: 'App Addicto',
-          },
-          subject: 'NPS Addicto',
-          text: formatText(useful, reco, feedback, email, userId),
-        },
-      }),
+    await sendMail({
+      subject: 'NPS Addicto',
+      text: formatText(useful, reco, feedback, email, userId),
     })
       .then((res) => res.json())
       .catch((err) => console.log('sendNPS err', err));
