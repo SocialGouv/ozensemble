@@ -11,7 +11,7 @@ import Defi3_Day2 from './Defi3_Day2';
 import Defi3_Day3 from './Day3';
 import Defi3_Day4 from './Day4';
 import Defi3_Day5 from './Defi3_Day5';
-// import Defi2_Day6 from './Defi2_Day6';
+import Defi3_Day6 from './Day6';
 import Defi3_Day7 from './Defi3_Day7';
 // import ToSayNo from '../../Health/Articles/ToSayNo';
 // import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
@@ -38,7 +38,6 @@ const Defi3_Navigator = () => {
           name="DEFI3_DAY_2"
           component={Defi3_Day2}
           initialParams={{
-            title: 'Mieux mesurer ma consommation',
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 2,
@@ -57,7 +56,6 @@ const Defi3_Navigator = () => {
           name="DEFI3_DAY_4"
           component={Defi3_Day4}
           initialParams={{
-            title: 'Évaluer sa qualité de vie',
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 4,
@@ -72,17 +70,16 @@ const Defi3_Navigator = () => {
             day: 5,
           }}
         />
-        {/* 
+
         <Defi3_Stack.Screen
           name="DEFI3_DAY_6"
           component={Defi3_Day6}
           initialParams={{
-            title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 6,
           }}
-        /> */}
+        />
         <Defi3_Stack.Screen
           initialParams={{
             inDefi3: true,

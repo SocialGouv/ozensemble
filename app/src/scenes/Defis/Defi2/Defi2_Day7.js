@@ -12,7 +12,7 @@ import Sources from '../../Quizzs/Sources';
 import { defi2EmotionState } from '../../../recoil/defis';
 import QButton from '../../../components/QButton';
 import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
-import emotions from './Day5/emotions';
+import emotions from '../../../components/emotions';
 import { Bold, P } from '../../../components/Articles';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
