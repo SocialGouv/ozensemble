@@ -28,7 +28,7 @@ const DefisNavigator = () => {
         <DefisStack.Screen name="DEFIS_MENU" component={DefisMenu} />
         <DefisStack.Screen name="DEFI1" component={Defi1_Navigator} />
         <DefisStack.Screen name="DEFI2" component={Defi2_Navigator} />
-        <DefisStack.Screen name="DEFI3" component={Defi3_Navigator} />
+        {/* <DefisStack.Screen name="DEFI3" component={Defi3_Navigator} /> */}
         <DefisStack.Screen name="TESTS_DEFIS" component={QuizzsNavigator} />
         <DefisStack.Screen name="CONTACT" component={ContactForm} />
       </DefisStack.Navigator>
