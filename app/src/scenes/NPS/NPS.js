@@ -18,6 +18,7 @@ import H2 from '../../components/H2';
 import H3 from '../../components/H3';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import BackButton from '../../components/BackButton';
+import { sendMail } from '../../services/mail';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
