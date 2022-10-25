@@ -4,12 +4,12 @@ import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import TextInputStyled from '../../components/TextInputStyled';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
 import { screenHeight } from '../../styles/theme';
 import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import WrapperContainer from '../../components/WrapperContainer';
+import { sendMail } from '../../services/mail';
 
 export const HTMLExportSelector = selector({
   key: 'HTMLExportSelector',
@@ -76,29 +76,10 @@ const Export = ({ navigation }) => {
       Alert.alert('Adresse email non valide');
       return;
     }
-    const res = await fetch('https://api.tipimail.com/v1/messages/send', {
-      method: 'POST',
-      headers: {
-        'X-Tipimail-ApiUser': TIPIMAIL_API_USER,
-        'X-Tipimail-ApiKey': TIPIMAIL_API_KEY,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        apiKey: TIPIMAIL_API_KEY,
-        to: [
-          {
-            address: email,
-          },
-        ],
-        msg: {
-          from: {
-            address: TIPIMAIL_EMAIL_FROM,
-            personalName: 'Oz Ensemble',
-          },
-          subject: 'Export de données',
-          html: htmlExport,
-        },
-      }),
+    const res = await sendMail({
+      to: email,
+      subject: 'Export de données',
+      html: htmlExport,
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
