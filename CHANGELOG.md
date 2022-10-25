@@ -1,3 +1,15 @@
+# [1.69.0](https://github.com/SocialGouv/ozensemble/compare/v1.68.2...v1.69.0) (2022-10-25)
+
+
+### Bug Fixes
+
+* add node-fetch ([7769759](https://github.com/SocialGouv/ozensemble/commit/77697594d4ed1180e36de16ad6692199743ad476))
+
+
+### Features
+
+* **api:** versions check ([866341c](https://github.com/SocialGouv/ozensemble/commit/866341ca77f4e5da9e525481e0928fe61e0375b1))
+
 ## [1.68.2](https://github.com/SocialGouv/ozensemble/compare/v1.68.1...v1.68.2) (2022-10-25)
 
 
