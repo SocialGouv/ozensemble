@@ -52,6 +52,7 @@ app.use(helmet());
 
 app.use("/event", require("./controllers/event"));
 app.use("/user", require("./controllers/user"));
+app.use("/mail", require("./controllers/mail").router);
 
 app.use(errors.sendError);
 
