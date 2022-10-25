@@ -8,7 +8,6 @@ import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
 import TextInputStyled from '../../components/TextInputStyled';
-import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM, TIPIMAIL_EMAIL_TO } from '../../config';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import NotificationService from '../../services/notifications';
 import Mark from './Mark';
