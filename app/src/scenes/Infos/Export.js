@@ -4,7 +4,6 @@ import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import TextInputStyled from '../../components/TextInputStyled';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { TIPIMAIL_API_KEY, TIPIMAIL_API_USER, TIPIMAIL_EMAIL_FROM } from '../../config';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
 import { screenHeight } from '../../styles/theme';
