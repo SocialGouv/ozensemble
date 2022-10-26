@@ -10,7 +10,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
 import questions from './questions';
 import { View } from 'react-native';
-import textResults from './textResults';
+import TextResult from './TextResult';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 
 const ResultsQuizzDefi3Day1 = ({ route, navigation }) => {
@@ -60,34 +60,32 @@ const AnswerResult = ({ questionKey }) => {
 
   return (
     <Element
-      content={
+      contentView={
         <>
-          <View>
-            <TextStyled>{question.questionTitle}</TextStyled>
-            {allAnswersCorrect ? (
-              <ButtonAllAnswers />
-            ) : question.trueAnswer === 'Vrai' ? (
-              <ButtonVraiAnswer goodAnswer={goodAnswer} />
-            ) : (
-              <ButtonFauxAnswer goodAnswer={goodAnswer} />
-            )}
-            {allAnswersCorrect ? (
-              <TextStyled bold color="#20B55C">
-                C'est vrai... et c'est faux !
-              </TextStyled>
-            ) : goodAnswer ? (
-              <TextStyled bold color="#20B55C">
-                Bonne réponse... C’est {question.trueAnswer.toLowerCase()} !
-              </TextStyled>
-            ) : (
-              <TextStyled bold color="#DE285E">
-                Mauvaise réponse... C’est {question.trueAnswer.toLowerCase()} !
-              </TextStyled>
-            )}
+          <TextStyled>{question.questionTitle}</TextStyled>
+          {allAnswersCorrect ? (
+            <ButtonAllAnswers />
+          ) : question.trueAnswer === 'Vrai' ? (
+            <ButtonVraiAnswer goodAnswer={goodAnswer} />
+          ) : (
+            <ButtonFauxAnswer goodAnswer={goodAnswer} />
+          )}
+          {allAnswersCorrect ? (
+            <TextStyled bold color="#20B55C">
+              C'est vrai... et c'est faux !
+            </TextStyled>
+          ) : goodAnswer ? (
+            <TextStyled bold color="#20B55C">
+              Bonne réponse... C’est {question.trueAnswer.toLowerCase()} !
+            </TextStyled>
+          ) : (
+            <TextStyled bold color="#DE285E">
+              Mauvaise réponse... C’est {question.trueAnswer.toLowerCase()} !
+            </TextStyled>
+          )}
 
-            <Spacer size={20} />
-            {textResults[questionKey]}
-          </View>
+          <Spacer size={20} />
+          <TextResult questionKey={questionKey} />
         </>
       }
     />

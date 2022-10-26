@@ -11,6 +11,7 @@ import { P } from '../../../../components/Articles';
 import { Spacer } from '../../../../components/Articles';
 import ArrowEmotion from '../../../../components/ArrowEmotion';
 import { TouchableOpacity } from 'react-native';
+import riskSituationsConsumptionAdvice from './riskSituationsConsumptionAdvice';
 
 const ArrowContainer = styled.View`
   flex-direction: row;
@@ -195,7 +196,13 @@ export const Conseils = ({ navigation, emotion, situationText, answersRiskSituat
         Ma raison de consommer{'\n'}
       </TextStyled>
       <TextStyled>
-        {conseil} {'\n\n'}
+        {emotion && answersRiskSituations && (
+          <ConsumptionAdvice
+            emotionType={emotion?.value === 2 ? 'PositiveEmotion' : 'NegativeEmotion'}
+            answerKey={answersRiskSituations[0]?.answerKey}
+          />
+        )}
+        {'\n\n'}
       </TextStyled>
       <TextStyled bold color="#DE285E">
         Le conseil d’Oz Ensemble{'\n'}
@@ -223,4 +230,11 @@ export const Conseils = ({ navigation, emotion, situationText, answersRiskSituat
       <ButtonPrimaryStyled content="J’ai compris" widthSmall onPress={() => navigation.navigate('DEFI3_MENU')} />
     </PaddingContainer>
   </WrapperContainer>
+);
+
+const ConsumptionAdvice = ({ emotionType, answerKey }) => (
+  <TextStyled>
+    {riskSituationsConsumptionAdvice[answerKey]?.[emotionType].text} (
+    <TextStyled bold>{riskSituationsConsumptionAdvice[answerKey]?.[emotionType].motif}</TextStyled>).
+  </TextStyled>
 );

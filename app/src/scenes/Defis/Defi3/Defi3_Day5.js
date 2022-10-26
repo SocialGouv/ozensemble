@@ -34,74 +34,69 @@ const Defi3_Day5 = ({ navigation, route }) => {
             </TextStyled>
             <Spacer size={20} />
             <ElementDayDefi
-              content={
+              contentView={
                 <>
-                  <TextStyled>
-                    <View>
-                      <TextStyled bold>
-                        "<TextStyled italic>Oh ça va, un verre d'alcool n'a jamais tué personne</TextStyled>"
-                      </TextStyled>
-
-                      <Spacer size={20} />
-                      <TextStyled bold color="#DE285E">
-                        SAUF QUE :
-                      </TextStyled>
-                      <Spacer size={10} />
-                    </View>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} L'alcool, même consommé en petite{' '}
-                        <TextStyled bold>quantité est mauvais pour la santé</TextStyled> .
-                      </TextStyled>
-                    </BulletPoint>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} L’alcool est responsable de 30% des accidents mortels sur la route.
-                      </TextStyled>
-                    </BulletPoint>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} "<TextStyled italic>Une cuite de temps en temps</TextStyled>" peut poser problème.
-                        Pas forcément en terme de dépendance, mais simplement d'effets secondaires en désinhibant, en
-                        rendant vulnérable ou malade.
-                      </TextStyled>
-                    </BulletPoint>
-                  </TextStyled>
+                  <View>
+                    <TextStyled bold>
+                      "<TextStyled italic>Oh ça va, un verre d'alcool n'a jamais tué personne</TextStyled>"
+                    </TextStyled>
+                    <Spacer size={20} />
+                    <TextStyled bold color="#DE285E">
+                      SAUF QUE :
+                    </TextStyled>
+                    <Spacer size={10} />
+                  </View>
+                  <BulletPoint>
+                    <TextStyled>
+                      {'\u2022'} L'alcool, même consommé en petite{' '}
+                      <TextStyled bold>quantité est mauvais pour la santé</TextStyled> .
+                    </TextStyled>
+                  </BulletPoint>
+                  <BulletPoint>
+                    <TextStyled>
+                      {'\u2022'} L’alcool est responsable de 30% des accidents mortels sur la route.
+                    </TextStyled>
+                  </BulletPoint>
+                  <BulletPoint>
+                    <TextStyled>
+                      {'\u2022'} "<TextStyled italic>Une cuite de temps en temps</TextStyled>" peut poser problème. Pas
+                      forcément en terme de dépendance, mais simplement d'effets secondaires en désinhibant, en rendant
+                      vulnérable ou malade.
+                    </TextStyled>
+                  </BulletPoint>
                 </>
               }
             />
             <ElementDayDefi
-              content={
+              contentView={
                 <>
-                  <TextStyled>
-                    <View>
-                      <TextStyled bold>
-                        "<TextStyled italic>Oui mais moi ça va, je ne bois que du vin !</TextStyled>"
-                      </TextStyled>
+                  <View>
+                    <TextStyled bold>
+                      "<TextStyled italic>Oui mais moi ça va, je ne bois que du vin !</TextStyled>"
+                    </TextStyled>
 
-                      <Spacer size={20} />
-                      <TextStyled bold color="#DE285E">
-                        SAUF QUE :
-                      </TextStyled>
-                      <Spacer size={10} />
-                    </View>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} Un verre de vin n'est pas meilleur pour la santé qu'un verre de whisky.
-                      </TextStyled>
-                    </BulletPoint>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} Le vin (comme tous les alcools) est calorique et a tendance à entraîner un stockage
-                        des graisses. Le ventre à bière n'est pas un mythe.
-                      </TextStyled>
-                    </BulletPoint>
-                  </TextStyled>
+                    <Spacer size={20} />
+                    <TextStyled bold color="#DE285E">
+                      SAUF QUE :
+                    </TextStyled>
+                    <Spacer size={10} />
+                  </View>
+                  <BulletPoint>
+                    <TextStyled>
+                      {'\u2022'} Un verre de vin n'est pas meilleur pour la santé qu'un verre de whisky.
+                    </TextStyled>
+                  </BulletPoint>
+                  <BulletPoint>
+                    <TextStyled>
+                      {'\u2022'} Le vin (comme tous les alcools) est calorique et a tendance à entraîner un stockage des
+                      graisses. Le ventre à bière n'est pas un mythe.
+                    </TextStyled>
+                  </BulletPoint>
                 </>
               }
             />
             <ElementDayDefi
-              content={
+              contentView={
                 <>
                   <TextStyled>
                     Aujourd’hui, nous vous proposons de{' '}
@@ -132,10 +127,6 @@ const Defi3_Day5 = ({ navigation, route }) => {
         )}
       </QuizzStack.Screen>
       <QuizzStack.Screen name="QUIZZ_DEFI3_DAY5">{({ navigation }) => <QuizzDefi3Day5 />}</QuizzStack.Screen>
-
-      <QuizzStack.Screen name="RESULTS_DEFI3_DAY5">
-        {({ navigation }) => <TextStyled>RESULTS</TextStyled>}
-      </QuizzStack.Screen>
     </QuizzStack.Navigator>
   );
 };

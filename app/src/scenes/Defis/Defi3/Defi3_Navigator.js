@@ -23,8 +23,6 @@ const Defi3_Navigator = () => {
     <Background color="#39cec0" withSwiperContainer>
       <Defi3_Stack.Navigator headerMode="none" initialRouteName={'DEFI3_MENU'}>
         <Defi3_Stack.Screen name="DEFI3_MENU" component={Defi3_Menu} />
-        {/* <Defi3_Stack.Screen name="TO_SAY_NO" component={ToSayNo} /> */}
-        {/* <Defi3_Stack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} /> */}
         <Defi3_Stack.Screen
           name="DEFI3_DAY_1"
           component={Defi3_Day1}

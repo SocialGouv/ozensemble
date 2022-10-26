@@ -200,4 +200,5 @@ const Initals = styled.View`
   shadow-color: #000000;
   shadow-opacity: 0.2;
   shadow-radius: 4px;
+  elevation: 4;
 `;

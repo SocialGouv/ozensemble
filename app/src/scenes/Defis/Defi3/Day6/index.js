@@ -19,10 +19,7 @@ const Defi3_Day6 = ({ navigation, route }) => {
   const emotion = emotions.find((e) => e.value === emotionValue);
   const answerSection = answersRiskSituations[0]?.answerKey.split('.')[0];
   const situationText = answerSection == 1 ? 'C’est une situation extérieure' : 'C’est une situation intérieure';
-  const conseil =
-    emotion?.value === 2
-      ? answersRiskSituations[0]?.consommationReasonPositiveEmotion
-      : answersRiskSituations[0]?.consommationReasonNegativeEmotion;
+
   useEffect(() => {
     if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
   }, [route?.params, isFocused]);
@@ -44,7 +41,6 @@ const Defi3_Day6 = ({ navigation, route }) => {
             answersRiskSituations={answersRiskSituations}
             emotion={emotion}
             situationText={situationText}
-            conseil={conseil}
             navigation={navigation}
           />
         )}

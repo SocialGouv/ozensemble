@@ -27,40 +27,39 @@ const Defi3_Day1 = ({ navigation, route }) => {
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="L’alcool en quelques chiffres">
             <ElementDayDefi
-              content={
+              contentView={
                 <>
-                  <TextStyled>
-                    En France, <TextStyled bold>chaque année</TextStyled>, l’alcool c’est :{'\n'}
-                    {'\n'}
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} <TextStyled bold>3ème</TextStyled> cause de décès évitable.
-                      </TextStyled>
-                    </BulletPoint>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} <TextStyled bold>12 à 13%</TextStyled> de la mortalité annuelle en France, toutes
-                        causes confondues.
-                      </TextStyled>
-                    </BulletPoint>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} <TextStyled bold>41 000</TextStyled> décès prématurés avant 65 ans ayant comme cause
-                        directe la consommation d’alcool.
-                      </TextStyled>
-                    </BulletPoint>
-                    <RedCenteredView>
-                      <TextStyled color="#DE285E" center>
-                        40% de ces décès surviennent chez des personnes non dépendantes.
-                      </TextStyled>
-                    </RedCenteredView>
-                    <BulletPoint>
-                      <TextStyled>
-                        {'\u2022'} Un « coût social » de <TextStyled bold>120</TextStyled> milliards d’euros, équivalant
-                        à celui du tabac et près de 15 fois supérieur à celui des drogues illicites.
-                      </TextStyled>
-                    </BulletPoint>
-                  </TextStyled>
+                  <TextSizeStyled>
+                    En France, <TextSizeStyled bold>chaque année</TextSizeStyled>, l’alcool c’est :{'\n'}
+                  </TextSizeStyled>
+                  <BulletPoint>
+                    <TextSizeStyled>
+                      {'\u2022'} <TextSizeStyled bold>3ème</TextSizeStyled> cause de décès évitable.
+                    </TextSizeStyled>
+                  </BulletPoint>
+                  <BulletPoint>
+                    <TextSizeStyled>
+                      {'\u2022'} <TextSizeStyled bold>12 à 13%</TextSizeStyled> de la mortalité annuelle en France,
+                      toutes causes confondues.
+                    </TextSizeStyled>
+                  </BulletPoint>
+                  <BulletPoint>
+                    <TextSizeStyled>
+                      {'\u2022'} <TextSizeStyled bold>41 000</TextSizeStyled> décès prématurés avant 65 ans ayant comme
+                      cause directe la consommation d’alcool.
+                    </TextSizeStyled>
+                  </BulletPoint>
+                  <RedCenteredView>
+                    <TextSizeStyled color="#DE285E" center>
+                      40% de ces décès surviennent chez des personnes non dépendantes.
+                    </TextSizeStyled>
+                  </RedCenteredView>
+                  <BulletPoint>
+                    <TextSizeStyled>
+                      {'\u2022'} Un « coût social » de <TextSizeStyled bold>120</TextSizeStyled> milliards d’euros,
+                      équivalant à celui du tabac et près de 15 fois supérieur à celui des drogues illicites.
+                    </TextSizeStyled>
+                  </BulletPoint>
                 </>
               }
             />
@@ -76,7 +75,7 @@ const Defi3_Day1 = ({ navigation, route }) => {
             <ButtonPrimaryStyled
               content="À vous de jouer"
               widthSmall
-              onPress={() => navigation.navigate('GAINS_NAVIGATOR', { screen: 'QUIZZ_DEFI3_DAY3' })}
+              onPress={() => navigation.navigate('QUIZZ_DEFI3_DAY3')}
             />
             <SmallTextStyled>
               <SmallTextStyled italic>Sources :</SmallTextStyled>
@@ -102,7 +101,7 @@ const Defi3_Day1 = ({ navigation, route }) => {
           </WrapperContainer>
         )}
       </QuizzStack.Screen>
-      <QuizzStack.Screen name="QUIZZ_DEFI3_DAY3">{({ navigation }) => <QuizzDefi3Day1 />}</QuizzStack.Screen>
+      <QuizzStack.Screen name="QUIZZ_DEFI3_DAY3">{({}) => <QuizzDefi3Day1 />}</QuizzStack.Screen>
 
       <QuizzStack.Screen name="RESULTS_DEFI3_DAY3">
         {({ navigation }) => <TextStyled>RESULTS</TextStyled>}
@@ -110,6 +109,11 @@ const Defi3_Day1 = ({ navigation, route }) => {
     </QuizzStack.Navigator>
   );
 };
+
+const TextSizeStyled = styled(TextStyled)`
+  font-size: 16px;
+  line-height: 24px;
+`;
 
 const BulletPoint = styled.View`
   margin: 10px;

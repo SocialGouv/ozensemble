@@ -3,13 +3,21 @@ import styled from 'styled-components';
 import Stars from './illustrations/Stars';
 import { P } from './Articles';
 
-const ElementDayDefi = ({ content, lineHeight = 20, noMarginBottom }) => (
+const ElementDayDefi = ({ content, contentView, lineHeight = 20, noMarginBottom }) => (
   <Paragraph noMarginBottom={noMarginBottom}>
     <ElemContainer>
       <StarsStyled color="#4030a5" size={20} />
-      <TextContent lineHeight={lineHeight} noMarginBottom>
-        {content}
-      </TextContent>
+      {content ? (
+        <TextContent lineHeight={lineHeight} noMarginBottom>
+          {content}
+        </TextContent>
+      ) : (
+        contentView && (
+          <ViewContent lineHeight={lineHeight} noMarginBottom>
+            {contentView}
+          </ViewContent>
+        )
+      )}
     </ElemContainer>
   </Paragraph>
 );
@@ -29,6 +37,10 @@ const StarsStyled = styled(Stars)`
 `;
 
 const TextContent = styled(P)`
+  flex: 1;
+`;
+
+const ViewContent = styled.View`
   flex: 1;
 `;
 

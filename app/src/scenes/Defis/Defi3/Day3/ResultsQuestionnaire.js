@@ -261,6 +261,8 @@ const ResultTitle = styled(H3)`
 const ResultTitleContainer = styled.View`
   flex-direction: row;
   justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 export default ResultsMotivations;

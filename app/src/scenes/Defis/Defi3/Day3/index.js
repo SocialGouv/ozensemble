@@ -70,32 +70,30 @@ const Questionnaire = ({ navigation, route }) => {
               }
             />
             <Element
-              content={
+              contentView={
                 <>
-                  <TextStyled>
-                    Procédons en deux étapes en identifiant : {'\n\n'}
-                    <CircleContainer>
-                      <AddCircleStyled />
-                      <TextStyledWidth>
-                        Les éléments ayant rendu votre réduction difficile à maintenir dans le temps malgré votre
-                        objectif (appelés{' '}
-                        <TextStyled bold italic>
-                          facteurs de risque
-                        </TextStyled>
-                        ).
-                      </TextStyledWidth>
-                    </CircleContainer>
-                    <CircleContainer>
-                      <MinusCircleStyled />
-                      <TextStyledWidth>
-                        Les sources d’aide et d’inspiration que vous avez trouvé dans votre quotidien (appelés{' '}
-                        <TextStyled bold italic>
-                          facteurs protecteurs
-                        </TextStyled>
-                        ).
-                      </TextStyledWidth>
-                    </CircleContainer>
-                  </TextStyled>
+                  <TextStyled>Procédons en deux étapes en identifiant : {'\n\n'}</TextStyled>
+                  <CircleContainer>
+                    <AddCircleStyled />
+                    <TextStyledWidth>
+                      Les éléments ayant rendu votre réduction difficile à maintenir dans le temps malgré votre objectif
+                      (appelés{' '}
+                      <TextStyled bold italic>
+                        facteurs de risque
+                      </TextStyled>
+                      ).
+                    </TextStyledWidth>
+                  </CircleContainer>
+                  <CircleContainer>
+                    <MinusCircleStyled />
+                    <TextStyledWidth>
+                      Les sources d’aide et d’inspiration que vous avez trouvé dans votre quotidien (appelés{' '}
+                      <TextStyled bold italic>
+                        facteurs protecteurs
+                      </TextStyled>
+                      ).
+                    </TextStyledWidth>
+                  </CircleContainer>
                 </>
               }
             />
