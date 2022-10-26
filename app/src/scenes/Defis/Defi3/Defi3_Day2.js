@@ -6,9 +6,9 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import Element from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
 import styled from 'styled-components';
-import AddCircle from '../../../assets/icons/AddCircle';
-import MinusCircle from '../../../assets/icons/MinusCircle';
-import Defi3_day2_Schema from '../../../assets/illustrations/Defi3_day2_Schema';
+import AddCircle from '../../../components/illustrations/icons/AddCircle';
+import MinusCircle from '../../../components/illustrations/icons/MinusCircle';
+import Defi3_day2_Schema from '../../../components/Defi3_day2_Schema';
 import ToggleContent from '../../../components/ToggleContent';
 
 const Defi3_Day2 = ({ navigation, route }) => {

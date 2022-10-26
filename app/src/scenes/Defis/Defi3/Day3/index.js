@@ -15,8 +15,8 @@ import {
 import { setValidatedDays } from '../../utils';
 import WrapperContainer from '../../../../components/WrapperContainer';
 import Element from '../../../../components/ElementDayDefi';
-import AddCircle from '../../../../assets/icons/AddCircle';
-import MinusCircle from '../../../../assets/icons/MinusCircle';
+import AddCircle from '../../../../components/illustrations/icons/AddCircle';
+import MinusCircle from '../../../../components/illustrations/icons/MinusCircle';
 import { screenWidth } from '../../../../styles/theme';
 
 const QuestionnaireStack = createStackNavigator();
