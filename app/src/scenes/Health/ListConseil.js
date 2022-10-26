@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const listConseils = [
   {
     img: require('../../assets/images/ToSayNo.png'),
@@ -30,5 +28,16 @@ export const listConseils = [
     img: require('../../assets/images/DidYouKnow.png'),
     title: 'Le saviez-vous ?',
     link: 'DID_YOU_KNOW',
+  },
+  // TODO : add thumbnail for ALCOHOL_AND_MOTIVATION
+  {
+    // img: require('../../assets/images/DidYouKnow.png'),
+    title: 'Alcool et motivation',
+    link: 'ALCOHOL_AND_MOTIVATION',
+  },
+  {
+    img: require('../../assets/images/AlcoholAndHealthRisks.png'),
+    title: 'Alcool et risques santé',
+    link: 'ALCOHOL_AND_HEALTH_RISKS',
   },
 ];
