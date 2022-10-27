@@ -12,6 +12,7 @@ import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { defi2OnBoardingDoneState } from '../../recoil/defis';
+import { defi3OnBoardingDoneState } from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -33,6 +34,7 @@ const Defi = ({
   const closeNPS = () => setNPSvisible(false);
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
+  const [onBoardingDefi3Done, setOnBoardingDefi3Done] = useRecoilState(defi3OnBoardingDoneState);
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, ActiveDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
@@ -135,9 +137,21 @@ const Defi = ({
         onPress={() => {
           setOnBoardingDefi2Done(true);
         }}
-        visible={!onBoardingDefi2Done && defiStorageKey !== '@Defi1'}
+        visible={!onBoardingDefi2Done && defiStorageKey === '@Defi2'}
         hide={() => {
           setOnBoardingDefi2Done(true);
+        }}
+      />
+      <OnBoardingModal
+        title="Au menu cette semaine : la place de l’alcool dans la société & ma vie "
+        description="Tout d’abord, félicitez-vous car vous avez déjà réussi 2 défis. Aujourd’hui, nous allons nous questionner sur le rôle de l’alcool dans la société et dans votre vie."
+        boutonTitle="Je commence"
+        onPress={() => {
+          setOnBoardingDefi3Done(true);
+        }}
+        visible={!onBoardingDefi3Done && defiStorageKey === '@Defi3'}
+        hide={() => {
+          setOnBoardingDefi3Done(true);
         }}
       />
     </WrapperContainer>

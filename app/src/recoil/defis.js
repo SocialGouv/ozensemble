@@ -8,6 +8,12 @@ export const defi2OnBoardingDoneState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi2_OnBoardingDoneState', JSON.stringify(newValue)))],
 });
 
+export const defi3OnBoardingDoneState = atom({
+  key: 'defi3OnBoardingDoneState',
+  default: getInitValueFromStorage('@Defi3_OnBoardingDoneState', false),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_OnBoardingDoneState', JSON.stringify(newValue)))],
+});
+
 export const defi2EmotionState = atom({
   key: 'defi2EmotionState',
   default: null,
