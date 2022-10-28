@@ -26,6 +26,8 @@ import { defi2EmotionState } from '../../recoil/defis';
 import Defi2_Day5_Navigation from '../Defis/Defi2/Day5/Defi2_Day5_Navigator';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
+import Defi3Day3 from '../../scenes/Defis/Defi3/Day3';
+import { Defi3_Day3_Answers_Help_State } from '../../recoil/quizzs';
 
 const QuizzsStack = createStackNavigator();
 
@@ -78,6 +80,13 @@ const QuizzsNavigator = () => (
         rootRoute: 'QUIZZ_MENU',
       }}
     />
+    <QuizzsStack.Screen
+      name="FACTEURS_MOTIVATION"
+      component={Defi3Day3}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
     <QuizzsStack.Screen name="CONTACT" component={ContactForm} />
     <QuizzsStack.Screen name="DOCTOLIB" component={Doctolib} />
   </QuizzsStack.Navigator>
@@ -90,6 +99,7 @@ const QuizzMenu = () => {
   const motivationsQuizzResult = useRecoilValue(motivationsQuizzResultState);
   const riskSituationsQuizzAnswers = useRecoilValue(riskSituationsQuizzAnswersState);
   const defi2Emotion = useRecoilValue(defi2EmotionState);
+  const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
 
   return (
     <WrapperContainer title="Tests des défis" onPressBackButton={navigation.goBack}>
@@ -138,6 +148,14 @@ const QuizzMenu = () => {
         title="Affronter une situation"
         onStart={() => navigation.navigate('AFFRONTER_SITUATION', { screen: 'DEFI2_DAY5' })}
         done={defi2Emotion !== null}
+        showOnlyIfDone
+      />
+
+      <DefiCategorieTitle color="#4030a5">Troisième défi</DefiCategorieTitle>
+      <QuizzElement
+        title="Les facteurs influençant ma motivation"
+        onStart={() => navigation.navigate('FACTEURS_MOTIVATION', { screen: 'EXPLICATIONS' })}
+        done={Defi3_Day3_Answers_Help !== null}
         showOnlyIfDone
       />
     </WrapperContainer>
