@@ -9,8 +9,8 @@ export const setValidatedDays = async (day, defiStorageKey) => {
     const lastUpdate = new Date().toISOString().split('T')[0];
     storage.set(`${defiStorageKey}_LastUpdate`, lastUpdate);
     logEvent({
-      category: 'DEFI1',
-      action: 'DEFI1_VALIDATE_DAY',
+      category: defiStorageKey.replace('@', '').toUpperCase(),
+      action: `${defiStorageKey.replace('@', '').toUpperCase()}_VALIDATE_DAY`,
       name: 'day',
       value: day,
     });

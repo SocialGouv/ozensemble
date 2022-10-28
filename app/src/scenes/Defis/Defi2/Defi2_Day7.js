@@ -25,7 +25,9 @@ const Defi2_Day7 = ({ navigation, route }) => {
   const emotion = emotions.find((e) => e.value === emotionValue);
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi2');
+    if (route?.params?.inDefi2) {
+      setValidatedDays(route?.params?.day, '@Defi2');
+    }
   }, [route?.params, isFocused]);
 
   return (
