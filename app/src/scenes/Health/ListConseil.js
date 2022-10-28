@@ -29,9 +29,8 @@ export const listConseils = [
     title: 'Le saviez-vous ?',
     link: 'DID_YOU_KNOW',
   },
-  // TODO : add thumbnail for ALCOHOL_AND_MOTIVATION
   {
-    // img: require('../../assets/images/DidYouKnow.png'),
+    img: require('../../assets/images/AlcoholAndMotivation.png'),
     title: 'Alcool et motivation',
     link: 'ALCOHOL_AND_MOTIVATION',
   },

@@ -21,7 +21,7 @@ const AlcoholAndMotivation = ({ navigation }) => {
       }
       link={'https://doi.org/10.1037/0708-5591.49.1.24'}>
       <TopContainer>
-        <H2 color={'#4030a5'}>La psychologie postive</H2>
+        <H2 color={'#4030a5'}>La psychologie positive</H2>
         <Spacer size={20} />
         <P>
           La psychologie positive investigue les champs du fonctionnement optimal de l’individu. Des recherches dans ce
