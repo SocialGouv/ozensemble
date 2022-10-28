@@ -9,9 +9,9 @@ import { P, Spacer } from '../../../components/Articles';
 import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
 import questions from './questions';
-import { View } from 'react-native';
-import textResults from './textResults';
+import TextResult from './TextResult';
 import ButtonPrimary from '../../../components/ButtonPrimary';
+import { TouchableOpacity } from 'react-native';
 
 const ResultsQuizzDefi3Day5 = ({ route, navigation }) => {
   const answers = useRecoilValue(QuizzDefi3Day5AnswersState);
@@ -43,6 +43,17 @@ const ResultsQuizzDefi3Day5 = ({ route, navigation }) => {
       ))}
 
       <Spacer size={5} />
+
+      <TouchableOpacity onPress={() => navigation.navigate('ALCOHOL_AND_HEALTH_RISKS')}>
+        <TextStyled>
+          Pour en savoir plus, consulter l’article sur{' '}
+          <TextStyled color="#4030A5" underline>
+            les risques sur la santé à long terme
+          </TextStyled>
+          .
+        </TextStyled>
+      </TouchableOpacity>
+
       <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate('DEFI3_MENU')} />
     </WrapperContainer>
   );
@@ -85,7 +96,7 @@ const AnswerResult = ({ questionKey }) => {
           )}
 
           <Spacer size={20} />
-          {textResults[questionKey]}
+          <TextResult questionKey={questionKey} />
         </>
       }
     />

@@ -13,8 +13,8 @@ import Defi3_Day4 from './Day4';
 import Defi3_Day5 from './Defi3_Day5';
 import Defi3_Day6 from './Day6';
 import Defi3_Day7 from './Defi3_Day7';
-// import ToSayNo from '../../Health/Articles/ToSayNo';
-// import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
+import AlcoholAndMotivations from '../../Health/Articles/AlcoholAndMotivation';
+import AlcoholAndHealthRisks from '../../Health/Articles/AlcoholAndHealthRisks';
 
 const Defi3_Stack = createStackNavigator();
 
@@ -87,6 +87,8 @@ const Defi3_Navigator = () => {
           name="DEFI3_DAY_7"
           component={Defi3_Day7}
         />
+        <Defi3_Stack.Screen name="ALCOHOL_AND_MOTIVATION" component={AlcoholAndMotivations} />
+        <Defi3_Stack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
       </Defi3_Stack.Navigator>
     </Background>
   );
