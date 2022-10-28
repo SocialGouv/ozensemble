@@ -56,8 +56,11 @@ app.use(helmet());
 app.use("/event", require("./controllers/event"));
 app.use("/user", require("./controllers/user"));
 app.use("/mail", require("./controllers/mail").router);
+app.use("/reminder", require("./controllers/reminder").router);
 
 app.use(errors.sendError);
+
+require("./cronjobs");
 
 // Start the server
 app.listen(PORT, () => console.log(`RUN ON PORT ${PORT}`));

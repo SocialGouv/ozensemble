@@ -28,6 +28,7 @@ import StarsTabIcon from './components/illustrations/StarsTabIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
+import { deepLinkingConfig } from './services/deepLink';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -137,7 +138,6 @@ const Router = () => {
   });
 
   const initApp = async () => {
-    NotificationService.init();
     await initMatomo();
     await logEvent({ category: 'APP', action: 'APP_OPEN' });
     // storage.clearAll();
@@ -185,7 +185,7 @@ const Router = () => {
 
   return (
     <>
-      <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange}>
+      <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange} linking={deepLinkingConfig}>
         <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
         <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
           <Root.Screen name="WELCOME" component={WelcomeScreen} />
