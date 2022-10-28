@@ -17,7 +17,7 @@ router.post(
     }
 
     const sendNPSEvent = body.event?.category === "NPS";
-    const exportDataEvent = body.event?.category === "EXPORT";
+    const exportDataEvent = body.event?.action === "EXPORT";
     if (req.headers.appversion < 99 && (exportDataEvent || sendNPSEvent)) {
       return res.status(200).send({
         ok: true,
@@ -32,6 +32,7 @@ router.post(
                   ? "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1"
                   : "https://play.google.com/store/apps/details?id=com.addicto",
             },
+            { text: "Plus tard", style: "cancel" },
           ],
           { cancelable: true },
         ],
