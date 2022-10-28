@@ -7,12 +7,12 @@ import Defi from '../Defi';
 import { defi3_Data } from './defi3_Data';
 import { setValidatedDays } from '../utils';
 import Defi3_Day1 from './Defi3_Day1';
-// import Defi3_Day2 from './defi3_Day2';
-// import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
-// import Defi2_Day7 from './Defi2_Day7';
-// import Defi2_Day6 from './Defi2_Day6';
-// import Defi2_Day5_Navigator from './Day5/Defi2_Day5_Navigator';
-// import Defi2_Day4 from './Defi2_Day4';
+import Defi3_Day2 from './Defi3_Day2';
+import Defi3_Day3 from './Day3';
+import Defi3_Day4 from './Day4';
+import Defi3_Day5 from './Defi3_Day5';
+import Defi3_Day6 from './Day6';
+import Defi3_Day7 from './Defi3_Day7';
 // import ToSayNo from '../../Health/Articles/ToSayNo';
 // import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
 
@@ -23,8 +23,6 @@ const Defi3_Navigator = () => {
     <Background color="#39cec0" withSwiperContainer>
       <Defi3_Stack.Navigator headerMode="none" initialRouteName={'DEFI3_MENU'}>
         <Defi3_Stack.Screen name="DEFI3_MENU" component={Defi3_Menu} />
-        {/* <Defi3_Stack.Screen name="TO_SAY_NO" component={ToSayNo} /> */}
-        {/* <Defi3_Stack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} /> */}
         <Defi3_Stack.Screen
           name="DEFI3_DAY_1"
           component={Defi3_Day1}
@@ -34,12 +32,10 @@ const Defi3_Navigator = () => {
             day: 1,
           }}
         />
-        {/* 
         <Defi3_Stack.Screen
           name="DEFI3_DAY_2"
           component={Defi3_Day2}
           initialParams={{
-            title: 'Mieux mesurer ma consommation',
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 2,
@@ -47,7 +43,7 @@ const Defi3_Navigator = () => {
         />
         <Defi3_Stack.Screen
           name="DEFI3_DAY_3"
-          component={QuizzRiskSituations}
+          component={Defi3_Day3}
           initialParams={{
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
@@ -58,7 +54,6 @@ const Defi3_Navigator = () => {
           name="DEFI3_DAY_4"
           component={Defi3_Day4}
           initialParams={{
-            title: 'Évaluer sa qualité de vie',
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 4,
@@ -66,18 +61,18 @@ const Defi3_Navigator = () => {
         />
         <Defi3_Stack.Screen
           name="DEFI3_DAY_5"
-          component={Defi3_Day5_Navigator}
+          component={Defi3_Day5}
           initialParams={{
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 5,
           }}
         />
+
         <Defi3_Stack.Screen
           name="DEFI3_DAY_6"
           component={Defi3_Day6}
           initialParams={{
-            title: 'Quelles raisons vous motivent à diminuer votre consommation ?',
             inDefi3: true,
             rootRoute: 'DEFI3_MENU',
             day: 6,
@@ -91,7 +86,7 @@ const Defi3_Navigator = () => {
           }}
           name="DEFI3_DAY_7"
           component={Defi3_Day7}
-        /> */}
+        />
       </Defi3_Stack.Navigator>
     </Background>
   );

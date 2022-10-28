@@ -9,6 +9,8 @@ const TextStyled = styled.Text`
   ${(props) => props.italic && `font-style: italic;`}
   ${(props) => props.center && `text-align: center;`}
   textDecoration: ${({ underline }) => underline && 'underline'};
+  ${({ size }) => size && `font-size: ${size}px;`}
+
   text-decoration-color: ${({ color }) => color || '#191919'};
 `;
 

@@ -8,7 +8,7 @@ import { P } from '../../../../components/Articles';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import { defi2EmotionState } from '../../../../recoil/defis';
 import { riskSituationsQuizzAnswersState } from '../../../../recoil/quizzs';
-import emotions from './emotions';
+import emotions from '../../../../components/emotions';
 import riskSituations from '../../../Quizzs/QuizzRiskSituations/riskSituations';
 import WrapperContainer from '../../../../components/WrapperContainer';
 import TextStyled from '../../../../components/TextStyled';

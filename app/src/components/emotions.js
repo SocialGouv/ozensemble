@@ -1,9 +1,9 @@
 import React from 'react';
-import NoReassuredSmiley from '../../../../components/illustrations/smiley/NoReassuredSmiley';
-import SadSmiley from '../../../../components/illustrations/smiley/SadSmiley';
-import IllSmiley from '../../../../components/illustrations/smiley/IllSmiley';
-import AngrySmiley from '../../../../components/illustrations/smiley/AngrySmiley';
-import PleasureSmiley from '../../../../components/illustrations/smiley/PleasureSmiley';
+import NoReassuredSmiley from './illustrations/smiley/NoReassuredSmiley';
+import SadSmiley from './illustrations/smiley/SadSmiley';
+import IllSmiley from './illustrations/smiley/IllSmiley';
+import AngrySmiley from './illustrations/smiley/AngrySmiley';
+import PleasureSmiley from './illustrations/smiley/PleasureSmiley';
 
 const emotions = [
   {

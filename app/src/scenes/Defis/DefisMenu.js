@@ -91,7 +91,6 @@ const DefisMenu = ({ navigation }) => {
         title={'Deuxième défi'}
         description={'Aller plus loin...'}
         onPress={() => {
-          console.log('2e defi press');
           navigation.navigate('DEFI2');
         }}
         image={require('../../assets/images/Defi2.png')}
@@ -103,7 +102,6 @@ const DefisMenu = ({ navigation }) => {
         title={'Troisième défi'}
         description={'Ma vie quotidienne'}
         onPress={() => {
-          console.log('3e defi press');
           navigation.navigate('DEFI3');
         }}
         image={require('../../assets/images/Defi3.jpg')}
@@ -148,7 +146,7 @@ const DefisMenu = ({ navigation }) => {
       />
       <OnBoardingModal
         title="Faites le deuxième défi avant"
-        description="Commencez le défi pour faire le point en 7 jours avant d'aller plus loin :) "
+        description="Commencez le défi 2 avant d'aller plus loin :) "
         boutonTitle={`${defi2CallToAction} le\u000Adeuxième\u00A0défi`}
         onPress={() => {
           setshowDefi3Modal(false);

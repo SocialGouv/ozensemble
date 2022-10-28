@@ -35,6 +35,7 @@ const Quizz = ({
   mapAnswersToResult,
   Results,
   event = '',
+  calculateScore = true,
 }) => {
   const [progress, setProgress] = useState(0);
   const [answers, setAnswers] = useRecoilState(recoilAnswersState);
@@ -73,9 +74,13 @@ const Quizz = ({
     setProgress((questionIndex + 1) / questions.length);
     const endOfQuestions = questionIndex === questions.length - 1;
 
-    logQuizzAnswer({ questionKey, answerKey, score });
+    if (calculateScore) {
+      logQuizzAnswer({ questionKey, answerKey, score });
+    } else {
+      logQuizzAnswer({ questionKey, answerKey });
+    }
 
-    if (endOfQuestions) {
+    if (calculateScore && endOfQuestions) {
       const addictionResult = mapAnswersToResult(questions, newAnswers);
       logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
       if (addictionResult) setResultKey(addictionResult);
