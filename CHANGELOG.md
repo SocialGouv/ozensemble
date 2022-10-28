@@ -1,3 +1,10 @@
+# [1.70.0](https://github.com/SocialGouv/ozensemble/compare/v1.69.1...v1.70.0) (2022-10-28)
+
+
+### Features
+
+* **defi3:** articles ([#114](https://github.com/SocialGouv/ozensemble/issues/114)) ([b8f870c](https://github.com/SocialGouv/ozensemble/commit/b8f870c6167f7a797eaf7fb95d40afa3eee7c66a))
+
 ## [1.69.1](https://github.com/SocialGouv/ozensemble/compare/v1.69.0...v1.69.1) (2022-10-25)
 
 
