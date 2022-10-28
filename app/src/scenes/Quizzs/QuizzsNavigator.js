@@ -19,6 +19,7 @@ import {
   lifeQualityQuizzResultState,
   motivationsQuizzResultState,
   riskSituationsQuizzAnswersState,
+  Defi3_Day3_Answers_Help_State,
 } from '../../recoil/quizzs';
 import QuizzRiskSituations from './QuizzRiskSituations';
 import Defi2_Day4 from '../Defis/Defi2/Defi2_Day4';
@@ -27,7 +28,6 @@ import Defi2_Day5_Navigation from '../Defis/Defi2/Day5/Defi2_Day5_Navigator';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
 import Defi3Day3 from '../../scenes/Defis/Defi3/Day3';
-import { Defi3_Day3_Answers_Help_State } from '../../recoil/quizzs';
 
 const QuizzsStack = createStackNavigator();
 
@@ -101,6 +101,8 @@ const QuizzMenu = () => {
   const defi2Emotion = useRecoilValue(defi2EmotionState);
   const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
 
+  console.log({ Defi3_Day3_Answers_Help });
+
   return (
     <WrapperContainer title="Tests des défis" onPressBackButton={navigation.goBack}>
       <SubTitle>
@@ -155,7 +157,7 @@ const QuizzMenu = () => {
       <QuizzElement
         title="Les facteurs influençant ma motivation"
         onStart={() => navigation.navigate('FACTEURS_MOTIVATION', { screen: 'EXPLICATIONS' })}
-        done={Defi3_Day3_Answers_Help !== null}
+        done={Defi3_Day3_Answers_Help.length > 0}
         showOnlyIfDone
       />
     </WrapperContainer>

@@ -25,6 +25,8 @@ const Defi2_Day5 = ({ navigation, route }) => {
   const firstRiskSituations = riskSituations
     .find((section) => section.answers.map((a) => a.answerKey).includes(riskSituationsQuizzAnswers[0]))
     ?.answers?.find((a) => a.answerKey === riskSituationsQuizzAnswers[0]);
+  console.log({ smileySelect });
+
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Affronter une situation à risque">
       <P bold>Dans cette situation, sélectionner l'émotion que vous ressentez.</P>
