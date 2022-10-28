@@ -5,7 +5,7 @@ export const getInitValueFromStorage = (key, defaultValue) => {
     const valueType = typeof defaultValue;
     if (valueType === 'number') {
       const foundValue = storage.getNumber(key);
-      if (!foundValue) return defaultValue;
+      if (foundValue == null) return defaultValue;
       return Number(foundValue);
     }
     if (valueType === 'boolean') {
