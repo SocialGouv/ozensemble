@@ -1,3 +1,10 @@
+## [1.70.3](https://github.com/SocialGouv/ozensemble/compare/v1.70.2...v1.70.3) (2022-10-28)
+
+
+### Bug Fixes
+
+* setup defi2day5 storage ([3ef674b](https://github.com/SocialGouv/ozensemble/commit/3ef674bd1b178b7a641d0236fe4595f316e23e11))
+
 ## [1.70.2](https://github.com/SocialGouv/ozensemble/compare/v1.70.1...v1.70.2) (2022-10-28)
 
 
