@@ -1,3 +1,10 @@
+## [1.70.4](https://github.com/SocialGouv/ozensemble/compare/v1.70.3...v1.70.4) (2022-10-28)
+
+
+### Bug Fixes
+
+* defi2day7 validation + log event defi validate day ([a772f12](https://github.com/SocialGouv/ozensemble/commit/a772f12d00e2d0f008477213ad82983287817212))
+
 ## [1.70.3](https://github.com/SocialGouv/ozensemble/compare/v1.70.2...v1.70.3) (2022-10-28)
 
 
