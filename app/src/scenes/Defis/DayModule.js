@@ -10,7 +10,7 @@ const DayModule = ({ dayData, activeDayIsDone }) => {
       </TitleDay>
       <DescriptionContainer>
         <TextStyled>
-          {activeDayIsDone ? dayData?.descriptionDone || dayData?.description : dayData?.description}
+          {activeDayIsDone ? dayData?.DescriptionDone || dayData?.Description : dayData?.Description}
         </TextStyled>
       </DescriptionContainer>
     </FeedDayContent>
