@@ -1,3 +1,10 @@
+## [1.70.2](https://github.com/SocialGouv/ozensemble/compare/v1.70.1...v1.70.2) (2022-10-28)
+
+
+### Bug Fixes
+
+* navigation rootRoute ([d39759a](https://github.com/SocialGouv/ozensemble/commit/d39759a12127694efe4e6de7d2db7fd53c3ad7ab))
+
 ## [1.70.1](https://github.com/SocialGouv/ozensemble/compare/v1.70.0...v1.70.1) (2022-10-28)
 
 
