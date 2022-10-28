@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { screenWidth } from '../styles/theme';
 import TextStyled from './TextStyled';
-import ManAndWoman from '../components/illustrations/ManAndWoman';
+import ManAndWoman from './illustrations/ManAndWoman';
 
 const OMSIllustationsManAndWoman = ({}) => {
   return (
