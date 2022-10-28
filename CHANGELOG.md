@@ -1,3 +1,10 @@
+## [1.70.1](https://github.com/SocialGouv/ozensemble/compare/v1.70.0...v1.70.1) (2022-10-28)
+
+
+### Bug Fixes
+
+* **api:** warn if try to send email withn old app ([#115](https://github.com/SocialGouv/ozensemble/issues/115)) ([e2f81d5](https://github.com/SocialGouv/ozensemble/commit/e2f81d58d26bb11162acf496622586e949979ffe))
+
 # [1.70.0](https://github.com/SocialGouv/ozensemble/compare/v1.69.1...v1.70.0) (2022-10-28)
 
 
