@@ -18,7 +18,7 @@ router.post(
 
     const sendNPSEvent = body.event?.category === "NPS";
     const exportDataEvent = body.event?.category === "EXPORT";
-    if (appversion < 99 && (exportDataEvent || sendNPSEvent)) {
+    if (req.headers.appversion < 99 && (exportDataEvent || sendNPSEvent)) {
       return res.status(200).send({
         ok: true,
         sendInApp: [
