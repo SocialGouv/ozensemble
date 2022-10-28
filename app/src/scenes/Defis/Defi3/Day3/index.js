@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import TextStyled from '../../../../components/TextStyled';
-import ResultsMotivations from './ResultsQuestionnaire';
+import ResultsQuestionnaireDefi3Day3 from './ResultsQuestionnaireDefi3Day3';
 import Section from './Section';
 import sections from './sections';
 import {
@@ -19,9 +19,9 @@ import AddCircle from '../../../../components/illustrations/icons/AddCircle';
 import MinusCircle from '../../../../components/illustrations/icons/MinusCircle';
 import { screenWidth } from '../../../../styles/theme';
 
-const QuestionnaireStack = createStackNavigator();
+const QuestionnaireDefi3Day3Stack = createStackNavigator();
 
-const Questionnaire = ({ navigation, route }) => {
+const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
   const [Defi3_Day3_answers_Difficulties, setDefi3_Day3_Answers_Difficulties_State] = useRecoilState(
     Defi3_Day3_Answers_Difficulties_State
   );
@@ -51,11 +51,11 @@ const Questionnaire = ({ navigation, route }) => {
   };
 
   return (
-    <QuestionnaireStack.Navigator
+    <QuestionnaireDefi3Day3Stack.Navigator
       screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
       headerMode="none"
       initialRouteName={route?.params?.initialRouteName}>
-      <QuestionnaireStack.Screen name="EXPLICATIONS">
+      <QuestionnaireDefi3Day3Stack.Screen name="EXPLICATIONS">
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="Les facteurs influençant ma motivation">
             <Element
@@ -117,8 +117,8 @@ const Questionnaire = ({ navigation, route }) => {
             </ButtonsContainer>
           </WrapperContainer>
         )}
-      </QuestionnaireStack.Screen>
-      <QuestionnaireStack.Screen name="QUIZZ_QUESTIONS_1">
+      </QuestionnaireDefi3Day3Stack.Screen>
+      <QuestionnaireDefi3Day3Stack.Screen name="QUIZZ_QUESTIONS_1">
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="Les facteurs influençant ma consommation">
             <Paragraph>
@@ -141,8 +141,8 @@ const Questionnaire = ({ navigation, route }) => {
             </ButtonsContainer>
           </WrapperContainer>
         )}
-      </QuestionnaireStack.Screen>
-      <QuestionnaireStack.Screen name="QUIZZ_QUESTIONS_2">
+      </QuestionnaireDefi3Day3Stack.Screen>
+      <QuestionnaireDefi3Day3Stack.Screen name="QUIZZ_QUESTIONS_2">
         {({ navigation }) => (
           <WrapperContainer
             onPressBackButton={navigation.goBack}
@@ -158,13 +158,13 @@ const Questionnaire = ({ navigation, route }) => {
             </ButtonsContainer>
           </WrapperContainer>
         )}
-      </QuestionnaireStack.Screen>
-      <QuestionnaireStack.Screen
+      </QuestionnaireDefi3Day3Stack.Screen>
+      <QuestionnaireDefi3Day3Stack.Screen
         name="QUIZZ_RESULTS"
-        initialParams={(route?.params, navigation)}
-        component={ResultsMotivations}
+        initialParams={{ ...route?.params }}
+        component={ResultsQuestionnaireDefi3Day3}
       />
-    </QuestionnaireStack.Navigator>
+    </QuestionnaireDefi3Day3Stack.Navigator>
   );
 };
 
@@ -215,4 +215,4 @@ const ImageStyled = styled.Image`
   height: ${screenWidth * 0.4}px;
 `;
 
-export default Questionnaire;
+export default QuestionnaireDefi3Day3;

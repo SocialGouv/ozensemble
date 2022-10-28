@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import { View } from 'react-native';
 import HeaderQuizzsResult from '../../HeaderQuizzsResult';
 import H3 from '../../../../components/H3';
 import TextStyled from '../../../../components/TextStyled';
@@ -10,7 +11,6 @@ import SmileyGreen from '../../../../components/illustrations/SmileyGreen';
 import SmileyRed from '../../../../components/illustrations/SmileyRed';
 import ToggleContent from '../../../../components/ToggleContent';
 import Element from '../../../../components/ElementDayDefi';
-import { View } from 'react-native';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 
 const Wrapper = ({ children, wrapped, inMyTests }) => {
@@ -29,7 +29,7 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   );
 };
 
-const ResultsMotivations = ({ wrapped = true, route, navigation }) => {
+const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) => {
   const Defi3_Day3_Answers_Difficulties = useRecoilValue(Defi3_Day3_Answers_Difficulties_State);
   const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
 
@@ -220,7 +220,7 @@ const ResultsMotivations = ({ wrapped = true, route, navigation }) => {
         retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans{' '}
         <TextStyled bold>Défis</TextStyled>.
       </TextStyled>
-      <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate('DEFI3_MENU')} />
+      <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
     </Wrapper>
   );
 };
@@ -265,4 +265,4 @@ const ResultTitleContainer = styled.View`
   padding-right: 10px;
 `;
 
-export default ResultsMotivations;
+export default ResultsQuestionnaireDefi3Day3;
