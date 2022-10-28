@@ -74,4 +74,5 @@ ios/sentry.properties
 
 !get-ip.sh
 
-google-services.json
+# google services
+**/android/app/google-services.json
