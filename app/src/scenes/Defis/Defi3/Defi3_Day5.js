@@ -48,8 +48,8 @@ const Defi3_Day5 = ({ navigation, route }) => {
                   </View>
                   <BulletPoint>
                     <TextStyled>
-                      {'\u2022'} L'alcool, même consommé en petite{' '}
-                      <TextStyled bold>quantité est mauvais pour la santé</TextStyled> .
+                      {'\u2022'} L'alcool, {' '}
+                      <TextStyled bold>même consommé en petite quantité est mauvais pour la santé</TextStyled>.
                     </TextStyled>
                   </BulletPoint>
                   <BulletPoint>
