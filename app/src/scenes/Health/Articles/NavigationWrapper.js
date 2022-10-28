@@ -9,8 +9,19 @@ import { logEvent } from '../../../services/logEventsWithMatomo';
 import BackButton from '../../../components/BackButton';
 import Sources from '../../Quizzs/Sources';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { defaultPaddingFontScale } from '../../../styles/theme';
 
-const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink2 }) => {
+const NavigationWrapper = ({
+  children,
+  title,
+  timeReading,
+  sourcesDrTalbot = true,
+  sources,
+  link,
+  link2,
+  textLink2,
+  noPaddingHorizontal,
+}) => {
   const navigation = useNavigation();
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
@@ -18,6 +29,7 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
 
   return (
     <WrapperContainer
+      noPaddingHorizontal={noPaddingHorizontal}
       onPressBackButton={navigation.goBack}
       title={title}
       onScroll={({ nativeEvent }) => {
@@ -31,43 +43,61 @@ const NavigationWrapper = ({ children, title, timeReading, link, link2, textLink
         }
       }}
       scrollEventThrottle={400}>
-      <ReadTimeContainer>
-        <ClockStyled size={20} />
-        <TextStyled>Lecture: {timeReading} min </TextStyled>
-      </ReadTimeContainer>
+      <ConditionalPaddingContainer noPaddingHorizontal={noPaddingHorizontal}>
+        <ReadTimeContainer>
+          <ClockStyled size={20} />
+          <TextStyled>Lecture: {timeReading} min </TextStyled>
+        </ReadTimeContainer>
+      </ConditionalPaddingContainer>
       {children}
-      <Sources>
-        <>
-          <TextStyled>
-            Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n'}
-          </TextStyled>
-          <TextStyled
-            color="#4030a5"
-            onPress={() => {
-              Linking.openURL(link);
-            }}>
-            {link}
-          </TextStyled>
-
-          {link2 && (
-            <>
-              <TextStyled />
-              <TextStyled
-                color="#4030a5"
-                onPress={() => {
-                  Linking.openURL(link2);
-                }}>
-                {textLink2}
+      <ConditionalPaddingContainer noPaddingHorizontal={noPaddingHorizontal}>
+        <Sources>
+          <>
+            {sourcesDrTalbot && (
+              <TextStyled>
+                Dr Talbot Geraldine, médecin Addictologue, médecin responsable Association CaPASSCité{'\n'}
               </TextStyled>
-            </>
-          )}
-        </>
-      </Sources>
-      <Spacer size={25} />
-      <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
+            )}
+
+            {sources && (
+              <TextStyled>
+                {'\n'}
+                {sources}
+                {'\n'}
+              </TextStyled>
+            )}
+            <TextStyled
+              color="#4030a5"
+              onPress={() => {
+                Linking.openURL(link);
+              }}>
+              {link}
+            </TextStyled>
+
+            {link2 && (
+              <>
+                <TextStyled />
+                <TextStyled
+                  color="#4030a5"
+                  onPress={() => {
+                    Linking.openURL(link2);
+                  }}>
+                  {textLink2}
+                </TextStyled>
+              </>
+            )}
+          </>
+        </Sources>
+        <Spacer size={25} />
+        <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
+      </ConditionalPaddingContainer>
     </WrapperContainer>
   );
 };
+
+const ConditionalPaddingContainer = styled.View`
+  ${(props) => props.noPaddingHorizontal && `padding-horizontal: ${defaultPaddingFontScale()}px;`}
+`;
 
 const ClockStyled = styled(Clock)`
   margin-right: 10px;
