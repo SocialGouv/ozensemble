@@ -3,25 +3,20 @@ import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { AppState, Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
 import API from './api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { logEvent } from "./logEventsWithMatomo";
 
+const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = "STORAGE_KEY_PUSH_NOTIFICATION_TOKEN";
+const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = "STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR";
 class NotificationService {
   listeners = {};
 
   init = () => {
-    this.configure();
-  };
-
-  delete = () => {
-    this.appStateListener?.remove();
-    PushNotificationIOS.removeEventListener('registrationError', this.failIOSToken);
-  };
-
-  async configure() {
-    const onRegister = this.handleRegister('configure');
     PushNotification.configure({
-      onNotification: this.handleNotification,
-      onRegister,
-      // IOS ONLY (optional): default: all - Permissions to register.
+      onNotification: this.onNotificationOpened.bind(this),
+      onRegister: this.onRegister.bind(this),
+      onRegistrationError: this.onRegistrationError.bind(this),
+
       permissions: {
         alert: true,
         badge: true,
@@ -31,14 +26,17 @@ class NotificationService {
       popInitialNotification: true,
       requestPermissions: false,
     });
-    this.checkAndGetPermissionIfAlreadyGiven('configure');
-    this.initAndroidLocalScheduledNotifications();
+    this.initAndroidChannels();
     if (Platform.OS === 'ios') {
-      PushNotificationIOS.addEventListener('registrationError', this.failIOSToken);
+      PushNotificationIOS.addEventListener('registrationError', this.onRegistrationError);
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    this.appStateListener = AppState.addEventListener('change', this.handleAppStateChange);
+    this.checkAndGetPermissionIfAlreadyGiven('configure');
   }
+
+  delete = () => {
+    this.appStateListener?.remove();
+    PushNotificationIOS.removeEventListener('registrationError', this.failIOSToken);
+  };
 
   handleAppStateChange = (newState) => {
     if (newState === 'active') {
@@ -46,18 +44,23 @@ class NotificationService {
     }
   };
 
-  handleRegister =
-    (from) =>
-    async ({ token }) => {
-      console.log('token ', from, token);
-      if (token) API.pushToken = token;
-      await API.put({ path: '/user', body: { pushToken: API.pushToken, userId: API.userId } });
-      if (Platform.OS === 'android') return;
-    };
+  onRegister = (tokenPayload) => {
+    console.log('NotificationService onRegister:', tokenPayload);
+    AsyncStorage.setItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, tokenPayload.token);
+    AsyncStorage.removeItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
+    logEvent({
+      category: "PUSH_NOTIFICATION_TOKEN_REGISTER",
+      action: "SUCCESS",
+    });
+  };
 
-  failIOSToken = (error) => {
-    API.put({ path: '/user', body: { error, userId: API.userId } });
-    if (Platform.OS === 'android') return;
+  onRegistrationError = (err) => {
+    console.error('NotificationService onRegistrationError:', err.message, err);
+    AsyncStorage.setItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR, err.message);
+    logEvent({
+      category: "PUSH_NOTIFICATION_TOKEN_REGISTER",
+      action: "ERROR",
+    });
   };
 
   checkPermission = async () => {
@@ -99,21 +102,31 @@ class NotificationService {
     const permission = await PushNotification.requestPermissions();
     return permission;
   };
-  // LOCAL NOTIFICATIONS
-
-  channelId = 'PUSH-LOCAL-NOTIFICATIONS'; // same as in strings.xml, for Android
-  initAndroidLocalScheduledNotifications = () => {
+  
+  initAndroidChannels = () => {
     PushNotification.createChannel(
       {
-        channelId: this.channelId, // (required)
-        channelName: 'Push local notifications', // (required)
-        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+        channelId: "reminder", // (required)
+        channelName: "Rappel", // (required)
+        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+        importance: 4, // (optional) default: 4. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
+      (created) => console.log(`createChannel returned '${created}'`)
+    );
+    PushNotification.createChannel(
+      {
+        channelId: 'PUSH-LOCAL-NOTIFICATIONS', // (required)
+        channelName: "Autres", // (required)
+        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance
         vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
       },
       (created) => console.log(`createChannel returned '${created}'`)
     );
   };
+
+  // LOCAL NOTIFICATIONS
 
   //Appears after a specified time. App does not have to be open.
   scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
@@ -150,20 +163,25 @@ class NotificationService {
     });
   }
 
-  handleNotification = (notification) => {
-    console.log('handle Notification', JSON.stringify(notification, null, 2));
+  onNotificationOpened = (notification) => {
+    console.log('NotificationService onNotificationOpened:', JSON.stringify(notification, null, 2));
+
+    logEvent({
+      category: "PUSH_NOTIFICATION_RECEIVE",
+      action: "CLICKED",
+    });
 
     /* ANDROID FOREGROUND */
+    // if (Platform.OS === 'android') {
+    //   // if not the line below, the notification is launched without notifying
+    //   // with the line below, there is a local notification triggered
+    //   if (notification.foreground && !notification.userInteraction && notification.channelId === this.channelId) return;
+    // }
 
-    if (Platform.OS === 'android') {
-      // if not the line below, the notification is launched without notifying
-      // with the line below, there is a local notification triggered
-      if (notification.foreground && !notification.userInteraction && notification.channelId === this.channelId) return;
-    }
     /* LISTENERS */
 
     const listenerKeys = Object.keys(this.listeners);
-    //  handle initial notification if any, if no listener is mounted yet
+
     if (!listenerKeys.length) {
       this.initNotification = notification;
       notification.finish(PushNotificationIOS.FetchResult.NoData);
@@ -171,23 +189,54 @@ class NotificationService {
     }
     this.initNotification = null;
 
-    //handle normal notification
     for (let i = listenerKeys.length - 1; i >= 0; i--) {
-      const notificationHandler = this.listeners[listenerKeys[i]];
-      notificationHandler(notification);
+      const listener = this.listeners[listenerKeys[i]];
+      listener?.(notification);
     }
     notification.finish(PushNotificationIOS.FetchResult.NoData);
   };
 
-  listen = (callback) => {
-    const listenerKey = `listener_${Date.now()}`;
+  subscribe = (callback) => {
+    let listenerKey = null;
+    while (!listenerKey) {
+      listenerKey = parseInt(Math.random() * 9999).toString();
+      if (this.listeners.hasOwnProperty(listenerKey)) {
+        listenerKey = null;
+      }
+    }
     this.listeners[listenerKey] = callback;
-    if (this.initNotification) this.handleNotification(this.initNotification);
-    return listenerKey;
+    return () => {
+      delete this.listeners[listenerKey];
+    };
+  };
+
+  popInitialNotification = () => {
+    const _initialNotification = this.initialNotification;
+    this.initNotification = null;
+    return _initialNotification;
+  };
+
+  getToken = async () => {
+    return await AsyncStorage.getItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, null);
+  };
+
+  hasToken = async () => {
+    return (await AsyncStorage.getItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, null)) !== null;
+  };
+
+  getTokenError = async () => {
+    return await AsyncStorage.getItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR, null);
+  };
+
+  listen = (callback) => {
+    // const listenerKey = `listener_${Date.now()}`;
+    // this.listeners[listenerKey] = callback;
+    // if (this.initNotification) this.handleNotification(this.initNotification);
+    // return listenerKey;
   };
 
   remove = (listenerKey) => {
-    delete this.listeners[listenerKey];
+    // delete this.listeners[listenerKey];
   };
 }
 
