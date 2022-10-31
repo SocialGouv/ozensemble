@@ -54,25 +54,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           </TextStyled>
         )}
         <View>
-          {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 1) && (
-            <ToggleContent title="Motif récréatif">
-              <Element
-                content={
-                  <>
-                    <TextStyled>
-                      Votre raison de consommer serait plutôt la recherche de sensations fortes d’amusement, de{' '}
-                      <TextStyled bold>ressentir les effets positifs de l’alcool</TextStyled>. {'\n\n'}
-                      Vous associez donc la consommation d’alcool à un{' '}
-                      <TextStyled bold>plaisir gustatif ou à l’ivresse</TextStyled> procurée et à une{' '}
-                      <TextStyled bold>sensation de lâcher prise</TextStyled>. {'\n\n'}
-                      Ex : “<TextStyled italic>j’ai bu car je suis plus créatif</TextStyled>” ou “
-                      <TextStyled italic>j’aime les sensations que cela me procure</TextStyled>”.
-                    </TextStyled>
-                  </>
-                }
-              />
-            </ToggleContent>
-          )}
+          {/* "motif social" first, order is different from the questionnaire */}
           {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 2) && (
             <ToggleContent title="Motif social">
               <Element
@@ -91,6 +73,25 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
                       Ex : “<TextStyled italic>j’ai bu car cela m’amuse</TextStyled>”, car “
                       <TextStyled italic>j’aime la sensation que cela me procure</TextStyled>” ou car “
                       <TextStyled italic>j’apprécie plus le moment avec mes proches</TextStyled>”.
+                    </TextStyled>
+                  </>
+                }
+              />
+            </ToggleContent>
+          )}
+          {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 1) && (
+            <ToggleContent title="Motif récréatif">
+              <Element
+                content={
+                  <>
+                    <TextStyled>
+                      Votre raison de consommer serait plutôt la recherche de sensations fortes d’amusement, de{' '}
+                      <TextStyled bold>ressentir les effets positifs de l’alcool</TextStyled>. {'\n\n'}
+                      Vous associez donc la consommation d’alcool à un{' '}
+                      <TextStyled bold>plaisir gustatif ou à l’ivresse</TextStyled> procurée et à une{' '}
+                      <TextStyled bold>sensation de lâcher prise</TextStyled>. {'\n\n'}
+                      Ex : “<TextStyled italic>j’ai bu car je suis plus créatif</TextStyled>” ou “
+                      <TextStyled italic>j’aime les sensations que cela me procure</TextStyled>”.
                     </TextStyled>
                   </>
                 }

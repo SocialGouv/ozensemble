@@ -15,13 +15,13 @@ import AlcoholAndHealthRisks6 from '../../../components/illustrations/articles/A
 import AlcoholAndHealthRisks7 from '../../../components/illustrations/articles/AlcoholAndHealthRisks7';
 
 const AlcoholAndHealthRisks = ({ navigation }) => {
-  const title = 'Alcool et risques santé';
+  const title = 'Alcool et risques sur la santé';
   return (
     <NavigationWrapper
       title={title}
       timeReading={4}
       sourcesDrTalbot={false}
-      link={'https://doi.org/10.1037/0708-5591.49.1.24'}
+      link={'https://www.alcool-info-service.fr/alcool/consequences-alcool/risques-long-terme'}
       noPaddingHorizontal>
       <TopContainer>
         <PaddingContainer>

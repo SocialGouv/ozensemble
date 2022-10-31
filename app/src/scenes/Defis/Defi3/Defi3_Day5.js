@@ -10,6 +10,7 @@ import QuizzDefi3Day5 from '../../Quizzs/QuizzDefi3Day5';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Spacer } from '../../../components/Articles';
 import { View } from 'react-native';
+import { Linking } from 'react-native';
 
 const QuizzStack = createStackNavigator();
 
@@ -118,8 +119,12 @@ const Defi3_Day5 = ({ navigation, route }) => {
               {'\n\n'}
               <SmallTextStyled>
                 {'\u2022'} Les dangers de la route - Alcool et conduite :{' '}
-                <TextStyled underline>
-                  https://www.securite-routiere.gouv.fr/dangers-de-la-route/lalcool-et-la-conduite{' '}
+                <TextStyled
+                  underline
+                  onPress={() => {
+                    Linking.openURL('https://www.securite-routiere.gouv.fr/dangers-de-la-route/lalcool-et-la-conduite');
+                  }}>
+                  https://www.securite-routiere.gouv.fr/dangers-de-la-route/lalcool-et-la-conduite
                 </TextStyled>
               </SmallTextStyled>
             </SmallTextStyled>
