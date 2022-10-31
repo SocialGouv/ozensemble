@@ -9,7 +9,6 @@ import { P, Spacer } from '../../../components/Articles';
 import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
 import questions from './questions';
-import { View } from 'react-native';
 import TextResult from './TextResult';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 

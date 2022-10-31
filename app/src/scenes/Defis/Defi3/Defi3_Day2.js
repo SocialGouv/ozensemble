@@ -10,6 +10,7 @@ import AddCircle from '../../../components/illustrations/icons/AddCircle';
 import MinusCircle from '../../../components/illustrations/icons/MinusCircle';
 import Defi3_day2_Schema from '../../../components/Defi3_day2_Schema';
 import ToggleContent from '../../../components/ToggleContent';
+import { TouchableOpacity } from 'react-native';
 
 const Defi3_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -108,13 +109,17 @@ const Defi3_Day2 = ({ navigation, route }) => {
       </Dropdown>
 
       <TextStyled bold>
-        Rappelez-vous que les envies de consommer ne sont pas seulement dûes à vous-même et à votre motivation !
+        Rappelez-vous que les envies de consommer ne sont pas seulement dûes à vous-même et à votre motivation !{'\n\n'}
       </TextStyled>
 
-      {/* TODO : add link to article */}
-      {/* <TextStyled>
-        Pour <TextStyled bold>aller plus loin</TextStyled>, lisez notre article sur les motivations à réduire l’alcool
-      </TextStyled> */}
+      <TouchableOpacity onPress={() => navigation.navigate('ALCOHOL_AND_MOTIVATION')}>
+        <TextStyled>
+          Pour <TextStyled bold>aller plus loin</TextStyled>, lisez notre article sur{' '}
+          <TextStyled color="#4030A5" underline>
+            les motivations à réduire l’alcool
+          </TextStyled>
+        </TextStyled>
+      </TouchableOpacity>
 
       <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate('DEFI3_MENU')} />
     </WrapperContainer>
