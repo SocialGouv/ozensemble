@@ -1,3 +1,10 @@
+## [1.71.1](https://github.com/SocialGouv/ozensemble/compare/v1.71.0...v1.71.1) (2022-10-31)
+
+
+### Bug Fixes
+
+* new config for sentry api ([68345da](https://github.com/SocialGouv/ozensemble/commit/68345da9f1167654de60c815cafd5e6cd244aed4))
+
 # [1.71.0](https://github.com/SocialGouv/ozensemble/compare/v1.70.4...v1.71.0) (2022-10-31)
 
 
