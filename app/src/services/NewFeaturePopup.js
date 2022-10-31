@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Platform, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
+import TextStyled from '../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../styles/theme';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
@@ -78,13 +79,17 @@ const NewFeaturePopupDisplay = ({ canShow }) => {
     <>
       <View style={[styles.container(featureToShow.position), featureToShow.styles?.container || {}]}>
         {!!featureToShow?.title && (
-          <Text style={[styles.title, featureToShow.styles?.title || {}]}>{featureToShow.title}</Text>
+          <TextStyled style={[styles.title, featureToShow.styles?.title || {}]}>{featureToShow.title}</TextStyled>
         )}
         {!!featureToShow?.description && (
-          <Text style={[styles.description, featureToShow.styles?.description || {}]}>{featureToShow.description}</Text>
+          <TextStyled style={[styles.description, featureToShow.styles?.description || {}]}>
+            {featureToShow.description}
+          </TextStyled>
         )}
         <TouchableOpacity onPress={onOkPress}>
-          <Text style={[styles.okButton, featureToShow.styles?.okButton || {}]}>{featureToShow.okButton}</Text>
+          <TextStyled style={[styles.okButton, featureToShow.styles?.okButton || {}]}>
+            {featureToShow.okButton}
+          </TextStyled>
         </TouchableOpacity>
       </View>
       {!featureToShow.noPointer && (

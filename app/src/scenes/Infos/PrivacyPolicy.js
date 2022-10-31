@@ -92,9 +92,9 @@ const PrivacyPolicy = ({ onClose }) => (
     </P>
     <P>
       Pour vous aider dans votre démarche, vous trouverez ici{' '}
-      <Text onPress={() => Linking.openURL('https://www.cnil.fr/fr/modele/courrier/exercer-son-droit-dacces')}>
+      <TextStyled onPress={() => Linking.openURL('https://www.cnil.fr/fr/modele/courrier/exercer-son-droit-dacces')}>
         https://www.cnil.fr/fr/modele/courrier/exercer-son-droit-dacces
-      </Text>
+      </TextStyled>
       , un modèle de courrier élaboré par la CNIL.
     </P>
     <P>
