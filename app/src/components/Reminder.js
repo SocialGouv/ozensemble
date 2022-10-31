@@ -18,6 +18,11 @@ import { logEvent } from '../services/logEventsWithMatomo';
 import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
 import WrapperContainer from './WrapperContainer';
+import API from '../services/api';
+import * as RNLocalize from "react-native-localize";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const STORAGE_KEY_REMINDER_ID = "STORAGE_KEY_REMINDER_ID";
 
 const Reminder = ({
   navigation,
@@ -113,23 +118,29 @@ const Reminder = ({
   const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
     NotificationService.cancelAll();
 
-    const fireDate = (() => {
-      if (mode === 'day') return dayjs();
-      if (weekDay > dayjs().get('weekday')) {
-        return dayjs().add(weekDay - dayjs().get('weekday'), 'day');
-      }
-      if (weekDay === dayjs().get('weekday')) {
-        if (!timeIsAfterNow(reminder)) return dayjs().day(7);
-        return dayjs();
-      }
-      return dayjs().add(7 - dayjs().get('weekday') + weekDay, 'day');
-    })();
-    NotificationService.scheduleNotification({
-      date: fireDate.set('hours', reminder.getHours()).set('minutes', reminder.getMinutes()).set('seconds', 0).toDate(),
-      title: notifReminderTitle,
-      message: notifReminderMessage,
-      repeatType: mode,
+    const weekDayName = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"][weekDay];
+
+    if (!(await NotificationService.hasToken())) return;
+
+    const existingId = await AsyncStorage.getItem(STORAGE_KEY_REMINDER_ID, null);
+
+    const res = await API.put({
+      path: "/reminder",
+      body: {
+        pushNotifToken: await NotificationService.getToken(),
+        type: mode === "day" ? "Daily" : mode === "week" ? "Weekdays" : "Daily",
+        timezone: RNLocalize.getTimeZone(),
+        timeHours: reminder.getHours(),
+        timeMinutes: reminder.getMinutes(),
+        daysOfWeek: mode === "week" ? {
+          [weekDayName]: true
+        } : undefined,
+        id: existingId ?? undefined,
+      },
     });
+
+    if (res?.ok && res?.reminder?.id)
+      await AsyncStorage.setItem(STORAGE_KEY_REMINDER_ID, res.reminder.id);
   };
 
   const showReminderSetup = async () => {
