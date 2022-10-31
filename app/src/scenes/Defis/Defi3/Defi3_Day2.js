@@ -109,8 +109,7 @@ const Defi3_Day2 = ({ navigation, route }) => {
       </Dropdown>
 
       <TextStyled bold>
-        Rappelez-vous que les envies de consommer ne sont pas seulement dûes à vous-même et à votre motivation !{' '}
-        {'\n\n'}
+        Rappelez-vous que les envies de consommer ne sont pas seulement dûes à vous-même et à votre motivation !{'\n\n'}
       </TextStyled>
 
       <TouchableOpacity onPress={() => navigation.navigate('ALCOHOL_AND_MOTIVATION')}>
