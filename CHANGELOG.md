@@ -1,3 +1,10 @@
+## [1.71.2](https://github.com/SocialGouv/ozensemble/compare/v1.71.1...v1.71.2) (2022-10-31)
+
+
+### Bug Fixes
+
+* **newFeaturesPopup:** missing TextStyled ([674cbf5](https://github.com/SocialGouv/ozensemble/commit/674cbf59ad6d1439aef3373c76677467c196c826))
+
 ## [1.71.1](https://github.com/SocialGouv/ozensemble/compare/v1.71.0...v1.71.1) (2022-10-31)
 
 
