@@ -1,3 +1,10 @@
+# [1.71.0](https://github.com/SocialGouv/ozensemble/compare/v1.70.4...v1.71.0) (2022-10-31)
+
+
+### Features
+
+* remote push notif + deepLink ([87f20fa](https://github.com/SocialGouv/ozensemble/commit/87f20faabd9f2bb0e6890f59c8cff9ce348a4ae3))
+
 ## [1.70.4](https://github.com/SocialGouv/ozensemble/compare/v1.70.3...v1.70.4) (2022-10-28)
 
 
