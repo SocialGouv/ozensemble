@@ -10,7 +10,7 @@ const PGPASSWORD = process.env.PGPASSWORD || null;
 const PGDATABASE = process.env.PGDATABASE;
 const DATABASE_URL = process.env.DATABASE_URL;
 
-const SENTRY_KEY = process.env.SENTRY_KEY || "https://b43d73353b7b48b8857deb69bca98da2@o348403.ingest.sentry.io/2213011";
+const SENTRY_KEY = process.env.SENTRY_KEY || "https://0ef6896e639948fd9ba54b861186360d@sentry.fabrique.social.gouv.fr/80";
 
 const VERSION = version;
 const MOBILE_VERSION = mobileAppVersion;
