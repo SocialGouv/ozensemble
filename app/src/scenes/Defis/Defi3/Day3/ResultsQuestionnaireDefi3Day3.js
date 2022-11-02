@@ -252,18 +252,16 @@ const ContainerSection = styled.View`
 `;
 
 const ResultTitle = styled(H3)`
-  flex-shrink: 0;
   font-weight: bold;
   color: ${({ color }) => color || '#4030a5'};
   margin-left: 8px;
-  margin-bottom: 10px;
+  flex: 1;
 `;
 
 const ResultTitleContainer = styled.View`
   flex-direction: row;
   justify-content: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin-bottom: 15px;
 `;
 
 export default ResultsQuestionnaireDefi3Day3;
