@@ -5,7 +5,7 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import TextStyled from '../../components/TextStyled';
 
-const Sevrage = ({ navigation }) => {
+const Sevrage = ({ navigation, route }) => {
   return (
     <WrapperContainer title={'Les signes de sevrages'} onPressBackButton={navigation.goBack}>
       <DescriptionSymptome>
@@ -45,7 +45,7 @@ const Sevrage = ({ navigation }) => {
               category: 'GAINS',
               action: 'GOAL_FINISH',
             });
-            navigation.navigate('GAINS_MAIN_VIEW');
+            navigation.navigate(route?.params?.rootRoute);
           }}
         />
       </CTAButtonContainer>
