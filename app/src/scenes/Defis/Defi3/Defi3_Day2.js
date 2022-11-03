@@ -48,7 +48,7 @@ const Defi3_Day2 = ({ navigation, route }) => {
           </>
         }
       />
-      <SchemaStyled />
+      <Defi3_day2_Schema />
 
       <Dropdown>
         <ToggleContent title="1. Planifier">
@@ -128,10 +128,6 @@ const Defi3_Day2 = ({ navigation, route }) => {
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
-`;
-
-const SchemaStyled = styled(Defi3_day2_Schema)`
-  margin-bottom: 20px;
 `;
 
 const CircleContainer = styled.View`
