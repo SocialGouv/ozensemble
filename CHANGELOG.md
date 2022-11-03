@@ -1,3 +1,10 @@
+## [1.71.4](https://github.com/SocialGouv/ozensemble/compare/v1.71.3...v1.71.4) (2022-11-03)
+
+
+### Bug Fixes
+
+* **notification:** add alert on network error ([#123](https://github.com/SocialGouv/ozensemble/issues/123)) ([fbb3178](https://github.com/SocialGouv/ozensemble/commit/fbb317886bc03a7e89491e780f31cabb9f9094d0))
+
 ## [1.71.3](https://github.com/SocialGouv/ozensemble/compare/v1.71.2...v1.71.3) (2022-11-03)
 
 
