@@ -1,3 +1,10 @@
+## [1.71.3](https://github.com/SocialGouv/ozensemble/compare/v1.71.2...v1.71.3) (2022-11-03)
+
+
+### Bug Fixes
+
+* **defi3:** J6, wording, responsiveness ([#120](https://github.com/SocialGouv/ozensemble/issues/120)) ([b4ace83](https://github.com/SocialGouv/ozensemble/commit/b4ace8326975954fd0a443e0c428d44ce86a0ba9))
+
 ## [1.71.2](https://github.com/SocialGouv/ozensemble/compare/v1.71.1...v1.71.2) (2022-10-31)
 
 
