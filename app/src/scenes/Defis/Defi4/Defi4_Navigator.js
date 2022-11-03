@@ -9,7 +9,7 @@ import { setValidatedDays } from '../utils';
 import Defi4_Day1 from './Defi4_Day1';
 import Defi4_Day2 from './Defi4_Day2';
 import Defi4_Day3 from './Defi4_Day3';
-// import Defi4_Day4 from './Day4';
+import Defi4_Day4 from './Defi4_Day4';
 // import Defi4_Day5 from './Defi4_Day5';
 // import Defi4_Day6 from './Day6';
 // import Defi4_Day7 from './Defi4_Day7';
@@ -50,7 +50,6 @@ const Defi4_Navigator = () => {
             day: 3,
           }}
         />
-        {/* 
         <Defi4_Stack.Screen
           name="DEFI4_DAY_4"
           component={Defi4_Day4}
@@ -60,6 +59,7 @@ const Defi4_Navigator = () => {
             day: 4,
           }}
         />
+        {/* 
         <Defi4_Stack.Screen
           name="DEFI4_DAY_5"
           component={Defi4_Day5}
