@@ -19,10 +19,10 @@ import NotificationService from '../services/notifications';
 import { defaultPaddingFontScale } from '../styles/theme';
 import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
-import * as RNLocalize from "react-native-localize";
+import * as RNLocalize from 'react-native-localize';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const STORAGE_KEY_REMINDER_ID = "STORAGE_KEY_REMINDER_ID";
+const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
 const Reminder = ({
   navigation,
@@ -44,6 +44,7 @@ const Reminder = ({
   const [mode, setMode] = useRecoilState(reminderModeState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
+  const [reminderErrorAlertVisible, setReminderErrorAlertVisible] = useState(false);
 
   const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
@@ -118,29 +119,35 @@ const Reminder = ({
   const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
     NotificationService.cancelAll();
 
-    const weekDayName = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"][weekDay];
+    const weekDayName = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][weekDay];
 
     if (!(await NotificationService.hasToken())) return;
 
     const existingId = await AsyncStorage.getItem(STORAGE_KEY_REMINDER_ID, null);
 
     const res = await API.put({
-      path: "/reminder",
+      path: '/reminder',
       body: {
         pushNotifToken: await NotificationService.getToken(),
-        type: mode === "day" ? "Daily" : mode === "week" ? "Weekdays" : "Daily",
+        type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
         timezone: RNLocalize.getTimeZone(),
         timeHours: reminder.getHours(),
         timeMinutes: reminder.getMinutes(),
-        daysOfWeek: mode === "week" ? {
-          [weekDayName]: true
-        } : undefined,
+        daysOfWeek:
+          mode === 'week'
+            ? {
+                [weekDayName]: true,
+              }
+            : undefined,
         id: existingId ?? undefined,
       },
     });
 
-    if (res?.ok && res?.reminder?.id)
-      await AsyncStorage.setItem(STORAGE_KEY_REMINDER_ID, res.reminder.id);
+    if (!res?.ok) return false;
+
+    if (res?.ok && res?.reminder?.id) await AsyncStorage.setItem(STORAGE_KEY_REMINDER_ID, res.reminder.id);
+
+    return true;
   };
 
   const showReminderSetup = async () => {
@@ -174,7 +181,11 @@ const Reminder = ({
   const setReminderRequest = async (newReminder, newMode, newWeekDay) => {
     setReminderSetupVisible(false);
     if (!dayjs(newReminder).isValid()) return;
-    await scheduleNotification(newReminder, newMode, newWeekDay);
+    const ok = await scheduleNotification(newReminder, newMode, newWeekDay);
+    if (!ok) {
+      setReminderErrorAlertVisible(true);
+      return;
+    }
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
@@ -255,6 +266,7 @@ const Reminder = ({
           hide={() => setReminderSetupVisible(false)}
           setReminderRequest={setReminderRequest}
         />
+        <ReminderErrorAlert visible={reminderErrorAlertVisible} hide={() => setReminderErrorAlertVisible(false)} />
       </Container>
     </WrapperContainer>
   );
@@ -356,6 +368,23 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
         )}
       </Modal>
       {!!timePickerVisible && <TimePicker visible={timePickerVisible} selectDate={onSelectDate} />}
+    </>
+  );
+};
+
+const ReminderErrorAlert = ({ visible, hide }) => {
+  return (
+    <>
+      <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
+        <ModalContainer>
+          <ModalTitle>
+            <TextStyled color="#4030a5">La notification n'a pas pu être ajoutée</TextStyled>
+          </ModalTitle>
+          <ModalContent>
+            <TextStyled>Merci de vous connecter à internet avant d'ajouter ou de modifier une notification.</TextStyled>
+          </ModalContent>
+        </ModalContainer>
+      </Modal>
     </>
   );
 };
