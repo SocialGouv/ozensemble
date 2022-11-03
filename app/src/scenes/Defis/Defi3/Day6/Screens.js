@@ -10,8 +10,7 @@ import H2 from '../../../../components/H2';
 import { P } from '../../../../components/Articles';
 import { Spacer } from '../../../../components/Articles';
 import ArrowEmotion from '../../../../components/ArrowEmotion';
-import { TouchableOpacity } from 'react-native';
-import riskSituationsConsumptionAdvice from './riskSituationsConsumptionAdvice';
+import ConsumptionAdvice from './ConsumptionAdvice';
 
 const ArrowContainer = styled.View`
   flex-direction: row;
@@ -195,46 +194,16 @@ export const Conseils = ({ navigation, emotion, situationText, answersRiskSituat
       <TextStyled bold color="#4030A5">
         Ma raison de consommer{'\n'}
       </TextStyled>
-      <TextStyled>
-        {emotion && answersRiskSituations && (
-          <ConsumptionAdvice
-            emotionType={emotion?.value === 2 ? 'PositiveEmotion' : 'NegativeEmotion'}
-            answerKey={answersRiskSituations[0]?.answerKey}
-          />
-        )}
-        {'\n\n'}
-      </TextStyled>
-      <TextStyled bold color="#DE285E">
-        Le conseil d’Oz Ensemble{'\n'}
-      </TextStyled>
-      <TextStyled>
-        Si l’alcool peut aider à gérer la tristesse ou la colère, il désinhibe et exacerbe également ces émotions
-        lorsque l’on devient ivre. Rappelez-vous que le verre qui vous aide à tenir au départ peut vous pousser aussi à
-        dire des choses à votre entourage que vous regretterez par la suite. Voire même ne pas vous en souvenir !{' '}
-        {'\n\n\n'}
-        Si votre entourage vous fait du mal, dites-le leur simplement et calmez-vous autrement en vous isolant un temps
-        ou en parlant à une personne de confiance. Prenez le temps de parler des sujets qui fâchent quand vous êtes
-        apaisé et sobre.{'\n\n'}
-      </TextStyled>
+      {emotion && answersRiskSituations && (
+        <ConsumptionAdvice
+          emotionType={emotion?.value === 2 ? 'positiveEmotion' : 'negativeEmotion'}
+          answerKey={answersRiskSituations[0]?.answerKey}
+          navigation={navigation}
+        />
+      )}
 
-      <TouchableOpacity onPress={() => navigation.navigate('CONTACT')}>
-        <TextStyled bold>
-          Si ces sujets sont trop difficiles à aborder seul, les conseils d’un{' '}
-          <TextStyled bold underline color="#4030A5">
-            psychologue
-          </TextStyled>{' '}
-          pourraient vous aider à gérer ces problèmes relationnels mieux que l’alcool.{'\n\n\n'}
-        </TextStyled>
-      </TouchableOpacity>
-
+      <Spacer size={40} />
       <ButtonPrimaryStyled content="J’ai compris" widthSmall onPress={() => navigation.navigate('DEFI3_MENU')} />
     </PaddingContainer>
   </WrapperContainer>
-);
-
-const ConsumptionAdvice = ({ emotionType, answerKey }) => (
-  <TextStyled>
-    {riskSituationsConsumptionAdvice[answerKey]?.[emotionType].text} (
-    <TextStyled bold>{riskSituationsConsumptionAdvice[answerKey]?.[emotionType].motif}</TextStyled>).
-  </TextStyled>
 );

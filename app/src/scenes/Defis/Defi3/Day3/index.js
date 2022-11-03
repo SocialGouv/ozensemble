@@ -101,7 +101,7 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
               <ImageStyled source={require('../../../../assets/illustrations/Defi3_day3.png')} />
             </ImageView>
 
-            <Legend>Ma motivations</Legend>
+            <Legend>Ma motivation</Legend>
             <Element
               content={
                 <>
