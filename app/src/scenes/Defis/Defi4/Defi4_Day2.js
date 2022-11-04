@@ -34,6 +34,7 @@ const Defi4_Day2 = ({ navigation, route }) => {
           }
         />
 
+        {/* TODO: add link/navigation to article (not ready yet) */}
         <Element
           Illustration={<Danger />}
           content={
