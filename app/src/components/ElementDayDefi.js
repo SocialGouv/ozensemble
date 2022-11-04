@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import Stars from './illustrations/Stars';
-import { P } from './Articles';
+import { P, Spacer } from './Articles';
 
-const ElementDayDefi = ({ content, contentView, lineHeight = 20, noMarginBottom }) => (
+const ElementDayDefi = ({ content, contentView, lineHeight = 20, noMarginBottom, Illustration }) => (
   <Paragraph noMarginBottom={noMarginBottom}>
     <ElemContainer>
-      <StarsStyled color="#4030a5" size={20} />
+      {Illustration ? Illustration : <Stars color="#4030a5" size={20} />}
+      <Spacer size={10} />
       {content ? (
         <TextContent lineHeight={lineHeight} noMarginBottom>
           {content}
@@ -30,10 +31,6 @@ const ElemContainer = styled.View`
   display: flex;
   flex-direction: row;
   margin-vertical: 10px;
-`;
-
-const StarsStyled = styled(Stars)`
-  margin-right: 10px;
 `;
 
 const TextContent = styled(P)`

@@ -13,6 +13,7 @@ import TopTimeline from './TopTimeline';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { defi2OnBoardingDoneState } from '../../recoil/defis';
 import { defi3OnBoardingDoneState } from '../../recoil/defis';
+import { defi4OnBoardingDoneState } from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -35,6 +36,7 @@ const Defi = ({
   const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
   const [onBoardingDefi3Done, setOnBoardingDefi3Done] = useRecoilState(defi3OnBoardingDoneState);
+  const [onBoardingDefi4Done, setOnBoardingDefi4Done] = useRecoilState(defi4OnBoardingDoneState);
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, ActiveDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
@@ -152,6 +154,18 @@ const Defi = ({
         visible={!onBoardingDefi3Done && defiStorageKey === '@Defi3'}
         hide={() => {
           setOnBoardingDefi3Done(true);
+        }}
+      />
+      <OnBoardingModal
+        title="Au menu cette semaine : je me fixe un objectif de consommation"
+        description="Cette semaine, nous vous invitons à vous tourner vers l’avenir et imaginer l'objectif de consommation que vous désirez atteindre sur les semaines à venir."
+        boutonTitle="Je commence"
+        onPress={() => {
+          setOnBoardingDefi4Done(true);
+        }}
+        visible={!onBoardingDefi4Done && defiStorageKey === '@Defi4'}
+        hide={() => {
+          setOnBoardingDefi4Done(true);
         }}
       />
     </WrapperContainer>
