@@ -1,3 +1,10 @@
+# [1.72.0](https://github.com/SocialGouv/ozensemble/compare/v1.71.4...v1.72.0) (2022-11-04)
+
+
+### Features
+
+* défi 4 (day 1 to 4) ([#121](https://github.com/SocialGouv/ozensemble/issues/121)) ([c0b4161](https://github.com/SocialGouv/ozensemble/commit/c0b4161c6b3abe22050415dd643c4e43690ed8a5))
+
 ## [1.71.4](https://github.com/SocialGouv/ozensemble/compare/v1.71.3...v1.71.4) (2022-11-03)
 
 
