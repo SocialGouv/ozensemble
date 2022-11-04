@@ -25,7 +25,13 @@ const GainsNavigator = () => {
         <GainsStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
         <GainsStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
         <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
-        <GainsStack.Screen name="GAINS_SEVRAGE" component={Sevrage} />
+        <GainsStack.Screen
+          name="GAINS_SEVRAGE"
+          component={Sevrage}
+          initialParams={{
+            rootRoute: 'GAINS_MAIN_VIEW',
+          }}
+        />
       </GainsStack.Navigator>
     </Background>
   );
