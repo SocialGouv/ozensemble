@@ -12,7 +12,6 @@ import ReminderIcon from './illustrations/ReminderIcon';
 import TextStyled from './TextStyled';
 import TimePicker from './TimePicker';
 import UnderlinedButton from './UnderlinedButton';
-import { timeIsAfterNow } from '../helpers/dateHelpers';
 import CONSTANTS from '../reference/constants';
 import { logEvent } from '../services/logEventsWithMatomo';
 import NotificationService from '../services/notifications';
@@ -20,7 +19,7 @@ import { defaultPaddingFontScale } from '../styles/theme';
 import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
 import * as RNLocalize from 'react-native-localize';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storage } from '../services/storage';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
@@ -121,14 +120,14 @@ const Reminder = ({
 
     const weekDayName = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][weekDay];
 
-    if (!(await NotificationService.hasToken())) return;
+    if (!NotificationService.hasToken()) return;
 
-    const existingId = await AsyncStorage.getItem(STORAGE_KEY_REMINDER_ID, null);
+    const existingId = storage.getString(STORAGE_KEY_REMINDER_ID);
 
     const res = await API.put({
       path: '/reminder',
       body: {
-        pushNotifToken: await NotificationService.getToken(),
+        pushNotifToken: NotificationService.getToken(),
         type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
         timezone: RNLocalize.getTimeZone(),
         timeHours: reminder.getHours(),
@@ -145,7 +144,7 @@ const Reminder = ({
 
     if (!res?.ok) return false;
 
-    if (res?.ok && res?.reminder?.id) await AsyncStorage.setItem(STORAGE_KEY_REMINDER_ID, res.reminder.id);
+    if (res?.ok && res?.reminder?.id) storage.set(STORAGE_KEY_REMINDER_ID, res.reminder.id);
 
     return true;
   };
