@@ -11,14 +11,14 @@ datasource db {
 }
 
 model User {
-  id             String @id @default(uuid())
-  matomo_id      String @unique
-  pushNotifToken String     @unique
-  reminders      Reminder[]
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
+  id                String        @id @default(uuid())
+  matomo_id         String        @unique
+  push_notif_token  String        @default("")
+  reminders         Reminder[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt @default(now())
 
-  @@index([pushNotifToken], type: Hash)
+  @@index([push_notif_token], type: Hash)
 }
 
 model Reminder {
