@@ -1,3 +1,12 @@
+## [1.72.2](https://github.com/SocialGouv/ozensemble/compare/v1.72.1...v1.72.2) (2022-11-07)
+
+
+### Bug Fixes
+
+* clear local notifications ([a6802b6](https://github.com/SocialGouv/ozensemble/commit/a6802b6e405c05271f6ed0a736425f070ef092fc))
+* migrate schema ([22993ac](https://github.com/SocialGouv/ozensemble/commit/22993acc34c84dbff6ff31b876bbb863206dc474))
+* reminder flow ([e2b7103](https://github.com/SocialGouv/ozensemble/commit/e2b7103a492e716adefeaa21e9a1f092893ab54d))
+
 ## [1.72.1](https://github.com/SocialGouv/ozensemble/compare/v1.72.0...v1.72.1) (2022-11-07)
 
 
