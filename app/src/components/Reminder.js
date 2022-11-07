@@ -148,6 +148,8 @@ const Reminder = ({
 
     if (res?.ok && res?.reminder?.id) storage.set(STORAGE_KEY_REMINDER_ID, res.reminder.id);
 
+    NotificationService.cancelAll();
+
     return true;
   };
 
