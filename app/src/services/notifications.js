@@ -105,7 +105,7 @@ class NotificationService {
   initAndroidChannels = () => {
     PushNotification.createChannel(
       {
-        channelId: 'reminder', // (required)
+        channelId: 'unique_reminder', // (required)
         channelName: 'Rappel', // (required)
         soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance

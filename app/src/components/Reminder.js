@@ -123,6 +123,7 @@ const Reminder = ({
     if (!NotificationService.hasToken()) return;
 
     const existingId = storage.getString(STORAGE_KEY_REMINDER_ID);
+    const matomoId = storage.getString('@UserIdv2');
 
     const res = await API.put({
       path: '/reminder',
@@ -139,6 +140,7 @@ const Reminder = ({
               }
             : undefined,
         id: existingId ?? undefined,
+        matomoId,
       },
     });
 

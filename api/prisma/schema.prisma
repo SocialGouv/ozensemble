@@ -11,12 +11,8 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(uuid())
-  matomo_id String @unique
-}
-
-model PushUser {
-  id             String     @id @default(uuid())
+  id             String @id @default(uuid())
+  matomo_id      String @unique
   pushNotifToken String     @unique
   reminders      Reminder[]
   createdAt      DateTime   @default(now())
@@ -27,7 +23,7 @@ model PushUser {
 
 model Reminder {
   id             String                 @id @default(uuid())
-  user           PushUser               @relation(fields: [userId], references: [id])
+  user           User                   @relation(fields: [userId], references: [id])
   userId         String
   type           ReminderType           @default(Daily)
   utcDaysOfWeek  ReminderUtcDaysOfWeek?

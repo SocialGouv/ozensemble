@@ -56,7 +56,7 @@ const toUtcData = ({ timeHours, timeMinutes, daysOfWeek, timezone }) => {
 router.put(
   "/",
   catchErrors(async (req, res) => {
-    const { pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
+    const { matomoId, pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
 
     if (
       !pushNotifToken ||
@@ -65,14 +65,46 @@ router.put(
       isNaN(timeHours) ||
       isNaN(timeMinutes) ||
       (type === "Weekdays" && !daysOfWeek)
-    )
+    ) {
+      capture();
       return res.status(400).json({ ok: false, error: "wrong parameters" });
+    }
+    if (!pushNotifToken) return res.status(400).json({ ok: false, error: "no push token" });
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no push token" });
+    if (type !== "Daily" && type !== "Weekdays") {
+      capture("reminder api: wrong type", { extra: req.body, user: { matomoId } });
+      return res.status(400).json({ ok: false, error: "wrong type" });
+    }
+    if (timezone) {
+      capture("reminder api: wrong timezone", { extra: req.body, user: { matomoId } });
+      return res.status(400).json({ ok: false, error: "wrong timezone" });
+    }
+    if (isNaN(timeHours)) {
+      capture("reminder api: wrong timeHours", { extra: req.body, user: { matomoId } });
+      return res.status(400).json({ ok: false, error: "wrong timeHours" });
+    }
+    if (isNaN(timeMinutes)) {
+      capture("reminder api: wrong timeMinutes", { extra: req.body, user: { matomoId } });
+      return res.status(400).json({ ok: false, error: "wrong timeMinutes" });
+    }
+    if (type === "Weekdays" && !daysOfWeek) {
+      capture("reminder api: wrong daysOfWeek", { extra: req.body, user: { matomoId } });
+      return res.status(400).json({ ok: false, error: "wrong daysOfWeek" });
+    }
 
     const { utcTimeHours, utcTimeMinutes, utcDaysOfWeek } = toUtcData({ timeHours, timeMinutes, daysOfWeek, timezone });
 
-    let user = await prisma.pushUser.findUnique({ where: { pushNotifToken } });
+    let user = await prisma.user.findUnique({ where: { matomoId } });
     if (!user) {
-      user = await prisma.pushUser.create({
+      user = await prisma.user.create({
+        data: {
+          pushNotifToken,
+          matomoId,
+        },
+      });
+    } else {
+      user = await prisma.user.update({
+        where: { matomoId },
         data: {
           pushNotifToken,
         },
@@ -146,11 +178,11 @@ const reminderCronJob = async (req, res) => {
       title: "C'est l'heure de votre suivi !",
       body: "N'oubliez pas de remplir votre agenda Oz",
       link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
-      channelId: "reminder",
+      channelId: "unique_reminder",
     });
   }
 
-  const goalReminders = await prisma.reminderUtcDaysOfWeek.findMany({
+  const weeklyReminders = await prisma.reminderUtcDaysOfWeek.findMany({
     where: {
       [utcDayOfWeek]: true,
       reminder: {
@@ -168,14 +200,14 @@ const reminderCronJob = async (req, res) => {
       },
     },
   });
-  for (const { reminder } of goalReminders) {
+  for (const { reminder } of weeklyReminders) {
     if (!reminder?.user?.pushNotifToken) continue;
     sendPushNotification({
       pushNotifToken: reminder.user.pushNotifToken,
       title: "C'est l'heure de votre suivi !",
       body: "N'oubliez pas de remplir votre agenda Oz",
       link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
-      channelId: "reminder",
+      channelId: "unique_reminder",
     });
   }
 };
