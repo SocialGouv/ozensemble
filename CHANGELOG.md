@@ -1,3 +1,10 @@
+## [1.72.1](https://github.com/SocialGouv/ozensemble/compare/v1.72.0...v1.72.1) (2022-11-07)
+
+
+### Bug Fixes
+
+* remove asyncstorage when necessary ([22c1ae1](https://github.com/SocialGouv/ozensemble/commit/22c1ae16b1a11e1682ffdb77ffb6371a685b3a02))
+
 # [1.72.0](https://github.com/SocialGouv/ozensemble/compare/v1.71.4...v1.72.0) (2022-11-04)
 
 
