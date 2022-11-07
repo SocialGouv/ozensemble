@@ -58,17 +58,6 @@ router.put(
   catchErrors(async (req, res) => {
     const { matomoId, pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
 
-    if (
-      !pushNotifToken ||
-      (type !== "Daily" && type !== "Weekdays") ||
-      !timezone ||
-      isNaN(timeHours) ||
-      isNaN(timeMinutes) ||
-      (type === "Weekdays" && !daysOfWeek)
-    ) {
-      capture();
-      return res.status(400).json({ ok: false, error: "wrong parameters" });
-    }
     if (!pushNotifToken) return res.status(400).json({ ok: false, error: "no push token" });
     if (!matomoId) return res.status(400).json({ ok: false, error: "no push token" });
     if (type !== "Daily" && type !== "Weekdays") {
@@ -94,19 +83,19 @@ router.put(
 
     const { utcTimeHours, utcTimeMinutes, utcDaysOfWeek } = toUtcData({ timeHours, timeMinutes, daysOfWeek, timezone });
 
-    let user = await prisma.user.findUnique({ where: { matomoId } });
+    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
     if (!user) {
       user = await prisma.user.create({
         data: {
-          pushNotifToken,
-          matomoId,
+          push_notif_token: pushNotifToken,
+          matomo_id: matomoId,
         },
       });
     } else {
       user = await prisma.user.update({
-        where: { matomoId },
+        where: { matomo_id: matomoId },
         data: {
-          pushNotifToken,
+          push_notif_token: pushNotifToken,
         },
       });
     }
@@ -172,9 +161,9 @@ const reminderCronJob = async (req, res) => {
     },
   });
   for (const reminder of dailyReminders) {
-    if (!reminder?.user?.pushNotifToken) continue;
+    if (!reminder?.user?.push_notif_token) continue;
     sendPushNotification({
-      pushNotifToken: reminder.user.pushNotifToken,
+      pushNotifToken: reminder.user.push_notif_token,
       title: "C'est l'heure de votre suivi !",
       body: "N'oubliez pas de remplir votre agenda Oz",
       link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
@@ -201,9 +190,9 @@ const reminderCronJob = async (req, res) => {
     },
   });
   for (const { reminder } of weeklyReminders) {
-    if (!reminder?.user?.pushNotifToken) continue;
+    if (!reminder?.user?.push_notif_token) continue;
     sendPushNotification({
-      pushNotifToken: reminder.user.pushNotifToken,
+      pushNotifToken: reminder.user.push_notif_token,
       title: "C'est l'heure de votre suivi !",
       body: "N'oubliez pas de remplir votre agenda Oz",
       link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",

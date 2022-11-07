@@ -1,15 +1,10 @@
 -- CreateEnum
 CREATE TYPE "ReminderType" AS ENUM ('Daily', 'Weekdays');
 
--- CreateTable
-CREATE TABLE "PushUser" (
-    "id" TEXT NOT NULL,
-    "pushNotifToken" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "PushUser_pkey" PRIMARY KEY ("id")
-);
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN     "push_notif_token" TEXT NOT NULL DEFAULT '',
+ADD COLUMN     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 -- CreateTable
 CREATE TABLE "Reminder" (
@@ -39,12 +34,6 @@ CREATE TABLE "ReminderUtcDaysOfWeek" (
 
     CONSTRAINT "ReminderUtcDaysOfWeek_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "PushUser_pushNotifToken_key" ON "PushUser"("pushNotifToken");
-
--- CreateIndex
-CREATE INDEX "PushUser_pushNotifToken_idx" ON "PushUser" USING HASH ("pushNotifToken");
 
 -- CreateIndex
 CREATE INDEX "Reminder_type_idx" ON "Reminder" USING HASH ("type");
@@ -79,8 +68,11 @@ CREATE INDEX "ReminderUtcDaysOfWeek_friday_idx" ON "ReminderUtcDaysOfWeek" USING
 -- CreateIndex
 CREATE INDEX "ReminderUtcDaysOfWeek_saturday_idx" ON "ReminderUtcDaysOfWeek" USING HASH ("saturday");
 
+-- CreateIndex
+CREATE INDEX "User_push_notif_token_idx" ON "User" USING HASH ("push_notif_token");
+
 -- AddForeignKey
-ALTER TABLE "Reminder" ADD CONSTRAINT "Reminder_userId_fkey" FOREIGN KEY ("userId") REFERENCES "PushUser"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Reminder" ADD CONSTRAINT "Reminder_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "ReminderUtcDaysOfWeek" ADD CONSTRAINT "ReminderUtcDaysOfWeek_reminderId_fkey" FOREIGN KEY ("reminderId") REFERENCES "Reminder"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
