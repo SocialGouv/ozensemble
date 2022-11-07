@@ -1,13 +1,12 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import { AppState, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
-import API from './api';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { logEvent } from "./logEventsWithMatomo";
+import { logEvent } from './logEventsWithMatomo';
+import { storage } from './storage';
 
-const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = "STORAGE_KEY_PUSH_NOTIFICATION_TOKEN";
-const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = "STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR";
+const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN';
+const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR';
 class NotificationService {
   listeners = {};
 
@@ -31,7 +30,7 @@ class NotificationService {
       PushNotificationIOS.addEventListener('registrationError', this.onRegistrationError);
     }
     this.checkAndGetPermissionIfAlreadyGiven('configure');
-  }
+  };
 
   delete = () => {
     this.appStateListener?.remove();
@@ -46,20 +45,20 @@ class NotificationService {
 
   onRegister = (tokenPayload) => {
     console.log('NotificationService onRegister:', tokenPayload);
-    AsyncStorage.setItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, tokenPayload.token);
-    AsyncStorage.removeItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
+    storage.set(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, tokenPayload.token);
+    storage.delete(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
     logEvent({
-      category: "PUSH_NOTIFICATION_TOKEN_REGISTER",
-      action: "SUCCESS",
+      category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
+      action: 'SUCCESS',
     });
   };
 
   onRegistrationError = (err) => {
     console.error('NotificationService onRegistrationError:', err.message, err);
-    AsyncStorage.setItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR, err.message);
+    storage.set(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR, err.message);
     logEvent({
-      category: "PUSH_NOTIFICATION_TOKEN_REGISTER",
-      action: "ERROR",
+      category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
+      action: 'ERROR',
     });
   };
 
@@ -102,13 +101,13 @@ class NotificationService {
     const permission = await PushNotification.requestPermissions();
     return permission;
   };
-  
+
   initAndroidChannels = () => {
     PushNotification.createChannel(
       {
-        channelId: "reminder", // (required)
-        channelName: "Rappel", // (required)
-        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+        channelId: 'reminder', // (required)
+        channelName: 'Rappel', // (required)
+        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance
         vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
       },
@@ -117,8 +116,8 @@ class NotificationService {
     PushNotification.createChannel(
       {
         channelId: 'PUSH-LOCAL-NOTIFICATIONS', // (required)
-        channelName: "Autres", // (required)
-        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+        channelName: 'Autres', // (required)
+        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance
         vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
       },
@@ -167,8 +166,8 @@ class NotificationService {
     console.log('NotificationService onNotificationOpened:', JSON.stringify(notification, null, 2));
 
     logEvent({
-      category: "PUSH_NOTIFICATION_RECEIVE",
-      action: "CLICKED",
+      category: 'PUSH_NOTIFICATION_RECEIVE',
+      action: 'CLICKED',
     });
 
     /* ANDROID FOREGROUND */
@@ -216,16 +215,16 @@ class NotificationService {
     return _initialNotification;
   };
 
-  getToken = async () => {
-    return await AsyncStorage.getItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, null);
+  getToken = () => {
+    return storage.getString(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN);
   };
 
-  hasToken = async () => {
-    return (await AsyncStorage.getItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, null)) !== null;
+  hasToken = () => {
+    return storage.getString(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN) !== null;
   };
 
-  getTokenError = async () => {
-    return await AsyncStorage.getItem(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR, null);
+  getTokenError = () => {
+    return storage.getString(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
   };
 
   listen = (callback) => {
