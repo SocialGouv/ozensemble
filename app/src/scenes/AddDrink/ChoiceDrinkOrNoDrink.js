@@ -1,24 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
 import { screenHeight } from '../../styles/theme';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState, modalTimestampState } from '../../recoil/consos';
+import { drinksState } from '../../recoil/consos';
 import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { P } from '../../components/Articles';
 import DateAndTimePickers from './DateAndTimePickers';
 import WrapperContainer from '../../components/WrapperContainer';
 
-const ChoiceDrinkOrNoDrink = () => {
-  const setDrinksState = useSetRecoilState(drinksState);
-  const drinkModalTimestamp = useRecoilValue(modalTimestampState);
-  const navigation = useNavigation();
+const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
+  const setGlobalDrinksState = useSetRecoilState(drinksState);
+  const drinkModalTimestamp = route.params.timestamp;
 
   return (
     <SafeWrapper>
@@ -40,7 +38,7 @@ const ChoiceDrinkOrNoDrink = () => {
               category: 'CONSO',
               action: 'CONSO_DRINKLESS',
             });
-            setDrinksState((state) => [
+            setGlobalDrinksState((state) => [
               ...state,
               { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(drinkModalTimestamp), id: uuidv4() },
             ]);
@@ -55,7 +53,7 @@ const ChoiceDrinkOrNoDrink = () => {
               category: 'CONSO',
               action: 'CONSO_DRINK',
             });
-            navigation.replace('CONSOS_LIST');
+            navigation.replace('CONSOS_LIST', { timestamp: drinkModalTimestamp });
           }}
         />
       </WrapperContainer>

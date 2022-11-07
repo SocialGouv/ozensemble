@@ -3,10 +3,10 @@ import React, { useMemo } from 'react';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import styled, { css } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
-import { dailyDosesSelector, modalTimestampState } from '../../recoil/consos';
+import { dailyDosesSelector } from '../../recoil/consos';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
 /*
@@ -48,7 +48,6 @@ const needToFillupConso = {
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector());
-  const setModalTimestamp = useSetRecoilState(modalTimestampState);
 
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
@@ -109,8 +108,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
             } else {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              setModalTimestamp(new Date(date).getTime());
-              navigation.push('ADD_DRINK');
+              navigation.push('ADD_DRINK', { timestamp: Date.now() });
               logEvent({
                 category: 'GAINS',
                 action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
