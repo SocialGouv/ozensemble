@@ -12,7 +12,7 @@ const questions = [
       {
         content: 'Faux',
         answerKey: 'Faux',
-        score: 0,
+        score: 1,
       },
     ],
   },
@@ -29,7 +29,7 @@ const questions = [
       {
         content: 'Faux',
         answerKey: 'Faux',
-        score: 0,
+        score: 1,
       },
     ],
   },
@@ -41,12 +41,12 @@ const questions = [
       {
         content: 'Vrai',
         answerKey: 'Vrai',
-        score: 0,
+        score: 1,
       },
       {
         content: 'Faux',
         answerKey: 'Faux',
-        score: 0,
+        score: 1,
       },
     ],
   },
@@ -63,7 +63,7 @@ const questions = [
       {
         content: 'Faux',
         answerKey: 'Faux',
-        score: 0,
+        score: 1,
       },
     ],
   },
@@ -80,7 +80,7 @@ const questions = [
       {
         content: 'Faux',
         answerKey: 'Faux',
-        score: 0,
+        score: 1,
       },
     ],
   },

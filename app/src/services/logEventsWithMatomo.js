@@ -34,11 +34,11 @@ export const initMatomo = async () => {
     idsite: MATOMO_IDSITE_2,
   });
 
-  const resultKey = storage.getString('@Quizz_result');
+  const resultKey = JSON.parse(storage.getString('@Quizz_result') ?? '""');
   const betterEval = storage.getString('@QuizzEvaluateConso_result');
   const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
   const gender = storage.getString('@Gender');
-  const age = storage.getString('@Age');
+  const age = storage.getNumber('@Age');
 
   Matomo.setCustomDimensions({
     [CONSTANTS.MATOMO_CUSTOM_DIM_VERSION]: DeviceInfo.getVersion(),
