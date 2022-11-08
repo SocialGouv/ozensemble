@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSetRecoilState } from 'recoil';
@@ -16,7 +16,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 
 const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
-  const drinkModalTimestamp = route.params.timestamp;
+  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => route.params.timestamp);
 
   return (
     <SafeWrapper>
@@ -29,7 +29,10 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
             action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
           });
         }}>
-        <DateAndTimePickers />
+        <DateAndTimePickers
+          addDrinkModalTimestamp={addDrinkModalTimestamp}
+          setDrinkModalTimestamp={setDrinkModalTimestamp}
+        />
         <Option
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
@@ -40,7 +43,7 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
             });
             setGlobalDrinksState((state) => [
               ...state,
-              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(drinkModalTimestamp), id: uuidv4() },
+              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
             ]);
             navigation.goBack();
           }}
@@ -53,7 +56,7 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
               category: 'CONSO',
               action: 'CONSO_DRINK',
             });
-            navigation.replace('CONSOS_LIST', { timestamp: drinkModalTimestamp });
+            navigation.replace('CONSOS_LIST', { timestamp: addDrinkModalTimestamp });
           }}
         />
       </WrapperContainer>
