@@ -68,7 +68,7 @@ const NavigationWrapper = ({
             )}
             {Array.isArray(link) ? (
               link.map((l) => (
-                <SourcesLink>
+                <SourcesLink key={l}>
                   <TextStyled
                     color="#4030a5"
                     onPress={() => {
