@@ -1,6 +1,6 @@
 // https://developer.matomo.org/api-reference/tracking-api
 
-class Api {
+class _Matomo {
   init({ baseUrl, idsite, userId, _idvc }) {
     this.baseUrl = baseUrl;
     this.idsite = idsite;
@@ -105,6 +105,6 @@ class Api {
   }
 }
 
-const matomo = new Api();
+const matomo = new _Matomo();
 
 export default matomo;
