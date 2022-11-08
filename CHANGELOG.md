@@ -1,3 +1,10 @@
+# [1.74.0](https://github.com/SocialGouv/ozensemble/compare/v1.73.0...v1.74.0) (2022-11-08)
+
+
+### Features
+
+* sealed secrets ([#128](https://github.com/SocialGouv/ozensemble/issues/128)) ([706de41](https://github.com/SocialGouv/ozensemble/commit/706de41d53d3761f9b46c08f292e9afdd79235c8))
+
 # [1.73.0](https://github.com/SocialGouv/ozensemble/compare/v1.72.4...v1.73.0) (2022-11-08)
 
 
