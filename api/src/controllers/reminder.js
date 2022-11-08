@@ -64,7 +64,7 @@ router.put(
       capture("reminder api: wrong type", { extra: req.body, user: { matomoId } });
       return res.status(400).json({ ok: false, error: "wrong type" });
     }
-    if (timezone) {
+    if (!timezone) {
       capture("reminder api: wrong timezone", { extra: req.body, user: { matomoId } });
       return res.status(400).json({ ok: false, error: "wrong timezone" });
     }
