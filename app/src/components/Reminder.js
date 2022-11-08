@@ -20,6 +20,7 @@ import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
 import * as RNLocalize from 'react-native-localize';
 import { storage } from '../services/storage';
+import { checkNetwork } from '../services/api';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
@@ -211,9 +212,10 @@ const Reminder = ({
 
   const notificationListener = useRef();
   useEffect(() => {
+    checkNetwork();
     getReminder(false);
     notificationListener.current = NotificationService.listen(handleNotification);
-    return () => NotificationService.remove(notificationListener.current);
+    () => NotificationService.remove(notificationListener.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -384,7 +386,7 @@ const ReminderErrorAlert = ({ visible, hide }) => {
             <TextStyled color="#4030a5">La notification n'a pas pu être ajoutée</TextStyled>
           </ModalTitle>
           <ModalContent>
-            <TextStyled>Merci de vous connecter à internet avant d'ajouter ou de modifier une notification.</TextStyled>
+            <TextStyled>Une erreur s'est produite</TextStyled>
           </ModalContent>
         </ModalContainer>
       </Modal>
