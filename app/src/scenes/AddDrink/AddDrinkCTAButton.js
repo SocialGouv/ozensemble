@@ -1,9 +1,8 @@
 import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { atom, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { atom, useRecoilState, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { modalTimestampState } from '../../recoil/consos';
 import { screenHeight, screenWidth } from '../../styles/theme';
 
 const iconSize = 30;
@@ -40,7 +39,6 @@ export const useToggleCTA = ({ routesToHideCTA = [], hideCTA = false, navigator 
 };
 
 const AddDrinkCTAButton = ({ onCTAPress }) => {
-  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const showCTAButton = useRecoilValue(showCTAButtonState);
 
   if (!showCTAButton) return null;
@@ -48,7 +46,6 @@ const AddDrinkCTAButton = ({ onCTAPress }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
-        setModalTimestamp(Date.now());
         onCTAPress();
       }}>
       <CTAContainer>

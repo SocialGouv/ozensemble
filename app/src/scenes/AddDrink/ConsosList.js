@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
 import { BackHandler, Platform } from 'react-native';
-import { selector, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
@@ -18,7 +18,7 @@ import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
-import { drinksState, modalTimestampState, ownDrinksState } from '../../recoil/consos';
+import { drinksState, ownDrinksState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
@@ -36,20 +36,23 @@ const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
   return [...new Set([...ownDrinksKeys, ...localOwnDrinksKeys])];
 };
 
-const drinksPerCurrenTimestampSelector = selector({
+const drinksPerCurrenTimestampSelector = selectorFamily({
   key: 'drinksPerCurrenTimestampSelector',
-  get: ({ get }) => {
-    const modalTimestamp = get(modalTimestampState);
-    const drinks = get(drinksState);
-    return drinks.filter((drink) => drink.timestamp === modalTimestamp);
-  },
+  get:
+    ({ modalTimestamp }) =>
+    ({ get }) => {
+      const drinks = get(drinksState);
+      return drinks.filter((drink) => drink.timestamp === modalTimestamp);
+    },
 });
 
-const ConsosList = ({ navigation }) => {
-  const drinksPerCurrentaTimestamp = useRecoilValue(drinksPerCurrenTimestampSelector);
-  const setDrinksState = useSetRecoilState(drinksState);
+const ConsosList = ({ navigation, route }) => {
+  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => route.params.timestamp);
+  const drinksPerCurrentaTimestamp = useRecoilValue(
+    drinksPerCurrenTimestampSelector({ modalTimestamp: addDrinkModalTimestamp })
+  );
+  const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
-  const addDrinkModalTimestamp = useRecoilValue(modalTimestampState);
   const toast = useToast();
 
   const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
@@ -82,26 +85,32 @@ const ConsosList = ({ navigation }) => {
     }
   };
 
-  const updateDrink = ({ drinkKey, quantity, id = uuidv4() }) => {
-    setDrinksState((state) =>
-      [
-        ...state.filter((drink) => drink.id !== id),
-        { drinkKey, quantity, id, timestamp: makeSureTimestamp(addDrinkModalTimestamp) },
-      ].filter((d) => d.quantity > 0)
-    );
-  };
-
   const onValidateConsos = async () => {
     onClose();
     let drinkNumber = 0;
-    for (let drink of localDrinksState) {
+    const drinksWithTimestamps = localDrinksState.map((drink) => ({
+      ...drink,
+      timestamp: makeSureTimestamp(addDrinkModalTimestamp),
+    }));
+    for (let drink of drinksWithTimestamps) {
       drinkNumber++;
-      updateDrink(drink);
+      setGlobalDrinksState((state) =>
+        [
+          ...state.filter((_drink) => _drink.id !== drink.id),
+          {
+            drinkKey: drink.drinkKey,
+            quantity: drink.quantity,
+            id: drink.id,
+            timestamp: makeSureTimestamp(addDrinkModalTimestamp),
+          },
+        ].filter((d) => d.quantity > 0)
+      );
       logEvent({
         category: 'CONSO',
         action: 'CONSO_ADD',
         name: drink.drinkKey,
         value: Number(drink.quantity),
+        dimension6: makeSureTimestamp(addDrinkModalTimestamp),
       });
     }
     setLocalDrinksState([]);
@@ -149,7 +158,10 @@ const ConsosList = ({ navigation }) => {
     <Container>
       <ModalContent ref={scrollRef} disableHorizontal>
         <Title>Sélectionnez vos consommations</Title>
-        <DateAndTimePickers />
+        <DateAndTimePickers
+          addDrinkModalTimestamp={addDrinkModalTimestamp}
+          setDrinkModalTimestamp={setDrinkModalTimestamp}
+        />
         {withOwnDrinks && (
           <>
             <DrinksHeader content="Mes boissons" />

@@ -74,16 +74,14 @@ const Quizz = ({
     setProgress((questionIndex + 1) / questions.length);
     const endOfQuestions = questionIndex === questions.length - 1;
 
-    if (calculateScore) {
-      logQuizzAnswer({ questionKey, answerKey, score });
-    } else {
-      logQuizzAnswer({ questionKey, answerKey });
-    }
+    logQuizzAnswer({ questionKey, answerKey, score });
 
-    if (calculateScore && endOfQuestions) {
-      const addictionResult = mapAnswersToResult(questions, newAnswers);
+    if (endOfQuestions) {
+      if (calculateScore) {
+        const addictionResult = mapAnswersToResult(questions, newAnswers);
+        if (addictionResult) setResultKey(addictionResult);
+      }
       logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
-      if (addictionResult) setResultKey(addictionResult);
     }
   };
 

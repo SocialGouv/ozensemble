@@ -34,11 +34,11 @@ export const initMatomo = async () => {
     idsite: MATOMO_IDSITE_2,
   });
 
-  const resultKey = storage.getString('@Quizz_result');
+  const resultKey = JSON.parse(storage.getString('@Quizz_result') ?? '""');
   const betterEval = storage.getString('@QuizzEvaluateConso_result');
   const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
   const gender = storage.getString('@Gender');
-  const age = storage.getString('@Age');
+  const age = storage.getNumber('@Age');
 
   Matomo.setCustomDimensions({
     [CONSTANTS.MATOMO_CUSTOM_DIM_VERSION]: DeviceInfo.getVersion(),
@@ -55,22 +55,21 @@ const checkNetwork = async () => {
   return true;
 };
 
-export const logEvent = async ({ category, action, name, value }) => {
+export const logEvent = async ({ category, action, name, value, dimension6 }) => {
   try {
     const canSend = await checkNetwork();
     if (!canSend) throw new Error('no network');
-    Matomo.logEvent({ category, action, name, value });
+    Matomo.logEvent({ category, action, name, value, dimension6 });
     API.post({
       path: '/event',
       body: {
         event: { category, action, name, value },
         userId: Matomo.userId,
-        userProperties: Matomo.userProperties,
         dimensions: Matomo.dimensions,
       },
     });
   } catch (e) {
     console.log('logEvent error', e);
-    console.log('logEvent error', { category, action, name, value });
+    console.log('logEvent error', { category, action, name, value, dimension6 });
   }
 };
