@@ -1,3 +1,10 @@
+## [1.72.4](https://github.com/SocialGouv/ozensemble/compare/v1.72.3...v1.72.4) (2022-11-08)
+
+
+### Bug Fixes
+
+* update react native ([a0ed633](https://github.com/SocialGouv/ozensemble/commit/a0ed6338281a096bb4eba364f07e084f20c26e0a))
+
 ## [1.72.3](https://github.com/SocialGouv/ozensemble/compare/v1.72.2...v1.72.3) (2022-11-08)
 
 
