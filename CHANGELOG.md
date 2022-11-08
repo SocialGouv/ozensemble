@@ -1,3 +1,10 @@
+## [1.72.3](https://github.com/SocialGouv/ozensemble/compare/v1.72.2...v1.72.3) (2022-11-08)
+
+
+### Bug Fixes
+
+* matmom in backend ([#125](https://github.com/SocialGouv/ozensemble/issues/125)) ([f4022b8](https://github.com/SocialGouv/ozensemble/commit/f4022b858b892e52debf157a8b36cd18af03c0dc))
+
 ## [1.72.2](https://github.com/SocialGouv/ozensemble/compare/v1.72.1...v1.72.2) (2022-11-07)
 
 
