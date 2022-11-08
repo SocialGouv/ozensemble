@@ -163,6 +163,7 @@ const reminderCronJob = async (req, res) => {
   for (const reminder of dailyReminders) {
     if (!reminder?.user?.push_notif_token) continue;
     sendPushNotification({
+      matomoId: reminder.user.matomo_id,
       pushNotifToken: reminder.user.push_notif_token,
       title: "C'est l'heure de votre suivi !",
       body: "N'oubliez pas de remplir votre agenda Oz",
@@ -192,6 +193,7 @@ const reminderCronJob = async (req, res) => {
   for (const { reminder } of weeklyReminders) {
     if (!reminder?.user?.push_notif_token) continue;
     sendPushNotification({
+      matomoId: reminder.user.matomo_id,
       pushNotifToken: reminder.user.push_notif_token,
       title: "C'est l'heure de votre suivi !",
       body: "N'oubliez pas de remplir votre agenda Oz",
