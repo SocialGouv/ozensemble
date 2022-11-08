@@ -47,8 +47,6 @@ const Reminder = ({
   const [reminderErrorAlertVisible, setReminderErrorAlertVisible] = useState(false);
 
   const getReminder = async (showAlert = true) => {
-    const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
-    if (!isConnected) setReminderErrorAlertVisible(true);
     const isRegistered = await NotificationService.checkPermission();
     if (Boolean(reminder) && !dayjs(reminder).isValid()) {
       deleteReminder();
@@ -127,6 +125,9 @@ const Reminder = ({
 
     const existingId = storage.getString(STORAGE_KEY_REMINDER_ID);
     const matomoId = storage.getString('@UserIdv2');
+
+    const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
+    if (!isConnected) return setReminderErrorAlertVisible(true);
 
     const res = await API.put({
       path: '/reminder',
@@ -212,7 +213,7 @@ const Reminder = ({
   useEffect(() => {
     getReminder(false);
     notificationListener.current = NotificationService.listen(handleNotification);
-    () => NotificationService.remove(notificationListener.current);
+    return () => NotificationService.remove(notificationListener.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
