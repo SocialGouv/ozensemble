@@ -13,13 +13,11 @@ import ElementDayDefi from '../../../components/ElementDayDefi';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { modalTimestampState } from '../../../recoil/consos';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-  const setModalTimestamp = useSetRecoilState(modalTimestampState);
 
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
@@ -82,8 +80,7 @@ const Defi1_Day1 = ({ navigation, route }) => {
       <AddConsoCTAContainer>
         <ButtonPrimary
           onPress={() => {
-            setModalTimestamp(Date.now());
-            navigation.push('ADD_DRINK');
+            navigation.push('ADD_DRINK', { timestamp: Date.now() });
             logEvent({
               category: 'CONSO',
               action: 'CONSO_OPEN_CONSO_ADDSCREEN',

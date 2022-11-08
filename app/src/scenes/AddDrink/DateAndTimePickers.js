@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState, modalTimestampState } from '../../recoil/consos';
+import { drinksState } from '../../recoil/consos';
 
-const DateAndTimePickers = () => {
+const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) => {
   const setDrinksState = useSetRecoilState(drinksState);
   const [showDatePicker, setShowDatePicker] = useState(false);
-  const [addDrinkModalTimestamp, setAddDrinkModalTimestamp] = useRecoilState(modalTimestampState);
 
   const updateModalTimestamp = (newTimestamp) => {
     const oldTimestamp = addDrinkModalTimestamp;
@@ -24,7 +23,7 @@ const DateAndTimePickers = () => {
         return drink;
       })
     );
-    setAddDrinkModalTimestamp(newTimestamp);
+    setDrinkModalTimestamp(newTimestamp);
   };
 
   return (

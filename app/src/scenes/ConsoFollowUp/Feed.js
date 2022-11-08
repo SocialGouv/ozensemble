@@ -1,13 +1,13 @@
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState, feedDaysSelector, modalTimestampState } from '../../recoil/consos';
+import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import { isOnSameDay, isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import NPS from '../NPS/NPS';
@@ -46,7 +46,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
 
-  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
@@ -65,8 +64,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   };
 
   const addDrinksRequest = (timestamp, fromButton) => {
-    setModalTimestamp(timestamp);
-    navigation.push('ADD_DRINK');
+    navigation.push('ADD_DRINK', { timestamp });
     logEvent({
       category: 'CONSO',
       action: 'CONSO_OPEN_CONSO_ADDSCREEN',
@@ -166,7 +164,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 <AddDrinkButton
                   onPress={() => {
                     setModalTimestamp(Date.now());
-                    navigation.push('ADD_DRINK');
+                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
                     logEvent({
                       category: 'CONSO',
                       action: 'CONSO_OPEN_CONSO_ADDSCREEN',

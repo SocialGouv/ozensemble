@@ -20,11 +20,6 @@ export const ownDrinksState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@OwnDrinks', newValue))],
 });
 
-export const modalTimestampState = atom({
-  key: 'modalTimestampState',
-  default: today(),
-});
-
 // Selectors
 
 const reduceDrinksToDailyDoses = (drinks, catalog) =>

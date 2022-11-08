@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import ArrowRight from '../../components/ArrowRight';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
@@ -11,13 +11,10 @@ import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
 import OnBoardingModal from '../../components/OnBoardingModal';
-import { defi2OnBoardingDoneState } from '../../recoil/defis';
-import { defi3OnBoardingDoneState } from '../../recoil/defis';
-import { defi4OnBoardingDoneState } from '../../recoil/defis';
+import { defi2OnBoardingDoneState, defi3OnBoardingDoneState, defi4OnBoardingDoneState } from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../styles/theme';
-import { modalTimestampState } from '../../recoil/consos';
 
 const Defi = ({
   navigation,
@@ -33,7 +30,6 @@ const Defi = ({
   const [NPSvisible, setNPSvisible] = useState(false);
   const onPressContribute = () => setNPSvisible(true);
   const closeNPS = () => setNPSvisible(false);
-  const setModalTimestamp = useSetRecoilState(modalTimestampState);
   const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
   const [onBoardingDefi3Done, setOnBoardingDefi3Done] = useRecoilState(defi3OnBoardingDoneState);
   const [onBoardingDefi4Done, setOnBoardingDefi4Done] = useRecoilState(defi4OnBoardingDoneState);
@@ -71,8 +67,7 @@ const Defi = ({
             content="Ajouter une consommation"
             onPress={() => {
               if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
-              setModalTimestamp(Date.now());
-              navigation.push('ADD_DRINK');
+              navigation.push('ADD_DRINK', { timestamp: Date.now() });
               logEvent({
                 category: 'CONSO',
                 action: 'CONSO_OPEN_CONSO_ADDSCREEN',
