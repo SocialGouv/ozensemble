@@ -18,7 +18,7 @@ const config = {
 
 const NotificationService = new PushNotifications(config);
 
-const sendPushNotification = async ({ pushNotifToken, title, body, link, channelId }) => {
+const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, link, channelId }) => {
   const data = {
     title,
     body,
@@ -31,6 +31,7 @@ const sendPushNotification = async ({ pushNotifToken, title, body, link, channel
   await matomo.logEvent({
     category: "PUSH_NOTIFICATION_SEND",
     action: "SENDING",
+    userId: matomoId,
   });
 
   try {
@@ -40,13 +41,15 @@ const sendPushNotification = async ({ pushNotifToken, title, body, link, channel
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "SUCCESS",
+          userId: matomoId,
         });
       } else if (results[0].failure) {
-        capture("push notification sent failure", {extra: { message: results[0].message?.[0]?.errorMsg }});
+        capture("push notification sent failure", { extra: { message: results[0].message?.[0]?.errorMsg } });
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "FAILED",
           name: results[0].message?.[0]?.errorMsg,
+          userId: matomoId,
         });
         capture(e, { extra: { users, payload } });
         return { ok: false, results };
@@ -54,10 +57,11 @@ const sendPushNotification = async ({ pushNotifToken, title, body, link, channel
     }
     return { ok: true, results };
   } catch (error) {
-    capture("push notification sent error", {extra: { error }});
+    capture("push notification sent error", { extra: { error } });
     await matomo.logEvent({
       category: "PUSH_NOTIFICATION_SEND",
       action: "ERROR",
+      userId: matomoId,
     });
     return { ok: false, error };
   }
