@@ -119,7 +119,7 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi3Modal(true))}
       />
 
-      <CategorieMenu
+      {/* <CategorieMenu
         title={'Quatrième défi'}
         description={'Mon objectif de consommation'}
         onPress={() => {
@@ -129,7 +129,7 @@ const DefisMenu = ({ navigation }) => {
         disabled={!autoEvaluationDone || defi3Day < 7}
         callToAction={defi4CallToAction}
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi4Modal(true))}
-      />
+      /> */}
       <CategorieMenu
         title={'Mes tests'}
         description={'Retrouver mes résultats'}
