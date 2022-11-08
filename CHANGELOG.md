@@ -1,3 +1,10 @@
+# [1.73.0](https://github.com/SocialGouv/ozensemble/compare/v1.72.4...v1.73.0) (2022-11-08)
+
+
+### Features
+
+* reminder network error ([#127](https://github.com/SocialGouv/ozensemble/issues/127)) ([f918819](https://github.com/SocialGouv/ozensemble/commit/f918819dd14945b46c7c5b64633aca0947ab2aca))
+
 ## [1.72.4](https://github.com/SocialGouv/ozensemble/compare/v1.72.3...v1.72.4) (2022-11-08)
 
 
