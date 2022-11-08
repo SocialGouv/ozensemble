@@ -106,18 +106,19 @@ const Defi4_Day4 = ({ navigation, route }) => {
                 contentView={
                   <>
                     <P>
-                      Pour <TextStyled bold>fixer vos objectifs</TextStyled> de façon réaliste, nous vous suggérons :
+                      Pour <TextStyled bold>fixer votre objectif global</TextStyled> de façon réaliste, nous vous
+                      suggérons :
                     </P>
                     <BulletPoint>
                       <P>
-                        {'\u2022'} D’utiliser votre <TextStyled bold>bilan de la première semaine</TextStyled> de défi
-                        comme <TextStyled bold>point de départ</TextStyled>.
+                        {'\u2022'} D’utiliser votre <TextStyled bold>consommation actuelle</TextStyled> comme{' '}
+                        <TextStyled bold>point de départ</TextStyled>.
                       </P>
                     </BulletPoint>
                     <BulletPoint>
                       <P>
-                        {'\u2022'} De penser à un <TextStyled bold>objectif qui vous motive</TextStyled> pour des
-                        raisons personnelles ou de santé comme <TextStyled bold>point d’arrivée</TextStyled>.
+                        {'\u2022'} De penser à <TextStyled bold>un objectif de réduction qui vous motive</TextStyled>{' '}
+                        pour des raisons personnelles ou de santé comme <TextStyled bold>point d’arrivée</TextStyled>.
                       </P>
                     </BulletPoint>
                     <P>
@@ -125,8 +126,8 @@ const Defi4_Day4 = ({ navigation, route }) => {
                       votre point de départ et de votre point d’arrivée.{' '}
                     </P>
                     <P>
-                      Enfin, <TextStyled bold>étalez la différence de verres sur 6 semaines</TextStyled>. Pour la
-                      plupart des gens, une période de cinq à six semaines constitue un délai réaliste.{' '}
+                      Enfin, <TextStyled bold>étalez la différence de verres sur 8 semaines</TextStyled>. Pour la
+                      plupart des gens, une période de 6 à 8 semaines constitue un délai réaliste.{' '}
                     </P>
                   </>
                 }
@@ -139,9 +140,9 @@ const Defi4_Day4 = ({ navigation, route }) => {
                     <P>
                       Exemple : une personne consomme <TextStyled bold>15 verres par semaine</TextStyled> et veut
                       atteindre <TextStyled bold>6 verres par semaine</TextStyled> pour protéger sa santé et rejoindre
-                      les recommandations.Elle doit réduire de <TextStyled bold>15 - 6 = 9 verres</TextStyled>.Elle
-                      étale sa réduction sur <TextStyled bold>6 semaines</TextStyled> et doit donc réduire chaque
-                      semaine de <TextStyled bold>9/6 = 1 verre et demi</TextStyled>.
+                      les recommandations. Elle doit réduire de <TextStyled bold>15 - 6 = 9 verres</TextStyled>.Elle
+                      étale sa réduction sur <TextStyled bold>8 semaines</TextStyled> et doit donc réduire chaque
+                      semaine de <TextStyled bold>9/8 = un peu plus d'1 verre</TextStyled>.
                     </P>
                   </TextContainer>
                 </KeyContainer>

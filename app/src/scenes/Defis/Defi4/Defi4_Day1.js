@@ -8,7 +8,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import styled from 'styled-components';
 import { Linking } from 'react-native';
 
-const Defi3_Day1 = ({ navigation, route }) => {
+const Defi4_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -140,4 +140,4 @@ const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-bottom: 50px;
 `;
 
-export default Defi3_Day1;
+export default Defi4_Day1;

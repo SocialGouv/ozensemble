@@ -15,6 +15,7 @@ import HeaderBackground from '../../components/HeaderBackground';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndMotivation from './Articles/AlcoholAndMotivation';
 import AlcoholAndHealthRisks from './Articles/AlcoholAndHealthRisks';
+import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
@@ -41,6 +42,7 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="DID_YOU_KNOW" component={DidYouKnow} />
         <HealthStack.Screen name="ALCOHOL_AND_MOTIVATION" component={AlcoholAndMotivation} />
         <HealthStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
+        <HealthStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
       </HealthStack.Navigator>
     </Background>
   );

@@ -39,4 +39,9 @@ export const listConseils = [
     title: 'Alcool et risques santé',
     link: 'ALCOHOL_AND_HEALTH_RISKS',
   },
+  {
+    img: require('../../assets/images/AlcoholAndDependency.png'),
+    title: 'Dépendance physique',
+    link: 'ALCOHOL_AND_DEPENDENCY',
+  },
 ];

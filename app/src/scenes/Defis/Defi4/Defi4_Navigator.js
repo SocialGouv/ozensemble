@@ -10,11 +10,10 @@ import Defi4_Day1 from './Defi4_Day1';
 import Defi4_Day2 from './Defi4_Day2';
 import Defi4_Day3 from './Defi4_Day3';
 import Defi4_Day4 from './Defi4_Day4';
-// import Defi4_Day5 from './Defi4_Day5';
-// import Defi4_Day6 from './Day6';
+import Defi4_Day5 from './Day5';
+import Defi4_Day6 from './Defi4_Day6';
 // import Defi4_Day7 from './Defi4_Day7';
-// import AlcoholAndMotivations from '../../Health/Articles/AlcoholAndMotivation';
-// import AlcoholAndHealthRisks from '../../Health/Articles/AlcoholAndHealthRisks';
+import AlcoholAndDependency from '../../Health/Articles/AlcoholAndDependency';
 
 const Defi4_Stack = createStackNavigator();
 
@@ -59,7 +58,6 @@ const Defi4_Navigator = () => {
             day: 4,
           }}
         />
-        {/* 
         <Defi4_Stack.Screen
           name="DEFI4_DAY_5"
           component={Defi4_Day5}
@@ -69,7 +67,6 @@ const Defi4_Navigator = () => {
             day: 5,
           }}
         />
-
         <Defi4_Stack.Screen
           name="DEFI4_DAY_6"
           component={Defi4_Day6}
@@ -79,6 +76,7 @@ const Defi4_Navigator = () => {
             day: 6,
           }}
         />
+        {/* 
         <Defi4_Stack.Screen
           initialParams={{
             inDefi4: true,
@@ -88,7 +86,7 @@ const Defi4_Navigator = () => {
           name="DEFI4_DAY_7"
           component={Defi4_Day7}
         /> */}
-        {/* <Defi4_Stack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} /> */}
+        <Defi4_Stack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
       </Defi4_Stack.Navigator>
     </Background>
   );
