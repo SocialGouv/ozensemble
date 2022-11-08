@@ -40,6 +40,7 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
             logEvent({
               category: 'CONSO',
               action: 'CONSO_DRINKLESS',
+              dimension6: makeSureTimestamp(addDrinkModalTimestamp),
             });
             setGlobalDrinksState((state) => [
               ...state,

@@ -58,7 +58,7 @@ class Api {
     }, '');
   }
 
-  async logEvent({ category, action, name = '', value = null }) {
+  async logEvent({ category, action, name = '', value = null, dimension6 = null }) {
     // e_c — The event category. Must not be empty. (eg. Videos, Music, Games...)
     // e_a — The event action. Must not be empty. (eg. Play, Pause, Duration, Add Playlist, Downloaded, Clicked...)
     // e_n — The event name. (eg. a Movie name, or Song name, or File name...)
@@ -69,6 +69,9 @@ class Api {
     };
     if (name !== '') params.e_n = name;
     if (value !== null && !isNaN(Number(value))) params.e_v = Number(value);
+    if (dimension6 !== null) {
+      params.dimension6 = dimension6;
+    }
     await this.execute(params);
   }
 

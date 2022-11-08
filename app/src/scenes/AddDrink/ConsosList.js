@@ -110,12 +110,7 @@ const ConsosList = ({ navigation, route }) => {
         action: 'CONSO_ADD',
         name: drink.drinkKey,
         value: Number(drink.quantity),
-      });
-      logEvent({
-        category: 'CONSO',
-        action: 'CONSO_ADD_TIMESTAMP',
-        name: drink.drinkKey,
-        value: makeSureTimestamp(addDrinkModalTimestamp),
+        dimension6: makeSureTimestamp(addDrinkModalTimestamp),
       });
     }
     setLocalDrinksState([]);
