@@ -1,3 +1,10 @@
+## [1.74.2](https://github.com/SocialGouv/ozensemble/compare/v1.74.1...v1.74.2) (2022-11-09)
+
+
+### Bug Fixes
+
+* migration & up build number ([1fc9e1c](https://github.com/SocialGouv/ozensemble/commit/1fc9e1ce6021531203049f73c6856f99895ef297))
+
 ## [1.74.1](https://github.com/SocialGouv/ozensemble/compare/v1.74.0...v1.74.1) (2022-11-09)
 
 
