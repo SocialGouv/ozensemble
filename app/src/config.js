@@ -9,6 +9,7 @@ const OPEN_FOOD_FACT_PASSWORD = envConfig.OPEN_FOOD_FACT_PASSWORD;
 const OPEN_FOOD_FACT_USER_ID = envConfig.OPEN_FOOD_FACT_USER_ID;
 const SCHEME = envConfig.SCHEME;
 const API_HOST = envConfig.API_HOST;
+const APP_ENV = envConfig.APP_ENV;
 
 export {
   MATOMO_URL,
@@ -20,4 +21,5 @@ export {
   OPEN_FOOD_FACT_USER_ID,
   SCHEME,
   API_HOST,
+  APP_ENV,
 };

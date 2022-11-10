@@ -20,7 +20,6 @@ import NPS from './scenes/NPS/NPS';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
 import useAppState from './services/useAppState';
 import { initMatomo, logEvent } from './services/logEventsWithMatomo';
-import NotificationService from './services/notifications';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
 import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
@@ -29,6 +28,7 @@ import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 import { deepLinkingConfig } from './services/deepLink';
+import EnvironmentIndicator from './components/EnvironmentIndicator';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -193,6 +193,7 @@ const Router = () => {
           <Root.Screen name="TABS" component={TabsNavigator} />
         </Root.Navigator>
         <NPS />
+        <EnvironmentIndicator />
       </NavigationContainer>
       <CustomBootsplash />
     </>
