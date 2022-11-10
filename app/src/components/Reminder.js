@@ -148,7 +148,13 @@ const Reminder = ({
       },
     });
 
-    if (!res?.ok) return false;
+    if (!res?.ok) {
+      Alert.alert(
+        'Une erreur est survenue lors de la mise en place de votre rappel',
+        "L'équipe technique a été prévenue et va résoudre le problème au plus vite."
+      );
+      return false;
+    }
 
     if (res?.ok && res?.reminder?.id) storage.set(STORAGE_KEY_REMINDER_ID, res.reminder.id);
 
