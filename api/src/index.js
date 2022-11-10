@@ -13,9 +13,9 @@ const versionCheck = require("./middlewares/versionCheck");
 
 // Put together a schema
 const app = express();
-if (process.env.NODE_ENV === "development") {
-  app.use(logger("dev"));
-}
+// if (process.env.NODE_ENV === "development") {
+app.use(logger("dev"));
+// }
 
 app.use(Sentry.Handlers.requestHandler());
 
