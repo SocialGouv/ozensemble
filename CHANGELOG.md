@@ -1,3 +1,10 @@
+## [1.74.3](https://github.com/SocialGouv/ozensemble/compare/v1.74.2...v1.74.3) (2022-11-10)
+
+
+### Bug Fixes
+
+* **api:** log requests ([81afcae](https://github.com/SocialGouv/ozensemble/commit/81afcae3633f6ad72bfaa7fe5cbc54db7e4669a5))
+
 ## [1.74.2](https://github.com/SocialGouv/ozensemble/compare/v1.74.1...v1.74.2) (2022-11-09)
 
 
