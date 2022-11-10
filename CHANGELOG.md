@@ -1,3 +1,10 @@
+## [1.74.4](https://github.com/SocialGouv/ozensemble/compare/v1.74.3...v1.74.4) (2022-11-10)
+
+
+### Bug Fixes
+
+* **app:** environment load + alert reminder ([2282882](https://github.com/SocialGouv/ozensemble/commit/228288204405d646a877437d8c26fdf3b3df6fe5))
+
 ## [1.74.3](https://github.com/SocialGouv/ozensemble/compare/v1.74.2...v1.74.3) (2022-11-10)
 
 
