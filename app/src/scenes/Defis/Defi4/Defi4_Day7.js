@@ -98,11 +98,15 @@ const Defi4_Day7 = ({ navigation, route }) => {
         </SituationContainer>
         <SituationTextContainer>
           <SituationInside>
-            {defi4_Day5_Answers.map((answer) => (
-              <P key={answer} noMarginBottom>
-                {'• '} {answersDefi4Day5.find((item) => item.answerKey === answer).content}
-              </P>
-            ))}
+            {defi4_Day5_Answers.length === 0 ? (
+              <P noMarginBottom>Vous n'avez selectionné aucun plaisir alternatif !</P>
+            ) : (
+              defi4_Day5_Answers.map((answer) => (
+                <P key={answer} noMarginBottom>
+                  {'• '} {answersDefi4Day5.find((item) => item.answerKey === answer).content}
+                </P>
+              ))
+            )}
           </SituationInside>
         </SituationTextContainer>
 
