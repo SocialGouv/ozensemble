@@ -104,6 +104,18 @@ export const Defi3_Day3_Answers_Help_State = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_answers_Help', JSON.stringify(newValue)))],
 });
 
+export const Defi4_Day5_Answers_State = atom({
+  key: 'Defi4_Day5_Answers_State',
+  default: getInitStoredAnswers('@Defi4_Day5_Answers', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi4_Day5_Answers', JSON.stringify(newValue)))],
+});
+
+export const Defi4_Day5_ResultState = atom({
+  key: 'Defi4_Day5_ResultState',
+  default: getInitStoredAnswers('@Defi4_Day5_Result', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi4_Day5_Result', JSON.stringify(newValue)))],
+});
+
 export const Defi3_Day3_ResultState = atom({
   key: 'Defi3_Day3_ResultState',
   default: getInitStoredResult('@Defi3_Day3_result'),

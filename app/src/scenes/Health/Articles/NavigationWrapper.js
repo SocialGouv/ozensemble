@@ -66,13 +66,27 @@ const NavigationWrapper = ({
                 {'\n'}
               </TextStyled>
             )}
-            <TextStyled
-              color="#4030a5"
-              onPress={() => {
-                Linking.openURL(link);
-              }}>
-              {link}
-            </TextStyled>
+            {Array.isArray(link) ? (
+              link.map((l) => (
+                <SourcesLink key={l}>
+                  <TextStyled
+                    color="#4030a5"
+                    onPress={() => {
+                      Linking.openURL(l);
+                    }}>
+                    {l}
+                  </TextStyled>
+                </SourcesLink>
+              ))
+            ) : (
+              <TextStyled
+                color="#4030a5"
+                onPress={() => {
+                  Linking.openURL(link);
+                }}>
+                {link}
+              </TextStyled>
+            )}
 
             {link2 && (
               <>
@@ -106,6 +120,10 @@ const ClockStyled = styled(Clock)`
 const ReadTimeContainer = styled.View`
   flex-direction: row;
   align-items: center;
+`;
+
+const SourcesLink = styled.View`
+  margin-bottom: 10px;
 `;
 
 export default NavigationWrapper;
