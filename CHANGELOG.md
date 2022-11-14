@@ -1,3 +1,10 @@
+## [1.75.1](https://github.com/SocialGouv/ozensemble/compare/v1.75.0...v1.75.1) (2022-11-14)
+
+
+### Bug Fixes
+
+* defi4 message in bilan if questionnaire is empty ([7fe2176](https://github.com/SocialGouv/ozensemble/commit/7fe217661c4f6bedabe066b46313caad69fb77f1))
+
 # [1.75.0](https://github.com/SocialGouv/ozensemble/compare/v1.74.4...v1.75.0) (2022-11-14)
 
 
