@@ -1,3 +1,10 @@
+## [1.75.2](https://github.com/SocialGouv/ozensemble/compare/v1.75.1...v1.75.2) (2022-11-14)
+
+
+### Bug Fixes
+
+* width P inside view ([0b96b7a](https://github.com/SocialGouv/ozensemble/commit/0b96b7a9ed8843926632396988caabd16a01eb16))
+
 ## [1.75.1](https://github.com/SocialGouv/ozensemble/compare/v1.75.0...v1.75.1) (2022-11-14)
 
 
