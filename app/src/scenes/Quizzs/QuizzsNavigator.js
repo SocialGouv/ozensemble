@@ -147,7 +147,7 @@ const QuizzMenu = () => {
         topTitle="Deuxième défi"
         title="Affronter une situation"
         onStart={() => navigation.navigate('AFFRONTER_SITUATION', { screen: 'DEFI2_DAY5' })}
-        done={defi2Emotion !== null}
+        done={defi2Emotion > 0}
         showOnlyIfDone
       />
 
