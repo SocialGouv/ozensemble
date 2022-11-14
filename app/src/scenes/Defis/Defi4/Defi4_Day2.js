@@ -34,13 +34,12 @@ const Defi4_Day2 = ({ navigation, route }) => {
           }
         />
 
-        {/* TODO: add link/navigation to article (not ready yet) */}
         <Element
           Illustration={<Danger />}
           content={
             <>
               Pour en savoir plus, consultez{' '}
-              <TextStyled underline color="#4030A5">
+              <TextStyled underline color="#4030A5" onPress={() => navigation.navigate('ALCOHOL_AND_DEPENDENCY')}>
                 l’article sur la dépendance physique à l’alcool
               </TextStyled>
               . En cas de{' '}
@@ -76,7 +75,7 @@ const Defi4_Day2 = ({ navigation, route }) => {
                   <TextStyled>{'\u2022'} Permet de continuer à prendre un verre</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Plus facile de se joindre aux buveurs</TextStyled>
+                  <TextStyled>{'\u2022'} Exclut moins des moments conviviaux</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
                   <TextStyled>{'\u2022'} Peut être un objectif plus réaliste à court terme</TextStyled>
@@ -125,7 +124,7 @@ const Defi4_Day2 = ({ navigation, route }) => {
                   <TextStyled>{'\u2022'} Perte du plaisir associé à l’alcool</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Se sentir à part en présence de buveurs</TextStyled>
+                  <TextStyled>{'\u2022'} Peut être stigmatisant vis-à-vis du cercle amical</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
                   <TextStyled>{'\u2022'} Devoir résister à la pression sociale de boire</TextStyled>

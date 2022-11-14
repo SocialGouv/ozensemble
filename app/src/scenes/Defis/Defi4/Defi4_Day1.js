@@ -8,11 +8,11 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import styled from 'styled-components';
 import { Linking } from 'react-native';
 
-const Defi3_Day1 = ({ navigation, route }) => {
+const Defi4_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
+    if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');
   }, [route?.params, isFocused]);
 
   return (
@@ -140,4 +140,4 @@ const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-bottom: 50px;
 `;
 
-export default Defi3_Day1;
+export default Defi4_Day1;
