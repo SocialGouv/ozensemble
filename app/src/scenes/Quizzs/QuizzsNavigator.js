@@ -101,8 +101,6 @@ const QuizzMenu = () => {
   const defi2Emotion = useRecoilValue(defi2EmotionState);
   const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
 
-  console.log({ Defi3_Day3_Answers_Help });
-
   return (
     <WrapperContainer title="Tests des défis" onPressBackButton={navigation.goBack}>
       <SubTitle>

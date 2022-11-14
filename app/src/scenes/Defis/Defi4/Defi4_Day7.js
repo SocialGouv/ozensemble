@@ -99,7 +99,7 @@ const Defi4_Day7 = ({ navigation, route }) => {
         <SituationTextContainer>
           <SituationInside>
             {defi4_Day5_Answers.map((answer) => (
-              <P noMarginBottom>
+              <P key={answer} noMarginBottom>
                 {'• '} {answersDefi4Day5.find((item) => item.answerKey === answer).content}
               </P>
             ))}
@@ -224,7 +224,7 @@ const Spacer = styled.View`
 
 const QButtonCentered = styled.View`
   align-self: center;
-  margin-right: 10;
+  margin-right: 10px;
 `;
 
 const SituationContainer = styled.View`
