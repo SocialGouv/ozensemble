@@ -12,7 +12,7 @@ const Defi4_Day6 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
+    if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');
   }, [route?.params, isFocused]);
 
   return (

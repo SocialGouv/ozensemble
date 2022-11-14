@@ -21,7 +21,7 @@ import GainsReminder from '../../Gains/GainsReminder';
 
 const Defi4_Day4_Stack = createStackNavigator();
 
-const Defi4_Day4 = ({ navigation, route }) => {
+const Defi4_Day4 = ({ route }) => {
   const isFocused = useIsFocused();
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);

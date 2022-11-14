@@ -27,8 +27,12 @@ const QuestionnaireDefi4Day5 = ({ navigation, route }) => {
 
   const validateAnswers = async () => {
     setDefi4_Day5_ResultState(true);
-    setValidatedDays(route?.params?.day, '@Defi4');
-    navigation.push('QUIZZ_RESULTS');
+    if (route?.params?.inDefi4) {
+      setValidatedDays(route?.params?.day, '@Defi4');
+      navigation.navigate('DEFI4_MENU');
+    } else {
+      navigation.push('TESTS_DEFIS');
+    }
   };
 
   return (
@@ -114,7 +118,7 @@ const QuestionnaireDefi4Day5 = ({ navigation, route }) => {
               );
             })}
             <ButtonsContainer>
-              <ButtonPrimary onPress={() => navigation.push('DEFI4_MENU')} content="Suivant" />
+              <ButtonPrimary onPress={validateAnswers} content="Suivant" />
             </ButtonsContainer>
           </WrapperContainer>
         )}
