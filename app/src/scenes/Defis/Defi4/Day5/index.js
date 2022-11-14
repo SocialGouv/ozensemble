@@ -4,15 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import TextStyled from '../../../../components/TextStyled';
-import Section from './Section';
 import answers from './answers';
 import { Defi4_Day5_Answers_State, Defi4_Day5_ResultState } from '../../../../recoil/quizzs';
 import { setValidatedDays } from '../../utils';
 import WrapperContainer from '../../../../components/WrapperContainer';
 import Element from '../../../../components/ElementDayDefi';
-import AddCircle from '../../../../components/illustrations/icons/AddCircle';
-import MinusCircle from '../../../../components/illustrations/icons/MinusCircle';
-import { screenWidth } from '../../../../styles/theme';
+import CheckboxLabelled from '../../../../components/CheckboxLabelled';
 
 const QuestionnaireDefi4Day5Stack = createStackNavigator();
 
@@ -41,80 +38,81 @@ const QuestionnaireDefi4Day5 = ({ navigation, route }) => {
       initialRouteName={route?.params?.initialRouteName}>
       <QuestionnaireDefi4Day5Stack.Screen name="EXPLICATIONS">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Les facteurs influençant ma motivation">
+          <WrapperContainer onPressBackButton={navigation.goBack} title="Comment atteindre mon objectif ?">
             <Element
               content={
                 <>
-                  <TextStyled>
-                    Pour poursuivre au mieux votre réduction, il faut vous interroger sur vos{' '}
-                    <TextStyled bold>difficultés</TextStyled> et vos{' '}
-                    <TextStyled bold>sources d’aide et de motivation au quotidien</TextStyled>.
+                  Le meilleur moyen de diminuer l’alcool est de{' '}
+                  <TextStyled bold>vous faire plaisir autrement</TextStyled> ! Nous vous suggérons de faire appel à
+                  votre imagination et, pourquoi pas à votre folie, pour dresser une liste de choses qui vous font
+                  plaisir.
+                </>
+              }
+            />
+            <Element
+              content={
+                <>
+                  <TextStyled bold>Comment avoir du plaisir tout en buvant moins ?</TextStyled>
+                  {'\n'}
+                  Le pire moment à passer est <TextStyled bold>la fin de semaine</TextStyled> pour la plupart des gens
+                  qui désirent modifier leurs habitudes de consommation. Quand la fin de semaine arrive, vous pouvez
+                  avoir l’impression de devoir vous priver d’une récompense et de ne pas pouvoir décompresser. Nous vous
+                  suggérons donc de changer votre système de récompenses en développant de{' '}
+                  <TextStyled bold>nouvelles façons de vous gâter</TextStyled>.
+                </>
+              }
+            />
+            <Element
+              content={
+                <>
+                  <TextStyled bold>
+                    Les plaisirs planifiés sont souvent les plus satisfaisants parce qu’ils demandent une préparation
+                  </TextStyled>{' '}
+                  et une attente plus longue avant de pouvoir en profiter comme par exemple quand on fait un voyage,
+                  qu’on reçoit des amis à dîner ou que l’on va voir un spectacle. Ayez du plaisir à prévoir le plaisir
+                  en évitant l’attitude « tout ou rien ». Pas besoin de gagner à la loterie pour avoir du plaisir.{' '}
+                  <TextStyled bold>
+                    Planifiez votre fin de semaine : la moitié du plaisir consiste à l’anticiper !{' '}
                   </TextStyled>
                 </>
               }
             />
             <Element
-              contentView={
-                <>
-                  <TextStyled>Procédons en deux étapes en identifiant : {'\n\n'}</TextStyled>
-                  <CircleContainer>
-                    <AddCircleStyled />
-                    <TextStyledWidth>
-                      Les éléments ayant rendu votre réduction difficile à maintenir dans le temps malgré votre objectif
-                      (appelés{' '}
-                      <TextStyled bold italic>
-                        facteurs de risque
-                      </TextStyled>
-                      ).
-                    </TextStyledWidth>
-                  </CircleContainer>
-                  <CircleContainer>
-                    <MinusCircleStyled />
-                    <TextStyledWidth>
-                      Les sources d’aide et d’inspiration que vous avez trouvé dans votre quotidien (appelés{' '}
-                      <TextStyled bold italic>
-                        facteurs protecteurs
-                      </TextStyled>
-                      ).
-                    </TextStyledWidth>
-                  </CircleContainer>
-                </>
-              }
-            />
-            <ImageView>
-              <ImageStyled source={require('../../../../assets/illustrations/Defi3_day3.png')} />
-            </ImageView>
-
-            <Legend>Ma motivation</Legend>
-            <Element
               content={
                 <>
-                  <TextStyled>
-                    A la fin ce cet exercice, vous comprendrez mieux les raisons qui peuvent vous pousser à consommer de
-                    l’alcool et qui sont liées à votre environnement.
-                  </TextStyled>
+                  Nous vous proposons maintenant de déterminer quelles activités pourraient vous procurer du plaisir à
+                  travers un questionnaire.
                 </>
               }
             />
             <ButtonsContainer>
-              <ButtonPrimary onPress={() => navigation.push('QUIZZ_QUESTIONS')} content="J’ai compris" />
+              <ButtonPrimary onPress={() => navigation.push('QUIZZ_QUESTIONS')} content="À vous de jouer" />
             </ButtonsContainer>
           </WrapperContainer>
         )}
       </QuestionnaireDefi4Day5Stack.Screen>
       <QuestionnaireDefi4Day5Stack.Screen name="QUIZZ_QUESTIONS">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Les facteurs influençant ma consommation">
+          <WrapperContainer onPressBackButton={navigation.goBack} title="Je me fais plaisir autrement">
             <Paragraph>
               <TextStyled>
-                Parmi ces exemples, quels facteurs ont pu rendre{' '}
-                <TextStyled bold>plus difficile votre réduction de consommation</TextStyled> d’alcool ? Je sélectionne
-                les facteurs de risque les plus pertinents.{' '}
+                Parmi ces exemples, quelles activités vous permettraient de vous faire plaisir autrement ? {'\n'}
+                Je sélectionne les activités les plus pertinentes.
               </TextStyled>
             </Paragraph>
-            {answers.map((section, id) => (
-              <Section key={id} section={section} onToggle={toggleAnswer} answers={defi4_Day5_Answers} />
-            ))}
+            {answers.map((item) => {
+              const checked = !!defi4_Day5_Answers?.includes(item.answerKey);
+              return (
+                <CheckboxLabelled
+                  key={item.answerKey}
+                  answerKey={item.answerKey}
+                  content={item.content}
+                  alertText={item.alertText}
+                  onPress={() => toggleAnswer(item.answerKey, !checked)}
+                  checked={checked}
+                />
+              );
+            })}
             <ButtonsContainer>
               <ButtonPrimary onPress={() => navigation.push('DEFI4_MENU')} content="Suivant" />
             </ButtonsContainer>
@@ -133,43 +131,6 @@ const ButtonsContainer = styled.View`
   margin-top: 10px;
   align-items: center;
   width: 100%;
-`;
-
-const CircleContainer = styled.View`
-  align-items: flex-start;
-  flex-direction: row;
-  margin-bottom: 10px;
-`;
-
-const TextStyledWidth = styled(TextStyled)`
-  flex-shrink: 1;
-`;
-
-const AddCircleStyled = styled(AddCircle)`
-  margin-right: 10px;
-`;
-
-const MinusCircleStyled = styled(MinusCircle)`
-  margin-right: 10px;
-`;
-
-const Legend = styled(TextStyled)`
-  color: #575656;
-  font-size: 15px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 30px;
-`;
-
-const ImageView = styled.View`
-  margin-top: 10px;
-  align-items: center;
-  margin-bottom: 15px;
-`;
-
-const ImageStyled = styled.Image`
-  width: ${screenWidth * 0.8}px;
-  height: ${screenWidth * 0.4}px;
 `;
 
 export default QuestionnaireDefi4Day5;
