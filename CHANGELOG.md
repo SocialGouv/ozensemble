@@ -1,3 +1,10 @@
+# [1.75.0](https://github.com/SocialGouv/ozensemble/compare/v1.74.4...v1.75.0) (2022-11-14)
+
+
+### Features
+
+* defi 4, article + J5 to J7 ([#126](https://github.com/SocialGouv/ozensemble/issues/126)) ([742a838](https://github.com/SocialGouv/ozensemble/commit/742a838b847fedee19a3ca2aa01d1edf22cd1185))
+
 ## [1.74.4](https://github.com/SocialGouv/ozensemble/compare/v1.74.3...v1.74.4) (2022-11-10)
 
 
