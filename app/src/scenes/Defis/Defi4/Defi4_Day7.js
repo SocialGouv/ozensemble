@@ -23,7 +23,6 @@ const Defi4_Day7 = ({ navigation, route }) => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
   const defi4_Day5_Answers = useRecoilValue(Defi4_Day5_Answers_State);
-  console.log('defi4_Day5_Answers :', defi4_Day5_Answers);
   const isOnboarded = useMemo(
     () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
