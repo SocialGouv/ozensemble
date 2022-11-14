@@ -46,9 +46,9 @@ const Defi4_Day7 = ({ navigation, route }) => {
           </View>
         </SituationContainer>
         <SituationTextContainer>
-          <P noMarginBottom>
+          <PInside noMarginBottom>
             J’ai choisi entre <Bold>abstinence</Bold> ou <Bold>modération</Bold>
-          </P>
+          </PInside>
         </SituationTextContainer>
 
         <SituationContainer>
@@ -62,7 +62,7 @@ const Defi4_Day7 = ({ navigation, route }) => {
         {!isOnboarded ? (
           <>
             <SituationTextContainer>
-              <P noMarginBottom>Vous n'avez pas encore fixé d'objectif !</P>
+              <PInside noMarginBottom>Vous n'avez pas encore fixé d'objectif !</PInside>
             </SituationTextContainer>
           </>
         ) : (
@@ -99,7 +99,7 @@ const Defi4_Day7 = ({ navigation, route }) => {
         <SituationTextContainer>
           <SituationInside>
             {defi4_Day5_Answers.length === 0 ? (
-              <P noMarginBottom>Vous n'avez selectionné aucun plaisir alternatif !</P>
+              <PInside noMarginBottom>Vous n'avez selectionné aucun plaisir alternatif !</PInside>
             ) : (
               defi4_Day5_Answers.map((answer) => (
                 <P key={answer} noMarginBottom>
@@ -248,6 +248,10 @@ const SituationTextContainer = styled.View`
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
+`;
+
+const PInside = styled(P)`
+  width: 100%;
 `;
 
 const SituationInside = styled.View`
