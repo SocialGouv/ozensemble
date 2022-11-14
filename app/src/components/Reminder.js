@@ -20,6 +20,7 @@ import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
 import * as RNLocalize from 'react-native-localize';
 import { storage } from '../services/storage';
+import NetInfo from '@react-native-community/netinfo';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
@@ -125,6 +126,9 @@ const Reminder = ({
     const existingId = storage.getString(STORAGE_KEY_REMINDER_ID);
     const matomoId = storage.getString('@UserIdv2');
 
+    const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
+    if (!isConnected) return setReminderErrorAlertVisible(true);
+
     const res = await API.put({
       path: '/reminder',
       body: {
@@ -144,7 +148,13 @@ const Reminder = ({
       },
     });
 
-    if (!res?.ok) return false;
+    if (!res?.ok) {
+      Alert.alert(
+        'Une erreur est survenue lors de la mise en place de votre rappel',
+        "L'équipe technique a été prévenue et va résoudre le problème au plus vite."
+      );
+      return false;
+    }
 
     if (res?.ok && res?.reminder?.id) storage.set(STORAGE_KEY_REMINDER_ID, res.reminder.id);
 
@@ -185,10 +195,6 @@ const Reminder = ({
     setReminderSetupVisible(false);
     if (!dayjs(newReminder).isValid()) return;
     const ok = await scheduleNotification(newReminder, newMode, newWeekDay);
-    if (!ok) {
-      setReminderErrorAlertVisible(true);
-      return;
-    }
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
@@ -381,10 +387,10 @@ const ReminderErrorAlert = ({ visible, hide }) => {
       <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
         <ModalContainer>
           <ModalTitle>
-            <TextStyled color="#4030a5">La notification n'a pas pu être ajoutée</TextStyled>
+            <TextStyled color="#4030a5">Ce service nécessite une connexion internet</TextStyled>
           </ModalTitle>
           <ModalContent>
-            <TextStyled>Merci de vous connecter à internet avant d'ajouter ou de modifier une notification.</TextStyled>
+            <TextStyled>Veuillez vous connecter à internet avant de définir votre rappel</TextStyled>
           </ModalContent>
         </ModalContainer>
       </Modal>

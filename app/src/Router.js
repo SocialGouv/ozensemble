@@ -28,6 +28,7 @@ import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 import { deepLinkingConfig } from './services/deepLink';
+import EnvironmentIndicator from './components/EnvironmentIndicator';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -192,6 +193,7 @@ const Router = () => {
           <Root.Screen name="TABS" component={TabsNavigator} />
         </Root.Navigator>
         <NPS />
+        <EnvironmentIndicator />
       </NavigationContainer>
       <CustomBootsplash />
     </>
