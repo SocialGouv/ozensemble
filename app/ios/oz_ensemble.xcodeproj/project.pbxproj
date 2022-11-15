@@ -503,8 +503,9 @@
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 109;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 76GBKHVK25;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
@@ -512,7 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.9.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -521,6 +522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
 				PRODUCT_NAME = oz_ensemble;
 				PROVISIONING_PROFILE_SPECIFIER = "Oz Ensemble Disrtribution";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Oz Ensemble Disrtribution";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -536,15 +538,16 @@
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 108;
+				CURRENT_PROJECT_VERSION = 109;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 76GBKHVK25;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.8.0;
+				MARKETING_VERSION = 1.9.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -553,6 +556,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
 				PRODUCT_NAME = oz_ensemble;
 				PROVISIONING_PROFILE_SPECIFIER = "Oz Ensemble Disrtribution";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Oz Ensemble Disrtribution";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
