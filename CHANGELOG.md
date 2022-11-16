@@ -1,3 +1,10 @@
+## [1.75.3](https://github.com/SocialGouv/ozensemble/compare/v1.75.2...v1.75.3) (2022-11-16)
+
+
+### Bug Fixes
+
+* **app:** wording & recette défi 4 ([726368c](https://github.com/SocialGouv/ozensemble/commit/726368c8d0da654d7209f1c19be86a005e72b121))
+
 ## [1.75.2](https://github.com/SocialGouv/ozensemble/compare/v1.75.1...v1.75.2) (2022-11-14)
 
 
