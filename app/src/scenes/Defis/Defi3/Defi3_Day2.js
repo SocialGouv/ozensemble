@@ -51,7 +51,7 @@ const Defi3_Day2 = ({ navigation, route }) => {
       <Defi3_day2_Schema />
 
       <Dropdown>
-        <ToggleContent title="1. Planifier">
+        <ToggleContent title="1. Mon environnement">
           <Element
             content={
               <>

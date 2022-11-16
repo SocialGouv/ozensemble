@@ -69,13 +69,13 @@ const Defi4_Day6 = ({ navigation, route }) => {
             <TextSizeStyled>
               <TextStyled bold>Comment et par quoi remplacer l'alcool ?</TextStyled>
               {'\n'}
-              Les routines de consommation d’alcool sont de véritables pièges :{'\n'}
+              Les routines de consommation d’alcool sont de véritables pièges :
             </TextSizeStyled>
             <BulletPoint>
-              <TextSizeStyled>{'\u2022'} « C’est l’heure de l’apéritif. »</TextSizeStyled>
-              <TextSizeStyled>{'\u2022'} « À table, les repas c’est avec un verre de vin ! »</TextSizeStyled>
+              <TextSizeStyled>{'\n\u2022'} « C’est l’heure de l’apéritif. »</TextSizeStyled>
+              <TextSizeStyled>{'\n\u2022'} « Après le boulot, je bois toujours une bière. »</TextSizeStyled>
               <TextSizeStyled>
-                {'\u2022'} « Après le boulot, je bois toujours une bière. »{'\n'}
+                {'\n\u2022'} « À table, les repas c’est avec un verre de vin ! »{'\n'}
               </TextSizeStyled>
             </BulletPoint>
             <TextSizeStyled>

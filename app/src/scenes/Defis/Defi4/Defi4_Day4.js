@@ -196,7 +196,7 @@ const Defi4_Day4 = ({ route }) => {
                     </MyGoalSubContainerInside>
                   </MyGoalSubContainer>
                   <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
-                    <TextModify>Modifier l'objectif</TextModify>
+                    <TextModify>Mettre à jour l’objectif</TextModify>
                   </ButtonTouchable>
                   <Spacer size={30} />
                   <ButtonPrimary content="Je le garde" onPress={() => navigation.navigate('DEFI4_MENU')} />
