@@ -4,7 +4,8 @@ import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { Image } from 'react-native';
+import styled from 'styled-components';
+import { screenWidth } from '../../../styles/theme';
 
 const AlcoholAndDependency = () => {
   const title = 'Dépendance physique à l’alcool';
@@ -65,7 +66,9 @@ const AlcoholAndDependency = () => {
           Un projet d’accompagnement médical de sevrage est proposé à toute personne désireuse de réduire sa
           consommation d’alcool.
         </P>
-        <Image source={require('../../../assets/illustrations/illustrationSevrage.png')} />
+        <ImageContainer>
+          <ImageStyled source={require('../../../assets/illustrations/illustrationSevrage.png')} />
+        </ImageContainer>
         <Spacer size={20} />
         <H2 color={'#4030a5'}>Prise en charge</H2>
         <Spacer size={20} />
@@ -94,5 +97,14 @@ const AlcoholAndDependency = () => {
     </NavigationWrapper>
   );
 };
+
+const ImageContainer = styled.View`
+  align-items: center;
+`;
+
+const ImageStyled = styled.Image`
+  width: ${screenWidth * 0.9}px;
+  height: ${screenWidth * 0.9 * 0.48}px;
+`;
 
 export default AlcoholAndDependency;
