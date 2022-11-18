@@ -128,13 +128,13 @@ export async function migrateRemindersToPushToken() {
     storage.set('hasMigratedRemindersToPushToken', true);
     return;
   }
-  const reminderDefis = storage.getString('reminderDefis'); // ISODate - string
-  const reminderDefisMode = storage.getString('reminderDefisMode'); // day/week
-  const reminderDefisWeekDay = storage.getString('reminderDefisWeekDay'); // 0-6
+  const reminderDefis = storage.getString('@DefisReminder'); // ISODate - string
+  const reminderDefisMode = storage.getString('@DefisReminder-mode'); // day/week
+  const reminderDefisWeekDay = storage.getString('@DefisReminder-weekDay'); // 0-6
 
-  const reminderGain = storage.getString('reminderGain'); // ISODate
-  const reminderGainMode = storage.getString('reminderGainMode'); // day/week
-  const reminderGainWeekDay = storage.getString('reminderGainWeekDay'); // 0-6
+  const reminderGain = storage.getString('@GainsReminder'); // ISODate
+  const reminderGainMode = storage.getString('@GainsReminder-mode'); // day/week
+  const reminderGainWeekDay = storage.getString('@GainsReminder-weekDay'); // 0-6
 
   if (!reminderDefis && !reminderGain) return;
 

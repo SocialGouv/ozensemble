@@ -78,7 +78,16 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!hasMigrated || !hasMigratedToRecoil || !hasGenderAndAge) return null;
+  if (
+    !hasMigrated ||
+    !hasMigratedToRecoil ||
+    !hasGenderAndAge ||
+    hasMigratedDefi1 ||
+    _hasMigratedRemindersToPushToken ||
+    hasMigratedReminders
+  ) {
+    return null;
+  }
 
   return (
     <RecoilRoot>
