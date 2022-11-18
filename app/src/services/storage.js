@@ -124,19 +124,23 @@ export const hasMigratedRemindersToPushToken = storage.getBoolean('hasMigratedRe
 export async function migrateRemindersToPushToken() {
   if (hasMigratedRemindersToPushToken) return;
   const existingId = storage.getString('STORAGE_KEY_REMINDER_ID');
+
   if (existingId) {
     storage.set('hasMigratedRemindersToPushToken', true);
     return;
   }
-  const reminderDefis = storage.getString('@DefisReminder'); // ISODate - string
-  const reminderDefisMode = storage.getString('@DefisReminder-mode'); // day/week
-  const reminderDefisWeekDay = storage.getString('@DefisReminder-weekDay'); // 0-6
+  const reminderDefis = JSON.parse(storage.getString('@DefisReminder') || '""'); // ISODate - string
+  const reminderDefisMode = JSON.parse(storage.getString('@DefisReminder-mode') || '""'); // day/week
+  const reminderDefisWeekDay = JSON.parse(storage.getString('@DefisReminder-weekDay') || '""'); // 0-6
 
-  const reminderGain = storage.getString('@GainsReminder'); // ISODate
-  const reminderGainMode = storage.getString('@GainsReminder-mode'); // day/week
-  const reminderGainWeekDay = storage.getString('@GainsReminder-weekDay'); // 0-6
+  const reminderGain = JSON.parse(storage.getString('@GainsReminder') || '""'); // ISODate
+  const reminderGainMode = JSON.parse(storage.getString('@GainsReminder-mode') || '""'); // day/week
+  const reminderGainWeekDay = JSON.parse(storage.getString('@GainsReminder-weekDay') || '""'); // 0-6
 
-  if (!reminderDefis && !reminderGain) return;
+  if (!reminderDefis && !reminderGain) {
+    storage.set('hasMigratedRemindersToPushToken', true);
+    return;
+  }
 
   const reminder = reminderGain ? reminderGain : reminderDefis;
   const mode = reminderGain ? reminderGainMode : reminderDefisMode;

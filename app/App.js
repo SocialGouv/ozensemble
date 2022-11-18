@@ -82,9 +82,9 @@ const App = () => {
     !hasMigrated ||
     !hasMigratedToRecoil ||
     !hasGenderAndAge ||
-    hasMigratedDefi1 ||
-    _hasMigratedRemindersToPushToken ||
-    hasMigratedReminders
+    !hasMigratedDefi1 ||
+    !_hasMigratedRemindersToPushToken ||
+    !hasMigratedReminders
   ) {
     return null;
   }
