@@ -8,6 +8,7 @@ import CONSTANTS from '../reference/constants';
 
 const getInitStoredAnswers = (memoryKeyAnswers, defaultValue = {}) => {
   const storedAnswers = storage.getString(memoryKeyAnswers);
+  console.log({ memoryKeyAnswers, storedAnswers });
   try {
     if (storedAnswers) return JSON.parse(storedAnswers);
     return defaultValue;
@@ -168,4 +169,21 @@ export const QuizzDefi3Day5ResultState = atom({
   key: 'QuizzDefi3Day5ResultState',
   default: getInitStoredResult('@QuizzDefi3Day5_result'),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day5_result', JSON.stringify(newValue)))],
+});
+
+export const reevaluateQuizzAnswersState = atom({
+  key: 'reevaluateQuizzAnswersState',
+  default: getInitStoredAnswers('@QuizzReevaluateConso_answers'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzReevaluateConso_answers', JSON.stringify(newValue)))],
+});
+
+export const reevaluateQuizzResultState = atom({
+  key: 'reevaluateQuizzResultState',
+  default: getInitStoredResult('@QuizzReevaluateConso_result'),
+  effects: [
+    ({ onSet }) =>
+      onSet((newValue) => {
+        storage.set('@QuizzReevaluateConso_result', JSON.stringify(newValue));
+      }),
+  ],
 });

@@ -19,11 +19,13 @@ const DefisMenu = ({ navigation }) => {
   const [showDefi2Modal, setshowDefi2Modal] = useState(false);
   const [showDefi3Modal, setshowDefi3Modal] = useState(false);
   const [showDefi4Modal, setshowDefi4Modal] = useState(false);
+  const [showDefi5Modal, setshowDefi5Modal] = useState(false);
   const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
   const [defi4Day, setDefi4Day] = useState(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
+  const [defi5Day, setDefi5Day] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
 
   const isFocused = useIsFocused();
 
@@ -32,6 +34,7 @@ const DefisMenu = ({ navigation }) => {
     if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
     if (isFocused) setDefi3Day(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
     if (isFocused) setDefi4Day(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
+    if (isFocused) setDefi5Day(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   }, [isFocused]);
 
   const defi1CallToAction = useMemo(() => {
@@ -57,6 +60,12 @@ const DefisMenu = ({ navigation }) => {
     if (defi4Day === 7) return 'Mes résultats';
     return 'Je continue';
   }, [defi4Day, autoEvaluationDone]);
+
+  const defi5CallToAction = useMemo(() => {
+    if (!autoEvaluationDone || defi5Day === 0) return 'Je commence';
+    if (defi5Day === 7) return 'Mes résultats';
+    return 'Je continue';
+  }, [defi5Day, autoEvaluationDone]);
 
   return (
     <WrapperContainer title={'Mes défis'}>
@@ -131,6 +140,17 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi4Modal(true))}
       />
       <CategorieMenu
+        title={'Cinquième défi'}
+        description={'Mon évolution'}
+        onPress={() => {
+          navigation.navigate('DEFI5');
+        }}
+        image={require('../../assets/images/Defi5.png')}
+        disabled={!autoEvaluationDone || defi4Day < 7}
+        callToAction={defi5CallToAction}
+        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi5Modal(true))}
+      />
+      <CategorieMenu
         title={'Mes tests'}
         description={'Retrouver mes résultats'}
         onPress={() => navigation.navigate('TESTS_DEFIS')}
@@ -192,6 +212,19 @@ const DefisMenu = ({ navigation }) => {
         }}
       />
       <OnBoardingModal
+        title="Faites le quatrième défi avant"
+        description="Commencez le défi 4 avant d'aller plus loin :) "
+        boutonTitle={`${defi4CallToAction} le\u000Aquatrième\u00A0défi`}
+        onPress={() => {
+          setshowDefi5Modal(false);
+          navigation.navigate('DEFI4');
+        }}
+        visible={showDefi5Modal}
+        hide={() => {
+          setshowDefi5Modal(false);
+        }}
+      />
+      <OnBoardingModal
         title="Pourquoi faire cette auto-évaluation ?"
         description={
           <>
@@ -229,6 +262,7 @@ const CategorieMenu = ({
   disabled,
   disabledContainer,
 }) => {
+  disabled = __DEV__ ? false : disabled;
   return (
     <>
       <CategorieContainer disabled={disabledContainer} onPress={disabled ? onBoardingPress : onPress}>

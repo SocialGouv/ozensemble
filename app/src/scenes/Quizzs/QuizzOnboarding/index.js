@@ -5,9 +5,10 @@ import questionsOnboarding from './questions';
 import ResultsOnboarding from './ResultsOnboarding';
 import { mapOnboardingAnswersToResult } from './utils';
 
-const QuizzOnboarding = (props) => (
+const QuizzOnboarding = ({ navigation, route }) => (
   <Quizz
-    {...props}
+    navigation={navigation}
+    route={route}
     questions={questionsOnboarding}
     recoilAnswersState={autoEvaluationQuizzAnswersState}
     recoilResultState={autoEvaluationQuizzResultState}

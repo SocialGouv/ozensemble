@@ -24,6 +24,8 @@ import {
   hasMigratedDefi1Stored,
   hasMigratedRemindersStored,
   migrateReminders,
+  hasMigratedRemindersToPushToken,
+  migrateRemindersToPushToken,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -41,6 +43,9 @@ const App = () => {
   const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
   const [hasMigratedDefi1, setHasMigratedDefi1] = useState(hasMigratedDefi1Stored);
   const [hasMigratedReminders, setHasMigratedReminders] = useState(hasMigratedRemindersStored);
+  const [_hasMigratedRemindersToPushToken, setHasMigratedRemindersToPushToken] = useState(
+    hasMigratedRemindersToPushToken
+  );
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
@@ -66,10 +71,23 @@ const App = () => {
       migrateReminders();
       setHasMigratedReminders(true);
     }
+    if (!_hasMigratedRemindersToPushToken) {
+      migrateRemindersToPushToken();
+      setHasMigratedRemindersToPushToken(true);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!hasMigrated || !hasMigratedToRecoil || !hasGenderAndAge) return null;
+  if (
+    !hasMigrated ||
+    !hasMigratedToRecoil ||
+    !hasGenderAndAge ||
+    !hasMigratedDefi1 ||
+    !_hasMigratedRemindersToPushToken ||
+    !hasMigratedReminders
+  ) {
+    return null;
+  }
 
   return (
     <RecoilRoot>

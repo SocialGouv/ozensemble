@@ -5,12 +5,11 @@ import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
 import { defi4_Data } from './defi4_Data';
-import { setValidatedDays } from '../utils';
 import Defi4_Day1 from './Defi4_Day1';
 import Defi4_Day2 from './Defi4_Day2';
 import Defi4_Day3 from './Defi4_Day3';
 import Defi4_Day4 from './Defi4_Day4';
-import Defi4_Day5 from './Day5';
+import Defi4_Day5 from './Defi4_Day5';
 import Defi4_Day6 from './Defi4_Day6';
 import Defi4_Day7 from './Defi4_Day7';
 import AlcoholAndDependency from '../../Health/Articles/AlcoholAndDependency';
@@ -102,15 +101,6 @@ const Defi4_Menu = ({ navigation }) => {
     if (storedValidateDays) setValidateDays(storedValidateDays);
   };
 
-  const updateValidatedDays = async (day) => {
-    // set local storage
-    setValidatedDays(day, '@Defi4');
-
-    //set state
-    setLastUpdate(lastUpdate);
-    setValidateDays(day);
-  };
-
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     if (day === 0) {
@@ -131,7 +121,7 @@ const Defi4_Menu = ({ navigation }) => {
   });
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
-  const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
+  const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
   return (
     <Defi
@@ -140,8 +130,7 @@ const Defi4_Menu = ({ navigation }) => {
       data={defi4_Data}
       defiNumber={4}
       validatedDays={validatedDays}
-      ActiveDayIndex={ActiveDayIndex}
-      updateValidatedDays={updateValidatedDays}
+      activeDayIndex={activeDayIndex}
       hackAndUnlockDay={hackAndUnlockDay}
       defiStorageKey="@Defi4"
     />

@@ -11,7 +11,7 @@ const atLeastOneAnswerIsNotNever = (answers) => {
   return hasNotAnsweredNeverAtLeastOne;
 };
 
-export const computeScore = (questions, answers) => {
+export const computeEvaluateConsoScore = (questions, answers) => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
       return {
@@ -87,4 +87,4 @@ const mapScoreToResult = ({ computedScore, answers }) => {
 };
 
 export const mapEvaluateConsoAnswersToResult = (questions, answers) =>
-  mapScoreToResult({ computedScore: computeScore(questions, answers), answers });
+  mapScoreToResult({ computedScore: computeEvaluateConsoScore(questions, answers), answers });

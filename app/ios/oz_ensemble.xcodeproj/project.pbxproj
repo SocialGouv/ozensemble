@@ -503,7 +503,7 @@
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 111;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 76GBKHVK25;
 				ENABLE_BITCODE = NO;
@@ -538,7 +538,7 @@
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 111;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 76GBKHVK25;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;

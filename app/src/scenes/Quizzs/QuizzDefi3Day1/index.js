@@ -11,9 +11,7 @@ const QuizzDefi3Day1 = (props) => (
     questions={questions}
     recoilAnswersState={QuizzDefi3Day1AnswersState}
     recoilResultState={QuizzDefi3Day1ResultState}
-    mapAnswersToResult={() => {
-      return 1;
-    }}
+    mapAnswersToResult={() => 1}
     Results={Results}
     calculateScore={false}
   />

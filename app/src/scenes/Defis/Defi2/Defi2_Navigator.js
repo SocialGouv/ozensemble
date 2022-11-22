@@ -5,7 +5,6 @@ import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
 import { defi2_Data } from './defi2_Data';
-import { setValidatedDays } from '../utils';
 import Defi2_Day1 from './Defi2_Day1';
 import Defi2_Day2 from './Defi2_Day2';
 import QuizzRiskSituations from '../../Quizzs/QuizzRiskSituations';
@@ -107,15 +106,6 @@ const Defi2_Menu = ({ navigation }) => {
     if (storedValidateDays) setValidateDays(storedValidateDays);
   };
 
-  const updateValidatedDays = async (day) => {
-    // set local storage
-    setValidatedDays(day, '@Defi2');
-
-    //set state
-    setLastUpdate(lastUpdate);
-    setValidateDays(day);
-  };
-
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     if (day === 0) {
@@ -136,7 +126,7 @@ const Defi2_Menu = ({ navigation }) => {
   });
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
-  const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
+  const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
   return (
     <Defi
@@ -145,8 +135,7 @@ const Defi2_Menu = ({ navigation }) => {
       data={defi2_Data}
       defiNumber={2}
       validatedDays={validatedDays}
-      ActiveDayIndex={ActiveDayIndex}
-      updateValidatedDays={updateValidatedDays}
+      activeDayIndex={activeDayIndex}
       hackAndUnlockDay={hackAndUnlockDay}
       defiStorageKey="@Defi2"
     />

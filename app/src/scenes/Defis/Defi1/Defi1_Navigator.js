@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 
 import { storage } from '../../../services/storage';
-import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import QuizzMotivations from '../../Quizzs/QuizzMotivations';
 import Defi from '../Defi';
@@ -16,6 +15,7 @@ import Defi1_Onboarding from './Defi1_Onboarding';
 import Defi1_OnboardingInfo from './Defi1_OnboardingInfo';
 import { setValidatedDays } from '../utils';
 import Defi1_Reminder from './Defi1_Reminder';
+import Defi1_Day2 from './Defi1_Day2';
 
 const Defi1_Stack = createStackNavigator();
 
@@ -39,7 +39,7 @@ const Defi1_Navigator = () => {
       />
       <Defi1_Stack.Screen
         name="DEFI1_DAY_2"
-        component={QuizzEvaluateConso}
+        component={Defi1_Day2}
         initialParams={{
           title: 'Mieux mesurer ma consommation',
           inDefi1: true,
@@ -108,15 +108,6 @@ const Defi1_Menu = ({ navigation }) => {
     if (storedValidateDays) setValidateDays(storedValidateDays);
   };
 
-  const updateValidatedDays = async (day) => {
-    // set local storage
-    setValidatedDays(day, '@Defi1');
-
-    //set state
-    setLastUpdate(lastUpdate);
-    setValidateDays(day);
-  };
-
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     if (day === 0) {
@@ -142,7 +133,7 @@ const Defi1_Menu = ({ navigation }) => {
   }, [validatedDays]);
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
-  const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
+  const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
   return (
     <Defi
@@ -151,8 +142,7 @@ const Defi1_Menu = ({ navigation }) => {
       defiNumber={1}
       data={defi1_Data}
       validatedDays={validatedDays}
-      ActiveDayIndex={ActiveDayIndex}
-      updateValidatedDays={updateValidatedDays}
+      activeDayIndex={activeDayIndex}
       hackAndUnlockDay={hackAndUnlockDay}
       defiStorageKey="@Defi1"
     />

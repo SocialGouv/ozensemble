@@ -1,19 +1,20 @@
 import React from 'react';
 import Quizz from '../../../components/Quizz';
-import { betterEvaluateQuizzAnswersState, betterEvaluateQuizzResultState } from '../../../recoil/quizzs';
 import questionsEvaluateConso from './questions';
-import ResultsEvaluateConsoNavigator from './ResultsEvaluateConso';
 import { mapEvaluateConsoAnswersToResult } from './utils';
 
-const QuizzEvaluateConso = (props) => (
+/* Used in Defi1_Day2 */
+/* Used in Defi5_Day1 */
+const QuizzEvaluateConso = ({ navigation, route, recoilAnswersState, recoilResultState, Results }) => (
   <Quizz
-    {...props}
+    navigation={navigation}
+    route={route}
     event="_MIEUX_MESURER_MA_CONSO"
     questions={questionsEvaluateConso}
-    recoilAnswersState={betterEvaluateQuizzAnswersState}
-    recoilResultState={betterEvaluateQuizzResultState}
     mapAnswersToResult={mapEvaluateConsoAnswersToResult}
-    Results={ResultsEvaluateConsoNavigator}
+    recoilAnswersState={recoilAnswersState}
+    recoilResultState={recoilResultState}
+    Results={Results}
   />
 );
 

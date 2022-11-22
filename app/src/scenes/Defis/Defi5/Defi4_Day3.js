@@ -1,11 +1,11 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import Element from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
+import styled from 'styled-components';
 import H2 from '../../../components/H2';
 import { P, Spacer } from '../../../components/Articles';
 import PiggyBank from '../../../components/illustrations/icons/PiggyBank';
@@ -21,7 +21,7 @@ const Defi4_Day3 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="Quels bénéfices à changer ?">
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Comment maintenir ma motivation ?">
       <Element
         content={
           <>

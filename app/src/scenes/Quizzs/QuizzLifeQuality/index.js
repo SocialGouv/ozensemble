@@ -5,9 +5,10 @@ import questionsLifeQuality from './questions';
 import ResultsLifeQuality from './ResultsLifeQuality';
 import { mapLifeQualityAnswersToResult } from './utils';
 
-const QuizzLifeQuality = (props) => (
+const QuizzLifeQuality = ({ navigation, route }) => (
   <Quizz
-    {...props}
+    navigation={navigation}
+    route={route}
     event="_QUALITE_DE_VIE"
     questions={questionsLifeQuality}
     recoilAnswersState={lifeQualityQuizzAnswersState}

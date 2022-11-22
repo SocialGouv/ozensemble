@@ -8,6 +8,7 @@ import Defi1_Navigator from './Defi1/Defi1_Navigator';
 import Defi2_Navigator from './Defi2/Defi2_Navigator';
 import Defi3_Navigator from './Defi3/Defi3_Navigator';
 import Defi4_Navigator from './Defi4/Defi4_Navigator';
+import Defi5_Navigator from './Defi5/Defi5_Navigator';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import ContactForm from '../Health/ContactForm';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
@@ -31,6 +32,7 @@ const DefisNavigator = () => {
         <DefisStack.Screen name="DEFI2" component={Defi2_Navigator} />
         <DefisStack.Screen name="DEFI3" component={Defi3_Navigator} />
         <DefisStack.Screen name="DEFI4" component={Defi4_Navigator} />
+        <DefisStack.Screen name="DEFI5" component={Defi5_Navigator} />
         <DefisStack.Screen name="TESTS_DEFIS" component={QuizzsNavigator} />
         <DefisStack.Screen name="CONTACT" component={ContactForm} />
       </DefisStack.Navigator>

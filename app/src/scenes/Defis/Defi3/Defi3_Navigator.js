@@ -105,15 +105,6 @@ const Defi3_Menu = ({ navigation }) => {
     if (storedValidateDays) setValidateDays(storedValidateDays);
   };
 
-  const updateValidatedDays = async (day) => {
-    // set local storage
-    setValidatedDays(day, '@Defi3');
-
-    //set state
-    setLastUpdate(lastUpdate);
-    setValidateDays(day);
-  };
-
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     if (day === 0) {
@@ -134,7 +125,7 @@ const Defi3_Menu = ({ navigation }) => {
   });
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
-  const ActiveDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
+  const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
 
   return (
     <Defi
@@ -143,8 +134,7 @@ const Defi3_Menu = ({ navigation }) => {
       data={defi3_Data}
       defiNumber={3}
       validatedDays={validatedDays}
-      ActiveDayIndex={ActiveDayIndex}
-      updateValidatedDays={updateValidatedDays}
+      activeDayIndex={activeDayIndex}
       hackAndUnlockDay={hackAndUnlockDay}
       defiStorageKey="@Defi3"
     />

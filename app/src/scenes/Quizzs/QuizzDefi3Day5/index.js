@@ -4,16 +4,15 @@ import { QuizzDefi3Day5AnswersState, QuizzDefi3Day5ResultState } from '../../../
 import questions from './questions';
 import Results from './results';
 
-const QuizzDefi3Day5 = (props) => (
+const QuizzDefi3Day5 = ({ navigation, route }) => (
   <Quizz
-    {...props}
+    navigation={navigation}
+    route={route}
     event="_DEFI3_DAY5"
     questions={questions}
     recoilAnswersState={QuizzDefi3Day5AnswersState}
     recoilResultState={QuizzDefi3Day5ResultState}
-    mapAnswersToResult={() => {
-      return 1;
-    }}
+    mapAnswersToResult={() => 1}
     Results={Results}
     calculateScore={false}
   />

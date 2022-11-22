@@ -1,5 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as RNLocalize from 'react-native-localize';
 import { MMKV } from 'react-native-mmkv';
+import API from './api';
+import NotificationService from './notifications';
+import { capture } from './sentry';
 
 export const storage = new MMKV();
 (() => {
@@ -114,4 +118,71 @@ export async function migrateReminders() {
     storage.set('@GainsReminder-setup', true);
   }
   storage.set('hasMigratedReminders', true);
+}
+
+export const hasMigratedRemindersToPushToken = storage.getBoolean('hasMigratedRemindersToPushToken');
+
+export async function migrateRemindersToPushToken() {
+  try {
+    if (hasMigratedRemindersToPushToken) return;
+    const existingId = storage.getString('STORAGE_KEY_REMINDER_ID');
+
+    if (existingId) {
+      storage.set('hasMigratedRemindersToPushToken', true);
+      return;
+    }
+    const reminderDefis = JSON.parse(storage.getString('@DefisReminder') || '""'); // ISODate - string
+    const reminderDefisMode = JSON.parse(storage.getString('@DefisReminder-mode') || '""'); // day/week
+    const reminderDefisWeekDay = JSON.parse(storage.getString('@DefisReminder-weekDay') || '""'); // 0-6
+
+    const reminderGain = JSON.parse(storage.getString('@GainsReminder') || '""'); // ISODate
+    const reminderGainMode = JSON.parse(storage.getString('@GainsReminder-mode') || '""'); // day/week
+    const reminderGainWeekDay = JSON.parse(storage.getString('@GainsReminder-weekDay') || '""'); // 0-6
+
+    if (!reminderDefis && !reminderGain) {
+      storage.set('hasMigratedRemindersToPushToken', true);
+      return;
+    }
+
+    const reminder = reminderGain ? reminderGain : reminderDefis;
+    const mode = reminderGain ? reminderGainMode : reminderDefisMode;
+    const weekDay = reminderGain ? reminderGainWeekDay : reminderDefisWeekDay;
+
+    const pushNotifToken = storage.getString('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN');
+
+    if (!pushNotifToken) return;
+
+    const weekDayName = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][weekDay];
+
+    const matomoId = storage.getString('@UserIdv2');
+
+    const res = await API.put({
+      path: '/reminder',
+      body: {
+        pushNotifToken,
+        type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
+        timezone: RNLocalize.getTimeZone(),
+        timeHours: reminder.getHours(),
+        timeMinutes: reminder.getMinutes(),
+        daysOfWeek:
+          mode === 'week'
+            ? {
+                [weekDayName]: true,
+              }
+            : undefined,
+        id: existingId ?? undefined,
+        matomoId,
+      },
+    });
+
+    if (!res?.ok) return false;
+
+    if (res?.ok && res?.reminder?.id) storage.set('STORAGE_KEY_REMINDER_ID', res.reminder.id);
+
+    NotificationService.cancelAll();
+
+    storage.set('hasMigratedRemindersToPushToken', true);
+  } catch (e) {
+    capture(e);
+  }
 }

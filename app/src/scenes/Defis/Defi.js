@@ -11,7 +11,12 @@ import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
 import OnBoardingModal from '../../components/OnBoardingModal';
-import { defi2OnBoardingDoneState, defi3OnBoardingDoneState, defi4OnBoardingDoneState } from '../../recoil/defis';
+import {
+  defi2OnBoardingDoneState,
+  defi3OnBoardingDoneState,
+  defi4OnBoardingDoneState,
+  defi5OnBoardingDoneState,
+} from '../../recoil/defis';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -21,8 +26,7 @@ const Defi = ({
   data,
   title,
   validatedDays,
-  updateValidatedDays,
-  ActiveDayIndex,
+  activeDayIndex,
   hackAndUnlockDay,
   defiStorageKey,
   defiNumber,
@@ -33,8 +37,9 @@ const Defi = ({
   const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
   const [onBoardingDefi3Done, setOnBoardingDefi3Done] = useRecoilState(defi3OnBoardingDoneState);
   const [onBoardingDefi4Done, setOnBoardingDefi4Done] = useRecoilState(defi4OnBoardingDoneState);
+  const [onBoardingDefi5Done, setOnBoardingDefi5Done] = useRecoilState(defi5OnBoardingDoneState);
   const nbdays = data.length;
-  const activeDay = Math.min(data.length - 1, ActiveDayIndex);
+  const activeDay = Math.min(data.length - 1, activeDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
 
   const getTitleColor = (dayIndex) => {
@@ -66,7 +71,6 @@ const Defi = ({
           <FeedCTAButton
             content="Ajouter une consommation"
             onPress={() => {
-              if (!activeDayIsDone) updateValidatedDays(activeDay + 1);
               navigation.push('ADD_DRINK', { timestamp: Date.now() });
               logEvent({
                 category: 'CONSO',
@@ -161,6 +165,18 @@ const Defi = ({
         visible={!onBoardingDefi4Done && defiStorageKey === '@Defi4'}
         hide={() => {
           setOnBoardingDefi4Done(true);
+        }}
+      />
+      <OnBoardingModal
+        title="Au menu cette semaine : où en suis-je après 4 semaines ?"
+        description="Cette semaine, nous vous proposons de faire un bilan général. Vous aurez l’occasion de faire le point sur l’évolution de votre consommation, de votre vie quotidienne et de votre qualité de vie."
+        boutonTitle="Je commence"
+        onPress={() => {
+          setOnBoardingDefi5Done(true);
+        }}
+        visible={!onBoardingDefi5Done && defiStorageKey === '@Defi5'}
+        hide={() => {
+          setOnBoardingDefi5Done(true);
         }}
       />
     </WrapperContainer>
