@@ -5,11 +5,11 @@ import { mapEvaluateConsoAnswersToResult } from './utils';
 
 /* Used in Defi1_Day2 */
 /* Used in Defi5_Day1 */
-const QuizzEvaluateConso = ({ navigation, route, recoilAnswersState, recoilResultState, Results }) => (
+const QuizzEvaluateConso = ({ navigation, route, event, recoilAnswersState, recoilResultState, Results }) => (
   <Quizz
     navigation={navigation}
     route={route}
-    event="_MIEUX_MESURER_MA_CONSO"
+    event={event}
     questions={questionsEvaluateConso}
     mapAnswersToResult={mapEvaluateConsoAnswersToResult}
     recoilAnswersState={recoilAnswersState}

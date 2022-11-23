@@ -187,3 +187,15 @@ export const reevaluateQuizzResultState = atom({
       }),
   ],
 });
+
+export const Defi5_Day2_Answers_State = atom({
+  key: 'Defi5_Day2_Answers_State',
+  default: getInitStoredAnswers('@Defi5_Day2_Answers', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day2_Answers', JSON.stringify(newValue)))],
+});
+
+export const Defi5_Day2_ResultState = atom({
+  key: 'Defi5_Day2_ResultState',
+  default: getInitStoredAnswers('@Defi5_Day2_Result', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day2_Result', JSON.stringify(newValue)))],
+});

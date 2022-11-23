@@ -15,7 +15,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../../recoil/gains';
 import Done from '../../../components/illustrations/Done';
 import { Defi4_Day5_Answers_State } from '../../../recoil/quizzs';
-import answersDefi4Day5 from './Defi4_Day5/answers';
+import { answersDefi4Day5 } from './Defi4_Day5';
 
 const Defi4_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();

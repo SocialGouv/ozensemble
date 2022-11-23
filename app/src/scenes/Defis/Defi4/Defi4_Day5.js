@@ -2,18 +2,39 @@ import React from 'react';
 import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
-import TextStyled from '../../../../components/TextStyled';
-import answers from './answers';
-import { Defi4_Day5_Answers_State, Defi4_Day5_ResultState } from '../../../../recoil/quizzs';
-import { setValidatedDays } from '../../utils';
-import WrapperContainer from '../../../../components/WrapperContainer';
-import Element from '../../../../components/ElementDayDefi';
-import CheckboxLabelled from '../../../../components/CheckboxLabelled';
+import ButtonPrimary from '../../../components/ButtonPrimary';
+import TextStyled from '../../../components/TextStyled';
+import { Defi4_Day5_Answers_State, Defi4_Day5_ResultState } from '../../../recoil/quizzs';
+import { setValidatedDays } from '../utils';
+import WrapperContainer from '../../../components/WrapperContainer';
+import Element from '../../../components/ElementDayDefi';
+import CheckboxLabelled from '../../../components/CheckboxLabelled';
+
+export const answersDefi4Day5 = [
+  { answerKey: '1.1', content: 'Aller chez le coiffeur' },
+  { answerKey: '1.2', content: 'Faire des essais vestimentaires' },
+  { answerKey: '1.3', content: 'Faire une promenade' },
+  { answerKey: '1.4', content: 'Écouter de la musique' },
+  { answerKey: '1.5', content: 'Cuisiner' },
+  { answerKey: '1.6', content: 'Modifier l’agencement de ses meubles' },
+  { answerKey: '1.7', content: 'Lire un livre' },
+  { answerKey: '1.8', content: 'Écrire ses rêves' },
+  { answerKey: '1.9', content: 'Inviter des amis' },
+  { answerKey: '1.10', content: 'Essayer un nouveau maquillage' },
+  { answerKey: '1.11', content: 'Chanter' },
+  { answerKey: '1.12', content: 'Faire du sport' },
+  { answerKey: '1.13', content: 'Jardiner' },
+  { answerKey: '1.14', content: 'Bricoler' },
+  { answerKey: '1.15', content: 'Aller au cinéma' },
+  { answerKey: '1.16', content: 'S’inscrire à un club' },
+  { answerKey: '1.17', content: 'Jouer en famille' },
+  { answerKey: '1.18', content: 'S’autoriser à ne rien faire' },
+  { answerKey: '1.19', content: 'Regarder son émission préférée à la télé' },
+];
 
 const QuestionnaireDefi4Day5Stack = createStackNavigator();
 
-const QuestionnaireDefi4Day5 = ({ navigation, route }) => {
+const Defi4_Day5 = ({ navigation, route }) => {
   const [defi4_Day5_Answers, setDefi4_Day5_Answers] = useRecoilState(Defi4_Day5_Answers_State);
   const setDefi4_Day5_ResultState = useSetRecoilState(Defi4_Day5_ResultState);
 
@@ -31,7 +52,7 @@ const QuestionnaireDefi4Day5 = ({ navigation, route }) => {
       setValidatedDays(route?.params?.day, '@Defi4');
       navigation.navigate('DEFI4_MENU');
     } else {
-      navigation.push('TESTS_DEFIS');
+      navigation.navigate('TESTS_DEFIS');
     }
   };
 
@@ -104,7 +125,7 @@ const QuestionnaireDefi4Day5 = ({ navigation, route }) => {
                 Je sélectionne les activités les plus pertinentes.
               </TextStyled>
             </Paragraph>
-            {answers.map((item) => {
+            {answersDefi4Day5.map((item) => {
               const checked = !!defi4_Day5_Answers?.includes(item.answerKey);
               return (
                 <CheckboxLabelled
@@ -132,9 +153,9 @@ const Paragraph = styled.View`
 `;
 
 const ButtonsContainer = styled.View`
-  margin-top: 10px;
+  margin-top: 40px;
   align-items: center;
   width: 100%;
 `;
 
-export default QuestionnaireDefi4Day5;
+export default Defi4_Day5;

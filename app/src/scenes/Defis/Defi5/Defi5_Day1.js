@@ -25,13 +25,13 @@ const Defi5_Day1_Stack = createStackNavigator();
 
 const Defi5_Day1_Navigator = ({ route }) => {
   return (
-    <Defi5_Day1_Stack.Navigator headerMode="none" initialRouteName="DEFI5_DAY_1_ONBAORDING">
+    <Defi5_Day1_Stack.Navigator headerMode="none" initialRouteName="DEFI5_DAY1_ONBAORDING">
       <Defi5_Day1_Stack.Screen
-        name="DEFI5_DAY_1_ONBAORDING"
+        name="DEFI5_DAY1_ONBAORDING"
         component={Defi5_Day1_Onboarding}
         initialParams={route.params}
       />
-      <Defi5_Day1_Stack.Screen name="DEFI5_DAY_1_QUIZZ" component={Defi5_Day1_Quizz} initialParams={route.params} />
+      <Defi5_Day1_Stack.Screen name="DEFI5_DAY1_QUIZZ" component={Defi5_Day1_Quizz} initialParams={route.params} />
     </Defi5_Day1_Stack.Navigator>
   );
 };
@@ -59,7 +59,7 @@ const Defi5_Day1_Onboarding = ({ navigation, route }) => {
         }
       />
 
-      <ButtonPrimaryStyled content="Je suis prêt" onPress={() => navigation.navigate('DEFI5_DAY_1_QUIZZ')} />
+      <ButtonPrimaryStyled content="Je suis prêt" onPress={() => navigation.navigate('DEFI5_DAY1_QUIZZ')} />
     </WrapperContainer>
   );
 };
@@ -68,7 +68,7 @@ const Defi5_Day1_Quizz = ({ navigation, route }) => (
   <QuizzEvaluateConso
     navigation={navigation}
     route={route}
-    event="_MIEUX_MESURER_MA_CONSO"
+    event="_REMESURER_MA_CONSO"
     recoilAnswersState={reevaluateQuizzAnswersState}
     recoilResultState={reevaluateQuizzResultState}
     Results={Defi5_Day1_Results}
@@ -108,7 +108,7 @@ const Defi5_Day1_Results = ({ navigation, route }) => {
           }
         />
 
-        <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate('DEFI5_DAY_1_QUIZZ')} />
+        <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate('DEFI5_DAY1_QUIZZ')} />
       </WrapperContainer>
     );
   }
@@ -170,7 +170,7 @@ const Defi5_Day1_Results = ({ navigation, route }) => {
         }
       />
 
-      <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate('DEFI5_DAY_1_QUIZZ')} />
+      <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate('DEFI5_DAY1_QUIZZ')} />
     </WrapperContainer>
   );
 };
