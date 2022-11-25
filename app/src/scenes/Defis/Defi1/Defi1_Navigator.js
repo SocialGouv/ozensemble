@@ -3,7 +3,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect, useState } from 'react';
 
 import { storage } from '../../../services/storage';
-import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import QuizzMotivations from '../../Quizzs/QuizzMotivations';
 import Defi from '../Defi';
 import Defi1_Day1 from './Defi1_Day1';
@@ -16,6 +15,7 @@ import Defi1_OnboardingInfo from './Defi1_OnboardingInfo';
 import { setValidatedDays } from '../utils';
 import Defi1_Reminder from './Defi1_Reminder';
 import Defi1_Day2 from './Defi1_Day2';
+import Defi1_Day4 from './Defi1_Day4';
 
 const Defi1_Stack = createStackNavigator();
 
@@ -58,7 +58,7 @@ const Defi1_Navigator = () => {
       />
       <Defi1_Stack.Screen
         name="DEFI1_DAY_4"
-        component={QuizzLifeQuality}
+        component={Defi1_Day4}
         initialParams={{
           title: 'Évaluer sa qualité de vie',
           inDefi1: true,

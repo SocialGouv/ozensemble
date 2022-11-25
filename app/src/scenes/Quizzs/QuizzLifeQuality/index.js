@@ -1,20 +1,20 @@
 import React from 'react';
 import Quizz from '../../../components/Quizz';
-import { lifeQualityQuizzAnswersState, lifeQualityQuizzResultState } from '../../../recoil/quizzs';
 import questionsLifeQuality from './questions';
-import ResultsLifeQuality from './ResultsLifeQuality';
 import { mapLifeQualityAnswersToResult } from './utils';
 
-const QuizzLifeQuality = ({ navigation, route }) => (
+/* Used in Defi1_Day4 */
+/* Used in Defi5_Day3 */
+const QuizzLifeQuality = ({ navigation, route, event, recoilAnswersState, recoilResultState, Results }) => (
   <Quizz
     navigation={navigation}
     route={route}
-    event="_QUALITE_DE_VIE"
+    event={event}
     questions={questionsLifeQuality}
-    recoilAnswersState={lifeQualityQuizzAnswersState}
-    recoilResultState={lifeQualityQuizzResultState}
+    recoilAnswersState={recoilAnswersState}
+    recoilResultState={recoilResultState}
     mapAnswersToResult={mapLifeQualityAnswersToResult}
-    Results={ResultsLifeQuality}
+    Results={Results}
   />
 );
 

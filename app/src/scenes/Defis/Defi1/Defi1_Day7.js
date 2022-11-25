@@ -3,7 +3,7 @@ import { Linking } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import TextStyled from '../../../components/TextStyled';
 import { ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
-import ResultLifeQuality from '../../Quizzs/QuizzLifeQuality/ResultsLifeQuality';
+import { ResultsLifeQuality } from './Defi1_Day4';
 import ResultsMotivations from '../../Quizzs/QuizzMotivations/ResultsMotivations';
 
 import Sources from '../../Quizzs/Sources';
@@ -20,7 +20,7 @@ const Defi1_Day7 = ({ navigation, route }) => {
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Le bilan de mon Défi 7 jours">
       <ResultsEvaluateConso wrapped={false} hideButtons />
-      <ResultLifeQuality wrapped={false} />
+      <ResultsLifeQuality wrapped={false} />
       <ResultsMotivations wrapped={false} />
       <Sources>
         <TextStyled>

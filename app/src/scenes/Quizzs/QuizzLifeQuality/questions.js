@@ -3,7 +3,7 @@
 // 0 : orange tag
 // -1 : red tag
 
-const questions = [
+const questionsLifeQuality = [
   {
     questionTitle: "Dans l'ensemble, comment évalueriez-vous votre santé durant les 4 semaines passées ?",
     questionKey: '0',
@@ -319,4 +319,4 @@ const questions = [
   },
 ];
 
-export default questions;
+export default questionsLifeQuality;

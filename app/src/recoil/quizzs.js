@@ -8,7 +8,6 @@ import CONSTANTS from '../reference/constants';
 
 const getInitStoredAnswers = (memoryKeyAnswers, defaultValue = {}) => {
   const storedAnswers = storage.getString(memoryKeyAnswers);
-  console.log({ memoryKeyAnswers, storedAnswers });
   try {
     if (storedAnswers) return JSON.parse(storedAnswers);
     return defaultValue;
@@ -198,4 +197,32 @@ export const Defi5_Day2_ResultState = atom({
   key: 'Defi5_Day2_ResultState',
   default: getInitStoredAnswers('@Defi5_Day2_Result', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day2_Result', JSON.stringify(newValue)))],
+});
+
+export const quizzDefi5Day3partie1AnswersState = atom({
+  key: 'quizzDefi5Day3partie1AnswersState',
+  default: getInitStoredAnswers('@QuizzDefi5Day3partie1_answers', []),
+  effects: [
+    ({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi5Day3partie1_answers', JSON.stringify(newValue))),
+  ],
+});
+
+export const quizzDefi5Day3partie1ResultState = atom({
+  key: 'quizzDefi5Day3partie1ResultState',
+  default: getInitStoredResult('@QuizzDefi5Day3partie1_result'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi5Day3partie1_result', JSON.stringify(newValue)))],
+});
+
+export const relifeQualityQuizzAnswersState = atom({
+  key: 'relifeQualityQuizzAnswersState',
+  default: getInitStoredResult('@QuizzDefi5Day3partie2_answers'),
+  effects: [
+    ({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi5Day3partie2_answers', JSON.stringify(newValue))),
+  ],
+});
+
+export const relifeQualityQuizzResultState = atom({
+  key: 'relifeQualityQuizzResultState',
+  default: getInitStoredAnswers('@QuizzDefi5Day3partie2_result', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi5Day3partie2_result', JSON.stringify(newValue)))],
 });

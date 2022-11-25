@@ -1,12 +1,12 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { Linking } from 'react-native';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
-import styled from 'styled-components';
-import { Linking } from 'react-native';
 
 const Defi4_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();

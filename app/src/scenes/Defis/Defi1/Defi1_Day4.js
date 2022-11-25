@@ -2,16 +2,30 @@ import React, { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { selector, useRecoilValue } from 'recoil';
+import { lifeQualityQuizzAnswersState, lifeQualityQuizzResultState } from '../../../recoil/quizzs';
+import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 import { setValidatedDays } from '../../Defis/utils';
-import Sources from '../Sources';
+import Sources from '../../Quizzs/Sources';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
-import { lifeQualityQuizzResultState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
 import WrapperContainer from '../../../components/WrapperContainer';
-import questionsLifeQuality from './questions';
 import H3 from '../../../components/H3';
 import { P, Spacer } from '../../../components/Articles';
+import questionsLifeQuality from '../../Quizzs/QuizzLifeQuality/questions';
+
+const Defi1_Day4 = ({ navigation, route }) => (
+  <QuizzLifeQuality
+    navigation={navigation}
+    route={route}
+    event="_QUALITE_DE_VIE"
+    recoilAnswersState={lifeQualityQuizzAnswersState}
+    recoilResultState={lifeQualityQuizzResultState}
+    Results={ResultsLifeQuality}
+  />
+);
+
+export default Defi1_Day4;
 
 const resultsToDisplaySelector = selector({
   key: 'resultsToDisplaySelector',
@@ -60,7 +74,7 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   );
 };
 
-const ResultsLifeQuality = ({ wrapped = true, route }) => {
+export const ResultsLifeQuality = ({ wrapped = true, route }) => {
   const isFocused = useIsFocused();
   const resultKey = useRecoilValue(lifeQualityQuizzResultState);
   const resultsToDisplay = useRecoilValue(resultsToDisplaySelector);
@@ -155,4 +169,3 @@ const ResultTitle = styled(H3)`
   font-weight: bold;
   color: #4030a5;
 `;
-export default ResultsLifeQuality;
