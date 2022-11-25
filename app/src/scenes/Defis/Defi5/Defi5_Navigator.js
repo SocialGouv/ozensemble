@@ -8,6 +8,7 @@ import { defi5_Data } from './defi5_Data';
 import Defi5_Day1 from './Defi5_Day1';
 import Defi5_Day2 from './Defi5_Day2';
 import Defi5_Day3 from './Defi5_Day3';
+import Defi5_Day4 from './Defi5_Day4';
 // import Defi5_Day1 from './Defi5_Day1';
 // import Defi5_Day2 from './Defi4_Day2';
 // import Defi5_Day3 from './Defi5_Day3';
@@ -51,7 +52,7 @@ const Defi5_Navigator = () => {
             day: 3,
           }}
         />
-        {/* <Defi5_Stack.Screen
+        <Defi5_Stack.Screen
           name="DEFI5_DAY_4"
           component={Defi5_Day4}
           initialParams={{
@@ -60,7 +61,7 @@ const Defi5_Navigator = () => {
             day: 4,
           }}
         />
-        <Defi5_Stack.Screen
+        {/* <Defi5_Stack.Screen
           name="DEFI5_DAY_5"
           component={Defi5_Day5}
           initialParams={{

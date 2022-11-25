@@ -226,3 +226,15 @@ export const relifeQualityQuizzResultState = atom({
   default: getInitStoredAnswers('@QuizzDefi5Day3partie2_result', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi5Day3partie2_result', JSON.stringify(newValue)))],
 });
+
+export const Defi5_Day4_Answers_State = atom({
+  key: 'Defi5_Day4_Answers_State',
+  default: getInitStoredAnswers('@Defi5_Day4_Answers', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day4_Answers', JSON.stringify(newValue)))],
+});
+
+export const Defi5_Day4_ResultState = atom({
+  key: 'Defi5_Day4_ResultState',
+  default: getInitStoredAnswers('@Defi5_Day4_Result', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day4_Result', JSON.stringify(newValue)))],
+});
