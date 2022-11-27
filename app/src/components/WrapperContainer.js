@@ -59,7 +59,7 @@ const BackButtonContainer = styled.View`
   ${({ debug }) => debug && 'border: 2px solid #0F0;'}
 `;
 
-const Title = styled(H1)`
+export const Title = styled(H1)`
   flex-shrink: 0;
   margin-bottom: 20px;
   padding-horizontal: ${defaultPaddingFontScale()}px;
