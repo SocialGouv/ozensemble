@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { Linking, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { Linking } from 'react-native';
 import styled from 'styled-components';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
@@ -9,7 +9,6 @@ import Element from '../../../components/ElementDayDefi';
 import WrapperContainer, { Title } from '../../../components/WrapperContainer';
 import ToggleContent from '../../../components/ToggleContent';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { P } from '../../../components/Articles';
 
 const Defi5_Day6 = ({ navigation, route }) => {
   const isFocused = useIsFocused();

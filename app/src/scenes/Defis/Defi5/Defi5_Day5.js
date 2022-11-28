@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -11,7 +10,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
 import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { P, Spacer } from '../../../components/Articles';
+import { P } from '../../../components/Articles';
 import Clap from '../../../components/illustrations/Clap';
 import NeedHelp from '../../../components/illustrations/NeedHelp';
 
@@ -96,15 +95,13 @@ const Defi5_Day5 = ({ navigation, route }) => {
                   <Element
                     content={
                       <>
-                        <TouchableOpacity onPress={() => navigation.navigate('CONTACT')}>
-                          <P bold>
-                            Nous vous suggérons de{' '}
-                            <TextStyled underline color="#4030A5">
-                              communiquer avec un professionnel d'Oz Ensemble{' '}
-                            </TextStyled>{' '}
-                            afin de parler de votre situation.
-                          </P>
-                        </TouchableOpacity>
+                        <TextStyled bold>
+                          Nous vous suggérons de{' '}
+                          <TextStyled underline color="#4030A5" onPress={() => navigation.navigate('CONTACT')}>
+                            communiquer avec un professionnel d'Oz Ensemble
+                          </TextStyled>{' '}
+                          afin de parler de votre situation.
+                        </TextStyled>
                         {'\n\n'}
                         Il pourra envisager avec vous d'autres solutions et vous proposer une orientation plus adaptée
                         en télé-consultation, en présentiel ou en groupe.

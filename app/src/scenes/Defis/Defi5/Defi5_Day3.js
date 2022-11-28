@@ -77,7 +77,7 @@ const QuizzLifeQualityRedo = ({ navigation, route }) => (
     event="_RE_QUALITE_DE_VIE"
     recoilAnswersState={relifeQualityQuizzAnswersState}
     recoilResultState={relifeQualityQuizzResultState}
-    Results={ResultsLifeQuality}
+    Results={Dfi5_Day3_ResultsReLifeQuality}
   />
 );
 
@@ -112,27 +112,17 @@ const updatedResultsToDisplaySelector = selector({
   },
 });
 
-export const ResultsLifeQuality = ({ navigation, route }) => {
+export const Dfi5_Day3_ResultsReLifeQuality = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const resultKey = useRecoilValue(relifeQualityQuizzAnswersState);
-  const resultsToDisplay = useRecoilValue(updatedResultsToDisplaySelector);
 
   useEffect(() => {
     if (resultKey && route?.params?.inDefi5) setValidatedDays(route?.params?.day, '@Defi5');
   }, [route?.params, isFocused, resultKey]);
 
-  if (!resultKey || !resultsToDisplay) return null;
-
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="L'évolution des composantes de ma qualité de vie">
-      <ContainerSection>
-        <ItemsContainer>
-          {resultKey.length === 0 ? <P>Aucun élément à afficher.</P> : null}
-          {resultsToDisplay.map(({ response, question }, i) => (
-            <EmojiBlock key={i} response={response} question={question} />
-          ))}
-        </ItemsContainer>
-      </ContainerSection>
+      <ResultsReLifeQuality />
       <ButtonsContainer>
         <ButtonPrimary
           onPress={() => {
@@ -149,7 +139,25 @@ export const ResultsLifeQuality = ({ navigation, route }) => {
   );
 };
 
-const EmojiBlock = ({ response, question }) => {
+export const ResultsReLifeQuality = () => {
+  const resultKey = useRecoilValue(relifeQualityQuizzAnswersState);
+  const resultsToDisplay = useRecoilValue(updatedResultsToDisplaySelector);
+
+  if (!resultKey || !resultsToDisplay) return null;
+
+  return (
+    <ContainerSection>
+      <ItemsContainer>
+        {resultKey.length === 0 ? <P>Aucun élément à afficher.</P> : null}
+        {resultsToDisplay.map(({ response, question }, i) => (
+          <SignBlock key={i} response={response} question={question} />
+        ))}
+      </ItemsContainer>
+    </ContainerSection>
+  );
+};
+
+const SignBlock = ({ response, question }) => {
   return (
     <ItemContainer>
       <ItemStyled color={response.color}>
@@ -200,11 +208,6 @@ const ItemStyled = styled.View`
   align-items: center;
   background-color: ${({ color }) => color || '#fff'};
   border-radius: 30px;
-`;
-
-const EmojiStyled = styled(TextStyled)`
-  font-size: ${(screenWidth / 3) * 0.4}px;
-  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
 `;
 
 const ItemContainer = styled.View`

@@ -75,7 +75,15 @@ const Defi5_Day1_Quizz = ({ navigation, route }) => (
   />
 );
 
-const Defi5_Day1_Results = ({ navigation, route }) => {
+const Defi5_Day1_Results = ({ navigation }) => {
+  return (
+    <WrapperContainer onPressBackButton={navigation.goBack}>
+      <ReevaluateConsoResult />
+    </WrapperContainer>
+  );
+};
+
+export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) => {
   const evaluateConsoAnswers = useRecoilValue(betterEvaluateQuizzAnswersState);
   const reevaluateConsoAnswers = useRecoilValue(reevaluateQuizzAnswersState);
 
@@ -84,94 +92,94 @@ const Defi5_Day1_Results = ({ navigation, route }) => {
 
   if (reevaluateScore > evaluateScore) {
     return (
-      <WrapperContainer onPressBackButton={navigation.goBack}>
-        <ScoreTitle color="#4030a5">Votre score est en hausse{'\u00A0'}!</ScoreTitle>
-        <ScoresCompare>
+      <>
+        {!onlyScore && <ScoreTitle color="#4030a5">Votre score est en hausse{'\u00A0'}!</ScoreTitle>}
+        <ScoresCompare noShadow={noShadow} onlyScore={onlyScore}>
           <ScoreBox score={evaluateScore} color="#28A745" title="Mon score actuel" />
           <ScoreBox score={reevaluateScore} color="#EE7738" title="Mon ancien score">
             <ArrowUp />
           </ScoreBox>
         </ScoresCompare>
-        <Element
-          content={
-            <>
-              Vous avez du mal à contrôler votre comportement{'\u00A0'}? Votre situation est-elle plus compliquée que
-              prévue{'\u00A0'}?{'\n\n'}
-              <TextStyled bold>
-                Votre résultat au test AUDIT est en hausse, ce qui peut indiquer que vous n'avez pas reçu une aide
-                adéquate de votre entourage ou de professionnels.
-              </TextStyled>
-              {'\n\n'}
-              N'attendez pas que votre situation et votre santé se détériore avant d'obtenir l'aide dont vous avez
-              besoin pour commencer à reprendre la maîtrise de vos consommations.
-            </>
-          }
-        />
-
-        <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate('DEFI5_DAY1_QUIZZ')} />
-      </WrapperContainer>
+        {!onlyScore && (
+          <Element
+            content={
+              <>
+                Vous avez du mal à contrôler votre comportement{'\u00A0'}? Votre situation est-elle plus compliquée que
+                prévue{'\u00A0'}?{'\n\n'}
+                <TextStyled bold>
+                  Votre résultat au test AUDIT est en hausse, ce qui peut indiquer que vous n'avez pas reçu une aide
+                  adéquate de votre entourage ou de professionnels.
+                </TextStyled>
+                {'\n\n'}
+                N'attendez pas que votre situation et votre santé se détériore avant d'obtenir l'aide dont vous avez
+                besoin pour commencer à reprendre la maîtrise de vos consommations.
+              </>
+            }
+          />
+        )}
+      </>
     );
   }
   if (reevaluateScore < evaluateScore) {
     return (
-      <WrapperContainer onPressBackButton={navigation.goBack}>
-        <ScoreTitle color="#28a745">Votre score est en baisse{'\u00A0'}!</ScoreTitle>
+      <>
+        {!onlyScore && <ScoreTitle color="#4030a5">Votre score est en baisse{'\u00A0'}!</ScoreTitle>}
 
-        <ScoresCompare>
+        <ScoresCompare noShadow={noShadow} onlyScore={onlyScore}>
           <ScoreBox score={evaluateScore} color="#EE7738" title="Mon ancien score" />
           <ScoreBox score={reevaluateScore} color="#28A745" title="Mon score actuel">
             <ArrowDown />
           </ScoreBox>
         </ScoresCompare>
-        <Element
-          content={
-            <>
-              Votre consommation vous paraissait problématique{'\u00A0'}? Vous aviez le sentiment qu'il fallait agir
-              pour changer vos habitudes{'\u00A0'}?{'\n\n'}
-              <TextStyled bold>
-                Votre résultat au test AUDIT est en baisse, ce qui indique que la quantité d'alcool que vous consommez
-                semble avoir diminué.
-              </TextStyled>
-              {'\n\n'}
-              C'est une bonne étape dans votre parcours de réduction{'\u00A0'}! Poursuivez vos efforts jusqu'à atteindre
-              les normes recommandées par Santé Publique France.
-            </>
-          }
-        />
-
-        <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
-      </WrapperContainer>
+        {!onlyScore && (
+          <Element
+            content={
+              <>
+                Votre consommation vous paraissait problématique{'\u00A0'}? Vous aviez le sentiment qu'il fallait agir
+                pour changer vos habitudes{'\u00A0'}?{'\n\n'}
+                <TextStyled bold>
+                  Votre résultat au test AUDIT est en baisse, ce qui indique que la quantité d'alcool que vous consommez
+                  semble avoir diminué.
+                </TextStyled>
+                {'\n\n'}
+                C'est une bonne étape dans votre parcours de réduction{'\u00A0'}! Poursuivez vos efforts jusqu'à
+                atteindre les normes recommandées par Santé Publique France.
+              </>
+            }
+          />
+        )}
+      </>
     );
   }
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack}>
-      <ScoreTitle color="#4030a5">Votre score est identique{'\u00A0'}!</ScoreTitle>
-      <ScoresCompare>
+    <>
+      {!onlyScore && <ScoreTitle color="#4030a5">Votre score est en identique{'\u00A0'}!</ScoreTitle>}
+      <ScoresCompare noShadow={noShadow} onlyScore={onlyScore}>
         <ScoreBox score={evaluateScore} color="#4030a5" title="Mon score actuel" />
         <ScoreBox score={reevaluateScore} color="#4030a5" title="Mon ancien score">
           <ArrowLeft />
           <ArrowRight />
         </ScoreBox>
       </ScoresCompare>
-      <Element
-        content={
-          <>
-            Votre nouvelle manière de consommer est-elle adéquate{'\u00A0'}? Pourquoi est-il important pour votre santé
-            de boire avec modération{'\u00A0'}?{'\n\n'}
-            <TextStyled bold>
-              Votre résultat au test AUDIT est inchangé, ce qui indique que la quantité d'alcool que vous consommez
-              semble être la même qu'auparavant.
-            </TextStyled>
-            {'\n\n'}
-            Nous aborderons d'autres éléments de votre parcours durant ce bilan, toutefois, soyez vigilant à obtenir
-            l'aide dont vous avez besoin pour atteindre votre objectif de réduction.
-          </>
-        }
-      />
-
-      <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate('DEFI5_DAY1_QUIZZ')} />
-    </WrapperContainer>
+      {!onlyScore && (
+        <Element
+          content={
+            <>
+              Votre nouvelle manière de consommer est-elle adéquate{'\u00A0'}? Pourquoi est-il important pour votre
+              santé de boire avec modération{'\u00A0'}?{'\n\n'}
+              <TextStyled bold>
+                Votre résultat au test AUDIT est inchangé, ce qui indique que la quantité d'alcool que vous consommez
+                semble être la même qu'auparavant.
+              </TextStyled>
+              {'\n\n'}
+              Nous aborderons d'autres éléments de votre parcours durant ce bilan, toutefois, soyez vigilant à obtenir
+              l'aide dont vous avez besoin pour atteindre votre objectif de réduction.
+            </>
+          }
+        />
+      )}
+    </>
   );
 };
 
@@ -207,7 +215,6 @@ const Circle = styled.View`
   height: 120px;
   border-radius: 100px;
   margin-top: 20px;
-  background-color: #fff;
   justify-content: center;
   align-items: center;
   border-color: ${(p) => p.color};
@@ -221,19 +228,19 @@ const ScoreText = styled(H1)`
 `;
 
 const ScoresCompare = styled.View`
-  shadow-offset: 0px 5px;
-  shadow-color: #000000;
-  shadow-opacity: 0.2;
-  shadow-radius: 4px;
-  elevation: 4;
+  ${(p) => !p.noShadow && 'shadow-offset: 0px 5px;'}
+  ${(p) => !p.noShadow && 'shadow-color: #000000;'}
+  ${(p) => !p.noShadow && 'shadow-opacity: 0.2;'}
+  ${(p) => !p.noShadow && 'shadow-radius: 4px;'}
+  ${(p) => !p.noShadow && 'elevation: 4;'}
+  ${(p) => !p.noShadow && 'background-color: #fff;'}
+  ${(p) => !p.onlyScore && 'margin-bottom: 40px;'}
   flex-direction: row;
   justify-content: space-around;
-  background-color: #fff;
   margin-horizontal: ${-defaultPaddingFontScale() / 2}px;
   padding-horizontal: ${defaultPaddingFontScale() / 3}px;
   padding-top: ${defaultPaddingFontScale() / 2}px;
   padding-bottom: ${defaultPaddingFontScale()}px;
-  margin-bottom: 40px;
 `;
 
 const ArrowStyled = styled(Svg)`

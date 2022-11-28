@@ -53,12 +53,9 @@ const ResultsQuizzDefi5Day3 = ({ navigation, route }) => {
               {'\n\n'}
               Par contre, si vous traversez une période très difficile à la suite d'un événement grave (décès d'un
               proche, divorce, etc), il serait peut-être préférable de{' '}
-              <TouchableWithoutFeedback onPress={() => navigation.navigate('CONTACT')}>
-                <TextStyled underline color="#4030A5">
-                  {' '}
-                  prendre conseil auprès d'un professionnel d'Oz Ensemble{' '}
-                </TextStyled>
-              </TouchableWithoutFeedback>{' '}
+              <TextStyled underline color="#4030A5" onPress={() => navigation.navigate('CONTACT')}>
+                prendre conseil auprès d'un professionnel d'Oz Ensemble
+              </TextStyled>{' '}
               susceptible de vous épauler.
             </>
           }

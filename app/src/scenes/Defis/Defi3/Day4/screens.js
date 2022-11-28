@@ -115,14 +115,12 @@ export const Screen3 = ({ navigation }) => (
 const Contact = ({ navigation }) => (
   <>
     <Spacer size={20} />
-    <TouchableOpacity onPress={() => navigation.navigate('CONTACT')}>
-      <TextStyled>
-        À tout moment,{' '}
-        <TextStyled underline color="#4030A5">
-          contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
-        </TextStyled>
+    <TextStyled>
+      À tout moment,{' '}
+      <TextStyled underline color="#4030A5" onPress={() => navigation.navigate('CONTACT')}>
+        contactez nos équipes pour recourir à une aide complémentaire, gratuite et anonyme.
       </TextStyled>
-    </TouchableOpacity>
+    </TextStyled>
   </>
 );
 

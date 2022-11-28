@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -226,14 +225,10 @@ const Defi5_Day2 = ({ navigation, route }) => {
                       {'   • '} Buvez-vous pour vous mettre à l'aise en société{'\u00A0'}? En soirée{'\u00A0'}?{'\n'}
                       {'   • '} Avez-vous le sentiment que l'alcool devient un remède aux difficultés que vous
                       rencontrez{'\u00A0'}?{'\n\n'}
-                      <TouchableOpacity onPress={() => navigation.navigate('CONTACT')}>
-                        <TextStyled>
-                          Vous pouvez{' '}
-                          <TextStyled underline color="#4030A5">
-                            échanger avec un professionnel de manière anonyme et gratuite.
-                          </TextStyled>
-                        </TextStyled>
-                      </TouchableOpacity>
+                      Vous pouvez{' '}
+                      <TextStyled underline color="#4030A5" onPress={() => navigation.navigate('CONTACT')}>
+                        échanger avec un professionnel de manière anonyme et gratuite.
+                      </TextStyled>
                     </>
                   }
                 />

@@ -11,6 +11,7 @@ import Defi5_Day3 from './Defi5_Day3';
 import Defi5_Day4 from './Defi5_Day4';
 import Defi5_Day5 from './Defi5_Day5';
 import Defi5_Day6 from './Defi5_Day6';
+import Defi5_Day7 from './Defi5_Day7';
 // import Defi5_Day1 from './Defi5_Day1';
 // import Defi5_Day2 from './Defi4_Day2';
 // import Defi5_Day3 from './Defi5_Day3';
@@ -81,7 +82,7 @@ const Defi5_Navigator = () => {
             day: 6,
           }}
         />
-        {/* <Defi5_Stack.Screen
+        <Defi5_Stack.Screen
           initialParams={{
             inDefi5: true,
             rootRoute: 'DEFI5_MENU',
@@ -89,8 +90,7 @@ const Defi5_Navigator = () => {
           }}
           name="DEFI5_DAY_7"
           component={Defi5_Day7}
-        /> */}
-        {/* <Defi5_Stack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} /> */}
+        />
       </Defi5_Stack.Navigator>
     </Background>
   );
