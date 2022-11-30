@@ -45,15 +45,15 @@ const Defi5_Day6 = ({ navigation, route }) => {
         <Element
           content={
             <>
-              Le professionnel adapte la démarche de soins à la <TextStyled bold> situation de la personne </TextStyled>{' '}
+              Le professionnel adapte la démarche de soins à la <TextStyled bold>situation de la personne</TextStyled>{' '}
               pour tenir compte du souhait de celle-ci, de son histoire avec l'alcool, de ses vulnérabilités physique et
               psychique, ainsi que de son environnement (plutôt soutenant ou au contraire conflictuel).
               {'\n\n'}
               L'accompagnement peut porter sur les{' '}
-              <TextStyled bold> différents domaines de la vie{'\u00A0'}:</TextStyled> la famille, le corps, la vie
+              <TextStyled bold>différents domaines de la vie{'\u00A0'}:</TextStyled> la famille, le corps, la vie
               relationnelle, la vie professionnelle, la vie sociale et l'équilibre psychologique. Il s'inscrit dans la
-              durée. <TextStyled bold>Persévérance et assiduité </TextStyled> seront souvent nécessaires à la réussite
-              de ce projet.
+              durée. <TextStyled bold>Persévérance et assiduité</TextStyled> seront souvent nécessaires à la réussite de
+              ce projet.
             </>
           }
         />
@@ -66,10 +66,10 @@ const Defi5_Day6 = ({ navigation, route }) => {
             <Element
               content={
                 <>
-                  {'   •  '}Parlez-en à un <TextStyled bold> professionnel de santé de confiance{'\u00A0'}:</TextStyled>{' '}
+                  {'   •  '}Parlez-en à un <TextStyled bold>professionnel de santé de confiance{'\u00A0'}:</TextStyled>{' '}
                   médecin traitant, médecin spécialiste, médecin du travail, pharmacien, infirmière, etc.
                   {'\n\n'}
-                  {'   •  '}Des <TextStyled bold> mouvements d'entraide </TextStyled> existent sans doute près de chez
+                  {'   •  '}Des <TextStyled bold>mouvements d'entraide</TextStyled> existent sans doute près de chez
                   vous{'\u00A0'}: réunions, parrains, forum ou autres.
                 </>
               }
@@ -81,12 +81,12 @@ const Defi5_Day6 = ({ navigation, route }) => {
             <Element
               content={
                 <>
-                  {'   •  '} Échanger avec un{'  '}
+                  {'   •  '} Échanger avec un{' '}
                   <TextStyled onPress={() => navigation.navigate('CONTACT')} underline bold color="#4030A5">
                     professionnel d'Oz Ensemble
                   </TextStyled>{' '}
                   anonymement et gratuitement.{'\n\n'}
-                  {'   •  '} <TextStyled bold>Alcool Info Service </TextStyled> est un service qui peut répondre
+                  {'   •  '} <TextStyled bold>Alcool Info Service</TextStyled> est un service qui peut répondre
                   anonymement à vos questions et vous aider dans votre réflexion. Il est accessible par téléphone tous
                   les jours de 8h à 2h au{' '}
                   <TextStyled onPress={() => Linking.openURL('tel:+33980980930')} underline color="#4030A5">
@@ -115,10 +115,7 @@ const Defi5_Day6 = ({ navigation, route }) => {
                   (CHA).
                   {'\n\n'}
                   {'   •  '}Les
-                  <TextStyled bold>
-                    {' '}
-                    Centres de Soins d'Accompagnement et de Prévention en Addictologie{' '}
-                  </TextStyled>{' '}
+                  <TextStyled bold> Centres de Soins d'Accompagnement et de Prévention en Addictologie </TextStyled>
                   (CSAPA) sont des centres de proximités gratuits dévolus à l'addictologie.
                 </>
               }

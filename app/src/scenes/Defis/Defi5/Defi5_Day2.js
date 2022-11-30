@@ -10,7 +10,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
 import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { Spacer } from '../../../components/Articles';
+import { P, Spacer } from '../../../components/Articles';
 
 export const answersDefi5Day2 = [
   { answerKey: '1.1', content: 'Quand je suis triste ou déprimé(e)' },
@@ -62,14 +62,16 @@ const Defi5_Day2 = ({ navigation, route }) => {
       initialRouteName={route?.params?.initialRouteName}>
       <QuestionnaireDefi5Day2Stack.Screen name="DEFI5_DAY2_EXPLICATIONS">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Comment atteindre mon objectif ?">
+          <WrapperContainer
+            onPressBackButton={navigation.goBack}
+            title="Où en suis-je par rapport à mes situations à risque après quatre semaines d'effort ?">
             <Element
               content={
                 <>
-                  Vous aviez identifié des <TextStyled bold> situations à risque</TextStyled> lors de votre semaine de{' '}
-                  <TextStyled bold> défi 2</TextStyled>. Vous aviez sélectionné les 2 situations à risque{' '}
-                  <TextStyled bold>extérieures</TextStyled> et les 2 situations à risque{' '}
-                  <TextStyled bold>intérieures</TextStyled> pour vous.{'\n\n'}Souvenons-nous qu'une situation à risque
+                  Vous aviez identifié des <TextStyled bold>situations à risque</TextStyled> lors de votre semaine de
+                  <TextStyled bold> défi 2</TextStyled>. Vous aviez sélectionné les 2 situations à risque
+                  <TextStyled bold> extérieures</TextStyled> et les 2 situations à risque
+                  <TextStyled bold> intérieures</TextStyled> pour vous.{'\n\n'}Souvenons-nous qu'une situation à risque
                   est un moment dans lequel une personne à l'impression qu'elle a{' '}
                   <TextStyled bold> moins de contrôle sur son envie de boire de l'alcool.</TextStyled>
                 </>
@@ -94,12 +96,12 @@ const Defi5_Day2 = ({ navigation, route }) => {
       </QuestionnaireDefi5Day2Stack.Screen>
       <QuestionnaireDefi5Day2Stack.Screen name="DEFI5_DAY2_QUIZZ_QUESTIONS">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Je me fais plaisir autrement">
+          <WrapperContainer onPressBackButton={navigation.goBack} title="L'évolution de mes envies d’alcool">
             <Paragraph>
-              <TextStyled>
+              <P>
                 Veuillez sélectionner parmi vos situations à risque celles que vous avez la perception de{' '}
-                <TextStyled bold> mieux gérer ou de gérer différemment{'\u00A0'}:</TextStyled>
-              </TextStyled>
+                <TextStyled bold>mieux gérer ou de gérer différemment{'\u00A0'}:</TextStyled>
+              </P>
             </Paragraph>
             <CheckBoxes>
               <TextStyled bold color="#4030a5">
@@ -127,7 +129,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
               })}
             </CheckBoxes>
             <ButtonsContainer>
-              <ButtonPrimary onPress={validateAnswers} content="Suivant" />
+              <ButtonPrimary onPress={validateAnswers} content="Je valide" />
             </ButtonsContainer>
           </WrapperContainer>
         )}
@@ -147,10 +149,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
                         d'alcool.
                       </TextStyled>
                       {'\n\n'}Vous avez davantage de chances de réfléchir de manière critique à votre décision de
-                      consommer désormais. Vous avez également pris conscience des causes intérieures pouvant contribuer
-                      à votre consommation d'alcool. Il est très important d'être attentif au fait que votre état
-                      intérieur peut entraîner des envies de consommer de l'alcool. C'est en traitant ces tensions
-                      internes que vous aurez la possibilité de réduire votre consommation.
+                      consommer désormais.
                     </>
                   }
                 />
@@ -182,10 +181,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
                         d'alcool.
                       </TextStyled>
                       {'\n\n'}Vous avez davantage de chances de réfléchir de manière critique à votre décision de
-                      consommer désormais. Vous avez également pris conscience des causes intérieures pouvant contribuer
-                      à votre consommation d'alcool. Il est très important d'être attentif au fait que votre état
-                      intérieur peut entraîner des envies de consommer de l'alcool. C'est en traitant ces tensions
-                      internes que vous aurez la possibilité de réduire votre consommation.
+                      consommer désormais.
                     </>
                   }
                 />

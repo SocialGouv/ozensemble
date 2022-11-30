@@ -54,7 +54,7 @@ const Defi5_Day3_Onboarding = ({ navigation, route }) => {
   return (
     <WrapperContainer
       onPressBackButton={navigation.goBack}
-      title="Où en suis-je par rapport à ma consommation après quatre semaines d'effort?">
+      title="Quelle évolution de ma qualité de vie après quatre semaines d'effort ?">
       <Element
         content={
           <>

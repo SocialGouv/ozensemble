@@ -1,20 +1,19 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { View, Linking } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
-import styled from 'styled-components';
 import QuizzDefi3Day5 from '../../Quizzs/QuizzDefi3Day5';
-import { createStackNavigator } from '@react-navigation/stack';
 import { Spacer } from '../../../components/Articles';
-import { View } from 'react-native';
-import { Linking } from 'react-native';
 
 const QuizzStack = createStackNavigator();
 
-const Defi3_Day5 = ({ navigation, route }) => {
+const Defi3_Day5 = ({ route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {

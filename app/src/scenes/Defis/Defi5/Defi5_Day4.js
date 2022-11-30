@@ -10,7 +10,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
 import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { Spacer } from '../../../components/Articles';
+import { P, Spacer } from '../../../components/Articles';
 
 export const answersDefi5Day2 = [
   { answerKey: '1.1', content: 'Moins de fatigue' },
@@ -66,7 +66,7 @@ const Defi5_Day4 = ({ navigation, route }) => {
               content={
                 <>
                   On le sait pertinemment,{' '}
-                  <TextStyled bold> l'arrêt de l'alcool a de nombreux bienfaits pour la santé physique.</TextStyled> La
+                  <TextStyled bold>l'arrêt de l'alcool a de nombreux bienfaits pour la santé physique.</TextStyled> La
                   consommation excessive d'alcool entraîne des problèmes de santé pouvant avoir de graves conséquences.
                   {'\n\n'}
                   Que l'on cherche à améliorer son hygiène de vie, sa forme physique ou bien à sortir de sa dépendance,
@@ -94,11 +94,11 @@ const Defi5_Day4 = ({ navigation, route }) => {
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="Mes bénéfices physiques">
             <Paragraph>
-              <TextStyled>
+              <P>
                 Voici une liste des{' '}
-                <TextStyled bold> changements que vous pouvez constater après ces 4 semaines de réduction </TextStyled>{' '}
-                de votre consommation d'alcool. Veuillez sélectionner ceux que vous avez constaté.
-              </TextStyled>
+                <TextStyled bold>changements que vous pouvez constater après ces 4 semaines de réduction</TextStyled> de
+                votre consommation d'alcool. Veuillez sélectionner ceux que vous avez constaté.
+              </P>
             </Paragraph>
             <CheckBoxes>
               <TextStyled bold color="#4030a5">
@@ -156,7 +156,7 @@ const Defi5_Day4 = ({ navigation, route }) => {
                   content={
                     <>
                       Si vous ne vous sentez pas en meilleure forme, cela peut être dû principalement{' '}
-                      <TextStyled bold> à deux facteurs </TextStyled>
+                      <TextStyled bold>à deux facteurs</TextStyled>
                       {'\u00A0'}:{'\n\n'}
                       {'   • '}{' '}
                       <TextStyled bold>
@@ -165,7 +165,9 @@ const Defi5_Day4 = ({ navigation, route }) => {
                       Poursuivez ce bilan pour voir si d'autres domaines se sont améliorés depuis le début de votre
                       réduction ou vos progrès sont trop faibles.{'\n\n'}
                       {'   • '} C'est un signal de votre corps. Sachez l'écouter. Il est peut-être temps d'utiliser
-                      cette information pour vous orienter vers un bilan auprès d'un médecin{'\u00A0'}?{'\n'}
+                      cette information pour{' '}
+                      <TextStyled bold>vous orienter vers un bilan auprès d'un médecin{'\u00A0'}?</TextStyled>
+                      {'\n'}
                     </>
                   }
                 />

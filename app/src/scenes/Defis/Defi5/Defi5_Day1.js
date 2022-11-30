@@ -1,4 +1,4 @@
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
@@ -16,6 +16,7 @@ import {
   reevaluateQuizzResultState,
 } from '../../../recoil/quizzs';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import AlcoholAndNorms from '../../Health/Articles/AlcoholAndNorms';
 import QuizzEvaluateConso from '../../Quizzs/QuizzEvaluateConso';
 import questions from '../../Quizzs/QuizzEvaluateConso/questions';
 import { computeEvaluateConsoScore } from '../../Quizzs/QuizzEvaluateConso/utils';
@@ -32,6 +33,7 @@ const Defi5_Day1_Navigator = ({ route }) => {
         initialParams={route.params}
       />
       <Defi5_Day1_Stack.Screen name="DEFI5_DAY1_QUIZZ" component={Defi5_Day1_Quizz} initialParams={route.params} />
+      <Defi5_Day1_Stack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} />
     </Defi5_Day1_Stack.Navigator>
   );
 };
@@ -84,6 +86,8 @@ const Defi5_Day1_Results = ({ navigation }) => {
 };
 
 export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) => {
+  const navigation = useNavigation();
+  const route = useRoute();
   const evaluateConsoAnswers = useRecoilValue(betterEvaluateQuizzAnswersState);
   const reevaluateConsoAnswers = useRecoilValue(reevaluateQuizzAnswersState);
 
@@ -101,21 +105,24 @@ export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) =
           </ScoreBox>
         </ScoresCompare>
         {!onlyScore && (
-          <Element
-            content={
-              <>
-                Vous avez du mal à contrôler votre comportement{'\u00A0'}? Votre situation est-elle plus compliquée que
-                prévue{'\u00A0'}?{'\n\n'}
-                <TextStyled bold>
-                  Votre résultat au test AUDIT est en hausse, ce qui peut indiquer que vous n'avez pas reçu une aide
-                  adéquate de votre entourage ou de professionnels.
-                </TextStyled>
-                {'\n\n'}
-                N'attendez pas que votre situation et votre santé se détériore avant d'obtenir l'aide dont vous avez
-                besoin pour commencer à reprendre la maîtrise de vos consommations.
-              </>
-            }
-          />
+          <>
+            <Element
+              content={
+                <>
+                  Vous avez du mal à contrôler votre comportement{'\u00A0'}? Votre situation est-elle plus compliquée
+                  que prévue{'\u00A0'}?{'\n\n'}
+                  <TextStyled bold>
+                    Votre résultat au test AUDIT est en hausse, ce qui peut indiquer que vous n'avez pas reçu une aide
+                    adéquate de votre entourage ou de professionnels.
+                  </TextStyled>
+                  {'\n\n'}
+                  N'attendez pas que votre situation et votre santé se détériore avant d'obtenir l'aide dont vous avez
+                  besoin pour commencer à reprendre la maîtrise de vos consommations.
+                </>
+              }
+            />
+            <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
+          </>
         )}
       </>
     );
@@ -132,21 +139,27 @@ export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) =
           </ScoreBox>
         </ScoresCompare>
         {!onlyScore && (
-          <Element
-            content={
-              <>
-                Votre consommation vous paraissait problématique{'\u00A0'}? Vous aviez le sentiment qu'il fallait agir
-                pour changer vos habitudes{'\u00A0'}?{'\n\n'}
-                <TextStyled bold>
-                  Votre résultat au test AUDIT est en baisse, ce qui indique que la quantité d'alcool que vous consommez
-                  semble avoir diminué.
-                </TextStyled>
-                {'\n\n'}
-                C'est une bonne étape dans votre parcours de réduction{'\u00A0'}! Poursuivez vos efforts jusqu'à
-                atteindre les normes recommandées par Santé Publique France.
-              </>
-            }
-          />
+          <>
+            <Element
+              content={
+                <>
+                  Votre consommation vous paraissait problématique{'\u00A0'}? Vous aviez le sentiment qu'il fallait agir
+                  pour changer vos habitudes{'\u00A0'}?{'\n\n'}
+                  <TextStyled bold>
+                    Votre résultat au test AUDIT est en baisse, ce qui indique que la quantité d'alcool que vous
+                    consommez semble avoir diminué.
+                  </TextStyled>
+                  {'\n\n'}
+                  C'est une bonne étape dans votre parcours de réduction{'\u00A0'}! Poursuivez vos efforts jusqu'à
+                  atteindre les{' '}
+                  <TextStyled underline onPress={() => navigation.navigate('ALCOHOL_AND_NORMS')} color="#4030a5">
+                    normes recommandées par Santé Publique France.
+                  </TextStyled>
+                </>
+              }
+            />
+            <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
+          </>
         )}
       </>
     );
@@ -163,21 +176,24 @@ export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) =
         </ScoreBox>
       </ScoresCompare>
       {!onlyScore && (
-        <Element
-          content={
-            <>
-              Votre nouvelle manière de consommer est-elle adéquate{'\u00A0'}? Pourquoi est-il important pour votre
-              santé de boire avec modération{'\u00A0'}?{'\n\n'}
-              <TextStyled bold>
-                Votre résultat au test AUDIT est inchangé, ce qui indique que la quantité d'alcool que vous consommez
-                semble être la même qu'auparavant.
-              </TextStyled>
-              {'\n\n'}
-              Nous aborderons d'autres éléments de votre parcours durant ce bilan, toutefois, soyez vigilant à obtenir
-              l'aide dont vous avez besoin pour atteindre votre objectif de réduction.
-            </>
-          }
-        />
+        <>
+          <Element
+            content={
+              <>
+                Votre nouvelle manière de consommer est-elle adéquate{'\u00A0'}? Pourquoi est-il important pour votre
+                santé de boire avec modération{'\u00A0'}?{'\n\n'}
+                <TextStyled bold>
+                  Votre résultat au test AUDIT est inchangé, ce qui indique que la quantité d'alcool que vous consommez
+                  semble être la même qu'auparavant.
+                </TextStyled>
+                {'\n\n'}
+                Nous aborderons d'autres éléments de votre parcours durant ce bilan, toutefois, soyez vigilant à obtenir
+                l'aide dont vous avez besoin pour atteindre votre objectif de réduction.
+              </>
+            }
+          />
+          <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
+        </>
       )}
     </>
   );

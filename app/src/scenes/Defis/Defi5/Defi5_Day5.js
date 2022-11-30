@@ -43,7 +43,7 @@ const Defi5_Day5 = ({ navigation, route }) => {
       initialRouteName={route?.params?.initialRouteName}>
       <QuestionnaireDefi5Day5Stack.Screen name="DEFI5_DAY5_QUIZZ_QUESTIONS">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Je me fais plaisir autrement">
+          <WrapperContainer onPressBackButton={navigation.goBack} title="L'évolution de mon bien-être psychologique">
             <Paragraph>
               <P>
                 Après quatre semaines d'effort, quelle est{' '}
@@ -81,6 +81,7 @@ const Defi5_Day5 = ({ navigation, route }) => {
                 <>
                   <Clap />
                   <Element
+                    Illustration={<></>}
                     content={
                       <TextStyled bold>
                         Félicitations{'\u00A0'}!{'\n'}Vous progressez vers la réussite de votre objectif.
@@ -93,6 +94,7 @@ const Defi5_Day5 = ({ navigation, route }) => {
                 <>
                   <NeedHelp />
                   <Element
+                    Illustration={<></>}
                     content={
                       <>
                         <TextStyled bold>
