@@ -1,3 +1,10 @@
+## [1.75.6](https://github.com/SocialGouv/ozensemble/compare/v1.75.5...v1.75.6) (2022-11-30)
+
+
+### Bug Fixes
+
+* defi5 overall ([3134ddc](https://github.com/SocialGouv/ozensemble/commit/3134ddc7c2c39ee77a6c253561caba51042a0290))
+
 ## [1.75.5](https://github.com/SocialGouv/ozensemble/compare/v1.75.4...v1.75.5) (2022-11-22)
 
 
