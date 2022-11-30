@@ -28,8 +28,7 @@ const DidYouKnow = () => {
         <Spacer size={20} />
         <P>
           {'    - '} Un verre "standard" <Bold>contient 10 grammes d'alcool pur</Bold>, quel que soit le type de boisson
-          alcoolisée que vous consommez (vin, bière ou alcool fort). (illustration à récupérer dans Figma sur le frame :
-          Bottom sheet Compter verre d'alcool )
+          alcoolisée que vous consommez (vin, bière ou alcool fort).
         </P>
         <OneDoseAlcoolExplanation marginOffset={defaultPaddingFontScale()} noMinHeight />
         <P>

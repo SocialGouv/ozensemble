@@ -10,10 +10,10 @@ router.post(
   catchErrors(async (req, res) => {
     const { body } = req;
     req.user = { userId: req.body.userId }; // for log in sentry
+    return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-defis"], newFeatures["new-articles"]] });
 
     if (body.event.category === "APP" && body.event.action === "APP_OPEN") {
       await new Promise((res) => setTimeout(res, 1000)); // maybe better for showing up on time
-      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-defis"], newFeatures["new-articles"]] });
     }
 
     const sendNPSEvent = body.event?.category === "NPS";
