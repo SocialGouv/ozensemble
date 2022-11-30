@@ -124,16 +124,7 @@ export const Dfi5_Day3_ResultsReLifeQuality = ({ navigation, route }) => {
     <WrapperContainer onPressBackButton={navigation.goBack} title="L'évolution des composantes de ma qualité de vie">
       <ResultsReLifeQuality />
       <ButtonsContainer>
-        <ButtonPrimary
-          onPress={() => {
-            if (route?.params?.inDefi5) {
-              navigation.navigate('DEFI5_MENU');
-            } else {
-              navigation.navigate('TESTS_DEFIS');
-            }
-          }}
-          content="J'ai compris"
-        />
+        <ButtonPrimary onPress={() => navigation.navigate(route.params.rootRoute)} content="J'ai compris" />
       </ButtonsContainer>
     </WrapperContainer>
   );

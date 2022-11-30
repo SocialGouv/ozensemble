@@ -231,16 +231,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
               </>
             )}
             <ButtonsContainer>
-              <ButtonPrimary
-                onPress={() => {
-                  if (route?.params?.inDefi5) {
-                    navigation.navigate('DEFI5_MENU');
-                  } else {
-                    navigation.navigate('TESTS_DEFIS');
-                  }
-                }}
-                content="J'ai compris"
-              />
+              <ButtonPrimary onPress={() => navigation.navigate(route.params.rootRoute)} content="J'ai compris" />
             </ButtonsContainer>
           </WrapperContainer>
         )}

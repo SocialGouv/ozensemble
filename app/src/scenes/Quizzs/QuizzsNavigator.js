@@ -6,8 +6,6 @@ import { useRecoilValue } from 'recoil';
 import H2 from '../../components/H2';
 import { P } from '../../components/Articles';
 
-import QuizzEvaluateConso from './QuizzEvaluateConso';
-import QuizzLifeQuality from './QuizzLifeQuality';
 import QuizzMotivations from './QuizzMotivations';
 import QuizzOnboarding from './QuizzOnboarding';
 
@@ -20,9 +18,14 @@ import {
   motivationsQuizzResultState,
   riskSituationsQuizzAnswersState,
   defi3_Day3_Answers_Help_State,
-  quizzDefi3Day1ResultState,
   quizzDefi3Day1AnswersState,
   quizzDefi3Day5AnswersState,
+  defi4_Day5_ResultState,
+  reevaluateQuizzResultState,
+  defi5_Day2_ResultState,
+  relifeQualityQuizzResultState,
+  defi5_Day4_ResultState,
+  defi5_Day5_ResultState,
 } from '../../recoil/quizzs';
 import QuizzRiskSituations from './QuizzRiskSituations';
 import Defi2_Day4 from '../Defis/Defi2/Defi2_Day4';
@@ -33,6 +36,13 @@ import WrapperContainer from '../../components/WrapperContainer';
 import Defi3Day3 from '../../scenes/Defis/Defi3/Day3';
 import Defi3_Day1 from '../Defis/Defi3/Defi3_Day1';
 import Defi3_Day5 from '../Defis/Defi3/Defi3_Day5';
+import Defi4_Day5 from '../Defis/Defi4/Defi4_Day5';
+import Defi1_Day2 from '../Defis/Defi1/Defi1_Day2';
+import Defi5_Day2 from '../Defis/Defi5/Defi5_Day2';
+import Defi1_Day4 from '../Defis/Defi1/Defi1_Day4';
+import Defi5_Day3 from '../Defis/Defi5/Defi5_Day3';
+import Defi5_Day4 from '../Defis/Defi5/Defi5_Day4';
+import Defi5_Day5 from '../Defis/Defi5/Defi5_Day5';
 
 const QuizzsStack = createStackNavigator();
 
@@ -42,7 +52,7 @@ const QuizzsNavigator = () => (
     <QuizzsStack.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
     <QuizzsStack.Screen
       name="EVALUATE_CONSO_QUIZZ"
-      component={QuizzEvaluateConso}
+      component={Defi1_Day2}
       initialParams={{
         title: 'Mieux mesurer ma consommation',
         rootRoute: 'QUIZZ_MENU',
@@ -50,7 +60,7 @@ const QuizzsNavigator = () => (
     />
     <QuizzsStack.Screen
       name="LIFE_QUALITY_QUIZZ"
-      component={QuizzLifeQuality}
+      component={Defi1_Day4}
       initialParams={{
         title: 'Évaluer sa qualité de vie',
         rootRoute: 'QUIZZ_MENU',
@@ -106,6 +116,43 @@ const QuizzsNavigator = () => (
         rootRoute: 'QUIZZ_MENU',
       }}
     />
+    <QuizzsStack.Screen
+      name="SE_FAIRE_PLAISIR_AUTREMENT"
+      component={Defi4_Day5}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+        initialRouteName: 'QUIZZ_QUESTIONS',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="ENVIES_DALCOOL"
+      component={Defi5_Day2}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="REEVALUATE_QUALITY_LIFE"
+      component={Defi5_Day3}
+      initialParams={{
+        title: "L'évolution de ma qualité de vie",
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="BIENETRE_PHYSIQUE"
+      component={Defi5_Day4}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="BIENETRE_PSYCHOLOGIQUE"
+      component={Defi5_Day5}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
     <QuizzsStack.Screen name="CONTACT" component={ContactForm} />
     <QuizzsStack.Screen name="DOCTOLIB" component={Doctolib} />
   </QuizzsStack.Navigator>
@@ -114,6 +161,7 @@ const QuizzMenu = () => {
   const navigation = useNavigation();
   const resultsRiskSituation = useRecoilValue(riskSituationsQuizzAnswersState);
   const betterEvaluateQuizzResult = useRecoilValue(betterEvaluateQuizzResultState);
+  const reevaluateQuizzResult = useRecoilValue(reevaluateQuizzResultState);
   const lifeQualityQuizzResult = useRecoilValue(lifeQualityQuizzResultState);
   const motivationsQuizzResult = useRecoilValue(motivationsQuizzResultState);
   const riskSituationsQuizzAnswers = useRecoilValue(riskSituationsQuizzAnswersState);
@@ -121,6 +169,11 @@ const QuizzMenu = () => {
   const defi3_Day1_Answers = useRecoilValue(quizzDefi3Day1AnswersState);
   const defi3_Day3_Answers_Help = useRecoilValue(defi3_Day3_Answers_Help_State);
   const defi3_Day5_Answers = useRecoilValue(quizzDefi3Day5AnswersState);
+  const defi4_Day5_Results = useRecoilValue(defi4_Day5_ResultState);
+  const defi5_Day2_Results = useRecoilValue(defi5_Day2_ResultState);
+  const defi5_Day3_Results = useRecoilValue(relifeQualityQuizzResultState);
+  const defi5_Day4_Results = useRecoilValue(defi5_Day4_ResultState);
+  const defi5_Day5_Results = useRecoilValue(defi5_Day5_ResultState);
 
   return (
     <WrapperContainer title="Tests des défis" onPressBackButton={navigation.goBack}>
@@ -187,6 +240,45 @@ const QuizzMenu = () => {
         title="Quiz halte aux idées reçues"
         onStart={() => navigation.navigate('QUIZZ_HALTE_IDEES_RECUES')}
         done={Object.keys(defi3_Day5_Answers).length === 3}
+        showOnlyIfDone
+      />
+      <DefiCategorieTitle color="#4030a5">Quatrième défi</DefiCategorieTitle>
+      <QuizzElement
+        title="Activités pour se faire plaisir autrement"
+        onStart={() => navigation.navigate('SE_FAIRE_PLAISIR_AUTREMENT')}
+        done={!!defi4_Day5_Results}
+        showOnlyIfDone
+      />
+      <DefiCategorieTitle color="#4030a5">Cinquième défi</DefiCategorieTitle>
+      <QuizzElement
+        title="Mesurer ma consommation après 4 semaines"
+        onStart={() => navigation.navigate('REEVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
+        onShowResult={() => navigation.navigate('REEVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
+        done={Object.keys(reevaluateQuizzResult || {})?.length > 0}
+        showOnlyIfDone
+      />
+      <QuizzElement
+        title="L'évolution de mes envies d'alcool"
+        onStart={() => navigation.navigate('ENVIES_DALCOOL')}
+        done={!!defi5_Day2_Results}
+        showOnlyIfDone
+      />
+      <QuizzElement
+        title="L'évolution de ma qualité de vie"
+        onStart={() => navigation.navigate('REEVALUATE_QUALITY_LIFE', { initialRouteName: 'QUIZZ_QUESTIONS' })}
+        done={defi5_Day3_Results?.length > 0}
+        showOnlyIfDone
+      />
+      <QuizzElement
+        title="L'évolution de mon bien-être physique"
+        onStart={() => navigation.navigate('BIENETRE_PHYSIQUE')}
+        done={!!defi5_Day4_Results}
+        showOnlyIfDone
+      />
+      <QuizzElement
+        title="L'évolution de mon bien-être psychologique"
+        onStart={() => navigation.navigate('BIENETRE_PSYCHOLOGIQUE')}
+        done={!!defi5_Day5_Results}
         showOnlyIfDone
       />
     </WrapperContainer>

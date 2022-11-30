@@ -12,7 +12,7 @@ import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { P, Spacer } from '../../../components/Articles';
 
-export const answersDefi5Day2 = [
+export const answersDefi5Day4 = [
   { answerKey: '1.1', content: 'Moins de fatigue' },
   { answerKey: '1.2', content: 'Meilleure concentration' },
   { answerKey: '1.3', content: 'Perte de poids' },
@@ -57,7 +57,7 @@ const Defi5_Day4 = ({ navigation, route }) => {
       screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
       headerMode="none"
       initialRouteName={route?.params?.initialRouteName}>
-      <QuestionnaireDefi5Day4Stack.Screen name="DEFI5_DAY2_EXPLICATIONS">
+      <QuestionnaireDefi5Day4Stack.Screen name="DEFI5_DAY4_EXPLICATIONS">
         {({ navigation }) => (
           <WrapperContainer
             onPressBackButton={navigation.goBack}
@@ -105,7 +105,7 @@ const Defi5_Day4 = ({ navigation, route }) => {
                 Mes situations à risque
               </TextStyled>
               <Spacer size={25} />
-              {answersDefi5Day2.map((item) => {
+              {answersDefi5Day4.map((item) => {
                 const checked = !!defi5_Day4_Answers?.includes(item.answerKey);
                 return (
                   <CheckboxLabelled
@@ -174,16 +174,7 @@ const Defi5_Day4 = ({ navigation, route }) => {
               </>
             )}
             <ButtonsContainer>
-              <ButtonPrimary
-                onPress={() => {
-                  if (route?.params?.inDefi5) {
-                    navigation.navigate('DEFI5_MENU');
-                  } else {
-                    navigation.navigate('TESTS_DEFIS');
-                  }
-                }}
-                content="J'ai compris"
-              />
+              <ButtonPrimary onPress={() => navigation.navigate(route.params.rootRoute)} content="J'ai compris" />
             </ButtonsContainer>
           </WrapperContainer>
         )}
