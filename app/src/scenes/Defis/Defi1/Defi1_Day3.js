@@ -11,31 +11,6 @@ import { setValidatedDays } from '../utils';
 import { P, Spacer } from '../../../components/Articles';
 import WrapperContainer from '../../../components/WrapperContainer';
 
-const ToggleContent = ({ children, title }) => {
-  const [visible, setVisible] = useState(false);
-  return (
-    <View>
-      <TouchableOpacity onPress={() => setVisible(!visible)}>
-        <TitleStyled>
-          <P color="#4030a5" noMarginBottom bold>
-            {title}
-          </P>
-          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
-        </TitleStyled>
-      </TouchableOpacity>
-      {visible ? <View>{children}</View> : null}
-    </View>
-  );
-};
-
-const TitleStyled = styled.View`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 15px 0;
-`;
-
 const Defi1_Day3 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
@@ -112,6 +87,31 @@ const Elem = ({ content }) => (
     <P style={{ flex: 1 }}>{content}</P>
   </ElemContainer>
 );
+
+const ToggleContent = ({ children, title }) => {
+  const [visible, setVisible] = useState(false);
+  return (
+    <View>
+      <TouchableOpacity onPress={() => setVisible(!visible)}>
+        <TitleStyled>
+          <P color="#4030a5" noMarginBottom bold>
+            {title}
+          </P>
+          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
+        </TitleStyled>
+      </TouchableOpacity>
+      {visible ? <View>{children}</View> : null}
+    </View>
+  );
+};
+
+const TitleStyled = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+`;
 
 const ElemContainer = styled.View`
   display: flex;

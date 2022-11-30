@@ -137,12 +137,9 @@ const BulletPoint = styled.View`
   margin: 10px;
 `;
 
-const SmallTextStyled = styled(TextStyled)`
-  font-size: 12px;
-`;
-
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-bottom: 50px;
+  align-self: center;
 `;
 
 export default Defi4_Day6;

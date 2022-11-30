@@ -138,6 +138,7 @@ const KeyContainer = styled.View`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 export default Defi4_Day3;

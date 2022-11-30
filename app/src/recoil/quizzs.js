@@ -90,7 +90,7 @@ export const motivationsQuizzResultState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzMotivations_result', JSON.stringify(newValue)))],
 });
 
-export const Defi3_Day3_Answers_Difficulties_State = atom({
+export const defi3_Day3_Answers_Difficulties_State = atom({
   key: 'Defi3_Day3_Answers_Difficulties_State',
   default: getInitStoredAnswers('@Defi3_Day3_answers_Difficulties', []),
   effects: [
@@ -98,28 +98,28 @@ export const Defi3_Day3_Answers_Difficulties_State = atom({
   ],
 });
 
-export const Defi3_Day3_Answers_Help_State = atom({
+export const defi3_Day3_Answers_Help_State = atom({
   key: 'Defi3_Day3_Answers_Help_State',
   default: getInitStoredAnswers('@Defi3_Day3_answers_Help', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_answers_Help', JSON.stringify(newValue)))],
 });
 
-export const Defi4_Day5_Answers_State = atom({
+export const defi3_Day3_ResultState = atom({
+  key: 'Defi3_Day3_ResultState',
+  default: getInitStoredResult('@Defi3_Day3_result'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_result', JSON.stringify(newValue)))],
+});
+
+export const defi4_Day5_Answers_State = atom({
   key: 'Defi4_Day5_Answers_State',
   default: getInitStoredAnswers('@Defi4_Day5_Answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi4_Day5_Answers', JSON.stringify(newValue)))],
 });
 
-export const Defi4_Day5_ResultState = atom({
+export const defi4_Day5_ResultState = atom({
   key: 'Defi4_Day5_ResultState',
   default: getInitStoredAnswers('@Defi4_Day5_Result', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi4_Day5_Result', JSON.stringify(newValue)))],
-});
-
-export const Defi3_Day3_ResultState = atom({
-  key: 'Defi3_Day3_ResultState',
-  default: getInitStoredResult('@Defi3_Day3_result'),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi3_Day3_result', JSON.stringify(newValue)))],
 });
 
 export const riskSituationsQuizzAnswersState = atom({
@@ -146,25 +146,25 @@ export const riskSituationsAnswersKeysSelector = selector({
   },
 });
 
-export const QuizzDefi3Day1AnswersState = atom({
+export const quizzDefi3Day1AnswersState = atom({
   key: 'QuizzDefi3Day1AnswersState',
   default: getInitStoredAnswers('@QuizzDefi3Day1_answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day1_answers', JSON.stringify(newValue)))],
 });
 
-export const QuizzDefi3Day1ResultState = atom({
+export const quizzDefi3Day1ResultState = atom({
   key: 'QuizzDefi3Day1ResultState',
   default: getInitStoredResult('@QuizzDefi3Day1_result'),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day1_result', JSON.stringify(newValue)))],
 });
 
-export const QuizzDefi3Day5AnswersState = atom({
+export const quizzDefi3Day5AnswersState = atom({
   key: 'QuizzDefi3Day5AnswersState',
   default: getInitStoredAnswers('@QuizzDefi3Day5_answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day5_answers', JSON.stringify(newValue)))],
 });
 
-export const QuizzDefi3Day5ResultState = atom({
+export const quizzDefi3Day5ResultState = atom({
   key: 'QuizzDefi3Day5ResultState',
   default: getInitStoredResult('@QuizzDefi3Day5_result'),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi3Day5_result', JSON.stringify(newValue)))],
@@ -187,13 +187,13 @@ export const reevaluateQuizzResultState = atom({
   ],
 });
 
-export const Defi5_Day2_Answers_State = atom({
+export const defi5_Day2_Answers_State = atom({
   key: 'Defi5_Day2_Answers_State',
   default: getInitStoredAnswers('@Defi5_Day2_Answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day2_Answers', JSON.stringify(newValue)))],
 });
 
-export const Defi5_Day2_ResultState = atom({
+export const defi5_Day2_ResultState = atom({
   key: 'Defi5_Day2_ResultState',
   default: getInitStoredAnswers('@Defi5_Day2_Result', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day2_Result', JSON.stringify(newValue)))],
@@ -227,25 +227,25 @@ export const relifeQualityQuizzResultState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@QuizzDefi5Day3partie2_result', JSON.stringify(newValue)))],
 });
 
-export const Defi5_Day4_Answers_State = atom({
+export const defi5_Day4_Answers_State = atom({
   key: 'Defi5_Day4_Answers_State',
   default: getInitStoredAnswers('@Defi5_Day4_Answers', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day4_Answers', JSON.stringify(newValue)))],
 });
 
-export const Defi5_Day4_ResultState = atom({
+export const defi5_Day4_ResultState = atom({
   key: 'Defi5_Day4_ResultState',
   default: getInitStoredAnswers('@Defi5_Day4_Result', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day4_Result', JSON.stringify(newValue)))],
 });
 
-export const Defi5_Day5_Answers_State = atom({
+export const defi5_Day5_Answers_State = atom({
   key: 'Defi5_Day5_Answers_State',
   default: getInitStoredAnswers('@Defi5_Day5_Answers', ''),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day5_Answers', JSON.stringify(newValue)))],
 });
 
-export const Defi5_Day5_ResultState = atom({
+export const defi5_Day5_ResultState = atom({
   key: 'Defi5_Day5_ResultState',
   default: getInitStoredAnswers('@Defi5_Day5_Result', false),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Defi5_Day5_Result', JSON.stringify(newValue)))],

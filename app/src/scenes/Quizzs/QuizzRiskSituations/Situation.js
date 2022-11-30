@@ -23,24 +23,31 @@ const Situation = ({ section, toggleAnswer, answers, navigation, description1, d
           maxNumberOfCheckedBoxes={2}
         />
       </DescriptionContainer>
-      <ButtonPrimary
-        small
-        content={
-          numberChecked === 0
-            ? 'Je continue'
-            : `J'ai identifié ${numberChecked} ${
-                numberChecked === 1 ? 'situation ' + section.sectionTitle : 'situations ' + section.sectionTitle + 's'
-              }`
-        }
-        disabled={numberChecked === 0 || numberChecked > 2}
-        onPress={onPress}
-      />
+      <ButtonsContainer>
+        <ButtonPrimary
+          small
+          content={
+            numberChecked === 0
+              ? 'Je continue'
+              : `J'ai identifié ${numberChecked} ${
+                  numberChecked === 1 ? 'situation ' + section.sectionTitle : 'situations ' + section.sectionTitle + 's'
+                }`
+          }
+          disabled={numberChecked === 0 || numberChecked > 2}
+          onPress={onPress}
+        />
+      </ButtonsContainer>
     </WrapperContainer>
   );
 };
 
 const DescriptionContainer = styled.View`
   margin-vertical: 10px;
+`;
+
+const ButtonsContainer = styled.View`
+  align-items: center;
+  width: 100%;
 `;
 
 export default Situation;

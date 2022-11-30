@@ -58,6 +58,7 @@ const Defi3_Day7 = ({ navigation, route }) => {
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const BulletPoint = styled.View`

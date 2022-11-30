@@ -231,6 +231,7 @@ const ContainerSection = styled.View`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const ButtonsContainer = styled.View`

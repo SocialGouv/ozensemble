@@ -130,7 +130,7 @@ const Defi3_Day5 = ({ route }) => {
           </WrapperContainer>
         )}
       </QuizzStack.Screen>
-      <QuizzStack.Screen name="QUIZZ_DEFI3_DAY5">{({ navigation }) => <QuizzDefi3Day5 />}</QuizzStack.Screen>
+      <QuizzStack.Screen initialParams={route.params} name="QUIZZ_DEFI3_DAY5" component={QuizzDefi3Day5} />
     </QuizzStack.Navigator>
   );
 };
@@ -145,6 +145,7 @@ const SmallTextStyled = styled(TextStyled)`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-bottom: 50px;
+  align-self: center;
 `;
 
 export default Defi3_Day5;

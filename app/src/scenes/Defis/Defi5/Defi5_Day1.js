@@ -201,6 +201,7 @@ export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) =
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const ScoreTitle = styled(H1)`

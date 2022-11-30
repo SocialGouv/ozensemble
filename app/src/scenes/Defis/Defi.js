@@ -98,9 +98,7 @@ const Defi = ({
                 activeOpacity={0.47}
                 last={dayIndex === data.length - 1}
                 disabled={activeDay < dayIndex || !dayData?.screenCTA}
-                onPress={() => {
-                  navigation.push(dayData?.screenCTA, { inDefi1: validatedDays <= dayIndex });
-                }}>
+                onPress={() => navigation.push(dayData?.screenCTA)}>
                 <View style={{ flex: 1 }}>
                   <TitleDay color={getTitleColor(dayIndex)}>
                     {dayData?.title} : {dayData?.tagLine}

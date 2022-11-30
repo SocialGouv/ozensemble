@@ -90,6 +90,7 @@ const AlertContainer = styled.View`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 20px;
+  align-self: center;
 `;
 
 export default CheckboxLabelled;

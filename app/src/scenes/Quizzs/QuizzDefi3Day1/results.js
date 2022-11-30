@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useIsFocused, useRoute } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../../Defis/utils';
-import { QuizzDefi3Day1AnswersState } from '../../../recoil/quizzs';
+import { quizzDefi3Day1AnswersState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
 import { P, Spacer } from '../../../components/Articles';
 import WrapperContainer from '../../../components/WrapperContainer';
@@ -13,11 +13,11 @@ import TextResult from './TextResult';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 
 const ResultsQuizzDefi3Day1 = ({ route, navigation }) => {
-  const answers = useRecoilValue(QuizzDefi3Day1AnswersState);
+  const answers = useRecoilValue(quizzDefi3Day1AnswersState);
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (answers && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi3');
+    if (answers && route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
   }, [route?.params, isFocused, answers]);
 
   if (!answers) return null;
@@ -32,8 +32,8 @@ const ResultsQuizzDefi3Day1 = ({ route, navigation }) => {
           C'est déjà terminé !
         </SectionTitle>
         <TextParagraph>
-          Merci d’avoir répondu au quiz. Voici toutes les réponses aux{' '}
-          <TextStyled bold>questions de connaissance sur l’alcool :</TextStyled>
+          Merci d'avoir répondu au quiz. Voici toutes les réponses aux{' '}
+          <TextStyled bold>questions de connaissance sur l'alcool :</TextStyled>
         </TextParagraph>
       </Content>
 
@@ -42,13 +42,13 @@ const ResultsQuizzDefi3Day1 = ({ route, navigation }) => {
       ))}
 
       <Spacer size={5} />
-      <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate('DEFI3_MENU')} />
+      <ButtonPrimaryStyled content="J'ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
     </WrapperContainer>
   );
 };
 
 const AnswerResult = ({ questionKey }) => {
-  const answers = useRecoilValue(QuizzDefi3Day1AnswersState);
+  const answers = useRecoilValue(quizzDefi3Day1AnswersState);
   const answer = answers[questionKey];
   const question = questions.find((q) => q.questionKey === questionKey);
 
@@ -75,11 +75,11 @@ const AnswerResult = ({ questionKey }) => {
             </TextStyled>
           ) : goodAnswer ? (
             <TextStyled bold color="#20B55C">
-              Bonne réponse... C’est {question.trueAnswer.toLowerCase()} !
+              Bonne réponse... C'est {question.trueAnswer.toLowerCase()} !
             </TextStyled>
           ) : (
             <TextStyled bold color="#DE285E">
-              Mauvaise réponse... C’est {question.trueAnswer.toLowerCase()} !
+              Mauvaise réponse... C'est {question.trueAnswer.toLowerCase()} !
             </TextStyled>
           )}
 
@@ -138,6 +138,7 @@ const ButtonFauxAnswer = ({ goodAnswer }) => (
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const ButtonsContainer = styled.View`
@@ -150,8 +151,8 @@ const ButtonsContainer = styled.View`
 `;
 
 const Button = styled.View`
-  ${(props) => props.red && `background-color: #DE285E;`}
-  ${(props) => props.green && `background-color: #20B55C;`}
+  ${(props) => props.red && 'background-color: #DE285E;'}
+  ${(props) => props.green && 'background-color: #20B55C;'}
   height: 45px;
   min-width: 40%;
   justify-content: center;
@@ -160,7 +161,7 @@ const Button = styled.View`
   padding-horizontal: 30px;
   border: 1px;
   border-color: #4030a5;
-  ${(props) => (props.red || props.green) && `border: 0px;`}
+  ${(props) => (props.red || props.green) && 'border: 0px;'}
 `;
 
 const SectionTitle = styled(P)`

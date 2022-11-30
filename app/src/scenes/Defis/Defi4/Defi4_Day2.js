@@ -230,6 +230,7 @@ const HalfScreenBackground = styled.View`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const Dropdown = styled.View`

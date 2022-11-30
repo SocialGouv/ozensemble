@@ -126,6 +126,7 @@ const Contact = ({ navigation }) => (
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const Testimony = ({ color, content, initials }) => (

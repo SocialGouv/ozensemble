@@ -4,11 +4,9 @@ import ButtonPrimary from '../../../../components/ButtonPrimary';
 import Element from '../../../../components/ElementDayDefi';
 import WrapperContainer from '../../../../components/WrapperContainer';
 import styled from 'styled-components';
-import { screenWidth } from '../../../../styles/theme';
-import { defaultPaddingFontScale } from '../../../../styles/theme';
+import { screenWidth, defaultPaddingFontScale } from '../../../../styles/theme';
 import H2 from '../../../../components/H2';
-import { P } from '../../../../components/Articles';
-import { Spacer } from '../../../../components/Articles';
+import { P, Spacer } from '../../../../components/Articles';
 import ArrowEmotion from '../../../../components/ArrowEmotion';
 import ConsumptionAdvice from './ConsumptionAdvice';
 
@@ -39,6 +37,7 @@ const BulletPoint = styled.View`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-bottom: 50px;
+  align-self: center;
 `;
 
 const FirstSituationContainer = styled.View`
@@ -55,16 +54,6 @@ const FirstTextContainer = styled.View`
   align-items: center;
   justify-content: center;
   /* height: 100%; */
-`;
-
-const TextContainer = styled.View`
-  background-color: #ffffff;
-  border: 1px solid #d3d3e8;
-  border-radius: 3px;
-  margin-left: 10px;
-  margin-vertical: 10px;
-  padding: 10px;
-  width: ${screenWidth * 0.77 - 20}px;
 `;
 
 const TextEmotion = styled(P)`

@@ -115,6 +115,7 @@ const ResultsQuizzDefi5Day3 = ({ navigation, route }) => {
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 export default ResultsQuizzDefi5Day3;

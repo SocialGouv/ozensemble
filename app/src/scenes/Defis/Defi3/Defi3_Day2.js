@@ -128,6 +128,7 @@ const Defi3_Day2 = ({ navigation, route }) => {
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const CircleContainer = styled.View`

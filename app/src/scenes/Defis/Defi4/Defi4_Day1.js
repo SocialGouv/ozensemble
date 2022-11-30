@@ -138,6 +138,7 @@ const SmallTextStyled = styled(TextStyled)`
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-bottom: 50px;
+  align-self: center;
 `;
 
 export default Defi4_Day1;

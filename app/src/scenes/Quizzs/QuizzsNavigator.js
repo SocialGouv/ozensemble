@@ -19,7 +19,10 @@ import {
   lifeQualityQuizzResultState,
   motivationsQuizzResultState,
   riskSituationsQuizzAnswersState,
-  Defi3_Day3_Answers_Help_State,
+  defi3_Day3_Answers_Help_State,
+  quizzDefi3Day1ResultState,
+  quizzDefi3Day1AnswersState,
+  quizzDefi3Day5AnswersState,
 } from '../../recoil/quizzs';
 import QuizzRiskSituations from './QuizzRiskSituations';
 import Defi2_Day4 from '../Defis/Defi2/Defi2_Day4';
@@ -28,6 +31,8 @@ import Defi2_Day5_Navigation from '../Defis/Defi2/Day5/Defi2_Day5_Navigator';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
 import Defi3Day3 from '../../scenes/Defis/Defi3/Day3';
+import Defi3_Day1 from '../Defis/Defi3/Defi3_Day1';
+import Defi3_Day5 from '../Defis/Defi3/Defi3_Day5';
 
 const QuizzsStack = createStackNavigator();
 
@@ -81,8 +86,22 @@ const QuizzsNavigator = () => (
       }}
     />
     <QuizzsStack.Screen
+      name="QUIZZ_ALCOOL_EN_CHIFFRES"
+      component={Defi3_Day1}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
       name="FACTEURS_MOTIVATION"
       component={Defi3Day3}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="QUIZZ_HALTE_IDEES_RECUES"
+      component={Defi3_Day5}
       initialParams={{
         rootRoute: 'QUIZZ_MENU',
       }}
@@ -99,7 +118,9 @@ const QuizzMenu = () => {
   const motivationsQuizzResult = useRecoilValue(motivationsQuizzResultState);
   const riskSituationsQuizzAnswers = useRecoilValue(riskSituationsQuizzAnswersState);
   const defi2Emotion = useRecoilValue(defi2EmotionState);
-  const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
+  const defi3_Day1_Answers = useRecoilValue(quizzDefi3Day1AnswersState);
+  const defi3_Day3_Answers_Help = useRecoilValue(defi3_Day3_Answers_Help_State);
+  const defi3_Day5_Answers = useRecoilValue(quizzDefi3Day5AnswersState);
 
   return (
     <WrapperContainer title="Tests des défis" onPressBackButton={navigation.goBack}>
@@ -137,14 +158,12 @@ const QuizzMenu = () => {
         showOnlyIfDone
       />
       <QuizzElement
-        topTitle="Deuxième défi"
         title="Hiérarchiser mes situations"
         onStart={() => navigation.navigate('RISK_SITUATIONS_HIERARCHISE')}
         done={Number(storage.getNumber('@Defi2_ValidatedDays')) > 3 && !!resultsRiskSituation}
         showOnlyIfDone
       />
       <QuizzElement
-        topTitle="Deuxième défi"
         title="Affronter une situation"
         onStart={() => navigation.navigate('AFFRONTER_SITUATION', { screen: 'DEFI2_DAY5' })}
         done={defi2Emotion > 0}
@@ -153,9 +172,21 @@ const QuizzMenu = () => {
 
       <DefiCategorieTitle color="#4030a5">Troisième défi</DefiCategorieTitle>
       <QuizzElement
+        title="Quiz l'alcool en quelques chiffres"
+        onStart={() => navigation.navigate('QUIZZ_ALCOOL_EN_CHIFFRES')}
+        done={Object.keys(defi3_Day1_Answers).length === 5}
+        showOnlyIfDone
+      />
+      <QuizzElement
         title="Les facteurs influençant ma motivation"
         onStart={() => navigation.navigate('FACTEURS_MOTIVATION', { screen: 'EXPLICATIONS' })}
-        done={Defi3_Day3_Answers_Help.length > 0}
+        done={defi3_Day3_Answers_Help.length > 0}
+        showOnlyIfDone
+      />
+      <QuizzElement
+        title="Quiz halte aux idées reçues"
+        onStart={() => navigation.navigate('QUIZZ_HALTE_IDEES_RECUES')}
+        done={Object.keys(defi3_Day5_Answers).length === 3}
         showOnlyIfDone
       />
     </WrapperContainer>

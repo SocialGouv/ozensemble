@@ -6,7 +6,7 @@ import HeaderQuizzsResult from '../../HeaderQuizzsResult';
 import H3 from '../../../../components/H3';
 import TextStyled from '../../../../components/TextStyled';
 import { screenWidth } from '../../../../styles/theme';
-import { Defi3_Day3_Answers_Difficulties_State, Defi3_Day3_Answers_Help_State } from '../../../../recoil/quizzs';
+import { defi3_Day3_Answers_Difficulties_State, defi3_Day3_Answers_Help_State } from '../../../../recoil/quizzs';
 import SmileyGreen from '../../../../components/illustrations/SmileyGreen';
 import SmileyRed from '../../../../components/illustrations/SmileyRed';
 import ToggleContent from '../../../../components/ToggleContent';
@@ -14,14 +14,14 @@ import Element from '../../../../components/ElementDayDefi';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 
 const Wrapper = ({ children, wrapped, inMyTests }) => {
-  const Defi3_Day3_Answers_Difficulties = useRecoilValue(Defi3_Day3_Answers_Difficulties_State);
-  const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
+  const defi3_Day3_Answers_Difficulties = useRecoilValue(defi3_Day3_Answers_Difficulties_State);
+  const defi3_Day3_Answers_Help = useRecoilValue(defi3_Day3_Answers_Help_State);
 
   if (!wrapped) return <>{children}</>;
   return (
     <FullScreenBackground>
       <HeaderQuizzsResult inMyTests={inMyTests}>
-        {!!(Defi3_Day3_Answers_Difficulties || Defi3_Day3_Answers_Help) && (
+        {!!(defi3_Day3_Answers_Difficulties || defi3_Day3_Answers_Help) && (
           <ResultContainer>{children}</ResultContainer>
         )}
       </HeaderQuizzsResult>
@@ -30,10 +30,10 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
 };
 
 const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) => {
-  const Defi3_Day3_Answers_Difficulties = useRecoilValue(Defi3_Day3_Answers_Difficulties_State);
-  const Defi3_Day3_Answers_Help = useRecoilValue(Defi3_Day3_Answers_Help_State);
+  const defi3_Day3_Answers_Difficulties = useRecoilValue(defi3_Day3_Answers_Difficulties_State);
+  const defi3_Day3_Answers_Help = useRecoilValue(defi3_Day3_Answers_Help_State);
 
-  if (!Defi3_Day3_Answers_Difficulties || !Defi3_Day3_Answers_Help) return null;
+  if (!defi3_Day3_Answers_Difficulties || !defi3_Day3_Answers_Help) return null;
 
   const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
   return (
@@ -46,7 +46,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           </ResultTitle>
         </ResultTitleContainer>
 
-        {!Defi3_Day3_Answers_Difficulties.length && (
+        {!defi3_Day3_Answers_Difficulties.length && (
           <TextStyled>
             Vous n'avez pas encore sélectionné de facteurs de difficultés, vous pouvez revenir à ce questionnaire en
             allant dans la rubrique <TextStyled bold>Mes tests</TextStyled> dynamiques
@@ -55,7 +55,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
         )}
         <View>
           {/* "motif social" first, order is different from the questionnaire */}
-          {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 2) && (
+          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 2) && (
             <ToggleContent title="Motif social">
               <Element
                 content={
@@ -79,7 +79,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 1) && (
+          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 1) && (
             <ToggleContent title="Motif récréatif">
               <Element
                 content={
@@ -98,7 +98,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 3) && (
+          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 3) && (
             <ToggleContent title="Motif d’oubli des soucis">
               <Element
                 content={
@@ -117,7 +117,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {Defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 4) && (
+          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split('.')[0] == 4) && (
             <ToggleContent title="Motif de conformité">
               <Element
                 content={
@@ -144,7 +144,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           <ResultTitle color="#20B55C">Motifs d’aide à maintenir dans le temps mon objectif de réduction.</ResultTitle>
         </ResultTitleContainer>
 
-        {!Defi3_Day3_Answers_Help.length && (
+        {!defi3_Day3_Answers_Help.length && (
           <TextStyled>
             Vous n'avez pas encore sélectionné de facteurs d'aide, vous pouvez revenir à ce questionnaire en allant dans
             la rubrique <TextStyled bold>Mes tests</TextStyled> dynamiques
@@ -152,7 +152,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           </TextStyled>
         )}
         <View>
-          {Defi3_Day3_Answers_Help.some((answerKey) => answerKey.split('.')[0] == 5) && (
+          {defi3_Day3_Answers_Help.some((answerKey) => answerKey.split('.')[0] == 5) && (
             <ToggleContent title="Motif psychologique">
               <Element
                 content={
@@ -173,7 +173,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {Defi3_Day3_Answers_Help.some((answerKey) => answerKey.split('.')[0] == 6) && (
+          {defi3_Day3_Answers_Help.some((answerKey) => answerKey.split('.')[0] == 6) && (
             <ToggleContent title="Motif social">
               <Element
                 content={
@@ -193,7 +193,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {Defi3_Day3_Answers_Help.some((answerKey) => answerKey.split('.')[0] == 7) && (
+          {defi3_Day3_Answers_Help.some((answerKey) => answerKey.split('.')[0] == 7) && (
             <ToggleContent title="Motif biologique">
               <Element
                 content={
@@ -228,6 +228,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const FullScreenBackground = styled.ScrollView`

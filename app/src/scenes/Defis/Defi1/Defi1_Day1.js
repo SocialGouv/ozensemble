@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import OneDoseAlcoolExplanation from '../../../components/OneDoseAlcoolExplanation';

@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
-import { Defi5_Day2_Answers_State, Defi5_Day2_ResultState } from '../../../recoil/quizzs';
+import { defi5_Day2_Answers_State, defi5_Day2_ResultState } from '../../../recoil/quizzs';
 import { setValidatedDays } from '../utils';
 import WrapperContainer from '../../../components/WrapperContainer';
 import Element from '../../../components/ElementDayDefi';
@@ -34,8 +34,8 @@ const aucune = (answers) => answers.includes('1.5');
 const QuestionnaireDefi5Day2Stack = createStackNavigator();
 
 const Defi5_Day2 = ({ navigation, route }) => {
-  const [defi5_Day2_Answers, setDefi5_Day2_Answers] = useRecoilState(Defi5_Day2_Answers_State);
-  const setDefi5_Day2_ResultState = useSetRecoilState(Defi5_Day2_ResultState);
+  const [defi5_Day2_Answers, setDefi5_Day2_Answers] = useRecoilState(defi5_Day2_Answers_State);
+  const setDefi5_Day2_ResultState = useSetRecoilState(defi5_Day2_ResultState);
 
   const toggleAnswer = async (answerKey, checked) => {
     setDefi5_Day2_Answers((prevAnswers) => {

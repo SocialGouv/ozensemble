@@ -1,7 +1,7 @@
 import { useIsFocused } from '@react-navigation/native';
+import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import { Linking, TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components';
 import GoBackButton from '../../../components/GoBackButton';
 import TextStyled from '../../../components/TextStyled';
 import Sources from '../../Quizzs/Sources';
@@ -9,6 +9,7 @@ import { setValidatedDays } from '../utils';
 import { P } from '../../../components/Articles';
 import ElementDayDefi from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
+import ButtonPrimary from '../../../components/ButtonPrimary';
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -98,8 +99,17 @@ const Defi1_Day5 = ({ navigation, route }) => {
           </TextStyled>
         </TextStyled>
       </Sources>
+      <ButtonsContainer>
+        <ButtonPrimary onPress={() => navigation.navigate(route?.params?.rootRoute)} content="J'ai compris" />
+      </ButtonsContainer>
     </WrapperContainer>
   );
 };
+
+const ButtonsContainer = styled.View`
+  margin-top: 40px;
+  align-items: center;
+  width: 100%;
+`;
 
 export default Defi1_Day5;

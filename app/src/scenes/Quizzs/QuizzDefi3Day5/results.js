@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useIsFocused, useRoute } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
-import { setValidatedDays } from '../../Defis/utils';
-import { QuizzDefi3Day5AnswersState } from '../../../recoil/quizzs';
+import { quizzDefi3Day5AnswersState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
 import { P, Spacer } from '../../../components/Articles';
 import WrapperContainer from '../../../components/WrapperContainer';
@@ -11,15 +10,9 @@ import Element from '../../../components/ElementDayDefi';
 import questions from './questions';
 import TextResult from './TextResult';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { TouchableOpacity } from 'react-native';
 
 const ResultsQuizzDefi3Day5 = ({ route, navigation }) => {
-  const answers = useRecoilValue(QuizzDefi3Day5AnswersState);
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (answers && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi3');
-  }, [route?.params, isFocused, answers]);
+  const answers = useRecoilValue(quizzDefi3Day5AnswersState);
 
   if (!answers) return null;
   return (
@@ -60,7 +53,7 @@ const ResultsQuizzDefi3Day5 = ({ route, navigation }) => {
 };
 
 const AnswerResult = ({ questionKey }) => {
-  const answers = useRecoilValue(QuizzDefi3Day5AnswersState);
+  const answers = useRecoilValue(quizzDefi3Day5AnswersState);
   const answer = answers[questionKey];
   const question = questions.find((q) => q.questionKey === questionKey);
 
@@ -150,6 +143,7 @@ const ButtonFauxAnswer = ({ goodAnswer }) => (
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`
   margin-top: 40px;
+  align-self: center;
 `;
 
 const ButtonsContainer = styled.View`
@@ -162,8 +156,8 @@ const ButtonsContainer = styled.View`
 `;
 
 const Button = styled.View`
-  ${(props) => props.red && `background-color: #DE285E;`}
-  ${(props) => props.green && `background-color: #20B55C;`}
+  ${(props) => props.red && 'background-color: #DE285E;'}
+  ${(props) => props.green && 'background-color: #20B55C;'}
   height: 45px;
   min-width: 40%;
   justify-content: center;
@@ -172,7 +166,7 @@ const Button = styled.View`
   padding-horizontal: 30px;
   border: 1px;
   border-color: #4030a5;
-  ${(props) => (props.red || props.green) && `border: 0px;`}
+  ${(props) => (props.red || props.green) && 'border: 0px;'}
 `;
 
 const SectionTitle = styled(P)`

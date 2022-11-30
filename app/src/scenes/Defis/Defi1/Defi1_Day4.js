@@ -14,16 +14,18 @@ import H3 from '../../../components/H3';
 import { P, Spacer } from '../../../components/Articles';
 import questionsLifeQuality from '../../Quizzs/QuizzLifeQuality/questions';
 
-const Defi1_Day4 = ({ navigation, route }) => (
-  <QuizzLifeQuality
-    navigation={navigation}
-    route={route}
-    event="_QUALITE_DE_VIE"
-    recoilAnswersState={lifeQualityQuizzAnswersState}
-    recoilResultState={lifeQualityQuizzResultState}
-    Results={ResultsLifeQuality}
-  />
-);
+const Defi1_Day4 = ({ navigation, route }) => {
+  return (
+    <QuizzLifeQuality
+      navigation={navigation}
+      route={route}
+      event="_QUALITE_DE_VIE"
+      recoilAnswersState={lifeQualityQuizzAnswersState}
+      recoilResultState={lifeQualityQuizzResultState}
+      Results={ResultsLifeQuality}
+    />
+  );
+};
 
 export default Defi1_Day4;
 
