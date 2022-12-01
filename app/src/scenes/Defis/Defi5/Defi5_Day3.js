@@ -126,15 +126,15 @@ const updatedResultsToDisplaySelector = selector({
 
         if (difference === 0) return { response: { sign: 'equal', color: '#39cec0' }, question };
         if (difference < 0) {
-          const color = ['Handicap physique', 'Douleurs physiques', 'Frein psychique'].includes(question.resultLabel)
-            ? '#28a745'
-            : '#FF9933';
-          return { response: { sign: 'down', color }, question };
+          const sign = ['Handicap physique', 'Douleurs physiques', 'Frein psychique'].includes(question.resultLabel)
+            ? 'up'
+            : 'down';
+          return { response: { sign, color: '#FF9933' }, question };
         }
-        const color = ['Handicap physique', 'Douleurs physiques', 'Frein psychique'].includes(question.resultLabel)
-          ? '#FF9933'
-          : '#28a745';
-        return { response: { sign: 'up', color }, question };
+        const sign = ['Handicap physique', 'Douleurs physiques', 'Frein psychique'].includes(question.resultLabel)
+          ? 'down'
+          : 'up';
+        return { response: { sign, color: '#28a745' }, question };
       })
       .filter(Boolean);
   },
