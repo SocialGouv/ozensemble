@@ -113,6 +113,7 @@ const updatedResultsToDisplaySelector = selector({
   get: ({ get }) => {
     const oldAnswers = get(lifeQualityQuizzAnswersState);
     const newAnswers = get(relifeQualityQuizzAnswersState);
+    if (!Object.keys(oldAnswers)?.length) return null;
     if (!Object.keys(newAnswers)?.length) return null;
     return Object.keys(newAnswers)
       .map((questionIndex) => {
