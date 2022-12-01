@@ -23,7 +23,6 @@ export const defi5_Data = [
         <TextStyled bold>
           l'évolution de votre consommation en société à travers la gestion de vos situations à risque.
         </TextStyled>
-        .
       </>
     ),
     textCTA: 'Je compare',

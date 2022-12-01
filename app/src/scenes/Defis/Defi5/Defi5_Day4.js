@@ -70,6 +70,7 @@ const Defi5_Day4 = ({ navigation, route }) => {
                   consommation excessive d'alcool entraîne des problèmes de santé pouvant avoir de graves conséquences.
                   {'\n\n'}
                   Que l'on cherche à améliorer son hygiène de vie, sa forme physique ou bien à sortir de sa dépendance,
+                  le sevrage de l'alcool a des effets bénéfiques sur la durée.
                 </>
               }
             />

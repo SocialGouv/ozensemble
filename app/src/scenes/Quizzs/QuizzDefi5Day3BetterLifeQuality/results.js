@@ -25,7 +25,7 @@ const ResultsQuizzDefi5Day3 = ({ navigation, route }) => {
           }
         />
       )}
-      {answers.filter((answer) => answer === 'None')?.length === 2 && (
+      {answers.filter((answer) => answer === 'Non')?.length === 2 && (
         <Element
           content={
             <>

@@ -10,6 +10,7 @@ import Element from '../../../components/ElementDayDefi';
 import TextStyled from '../../../components/TextStyled';
 import WrapperContainer from '../../../components/WrapperContainer';
 import {
+  lifeQualityQuizzAnswersState,
   lifeQualityQuizzResultState,
   relifeQualityQuizzAnswersState,
   relifeQualityQuizzResultState,
@@ -33,7 +34,12 @@ const Defi5_Day3 = ({ route }) => {
       <Defi5_Day3_Stack.Screen
         name="DEFI5_DAY3_QUIZZ_PARTIE1"
         component={QuizzDefi5Day3}
-        initialParams={{ ...route.params, cta: 'Je continue', nextRoute: 'DEFI5_DAY3_QUIZZ_PARTIE2' }}
+        initialParams={{ ...route.params, cta: 'Je continue', nextRoute: 'DEFI5_DAY3_ONBAORDING_2' }}
+      />
+      <Defi5_Day3_Stack.Screen
+        name="DEFI5_DAY3_ONBAORDING_2"
+        component={Defi5_Day3_Onboarding_2}
+        initialParams={route.params}
       />
       <Defi5_Day3_Stack.Screen
         name="DEFI5_DAY3_QUIZZ_PARTIE2"
@@ -59,13 +65,34 @@ const Defi5_Day3_Onboarding = ({ navigation, route }) => {
         content={
           <>
             Nous vous suggérons d'abord d'évaluer{' '}
-            <TextStyled bold> l'évolution globale de votre qualité de vie </TextStyled> sur les quatre dernières
-            semaines.
+            <TextStyled bold>l'évolution globale de votre qualité de vie</TextStyled> sur les quatre dernières semaines.
           </>
         }
       />
 
       <ButtonPrimaryStyled content="Je suis prêt" onPress={() => navigation.navigate('DEFI5_DAY3_QUIZZ_PARTIE1')} />
+    </WrapperContainer>
+  );
+};
+
+const Defi5_Day3_Onboarding_2 = ({ navigation }) => {
+  return (
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title="Les composantes de ma qualité de vie après quatre semaines d'effort">
+      <Element
+        content={
+          <>
+            Nous vous proposons maintenant de refaire{' '}
+            <TextStyled bold>le questionnaire sur votre qualité de vie du défi 1</TextStyled>.{'\n\n'}
+            Vous pourrez ainsi visualiser l'évolution des différentes composantes de votre qualité de vie par rapport au
+            résultat de la première phase de votre défi. Ne vous laissez pas influencer par vos résultats précédents et
+            répondez au test au vu de votre situation actuelle.
+          </>
+        }
+      />
+
+      <ButtonPrimaryStyled content="Je suis prêt" onPress={() => navigation.navigate('DEFI5_DAY3_QUIZZ_PARTIE2')} />
     </WrapperContainer>
   );
 };
@@ -84,17 +111,17 @@ const QuizzLifeQualityRedo = ({ navigation, route }) => (
 const updatedResultsToDisplaySelector = selector({
   key: 'updatedResultsToDisplaySelector',
   get: ({ get }) => {
-    const oldresultKey = get(lifeQualityQuizzResultState);
-    const resultKey = get(relifeQualityQuizzResultState);
-    if (!resultKey?.length) return null;
-    return [...oldresultKey]
-      .sort((a, b) => Number(b.score) - Number(a.score))
-      .map((result) => {
-        const question = questionsLifeQuality.find((q) => q.resultLabel === result.title);
-        const oldAnswer = oldresultKey.find((r) => r.title === result.title).score;
-        const newAnswer = resultKey.find((r) => r.title === result.title).score;
+    const oldAnswers = get(lifeQualityQuizzAnswersState);
+    const newAnswers = get(relifeQualityQuizzAnswersState);
+    if (!Object.keys(newAnswers)?.length) return null;
+    return Object.keys(newAnswers)
+      .map((questionIndex) => {
+        const question = questionsLifeQuality[questionIndex];
+        const answers = question?.answers;
+        const newScore = answers?.find?.((answer) => answer.answerKey === newAnswers[questionIndex])?.score;
+        const oldScore = answers?.find?.((answer) => answer.answerKey === oldAnswers[questionIndex])?.score;
 
-        const difference = newAnswer > oldAnswer ? 1 : newAnswer < oldAnswer ? -1 : 0;
+        const difference = newScore > oldScore ? 1 : newScore < oldScore ? -1 : 0;
 
         if (difference === 0) return { response: { sign: 'equal', color: '#39cec0' }, question };
         if (difference < 0) {

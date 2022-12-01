@@ -12,7 +12,7 @@ const questionsLifeQuality = [
       {
         content: 'Excellente',
         answerKey: 'very-high',
-        score: 1,
+        score: 2,
         emoji: '🙂',
       },
       {
@@ -36,7 +36,7 @@ const questionsLifeQuality = [
       {
         content: 'Mauvaise',
         answerKey: 'very-low',
-        score: -1,
+        score: -2,
         emoji: '😒',
       },
     ],
@@ -50,7 +50,7 @@ const questionsLifeQuality = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 1,
+        score: 2,
         emoji: '💪',
       },
       {
@@ -74,7 +74,7 @@ const questionsLifeQuality = [
       {
         content: 'Enormément',
         answerKey: 'very-much',
-        score: -1,
+        score: -2,
         emoji: '💪',
       },
     ],
@@ -88,7 +88,7 @@ const questionsLifeQuality = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 1,
+        score: 2,
         emoji: '🙂',
       },
       {
@@ -112,7 +112,7 @@ const questionsLifeQuality = [
       {
         content: 'Enormément',
         answerKey: 'very-much',
-        score: -1,
+        score: -2,
         emoji: '🤕',
       },
     ],
@@ -125,7 +125,7 @@ const questionsLifeQuality = [
       {
         content: 'Nulle',
         answerKey: 'none',
-        score: 1,
+        score: 2,
         emoji: '😀',
       },
       {
@@ -137,13 +137,13 @@ const questionsLifeQuality = [
       {
         content: 'Faible',
         answerKey: 'slightly',
-        score: 0,
+        score: 0.2,
         emoji: '😐',
       },
       {
         content: 'Moyenne',
         answerKey: 'moderately',
-        score: 0,
+        score: 0.1,
         emoji: '😐',
       },
       {
@@ -155,7 +155,7 @@ const questionsLifeQuality = [
       {
         content: 'Très grande',
         answerKey: 'very-much',
-        score: -1,
+        score: -2,
         emoji: '😖',
       },
     ],
@@ -168,7 +168,7 @@ const questionsLifeQuality = [
       {
         content: 'Très grande',
         answerKey: 'very-much',
-        score: 1,
+        score: 2,
         emoji: '🤩',
       },
       {
@@ -180,13 +180,13 @@ const questionsLifeQuality = [
       {
         content: 'Moyenne',
         answerKey: 'moderately',
-        score: 0,
+        score: 0.2,
         emoji: '😩',
       },
       {
         content: 'Faible',
         answerKey: 'slightly',
-        score: 0,
+        score: 0.1,
         emoji: '😩',
       },
       {
@@ -198,7 +198,7 @@ const questionsLifeQuality = [
       {
         content: 'Nulle',
         answerKey: 'none',
-        score: -1,
+        score: -2,
         emoji: '😴',
       },
     ],
@@ -212,7 +212,7 @@ const questionsLifeQuality = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 1,
+        score: 2,
         emoji: '🤗',
       },
       {
@@ -236,7 +236,7 @@ const questionsLifeQuality = [
       {
         content: 'Enormément',
         answerKey: 'very-much',
-        score: -1,
+        score: -2,
         emoji: '🥺',
       },
     ],
@@ -250,7 +250,7 @@ const questionsLifeQuality = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 1,
+        score: 2,
         emoji: '🤓',
       },
       {
@@ -274,7 +274,7 @@ const questionsLifeQuality = [
       {
         content: 'Enormément',
         answerKey: 'very-much',
-        score: -1,
+        score: -2,
         emoji: '🤔',
       },
     ],
@@ -288,7 +288,7 @@ const questionsLifeQuality = [
       {
         content: 'Pas du tout',
         answerKey: 'not-at-all',
-        score: 1,
+        score: 2,
         emoji: '🙂',
       },
       {
@@ -312,7 +312,7 @@ const questionsLifeQuality = [
       {
         content: 'Enormément',
         answerKey: 'very-much',
-        score: -1,
+        score: -2,
         emoji: '😓',
       },
     ],

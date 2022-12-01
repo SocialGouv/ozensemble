@@ -55,8 +55,7 @@ const Defi5_Day1_Onboarding = ({ navigation, route }) => {
             Nous vous proposons désormais de refaire le
             <TextStyled bold> questionnaire sur votre consommation du défi 1</TextStyled>, puis de comparer vos réponses
             avec celles que vous aviez données il y a de cela 4 semaines. {'\n\n'}Ne vous laissez pas influencer par vos
-            résultats précédents et répondez au test au vu de votre situation actuelle. raisons qui peuvent vous pousser
-            à limiter votre consommation ou à vous abstenir totalement.
+            résultats précédents et répondez au test au vu de votre situation actuelle.
           </>
         }
       />
