@@ -1,3 +1,10 @@
+## [1.75.7](https://github.com/SocialGouv/ozensemble/compare/v1.75.6...v1.75.7) (2022-12-01)
+
+
+### Bug Fixes
+
+* feedbacks ([005e4c3](https://github.com/SocialGouv/ozensemble/commit/005e4c382bd46de9b3bcc6a88754a4f072b156c9))
+
 ## [1.75.6](https://github.com/SocialGouv/ozensemble/compare/v1.75.5...v1.75.6) (2022-11-30)
 
 
