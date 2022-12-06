@@ -1,3 +1,10 @@
+## [1.75.9](https://github.com/SocialGouv/ozensemble/compare/v1.75.8...v1.75.9) (2022-12-06)
+
+
+### Bug Fixes
+
+* error in notifications ([8b4add5](https://github.com/SocialGouv/ozensemble/commit/8b4add5a75ad95f02f41c0e96145c0c2f0282e40))
+
 ## [1.75.8](https://github.com/SocialGouv/ozensemble/compare/v1.75.7...v1.75.8) (2022-12-06)
 
 
