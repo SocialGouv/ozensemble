@@ -36,15 +36,15 @@ const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, lin
 
   try {
     const results = await NotificationService.send([pushNotifToken], data);
-    if (results.length > 0) {
-      if (results[0].success) {
+    if (results?.length > 0) {
+      if (results[0]?.success) {
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "SUCCESS",
           userId: matomoId,
         });
-      } else if (results[0].failure) {
-        capture("push notification sent failure", { extra: { message: results[0].message?.[0]?.errorMsg } });
+      } else if (results[0]?.failure) {
+        capture(`push notification sent failure: ${results[0].message?.[0]?.errorMsg}`, { extra: { results } });
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "FAILED",
@@ -57,7 +57,7 @@ const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, lin
     }
     return { ok: true, results };
   } catch (error) {
-    capture("push notification sent error", { extra: { error } });
+    capture(error, { extra: { message: "push notification sent error", data } });
     await matomo.logEvent({
       category: "PUSH_NOTIFICATION_SEND",
       action: "ERROR",

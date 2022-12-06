@@ -163,7 +163,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                 />
                 <AddDrinkButton
                   onPress={() => {
-                    setModalTimestamp(Date.now());
                     navigation.push('ADD_DRINK', { timestamp: Date.now() });
                     logEvent({
                       category: 'CONSO',

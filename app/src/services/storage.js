@@ -134,7 +134,6 @@ export async function migrateRemindersToPushToken() {
     const reminderDefis = JSON.parse(storage.getString('@DefisReminder') || '""'); // ISODate - string
     const reminderDefisMode = JSON.parse(storage.getString('@DefisReminder-mode') || '""'); // day/week
     const reminderDefisWeekDay = JSON.parse(storage.getString('@DefisReminder-weekDay') || '""'); // 0-6
-
     const reminderGain = JSON.parse(storage.getString('@GainsReminder') || '""'); // ISODate
     const reminderGainMode = JSON.parse(storage.getString('@GainsReminder-mode') || '""'); // day/week
     const reminderGainWeekDay = JSON.parse(storage.getString('@GainsReminder-weekDay') || '""'); // 0-6
@@ -156,30 +155,47 @@ export async function migrateRemindersToPushToken() {
 
     const matomoId = storage.getString('@UserIdv2');
 
-    const res = await API.put({
-      path: '/reminder',
-      body: {
-        pushNotifToken,
-        type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
-        timezone: RNLocalize.getTimeZone(),
-        timeHours: reminder.getHours(),
-        timeMinutes: reminder.getMinutes(),
-        daysOfWeek:
-          mode === 'week'
-            ? {
-                [weekDayName]: true,
-              }
-            : undefined,
-        id: existingId ?? undefined,
-        matomoId,
-      },
-    });
+    try {
+      const res = await API.put({
+        path: '/reminder',
+        body: {
+          pushNotifToken,
+          type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
+          timezone: RNLocalize.getTimeZone(),
+          timeHours: reminder.getHours(),
+          timeMinutes: reminder.getMinutes(),
+          daysOfWeek:
+            mode === 'week'
+              ? {
+                  [weekDayName]: true,
+                }
+              : undefined,
+          id: existingId ?? undefined,
+          matomoId,
+        },
+      });
 
-    if (!res?.ok) return false;
+      if (!res?.ok) return false;
 
-    if (res?.ok && res?.reminder?.id) storage.set('STORAGE_KEY_REMINDER_ID', res.reminder.id);
+      if (res?.ok && res?.reminder?.id) storage.set('STORAGE_KEY_REMINDER_ID', res.reminder.id);
 
-    NotificationService.cancelAll();
+      NotificationService.cancelAll();
+    } catch (e) {
+      capture(e, {
+        extra: {
+          reminder,
+          mode,
+          weekDay,
+          existingId,
+          reminderDefis,
+          reminderDefisMode,
+          reminderDefisWeekDay,
+          reminderGain,
+          reminderGainMode,
+          reminderGainWeekDay,
+        },
+      });
+    }
 
     storage.set('hasMigratedRemindersToPushToken', true);
   } catch (e) {
