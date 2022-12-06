@@ -1,3 +1,10 @@
+## [1.75.8](https://github.com/SocialGouv/ozensemble/compare/v1.75.7...v1.75.8) (2022-12-06)
+
+
+### Bug Fixes
+
+* minor bugs ([8583b71](https://github.com/SocialGouv/ozensemble/commit/8583b71b91471361f1c38d35ad3d6b24a1fcfcba))
+
 ## [1.75.7](https://github.com/SocialGouv/ozensemble/compare/v1.75.6...v1.75.7) (2022-12-01)
 
 
