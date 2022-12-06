@@ -44,14 +44,13 @@ const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, lin
           userId: matomoId,
         });
       } else if (results[0]?.failure) {
-        capture(`push notification sent failure: ${results[0].message?.[0]?.errorMsg}`, { extra: { results } });
+        capture(`push notification sent failure: ${results[0].message?.[0]?.errorMsg}`, { extra: { results, data, pushNotifToken } });
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "FAILED",
           name: results[0].message?.[0]?.errorMsg,
           userId: matomoId,
         });
-        capture(e, { extra: { users, payload } });
         return { ok: false, results };
       }
     }
