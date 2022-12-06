@@ -43,6 +43,7 @@ import Defi1_Day4 from '../Defis/Defi1/Defi1_Day4';
 import Defi5_Day3 from '../Defis/Defi5/Defi5_Day3';
 import Defi5_Day4 from '../Defis/Defi5/Defi5_Day4';
 import Defi5_Day5 from '../Defis/Defi5/Defi5_Day5';
+import Defi5_Day1_Navigator from '../Defis/Defi5/Defi5_Day1';
 
 const QuizzsStack = createStackNavigator();
 
@@ -122,6 +123,13 @@ const QuizzsNavigator = () => (
       initialParams={{
         rootRoute: 'QUIZZ_MENU',
         initialRouteName: 'QUIZZ_QUESTIONS',
+      }}
+    />
+    <QuizzsStack.Screen
+      name="REEVALUATE_CONSO_QUIZZ"
+      component={Defi5_Day1_Navigator}
+      initialParams={{
+        rootRoute: 'QUIZZ_MENU',
       }}
     />
     <QuizzsStack.Screen
@@ -252,8 +260,13 @@ const QuizzMenu = () => {
       <DefiCategorieTitle color="#4030a5">Cinquième défi</DefiCategorieTitle>
       <QuizzElement
         title="Mesurer ma consommation après 4 semaines"
-        onStart={() => navigation.navigate('REEVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
-        onShowResult={() => navigation.navigate('REEVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_RESULTS' })}
+        onStart={() => navigation.navigate('REEVALUATE_CONSO_QUIZZ')}
+        onShowResult={() =>
+          navigation.navigate('REEVALUATE_CONSO_QUIZZ', {
+            screen: 'DEFI5_DAY1_QUIZZ',
+            params: { screen: 'QUIZZ_RESULTS' },
+          })
+        }
         done={Object.keys(reevaluateQuizzResult || {})?.length > 0}
         showOnlyIfDone
       />
