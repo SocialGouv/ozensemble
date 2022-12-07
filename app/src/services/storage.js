@@ -162,8 +162,8 @@ export async function migrateRemindersToPushToken() {
           pushNotifToken,
           type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
           timezone: RNLocalize.getTimeZone(),
-          timeHours: reminder.getHours(),
-          timeMinutes: reminder.getMinutes(),
+          timeHours: new Date(reminder).getHours(),
+          timeMinutes: new Date(reminder).getMinutes(),
           daysOfWeek:
             mode === 'week'
               ? {

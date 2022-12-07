@@ -16,14 +16,19 @@ const getInitStoredAnswers = (memoryKeyAnswers, defaultValue = {}) => {
   }
 };
 
-const getInitStoredResult = (memoryKeyResult) => {
+const getInitStoredResult = (memoryKeyResult, possibilities = []) => {
   const storedResultKey = storage.getString(memoryKeyResult);
   try {
-    if (storedResultKey) return JSON.parse(storedResultKey);
-    return null;
+    if (storedResultKey) {
+      // to fix this bug
+      // https://sentry.fabrique.social.gouv.fr/organizations/incubateur/issues/85277/?project=80&query=is%3Aunresolved
+      if (possibilities.includes(storedResultKey)) return storedResultKey;
+      return JSON.parse(storedResultKey);
+    }
   } catch (e) {
     capture(e, { extra: { memoryKeyResult, storedResultKey } });
   }
+  return null;
 };
 
 export const autoEvaluationQuizzAnswersState = atom({
@@ -34,7 +39,7 @@ export const autoEvaluationQuizzAnswersState = atom({
 
 export const autoEvaluationQuizzResultState = atom({
   key: 'autoEvaluationQuizzResultState',
-  default: getInitStoredResult('@Quizz_result'),
+  default: getInitStoredResult('@Quizz_result', ['nocif', 'addicted', 'risk', 'good']),
   effects: [
     ({ onSet }) =>
       onSet((newValue) => {
