@@ -3,8 +3,11 @@ import { View } from 'react-native';
 import styled from 'styled-components';
 import H2 from '../../../../components/H2';
 import { P } from '../../../../components/Articles';
+import { useNavigation } from '@react-navigation/native';
+import TextStyled from '../../../../components/TextStyled';
 
 const ResultAddiction = ({ value }) => {
+  const navigation = useNavigation();
   const getResultScore = () => {
     switch (value) {
       default:
@@ -23,7 +26,10 @@ const ResultAddiction = ({ value }) => {
           <View>
             <ResultParagraph color="#191919">
               <P bold>Votre consommation d'alcool comporte vraisemblablement des risques pour votre santé</P>, même si
-              actuellement vous ne souffrez de rien.
+              actuellement vous ne souffrez de rien. Pour en savoir plus, consultez{' '}
+              <TextStyled color="#4030a5" underline onPress={() => navigation.navigate('ALCOHOL_AND_HEALTH_RISKS')}>
+                l'article sur les risques sur la santé à long terme.
+              </TextStyled>
             </ResultParagraph>
             <ResultParagraph color="#191919">
               N'hésitez pas à demander conseil de manière{' '}

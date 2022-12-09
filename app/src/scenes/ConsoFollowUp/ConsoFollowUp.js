@@ -18,6 +18,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 import HeaderBackground from '../../components/HeaderBackground';
 import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
+import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
@@ -34,6 +35,7 @@ const ConsoFollowUpNavigator = () => {
           component={QuizzOnboarding}
           initialParams={{ root: 'CONSO_FOLLOW_UP' }}
         />
+        <ConsoFollowUpStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
       </ConsoFollowUpStack.Navigator>
     </Background>
   );

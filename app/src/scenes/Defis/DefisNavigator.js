@@ -12,6 +12,7 @@ import Defi5_Navigator from './Defi5/Defi5_Navigator';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import ContactForm from '../Health/ContactForm';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
+import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 
 const DefisStack = createStackNavigator();
 const DefisNavigator = () => {
@@ -35,6 +36,7 @@ const DefisNavigator = () => {
         <DefisStack.Screen name="DEFI5" component={Defi5_Navigator} />
         <DefisStack.Screen name="TESTS_DEFIS" component={QuizzsNavigator} />
         <DefisStack.Screen name="CONTACT" component={ContactForm} />
+        <DefisStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
       </DefisStack.Navigator>
     </Background>
   );

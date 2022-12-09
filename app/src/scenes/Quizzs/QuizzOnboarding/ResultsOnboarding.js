@@ -13,6 +13,7 @@ import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { useNavigation } from '@react-navigation/native';
 
 const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
@@ -76,6 +77,7 @@ const ResultGood = () => {
 };
 
 const ResultRisk = () => {
+  const navigation = useNavigation();
   return (
     <>
       <TopTitle>
@@ -88,7 +90,13 @@ const ResultRisk = () => {
         travers un premier défi pour faire le point en 7 jours.
       </P>
       <Spacer size={20} />
-      <P>Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction.</P>
+      <P>
+        Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction. Pour en savoir
+        plus, consultez{' '}
+        <TextStyled color="#4030a5" underline onPress={() => navigation.navigate('ALCOHOL_AND_HEALTH_RISKS')}>
+          l'article sur les risques sur la santé à long terme.
+        </TextStyled>
+      </P>
     </>
   );
 };

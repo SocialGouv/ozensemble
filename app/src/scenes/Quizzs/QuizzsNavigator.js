@@ -44,6 +44,7 @@ import Defi5_Day3 from '../Defis/Defi5/Defi5_Day3';
 import Defi5_Day4 from '../Defis/Defi5/Defi5_Day4';
 import Defi5_Day5 from '../Defis/Defi5/Defi5_Day5';
 import Defi5_Day1_Navigator from '../Defis/Defi5/Defi5_Day1';
+import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 
 const QuizzsStack = createStackNavigator();
 
@@ -51,6 +52,7 @@ const QuizzsNavigator = () => (
   <QuizzsStack.Navigator headerMode="none">
     <QuizzsStack.Screen name="QUIZZ_MENU" component={QuizzMenu} />
     <QuizzsStack.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
+    <QuizzsStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
     <QuizzsStack.Screen
       name="EVALUATE_CONSO_QUIZZ"
       component={Defi1_Day2}
