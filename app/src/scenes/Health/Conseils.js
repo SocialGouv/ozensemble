@@ -11,27 +11,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
   return (
-    <WrapperContainer title="Mes conseils">
-      <ViewConseilsContainer horizontal={true}>
-        {listConseils.map((conseil, index) => (
-          <ConseilContainer
-            onPress={() => {
-              logEvent({
-                category: 'HEALTH',
-                action: 'HEALTH_ARTICLE',
-                name: conseil.title,
-              });
-              navigation.navigate(conseil.link);
-            }}
-            key={index}>
-            <ImageStyled source={conseil.img} />
-            <TitleConseilContainer>
-              <TextStyled> {conseil.title}</TextStyled>
-            </TitleConseilContainer>
-          </ConseilContainer>
-        ))}
-        <Space />
-      </ViewConseilsContainer>
+    <WrapperContainer>
       <TopTitle>
         <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
       </TopTitle>
@@ -55,6 +35,29 @@ const Conseils = ({ navigation }) => {
           <TextStyled> avec Doctolib</TextStyled>
         </TextContainer>
       </CategorieContainer>
+      <TopTitle>
+        <TextStyled color="#4030a5">Mes conseils</TextStyled>
+      </TopTitle>
+      <ViewConseilsContainer>
+        {listConseils.map((conseil, index) => (
+          <ConseilContainer
+            onPress={() => {
+              logEvent({
+                category: 'HEALTH',
+                action: 'HEALTH_ARTICLE',
+                name: conseil.title,
+              });
+              navigation.navigate(conseil.link);
+            }}
+            key={index}>
+            <ImageStyled source={conseil.img} />
+            <TitleConseilContainer>
+              <TextStyled> {conseil.title}</TextStyled>
+            </TitleConseilContainer>
+          </ConseilContainer>
+        ))}
+        <Space />
+      </ViewConseilsContainer>
     </WrapperContainer>
   );
 };
@@ -66,11 +69,14 @@ export const TopTitle = styled(H1)`
   margin-bottom: 10px;
 `;
 
-const ViewConseilsContainer = styled.ScrollView`
+const ViewConseilsContainer = styled.View`
   margin-left: -${defaultPaddingFontScale()}px;
   margin-right: -${defaultPaddingFontScale()}px;
   margin-top: 20px;
   padding-left: ${defaultPaddingFontScale()}px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
 `;
 
 const ConseilContainer = styled.TouchableOpacity`
@@ -94,7 +100,7 @@ const TitleConseilContainer = styled(TextStyled)`
 
 const CategorieContainer = styled.TouchableOpacity`
   margin-top: 10px;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
   border: 1px solid #4030a5;
   border-radius: 5px;
   flex-direction: row;
