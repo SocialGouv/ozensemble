@@ -19,11 +19,15 @@ import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
 import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
 import DrinksHeader from '../../components/DrinksHeader';
-import { drinksState, ownDrinksState } from '../../recoil/consos';
+import { drinksState, feedDaysSelector, ownDrinksState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
+import { storage } from '../../services/storage';
+import OnBoardingModal from '../../components/OnBoardingModal';
+import TextStyled from '../../components/TextStyled';
+import NPS from '../NPS/NPS';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -55,6 +59,18 @@ const ConsosList = ({ navigation, route }) => {
   );
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
+  const days = useRecoilValue(feedDaysSelector);
+  const [pleaseNPSModal, setPleaseNPSModal] = useState(false);
+  const [NPSvisible, setNPSvisible] = useState(false);
+  const onPressContribute = () => {
+    setPleaseNPSModal(false);
+    setNPSvisible(true);
+  };
+  const closeNPS = () => {
+    setNPSvisible(false);
+    onClose();
+  };
+
   const toast = useToast();
 
   const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
@@ -88,7 +104,7 @@ const ConsosList = ({ navigation, route }) => {
   };
 
   const onValidateConsos = async () => {
-    onClose();
+    onCloseRequest();
     let drinkNumber = 0;
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
@@ -121,6 +137,16 @@ const ConsosList = ({ navigation, route }) => {
     }, 250);
   };
 
+  const onCloseRequest = () => {
+    const today = dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD');
+    const totalDrinks = new Set([...days, today]);
+    if (totalDrinks.size < 3) return onClose();
+    const npsAsked = storage.getBoolean('nps-asked-after-more-than-3-consos');
+    if (npsAsked) return onClose();
+    storage.set('nps-asked-after-more-than-3-consos', true);
+    setPleaseNPSModal(true);
+  };
+
   const onClose = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
@@ -148,8 +174,6 @@ const ConsosList = ({ navigation, route }) => {
     );
   };
 
-  console.log(localDrinksState);
-
   useEffect(() => {
     if (isFocused) {
       setLocalDrinksState(drinksPerCurrentaTimestamp);
@@ -159,72 +183,92 @@ const ConsosList = ({ navigation, route }) => {
   }, [isFocused, onCancelConsos, drinksPerCurrentaTimestamp]);
 
   return (
-    <Container>
-      <ModalContent ref={scrollRef} disableHorizontal>
-        <Title>Sélectionnez vos consommations</Title>
-        <DateAndTimePickers
-          addDrinkModalTimestamp={addDrinkModalTimestamp}
-          setDrinkModalTimestamp={setDrinkModalTimestamp}
-        />
-        <ButtonPrimaryStyled
-          onPress={() => {
-            logEvent({
-              category: 'CONSO',
-              action: 'CONSO_DRINKLESS',
-              dimension6: makeSureTimestamp(addDrinkModalTimestamp),
-            });
-            setGlobalDrinksState((state) => [
-              ...state,
-              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
-            ]);
-            navigation.goBack();
-          }}
-          content={
-            dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
-              ? "Je n'ai rien bu aujourd'hui"
-              : "Je n'ai rien bu ce jour"
-          }
-        />
-        {withOwnDrinks && (
-          <>
-            <DrinksHeader content="Mes boissons" />
-            {mergedOwnDrinksKeys.map((drinkKey, index) => (
-              <DrinkQuantitySetter
-                oneLine
-                key={drinkKey}
-                drinkKey={drinkKey}
-                setDrinkQuantity={setDrinkQuantityRequest}
-                quantity={getDrinkQuantityFromDrinks(localDrinksState, drinkKey)}
-                catalog={ownDrinks}
+    <>
+      <Container>
+        <ModalContent ref={scrollRef} disableHorizontal>
+          <Title>Sélectionnez vos consommations</Title>
+          <DateAndTimePickers
+            addDrinkModalTimestamp={addDrinkModalTimestamp}
+            setDrinkModalTimestamp={setDrinkModalTimestamp}
+          />
+          <ButtonPrimaryStyled
+            onPress={() => {
+              logEvent({
+                category: 'CONSO',
+                action: 'CONSO_DRINKLESS',
+                dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+              });
+              setGlobalDrinksState((state) => [
+                ...state,
+                { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
+              ]);
+              navigation.goBack();
+            }}
+            content={
+              dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+                ? "Je n'ai rien bu aujourd'hui"
+                : "Je n'ai rien bu ce jour"
+            }
+          />
+          {withOwnDrinks && (
+            <>
+              <DrinksHeader content="Mes boissons" />
+              {mergedOwnDrinksKeys.map((drinkKey, index) => (
+                <DrinkQuantitySetter
+                  oneLine
+                  key={drinkKey}
+                  drinkKey={drinkKey}
+                  setDrinkQuantity={setDrinkQuantityRequest}
+                  quantity={getDrinkQuantityFromDrinks(localDrinksState, drinkKey)}
+                  catalog={ownDrinks}
+                  index={index}
+                  onDelete={removeOwnDrinkRequest}
+                />
+              ))}
+              <DrinksHeader content="Génériques" />
+            </>
+          )}
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={index}
+                drinksCatalog={drinksCatalog}
+                category={category}
                 index={index}
-                onDelete={removeOwnDrinkRequest}
+                drinks={localDrinksState}
+                setDrinkQuantity={setDrinkQuantityRequest}
               />
             ))}
-            <DrinksHeader content="Génériques" />
-          </>
-        )}
-        {drinksCatalog
-          .map(({ categoryKey }) => categoryKey)
-          .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-          .map((category, index) => (
-            <DrinksCategory
-              key={index}
-              drinksCatalog={drinksCatalog}
-              category={category}
-              index={index}
-              drinks={localDrinksState}
-              setDrinkQuantity={setDrinkQuantityRequest}
-            />
-          ))}
-        <MarginBottom />
-      </ModalContent>
-      <ButtonsContainerSafe>
-        <ButtonsContainer>
-          <BackButton content="Retour" bold onPress={onCancelConsos} />
-          <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
-        </ButtonsContainer>
-      </ButtonsContainerSafe>
-    </Container>
+          <MarginBottom />
+        </ModalContent>
+        <ButtonsContainerSafe>
+          <ButtonsContainer>
+            <BackButton content="Retour" bold onPress={onCancelConsos} />
+            <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
+          </ButtonsContainer>
+        </ButtonsContainerSafe>
+      </Container>
+      <OnBoardingModal
+        title="5 sec pour nous aider à améliorer l'application ?"
+        description={
+          <TextStyled>
+            Nous construisons l'application ensemble et{' '}
+            <TextStyled bold>votre avis sera pris en compte dans les prochaines mises à jour.</TextStyled> Merci
+            d'avance{'\u00A0'}!
+          </TextStyled>
+        }
+        boutonTitle="Je donne mon avis sur Oz"
+        onPress={onPressContribute}
+        visible={!!pleaseNPSModal}
+        hide={() => {
+          setPleaseNPSModal(false);
+          onClose();
+        }}
+      />
+      <NPS forceView={NPSvisible} close={closeNPS} />
+    </>
   );
 };
 

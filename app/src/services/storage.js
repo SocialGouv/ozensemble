@@ -7,8 +7,8 @@ import { capture } from './sentry';
 
 export const storage = new MMKV();
 (() => {
-  //   AsyncStorage.clear();
-  //   storage.clearAll();
+  AsyncStorage.clear();
+  storage.clearAll();
 })();
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
