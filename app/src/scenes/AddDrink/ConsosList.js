@@ -12,6 +12,7 @@ import {
   // formatNewDrink,
   getDrinksKeysFromCatalog,
   getDrinkQuantityFromDrinks,
+  NO_CONSO,
 } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
@@ -22,6 +23,7 @@ import { drinksState, ownDrinksState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import dayjs from 'dayjs';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -146,6 +148,8 @@ const ConsosList = ({ navigation, route }) => {
     );
   };
 
+  console.log(localDrinksState);
+
   useEffect(() => {
     if (isFocused) {
       setLocalDrinksState(drinksPerCurrentaTimestamp);
@@ -161,6 +165,25 @@ const ConsosList = ({ navigation, route }) => {
         <DateAndTimePickers
           addDrinkModalTimestamp={addDrinkModalTimestamp}
           setDrinkModalTimestamp={setDrinkModalTimestamp}
+        />
+        <ButtonPrimaryStyled
+          onPress={() => {
+            logEvent({
+              category: 'CONSO',
+              action: 'CONSO_DRINKLESS',
+              dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+            });
+            setGlobalDrinksState((state) => [
+              ...state,
+              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
+            ]);
+            navigation.goBack();
+          }}
+          content={
+            dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+              ? "Je n'ai rien bu aujourd'hui"
+              : "Je n'ai rien bu ce jour"
+          }
         />
         {withOwnDrinks && (
           <>
@@ -251,6 +274,12 @@ const ButtonsContainer = styled.View`
 const MarginBottom = styled.View`
   height: ${({ small }) => buttonHeight * (small ? 0 : 2) + 2 * buttonsPadding}px;
   flex-shrink: 0;
+`;
+
+const ButtonPrimaryStyled = styled(ButtonPrimary)`
+  margin-top: 40px;
+  margin-bottom: 40px;
+  align-self: center;
 `;
 
 export default ConsosList;
