@@ -12,6 +12,7 @@ import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import { Bold, P } from '../../components/Articles';
 import WrapperContainer from '../../components/WrapperContainer';
+import ValidateIcon from '../../components/ValidateIcon';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
@@ -68,7 +69,7 @@ const DefisMenu = ({ navigation }) => {
   }, [defi5Day, autoEvaluationDone]);
 
   return (
-    <WrapperContainer title={'Mes défis'}>
+    <WrapperContainer title={'Mes défis 7 jours'}>
       <SubTitle>
         <TextStyled>
           J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
@@ -262,7 +263,7 @@ const CategorieMenu = ({
   disabled,
   disabledContainer,
 }) => {
-  disabled = __DEV__ ? false : disabled;
+  // disabled = __DEV__ ? false : disabled;
   return (
     <>
       <CategorieContainer disabled={disabledContainer} onPress={disabled ? onBoardingPress : onPress}>
@@ -276,11 +277,21 @@ const CategorieMenu = ({
           ) : (
             <TitleContainer>
               <TextStyled bold>{title}</TextStyled>
+              {!!callToAction.includes('résultat') && (
+                <ValidateBg>
+                  <ValidateIcon fill="#fff" size={20} />
+                </ValidateBg>
+              )}
             </TitleContainer>
           )}
           <TextStyled>{description}</TextStyled>
           <ButtonContainer>
-            <ButtonPrimary content={callToAction} onPress={onPress} disabled={disabled} />
+            <ButtonPrimary
+              color={callToAction.includes('résultat') ? '#4030a5' : '#de285e'}
+              content={callToAction}
+              onPress={onPress}
+              disabled={disabled}
+            />
           </ButtonContainer>
         </TextContainer>
       </CategorieContainer>
@@ -327,5 +338,13 @@ const ImageStyled = styled.Image`
 `;
 
 const SubTitle = styled.View``;
+
+const ValidateBg = styled.View`
+  background-color: #39cec0;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+`;
 
 export default DefisMenu;
