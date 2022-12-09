@@ -98,8 +98,8 @@ export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) =
       <>
         {!onlyScore && <ScoreTitle color="#4030a5">Votre score est en hausse{'\u00A0'}!</ScoreTitle>}
         <ScoresCompare noShadow={noShadow} onlyScore={onlyScore}>
-          <ScoreBox score={evaluateScore} color="#28A745" title="Mon score actuel" />
-          <ScoreBox score={reevaluateScore} color="#EE7738" title="Mon ancien score">
+          <ScoreBox score={evaluateScore} color="#28A745" title="Mon ancien score" />
+          <ScoreBox score={reevaluateScore} color="#EE7738" title="Mon score actuel">
             <ArrowUp />
           </ScoreBox>
         </ScoresCompare>
@@ -168,8 +168,8 @@ export const ReevaluateConsoResult = ({ onlyScore = false, noShadow = false }) =
     <>
       {!onlyScore && <ScoreTitle color="#4030a5">Votre score est en identique{'\u00A0'}!</ScoreTitle>}
       <ScoresCompare noShadow={noShadow} onlyScore={onlyScore}>
-        <ScoreBox score={evaluateScore} color="#4030a5" title="Mon score actuel" />
-        <ScoreBox score={reevaluateScore} color="#4030a5" title="Mon ancien score">
+        <ScoreBox score={evaluateScore} color="#4030a5" title="Mon ancien score" />
+        <ScoreBox score={reevaluateScore} color="#4030a5" title="Mon score actuel">
           <ArrowLeft />
           <ArrowRight />
         </ScoreBox>
