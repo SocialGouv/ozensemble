@@ -10,6 +10,7 @@ import { screenHeight } from '../../styles/theme';
 import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import WrapperContainer from '../../components/WrapperContainer';
 import { sendMail } from '../../services/mail';
+import { P } from '../../components/Articles';
 
 export const HTMLExportSelector = selector({
   key: 'HTMLExportSelector',
@@ -88,6 +89,10 @@ const Export = ({ navigation }) => {
 
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes données">
+      <P>
+        Partagez votre agenda de consommation auprès de la personne de votre choix, renseignez son adresse email
+        ci-dessous{'\u00A0'}:
+      </P>
       <SubContainer>
         <EmailInput
           value={email}
