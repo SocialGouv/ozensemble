@@ -32,7 +32,7 @@ const ResultsQuizzDefi3Day5 = ({ route, navigation }) => {
       </Content>
 
       {questions.map((q) => (
-        <AnswerResult questionKey={q.questionKey} />
+        <AnswerResult key={q.questionKey} questionKey={q.questionKey} />
       ))}
 
       <Spacer size={5} />

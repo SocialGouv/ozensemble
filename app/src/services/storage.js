@@ -6,10 +6,12 @@ import NotificationService from './notifications';
 import { capture } from './sentry';
 
 export const storage = new MMKV();
-(() => {
-  AsyncStorage.clear();
-  storage.clearAll();
-})();
+if (__DEV__) {
+  (() => {
+    // AsyncStorage.clear();
+    // storage.clearAll();
+  })();
+}
 
 // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
 // export const hasMigratedFromAsyncStorage = false;

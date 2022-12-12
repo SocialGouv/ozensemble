@@ -10,6 +10,14 @@ import API from './api';
 
 // https://docs.google.com/spreadsheets/d/1FzFrt-JsNK-OXqBz8f5sop3BcHhcvjGieZUF4gXHBJg/edit#gid=367769533
 
+const parseStringMaybeStringified = (string) => {
+  try {
+    return JSON.parse(string);
+  } catch (e) {
+    return string;
+  }
+};
+
 export const initMatomo = async () => {
   let userId = storage.getString('@UserIdv2');
   if (!userId) {
@@ -34,10 +42,10 @@ export const initMatomo = async () => {
     idsite: MATOMO_IDSITE_2,
   });
 
-  const resultKey = JSON.parse(storage.getString('@Quizz_result') ?? '""');
+  const resultKey = parseStringMaybeStringified(storage.getString('@Quizz_result') ?? '""');
   const betterEval = storage.getString('@QuizzEvaluateConso_result');
   const result = betterEval ? JSON.parse(betterEval)?.scoreAddiction : resultKey;
-  const gender = storage.getString('@Gender');
+  const gender = parseStringMaybeStringified(storage.getString('@Gender'));
   const age = storage.getNumber('@Age');
 
   Matomo.setCustomDimensions({

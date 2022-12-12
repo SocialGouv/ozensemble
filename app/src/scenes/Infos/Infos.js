@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
@@ -17,6 +17,7 @@ import GainsReminder from '../Gains/GainsReminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
+import FakeData from '../../reference/mocks/FakeData';
 
 const InfosStack = createStackNavigator();
 
@@ -34,6 +35,7 @@ const Infos = () => {
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
         </InfosStack.Screen>
         <InfosStack.Screen name="EXPORT" component={Export} />
+        <InfosStack.Screen name="FAKE_DATA" component={FakeData} />
       </InfosStack.Navigator>
     </Background>
   );
@@ -47,6 +49,12 @@ const InfosMenu = ({ navigation }) => {
   const isWithinDefi1 =
     storage.getString('@Defi1_StartedAt')?.length && storage.getString('@Defi1_ValidatedDays') !== 6;
   const reminderCaption = isWithinDefi1 ? 'Rappel de mon défi 7 jours' : 'Rappel de mon suivi de consommations';
+
+  const [debugPressed, setDebugPressed] = useState(0);
+  useEffect(() => {
+    if (debugPressed >= (__DEV__ ? 2 : 8)) navigation.navigate('FAKE_DATA');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debugPressed]);
 
   return (
     <>
@@ -72,7 +80,9 @@ const InfosMenu = ({ navigation }) => {
           <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
           <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
           <VersionContainer>
-            <VersionLabel>version {pck.version}</VersionLabel>
+            <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
+              <VersionLabel>version {pck.version}</VersionLabel>
+            </TouchableWithoutFeedback>
           </VersionContainer>
         </Container>
       </WrapperContainer>
