@@ -50,7 +50,7 @@ const Defi = ({
 
   return (
     <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
-      <NPS forceView={NPSvisible} close={closeNPS} />
+      <NPS forceView={NPSvisible} close={closeNPS} forDefi={defiNumber} />
       <TopTimeline
         nbdays={nbdays}
         validatedDays={validatedDays}
@@ -66,6 +66,12 @@ const Defi = ({
             onPress={() => {
               navigation.push(data[activeDay]?.screenCTA);
             }}
+          />
+        ) : !!activeDayIsDone && activeDay >= 6 ? (
+          <FeedCTAButton
+            content={`Donner mon avis sur le défi ${defiNumber}`}
+            color="#4030a5"
+            onPress={onPressContribute}
           />
         ) : (
           <FeedCTAButton

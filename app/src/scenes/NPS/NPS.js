@@ -21,12 +21,13 @@ import { sendMail } from '../../services/mail';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
-const formatText = (useful, reco, feedback, email, userId) =>
+const formatText = (useful, reco, feedback, email, userId, forDefi) =>
   `
 userId: ${userId}
 Version: ${pck.version}
 OS: ${Platform.OS}
-Ce service vous a-t-il été utile: ${useful}
+${forDefi ? `Défi: ${forDefi}` : ''}
+${forDefi ? 'Ce défi vous a-t-il été utile' : 'Ce service vous a-t-il été utile'}: ${useful}
 Comment pouvons-nous vous être encore plus utile: ${feedback}
 Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}
 Email: ${email}
@@ -181,6 +182,7 @@ class NPS extends Component {
   sendNPS = async () => {
     if (this.npsSent) return;
     const { useful, reco, feedback, email } = this.state;
+    const { forDefi } = this.props;
     if (email.length && !emailFormat(email)) {
       Alert.alert('Adresse email non valide');
       return;
@@ -201,8 +203,8 @@ class NPS extends Component {
       value: reco,
     });
     await sendMail({
-      subject: 'NPS Addicto',
-      text: formatText(useful, reco, feedback, email, userId),
+      subject: forDefi ? `NPS Addicto Défi ${forDefi}` : 'NPS Addicto',
+      text: formatText(useful, reco, feedback, email, userId, forDefi),
     })
       .then((res) => res.json())
       .catch((err) => console.log('sendNPS err', err));
@@ -213,21 +215,29 @@ class NPS extends Component {
 
   renderFirstPage() {
     const { feedback, email, useful, reco, sendButton } = this.state;
+    const { forDefi } = this.props;
     return (
       <>
         <TopTitle>
           <TextStyled color="#4030a5">
-            5 secondes pour nous aider{'\u00A0'}?{'\u000A'}Vos retours sont importants pour nous.
+            5 secondes pour nous aider{'\u00A0'}?{'\u000A'}
+            {forDefi
+              ? "Vos retours sur ce défi nous permettront d'améliorer l'application. Merci d'avance\u00A0!"
+              : 'Vos retours sont importants pour nous.'}
           </TextStyled>
         </TopTitle>
         <TopSubTitle>
-          <TextStyled color="#191919">Ce service vous a-t-il été utile{'\u00A0'}?</TextStyled>
+          <TextStyled color="#191919">
+            {forDefi ? 'Ce défi vous a-t-il été utile' : 'Ce service vous a-t-il été utile'}
+            {'\u00A0'}?
+          </TextStyled>
         </TopSubTitle>
         <Mark selected={useful} onPress={this.setUseful} bad="Pas utile du tout" good="Extrêmement utile" />
         <TopSubTitle>
           <TextStyled color="#191919">
-            Comment pouvons-nous vous être encore plus utile{'\u00A0'}? Comment pouvons-nous améliorer ce service
-            {'\u00A0'}?
+            {forDefi
+              ? 'Comment pouvons-nous améliorer ce défi\u00A0?'
+              : 'Comment pouvons-nous vous être encore plus utile\u00A0? Comment pouvons-nous améliorer ce service\u00A0?'}
           </TextStyled>
         </TopSubTitle>
         <FeedBackStyled
@@ -239,13 +249,17 @@ class NPS extends Component {
           returnKeyType="next"
           placeholderTextColor="#c9c9cc"
         />
-        <TopSubTitle>
-          <TextStyled color="#191919">
-            Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche
-            {'\u00A0'}?
-          </TextStyled>
-        </TopSubTitle>
-        <Mark selected={reco} onPress={this.setReco} bad="Pas du tout probable" good="Très probable" />
+        {!forDefi && (
+          <>
+            <TopSubTitle>
+              <TextStyled color="#191919">
+                Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche
+                {'\u00A0'}?
+              </TextStyled>
+            </TopSubTitle>
+            <Mark selected={reco} onPress={this.setReco} bad="Pas du tout probable" good="Très probable" />
+          </>
+        )}
         <TopSubTitle>
           <TextStyled color="#191919">
             Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes d'accord, vous pouvez

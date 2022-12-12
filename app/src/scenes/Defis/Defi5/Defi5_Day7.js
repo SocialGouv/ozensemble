@@ -1,13 +1,10 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { Linking, TouchableWithoutFeedback } from 'react-native';
 import styled from 'styled-components';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
 import Element from '../../../components/ElementDayDefi';
-import WrapperContainer, { Title } from '../../../components/WrapperContainer';
-import ToggleContent from '../../../components/ToggleContent';
+import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { ReevaluateConsoResult } from './Defi5_Day1';
 import H2 from '../../../components/H2';

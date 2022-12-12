@@ -119,8 +119,8 @@ const EmojiBlock = ({ response, question }) => {
   };
   return (
     <ItemContainer>
-      <ItemStyled color={scoreToColor(response.score)}>
-        <EmojiStyled>{response.emoji}</EmojiStyled>
+      <ItemStyled color={scoreToColor(response?.score)}>
+        <EmojiStyled>{response?.emoji}</EmojiStyled>
       </ItemStyled>
       <TextStyled bold center>
         {question.resultLabel}

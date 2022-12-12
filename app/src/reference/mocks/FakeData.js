@@ -41,6 +41,7 @@ const FakeData = () => {
             replaceStorageValues(fakeDefi5);
             replaceStorageValues(fakeOnboardingQuizz.risk);
             replaceStorageValues(fakeGain);
+            setGlobalDrinksState(fakeConsoData.full.drinks);
           }}
         />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
