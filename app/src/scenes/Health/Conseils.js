@@ -76,7 +76,6 @@ const ViewConseilsContainer = styled.View`
   padding-left: ${defaultPaddingFontScale()}px;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 100px;
 `;
 
 const ConseilContainer = styled.TouchableOpacity`

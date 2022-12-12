@@ -70,18 +70,21 @@ const FakeData = () => {
           caption="14 jours de conso complets"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.full.drinks);
+            storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="14 jours de conso partiels"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.partial.drinks);
+            storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="10 jours de conso pas trop chargés"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.onlyBelow.drinks);
+            storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <H1Wrapper delete>Effacer des données</H1Wrapper>
@@ -101,7 +104,13 @@ const FakeData = () => {
         <MenuItem caption="Tout le défi 3" onPress={() => deleteStorageValues(fakeDefi3)} />
         <MenuItem caption="Tout le défi 4" onPress={() => deleteStorageValues(fakeDefi4)} />
         <MenuItem caption="Tout le défi 5" onPress={() => deleteStorageValues(fakeDefi5)} />
-        <MenuItem caption="Toutes mes consos" onPress={() => setGlobalDrinksState(fakeConsoData.empty.drinks)} />
+        <MenuItem
+          caption="Toutes mes consos"
+          onPress={() => {
+            setGlobalDrinksState(fakeConsoData.empty.drinks);
+            storage.delete('nps-asked-after-more-than-3-consos');
+          }}
+        />
         <MenuItem caption="Tout" onPress={() => storage.clearAll()} />
       </Container>
     </WrapperContainer>

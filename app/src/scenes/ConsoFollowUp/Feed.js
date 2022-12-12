@@ -23,6 +23,8 @@ import Pint from '../../components/illustrations/drinksAndFood/Pint';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
+import { storage } from '../../services/storage';
+import OnBoardingModal from '../../components/OnBoardingModal';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -47,9 +49,14 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const [drinks, setDrinks] = useRecoilState(drinksState);
 
   const [NPSvisible, setNPSvisible] = useState(false);
-  const onPressContribute = () => setNPSvisible(true);
-  const closeNPS = () => setNPSvisible(false);
-
+  const [pleaseNPSModal, setPleaseNPSModal] = useState(false);
+  const onPressContribute = () => {
+    setPleaseNPSModal(false);
+    setNPSvisible(true);
+  };
+  const closeNPS = () => {
+    setNPSvisible(false);
+  };
   const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
@@ -90,9 +97,33 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   const isFocused = useIsFocused();
 
+  const checkNPSAfter3Drinks = () => {
+    const daysDrink = days.filter((day) => {
+      const drinksOfTheDay = drinks
+        .filter(({ timestamp }) => isOnSameDay(timestamp, day))
+        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+      if (!drinksOfTheDay.length) return false;
+      return true;
+    });
+    if (daysDrink.length < 3) return;
+    const npsAsked = storage.getBoolean('nps-asked-after-more-than-3-consos');
+    if (npsAsked) return;
+    storage.set('nps-asked-after-more-than-3-consos', true);
+    setPleaseNPSModal(true);
+  };
+
   useEffect(() => {
-    if (isFocused) setTimestampSelected(null);
+    if (isFocused) {
+      setTimestampSelected(null);
+    }
   }, [isFocused]);
+
+  useEffect(() => {
+    if (isFocused) {
+      checkNPSAfter3Drinks();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [days, isFocused]);
 
   const refs = useRef({});
 
@@ -177,6 +208,22 @@ const Feed = ({ hideFeed, scrollToInput }) => {
             </LastDrink>
           )}
           <NPS forceView={NPSvisible} close={closeNPS} />
+          <OnBoardingModal
+            title="5 sec pour nous aider à améliorer l'application ?"
+            description={
+              <TextStyled>
+                Nous construisons l'application ensemble et{' '}
+                <TextStyled bold>votre avis sera pris en compte dans les prochaines mises à jour.</TextStyled> Merci
+                d'avance{'\u00A0'}!
+              </TextStyled>
+            }
+            boutonTitle="Je donne mon avis sur Oz"
+            onPress={onPressContribute}
+            visible={!!pleaseNPSModal}
+            hide={() => {
+              setPleaseNPSModal(false);
+            }}
+          />
           {days.map((day, index) => {
             const isFirst = index === 0;
             const isLast = index === days.length - 1;
