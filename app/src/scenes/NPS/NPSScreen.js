@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions, Alert, Platform } from 'react-native';
+import { Dimensions, Alert, Platform, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
@@ -44,8 +44,10 @@ export const useCheckNeedNPS = (
   notifMessage = 'Avez-vous quelques secondes pour donner votre avis ?'
 ) => {
   const navigation = useNavigation();
+
   const checkNeedNPS = () => {
     const NPSDone = storage.getString('@NPSDone');
+
     if (NPSDone) return false;
 
     const appFirstOpening = storage.getString('@NPSInitialOpening');
@@ -64,6 +66,10 @@ export const useCheckNeedNPS = (
     navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Automatic after 3 days' });
   };
 
+  useAppState({
+    isActive: checkNeedNPS,
+  });
+
   useEffect(() => {
     // if (__DEV__) {
     //   storage.delete('@NPSDone'); // useful in dev mode
@@ -71,10 +77,6 @@ export const useCheckNeedNPS = (
     // }
     checkNeedNPS();
   }, []);
-
-  useAppState({
-    isActive: useCheckNeedNPS,
-  });
 };
 
 export const useNPSNotif = (
@@ -192,11 +194,13 @@ const NPSScreen = ({ navigation, route }) => {
       .catch((err) => console.log('sendNPS err', err));
 
     npsSent.current = true;
+    StatusBar.setHidden(false, 'none');
     navigation.goBack();
   };
 
   return (
     <SafeAreaProvider>
+      <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
       <Background color="#f9f9f9">
         <Container>
           <KeyboardAvoidingViewStyled
@@ -264,6 +268,7 @@ const NPSScreen = ({ navigation, route }) => {
                 textContentType="emailAddress"
                 onSubmitEditing={sendNPS}
                 placeholderTextColor="#c9c9cc"
+                onBlur={() => StatusBar.setHidden(false, 'none')}
               />
               <ContactTextInput
                 value={phone}
@@ -276,6 +281,7 @@ const NPSScreen = ({ navigation, route }) => {
                 returnKeyType="send"
                 onSubmitEditing={sendNPS}
                 placeholderTextColor="#c9c9cc"
+                onBlur={() => StatusBar.setHidden(false, 'none')}
               />
               <ButtonContainer>
                 <ButtonPrimary content={sendButton} disabled={forDefi ? !useful : !useful || !reco} onPress={sendNPS} />

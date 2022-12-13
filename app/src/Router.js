@@ -226,7 +226,7 @@ const Router = () => {
             name="NPS_SCREEN"
             component={NPSScreen}
             options={{
-              stackPresentation: 'formSheet',
+              stackPresentation: 'fullScreenModal',
               headerShown: false,
             }}
           />
