@@ -22,7 +22,7 @@ import useAppState from '../../services/useAppState';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
-const formatText = (useful, reco, feedback, email, userId, forDefi, triggeredFrom) =>
+const formatText = (useful, reco, feedback, email, phone, userId, forDefi, triggeredFrom) =>
   `
 userId: ${userId}
 Version: ${pck.version}
@@ -31,8 +31,9 @@ Appelé depuis: ${triggeredFrom}
 ${forDefi ? `Défi: ${forDefi}` : ''}
 ${forDefi ? 'Ce défi vous a-t-il été utile' : 'Ce service vous a-t-il été utile'}: ${useful}
 Comment pouvons-nous vous être encore plus utile: ${feedback}
-Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}
+${reco ? `Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}` : ''}
 Email: ${email}
+Téléphone: ${phone}
 `;
 
 const NPSTimeoutMS = __DEV__ ? 1000 * 3 : 1000 * 60 * 60 * 24 * 3;
@@ -117,6 +118,7 @@ const NPSScreen = ({ navigation, route }) => {
   const [reco, setReco] = useState(null);
   const [feedback, setFeedback] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [sendButton, setSendButton] = useState('Envoyer');
 
   // componentDidUpdate(prevProps, prevState) {
@@ -184,7 +186,7 @@ const NPSScreen = ({ navigation, route }) => {
     });
     await sendMail({
       subject: forDefi ? `NPS Addicto Défi ${forDefi}` : 'NPS Addicto',
-      text: formatText(useful, reco, feedback, email, userId, forDefi, triggeredFrom),
+      text: formatText(useful, reco, feedback, email, phone, userId, forDefi, triggeredFrom),
     })
       .then((res) => res.json())
       .catch((err) => console.log('sendNPS err', err));
@@ -246,11 +248,11 @@ const NPSScreen = ({ navigation, route }) => {
               )}
               <TopSubTitle>
                 <TextStyled color="#191919">
-                  Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes d'accord, vous pouvez
-                  renseigner votre adresse email ci-dessous.
+                  Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes d’accord, vous pouvez
+                  renseigner votre adresse email ou votre numéro de téléphone ci-dessous.
                 </TextStyled>
               </TopSubTitle>
-              <EmailTextInput
+              <ContactTextInput
                 value={email}
                 placeholder="Adresse email (facultatif)"
                 onChangeText={setEmail}
@@ -260,6 +262,18 @@ const NPSScreen = ({ navigation, route }) => {
                 autoCapitalize="none"
                 returnKeyType="go"
                 textContentType="emailAddress"
+                onSubmitEditing={sendNPS}
+                placeholderTextColor="#c9c9cc"
+              />
+              <ContactTextInput
+                value={phone}
+                placeholder="Téléphone (facultatif)"
+                onChangeText={setPhone}
+                autoComplete="tel"
+                autoCorrect={false}
+                keyboardType="phone-pad"
+                textContentType="telephoneNumber"
+                returnKeyType="send"
                 onSubmitEditing={sendNPS}
                 placeholderTextColor="#c9c9cc"
               />
@@ -324,7 +338,7 @@ const ButtonContainer = styled.View`
   margin-bottom: 150px;
 `;
 
-const EmailTextInput = styled(TextInputStyled)`
+const ContactTextInput = styled(TextInputStyled)`
   width: 100%;
   height: 50px;
   background-color: #f3f3f6;
