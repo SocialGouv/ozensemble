@@ -9,10 +9,10 @@ const useAppState = ({ isActive, isInactive }) => {
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
       if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-        isActive();
+        isActive?.();
       }
       if (nextAppState.match(/inactive|background/) && !appState.current.match(/inactive|background/)) {
-        isInactive();
+        isInactive?.();
       }
 
       appState.current = nextAppState;

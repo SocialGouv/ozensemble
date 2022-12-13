@@ -7,7 +7,6 @@ import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
-import NPS from '../NPS/NPS';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
@@ -42,10 +41,6 @@ const Infos = () => {
 };
 
 const InfosMenu = ({ navigation }) => {
-  const [NPSvisible, setNPSvisible] = useState(false);
-  const onPressContribute = () => setNPSvisible(true);
-  const closeNPS = () => setNPSvisible(false);
-
   const isWithinDefi1 =
     storage.getString('@Defi1_StartedAt')?.length && storage.getString('@Defi1_ValidatedDays') !== 6;
   const reminderCaption = isWithinDefi1 ? 'Rappel de mon défi 7 jours' : 'Rappel de mon suivi de consommations';
@@ -57,36 +52,36 @@ const InfosMenu = ({ navigation }) => {
   }, [debugPressed]);
 
   return (
-    <>
-      <NPS forceView={NPSvisible} close={closeNPS} />
-      <WrapperContainer title="Mes Informations">
-        <Container>
-          <MenuItem
-            caption={reminderCaption}
-            onPress={() => {
-              logEvent({
-                category: 'REMINDER',
-                action: 'REMINDER_OPEN',
-                name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
-              });
-              navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
-            }}
-          />
-          <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
-          <MenuItem
-            caption="Mentions Légales & Politique de Confidentialité"
-            onPress={() => navigation.push('PRIVACY_POLICY')}
-          />
-          <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-          <MenuItem caption="Mon avis sur l'application" onPress={onPressContribute} />
-          <VersionContainer>
-            <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
-              <VersionLabel>version {pck.version}</VersionLabel>
-            </TouchableWithoutFeedback>
-          </VersionContainer>
-        </Container>
-      </WrapperContainer>
-    </>
+    <WrapperContainer title="Mes Informations">
+      <Container>
+        <MenuItem
+          caption={reminderCaption}
+          onPress={() => {
+            logEvent({
+              category: 'REMINDER',
+              action: 'REMINDER_OPEN',
+              name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
+            });
+            navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
+          }}
+        />
+        <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
+        <MenuItem
+          caption="Mentions Légales & Politique de Confidentialité"
+          onPress={() => navigation.push('PRIVACY_POLICY')}
+        />
+        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
+        <MenuItem
+          caption="Mon avis sur l'application"
+          onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Infos' })}
+        />
+        <VersionContainer>
+          <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
+            <VersionLabel>version {pck.version}</VersionLabel>
+          </TouchableWithoutFeedback>
+        </VersionContainer>
+      </Container>
+    </WrapperContainer>
   );
 };
 

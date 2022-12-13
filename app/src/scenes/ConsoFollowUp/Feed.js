@@ -10,7 +10,6 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import { isOnSameDay, isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import NPS from '../NPS/NPS';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
 import DateDisplay from './DateDisplay';
 import { NO_CONSO } from './drinksCatalog';
@@ -44,19 +43,11 @@ const computeShowButtons = (selected, position) => {
 };
 
 const Feed = ({ hideFeed, scrollToInput }) => {
-  // state for NPS
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
 
-  const [NPSvisible, setNPSvisible] = useState(false);
   const [pleaseNPSModal, setPleaseNPSModal] = useState(false);
-  const onPressContribute = () => {
-    setPleaseNPSModal(false);
-    setNPSvisible(true);
-  };
-  const closeNPS = () => {
-    setNPSvisible(false);
-  };
+
   const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
@@ -106,9 +97,8 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       return true;
     });
     if (daysDrink.length < 3) return;
-    const npsAsked = storage.getBoolean('nps-asked-after-more-than-3-consos');
+    const npsAsked = storage.getString('@NPSDone');
     if (npsAsked) return;
-    storage.set('nps-asked-after-more-than-3-consos', true);
     setPleaseNPSModal(true);
   };
 
@@ -137,20 +127,17 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   if (hideFeed) {
     return (
-      <>
-        <NPS forceView={NPSvisible} close={closeNPS} />
-        <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
-          <ButtonContainer>
-            <ButtonPrimary
-              small
-              content="Contribuer à Oz Ensemble"
-              shadowColor="#201569"
-              color="#4030A5"
-              onPress={onPressContribute}
-            />
-          </ButtonContainer>
-        </TouchableWithoutFeedback>
-      </>
+      <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
+        <ButtonContainer>
+          <ButtonPrimary
+            small
+            content="Contribuer à Oz Ensemble"
+            shadowColor="#201569"
+            color="#4030A5"
+            onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button empty feed' })}
+          />
+        </ButtonContainer>
+      </TouchableWithoutFeedback>
     );
   }
 
@@ -207,7 +194,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               </LastDrinkButtons>
             </LastDrink>
           )}
-          <NPS forceView={NPSvisible} close={closeNPS} />
           <OnBoardingModal
             title="5 sec pour nous aider à améliorer l'application ?"
             description={
@@ -218,7 +204,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               </TextStyled>
             }
             boutonTitle="Je donne mon avis sur Oz"
-            onPress={onPressContribute}
+            onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'After three drinks' })}
             visible={!!pleaseNPSModal}
             hide={() => {
               setPleaseNPSModal(false);
@@ -308,7 +294,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               content="Contribuer à Oz Ensemble"
               shadowColor="#201569"
               color="#4030A5"
-              onPress={onPressContribute}
+              onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
             />
           </ButtonContainer>
         </FeedContainer>

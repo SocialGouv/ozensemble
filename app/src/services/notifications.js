@@ -152,6 +152,9 @@ class NotificationService {
 
   cancelAll() {
     PushNotification.cancelAllLocalNotifications();
+    // the line below is because when we clear all local notifications we also clear NPSInitialOpening
+    // and we want the NPS to be still triggered
+    storage.delete('@NPSInitialOpening');
   }
 
   // PUSH NOTIFICATIONS

@@ -6,6 +6,8 @@ import { Alert, Linking, StatusBar } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
+import { enableScreens } from 'react-native-screens';
+import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import DefisIcon from './components/illustrations/Defis';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
 import GuidanceIcon from './components/illustrations/GuidanceIcon';
@@ -16,7 +18,6 @@ import ConsoFollowupNavigator from './scenes/ConsoFollowUp/ConsoFollowUp';
 import HealthNavigator from './scenes/Health/HealthNavigator';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
-import NPS from './scenes/NPS/NPS';
 import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
 import useAppState from './services/useAppState';
 import { initMatomo, logEvent } from './services/logEventsWithMatomo';
@@ -29,6 +30,7 @@ import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 import { deepLinkingConfig } from './services/deepLink';
 import EnvironmentIndicator from './components/EnvironmentIndicator';
+import NPSScreen, { useCheckNeedNPS, useNPSNotif } from './scenes/NPS/NPSScreen';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -46,6 +48,8 @@ const LabelStyled = styled(TextStyled)`
 
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
+  useNPSNotif();
+  useCheckNeedNPS();
   const showBootSplash = useRecoilValue(showBootSplashState);
   const resetOnTapListener = ({ navigation, rootName }) => {
     return {
@@ -125,13 +129,38 @@ const TabsNavigator = ({ navigation }) => {
   );
 };
 
-const Root = createStackNavigator();
-const Router = () => {
+const AppStack = createStackNavigator();
+const App = () => {
   const initialRouteName = useMemo(() => {
     const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
     if (!onBoardingDone) return 'WELCOME';
     return 'TABS';
   }, []);
+
+  return (
+    <AppStack.Navigator
+      mode="modal"
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName={initialRouteName}>
+      <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
+      <AppStack.Screen
+        name="ADD_DRINK"
+        component={AddDrinkNavigator}
+        options={{
+          stackPresentation: 'fullScreenModal',
+          headerShown: false,
+        }}
+      />
+      <AppStack.Screen name="TABS" component={TabsNavigator} />
+    </AppStack.Navigator>
+  );
+};
+
+enableScreens();
+const RouterStack = createNativeStackNavigator();
+const Router = () => {
   useAppState({
     isActive: () => logEvent({ category: 'APP', action: 'APP_OPEN' }),
     isInactive: () => logEvent({ category: 'APP', action: 'APP_CLOSE' }),
@@ -187,12 +216,21 @@ const Router = () => {
     <>
       <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange} linking={deepLinkingConfig}>
         <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
-        <Root.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
-          <Root.Screen name="WELCOME" component={WelcomeScreen} />
-          <Root.Screen name="ADD_DRINK" component={AddDrinkNavigator} />
-          <Root.Screen name="TABS" component={TabsNavigator} />
-        </Root.Navigator>
-        <NPS />
+        <RouterStack.Navigator
+          mode="modal"
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <RouterStack.Screen name="APP" component={App} />
+          <RouterStack.Screen
+            name="NPS_SCREEN"
+            component={NPSScreen}
+            options={{
+              stackPresentation: 'formSheet',
+              headerShown: false,
+            }}
+          />
+        </RouterStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
       <CustomBootsplash />

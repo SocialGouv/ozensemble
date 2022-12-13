@@ -6,7 +6,6 @@ import { useRecoilState } from 'recoil';
 import ArrowRight from '../../components/ArrowRight';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
-import NPS from '../NPS/NPS';
 import DayModule from './DayModule';
 import Timeline from './Timeline';
 import TopTimeline from './TopTimeline';
@@ -31,9 +30,6 @@ const Defi = ({
   defiStorageKey,
   defiNumber,
 }) => {
-  const [NPSvisible, setNPSvisible] = useState(false);
-  const onPressContribute = () => setNPSvisible(true);
-  const closeNPS = () => setNPSvisible(false);
   const [onBoardingDefi2Done, setOnBoardingDefi2Done] = useRecoilState(defi2OnBoardingDoneState);
   const [onBoardingDefi3Done, setOnBoardingDefi3Done] = useRecoilState(defi3OnBoardingDoneState);
   const [onBoardingDefi4Done, setOnBoardingDefi4Done] = useRecoilState(defi4OnBoardingDoneState);
@@ -50,7 +46,6 @@ const Defi = ({
 
   return (
     <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
-      <NPS forceView={NPSvisible} close={closeNPS} forDefi={defiNumber} />
       <TopTimeline
         nbdays={nbdays}
         validatedDays={validatedDays}
@@ -71,7 +66,7 @@ const Defi = ({
           <FeedCTAButton
             content={`Donner mon avis sur le défi ${defiNumber}`}
             color="#4030a5"
-            onPress={onPressContribute}
+            onPress={() => navigation.navigate('NPS_SCREEN', { forDefi: defiNumber, triggeredFrom: 'Top CTA défi' })}
           />
         ) : (
           <FeedCTAButton
@@ -125,7 +120,9 @@ const Defi = ({
             content="Contribuer à Oz Ensemble"
             shadowColor="#201569"
             color="#4030A5"
-            onPress={onPressContribute}
+            onPress={() =>
+              navigation.navigate('NPS_SCREEN', { forDefi: defiNumber, triggeredFrom: 'Bottom button défi' })
+            }
           />
         </ButtonContainer>
       </FeedContainer>
