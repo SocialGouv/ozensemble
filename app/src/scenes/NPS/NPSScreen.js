@@ -36,7 +36,7 @@ Email: ${email}
 Téléphone: ${phone}
 `;
 
-const NPSTimeoutMS = __DEV__ ? 1000 * 3 : 1000 * 60 * 60 * 24 * 3;
+const NPSTimeoutMS = 1000 * 60 * 60 * 24 * 7;
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 
 export const useCheckNeedNPS = (
