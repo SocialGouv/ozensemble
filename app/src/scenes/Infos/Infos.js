@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Text, TouchableOpacity, TouchableWithoutFeedback, Share, Platform } from 'react-native';
 import styled from 'styled-components';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
@@ -17,6 +17,7 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import FakeData from '../../reference/mocks/FakeData';
+import { capture } from '../../services/sentry';
 
 const InfosStack = createStackNavigator();
 
@@ -75,6 +76,7 @@ const InfosMenu = ({ navigation }) => {
           caption="Mon avis sur l'application"
           onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Infos' })}
         />
+        <MenuItem caption="Partager l’application à mes proches" onPress={() => shareApp()} showArrow={false} />
         <VersionContainer>
           <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
             <VersionLabel>version {pck.version}</VersionLabel>
@@ -85,14 +87,56 @@ const InfosMenu = ({ navigation }) => {
   );
 };
 
-const MenuItem = ({ caption, onPress }) => (
+const MenuItem = ({ caption, onPress, showArrow = true }) => (
   <TouchableOpacity onPress={onPress}>
     <MenuItemStyled>
       <Text>{caption}</Text>
-      <Arrow>{'>'}</Arrow>
+      {showArrow && <Arrow>{'>'}</Arrow>}
     </MenuItemStyled>
   </TouchableOpacity>
 );
+
+const shareApp = async () => {
+  const url = 'https://ozensemble.fr/';
+  try {
+    logEvent({
+      category: 'SHARE_APP',
+      action: 'PRESSED',
+    });
+
+    const result = await Share.share({
+      message:
+        `Bonjour, je te recommande l’application gratuite et totalement anonyme "Oz Ensemble", qui est super pour suivre sa consommation d'alcool et comprendre les risques d'addiction. Bonne découverte et à bientôt !` +
+        (Platform.OS === 'android' ? '\n' + url : ''),
+      url: Platform.OS === 'ios' && url,
+    });
+    if (result?.action === Share.sharedAction) {
+      if (result?.activityType) {
+        logEvent({
+          category: 'SHARE_APP',
+          action: 'SHARED',
+          name: result?.activityType,
+        });
+      } else {
+        logEvent({
+          category: 'SHARE_APP',
+          action: 'SHARED',
+        });
+      }
+    } else if (result.action === Share.dismissedAction) {
+      logEvent({
+        category: 'SHARE_APP',
+        action: 'DISMISSED',
+      });
+    }
+  } catch (error) {
+    capture('share app failure ' + error);
+    logEvent({
+      category: 'SHARE_APP',
+      action: 'ERROR',
+    });
+  }
+};
 
 export default Infos;
 
