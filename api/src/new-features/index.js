@@ -3,6 +3,20 @@
 const pointerHorizontalPositions = ["6%", "27%", "47%", "67%", "94%"];
 
 module.exports = {
+  "new-gains": {
+    id: "new-gains",
+    position: {
+      bottom: 0,
+      left: 0,
+    },
+    pointerPosition: {
+      bottom: -18,
+      left: pointerHorizontalPositions[0],
+    },
+    description: "Ajoutez vos consommations, fixez vous un objectif et évaluez vos gains dans le temps",
+    okButton: "SUIVANT",
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_GAINS_OK_PRESS" },
+  },
   "new-defis": {
     id: "new-defis-show-again-again",
     position: {
@@ -24,10 +38,24 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Nouveau : faites nos défis pour vous aider à réduire votre consommation",
+    description: "Faites nos défis 7 jours pour vous aider à réduire votre consommation",
     okButton: "SUIVANT",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
+  },
+  "new-suivi": {
+    id: "new-suivi",
+    position: {
+      bottom: 0,
+      left: 0,
+    },
+    pointerPosition: {
+      bottom: -18,
+      left: pointerHorizontalPositions[2],
+    },
+    description: "Remplissez votre agenda de consommation et analysez son évolution dans le temps",
+    okButton: "SUIVANT",
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_SUIVI_OK_PRESS" },
   },
   "new-articles": {
     id: "new-defis-show-again-and-again",
@@ -50,7 +78,7 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Nouveau : plus d'articles pour vous aider dans vos démarches",
+    description: "Des articles pour vous aider dans vos démarches",
     okButton: "FERMER",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
