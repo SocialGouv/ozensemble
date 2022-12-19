@@ -14,7 +14,7 @@ module.exports = {
       left: pointerHorizontalPositions[0],
     },
     description: "Ajoutez vos consommations, fixez vous un objectif et évaluez vos gains dans le temps",
-    okButton: "SUIVANT",
+    okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_GAINS_OK_PRESS" },
   },
   "new-defis": {
@@ -39,7 +39,7 @@ module.exports = {
     // },
     // title: 'Regardez ça !',
     description: "Faites nos défis 7 jours pour vous aider à réduire votre consommation",
-    okButton: "SUIVANT",
+    okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
   },
@@ -54,7 +54,7 @@ module.exports = {
       left: pointerHorizontalPositions[2],
     },
     description: "Remplissez votre agenda de consommation et analysez son évolution dans le temps",
-    okButton: "SUIVANT",
+    okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_SUIVI_OK_PRESS" },
   },
   "new-articles": {
@@ -79,7 +79,7 @@ module.exports = {
     // },
     // title: 'Regardez ça !',
     description: "Des articles pour vous aider dans vos démarches",
-    okButton: "FERMER",
+    okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
   },
