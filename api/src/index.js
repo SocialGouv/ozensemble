@@ -45,11 +45,17 @@ app.use((_req, res, next) => {
 
 //
 app.set("json replacer", (k, v) => (v === null ? undefined : v));
-app.use(versionCheck);
+
 // Pre middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: "50mb" }));
 app.use(helmet());
+
+// redirect links qr codes
+app.use("/qr", require("./controllers/qr"));
+
+// check version before checking other controllers
+app.use(versionCheck);
 
 // Routes
 
