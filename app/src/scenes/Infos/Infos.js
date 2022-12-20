@@ -106,7 +106,7 @@ const shareApp = async () => {
 
     const result = await Share.share({
       message:
-        `Bonjour, je te recommande l’application gratuite et totalement anonyme "Oz Ensemble", qui est super pour suivre sa consommation d'alcool et comprendre les risques d'addiction. Bonne découverte et à bientôt !` +
+        `Bonjour, je te recommande l’application gratuite et totalement anonyme Oz Ensemble qui aide à maitriser sa consommation d’alcool. Bonne découverte !` +
         (Platform.OS === 'android' ? '\n' + url : ''),
       url: Platform.OS === 'ios' && url,
     });
