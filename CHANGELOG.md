@@ -1,3 +1,10 @@
+# [1.76.0](https://github.com/SocialGouv/ozensemble/compare/v1.75.9...v1.76.0) (2022-12-20)
+
+
+### Features
+
+* routes to redirect qr codes ([#132](https://github.com/SocialGouv/ozensemble/issues/132)) ([c7b0172](https://github.com/SocialGouv/ozensemble/commit/c7b0172f0eeec8ac329fca2866eb5e39c59808d0))
+
 ## [1.75.9](https://github.com/SocialGouv/ozensemble/compare/v1.75.8...v1.75.9) (2022-12-06)
 
 
