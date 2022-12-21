@@ -1,3 +1,10 @@
+## [1.76.1](https://github.com/SocialGouv/ozensemble/compare/v1.76.0...v1.76.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* **docker:** fix alpine version for legacy SSL([#133](https://github.com/SocialGouv/ozensemble/issues/133)) ([6239f43](https://github.com/SocialGouv/ozensemble/commit/6239f43f002076ee087e5c1a59ac93d7384e31d7))
+
 # [1.76.0](https://github.com/SocialGouv/ozensemble/compare/v1.75.9...v1.76.0) (2022-12-20)
 
 
