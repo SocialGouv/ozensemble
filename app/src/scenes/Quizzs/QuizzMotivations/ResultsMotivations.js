@@ -87,7 +87,6 @@ const ItemsContainer = styled.View`
   display: flex;
   flex: 1;
   flex-direction: column;
-  flex-wrap: wrap;
 `;
 
 const ResultTitle = styled(H3)`

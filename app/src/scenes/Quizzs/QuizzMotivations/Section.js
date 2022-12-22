@@ -11,7 +11,7 @@ const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers, .
 
   return (
     <SectionStyled>
-      <SectionTitle noMarginBottom>{'Situations ' + section.sectionTitle + 's'} </SectionTitle>
+      <SectionTitle noMarginBottom>{'Situations ' + section.sectionTitle} </SectionTitle>
       {section.answers.map((item) => {
         const checked = !!answers?.includes(item.answerKey);
         return (
