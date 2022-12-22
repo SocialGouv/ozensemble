@@ -10,6 +10,7 @@ import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import Economy from '../../components/illustrations/Economy';
 import InfosIcon from '../../components/illustrations/InfoObjectif';
+import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
 import Rocket from '../../components/illustrations/Rocket';
 import TextStyled from '../../components/TextStyled';
@@ -156,49 +157,156 @@ const MyGains = () => {
   };
 
   return (
-    <WrapperContainer title={'Mes gains'}>
-      {!isOnboarded ? (
-        <TouchableOpacity
-          onPress={() => {
-            logEvent({
-              category: 'GAINS',
-              action: 'TOOLTIP_GOAL',
-            });
-            navigateToFirstStep();
-          }}>
-          <Description>
-            <InfosIcon size={24} />
-            <TextDescritpion>
-              <Text>
-                Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
-              </Text>
-            </TextDescritpion>
-            <Arrow>{'>'}</Arrow>
-          </Description>
-        </TouchableOpacity>
-      ) : (
-        <>
-          {showGoalfix && (
+    <>
+      <WrapperContainer title={'Mon objectif cette semaine'}>
+        {!isOnboarded ? (
+          <TouchableOpacity
+            onPress={() => {
+              logEvent({
+                category: 'GAINS',
+                action: 'TOOLTIP_GOAL',
+              });
+              navigateToFirstStep();
+            }}>
             <Description>
-              <Rocket size={24} />
+              <InfosIcon size={24} />
               <TextDescritpion>
                 <Text>
-                  Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
+                  Pour calculer vos gains{'\n'}financiers et en kilocalories,{'\n'}fixez-vous un <Bold>objectif</Bold>
                 </Text>
               </TextDescritpion>
-              <CloseShowGoalfix
-                onPress={() => {
-                  storage.set('@ShowGoalFix', false);
-                  setShowGoalfix(false);
-                }}
-                hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-                <Arrow>{'x'}</Arrow>
-              </CloseShowGoalfix>
+              <Arrow>{'>'}</Arrow>
             </Description>
-          )}
-        </>
-      )}
-      <TextContainer>
+          </TouchableOpacity>
+        ) : (
+          <>
+            {/* JAUGE */}
+
+            <Container>
+              <TopTitle>
+                <H1 color="#4030a5">Mes gains depuis le début</H1>
+                <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
+                  <InfoRoundIcon size={25} />
+                </GainsFromStartInfoButton>
+              </TopTitle>
+
+              <CategoriesContainer>
+                <Categorie>
+                  <TextStyled>Euros économisés</TextStyled>
+                  <Spacer size={10} />
+                  <TextStyled bold size={35}>
+                    {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}
+                  </TextStyled>
+                </Categorie>
+                <Spacer size={20} />
+                <Categorie>
+                  <TextStyled>Calories économisées</TextStyled>
+                  <Spacer size={10} />
+                  <TextStyled bold size={35}>
+                    {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
+                  </TextStyled>
+                </Categorie>
+                {/* <CategorieGain
+                  description="Euros économisés"
+                  value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
+                  disabled={isOnboarded}
+                  onPress={() => {
+                    setShowOnboardingGainModal(true);
+                    logEvent({
+                      category: 'GAINS',
+                      action: 'EARNINGS_SECTION',
+                      name: 'euro',
+                    });
+                  }}
+                />
+                <CategorieGain
+                  description="Calories économisées"
+                  value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
+                  onPress={() => {
+                    setShowOnboardingGainModal(true);
+                    logEvent({
+                      category: 'GAINS',
+                      action: 'EARNINGS_SECTION',
+                      name: 'calories',
+                    });
+                  }}
+                /> */}
+              </CategoriesContainer>
+            </Container>
+          </>
+        )}
+
+        <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
+
+        {isOnboarded && (
+          <>
+            <Title>
+              <H1 color="#4030a5">Mon estimation hebdo avant de réduire</H1>
+            </Title>
+            <MyGoalSubContainer>
+              <MyGoalSubContainerInside>
+                <PartContainer>
+                  <Economy size={20} />
+                  <TextStyled>
+                    {'   '}
+                    {myWeeklyExpensesBeforeObjective} €
+                  </TextStyled>
+                </PartContainer>
+                <PartContainer>
+                  <CocktailGlass size={20} />
+                  <TextStyled>
+                    {'   '}
+                    {myWeeklyNumberOfDrinksBeforeObjective} unité
+                    {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
+                  </TextStyled>
+                  <HelpModalCountConsumption event="ESTIMATION">
+                    <InfosIcon size={15} color={'#000000'} />
+                  </HelpModalCountConsumption>
+                </PartContainer>
+              </MyGoalSubContainerInside>
+            </MyGoalSubContainer>
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+              <TextModify>
+                <TextStyled>Modifier l'estimation</TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+
+            <Title>
+              <H1 color="#4030a5">Mon rappel</H1>
+            </Title>
+            <MyGoalSubContainer>
+              <MyGoalSubContainerInside>
+                <PartContainer>
+                  <ReminderIcon size={20} color="#000" selected />
+                  <TextStyled>
+                    {'   '}
+                    {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
+                      'Pas de rappel encore'
+                    ) : (
+                      <>
+                        {mode === 'day'
+                          ? 'Tous les jours '
+                          : `Tous les ${dayjs()
+                              .day(weekDay + 1)
+                              .format('dddd')}s `}
+                        à {dayjs(reminder).format('HH:mm')}
+                      </>
+                    )}
+                  </TextStyled>
+                </PartContainer>
+              </MyGoalSubContainerInside>
+            </MyGoalSubContainer>
+            <ButtonTouchable onPress={goToReminder}>
+              <TextModify>
+                <TextStyled>
+                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
+                </TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+          </>
+        )}
+
+        {/* <TextContainer>
         <TextForm>
           {!!isOnboarded && beginDateOfOz && (
             <TextStyled>
@@ -212,40 +320,9 @@ const MyGains = () => {
             </TextStyled>
           )}
         </TextForm>
-      </TextContainer>
-      <Categories>
-        <CategorieGain
-          unit={<Euros color="#191919">€</Euros>}
-          description="Mes économies"
-          value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
-          maximize
-          disabled={isOnboarded}
-          onPress={() => {
-            setShowOnboardingGainModal(true);
-            logEvent({
-              category: 'GAINS',
-              action: 'EARNINGS_SECTION',
-              name: 'euro',
-            });
-          }}
-        />
-        <CategorieGain
-          unit={<Kcal color="#191919">kcal</Kcal>}
-          description="Mes calories économisées"
-          value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
-          maximize
-          disabled={isOnboarded}
-          onPress={() => {
-            setShowOnboardingGainModal(true);
-            logEvent({
-              category: 'GAINS',
-              action: 'EARNINGS_SECTION',
-              name: 'calories',
-            });
-          }}
-        />
-      </Categories>
-      <TextContainer>
+      </TextContainer> */}
+
+        {/* <TextContainer>
         <TextForm>
           {!!isOnboarded && (
             <TextStyled>
@@ -253,8 +330,8 @@ const MyGains = () => {
             </TextStyled>
           )}
         </TextForm>
-      </TextContainer>
-      <Categories>
+      </TextContainer> */}
+        {/* <Categories>
         <CategorieGain
           description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
           value={isOnboarded ? remaindrink : '?'}
@@ -290,7 +367,55 @@ const MyGains = () => {
             });
           }}
         />
-      </Categories>
+      </Categories> */}
+
+        {/* {!isOnboarded ? (
+          <>
+            <TopTitle>
+              <H1 color="#4030a5">Mon objectif</H1>
+            </TopTitle>
+            <TouchableOpacity onPress={navigateToFirstStep} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+              <Description>
+                <InfosIcon size={24} />
+                <TextDescritpion>
+                  <Text>
+                    Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
+                  </Text>
+                </TextDescritpion>
+                <Arrow>{'>'}</Arrow>
+              </Description>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <>
+            <Title>
+              <H1 color="#4030a5">Mon objectif</H1>
+            </Title>
+            <MyGoalSubContainer>
+              <MyGoalSubContainerInside>
+                <PartContainer>
+                  <Done size={20} />
+                  <TextStyled>
+                    {'  '}
+                    {dayNoDrink} {dayNoDrink > 1 ? 'jours' : 'jour'} où je ne bois pas
+                  </TextStyled>
+                </PartContainer>
+                <PartContainer>
+                  <Done size={20} />
+                  <TextStyled>
+                    {'  '}
+                    {maxDrinksPerWeekGoal} {maxDrinksPerWeekGoal > 1 ? 'verres' : 'verre'} max par semaine
+                  </TextStyled>
+                </PartContainer>
+              </MyGoalSubContainerInside>
+            </MyGoalSubContainer>
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
+              <TextModify>Modifier l'objectif</TextModify>
+            </ButtonTouchable>
+            
+          </>
+        )} */}
+      </WrapperContainer>
       <OnBoardingModal
         title="Sans objectif, pas de gains"
         description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
@@ -301,123 +426,29 @@ const MyGains = () => {
           setShowOnboardingGainModal(false);
         }}
       />
-      <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
-      {!isOnboarded ? (
-        <>
-          <TopTitle>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </TopTitle>
-          <TouchableOpacity onPress={navigateToFirstStep} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-            <Description>
-              <InfosIcon size={24} />
-              <TextDescritpion>
-                <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
-                </Text>
-              </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
-            </Description>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <>
-          <Title>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </Title>
-          <MyGoalSubContainer>
-            <MyGoalSubContainerInside>
-              <PartContainer>
-                <Done size={20} />
-                <TextStyled>
-                  {'  '}
-                  {dayNoDrink} {dayNoDrink > 1 ? 'jours' : 'jour'} où je ne bois pas
-                </TextStyled>
-              </PartContainer>
-              <PartContainer>
-                <Done size={20} />
-                <TextStyled>
-                  {'  '}
-                  {maxDrinksPerWeekGoal} {maxDrinksPerWeekGoal > 1 ? 'verres' : 'verre'} max par semaine
-                </TextStyled>
-              </PartContainer>
-            </MyGoalSubContainerInside>
-          </MyGoalSubContainer>
-          <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
-            <TextModify>Modifier l'objectif</TextModify>
-          </ButtonTouchable>
-          <Title>
-            <H1 color="#4030a5">Ma conso actuelle avant objectif</H1>
-            <H2>Estimation par semaine</H2>
-          </Title>
-          <MyGoalSubContainer>
-            <MyGoalSubContainerInside>
-              <PartContainer>
-                <Economy size={20} />
-                <TextStyled>
-                  {'   '}
-                  {myWeeklyExpensesBeforeObjective} €
-                </TextStyled>
-              </PartContainer>
-              <PartContainer>
-                <CocktailGlass size={20} />
-                <TextStyled>
-                  {'   '}
-                  {myWeeklyNumberOfDrinksBeforeObjective} unité
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
-                </TextStyled>
-                <HelpModalCountConsumption event="ESTIMATION">
-                  <InfosIcon size={15} color={'#000000'} />
-                </HelpModalCountConsumption>
-              </PartContainer>
-            </MyGoalSubContainerInside>
-          </MyGoalSubContainer>
-          <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
-            <TextModify>
-              <TextStyled>Modifier l'estimation</TextStyled>
-            </TextModify>
-          </ButtonTouchable>
-          <Title>
-            <H1 color="#4030a5">Mon rappel</H1>
-          </Title>
-          <MyGoalSubContainer>
-            <MyGoalSubContainerInside>
-              <PartContainer>
-                <ReminderIcon size={20} color="#000" selected />
-                <TextStyled>
-                  {'   '}
-                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
-                    'Pas de rappel encore'
-                  ) : (
-                    <>
-                      {mode === 'day'
-                        ? 'Tous les jours '
-                        : `Tous les ${dayjs()
-                            .day(weekDay + 1)
-                            .format('dddd')}s `}
-                      à {dayjs(reminder).format('HH:mm')}
-                    </>
-                  )}
-                </TextStyled>
-              </PartContainer>
-            </MyGoalSubContainerInside>
-          </MyGoalSubContainer>
-          <ButtonTouchable onPress={goToReminder}>
-            <TextModify>
-              <TextStyled>
-                {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
-              </TextStyled>
-            </TextModify>
-          </ButtonTouchable>
-        </>
-      )}
-    </WrapperContainer>
+    </>
   );
 };
+
+const Spacer = styled.View`
+  height: ${({ size }) => size || 20}px;
+  width: ${({ size }) => size || 20}px;
+`;
+
+const GainsFromStartInfoButton = styled.TouchableOpacity`
+  justify-content: center;
+`;
+
+const Container = styled.View`
+  padding-top: 20px;
+`;
 
 const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Description = styled.View`
@@ -444,11 +475,21 @@ const TextDescritpion = styled(TextStyled)`
   line-height: 20px;
 `;
 
-const Categories = styled.View`
-  justify-content: space-around;
+const CategoriesContainer = styled.View`
+  justify-content: space-between;
   flex-direction: row;
   margin-top: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
+`;
+
+const Categorie = styled.View`
+  border: 1px solid #4030a5;
+  border-radius: 5px;
+  flex: 1;
+  height: 100px;
+  align-items: center;
+  overflow: hidden;
+  padding: 10px 4px 4px 4px;
 `;
 
 const TextContainer = styled.View`

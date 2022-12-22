@@ -8,6 +8,7 @@ import MyGains from './MyGains';
 import Sevrage from './Sevrage';
 import GainsReminder from './GainsReminder';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
+import GainsFromStartModale from './GainsFromStartModale';
 
 const GainsStack = createStackNavigator();
 
@@ -32,6 +33,7 @@ const GainsNavigator = () => {
             rootRoute: 'GAINS_MAIN_VIEW',
           }}
         />
+        <GainsStack.Screen name="GAINS_FROM_START_MODALE" component={GainsFromStartModale} />
       </GainsStack.Navigator>
     </Background>
   );
