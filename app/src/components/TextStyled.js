@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 const TextStyled = styled.Text`
   ${Platform.OS === 'android' && 'font-family: Raleway;'}
   color: ${({ color }) => color || '#191919'};
+  ${(props) => props.semibold && 'font-weight: 600;'}
   ${(props) => props.bold && 'font-weight: bold;'}
   ${(props) => props.italic && 'font-style: italic;'}
   ${(props) => props.center && 'text-align: center;'}
