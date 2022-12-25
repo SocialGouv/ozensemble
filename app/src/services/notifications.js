@@ -1,9 +1,12 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
+import NetInfo from '@react-native-community/netinfo';
+import notificationsTypes from './notifications/notificationsTypes';
+import API from './api';
 
 const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN';
 const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR';
@@ -115,7 +118,7 @@ class NotificationService {
     );
     PushNotification.createChannel(
       {
-        channelId: 'PUSH-LOCAL-NOTIFICATIONS', // (required)
+        channelId: 'PUSH-NOTIFICATIONS', // (required)
         channelName: 'Autres', // (required)
         soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
         importance: 4, // (optional) default: 4. Int value of the Android notification importance
@@ -158,6 +161,7 @@ class NotificationService {
   }
 
   // PUSH NOTIFICATIONS
+
   getInitNotification() {
     PushNotification.popInitialNotification((notification) => {
       console.log('Initial Notification', notification);
@@ -239,6 +243,48 @@ class NotificationService {
 
   remove = (listenerKey) => {
     // delete this.listeners[listenerKey];
+  };
+
+  schedulePushNotification = async (date, type, link) => {
+    const existingType = notificationsTypes[type];
+
+    if (!existingType) {
+      // if undefined existingType
+      return;
+    }
+
+    const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
+    if (!isConnected) {
+      // impossible to schedule a notification if there is no internet -> use a local notif ?
+      // alert message ?
+      this.scheduleNotification(date, existingType.title, existingType.message);
+      return;
+    }
+
+    if (!this.hasToken()) return;
+
+    const matomoId = storage.getString('@UserIdv2');
+
+    const res = await API.put({
+      path: '/notification',
+      body: {
+        type,
+        pushNotifToken: this.getToken(),
+        date: date.toISOString(),
+        link,
+        matomoId,
+      },
+    });
+
+    if (!res?.ok) {
+      Alert.alert(
+        'Une erreur est survenue lors de la mise en place de votre notification',
+        "L'équipe technique a été prévenue et va résoudre le problème au plus vite."
+      );
+      return false;
+    }
+
+    return true;
   };
 }
 

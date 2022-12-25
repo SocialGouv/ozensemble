@@ -59,7 +59,7 @@ router.put(
     const { matomoId, pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
 
     if (!pushNotifToken) return res.status(400).json({ ok: false, error: "no push token" });
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no push token" });
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     if (type !== "Daily" && type !== "Weekdays") {
       capture("reminder api: wrong type", { extra: req.body, user: { matomoId } });
       return res.status(400).json({ ok: false, error: "wrong type" });

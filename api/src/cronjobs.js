@@ -3,10 +3,12 @@ const { capture } = require("./third-parties/sentry");
 const { CRONJOBS_ENABLED } = require("./config");
 
 const { reminderCronJob } = require("./controllers/reminder");
+const { notificationCronJob } = require("./controllers/notification");
 
 cron.schedule("* * * * *", async () => {
   // every minute
   launchCronJob("reminder", reminderCronJob);
+  launchCronJob("notification", notificationCronJob);
 });
 
 const launchCronJob = async (name, job) => {
