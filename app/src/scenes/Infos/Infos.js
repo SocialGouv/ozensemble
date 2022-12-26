@@ -10,7 +10,7 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import CGUs from './CGUs';
 import Export from './Export';
 import PrivacyPolicy from './PrivacyPolicy';
-import Defi1_Reminder from '../Defis/Defi1/Defi1_Reminder';
+// import Defi1_Reminder from '../Defis/Defi1/Defi1_Reminder';
 import { storage } from '../../services/storage';
 import GainsReminder from '../Gains/GainsReminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
@@ -28,7 +28,7 @@ const Infos = () => {
       <HeaderBackground />
       <InfosStack.Navigator initialRouteName="INFOS_MENU" headerMode="none">
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
-        <InfosStack.Screen name="DEFI1_REMINDER" component={Defi1_Reminder} />
+        {/* <InfosStack.Screen name="DEFI1_REMINDER" component={Defi1_Reminder} /> */}
         <InfosStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
@@ -63,7 +63,7 @@ const InfosMenu = ({ navigation }) => {
               action: 'REMINDER_OPEN',
               name: isWithinDefi1 ? 'DEFI1' : 'GAIN',
             });
-            navigation.push(isWithinDefi1 ? 'DEFI1_REMINDER' : 'GAINS_REMINDER');
+            navigation.push('GAINS_REMINDER');
           }}
         />
         <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />

@@ -245,19 +245,17 @@ class NotificationService {
     // delete this.listeners[listenerKey];
   };
 
-  schedulePushNotification = async (date, type, link) => {
-    const existingType = notificationsTypes[type];
-
-    if (!existingType) {
-      // if undefined existingType
-      return;
-    }
-
+  schedulePushNotification = async (date, type) => {
     const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
     if (!isConnected) {
       // impossible to schedule a notification if there is no internet -> use a local notif ?
       // alert message ?
-      this.scheduleNotification(date, existingType.title, existingType.message);
+      // this.scheduleNotification({
+      //   date,
+      //   title: existingType.title,
+      //   message: existingType.message,
+      // });
+      console.log("Can't schedule a notification if there is no internet");
       return;
     }
 
@@ -271,7 +269,6 @@ class NotificationService {
         type,
         pushNotifToken: this.getToken(),
         date: date.toISOString(),
-        link,
         matomoId,
       },
     });

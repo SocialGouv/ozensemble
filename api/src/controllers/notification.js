@@ -44,12 +44,24 @@ router.put(
       });
     }
 
+    let existingNotification = await prisma.notification.findFirst({ where: { user, type } });
+    if (existingNotification) {
+      if (existingNotification.date !== date) {
+        existingNotification = await prisma.notification.update({
+          where: { id: existingNotification.id },
+          data: {
+            date,
+          },
+        });
+      }
+      return res.status(200).send({ ok: true, existingNotification });
+    }
+
     notification = await prisma.notification.create({
       data: {
         user: { connect: { id: user.id } },
         type,
         date,
-        ...(link && { link }),
       },
     });
 
@@ -77,7 +89,7 @@ const notificationCronJob = async (req, res) => {
       pushNotifToken: notification.user.push_notif_token,
       title: notificationTypes[notification.type].title,
       body: notificationTypes[notification.type].message,
-      link: notification.link ? notification.link : "oz://TABS/GAINS_NAVIGATOR/GAINS_MAIN_VIEW", // TODO: DEEP LINK NOT WORKING
+      link: notificationTypes[notification.type].link, // TODO: DEEP LINK NOT WORKING
       channelId: "PUSH-NOTIFICATIONS",
     });
     sentNotifications.push(notification.id);
@@ -99,5 +111,6 @@ const notificationTypes = {
   0: {
     title: "C’est l’heure du 2ème jour",
     message: "Ce message pour vous motiver à réaliser le 2ème jour du défi ! Nous croyons en vous 💙",
+    link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
   },
 };

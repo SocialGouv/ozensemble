@@ -15,7 +15,7 @@ model User {
   matomo_id         String        @unique
   push_notif_token  String        @default("")
   reminders         Reminder[]
-  notifications      Notification[]
+  notifications     Notification[]
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt @default(now())
 
@@ -44,7 +44,6 @@ model Notification {
   user           User                   @relation(fields: [userId], references: [id])
   userId         String
   type           Int
-  link           String?
   date           DateTime
   createdAt      DateTime               @default(now())
   updatedAt      DateTime               @updatedAt

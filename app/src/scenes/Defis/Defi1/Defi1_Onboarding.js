@@ -19,7 +19,7 @@ const Defi1_Onboarding = ({ navigation }) => {
       category: 'DEFI1',
       action: 'DEFI1_CLICK_START',
     });
-    navigation.navigate('DEFI1_REMINDER', {
+    navigation.navigate('DEFI1_MENU', {
       enableContinueButton: true,
       onPressContinueNavigation: ['DEFI1_MENU'],
     });

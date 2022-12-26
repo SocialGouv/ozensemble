@@ -13,7 +13,7 @@ import { defi1_Data } from './defi1_Data';
 import Defi1_Onboarding from './Defi1_Onboarding';
 import Defi1_OnboardingInfo from './Defi1_OnboardingInfo';
 import { setValidatedDays } from '../utils';
-import Defi1_Reminder from './Defi1_Reminder';
+// import Defi1_Reminder from './Defi1_Reminder';
 import Defi1_Day2 from './Defi1_Day2';
 import Defi1_Day4 from './Defi1_Day4';
 
@@ -25,7 +25,7 @@ const Defi1_Navigator = () => {
       headerMode="none"
       initialRouteName={storage.getString('@Defi1_StartedAt') ? 'DEFI1_MENU' : 'DEFI1_ONBOARDING'}>
       <Defi1_Stack.Screen name="DEFI1_ONBOARDING" component={Defi1_Onboarding} />
-      <Defi1_Stack.Screen name="DEFI1_REMINDER" component={Defi1_Reminder} />
+      {/* <Defi1_Stack.Screen name="DEFI1_REMINDER" component={Defi1_Reminder} /> */}
       <Defi1_Stack.Screen name="DEFI1_ONBOARDING_INFO" component={Defi1_OnboardingInfo} />
       <Defi1_Stack.Screen name="DEFI1_MENU" component={Defi1_Menu} />
       <Defi1_Stack.Screen

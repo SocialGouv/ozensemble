@@ -13,6 +13,8 @@ import ElementDayDefi from '../../../components/ElementDayDefi';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import NotificationService from '../../../services/notifications';
+import dayjs from 'dayjs';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -20,7 +22,13 @@ const Defi1_Day1 = ({ navigation, route }) => {
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    if (route?.params?.inDefi1) {
+      setValidatedDays(route?.params?.day, '@Defi1');
+      NotificationService.schedulePushNotification(
+        dayjs().add(1, 'day').set('hour', 20).set('minute', 0).set('second', 0).set('millisecond', 0),
+        0
+      );
+    }
   }, [route?.params, isFocused]);
 
   return (
