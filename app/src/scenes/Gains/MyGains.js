@@ -26,13 +26,14 @@ import {
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import GainsGauge from './GainsGauge';
-import WeekSelector from './WeekSelector';
+import PeriodSelector from '../../components/PeriodSelector';
 
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 
 const MyGains = () => {
-  const [currentWeekStart, setCurrentWeekStart] = useState(dayjs().startOf('week'));
+  const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
+  const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
 
   const navigation = useNavigation();
   const drinks = useRecoilValue(drinksState);
@@ -69,17 +70,17 @@ const MyGains = () => {
   const numberDrinkInCurrentWeek = useMemo(
     () =>
       days
-        .filter((day) => dayjs(day).isBetween(currentWeekStart, currentWeekStart.add(1, 'week'), 'day', '[)'))
+        .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
         .reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0),
-    [days, dailyDoses, currentWeekStart]
+    [days, dailyDoses, firstDay]
   );
 
   const NumberOfDrinkingDaysInCurrentWeek = useMemo(
     () =>
       days
-        .filter((day) => dayjs(day).isBetween(currentWeekStart, currentWeekStart.add(1, 'week'), 'day', '[)'))
+        .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
         .reduce((sum, day) => sum + (dailyDoses[day] > 0 ? 1 : 0), 0),
-    [days, dailyDoses, currentWeekStart]
+    [days, dailyDoses, firstDay]
   );
 
   const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
@@ -176,7 +177,13 @@ const MyGains = () => {
           </TouchableOpacity>
         ) : (
           <>
-            <WeekSelector currentWeekStart={currentWeekStart} setCurrentWeekStart={setCurrentWeekStart} />
+            <PeriodSelector
+              firstDay={firstDay}
+              setFirstDay={setFirstDay}
+              lastDay={lastDay}
+              logEventCategory={'GAINS'}
+              logEventAction={'CHANGE_DATE'}
+            />
 
             <GainsGauge title={'Unités d’alcool'} value={numberDrinkInCurrentWeek} goal={maxDrinksPerWeekGoal} />
             <GainsGauge title={'Jours où j’ai bu'} value={NumberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />

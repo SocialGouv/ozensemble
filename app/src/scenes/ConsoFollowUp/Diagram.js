@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { TouchableOpacity } from 'react-native';
@@ -16,7 +16,9 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import PlusIcon from '../../components/illustrations/PlusIcon';
 import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
-import { P } from '../../components/Articles';
+import PeriodSelector from '../../components/PeriodSelector';
+import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
+import { checkPropTypes } from 'prop-types';
 
 const maxDosesOnScreen = 50;
 
@@ -86,16 +88,64 @@ const diffWithPreviousWeekSelector = selectorFamily({
 
 const minBarHeight = 1;
 const Diagram = ({ asPreview }) => {
+  const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
-  const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
-  const days = useMemo(() => {
-    const daysOfTheWeek = [];
-    for (let i = 0; i <= 6; i++) {
-      const nextDay = dayjs(firstDay).add(i, 'day').format('YYYY-MM-DD');
-      daysOfTheWeek.push(nextDay);
+  const lastDay = useMemo(
+    () =>
+      dayjs(firstDay)
+        .add(6, period)
+        .subtract(period === 'day' ? 0 : 1, 'day'),
+    [firstDay]
+  );
+
+  useEffect(() => {
+    setFirstDay(period === 'day' ? dayjs().startOf('week') : dayjs().startOf('week').add(-5, period));
+  }, [period]);
+
+  const barsInPeriod = useMemo(() => {
+    switch (period) {
+      case 'day':
+        const daysOfTheWeek = [];
+        for (let i = 0; i <= 6; i++) {
+          const nextDay = dayjs(firstDay).add(i, 'day').format('YYYY-MM-DD');
+          daysOfTheWeek.push(nextDay);
+        }
+        return daysOfTheWeek;
+      case 'week':
+        const weeks = [];
+        for (let i = 0; i <= 5; i++) {
+          const nextWeek = dayjs(firstDay).add(i, 'week').format('YYYY-MM-DD');
+          weeks.push(nextWeek);
+        }
+        return weeks;
     }
-    return daysOfTheWeek;
   }, [firstDay]);
+
+  const generateBarsValues = (day) => {
+    if (dayjs(day).isAfter(dayjs())) {
+      return null;
+    }
+
+    if (dailyDoses[day] < 0) {
+      return -1;
+    }
+    switch (period) {
+      case 'day':
+        return Math.min(maxDosesOnScreen, dailyDoses[day]);
+
+      case 'week':
+        let total = 0;
+        let howManyKnownValues = 0;
+        for (let i = 0; i <= 6; i++) {
+          const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
+          if (dayValue >= 0) {
+            howManyKnownValues++;
+            total += dayValue;
+          }
+        }
+        return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
+    }
+  };
 
   const navigation = useNavigation();
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
@@ -137,57 +187,22 @@ const Diagram = ({ asPreview }) => {
   return (
     <>
       {!asPreview && (
-        <ChangeDateContainer>
-          <ChangeDateButton
-            onPress={() => {
-              const newFirstDay = dayjs(firstDay).add(-1, 'week');
-              setFirstDay(newFirstDay);
-              logEvent({
-                category: 'ANALYSIS',
-                action: 'ANALYSIS_DATE',
-                value: newFirstDay,
-              });
-            }}
-            hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-            <TextStyled>{'<'}</TextStyled>
-          </ChangeDateButton>
-          {firstDay.get('month') === lastDay.get('month') ? (
-            <P color="#7e7e7e" noMarginBottom>
-              Semaine du {dayjs(firstDay).format('D')} au {dayjs(lastDay).format('D')} {dayjs(lastDay).format('MMMM')}
-            </P>
-          ) : (
-            <P color="#7e7e7e" noMarginBottom>
-              Semaine du {dayjs(firstDay).format('D')} {dayjs(firstDay).format('MMM')} au {dayjs(lastDay).format('D')}{' '}
-              {dayjs(lastDay).format('MMM')}
-            </P>
-          )}
-          <ChangeDateButton
-            onPress={() => {
-              const newFirstDay = dayjs(firstDay).add(1, 'week');
-              setFirstDay(newFirstDay);
-              logEvent({
-                category: 'ANALYSIS',
-                action: 'ANALYSIS_DATE',
-                value: newFirstDay,
-              });
-            }}
-            disabled={dayjs(lastDay).add(0, 'days').isAfter(dayjs())}
-            hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-            <TextStyled>{'>'}</TextStyled>
-          </ChangeDateButton>
-        </ChangeDateContainer>
+        <>
+          <PeriodSwitchToggle period={period} setPeriod={setPeriod} />
+          <PeriodSelector
+            firstDay={firstDay}
+            setFirstDay={setFirstDay}
+            lastDay={lastDay}
+            period={period}
+            logEventCategory={'ANALYSIS'}
+            logEventAction={'ANALYSIS_DATE'}
+          />
+        </>
       )}
+
       <BarsContainer height={barMaxHeight + doseTextHeight}>
-        {days
-          .map((day) => {
-            if (dayjs(day).isAfter(dayjs())) {
-              return null;
-            }
-            if (dailyDoses[day] < 0) {
-              return -1;
-            }
-            return Math.min(maxDosesOnScreen, dailyDoses[day]);
-          })
+        {barsInPeriod
+          .map((bar) => generateBarsValues(bar))
           .map((dailyDose, index) => {
             if (dailyDose === null || dailyDose === undefined) {
               return <Bar key={index} height={doseHeight * highestAcceptableDosesPerDay} empty />;
@@ -197,40 +212,49 @@ const Diagram = ({ asPreview }) => {
             const overLineValue =
               dailyDoseHeight > highestAcceptableDosesPerDay && dailyDoseHeight - highestAcceptableDosesPerDay;
             return (
-              <React.Fragment key={index}>
-                <Bar
-                  key={index}
-                  height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
-                  heightFactor={dailyDoseHeight || 0}>
-                  {dailyDose >= 0 ? (
-                    <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
-                      {dailyDose}
-                    </Dose>
-                  ) : (
-                    <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
-                      ?
-                    </Dose>
-                  )}
-                  {Boolean(overLineValue) && (
-                    <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
-                  )}
-                  <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
-                </Bar>
-              </React.Fragment>
+              <Bar
+                key={index}
+                height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
+                heightFactor={dailyDoseHeight || 0}>
+                {dailyDose >= 0 ? (
+                  <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                    {dailyDose}
+                  </Dose>
+                ) : (
+                  <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                    ?
+                  </Dose>
+                )}
+                {Boolean(overLineValue) && (
+                  <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
+                )}
+                <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
+              </Bar>
             );
           })}
         {thereIsDrinks && <Line bottom={barMaxAcceptableDoseHeight} />}
       </BarsContainer>
       <LegendsContainer>
-        {days.map((day, index) => {
-          const formatday = dayjs(day).format('ddd').capitalize().slice(0, 3);
-          const backgound = isToday(day) ? '#4030A5' : 'transparent';
-          const color = isToday(day) ? '#ffffff' : '#4030A5';
-          return (
-            <LegendContainer backgound={backgound} key={index}>
-              <Legend color={color}>{formatday}</Legend>
-            </LegendContainer>
-          );
+        {barsInPeriod.map((day, index) => {
+          switch (period) {
+            case 'day':
+              const formatday = dayjs(day).format('ddd').capitalize().slice(0, 3);
+              const backgound = isToday(day) ? '#4030A5' : 'transparent';
+              const color = isToday(day) ? '#ffffff' : '#4030A5';
+              return (
+                <LegendContainer backgound={backgound} key={index}>
+                  <Legend color={color}>{formatday}</Legend>
+                </LegendContainer>
+              );
+            case 'week':
+              return (
+                <LegendContainer backgound={'transparent'} key={index}>
+                  <Legend color={'#4030A5'}>
+                    {dayjs(day).format('D') + ' ' + dayjs(day).format('MMM').slice(0, 3)}
+                  </Legend>
+                </LegendContainer>
+              );
+          }
         })}
       </LegendsContainer>
       {!!showIncrease && (
@@ -347,7 +371,7 @@ const LegendContainer = styled.View`
   border-radius: 20px;
   flex-grow: 0;
   flex-shrink: 1;
-  flex-basis: 35px;
+  min-width: 35px;
 `;
 
 const EvolutionMessage = ({ background, border, icon, message, button, navigation }) => {
