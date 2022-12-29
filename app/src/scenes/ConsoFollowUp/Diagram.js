@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { screenHeight } from '../../styles/theme';
 import { dailyDosesSelector, drinksState } from '../../recoil/consos';
-import { totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
+import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
 import Celebration from '../../components/illustrations/Celebration';
@@ -18,38 +18,43 @@ import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
 import PeriodSelector from '../../components/PeriodSelector';
 import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
-import { checkPropTypes } from 'prop-types';
 
 const maxDosesOnScreen = 50;
 
-const computeBarsHeight = (highestDailyDose, highestAcceptableDosesPerDay) => {
+const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
   const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
   const barHighestHeightPossible = screenHeight * 0.2;
-  if (highestDailyDose <= highestAcceptableDosesPerDay) {
+
+  if (highestDosesInPeriod <= highestAcceptableDosesPerDay) {
     return {
       barMaxHeight: barNormalHeightForMaxAcceptableDose,
       barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
     };
   }
-  if (highestDailyDose >= 2 * highestAcceptableDosesPerDay) {
+  if (highestDosesInPeriod >= 2 * highestAcceptableDosesPerDay) {
     return {
       barMaxHeight: barHighestHeightPossible,
-      barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDailyDose) * barHighestHeightPossible,
+      barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
     };
   }
   return {
-    barMaxHeight: (highestDailyDose / highestAcceptableDosesPerDay) * barNormalHeightForMaxAcceptableDose,
+    barMaxHeight: (highestDosesInPeriod / highestAcceptableDosesPerDay) * barNormalHeightForMaxAcceptableDose,
     barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
   };
 };
 
-const highestDailyDoseSelector = selectorFamily({
-  key: 'highestDailyDoseSelector',
+const highestDosesInPeriodSelector = selectorFamily({
+  key: 'highestDosesInPeriodSelector',
   get:
-    ({ asPreview = false } = {}) =>
+    ({ asPreview = false, period } = {}) =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector({ asPreview }));
-      return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
+      switch (period) {
+        case 'week':
+          return Math.min(maxDosesOnScreen, Math.max(Object.values(dailyDoses).reduce((acc, val) => acc + val, 0)));
+        default:
+          return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
+      }
     },
 });
 
@@ -97,6 +102,8 @@ const Diagram = ({ asPreview }) => {
         .subtract(period === 'day' ? 0 : 1, 'day'),
     [firstDay]
   );
+
+  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
 
   useEffect(() => {
     setFirstDay(period === 'day' ? dayjs().startOf('week') : dayjs().startOf('week').add(-5, period));
@@ -149,7 +156,8 @@ const Diagram = ({ asPreview }) => {
 
   const navigation = useNavigation();
   const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
-  const highestDailyDose = useRecoilValue(highestDailyDoseSelector({ asPreview }));
+
+  const highestDosesInPeriod = useRecoilValue(highestDosesInPeriodSelector({ asPreview, period }));
 
   const highestAcceptableDosesPerDayByOMS = 2;
 
@@ -157,15 +165,23 @@ const Diagram = ({ asPreview }) => {
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
 
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-  const highestAcceptableDosesPerDay = useMemo(
-    () => totalDrinksByDrinkingDay || highestAcceptableDosesPerDayByOMS,
-    [totalDrinksByDrinkingDay, highestAcceptableDosesPerDayByOMS]
-  );
+
+  const highestAcceptableDosesInPeriod = useMemo(() => {
+    switch (period) {
+      case 'week':
+        return maxDrinksPerWeekGoal || highestAcceptableDosesPerDayByOMS * 7;
+
+      default:
+        return totalDrinksByDrinkingDay || highestAcceptableDosesPerDayByOMS;
+    }
+  }, [period, maxDrinksPerWeekGoal, totalDrinksByDrinkingDay, highestAcceptableDosesPerDayByOMS]);
+
   const { barMaxHeight, barMaxAcceptableDoseHeight } = computeBarsHeight(
-    highestDailyDose,
-    highestAcceptableDosesPerDay
+    highestDosesInPeriod,
+    highestAcceptableDosesInPeriod
   );
-  const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesPerDay, highestDailyDose);
+
+  const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesInPeriod, highestDosesInPeriod);
 
   const { diff, decrease, pourcentageOfDecrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
@@ -205,12 +221,12 @@ const Diagram = ({ asPreview }) => {
           .map((bar) => generateBarsValues(bar))
           .map((dailyDose, index) => {
             if (dailyDose === null || dailyDose === undefined) {
-              return <Bar key={index} height={doseHeight * highestAcceptableDosesPerDay} empty />;
+              return <Bar key={index} height={doseHeight * highestAcceptableDosesInPeriod} empty />;
             }
             const dailyDoseHeight = (dailyDose > 0 && dailyDose) || 0;
-            const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesPerDay);
+            const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesInPeriod);
             const overLineValue =
-              dailyDoseHeight > highestAcceptableDosesPerDay && dailyDoseHeight - highestAcceptableDosesPerDay;
+              dailyDoseHeight > highestAcceptableDosesInPeriod && dailyDoseHeight - highestAcceptableDosesInPeriod;
             return (
               <Bar
                 key={index}
@@ -226,7 +242,7 @@ const Diagram = ({ asPreview }) => {
                   </Dose>
                 )}
                 {Boolean(overLineValue) && (
-                  <UpperBar bottom={doseHeight * highestAcceptableDosesPerDay} height={doseHeight * overLineValue} />
+                  <UpperBar bottom={doseHeight * highestAcceptableDosesInPeriod} height={doseHeight * overLineValue} />
                 )}
                 <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
               </Bar>
@@ -340,17 +356,6 @@ const Diagram = ({ asPreview }) => {
     </>
   );
 };
-
-const ChangeDateContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-vertical: 20px;
-`;
-
-const ChangeDateButton = styled.TouchableOpacity`
-  ${(props) => props.disabled && 'opacity: 0;'}/* border: 1px solid black; */
-`;
 
 const LegendsContainer = styled.View`
   width: 100%;
