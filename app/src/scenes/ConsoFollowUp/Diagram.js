@@ -19,7 +19,7 @@ import H3 from '../../components/H3';
 import PeriodSelector from '../../components/PeriodSelector';
 import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
 
-const maxDosesOnScreen = 50;
+const maxDosesOnScreen = 999;
 
 const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
   const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
@@ -455,6 +455,7 @@ const BarsContainer = styled.View`
   justify-content: space-between;
 `;
 
+const barWidth = 20;
 const Bar = styled(TouchableOpacity)`
   border-color: #4030a5;
   border-style: ${({ empty }) => (empty ? 'dashed' : 'solid')};
@@ -463,9 +464,8 @@ const Bar = styled(TouchableOpacity)`
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: 20px;
-  max-width: 20px;
+  max-width: ${barWidth}px;
   margin-horizontal: 8px;
-  overflow: hidden;
   height: ${({ height }) => height}px;
 `;
 
@@ -501,6 +501,8 @@ const doseTextHeight = 25;
 const Dose = styled(H3)`
   height: ${doseTextHeight}px;
   font-weight: bold;
+  width: ${barWidth * 2}px;
+  transform: translateX(-${barWidth / 2}px);
   justify-content: center;
   align-items: center;
   text-align: center;
