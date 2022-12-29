@@ -50,6 +50,7 @@ const highestDosesInPeriodSelector = selectorFamily({
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector({ asPreview }));
       switch (period) {
+        // case 'month':
         case 'week':
           return Math.min(maxDosesOnScreen, Math.max(Object.values(dailyDoses).reduce((acc, val) => acc + val, 0)));
         default:
@@ -106,26 +107,16 @@ const Diagram = ({ asPreview }) => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
 
   useEffect(() => {
-    setFirstDay(period === 'day' ? dayjs().startOf('week') : dayjs().startOf('week').add(-5, period));
+    setFirstDay(period === 'day' ? dayjs().startOf('week') : dayjs().startOf(period).add(-5, period));
   }, [period]);
 
   const barsInPeriod = useMemo(() => {
-    switch (period) {
-      case 'day':
-        const daysOfTheWeek = [];
-        for (let i = 0; i <= 6; i++) {
-          const nextDay = dayjs(firstDay).add(i, 'day').format('YYYY-MM-DD');
-          daysOfTheWeek.push(nextDay);
-        }
-        return daysOfTheWeek;
-      case 'week':
-        const weeks = [];
-        for (let i = 0; i <= 5; i++) {
-          const nextWeek = dayjs(firstDay).add(i, 'week').format('YYYY-MM-DD');
-          weeks.push(nextWeek);
-        }
-        return weeks;
+    const dates = [];
+    for (let i = 0; i <= period === 'day' ? 6 : 5; i++) {
+      const nextDate = dayjs(firstDay).add(i, period).format('YYYY-MM-DD');
+      dates.push(nextDate);
     }
+    return dates;
   }, [firstDay]);
 
   const generateBarsValues = (day) => {
@@ -136,13 +127,21 @@ const Diagram = ({ asPreview }) => {
     if (dailyDoses[day] < 0) {
       return -1;
     }
+
+    let total = 0;
+    let howManyKnownValues = 0;
     switch (period) {
-      case 'day':
-        return Math.min(maxDosesOnScreen, dailyDoses[day]);
+      case 'month':
+        for (let i = 0; dayjs(day).add(i, 'day') < dayjs(day).add(1, 'month'); i++) {
+          const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
+          if (dayValue >= 0) {
+            howManyKnownValues++;
+            total += dayValue;
+          }
+        }
+        return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
 
       case 'week':
-        let total = 0;
-        let howManyKnownValues = 0;
         for (let i = 0; i <= 6; i++) {
           const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
           if (dayValue >= 0) {
@@ -151,6 +150,9 @@ const Diagram = ({ asPreview }) => {
           }
         }
         return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
+
+      default:
+        return Math.min(maxDosesOnScreen, dailyDoses[day]);
     }
   };
 
@@ -248,18 +250,15 @@ const Diagram = ({ asPreview }) => {
               </Bar>
             );
           })}
-        {thereIsDrinks && <Line bottom={barMaxAcceptableDoseHeight} />}
+        {thereIsDrinks && period !== 'month' && <Line bottom={barMaxAcceptableDoseHeight} />}
       </BarsContainer>
       <LegendsContainer>
         {barsInPeriod.map((day, index) => {
           switch (period) {
-            case 'day':
-              const formatday = dayjs(day).format('ddd').capitalize().slice(0, 3);
-              const backgound = isToday(day) ? '#4030A5' : 'transparent';
-              const color = isToday(day) ? '#ffffff' : '#4030A5';
+            case 'month':
               return (
-                <LegendContainer backgound={backgound} key={index}>
-                  <Legend color={color}>{formatday}</Legend>
+                <LegendContainer backgound={'transparent'} key={index}>
+                  <Legend color={'#4030A5'}>{dayjs(day).format('MMM').capitalize().slice(0, 3)}</Legend>
                 </LegendContainer>
               );
             case 'week':
@@ -268,6 +267,15 @@ const Diagram = ({ asPreview }) => {
                   <Legend color={'#4030A5'}>
                     {dayjs(day).format('D') + ' ' + dayjs(day).format('MMM').slice(0, 3)}
                   </Legend>
+                </LegendContainer>
+              );
+            default:
+              const formatday = dayjs(day).format('ddd').capitalize().slice(0, 3);
+              const backgound = isToday(day) ? '#4030A5' : 'transparent';
+              const color = isToday(day) ? '#ffffff' : '#4030A5';
+              return (
+                <LegendContainer backgound={backgound} key={index}>
+                  <Legend color={color}>{formatday}</Legend>
                 </LegendContainer>
               );
           }
