@@ -49,13 +49,10 @@ const highestDosesInPeriodSelector = selectorFamily({
     ({ asPreview = false, period } = {}) =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector({ asPreview }));
-      switch (period) {
-        // case 'month':
-        case 'week':
-          return Math.min(maxDosesOnScreen, Math.max(Object.values(dailyDoses).reduce((acc, val) => acc + val, 0)));
-        default:
-          return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
+      if (period === 'day') {
+        return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
       }
+      return Math.min(maxDosesOnScreen, Math.max(Object.values(dailyDoses).reduce((acc, val) => acc + val, 0)));
     },
 });
 
@@ -112,7 +109,7 @@ const Diagram = ({ asPreview }) => {
 
   const barsInPeriod = useMemo(() => {
     const dates = [];
-    for (let i = 0; i <= period === 'day' ? 6 : 5; i++) {
+    for (let i = 0; i <= (period === 'day' ? 6 : 5); i++) {
       const nextDate = dayjs(firstDay).add(i, period).format('YYYY-MM-DD');
       dates.push(nextDate);
     }
@@ -170,6 +167,9 @@ const Diagram = ({ asPreview }) => {
 
   const highestAcceptableDosesInPeriod = useMemo(() => {
     switch (period) {
+      case 'month':
+        return maxDrinksPerWeekGoal * 4.33 || highestAcceptableDosesPerDayByOMS * 30;
+
       case 'week':
         return maxDrinksPerWeekGoal || highestAcceptableDosesPerDayByOMS * 7;
 
