@@ -1,3 +1,10 @@
+## [1.76.4](https://github.com/SocialGouv/ozensemble/compare/v1.76.3...v1.76.4) (2022-12-30)
+
+
+### Bug Fixes
+
+* qrcode userId and config file ([bb3d91e](https://github.com/SocialGouv/ozensemble/commit/bb3d91e987fd9ce5a5fb6f10c08e5bd1cf2e1c3f))
+
 ## [1.76.3](https://github.com/SocialGouv/ozensemble/compare/v1.76.2...v1.76.3) (2022-12-30)
 
 
