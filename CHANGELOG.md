@@ -1,3 +1,11 @@
+## [1.76.2](https://github.com/SocialGouv/ozensemble/compare/v1.76.1...v1.76.2) (2022-12-30)
+
+
+### Bug Fixes
+
+* capture error in matomo ([b96b9cb](https://github.com/SocialGouv/ozensemble/commit/b96b9cb31385f9471ae7973d34bd9ae904cf79c2))
+* matomo events ([556b4f1](https://github.com/SocialGouv/ozensemble/commit/556b4f16de3b942ad0cb8dec27c12d79a82ba6d4))
+
 ## [1.76.1](https://github.com/SocialGouv/ozensemble/compare/v1.76.0...v1.76.1) (2022-12-21)
 
 
