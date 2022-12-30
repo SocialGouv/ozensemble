@@ -43,35 +43,51 @@ const CGUs = ({ onClose }) => (
     <Spacer size={30} />
     <H2>Article 3 - Fonctionnalités</H2>
     <Spacer size={30} />
-    <H2>Evaluation de la consommation quotidienne d'alcool et suivi</H2>
+
+    <Spacer size={30} />
+    <H2>3.1 L’évaluation et le suivi de la consommation quotidienne d’alcool via un agenda</H2>
     <Spacer size={20} />
     <P>
-      En téléchargeant l'application, l'Utilisateur peut accéder au formulaire d'auto-évaluation, sans aucune
-      identification personnelle. Il doit néanmoins donner son consentement libre et éclairé au traitement de données à
-      caractère personnel en cochant la case à cet effet.
-    </P>
-    <P>Le formulaire permet de l'aider à évaluer les risques liés à sa consommation d'alcool.</P>
-    <P>
-      Chaque Utilisateur peut évaluer sa consommation d'alcool et peut établir un suivi fondé sur ses propres
-      déclarations.
-    </P>
-    <Spacer size={20} />
-    <H2>Mise en relation avec un professionnel compétent</H2>
-    <Spacer size={20} />
-    <P>
-      S'il le souhaite et qu'il estime sa consommation dangereuse, l'Utilisateur peut demander le suivi d'un
-      professionnel, en détaillant son prénom ou un pseudonyme, ainsi que son numéro de téléphone.
+      En téléchargeant l’application, l’Utilisateur peut accéder au formulaire d’auto-évaluation, sans aucune
+      identification personnelle.
     </P>
     <P>
-      Le service met à disposition un numéro de téléphone permettant à l'Utilisateur de joindre anonymement un
-      spécialiste. Lorsque l'Utilisateur a rempli le formulaire de contact et consenti au traitement de ses données, il
-      est créé une demande de rendez-vous contenant les informations relatives à l'Utilisateur qui permettra la mise en
-      contact.
+      Chaque Utilisateur peut évaluer sa consommation d’alcool et peut établir un suivi fondé sur ses propres
+      déclarations. Il devra renseigner chaque jour sa consommation d’alcool, en fonction du type d’alcool (vins,
+      bières, cocktails et spiritueux) et de la quantité (verre, demi, pinte, bouteille). Ces informations sont ajoutées
+      manuellement ou par le biais d’un scan de la boisson.
+    </P>
+    <P>
+      En outre, OzEnsemble propose désormais des conseils pour vous permettre de gérer certaines situations dans
+      lesquelles vous vous trouvez.
     </P>
     <Spacer size={30} />
-    <H2>Article 4 - Responsabilités </H2>
+    <H2>3.2 Mes Conseils et informations</H2>
+    <Spacer size={20} />
+    <P>
+      Vous pouvez également recevoir des informations à propos de la consommation d’alcool en général et de ses effets.
+    </P>
+
     <Spacer size={30} />
-    <H2>Oz Ensemble</H2>
+    <H2>3.3 Mise en relation avec un professionnel compétent</H2>
+    <Spacer size={20} />
+    <P>
+      S’il le souhaite et qu’il estime sa consommation dangereuse, l’Utilisateur peut demander le suivi d’un
+      professionnel. En effet, l’application propose un lien de prise de rendez-vous via Doctolib. C’est dès lors
+      directement via Doctolib que l’Utilisateur pourra prendre un rendez-vous.
+    </P>
+
+    <Spacer size={30} />
+    <H2>3.4 Notifications</H2>
+    <Spacer size={20} />
+    <P>
+      Vous pouvez accepter une notification quotidienne ou hebdomadaire qui vous rappellera que vous devez remplir votre
+      agenda dans le but de suivre les évolutions et gains.
+    </P>
+    <P>Vous pouvez donner votre avis sur l’application grâce à une notification reçue une fois à 7 jours.</P>
+
+    <Spacer size={30} />
+    <H2>Article 4 - Responsabilités de l’éditeur </H2>
     <Spacer size={20} />
     <P>
       Tout événement dû à un cas de force majeure ayant pour conséquence un dysfonctionnement de la Plateforme et sous
@@ -88,98 +104,9 @@ const CGUs = ({ onClose }) => (
       financière, à la Plateforme. Il se réserve la liberté de faire évoluer, de modifier ou de suspendre, sans préavis,
       la plateforme pour des raisons de maintenance ou pour tout autre motif jugé nécessaire.
     </P>
+
     <Spacer size={30} />
-    <H2>Article 5 – Traitement de Données à caractère personnel</H2>
-    <Spacer size={30} />
-    <H2>5.1 Responsable de traitement</H2>
-    <Spacer size={20} />
-    <P>
-      Le Responsable de traitement est Madame la directrice de l'Association CaPASSCité, le docteur Géraldine TALBOT.
-    </P>
-    <Spacer size={20} />
-    <H2>5.2 Données personnelles traitées</H2>
-    <Spacer size={20} />
-    <P>La présente application traite les données personnelles des Utilisateurs suivantes :</P>
-    <P>
-      - Données relatives à la mise en relation avec un professionnel compétent (prénom, pseudonyme, numéro de
-      téléphone, score d'auto-évaluation)
-    </P>
-    <P>
-      - Données permettant l'auto-évaluation de la consommation d'alcool sur sa santé (informations de santé relatives à
-      la consommation d'alcool).
-    </P>
-    <Spacer size={20} />
-    <H2>5.3 Finalités des traitements</H2>
-    <Spacer size={20} />
-    <P>L'application a pour finalité : </P>
-    <P>- Le suivi et l'auto-évaluation de sa propre consommation d'alcool</P>
-    <P>
-      - La mise en relation avec un professionnel compétent et spécialisé en addiction, sur demande de l'Utilisateur.{' '}
-    </P>
-    <Spacer size={20} />
-    <H2>5.4 Bases juridiques des traitements de données</H2>
-    <Spacer size={20} />
-    <P>
-      A – Base juridique du traitement concernant les données permettant l'auto-évaluation de la consommation d'alcool
-      sur sa santé
-    </P>
-    <P>
-      Le traitement de données à caractère personnel est fondé sur le consentement de la personne concernée tel
-      qu'entendu par l'article 6-a du règlement (UE) n°2016/679 du Parlement européen et du Conseil du 27 avril 2016
-      relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel et à la
-      libre circulation de ces données.
-    </P>
-    <P>
-      Le consentement relatif aux données d'auto-évaluation de la consommation d'alcool est collecté sous la forme d'une
-      case à cocher, après le téléchargement de l'application et est conservé par l'association.
-    </P>
-    <P>
-      B – Base juridique du traitement concernant les données relatives à la mise en relation avec un professionnel
-      compétent.
-    </P>
-    <P>
-      Le traitement de données à caractère personnel est fondé sur le consentement de la personne concernée tel
-      qu'entendu par l'article 6-a du règlement (UE) n°2016/679 du Parlement européen et du Conseil du 27 avril 2016
-      relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel et à la
-      libre circulation de ces données.
-    </P>
-    <P>
-      Le consentement relatif aux données de mise en relation avec un professionnel compétent est collecté sous la forme
-      d'une case à cocher, après avoir rempli le formulaire de mise en contact et est conservé par l'association.
-    </P>
-    <Spacer size={20} />
-    <H2>5.5 Durée de conservation des traitements de données</H2>
-    <Spacer size={20} />
-    <P>
-      Les données d'auto-évaluation de la consommation d'alcool sont conservées sur l'appareil mobile de l'Utilisateur
-      et peuvent être supprimées à tout moment par lui.{' '}
-    </P>
-    <P>Ces données ne sont pas transférées ni à L'association, ni à la Fabrique des ministères sociaux.</P>
-    <P>
-      Les données relatives à la mise en relation avec un professionnel compétent sont conservées pendant 1 an à
-      compter. En cas de retrait du consentement, les données sont supprimées dans les plus brefs délais.
-    </P>
-    <Spacer size={20} />
-    <H2>5.6 Sécurité et confidentialité </H2>
-    <Spacer size={20} />
-    <P>
-      Les données d'auto-évaluation de la consommation d'alcool sont conservées sur l'appareil mobile de l'Utilisateur
-      et peuvent être supprimées à tout moment par lui.
-    </P>
-    <P>Les moyens de sécurisation suivants ont notamment été mis en œuvre : </P>
-    <P>
-      Les mesures techniques et organisationnelles de sécurité adoptées pour assurer la confidentialité, l'intégrité et
-      protéger l'accès des données sont notamment :
-    </P>
-    <P>- Contrôle des accès </P>
-    <P>- Chiffrement des données</P>
-    <P>- Journalisation</P>
-    <P>- Protection contre les virus, malwares et logiciels espions</P>
-    <P>- Protection des réseaux</P>
-    <P>- Sauvegarde</P>
-    <P>- Mesures restrictives limitant l'accès physiques aux données à caractère personnel</P>
-    <Spacer size={30} />
-    <H2>Article 6 - Mise à jour des conditions d'utilisation</H2>
+    <H2>Article 5 - Mise à jour des conditions d'utilisation</H2>
     <Spacer size={30} />
     <P>
       Les termes des présentes conditions d'utilisation peuvent être amendés à tout moment sans préavis, en fonction des
