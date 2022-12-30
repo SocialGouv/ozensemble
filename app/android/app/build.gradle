@@ -149,8 +149,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
-        versionCode 122
-        versionName "1.10.2"
+        versionCode 123
+        versionName "1.10.3"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {

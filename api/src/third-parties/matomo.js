@@ -1,6 +1,7 @@
 // https://developer.matomo.org/api-reference/tracking-api
-
+const fetch = require("node-fetch");
 const { MATOMO_URL, MATOMO_IDSITE_1 } = require("../config");
+const { capture } = require("./sentry");
 
 const __DEV__ = process.env.NODE_ENV === "development";
 
@@ -10,11 +11,6 @@ class _MatomoBackend {
     this.idsite = idsite;
     // this._idvc = _idvc;
     this.initDone = true;
-  }
-
-  init2({ baseUrl, idsite }) {
-    this.baseUrl2 = baseUrl;
-    this.idsite2 = idsite;
   }
 
   makeid(length = 16) {
@@ -89,21 +85,8 @@ class _MatomoBackend {
         console.log(res);
         throw new Error("error fetching matomo");
       }
-
-      const url2 = `${this.baseUrl2}?${this.computeParams(params, this.idsite2)}`;
-      const res2 = await fetch(encodeURI(url2));
-      // if (__DEV__) {
-      //   console.log(url2);
-      //   console.log(res2.status);
-      // }
-      if (__DEV__ && res2.status !== 200) {
-        console.log(res);
-        throw new Error("error fetching matomo");
-      }
     } catch (e) {
-      if (__DEV__) {
-        console.log("matomo error", e);
-      }
+      capture("matomo api error", e);
     }
   }
 }
