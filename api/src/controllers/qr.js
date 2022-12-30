@@ -9,6 +9,7 @@ router.get(
     await matomo.logEvent({
       category: "QR",
       action: "PLAYSTORE",
+      userId: Date.now(), // FIXME: find better userId
     });
     return res
       .writeHead(307, {
@@ -24,6 +25,7 @@ router.get(
     await matomo.logEvent({
       category: "QR",
       action: "APPSTORE",
+      userId: Date.now(), // FIXME: find better userId
     });
     return res
       .writeHead(307, {
