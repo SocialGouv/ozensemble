@@ -13,8 +13,6 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
 
   const renderValue = () => {
     switch (period) {
-      case 'day':
-        return 0;
       case 'week':
         return 1;
       case 'month':
