@@ -1,6 +1,7 @@
 // https://developer.matomo.org/api-reference/tracking-api
 const fetch = require("node-fetch");
 const { MATOMO_URL, MATOMO_IDSITE_1 } = require("../config");
+const { capture } = require("./sentry");
 
 const __DEV__ = process.env.NODE_ENV === "development";
 
@@ -85,9 +86,7 @@ class _MatomoBackend {
         throw new Error("error fetching matomo");
       }
     } catch (e) {
-      if (__DEV__) {
-        console.log("matomo error", e);
-      }
+      capture("matomo api error", e);
     }
   }
 }
