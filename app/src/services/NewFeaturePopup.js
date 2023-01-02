@@ -42,7 +42,7 @@ const NewFeaturePopupDisplay = ({ canShow }) => {
 
   const handleFeaturesShow = useCallback(
     async (featuresToShow = []) => {
-      const newFeaturesToShow = featuresToShow.filter((f) => !featuresShownIds.includes(f.id));
+      const newFeaturesToShow = featuresToShow.filter(Boolean).filter((f) => !featuresShownIds.includes(f.id));
       setFeaturesToShow(newFeaturesToShow);
     },
     [featuresShownIds]
