@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Platform } from 'react-native';
+import { Animated, Platform } from 'react-native';
 
-const TextStyled = styled.Text`
+const AnimatedTextStyled = styled(Animated.Text)`
   ${Platform.OS === 'android' && 'font-family: Raleway;'}
   color: ${({ color }) => color || '#191919'};
   ${(props) => props.semibold && 'font-weight: 600;'}
@@ -15,4 +15,4 @@ const TextStyled = styled.Text`
   text-decoration-color: ${({ color }) => color || '#191919'};
 `;
 
-export default TextStyled;
+export default AnimatedTextStyled;

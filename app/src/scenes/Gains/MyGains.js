@@ -1,27 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useMemo, useState } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import Speedometer from 'react-native-speedometer-chart';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { screenHeight, screenWidth } from '../../styles/theme';
 import H1 from '../../components/H1';
-import H2 from '../../components/H2';
 import Economy from '../../components/illustrations/Economy';
 import InfosIcon from '../../components/illustrations/InfoObjectif';
-import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
-import Rocket from '../../components/illustrations/Rocket';
+import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import CategorieGain from './CategorieGain';
 import GainsCalendar from './GainsCalendar';
 import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
-import Done from '../../components/illustrations/Done';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
-import { storage } from '../../services/storage';
 import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import {
@@ -32,15 +25,23 @@ import {
 } from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
+import GainsGauge from './GainsGauge';
+import PeriodSelector from '../../components/PeriodSelector';
+
+import isBetween from 'dayjs/plugin/isBetween';
+dayjs.extend(isBetween);
 
 const MyGains = () => {
+  const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
+  const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
+
   const navigation = useNavigation();
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
   const dailyDoses = useRecoilValue(dailyDosesSelector());
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
+  const daysNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const reminder = useRecoilValue(reminderGain);
   const mode = useRecoilValue(reminderGainMode);
@@ -60,29 +61,26 @@ const MyGains = () => {
     () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
   );
-  const [showGoalfix, setShowGoalfix] = useState(storage.getBoolean('@ShowGoalFix') ?? true);
 
   const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
     return dayjs(days[days.length - 1]);
   }, [days]);
 
-  const notDrinkDaythisWeek = useMemo(() => {
-    return days
-      .filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week')))
-      .filter((day) => dailyDoses[day] === 0).length;
-  }, [days, dailyDoses]);
-
-  const numberDrinkThisWeek = useMemo(
+  const numberDrinkInCurrentWeek = useMemo(
     () =>
       days
-        .filter((day) => dayjs(day).isSameOrAfter(dayjs().startOf('week')))
+        .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
         .reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0),
-    [days, dailyDoses]
+    [days, dailyDoses, firstDay]
   );
-  const remaindrink = useMemo(
-    () => (maxDrinksPerWeekGoal - numberDrinkThisWeek > 0 ? maxDrinksPerWeekGoal - numberDrinkThisWeek : 0),
-    [maxDrinksPerWeekGoal, numberDrinkThisWeek]
+
+  const numberOfDrinkingDaysInCurrentWeek = useMemo(
+    () =>
+      days
+        .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
+        .reduce((sum, day) => sum + (dailyDoses[day] > 0 ? 1 : 0), 0),
+    [days, dailyDoses, firstDay]
   );
 
   const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
@@ -156,141 +154,147 @@ const MyGains = () => {
   };
 
   return (
-    <WrapperContainer title={'Mes gains'}>
-      {!isOnboarded ? (
-        <TouchableOpacity
-          onPress={() => {
-            logEvent({
-              category: 'GAINS',
-              action: 'TOOLTIP_GOAL',
-            });
-            navigateToFirstStep();
-          }}>
-          <Description>
-            <InfosIcon size={24} />
-            <TextDescritpion>
-              <Text>
-                Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
-              </Text>
-            </TextDescritpion>
-            <Arrow>{'>'}</Arrow>
-          </Description>
-        </TouchableOpacity>
-      ) : (
-        <>
-          {showGoalfix && (
+    <>
+      <WrapperContainer title={'Mon objectif cette semaine'}>
+        {!isOnboarded ? (
+          <TouchableOpacity
+            onPress={() => {
+              logEvent({
+                category: 'GAINS',
+                action: 'TOOLTIP_GOAL',
+              });
+              navigateToFirstStep();
+            }}>
             <Description>
-              <Rocket size={24} />
+              <InfosIcon size={24} />
               <TextDescritpion>
                 <Text>
-                  Bravo, votre objectif est fixé, remplissez vos consommations et mesurez vos gains au fil du temps.
+                  Pour calculer vos gains{'\n'}financiers et en kilocalories,{'\n'}fixez-vous un <Bold>objectif</Bold>
                 </Text>
               </TextDescritpion>
-              <CloseShowGoalfix
-                onPress={() => {
-                  storage.set('@ShowGoalFix', false);
-                  setShowGoalfix(false);
-                }}
-                hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-                <Arrow>{'x'}</Arrow>
-              </CloseShowGoalfix>
+              <Arrow>{'>'}</Arrow>
             </Description>
-          )}
-        </>
-      )}
-      <TextContainer>
-        <TextForm>
-          {!!isOnboarded && beginDateOfOz && (
-            <TextStyled>
-              Depuis le
-              <TextStyled color="#DE285E">
-                {' '}
-                {beginDateOfOz.get('year') < dayjs().get('year')
-                  ? beginDateOfOz.format('D MMMM YYYY')
-                  : beginDateOfOz.format('D MMMM')}
-              </TextStyled>
-            </TextStyled>
-          )}
-        </TextForm>
-      </TextContainer>
-      <Categories>
-        <CategorieGain
-          unit={<Euros color="#191919">€</Euros>}
-          description="Mes économies"
-          value={isOnboarded ? (mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0) : '?'}
-          maximize
-          disabled={isOnboarded}
-          onPress={() => {
-            setShowOnboardingGainModal(true);
-            logEvent({
-              category: 'GAINS',
-              action: 'EARNINGS_SECTION',
-              name: 'euro',
-            });
-          }}
-        />
-        <CategorieGain
-          unit={<Kcal color="#191919">kcal</Kcal>}
-          description="Mes calories économisées"
-          value={isOnboarded ? (myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0) : '?'}
-          maximize
-          disabled={isOnboarded}
-          onPress={() => {
-            setShowOnboardingGainModal(true);
-            logEvent({
-              category: 'GAINS',
-              action: 'EARNINGS_SECTION',
-              name: 'calories',
-            });
-          }}
-        />
-      </Categories>
-      <TextContainer>
-        <TextForm>
-          {!!isOnboarded && (
-            <TextStyled>
-              Jusqu'à<TextStyled color="#DE285E"> dimanche soir</TextStyled>
-            </TextStyled>
-          )}
-        </TextForm>
-      </TextContainer>
-      <Categories>
-        <CategorieGain
-          description={`Verre${remaindrink > 1 ? 's' : ''} restant${remaindrink > 1 ? 's' : ''}`}
-          value={isOnboarded ? remaindrink : '?'}
-          disabled={isOnboarded}
-          onPress={() => {
-            setShowOnboardingGainModal(true);
-            logEvent({
-              category: 'GAINS',
-              action: 'EARNINGS_SECTION',
-              name: 'drinks',
-            });
-          }}>
-          <Speedometer
-            value={isOnboarded ? remaindrink : 1}
-            totalValue={isOnboarded ? maxDrinksPerWeekGoal : 1}
-            size={screenWidth / 4}
-            outerColor="#d3d3d3"
-            innerColor="#f9f9f9"
-            internalColor={`rgba(64, 48, 165, ${isOnboarded ? remaindrink / maxDrinksPerWeekGoal : 1})`}
-          />
-        </CategorieGain>
-        <CategorieGain
-          icon={<NoDrink size={24} />}
-          description={`Jour${notDrinkDaythisWeek > 1 ? 's' : ''} où je n'ai pas\u00A0bu`}
-          value={isOnboarded ? notDrinkDaythisWeek : '?'}
-          disabled={isOnboarded}
-          onPress={() => {
-            setShowOnboardingGainModal(true);
-            logEvent({
-              category: 'GAINS',
-              action: 'EARNINGS_SECTION',
-              name: 'drinkless',
-            });
-          }}
-        />
-      </Categories>
+          </TouchableOpacity>
+        ) : (
+          <>
+            <PeriodSelector
+              firstDay={firstDay}
+              setFirstDay={setFirstDay}
+              lastDay={lastDay}
+              logEventCategory={'GAINS'}
+              logEventAction={'CHANGE_DATE'}
+            />
+
+            <GainsGauge title={'Unités d’alcool'} value={numberDrinkInCurrentWeek} goal={maxDrinksPerWeekGoal} />
+            <GainsGauge title={'Jours où j’ai bu'} value={numberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />
+            <Spacer size={10} />
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
+              <TextModify>Modifier l'objectif</TextModify>
+            </ButtonTouchable>
+
+            <Container>
+              <TopTitle>
+                <H1 color="#4030a5">Mes gains depuis le début</H1>
+                <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
+                  <InfoRoundIcon size={25} />
+                </GainsFromStartInfoButton>
+              </TopTitle>
+
+              <CategoriesContainer>
+                <Categorie>
+                  <View>
+                    <CategorieText>Euros économisés</CategorieText>
+                  </View>
+                  <Spacer size={5} />
+                  <TextStyled bold size={35}>
+                    {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}
+                  </TextStyled>
+                </Categorie>
+                <Spacer size={20} />
+                <Categorie>
+                  <View>
+                    <CategorieText>Calories économisées</CategorieText>
+                  </View>
+                  <Spacer size={5} />
+                  <TextStyled bold size={35}>
+                    {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
+                  </TextStyled>
+                </Categorie>
+              </CategoriesContainer>
+            </Container>
+          </>
+        )}
+
+        <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
+
+        {isOnboarded && (
+          <>
+            <Title>
+              <H1 color="#4030a5">Mon estimation hebdo avant de réduire</H1>
+            </Title>
+            <MyGoalSubContainer>
+              <MyGoalSubContainerInside>
+                <PartContainer>
+                  <Economy size={20} />
+                  <TextStyled>
+                    {'   '}
+                    {myWeeklyExpensesBeforeObjective} €
+                  </TextStyled>
+                </PartContainer>
+                <PartContainer>
+                  <CocktailGlass size={20} />
+                  <TextStyled>
+                    {'   '}
+                    {myWeeklyNumberOfDrinksBeforeObjective} unité
+                    {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
+                  </TextStyled>
+                  <HelpModalCountConsumption event="ESTIMATION">
+                    <InfosIcon size={15} color={'#000000'} />
+                  </HelpModalCountConsumption>
+                </PartContainer>
+              </MyGoalSubContainerInside>
+            </MyGoalSubContainer>
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+              <TextModify>
+                <TextStyled>Modifier l'estimation</TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+
+            <Title>
+              <H1 color="#4030a5">Mon rappel</H1>
+            </Title>
+            <MyGoalSubContainer>
+              <MyGoalSubContainerInside>
+                <PartContainer>
+                  <ReminderIcon size={20} color="#000" selected />
+                  <TextStyled>
+                    {'   '}
+                    {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
+                      'Pas de rappel encore'
+                    ) : (
+                      <>
+                        {mode === 'day'
+                          ? 'Tous les jours '
+                          : `Tous les ${dayjs()
+                              .day(weekDay + 1)
+                              .format('dddd')}s `}
+                        à {dayjs(reminder).format('HH:mm')}
+                      </>
+                    )}
+                  </TextStyled>
+                </PartContainer>
+              </MyGoalSubContainerInside>
+            </MyGoalSubContainer>
+            <ButtonTouchable onPress={goToReminder}>
+              <TextModify>
+                <TextStyled>
+                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
+                </TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+          </>
+        )}
+      </WrapperContainer>
       <OnBoardingModal
         title="Sans objectif, pas de gains"
         description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
@@ -301,123 +305,51 @@ const MyGains = () => {
           setShowOnboardingGainModal(false);
         }}
       />
-      <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
-      {!isOnboarded ? (
-        <>
-          <TopTitle>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </TopTitle>
-          <TouchableOpacity onPress={navigateToFirstStep} hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-            <Description>
-              <InfosIcon size={24} />
-              <TextDescritpion>
-                <Text>
-                  Pour calculer vos gains, {'\n'}fixez-vous un <Bold>objectif</Bold>
-                </Text>
-              </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
-            </Description>
-          </TouchableOpacity>
-        </>
-      ) : (
-        <>
-          <Title>
-            <H1 color="#4030a5">Mon objectif</H1>
-          </Title>
-          <MyGoalSubContainer>
-            <MyGoalSubContainerInside>
-              <PartContainer>
-                <Done size={20} />
-                <TextStyled>
-                  {'  '}
-                  {dayNoDrink} {dayNoDrink > 1 ? 'jours' : 'jour'} où je ne bois pas
-                </TextStyled>
-              </PartContainer>
-              <PartContainer>
-                <Done size={20} />
-                <TextStyled>
-                  {'  '}
-                  {maxDrinksPerWeekGoal} {maxDrinksPerWeekGoal > 1 ? 'verres' : 'verre'} max par semaine
-                </TextStyled>
-              </PartContainer>
-            </MyGoalSubContainerInside>
-          </MyGoalSubContainer>
-          <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
-            <TextModify>Modifier l'objectif</TextModify>
-          </ButtonTouchable>
-          <Title>
-            <H1 color="#4030a5">Ma conso actuelle avant objectif</H1>
-            <H2>Estimation par semaine</H2>
-          </Title>
-          <MyGoalSubContainer>
-            <MyGoalSubContainerInside>
-              <PartContainer>
-                <Economy size={20} />
-                <TextStyled>
-                  {'   '}
-                  {myWeeklyExpensesBeforeObjective} €
-                </TextStyled>
-              </PartContainer>
-              <PartContainer>
-                <CocktailGlass size={20} />
-                <TextStyled>
-                  {'   '}
-                  {myWeeklyNumberOfDrinksBeforeObjective} unité
-                  {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
-                </TextStyled>
-                <HelpModalCountConsumption event="ESTIMATION">
-                  <InfosIcon size={15} color={'#000000'} />
-                </HelpModalCountConsumption>
-              </PartContainer>
-            </MyGoalSubContainerInside>
-          </MyGoalSubContainer>
-          <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
-            <TextModify>
-              <TextStyled>Modifier l'estimation</TextStyled>
-            </TextModify>
-          </ButtonTouchable>
-          <Title>
-            <H1 color="#4030a5">Mon rappel</H1>
-          </Title>
-          <MyGoalSubContainer>
-            <MyGoalSubContainerInside>
-              <PartContainer>
-                <ReminderIcon size={20} color="#000" selected />
-                <TextStyled>
-                  {'   '}
-                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
-                    'Pas de rappel encore'
-                  ) : (
-                    <>
-                      {mode === 'day'
-                        ? 'Tous les jours '
-                        : `Tous les ${dayjs()
-                            .day(weekDay + 1)
-                            .format('dddd')}s `}
-                      à {dayjs(reminder).format('HH:mm')}
-                    </>
-                  )}
-                </TextStyled>
-              </PartContainer>
-            </MyGoalSubContainerInside>
-          </MyGoalSubContainer>
-          <ButtonTouchable onPress={goToReminder}>
-            <TextModify>
-              <TextStyled>
-                {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
-              </TextStyled>
-            </TextModify>
-          </ButtonTouchable>
-        </>
-      )}
-    </WrapperContainer>
+    </>
   );
 };
+
+const Spacer = styled.View`
+  height: ${({ size }) => size || 20}px;
+  width: ${({ size }) => size || 20}px;
+`;
+
+const GainsFromStartInfoButton = styled.TouchableOpacity`
+  justify-content: center;
+`;
+
+const CategorieText = styled(TextStyled)`
+  text-align: center;
+`;
+
+const CategoriesContainer = styled.View`
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+
+const Categorie = styled.View`
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: 10px 4px 10px 4px;
+  min-height: 90px;
+`;
+
+const Container = styled.View`
+  padding-top: 20px;
+`;
 
 const TopTitle = styled.View`
   flex-shrink: 0;
   margin-top: 10px;
   margin-bottom: 20px;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const Description = styled.View`
@@ -443,21 +375,6 @@ const TextDescritpion = styled(TextStyled)`
   font-size: 16px;
   line-height: 20px;
 `;
-
-const Categories = styled.View`
-  justify-content: space-around;
-  flex-direction: row;
-  margin-top: 15px;
-  margin-bottom: 25px;
-`;
-
-const TextContainer = styled.View`
-  align-items: center;
-  margin-bottom: ${screenHeight * 0.01}px;
-  margin-top: ${screenHeight * 0.01}px;
-`;
-
-const TextForm = styled(H2)``;
 
 const Bold = styled(TextStyled)`
   font-weight: bold;
@@ -494,20 +411,6 @@ const ButtonTouchable = styled.TouchableOpacity`
   align-items: center;
   margin-top: 10px;
   margin-bottom: 10px;
-`;
-
-const CloseShowGoalfix = styled.TouchableOpacity`
-  align-self: flex-start;
-`;
-
-const Euros = styled(TextStyled)`
-  font-weight: bold;
-  font-size: 24px;
-`;
-
-const Kcal = styled(TextStyled)`
-  font-weight: bold;
-  font-size: 16px;
 `;
 
 export default MyGains;
