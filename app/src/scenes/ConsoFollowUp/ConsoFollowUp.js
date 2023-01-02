@@ -64,7 +64,7 @@ const ConsoFollowUp = () => {
   };
 
   return (
-    <WrapperContainer title={'Mon suivi de consommation'}>
+    <WrapperContainer ref={scrollViewRef} title={'Mon suivi de consommation'}>
       <SubtitleContainer>
         <Help
           onPress={() => {

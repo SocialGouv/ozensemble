@@ -19,21 +19,24 @@ markedDates is an object with keys such as `2022-04-30` and values such as
       }
 
 */
-const noDrinkDay = {
+const noDrinkDay = (activeMonth) => ({
   selected: true,
   startingDay: true,
   endingDay: true,
+  // selectedColor: activeMonth ? '#2c864d' : '#2c864d66',
   selectedColor: '#2c864d',
   isDrinkDay: true,
-};
+  activeOpacity: 0.5,
+});
 
-const drinkDay = {
+const drinkDay = (activeMonth) => ({
   selected: true,
   startingDay: true,
   endingDay: true,
+  // selectedColor: activeMonth ? '#de295e' : '#de295e66',
   selectedColor: '#de295e',
   isDrinkDay: true,
-};
+});
 
 const needToFillupConso = {
   startingDay: true,
@@ -48,13 +51,18 @@ const needToFillupConso = {
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector());
+  const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
 
   const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
-      days[day] = doses > 0 ? drinkDay : noDrinkDay;
+      console.log(day, currentMonth, dayjs(day).isSame(currentMonth, 'month'));
+      days[day] =
+        doses > 0
+          ? drinkDay(dayjs(day).isSame(currentMonth, 'month'))
+          : noDrinkDay(dayjs(day).isSame(currentMonth, 'month'));
       days[day] = { ...days[day], marked: day === today };
     }
     const firstTrackedDay = dayjs().startOf('week').add(-1, 'week');
@@ -65,7 +73,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
       days[day] = needToFillupConso;
     }
     return days;
-  }, [dailyDoses]);
+  }, [dailyDoses, currentMonth]);
 
   return (
     <Container>
@@ -93,7 +101,11 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           maxDate={dayjs().format('YYYY-MM-DD')}
           markedDates={JSON.parse(JSON.stringify(markedDays))}
           markingType="custom"
-          disableAllTouchEventsForDisabledDays
+          disableAllTouchEventsForDisabledDays={false}
+          onMonthChange={(month) => {
+            console.log('month changed', month);
+            setCurrentMonth(month.dateString);
+          }}
           onDayPress={({ dateString }) => {
             if (!isOnboarded) return setShowOnboardingGainModal(true);
             if (markedDays[dateString]?.isDrinkDay) {
@@ -108,7 +120,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
             } else {
               const now = dayjs();
               const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              navigation.push('ADD_DRINK', { timestamp: Date.now() });
+              navigation.push('ADD_DRINK', { timestamp: date });
               logEvent({
                 category: 'GAINS',
                 action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
