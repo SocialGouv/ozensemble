@@ -11,11 +11,6 @@ router.post(
     const { body } = req;
     req.user = { userId: req.body.userId }; // for log in sentry
 
-    if (body.event.category === "APP" && body.event.action === "APP_OPEN") {
-      await new Promise((res) => setTimeout(res, 1000)); // maybe better for showing up on time
-      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-defis"], newFeatures["new-articles"]] });
-    }
-
     // old versions
     const sendNPSEvent = body.event?.category === "NPS";
     const exportDataEvent = body.event?.action === "EXPORT";
@@ -55,9 +50,10 @@ router.post(
       return res.status(200).send({ ok: true, newFeatures: [newFeatures["gains"]] });
     }
 
-    return res
-      .status(200)
-      .send({ ok: true, newFeatures: [newFeatures["new-gains"], newFeatures["new-defis"], newFeatures["new-suivi"], newFeatures["new-articles"]] });
+    if (body.event.category === "APP" && body.event.action === "APP_OPEN") {
+      await new Promise((res) => setTimeout(res, 1000)); // maybe better for showing up on time
+      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-defis"], newFeatures["new-articles"]] });
+    }
   })
 );
 
