@@ -214,7 +214,13 @@ const Router = () => {
 
   return (
     <>
-      <NavigationContainer ref={navigationRef} onStateChange={onNavigationStateChange} linking={deepLinkingConfig}>
+      <NavigationContainer
+        ref={navigationRef}
+        onReady={() => {
+          API.navigation = navigationRef.current;
+        }}
+        onStateChange={onNavigationStateChange}
+        linking={deepLinkingConfig}>
         <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
         <RouterStack.Navigator
           mode="modal"
