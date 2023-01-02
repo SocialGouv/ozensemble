@@ -12,6 +12,7 @@ import { fakeDefi1, fakeDefi3, fakeDefi2, fakeDefi4, fakeDefi5 } from './defis.j
 import { fakeGain } from './gains';
 import { drinksState } from '../../recoil/consos';
 import { fakeConsoData } from './fakeConsoData';
+import NotificationService from '../../services/notifications';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -42,6 +43,18 @@ const FakeData = () => {
             replaceStorageValues(fakeOnboardingQuizz.risk);
             replaceStorageValues(fakeGain);
             setGlobalDrinksState(fakeConsoData.full.drinks);
+          }}
+        />
+        <H1Wrapper>Mon NPS</H1Wrapper>
+        <MenuItem
+          caption="Envoyer une notification NPS dans 10 secondes"
+          onPress={() => {
+            storage.set('@NPSDone', false);
+            NotificationService.scheduleNotification({
+              date: new Date(Date.now() + 10000),
+              title: 'Vos retours sont importants pour nous',
+              message: 'Avez-vous quelques secondes pour donner votre avis ?',
+            });
           }}
         />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
