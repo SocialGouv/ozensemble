@@ -2,8 +2,61 @@
 
 const pointerHorizontalPositions = ["6%", "27%", "47%", "67%", "94%"];
 
+// "new-[stuff]" : removed in build >=124
 module.exports = {
-  "new-gains": {
+  "new-defis": {
+    id: "new-defis-show-again-again",
+    position: {
+      // top: 0,
+      bottom: 0,
+      left: 0,
+      // right: 0,
+    },
+    pointerPosition: {
+      // top: 0,
+      // top: -18,
+      bottom: -18,
+      left: pointerHorizontalPositions[1],
+      // right: 0,
+    },
+    // styles: {
+    //   pointer: {
+    //     transform: [{ rotate: '180deg' }],
+    //   },
+    // },
+    // title: 'Regardez ça !',
+    description: "Nouveau : faites nos défis pour vous aider à réduire votre consommation",
+    okButton: "SUIVANT",
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
+    // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
+  },
+  "new-articles": {
+    id: "new-defis-show-again-and-again",
+    position: {
+      // top: 0,
+      bottom: 0,
+      // left: 0,
+      right: 0,
+    },
+    pointerPosition: {
+      // top: 0,
+      // top: -18,
+      bottom: -18,
+      left: pointerHorizontalPositions[3],
+      // right: 0,
+    },
+    // styles: {
+    //   pointer: {
+    //     transform: [{ rotate: '180deg' }],
+    //   },
+    // },
+    // title: 'Regardez ça !',
+    description: "Nouveau : plus d'articles pour vous aider dans vos démarches",
+    okButton: "FERMER",
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
+    // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
+  },
+  gains: {
     id: "new-gains",
     position: {
       bottom: 0,
@@ -17,7 +70,7 @@ module.exports = {
     okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_GAINS_OK_PRESS" },
   },
-  "new-defis": {
+  defis: {
     id: "new-defis-show-again-again",
     position: {
       // top: 0,
@@ -43,7 +96,7 @@ module.exports = {
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
   },
-  "new-suivi": {
+  suivi: {
     id: "new-suivi",
     position: {
       bottom: 0,
@@ -57,7 +110,7 @@ module.exports = {
     okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_SUIVI_OK_PRESS" },
   },
-  "new-articles": {
+  articles: {
     id: "new-defis-show-again-and-again",
     position: {
       // top: 0,

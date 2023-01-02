@@ -40,17 +40,24 @@ router.post(
       });
     }
 
-    if (body.event.category === "NAVIGATION" && body.event.action === "GAINS_MAIN_VIEW")
-      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-gains"]] });
-    if (body.event.category === "NAVIGATION" && body.event.action === "DEFIS_MENU")
-      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-defis"]] });
-    if (body.event.category === "NAVIGATION" && body.event.action === "CONSO_FOLLOW_UP")
-      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-suivi"]] });
-    if (body.event.category === "NAVIGATION" && body.event.action === "HEALTH")
-      return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-articles"]] });
+    // test release in build 124 : new send in-app message
+    if (req.headers.appversion >= 124) {
+      if (body.event.category === "NAVIGATION" && body.event.action === "GAINS_MAIN_VIEW")
+        return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
+      if (body.event.category === "NAVIGATION" && body.event.action === "DEFIS_MENU")
+        return res.status(200).send({ ok: true, newFeatures: [newFeatures.defis] });
+      if (body.event.category === "NAVIGATION" && body.event.action === "CONSO_FOLLOW_UP")
+        return res.status(200).send({ ok: true, newFeatures: [newFeatures.suivi] });
+      if (body.event.category === "NAVIGATION" && body.event.action === "HEALTH")
+        return res.status(200).send({ ok: true, newFeatures: [newFeatures.articles] });
 
-    // default : show new-gains (default page on startup)
-    return res.status(200).send({ ok: true, newFeatures: [newFeatures["new-gains"]] });
+      // default : show new-gains (default page on startup)
+      return res.status(200).send({ ok: true, newFeatures: [newFeatures["gains"]] });
+    }
+
+    return res
+      .status(200)
+      .send({ ok: true, newFeatures: [newFeatures["new-gains"], newFeatures["new-defis"], newFeatures["new-suivi"], newFeatures["new-articles"]] });
   })
 );
 
