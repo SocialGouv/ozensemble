@@ -25,6 +25,7 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
   const runAnimation = (toValue) => {
     Animated.timing(animatedXValue, {
       toValue,
+      duration: 200,
       useNativeDriver: false,
     }).start();
   };
@@ -32,9 +33,9 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
   return (
     <Container onLayout={(e) => setComponentWidth(e.nativeEvent.layout.width)}>
       <Cells>
-        <CellContainer borderRight></CellContainer>
-        <CellContainer borderRight></CellContainer>
-        <CellContainer></CellContainer>
+        <CellContainer borderRight />
+        <CellContainer borderRight />
+        <CellContainer />
       </Cells>
       <AnimatedCell
         style={{
@@ -131,7 +132,7 @@ const CellContainer = styled.View`
   width: ${100 / 3}%;
   height: 70%;
   border: 0px solid #c4c4c4;
-  ${({ borderRight }) => borderRight && `border-right-width: 1px;`}
+  ${({ borderRight }) => borderRight && 'border-right-width: 1px;'}
   align-items: center;
   justify-content: center;
 `;

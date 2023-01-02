@@ -98,14 +98,10 @@ const Diagram = ({ asPreview }) => {
       dayjs(firstDay)
         .add(6, period)
         .subtract(period === 'day' ? 0 : 1, 'day'),
-    [firstDay]
+    [firstDay, period]
   );
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-
-  useEffect(() => {
-    setFirstDay(period === 'day' ? dayjs().startOf('week') : dayjs().startOf(period).add(-5, period));
-  }, [period]);
 
   const barsInPeriod = useMemo(() => {
     const dates = [];
@@ -114,7 +110,7 @@ const Diagram = ({ asPreview }) => {
       dates.push(nextDate);
     }
     return dates;
-  }, [firstDay]);
+  }, [firstDay, period]);
 
   const generateBarsValues = (day) => {
     if (dayjs(day).isAfter(dayjs())) {
@@ -206,7 +202,15 @@ const Diagram = ({ asPreview }) => {
     <>
       {!asPreview && (
         <>
-          <PeriodSwitchToggle period={period} setPeriod={setPeriod} />
+          <PeriodSwitchToggle
+            period={period}
+            setPeriod={(newPeriod) => {
+              setPeriod(newPeriod);
+              setFirstDay(
+                newPeriod === 'day' ? dayjs().startOf('week') : dayjs().startOf(newPeriod).add(-5, newPeriod)
+              );
+            }}
+          />
           <PeriodSelector
             firstDay={firstDay}
             setFirstDay={setFirstDay}
