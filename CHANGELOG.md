@@ -1,3 +1,10 @@
+## [1.76.5](https://github.com/SocialGouv/ozensemble/compare/v1.76.4...v1.76.5) (2023-01-02)
+
+
+### Bug Fixes
+
+* dont show new features popup all the time 🥸 ([43d2b4f](https://github.com/SocialGouv/ozensemble/commit/43d2b4ff540289b80e9477e14d1c331fcf698167))
+
 ## [1.76.4](https://github.com/SocialGouv/ozensemble/compare/v1.76.3...v1.76.4) (2022-12-30)
 
 
