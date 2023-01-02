@@ -204,7 +204,10 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               </TextStyled>
             }
             boutonTitle="Je donne mon avis sur Oz"
-            onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'After three drinks' })}
+            onPress={() => {
+              setPleaseNPSModal(false);
+              navigation.navigate('NPS_SCREEN', { triggeredFrom: 'After three drinks' });
+            }}
             visible={!!pleaseNPSModal}
             hide={() => {
               setPleaseNPSModal(false);

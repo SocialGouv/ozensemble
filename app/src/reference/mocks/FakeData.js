@@ -89,6 +89,7 @@ const FakeData = () => {
           }}
         />
         <H1Wrapper delete>Effacer des données</H1Wrapper>
+        <MenuItem caption="Mon NPS" onPress={() => storage.delete('@NPSDone')} />
         <MenuItem caption="Ma consommation d'alcool" onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)} />
         <MenuItem
           caption="Tous les défis"
