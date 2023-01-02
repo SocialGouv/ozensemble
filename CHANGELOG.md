@@ -1,3 +1,11 @@
+## [1.76.6](https://github.com/SocialGouv/ozensemble/compare/v1.76.5...v1.76.6) (2023-01-02)
+
+
+### Bug Fixes
+
+* default like previous ([26e3b70](https://github.com/SocialGouv/ozensemble/commit/26e3b7098bbac161c810f9ea8ad630ce691ccddf))
+* rerender diagram ([1841c00](https://github.com/SocialGouv/ozensemble/commit/1841c00e8829531d20626954418a6d60eccba235))
+
 ## [1.76.5](https://github.com/SocialGouv/ozensemble/compare/v1.76.4...v1.76.5) (2023-01-02)
 
 
