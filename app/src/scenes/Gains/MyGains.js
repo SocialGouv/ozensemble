@@ -75,7 +75,7 @@ const MyGains = () => {
     [days, dailyDoses, firstDay]
   );
 
-  const NumberOfDrinkingDaysInCurrentWeek = useMemo(
+  const numberOfDrinkingDaysInCurrentWeek = useMemo(
     () =>
       days
         .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
@@ -186,7 +186,7 @@ const MyGains = () => {
             />
 
             <GainsGauge title={'Unités d’alcool'} value={numberDrinkInCurrentWeek} goal={maxDrinksPerWeekGoal} />
-            <GainsGauge title={'Jours où j’ai bu'} value={NumberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />
+            <GainsGauge title={'Jours où j’ai bu'} value={numberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />
             <Spacer size={10} />
             <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
               <TextModify>Modifier l'objectif</TextModify>
