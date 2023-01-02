@@ -1,3 +1,10 @@
+## [1.76.7](https://github.com/SocialGouv/ozensemble/compare/v1.76.6...v1.76.7) (2023-01-02)
+
+
+### Bug Fixes
+
+* calendar ([9aed0b7](https://github.com/SocialGouv/ozensemble/commit/9aed0b753e17b1f1c954a1e58e2603ba949a9f90))
+
 ## [1.76.6](https://github.com/SocialGouv/ozensemble/compare/v1.76.5...v1.76.6) (2023-01-02)
 
 
