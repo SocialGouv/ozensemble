@@ -88,22 +88,8 @@ export const useNPSNotif = (
     const handleNotification = (notification) => {
       const NPSDone = storage.getString('@NPSDone');
       if (NPSDone) return;
-      if (Platform.OS === 'android') {
-        if (notification.title === notifTitle) {
-          navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Android notif' });
-          /* ANDROID
-          can make the opening of NPS it more precise if needed
-          now the app is buggy on Android : the notifcation.foreground is always === false
-          but when a user clicks on a notification while the app is on foreground,
-          the app swirtches in background and go back in foreground in a millisecond,
-          so that NPS is launched independantly from the notification.
-          */
-        }
-      }
-      if (Platform.OS === 'ios') {
-        if (notification.message === notifMessage) {
-          navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Ios notif' });
-        }
+      if (JSON.stringify(notification).includes(notifTitle) || JSON.stringify(notification).includes(notifMessage)) {
+        navigation.navigate('NPS_SCREEN', { triggeredFrom: Platform.OS });
       }
       notification.finish();
     };
