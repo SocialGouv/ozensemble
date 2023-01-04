@@ -1,3 +1,10 @@
+## [1.76.8](https://github.com/SocialGouv/ozensemble/compare/v1.76.7...v1.76.8) (2023-01-04)
+
+
+### Bug Fixes
+
+* redirection of NPS notification ([23ff357](https://github.com/SocialGouv/ozensemble/commit/23ff357fe81b3321173278303fe725f9a7b4d1f4))
+
 ## [1.76.7](https://github.com/SocialGouv/ozensemble/compare/v1.76.6...v1.76.7) (2023-01-02)
 
 
