@@ -50,11 +50,14 @@ const FakeData = () => {
           caption="Envoyer une notification NPS dans 10 secondes"
           onPress={() => {
             storage.set('@NPSDone', false);
+            const NPSNotificationDate = new Date(Date.now() + 10000);
             NotificationService.scheduleNotification({
-              date: new Date(Date.now() + 10000),
+              date: NPSNotificationDate,
               title: 'Vos retours sont importants pour nous',
               message: 'Avez-vous quelques secondes pour donner votre avis ?',
             });
+            storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
+            console.log(storage.getNumber('@NPSNotificationDate'));
           }}
         />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>

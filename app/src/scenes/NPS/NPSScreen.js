@@ -53,17 +53,19 @@ export const useCheckNeedNPS = (
     const appFirstOpening = storage.getString('@NPSInitialOpening');
     if (!appFirstOpening) {
       storage.set('@NPSInitialOpening', new Date().toISOString());
+      const NPSNotificationDate = new Date(Date.now() + NPSTimeoutMS);
       NotificationService.scheduleNotification({
-        date: new Date(Date.now() + NPSTimeoutMS),
+        date: NPSNotificationDate,
         title: notifTitle,
         message: notifMessage,
       });
+      storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
       return false;
     }
     const opening = storage.getString('@NPSInitialOpening');
     const timeForNPS = Date.now() - Date.parse(new Date(opening)) > NPSTimeoutMS;
     if (!timeForNPS) return;
-    navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Automatic after 3 days' });
+    navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Automatic after 7 days' });
   };
 
   useAppState({
@@ -90,10 +92,17 @@ export const useNPSNotif = (
       if (NPSDone) return;
       if (JSON.stringify(notification).includes(notifTitle) || JSON.stringify(notification).includes(notifMessage)) {
         navigation.navigate('NPS_SCREEN', { triggeredFrom: Platform.OS });
+      } else {
+        // BUG ON iOS: we can't retrieve notification title or message
+        // so we use a workaround to check if the notification is the one we want
+        if (notification.fireDate === storage.getNumber('@NPSNotificationDate')) {
+          navigation.navigate('NPS_SCREEN', { triggeredFrom: Platform.OS });
+        }
       }
       notification.finish();
     };
     const unsubscribe = NotificationService.subscribe(handleNotification);
+    NotificationService.getInitNotification();
     return unsubscribe;
   }, [notifMessage, notifTitle, navigation]);
 };

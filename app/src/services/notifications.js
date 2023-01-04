@@ -22,7 +22,7 @@ class NotificationService {
         sound: true,
       },
 
-      popInitialNotification: true,
+      popInitialNotification: Platform.OS === 'android',
       requestPermissions: false,
     });
     this.initAndroidChannels();
@@ -128,16 +128,39 @@ class NotificationService {
   // LOCAL NOTIFICATIONS
 
   //Appears after a specified time. App does not have to be open.
+  // scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
+  //   PushNotification.localNotificationSchedule({
+  //     date,
+  //     title,
+  //     message,
+  //     playSound,
+  //     soundName,
+  //     channelId: this.channelId,
+  //     repeatType,
+  //   });
+  // }
+
+  //Appears after a specified time. App does not have to be open.
   scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
-    PushNotification.localNotificationSchedule({
-      date,
-      title,
-      message,
-      playSound,
-      soundName,
-      channelId: this.channelId,
-      repeatType,
-    });
+    if (Platform.OS === 'ios') {
+      PushNotificationIOS.addNotificationRequest({
+        id: `${date}-${message}-${title}`,
+        fireDate: date,
+        body: message,
+        title: title,
+        sound: soundName,
+      });
+    } else {
+      PushNotification.localNotificationSchedule({
+        date,
+        title,
+        message,
+        playSound,
+        soundName,
+        channelId: this.channelId,
+        repeatType,
+      });
+    }
   }
 
   localNotification({ title, message, playSound = true, soundName = 'default' } = {}) {
@@ -159,9 +182,12 @@ class NotificationService {
 
   // PUSH NOTIFICATIONS
   getInitNotification() {
-    PushNotification.popInitialNotification((notification) => {
-      console.log('Initial Notification', notification);
-      this.handleNotification(notification);
+    const { onNotificationOpened } = this;
+    PushNotification.popInitialNotification(function (notification) {
+      console.log('Initial Notification', JSON.stringify(notification, null, 2));
+      if (notification) {
+        onNotificationOpened(notification);
+      }
     });
   }
 
