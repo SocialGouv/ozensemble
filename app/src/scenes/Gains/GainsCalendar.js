@@ -58,7 +58,6 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
-      console.log(day, currentMonth, dayjs(day).isSame(currentMonth, 'month'));
       days[day] =
         doses > 0
           ? drinkDay(dayjs(day).isSame(currentMonth, 'month'))
@@ -103,7 +102,6 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
           markingType="custom"
           disableAllTouchEventsForDisabledDays={false}
           onMonthChange={(month) => {
-            console.log('month changed', month);
             setCurrentMonth(month.dateString);
           }}
           onDayPress={({ dateString }) => {

@@ -52,7 +52,6 @@ const Defi4_Day5 = ({ navigation, route }) => {
       setValidatedDays(route?.params?.day, '@Defi4');
       navigation.navigate('DEFI4_MENU');
     } else {
-      console.log('ICI');
       navigation.goBack();
     }
   };
