@@ -48,7 +48,10 @@ export const useCheckNeedNPS = (
   const checkNeedNPS = () => {
     const NPSDone = storage.getString('@NPSDone');
 
-    if (NPSDone) return false;
+    if (NPSDone) {
+      NotificationService.cancelAll();
+      return false;
+    }
 
     const appFirstOpening = storage.getString('@NPSInitialOpening');
     if (!appFirstOpening) {
