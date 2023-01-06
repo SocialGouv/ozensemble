@@ -1,3 +1,10 @@
+## [1.76.9](https://github.com/SocialGouv/ozensemble/compare/v1.76.8...v1.76.9) (2023-01-06)
+
+
+### Bug Fixes
+
+* remove repeatType ([1e87fa6](https://github.com/SocialGouv/ozensemble/commit/1e87fa60958f2b944ea71799255518265d651f50))
+
 ## [1.76.8](https://github.com/SocialGouv/ozensemble/compare/v1.76.7...v1.76.8) (2023-01-04)
 
 
