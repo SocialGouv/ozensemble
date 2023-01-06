@@ -141,7 +141,7 @@ class NotificationService {
   // }
 
   //Appears after a specified time. App does not have to be open.
-  scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
+  scheduleNotification({ date, title, message, playSound = true, soundName = 'default' } = {}) {
     if (Platform.OS === 'ios') {
       PushNotificationIOS.addNotificationRequest({
         id: `${date}-${message}-${title}`,
@@ -158,7 +158,6 @@ class NotificationService {
         playSound,
         soundName,
         channelId: this.channelId,
-        repeatType,
       });
     }
   }
