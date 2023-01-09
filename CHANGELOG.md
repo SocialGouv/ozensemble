@@ -1,3 +1,10 @@
+## [1.76.10](https://github.com/SocialGouv/ozensemble/compare/v1.76.9...v1.76.10) (2023-01-09)
+
+
+### Bug Fixes
+
+* help not only for 124 but for everyone ([68e3388](https://github.com/SocialGouv/ozensemble/commit/68e33885b6ff860f28258c9c4ea6af7479e75a9f))
+
 ## [1.76.9](https://github.com/SocialGouv/ozensemble/compare/v1.76.8...v1.76.9) (2023-01-06)
 
 
