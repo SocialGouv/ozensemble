@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions, Alert, Platform, StatusBar } from 'react-native';
+import { Dimensions, Platform, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
@@ -22,7 +22,7 @@ import useAppState from '../../services/useAppState';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
-const formatText = (useful, reco, feedback, email, phone, userId, forDefi, triggeredFrom) =>
+const formatText = (useful, feedback, contact, userId, forDefi, triggeredFrom) =>
   `
 userId: ${userId}
 Version: ${pck.version}
@@ -30,14 +30,11 @@ OS: ${Platform.OS}
 Appelé depuis: ${triggeredFrom}
 ${forDefi ? `Défi: ${forDefi}` : ''}
 ${forDefi ? 'Ce défi vous a-t-il été utile' : 'Ce service vous a-t-il été utile'}: ${useful}
-Comment pouvons-nous vous être encore plus utile: ${feedback}
-${reco ? `Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche: ${reco}` : ''}
-Email: ${email}
-Téléphone: ${phone}
+Pour améliorer notre application, avez-vous quelques recommandations à nous faire ? : ${feedback}
+Contact: ${contact}
 `;
 
 const NPSTimeoutMS = 1000 * 60 * 60 * 24 * 7;
-const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 
 export const useCheckNeedNPS = (
   notifTitle = 'Vos retours sont importants pour nous',
@@ -115,10 +112,8 @@ const NPSScreen = ({ navigation, route }) => {
   const triggeredFrom = route.params?.triggeredFrom;
 
   const [useful, setUseful] = useState(null);
-  const [reco, setReco] = useState(null);
   const [feedback, setFeedback] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
+  const [contact, setContact] = useState('');
   const [sendButton, setSendButton] = useState('Envoyer');
 
   // componentDidUpdate(prevProps, prevState) {
@@ -144,7 +139,7 @@ const NPSScreen = ({ navigation, route }) => {
   const onGoBackRequested = async () => {
     backRequestHandledRef.current = true;
     if (npsSent.current) return navigation.goBack();
-    if (useful !== null || reco !== null) await sendNPS();
+    if (useful !== null) await sendNPS();
     navigation.goBack();
   };
 
@@ -166,10 +161,6 @@ const NPSScreen = ({ navigation, route }) => {
   const npsSent = useRef(false);
   const sendNPS = async () => {
     if (npsSent.current) return;
-    if (email.length && !emailFormat(email)) {
-      Alert.alert('Adresse email non valide');
-      return;
-    }
     const userId = storage.getString('@UserIdv2');
     setSendButton('Merci !');
     logEvent({
@@ -178,15 +169,9 @@ const NPSScreen = ({ navigation, route }) => {
       name: 'notes-useful',
       value: useful,
     });
-    logEvent({
-      category: 'NPS',
-      action: 'NPS_SEND',
-      name: 'notes-reco',
-      value: reco,
-    });
     await sendMail({
       subject: forDefi ? `NPS Addicto Défi ${forDefi}` : 'NPS Addicto',
-      text: formatText(useful, reco, feedback, email, phone, userId, forDefi, triggeredFrom),
+      text: formatText(useful, feedback, contact, userId, forDefi, triggeredFrom),
     })
       .then((res) => res.json())
       .catch((err) => console.log('sendNPS err', err));
@@ -208,10 +193,10 @@ const NPSScreen = ({ navigation, route }) => {
               <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
               <TopTitle>
                 <TextStyled color="#4030a5">
-                  5 secondes pour nous aider{'\u00A0'}?{'\u000A'}
+                  Contribuer à Oz Ensemble{'\n'}
                   {forDefi
-                    ? "Vos retours sur ce défi nous permettront d'améliorer l'application. Merci d'avance\u00A0!"
-                    : 'Vos retours sont importants pour nous.'}
+                    ? "Vos retours sur ce défi nous permettront d'améliorer l'application\u00A0!"
+                    : 'Nous lisons tous vos messages'}
                 </TextStyled>
               </TopTitle>
               <TopSubTitle>
@@ -224,8 +209,9 @@ const NPSScreen = ({ navigation, route }) => {
               <TopSubTitle>
                 <TextStyled color="#191919">
                   {forDefi
-                    ? 'Comment pouvons-nous améliorer ce défi\u00A0?'
-                    : 'Comment pouvons-nous vous être encore plus utile\u00A0? Comment pouvons-nous améliorer ce service\u00A0?'}
+                    ? 'Comment pouvons-nous améliorer ce défi'
+                    : 'Pour améliorer notre application, avez-vous quelques recommandations à nous faire'}
+                  {'\u00A0'}?
                 </TextStyled>
               </TopSubTitle>
               <FeedBackStyled
@@ -237,28 +223,17 @@ const NPSScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 placeholderTextColor="#c9c9cc"
               />
-              {!forDefi && (
-                <>
-                  <TopSubTitle>
-                    <TextStyled color="#191919">
-                      Quelle est la probabilité que vous recommandiez ce service à un ami ou un proche
-                      {'\u00A0'}?
-                    </TextStyled>
-                  </TopSubTitle>
-                  <Mark selected={reco} onPress={setReco} bad="Pas du tout probable" good="Très probable" />
-                </>
-              )}
               <TopSubTitle>
                 <TextStyled color="#191919">
-                  Pourrions-nous vous contacter pour en discuter avec vous{'\u00A0'}? Si vous êtes d’accord, vous pouvez
-                  renseigner votre adresse email ou votre numéro de téléphone ci-dessous.
+                  Échanger avec vous serait précieux pour améliorer notre service, laissez-nous votre numéro de
+                  téléphone ou votre mail si vous le souhaitez.
                 </TextStyled>
               </TopSubTitle>
               <ContactTextInput
-                value={email}
-                placeholder="Adresse email (facultatif)"
-                onChangeText={setEmail}
-                autoCompleteType="email"
+                value={contact}
+                placeholder="Numéro de téléphone ou adresse mail (facultatif)"
+                onChangeText={setContact}
+                autoComplete="email"
                 autoCorrect={false}
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -268,21 +243,8 @@ const NPSScreen = ({ navigation, route }) => {
                 placeholderTextColor="#c9c9cc"
                 onBlur={() => StatusBar.setHidden(false, 'none')}
               />
-              <ContactTextInput
-                value={phone}
-                placeholder="Téléphone (facultatif)"
-                onChangeText={setPhone}
-                autoComplete="tel"
-                autoCorrect={false}
-                keyboardType="phone-pad"
-                textContentType="telephoneNumber"
-                returnKeyType="send"
-                onSubmitEditing={sendNPS}
-                placeholderTextColor="#c9c9cc"
-                onBlur={() => StatusBar.setHidden(false, 'none')}
-              />
               <ButtonContainer>
-                <ButtonPrimary content={sendButton} disabled={forDefi ? !useful : !useful || !reco} onPress={sendNPS} />
+                <ButtonPrimary content={sendButton} disabled={forDefi ? !useful : !useful} onPress={sendNPS} />
               </ButtonContainer>
             </ScreenBgStyled>
           </KeyboardAvoidingViewStyled>
