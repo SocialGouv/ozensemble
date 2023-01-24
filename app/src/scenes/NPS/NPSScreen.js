@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions, Platform, StatusBar } from 'react-native';
+import { Alert, Dimensions, Platform, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
@@ -35,6 +35,8 @@ Contact: ${contact}
 `;
 
 const NPSTimeoutMS = 1000 * 60 * 60 * 24 * 7;
+const isEmail = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
+const isPhoneNumber = (phone) => /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phone);
 
 export const useCheckNeedNPS = (
   notifTitle = 'Vos retours sont importants pour nous',
@@ -161,6 +163,10 @@ const NPSScreen = ({ navigation, route }) => {
   const npsSent = useRef(false);
   const sendNPS = async () => {
     if (npsSent.current) return;
+    if (contact.length && !isPhoneNumber(contact) && !isEmail(contact)) {
+      Alert.alert('Adresse email ou numéro de téléphone non valide');
+      return;
+    }
     const userId = storage.getString('@UserIdv2');
     setSendButton('Merci !');
     logEvent({
