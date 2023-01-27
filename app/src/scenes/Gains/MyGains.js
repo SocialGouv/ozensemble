@@ -1,9 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useMemo, useState } from 'react';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
 import H1 from '../../components/H1';
 import Economy from '../../components/illustrations/Economy';
 import InfosIcon from '../../components/illustrations/InfoObjectif';
@@ -28,7 +29,6 @@ import WrapperContainer from '../../components/WrapperContainer';
 import GainsGauge from './GainsGauge';
 import PeriodSelector from '../../components/PeriodSelector';
 
-import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 
 const MyGains = () => {
@@ -152,6 +152,23 @@ const MyGains = () => {
       onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
     });
   };
+
+  const appOpenEvent = useRef(false);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused && !appOpenEvent.current) {
+      appOpenEvent.current = true;
+      const eventTimeout = setTimeout(() => {
+        logEvent({
+          action: 'GAINS_MAIN_VIEW',
+          category: 'NAVIGATION',
+        });
+      }, 5000);
+      return () => {
+        clearTimeout(eventTimeout);
+      };
+    }
+  }, [isFocused]);
 
   return (
     <>
