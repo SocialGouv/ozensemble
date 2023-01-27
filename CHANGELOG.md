@@ -1,3 +1,10 @@
+# [1.77.0](https://github.com/SocialGouv/ozensemble/compare/v1.76.10...v1.77.0) (2023-01-27)
+
+
+### Features
+
+* new event for gains view init ([#144](https://github.com/SocialGouv/ozensemble/issues/144)) ([49bc137](https://github.com/SocialGouv/ozensemble/commit/49bc137bce2b74406fe32e3ac1b5202b0a40c15e))
+
 ## [1.76.10](https://github.com/SocialGouv/ozensemble/compare/v1.76.9...v1.76.10) (2023-01-09)
 
 
