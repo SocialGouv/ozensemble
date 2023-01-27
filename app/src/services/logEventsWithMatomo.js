@@ -67,7 +67,6 @@ export const logEvent = async ({ category, action, name, value, dimension6 }) =>
   try {
     const canSend = await checkNetwork();
     if (!canSend) throw new Error('no network');
-    console.log('logEvent', { category, action, name, value, dimension6 });
     Matomo.logEvent({ category, action, name, value, dimension6 });
     API.post({
       path: '/event',
