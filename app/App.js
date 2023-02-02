@@ -33,16 +33,7 @@ dayjs.extend(isSameOrAfter);
 dayjs.extend(weekday);
 
 if (!__DEV__) {
-  Sentry.init({
-    dsn: SENTRY_XXX,
-    beforeSend(event) {
-      if (event.contexts?.device?.name) {
-        // Don't send user's device name
-        delete event.contexts.device.name;
-      }
-      return event;
-    },
-  });
+  Sentry.init({ dsn: SENTRY_XXX });
 }
 
 const App = () => {
