@@ -1,5 +1,5 @@
 import React from 'react';
-import Quizz from '../../../components/Quizz';
+import Quizz from '../../../components/quizz';
 import { autoEvaluationQuizzAnswersState, autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import questionsOnboarding from './questions';
 import ResultsOnboarding from './ResultsOnboarding';

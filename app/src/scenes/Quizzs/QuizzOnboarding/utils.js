@@ -1,5 +1,5 @@
 import { capture } from '../../../services/sentry';
-import { getAnswerScore } from '../../../components/Quizz/utils';
+import { getAnswerScore } from '../../../components/quizz/utils';
 
 // Utils
 export const computeScore = (questions, answers) => {

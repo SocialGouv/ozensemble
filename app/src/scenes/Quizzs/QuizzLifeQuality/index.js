@@ -1,5 +1,5 @@
 import React from 'react';
-import Quizz from '../../../components/Quizz';
+import Quizz from '../../../components/quizz';
 import questionsLifeQuality from './questions';
 import { mapLifeQualityAnswersToResult } from './utils';
 
