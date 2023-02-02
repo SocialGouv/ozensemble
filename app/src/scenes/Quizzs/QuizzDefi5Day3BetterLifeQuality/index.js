@@ -1,5 +1,5 @@
 import React from 'react';
-import Quizz from '../../../components/Quizz';
+import Quizz from '../../../components/quizz';
 import { quizzDefi5Day3partie1AnswersState, quizzDefi5Day3partie1ResultState } from '../../../recoil/quizzs';
 import questions from './questions';
 import Results from './results';

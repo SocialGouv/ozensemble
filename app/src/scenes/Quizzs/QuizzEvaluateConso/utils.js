@@ -1,4 +1,4 @@
-import { getAnswerScore } from '../../../components/Quizz/utils';
+import { getAnswerScore } from '../../../components/quizz/utils';
 import { capture } from '../../../services/sentry';
 
 const atLeastOneAnswerIsNotNever = (answers) => {

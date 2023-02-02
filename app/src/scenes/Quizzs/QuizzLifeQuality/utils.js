@@ -1,4 +1,4 @@
-import { findQuestion, getAnswerScore } from '../../../components/Quizz/utils';
+import { findQuestion, getAnswerScore } from '../../../components/quizz/utils';
 import { capture } from '../../../services/sentry';
 
 // Utils
