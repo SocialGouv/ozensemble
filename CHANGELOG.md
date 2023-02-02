@@ -1,3 +1,10 @@
+# [1.78.0](https://github.com/SocialGouv/ozensemble/compare/v1.77.1...v1.78.0) (2023-02-02)
+
+
+### Features
+
+* update NPS modal ([#145](https://github.com/SocialGouv/ozensemble/issues/145)) ([42c76e3](https://github.com/SocialGouv/ozensemble/commit/42c76e3b91021dbb3bb117de99bdc260682f1abc))
+
 ## [1.77.1](https://github.com/SocialGouv/ozensemble/compare/v1.77.0...v1.77.1) (2023-02-02)
 
 
