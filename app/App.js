@@ -36,10 +36,9 @@ if (!__DEV__) {
   Sentry.init({
     dsn: SENTRY_XXX,
     beforeSend(event) {
-      if (event.device) {
+      if (event.contexts?.device?.name) {
         // Don't send user's device name
-        // event.device.name = "anonymized";
-        delete event.device.name;
+        delete event.contexts.device.name;
       }
       return event;
     },
