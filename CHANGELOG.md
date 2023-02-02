@@ -1,3 +1,10 @@
+## [1.77.1](https://github.com/SocialGouv/ozensemble/compare/v1.77.0...v1.77.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* sentry context device name ([#146](https://github.com/SocialGouv/ozensemble/issues/146)) ([d031bc5](https://github.com/SocialGouv/ozensemble/commit/d031bc524e127504ec77b4760721cd58b5fa602f))
+
 # [1.77.0](https://github.com/SocialGouv/ozensemble/compare/v1.76.10...v1.77.0) (2023-01-27)
 
 
