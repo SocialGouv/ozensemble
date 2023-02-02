@@ -250,7 +250,7 @@ const NPSScreen = ({ navigation, route }) => {
                 onBlur={() => StatusBar.setHidden(false, 'none')}
               />
               <ButtonContainer>
-                <ButtonPrimary content={sendButton} disabled={forDefi ? !useful : !useful} onPress={sendNPS} />
+                <ButtonPrimary content={sendButton} disabled={!useful} onPress={sendNPS} />
               </ButtonContainer>
             </ScreenBgStyled>
           </KeyboardAvoidingViewStyled>
