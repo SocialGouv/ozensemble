@@ -277,39 +277,24 @@ const MyGains = () => {
               </TextModify>
             </ButtonTouchable>
 
-            <Title>
-              <H1 color="#4030a5">Mon rappel</H1>
-            </Title>
-            <MyGoalSubContainer>
-              <MyGoalSubContainerInside>
-                <PartContainer>
-                  <ReminderIcon size={20} color="#000" selected />
-                  <TextStyled>
-                    {'   '}
-                    {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
-                      'Pas de rappel encore'
-                    ) : (
-                      <>
-                        {mode === 'day'
-                          ? 'Tous les jours '
-                          : `Tous les ${dayjs()
-                              .day(weekDay + 1)
-                              .format('dddd')}s `}
-                        à {dayjs(reminder).format('HH:mm')}
-                      </>
-                    )}
-                  </TextStyled>
-                </PartContainer>
-              </MyGoalSubContainerInside>
-            </MyGoalSubContainer>
-            <ButtonTouchable onPress={goToReminder}>
-              <TextModify>
-                <TextStyled>
-                  {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
-                </TextStyled>
-              </TextModify>
-            </ButtonTouchable>
+            <MyReminder
+              reminderHasBeenSet={reminderHasBeenSet}
+              reminder={reminder}
+              goToReminder={goToReminder}
+              mode={mode}
+              weekDay={weekDay}
+            />
           </>
+        )}
+
+        {!isOnboarded && reminderHasBeenSet && (
+          <MyReminder
+            reminderHasBeenSet={reminderHasBeenSet}
+            reminder={reminder}
+            goToReminder={goToReminder}
+            mode={mode}
+            weekDay={weekDay}
+          />
         )}
       </WrapperContainer>
       <OnBoardingModal
@@ -325,6 +310,43 @@ const MyGains = () => {
     </>
   );
 };
+
+const MyReminder = ({ reminderHasBeenSet, reminder, goToReminder, mode, weekDay }) => (
+  <>
+    <Title>
+      <H1 color="#4030a5">Mon rappel</H1>
+    </Title>
+    <MyGoalSubContainer>
+      <MyGoalSubContainerInside>
+        <PartContainer>
+          <ReminderIcon size={20} color="#000" selected />
+          <TextStyled>
+            {'   '}
+            {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
+              'Pas de rappel encore'
+            ) : (
+              <>
+                {mode === 'day'
+                  ? 'Tous les jours '
+                  : `Tous les ${dayjs()
+                      .day(weekDay + 1)
+                      .format('dddd')}s `}
+                à {dayjs(reminder).format('HH:mm')}
+              </>
+            )}
+          </TextStyled>
+        </PartContainer>
+      </MyGoalSubContainerInside>
+    </MyGoalSubContainer>
+    <ButtonTouchable onPress={goToReminder}>
+      <TextModify>
+        <TextStyled>
+          {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
+        </TextStyled>
+      </TextModify>
+    </ButtonTouchable>
+  </>
+);
 
 const Spacer = styled.View`
   height: ${({ size }) => size || 20}px;

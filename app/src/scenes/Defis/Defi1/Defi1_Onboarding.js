@@ -10,8 +10,11 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { useRecoilState } from 'recoil';
+import { reminderGain } from '../../../recoil/reminder';
 
 const Defi1_Onboarding = ({ navigation }) => {
+  const [reminder] = useRecoilState(reminderGain);
   const startDefi = async () => {
     const startAt = new Date().toISOString().split('T')[0];
     storage.set('@Defi1_StartedAt', startAt);
@@ -19,6 +22,10 @@ const Defi1_Onboarding = ({ navigation }) => {
       category: 'DEFI1',
       action: 'DEFI1_CLICK_START',
     });
+    if (reminder) {
+      navigation.navigate('DEFI1_MENU');
+      return;
+    }
     navigation.navigate('DEFI1_REMINDER', {
       enableContinueButton: true,
       onPressContinueNavigation: ['DEFI1_MENU'],
