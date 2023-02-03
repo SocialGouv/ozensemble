@@ -59,7 +59,7 @@ router.put(
     const { matomoId, pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
 
     if (!pushNotifToken) return res.status(400).json({ ok: false, error: "no push token" });
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no push token" });
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     if (type !== "Daily" && type !== "Weekdays") {
       capture("reminder api: wrong type", { extra: req.body, user: { matomoId } });
       return res.status(400).json({ ok: false, error: "wrong type" });
@@ -142,65 +142,4 @@ router.put(
   })
 );
 
-const reminderCronJob = async (req, res) => {
-  const now = nowUtc();
-  const utcTimeHours = now.getUTCHours();
-  const utcTimeMinutes = now.getUTCMinutes();
-  const utcDayOfWeek = DAYS_OF_WEEK[now.getDay()];
-  //console.log(utcDayOfWeek, utcTimeHours, utcTimeMinutes);
-
-  const dailyReminders = await prisma.reminder.findMany({
-    where: {
-      type: "Daily",
-      disabled: false,
-      utcTimeHours,
-      utcTimeMinutes,
-    },
-    include: {
-      user: true,
-    },
-  });
-  for (const reminder of dailyReminders) {
-    if (!reminder?.user?.push_notif_token) continue;
-    sendPushNotification({
-      matomoId: reminder.user.matomo_id,
-      pushNotifToken: reminder.user.push_notif_token,
-      title: "C'est l'heure de votre suivi !",
-      body: "N'oubliez pas de remplir votre agenda Oz",
-      link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
-      channelId: "unique_reminder",
-    });
-  }
-
-  const weeklyReminders = await prisma.reminderUtcDaysOfWeek.findMany({
-    where: {
-      [utcDayOfWeek]: true,
-      reminder: {
-        type: "Weekdays",
-        disabled: false,
-        utcTimeHours,
-        utcTimeMinutes,
-      },
-    },
-    include: {
-      reminder: {
-        include: {
-          user: true,
-        },
-      },
-    },
-  });
-  for (const { reminder } of weeklyReminders) {
-    if (!reminder?.user?.push_notif_token) continue;
-    sendPushNotification({
-      matomoId: reminder.user.matomo_id,
-      pushNotifToken: reminder.user.push_notif_token,
-      title: "C'est l'heure de votre suivi !",
-      body: "N'oubliez pas de remplir votre agenda Oz",
-      link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
-      channelId: "unique_reminder",
-    });
-  }
-};
-
-module.exports = { router, reminderCronJob };
+module.exports = { router };
