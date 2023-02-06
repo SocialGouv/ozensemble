@@ -110,6 +110,6 @@ const BackButton = styled(GoBackButtonText)`
   margin-right: 0;
 `;
 
-const defaultTime = () => new Date(dayjs().set('hours', 20).set('minutes', 0).toISOString());
+const defaultTime = () => dayjs().set('hours', 20).set('minutes', 0).toDate();
 
 export default TimePicker;
