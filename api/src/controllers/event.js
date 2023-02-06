@@ -55,7 +55,7 @@ router.post(
       return res.status(200).send({ ok: true });
     }
     if (DEFI1_VALIDATE_DAY && value === 2) {
-      await notifications.removeNotif(matomoId, "DEFI1_DAY1");
+      await notifications.cancelNotif(matomoId, "DEFI1_DAY1");
       return res.status(200).send({ ok: true });
     }
 

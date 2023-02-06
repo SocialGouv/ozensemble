@@ -28,9 +28,17 @@ model Notification {
   userId         String
   type           String
   date           DateTime
+  status         NotificationStatus     @default(NotSent)
   createdAt      DateTime               @default(now())
   updatedAt      DateTime               @updatedAt
   @@index([id], type: BTree)
+}
+
+enum NotificationStatus {
+  NotSent
+  Sent
+  Canceled
+  Failed
 }
 
 model Reminder {

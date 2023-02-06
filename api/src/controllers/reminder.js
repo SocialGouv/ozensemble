@@ -142,4 +142,92 @@ router.put(
   })
 );
 
-module.exports = { router };
+const reminderCronJob = async (req, res) => {
+  const now = nowUtc();
+  const utcTimeHours = now.getHours().toDate();
+  const utcTimeMinutes = now.getMinutes().toDate();
+  const utcDayOfWeek = DAYS_OF_WEEK[now.getDay()];
+
+  const dailyReminders = await prisma.reminder.findMany({
+    where: {
+      type: "Daily",
+      disabled: false,
+      utcTimeHours,
+      utcTimeMinutes,
+    },
+    include: {
+      user: true,
+    },
+  });
+  for (const reminder of dailyReminders) {
+    if (!reminder?.user?.push_notif_token) continue;
+
+    const notif = await prisma.notification.findFirst({
+      where: {
+        userId: reminder.user?.id,
+        status: { in: ["NotSent", "Sent"] },
+        date: {
+          gte: now.startOf("day").toDate(),
+          lte: now.endOf("day").toDate(),
+        },
+      },
+    });
+    if (!!notif) continue;
+
+    sendPushNotification({
+      matomoId: reminder.user.matomo_id,
+      pushNotifToken: reminder.user.push_notif_token,
+      channelId: "unique_reminder",
+      ...REMINDER_DATA,
+    });
+  }
+
+  const weeklyReminders = await prisma.reminderUtcDaysOfWeek.findMany({
+    where: {
+      [utcDayOfWeek]: true,
+      reminder: {
+        type: "Weekdays",
+        disabled: false,
+        utcTimeHours,
+        utcTimeMinutes,
+      },
+    },
+    include: {
+      reminder: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
+  for (const { reminder } of weeklyReminders) {
+    if (!reminder?.user?.push_notif_token) continue;
+
+    const notif = await prisma.notification.findFirst({
+      where: {
+        userId: reminder.user?.id,
+        status: { in: ["NotSent", "Sent"] },
+        date: {
+          gte: now.startOf("day").toDate(),
+          lte: now.endOf("day").toDate(),
+        },
+      },
+    });
+    if (!!notif) continue;
+
+    sendPushNotification({
+      matomoId: reminder.user.matomo_id,
+      pushNotifToken: reminder.user.push_notif_token,
+      channelId: "unique_reminder",
+      ...REMINDER_DATA,
+    });
+  }
+};
+
+const REMINDER_DATA = {
+  title: "C'est l'heure de votre suivi !",
+  body: "N'oubliez pas de remplir votre agenda Oz",
+  link: "oz://CONSO_FOLLOW_UP_NAVIGATOR",
+};
+
+module.exports = { router, reminderCronJob };
