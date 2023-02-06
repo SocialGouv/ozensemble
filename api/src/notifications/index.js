@@ -9,7 +9,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
   const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
   if (!user || !user.push_notif_token) return;
 
-  let notif = await prisma.notification.findFirst({
+  const notif = await prisma.notification.findFirst({
     where: {
       userId: user.id,
       type,
