@@ -17,7 +17,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
   });
   if (notif) return;
 
-  notif = await prisma.notification.create({
+await prisma.notification.create({
     data: {
       user: { connect: { id: user.id } },
       type,
