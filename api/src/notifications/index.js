@@ -92,12 +92,12 @@ const NOTIFICATIONS_TYPES = {
   REMINDER: {
     title: "C'est l'heure de votre suivi !",
     body: "N'oubliez pas de remplir votre agenda Oz",
-    link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP",
+    link: "oz://CONSO_FOLLOW_UP_NAVIGATOR",
   },
   DEFI1_DAY1: {
     title: "C'est l'heure du 2ème jour !",
     body: "Evaluez votre niveau de risque alcool de manière plus fine.",
-    link: "oz://TABS/CONSO_FOLLOW_UP_NAVIGATOR/CONSO_FOLLOW_UP", // TODO deeplink ecran défi 1
+    link: "oz://DEFI1",
   },
 };
 

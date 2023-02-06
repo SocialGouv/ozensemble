@@ -3,6 +3,24 @@ import NotificationService from './notifications';
 
 export const deepLinkingConfig = {
   prefixes: ['oz://'],
+  config: {
+    screens: {
+      APP: {
+        screens: {
+          TABS: {
+            screens: {
+              CONSO_FOLLOW_UP_NAVIGATOR: 'CONSO_FOLLOW_UP_NAVIGATOR',
+              DEFI: {
+                screens: {
+                  DEFI1: 'DEFI1',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
   async getInitialURL() {
     // Check if app was opened from a deep link
     const url = await Linking.getInitialURL();
