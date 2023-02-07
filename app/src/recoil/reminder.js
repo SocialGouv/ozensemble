@@ -59,7 +59,7 @@ export const reminderGainsHasBeenSetState = atom({
 
 export const reminderGain = atom({
   key: 'reminderGain',
-  default: getInitValueFromStorage('@GainsReminder', dayjs().set('hours', 20).set('minutes', 0).toISOString()),
+  default: getInitValueFromStorage('@GainsReminder', null),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@GainsReminder', JSON.stringify(newValue)))],
 });
 
