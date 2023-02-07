@@ -11,6 +11,10 @@ import UnderlinedButton from '../../../components/UnderlinedButton';
 import H1 from '../../../components/H1';
 import { Spacer } from '../../../components/Articles';
 import NetInfo from '@react-native-community/netinfo';
+import Modal from '../../../components/Modal';
+import { defaultPaddingFontScale } from '../../../styles/theme';
+import { storage } from '../../../services/storage';
+import API from '../../../services/api';
 
 const Defi1_Reminder = ({ navigation, route }) => {
   const [notifErrorAlertVisible, setNotifErrorAlertVisible] = useState(false);
@@ -111,6 +115,27 @@ const showPermissionsAlert = () => {
     { cancelable: true }
   );
 };
+
+const ModalContainer = styled.View`
+  background-color: white;
+  padding-vertical: 15px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
+  border-radius: 15px;
+`;
+
+const ModalTitle = styled(H1)`
+  flex-shrink: 0;
+  text-align: center;
+  margin-bottom: 30px;
+`;
+
+const ModalContent = styled.View`
+  margin-bottom: 30px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+`;
 
 const TitleContainer = styled.View`
   width: 100%;

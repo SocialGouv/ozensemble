@@ -144,8 +144,8 @@ router.put(
 
 const reminderCronJob = async (req, res) => {
   const now = nowUtc();
-  const utcTimeHours = now.getHours().toDate();
-  const utcTimeMinutes = now.getMinutes().toDate();
+  const utcTimeHours = now.getHours();
+  const utcTimeMinutes = now.getMinutes();
   const utcDayOfWeek = DAYS_OF_WEEK[now.getDay()];
 
   const dailyReminders = await prisma.reminder.findMany({
