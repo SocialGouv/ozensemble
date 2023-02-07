@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { today } from '../helpers/dateHelpers';
 import ButtonPrimary from './ButtonPrimary';
 import GoBackButtonText from './GoBackButtonText';
-import dayjs from 'dayjs';
 
 /*
   onChange:
@@ -16,11 +15,11 @@ import dayjs from 'dayjs';
 // https://github.com/react-native-community/react-native-datetimepicker/issues/114
 
 const TimePicker = ({ visible, selectDate }) => {
-  const [date, setDate] = useState(defaultTime());
+  const [date, setDate] = useState(new Date(Date.now() + 60 * 1000));
   const [show, setShow] = useState(visible);
 
   useEffect(() => {
-    if (visible) setDate(defaultTime());
+    if (visible) setDate(new Date(Date.now() + 60 * 1000));
   }, [visible]);
   if (Platform.OS === 'ios') {
     return (
@@ -109,7 +108,5 @@ const ButtonsContainer = styled.View`
 const BackButton = styled(GoBackButtonText)`
   margin-right: 0;
 `;
-
-const defaultTime = () => dayjs().set('hours', 20).set('minutes', 0).toDate();
 
 export default TimePicker;
