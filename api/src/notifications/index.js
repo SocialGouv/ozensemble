@@ -14,9 +14,11 @@ const scheduleDefi1Day1 = async (matomoId) => {
   const reminder = await prisma.reminder.findUnique({
     where: {
       userId: user.id,
-      disabled: false,
     },
   });
+
+  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
 
   const notif = await prisma.notification.findFirst({
     where: {
@@ -31,12 +33,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
     data: {
       user: { connect: { id: user.id } },
       type,
-      date: dayjs()
-        .utc()
-        .add(1, "day")
-        .set("hour", reminder.date?.utcTimeHours || 20)
-        .set("minute", reminder.date?.utcTimeMinutes || 0)
-        .toDate(),
+      date: dayjs().utc().add(1, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
     },
   });
 };

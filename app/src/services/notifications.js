@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
+import API from './api';
 
 const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN';
 const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR';
@@ -51,6 +52,7 @@ class NotificationService {
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'SUCCESS',
     });
+    saveNewUser(tokenPayload.token);
   };
 
   onRegistrationError = (err) => {
@@ -270,3 +272,14 @@ class NotificationService {
 const Notifications = new NotificationService();
 
 export default Notifications;
+
+const saveNewUser = async (pushNotifToken) => {
+  const matomoId = storage.getString('@UserIdv2');
+  await API.put({
+    path: '/user',
+    body: {
+      pushNotifToken,
+      matomoId,
+    },
+  });
+};
