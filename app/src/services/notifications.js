@@ -52,7 +52,7 @@ class NotificationService {
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'SUCCESS',
     });
-    saveNewUser(tokenPayload.token);
+    saveUserPushToken(tokenPayload.token);
   };
 
   onRegistrationError = (err) => {
@@ -273,7 +273,7 @@ const Notifications = new NotificationService();
 
 export default Notifications;
 
-const saveNewUser = async (pushNotifToken) => {
+const saveUserPushToken = async (pushNotifToken) => {
   const matomoId = storage.getString('@UserIdv2');
   await API.put({
     path: '/user',

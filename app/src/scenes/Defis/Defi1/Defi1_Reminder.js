@@ -25,11 +25,11 @@ const Defi1_Reminder = ({ navigation, route }) => {
       showPermissionsAlert();
       return;
     }
-    await saveNewUser();
+    await saveNewUserToken();
     navigation.navigate(...route.params.onPressContinueNavigation);
   };
 
-  const saveNewUser = async () => {
+  const saveNewUserToken = async () => {
     if (!NotificationService.hasToken()) return;
     const matomoId = storage.getString('@UserIdv2');
     const isConnected = await NetInfo.fetch().then((state) => state.isConnected);

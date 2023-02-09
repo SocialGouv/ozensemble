@@ -6,7 +6,7 @@ const prisma = require("../prisma");
 
 const saveUser = async (matomoId, pushNotifToken) => {
   let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-  console.log("user, pushNotifToken :", user, matomoId, pushNotifToken);
+
   if (!user) {
     user = await prisma.user.create({
       data: {
@@ -28,8 +28,6 @@ router.put(
   "/",
   catchErrors(async (req, res) => {
     const { matomoId, pushNotifToken } = req.body || {};
-
-    console.log("matomoId, pushNotifToken :", matomoId, pushNotifToken);
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
