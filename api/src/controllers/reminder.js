@@ -6,6 +6,9 @@ const prisma = require("../prisma");
 const { capture } = require("../third-parties/sentry");
 const { sendPushNotification } = require("../services/push-notifications");
 const router = express.Router();
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+dayjs.extend(utc);
 
 const DAYS_OF_WEEK = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
@@ -143,10 +146,10 @@ router.put(
 );
 
 const reminderCronJob = async (req, res) => {
-  const now = nowUtc();
-  const utcTimeHours = now.getHours();
-  const utcTimeMinutes = now.getMinutes();
-  const utcDayOfWeek = DAYS_OF_WEEK[now.getDay()];
+  const now = dayjs().utc();
+  const utcTimeHours = now.get("hour");
+  const utcTimeMinutes = now.get("minute");
+  const utcDayOfWeek = DAYS_OF_WEEK[now.get("day")];
 
   const dailyReminders = await prisma.reminder.findMany({
     where: {
