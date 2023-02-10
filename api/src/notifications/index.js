@@ -101,11 +101,6 @@ const NOTIFICATIONS_TYPES = {
     body: "Evaluez votre niveau de risque alcool de manière plus fine.",
     link: "oz://DEFI1",
   },
-  CONSO_FOLLOW_UP_NAVIGATOR: {
-    title: "Vous nous manquez...",
-    body: "Remplir votre agenda Oz",
-    link: "oz://CONSO_FOLLOW_UP_NAVIGATOR",
-  },
 };
 
 module.exports = { NOTIFICATIONS_TYPES, cancelNotif, notificationsCronJob, scheduleDefi1Day1 };

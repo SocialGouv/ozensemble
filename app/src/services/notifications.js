@@ -44,7 +44,7 @@ class NotificationService {
     }
   };
 
-  onRegister = async (tokenPayload) => {
+  onRegister = (tokenPayload) => {
     console.log('NotificationService onRegister:', tokenPayload);
     storage.set(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, tokenPayload.token);
     storage.delete(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
