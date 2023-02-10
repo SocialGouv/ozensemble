@@ -12,8 +12,8 @@ import Defi1_Day7 from './Defi1_Day7';
 import { defi1_Data } from './defi1_Data';
 import Defi1_Onboarding from './Defi1_Onboarding';
 import Defi1_OnboardingInfo from './Defi1_OnboardingInfo';
-import { setValidatedDays } from '../utils';
 import Defi1_Reminder from './Defi1_Reminder';
+import { setValidatedDays } from '../utils';
 import Defi1_Day2 from './Defi1_Day2';
 import Defi1_Day4 from './Defi1_Day4';
 

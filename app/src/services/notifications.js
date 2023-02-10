@@ -4,6 +4,7 @@ import { Platform } from 'react-native';
 import { checkNotifications, RESULTS } from 'react-native-permissions';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
+import API from './api';
 
 const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN';
 const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR';
@@ -50,6 +51,14 @@ class NotificationService {
     logEvent({
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'SUCCESS',
+    });
+    const matomoId = storage.getString('@UserIdv2');
+    API.put({
+      path: '/user',
+      body: {
+        pushNotifToken: tokenPayload.token,
+        matomoId,
+      },
     });
   };
 

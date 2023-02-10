@@ -10,19 +10,24 @@ import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
 import DefiLanding from '../../../components/illustrations/DefiLanding';
 import WrapperContainer from '../../../components/WrapperContainer';
+import NotificationService from '../../../services/notifications';
 
 const Defi1_Onboarding = ({ navigation }) => {
   const startDefi = async () => {
+    const notifActivated = await NotificationService.checkPermission();
     const startAt = new Date().toISOString().split('T')[0];
     storage.set('@Defi1_StartedAt', startAt);
     logEvent({
       category: 'DEFI1',
       action: 'DEFI1_CLICK_START',
     });
-    navigation.navigate('DEFI1_REMINDER', {
-      enableContinueButton: true,
-      onPressContinueNavigation: ['DEFI1_MENU'],
-    });
+    if (!notifActivated.granted) {
+      navigation.navigate('DEFI1_REMINDER', {
+        onPressContinueNavigation: ['DEFI1_MENU'],
+      });
+      return;
+    }
+    navigation.navigate('DEFI1_MENU');
   };
 
   return (
