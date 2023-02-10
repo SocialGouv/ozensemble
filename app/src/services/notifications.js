@@ -44,7 +44,7 @@ class NotificationService {
     }
   };
 
-  onRegister = (tokenPayload) => {
+  onRegister = async (tokenPayload) => {
     console.log('NotificationService onRegister:', tokenPayload);
     storage.set(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, tokenPayload.token);
     storage.delete(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
@@ -52,7 +52,14 @@ class NotificationService {
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'SUCCESS',
     });
-    saveUserPushToken(tokenPayload.token);
+    const matomoId = storage.getString('@UserIdv2');
+    API.put({
+      path: '/user',
+      body: {
+        pushNotifToken: tokenPayload.token,
+        matomoId,
+      },
+    });
   };
 
   onRegistrationError = (err) => {
@@ -272,14 +279,3 @@ class NotificationService {
 const Notifications = new NotificationService();
 
 export default Notifications;
-
-const saveUserPushToken = async (pushNotifToken) => {
-  const matomoId = storage.getString('@UserIdv2');
-  await API.put({
-    path: '/user',
-    body: {
-      pushNotifToken,
-      matomoId,
-    },
-  });
-};

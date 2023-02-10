@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components';
 import { openSettings } from 'react-native-permissions';
+import NetInfo from '@react-native-community/netinfo';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ReminderIcon from '../../../components/illustrations/ReminderIcon';
 import TextStyled from '../../../components/TextStyled';
@@ -10,7 +11,6 @@ import NotificationService from '../../../services/notifications';
 import UnderlinedButton from '../../../components/UnderlinedButton';
 import H1 from '../../../components/H1';
 import { Spacer } from '../../../components/Articles';
-import NetInfo from '@react-native-community/netinfo';
 import Modal from '../../../components/Modal';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { storage } from '../../../services/storage';
@@ -25,16 +25,10 @@ const Defi1_Reminder = ({ navigation, route }) => {
       showPermissionsAlert();
       return;
     }
-    await saveNewUserToken();
-    navigation.navigate(...route.params.onPressContinueNavigation);
-  };
-
-  const saveNewUserToken = async () => {
     if (!NotificationService.hasToken()) return;
     const matomoId = storage.getString('@UserIdv2');
     const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
     if (!isConnected) return setNotifErrorAlertVisible(true);
-
     const res = await API.put({
       path: '/user',
       body: {
@@ -49,6 +43,7 @@ const Defi1_Reminder = ({ navigation, route }) => {
         "L'équipe technique a été prévenue et va résoudre le problème au plus vite."
       );
     }
+    navigation.navigate(...route.params.onPressContinueNavigation);
   };
 
   return (
@@ -56,7 +51,6 @@ const Defi1_Reminder = ({ navigation, route }) => {
       <Container>
         <TitleContainer>
           <ReminderIcon size={80} color="#4030a5" selected={false} />
-          <Spacer size={20} />
           <Title>
             <TextStyled color="#4030a5" bold>
               Activez les notifications pour ne pas oublier votre défi de demain !
@@ -162,7 +156,7 @@ const Container = styled.ScrollView.attrs({
     flexGrow: 1,
   },
 })`
-  height: 100%;
+  flex-grow: 1;
   padding-top: 20%;
 `;
 
