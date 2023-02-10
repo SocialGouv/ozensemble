@@ -12,6 +12,13 @@ const PrivacyPolicy = ({ onClose }) => (
     <Spacer size={50} />
     <H2>Mentions Légales - Editeur de la plateforme</H2>
     <Spacer size={30} />
+    <P>
+      La Plateforme est éditée par l’Agence régionale de santé Île-de-France située : {'\n'}
+      Immeuble Le Curve{'\n'}
+      13 Rue du Landy{'\n'}
+      93200 Saint-Denis{'\n'}
+      Téléphone : 01 44 02 00 00{'\n'}
+    </P>
     <P>Association CaPASSCité</P>
     <P>Madame Géraldine TALBOT, Directrice</P>
     <P>70, rue Douy Delcupe</P>
@@ -24,7 +31,8 @@ const PrivacyPolicy = ({ onClose }) => (
       l'appui de la Fabrique des Ministères Sociaux.
     </P>
     <P>
-      Le Responsable de traitement est Madame la directrice de l'Association CaPASSCité, le docteur Géraldine TALBOT.
+      Le Responsable de traitement est Madame Amélie Verdier, Directrice générale de l’Agence régionale de santé
+      Île-de-France.
     </P>
     <Spacer size={30} />
     <H2>Finalités</H2>
@@ -58,6 +66,12 @@ const PrivacyPolicy = ({ onClose }) => (
       qu'entendu par l'article 6-a du règlement (UE) n°2016/679 du Parlement européen et du Conseil du 27 avril 2016
       relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel et à la
       libre circulation de ces données.
+    </P>
+    <P>
+      Cette obligation légale est posée par la loi LCEN n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie
+      numérique et par l’article 1 du décret n°2021-1363 portant injonction, au regard de la menace grave et actuelle
+      contre la sécurité nationale, de conservation pour une durée d'un an de certaines catégories de données de
+      connexion.
     </P>
     <Spacer size={30} />
     <H2>Durée de conservation</H2>
@@ -133,25 +147,54 @@ const PrivacyPolicy = ({ onClose }) => (
     <P>- Protection des réseaux</P>
     <P>- Sauvegarde</P>
     <P>- Mesures restrictives limitant l'accès physiques aux données à caractère personnel</P>
+    <P>Sous-traitants</P>
+    <P>Certaines données sont envoyées à de sous-traitants pour réaliser certaines missions.</P>
+    <P>- Partenaire : Microsoft Azure</P>
+    <P>- Pays destinataire : Union européenne</P>
+    <P>- Traitement réalisé : Hébergement des données</P>
+    <P>- Garanties : https://privacy.microsoft.com/fr-fr/privacystatement</P>
     <P>Cookies</P>
     <P>Ozensemble, en tant qu'éditeur de la présente Plateforme, pourra faire usage de cookies.</P>
     <P>
-      Certains cookies sont dispensés du recueil préalable de votre consentement dans la mesure où ils sont strictement
-      nécessaires à la fourniture du service. Les traceurs ont vocation à être conservés sur le poste informatique de
-      l'Internaute pour une durée allant jusqu'à 13 mois.
+      Un cookie est un fichier déposé sur votre terminal lors de la visite d’un site. Il a pour but de collecter des
+      informations relatives à votre navigation et de vous adresser des services adaptés à votre terminal (ordinateur,
+      mobile ou tablette).
     </P>
     <P>
-      Ils permettent d'établir des mesures statistiques de fréquentation et d'utilisation du site pouvant être utilisées
-      à des fins de suivi et d'amélioration du service :
+      En application de l’article 5(3) de la directive 2002/58/CE modifiée concernant le traitement des données à
+      caractère personnel et la protection de la vie privée dans le secteur des communications électroniques, transposée
+      à l’article 82 de la loi n°78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, les
+      traceurs ou cookies suivent deux régimes distincts.
     </P>
-    <P>- Les données collectées ne sont pas recoupées avec d'autres traitements.</P>
-    <P>- Le cookie déposé sert uniquement à la production de statistiques anonymes.</P>
-    <P>- Le cookie ne permet pas de suivre la navigation de l'internaute sur d'autres sites</P>
     <P>
-      La mesure d'audience (nombre de visites, pages consultées) est réalisée par un outil libre intitulé Matomo
-      spécifiquement paramétré, respectant les conditions d'exemption du consentement de l'internaute définies par la
-      recommandation «&nbsp;Cookies&nbsp;» de la Commission nationale informatique et libertés (CNIL).
+      Les cookies strictement nécessaires au service ou ayant pour finalité exclusive de faciliter la communication par
+      voie électronique sont dispensés de consentement préalable au titre de l’article 82 de la loi n°78-17 du 6 janvier
+      1978. Les cookies n’étant pas strictement nécessaires au service ou n’ayant pas pour finalité exclusive de
+      faciliter la communication par voie électronique doivent être consenti par l’utilisateur.
     </P>
+    <P>
+      Ce consentement de la personne concernée pour une ou plusieurs finalités spécifiques constitue une base légale au
+      sens du RGPD et doit être entendu au sens de l'article 6-a du Règlement (UE) 2016/679 du Parlement européen et du
+      Conseil du 27 avril 2016 relatif à la protection des personnes physiques à l'égard du traitement des données à
+      caractère personnel et à la libre circulation de ces données.
+    </P>
+    <P>
+      Le site dépose des cookies de mesure d’audience (nombre de visites, pages consultées), respectant les conditions
+      d’exemption du consentement de l’internaute définies par la recommandation « Cookies » de la Commission nationale
+      informatique et libertés (CNIL). Cela signifie, notamment, que ces cookies ne servent qu’à la production de
+      statistiques anonymes et ne permettent pas de suivre la navigation de l’internaute sur d’autres sites. Le site
+      dépose également des cookies de navigation, aux fins strictement techniques, qui ne sont pas conservés. La
+      consultation de la plateforme n’est pas affectée lorsque les utilisateurs utilisent des navigateurs désactivant
+      les cookies.
+    </P>
+    <P>
+      Nous utilisons pour cela Matomo, un outil de mesure d’audience web libre, paramétré pour être en conformité avec
+      la recommandation « Cookies » de la CNIL. Cela signifie que votre adresse IP, par exemple, est anonymisée avant
+      d’être enregistrée. Il est donc impossible d’associer vos visites sur ce site à votre personne.
+    </P>
+    <P>Il convient d’indiquer que :</P>
+    <P>Les données collectées ne sont pas recoupées avec d’autres traitements.</P>
+    <P>Les cookies ne permettent pas de suivre la navigation de l’internaute sur d’autres sites.</P>
   </WrapperContainer>
 );
 

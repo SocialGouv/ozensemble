@@ -12,8 +12,8 @@ const CGUs = ({ onClose }) => (
       Ensemble et définissent les conditions d'accès et d'utilisation des services par l'Utilisateur.
     </P>
     <P>
-      Le service est développé et opéré par l'association CaPASSCité avec le soutien de la Fabrique des Ministères
-      Sociaux.
+      Le service est développé et opéré par l’Agence régionale de santé (ARS) Île-de-France avec le soutien de la
+      Fabrique des Ministères Sociaux.
     </P>
     <Spacer size={30} />
     <H2>Article 1 - Champ d'application</H2>
