@@ -1,3 +1,10 @@
+## [1.78.1](https://github.com/SocialGouv/ozensemble/compare/v1.78.0...v1.78.1) (2023-02-10)
+
+
+### Bug Fixes
+
+* relaunch api deployement ([e1f2754](https://github.com/SocialGouv/ozensemble/commit/e1f2754f3b3575d8f1c96957357d0825037150cd))
+
 # [1.78.0](https://github.com/SocialGouv/ozensemble/compare/v1.77.1...v1.78.0) (2023-02-02)
 
 
