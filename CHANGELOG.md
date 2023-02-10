@@ -1,3 +1,10 @@
+## [1.78.2](https://github.com/SocialGouv/ozensemble/compare/v1.78.1...v1.78.2) (2023-02-10)
+
+
+### Bug Fixes
+
+* reminder dayjs ([3a94f38](https://github.com/SocialGouv/ozensemble/commit/3a94f38f34d8a15fed6a6a68718d0078eeb6338e))
+
 ## [1.78.1](https://github.com/SocialGouv/ozensemble/compare/v1.78.0...v1.78.1) (2023-02-10)
 
 
