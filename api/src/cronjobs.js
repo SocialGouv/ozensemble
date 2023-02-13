@@ -7,13 +7,13 @@ const { reminderCronJob } = require("./controllers/reminder");
 
 cron.schedule("* * * * *", async () => {
   // every minute
-  launchCronJob("notifications", notificationsCronJob);
+  await launchCronJob("notifications", notificationsCronJob);
   launchCronJob("reminder", reminderCronJob);
 });
 
 cron.schedule("0 0 4 * * * *", async () => {
   // every day at 04h00min00
-  launchCronJob("schedule notification 5 days inactivity", scheduleNotificationsInactivity5DaysCronJob);
+  launchCronJob("schedule notifications 5 days inactivity", scheduleNotificationsInactivity5DaysCronJob);
 });
 
 const launchCronJob = async (name, job) => {
