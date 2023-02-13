@@ -56,11 +56,17 @@ router.post(
     // handle Defi 1 notifications
     const DEFI1_VALIDATE_DAY = category === "DEFI1" && action === "DEFI1_VALIDATE_DAY" && name === "day";
     if (DEFI1_VALIDATE_DAY && value === 1) {
-      await notifications.scheduleDefi1Day1(matomoId);
+      notifications.scheduleDefi1Day1(matomoId);
       return res.status(200).send({ ok: true });
     }
     if (DEFI1_VALIDATE_DAY && value === 2) {
-      await notifications.cancelNotif(matomoId, "DEFI1_DAY1");
+      notifications.cancelNotif(matomoId, "DEFI1_DAY1");
+      return res.status(200).send({ ok: true });
+    }
+
+    // save lastConsoAdded
+    if (category === "CONSO" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
+      notifications.updateLastConsoAdded(matomoId);
       return res.status(200).send({ ok: true });
     }
 

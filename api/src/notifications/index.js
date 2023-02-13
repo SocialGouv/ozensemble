@@ -4,21 +4,85 @@ const { sendPushNotification } = require("../services/push-notifications");
 const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
 
+const updateLastConsoAdded = async (matomoId) => {
+  const user = await prisma.user.upsert({
+    where: { matomo_id: matomoId },
+    create: {
+      matomo_id: matomoId,
+      lastConsoAdded: dayjs().utc().toDate(),
+    },
+    update: { lastConsoAdded: dayjs().utc().toDate() },
+  });
+
+  await prisma.notification.updateMany({
+    where: {
+      userId: user.id,
+      type: "INACTIVITY_5_DAYS",
+      status: "NotSent",
+    },
+    data: {
+      status: "Canceled",
+    },
+  });
+};
+
+const saveInactivity5Days = async (userId) => {
+  const type = "INACTIVITY_5_DAYS";
+
+  const notif = await prisma.notification.findFirst({
+    where: {
+      userId,
+      type,
+      status: "NotSent",
+    },
+  });
+  if (notif) return;
+
+  const reminder = await prisma.reminder.findUnique({
+    where: {
+      userId,
+    },
+  });
+
+  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
+
+  await prisma.notification.create({
+    data: {
+      user: { connect: { id: userId } },
+      type,
+      date: dayjs().utc().add(1, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
+    },
+  });
+};
+
+const scheduleNotificationsInactivity5DaysCronJob = async () => {
+  const users = await prisma.user.findMany({
+    where: {
+      lastConsoAdded: {
+        gte: dayjs().utc().subtract(4, "day").startOf("day").toDate(),
+        lte: dayjs().utc().subtract(4, "day").endOf("day").toDate(),
+      },
+    },
+  });
+
+  for (const { id } of users) {
+    saveInactivity5Days(id);
+  }
+};
+
 const scheduleDefi1Day1 = async (matomoId) => {
   const type = "DEFI1_DAY1";
-  let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-  if (!user) {
-    user = await prisma.user.create({ data: { matomo_id: matomoId } });
-  }
+  const user = await prisma.user.upsert({
+    where: { matomo_id: matomoId },
+    create: { matomo_id: matomoId },
+  });
 
   const reminder = await prisma.reminder.findUnique({
     where: {
       userId: user.id,
     },
   });
-
-  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20;
-  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
 
   const notif = await prisma.notification.findFirst({
     where: {
@@ -28,6 +92,9 @@ const scheduleDefi1Day1 = async (matomoId) => {
     },
   });
   if (notif) return;
+
+  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
 
   await prisma.notification.create({
     data: {
@@ -46,6 +113,7 @@ const cancelNotif = async (matomoId, type) => {
     where: {
       userId: user.id,
       type,
+      status: "NotSent",
     },
     data: {
       status: "Canceled",
@@ -101,6 +169,18 @@ const NOTIFICATIONS_TYPES = {
     body: "Evaluez votre niveau de risque alcool de manière plus fine.",
     link: "oz://DEFI1",
   },
+  INACTIVITY_5_DAYS: {
+    title: "Vous nous manquez",
+    body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
+    link: "oz://CONSO_FOLLOW_UP_NAVIGATOR",
+  },
 };
 
-module.exports = { NOTIFICATIONS_TYPES, cancelNotif, notificationsCronJob, scheduleDefi1Day1 };
+module.exports = {
+  NOTIFICATIONS_TYPES,
+  cancelNotif,
+  notificationsCronJob,
+  scheduleDefi1Day1,
+  updateLastConsoAdded,
+  scheduleNotificationsInactivity5DaysCronJob,
+};
