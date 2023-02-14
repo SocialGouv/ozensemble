@@ -1,3 +1,10 @@
+# [1.79.0](https://github.com/SocialGouv/ozensemble/compare/v1.78.3...v1.79.0) (2023-02-14)
+
+
+### Features
+
+* **api:** notif 5 days inactivity ([#150](https://github.com/SocialGouv/ozensemble/issues/150)) ([39d8836](https://github.com/SocialGouv/ozensemble/commit/39d88367b904a2b18c3f4900b2a57968d7575368))
+
 ## [1.78.3](https://github.com/SocialGouv/ozensemble/compare/v1.78.2...v1.78.3) (2023-02-14)
 
 
