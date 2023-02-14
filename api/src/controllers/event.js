@@ -66,7 +66,7 @@ router.post(
 
     // save lastConsoAdded
     if (category === "CONSO" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
-      notifications.updateLastConsoAdded(matomoId);
+      notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
       return res.status(200).send({ ok: true });
     }
 
