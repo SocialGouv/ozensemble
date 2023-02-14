@@ -76,6 +76,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
   const user = await prisma.user.upsert({
     where: { matomo_id: matomoId },
     create: { matomo_id: matomoId },
+    update: {},
   });
 
   const reminder = await prisma.reminder.findUnique({

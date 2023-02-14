@@ -31,6 +31,7 @@ import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 import { deepLinkingConfig } from './services/deepLink';
 import EnvironmentIndicator from './components/EnvironmentIndicator';
 import NPSScreen, { useCheckNeedNPS, useNPSNotif } from './scenes/NPS/NPSScreen';
+import NotificationService from './services/notifications';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -168,6 +169,7 @@ const Router = () => {
 
   const initApp = async () => {
     await initMatomo();
+    NotificationService.init();
     await logEvent({ category: 'APP', action: 'APP_OPEN' });
     // storage.clearAll();
     // BUG FIX: on Android, Swiper is jumping the index
