@@ -25,7 +25,7 @@ const Defi1_Reminder = ({ navigation, route }) => {
       showPermissionsAlert();
       return;
     }
-    if (!NotificationService.hasToken()) return;
+    if (!NotificationService.hasToken()) return navigation.navigate(...route.params.onPressContinueNavigation); // if already asked, don't block the user, go to next screen. onRegister will be triggered on next launch ?
     const matomoId = storage.getString('@UserIdv2');
     const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
     if (!isConnected) return setNotifErrorAlertVisible(true);

@@ -223,6 +223,18 @@ const Reminder = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const continueButton = route?.params?.enableContinueButton && route?.params?.onPressContinueNavigation?.length > 0;
+  const continueButtonOnPress = async () => {
+    if (!reminder) return navigation.navigate(...route.params.onPressContinueNavigation);
+    setReminderHasBeenSet(true);
+    const isRegistered = await NotificationService.checkAndAskForPermission();
+    if (!isRegistered) {
+      showPermissionsAlert();
+      return;
+    }
+    navigation.navigate(...route.params.onPressContinueNavigation);
+  };
+
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title={wrapperTitle}>
       <Container>
@@ -250,23 +262,18 @@ const Reminder = ({
           </>
         )}
         <ButtonsContainer>
-          <EditButton content={reminder ? 'Modifier le rappel' : 'Définir un rappel'} onPress={showReminderSetup} />
-          {Boolean(reminder) && <RemoveButton content="Désactiver le rappel" onPress={deleteReminder} />}
-          {Boolean(route?.params?.enableContinueButton) && route?.params?.onPressContinueNavigation?.length ? (
-            <ButtonPrimary
-              content="Continuer"
-              onPress={async () => {
-                if (!reminder) return navigation.navigate(...route.params.onPressContinueNavigation);
-                setReminderHasBeenSet(true);
-                const isRegistered = await NotificationService.checkAndAskForPermission();
-                if (!isRegistered) {
-                  showPermissionsAlert();
-                  return;
-                }
-                navigation.navigate(...route.params.onPressContinueNavigation);
-              }}
-            />
-          ) : null}
+          {reminder ? (
+            <>
+              <EditButton content={'Modifier le rappel'} onPress={showReminderSetup} />
+              <RemoveButton content="Désactiver le rappel" onPress={deleteReminder} />
+              {continueButton && <ButtonPrimary content="Continuer" onPress={continueButtonOnPress} />}
+            </>
+          ) : (
+            <>
+              <ButtonPrimary content={'Définir un rappel'} onPress={showReminderSetup} />
+              {continueButton && <EditButton content="Continuer" onPress={continueButtonOnPress} />}
+            </>
+          )}
         </ButtonsContainer>
         <ModeAndWeekDayChooseModal
           key={reminderSetupVisible}
