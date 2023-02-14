@@ -1,3 +1,10 @@
+## [1.79.3](https://github.com/SocialGouv/ozensemble/compare/v1.79.2...v1.79.3) (2023-02-14)
+
+
+### Bug Fixes
+
+* deploy ([4db890b](https://github.com/SocialGouv/ozensemble/commit/4db890b20e03c4a73f6756a72e62afc103bb9fcf))
+
 ## [1.79.2](https://github.com/SocialGouv/ozensemble/compare/v1.79.1...v1.79.2) (2023-02-14)
 
 
