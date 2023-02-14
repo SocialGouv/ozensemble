@@ -1,3 +1,10 @@
+## [1.78.3](https://github.com/SocialGouv/ozensemble/compare/v1.78.2...v1.78.3) (2023-02-14)
+
+
+### Bug Fixes
+
+* post release, reminder, nps ([#151](https://github.com/SocialGouv/ozensemble/issues/151)) ([42a7526](https://github.com/SocialGouv/ozensemble/commit/42a75260a9215bd16da6214eb9febebdec269d67))
+
 ## [1.78.2](https://github.com/SocialGouv/ozensemble/compare/v1.78.1...v1.78.2) (2023-02-10)
 
 
