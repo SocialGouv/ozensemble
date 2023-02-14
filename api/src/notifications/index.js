@@ -94,8 +94,8 @@ const scheduleDefi1Day1 = async (matomoId) => {
   });
   if (notif) return;
 
-  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20;
-  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
+  const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.utcTimeMinutes) || 0;
 
   await prisma.notification.create({
     data: {
