@@ -1,3 +1,10 @@
+## [1.79.2](https://github.com/SocialGouv/ozensemble/compare/v1.79.1...v1.79.2) (2023-02-14)
+
+
+### Bug Fixes
+
+* more logs on reminder setup ([1187d29](https://github.com/SocialGouv/ozensemble/commit/1187d298eaabd8dbb56522bc9bdf78581a85cad6))
+
 ## [1.79.1](https://github.com/SocialGouv/ozensemble/compare/v1.79.0...v1.79.1) (2023-02-14)
 
 
