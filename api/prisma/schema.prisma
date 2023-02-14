@@ -16,6 +16,7 @@ model User {
   push_notif_token  String        @default("")
   reminder          Reminder?
   notifications     Notification[]
+  lastConsoAdded    DateTime?
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt @default(now())
 
