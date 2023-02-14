@@ -1,3 +1,10 @@
+# [1.80.0](https://github.com/SocialGouv/ozensemble/compare/v1.79.3...v1.80.0) (2023-02-14)
+
+
+### Features
+
+* remove api test version, release to prod ([988a8c7](https://github.com/SocialGouv/ozensemble/commit/988a8c73569c2169829cd345569146478b64af76))
+
 ## [1.79.3](https://github.com/SocialGouv/ozensemble/compare/v1.79.2...v1.79.3) (2023-02-14)
 
 
