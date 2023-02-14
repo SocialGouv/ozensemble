@@ -1,3 +1,10 @@
+## [1.79.1](https://github.com/SocialGouv/ozensemble/compare/v1.79.0...v1.79.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* **api:** reminder.utcTimeHours ([b0dabbb](https://github.com/SocialGouv/ozensemble/commit/b0dabbbfd0fe0316b417318430450554ccb59c83))
+
 # [1.79.0](https://github.com/SocialGouv/ozensemble/compare/v1.78.3...v1.79.0) (2023-02-14)
 
 
