@@ -173,7 +173,7 @@ const NOTIFICATIONS_TYPES = {
   INACTIVITY_5_DAYS: {
     title: "Vous nous manquez",
     body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
-    link: "oz://CONSO_FOLLOW_UP_NAVIGATOR",
+    link: "oz://ADD_DRINK",
   },
 };
 

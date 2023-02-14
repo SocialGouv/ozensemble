@@ -49,7 +49,8 @@ const drinksPerCurrenTimestampSelector = selectorFamily({
 });
 
 const ConsosList = ({ navigation, route }) => {
-  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => route.params.timestamp);
+  const timestamp = route?.params?.timestamp || new Date();
+  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => timestamp);
   const drinksPerCurrentaTimestamp = useRecoilValue(
     drinksPerCurrenTimestampSelector({ modalTimestamp: addDrinkModalTimestamp })
   );

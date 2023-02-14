@@ -236,7 +236,7 @@ const reminderCronJob = async (req, res) => {
 const REMINDER_DATA = {
   title: "C'est l'heure de votre suivi !",
   body: "N'oubliez pas de remplir votre agenda Oz",
-  link: "oz://CONSO_FOLLOW_UP_NAVIGATOR",
+  link: "oz://ADD_DRINK",
 };
 
 module.exports = { router, reminderCronJob };

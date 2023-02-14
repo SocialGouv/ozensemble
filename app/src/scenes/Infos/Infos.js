@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Text, TouchableOpacity, TouchableWithoutFeedback, Share, Platform } from 'react-native';
 import styled from 'styled-components';
-import pck from '../../../package.json';
+import appJson from '../../../app.json';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
 import TextStyled from '../../components/TextStyled';
@@ -59,7 +59,9 @@ const InfosMenu = ({ navigation }) => {
         <MenuItem caption="Partager l'application" onPress={() => shareApp()} showArrow={false} />
         <VersionContainer>
           <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
-            <VersionLabel>version {pck.version}</VersionLabel>
+            <VersionLabel>
+              version {appJson.version.buildName} ({appJson.version.buildNumber})
+            </VersionLabel>
           </TouchableWithoutFeedback>
         </VersionContainer>
       </Container>
