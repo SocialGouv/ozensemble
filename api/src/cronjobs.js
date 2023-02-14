@@ -12,7 +12,7 @@ cron.schedule("* * * * *", async () => {
 });
 
 cron.schedule("0 0 4 * * * *", async () => {
-  // every day at 04h00min00
+  // every day at 4 am, find users with lastConsoAdded = 4 days ago and create a notification for tomorrow (6th day)
   launchCronJob("schedule notifications 5 days inactivity", scheduleNotificationsInactivity5DaysCronJob);
 });
 
