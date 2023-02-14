@@ -1,3 +1,10 @@
+## [1.80.1](https://github.com/SocialGouv/ozensemble/compare/v1.80.0...v1.80.1) (2023-02-14)
+
+
+### Bug Fixes
+
+* **api:** revert app test version ([377105c](https://github.com/SocialGouv/ozensemble/commit/377105c7ef497adfc2a16017af69fbe0cf37ed45))
+
 # [1.80.0](https://github.com/SocialGouv/ozensemble/compare/v1.79.3...v1.80.0) (2023-02-14)
 
 
