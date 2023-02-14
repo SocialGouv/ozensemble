@@ -48,6 +48,11 @@ router.post(
     if (category === "NAVIGATION" && action === "CONSO_FOLLOW_UP") return res.status(200).send({ ok: true, newFeatures: [newFeatures.suivi] });
     if (category === "NAVIGATION" && action === "HEALTH") return res.status(200).send({ ok: true, newFeatures: [newFeatures.articles] });
 
+    if (req.headers.appversion < 128) {
+      // build 128 = currently in tests
+      return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
+    }
+
     // handle Defi 1 notifications
     const DEFI1_VALIDATE_DAY = category === "DEFI1" && action === "DEFI1_VALIDATE_DAY" && name === "day";
     if (DEFI1_VALIDATE_DAY && value === 1) {
