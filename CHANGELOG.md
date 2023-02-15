@@ -1,3 +1,10 @@
+# [1.81.0](https://github.com/SocialGouv/ozensemble/compare/v1.80.1...v1.81.0) (2023-02-15)
+
+
+### Features
+
+* **api:** deploy ([58093ea](https://github.com/SocialGouv/ozensemble/commit/58093eafc7d3305d07c1d3c3b18ba13dc7b47780))
+
 ## [1.80.1](https://github.com/SocialGouv/ozensemble/compare/v1.80.0...v1.80.1) (2023-02-14)
 
 
