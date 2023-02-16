@@ -1,3 +1,10 @@
+## [1.81.1](https://github.com/SocialGouv/ozensemble/compare/v1.81.0...v1.81.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* **api:** add try catch in notifications ([#155](https://github.com/SocialGouv/ozensemble/issues/155)) ([758b04a](https://github.com/SocialGouv/ozensemble/commit/758b04a51ae8b3bf9ed133059385c0966db9c139))
+
 # [1.81.0](https://github.com/SocialGouv/ozensemble/compare/v1.80.1...v1.81.0) (2023-02-15)
 
 
