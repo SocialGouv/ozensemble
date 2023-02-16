@@ -2,28 +2,33 @@ const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { sendPushNotification } = require("../services/push-notifications");
 const utc = require("dayjs/plugin/utc");
+const { capture } = require("../third-parties/sentry");
 dayjs.extend(utc);
 
 const updateLastConsoAdded = async (matomoId) => {
-  const user = await prisma.user.upsert({
-    where: { matomo_id: matomoId },
-    create: {
-      matomo_id: matomoId,
-      lastConsoAdded: dayjs().utc().toDate(),
-    },
-    update: { lastConsoAdded: dayjs().utc().toDate() },
-  });
+  try {
+    const user = await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      create: {
+        matomo_id: matomoId,
+        lastConsoAdded: dayjs().utc().toDate(),
+      },
+      update: { lastConsoAdded: dayjs().utc().toDate() },
+    });
 
-  await prisma.notification.updateMany({
-    where: {
-      userId: user.id,
-      type: "INACTIVITY_5_DAYS",
-      status: "NotSent",
-    },
-    data: {
-      status: "Canceled",
-    },
-  });
+    await prisma.notification.updateMany({
+      where: {
+        userId: user.id,
+        type: "INACTIVITY_5_DAYS",
+        status: "NotSent",
+      },
+      data: {
+        status: "Canceled",
+      },
+    });
+  } catch (e) {
+    capture(e, { level: "error", extra: { name } });
+  }
 };
 
 const saveInactivity5Days = async (userId) => {
@@ -57,17 +62,21 @@ const saveInactivity5Days = async (userId) => {
 };
 
 const scheduleNotificationsInactivity5DaysCronJob = async () => {
-  const users = await prisma.user.findMany({
-    where: {
-      lastConsoAdded: {
-        gte: dayjs().utc().subtract(4, "day").startOf("day").toDate(),
-        lte: dayjs().utc().subtract(4, "day").endOf("day").toDate(),
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        lastConsoAdded: {
+          gte: dayjs().utc().subtract(4, "day").startOf("day").toDate(),
+          lte: dayjs().utc().subtract(4, "day").endOf("day").toDate(),
+        },
       },
-    },
-  });
+    });
 
-  for (const { id } of users) {
-    saveInactivity5Days(id);
+    for (const { id } of users) {
+      saveInactivity5Days(id);
+    }
+  } catch (e) {
+    capture(e, { level: "error", extra: { name } });
   }
 };
 
