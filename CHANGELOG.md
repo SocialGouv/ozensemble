@@ -1,3 +1,10 @@
+## [1.81.2](https://github.com/SocialGouv/ozensemble/compare/v1.81.1...v1.81.2) (2023-02-17)
+
+
+### Bug Fixes
+
+* **api:** name is not defined ([ea47b87](https://github.com/SocialGouv/ozensemble/commit/ea47b87d69f72c191fb0e25d68dc4d7ff6b9b58c))
+
 ## [1.81.1](https://github.com/SocialGouv/ozensemble/compare/v1.81.0...v1.81.1) (2023-02-16)
 
 
