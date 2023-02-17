@@ -76,7 +76,7 @@ const scheduleNotificationsInactivity5DaysCronJob = async () => {
       saveInactivity5Days(id);
     }
   } catch (e) {
-    capture(e, { level: "error", extra: { name } });
+    capture(e, { level: "error" });
   }
 };
 
