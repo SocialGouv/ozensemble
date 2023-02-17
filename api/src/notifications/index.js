@@ -27,7 +27,7 @@ const updateLastConsoAdded = async (matomoId) => {
       },
     });
   } catch (e) {
-    capture(e, { level: "error", extra: { name } });
+    capture(e, { level: "error" });
   }
 };
 
