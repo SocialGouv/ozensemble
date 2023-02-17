@@ -1,3 +1,10 @@
+## [1.81.3](https://github.com/SocialGouv/ozensemble/compare/v1.81.2...v1.81.3) (2023-02-17)
+
+
+### Bug Fixes
+
+* capture extra undefined ([4916e68](https://github.com/SocialGouv/ozensemble/commit/4916e68169d725b9b5373eae6da42711f68d7867))
+
 ## [1.81.2](https://github.com/SocialGouv/ozensemble/compare/v1.81.1...v1.81.2) (2023-02-17)
 
 
