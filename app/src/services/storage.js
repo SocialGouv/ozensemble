@@ -166,6 +166,7 @@ export async function migrateRemindersToPushToken() {
           timezone: RNLocalize.getTimeZone(),
           timeHours: new Date(reminder).getHours(),
           timeMinutes: new Date(reminder).getMinutes(),
+          calledFrom: 'hasMigratedRemindersToPushToken',
           daysOfWeek:
             mode === 'week'
               ? {
@@ -177,11 +178,49 @@ export async function migrateRemindersToPushToken() {
         },
       });
 
-      if (!res?.ok) return false;
+      NotificationService.cancelAll();
+
+      if (!res?.ok) {
+        capture(new Error('Reminder migration failed'), {
+          extra: {
+            data: {
+              reminder,
+              mode,
+              weekDay,
+              existingId,
+              reminderDefis,
+              reminderDefisMode,
+              reminderDefisWeekDay,
+              reminderGain,
+              reminderGainMode,
+              reminderGainWeekDay,
+            },
+            request: {
+              path: '/reminder',
+              body: {
+                pushNotifToken,
+                type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
+                timezone: RNLocalize.getTimeZone(),
+                timeHours: new Date(reminder).getHours(),
+                timeMinutes: new Date(reminder).getMinutes(),
+                calledFrom: 'hasMigratedRemindersToPushToken',
+                daysOfWeek:
+                  mode === 'week'
+                    ? {
+                        [weekDayName]: true,
+                      }
+                    : undefined,
+                id: existingId ?? undefined,
+                matomoId,
+              },
+            },
+            response: res,
+          },
+        });
+        return false;
+      }
 
       if (res?.ok && res?.reminder?.id) storage.set('STORAGE_KEY_REMINDER_ID', res.reminder.id);
-
-      NotificationService.cancelAll();
     } catch (e) {
       capture(e, {
         extra: {

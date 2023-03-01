@@ -21,6 +21,7 @@ import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import NetInfo from '@react-native-community/netinfo';
+import { capture } from '../services/sentry';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
@@ -144,11 +145,44 @@ const Reminder = ({
               }
             : undefined,
         id: existingId ?? undefined,
+        calledFrom: 'Reminder',
         matomoId,
       },
     });
 
     if (!res?.ok) {
+      capture(new Error('Reminder setup failed'), {
+        extra: {
+          data: {
+            reminder,
+            mode,
+            weekDay,
+            weekDayName,
+            existingId,
+            matomoId,
+          },
+          request: {
+            path: '/reminder',
+            body: {
+              pushNotifToken: storage.getString('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN'),
+              type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
+              timezone: RNLocalize.getTimeZone(),
+              timeHours: reminder.getHours(),
+              timeMinutes: reminder.getMinutes(),
+              daysOfWeek:
+                mode === 'week'
+                  ? {
+                      [weekDayName]: true,
+                    }
+                  : undefined,
+              id: existingId ?? undefined,
+              calledFrom: 'Reminder',
+              matomoId,
+            },
+          },
+          response: res,
+        },
+      });
       Alert.alert(
         'Une erreur est survenue lors de la mise en place de votre rappel',
         "L'équipe technique a été prévenue et va résoudre le problème au plus vite."
