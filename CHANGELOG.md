@@ -1,3 +1,10 @@
+## [1.81.5](https://github.com/SocialGouv/ozensemble/compare/v1.81.4...v1.81.5) (2023-03-01)
+
+
+### Bug Fixes
+
+* **api:** default push token empty ([73863d4](https://github.com/SocialGouv/ozensemble/commit/73863d4e882dac7d54a558d9099e9d2e5472485f))
+
 ## [1.81.4](https://github.com/SocialGouv/ozensemble/compare/v1.81.3...v1.81.4) (2023-03-01)
 
 
