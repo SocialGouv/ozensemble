@@ -2,6 +2,8 @@ import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
 import { useSetRecoilState } from 'recoil';
+import dayjs from 'dayjs';
+import { v4 as uuid } from 'uuid';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -101,6 +103,23 @@ const FakeData = () => {
           caption="10 jours de conso pas trop chargés"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.onlyBelow.drinks);
+            storage.delete('nps-asked-after-more-than-3-consos');
+          }}
+        />
+        <MenuItem
+          caption="+/-5 verres de vin par jour pendant 2 ans"
+          onPress={() => {
+            const startDate = dayjs().subtract(2, 'year').startOf('day');
+            const drinks = [];
+            for (let i = 0; i < 730; i++) {
+              drinks.push({
+                timestamp: startDate.add(i, 'day').valueOf(),
+                drinkKey: 'wine-glass',
+                quantity: Math.floor(Math.random() * 10),
+                id: uuid(),
+              });
+            }
+            setGlobalDrinksState(drinks);
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
