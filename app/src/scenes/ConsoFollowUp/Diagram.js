@@ -49,10 +49,32 @@ const highestDosesInPeriodSelector = selectorFamily({
     ({ asPreview = false, period } = {}) =>
     ({ get }) => {
       const dailyDoses = get(dailyDosesSelector({ asPreview }));
+      let bars_doses = {};
       if (period === 'day') {
         return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
+      } else if (period === 'week') {
+        let week_number = 0;
+        let end_of_this_week = dayjs().endOf('week');
+        Object.keys(dailyDoses).map((date) => {
+          week_number = Math.abs(Math.trunc(end_of_this_week.diff(dayjs(date), 'days') / 7));
+          if (bars_doses[week_number]) {
+            bars_doses[week_number] += dailyDoses[date];
+          } else {
+            bars_doses[week_number] = dailyDoses[date];
+          }
+        });
+      } else {
+        let month_year;
+        Object.keys(dailyDoses).map((date) => {
+          month_year = dayjs(date).format('YYYY-MM');
+          if (bars_doses[month_year]) {
+            bars_doses[month_year] = bars_doses[month_year] + dailyDoses[date];
+          } else {
+            bars_doses[month_year] = dailyDoses[date];
+          }
+        });
       }
-      return Math.min(maxDosesOnScreen, Math.max(Object.values(dailyDoses).reduce((acc, val) => acc + val, 0)));
+      return Math.min(maxDosesOnScreen, Math.max(...Object.values(bars_doses)));
     },
 });
 
@@ -180,7 +202,6 @@ const Diagram = ({ asPreview }) => {
   );
 
   const doseHeight = barMaxHeight / Math.max(highestAcceptableDosesInPeriod, highestDosesInPeriod);
-
   const { diff, decrease, pourcentageOfDecrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
   );
@@ -233,6 +254,7 @@ const Diagram = ({ asPreview }) => {
             const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesInPeriod);
             const overLineValue =
               dailyDoseHeight > highestAcceptableDosesInPeriod && dailyDoseHeight - highestAcceptableDosesInPeriod;
+
             return (
               <Bar
                 key={index}
