@@ -121,7 +121,7 @@ const Reminder = ({
 
     const weekDayName = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][weekDay];
 
-    if (!NotificationService.hasToken()) return;
+    if (!storage.getString('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN')) return;
 
     const existingId = storage.getString(STORAGE_KEY_REMINDER_ID);
     const matomoId = storage.getString('@UserIdv2');
@@ -132,7 +132,7 @@ const Reminder = ({
     const res = await API.put({
       path: '/reminder',
       body: {
-        pushNotifToken: NotificationService.getToken(),
+        pushNotifToken: storage.getString('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN'),
         type: mode === 'day' ? 'Daily' : mode === 'week' ? 'Weekdays' : 'Daily',
         timezone: RNLocalize.getTimeZone(),
         timeHours: reminder.getHours(),

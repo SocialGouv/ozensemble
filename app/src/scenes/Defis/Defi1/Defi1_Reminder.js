@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import styled from 'styled-components';
 import { openSettings } from 'react-native-permissions';
-import NetInfo from '@react-native-community/netinfo';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ReminderIcon from '../../../components/illustrations/ReminderIcon';
 import TextStyled from '../../../components/TextStyled';
@@ -13,8 +12,6 @@ import H1 from '../../../components/H1';
 import { Spacer } from '../../../components/Articles';
 import Modal from '../../../components/Modal';
 import { defaultPaddingFontScale } from '../../../styles/theme';
-import { storage } from '../../../services/storage';
-import API from '../../../services/api';
 
 const Defi1_Reminder = ({ navigation, route }) => {
   const [notifErrorAlertVisible, setNotifErrorAlertVisible] = useState(false);
@@ -22,26 +19,22 @@ const Defi1_Reminder = ({ navigation, route }) => {
   const activateNotif = async () => {
     const isRegistered = await NotificationService.checkAndAskForPermission();
     if (!isRegistered) {
-      showPermissionsAlert();
-      return;
-    }
-    if (!NotificationService.hasToken()) return navigation.navigate(...route.params.onPressContinueNavigation); // if already asked, don't block the user, go to next screen. onRegister will be triggered on next launch ?
-    const matomoId = storage.getString('@UserIdv2');
-    const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
-    if (!isConnected) return setNotifErrorAlertVisible(true);
-    const res = await API.put({
-      path: '/user',
-      body: {
-        pushNotifToken: NotificationService.getToken(),
-        matomoId,
-      },
-    });
-
-    if (!res?.ok) {
       Alert.alert(
-        'Une erreur est survenue lors de la mise en place de votre rappel',
-        "L'équipe technique a été prévenue et va résoudre le problème au plus vite."
+        'Vous devez autoriser les notifications pour accéder à ce service',
+        'Veuillez cliquer sur Réglages puis Notifications pour activer les notifications',
+        [
+          {
+            text: 'Réglages',
+            onPress: openSettings,
+          },
+          {
+            text: 'Annuler',
+            style: 'cancel',
+          },
+        ],
+        { cancelable: true }
       );
+      return;
     }
     navigation.navigate(...route.params.onPressContinueNavigation);
   };
@@ -89,24 +82,6 @@ const ReminderErrorAlert = ({ visible, hide }) => {
         </ModalContainer>
       </Modal>
     </>
-  );
-};
-
-const showPermissionsAlert = () => {
-  Alert.alert(
-    'Vous devez autoriser les notifications pour accéder à ce service',
-    'Veuillez cliquer sur Réglages puis Notifications pour activer les notifications',
-    [
-      {
-        text: 'Réglages',
-        onPress: openSettings,
-      },
-      {
-        text: 'Annuler',
-        style: 'cancel',
-      },
-    ],
-    { cancelable: true }
   );
 };
 

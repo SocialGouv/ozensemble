@@ -6,8 +6,6 @@ import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
 import API from './api';
 
-const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN';
-const STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR = 'STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR';
 class NotificationService {
   listeners = {};
 
@@ -46,13 +44,13 @@ class NotificationService {
 
   onRegister = (tokenPayload) => {
     console.log('NotificationService onRegister:', tokenPayload);
-    storage.set(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN, tokenPayload.token);
-    storage.delete(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
+    storage.set('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN', tokenPayload.token);
     logEvent({
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'SUCCESS',
     });
     const matomoId = storage.getString('@UserIdv2');
+    console.log('LALALALALA');
     API.put({
       path: '/user',
       body: {
@@ -64,7 +62,6 @@ class NotificationService {
 
   onRegistrationError = (err) => {
     console.error('NotificationService onRegistrationError:', err.message, err);
-    storage.set(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR, err.message);
     logEvent({
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'ERROR',
@@ -250,18 +247,6 @@ class NotificationService {
     const _initialNotification = this.initialNotification;
     this.initNotification = null;
     return _initialNotification;
-  };
-
-  getToken = () => {
-    return storage.getString(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN);
-  };
-
-  hasToken = () => {
-    return storage.getString(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN) !== null;
-  };
-
-  getTokenError = () => {
-    return storage.getString(STORAGE_KEY_PUSH_NOTIFICATION_TOKEN_ERROR);
   };
 
   listen = (callback) => {
