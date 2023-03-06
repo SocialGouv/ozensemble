@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import Svg, { Path } from 'react-native-svg';
+import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { useRecoilState } from 'recoil';
 import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
 import API from '../../services/api';
-import Svg, { Path } from 'react-native-svg';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
-import { BagdeGoals } from './Svgs/BadgeGoals';
-import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import { useRecoilState } from 'recoil';
+import { BadgeGoals } from './Svgs/BadgeGoals';
+import { badgesState } from '../../recoil/badges';
 
 const BadgeModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -61,8 +62,8 @@ const BadgeModal = () => {
             </Svg>
           </TouchableOpacity>
           <View className="mb-8 mt-4">
-            {modalContent.category == 'DRINKS_ADD' && <BadgeDrinks stars={modalContent.stars} />}
-            {modalContent.category == 'GOALS' && <BagdeGoals stars={modalContent.stars} />}
+            {modalContent.category === 'DRINKS_ADD' && <BadgeDrinks stars={modalContent.stars} />}
+            {modalContent.category === 'GOALS' && <BadgeGoals stars={modalContent.stars} />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
@@ -75,7 +76,7 @@ const BadgeModal = () => {
           <View className="items-center mb-4">
             <ButtonPrimary onPress={onClose} content={modalContent.CTATitle} />
           </View>
-          {modalContent.secondaryButtonTitle.length >= 0 && (
+          {/* {modalContent.secondaryButtonTitle.length >= 0 && (
             <View>
               <Text
                 className="text-indigo-600 text-center underline text-base"
@@ -83,7 +84,7 @@ const BadgeModal = () => {
                 {modalContent.secondaryButtonTitle}
               </Text>
             </View>
-          )}
+          )} */}
         </View>
       </SafeAreaView>
     </Modal>
