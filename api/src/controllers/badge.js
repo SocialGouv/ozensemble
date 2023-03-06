@@ -13,6 +13,7 @@ router.get(
     // find badges of matomoId
     const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
 
+    if (!user) return res.status(200).send({ ok: true, data: { badges: [], badgesCatalog } });
     const badges = await prisma.badge.findMany({
       where: {
         userId: user.id,
