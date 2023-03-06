@@ -2,6 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
+const { badgesCatalog } = require("../badges");
 
 router.get(
   "/:matomoId",
@@ -17,7 +18,7 @@ router.get(
         userId: user.id,
       },
     });
-    return res.status(200).send({ ok: true, data: badges });
+    return res.status(200).send({ ok: true, data: { badges, badgesCatalog } });
   })
 );
 

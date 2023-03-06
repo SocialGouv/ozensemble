@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Svg, { Path } from 'react-native-svg';
+import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { hitSlop } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
-import Svg, { Path } from 'react-native-svg';
 import { BagdeDrinksNoStars } from './Svgs/BagdeDrinksNoStars';
-import { BadgeGoalsNoStars, BagdeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
-import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
 import { storage } from '../../services/storage';
-import { useNavigation } from '@react-navigation/native';
+import { badgesCatalogState, badgesState } from '../../recoil/badges';
+import API from '../../services/api';
 
 const BadgeAnnoucementModal = () => {
-  const [showModal, setShowModal] = useState(!storage.getBoolean('@NewBadgesAnnouncementFeatures'));
+  const [showModal, setShowModal] = useState(() => !storage.getBoolean('@NewBadgesAnnouncementFeatures'));
+  const setBadges = useSetRecoilState(badgesState);
+  const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
+
+  useEffect(() => {
+    const matomoId = storage.getString('@UserIdv2');
+    // storage.delete('@NewBadgesAnnouncementFeatures');
+    API.get({ path: `/badge/${matomoId}` }).then((res) => {
+      if (res.ok) {
+        setBadges(res.data.badges);
+        setBadgesCatalog(res.data.badgesCatalog);
+      }
+    });
+  }, [setBadges, setBadgesCatalog]);
+
   const navigation = useNavigation();
   const onGoToBadgesList = () => {
     onClose();
@@ -46,12 +63,14 @@ const BadgeAnnoucementModal = () => {
             </Svg>
           </TouchableOpacity>
           <View className="mb-6 mt-4 flex flex-row justify-center gap-x-2">
-            <View>
-              <BagdeDrinksNoStars />
-            </View>
-            <View>
-              <BadgeGoalsNoStars />
-            </View>
+            {badgesCatalog.map((badgeCategory) => {
+              return (
+                <View key={badgeCategory.category}>
+                  {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
+                  {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
+                </View>
+              );
+            })}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
