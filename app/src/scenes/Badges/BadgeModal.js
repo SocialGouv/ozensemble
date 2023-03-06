@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
-import { useRecoilState } from 'recoil';
+import { Text, View, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
+import { useSetRecoilState } from 'recoil';
 import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
@@ -10,23 +10,45 @@ import TextStyled from '../../components/TextStyled';
 import API from '../../services/api';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
-import { badgesState } from '../../recoil/badges';
+import { badgesCatalogState, badgesState } from '../../recoil/badges';
+import { useNavigation } from '@react-navigation/native';
 
 const BadgeModal = () => {
+  const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState({
+  const [modalContent, setModalContent] = useState(() => ({
     category: 'DRINKS_ADD',
     title: '1er jour complété',
     content: 'Super, vous avez complété votre 1er jour! \n Revenez demain pour ajouter le second! ',
     stars: 2,
     CTATitle: 'Voir mes badges',
+    CTANavigation: ['BADGES_LIST'],
+    CTALink: null,
     secondaryButtonTitle: "Partager l'application",
-    secondaryButtonLink: '',
-  });
-  const [badges, setBadges] = useRecoilState(badgesState);
+    secondaryButtonNavigation: ['BADGES_LIST'],
+    secondaryButtonLink: null,
+  }));
+  const setBadges = useSetRecoilState(badgesState);
+  const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
 
   const onClose = () => setShowModal(false);
-  const handleShowBadge = async ({ newBadge, allBadges }) => {
+
+  const onCTAPress = () => {
+    if (modalContent.CTANavigation) {
+      navigation.navigate(...modalContent.CTANavigation);
+    } else if (modalContent.CTALink) {
+      Linking.openURL(modalContent.CTALink);
+    }
+  };
+  const onSecondaryPress = () => {
+    if (modalContent.CTANavigation) {
+      navigation.navigate(...modalContent.CTANavigation);
+    } else if (modalContent.CTALink) {
+      Linking.openURL(modalContent.CTALink);
+    }
+  };
+
+  const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
     // InteractionManager.runAfterInteractions(() => {
     //   setModalContent(newBadge);
     //   setShowModal(true);
@@ -34,6 +56,7 @@ const BadgeModal = () => {
 
     if (newBadge) setModalContent(newBadge);
     if (allBadges) setBadges(allBadges);
+    if (badgesCatalog) setBadgesCatalog(badgesCatalog);
     setShowModal(true);
   };
 
@@ -62,8 +85,8 @@ const BadgeModal = () => {
             </Svg>
           </TouchableOpacity>
           <View className="mb-8 mt-4">
-            {modalContent.category === 'DRINKS_ADD' && <BadgeDrinks stars={modalContent.stars} />}
-            {modalContent.category === 'GOALS' && <BadgeGoals stars={modalContent.stars} />}
+            {modalContent.category === 'drinks' && <BadgeDrinks stars={modalContent.stars} />}
+            {modalContent.category === 'goals' && <BadgeGoals stars={modalContent.stars} />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
@@ -74,17 +97,15 @@ const BadgeModal = () => {
             <TextStyled color={'#3C3C43'}>{modalContent.content}</TextStyled>
           </Text>
           <View className="items-center mb-4">
-            <ButtonPrimary onPress={onClose} content={modalContent.CTATitle} />
+            <ButtonPrimary onPress={onCTAPress} content={modalContent.CTATitle} />
           </View>
-          {/* {modalContent.secondaryButtonTitle.length >= 0 && (
-            <View>
-              <Text
-                className="text-indigo-600 text-center underline text-base"
-                onPress={() => Linking.openURL(modalContent.secondaryButtonLink)}>
+          {!!modalContent.secondaryButtonTitle.length && (
+            <TouchableOpacity>
+              <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
                 {modalContent.secondaryButtonTitle}
               </Text>
-            </View>
-          )} */}
+            </TouchableOpacity>
+          )}
         </View>
       </SafeAreaView>
     </Modal>

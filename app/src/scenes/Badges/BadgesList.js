@@ -6,6 +6,8 @@ import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
+import { BadgeDefis } from './Svgs/BadgeDefis';
+import { BadgeArticles } from './Svgs/BadgeArticles';
 
 const BadgesList = ({ navigation }) => {
   const userBadges = useRecoilValue(badgesState);
@@ -36,6 +38,12 @@ const BadgesList = ({ navigation }) => {
                         {badgeCategory.category === 'goals' && (
                           <BadgeGoals stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
+                        {badgeCategory.category === 'defis' && (
+                          <BadgeGoals stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
+                        )}
+                        {badgeCategory.category === 'articles' && (
+                          <BadgeArticles stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
+                        )}
                       </View>
                       <View className="mt-auto">
                         <Text className="text-center text-[#4030a5] text-xs">{badge.reduced_title || badge.title}</Text>
@@ -62,13 +70,6 @@ const BadgesList = ({ navigation }) => {
           </React.Fragment>
         );
       })}
-      <View>
-        <Text className="text-lg text-[#4030a5] font-extrabold mt-10">Badges objectifs</Text>
-        <Text className="text-sm my-4">
-          Gagnez ces badges en vous fixant votre objectif, puis d'une semaine à l'autre quand votre consommation
-          d'alcool est inférieure à votre objectif!
-        </Text>
-      </View>
     </WrapperContainer>
   );
 };

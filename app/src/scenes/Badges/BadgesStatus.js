@@ -8,6 +8,8 @@ import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+import { BadgeDefisNoStars } from './Svgs/BadgeDefisNoStars';
+import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
 
 const BadgesStatus = ({ navigate }) => {
   const [badges, setBadges] = useRecoilState(badgesState);
@@ -15,7 +17,6 @@ const BadgesStatus = ({ navigate }) => {
   useFocusEffect(
     useCallback(() => {
       const matomoId = storage.getString('@UserIdv2');
-      console.log('lalala');
       API.get({ path: `/badge/${matomoId}` }).then((res) => {
         if (res.ok) {
           setBadges(res.data.badges);
@@ -32,29 +33,36 @@ const BadgesStatus = ({ navigate }) => {
           Mes badges obtenus
         </H1>
       </View>
-      <View className="flex flex-row flex-wrap gap-x-4">
+      <View className="flex flex-row flex-wrap -m-2">
         {badgesCatalog.map((badgeCategory) => {
+          if (!badgeCategory.badges) return null;
           const numberOfBadges = badges?.filter((userBadge) => userBadge.category === badgeCategory.category).length;
           const numberOfAvailableBadges = badgeCategory.badges.length;
           return (
-            <View key={badgeCategory.category} className="bg-[#E8E8F3] rounded-lg flex p-2 flex-grow justify-center">
-              <Text className="text-[#4030a5] font-bold text-sm text-center mb-4">{badgeCategory.titleForStatus}</Text>
-              {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
-              {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
-              <View className="w-1/2 rounded-xl bg-white h-2 flex mx-auto mt-4">
-                {numberOfBadges > 0 && (
-                  <View
-                    className="rounded-xl h-2"
-                    style={{
-                      backgroundColor: badgeCategory.bgColor,
-                      width: (numberOfBadges / numberOfAvailableBadges) * 100 + '%',
-                    }}
-                  />
-                )}
+            <View key={badgeCategory.category} className="p-2 basis-1/2">
+              <View className="bg-[#E8E8F3] rounded-lg flex p-2 w-full justify-center">
+                <Text className="text-[#4030a5] font-bold text-sm text-center mb-4">
+                  {badgeCategory.titleForStatus}
+                </Text>
+                {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
+                {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
+                {badgeCategory.category === 'defis' && <BadgeDefisNoStars />}
+                {badgeCategory.category === 'articles' && <BadgeArticlesNoStars />}
+                <View className="w-1/2 rounded-xl bg-white h-2 flex mx-auto mt-4">
+                  {numberOfBadges > 0 && (
+                    <View
+                      className="rounded-xl h-2"
+                      style={{
+                        backgroundColor: badgeCategory.bgColor,
+                        width: (numberOfBadges / numberOfAvailableBadges) * 100 + '%',
+                      }}
+                    />
+                  )}
+                </View>
+                <Text className="text-center text-[#4030a5] font-bold text-xs my-2">
+                  {numberOfBadges}/{numberOfAvailableBadges}
+                </Text>
               </View>
-              <Text className="text-center text-[#4030a5] font-bold text-xs my-2">
-                {numberOfBadges}/{numberOfAvailableBadges}
-              </Text>
             </View>
           );
         })}

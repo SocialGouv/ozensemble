@@ -10,12 +10,14 @@ import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
 import { BagdeDrinksNoStars } from './Svgs/BagdeDrinksNoStars';
 import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
+import { BadgeDefisNoStars } from './Svgs/BadgeDefisNoStars';
 import { storage } from '../../services/storage';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import API from '../../services/api';
+import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
 
 const BadgeAnnoucementModal = () => {
-  const [showModal, setShowModal] = useState(() => !storage.getBoolean('@NewBadgesAnnouncementFeatures'));
+  const [showModal, setShowModal] = useState(() => !!storage.getBoolean('@NewBadgesAnnouncementFeatures'));
   const setBadges = useSetRecoilState(badgesState);
   const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
 
@@ -62,12 +64,14 @@ const BadgeAnnoucementModal = () => {
               />
             </Svg>
           </TouchableOpacity>
-          <View className="mb-6 mt-4 flex flex-row justify-center gap-x-2">
+          <View className="w-full mb-6 mt-4 flex flex-row justify-center gap-x-2">
             {badgesCatalog.map((badgeCategory) => {
               return (
                 <View key={badgeCategory.category}>
                   {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
                   {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
+                  {badgeCategory.category === 'defis' && <BadgeDefisNoStars />}
+                  {badgeCategory.category === 'articles' && <BadgeArticlesNoStars />}
                 </View>
               );
             })}

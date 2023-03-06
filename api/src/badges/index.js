@@ -147,6 +147,14 @@ const badgesCatalog = [
       },
     ],
   },
+  // {
+  //   category: "defis",
+  //   badges: [],
+  // },
+  // {
+  //   category: "articles",
+  //   badges: [],
+  // },
 ];
 
 module.exports = {
