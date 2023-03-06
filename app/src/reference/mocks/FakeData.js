@@ -15,6 +15,7 @@ import { fakeGain } from './gains';
 import { drinksState } from '../../recoil/consos';
 import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
+import API from '../../services/api';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -46,6 +47,32 @@ const FakeData = () => {
             replaceStorageValues(fakeGain);
             setGlobalDrinksState(fakeConsoData.full.drinks);
           }}
+        />
+        <H1Wrapper>Simuler un badge</H1Wrapper>
+        <MenuItem
+          noAlert
+          caption="1 jour complété"
+          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 1 } })}
+        />
+        <MenuItem
+          noAlert
+          caption="3 jours complétés"
+          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 2 } })}
+        />
+        <MenuItem
+          noAlert
+          caption="7 jours complétés"
+          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 3 } })}
+        />
+        <MenuItem
+          noAlert
+          caption="14 jours complétés"
+          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 4 } })}
+        />
+        <MenuItem
+          noAlert
+          caption="28 jours complétés"
+          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 5 } })}
         />
         <H1Wrapper>Mon NPS</H1Wrapper>
         <MenuItem
@@ -156,9 +183,10 @@ const FakeData = () => {
 
 export default FakeData;
 
-const MenuItem = ({ caption = '', onPress }) => {
+const MenuItem = ({ caption = '', onPress, noAlert = false }) => {
   const onPressRequest = () => {
     onPress();
+    if (noAlert) return;
     Alert.alert(
       `Vous avez remplacé les données pour ${caption.toLowerCase()}`,
       "Veuillez quitter l'app et la redémarrer pour voir les changements"

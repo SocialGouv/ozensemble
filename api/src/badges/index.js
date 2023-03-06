@@ -168,7 +168,7 @@ const badgesCatalog = [
 
 const grabBadgeFromCatalog = (category, stars) => {
   const categoryBadges = badgesCatalog.find((badge) => badge.category === category);
-  return categoryBadges.badges.find((badge) => badge.stars === stars);
+  return categoryBadges.badges.find((badge) => Number(badge.stars) === Number(stars));
 };
 
 module.exports = {

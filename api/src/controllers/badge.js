@@ -2,7 +2,16 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog } = require("../badges");
+const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+
+router.get(
+  "/test",
+  catchErrors(async (req, res) => {
+    const { category, stars } = req.query;
+
+    return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog(category, stars) } });
+  })
+);
 
 router.get(
   "/:matomoId",
