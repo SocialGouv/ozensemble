@@ -63,18 +63,20 @@ const checkNetwork = async () => {
   return true;
 };
 
-export const logEvent = async ({ category, action, name, value, dimension6 }) => {
+export const logEvent = async ({ category, action, name, value, dimension6, extra }) => {
   try {
     const canSend = await checkNetwork();
     if (!canSend) throw new Error('no network');
     Matomo.logEvent({ category, action, name, value, dimension6 });
+    const body = {
+      event: { category, action, name, value, dimension6 },
+      userId: Matomo.userId,
+      dimensions: Matomo.dimensions,
+    };
+    if (extra) body.extra = extra;
     API.post({
       path: '/event',
-      body: {
-        event: { category, action, name, value },
-        userId: Matomo.userId,
-        dimensions: Matomo.dimensions,
-      },
+      body,
     });
   } catch (e) {
     console.log('logEvent error', e);

@@ -18,6 +18,7 @@ import OnBoardingModal from '../../components/OnBoardingModal';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 import ReminderIcon from '../../components/illustrations/ReminderIcon';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
+import BadgesStatus from '../Badges/BadgesStatus';
 import {
   reminderGain,
   reminderGainMode,
@@ -28,6 +29,7 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import GainsGauge from './GainsGauge';
 import PeriodSelector from '../../components/PeriodSelector';
+import { badgesState } from '../../recoil/badges';
 
 dayjs.extend(isBetween);
 
@@ -43,6 +45,7 @@ const MyGains = () => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const daysNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
+  const badges = useRecoilValue(badgesState);
   const reminder = useRecoilValue(reminderGain);
   const mode = useRecoilValue(reminderGainMode);
   const weekDay = useRecoilValue(reminderGainWeekDay);
@@ -243,7 +246,11 @@ const MyGains = () => {
         )}
 
         <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
-
+        <BadgesStatus
+          isOnboarded={isOnboarded}
+          userBadges={badges}
+          navigate={() => navigation.navigate('BADGES_LIST')}
+        />
         {isOnboarded && (
           <>
             <Title>

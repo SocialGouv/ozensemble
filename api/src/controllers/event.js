@@ -5,6 +5,9 @@ const router = express.Router();
 // const inappMessages = require("../in-app-messages");
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
+const { checkNewBadge } = require("../badges");
+const prisma = require("../prisma");
+const { extractExceptionKeysForMessage } = require("@sentry/utils");
 
 router.post(
   "/",
@@ -17,6 +20,7 @@ router.post(
     const name = body.event?.name;
     const value = body.event?.value;
     const matomoId = body.userId;
+    const extra = body?.extra;
 
     // handle mail for old versions
     const sendNPSEvent = category === "NPS";
@@ -30,10 +34,6 @@ router.post(
           [
             {
               text: "Mettre à jour",
-              link:
-                req.headers.appdevice === "ios"
-                  ? "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1"
-                  : "https://play.google.com/store/apps/details?id=com.addicto",
             },
             { text: "Plus tard", style: "cancel" },
           ],
@@ -57,17 +57,14 @@ router.post(
     const DEFI1_VALIDATE_DAY = category === "DEFI1" && action === "DEFI1_VALIDATE_DAY" && name === "day";
     if (DEFI1_VALIDATE_DAY && value === 1) {
       notifications.scheduleDefi1Day1(matomoId);
-      return res.status(200).send({ ok: true });
     }
     if (DEFI1_VALIDATE_DAY && value === 2) {
       notifications.cancelNotif(matomoId, "DEFI1_DAY1");
-      return res.status(200).send({ ok: true });
     }
 
     // save lastConsoAdded
     if (category === "CONSO" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
       notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
-      return res.status(200).send({ ok: true });
     }
 
     // default : show newFeatures new-gains (default page on startup)

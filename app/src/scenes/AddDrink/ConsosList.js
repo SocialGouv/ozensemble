@@ -10,6 +10,7 @@ import DrinksCategory from '../../components/DrinksCategory';
 import {
   drinksCatalog,
   // formatNewDrink,
+  getDoses,
   getDrinksKeysFromCatalog,
   getDrinkQuantityFromDrinks,
   NO_CONSO,
@@ -24,6 +25,8 @@ import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
+import API from '../../services/api';
+import { storage } from '../../services/storage';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -109,12 +112,35 @@ const ConsosList = ({ navigation, route }) => {
           },
         ].filter((d) => d.quantity > 0)
       );
+      const drinkCatalog = drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey);
       logEvent({
         category: 'CONSO',
         action: 'CONSO_ADD',
         name: drink.drinkKey,
         value: Number(drink.quantity),
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+        extra: {
+          drinkInfos: {
+            doses: drinkCatalog.doses,
+            kcal: drinkCatalog.kcal,
+            price: drinkCatalog.price,
+            volume: drinkCatalog.volume,
+          },
+        },
+      });
+      const matomoId = storage.getString('@UserIdv2');
+      API.post({
+        path: `/consommation/${matomoId}`,
+        body: {
+          id: drink.id,
+          drinkKey: drink.drinkKey,
+          quantity: Number(drink.quantity),
+          date: makeSureTimestamp(addDrinkModalTimestamp),
+          doses: drinkCatalog.doses,
+          kcal: drinkCatalog.kcal,
+          price: drinkCatalog.price,
+          volume: drinkCatalog.volume,
+        },
       });
     }
     setLocalDrinksState([]);

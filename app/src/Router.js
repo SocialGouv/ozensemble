@@ -32,6 +32,7 @@ import { deepLinkingConfig } from './services/deepLink';
 import EnvironmentIndicator from './components/EnvironmentIndicator';
 import NPSScreen, { useCheckNeedNPS, useNPSNotif } from './scenes/NPS/NPSScreen';
 import NotificationService from './services/notifications';
+import BadgeAnnoucementModal from './scenes/Badges/BadgeAnnoucementModal';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -126,6 +127,7 @@ const TabsNavigator = ({ navigation }) => {
         }}
       />
       <NewFeaturePopupDisplay canShow={!showBootSplash} />
+      <BadgeAnnoucementModal />
     </>
   );
 };

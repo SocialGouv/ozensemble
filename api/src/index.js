@@ -63,6 +63,8 @@ app.use("/event", require("./controllers/event"));
 app.use("/user", require("./controllers/user"));
 app.use("/mail", require("./controllers/mail").router);
 app.use("/reminder", require("./controllers/reminder").router);
+app.use("/badge", require("./controllers/badge"));
+app.use("/consommation", require("./controllers/consommation"));
 
 app.use(errors.sendError);
 

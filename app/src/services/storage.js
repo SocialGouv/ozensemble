@@ -243,3 +243,27 @@ export async function migrateRemindersToPushToken() {
     capture(e);
   }
 }
+
+export const hasSentPreviousDrinksToDB = storage.getBoolean('hasSentPreviousDrinksToDB');
+
+export async function sendPreviousDrinksToDB() {
+  if (hasSentPreviousDrinksToDB) return;
+  const matomoId = storage.getString('@UserIdv2');
+  if (!matomoId?.length) {
+    // new user - no drinks to send
+    storage.set('hasSentPreviousDrinksToDB', true);
+    return;
+  }
+  // @Drinks
+  const drinks = JSON.parse(storage.getString('@Drinks') || '[]');
+  if (drinks.length) {
+    API.post({
+      path: '/consommation/init',
+      body: {
+        drinks,
+        matomoId,
+      },
+    });
+  }
+  storage.set('hasSentPreviousDrinksToDB', true);
+}
