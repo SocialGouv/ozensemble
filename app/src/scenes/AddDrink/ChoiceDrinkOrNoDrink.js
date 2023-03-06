@@ -13,6 +13,8 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import { P } from '../../components/Articles';
 import DateAndTimePickers from './DateAndTimePickers';
 import WrapperContainer from '../../components/WrapperContainer';
+import { storage } from '../../services/storage';
+import API from '../../services/api';
 
 const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
@@ -37,15 +39,30 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
           icon={<NoDrink size={40} />}
           value={"Je n'ai pas bu"}
           onPress={() => {
+            const noConso = {
+              drinkKey: NO_CONSO,
+              quantity: 1,
+              timestamp: makeSureTimestamp(addDrinkModalTimestamp),
+              id: uuidv4(),
+            };
             logEvent({
               category: 'CONSO',
-              action: 'CONSO_DRINKLESS',
-              dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+              action: 'NO_CONSO',
+              dimension6: noConso.timestamp,
             });
-            setGlobalDrinksState((state) => [
-              ...state,
-              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
-            ]);
+            setGlobalDrinksState((state) => [...state, noConso]);
+            const matomoId = storage.getString('@UserIdv2');
+            API.post({
+              path: '/consommation',
+              body: {
+                matomoId: matomoId,
+                id: noConso.id,
+                name: noConso.displayDrinkModal,
+                drinkKey: noConso.drinkKey,
+                quantity: Number(noConso.quantity),
+                date: noConso.timestamp,
+              },
+            });
             navigation.goBack();
           }}
         />

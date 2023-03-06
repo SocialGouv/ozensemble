@@ -37,24 +37,30 @@ const badgesCatalog = [
     bgColor: "#FBD361",
     badges: [
       {
+        category: "drinks",
         title: "1er jour complété",
         reduced_title: "1 jour",
         content: "Super vous avez complété votre 1er jour\u00A0! Revenez demain pour ajouter le second\u00A0!",
         stars: 1,
-        category: "drinks",
         CTATitle: "Voir mes badges",
-        secondaryButtonTitle: "",
-        secondaryButtonLink: "",
+        CTANavigation: ["BADGES_LIST"],
+        CTALink: null,
+        secondaryButtonTitle: null,
+        secondaryButtonNavigation: null,
+        secondaryButtonLink: null,
       },
       {
+        category: "drinks",
         title: "3 jours complétés de suite",
         reduced_title: "3 jours",
         content: "Félicitations\u00A0! C'est en comptant régulièrement que l'on se rend compte de sa consommation réelle, continuez comme ça\u00A0!",
         stars: 2,
-        category: "drinks",
         CTATitle: "Voir mes badges",
-        secondaryButtonTitle: "",
-        secondaryButtonLink: "",
+        CTANavigation: ["BADGES_LIST"],
+        CTALink: null,
+        secondaryButtonTitle: null,
+        secondaryButtonNavigation: null,
+        secondaryButtonLink: null,
       },
       {
         title: "7 jours complétés de suite",
@@ -64,8 +70,11 @@ const badgesCatalog = [
         stars: 3,
         category: "drinks",
         CTATitle: "Donner mon avis",
+        CTANavigation: ["NPS_SCREEN"],
+        CTAShare: null,
         secondaryButtonTitle: "Partager l'application",
-        secondaryButtonLink: "",
+        secondaryButtonLink: null,
+        secondaryButtonShare: true,
       },
       {
         title: "14 jours complétés de suite",
@@ -75,8 +84,8 @@ const badgesCatalog = [
         stars: 4,
         category: "drinks",
         CTATitle: "Partager l'application",
+        CTAShare: true,
         secondaryButtonTitle: "Non merci",
-        secondaryButtonLink: "",
       },
       {
         title: "28 jours complétés de suite",
@@ -85,8 +94,8 @@ const badgesCatalog = [
         stars: 5,
         category: "drinks",
         CTATitle: "Noter l'application",
+        CTARate: true,
         secondaryButtonTitle: "Non merci",
-        secondaryButtonLink: "",
       },
     ],
   },
@@ -157,7 +166,13 @@ const badgesCatalog = [
   // },
 ];
 
+const grabBadgeFromCatalog = (category, stars) => {
+  const categoryBadges = badgesCatalog.find((badge) => badge.category === category);
+  return categoryBadges.badges.find((badge) => badge.stars === stars);
+};
+
 module.exports = {
   checkNewBadge,
   badgesCatalog,
+  grabBadgeFromCatalog,
 };

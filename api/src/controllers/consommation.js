@@ -3,7 +3,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog } = require("../badges");
+const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
 
 router.post(
   "/init",
@@ -60,7 +60,7 @@ router.post(
     // handle 1 day
 
     if (!drinksBadges.find((badge) => badge["stars"] === 1)) {
-      const badge = await prisma.badge.create({
+      await prisma.badge.create({
         data: {
           userId: user.id,
           category: "drinks",
@@ -74,7 +74,7 @@ router.post(
     if (!drinksBadges.find((badge) => badge["stars"] === 2)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -89,7 +89,7 @@ router.post(
     if (!drinksBadges.find((badge) => badge["stars"] === 3)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -104,7 +104,7 @@ router.post(
       const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
 
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -119,7 +119,7 @@ router.post(
     if (!drinksBadges.find((badge) => badge["stars"] === 5)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -189,14 +189,14 @@ router.post(
     // return res.status(200).send({ ok: true, showNewBadge: { newBadge: drinksBadges[0], allBadges, badgesCatalog } });
 
     if (!drinksBadges.find((badge) => badge["stars"] === 1)) {
-      const badge = await prisma.badge.create({
+      await prisma.badge.create({
         data: {
           userId: user.id,
           category: "drinks",
           stars: 1,
         },
       });
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: badge, allBadges, badgesCatalog } });
+      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog } });
     }
 
     // if badge 3 day is not present
@@ -204,7 +204,7 @@ router.post(
     if (!drinksBadges.find((badge) => badge["stars"] === 2)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -212,16 +212,25 @@ router.post(
           },
         });
 
-        return res.status(200).send({ ok: true, showNewBadge: { newBadge: badge, allBadges, badgesCatalog } });
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: {
+            newBadge: grabBadgeFromCatalog("drinks", 2),
+            allBadges,
+            badgesCatalog,
+          },
+        });
       }
     }
 
     // if badge 7 day is not present
     // handle 7 days
     if (!drinksBadges.find((badge) => badge["stars"] === 3)) {
+      console.log("7 days badge not present");
       const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
+      console.log("enoughConsecutiveDays", enoughConsecutiveDays);
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -229,7 +238,7 @@ router.post(
           },
         });
 
-        return res.status(200).send({ ok: true, showNewBadge: { newBadge: badge, allBadges, badgesCatalog } });
+        return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 3), allBadges, badgesCatalog } });
       }
     }
     // if badge 14 day is not present
@@ -238,7 +247,7 @@ router.post(
       const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
 
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -246,7 +255,7 @@ router.post(
           },
         });
 
-        return res.status(200).send({ ok: true, showNewBadge: { newBadge: badge, allBadges, badgesCatalog } });
+        return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 4), allBadges, badgesCatalog } });
       }
     }
 
@@ -255,7 +264,7 @@ router.post(
     if (!drinksBadges.find((badge) => badge["stars"] === 5)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
       if (enoughConsecutiveDays) {
-        const badge = await prisma.badge.create({
+        await prisma.badge.create({
           data: {
             userId: user.id,
             category: "drinks",
@@ -263,7 +272,7 @@ router.post(
           },
         });
 
-        return res.status(200).send({ ok: true, showNewBadge: { newBadge: badge, allBadges, badgesCatalog } });
+        return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 5), allBadges, badgesCatalog } });
       }
     }
 

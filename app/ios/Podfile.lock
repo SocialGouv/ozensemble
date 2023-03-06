@@ -303,6 +303,8 @@ PODS:
     - react-native-config/App (= 1.4.5)
   - react-native-config/App (1.4.5):
     - React-Core
+  - react-native-in-app-review (4.2.1):
+    - React-Core
   - react-native-mmkv (2.4.1):
     - MMKV (>= 1.2.13)
     - React-Core
@@ -488,6 +490,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-config (from `../node_modules/react-native-config`)
+  - react-native-in-app-review (from `../node_modules/react-native-in-app-review`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -588,6 +591,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-config:
     :path: "../node_modules/react-native-config"
+  react-native-in-app-review:
+    :path: "../node_modules/react-native-in-app-review"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
   react-native-netinfo:
@@ -690,6 +695,7 @@ SPEC CHECKSUMS:
   React-logger: 98f663b292a60967ebbc6d803ae96c1381183b6d
   react-native-camera: b8cc03e2feec0c04403d0998e37cf519d8fd4c6f
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
+  react-native-in-app-review: a073f67c5f3392af6ea7fb383217cdb1aa2aa726
   react-native-mmkv: b5c7f9bc369eef2b8a2aa36e8a15949989fa823f
   react-native-netinfo: 3d3769f0d65de15c83a9bf1346f8be71de5a24bf
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { Text, View, SafeAreaView, TouchableOpacity, Linking } from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
 import { useSetRecoilState } from 'recoil';
-import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
+import InAppReview from 'react-native-in-app-review';
+import { useNavigation } from '@react-navigation/native';
+import { hitSlop } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import Modal from '../../components/Modal';
@@ -11,15 +13,13 @@ import API from '../../services/api';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
-import { useNavigation } from '@react-navigation/native';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
+import { shareApp } from '../../services/shareApp';
 
-const BadgeModal = () => {
-  const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(true);
-  const [modalContent, setModalContent] = useState(() => ({
-    category: 'DRINKS_ADD',
+/* example
+{
+    category: 'drinks',
     title: '1er jour complété',
     content: 'Super, vous avez complété votre 1er jour! \n Revenez demain pour ajouter le second! ',
     stars: 2,
@@ -29,27 +29,63 @@ const BadgeModal = () => {
     secondaryButtonTitle: "Partager l'application",
     secondaryButtonNavigation: ['BADGES_LIST'],
     secondaryButtonLink: null,
-  }));
+}
+*/
+
+const BadgeModal = () => {
+  const navigation = useNavigation();
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState();
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
 
   const onClose = () => setShowModal(false);
 
   const onCTAPress = () => {
-    if (modalContent.CTANavigation) {
-      navigation.navigate(...modalContent.CTANavigation);
-    } else if (modalContent.CTALink) {
-      Linking.openURL(modalContent.CTALink);
-    }
     onClose();
+    InteractionManager.runAfterInteractions(() => {
+      if (modalContent.CTANavigation) {
+        navigation.navigate(...modalContent.CTANavigation);
+      } else if (modalContent.CTAShare) {
+        shareApp();
+      } else if (modalContent.CTARate) {
+        if (InAppReview.isAvailable()) {
+          InAppReview.RequestInAppReview();
+        } else {
+          Linking.openURL(
+            Platform.select({
+              ios: 'https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1',
+              android: 'https://play.google.com/store/apps/details?id=com.addicto',
+            })
+          );
+        }
+      } else if (modalContent.CTALink) {
+        Linking.openURL(modalContent.CTALink);
+      }
+    });
   };
   const onSecondaryPress = () => {
-    if (modalContent.CTANavigation) {
-      navigation.navigate(...modalContent.CTANavigation);
-    } else if (modalContent.CTALink) {
-      Linking.openURL(modalContent.CTALink);
-    }
     onClose();
+    InteractionManager.runAfterInteractions(() => {
+      if (modalContent.secondaryButtonNavigation) {
+        navigation.navigate(...modalContent.secondaryButtonNavigation);
+      } else if (modalContent.secondaryButtonShare) {
+        shareApp();
+      } else if (modalContent.secondaryButtonRate) {
+        if (InAppReview.isAvailable()) {
+          InAppReview.RequestInAppReview();
+        } else {
+          Linking.openURL(
+            Platform.select({
+              ios: 'https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1',
+              android: 'https://play.google.com/store/apps/details?id=com.addicto',
+            })
+          );
+        }
+      } else if (modalContent.secondaryButtonLink) {
+        Linking.openURL(modalContent.secondaryButtonLink);
+      }
+    });
   };
 
   const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
@@ -66,9 +102,7 @@ const BadgeModal = () => {
 
   useEffect(() => {
     API.handleShowBadge = handleShowBadge;
-  }, []);
-
-  console.log({ modalContent });
+  });
 
   return (
     <Modal
@@ -92,26 +126,26 @@ const BadgeModal = () => {
             </Svg>
           </TouchableOpacity>
           <View className="mb-8 mt-4">
-            {modalContent.category === 'drinks' && <BadgeDrinks stars={modalContent.stars} />}
-            {modalContent.category === 'goals' && <BadgeGoals stars={modalContent.stars} />}
-            {modalContent.category === 'articles' && <BadgeArticles stars={modalContent.stars} />}
-            {modalContent.category === 'defis' && <BadgeDefis stars={modalContent.stars} />}
+            {modalContent?.category === 'drinks' && <BadgeDrinks stars={modalContent?.stars} />}
+            {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
+            {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
+            {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
-              <TextStyled>{modalContent.title}</TextStyled>
+              <TextStyled>{modalContent?.title}</TextStyled>
             </H1>
           </View>
           <Text className="text-base font-medium mb-8 text-center">
-            <TextStyled color={'#3C3C43'}>{modalContent.content}</TextStyled>
+            <TextStyled color={'#3C3C43'}>{modalContent?.content}</TextStyled>
           </Text>
           <View className="items-center mb-4">
-            <ButtonPrimary onPress={onCTAPress} content={modalContent.CTATitle} />
+            <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTATitle} />
           </View>
-          {!!modalContent.secondaryButtonTitle?.length && (
+          {!!modalContent?.secondaryButtonTitle?.length && (
             <TouchableOpacity>
               <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
-                {modalContent.secondaryButtonTitle}
+                {modalContent?.secondaryButtonTitle}
               </Text>
             </TouchableOpacity>
           )}
