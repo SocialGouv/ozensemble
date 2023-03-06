@@ -1,1697 +1,1474 @@
-## [1.81.3](https://github.com/SocialGouv/ozensemble/compare/v1.81.2...v1.81.3) (2023-02-17)
-
+## [1.81.5](https://github.com/SocialGouv/ozensemble/compare/v1.81.4...v1.81.5) (2023-03-01)
 
 ### Bug Fixes
 
-* capture extra undefined ([4916e68](https://github.com/SocialGouv/ozensemble/commit/4916e68169d725b9b5373eae6da42711f68d7867))
+- **api:** default push token empty ([73863d4](https://github.com/SocialGouv/ozensemble/commit/73863d4e882dac7d54a558d9099e9d2e5472485f))
+
+## [1.81.4](https://github.com/SocialGouv/ozensemble/compare/v1.81.3...v1.81.4) (2023-03-01)
+
+### Bug Fixes
+
+- **api:** push token no default ([3d3b4d9](https://github.com/SocialGouv/ozensemble/commit/3d3b4d9e2d2dbc1ed4a48d14a9864c6cf9132274))
+
+## [1.81.3](https://github.com/SocialGouv/ozensemble/compare/v1.81.2...v1.81.3) (2023-02-17)
+
+### Bug Fixes
+
+- capture extra undefined ([4916e68](https://github.com/SocialGouv/ozensemble/commit/4916e68169d725b9b5373eae6da42711f68d7867))
 
 ## [1.81.2](https://github.com/SocialGouv/ozensemble/compare/v1.81.1...v1.81.2) (2023-02-17)
 
-
 ### Bug Fixes
 
-* **api:** name is not defined ([ea47b87](https://github.com/SocialGouv/ozensemble/commit/ea47b87d69f72c191fb0e25d68dc4d7ff6b9b58c))
+- **api:** name is not defined ([ea47b87](https://github.com/SocialGouv/ozensemble/commit/ea47b87d69f72c191fb0e25d68dc4d7ff6b9b58c))
 
 ## [1.81.1](https://github.com/SocialGouv/ozensemble/compare/v1.81.0...v1.81.1) (2023-02-16)
 
-
 ### Bug Fixes
 
-* **api:** add try catch in notifications ([#155](https://github.com/SocialGouv/ozensemble/issues/155)) ([758b04a](https://github.com/SocialGouv/ozensemble/commit/758b04a51ae8b3bf9ed133059385c0966db9c139))
+- **api:** add try catch in notifications ([#155](https://github.com/SocialGouv/ozensemble/issues/155)) ([758b04a](https://github.com/SocialGouv/ozensemble/commit/758b04a51ae8b3bf9ed133059385c0966db9c139))
 
 # [1.81.0](https://github.com/SocialGouv/ozensemble/compare/v1.80.1...v1.81.0) (2023-02-15)
 
-
 ### Features
 
-* **api:** deploy ([58093ea](https://github.com/SocialGouv/ozensemble/commit/58093eafc7d3305d07c1d3c3b18ba13dc7b47780))
+- **api:** deploy ([58093ea](https://github.com/SocialGouv/ozensemble/commit/58093eafc7d3305d07c1d3c3b18ba13dc7b47780))
 
 ## [1.80.1](https://github.com/SocialGouv/ozensemble/compare/v1.80.0...v1.80.1) (2023-02-14)
 
-
 ### Bug Fixes
 
-* **api:** revert app test version ([377105c](https://github.com/SocialGouv/ozensemble/commit/377105c7ef497adfc2a16017af69fbe0cf37ed45))
+- **api:** revert app test version ([377105c](https://github.com/SocialGouv/ozensemble/commit/377105c7ef497adfc2a16017af69fbe0cf37ed45))
 
 # [1.80.0](https://github.com/SocialGouv/ozensemble/compare/v1.79.3...v1.80.0) (2023-02-14)
 
-
 ### Features
 
-* remove api test version, release to prod ([988a8c7](https://github.com/SocialGouv/ozensemble/commit/988a8c73569c2169829cd345569146478b64af76))
+- remove api test version, release to prod ([988a8c7](https://github.com/SocialGouv/ozensemble/commit/988a8c73569c2169829cd345569146478b64af76))
 
 ## [1.79.3](https://github.com/SocialGouv/ozensemble/compare/v1.79.2...v1.79.3) (2023-02-14)
 
-
 ### Bug Fixes
 
-* deploy ([4db890b](https://github.com/SocialGouv/ozensemble/commit/4db890b20e03c4a73f6756a72e62afc103bb9fcf))
+- deploy ([4db890b](https://github.com/SocialGouv/ozensemble/commit/4db890b20e03c4a73f6756a72e62afc103bb9fcf))
 
 ## [1.79.2](https://github.com/SocialGouv/ozensemble/compare/v1.79.1...v1.79.2) (2023-02-14)
 
-
 ### Bug Fixes
 
-* more logs on reminder setup ([1187d29](https://github.com/SocialGouv/ozensemble/commit/1187d298eaabd8dbb56522bc9bdf78581a85cad6))
+- more logs on reminder setup ([1187d29](https://github.com/SocialGouv/ozensemble/commit/1187d298eaabd8dbb56522bc9bdf78581a85cad6))
 
 ## [1.79.1](https://github.com/SocialGouv/ozensemble/compare/v1.79.0...v1.79.1) (2023-02-14)
 
-
 ### Bug Fixes
 
-* **api:** reminder.utcTimeHours ([b0dabbb](https://github.com/SocialGouv/ozensemble/commit/b0dabbbfd0fe0316b417318430450554ccb59c83))
+- **api:** reminder.utcTimeHours ([b0dabbb](https://github.com/SocialGouv/ozensemble/commit/b0dabbbfd0fe0316b417318430450554ccb59c83))
 
 # [1.79.0](https://github.com/SocialGouv/ozensemble/compare/v1.78.3...v1.79.0) (2023-02-14)
 
-
 ### Features
 
-* **api:** notif 5 days inactivity ([#150](https://github.com/SocialGouv/ozensemble/issues/150)) ([39d8836](https://github.com/SocialGouv/ozensemble/commit/39d88367b904a2b18c3f4900b2a57968d7575368))
+- **api:** notif 5 days inactivity ([#150](https://github.com/SocialGouv/ozensemble/issues/150)) ([39d8836](https://github.com/SocialGouv/ozensemble/commit/39d88367b904a2b18c3f4900b2a57968d7575368))
 
 ## [1.78.3](https://github.com/SocialGouv/ozensemble/compare/v1.78.2...v1.78.3) (2023-02-14)
 
-
 ### Bug Fixes
 
-* post release, reminder, nps ([#151](https://github.com/SocialGouv/ozensemble/issues/151)) ([42a7526](https://github.com/SocialGouv/ozensemble/commit/42a75260a9215bd16da6214eb9febebdec269d67))
+- post release, reminder, nps ([#151](https://github.com/SocialGouv/ozensemble/issues/151)) ([42a7526](https://github.com/SocialGouv/ozensemble/commit/42a75260a9215bd16da6214eb9febebdec269d67))
 
 ## [1.78.2](https://github.com/SocialGouv/ozensemble/compare/v1.78.1...v1.78.2) (2023-02-10)
 
-
 ### Bug Fixes
 
-* reminder dayjs ([3a94f38](https://github.com/SocialGouv/ozensemble/commit/3a94f38f34d8a15fed6a6a68718d0078eeb6338e))
+- reminder dayjs ([3a94f38](https://github.com/SocialGouv/ozensemble/commit/3a94f38f34d8a15fed6a6a68718d0078eeb6338e))
 
 ## [1.78.1](https://github.com/SocialGouv/ozensemble/compare/v1.78.0...v1.78.1) (2023-02-10)
 
-
 ### Bug Fixes
 
-* relaunch api deployement ([e1f2754](https://github.com/SocialGouv/ozensemble/commit/e1f2754f3b3575d8f1c96957357d0825037150cd))
+- relaunch api deployement ([e1f2754](https://github.com/SocialGouv/ozensemble/commit/e1f2754f3b3575d8f1c96957357d0825037150cd))
 
 # [1.78.0](https://github.com/SocialGouv/ozensemble/compare/v1.77.1...v1.78.0) (2023-02-02)
 
-
 ### Features
 
-* update NPS modal ([#145](https://github.com/SocialGouv/ozensemble/issues/145)) ([42c76e3](https://github.com/SocialGouv/ozensemble/commit/42c76e3b91021dbb3bb117de99bdc260682f1abc))
+- update NPS modal ([#145](https://github.com/SocialGouv/ozensemble/issues/145)) ([42c76e3](https://github.com/SocialGouv/ozensemble/commit/42c76e3b91021dbb3bb117de99bdc260682f1abc))
 
 ## [1.77.1](https://github.com/SocialGouv/ozensemble/compare/v1.77.0...v1.77.1) (2023-02-02)
 
-
 ### Bug Fixes
 
-* sentry context device name ([#146](https://github.com/SocialGouv/ozensemble/issues/146)) ([d031bc5](https://github.com/SocialGouv/ozensemble/commit/d031bc524e127504ec77b4760721cd58b5fa602f))
+- sentry context device name ([#146](https://github.com/SocialGouv/ozensemble/issues/146)) ([d031bc5](https://github.com/SocialGouv/ozensemble/commit/d031bc524e127504ec77b4760721cd58b5fa602f))
 
 # [1.77.0](https://github.com/SocialGouv/ozensemble/compare/v1.76.10...v1.77.0) (2023-01-27)
 
-
 ### Features
 
-* new event for gains view init ([#144](https://github.com/SocialGouv/ozensemble/issues/144)) ([49bc137](https://github.com/SocialGouv/ozensemble/commit/49bc137bce2b74406fe32e3ac1b5202b0a40c15e))
+- new event for gains view init ([#144](https://github.com/SocialGouv/ozensemble/issues/144)) ([49bc137](https://github.com/SocialGouv/ozensemble/commit/49bc137bce2b74406fe32e3ac1b5202b0a40c15e))
 
 ## [1.76.10](https://github.com/SocialGouv/ozensemble/compare/v1.76.9...v1.76.10) (2023-01-09)
 
-
 ### Bug Fixes
 
-* help not only for 124 but for everyone ([68e3388](https://github.com/SocialGouv/ozensemble/commit/68e33885b6ff860f28258c9c4ea6af7479e75a9f))
+- help not only for 124 but for everyone ([68e3388](https://github.com/SocialGouv/ozensemble/commit/68e33885b6ff860f28258c9c4ea6af7479e75a9f))
 
 ## [1.76.9](https://github.com/SocialGouv/ozensemble/compare/v1.76.8...v1.76.9) (2023-01-06)
 
-
 ### Bug Fixes
 
-* remove repeatType ([1e87fa6](https://github.com/SocialGouv/ozensemble/commit/1e87fa60958f2b944ea71799255518265d651f50))
+- remove repeatType ([1e87fa6](https://github.com/SocialGouv/ozensemble/commit/1e87fa60958f2b944ea71799255518265d651f50))
 
 ## [1.76.8](https://github.com/SocialGouv/ozensemble/compare/v1.76.7...v1.76.8) (2023-01-04)
 
-
 ### Bug Fixes
 
-* redirection of NPS notification ([23ff357](https://github.com/SocialGouv/ozensemble/commit/23ff357fe81b3321173278303fe725f9a7b4d1f4))
+- redirection of NPS notification ([23ff357](https://github.com/SocialGouv/ozensemble/commit/23ff357fe81b3321173278303fe725f9a7b4d1f4))
 
 ## [1.76.7](https://github.com/SocialGouv/ozensemble/compare/v1.76.6...v1.76.7) (2023-01-02)
 
-
 ### Bug Fixes
 
-* calendar ([9aed0b7](https://github.com/SocialGouv/ozensemble/commit/9aed0b753e17b1f1c954a1e58e2603ba949a9f90))
+- calendar ([9aed0b7](https://github.com/SocialGouv/ozensemble/commit/9aed0b753e17b1f1c954a1e58e2603ba949a9f90))
 
 ## [1.76.6](https://github.com/SocialGouv/ozensemble/compare/v1.76.5...v1.76.6) (2023-01-02)
 
-
 ### Bug Fixes
 
-* default like previous ([26e3b70](https://github.com/SocialGouv/ozensemble/commit/26e3b7098bbac161c810f9ea8ad630ce691ccddf))
-* rerender diagram ([1841c00](https://github.com/SocialGouv/ozensemble/commit/1841c00e8829531d20626954418a6d60eccba235))
+- default like previous ([26e3b70](https://github.com/SocialGouv/ozensemble/commit/26e3b7098bbac161c810f9ea8ad630ce691ccddf))
+- rerender diagram ([1841c00](https://github.com/SocialGouv/ozensemble/commit/1841c00e8829531d20626954418a6d60eccba235))
 
 ## [1.76.5](https://github.com/SocialGouv/ozensemble/compare/v1.76.4...v1.76.5) (2023-01-02)
 
-
 ### Bug Fixes
 
-* dont show new features popup all the time 🥸 ([43d2b4f](https://github.com/SocialGouv/ozensemble/commit/43d2b4ff540289b80e9477e14d1c331fcf698167))
+- dont show new features popup all the time 🥸 ([43d2b4f](https://github.com/SocialGouv/ozensemble/commit/43d2b4ff540289b80e9477e14d1c331fcf698167))
 
 ## [1.76.4](https://github.com/SocialGouv/ozensemble/compare/v1.76.3...v1.76.4) (2022-12-30)
 
-
 ### Bug Fixes
 
-* qrcode userId and config file ([bb3d91e](https://github.com/SocialGouv/ozensemble/commit/bb3d91e987fd9ce5a5fb6f10c08e5bd1cf2e1c3f))
+- qrcode userId and config file ([bb3d91e](https://github.com/SocialGouv/ozensemble/commit/bb3d91e987fd9ce5a5fb6f10c08e5bd1cf2e1c3f))
 
 ## [1.76.3](https://github.com/SocialGouv/ozensemble/compare/v1.76.2...v1.76.3) (2022-12-30)
 
-
 ### Bug Fixes
 
-* disable push notif outside production ([1c57e82](https://github.com/SocialGouv/ozensemble/commit/1c57e829472818d15ef0b0e807129d69f022ff1e))
+- disable push notif outside production ([1c57e82](https://github.com/SocialGouv/ozensemble/commit/1c57e829472818d15ef0b0e807129d69f022ff1e))
 
 ## [1.76.2](https://github.com/SocialGouv/ozensemble/compare/v1.76.1...v1.76.2) (2022-12-30)
 
-
 ### Bug Fixes
 
-* capture error in matomo ([b96b9cb](https://github.com/SocialGouv/ozensemble/commit/b96b9cb31385f9471ae7973d34bd9ae904cf79c2))
-* matomo events ([556b4f1](https://github.com/SocialGouv/ozensemble/commit/556b4f16de3b942ad0cb8dec27c12d79a82ba6d4))
+- capture error in matomo ([b96b9cb](https://github.com/SocialGouv/ozensemble/commit/b96b9cb31385f9471ae7973d34bd9ae904cf79c2))
+- matomo events ([556b4f1](https://github.com/SocialGouv/ozensemble/commit/556b4f16de3b942ad0cb8dec27c12d79a82ba6d4))
 
 ## [1.76.1](https://github.com/SocialGouv/ozensemble/compare/v1.76.0...v1.76.1) (2022-12-21)
 
-
 ### Bug Fixes
 
-* **docker:** fix alpine version for legacy SSL([#133](https://github.com/SocialGouv/ozensemble/issues/133)) ([6239f43](https://github.com/SocialGouv/ozensemble/commit/6239f43f002076ee087e5c1a59ac93d7384e31d7))
+- **docker:** fix alpine version for legacy SSL([#133](https://github.com/SocialGouv/ozensemble/issues/133)) ([6239f43](https://github.com/SocialGouv/ozensemble/commit/6239f43f002076ee087e5c1a59ac93d7384e31d7))
 
 # [1.76.0](https://github.com/SocialGouv/ozensemble/compare/v1.75.9...v1.76.0) (2022-12-20)
 
-
 ### Features
 
-* routes to redirect qr codes ([#132](https://github.com/SocialGouv/ozensemble/issues/132)) ([c7b0172](https://github.com/SocialGouv/ozensemble/commit/c7b0172f0eeec8ac329fca2866eb5e39c59808d0))
+- routes to redirect qr codes ([#132](https://github.com/SocialGouv/ozensemble/issues/132)) ([c7b0172](https://github.com/SocialGouv/ozensemble/commit/c7b0172f0eeec8ac329fca2866eb5e39c59808d0))
 
 ## [1.75.9](https://github.com/SocialGouv/ozensemble/compare/v1.75.8...v1.75.9) (2022-12-06)
 
-
 ### Bug Fixes
 
-* error in notifications ([8b4add5](https://github.com/SocialGouv/ozensemble/commit/8b4add5a75ad95f02f41c0e96145c0c2f0282e40))
+- error in notifications ([8b4add5](https://github.com/SocialGouv/ozensemble/commit/8b4add5a75ad95f02f41c0e96145c0c2f0282e40))
 
 ## [1.75.8](https://github.com/SocialGouv/ozensemble/compare/v1.75.7...v1.75.8) (2022-12-06)
 
-
 ### Bug Fixes
 
-* minor bugs ([8583b71](https://github.com/SocialGouv/ozensemble/commit/8583b71b91471361f1c38d35ad3d6b24a1fcfcba))
+- minor bugs ([8583b71](https://github.com/SocialGouv/ozensemble/commit/8583b71b91471361f1c38d35ad3d6b24a1fcfcba))
 
 ## [1.75.7](https://github.com/SocialGouv/ozensemble/compare/v1.75.6...v1.75.7) (2022-12-01)
 
-
 ### Bug Fixes
 
-* feedbacks ([005e4c3](https://github.com/SocialGouv/ozensemble/commit/005e4c382bd46de9b3bcc6a88754a4f072b156c9))
+- feedbacks ([005e4c3](https://github.com/SocialGouv/ozensemble/commit/005e4c382bd46de9b3bcc6a88754a4f072b156c9))
 
 ## [1.75.6](https://github.com/SocialGouv/ozensemble/compare/v1.75.5...v1.75.6) (2022-11-30)
 
-
 ### Bug Fixes
 
-* defi5 overall ([3134ddc](https://github.com/SocialGouv/ozensemble/commit/3134ddc7c2c39ee77a6c253561caba51042a0290))
+- defi5 overall ([3134ddc](https://github.com/SocialGouv/ozensemble/commit/3134ddc7c2c39ee77a6c253561caba51042a0290))
 
 ## [1.75.5](https://github.com/SocialGouv/ozensemble/compare/v1.75.4...v1.75.5) (2022-11-22)
 
-
 ### Bug Fixes
 
-* experience deployment lets see ([b6d0177](https://github.com/SocialGouv/ozensemble/commit/b6d01773c5359a70badf7686f1bb6fe9215cb86d))
+- experience deployment lets see ([b6d0177](https://github.com/SocialGouv/ozensemble/commit/b6d01773c5359a70badf7686f1bb6fe9215cb86d))
 
 ## [1.75.3](https://github.com/SocialGouv/ozensemble/compare/v1.75.2...v1.75.3) (2022-11-16)
 
-
 ### Bug Fixes
 
-* **app:** wording & recette défi 4 ([726368c](https://github.com/SocialGouv/ozensemble/commit/726368c8d0da654d7209f1c19be86a005e72b121))
+- **app:** wording & recette défi 4 ([726368c](https://github.com/SocialGouv/ozensemble/commit/726368c8d0da654d7209f1c19be86a005e72b121))
 
 ## [1.75.2](https://github.com/SocialGouv/ozensemble/compare/v1.75.1...v1.75.2) (2022-11-14)
 
-
 ### Bug Fixes
 
-* width P inside view ([0b96b7a](https://github.com/SocialGouv/ozensemble/commit/0b96b7a9ed8843926632396988caabd16a01eb16))
+- width P inside view ([0b96b7a](https://github.com/SocialGouv/ozensemble/commit/0b96b7a9ed8843926632396988caabd16a01eb16))
 
 ## [1.75.1](https://github.com/SocialGouv/ozensemble/compare/v1.75.0...v1.75.1) (2022-11-14)
 
-
 ### Bug Fixes
 
-* defi4 message in bilan if questionnaire is empty ([7fe2176](https://github.com/SocialGouv/ozensemble/commit/7fe217661c4f6bedabe066b46313caad69fb77f1))
+- defi4 message in bilan if questionnaire is empty ([7fe2176](https://github.com/SocialGouv/ozensemble/commit/7fe217661c4f6bedabe066b46313caad69fb77f1))
 
 # [1.75.0](https://github.com/SocialGouv/ozensemble/compare/v1.74.4...v1.75.0) (2022-11-14)
 
-
 ### Features
 
-* defi 4, article + J5 to J7 ([#126](https://github.com/SocialGouv/ozensemble/issues/126)) ([742a838](https://github.com/SocialGouv/ozensemble/commit/742a838b847fedee19a3ca2aa01d1edf22cd1185))
+- defi 4, article + J5 to J7 ([#126](https://github.com/SocialGouv/ozensemble/issues/126)) ([742a838](https://github.com/SocialGouv/ozensemble/commit/742a838b847fedee19a3ca2aa01d1edf22cd1185))
 
 ## [1.74.4](https://github.com/SocialGouv/ozensemble/compare/v1.74.3...v1.74.4) (2022-11-10)
 
-
 ### Bug Fixes
 
-* **app:** environment load + alert reminder ([2282882](https://github.com/SocialGouv/ozensemble/commit/228288204405d646a877437d8c26fdf3b3df6fe5))
+- **app:** environment load + alert reminder ([2282882](https://github.com/SocialGouv/ozensemble/commit/228288204405d646a877437d8c26fdf3b3df6fe5))
 
 ## [1.74.3](https://github.com/SocialGouv/ozensemble/compare/v1.74.2...v1.74.3) (2022-11-10)
 
-
 ### Bug Fixes
 
-* **api:** log requests ([81afcae](https://github.com/SocialGouv/ozensemble/commit/81afcae3633f6ad72bfaa7fe5cbc54db7e4669a5))
+- **api:** log requests ([81afcae](https://github.com/SocialGouv/ozensemble/commit/81afcae3633f6ad72bfaa7fe5cbc54db7e4669a5))
 
 ## [1.74.2](https://github.com/SocialGouv/ozensemble/compare/v1.74.1...v1.74.2) (2022-11-09)
 
-
 ### Bug Fixes
 
-* migration & up build number ([1fc9e1c](https://github.com/SocialGouv/ozensemble/commit/1fc9e1ce6021531203049f73c6856f99895ef297))
+- migration & up build number ([1fc9e1c](https://github.com/SocialGouv/ozensemble/commit/1fc9e1ce6021531203049f73c6856f99895ef297))
 
 ## [1.74.1](https://github.com/SocialGouv/ozensemble/compare/v1.74.0...v1.74.1) (2022-11-09)
 
-
 ### Bug Fixes
 
-* clean api ([f31cf99](https://github.com/SocialGouv/ozensemble/commit/f31cf99204ce2b671708309c144a45bdbc27ed9b))
+- clean api ([f31cf99](https://github.com/SocialGouv/ozensemble/commit/f31cf99204ce2b671708309c144a45bdbc27ed9b))
 
 # [1.74.0](https://github.com/SocialGouv/ozensemble/compare/v1.73.0...v1.74.0) (2022-11-08)
 
-
 ### Features
 
-* sealed secrets ([#128](https://github.com/SocialGouv/ozensemble/issues/128)) ([706de41](https://github.com/SocialGouv/ozensemble/commit/706de41d53d3761f9b46c08f292e9afdd79235c8))
+- sealed secrets ([#128](https://github.com/SocialGouv/ozensemble/issues/128)) ([706de41](https://github.com/SocialGouv/ozensemble/commit/706de41d53d3761f9b46c08f292e9afdd79235c8))
 
 # [1.73.0](https://github.com/SocialGouv/ozensemble/compare/v1.72.4...v1.73.0) (2022-11-08)
 
-
 ### Features
 
-* reminder network error ([#127](https://github.com/SocialGouv/ozensemble/issues/127)) ([f918819](https://github.com/SocialGouv/ozensemble/commit/f918819dd14945b46c7c5b64633aca0947ab2aca))
+- reminder network error ([#127](https://github.com/SocialGouv/ozensemble/issues/127)) ([f918819](https://github.com/SocialGouv/ozensemble/commit/f918819dd14945b46c7c5b64633aca0947ab2aca))
 
 ## [1.72.4](https://github.com/SocialGouv/ozensemble/compare/v1.72.3...v1.72.4) (2022-11-08)
 
-
 ### Bug Fixes
 
-* update react native ([a0ed633](https://github.com/SocialGouv/ozensemble/commit/a0ed6338281a096bb4eba364f07e084f20c26e0a))
+- update react native ([a0ed633](https://github.com/SocialGouv/ozensemble/commit/a0ed6338281a096bb4eba364f07e084f20c26e0a))
 
 ## [1.72.3](https://github.com/SocialGouv/ozensemble/compare/v1.72.2...v1.72.3) (2022-11-08)
 
-
 ### Bug Fixes
 
-* matmom in backend ([#125](https://github.com/SocialGouv/ozensemble/issues/125)) ([f4022b8](https://github.com/SocialGouv/ozensemble/commit/f4022b858b892e52debf157a8b36cd18af03c0dc))
+- matmom in backend ([#125](https://github.com/SocialGouv/ozensemble/issues/125)) ([f4022b8](https://github.com/SocialGouv/ozensemble/commit/f4022b858b892e52debf157a8b36cd18af03c0dc))
 
 ## [1.72.2](https://github.com/SocialGouv/ozensemble/compare/v1.72.1...v1.72.2) (2022-11-07)
 
-
 ### Bug Fixes
 
-* clear local notifications ([a6802b6](https://github.com/SocialGouv/ozensemble/commit/a6802b6e405c05271f6ed0a736425f070ef092fc))
-* migrate schema ([22993ac](https://github.com/SocialGouv/ozensemble/commit/22993acc34c84dbff6ff31b876bbb863206dc474))
-* reminder flow ([e2b7103](https://github.com/SocialGouv/ozensemble/commit/e2b7103a492e716adefeaa21e9a1f092893ab54d))
+- clear local notifications ([a6802b6](https://github.com/SocialGouv/ozensemble/commit/a6802b6e405c05271f6ed0a736425f070ef092fc))
+- migrate schema ([22993ac](https://github.com/SocialGouv/ozensemble/commit/22993acc34c84dbff6ff31b876bbb863206dc474))
+- reminder flow ([e2b7103](https://github.com/SocialGouv/ozensemble/commit/e2b7103a492e716adefeaa21e9a1f092893ab54d))
 
 ## [1.72.1](https://github.com/SocialGouv/ozensemble/compare/v1.72.0...v1.72.1) (2022-11-07)
 
-
 ### Bug Fixes
 
-* remove asyncstorage when necessary ([22c1ae1](https://github.com/SocialGouv/ozensemble/commit/22c1ae16b1a11e1682ffdb77ffb6371a685b3a02))
+- remove asyncstorage when necessary ([22c1ae1](https://github.com/SocialGouv/ozensemble/commit/22c1ae16b1a11e1682ffdb77ffb6371a685b3a02))
 
 # [1.72.0](https://github.com/SocialGouv/ozensemble/compare/v1.71.4...v1.72.0) (2022-11-04)
 
-
 ### Features
 
-* défi 4 (day 1 to 4) ([#121](https://github.com/SocialGouv/ozensemble/issues/121)) ([c0b4161](https://github.com/SocialGouv/ozensemble/commit/c0b4161c6b3abe22050415dd643c4e43690ed8a5))
+- défi 4 (day 1 to 4) ([#121](https://github.com/SocialGouv/ozensemble/issues/121)) ([c0b4161](https://github.com/SocialGouv/ozensemble/commit/c0b4161c6b3abe22050415dd643c4e43690ed8a5))
 
 ## [1.71.4](https://github.com/SocialGouv/ozensemble/compare/v1.71.3...v1.71.4) (2022-11-03)
 
-
 ### Bug Fixes
 
-* **notification:** add alert on network error ([#123](https://github.com/SocialGouv/ozensemble/issues/123)) ([fbb3178](https://github.com/SocialGouv/ozensemble/commit/fbb317886bc03a7e89491e780f31cabb9f9094d0))
+- **notification:** add alert on network error ([#123](https://github.com/SocialGouv/ozensemble/issues/123)) ([fbb3178](https://github.com/SocialGouv/ozensemble/commit/fbb317886bc03a7e89491e780f31cabb9f9094d0))
 
 ## [1.71.3](https://github.com/SocialGouv/ozensemble/compare/v1.71.2...v1.71.3) (2022-11-03)
 
-
 ### Bug Fixes
 
-* **defi3:** J6, wording, responsiveness ([#120](https://github.com/SocialGouv/ozensemble/issues/120)) ([b4ace83](https://github.com/SocialGouv/ozensemble/commit/b4ace8326975954fd0a443e0c428d44ce86a0ba9))
+- **defi3:** J6, wording, responsiveness ([#120](https://github.com/SocialGouv/ozensemble/issues/120)) ([b4ace83](https://github.com/SocialGouv/ozensemble/commit/b4ace8326975954fd0a443e0c428d44ce86a0ba9))
 
 ## [1.71.2](https://github.com/SocialGouv/ozensemble/compare/v1.71.1...v1.71.2) (2022-10-31)
 
-
 ### Bug Fixes
 
-* **newFeaturesPopup:** missing TextStyled ([674cbf5](https://github.com/SocialGouv/ozensemble/commit/674cbf59ad6d1439aef3373c76677467c196c826))
+- **newFeaturesPopup:** missing TextStyled ([674cbf5](https://github.com/SocialGouv/ozensemble/commit/674cbf59ad6d1439aef3373c76677467c196c826))
 
 ## [1.71.1](https://github.com/SocialGouv/ozensemble/compare/v1.71.0...v1.71.1) (2022-10-31)
 
-
 ### Bug Fixes
 
-* new config for sentry api ([68345da](https://github.com/SocialGouv/ozensemble/commit/68345da9f1167654de60c815cafd5e6cd244aed4))
+- new config for sentry api ([68345da](https://github.com/SocialGouv/ozensemble/commit/68345da9f1167654de60c815cafd5e6cd244aed4))
 
 # [1.71.0](https://github.com/SocialGouv/ozensemble/compare/v1.70.4...v1.71.0) (2022-10-31)
 
-
 ### Features
 
-* remote push notif + deepLink ([87f20fa](https://github.com/SocialGouv/ozensemble/commit/87f20faabd9f2bb0e6890f59c8cff9ce348a4ae3))
+- remote push notif + deepLink ([87f20fa](https://github.com/SocialGouv/ozensemble/commit/87f20faabd9f2bb0e6890f59c8cff9ce348a4ae3))
 
 ## [1.70.4](https://github.com/SocialGouv/ozensemble/compare/v1.70.3...v1.70.4) (2022-10-28)
 
-
 ### Bug Fixes
 
-* defi2day7 validation + log event defi validate day ([a772f12](https://github.com/SocialGouv/ozensemble/commit/a772f12d00e2d0f008477213ad82983287817212))
+- defi2day7 validation + log event defi validate day ([a772f12](https://github.com/SocialGouv/ozensemble/commit/a772f12d00e2d0f008477213ad82983287817212))
 
 ## [1.70.3](https://github.com/SocialGouv/ozensemble/compare/v1.70.2...v1.70.3) (2022-10-28)
 
-
 ### Bug Fixes
 
-* setup defi2day5 storage ([3ef674b](https://github.com/SocialGouv/ozensemble/commit/3ef674bd1b178b7a641d0236fe4595f316e23e11))
+- setup defi2day5 storage ([3ef674b](https://github.com/SocialGouv/ozensemble/commit/3ef674bd1b178b7a641d0236fe4595f316e23e11))
 
 ## [1.70.2](https://github.com/SocialGouv/ozensemble/compare/v1.70.1...v1.70.2) (2022-10-28)
 
-
 ### Bug Fixes
 
-* navigation rootRoute ([d39759a](https://github.com/SocialGouv/ozensemble/commit/d39759a12127694efe4e6de7d2db7fd53c3ad7ab))
+- navigation rootRoute ([d39759a](https://github.com/SocialGouv/ozensemble/commit/d39759a12127694efe4e6de7d2db7fd53c3ad7ab))
 
 ## [1.70.1](https://github.com/SocialGouv/ozensemble/compare/v1.70.0...v1.70.1) (2022-10-28)
 
-
 ### Bug Fixes
 
-* **api:** warn if try to send email withn old app ([#115](https://github.com/SocialGouv/ozensemble/issues/115)) ([e2f81d5](https://github.com/SocialGouv/ozensemble/commit/e2f81d58d26bb11162acf496622586e949979ffe))
+- **api:** warn if try to send email withn old app ([#115](https://github.com/SocialGouv/ozensemble/issues/115)) ([e2f81d5](https://github.com/SocialGouv/ozensemble/commit/e2f81d58d26bb11162acf496622586e949979ffe))
 
 # [1.70.0](https://github.com/SocialGouv/ozensemble/compare/v1.69.1...v1.70.0) (2022-10-28)
 
-
 ### Features
 
-* **defi3:** articles ([#114](https://github.com/SocialGouv/ozensemble/issues/114)) ([b8f870c](https://github.com/SocialGouv/ozensemble/commit/b8f870c6167f7a797eaf7fb95d40afa3eee7c66a))
+- **defi3:** articles ([#114](https://github.com/SocialGouv/ozensemble/issues/114)) ([b8f870c](https://github.com/SocialGouv/ozensemble/commit/b8f870c6167f7a797eaf7fb95d40afa3eee7c66a))
 
 ## [1.69.1](https://github.com/SocialGouv/ozensemble/compare/v1.69.0...v1.69.1) (2022-10-25)
 
-
 ### Bug Fixes
 
-* new sealed secrets ([08c1a03](https://github.com/SocialGouv/ozensemble/commit/08c1a03fb608e0b5d62b9cdf51cfb8c46016c548))
+- new sealed secrets ([08c1a03](https://github.com/SocialGouv/ozensemble/commit/08c1a03fb608e0b5d62b9cdf51cfb8c46016c548))
 
 # [1.69.0](https://github.com/SocialGouv/ozensemble/compare/v1.68.2...v1.69.0) (2022-10-25)
 
-
 ### Bug Fixes
 
-* add node-fetch ([7769759](https://github.com/SocialGouv/ozensemble/commit/77697594d4ed1180e36de16ad6692199743ad476))
-
+- add node-fetch ([7769759](https://github.com/SocialGouv/ozensemble/commit/77697594d4ed1180e36de16ad6692199743ad476))
 
 ### Features
 
-* **api:** versions check ([866341c](https://github.com/SocialGouv/ozensemble/commit/866341ca77f4e5da9e525481e0928fe61e0375b1))
+- **api:** versions check ([866341c](https://github.com/SocialGouv/ozensemble/commit/866341ca77f4e5da9e525481e0928fe61e0375b1))
 
 ## [1.68.2](https://github.com/SocialGouv/ozensemble/compare/v1.68.1...v1.68.2) (2022-10-25)
 
-
 ### Bug Fixes
 
-* tipi to api ([c02fe72](https://github.com/SocialGouv/ozensemble/commit/c02fe72485b9aa5fa747b13b433234f1521ab1f4))
-* tipi to api - clean ([df9d011](https://github.com/SocialGouv/ozensemble/commit/df9d01136b224b57f1947d4ce92141ffee3c729f))
-* tipi to api - forgotten import ([4240635](https://github.com/SocialGouv/ozensemble/commit/4240635ee5ecb68eeeeebadd58fb6dd73d353af0))
+- tipi to api ([c02fe72](https://github.com/SocialGouv/ozensemble/commit/c02fe72485b9aa5fa747b13b433234f1521ab1f4))
+- tipi to api - clean ([df9d011](https://github.com/SocialGouv/ozensemble/commit/df9d01136b224b57f1947d4ce92141ffee3c729f))
+- tipi to api - forgotten import ([4240635](https://github.com/SocialGouv/ozensemble/commit/4240635ee5ecb68eeeeebadd58fb6dd73d353af0))
 
 ## [1.68.1](https://github.com/SocialGouv/ozensemble/compare/v1.68.0...v1.68.1) (2022-10-20)
 
-
 ### Bug Fixes
 
-* remove DefisMenu changes ([c5d8876](https://github.com/SocialGouv/ozensemble/commit/c5d88760df7c178f2af3a2ea84eebbd3a0d67e36))
+- remove DefisMenu changes ([c5d8876](https://github.com/SocialGouv/ozensemble/commit/c5d88760df7c178f2af3a2ea84eebbd3a0d67e36))
 
 # [1.68.0](https://github.com/SocialGouv/ozensemble/compare/v1.67.0...v1.68.0) (2022-07-11)
 
-
 ### Bug Fixes
 
-* change with npm scripts ([8e44af7](https://github.com/SocialGouv/ozensemble/commit/8e44af771cae31cef011091838166cec791c9acf))
-* clean user post example creation ([839f687](https://github.com/SocialGouv/ozensemble/commit/839f68725f9ed4df48676f87add60b5f2fc1fe47))
-* dockerfile ([e864025](https://github.com/SocialGouv/ozensemble/commit/e8640257c7472d040a560fdd0769d4994fb37c3e))
-* dockerfile chmode prisma ([488cbe3](https://github.com/SocialGouv/ozensemble/commit/488cbe3f03f0ba9e8475a7c5457941bd60352eef))
-* dockerfile chmode prisma ([959b8ff](https://github.com/SocialGouv/ozensemble/commit/959b8ff5aa9c3a32338309378b0de6f43e93487c))
-* dockerfile npx ([f4fc193](https://github.com/SocialGouv/ozensemble/commit/f4fc19352e8f112b29f551d27a226415dbb42d61))
-* dockerfile order ([089ad04](https://github.com/SocialGouv/ozensemble/commit/089ad04659024ad80a88a44dca743699277637f4))
-* dockerfile order ([735b760](https://github.com/SocialGouv/ozensemble/commit/735b760523e892125c2911bdf803c5c3abea2766))
-* dockerfile revert ([1b32b6f](https://github.com/SocialGouv/ozensemble/commit/1b32b6fabeff94d109250adfe486c75621847152))
-* log config ([311187f](https://github.com/SocialGouv/ozensemble/commit/311187f00bc32183ee829466b2c0baf832f09de4))
-* prisma dep ([741c97e](https://github.com/SocialGouv/ozensemble/commit/741c97ef896fc08c3cab637fc3f8e37eff407f7c))
-* prisma generate ([7735316](https://github.com/SocialGouv/ozensemble/commit/773531612aea58099acd82d6cc215b6a7a6f7f14))
-
+- change with npm scripts ([8e44af7](https://github.com/SocialGouv/ozensemble/commit/8e44af771cae31cef011091838166cec791c9acf))
+- clean user post example creation ([839f687](https://github.com/SocialGouv/ozensemble/commit/839f68725f9ed4df48676f87add60b5f2fc1fe47))
+- dockerfile ([e864025](https://github.com/SocialGouv/ozensemble/commit/e8640257c7472d040a560fdd0769d4994fb37c3e))
+- dockerfile chmode prisma ([488cbe3](https://github.com/SocialGouv/ozensemble/commit/488cbe3f03f0ba9e8475a7c5457941bd60352eef))
+- dockerfile chmode prisma ([959b8ff](https://github.com/SocialGouv/ozensemble/commit/959b8ff5aa9c3a32338309378b0de6f43e93487c))
+- dockerfile npx ([f4fc193](https://github.com/SocialGouv/ozensemble/commit/f4fc19352e8f112b29f551d27a226415dbb42d61))
+- dockerfile order ([089ad04](https://github.com/SocialGouv/ozensemble/commit/089ad04659024ad80a88a44dca743699277637f4))
+- dockerfile order ([735b760](https://github.com/SocialGouv/ozensemble/commit/735b760523e892125c2911bdf803c5c3abea2766))
+- dockerfile revert ([1b32b6f](https://github.com/SocialGouv/ozensemble/commit/1b32b6fabeff94d109250adfe486c75621847152))
+- log config ([311187f](https://github.com/SocialGouv/ozensemble/commit/311187f00bc32183ee829466b2c0baf832f09de4))
+- prisma dep ([741c97e](https://github.com/SocialGouv/ozensemble/commit/741c97ef896fc08c3cab637fc3f8e37eff407f7c))
+- prisma generate ([7735316](https://github.com/SocialGouv/ozensemble/commit/773531612aea58099acd82d6cc215b6a7a6f7f14))
 
 ### Features
 
-* setup prisma ([01b68dd](https://github.com/SocialGouv/ozensemble/commit/01b68ddf682d074dd173867a29c68e6639b9801b))
+- setup prisma ([01b68dd](https://github.com/SocialGouv/ozensemble/commit/01b68ddf682d074dd173867a29c68e6639b9801b))
 
 # [1.67.0](https://github.com/SocialGouv/ozensemble/compare/v1.66.1...v1.67.0) (2022-07-09)
 
-
 ### Features
 
-* **ci:** add database ([19328a4](https://github.com/SocialGouv/ozensemble/commit/19328a4cad73e4a7a34f7593f1bf9f51d6c19dac))
+- **ci:** add database ([19328a4](https://github.com/SocialGouv/ozensemble/commit/19328a4cad73e4a7a34f7593f1bf9f51d6c19dac))
 
 ## [1.66.1](https://github.com/SocialGouv/ozensemble/compare/v1.66.0...v1.66.1) (2022-07-04)
 
-
 ### Bug Fixes
 
-* disable push notif testing ([dabec5c](https://github.com/SocialGouv/ozensemble/commit/dabec5c6fcac765119b7bf88c4df1d6199483c7f))
+- disable push notif testing ([dabec5c](https://github.com/SocialGouv/ozensemble/commit/dabec5c6fcac765119b7bf88c4df1d6199483c7f))
 
 # [1.66.0](https://github.com/SocialGouv/ozensemble/compare/v1.65.4...v1.66.0) (2022-07-04)
 
-
 ### Bug Fixes
 
-* add dev mode ([c742302](https://github.com/SocialGouv/ozensemble/commit/c7423025a2e3a9ec651dfa989c8307171c62c497))
-* move envFrom to kube root ([a7be1ec](https://github.com/SocialGouv/ozensemble/commit/a7be1ecc7b1a6518681af21d245c99eb4c1de5b5))
-
+- add dev mode ([c742302](https://github.com/SocialGouv/ozensemble/commit/c7423025a2e3a9ec651dfa989c8307171c62c497))
+- move envFrom to kube root ([a7be1ec](https://github.com/SocialGouv/ozensemble/commit/a7be1ecc7b1a6518681af21d245c99eb4c1de5b5))
 
 ### Features
 
-* **api:** sealed secrets ([5b403ee](https://github.com/SocialGouv/ozensemble/commit/5b403ee78d1b11336d1ac626b741ed43f981b0f3))
+- **api:** sealed secrets ([5b403ee](https://github.com/SocialGouv/ozensemble/commit/5b403ee78d1b11336d1ac626b741ed43f981b0f3))
 
 ## [1.65.4](https://github.com/SocialGouv/ozensemble/compare/v1.65.3...v1.65.4) (2022-07-04)
 
-
 ### Bug Fixes
 
-* enable test push notification ([334ba64](https://github.com/SocialGouv/ozensemble/commit/334ba64c9ead7f8596781c32acf8f1ac4db52ffe))
+- enable test push notification ([334ba64](https://github.com/SocialGouv/ozensemble/commit/334ba64c9ead7f8596781c32acf8f1ac4db52ffe))
 
 ## [1.65.3](https://github.com/SocialGouv/ozensemble/compare/v1.65.2...v1.65.3) (2022-07-01)
 
-
 ### Bug Fixes
 
-* reminder when not setup yet ([4a82228](https://github.com/SocialGouv/ozensemble/commit/4a82228279e0a490622fd53f54e60b02c0e87a9c))
+- reminder when not setup yet ([4a82228](https://github.com/SocialGouv/ozensemble/commit/4a82228279e0a490622fd53f54e60b02c0e87a9c))
 
 ## [1.65.2](https://github.com/SocialGouv/ozensemble/compare/v1.65.1...v1.65.2) (2022-07-01)
 
-
 ### Bug Fixes
 
-* reminder when not setup yet ([cdb8935](https://github.com/SocialGouv/ozensemble/commit/cdb89358ccb7a23f30634c9657a91f72c53c5b6f))
+- reminder when not setup yet ([cdb8935](https://github.com/SocialGouv/ozensemble/commit/cdb89358ccb7a23f30634c9657a91f72c53c5b6f))
 
 ## [1.65.1](https://github.com/SocialGouv/ozensemble/compare/v1.65.0...v1.65.1) (2022-07-01)
 
-
 ### Bug Fixes
 
-* test push notif send ([f9408a6](https://github.com/SocialGouv/ozensemble/commit/f9408a6c47728c1387c5823e24bcadb8b0614ed9))
+- test push notif send ([f9408a6](https://github.com/SocialGouv/ozensemble/commit/f9408a6c47728c1387c5823e24bcadb8b0614ed9))
 
 # [1.65.0](https://github.com/SocialGouv/ozensemble/compare/v1.64.0...v1.65.0) (2022-07-01)
 
-
 ### Features
 
-* handle push notifications ([9a1442e](https://github.com/SocialGouv/ozensemble/commit/9a1442e058209a5ed106bdf82f49e37b5581919f))
+- handle push notifications ([9a1442e](https://github.com/SocialGouv/ozensemble/commit/9a1442e058209a5ed106bdf82f49e37b5581919f))
 
 # [1.64.0](https://github.com/SocialGouv/ozensemble/compare/v1.63.1...v1.64.0) (2022-07-01)
 
-
 ### Features
 
-* activate push token sending to server ([29d41cd](https://github.com/SocialGouv/ozensemble/commit/29d41cdf4562a5f26b8299f361115283a778ccd2))
-* activate push token sending to server for android ([a04531b](https://github.com/SocialGouv/ozensemble/commit/a04531bb5634001d70a1e6e74b69eda7d4ca9bb3))
+- activate push token sending to server ([29d41cd](https://github.com/SocialGouv/ozensemble/commit/29d41cdf4562a5f26b8299f361115283a778ccd2))
+- activate push token sending to server for android ([a04531b](https://github.com/SocialGouv/ozensemble/commit/a04531bb5634001d70a1e6e74b69eda7d4ca9bb3))
 
 ## [1.63.1](https://github.com/SocialGouv/ozensemble/compare/v1.63.0...v1.63.1) (2022-07-01)
 
-
 ### Bug Fixes
 
-* show cta when necessary ([62a1725](https://github.com/SocialGouv/ozensemble/commit/62a1725c327702d2843331cb6411a7bf4b65eb55))
+- show cta when necessary ([62a1725](https://github.com/SocialGouv/ozensemble/commit/62a1725c327702d2843331cb6411a7bf4b65eb55))
 
 # [1.63.0](https://github.com/SocialGouv/ozensemble/compare/v1.62.2...v1.63.0) (2022-07-01)
 
-
 ### Features
 
-* **app:** fixe Reminder 3 + some front fixe ([9b5b003](https://github.com/SocialGouv/ozensemble/commit/9b5b00323ff588ad7dc5ea51e2ee7e70741f17d6))
+- **app:** fixe Reminder 3 + some front fixe ([9b5b003](https://github.com/SocialGouv/ozensemble/commit/9b5b00323ff588ad7dc5ea51e2ee7e70741f17d6))
 
 ## [1.62.2](https://github.com/SocialGouv/ozensemble/compare/v1.62.1...v1.62.2) (2022-06-28)
 
-
 ### Bug Fixes
 
-* reminder and end of quizz onboarding ([ff5ec38](https://github.com/SocialGouv/ozensemble/commit/ff5ec382bace4ecab58cc792ad22acd89862f8be))
+- reminder and end of quizz onboarding ([ff5ec38](https://github.com/SocialGouv/ozensemble/commit/ff5ec382bace4ecab58cc792ad22acd89862f8be))
 
 ## [1.62.1](https://github.com/SocialGouv/ozensemble/compare/v1.62.0...v1.62.1) (2022-06-28)
 
-
 ### Bug Fixes
 
-* reminder ([3f3250d](https://github.com/SocialGouv/ozensemble/commit/3f3250d4b9586e3601b395519f8b7947937baac2))
+- reminder ([3f3250d](https://github.com/SocialGouv/ozensemble/commit/3f3250d4b9586e3601b395519f8b7947937baac2))
 
 # [1.62.0](https://github.com/SocialGouv/ozensemble/compare/v1.61.1...v1.62.0) (2022-06-28)
 
-
 ### Features
 
-* new reminder auto at 8pm + small design fixes + new matomo events ([58b0018](https://github.com/SocialGouv/ozensemble/commit/58b0018a1e12b65d4ea03b05a1f05b25d14b3156))
+- new reminder auto at 8pm + small design fixes + new matomo events ([58b0018](https://github.com/SocialGouv/ozensemble/commit/58b0018a1e12b65d4ea03b05a1f05b25d14b3156))
 
 ## [1.61.1](https://github.com/SocialGouv/ozensemble/compare/v1.61.0...v1.61.1) (2022-06-27)
 
-
 ### Bug Fixes
 
-* **api:** better timeing for whowing new stuff popup ([0eff58b](https://github.com/SocialGouv/ozensemble/commit/0eff58b05bf869d241a6b8d94e94847492201049))
+- **api:** better timeing for whowing new stuff popup ([0eff58b](https://github.com/SocialGouv/ozensemble/commit/0eff58b05bf869d241a6b8d94e94847492201049))
 
 # [1.61.0](https://github.com/SocialGouv/ozensemble/compare/v1.60.2...v1.61.0) (2022-06-23)
 
-
 ### Features
 
-* **app:** begin quizz and defi2 -> to day3 ([99bc8f5](https://github.com/SocialGouv/ozensemble/commit/99bc8f5f8df4fd5b5a060cfcadfb9cf80002d2ab))
-* **app:** Mygains ([58307be](https://github.com/SocialGouv/ozensemble/commit/58307be66205d9514113358acbaa8e339c7c9c7a))
-* **app:** WrapperContainer consoFollowUp ([20ce66e](https://github.com/SocialGouv/ozensemble/commit/20ce66e3489af92612b14075cc2a86be228fc728))
+- **app:** begin quizz and defi2 -> to day3 ([99bc8f5](https://github.com/SocialGouv/ozensemble/commit/99bc8f5f8df4fd5b5a060cfcadfb9cf80002d2ab))
+- **app:** Mygains ([58307be](https://github.com/SocialGouv/ozensemble/commit/58307be66205d9514113358acbaa8e339c7c9c7a))
+- **app:** WrapperContainer consoFollowUp ([20ce66e](https://github.com/SocialGouv/ozensemble/commit/20ce66e3489af92612b14075cc2a86be228fc728))
 
 ## [1.60.2](https://github.com/SocialGouv/ozensemble/compare/v1.60.1...v1.60.2) (2022-06-23)
 
-
 ### Bug Fixes
 
-* button primary ([053234d](https://github.com/SocialGouv/ozensemble/commit/053234d5ff382adb5dad0fa091284dc00a8cbd69))
+- button primary ([053234d](https://github.com/SocialGouv/ozensemble/commit/053234d5ff382adb5dad0fa091284dc00a8cbd69))
 
 ## [1.60.1](https://github.com/SocialGouv/ozensemble/compare/v1.60.0...v1.60.1) (2022-06-23)
 
-
 ### Bug Fixes
 
-* **app:** risk situations emotions ([f4d3de7](https://github.com/SocialGouv/ozensemble/commit/f4d3de7fe5156a8593d375f0726f292744ead895))
+- **app:** risk situations emotions ([f4d3de7](https://github.com/SocialGouv/ozensemble/commit/f4d3de7fe5156a8593d375f0726f292744ead895))
 
 # [1.60.0](https://github.com/SocialGouv/ozensemble/compare/v1.59.1...v1.60.0) (2022-06-23)
 
-
 ### Features
 
-* **app:** checkbox ([c055685](https://github.com/SocialGouv/ozensemble/commit/c05568505a61157bc2cf4da9ee8eb1581b966918))
+- **app:** checkbox ([c055685](https://github.com/SocialGouv/ozensemble/commit/c05568505a61157bc2cf4da9ee8eb1581b966918))
 
 ## [1.59.1](https://github.com/SocialGouv/ozensemble/compare/v1.59.0...v1.59.1) (2022-06-23)
 
-
 ### Bug Fixes
 
-* cta button not in defis ([998141f](https://github.com/SocialGouv/ozensemble/commit/998141f17af26989cd8a6830e1d51ad626a0806d))
+- cta button not in defis ([998141f](https://github.com/SocialGouv/ozensemble/commit/998141f17af26989cd8a6830e1d51ad626a0806d))
 
 # [1.59.0](https://github.com/SocialGouv/ozensemble/compare/v1.58.0...v1.59.0) (2022-06-22)
 
-
 ### Features
 
-* **app:** matomo events ([61206c8](https://github.com/SocialGouv/ozensemble/commit/61206c8b9fc7227dc75574ed134644e793a606d2))
+- **app:** matomo events ([61206c8](https://github.com/SocialGouv/ozensemble/commit/61206c8b9fc7227dc75574ed134644e793a606d2))
 
 # [1.58.0](https://github.com/SocialGouv/ozensemble/compare/v1.57.0...v1.58.0) (2022-06-22)
 
-
 ### Features
 
-* **app:** table + icon + image ([1ad7985](https://github.com/SocialGouv/ozensemble/commit/1ad7985c3acda98dab3fb1897434c2242e00abfb))
+- **app:** table + icon + image ([1ad7985](https://github.com/SocialGouv/ozensemble/commit/1ad7985c3acda98dab3fb1897434c2242e00abfb))
 
 # [1.57.0](https://github.com/SocialGouv/ozensemble/compare/v1.56.0...v1.57.0) (2022-06-21)
 
-
 ### Features
 
-* **app:** articles ([ee44289](https://github.com/SocialGouv/ozensemble/commit/ee442894d1f5b390634603e31b962de37b8e05db))
+- **app:** articles ([ee44289](https://github.com/SocialGouv/ozensemble/commit/ee442894d1f5b390634603e31b962de37b8e05db))
 
 # [1.56.0](https://github.com/SocialGouv/ozensemble/compare/v1.55.0...v1.56.0) (2022-06-21)
 
-
 ### Features
 
-* **api,app:** new feature popup handler ([8e5f1b8](https://github.com/SocialGouv/ozensemble/commit/8e5f1b8b17a2f1b77cdc9011049133839593368c))
+- **api,app:** new feature popup handler ([8e5f1b8](https://github.com/SocialGouv/ozensemble/commit/8e5f1b8b17a2f1b77cdc9011049133839593368c))
 
 # [1.55.0](https://github.com/SocialGouv/ozensemble/compare/v1.54.0...v1.55.0) (2022-06-21)
 
-
 ### Features
 
-* **app:** defi2 ([b99c952](https://github.com/SocialGouv/ozensemble/commit/b99c952e158973b443c6a4017a1bca371e21ac78))
+- **app:** defi2 ([b99c952](https://github.com/SocialGouv/ozensemble/commit/b99c952e158973b443c6a4017a1bca371e21ac78))
 
 # [1.54.0](https://github.com/SocialGouv/ozensemble/compare/v1.53.1...v1.54.0) (2022-06-21)
 
-
 ### Features
 
-* **app:** color smiley ([c02b08c](https://github.com/SocialGouv/ozensemble/commit/c02b08c7bca9b9ddcea85f494aaa882f957c5dbc))
+- **app:** color smiley ([c02b08c](https://github.com/SocialGouv/ozensemble/commit/c02b08c7bca9b9ddcea85f494aaa882f957c5dbc))
 
 ## [1.53.1](https://github.com/SocialGouv/ozensemble/compare/v1.53.0...v1.53.1) (2022-06-21)
 
-
 ### Bug Fixes
 
-* **app:** begin defi2 ([f8fcd05](https://github.com/SocialGouv/ozensemble/commit/f8fcd052f16fca3f3ff0d31fdef2e1aab2843710))
+- **app:** begin defi2 ([f8fcd05](https://github.com/SocialGouv/ozensemble/commit/f8fcd052f16fca3f3ff0d31fdef2e1aab2843710))
 
 # [1.53.0](https://github.com/SocialGouv/ozensemble/compare/v1.52.0...v1.53.0) (2022-06-20)
 
-
 ### Features
 
-* **app:** Header delete oblique ([0a2b141](https://github.com/SocialGouv/ozensemble/commit/0a2b1416320739252f62e6c7245500ba9017067e))
+- **app:** Header delete oblique ([0a2b141](https://github.com/SocialGouv/ozensemble/commit/0a2b1416320739252f62e6c7245500ba9017067e))
 
 # [1.52.0](https://github.com/SocialGouv/ozensemble/compare/v1.51.0...v1.52.0) (2022-06-20)
 
-
 ### Features
 
-* **app:** Retour de la version 1.7.0 ([eda08b4](https://github.com/SocialGouv/ozensemble/commit/eda08b46675deee298a0fcfc809fda4d364e5fa6))
+- **app:** Retour de la version 1.7.0 ([eda08b4](https://github.com/SocialGouv/ozensemble/commit/eda08b46675deee298a0fcfc809fda4d364e5fa6))
 
 # [1.51.0](https://github.com/SocialGouv/ozensemble/compare/v1.50.1...v1.51.0) (2022-06-20)
 
-
 ### Features
 
-* **app:** condition done ([9688275](https://github.com/SocialGouv/ozensemble/commit/96882751146b0d9cf95878dc5ad8cca3e6ede9b2))
-* **app:** tests des defis ([1b0ba74](https://github.com/SocialGouv/ozensemble/commit/1b0ba746dee34aef66d1ce198d4f910cb405eb55))
+- **app:** condition done ([9688275](https://github.com/SocialGouv/ozensemble/commit/96882751146b0d9cf95878dc5ad8cca3e6ede9b2))
+- **app:** tests des defis ([1b0ba74](https://github.com/SocialGouv/ozensemble/commit/1b0ba746dee34aef66d1ce198d4f910cb405eb55))
 
 ## [1.50.1](https://github.com/SocialGouv/ozensemble/compare/v1.50.0...v1.50.1) (2022-06-20)
 
-
 ### Bug Fixes
 
-* **app:** onboardingmodal hide + resultOnBoarding ([6d1782e](https://github.com/SocialGouv/ozensemble/commit/6d1782ed98cf0630b994c17760376e16590e5cf2))
+- **app:** onboardingmodal hide + resultOnBoarding ([6d1782e](https://github.com/SocialGouv/ozensemble/commit/6d1782ed98cf0630b994c17760376e16590e5cf2))
 
 # [1.50.0](https://github.com/SocialGouv/ozensemble/compare/v1.49.1...v1.50.0) (2022-06-17)
 
-
 ### Bug Fixes
 
-* hierarchiser mes situations ([267d031](https://github.com/SocialGouv/ozensemble/commit/267d0312d4f8b9373f38dea3cd968b69f82d29aa))
-* migration ([adbb4d8](https://github.com/SocialGouv/ozensemble/commit/adbb4d8392d6022709d2db9e72df5a3e5bce4415))
-* seems to work ([387cd88](https://github.com/SocialGouv/ozensemble/commit/387cd88b982d2d60be7f5efc84dbcb4ced171b20))
-
+- hierarchiser mes situations ([267d031](https://github.com/SocialGouv/ozensemble/commit/267d0312d4f8b9373f38dea3cd968b69f82d29aa))
+- migration ([adbb4d8](https://github.com/SocialGouv/ozensemble/commit/adbb4d8392d6022709d2db9e72df5a3e5bce4415))
+- seems to work ([387cd88](https://github.com/SocialGouv/ozensemble/commit/387cd88b982d2d60be7f5efc84dbcb4ced171b20))
 
 ### Features
 
-* **app:** adapt to answersRiskSituations ([d532079](https://github.com/SocialGouv/ozensemble/commit/d5320799ff4fc78842df0c4bb662b461076bdcbe))
-* **app:** flatlist + index ([7b4bdfe](https://github.com/SocialGouv/ozensemble/commit/7b4bdfe1ce6ec3b703c9368a81dab3e61dbaadd4))
+- **app:** adapt to answersRiskSituations ([d532079](https://github.com/SocialGouv/ozensemble/commit/d5320799ff4fc78842df0c4bb662b461076bdcbe))
+- **app:** flatlist + index ([7b4bdfe](https://github.com/SocialGouv/ozensemble/commit/7b4bdfe1ce6ec3b703c9368a81dab3e61dbaadd4))
 
 ## [1.49.1](https://github.com/SocialGouv/ozensemble/compare/v1.49.0...v1.49.1) (2022-06-16)
 
-
 ### Bug Fixes
 
-* **app:** Je peux dire non ElementDayDefi ([24e9776](https://github.com/SocialGouv/ozensemble/commit/24e97767faba17d60fd9078f181d09730650fa0e))
+- **app:** Je peux dire non ElementDayDefi ([24e9776](https://github.com/SocialGouv/ozensemble/commit/24e97767faba17d60fd9078f181d09730650fa0e))
 
 # [1.49.0](https://github.com/SocialGouv/ozensemble/compare/v1.48.0...v1.49.0) (2022-06-16)
 
-
 ### Features
 
-* **app:** begin day4 ([3fcfddb](https://github.com/SocialGouv/ozensemble/commit/3fcfddb10bb73b45298fc8ef325f7f3d618e757b))
+- **app:** begin day4 ([3fcfddb](https://github.com/SocialGouv/ozensemble/commit/3fcfddb10bb73b45298fc8ef325f7f3d618e757b))
 
 # [1.48.0](https://github.com/SocialGouv/ozensemble/compare/v1.47.0...v1.48.0) (2022-06-15)
 
-
 ### Features
 
-* **app:** snarcloud ([bd1455d](https://github.com/SocialGouv/ozensemble/commit/bd1455d2f83b312efbc6baa0517f00fa5308c0db))
+- **app:** snarcloud ([bd1455d](https://github.com/SocialGouv/ozensemble/commit/bd1455d2f83b312efbc6baa0517f00fa5308c0db))
 
 # [1.47.0](https://github.com/SocialGouv/ozensemble/compare/v1.46.0...v1.47.0) (2022-06-15)
 
-
 ### Features
 
-* **app:** day3 Je reconnais mes situations ([febc1b0](https://github.com/SocialGouv/ozensemble/commit/febc1b02123545536dd3ad6b003252ad1fa1699b))
-* **app:** update front day3 ([aa0ba05](https://github.com/SocialGouv/ozensemble/commit/aa0ba05dd125730b8f91dab47cd57a47f4743624))
+- **app:** day3 Je reconnais mes situations ([febc1b0](https://github.com/SocialGouv/ozensemble/commit/febc1b02123545536dd3ad6b003252ad1fa1699b))
+- **app:** update front day3 ([aa0ba05](https://github.com/SocialGouv/ozensemble/commit/aa0ba05dd125730b8f91dab47cd57a47f4743624))
 
 # [1.46.0](https://github.com/SocialGouv/ozensemble/compare/v1.45.0...v1.46.0) (2022-06-15)
 
-
 ### Features
 
-* **app:** Defi2 day5 + day6 ([3620111](https://github.com/SocialGouv/ozensemble/commit/362011125cebbecd7ec47a807d5de58cef3ab6be))
-* **app:** defi2 day6 ([46f9c6d](https://github.com/SocialGouv/ozensemble/commit/46f9c6d8ac7945ec01625f1cac962e00f1765c5a))
+- **app:** Defi2 day5 + day6 ([3620111](https://github.com/SocialGouv/ozensemble/commit/362011125cebbecd7ec47a807d5de58cef3ab6be))
+- **app:** defi2 day6 ([46f9c6d](https://github.com/SocialGouv/ozensemble/commit/46f9c6d8ac7945ec01625f1cac962e00f1765c5a))
 
 # [1.45.0](https://github.com/SocialGouv/ozensemble/compare/v1.44.0...v1.45.0) (2022-06-14)
 
-
 ### Features
 
-* **app:** tests des defis ([7a0c0e5](https://github.com/SocialGouv/ozensemble/commit/7a0c0e587369e5324df3bd6889a00e882d50434b))
+- **app:** tests des defis ([7a0c0e5](https://github.com/SocialGouv/ozensemble/commit/7a0c0e587369e5324df3bd6889a00e882d50434b))
 
 # [1.44.0](https://github.com/SocialGouv/ozensemble/compare/v1.43.0...v1.44.0) (2022-06-13)
 
-
 ### Features
 
-* **app:** add close ModalOnboarding ([cb9ddb7](https://github.com/SocialGouv/ozensemble/commit/cb9ddb7930e77c8748d7ed8f27d94a8fea3bcc16))
+- **app:** add close ModalOnboarding ([cb9ddb7](https://github.com/SocialGouv/ozensemble/commit/cb9ddb7930e77c8748d7ed8f27d94a8fea3bcc16))
 
 # [1.43.0](https://github.com/SocialGouv/ozensemble/compare/v1.42.0...v1.43.0) (2022-06-13)
 
-
 ### Features
 
-* **app:** defi2 day 1 day2 and day3 ([2dfb7fb](https://github.com/SocialGouv/ozensemble/commit/2dfb7fb327877e73ff063c57d2635607b4a5700f))
+- **app:** defi2 day 1 day2 and day3 ([2dfb7fb](https://github.com/SocialGouv/ozensemble/commit/2dfb7fb327877e73ff063c57d2635607b4a5700f))
 
 # [1.42.0](https://github.com/SocialGouv/ozensemble/compare/v1.41.0...v1.42.0) (2022-06-13)
 
-
 ### Features
 
-* **app:** Result onboardink quizz and links ([cc8404c](https://github.com/SocialGouv/ozensemble/commit/cc8404c8386eae7e9e8b5067f0ec4375dc7c623b))
+- **app:** Result onboardink quizz and links ([cc8404c](https://github.com/SocialGouv/ozensemble/commit/cc8404c8386eae7e9e8b5067f0ec4375dc7c623b))
 
 # [1.41.0](https://github.com/SocialGouv/ozensemble/compare/v1.40.0...v1.41.0) (2022-06-13)
 
-
 ### Features
 
-* **app:** add backbutton in defi ([68e4c7b](https://github.com/SocialGouv/ozensemble/commit/68e4c7b134a050b4c542703d4e931b99b8aa3f18))
+- **app:** add backbutton in defi ([68e4c7b](https://github.com/SocialGouv/ozensemble/commit/68e4c7b134a050b4c542703d4e931b99b8aa3f18))
 
 # [1.40.0](https://github.com/SocialGouv/ozensemble/compare/v1.39.1...v1.40.0) (2022-06-13)
 
-
 ### Features
 
-* **app:** styles + name ([4ed6b78](https://github.com/SocialGouv/ozensemble/commit/4ed6b78f3f5c8c9f63d089927e1e46df01827dec))
-* **app:** update defi1 ([cbfd550](https://github.com/SocialGouv/ozensemble/commit/cbfd5500ac93d5d7bbac699e6a755c69fad5596d))
+- **app:** styles + name ([4ed6b78](https://github.com/SocialGouv/ozensemble/commit/4ed6b78f3f5c8c9f63d089927e1e46df01827dec))
+- **app:** update defi1 ([cbfd550](https://github.com/SocialGouv/ozensemble/commit/cbfd5500ac93d5d7bbac699e6a755c69fad5596d))
 
 ## [1.39.1](https://github.com/SocialGouv/ozensemble/compare/v1.39.0...v1.39.1) (2022-06-13)
 
-
 ### Bug Fixes
 
-* refacto a bit the quizz initial state ([3e638b4](https://github.com/SocialGouv/ozensemble/commit/3e638b42b5fd8821507608eb35867e86e771bd9b))
+- refacto a bit the quizz initial state ([3e638b4](https://github.com/SocialGouv/ozensemble/commit/3e638b42b5fd8821507608eb35867e86e771bd9b))
 
 # [1.39.0](https://github.com/SocialGouv/ozensemble/compare/v1.38.1...v1.39.0) (2022-06-10)
 
-
 ### Features
 
-* **app:** Menu Defis ([4e4636f](https://github.com/SocialGouv/ozensemble/commit/4e4636f1bb0e42ecbc33489c251ed37e035a0605))
+- **app:** Menu Defis ([4e4636f](https://github.com/SocialGouv/ozensemble/commit/4e4636f1bb0e42ecbc33489c251ed37e035a0605))
 
 ## [1.38.1](https://github.com/SocialGouv/ozensemble/compare/v1.38.0...v1.38.1) (2022-06-10)
 
-
 ### Bug Fixes
 
-* **app:** Goal obligation to put day no drink ([1658ae7](https://github.com/SocialGouv/ozensemble/commit/1658ae773984fa89c674a8a5811813f2c5b8da66))
+- **app:** Goal obligation to put day no drink ([1658ae7](https://github.com/SocialGouv/ozensemble/commit/1658ae773984fa89c674a8a5811813f2c5b8da66))
 
 # [1.38.0](https://github.com/SocialGouv/ozensemble/compare/v1.37.0...v1.38.0) (2022-06-10)
 
-
 ### Bug Fixes
 
-* disabled/enbale defi button menu ([0b57c7f](https://github.com/SocialGouv/ozensemble/commit/0b57c7f1ca696f63f4f4d04d98b0fc9d2d3af45f))
-
+- disabled/enbale defi button menu ([0b57c7f](https://github.com/SocialGouv/ozensemble/commit/0b57c7f1ca696f63f4f4d04d98b0fc9d2d3af45f))
 
 ### Features
 
-* **app:** disabled ([4d18138](https://github.com/SocialGouv/ozensemble/commit/4d181388a68d297ecc17b84a152aa19274c0d0d4))
-* **app:** Evaluer ma conso ([16ec05e](https://github.com/SocialGouv/ozensemble/commit/16ec05e8a8ba864b2722b83df418490484eabb77))
-* **app:** lock + refacto ([cd12f3f](https://github.com/SocialGouv/ozensemble/commit/cd12f3f2c03e3f581c993557a01bb6dfd8b01d31))
+- **app:** disabled ([4d18138](https://github.com/SocialGouv/ozensemble/commit/4d181388a68d297ecc17b84a152aa19274c0d0d4))
+- **app:** Evaluer ma conso ([16ec05e](https://github.com/SocialGouv/ozensemble/commit/16ec05e8a8ba864b2722b83df418490484eabb77))
+- **app:** lock + refacto ([cd12f3f](https://github.com/SocialGouv/ozensemble/commit/cd12f3f2c03e3f581c993557a01bb6dfd8b01d31))
 
 # [1.37.0](https://github.com/SocialGouv/ozensemble/compare/v1.36.1...v1.37.0) (2022-06-10)
 
-
 ### Features
 
-* **app:** menu ([e864045](https://github.com/SocialGouv/ozensemble/commit/e864045c4fd324daae06d407a745ad0a6a6d5c0b))
+- **app:** menu ([e864045](https://github.com/SocialGouv/ozensemble/commit/e864045c4fd324daae06d407a745ad0a6a6d5c0b))
 
 ## [1.36.1](https://github.com/SocialGouv/ozensemble/compare/v1.36.0...v1.36.1) (2022-06-09)
 
-
 ### Bug Fixes
 
-* from defi7jours to defi 1 ([aa5ae88](https://github.com/SocialGouv/ozensemble/commit/aa5ae886e493a0fd9dd15b9253c78227d56bd29d))
+- from defi7jours to defi 1 ([aa5ae88](https://github.com/SocialGouv/ozensemble/commit/aa5ae886e493a0fd9dd15b9253c78227d56bd29d))
 
 # [1.36.0](https://github.com/SocialGouv/ozensemble/compare/v1.35.1...v1.36.0) (2022-06-09)
 
-
 ### Features
 
-* **app:** delete all styles ([a109840](https://github.com/SocialGouv/ozensemble/commit/a1098406d238941761eda37ee48494a0375d5931))
-* **app:** infos NPS ([72adcf2](https://github.com/SocialGouv/ozensemble/commit/72adcf258a8d900fdfa530e68eefe70dea49c5c2))
-* BackButton ([06e621b](https://github.com/SocialGouv/ozensemble/commit/06e621bf5f62812550ec45cdb4cefd69c10c1603))
-* **app:** Feed ([fa5271b](https://github.com/SocialGouv/ozensemble/commit/fa5271b0e3944fc5ff1640e9dc179f0a562d0a58))
+- **app:** delete all styles ([a109840](https://github.com/SocialGouv/ozensemble/commit/a1098406d238941761eda37ee48494a0375d5931))
+- **app:** infos NPS ([72adcf2](https://github.com/SocialGouv/ozensemble/commit/72adcf258a8d900fdfa530e68eefe70dea49c5c2))
+- BackButton ([06e621b](https://github.com/SocialGouv/ozensemble/commit/06e621bf5f62812550ec45cdb4cefd69c10c1603))
+- **app:** Feed ([fa5271b](https://github.com/SocialGouv/ozensemble/commit/fa5271b0e3944fc5ff1640e9dc179f0a562d0a58))
 
 ## [1.35.1](https://github.com/SocialGouv/ozensemble/compare/v1.35.0...v1.35.1) (2022-06-08)
 
-
 ### Bug Fixes
 
-* gender migration ([d28b033](https://github.com/SocialGouv/ozensemble/commit/d28b0336665ed686b5415fc6d89e488e5de7b162))
+- gender migration ([d28b033](https://github.com/SocialGouv/ozensemble/commit/d28b0336665ed686b5415fc6d89e488e5de7b162))
 
 # [1.35.0](https://github.com/SocialGouv/ozensemble/compare/v1.34.3...v1.35.0) (2022-06-08)
 
-
 ### Features
 
-* **app:** new custom dimension ([8fc3a11](https://github.com/SocialGouv/ozensemble/commit/8fc3a113b7a2f75d1718d098ae2b569a4a8910d0))
+- **app:** new custom dimension ([8fc3a11](https://github.com/SocialGouv/ozensemble/commit/8fc3a113b7a2f75d1718d098ae2b569a4a8910d0))
 
 ## [1.34.3](https://github.com/SocialGouv/ozensemble/compare/v1.34.2...v1.34.3) (2022-06-08)
 
-
 ### Bug Fixes
 
-* score age ([55627a3](https://github.com/SocialGouv/ozensemble/commit/55627a3f660d00f78f7074a8abdb80ba00ea855e))
+- score age ([55627a3](https://github.com/SocialGouv/ozensemble/commit/55627a3f660d00f78f7074a8abdb80ba00ea855e))
 
 ## [1.34.2](https://github.com/SocialGouv/ozensemble/compare/v1.34.1...v1.34.2) (2022-06-08)
 
-
 ### Bug Fixes
 
-* change source ([8c70967](https://github.com/SocialGouv/ozensemble/commit/8c70967a1902aa91a694625a0026c07a70b9e83a))
+- change source ([8c70967](https://github.com/SocialGouv/ozensemble/commit/8c70967a1902aa91a694625a0026c07a70b9e83a))
 
 ## [1.34.1](https://github.com/SocialGouv/ozensemble/compare/v1.34.0...v1.34.1) (2022-06-03)
 
-
 ### Bug Fixes
 
-* scroll to almost bottom ([880330a](https://github.com/SocialGouv/ozensemble/commit/880330a5e6475d6f964f10e67bcf55d37e49846a))
+- scroll to almost bottom ([880330a](https://github.com/SocialGouv/ozensemble/commit/880330a5e6475d6f964f10e67bcf55d37e49846a))
 
 # [1.34.0](https://github.com/SocialGouv/ozensemble/compare/v1.33.11...v1.34.0) (2022-06-03)
 
-
 ### Features
 
-* add scroll end article + source ([266574b](https://github.com/SocialGouv/ozensemble/commit/266574b33897261f2d3cbb122f5e367dc3c8b768))
-* name + hasScrollToEnd ([4ef3078](https://github.com/SocialGouv/ozensemble/commit/4ef30789fa51ab2657d4f2042f78970f2352a684))
+- add scroll end article + source ([266574b](https://github.com/SocialGouv/ozensemble/commit/266574b33897261f2d3cbb122f5e367dc3c8b768))
+- name + hasScrollToEnd ([4ef3078](https://github.com/SocialGouv/ozensemble/commit/4ef30789fa51ab2657d4f2042f78970f2352a684))
 
 ## [1.33.11](https://github.com/SocialGouv/ozensemble/compare/v1.33.10...v1.33.11) (2022-06-03)
 
-
 ### Bug Fixes
 
-* better debug for error catching stored answers ([56ff2ec](https://github.com/SocialGouv/ozensemble/commit/56ff2ecf4d509b7f82eafe222d96968914244103))
+- better debug for error catching stored answers ([56ff2ec](https://github.com/SocialGouv/ozensemble/commit/56ff2ecf4d509b7f82eafe222d96968914244103))
 
 ## [1.33.10](https://github.com/SocialGouv/ozensemble/compare/v1.33.9...v1.33.10) (2022-06-02)
 
-
 ### Bug Fixes
 
-* app crashing when finish taking rdv in doctolib ([df10a8e](https://github.com/SocialGouv/ozensemble/commit/df10a8e83e817b13292769df246cf9c5f1689497))
+- app crashing when finish taking rdv in doctolib ([df10a8e](https://github.com/SocialGouv/ozensemble/commit/df10a8e83e817b13292769df246cf9c5f1689497))
 
 ## [1.33.9](https://github.com/SocialGouv/ozensemble/compare/v1.33.8...v1.33.9) (2022-05-31)
 
-
 ### Bug Fixes
 
-* log userId ([04910c9](https://github.com/SocialGouv/ozensemble/commit/04910c9b59195cd7b1e3f2de5059cd81e8601053))
+- log userId ([04910c9](https://github.com/SocialGouv/ozensemble/commit/04910c9b59195cd7b1e3f2de5059cd81e8601053))
 
 ## [1.33.8](https://github.com/SocialGouv/ozensemble/compare/v1.33.7...v1.33.8) (2022-05-31)
 
-
 ### Bug Fixes
 
-* event handler log ([cebfddb](https://github.com/SocialGouv/ozensemble/commit/cebfddb009359922c1c1a88b101272e6539059df))
+- event handler log ([cebfddb](https://github.com/SocialGouv/ozensemble/commit/cebfddb009359922c1c1a88b101272e6539059df))
 
 ## [1.33.7](https://github.com/SocialGouv/ozensemble/compare/v1.33.6...v1.33.7) (2022-05-31)
 
-
 ### Bug Fixes
 
-* event handler ([e73cffe](https://github.com/SocialGouv/ozensemble/commit/e73cffe5ed4cac97ce95af0c5dd184aacea5baf2))
+- event handler ([e73cffe](https://github.com/SocialGouv/ozensemble/commit/e73cffe5ed4cac97ce95af0c5dd184aacea5baf2))
 
 ## [1.33.6](https://github.com/SocialGouv/ozensemble/compare/v1.33.5...v1.33.6) (2022-05-31)
 
-
 ### Bug Fixes
 
-* **ci:** use PAT token for release ([d1d53b2](https://github.com/SocialGouv/ozensemble/commit/d1d53b252755695624b7270c41556283ce0ec840))
+- **ci:** use PAT token for release ([d1d53b2](https://github.com/SocialGouv/ozensemble/commit/d1d53b252755695624b7270c41556283ce0ec840))
 
 ## [1.33.5](https://github.com/SocialGouv/ozensemble/compare/v1.33.4...v1.33.5) (2022-05-31)
 
-
 ### Bug Fixes
 
-* test again event handler ([4003e67](https://github.com/SocialGouv/ozensemble/commit/4003e673decb5e05573fd905bc18c76a8f4ecdd3))
+- test again event handler ([4003e67](https://github.com/SocialGouv/ozensemble/commit/4003e673decb5e05573fd905bc18c76a8f4ecdd3))
 
 ## [1.33.4](https://github.com/SocialGouv/ozensemble/compare/v1.33.3...v1.33.4) (2022-05-31)
 
-
 ### Bug Fixes
 
-* sentry ([9fcf692](https://github.com/SocialGouv/ozensemble/commit/9fcf6924481733d605c0471ef56f4fbc1aea9966))
+- sentry ([9fcf692](https://github.com/SocialGouv/ozensemble/commit/9fcf6924481733d605c0471ef56f4fbc1aea9966))
 
 ## [1.33.3](https://github.com/SocialGouv/ozensemble/compare/v1.33.2...v1.33.3) (2022-05-31)
 
-
 ### Bug Fixes
 
-* disable event test ([d763c2a](https://github.com/SocialGouv/ozensemble/commit/d763c2a59086477c2962e18813249e585f98c88e))
+- disable event test ([d763c2a](https://github.com/SocialGouv/ozensemble/commit/d763c2a59086477c2962e18813249e585f98c88e))
 
 ## [1.33.2](https://github.com/SocialGouv/ozensemble/compare/v1.33.1...v1.33.2) (2022-05-31)
 
-
 ### Bug Fixes
 
-* dummy ([eb7a1f8](https://github.com/SocialGouv/ozensemble/commit/eb7a1f8ea453770e685de4bf1c5561c28edb4e6b))
+- dummy ([eb7a1f8](https://github.com/SocialGouv/ozensemble/commit/eb7a1f8ea453770e685de4bf1c5561c28edb4e6b))
 
 ## [1.33.1](https://github.com/SocialGouv/ozensemble/compare/v1.33.0...v1.33.1) (2022-05-31)
 
-
 ### Bug Fixes
 
-* **ci:** workflow typo ([74524fe](https://github.com/SocialGouv/ozensemble/commit/74524fe1895dfecedf814a53ded7daa49b22e195))
+- **ci:** workflow typo ([74524fe](https://github.com/SocialGouv/ozensemble/commit/74524fe1895dfecedf814a53ded7daa49b22e195))
 
 # [1.33.0](https://github.com/SocialGouv/ozensemble/compare/v1.32.2...v1.33.0) (2022-05-30)
 
-
 ### Features
 
-* api test ([1d022d7](https://github.com/SocialGouv/ozensemble/commit/1d022d7298eefcc02884ae56389ded4361f17b23))
+- api test ([1d022d7](https://github.com/SocialGouv/ozensemble/commit/1d022d7298eefcc02884ae56389ded4361f17b23))
 
 ## [1.32.2](https://github.com/SocialGouv/ozensemble/compare/v1.32.1...v1.32.2) (2022-05-30)
 
-
 ### Bug Fixes
 
-* test event in api ([f23f8e2](https://github.com/SocialGouv/ozensemble/commit/f23f8e21f9da2abc3f5b9d284ddba67fe2c7d5d7))
+- test event in api ([f23f8e2](https://github.com/SocialGouv/ozensemble/commit/f23f8e21f9da2abc3f5b9d284ddba67fe2c7d5d7))
 
 ## [1.32.1](https://github.com/SocialGouv/ozensemble/compare/v1.32.0...v1.32.1) (2022-05-30)
 
-
 ### Bug Fixes
 
-* **ci:** add deploy workflows ([c8bf0ef](https://github.com/SocialGouv/ozensemble/commit/c8bf0ef81a7e590b4dbc55862999cfb0ab890bbb))
+- **ci:** add deploy workflows ([c8bf0ef](https://github.com/SocialGouv/ozensemble/commit/c8bf0ef81a7e590b4dbc55862999cfb0ab890bbb))
 
 # [1.32.0](https://github.com/SocialGouv/ozensemble/compare/v1.31.0...v1.32.0) (2022-05-30)
 
-
 ### Features
 
-* Alert.alert handle server messages ([0eee38b](https://github.com/SocialGouv/ozensemble/commit/0eee38b3f91e2e5a5c618c60245d79f90b04388f))
-* connect OZ to api to interact with events ([fae7254](https://github.com/SocialGouv/ozensemble/commit/fae7254b28e18213a1cd2b893f8e6a53d4f1c9fe))
+- Alert.alert handle server messages ([0eee38b](https://github.com/SocialGouv/ozensemble/commit/0eee38b3f91e2e5a5c618c60245d79f90b04388f))
+- connect OZ to api to interact with events ([fae7254](https://github.com/SocialGouv/ozensemble/commit/fae7254b28e18213a1cd2b893f8e6a53d4f1c9fe))
 
 # [1.31.0](https://github.com/SocialGouv/ozensemble/compare/v1.30.0...v1.31.0) (2022-05-30)
 
-
 ### Features
 
-* oms limit is 2 everywhere ([6f4bfc5](https://github.com/SocialGouv/ozensemble/commit/6f4bfc5d6377b3e4eceaf7fd4e58e33c41a1447c))
+- oms limit is 2 everywhere ([6f4bfc5](https://github.com/SocialGouv/ozensemble/commit/6f4bfc5d6377b3e4eceaf7fd4e58e33c41a1447c))
 
 # [1.30.0](https://github.com/SocialGouv/ozensemble/compare/v1.29.1...v1.30.0) (2022-05-30)
 
-
 ### Features
 
-* 2 drinks ([fcb9a15](https://github.com/SocialGouv/ozensemble/commit/fcb9a15c375c14910fdc9b0e77496385ab7bdcec))
+- 2 drinks ([fcb9a15](https://github.com/SocialGouv/ozensemble/commit/fcb9a15c375c14910fdc9b0e77496385ab7bdcec))
 
 ## [1.29.1](https://github.com/SocialGouv/ozensemble/compare/v1.29.0...v1.29.1) (2022-05-27)
 
-
 ### Bug Fixes
 
-* matomo custom domension ([0d48f4b](https://github.com/SocialGouv/ozensemble/commit/0d48f4b76f9317fa50ccecef3e9f10ae81629b63))
+- matomo custom domension ([0d48f4b](https://github.com/SocialGouv/ozensemble/commit/0d48f4b76f9317fa50ccecef3e9f10ae81629b63))
 
 # [1.29.0](https://github.com/SocialGouv/ozensemble/compare/v1.28.19...v1.29.0) (2022-05-27)
 
-
 ### Features
 
-* custom dimensions matomo ([51d2cc5](https://github.com/SocialGouv/ozensemble/commit/51d2cc5722a2f0218127f33381e0dd1617daad22))
+- custom dimensions matomo ([51d2cc5](https://github.com/SocialGouv/ozensemble/commit/51d2cc5722a2f0218127f33381e0dd1617daad22))
 
 ## [1.28.19](https://github.com/SocialGouv/ozensemble/compare/v1.28.18...v1.28.19) (2022-05-25)
 
-
 ### Bug Fixes
 
-* darkmode ([46c58a1](https://github.com/SocialGouv/ozensemble/commit/46c58a11e656b2571ad3e09f793bf7344f868b13))
+- darkmode ([46c58a1](https://github.com/SocialGouv/ozensemble/commit/46c58a11e656b2571ad3e09f793bf7344f868b13))
 
 ## [1.28.18](https://github.com/SocialGouv/ozensemble/compare/v1.28.17...v1.28.18) (2022-05-24)
 
-
 ### Bug Fixes
 
-* HEALTH ([dd84df0](https://github.com/SocialGouv/ozensemble/commit/dd84df0039820dd6fc9bcde2f928e462cca2e0f3))
-* HEALTH ([5d1b97d](https://github.com/SocialGouv/ozensemble/commit/5d1b97dc44dc4d13e9ce0907274e955b8ceac99e))
-* sonarcloud matomo drink ([1459edb](https://github.com/SocialGouv/ozensemble/commit/1459edbcaf8176074e59ab06f85a301de583650b))
-* sonarcloud matomo drink ([75f24a4](https://github.com/SocialGouv/ozensemble/commit/75f24a436c653fcf3896822060b9494fb70dbe17))
+- HEALTH ([dd84df0](https://github.com/SocialGouv/ozensemble/commit/dd84df0039820dd6fc9bcde2f928e462cca2e0f3))
+- HEALTH ([5d1b97d](https://github.com/SocialGouv/ozensemble/commit/5d1b97dc44dc4d13e9ce0907274e955b8ceac99e))
+- sonarcloud matomo drink ([1459edb](https://github.com/SocialGouv/ozensemble/commit/1459edbcaf8176074e59ab06f85a301de583650b))
+- sonarcloud matomo drink ([75f24a4](https://github.com/SocialGouv/ozensemble/commit/75f24a436c653fcf3896822060b9494fb70dbe17))
 
 ## [1.28.17](https://github.com/SocialGouv/ozensemble/compare/v1.28.16...v1.28.17) (2022-05-24)
 
-
 ### Bug Fixes
 
-* resetOnTapListener ([4a7a322](https://github.com/SocialGouv/ozensemble/commit/4a7a322b2387a423ff5ac8064fca79030ab58f9d))
+- resetOnTapListener ([4a7a322](https://github.com/SocialGouv/ozensemble/commit/4a7a322b2387a423ff5ac8064fca79030ab58f9d))
 
 ## [1.28.16](https://github.com/SocialGouv/ozensemble/compare/v1.28.15...v1.28.16) (2022-05-24)
 
-
 ### Bug Fixes
 
-* switch reminders if not in defi ([333ff5d](https://github.com/SocialGouv/ozensemble/commit/333ff5d80ce4acf1d0b4625fd9f7a4e1503c5959))
+- switch reminders if not in defi ([333ff5d](https://github.com/SocialGouv/ozensemble/commit/333ff5d80ce4acf1d0b4625fd9f7a4e1503c5959))
 
 ## [1.28.15](https://github.com/SocialGouv/ozensemble/compare/v1.28.14...v1.28.15) (2022-05-24)
 
-
 ### Bug Fixes
 
-* dark mode on textinput ([2fd7141](https://github.com/SocialGouv/ozensemble/commit/2fd714105c74c07e4cd4f09556c01fd1d38b4df1))
+- dark mode on textinput ([2fd7141](https://github.com/SocialGouv/ozensemble/commit/2fd714105c74c07e4cd4f09556c01fd1d38b4df1))
 
 ## [1.28.14](https://github.com/SocialGouv/ozensemble/compare/v1.28.13...v1.28.14) (2022-05-24)
 
-
 ### Bug Fixes
 
-* articles ([7056c5a](https://github.com/SocialGouv/ozensemble/commit/7056c5ad04253ac28f8cbdc053ae1bb37fa73c38))
+- articles ([7056c5a](https://github.com/SocialGouv/ozensemble/commit/7056c5ad04253ac28f8cbdc053ae1bb37fa73c38))
 
 ## [1.28.13](https://github.com/SocialGouv/ozensemble/compare/v1.28.12...v1.28.13) (2022-05-24)
 
-
 ### Bug Fixes
 
-* reminder message ([dee53e1](https://github.com/SocialGouv/ozensemble/commit/dee53e1d3c129057511c6c7781320dea36ef741d))
+- reminder message ([dee53e1](https://github.com/SocialGouv/ozensemble/commit/dee53e1d3c129057511c6c7781320dea36ef741d))
 
 ## [1.28.12](https://github.com/SocialGouv/ozensemble/compare/v1.28.11...v1.28.12) (2022-05-24)
 
-
 ### Bug Fixes
 
-* reminder only daily for defi 7 jours ([032c5de](https://github.com/SocialGouv/ozensemble/commit/032c5de7533ce340bdf2e46fef7ee55e7d1a1420))
+- reminder only daily for defi 7 jours ([032c5de](https://github.com/SocialGouv/ozensemble/commit/032c5de7533ce340bdf2e46fef7ee55e7d1a1420))
 
 ## [1.28.11](https://github.com/SocialGouv/ozensemble/compare/v1.28.10...v1.28.11) (2022-05-23)
 
-
 ### Bug Fixes
 
-* beug first day with no conso sabrina ([0e67fd0](https://github.com/SocialGouv/ozensemble/commit/0e67fd0d395d7aad6f5ec7c160a6c47694cb0745))
-* space bottom reminder ([fe415e9](https://github.com/SocialGouv/ozensemble/commit/fe415e90cc2fecfc18aff323ab73d922bdbd975f))
+- beug first day with no conso sabrina ([0e67fd0](https://github.com/SocialGouv/ozensemble/commit/0e67fd0d395d7aad6f5ec7c160a6c47694cb0745))
+- space bottom reminder ([fe415e9](https://github.com/SocialGouv/ozensemble/commit/fe415e90cc2fecfc18aff323ab73d922bdbd975f))
 
 ## [1.28.10](https://github.com/SocialGouv/ozensemble/compare/v1.28.9...v1.28.10) (2022-05-23)
 
-
 ### Bug Fixes
 
-* onbackpress ([ca88692](https://github.com/SocialGouv/ozensemble/commit/ca886925186e241ce164434492c44a208bc72749))
+- onbackpress ([ca88692](https://github.com/SocialGouv/ozensemble/commit/ca886925186e241ce164434492c44a208bc72749))
 
 ## [1.28.9](https://github.com/SocialGouv/ozensemble/compare/v1.28.8...v1.28.9) (2022-05-23)
 
-
 ### Bug Fixes
 
-* reminder show ([c6136ee](https://github.com/SocialGouv/ozensemble/commit/c6136ee3afa494c249508118b70fa07d3cfc28fd))
+- reminder show ([c6136ee](https://github.com/SocialGouv/ozensemble/commit/c6136ee3afa494c249508118b70fa07d3cfc28fd))
 
 ## [1.28.8](https://github.com/SocialGouv/ozensemble/compare/v1.28.7...v1.28.8) (2022-05-22)
 
-
 ### Bug Fixes
 
-* back butotn in timepicker ([3878324](https://github.com/SocialGouv/ozensemble/commit/3878324d7ab556ff4ac08cb23e10cefcb8f69633))
-* capital letter where no need ([e967435](https://github.com/SocialGouv/ozensemble/commit/e967435e2137e1eeb322940d4ed5c767bd7d13f9))
-* margin-bottom champagne ([a9beb39](https://github.com/SocialGouv/ozensemble/commit/a9beb3943d324e359d25f33d148db7e80f0f3f51))
-* move tab label up ([7953305](https://github.com/SocialGouv/ozensemble/commit/7953305738edc8affa624f30043faee26961485c))
-* navigate to CONTACT ([00e5cfc](https://github.com/SocialGouv/ozensemble/commit/00e5cfcd79661e9ee2a3c47a73677f71271f805b))
-* remove arrows on onboarding ([b08d087](https://github.com/SocialGouv/ozensemble/commit/b08d087a4e2d1cb343e57656074f347428b4eb6f))
-* spacing in screens ([5996683](https://github.com/SocialGouv/ozensemble/commit/59966838005db194b2c6bfce055c8becc7751a66))
-* start fixing padding ([3828b26](https://github.com/SocialGouv/ozensemble/commit/3828b26b060cfa21d3bdbd81ade4059fe1bfb84c))
+- back butotn in timepicker ([3878324](https://github.com/SocialGouv/ozensemble/commit/3878324d7ab556ff4ac08cb23e10cefcb8f69633))
+- capital letter where no need ([e967435](https://github.com/SocialGouv/ozensemble/commit/e967435e2137e1eeb322940d4ed5c767bd7d13f9))
+- margin-bottom champagne ([a9beb39](https://github.com/SocialGouv/ozensemble/commit/a9beb3943d324e359d25f33d148db7e80f0f3f51))
+- move tab label up ([7953305](https://github.com/SocialGouv/ozensemble/commit/7953305738edc8affa624f30043faee26961485c))
+- navigate to CONTACT ([00e5cfc](https://github.com/SocialGouv/ozensemble/commit/00e5cfcd79661e9ee2a3c47a73677f71271f805b))
+- remove arrows on onboarding ([b08d087](https://github.com/SocialGouv/ozensemble/commit/b08d087a4e2d1cb343e57656074f347428b4eb6f))
+- spacing in screens ([5996683](https://github.com/SocialGouv/ozensemble/commit/59966838005db194b2c6bfce055c8becc7751a66))
+- start fixing padding ([3828b26](https://github.com/SocialGouv/ozensemble/commit/3828b26b060cfa21d3bdbd81ade4059fe1bfb84c))
 
 ## [1.28.7](https://github.com/SocialGouv/ozensemble/compare/v1.28.6...v1.28.7) (2022-05-22)
 
-
 ### Bug Fixes
 
-* android bug ([ac4143b](https://github.com/SocialGouv/ozensemble/commit/ac4143b2ed2f02f870bdb63644e9e9bdd4bd9eac))
+- android bug ([ac4143b](https://github.com/SocialGouv/ozensemble/commit/ac4143b2ed2f02f870bdb63644e9e9bdd4bd9eac))
 
 ## [1.28.6](https://github.com/SocialGouv/ozensemble/compare/v1.28.5...v1.28.6) (2022-05-22)
 
-
 ### Bug Fixes
 
-* Les signes de sevrage ([0cc19b4](https://github.com/SocialGouv/ozensemble/commit/0cc19b4b53d20a309f7a730d6f1d03dcc0112e44))
+- Les signes de sevrage ([0cc19b4](https://github.com/SocialGouv/ozensemble/commit/0cc19b4b53d20a309f7a730d6f1d03dcc0112e44))
 
 ## [1.28.5](https://github.com/SocialGouv/ozensemble/compare/v1.28.4...v1.28.5) (2022-05-20)
 
-
 ### Bug Fixes
 
-* reminder wording ([738e063](https://github.com/SocialGouv/ozensemble/commit/738e06377bfb64b9ca7e4249ad8e722ecbbd6942))
+- reminder wording ([738e063](https://github.com/SocialGouv/ozensemble/commit/738e06377bfb64b9ca7e4249ad8e722ecbbd6942))
 
 ## [1.28.4](https://github.com/SocialGouv/ozensemble/compare/v1.28.3...v1.28.4) (2022-05-20)
 
-
 ### Bug Fixes
 
-* reset reminder ([86b1eea](https://github.com/SocialGouv/ozensemble/commit/86b1eea0cd3b462fc64b39b919fc329deff26418))
+- reset reminder ([86b1eea](https://github.com/SocialGouv/ozensemble/commit/86b1eea0cd3b462fc64b39b919fc329deff26418))
 
 ## [1.28.3](https://github.com/SocialGouv/ozensemble/compare/v1.28.2...v1.28.3) (2022-05-20)
 
-
 ### Bug Fixes
 
-* recoil for all reminders ([d59d8c5](https://github.com/SocialGouv/ozensemble/commit/d59d8c5e43856047c5476f1ec6ab036803194c0d))
-* reminder day ([5a811bb](https://github.com/SocialGouv/ozensemble/commit/5a811bbd203ca145bdbae4f3fec9c6f77e0b1d71))
+- recoil for all reminders ([d59d8c5](https://github.com/SocialGouv/ozensemble/commit/d59d8c5e43856047c5476f1ec6ab036803194c0d))
+- reminder day ([5a811bb](https://github.com/SocialGouv/ozensemble/commit/5a811bbd203ca145bdbae4f3fec9c6f77e0b1d71))
 
 ## [1.28.2](https://github.com/SocialGouv/ozensemble/compare/v1.28.1...v1.28.2) (2022-05-20)
 
-
 ### Bug Fixes
 
-* dark mode ([2c0b19f](https://github.com/SocialGouv/ozensemble/commit/2c0b19f80d70fd54b37bbd8e2f55acb61921350c))
+- dark mode ([2c0b19f](https://github.com/SocialGouv/ozensemble/commit/2c0b19f80d70fd54b37bbd8e2f55acb61921350c))
 
 ## [1.28.1](https://github.com/SocialGouv/ozensemble/compare/v1.28.0...v1.28.1) (2022-05-19)
 
-
 ### Bug Fixes
 
-* increase decrease ([3dccac0](https://github.com/SocialGouv/ozensemble/commit/3dccac0ff4121aacaca46f5c020cb0cd17467092))
+- increase decrease ([3dccac0](https://github.com/SocialGouv/ozensemble/commit/3dccac0ff4121aacaca46f5c020cb0cd17467092))
 
 # [1.28.0](https://github.com/SocialGouv/ozensemble/compare/v1.27.1...v1.28.0) (2022-05-19)
 
-
 ### Features
 
-* add egality ([fea43b8](https://github.com/SocialGouv/ozensemble/commit/fea43b853ed96a15d53e3583915355e409de2481))
+- add egality ([fea43b8](https://github.com/SocialGouv/ozensemble/commit/fea43b853ed96a15d53e3583915355e409de2481))
 
 ## [1.27.1](https://github.com/SocialGouv/ozensemble/compare/v1.27.0...v1.27.1) (2022-05-19)
 
-
 ### Bug Fixes
 
-* can cancel reminder ([b01de70](https://github.com/SocialGouv/ozensemble/commit/b01de7066b49c489a1bfe580c8d55d3fe81421e0))
+- can cancel reminder ([b01de70](https://github.com/SocialGouv/ozensemble/commit/b01de7066b49c489a1bfe580c8d55d3fe81421e0))
 
 # [1.27.0](https://github.com/SocialGouv/ozensemble/compare/v1.26.0...v1.27.0) (2022-05-19)
 
-
 ### Features
 
-* fillup first ([06fc94d](https://github.com/SocialGouv/ozensemble/commit/06fc94d538fac67acac9b4f89cde08794e036a5d))
+- fillup first ([06fc94d](https://github.com/SocialGouv/ozensemble/commit/06fc94d538fac67acac9b4f89cde08794e036a5d))
 
 # [1.26.0](https://github.com/SocialGouv/ozensemble/compare/v1.25.1...v1.26.0) (2022-05-19)
 
-
 ### Features
 
-* prework ([33de167](https://github.com/SocialGouv/ozensemble/commit/33de167f36aa6941943460ed7af81f8a0a5a4afd))
+- prework ([33de167](https://github.com/SocialGouv/ozensemble/commit/33de167f36aa6941943460ed7af81f8a0a5a4afd))
 
 ## [1.25.1](https://github.com/SocialGouv/ozensemble/compare/v1.25.0...v1.25.1) (2022-05-19)
 
-
 ### Bug Fixes
 
-* small designs ([5286e91](https://github.com/SocialGouv/ozensemble/commit/5286e919573859eae2ea824077cc1a5316540481))
+- small designs ([5286e91](https://github.com/SocialGouv/ozensemble/commit/5286e919573859eae2ea824077cc1a5316540481))
 
 # [1.25.0](https://github.com/SocialGouv/ozensemble/compare/v1.24.3...v1.25.0) (2022-05-19)
 
-
 ### Features
 
-* dashed circles on calendar ([30da163](https://github.com/SocialGouv/ozensemble/commit/30da16343080dd99224a9d5771a9cea6288a45b9))
+- dashed circles on calendar ([30da163](https://github.com/SocialGouv/ozensemble/commit/30da16343080dd99224a9d5771a9cea6288a45b9))
 
 ## [1.24.3](https://github.com/SocialGouv/ozensemble/compare/v1.24.2...v1.24.3) (2022-05-19)
 
-
 ### Bug Fixes
 
-* icons margins ([2090803](https://github.com/SocialGouv/ozensemble/commit/20908039c6484c4a2ec734bc18d448218f44c4ed))
+- icons margins ([2090803](https://github.com/SocialGouv/ozensemble/commit/20908039c6484c4a2ec734bc18d448218f44c4ed))
 
 ## [1.24.2](https://github.com/SocialGouv/ozensemble/compare/v1.24.1...v1.24.2) (2022-05-19)
 
-
 ### Bug Fixes
 
-* design details ([014a210](https://github.com/SocialGouv/ozensemble/commit/014a210a06f775ea20be1a8c4263ef17e625c1b9))
-* force light mode ([fac4104](https://github.com/SocialGouv/ozensemble/commit/fac4104f87065b7708407760809092283864ffb1))
-* reminder in mygains ([d2bc2af](https://github.com/SocialGouv/ozensemble/commit/d2bc2af3b89bf3dd78937230313f7c574e56eac1))
+- design details ([014a210](https://github.com/SocialGouv/ozensemble/commit/014a210a06f775ea20be1a8c4263ef17e625c1b9))
+- force light mode ([fac4104](https://github.com/SocialGouv/ozensemble/commit/fac4104f87065b7708407760809092283864ffb1))
+- reminder in mygains ([d2bc2af](https://github.com/SocialGouv/ozensemble/commit/d2bc2af3b89bf3dd78937230313f7c574e56eac1))
 
 ## [1.24.1](https://github.com/SocialGouv/ozensemble/compare/v1.24.0...v1.24.1) (2022-05-19)
 
-
 ### Bug Fixes
 
-* followup messages ([b2ef19b](https://github.com/SocialGouv/ozensemble/commit/b2ef19bd4a60e627bd8cda90ee2b822f42762897))
+- followup messages ([b2ef19b](https://github.com/SocialGouv/ozensemble/commit/b2ef19bd4a60e627bd8cda90ee2b822f42762897))
 
 # [1.24.0](https://github.com/SocialGouv/ozensemble/compare/v1.23.1...v1.24.0) (2022-05-19)
 
-
 ### Bug Fixes
 
-* date Last drink or not drink ([9992dd7](https://github.com/SocialGouv/ozensemble/commit/9992dd798283dd0e2e54b26b7e99ebfc84b67320))
-* dates ([ab1546e](https://github.com/SocialGouv/ozensemble/commit/ab1546e9c614db279b4263d60bc5122a068a9ad7))
-* simplification I don't drink ([4c4c113](https://github.com/SocialGouv/ozensemble/commit/4c4c113d07394edb1f1c1e5c02447ba8dabd3e5e))
-
+- date Last drink or not drink ([9992dd7](https://github.com/SocialGouv/ozensemble/commit/9992dd798283dd0e2e54b26b7e99ebfc84b67320))
+- dates ([ab1546e](https://github.com/SocialGouv/ozensemble/commit/ab1546e9c614db279b4263d60bc5122a068a9ad7))
+- simplification I don't drink ([4c4c113](https://github.com/SocialGouv/ozensemble/commit/4c4c113d07394edb1f1c1e5c02447ba8dabd3e5e))
 
 ### Features
 
-* "Je n'ai rien bu" since the last date ([53e2153](https://github.com/SocialGouv/ozensemble/commit/53e21530933d8d4df8f1cc2c9e6acd41248be831))
+- "Je n'ai rien bu" since the last date ([53e2153](https://github.com/SocialGouv/ozensemble/commit/53e21530933d8d4df8f1cc2c9e6acd41248be831))
 
 ## [1.23.1](https://github.com/SocialGouv/ozensemble/compare/v1.23.0...v1.23.1) (2022-05-19)
 
-
 ### Bug Fixes
 
-* a few snav stuff + docolib ([2ed71bd](https://github.com/SocialGouv/ozensemble/commit/2ed71bd23b8770fa9d6f4cac701c28d327fe3f74))
+- a few snav stuff + docolib ([2ed71bd](https://github.com/SocialGouv/ozensemble/commit/2ed71bd23b8770fa9d6f4cac701c28d327fe3f74))
 
 # [1.23.0](https://github.com/SocialGouv/ozensemble/compare/v1.22.2...v1.23.0) (2022-05-19)
 
-
 ### Features
 
-* reminder weekly ([7d6dd17](https://github.com/SocialGouv/ozensemble/commit/7d6dd17fe23ef0635de6e15daabaaa827eec2549))
+- reminder weekly ([7d6dd17](https://github.com/SocialGouv/ozensemble/commit/7d6dd17fe23ef0635de6e15daabaaa827eec2549))
 
 ## [1.22.2](https://github.com/SocialGouv/ozensemble/compare/v1.22.1...v1.22.2) (2022-05-19)
 
-
 ### Bug Fixes
 
-* sentry to new sentry ([434fa5a](https://github.com/SocialGouv/ozensemble/commit/434fa5a32e5ba872e3dbfd2591bff3a40289234d))
+- sentry to new sentry ([434fa5a](https://github.com/SocialGouv/ozensemble/commit/434fa5a32e5ba872e3dbfd2591bff3a40289234d))
 
 ## [1.22.1](https://github.com/SocialGouv/ozensemble/compare/v1.22.0...v1.22.1) (2022-05-19)
 
-
 ### Bug Fixes
 
-* diagram red/blue ([25d14b9](https://github.com/SocialGouv/ozensemble/commit/25d14b902997ed33c162dd3d74d07d18f907ed68))
-* goal can choose drinks ([12925d3](https://github.com/SocialGouv/ozensemble/commit/12925d30b77bf7e3e976a21e736695ce64f25ae9))
-* modal formsheet and start date ([715a682](https://github.com/SocialGouv/ozensemble/commit/715a6829389dd123a99e038faf19e70728fe4c53))
+- diagram red/blue ([25d14b9](https://github.com/SocialGouv/ozensemble/commit/25d14b902997ed33c162dd3d74d07d18f907ed68))
+- goal can choose drinks ([12925d3](https://github.com/SocialGouv/ozensemble/commit/12925d30b77bf7e3e976a21e736695ce64f25ae9))
+- modal formsheet and start date ([715a682](https://github.com/SocialGouv/ozensemble/commit/715a6829389dd123a99e038faf19e70728fe4c53))
 
 # [1.22.0](https://github.com/SocialGouv/ozensemble/compare/v1.21.4...v1.22.0) (2022-05-18)
 
-
 ### Features
 
-* add button info ([7d8cb0d](https://github.com/SocialGouv/ozensemble/commit/7d8cb0d999ddf1506873f48aed4a9fd4ca857f0e))
+- add button info ([7d8cb0d](https://github.com/SocialGouv/ozensemble/commit/7d8cb0d999ddf1506873f48aed4a9fd4ca857f0e))
 
 ## [1.21.4](https://github.com/SocialGouv/ozensemble/compare/v1.21.3...v1.21.4) (2022-05-18)
 
-
 ### Bug Fixes
 
-* chevron array + check condition ([70fb7c1](https://github.com/SocialGouv/ozensemble/commit/70fb7c185dd2cd7940c38cfcc23729dbd510d614))
+- chevron array + check condition ([70fb7c1](https://github.com/SocialGouv/ozensemble/commit/70fb7c185dd2cd7940c38cfcc23729dbd510d614))
 
 ## [1.21.3](https://github.com/SocialGouv/ozensemble/compare/v1.21.2...v1.21.3) (2022-05-18)
 
-
 ### Bug Fixes
 
-* remove degree biere ([98a8672](https://github.com/SocialGouv/ozensemble/commit/98a867265e4138e372ce710bfd3707f37e636aa4))
+- remove degree biere ([98a8672](https://github.com/SocialGouv/ozensemble/commit/98a867265e4138e372ce710bfd3707f37e636aa4))
 
 ## [1.21.2](https://github.com/SocialGouv/ozensemble/compare/v1.21.1...v1.21.2) (2022-05-18)
 
-
 ### Bug Fixes
 
-* navigation in my gains + setup reminder + pickers ([89ed535](https://github.com/SocialGouv/ozensemble/commit/89ed53560068b006e3cf04e82d87bdbffae4f762))
+- navigation in my gains + setup reminder + pickers ([89ed535](https://github.com/SocialGouv/ozensemble/commit/89ed53560068b006e3cf04e82d87bdbffae4f762))
 
 ## [1.21.1](https://github.com/SocialGouv/ozensemble/compare/v1.21.0...v1.21.1) (2022-05-18)
 
-
 ### Bug Fixes
 
-* remove border in toast ([92f10fa](https://github.com/SocialGouv/ozensemble/commit/92f10fa3850f885a99444dddbbad09c62f8933fc))
+- remove border in toast ([92f10fa](https://github.com/SocialGouv/ozensemble/commit/92f10fa3850f885a99444dddbbad09c62f8933fc))
 
 # [1.21.0](https://github.com/SocialGouv/ozensemble/compare/v1.20.14...v1.21.0) (2022-05-18)
 
-
 ### Bug Fixes
 
-* calcul ([384d3f6](https://github.com/SocialGouv/ozensemble/commit/384d3f639f4813e5b53333a7cd052029ea902f28))
-* calcul pourcentage ([98a3454](https://github.com/SocialGouv/ozensemble/commit/98a34545389bc0c8232004108e27e39bd9ba365e))
-* contact addictologue ([cb7a486](https://github.com/SocialGouv/ozensemble/commit/cb7a48695682d47e986efd6254a2cfc6021467d4))
-* styling + calcul ([95e60c9](https://github.com/SocialGouv/ozensemble/commit/95e60c95a1e96a8626cd6b2784f3a5f698091eec))
-* styling of no drinks since long time ([d2f22c9](https://github.com/SocialGouv/ozensemble/commit/d2f22c93f34d38b182816e8aa592c0bcea620e45))
-
+- calcul ([384d3f6](https://github.com/SocialGouv/ozensemble/commit/384d3f639f4813e5b53333a7cd052029ea902f28))
+- calcul pourcentage ([98a3454](https://github.com/SocialGouv/ozensemble/commit/98a34545389bc0c8232004108e27e39bd9ba365e))
+- contact addictologue ([cb7a486](https://github.com/SocialGouv/ozensemble/commit/cb7a48695682d47e986efd6254a2cfc6021467d4))
+- styling + calcul ([95e60c9](https://github.com/SocialGouv/ozensemble/commit/95e60c95a1e96a8626cd6b2784f3a5f698091eec))
+- styling of no drinks since long time ([d2f22c9](https://github.com/SocialGouv/ozensemble/commit/d2f22c93f34d38b182816e8aa592c0bcea620e45))
 
 ### Features
 
-* Ajout Message Suivi consommation ([cc2b02b](https://github.com/SocialGouv/ozensemble/commit/cc2b02ba72d3a66a81d1755e77597a7688d303fb))
+- Ajout Message Suivi consommation ([cc2b02b](https://github.com/SocialGouv/ozensemble/commit/cc2b02ba72d3a66a81d1755e77597a7688d303fb))
 
 ## [1.20.14](https://github.com/SocialGouv/ozensemble/compare/v1.20.13...v1.20.14) (2022-05-18)
 
-
 ### Bug Fixes
 
-* fix gaols remove *100 ([47c8424](https://github.com/SocialGouv/ozensemble/commit/47c842489592013d1827ec6763a781400a06919a))
+- fix gaols remove \*100 ([47c8424](https://github.com/SocialGouv/ozensemble/commit/47c842489592013d1827ec6763a781400a06919a))
 
 ## [1.20.13](https://github.com/SocialGouv/ozensemble/compare/v1.20.12...v1.20.13) (2022-05-18)
 
-
 ### Bug Fixes
 
-* show goal fix ([65a86a2](https://github.com/SocialGouv/ozensemble/commit/65a86a2e2f168638a3c4b49b89f8248e27b2c9ae))
+- show goal fix ([65a86a2](https://github.com/SocialGouv/ozensemble/commit/65a86a2e2f168638a3c4b49b89f8248e27b2c9ae))
 
 ## [1.20.12](https://github.com/SocialGouv/ozensemble/compare/v1.20.11...v1.20.12) (2022-05-18)
 
-
 ### Bug Fixes
 
-* days where I did not drink ([258b12d](https://github.com/SocialGouv/ozensemble/commit/258b12db49b080ca84e467fa3d5b625289335110))
+- days where I did not drink ([258b12d](https://github.com/SocialGouv/ozensemble/commit/258b12db49b080ca84e467fa3d5b625289335110))
 
 ## [1.20.11](https://github.com/SocialGouv/ozensemble/compare/v1.20.10...v1.20.11) (2022-05-18)
 
-
 ### Bug Fixes
 
-* sevrage padding ([6df30ab](https://github.com/SocialGouv/ozensemble/commit/6df30ab30bf52b4a1e3cb8394d419db3d78b4129))
+- sevrage padding ([6df30ab](https://github.com/SocialGouv/ozensemble/commit/6df30ab30bf52b4a1e3cb8394d419db3d78b4129))
 
 ## [1.20.10](https://github.com/SocialGouv/ozensemble/compare/v1.20.9...v1.20.10) (2022-05-18)
 
-
 ### Bug Fixes
 
-* tabs label ([0d251e2](https://github.com/SocialGouv/ozensemble/commit/0d251e253ffd4177b767c401496de5e2a64dd408))
+- tabs label ([0d251e2](https://github.com/SocialGouv/ozensemble/commit/0d251e253ffd4177b767c401496de5e2a64dd408))
 
 ## [1.20.9](https://github.com/SocialGouv/ozensemble/compare/v1.20.8...v1.20.9) (2022-05-18)
 
-
 ### Bug Fixes
 
-* sevrage styling ([68539b5](https://github.com/SocialGouv/ozensemble/commit/68539b5d3259130fe6a0a94fecaaf9df661d2dbf))
+- sevrage styling ([68539b5](https://github.com/SocialGouv/ozensemble/commit/68539b5d3259130fe6a0a94fecaaf9df661d2dbf))
 
 ## [1.20.8](https://github.com/SocialGouv/ozensemble/compare/v1.20.7...v1.20.8) (2022-05-18)
 
-
 ### Bug Fixes
 
-* sevrage spacings ([5ebda35](https://github.com/SocialGouv/ozensemble/commit/5ebda35e275905ec0bbe63a013d758ad8389ba72))
+- sevrage spacings ([5ebda35](https://github.com/SocialGouv/ozensemble/commit/5ebda35e275905ec0bbe63a013d758ad8389ba72))
 
 ## [1.20.7](https://github.com/SocialGouv/ozensemble/compare/v1.20.6...v1.20.7) (2022-05-18)
 
-
 ### Bug Fixes
 
-* test before finalise in estimation ([98d620e](https://github.com/SocialGouv/ozensemble/commit/98d620edb75509e57fc656feefab1474ff5b6547))
+- test before finalise in estimation ([98d620e](https://github.com/SocialGouv/ozensemble/commit/98d620edb75509e57fc656feefab1474ff5b6547))
 
 ## [1.20.6](https://github.com/SocialGouv/ozensemble/compare/v1.20.5...v1.20.6) (2022-05-18)
 
-
 ### Bug Fixes
 
-* estimations ([29706fc](https://github.com/SocialGouv/ozensemble/commit/29706fc17d269ce8e41f0ff4899b8d87709ce608))
+- estimations ([29706fc](https://github.com/SocialGouv/ozensemble/commit/29706fc17d269ce8e41f0ff4899b8d87709ce608))
 
 ## [1.20.5](https://github.com/SocialGouv/ozensemble/compare/v1.20.4...v1.20.5) (2022-05-18)
 
-
 ### Bug Fixes
 
-* how to count help in goal ([9476852](https://github.com/SocialGouv/ozensemble/commit/9476852a3fe4089edcea44b5c04b287b3bd9dca6))
-* square to show gains ([e67272e](https://github.com/SocialGouv/ozensemble/commit/e67272e3269c281b96bd1875c9d125196b39b26f))
-* tab bar underline and color ([e2151fa](https://github.com/SocialGouv/ozensemble/commit/e2151fa7d83f717fdc748929e67c194ea6542ade))
+- how to count help in goal ([9476852](https://github.com/SocialGouv/ozensemble/commit/9476852a3fe4089edcea44b5c04b287b3bd9dca6))
+- square to show gains ([e67272e](https://github.com/SocialGouv/ozensemble/commit/e67272e3269c281b96bd1875c9d125196b39b26f))
+- tab bar underline and color ([e2151fa](https://github.com/SocialGouv/ozensemble/commit/e2151fa7d83f717fdc748929e67c194ea6542ade))
 
 ## [1.20.4](https://github.com/SocialGouv/ozensemble/compare/v1.20.3...v1.20.4) (2022-05-18)
 
-
 ### Bug Fixes
 
-* help modal on goal ([4e003c3](https://github.com/SocialGouv/ozensemble/commit/4e003c3d18b9d08e24e9f092a9e23ace265f27f6))
+- help modal on goal ([4e003c3](https://github.com/SocialGouv/ozensemble/commit/4e003c3d18b9d08e24e9f092a9e23ace265f27f6))
 
 ## [1.20.3](https://github.com/SocialGouv/ozensemble/compare/v1.20.2...v1.20.3) (2022-05-18)
 
-
 ### Bug Fixes
 
-* alcool explanatino ([0cf140a](https://github.com/SocialGouv/ozensemble/commit/0cf140a9eb2ef6ea54a513ead0f5c12ec5f6843e))
+- alcool explanatino ([0cf140a](https://github.com/SocialGouv/ozensemble/commit/0cf140a9eb2ef6ea54a513ead0f5c12ec5f6843e))
 
 ## [1.20.2](https://github.com/SocialGouv/ozensemble/compare/v1.20.1...v1.20.2) (2022-05-18)
 
-
 ### Bug Fixes
 
-* objectif bar in diagram ([24432cd](https://github.com/SocialGouv/ozensemble/commit/24432cd3061b685d6aa850ca17e5161c7213cab6))
+- objectif bar in diagram ([24432cd](https://github.com/SocialGouv/ozensemble/commit/24432cd3061b685d6aa850ca17e5161c7213cab6))
 
 ## [1.20.1](https://github.com/SocialGouv/ozensemble/compare/v1.20.0...v1.20.1) (2022-05-18)
 
-
 ### Bug Fixes
 
-* start date reset on drinks remove ([2ec9c64](https://github.com/SocialGouv/ozensemble/commit/2ec9c647d6f003af0c21b5c16cf28545d5f93bf0))
+- start date reset on drinks remove ([2ec9c64](https://github.com/SocialGouv/ozensemble/commit/2ec9c647d6f003af0c21b5c16cf28545d5f93bf0))
 
 # [1.20.0](https://github.com/SocialGouv/ozensemble/compare/v1.19.4...v1.20.0) (2022-05-18)
 
-
 ### Bug Fixes
 
-* error delete all consommation ([ee648dc](https://github.com/SocialGouv/ozensemble/commit/ee648dcfdbd788c19b45642c97ee60b69649f032))
-* styling of diagram ([f9db533](https://github.com/SocialGouv/ozensemble/commit/f9db533e116da5e921190b93c14129a5a915d4ad))
-
+- error delete all consommation ([ee648dc](https://github.com/SocialGouv/ozensemble/commit/ee648dcfdbd788c19b45642c97ee60b69649f032))
+- styling of diagram ([f9db533](https://github.com/SocialGouv/ozensemble/commit/f9db533e116da5e921190b93c14129a5a915d4ad))
 
 ### Features
 
-* adapt barMaxAcceptableDoseHeight to the goal ([f8d73c6](https://github.com/SocialGouv/ozensemble/commit/f8d73c6f6e9a2363571b38106fd17f96f01bfe0e))
-* Diagram Mon suivi de consommation ([3d68459](https://github.com/SocialGouv/ozensemble/commit/3d6845986b16214125f286825f8b41a5a9304b6e))
-* Legend mon suivi de conso ([0109a5c](https://github.com/SocialGouv/ozensemble/commit/0109a5c104da1b46144bf18f7de6c225895df7ec))
-* Legend Mon suivi de conso ([11b601d](https://github.com/SocialGouv/ozensemble/commit/11b601d4db049cb6390ad58c31a259cf68c49bb6))
+- adapt barMaxAcceptableDoseHeight to the goal ([f8d73c6](https://github.com/SocialGouv/ozensemble/commit/f8d73c6f6e9a2363571b38106fd17f96f01bfe0e))
+- Diagram Mon suivi de consommation ([3d68459](https://github.com/SocialGouv/ozensemble/commit/3d6845986b16214125f286825f8b41a5a9304b6e))
+- Legend mon suivi de conso ([0109a5c](https://github.com/SocialGouv/ozensemble/commit/0109a5c104da1b46144bf18f7de6c225895df7ec))
+- Legend Mon suivi de conso ([11b601d](https://github.com/SocialGouv/ozensemble/commit/11b601d4db049cb6390ad58c31a259cf68c49bb6))
 
 ## [1.19.4](https://github.com/SocialGouv/ozensemble/compare/v1.19.3...v1.19.4) (2022-05-18)
 
-
 ### Bug Fixes
 
-* getString instead of getNumber for @NumberOfVisits ([453d2d3](https://github.com/SocialGouv/ozensemble/commit/453d2d3f6135afc719e5082ef80be8951e654dc0))
+- getString instead of getNumber for @NumberOfVisits ([453d2d3](https://github.com/SocialGouv/ozensemble/commit/453d2d3f6135afc719e5082ef80be8951e654dc0))
 
 ## [1.19.3](https://github.com/SocialGouv/ozensemble/compare/v1.19.2...v1.19.3) (2022-05-18)
 
-
 ### Bug Fixes
 
-* flasque 20cl ([0b60565](https://github.com/SocialGouv/ozensemble/commit/0b605657f213ad881ad00d94ea2f2d0b120fc0a3))
+- flasque 20cl ([0b60565](https://github.com/SocialGouv/ozensemble/commit/0b605657f213ad881ad00d94ea2f2d0b120fc0a3))
 
 ## [1.19.2](https://github.com/SocialGouv/ozensemble/compare/v1.19.1...v1.19.2) (2022-05-16)
 
-
 ### Bug Fixes
 
-* reanimated ([3ce17b4](https://github.com/SocialGouv/ozensemble/commit/3ce17b4cb83b696d7f9e9aca76dcdf737b060b57))
+- reanimated ([3ce17b4](https://github.com/SocialGouv/ozensemble/commit/3ce17b4cb83b696d7f9e9aca76dcdf737b060b57))
 
 ## [1.19.1](https://github.com/SocialGouv/ozensemble/compare/v1.19.0...v1.19.1) (2022-05-16)
 
-
 ### Bug Fixes
 
-* drinks at beginning ([738b386](https://github.com/SocialGouv/ozensemble/commit/738b386706270898fbdd16814b0521bdfd12f884))
+- drinks at beginning ([738b386](https://github.com/SocialGouv/ozensemble/commit/738b386706270898fbdd16814b0521bdfd12f884))
 
 # [1.19.0](https://github.com/SocialGouv/ozensemble/compare/v1.18.0...v1.19.0) (2022-05-16)
 
-
 ### Bug Fixes
 
-* shadow in conseils sante ([d15548c](https://github.com/SocialGouv/ozensemble/commit/d15548cc335ec0d63dd1e1d7583dd417571a1084))
-
+- shadow in conseils sante ([d15548c](https://github.com/SocialGouv/ozensemble/commit/d15548cc335ec0d63dd1e1d7583dd417571a1084))
 
 ### Features
 
-* Santé ([ac18b1b](https://github.com/SocialGouv/ozensemble/commit/ac18b1b54480eee0830d475236172a37643bb6dc))
+- Santé ([ac18b1b](https://github.com/SocialGouv/ozensemble/commit/ac18b1b54480eee0830d475236172a37643bb6dc))
 
 # [1.18.0](https://github.com/SocialGouv/ozensemble/compare/v1.17.0...v1.18.0) (2022-05-16)
 
-
 ### Features
 
-* Open Model (sans objectifs pas de gains) when click on category ([05d881e](https://github.com/SocialGouv/ozensemble/commit/05d881e0ca2eaa26ec5a1160e7eabb05effabc99))
+- Open Model (sans objectifs pas de gains) when click on category ([05d881e](https://github.com/SocialGouv/ozensemble/commit/05d881e0ca2eaa26ec5a1160e7eabb05effabc99))
 
 # [1.17.0](https://github.com/SocialGouv/ozensemble/compare/v1.16.2...v1.17.0) (2022-05-13)
 
-
 ### Features
 
-* sevrage ([d3c36ac](https://github.com/SocialGouv/ozensemble/commit/d3c36ac8f96aee96e50d1728feeee8b0401fec25))
+- sevrage ([d3c36ac](https://github.com/SocialGouv/ozensemble/commit/d3c36ac8f96aee96e50d1728feeee8b0401fec25))
 
 ## [1.16.2](https://github.com/SocialGouv/ozensemble/compare/v1.16.1...v1.16.2) (2022-05-13)
 
-
 ### Bug Fixes
 
-* no drink on today on calendar ([679705c](https://github.com/SocialGouv/ozensemble/commit/679705cad1a831bf074422820d1ccae276da81e0))
+- no drink on today on calendar ([679705c](https://github.com/SocialGouv/ozensemble/commit/679705cad1a831bf074422820d1ccae276da81e0))
 
 ## [1.16.1](https://github.com/SocialGouv/ozensemble/compare/v1.16.0...v1.16.1) (2022-05-13)
 
-
 ### Bug Fixes
 
-* small designes fixes in goal ([ff7928d](https://github.com/SocialGouv/ozensemble/commit/ff7928d899f7c30a80469b83ec1a5412e576a9ad))
+- small designes fixes in goal ([ff7928d](https://github.com/SocialGouv/ozensemble/commit/ff7928d899f7c30a80469b83ec1a5412e576a9ad))
 
 # [1.16.0](https://github.com/SocialGouv/ozensemble/compare/v1.15.0...v1.16.0) (2022-05-13)
 
-
 ### Features
 
-* disable day after today calendar ([4899aa8](https://github.com/SocialGouv/ozensemble/commit/4899aa89de72e3ebace3cede3ec4fee38a25635f))
+- disable day after today calendar ([4899aa8](https://github.com/SocialGouv/ozensemble/commit/4899aa89de72e3ebace3cede3ec4fee38a25635f))
 
 # [1.15.0](https://github.com/SocialGouv/ozensemble/compare/v1.14.0...v1.15.0) (2022-05-13)
 
-
 ### Bug Fixes
 
-* show onboarindg modal on click on buttons + fix design of objectifs squares ([031fc40](https://github.com/SocialGouv/ozensemble/commit/031fc4014fe009f5e67716af4f07b0651ba0de93))
-
+- show onboarindg modal on click on buttons + fix design of objectifs squares ([031fc40](https://github.com/SocialGouv/ozensemble/commit/031fc4014fe009f5e67716af4f07b0651ba0de93))
 
 ### Features
 
-* go to suivi conso when click on calendar day with drinks ([5502b96](https://github.com/SocialGouv/ozensemble/commit/5502b96316b266758675e7826b2d1b3e16bb0541))
+- go to suivi conso when click on calendar day with drinks ([5502b96](https://github.com/SocialGouv/ozensemble/commit/5502b96316b266758675e7826b2d1b3e16bb0541))
 
 # [1.14.0](https://github.com/SocialGouv/ozensemble/compare/v1.13.0...v1.14.0) (2022-05-13)
 
-
 ### Bug Fixes
 
-* explication du nombre de verres ([733b628](https://github.com/SocialGouv/ozensemble/commit/733b628374d97d1e9f7901f988fe01f2b737254d))
-* space between days ([d6d6050](https://github.com/SocialGouv/ozensemble/commit/d6d60501c23e16c242d21d10aec8adb98310384c))
-* value economy ([f8f93e3](https://github.com/SocialGouv/ozensemble/commit/f8f93e3a3f6a7e4e85ce3cebb51cd8e7c34707ea))
-
+- explication du nombre de verres ([733b628](https://github.com/SocialGouv/ozensemble/commit/733b628374d97d1e9f7901f988fe01f2b737254d))
+- space between days ([d6d6050](https://github.com/SocialGouv/ozensemble/commit/d6d60501c23e16c242d21d10aec8adb98310384c))
+- value economy ([f8f93e3](https://github.com/SocialGouv/ozensemble/commit/f8f93e3a3f6a7e4e85ce3cebb51cd8e7c34707ea))
 
 ### Features
 
-* nombre de verres par alcool et desactivation "je finalise" si aucune boisson ([d6033fd](https://github.com/SocialGouv/ozensemble/commit/d6033fd8fe027df4aedeaff6c605674967f9d2e7))
+- nombre de verres par alcool et desactivation "je finalise" si aucune boisson ([d6033fd](https://github.com/SocialGouv/ozensemble/commit/d6033fd8fe027df4aedeaff6c605674967f9d2e7))
 
 # [1.13.0](https://github.com/SocialGouv/ozensemble/compare/v1.12.1...v1.13.0) (2022-05-13)
 
-
 ### Features
 
-* reminder in gains ([e7e194a](https://github.com/SocialGouv/ozensemble/commit/e7e194a007d330102c4aef9be0caa040d762a516))
+- reminder in gains ([e7e194a](https://github.com/SocialGouv/ozensemble/commit/e7e194a007d330102c4aef9be0caa040d762a516))
 
 ## [1.12.1](https://github.com/SocialGouv/ozensemble/compare/v1.12.0...v1.12.1) (2022-05-13)
 
-
 ### Bug Fixes
 
-* navigate to consos from calendar ([20ec482](https://github.com/SocialGouv/ozensemble/commit/20ec482b62afe667667dc9ca726cbc541214670b))
-* navigation replace ([31c1628](https://github.com/SocialGouv/ozensemble/commit/31c1628cf02d31e4aebb66950faede5629dd8197))
+- navigate to consos from calendar ([20ec482](https://github.com/SocialGouv/ozensemble/commit/20ec482b62afe667667dc9ca726cbc541214670b))
+- navigation replace ([31c1628](https://github.com/SocialGouv/ozensemble/commit/31c1628cf02d31e4aebb66950faede5629dd8197))
 
 # [1.12.0](https://github.com/SocialGouv/ozensemble/compare/v1.11.1...v1.12.0) (2022-05-13)
 
-
 ### Features
 
-* days of the week ([53123b4](https://github.com/SocialGouv/ozensemble/commit/53123b44cb6f1dae861e1521d5899fb67e03c877))
-* savings in euro and kcal ([4c373c0](https://github.com/SocialGouv/ozensemble/commit/4c373c00eae87e385f753d8d70d929a4552c5f98))
+- days of the week ([53123b4](https://github.com/SocialGouv/ozensemble/commit/53123b44cb6f1dae861e1521d5899fb67e03c877))
+- savings in euro and kcal ([4c373c0](https://github.com/SocialGouv/ozensemble/commit/4c373c00eae87e385f753d8d70d929a4552c5f98))
 
 ## [1.11.1](https://github.com/SocialGouv/ozensemble/compare/v1.11.0...v1.11.1) (2022-05-13)
 
-
 ### Bug Fixes
 
-* drinks catalog doses/kcal ([9698023](https://github.com/SocialGouv/ozensemble/commit/96980233b9726435f10de3b09efdd4655f44e309))
+- drinks catalog doses/kcal ([9698023](https://github.com/SocialGouv/ozensemble/commit/96980233b9726435f10de3b09efdd4655f44e309))
 
 # [1.11.0](https://github.com/SocialGouv/ozensemble/compare/v1.10.1...v1.11.0) (2022-05-12)
 
-
 ### Features
 
-* calendar almost finito ([887e6a1](https://github.com/SocialGouv/ozensemble/commit/887e6a195de46a10df61d26eef34c1cb9f6304ec))
+- calendar almost finito ([887e6a1](https://github.com/SocialGouv/ozensemble/commit/887e6a195de46a10df61d26eef34c1cb9f6304ec))
 
 ## [1.10.1](https://github.com/SocialGouv/ozensemble/compare/v1.10.0...v1.10.1) (2022-05-12)
 
-
 ### Bug Fixes
 
-* small typo ([ed1a0e4](https://github.com/SocialGouv/ozensemble/commit/ed1a0e4aa82b61ab4af6127a5b8235464e4fd26d))
+- small typo ([ed1a0e4](https://github.com/SocialGouv/ozensemble/commit/ed1a0e4aa82b61ab4af6127a5b8235464e4fd26d))
 
 # [1.10.0](https://github.com/SocialGouv/ozensemble/compare/v1.9.0...v1.10.0) (2022-05-12)
 
-
 ### Features
 
-* migrate from asyncstorager to mmkv ([9c1e52a](https://github.com/SocialGouv/ozensemble/commit/9c1e52a216db6b153669347f5446c0edf05b824d))
+- migrate from asyncstorager to mmkv ([9c1e52a](https://github.com/SocialGouv/ozensemble/commit/9c1e52a216db6b153669347f5446c0edf05b824d))
 
 # [1.9.0](https://github.com/SocialGouv/ozensemble/compare/v1.8.0...v1.9.0) (2022-05-12)
 
-
 ### Features
 
-* recoil ([a6325cd](https://github.com/SocialGouv/ozensemble/commit/a6325cd920f421eee1fa059b0d50bb03649ca056))
+- recoil ([a6325cd](https://github.com/SocialGouv/ozensemble/commit/a6325cd920f421eee1fa059b0d50bb03649ca056))
 
 # [1.8.0](https://github.com/SocialGouv/ozensemble/compare/v1.7.6...v1.8.0) (2022-05-12)
 
-
 ### Features
 
-* dayjs ([f24d08a](https://github.com/SocialGouv/ozensemble/commit/f24d08a4ca0b704e522bae6423ae461c244db13c))
+- dayjs ([f24d08a](https://github.com/SocialGouv/ozensemble/commit/f24d08a4ca0b704e522bae6423ae461c244db13c))
 
 ## [1.7.6](https://github.com/SocialGouv/ozensemble/compare/v1.7.5...v1.7.6) (2022-05-12)
 
-
 ### Bug Fixes
 
-* front MyGain ([261b55f](https://github.com/SocialGouv/ozensemble/commit/261b55feea16a98d86e418895b22fef258b9a196))
+- front MyGain ([261b55f](https://github.com/SocialGouv/ozensemble/commit/261b55feea16a98d86e418895b22fef258b9a196))
 
 ## [1.7.5](https://github.com/SocialGouv/ozensemble/compare/v1.7.4...v1.7.5) (2022-05-12)
 
-
 ### Bug Fixes
 
-* speedometer ([b980d6d](https://github.com/SocialGouv/ozensemble/commit/b980d6dd9f2c133db940866ea9226f6dd8578579))
+- speedometer ([b980d6d](https://github.com/SocialGouv/ozensemble/commit/b980d6dd9f2c133db940866ea9226f6dd8578579))
 
 ## [1.7.4](https://github.com/SocialGouv/ozensemble/compare/v1.7.3...v1.7.4) (2022-05-12)
 
-
 ### Bug Fixes
 
-* MyGains ([3fea97f](https://github.com/SocialGouv/ozensemble/commit/3fea97f3ebb45514bffd01f1321a4d906aa800c8))
+- MyGains ([3fea97f](https://github.com/SocialGouv/ozensemble/commit/3fea97f3ebb45514bffd01f1321a4d906aa800c8))
 
 ## [1.7.3](https://github.com/SocialGouv/ozensemble/compare/v1.7.2...v1.7.3) (2022-05-12)
 
-
 ### Bug Fixes
 
-* onboarding ([dc78157](https://github.com/SocialGouv/ozensemble/commit/dc78157c2bc773d49a45166f903b3ab731779b38))
+- onboarding ([dc78157](https://github.com/SocialGouv/ozensemble/commit/dc78157c2bc773d49a45166f903b3ab731779b38))
 
 ## [1.7.2](https://github.com/SocialGouv/ozensemble/compare/v1.7.1...v1.7.2) (2022-05-12)
 
-
 ### Bug Fixes
 
-* onboarding ([0265d8c](https://github.com/SocialGouv/ozensemble/commit/0265d8cae275483a9c0469f3b033af4e503825d5))
+- onboarding ([0265d8c](https://github.com/SocialGouv/ozensemble/commit/0265d8cae275483a9c0469f3b033af4e503825d5))
 
 ## [1.7.1](https://github.com/SocialGouv/ozensemble/compare/v1.7.0...v1.7.1) (2022-05-11)
 
-
 ### Bug Fixes
 
-* text categorie gain ([f33a643](https://github.com/SocialGouv/ozensemble/commit/f33a643ae9f751146f4ec85f91f70e53b74a601d))
+- text categorie gain ([f33a643](https://github.com/SocialGouv/ozensemble/commit/f33a643ae9f751146f4ec85f91f70e53b74a601d))
 
 # [1.7.0](https://github.com/SocialGouv/ozensemble/compare/v1.6.1...v1.7.0) (2022-05-11)
 
-
 ### Features
 
-* modal ([5428c5c](https://github.com/SocialGouv/ozensemble/commit/5428c5c1b54f462b12eb2141ace2255b2610869e))
+- modal ([5428c5c](https://github.com/SocialGouv/ozensemble/commit/5428c5c1b54f462b12eb2141ace2255b2610869e))
 
 ## [1.6.1](https://github.com/SocialGouv/ozensemble/compare/v1.6.0...v1.6.1) (2022-05-11)
 
-
 ### Bug Fixes
 
-* delete package-lock.json ([f42a682](https://github.com/SocialGouv/ozensemble/commit/f42a682964cfc56ac5fb8d3f193d217649764b3f))
+- delete package-lock.json ([f42a682](https://github.com/SocialGouv/ozensemble/commit/f42a682964cfc56ac5fb8d3f193d217649764b3f))
 
 # [1.6.0](https://github.com/SocialGouv/ozensemble/compare/v1.5.2...v1.6.0) (2022-05-10)
 
-
 ### Features
 
-* useStateWithAsyncStorage ([8898ab3](https://github.com/SocialGouv/ozensemble/commit/8898ab3c7be42a60141ce03fd76356e122bc690e))
+- useStateWithAsyncStorage ([8898ab3](https://github.com/SocialGouv/ozensemble/commit/8898ab3c7be42a60141ce03fd76356e122bc690e))
 
 ## [1.5.2](https://github.com/SocialGouv/ozensemble/compare/v1.5.1...v1.5.2) (2021-12-20)
 
-
 ### Bug Fixes
 
-* **NPS:** ajout de la version de l'app dans le corps du mail ([ccf202d](https://github.com/SocialGouv/ozensemble/commit/ccf202d43a16260da8701129091c3f2d4a356f7e))
-* **suivi:** fixer à l'heure actuelle si ajout pour un jour précédent ([d796526](https://github.com/SocialGouv/ozensemble/commit/d7965269581542aa6c731df802180f6dc6d5f38c))
+- **NPS:** ajout de la version de l'app dans le corps du mail ([ccf202d](https://github.com/SocialGouv/ozensemble/commit/ccf202d43a16260da8701129091c3f2d4a356f7e))
+- **suivi:** fixer à l'heure actuelle si ajout pour un jour précédent ([d796526](https://github.com/SocialGouv/ozensemble/commit/d7965269581542aa6c731df802180f6dc6d5f38c))
 
 # [1.5.1](https://github.com/SocialGouv/ozensemble/compare/v1.5.0...v1.5.1) (2021-12-16)
 
-
 ### Bug Fixes
 
-* **ajout conso:** permettre d'ajouter une consommation en lien avec le jour sélectionné sur le graphique ([186aec6](https://github.com/SocialGouv/ozensemble/commit/186aec6cb3bc5aa231229f658a75819fce1b7d45))
-* **graphique:** modification de la hauteur de la barre OMS (2 unités) ([f2140ce](https://github.com/SocialGouv/ozensemble/commit/f2140ce20e1ad5c1226b744d82300d5b06addc46))
-* **NPS:** ajouter NPs en bas du suivi ([a62ca3f](https://github.com/SocialGouv/ozensemble/commit/a62ca3f42038f804961637ccb1b1cc422664aedd))
-* **resultat test dépendance:** pousser le défi 7 jours ([3228cd7](https://github.com/SocialGouv/ozensemble/commit/3228cd709aac0e446c107ff60693336cf6f235bc))
-* **suivi:** déplacement de mention "en unités d'alcool" ([32e8fbe](https://github.com/SocialGouv/ozensemble/commit/32e8fbe402bf3d19c770ac287584d1818946700c))
-* **wording:** modifications des textes concernant le seuil de l'OMS ([4330d77](https://github.com/SocialGouv/ozensemble/commit/4330d7754f46894237cecf17a0361a801a9a055e))
+- **ajout conso:** permettre d'ajouter une consommation en lien avec le jour sélectionné sur le graphique ([186aec6](https://github.com/SocialGouv/ozensemble/commit/186aec6cb3bc5aa231229f658a75819fce1b7d45))
+- **graphique:** modification de la hauteur de la barre OMS (2 unités) ([f2140ce](https://github.com/SocialGouv/ozensemble/commit/f2140ce20e1ad5c1226b744d82300d5b06addc46))
+- **NPS:** ajouter NPs en bas du suivi ([a62ca3f](https://github.com/SocialGouv/ozensemble/commit/a62ca3f42038f804961637ccb1b1cc422664aedd))
+- **resultat test dépendance:** pousser le défi 7 jours ([3228cd7](https://github.com/SocialGouv/ozensemble/commit/3228cd709aac0e446c107ff60693336cf6f235bc))
+- **suivi:** déplacement de mention "en unités d'alcool" ([32e8fbe](https://github.com/SocialGouv/ozensemble/commit/32e8fbe402bf3d19c770ac287584d1818946700c))
+- **wording:** modifications des textes concernant le seuil de l'OMS ([4330d77](https://github.com/SocialGouv/ozensemble/commit/4330d7754f46894237cecf17a0361a801a9a055e))
 
 # [1.5.0](https://github.com/SocialGouv/ozensemble/compare/v1.0.0...v1.5.0) (2021-12-10)
 
-
 ### Features
 
-* **défi:** fil d'ariane cliquable ([5289fc9](https://github.com/SocialGouv/ozensemble/commit/5289fc9f6ffcd8b5719ad28da13298d633fee964))
-* **défi:** ajout du bouton contribuer dans la page défi ([7c3f907](https://github.com/SocialGouv/ozensemble/commit/7c3f907a59b9b783c1a727ee9748ddff5d0a1310))
-* **défi:** changement défis jours (j3 et j5) [#7](https://github.com/SocialGouv/ozensemble/issues/7) ([cdcfedc](https://github.com/SocialGouv/ozensemble/commit/cdcfedc5052c42188c7e6e2a3b4d88a20787ed80))
+- **défi:** fil d'ariane cliquable ([5289fc9](https://github.com/SocialGouv/ozensemble/commit/5289fc9f6ffcd8b5719ad28da13298d633fee964))
+- **défi:** ajout du bouton contribuer dans la page défi ([7c3f907](https://github.com/SocialGouv/ozensemble/commit/7c3f907a59b9b783c1a727ee9748ddff5d0a1310))
+- **défi:** changement défis jours (j3 et j5) [#7](https://github.com/SocialGouv/ozensemble/issues/7) ([cdcfedc](https://github.com/SocialGouv/ozensemble/commit/cdcfedc5052c42188c7e6e2a3b4d88a20787ed80))

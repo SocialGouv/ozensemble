@@ -119,14 +119,6 @@ const ConsosList = ({ navigation, route }) => {
         name: drink.drinkKey,
         value: Number(drink.quantity),
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
-        extra: {
-          drinkInfos: {
-            doses: drinkCatalog.doses,
-            kcal: drinkCatalog.kcal,
-            price: drinkCatalog.price,
-            volume: drinkCatalog.volume,
-          },
-        },
       });
       const matomoId = storage.getString('@UserIdv2');
       API.post({
