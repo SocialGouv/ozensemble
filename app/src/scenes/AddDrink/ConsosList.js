@@ -112,7 +112,9 @@ const ConsosList = ({ navigation, route }) => {
           },
         ].filter((d) => d.quantity > 0)
       );
-      const drinkCatalog = drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey);
+      const drinkFromCatalog = [...(ownDrinks || []), ...drinksCatalog].find(
+        (_drink) => _drink.drinkKey === drink.drinkKey
+      );
       logEvent({
         category: 'CONSO',
         action: 'CONSO_ADD',
@@ -122,16 +124,18 @@ const ConsosList = ({ navigation, route }) => {
       });
       const matomoId = storage.getString('@UserIdv2');
       API.post({
-        path: `/consommation/${matomoId}`,
+        path: '/consommation',
         body: {
+          matomoId: matomoId,
           id: drink.id,
+          name: drink.displayDrinkModal,
           drinkKey: drink.drinkKey,
           quantity: Number(drink.quantity),
           date: makeSureTimestamp(addDrinkModalTimestamp),
-          doses: drinkCatalog.doses,
-          kcal: drinkCatalog.kcal,
-          price: drinkCatalog.price,
-          volume: drinkCatalog.volume,
+          doses: drinkFromCatalog.doses,
+          kcal: drinkFromCatalog.kcal,
+          price: drinkFromCatalog.price,
+          volume: drinkFromCatalog.volume,
         },
       });
     }

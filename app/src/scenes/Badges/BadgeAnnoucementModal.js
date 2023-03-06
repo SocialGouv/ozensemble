@@ -17,7 +17,7 @@ import API from '../../services/api';
 import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
 
 const BadgeAnnoucementModal = () => {
-  const [showModal, setShowModal] = useState(() => !!storage.getBoolean('@NewBadgesAnnouncementFeatures'));
+  const [showModal, setShowModal] = useState(() => !storage.getBoolean('@NewBadgesAnnouncementFeatures'));
   const setBadges = useSetRecoilState(badgesState);
   const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
 

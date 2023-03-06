@@ -4,6 +4,7 @@ import { MMKV } from 'react-native-mmkv';
 import API from './api';
 import NotificationService from './notifications';
 import { capture } from './sentry';
+import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
 
 export const storage = new MMKV();
 if (__DEV__) {
@@ -256,12 +257,15 @@ export async function sendPreviousDrinksToDB() {
   }
   // @Drinks
   const drinks = JSON.parse(storage.getString('@Drinks') || '[]');
+  const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks') || '[]');
+
   if (drinks.length) {
     API.post({
       path: '/consommation/init',
       body: {
-        drinks,
         matomoId,
+        drinks,
+        drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
       },
     });
   }

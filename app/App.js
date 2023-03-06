@@ -88,8 +88,8 @@ const App = () => {
       setHasMigratedRemindersToPushToken(true);
     }
     if (!_hasSentPreviousDrinksToDB) {
-      migrateRemindersToPushToken();
-      sendPreviousDrinksToDB(true);
+      sendPreviousDrinksToDB();
+      setHasSentPreviousDrinksToDB(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
