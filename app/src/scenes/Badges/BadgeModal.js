@@ -17,7 +17,7 @@ import { BadgeDefis } from './Svgs/BadgeDefis';
 
 const BadgeModal = () => {
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(true);
   const [modalContent, setModalContent] = useState(() => ({
     category: 'DRINKS_ADD',
     title: '1er jour complété',
@@ -41,6 +41,7 @@ const BadgeModal = () => {
     } else if (modalContent.CTALink) {
       Linking.openURL(modalContent.CTALink);
     }
+    onClose();
   };
   const onSecondaryPress = () => {
     if (modalContent.CTANavigation) {
@@ -48,6 +49,7 @@ const BadgeModal = () => {
     } else if (modalContent.CTALink) {
       Linking.openURL(modalContent.CTALink);
     }
+    onClose();
   };
 
   const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
@@ -56,7 +58,6 @@ const BadgeModal = () => {
     //   setShowModal(true);
     // });
 
-    console.log({ newBadge, allBadges, badgesCatalog });
     if (newBadge) setModalContent(newBadge);
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);
