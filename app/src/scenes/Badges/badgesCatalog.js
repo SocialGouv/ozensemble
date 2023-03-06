@@ -15,7 +15,7 @@ export const defaultBackupBadgeCatalog = [
         reduced_title: '1 jour',
         content: 'Super vous avez complété votre 1er jour\u00A0! Revenez demain pour ajouter le second\u00A0!',
         stars: 1,
-        category: 'DRINKS',
+        category: 'drinks',
         CTATitle: 'Voir mes badges',
         secondaryButtonTitle: '',
         secondaryButtonLink: '',
@@ -26,7 +26,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           "Félicitations\u00A0! C'est en comptant régulièrement que l'on se rend compte de sa consommation réelle, continuez comme ça\u00A0!",
         stars: 2,
-        category: 'DRINKS',
+        category: 'drinks',
         CTATitle: 'Voir mes badges',
         secondaryButtonTitle: '',
         secondaryButtonLink: '',
@@ -37,7 +37,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           "Toutes nos félicitations pour votre régularité\u00A0! Partagez l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation.",
         stars: 3,
-        category: 'DRINKS',
+        category: 'drinks',
         CTATitle: 'Donner mon avis',
         secondaryButtonTitle: "Partager l'application",
         secondaryButtonLink: '',
@@ -48,7 +48,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           "Toutes nos félicitations pour votre régularité\u00A0! Partagez l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation.",
         stars: 4,
-        category: 'DRINKS',
+        category: 'drinks',
         CTATitle: "Partager l'application",
         secondaryButtonTitle: 'Non merci',
         secondaryButtonLink: '',
@@ -59,7 +59,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           'Bravo, déjà 4 semaines complétées\u00A0! Si Oz Ensemble vous a aidé, merci de mettre 5 étoiles, ça nous aiderait beaucoup.',
         stars: 5,
-        category: 'DRINKS',
+        category: 'drinks',
         CTATitle: "Noter l'application",
         secondaryButtonTitle: 'Non merci',
         secondaryButtonLink: '',

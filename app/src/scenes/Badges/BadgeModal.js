@@ -12,6 +12,8 @@ import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { useNavigation } from '@react-navigation/native';
+import { BadgeArticles } from './Svgs/BadgeArticles';
+import { BadgeDefis } from './Svgs/BadgeDefis';
 
 const BadgeModal = () => {
   const navigation = useNavigation();
@@ -54,6 +56,7 @@ const BadgeModal = () => {
     //   setShowModal(true);
     // });
 
+    console.log({ newBadge, allBadges, badgesCatalog });
     if (newBadge) setModalContent(newBadge);
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);
@@ -63,6 +66,9 @@ const BadgeModal = () => {
   useEffect(() => {
     API.handleShowBadge = handleShowBadge;
   }, []);
+
+  console.log({ modalContent });
+
   return (
     <Modal
       safeAreaView={false}
@@ -87,6 +93,8 @@ const BadgeModal = () => {
           <View className="mb-8 mt-4">
             {modalContent.category === 'drinks' && <BadgeDrinks stars={modalContent.stars} />}
             {modalContent.category === 'goals' && <BadgeGoals stars={modalContent.stars} />}
+            {modalContent.category === 'articles' && <BadgeArticles stars={modalContent.stars} />}
+            {modalContent.category === 'defis' && <BadgeDefis stars={modalContent.stars} />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
@@ -99,7 +107,7 @@ const BadgeModal = () => {
           <View className="items-center mb-4">
             <ButtonPrimary onPress={onCTAPress} content={modalContent.CTATitle} />
           </View>
-          {!!modalContent.secondaryButtonTitle.length && (
+          {!!modalContent.secondaryButtonTitle?.length && (
             <TouchableOpacity>
               <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
                 {modalContent.secondaryButtonTitle}
