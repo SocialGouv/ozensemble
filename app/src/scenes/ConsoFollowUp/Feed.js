@@ -108,7 +108,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
         return;
       }
     } else if (npsAsked2) {
-      if (dayjs(npsAsked1).diff(now, 'day') < 14) {
+      if (dayjs(npsAsked2).diff(now, 'day') < 7) {
         return;
       }
     } else if (npsAsked3) return;
