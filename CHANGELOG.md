@@ -1,3 +1,10 @@
+## [1.82.1](https://github.com/SocialGouv/ozensemble/compare/v1.82.0...v1.82.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* prisma migration ([0982c2a](https://github.com/SocialGouv/ozensemble/commit/0982c2aed6ec2e2fa04907e08e5d4bbda86bfa8b))
+
 # [1.82.0](https://github.com/SocialGouv/ozensemble/compare/v1.81.5...v1.82.0) (2023-03-07)
 
 
