@@ -59,7 +59,7 @@ router.post(
     // if badge 1 day is not present
     // handle 1 day
 
-    if (!drinksBadges.find((badge) => badge["stars"] === 1)) {
+    if (!drinksBadges.find((badge) => badge.stars === 1)) {
       await prisma.badge.create({
         data: {
           userId: user.id,
@@ -71,7 +71,7 @@ router.post(
 
     // if badge 3 day is not present
     // handle 3 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 2)) {
+    if (!drinksBadges.find((badge) => badge.stars === 2)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -86,7 +86,7 @@ router.post(
 
     // if badge 7 day is not present
     // handle 7 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 3)) {
+    if (!drinksBadges.find((badge) => badge.stars === 3)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -100,7 +100,7 @@ router.post(
     }
     // if badge 14 day is not present
     // handle 14 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 4)) {
+    if (!drinksBadges.find((badge) => badge.stars === 4)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
 
       if (enoughConsecutiveDays) {
@@ -116,7 +116,7 @@ router.post(
 
     // if badge 28 day is not present
     // handle 28 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 5)) {
+    if (!drinksBadges.find((badge) => badge.stars === 5)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -178,16 +178,9 @@ router.post(
       },
     });
 
-    // check if new badge or not
-    // check if all badges
-    // get all the consos ordered by dates, check consecutive days, check if enough for to get a new badge
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
-    // if badge 1 day is not present
-    // handle 1 day
 
-    // return res.status(200).send({ ok: true, showNewBadge: { newBadge: drinksBadges[0], allBadges, badgesCatalog } });
-
-    if (!drinksBadges.find((badge) => badge["stars"] === 1)) {
+    if (!drinksBadges.find((badge) => badge.stars === 1)) {
       await prisma.badge.create({
         data: {
           userId: user.id,
@@ -203,7 +196,7 @@ router.post(
 
     // if badge 3 day is not present
     // handle 3 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 2)) {
+    if (!drinksBadges.find((badge) => badge.stars === 2)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -229,7 +222,7 @@ router.post(
 
     // if badge 7 day is not present
     // handle 7 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 3)) {
+    if (!drinksBadges.find((badge) => badge.stars === 3)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -246,7 +239,7 @@ router.post(
     }
     // if badge 14 day is not present
     // handle 14 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 4)) {
+    if (!drinksBadges.find((badge) => badge.stars === 4)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
 
       if (enoughConsecutiveDays) {
@@ -265,7 +258,7 @@ router.post(
 
     // if badge 28 day is not present
     // handle 28 days
-    if (!drinksBadges.find((badge) => badge["stars"] === 5)) {
+    if (!drinksBadges.find((badge) => badge.stars === 5)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -285,6 +278,19 @@ router.post(
   })
 );
 
+router.delete(
+  "/",
+  catchErrors(async (req, res) => {
+    const matomoId = req.body?.matomoId;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const conso_id = req.body.id;
+    // create / update conso
+    await prisma.consommation.delete({
+      where: { id: conso_id },
+    });
+  })
+);
+
 const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
   let consecutiveDays = 1;
   let currentConsoDate = dayjs();
@@ -297,6 +303,9 @@ const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
   for (const conso of allConsos) {
     consoDate = dayjs(conso.date);
     differenceDate = currentConsoDate.diff(consoDate, "day");
+    if (differenceDate === 0) {
+      continue;
+    }
     if (differenceDate > 1) {
       consecutiveDays = 1;
     }

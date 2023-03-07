@@ -41,7 +41,6 @@ router.post(
     }
 
     if (category === "APP" && action === "APP_OPEN") {
-      // check goal badge
     }
 
     // if (req.headers.appversion < 128) {
