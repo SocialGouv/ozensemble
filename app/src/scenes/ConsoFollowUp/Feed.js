@@ -89,7 +89,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   const isFocused = useIsFocused();
 
-  const checkNPSAfter3Drinks = () => {
+  const checkNPSAvailability = () => {
     const daysDrink = days.filter((day) => {
       const drinksOfTheDay = drinks
         .filter(({ timestamp }) => isOnSameDay(timestamp, day))
@@ -98,9 +98,38 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       return true;
     });
     if (daysDrink.length < 3) return;
-    const npsAsked = storage.getString('@NPSDone');
-    if (npsAsked) return;
+    const npsAsked1 = storage.getString('@NPSAsked1');
+    const npsAsked2 = storage.getString('@NPSAsked2');
+    const npsAsked3 = storage.getString('@NPSAsked3');
+    const now = dayjs();
+    console.log(npsAsked1);
+    if (npsAsked1) {
+      if (dayjs(npsAsked1).diff(now, 'day') < 7) {
+        return;
+      }
+    } else if (npsAsked2) {
+      if (dayjs(npsAsked1).diff(now, 'day') < 14) {
+        return;
+      }
+    } else if (npsAsked3) return;
     setPleaseNPSModal(true);
+  };
+
+  const hideModal = () => {
+    const firstReject = storage.getString('@NPSAsked1');
+    const secondReject = storage.getString('@NPSAsked2');
+    const lastReject = storage.getString('@NPSAsked3');
+
+    if (!firstReject) {
+      storage.set('@NPSAsked1', dayjs().format('YYYY-MM-DD'));
+      setPleaseNPSModal(false);
+    } else if (!secondReject) {
+      storage.set('@NPSAsked2', dayjs().format('YYYY-MM-DD'));
+      setPleaseNPSModal(false);
+    } else if (!lastReject) {
+      storage.set('@NPSAsked2', dayjs().format('YYYY-MM-DD'));
+      setPleaseNPSModal(false);
+    }
   };
 
   useEffect(() => {
@@ -111,7 +140,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   useEffect(() => {
     if (isFocused) {
-      checkNPSAfter3Drinks();
+      checkNPSAvailability();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, isFocused]);
@@ -224,9 +253,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               navigation.navigate('NPS_SCREEN', { triggeredFrom: 'After three drinks' });
             }}
             visible={!!pleaseNPSModal}
-            hide={() => {
-              setPleaseNPSModal(false);
-            }}
+            hide={hideModal}
           />
           {days.map((day, index) => {
             const isFirst = index === 0;
