@@ -1,3 +1,10 @@
+## [1.82.4](https://github.com/SocialGouv/ozensemble/compare/v1.82.3...v1.82.4) (2023-03-07)
+
+
+### Bug Fixes
+
+* consecutive drinks ([7cb3923](https://github.com/SocialGouv/ozensemble/commit/7cb392327b0e616aa81794f1a7a4d9b9001b9f25))
+
 ## [1.82.3](https://github.com/SocialGouv/ozensemble/compare/v1.82.2...v1.82.3) (2023-03-07)
 
 
