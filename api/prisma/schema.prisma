@@ -11,27 +11,31 @@ datasource db {
 }
 
 model User {
-  id                String        @id @default(uuid())
-  matomo_id         String        @unique
-  push_notif_token  String        @default("")
-  reminder          Reminder?
-  notifications     Notification[]
-  lastConsoAdded    DateTime?
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt @default(now())
+  id               String         @id @default(uuid())
+  matomo_id        String         @unique
+  push_notif_token String         @default("")
+  reminder         Reminder?
+  notifications    Notification[]
+  badges           Badge[]
+  consommations    Consommation[]
+  lastConsoAdded   DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @default(now()) @updatedAt
+  announcementModals String[]      @default([])
 
   @@index([push_notif_token], type: Hash)
 }
 
 model Notification {
-  id             String                 @id @default(uuid())
-  user           User                   @relation(fields: [userId], references: [id])
-  userId         String
-  type           String
-  date           DateTime
-  status         NotificationStatus     @default(NotSent)
-  createdAt      DateTime               @default(now())
-  updatedAt      DateTime               @updatedAt
+  id        String             @id @default(uuid())
+  user      User               @relation(fields: [userId], references: [id])
+  userId    String
+  type      String
+  date      DateTime
+  status    NotificationStatus @default(NotSent)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
   @@index([id], type: BTree)
 }
 
@@ -83,4 +87,30 @@ model ReminderUtcDaysOfWeek {
   @@index([thursday], type: Hash)
   @@index([friday], type: Hash)
   @@index([saturday], type: Hash)
+}
+
+model Badge {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  category  String
+  stars     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Consommation {
+  id           String   @id @default(uuid())
+  drinkKey     String
+  name         String   @default("")
+  quantity     Float    @default(1)
+  doses        Float    @default(1)
+  kcal         Float    @default(1)
+  price        Float    @default(1)
+  volume       String   @default("")
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  date         DateTime @default(now())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

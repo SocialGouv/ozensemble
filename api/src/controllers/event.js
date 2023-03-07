@@ -1,8 +1,6 @@
 const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
-const { capture } = require("../third-parties/sentry");
 const router = express.Router();
-// const inappMessages = require("../in-app-messages");
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
 
@@ -57,17 +55,14 @@ router.post(
     const DEFI1_VALIDATE_DAY = category === "DEFI1" && action === "DEFI1_VALIDATE_DAY" && name === "day";
     if (DEFI1_VALIDATE_DAY && value === 1) {
       notifications.scheduleDefi1Day1(matomoId);
-      return res.status(200).send({ ok: true });
     }
     if (DEFI1_VALIDATE_DAY && value === 2) {
       notifications.cancelNotif(matomoId, "DEFI1_DAY1");
-      return res.status(200).send({ ok: true });
     }
 
     // save lastConsoAdded
     if (category === "CONSO" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
       notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
-      return res.status(200).send({ ok: true });
     }
 
     // default : show newFeatures new-gains (default page on startup)

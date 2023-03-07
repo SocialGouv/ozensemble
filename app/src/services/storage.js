@@ -4,6 +4,7 @@ import { MMKV } from 'react-native-mmkv';
 import API from './api';
 import NotificationService from './notifications';
 import { capture } from './sentry';
+import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
 
 export const storage = new MMKV();
 if (__DEV__) {
@@ -242,4 +243,31 @@ export async function migrateRemindersToPushToken() {
   } catch (e) {
     capture(e);
   }
+}
+
+export const hasSentPreviousDrinksToDB = storage.getBoolean('hasSentPreviousDrinksToDB');
+
+export async function sendPreviousDrinksToDB() {
+  if (hasSentPreviousDrinksToDB) return;
+  const matomoId = storage.getString('@UserIdv2');
+  if (!matomoId?.length) {
+    // new user - no drinks to send
+    storage.set('hasSentPreviousDrinksToDB', true);
+    return;
+  }
+  // @Drinks
+  const drinks = JSON.parse(storage.getString('@Drinks') || '[]');
+  const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks') || '[]');
+
+  if (drinks.length) {
+    API.post({
+      path: '/consommation/init',
+      body: {
+        matomoId,
+        drinks,
+        drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
+      },
+    });
+  }
+  storage.set('hasSentPreviousDrinksToDB', true);
 }

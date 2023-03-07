@@ -10,6 +10,7 @@ import DrinksCategory from '../../components/DrinksCategory';
 import {
   drinksCatalog,
   // formatNewDrink,
+  getDoses,
   getDrinksKeysFromCatalog,
   getDrinkQuantityFromDrinks,
   NO_CONSO,
@@ -24,6 +25,8 @@ import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
+import API from '../../services/api';
+import { storage } from '../../services/storage';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -109,12 +112,31 @@ const ConsosList = ({ navigation, route }) => {
           },
         ].filter((d) => d.quantity > 0)
       );
+      const drinkFromCatalog = [...(ownDrinks || []), ...drinksCatalog].find(
+        (_drink) => _drink.drinkKey === drink.drinkKey
+      );
       logEvent({
         category: 'CONSO',
         action: 'CONSO_ADD',
         name: drink.drinkKey,
         value: Number(drink.quantity),
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+      });
+      const matomoId = storage.getString('@UserIdv2');
+      API.post({
+        path: '/consommation',
+        body: {
+          matomoId: matomoId,
+          id: drink.id,
+          name: drink.displayDrinkModal,
+          drinkKey: drink.drinkKey,
+          quantity: Number(drink.quantity),
+          date: makeSureTimestamp(addDrinkModalTimestamp),
+          doses: drinkFromCatalog.doses,
+          kcal: drinkFromCatalog.kcal,
+          price: drinkFromCatalog.price,
+          volume: drinkFromCatalog.volume,
+        },
       });
     }
     setLocalDrinksState([]);
@@ -168,15 +190,30 @@ const ConsosList = ({ navigation, route }) => {
         />
         <ButtonPrimaryStyled
           onPress={() => {
+            const noConso = {
+              drinkKey: NO_CONSO,
+              quantity: 1,
+              timestamp: makeSureTimestamp(addDrinkModalTimestamp),
+              id: uuidv4(),
+            };
             logEvent({
               category: 'CONSO',
-              action: 'CONSO_DRINKLESS',
-              dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+              action: 'NO_CONSO',
+              dimension6: noConso.timestamp,
             });
-            setGlobalDrinksState((state) => [
-              ...state,
-              { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(addDrinkModalTimestamp), id: uuidv4() },
-            ]);
+            setGlobalDrinksState((state) => [...state, noConso]);
+            const matomoId = storage.getString('@UserIdv2');
+            API.post({
+              path: '/consommation',
+              body: {
+                matomoId: matomoId,
+                id: noConso.id,
+                name: noConso.displayDrinkModal,
+                drinkKey: noConso.drinkKey,
+                quantity: Number(noConso.quantity),
+                date: noConso.timestamp,
+              },
+            });
             navigation.goBack();
           }}
           content={

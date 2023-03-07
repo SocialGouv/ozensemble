@@ -72,7 +72,6 @@ export const getDisplayName = (drinkKey, quantity, catalog) => {
     return drink.custom ? drink.displayFeed : drink.displayFeed(quantity);
   } catch (e) {
     console.log('error getDisplayName', e);
-    console.log(drinkKey, quantity, catalog);
     return 0;
   }
 };

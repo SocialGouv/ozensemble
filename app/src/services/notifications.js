@@ -50,7 +50,6 @@ class NotificationService {
       action: 'SUCCESS',
     });
     const matomoId = storage.getString('@UserIdv2');
-    console.log('LALALALALA');
     API.put({
       path: '/user',
       body: {

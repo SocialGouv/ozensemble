@@ -24,6 +24,7 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import { storage } from '../../services/storage';
 import OnBoardingModal from '../../components/OnBoardingModal';
+import API from '../../services/api';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -161,19 +162,33 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   content={"Je n'ai rien bu !"}
                   small
                   onPress={() => {
-                    logEvent({
-                      category: 'CONSO',
-                      action: 'NO_CONSO',
-                    });
                     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
                     const newNoDrink = [];
+                    const matomoId = storage.getString('@UserIdv2');
                     for (let i = 1; i <= differenceDay; i++) {
                       const currentDate = dayjs(dateLastEntered).add(i, 'd');
-                      newNoDrink.push({
+                      const noConso = {
                         drinkKey: NO_CONSO,
                         quantity: 1,
                         timestamp: makeSureTimestamp(currentDate),
                         id: uuidv4(),
+                      };
+                      logEvent({
+                        category: 'CONSO',
+                        action: 'NO_CONSO',
+                        dimension6: noConso.timestamp,
+                      });
+                      newNoDrink.push(noConso);
+                      API.post({
+                        path: '/consommation',
+                        body: {
+                          matomoId: matomoId,
+                          id: noConso.id,
+                          name: noConso.displayDrinkModal,
+                          drinkKey: noConso.drinkKey,
+                          quantity: Number(noConso.quantity),
+                          date: noConso.timestamp,
+                        },
                       });
                     }
                     setDrinks((state) => [...state, ...newNoDrink]);

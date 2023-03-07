@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 import TextStyled from '../../components/TextStyled';
@@ -15,6 +15,8 @@ import { fakeGain } from './gains';
 import { drinksState } from '../../recoil/consos';
 import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
+import API from '../../services/api';
+import { badgesCatalogState } from '../../recoil/badges';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -30,6 +32,7 @@ const deleteStorageValues = (values) => {
 
 const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+  const badgesCatalog = useRecoilValue(badgesCatalogState);
 
   return (
     <WrapperContainer title="Charger des fausses données">
@@ -47,6 +50,19 @@ const FakeData = () => {
             setGlobalDrinksState(fakeConsoData.full.drinks);
           }}
         />
+        <H1Wrapper>Simuler un badge</H1Wrapper>
+        {badgesCatalog
+          .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
+          .map(({ title, category, stars }) => {
+            return (
+              <MenuItem
+                key={title}
+                noAlert
+                caption={title}
+                onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
+              />
+            );
+          })}
         <H1Wrapper>Mon NPS</H1Wrapper>
         <MenuItem
           caption="Envoyer une notification NPS dans 10 secondes"
@@ -156,9 +172,10 @@ const FakeData = () => {
 
 export default FakeData;
 
-const MenuItem = ({ caption = '', onPress }) => {
+const MenuItem = ({ caption = '', onPress, noAlert = false }) => {
   const onPressRequest = () => {
     onPress();
+    if (noAlert) return;
     Alert.alert(
       `Vous avez remplacé les données pour ${caption.toLowerCase()}`,
       "Veuillez quitter l'app et la redémarrer pour voir les changements"
