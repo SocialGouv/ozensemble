@@ -26,6 +26,8 @@ const BadgesStatus = ({ navigate }) => {
     }, [setBadges, setBadgesCatalog])
   );
 
+  if (!badgesCatalog.length) return null;
+
   return (
     <TouchableOpacity className="py-5" onPress={navigate}>
       <View className="mt-2">
