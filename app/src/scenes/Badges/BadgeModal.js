@@ -43,10 +43,11 @@ const BadgeModal = () => {
 
   const onCTAPress = () => {
     onClose();
-    InteractionManager.runAfterInteractions(() => {
+    InteractionManager.runAfterInteractions(async () => {
       if (modalContent.CTANavigation) {
         navigation.navigate(...modalContent.CTANavigation);
       } else if (modalContent.CTAShare) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         shareApp();
       } else if (modalContent.CTARate) {
         if (InAppReview.isAvailable()) {
@@ -66,10 +67,11 @@ const BadgeModal = () => {
   };
   const onSecondaryPress = () => {
     onClose();
-    InteractionManager.runAfterInteractions(() => {
+    InteractionManager.runAfterInteractions(async () => {
       if (modalContent.secondaryButtonNavigation) {
         navigation.navigate(...modalContent.secondaryButtonNavigation);
       } else if (modalContent.secondaryButtonShare) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         shareApp();
       } else if (modalContent.secondaryButtonRate) {
         if (InAppReview.isAvailable()) {

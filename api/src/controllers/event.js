@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
+const { checkIfLastWeekGoalAchieved } = require("../goals");
 
 router.post(
   "/",
@@ -41,6 +42,9 @@ router.post(
     }
 
     if (category === "APP" && action === "APP_OPEN") {
+      const showNewBadge = await checkIfLastWeekGoalAchieved(matomoId);
+      console.log({ showNewBadge });
+      if (showNewBadge) return res.status(200).send({ ok: true, showNewBadge });
     }
 
     // if (req.headers.appversion < 128) {

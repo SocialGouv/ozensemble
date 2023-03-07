@@ -8,7 +8,7 @@ const router = express.Router();
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay } = req.body || {};
+    const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek } = req.body || {};
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
@@ -31,10 +31,13 @@ router.post(
         date,
         daysWithGoalNoDrink,
         dosesByDrinkingDay,
+        dosesPerWeek,
+        status: "InProgress",
       },
       update: {
         daysWithGoalNoDrink,
         dosesByDrinkingDay,
+        dosesPerWeek,
       },
     });
 
