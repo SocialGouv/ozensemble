@@ -274,6 +274,14 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                               action: 'CONSO_DELETE',
                             });
                             deleteDrinkRequest(drink.timestamp);
+                            const matomoId = storage.getString('@UserIdv2');
+                            API.delete({
+                              path: '/consommation',
+                              body: {
+                                matomoId: matomoId,
+                                id: drink.id,
+                              },
+                            });
                           }}
                         />
                       );

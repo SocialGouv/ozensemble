@@ -41,68 +41,6 @@ router.post(
     }
 
     if (category === "APP" && action === "APP_OPEN") {
-      if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-      const doses = req.body.doses;
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-      const goalBadges = allBadges.filter((badge) => badge.category === "goals");
-      // find user with matomoId
-      let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-      // check if new badge or not
-
-      // if badge 1 week is not present
-      // handle 1 week
-      if (!goalBadges.find((badge) => badge["stars"] === 2)) {
-        const achievedGoal = await checkConsosGoal(user.id);
-        if (achievedGoal) {
-          await prisma.badge.create({
-            data: {
-              userId: user.id,
-              category: "goals",
-              stars: 2,
-              showed: false,
-            },
-          });
-
-          return res.status(200).send({
-            ok: true,
-            showNewBadge: {
-              newBadge: grabBadgeFromCatalog("drinks", 2),
-              allBadges,
-              badgesCatalog,
-            },
-          });
-        }
-      }
-
-      const checkConsosGoal = async (userId) => {
-        const goal = await prisma.goal.findFirst({ where: { userId: userId, status: "ongoing" } });
-
-        const lastMonday = dayjs(goal.date).startOf("week").format();
-        const weekConsos = await prisma.consommation.aggregate({ _sum: doses, where: { userId: userId, date: { gte: lastMonday } } });
-        await prisma.updateMany(
-          {
-            where: { userId: userId, status: "ongoing" },
-          },
-          {
-            data: { status: "done" },
-          }
-        );
-        console.log("goal ", goal);
-        console.log("lastMonday ", lastMonday);
-        console.log("weekConso ", weekConsos);
-        if (weekConsos <= goal.doses) {
-          await prisma.goal.updateMany({
-            where: { userId: userId, status: "ongoing" },
-            data: { status: "success" },
-          });
-          return true;
-        }
-        await prisma.goal.updateMany({
-          where: { userId: userId, status: "ongoing" },
-          data: { status: "fail" },
-        });
-        return false;
-      };
     }
 
     // if (req.headers.appversion < 128) {
