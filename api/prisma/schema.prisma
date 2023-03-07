@@ -11,17 +11,18 @@ datasource db {
 }
 
 model User {
-  id               String         @id @default(uuid())
-  matomo_id        String         @unique
-  push_notif_token String         @default("")
-  reminder         Reminder?
-  notifications    Notification[]
-  badges           Badge[]
-  consommations    Consommation[]
-  lastConsoAdded   DateTime?
-  createdAt        DateTime       @default(now())
-  updatedAt        DateTime       @default(now()) @updatedAt
-  announcementModals String[]      @default([])
+  id                 String         @id @default(uuid())
+  matomo_id          String         @unique
+  push_notif_token   String         @default("")
+  reminder           Reminder?
+  notifications      Notification[]
+  badges             Badge[]
+  consommations      Consommation[]
+  goals          Goal[]
+  lastConsoAdded     DateTime?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @default(now()) @updatedAt
+  announcementModals String[]       @default([])
 
   @@index([push_notif_token], type: Hash)
 }
@@ -95,22 +96,44 @@ model Badge {
   userId    String
   category  String
   stars     Int
+  shown     Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@index([userId], type: Hash)
 }
 
 model Consommation {
-  id           String   @id @default(uuid())
-  drinkKey     String
-  name         String   @default("")
-  quantity     Float    @default(1)
-  doses        Float    @default(1)
-  kcal         Float    @default(1)
-  price        Float    @default(1)
-  volume       String   @default("")
-  user         User     @relation(fields: [userId], references: [id])
-  userId       String
-  date         DateTime @default(now())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(uuid())
+  drinkKey  String
+  name      String   @default("")
+  quantity  Float    @default(1)
+  doses     Float    @default(1)
+  kcal      Float    @default(1)
+  price     Float    @default(1)
+  volume    String   @default("")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([userId], type: Hash)
+}
+
+model Goal {
+  id               String   @id
+  daysWithGoalNoDrink String[] @default([])
+  dosesByDrinkingDay Float    @default(0)
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+  date             String   @default("")
+  status           GoalStatus   @default(InProgress)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  @@index([id], type: Hash)
+}
+
+enum GoalStatus {
+  Success
+  Failure
+  InProgress
 }
