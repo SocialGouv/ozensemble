@@ -126,7 +126,14 @@ model Goal {
   user             User     @relation(fields: [userId], references: [id])
   userId           String
   date             String   @default("")
+  status           GoalStatus   @default(InProgress)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
   @@index([id], type: Hash)
+}
+
+enum GoalStatus {
+  Success
+  Failure
+  InProgress
 }

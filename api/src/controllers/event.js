@@ -40,11 +40,9 @@ router.post(
       });
     }
 
-    // handle newFeatures
-    if (category === "NAVIGATION" && action === "GAINS_MAIN_VIEW") return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
-    if (category === "NAVIGATION" && action === "DEFIS_MENU") return res.status(200).send({ ok: true, newFeatures: [newFeatures.defis] });
-    if (category === "NAVIGATION" && action === "CONSO_FOLLOW_UP") return res.status(200).send({ ok: true, newFeatures: [newFeatures.suivi] });
-    if (category === "NAVIGATION" && action === "HEALTH") return res.status(200).send({ ok: true, newFeatures: [newFeatures.articles] });
+    if (category === "APP" && action === "APP_OPEN") {
+      // check goal badge
+    }
 
     // if (req.headers.appversion < 128) {
     //   // build 128 = currently in tests
@@ -64,9 +62,19 @@ router.post(
     if (category === "CONSO" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
       notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
     }
+    // save lastConsoAdded
+    if (category === "APP" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
+      notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
+    }
 
-    // default : show newFeatures new-gains (default page on startup)
-    return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
+    // handle newFeatures
+    if (category === "NAVIGATION" && action === "GAINS_MAIN_VIEW") return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
+    if (category === "APP" && action === "APP_OPEN_IN_GAIN_VIEW") return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
+    if (category === "NAVIGATION" && action === "DEFIS_MENU") return res.status(200).send({ ok: true, newFeatures: [newFeatures.defis] });
+    if (category === "NAVIGATION" && action === "CONSO_FOLLOW_UP") return res.status(200).send({ ok: true, newFeatures: [newFeatures.suivi] });
+    if (category === "NAVIGATION" && action === "HEALTH") return res.status(200).send({ ok: true, newFeatures: [newFeatures.articles] });
+
+    return res.status(200).send({ ok: true });
   })
 );
 
