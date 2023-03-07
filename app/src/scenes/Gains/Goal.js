@@ -29,7 +29,7 @@ const Goal = ({ navigation, route }) => {
 
   const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-  const drinkByWeek = useRecoilValue(maxDrinksPerWeekSelector);
+  const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
 
   const isOnboarded = !route.params?.forOnboarding;
 
@@ -137,7 +137,7 @@ const Goal = ({ navigation, route }) => {
               {7 - daysWithGoalNoDrink.length} jours avec {dosesByDrinkingDay} unité
               {dosesByDrinkingDay > 1 ? 's' : ''}
             </TextStyled>
-            <TextStyled bold> soit {drinkByWeek} unités par semaine</TextStyled>
+            <TextStyled bold> soit {dosesPerWeek} unités par semaine</TextStyled>
           </DrinkByWeekContainer>
         )}
         <CTAButtonContainer>
@@ -152,6 +152,7 @@ const Goal = ({ navigation, route }) => {
                   daysWithGoalNoDrink,
                   drinksByDrinkingDay,
                   dosesByDrinkingDay,
+                  dosesPerWeek,
                 },
               });
               logEvent({
@@ -163,7 +164,7 @@ const Goal = ({ navigation, route }) => {
               logEvent({
                 category: 'GAINS',
                 action: 'GOAL_DRINKWEEK',
-                value: drinkByWeek,
+                value: dosesPerWeek,
               });
               if (isOnboarded) {
                 navigation.navigate('GAINS_SEVRAGE');

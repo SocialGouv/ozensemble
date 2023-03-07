@@ -96,7 +96,7 @@ model Badge {
   userId    String
   category  String
   stars     Int
-  shown     Boolean  @default(false)
+  shown     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@index([userId], type: Hash)
@@ -123,6 +123,7 @@ model Goal {
   id               String   @id
   daysWithGoalNoDrink String[] @default([])
   dosesByDrinkingDay Float    @default(0)
+  dosesPerWeek Float    @default(0)
   user             User     @relation(fields: [userId], references: [id])
   userId           String
   date             String   @default("")
