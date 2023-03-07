@@ -13,6 +13,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
   try {
     if (!matomoId) return null;
     const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    if (!user) return null;
     const goalBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "goals" }, orderBy: { createdAt: "desc" } });
     // check if goal is achieved
     if (!!goalBadges.length) {
