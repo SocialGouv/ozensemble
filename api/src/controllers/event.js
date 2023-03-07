@@ -1,13 +1,8 @@
 const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
-const { capture } = require("../third-parties/sentry");
 const router = express.Router();
-// const inappMessages = require("../in-app-messages");
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
-const { checkNewBadge } = require("../badges");
-const prisma = require("../prisma");
-const { extractExceptionKeysForMessage } = require("@sentry/utils");
 
 router.post(
   "/",
