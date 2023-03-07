@@ -94,7 +94,14 @@ const BadgeModal = () => {
     //   setShowModal(true);
     // });
 
-    if (newBadge) setModalContent(newBadge);
+    if (newBadge) {
+      // get all the badges from the wanted category
+      const badgesFromCategory = badgesCatalog.find((category) => category.category === newBadge.category);
+      // get the infos for the right badge
+      const badgeInfos = badgesFromCategory.badges.find((badge) => badge.stars === newBadge.stars);
+
+      setModalContent(badgeInfos);
+    }
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);
     setShowModal(true);
