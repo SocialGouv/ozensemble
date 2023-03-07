@@ -1,3 +1,10 @@
+## [1.83.2](https://github.com/SocialGouv/ozensemble/compare/v1.83.1...v1.83.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* null if no user ([efe3e0c](https://github.com/SocialGouv/ozensemble/commit/efe3e0c9ac52ddd6f1512d6c787d5f2c219723b0))
+
 ## [1.83.1](https://github.com/SocialGouv/ozensemble/compare/v1.83.0...v1.83.1) (2023-03-07)
 
 
