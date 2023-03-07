@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 import TextStyled from '../../components/TextStyled';
@@ -16,6 +16,7 @@ import { drinksState } from '../../recoil/consos';
 import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
+import { badgesCatalogState } from '../../recoil/badges';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -31,6 +32,7 @@ const deleteStorageValues = (values) => {
 
 const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+  const badgesCatalog = useRecoilValue(badgesCatalogState);
 
   return (
     <WrapperContainer title="Charger des fausses données">
@@ -49,31 +51,18 @@ const FakeData = () => {
           }}
         />
         <H1Wrapper>Simuler un badge</H1Wrapper>
-        <MenuItem
-          noAlert
-          caption="1 jour complété"
-          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 1 } })}
-        />
-        <MenuItem
-          noAlert
-          caption="3 jours complétés"
-          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 2 } })}
-        />
-        <MenuItem
-          noAlert
-          caption="7 jours complétés"
-          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 3 } })}
-        />
-        <MenuItem
-          noAlert
-          caption="14 jours complétés"
-          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 4 } })}
-        />
-        <MenuItem
-          noAlert
-          caption="28 jours complétés"
-          onPress={() => API.get({ path: '/badge/test', query: { category: 'drinks', stars: 5 } })}
-        />
+        {badgesCatalog
+          .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
+          .map(({ title, category, stars }) => {
+            return (
+              <MenuItem
+                key={title}
+                noAlert
+                caption={title}
+                onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
+              />
+            );
+          })}
         <H1Wrapper>Mon NPS</H1Wrapper>
         <MenuItem
           caption="Envoyer une notification NPS dans 10 secondes"

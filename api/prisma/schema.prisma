@@ -21,6 +21,7 @@ model User {
   lastConsoAdded   DateTime?
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @default(now()) @updatedAt
+  announcementModals String[]      @default([])
 
   @@index([push_notif_token], type: Hash)
 }

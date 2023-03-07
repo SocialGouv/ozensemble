@@ -19,16 +19,52 @@ router.get(
     const { matomoId } = req.params;
 
     if (!matomoId) return res.status(200).send({ ok: true, data: [] });
-    // find badges of matomoId
-    const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
 
-    if (!user) return res.status(200).send({ ok: true, data: { badges: [], badgesCatalog } });
+    // find badges of matomoId
+    const user = await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      create: {
+        matomo_id: matomoId,
+      },
+      update: {},
+    });
+
     const badges = await prisma.badge.findMany({
       where: {
         userId: user.id,
       },
     });
-    return res.status(200).send({ ok: true, data: { badges, badgesCatalog } });
+
+    let announcementModal = null;
+
+    if (!user.announcementModals.includes("@NewBadgesAnnouncementFeatures3")) {
+      announcementModal = {
+        id: "@NewBadgesAnnouncementFeatures3",
+        badgesCategories: ["drinks", "goals", "defis", "articles"],
+        title: "Nouveau\u00A0: les badges arrivent dans l'application\u00A0!",
+        description:
+          "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
+        CTAButton: "Voir mes badges",
+        CTANavigation: ["BADGES_LIST"],
+      };
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          announcementModals: {
+            set: [...user.announcementModals, "@NewBadgesAnnouncementFeatures"],
+          },
+        },
+      });
+    }
+
+    return res.status(200).send({
+      ok: true,
+      data: {
+        badges,
+        badgesCatalog,
+        announcementModal,
+      },
+    });
   })
 );
 

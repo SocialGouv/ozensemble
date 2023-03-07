@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Text, View, SafeAreaView, TouchableOpacity, InteractionManager, Linking, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import InAppReview from 'react-native-in-app-review';
+import { useSetRecoilState } from 'recoil';
 import { hitSlop } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
@@ -15,11 +16,23 @@ import { storage } from '../../services/storage';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import API from '../../services/api';
 import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
+import { shareApp } from '../../services/shareApp';
+/*
+{
+  id: '@NewBadgesAnnouncementFeatures',
+  badgesCategories: ['drinks', 'goals', 'defis', 'articles'],
+  title: 'Nouveau\u00A0: les badges arrivent dans l'application\u00A0!',
+  description: 'Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!',
+  CTAButton: 'Voir mes badges'
+  CTANavigation: 'BADGES_LIST'
+}
+
+*/
 
 const BadgeAnnoucementModal = () => {
-  const [showModal, setShowModal] = useState(() => !storage.getBoolean('@NewBadgesAnnouncementFeatures'));
+  const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
-  const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
+  const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
 
   useEffect(() => {
     const matomoId = storage.getString('@UserIdv2');
@@ -28,25 +41,46 @@ const BadgeAnnoucementModal = () => {
       if (res.ok) {
         setBadges(res.data.badges);
         setBadgesCatalog(res.data.badgesCatalog);
+        if (!!res.data.announcementModal?.id && !storage.getString(res.data.announcementModal.id)) {
+          setModalContent(res.data.announcementModal);
+        }
       }
     });
   }, [setBadges, setBadgesCatalog]);
 
   const navigation = useNavigation();
-  const onGoToBadgesList = () => {
+  const onCTAPress = () => {
     onClose();
-    navigation.navigate('BADGES_LIST');
+    InteractionManager.runAfterInteractions(() => {
+      if (modalContent.CTANavigation) {
+        navigation.navigate(...modalContent.CTANavigation);
+      } else if (modalContent.CTAShare) {
+        shareApp();
+      } else if (modalContent.CTARate) {
+        if (InAppReview.isAvailable()) {
+          InAppReview.RequestInAppReview();
+        } else {
+          Linking.openURL(
+            Platform.select({
+              ios: 'https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1',
+              android: 'https://play.google.com/store/apps/details?id=com.addicto',
+            })
+          );
+        }
+      } else if (modalContent.CTALink) {
+        Linking.openURL(modalContent.CTALink);
+      }
+    });
   };
-
   const onClose = () => {
-    storage.set('@NewBadgesAnnouncementFeatures', true);
-    setShowModal(false);
+    storage.set(modalContent.id, true);
+    setModalContent(null);
   };
 
   return (
     <Modal
       safeAreaView={false}
-      visible={showModal}
+      visible={!!modalContent}
       animationType="fade"
       withBackground
       hideOnTouch
@@ -65,30 +99,27 @@ const BadgeAnnoucementModal = () => {
             </Svg>
           </TouchableOpacity>
           <View className="w-full mb-6 mt-4 flex flex-row justify-center gap-x-2">
-            {badgesCatalog.map((badgeCategory) => {
+            {modalContent?.badgesCategories?.map((badgeCategory) => {
               return (
-                <View key={badgeCategory.category}>
-                  {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
-                  {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
-                  {badgeCategory.category === 'defis' && <BadgeDefisNoStars />}
-                  {badgeCategory.category === 'articles' && <BadgeArticlesNoStars />}
+                <View key={badgeCategory}>
+                  {badgeCategory === 'drinks' && <BagdeDrinksNoStars />}
+                  {badgeCategory === 'goals' && <BadgeGoalsNoStars />}
+                  {badgeCategory === 'defis' && <BadgeDefisNoStars />}
+                  {badgeCategory === 'articles' && <BadgeArticlesNoStars />}
                 </View>
               );
             })}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
-              <TextStyled>Nouveau : les badges arrivent dans l'application !</TextStyled>
+              <TextStyled>{modalContent?.title}</TextStyled>
             </H1>
           </View>
           <Text className="text-base font-medium mb-8 text-center">
-            <TextStyled color={'#3C3C43'}>
-              Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif
-              de la semaine !
-            </TextStyled>
+            <TextStyled color={'#3C3C43'}>{modalContent?.description}</TextStyled>
           </Text>
           <View className="items-center mb-4">
-            <ButtonPrimary onPress={onGoToBadgesList} content="Voir mes badges" />
+            <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTAButton} />
           </View>
         </View>
       </SafeAreaView>
