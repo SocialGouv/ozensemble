@@ -51,13 +51,6 @@ const MyGains = () => {
   const weekDay = useRecoilValue(reminderGainWeekDay);
   const reminderHasBeenSet = useRecoilValue(reminderGainsHasBeenSetState);
 
-  useEffect(() => {
-    logEvent({
-      category: 'APP',
-      action: 'APP_OPEN_IN_GAIN_VIEW',
-    });
-  }, []);
-
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToFirstStep = () => {
     logEvent({

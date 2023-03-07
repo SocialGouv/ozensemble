@@ -18,8 +18,6 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
-import API from '../../services/api';
-import { storage } from '../../services/storage';
 
 const Goal = ({ navigation, route }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -28,7 +26,7 @@ const Goal = ({ navigation, route }) => {
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
 
   const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
-  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const drinkByWeek = useRecoilValue(maxDrinksPerWeekSelector);
 
   const isOnboarded = !route.params?.forOnboarding;
@@ -130,12 +128,12 @@ const Goal = ({ navigation, route }) => {
           />
         ))}
       <Container>
-        {!!dosesByDrinkingDay && (
+        {!!totalDrinksByDrinkingDay && (
           <DrinkByWeekContainer>
             <TextStyled>
               {' '}
-              {7 - daysWithGoalNoDrink.length} jours avec {dosesByDrinkingDay} unité
-              {dosesByDrinkingDay > 1 ? 's' : ''}
+              {7 - daysWithGoalNoDrink.length} jours avec {totalDrinksByDrinkingDay} unité
+              {totalDrinksByDrinkingDay > 1 ? 's' : ''}
             </TextStyled>
             <TextStyled bold> soit {drinkByWeek} unités par semaine</TextStyled>
           </DrinkByWeekContainer>
@@ -144,16 +142,6 @@ const Goal = ({ navigation, route }) => {
           <ButtonPrimary
             content="Continuer"
             onPress={() => {
-              const matomoId = storage.getString('@UserIdv2');
-              API.post({
-                path: '/goal',
-                body: {
-                  matomoId: matomoId,
-                  daysWithGoalNoDrink,
-                  drinksByDrinkingDay,
-                  dosesByDrinkingDay,
-                },
-              });
               logEvent({
                 category: 'GAINS',
                 action: 'GOAL_DRINKLESS',
@@ -179,7 +167,7 @@ const Goal = ({ navigation, route }) => {
                 onPressContinueNavigation: ['GAINS_SEVRAGE'],
               });
             }}
-            disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
+            disabled={!totalDrinksByDrinkingDay || daysWithGoalNoDrink.length === 0}
           />
         </CTAButtonContainer>
       </Container>

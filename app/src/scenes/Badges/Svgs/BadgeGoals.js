@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export const BadgeGoals = ({ stars, size = 96 }) => {
+export const BadgeGoals = ({ stars, size = 96, scale = 1 }) => {
   const star2 = stars >= 2 ? '#5150A2' : '#E8E8F3';
   const star3 = stars >= 3 ? '#5150A2' : '#E8E8F3';
   const star4 = stars >= 4 ? '#5150A2' : '#E8E8F3';
