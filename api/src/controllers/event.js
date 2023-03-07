@@ -43,7 +43,6 @@ router.post(
 
     if (category === "APP" && action === "APP_OPEN") {
       const showNewBadge = await checkIfLastWeekGoalAchieved(matomoId);
-      console.log({ showNewBadge });
       if (showNewBadge) return res.status(200).send({ ok: true, showNewBadge });
     }
 
