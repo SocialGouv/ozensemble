@@ -181,8 +181,7 @@ router.post(
     // check if new badge or not
     // check if all badges
     // get all the consos ordered by dates, check consecutive days, check if enough for to get a new badge
-    const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-    const drinksBadges = allBadges.filter((badge) => badge.category === "drinks");
+    const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
     // if badge 1 day is not present
     // handle 1 day
 
@@ -196,6 +195,9 @@ router.post(
           stars: 1,
         },
       });
+
+      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
       return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog } });
     }
 
@@ -212,6 +214,8 @@ router.post(
           },
         });
 
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
         return res.status(200).send({
           ok: true,
           showNewBadge: {
@@ -226,9 +230,7 @@ router.post(
     // if badge 7 day is not present
     // handle 7 days
     if (!drinksBadges.find((badge) => badge["stars"] === 3)) {
-      console.log("7 days badge not present");
       const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
-      console.log("enoughConsecutiveDays", enoughConsecutiveDays);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -237,6 +239,7 @@ router.post(
             stars: 3,
           },
         });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
         return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 3), allBadges, badgesCatalog } });
       }
@@ -254,6 +257,7 @@ router.post(
             stars: 4,
           },
         });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
         return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 4), allBadges, badgesCatalog } });
       }
@@ -271,6 +275,7 @@ router.post(
             stars: 5,
           },
         });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
         return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 5), allBadges, badgesCatalog } });
       }
