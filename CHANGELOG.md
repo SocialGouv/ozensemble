@@ -1,3 +1,10 @@
+## [1.82.3](https://github.com/SocialGouv/ozensemble/compare/v1.82.2...v1.82.3) (2023-03-07)
+
+
+### Bug Fixes
+
+* send back all badges ([8cd975c](https://github.com/SocialGouv/ozensemble/commit/8cd975c3941892b1a1c648ee9a3c3c28cf7d9eb0))
+
 ## [1.82.2](https://github.com/SocialGouv/ozensemble/compare/v1.82.1...v1.82.2) (2023-03-07)
 
 
