@@ -41,7 +41,7 @@ const BadgeAnnoucementModal = () => {
       if (res.ok) {
         setBadges(res.data.badges);
         setBadgesCatalog(res.data.badgesCatalog);
-        if (!!res.data.announcementModal?.id && !storage.getString(res.data.announcementModal.id)) {
+        if (!!res.data.announcementModal?.id && !storage.getBoolean(res.data.announcementModal.id)) {
           setModalContent(res.data.announcementModal);
         }
       }

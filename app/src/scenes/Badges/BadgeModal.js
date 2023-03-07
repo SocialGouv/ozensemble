@@ -95,7 +95,6 @@ const BadgeModal = () => {
     // });
 
     if (newBadge) setModalContent(newBadge);
-    console.log('newBadge', newBadge);
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);
     setShowModal(true);
@@ -104,8 +103,6 @@ const BadgeModal = () => {
   useEffect(() => {
     API.handleShowBadge = handleShowBadge;
   });
-
-  console.log('modalContent', modalContent);
 
   return (
     <Modal

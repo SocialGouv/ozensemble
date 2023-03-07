@@ -15,7 +15,6 @@ router.post(
     const name = body.event?.name;
     const value = body.event?.value;
     const matomoId = body.userId;
-    const extra = body?.extra;
 
     // handle mail for old versions
     const sendNPSEvent = category === "NPS";
