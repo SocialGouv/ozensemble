@@ -1,3 +1,13 @@
+## [1.82.2](https://github.com/SocialGouv/ozensemble/compare/v1.82.1...v1.82.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* add migration ([72660c7](https://github.com/SocialGouv/ozensemble/commit/72660c74bf9e1eac72452027c87b68c0023faad6))
+* controller goal ([614a016](https://github.com/SocialGouv/ozensemble/commit/614a01682248065f0474b569582f6418ca42cc78))
+* goal setup ([aadf505](https://github.com/SocialGouv/ozensemble/commit/aadf50528810137ee48f840d213f745e83f3d27e))
+* new event for gains ([1c06b9d](https://github.com/SocialGouv/ozensemble/commit/1c06b9d83d23fb225fb84778f22da2b97cb56346))
+
 ## [1.82.1](https://github.com/SocialGouv/ozensemble/compare/v1.82.0...v1.82.1) (2023-03-07)
 
 
