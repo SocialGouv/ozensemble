@@ -1,3 +1,16 @@
+# [1.82.0](https://github.com/SocialGouv/ozensemble/compare/v1.81.5...v1.82.0) (2023-03-07)
+
+
+### Bug Fixes
+
+* badges catalog in backend ([f87f0c2](https://github.com/SocialGouv/ozensemble/commit/f87f0c297b8bc0f4cf983436c40e3f487f43abea))
+* put BadgeModal in router ([2e1ca6a](https://github.com/SocialGouv/ozensemble/commit/2e1ca6a3858b663ea727a9c07c7a9c19cdb32e43))
+
+
+### Features
+
+* can add articles and defis badges from backend ([416653c](https://github.com/SocialGouv/ozensemble/commit/416653c7b1993da6bad0b337c4e6c5931296ff9e))
+
 ## [1.81.5](https://github.com/SocialGouv/ozensemble/compare/v1.81.4...v1.81.5) (2023-03-01)
 
 
