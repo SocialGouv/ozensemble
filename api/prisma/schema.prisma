@@ -96,7 +96,7 @@ model Badge {
   userId    String
   category  String
   stars     Int
-  shown     Boolean
+  shown     Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -118,12 +118,18 @@ model Consommation {
 }
 
 model Goal {
-  id        String   @id @default(uuid())
-  status    String   @default("ongoing")
-  doses     Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
-  startDate DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String   @id @default(uuid())
+  doses            Int
+  noDrinkModay     Boolean  @default(false)
+  noDrinkTuesday   Boolean  @default(false)
+  noDrinkWednesday Boolean  @default(false)
+  noDrinkThursday  Boolean  @default(false)
+  noDrinkFriday    Boolean  @default(false)
+  noDrinkSaturday  Boolean  @default(false)
+  noDrinkSunday    Boolean  @default(false)
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+  date             DateTime @default(now())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
