@@ -196,13 +196,8 @@ router.post(
 
     // if badge 3 day is not present
     // handle 3 days
-    console.log(
-      { drinksBadges },
-      drinksBadges.find((badge) => badge.stars === 2)
-    );
     if (!drinksBadges.find((badge) => badge.stars === 2)) {
       const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
-      console.log({ enoughConsecutiveDays });
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -214,7 +209,6 @@ router.post(
 
         const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
-        console.log("PLOUF");
         return res.status(200).send({
           ok: true,
           showNewBadge: {
@@ -308,23 +302,18 @@ const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
   let consoDate;
   for (const conso of allConsos) {
     consoDate = dayjs(conso.date);
-    console.log("conso", consoDate.format("DD/MM/YYYY"));
     differenceDate = currentConsoDate.diff(consoDate, "day");
-    console.log("differenceDate", differenceDate);
     if (differenceDate === 0) {
       continue;
     }
     if (differenceDate > 1) {
-      console.log("AIAIAIA");
       consecutiveDays = 1;
     }
     if (differenceDate === 1) {
-      console.log("COOLOS");
       consecutiveDays++;
     }
     // differenceDate === 1;
 
-    console.log({ consecutiveDaysGoal, consecutiveDays });
     if (consecutiveDays >= consecutiveDaysGoal) {
       return true;
     }
