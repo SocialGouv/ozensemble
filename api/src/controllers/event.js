@@ -3,7 +3,6 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
-const { checkIfLastWeekGoalAchieved } = require("../goals");
 
 router.post(
   "/",

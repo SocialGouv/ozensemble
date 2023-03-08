@@ -97,7 +97,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       if (!drinksOfTheDay.length) return false;
       return true;
     });
-    if (daysDrink.length < 3) return;
+    if (daysDrink.length < 4) return;
     const npsAsked3 = storage.getString('@NPSAsked3');
     if (npsAsked3) return;
 

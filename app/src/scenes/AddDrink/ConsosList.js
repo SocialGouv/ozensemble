@@ -99,6 +99,7 @@ const ConsosList = ({ navigation, route }) => {
     }));
     onClose();
     let drinkNumber = 0;
+    let showToast = true;
     for (let drink of drinksWithTimestamps) {
       drinkNumber++;
       setGlobalDrinksState((state) =>
@@ -123,7 +124,7 @@ const ConsosList = ({ navigation, route }) => {
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
       });
       const matomoId = storage.getString('@UserIdv2');
-      API.post({
+      const response = await API.post({
         path: '/consommation',
         body: {
           matomoId: matomoId,
@@ -138,11 +139,14 @@ const ConsosList = ({ navigation, route }) => {
           volume: drinkFromCatalog.volume,
         },
       });
+      if (response.showNewBadge) showToast = false;
     }
     setLocalDrinksState([]);
-    setTimeout(() => {
-      toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
-    }, 250);
+    if (showToast) {
+      setTimeout(() => {
+        toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+      }, 250);
+    }
   };
 
   const onClose = useCallback(() => {

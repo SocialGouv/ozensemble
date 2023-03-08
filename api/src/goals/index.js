@@ -18,6 +18,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     // check if goal is achieved
     if (!!goalBadges.length) {
       const lastBadge = goalBadges[0];
+      // console.log("lastBadge", lastBadge);
       if (lastBadge && lastBadge.stars === 5) return null;
       if (dayjs(lastBadge.createdAt).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
         return null;
@@ -27,14 +28,18 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     const lastGoal = await prisma.goal.findFirst({
       where: { userId: user.id, status: "InProgress", date: { lt: dayjs().startOf("week").format("YYYY-MM-DD") } },
     });
+    // console.log("lastGoal", lastGoal);
     if (!lastGoal) return null;
     const lastMonday = dayjs(lastGoal.date).startOf("week").toDate();
+    // console.log("lastMonday", lastMonday);
     const lastSunday = dayjs(lastGoal.date).endOf("week").toDate();
+    // console.log("lastSunday", lastSunday);
     const weekConsos = await prisma.consommation.findMany({
       where: { userId: user.id, date: { gte: lastMonday, lte: lastSunday } },
       orderBy: { date: "desc" },
     });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
+    // console.log("allDaysFilled", allDaysFilled);
     if (!allDaysFilled) return null;
     const totalDoses = weekConsos.filter((drink) => drink.drinkKey !== "no-conso").reduce((total, drink) => total + drink.doses * drink.quantity, 0);
     const goalAchieved = totalDoses <= lastGoal.dosesPerWeek;
@@ -94,20 +99,24 @@ Bon courage pour cette nouvelle semaine et continuez à bien compléter vos jour
       return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog };
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     capture(error, { user: { matomoId } });
   }
 };
 
 const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
+  // console.log("consos", consos.length);
   if (!consos.length) return false;
   let consecutiveDays = 1;
   let currentConsoDate = dayjs(consos[0].date).startOf("day");
+  // console.log("currentConsoDate", currentConsoDate);
   let differenceDate;
   let consoDate;
   for (const conso of consos) {
     consoDate = dayjs(conso.date).startOf("day");
+    // console.log("consoDate", consoDate);
     differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
+    // console.log("differenceDate", differenceDate);
     if (differenceDate === 0) {
       continue;
     }
@@ -117,11 +126,13 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
     if (differenceDate === 1) {
       consecutiveDays++;
     }
+    // console.log("consecutiveDays", consecutiveDays);
     if (consecutiveDays >= consecutiveDaysGoal) {
       return true;
     }
     currentConsoDate = consoDate;
   }
+  // console.log("consecutiveDays", consecutiveDays);
   return false;
 };
 
