@@ -6,10 +6,7 @@ import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
-import { BadgeDefis } from './Svgs/BadgeDefis';
 import { BadgeArticles } from './Svgs/BadgeArticles';
-import BadgeModal from './BadgeModal';
-import { storage } from '../../services/storage';
 import API from '../../services/api';
 
 const BadgesList = ({ navigation }) => {

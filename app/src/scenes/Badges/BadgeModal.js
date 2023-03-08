@@ -17,8 +17,6 @@ import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { storage } from '../../services/storage';
 
 /* example
 {
