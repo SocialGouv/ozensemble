@@ -41,11 +41,6 @@ router.post(
       });
     }
 
-    if (category === "APP" && action === "APP_OPEN") {
-      const showNewBadge = await checkIfLastWeekGoalAchieved(matomoId);
-      if (showNewBadge) return res.status(200).send({ ok: true, showNewBadge });
-    }
-
     // if (req.headers.appversion < 128) {
     //   // build 128 = currently in tests
     //   return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
