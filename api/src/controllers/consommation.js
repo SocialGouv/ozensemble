@@ -180,6 +180,7 @@ router.post(
     });
 
     const showGoalNewBadge = await checkIfLastWeekGoalAchieved(matomoId);
+    console.log("showGoalNewBadge", showGoalNewBadge);
 
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
 
@@ -298,6 +299,7 @@ router.post(
       }
     }
 
+    if (showGoalNewBadge?.newBadge) return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
     return res.status(200).send({ ok: true });
   })
 );

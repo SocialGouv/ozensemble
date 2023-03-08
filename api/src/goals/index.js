@@ -16,8 +16,10 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     if (!user) return null;
     const goalBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "goals" }, orderBy: { createdAt: "desc" } });
     // check if goal is achieved
+    console.log("goalBadges", goalBadges.length);
     if (!!goalBadges.length) {
       const lastBadge = goalBadges[0];
+      console.log("lastBadge", lastBadge);
       if (lastBadge && lastBadge.stars === 5) return null;
       if (dayjs(lastBadge.createdAt).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
         return null;
@@ -27,14 +29,23 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     const lastGoal = await prisma.goal.findFirst({
       where: { userId: user.id, status: "InProgress", date: { lt: dayjs().startOf("week").format("YYYY-MM-DD") } },
     });
+    console.log("lastGoal", lastGoal);
     if (!lastGoal) return null;
     const lastMonday = dayjs(lastGoal.date).startOf("week").toDate();
+    console.log("lastMonday", lastMonday);
     const lastSunday = dayjs(lastGoal.date).endOf("week").toDate();
-    const weekConsos = await prisma.consommation.findMany({ where: { userId: user.id, date: { gte: lastMonday, lte: lastSunday } } });
+    console.log("lastSunday", lastSunday);
+    const weekConsos = await prisma.consommation.findMany({
+      where: { userId: user.id, date: { gte: lastMonday, lte: lastSunday } },
+      orderBy: { date: "desc" },
+    });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
+    console.log("allDaysFilled", allDaysFilled);
     if (!allDaysFilled) return null;
     const totalDoses = weekConsos.filter((drink) => drink.drinkKey !== "no-conso").reduce((total, drink) => total + drink.doses * drink.quantity, 0);
+    console.log("totalDoses", totalDoses);
     const goalAchieved = totalDoses <= lastGoal.dosesPerWeek;
+    console.log("goalAchieved", goalAchieved);
 
     const nextGoalStartDate = dayjs().startOf("week").format("YYYY-MM-DD");
     await prisma.goal.upsert({
@@ -102,8 +113,11 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
   let differenceDate;
   let consoDate;
   for (const conso of consos) {
+    console.log("conso", conso);
     consoDate = dayjs(conso.date).format("YYYY-MM-DD");
+    console.log("consoDate", consoDate);
     differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
+    console.log("differenceDate", differenceDate);
     if (differenceDate === 0) {
       continue;
     }
@@ -113,11 +127,13 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
     if (differenceDate === 1) {
       consecutiveDays++;
     }
+    console.log("consecutiveDays", consecutiveDays);
     if (consecutiveDays >= consecutiveDaysGoal) {
       return true;
     }
     currentConsoDate = consoDate;
   }
+  console.log("final consecutiveDays", consecutiveDays);
   return false;
 };
 
