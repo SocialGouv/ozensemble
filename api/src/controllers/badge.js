@@ -40,7 +40,7 @@ router.get(
     if (!user.announcementModals.includes("@NewBadgesAnnouncementFeatures3")) {
       announcementModal = {
         id: "@NewBadgesAnnouncementFeatures3",
-        badgesCategories: ["drinks", "goals", "defis", "articles"],
+        badgesCategories: ["drinks", "goals"], // "defis", "articles"
         title: "Nouveau\u00A0: les badges arrivent dans l'application\u00A0!",
         description:
           "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
