@@ -30,9 +30,9 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     });
     // console.log("lastGoal", lastGoal);
     if (!lastGoal) return null;
-    const lastMonday = dayjs(lastGoal.date).startOf("week").toDate();
+    const lastMonday = dayjs().add(-1, "week").startOf("week").toDate();
     // console.log("lastMonday", lastMonday);
-    const lastSunday = dayjs(lastGoal.date).endOf("week").toDate();
+    const lastSunday = dayjs().add(-1, "week").endOf("week").toDate();
     // console.log("lastSunday", lastSunday);
     const weekConsos = await prisma.consommation.findMany({
       where: { userId: user.id, date: { gte: lastMonday, lte: lastSunday } },
