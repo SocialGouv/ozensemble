@@ -133,7 +133,7 @@ const BadgeModal = () => {
             {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
             {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
             {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}
-            {modalContent?.category.includes('locked_') && <LockedBadge />}
+            {modalContent?.category?.includes('locked_') && <LockedBadge />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">
@@ -141,7 +141,15 @@ const BadgeModal = () => {
             </H1>
           </View>
           <Text className="text-base font-medium mb-8 mx-4 text-center">
-            <TextStyled color={'#3C3C43'}>{modalContent?.content}</TextStyled>
+            <TextStyled color={'#3C3C43'}>
+              {modalContent?.content?.split('__')?.map((string, index) => {
+                return (
+                  <TextStyled key={string} bold={index % 2}>
+                    {string}
+                  </TextStyled>
+                );
+              })}
+            </TextStyled>
           </Text>
           <View className="items-center mb-4">
             <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTATitle} />
