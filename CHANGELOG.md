@@ -1,3 +1,10 @@
+## [1.83.5](https://github.com/SocialGouv/ozensemble/compare/v1.83.4...v1.83.5) (2023-03-08)
+
+
+### Bug Fixes
+
+* first week objective ([5a55a15](https://github.com/SocialGouv/ozensemble/commit/5a55a15ba8e1334f3056a18667b904a70f38b716))
+
 ## [1.83.4](https://github.com/SocialGouv/ozensemble/compare/v1.83.3...v1.83.4) (2023-03-08)
 
 
