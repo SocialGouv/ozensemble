@@ -1,3 +1,10 @@
+## [1.83.10](https://github.com/SocialGouv/ozensemble/compare/v1.83.9...v1.83.10) (2023-03-08)
+
+
+### Bug Fixes
+
+* only last week for goal ([bfb94a7](https://github.com/SocialGouv/ozensemble/commit/bfb94a7d9b0d6f702e414235939af4547bc46ae2))
+
 ## [1.83.9](https://github.com/SocialGouv/ozensemble/compare/v1.83.8...v1.83.9) (2023-03-08)
 
 
