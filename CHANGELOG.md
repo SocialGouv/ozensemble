@@ -1,3 +1,10 @@
+## [1.83.8](https://github.com/SocialGouv/ozensemble/compare/v1.83.7...v1.83.8) (2023-03-08)
+
+
+### Bug Fixes
+
+* remove border in svg ([a41b24e](https://github.com/SocialGouv/ozensemble/commit/a41b24ef4f32ff08fa61cadc8159fc101325765c))
+
 ## [1.83.7](https://github.com/SocialGouv/ozensemble/compare/v1.83.6...v1.83.7) (2023-03-08)
 
 
