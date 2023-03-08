@@ -327,7 +327,7 @@ const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
   if (!allConsos.length) {
     return false;
   }
-  let currentConsoDate = dayjs(allConsos[0]).startOf("day");
+  let currentConsoDate = dayjs(allConsos[0].date).startOf("day");
   let differenceDate;
   let consoDate;
   for (const conso of allConsos) {
