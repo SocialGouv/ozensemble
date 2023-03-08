@@ -3,7 +3,7 @@ import { TouchableOpacity, View, Text } from 'react-native';
 import { useRecoilState } from 'recoil';
 import { useFocusEffect } from '@react-navigation/native';
 import H1 from '../../components/H1';
-import { BagdeDrinksNoStars } from './Svgs/BagdeDrinksNoStars';
+import { BagdeDrinksNoStars } from './Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { storage } from '../../services/storage';
@@ -42,7 +42,7 @@ const BadgesStatus = ({ navigate }) => {
           const numberOfAvailableBadges = badgeCategory.badges.length;
           return (
             <View key={badgeCategory.category} className="p-2 basis-1/2">
-              <View className="bg-[#E8E8F3] rounded-lg flex p-2 w-full justify-center">
+              <View className="bg-[#E8E8F3] rounded-lg border-none flex p-2 w-full justify-center">
                 <Text className="text-[#4030a5] font-bold text-sm text-center mb-4">
                   {badgeCategory.titleForStatus}
                 </Text>

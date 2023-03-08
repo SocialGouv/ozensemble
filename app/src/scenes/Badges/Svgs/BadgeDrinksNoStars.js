@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 
 export const BagdeDrinksNoStars = () => {
   return (
-    <Svg className="w-16 h-16 m-auto" viewBox="0 0 60 60">
+    <Svg className="w-16 h-16 m-auto border-none" viewBox="0 0 60 60">
       <Path // large yellow bg
         fill-rule="evenodd"
         clip-rule="evenodd"

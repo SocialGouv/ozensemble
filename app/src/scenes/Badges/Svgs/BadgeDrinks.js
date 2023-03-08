@@ -7,7 +7,7 @@ export const BadgeDrinks = ({ stars, size = 96 }) => {
   const star4 = stars >= 4 ? '#5150A2' : '#E8E8F3';
   const star5 = stars >= 5 ? '#5150A2' : '#E8E8F3';
   return (
-    <Svg width={size} height={size} className="m-auto border" viewBox="0 0 90 90">
+    <Svg width={size} height={size} className="m-auto" viewBox="0 0 90 90">
       <Path // large yellow bg
         fill-rule="evenodd"
         clip-rule="evenodd"

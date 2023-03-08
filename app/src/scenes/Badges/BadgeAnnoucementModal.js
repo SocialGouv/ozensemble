@@ -9,7 +9,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
 import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
-import { BagdeDrinksNoStars } from './Svgs/BagdeDrinksNoStars';
+import { BagdeDrinksNoStars } from './Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
 import { BadgeDefisNoStars } from './Svgs/BadgeDefisNoStars';
 import { storage } from '../../services/storage';

@@ -3,7 +3,7 @@ import Svg, { Path } from 'react-native-svg';
 
 export const LockedBadge = ({ size = 96 }) => {
   return (
-    <Svg width={size} height={size} className="m-auto border" viewBox="0 0 60 60">
+    <Svg width={size} height={size} className="m-auto" viewBox="0 0 60 60">
       <Path // large grey bg
         fill-rule="evenodd"
         clip-rule="evenodd"
