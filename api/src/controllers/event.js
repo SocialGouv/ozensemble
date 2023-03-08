@@ -64,10 +64,6 @@ router.post(
     if (category === "CONSO" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
       notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
     }
-    // save lastConsoAdded
-    if (category === "APP" && (action === "CONSO_ADD" || action === "CONSO_DRINKLESS" || action === "NO_CONSO")) {
-      notifications.updateLastConsoAdded(matomoId); // update User & cancel inactivity notification if exists
-    }
 
     // handle newFeatures
     if (category === "NAVIGATION" && action === "GAINS_MAIN_VIEW") return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
