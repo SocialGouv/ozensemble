@@ -99,8 +99,10 @@ model Badge {
   shown     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  @@unique([userId, category, stars])
   @@index([userId], type: Hash)
 }
+
 
 model Consommation {
   id        String   @id @default(uuid())
