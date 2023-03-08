@@ -98,11 +98,14 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       return true;
     });
     if (daysDrink.length < 3) return;
+    const npsAsked3 = storage.getString('@NPSAsked3');
+    if (npsAsked3) return;
+
     const npsAsked1 = storage.getString('@NPSAsked1');
     const npsAsked2 = storage.getString('@NPSAsked2');
-    const npsAsked3 = storage.getString('@NPSAsked3');
+
     const now = dayjs();
-    console.log(npsAsked1);
+
     if (npsAsked1) {
       if (dayjs(npsAsked1).diff(now, 'day') < 7) {
         return;
@@ -111,25 +114,23 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       if (dayjs(npsAsked2).diff(now, 'day') < 7) {
         return;
       }
-    } else if (npsAsked3) return;
+    }
     setPleaseNPSModal(true);
   };
 
   const hideModal = () => {
     const firstReject = storage.getString('@NPSAsked1');
     const secondReject = storage.getString('@NPSAsked2');
-    const lastReject = storage.getString('@NPSAsked3');
+    const thirdReject = storage.getString('@NPSAsked3');
 
     if (!firstReject) {
       storage.set('@NPSAsked1', dayjs().format('YYYY-MM-DD'));
-      setPleaseNPSModal(false);
     } else if (!secondReject) {
       storage.set('@NPSAsked2', dayjs().format('YYYY-MM-DD'));
-      setPleaseNPSModal(false);
-    } else if (!lastReject) {
-      storage.set('@NPSAsked2', dayjs().format('YYYY-MM-DD'));
-      setPleaseNPSModal(false);
+    } else if (!thirdReject) {
+      storage.set('@NPSAsked3', dayjs().format('YYYY-MM-DD'));
     }
+    setPleaseNPSModal(false);
   };
 
   useEffect(() => {
