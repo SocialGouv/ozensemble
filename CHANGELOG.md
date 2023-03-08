@@ -1,3 +1,10 @@
+## [1.83.12](https://github.com/SocialGouv/ozensemble/compare/v1.83.11...v1.83.12) (2023-03-08)
+
+
+### Bug Fixes
+
+* restore consommations ([bffa4f4](https://github.com/SocialGouv/ozensemble/commit/bffa4f42857624219e2c694bd3a1f7cd1dcd3bc2))
+
 ## [1.83.11](https://github.com/SocialGouv/ozensemble/compare/v1.83.10...v1.83.11) (2023-03-08)
 
 
