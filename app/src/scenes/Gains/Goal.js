@@ -18,8 +18,6 @@ import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
-import API from '../../services/api';
-import { storage } from '../../services/storage';
 
 const Goal = ({ navigation, route }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -144,17 +142,6 @@ const Goal = ({ navigation, route }) => {
           <ButtonPrimary
             content="Continuer"
             onPress={() => {
-              const matomoId = storage.getString('@UserIdv2');
-              API.post({
-                path: '/goal',
-                body: {
-                  matomoId: matomoId,
-                  daysWithGoalNoDrink,
-                  drinksByDrinkingDay,
-                  dosesByDrinkingDay,
-                  dosesPerWeek,
-                },
-              });
               logEvent({
                 category: 'GAINS',
                 action: 'GOAL_DRINKLESS',

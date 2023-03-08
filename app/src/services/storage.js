@@ -271,3 +271,47 @@ export async function sendPreviousDrinksToDB() {
   }
   storage.set('hasSentPreviousDrinksToDB', true);
 }
+
+export const hasSentObjectifToDB = storage.getBoolean('hasSentObjectifToDBdlkf');
+
+export async function sendObjectifToDB() {
+  if (hasSentObjectifToDB) return;
+  const matomoId = storage.getString('@UserIdv2');
+  if (!matomoId?.length) {
+    // new user - no drinks to send
+    storage.set('hasSentPreviousDrinksToDB', true);
+    return;
+  }
+  // @Drinks
+  const daysWithGoalNoDrinkJSON = storage.getString('@DaysWithGoalNoDrink');
+  const drinksByDrinkingDayJSON = storage.getString('@StoredDetailedDrinksByDrinkingDay');
+
+  if (!daysWithGoalNoDrinkJSON || !drinksByDrinkingDayJSON) {
+    storage.set('hasSentObjectifToDB', true);
+    return;
+  }
+
+  const daysWithGoalNoDrink = JSON.parse(daysWithGoalNoDrinkJSON);
+  const drinksByDrinkingDay = JSON.parse(drinksByDrinkingDayJSON);
+
+  const dosesByDrinkingDay = drinksByDrinkingDay.reduce(
+    (sum, drink) =>
+      sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses,
+    0
+  );
+  const dosesPerWeek = (7 - daysWithGoalNoDrink.length) * dosesByDrinkingDay;
+
+  API.post({
+    path: '/goal',
+    body: {
+      matomoId: matomoId,
+      daysWithGoalNoDrink,
+      drinksByDrinkingDay,
+      dosesByDrinkingDay,
+      dosesPerWeek,
+      noDisplayBadge: true,
+      calculateBadges: true,
+    },
+  });
+  storage.set('hasSentObjectifToDB', true);
+}

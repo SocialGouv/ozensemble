@@ -1,11 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import TextStyled from '../../components/TextStyled';
+import {
+  daysWithGoalNoDrinkState,
+  drinksByDrinkingDayState,
+  maxDrinksPerWeekSelector,
+  totalDrinksByDrinkingDaySelector,
+} from '../../recoil/gains';
+import { storage } from '../../services/storage';
+import API from '../../services/api';
 
 const Sevrage = ({ navigation, route }) => {
+  const daysWithGoalNoDrink = useRecoilValue(daysWithGoalNoDrinkState);
+  const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
+  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
+
   return (
     <WrapperContainer title={'Les signes de sevrages'} onPressBackButton={navigation.goBack}>
       <DescriptionSymptome>
@@ -41,6 +55,18 @@ const Sevrage = ({ navigation, route }) => {
         <ButtonPrimary
           content="J'ai compris et je commence "
           onPress={() => {
+            const matomoId = storage.getString('@UserIdv2');
+            console.log('MIAM');
+            API.post({
+              path: '/goal',
+              body: {
+                matomoId: matomoId,
+                daysWithGoalNoDrink,
+                drinksByDrinkingDay,
+                dosesByDrinkingDay,
+                dosesPerWeek,
+              },
+            });
             logEvent({
               category: 'GAINS',
               action: 'GOAL_FINISH',
