@@ -1,3 +1,10 @@
+## [1.83.6](https://github.com/SocialGouv/ozensemble/compare/v1.83.5...v1.83.6) (2023-03-08)
+
+
+### Bug Fixes
+
+* take conso at the start ofthe day ([53aab07](https://github.com/SocialGouv/ozensemble/commit/53aab07fb9e56be88516ec234892a4ee903cc6b8))
+
 ## [1.83.5](https://github.com/SocialGouv/ozensemble/compare/v1.83.4...v1.83.5) (2023-03-08)
 
 
