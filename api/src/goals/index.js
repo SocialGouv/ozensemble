@@ -100,6 +100,7 @@ Bon courage pour cette nouvelle semaine et continuez à bien compléter vos jour
 };
 
 const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
+  if (!consos.length) return false;
   let consecutiveDays = 1;
   let currentConsoDate = dayjs(consos[0].date).startOf("day");
   let differenceDate;
