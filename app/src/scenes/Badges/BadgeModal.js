@@ -12,10 +12,13 @@ import TextStyled from '../../components/TextStyled';
 import API from '../../services/api';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
+import { LockedBadge } from './Svgs/LockedBadge';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
+import { logEvent } from '../../services/logEventsWithMatomo';
+import { storage } from '../../services/storage';
 
 /* example
 {
@@ -32,15 +35,15 @@ import { shareApp } from '../../services/shareApp';
 }
 */
 
-const BadgeModal = () => {
+const BadgeModal = ({ badge = null, visible = false }) => {
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState();
+  const [showModal, setShowModal] = useState(visible);
+  const [modalContent, setModalContent] = useState(badge);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
-
-  const onClose = () => setShowModal(false);
-
+  const onClose = () => {
+    setShowModal(false);
+  };
   const onCTAPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
@@ -132,6 +135,10 @@ const BadgeModal = () => {
             {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
             {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
             {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}
+            {modalContent?.category === 'locked_drinks' && <LockedBadge />}
+            {modalContent?.category === 'locked_goals' && <LockedBadge />}
+            {modalContent?.category === 'locked_articles' && <LockedBadge />}
+            {modalContent?.category === 'locked_defis' && <LockedBadge />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">

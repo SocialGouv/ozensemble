@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import WrapperContainer from '../../components/WrapperContainer';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
@@ -8,14 +8,21 @@ import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { BadgeArticles } from './Svgs/BadgeArticles';
+import BadgeModal from './BadgeModal';
+import { storage } from '../../services/storage';
+import API from '../../services/api';
 
 const BadgesList = ({ navigation }) => {
   const userBadges = useRecoilValue(badgesState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
-
+  // const badgesPerCategory = badgesCatalog?.find((badge) => badge.category === category);
+  // const badge = badgesCatalog.badges?.find((badge) => badge.stars === stars);
+  const [clickedBadge, setClickedBadge] = useState({});
+  const [modalVisibility, setModalVisibility] = useState(false);
+  const availableBadges = badgesCatalog.filter((badge) => badge.category === 'drinks' || badge.category === 'goals');
   return (
     <WrapperContainer title="Mes badges obtenus" onPressBackButton={navigation.goBack}>
-      {badgesCatalog.map((badgeCategory) => {
+      {availableBadges.map((badgeCategory) => {
         const userBadgesForCategory = userBadges?.filter((userBadge) => userBadge.category === badgeCategory.category);
         return (
           <React.Fragment key={badgeCategory.category}>
@@ -27,11 +34,16 @@ const BadgesList = ({ navigation }) => {
               {badgeCategory.badges.map((badge) => {
                 if (userBadgesForCategory.find((userBadge) => userBadge.stars === badge.stars)) {
                   return (
-                    <View
+                    <TouchableOpacity
                       key={badge.title}
                       className="bg-[#E8E8F3] rounded-lg flex flex-col p-3 justify-start "
-                      style={styles.card}>
-                      <View className="mb-4">
+                      style={styles.card}
+                      onPress={() => {
+                        const category = badge.category;
+                        const stars = badge.stars;
+                        API.get({ path: '/badge/test', query: { category, stars } });
+                      }}>
+                      <View>
                         {badgeCategory.category === 'drinks' && (
                           <BadgeDrinks stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
@@ -48,21 +60,27 @@ const BadgesList = ({ navigation }) => {
                       <View className="mt-auto">
                         <Text className="text-center text-[#4030a5] text-xs">{badge.reduced_title || badge.title}</Text>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   );
                 } else {
                   return (
-                    <View
+                    <TouchableOpacity
                       key={badge.title}
                       className="bg-[#E8E8F3] rounded-lg flex flex-col p-3 justify-start "
-                      style={styles.card}>
+                      style={styles.card}
+                      onPress={() => {
+                        const category = 'locked_' + badge.category;
+                        console.log('category', category);
+                        const stars = badge.stars;
+                        API.get({ path: '/badge/test', query: { category, stars } });
+                      }}>
                       <View className="mb-4">
                         <LockedBadge size={Dimensions.get('window').width / 4 - 2 * 20} />
                       </View>
                       <View className="mt-auto">
                         <Text className="text-center text-[#4030a5] text-xs">{badge.reduced_title || badge.title}</Text>
                       </View>
-                    </View>
+                    </TouchableOpacity>
                   );
                 }
               })}

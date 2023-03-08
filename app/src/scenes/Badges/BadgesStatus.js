@@ -14,6 +14,7 @@ import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
 const BadgesStatus = ({ navigate }) => {
   const [badges, setBadges] = useRecoilState(badgesState);
   const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
+  const availableBadges = badgesCatalog.filter((badge) => badge.category === 'drinks' || badge.category === 'goals');
   useFocusEffect(
     useCallback(() => {
       const matomoId = storage.getString('@UserIdv2');
@@ -36,7 +37,7 @@ const BadgesStatus = ({ navigate }) => {
         </H1>
       </View>
       <View className="flex flex-row flex-wrap -m-2">
-        {badgesCatalog.map((badgeCategory) => {
+        {availableBadges.map((badgeCategory) => {
           if (!badgeCategory.badges) return null;
           const numberOfBadges = badges?.filter((userBadge) => userBadge.category === badgeCategory.category).length;
           const numberOfAvailableBadges = badgeCategory.badges.length;
