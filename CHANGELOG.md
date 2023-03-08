@@ -1,3 +1,10 @@
+## [1.83.7](https://github.com/SocialGouv/ozensemble/compare/v1.83.6...v1.83.7) (2023-03-08)
+
+
+### Bug Fixes
+
+* no check goals on app open ([cb3acc9](https://github.com/SocialGouv/ozensemble/commit/cb3acc91f4f5639a3bed32010dc8d2d462ab073a))
+
 ## [1.83.6](https://github.com/SocialGouv/ozensemble/compare/v1.83.5...v1.83.6) (2023-03-08)
 
 
