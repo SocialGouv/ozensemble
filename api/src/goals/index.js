@@ -69,10 +69,9 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
           title: "Objectif manqué",
           content: `Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien\u00A0!
 
-Nos 2 conseils\u00A0: découvrez nos articles pour vous motiver à réduire votre consommation, et modifiez votre objectif si vous pensez qu'il est trop haut pour le moment.
+Nos 2 conseils\u00A0: __découvrez nos articles__ pour vous motiver à réduire votre consommation, et __modifiez votre objectif__ si vous pensez qu'il est trop haut pour le moment.
 
 Bon courage pour cette nouvelle semaine et continuez à bien compléter vos jours, c'est très important pour apprendre à maitriser votre consommation\u00A0!`,
-          category: "goals",
           CTATitle: "Découvrir les articles santé",
           CTANavigation: ["HEALTH"],
           CTALink: null,

@@ -178,129 +178,25 @@ router.post(
         id: conso_id,
       },
     });
+    return res.status(200).send({
+      ok: true,
+      showNewBadge: {
+        newBadge: {
+          title: "Objectif manqué",
+          content: `Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien\u00A0!
 
-    const showGoalNewBadge = await checkIfLastWeekGoalAchieved(matomoId);
-    console.log("showGoalNewBadge", showGoalNewBadge);
+Nos 2 conseils\u00A0: __découvrez nos articles__ pour vous motiver à réduire votre consommation, et __modifiez votre objectif__ si vous pensez qu'il est trop haut pour le moment.
 
-    const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
-
-    if (!drinksBadges.find((badge) => badge.stars === 1)) {
-      await prisma.badge.create({
-        data: {
-          userId: user.id,
-          category: "drinks",
-          stars: 1,
+__Bon courage pour cette nouvelle semaine__ et continuez à bien compléter vos jours, c'est très important pour apprendre à maitriser votre consommation\u00A0!`,
+          CTATitle: "Découvrir les articles santé",
+          CTANavigation: ["HEALTH"],
+          CTALink: null,
+          secondaryButtonTitle: "Modifier mon objectif",
+          secondaryButtonNavigation: ["GAINS_MAIN_VIEW", { screen: "GAINS_MY_OBJECTIVE" }],
+          secondaryButtonLink: "",
         },
-      });
-
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog } });
-    }
-
-    // if badge 3 day is not present
-    // handle 3 days
-    if (!drinksBadges.find((badge) => badge.stars === 2)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
-      if (enoughConsecutiveDays) {
-        await prisma.badge.create({
-          data: {
-            userId: user.id,
-            category: "drinks",
-            stars: 2,
-          },
-        });
-
-        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-
-        return res.status(200).send({
-          ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 2),
-            allBadges,
-            badgesCatalog,
-          },
-        });
-      }
-    }
-
-    // if badge 7 day is not present
-    // handle 7 days
-    if (!drinksBadges.find((badge) => badge.stars === 3)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
-      if (enoughConsecutiveDays) {
-        await prisma.badge.create({
-          data: {
-            userId: user.id,
-            category: "drinks",
-            stars: 3,
-          },
-        });
-        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-
-        return res.status(200).send({
-          ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 3),
-            allBadges,
-            badgesCatalog,
-          },
-        });
-      }
-    }
-    // if badge 14 day is not present
-    // handle 14 days
-    if (!drinksBadges.find((badge) => badge.stars === 4)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
-
-      if (enoughConsecutiveDays) {
-        await prisma.badge.create({
-          data: {
-            userId: user.id,
-            category: "drinks",
-            stars: 4,
-          },
-        });
-        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-
-        return res.status(200).send({
-          ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 4),
-            allBadges,
-            badgesCatalog,
-          },
-        });
-      }
-    }
-
-    // if badge 28 day is not present
-    // handle 28 days
-    if (!drinksBadges.find((badge) => badge.stars === 5)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
-      if (enoughConsecutiveDays) {
-        await prisma.badge.create({
-          data: {
-            userId: user.id,
-            category: "drinks",
-            stars: 5,
-          },
-        });
-        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-
-        return res.status(200).send({
-          ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 5),
-            allBadges,
-            badgesCatalog,
-          },
-        });
-      }
-    }
-
-    if (showGoalNewBadge?.newBadge) return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
-    return res.status(200).send({ ok: true });
+      },
+    });
   })
 );
 

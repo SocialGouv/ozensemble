@@ -13,7 +13,7 @@ const ToSayNo = () => {
       <TopContainer>
         <P>
           <Bold>
-            Les occasions où nous sommes invités à boire un ou plusieurs verres d'alcool sont nombreuses&nbsp;:
+            Les occasions où nous sommes invités à boire un ou plusieurs verres d'alcool sont nombreuses&nbsp;:{' '}
           </Bold>
           un repas de famille, un apéritif entre collègues, une fête de famille...{'\n'}
           Il n'est pas toujours facile de refuser un verre de plus sans passer pour le moralisateur de la bande.
