@@ -1,3 +1,10 @@
+## [1.83.3](https://github.com/SocialGouv/ozensemble/compare/v1.83.2...v1.83.3) (2023-03-08)
+
+
+### Bug Fixes
+
+* send objectif badge after sevrage ([bac5f12](https://github.com/SocialGouv/ozensemble/commit/bac5f129b7426870985ab6f4990dff04ed2b3703))
+
 ## [1.83.2](https://github.com/SocialGouv/ozensemble/compare/v1.83.1...v1.83.2) (2023-03-07)
 
 
