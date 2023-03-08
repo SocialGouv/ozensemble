@@ -33,10 +33,10 @@ import { shareApp } from '../../services/shareApp';
 }
 */
 
-const BadgeModal = ({ badge = null, visible = false }) => {
+const BadgeModal = () => {
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(visible);
-  const [modalContent, setModalContent] = useState(badge);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
   const onClose = () => {
@@ -133,10 +133,7 @@ const BadgeModal = ({ badge = null, visible = false }) => {
             {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
             {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
             {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}
-            {modalContent?.category === 'locked_drinks' && <LockedBadge />}
-            {modalContent?.category === 'locked_goals' && <LockedBadge />}
-            {modalContent?.category === 'locked_articles' && <LockedBadge />}
-            {modalContent?.category === 'locked_defis' && <LockedBadge />}
+            {modalContent?.category.includes('locked_') && <LockedBadge />}
           </View>
           <View className="mb-8">
             <H1 className="text-center">

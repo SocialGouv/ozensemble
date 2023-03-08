@@ -14,7 +14,7 @@ import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
 const BadgesStatus = ({ navigate }) => {
   const [badges, setBadges] = useRecoilState(badgesState);
   const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
-  const availableBadges = badgesCatalog.filter((badge) => badge.category === 'drinks' || badge.category === 'goals');
+  const availableBadges = badgesCatalog.filter((badge) => !badge.category.includes('locked_'));
   useFocusEffect(
     useCallback(() => {
       const matomoId = storage.getString('@UserIdv2');

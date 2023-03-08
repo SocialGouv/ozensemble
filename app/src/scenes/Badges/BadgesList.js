@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Dimensions, StyleSheet, TouchableOpacity, Pressable } from 'react-native';
+import React from 'react';
+import { View, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import WrapperContainer from '../../components/WrapperContainer';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
@@ -12,11 +12,7 @@ import API from '../../services/api';
 const BadgesList = ({ navigation }) => {
   const userBadges = useRecoilValue(badgesState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
-  // const badgesPerCategory = badgesCatalog?.find((badge) => badge.category === category);
-  // const badge = badgesCatalog.badges?.find((badge) => badge.stars === stars);
-  const [clickedBadge, setClickedBadge] = useState({});
-  const [modalVisibility, setModalVisibility] = useState(false);
-  const availableBadges = badgesCatalog.filter((badge) => badge.category === 'drinks' || badge.category === 'goals');
+  const availableBadges = badgesCatalog.filter((badge) => !badge.category.includes('locked_'));
   return (
     <WrapperContainer title="Mes badges obtenus" onPressBackButton={navigation.goBack}>
       {availableBadges.map((badgeCategory) => {
@@ -67,7 +63,6 @@ const BadgesList = ({ navigation }) => {
                       style={styles.card}
                       onPress={() => {
                         const category = 'locked_' + badge.category;
-                        console.log('category', category);
                         const stars = badge.stars;
                         API.get({ path: '/badge/test', query: { category, stars } });
                       }}>
