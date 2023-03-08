@@ -319,7 +319,7 @@ router.delete(
 
 const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
   let consecutiveDays = 1;
-  let currentConsoDate = dayjs();
+  let currentConsoDate = dayjs().startOf("day");
   const allConsos = await prisma.consommation.findMany({
     where: { userId: userId },
     orderBy: { date: "desc" },
@@ -327,7 +327,7 @@ const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
   let differenceDate;
   let consoDate;
   for (const conso of allConsos) {
-    consoDate = dayjs(conso.date);
+    consoDate = dayjs(conso.date).startOf("day");
     differenceDate = currentConsoDate.diff(consoDate, "day");
     if (differenceDate === 0) {
       continue;
@@ -339,7 +339,6 @@ const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
       consecutiveDays++;
     }
     // differenceDate === 1;
-
     if (consecutiveDays >= consecutiveDaysGoal) {
       return true;
     }
