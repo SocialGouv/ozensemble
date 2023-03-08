@@ -138,7 +138,7 @@ const BadgeModal = () => {
               <TextStyled>{modalContent?.title}</TextStyled>
             </H1>
           </View>
-          <Text className="text-base font-medium mb-8 text-center">
+          <Text className="text-base font-medium mb-8 mx-4 text-center">
             <TextStyled color={'#3C3C43'}>{modalContent?.content}</TextStyled>
           </Text>
           <View className="items-center mb-4">
