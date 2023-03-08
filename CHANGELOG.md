@@ -1,3 +1,10 @@
+## [1.83.13](https://github.com/SocialGouv/ozensemble/compare/v1.83.12...v1.83.13) (2023-03-08)
+
+
+### Bug Fixes
+
+* add unique constraint on badge ([002416c](https://github.com/SocialGouv/ozensemble/commit/002416c1bd2155de827c33376882f8aa4daedae2))
+
 ## [1.83.12](https://github.com/SocialGouv/ozensemble/compare/v1.83.11...v1.83.12) (2023-03-08)
 
 
