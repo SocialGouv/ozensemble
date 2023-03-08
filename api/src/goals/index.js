@@ -71,7 +71,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
 
 Nos 2 conseils\u00A0: __découvrez nos articles__ pour vous motiver à réduire votre consommation, et __modifiez votre objectif__ si vous pensez qu'il est trop haut pour le moment.
 
-Bon courage pour cette nouvelle semaine et continuez à bien compléter vos jours, c'est très important pour apprendre à maitriser votre consommation\u00A0!`,
+__Bon courage pour cette nouvelle semaine__ et continuez à bien compléter vos jours, c'est très important pour apprendre à maitriser votre consommation\u00A0!`,
           CTATitle: "Découvrir les articles santé",
           CTANavigation: ["HEALTH"],
           CTALink: null,
