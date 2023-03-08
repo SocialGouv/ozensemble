@@ -1,3 +1,10 @@
+## [1.83.4](https://github.com/SocialGouv/ozensemble/compare/v1.83.3...v1.83.4) (2023-03-08)
+
+
+### Bug Fixes
+
+* clash with two badges ([d6c2e15](https://github.com/SocialGouv/ozensemble/commit/d6c2e151c157c833b2755354bfc0164dc43a572c))
+
 ## [1.83.3](https://github.com/SocialGouv/ozensemble/compare/v1.83.2...v1.83.3) (2023-03-08)
 
 
