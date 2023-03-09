@@ -1,3 +1,10 @@
+## [1.83.14](https://github.com/SocialGouv/ozensemble/compare/v1.83.13...v1.83.14) (2023-03-09)
+
+
+### Bug Fixes
+
+* prisma.upsert instead of prisma.findUnique and prisma.create ([a63814b](https://github.com/SocialGouv/ozensemble/commit/a63814bec9ecb230785a33fa2130a8e403b77a73))
+
 ## [1.83.13](https://github.com/SocialGouv/ozensemble/compare/v1.83.12...v1.83.13) (2023-03-08)
 
 
