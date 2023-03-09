@@ -37,7 +37,7 @@ const badgesCatalog = [
         title: "7 jours complétés de suite",
         reduced_title: "7 jours",
         content:
-          "Toutes nos félicitations pour votre régularité\u00A0! Partagez l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation.",
+          "Bravo de prendre soin de vous\u00A0! Vous allez pouvoir commencer à comparer d’une semaine à l’autre. Donnez-nous votre avis sur Oz Ensemble, nous lisons tous vos messages.",
         stars: 3,
         category: "drinks",
         CTATitle: "Donner mon avis",
