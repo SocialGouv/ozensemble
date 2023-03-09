@@ -20,7 +20,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
       const lastBadge = goalBadges[0];
       // console.log("lastBadge", lastBadge);
       if (lastBadge && lastBadge.stars === 5) return null;
-      if (dayjs(lastBadge.createdAt).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
+      if (dayjs(lastBadge.date).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
         return null;
       }
     }

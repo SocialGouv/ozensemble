@@ -84,6 +84,23 @@ const FakeData = () => {
         <MenuItem caption="Addict" onPress={() => replaceStorageValues(fakeOnboardingQuizz.addicted)} />
         <H1Wrapper>Objectif</H1Wrapper>
         <MenuItem caption="Tout l'objectif" onPress={() => replaceStorageValues(fakeGain)} />
+        <MenuItem
+          caption="Objectif semaine dernière"
+          onPress={() => {
+            matomoId = storage.getString('@UserIdv2');
+            API.post({
+              path: '/goal/',
+              body: {
+                matomoId: matomoId,
+                daysWithGoalNoDrink: ['wednesday', 'thursday'],
+                dosesByDrinkingDay: 7,
+                dosesPerWeek: 35,
+                forceDate: dayjs().startOf('week').subtract(7, 'day').format('YYYY-MM-DD'),
+              },
+            });
+          }}
+        />
+
         <H1Wrapper>Défis</H1Wrapper>
         <MenuItem
           caption="Tous les défis"
