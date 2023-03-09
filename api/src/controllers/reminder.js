@@ -92,22 +92,16 @@ router.put(
 
     const { utcTimeHours, utcTimeMinutes, utcDaysOfWeek } = toUtcData({ timeHours, timeMinutes, daysOfWeek, timezone });
 
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-    if (!user) {
-      user = await prisma.user.create({
-        data: {
-          push_notif_token: pushNotifToken,
-          matomo_id: matomoId,
-        },
-      });
-    } else {
-      user = await prisma.user.update({
-        where: { matomo_id: matomoId },
-        data: {
-          push_notif_token: pushNotifToken,
-        },
-      });
-    }
+    const user = await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      update: {
+        push_notif_token: pushNotifToken,
+      },
+      create: {
+        push_notif_token: pushNotifToken,
+        matomo_id: matomoId,
+      },
+    });
 
     const reminderUpdatedData = (createOrUpdate) => ({
       utcTimeHours,

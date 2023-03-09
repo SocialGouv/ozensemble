@@ -10,24 +10,16 @@ router.put(
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-
-    if (!user) {
-      await prisma.user.create({
-        data: {
-          matomo_id: matomoId,
-        },
-      });
-    }
-
-    if (pushNotifToken) {
-      await prisma.user.update({
-        where: { matomo_id: matomoId },
-        data: {
-          push_notif_token: pushNotifToken,
-        },
-      });
-    }
+    await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      update: {
+        push_notif_token: pushNotifToken,
+      },
+      create: {
+        push_notif_token: pushNotifToken,
+        matomo_id: matomoId,
+      },
+    });
 
     return res.status(200).send({ ok: true });
   })
