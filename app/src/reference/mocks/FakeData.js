@@ -56,9 +56,9 @@ const FakeData = () => {
           .map(({ title, category, stars }) => {
             return (
               <MenuItem
-                key={title}
+                key={title + category}
                 noAlert
-                caption={title}
+                caption={category.includes('locked') ? `LOCKED ${title}` : title}
                 onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
               />
             );

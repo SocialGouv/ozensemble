@@ -108,12 +108,12 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
   if (!consos.length) return false;
   let consecutiveDays = 1;
   let currentConsoDate = dayjs(consos[0].date).startOf("day");
-  // console.log("currentConsoDate", currentConsoDate);
+  // console.log("currentConsoDate", currentConsoDate.format("YYYY-MM-DD"));
   let differenceDate;
   let consoDate;
   for (const conso of consos) {
     consoDate = dayjs(conso.date).startOf("day");
-    // console.log("consoDate", consoDate);
+    // console.log("consoDate", consoDate.format("YYYY-MM-DD"));
     differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
     // console.log("differenceDate", differenceDate);
     if (differenceDate === 0) {
