@@ -439,7 +439,7 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
                 category: 'ANALYSIS',
                 action: 'ANALYSIS_CONTACT',
               });
-              navigation.navigate('CONTACT');
+              navigation.sta('CONTACT');
             }}
           />
         </ContactAddictologue>
