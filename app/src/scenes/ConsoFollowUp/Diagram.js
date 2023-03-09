@@ -317,16 +317,14 @@ const Diagram = ({ asPreview }) => {
           message={
             <>
               <TextStyled>
-                Votre consommation a{' '}
-                <TextStyled bold>
-                  augmenté de {-pourcentageOfDecrease}% ({-diff}
-                  {'\u00A0'}verre{-diff > 1 ? 's' : ''} de plus)
-                </TextStyled>{' '}
-                par rapport à la semaine dernière.
+                Votre consommation est en hausse de {-diff} verre{-diff > 1 ? 's' : ''} par rapport à la semaine
+                dernière.
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Si besoin, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de nos addictologue.
+                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien !
+                <TextStyled bold>Découvrez nos articles de santé</TextStyled> pour vous motiver à réduire votre
+                consommation.
               </TextStyled>
               <TextStyled />
             </>
@@ -341,11 +339,9 @@ const Diagram = ({ asPreview }) => {
           message={
             <>
               <TextStyled>
-                Bravo, vous avez consommé {pourcentageOfDecrease}% de moins (soit{`\u00A0${diff}\u00A0`}
-                verre{diff > 1 ? 's' : ''}) que la semaine dernière.
+                Bravo, vous avez consommé {diff} verre{diff > 1 ? 's' : ''} de moins que la semaine dernière,{' '}
+                <TextStyled bold>continuez comme cela !</TextStyled>
               </TextStyled>
-              <TextStyled />
-              <TextStyled>Continuez comme cela !</TextStyled>
             </>
           }
         />
@@ -365,8 +361,8 @@ const Diagram = ({ asPreview }) => {
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Si besoin d'un coup de pouce, vous pouvez parler <TextStyled bold>gratuitement</TextStyled> avec l'un de
-                nos addictologues.{' '}
+                Si besoin d'un coup de pouce, vous pouvez <TextStyled bold>découvrir nos articles santé</TextStyled>{' '}
+                pour vous motiver à réduire votre consommation !{' '}
               </TextStyled>
             </>
           }
@@ -423,23 +419,15 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
       {!!button && (
         <ContactAddictologue>
           <ButtonPrimary
-            content="Contacter un addictologue"
+            content="Découvrir les articles santé"
             small
             onPress={() => {
               logEvent({
                 category: 'CONTACT',
-                action: 'CONTACT_RDV',
-              });
-              logEvent({
-                category: 'CONTACT',
                 action: 'CONTACT_OPEN',
-                name: 'SUIVI',
+                name: 'HEALTH',
               });
-              logEvent({
-                category: 'ANALYSIS',
-                action: 'ANALYSIS_CONTACT',
-              });
-              navigation.sta('CONTACT');
+              navigation.navigate('HEALTH');
             }}
           />
         </ContactAddictologue>
