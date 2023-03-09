@@ -1,7 +1,7 @@
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, waitForAll } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -89,8 +89,8 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   );
 
   const isFocused = useIsFocused();
-
   const badgeModalOpen = useRecoilValue(badgesModalState);
+
   const checkNPSAvailability = () => {
     if (badgeModalOpen) return;
     const daysDrink = days.filter((day) => {
@@ -144,7 +144,9 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   useEffect(() => {
     if (isFocused) {
-      checkNPSAvailability();
+      setTimeout(() => {
+        checkNPSAvailability();
+      }, 5000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [days, isFocused]);
