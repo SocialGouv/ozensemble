@@ -362,7 +362,7 @@ const Diagram = ({ asPreview }) => {
               <TextStyled />
               <TextStyled>
                 Si besoin d'un coup de pouce, vous pouvez <TextStyled bold>découvrir nos articles santé</TextStyled>{' '}
-                pour vous motiver à réduire votre consommation{'\u00A0'}!{' '}
+                pour vous motiver à réduire votre consommation!{' '}
               </TextStyled>
             </>
           }
@@ -423,8 +423,8 @@ const EvolutionMessage = ({ background, border, icon, message, button, navigatio
             small
             onPress={() => {
               logEvent({
-                category: 'CONTACT',
-                action: 'CONTACT_OPEN',
+                category: 'ANALYSIS',
+                action: 'ANALYSIS_HEALTH',
                 name: 'HEALTH',
               });
               navigation.navigate('HEALTH');
