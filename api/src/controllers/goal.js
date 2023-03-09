@@ -9,7 +9,6 @@ router.post(
   "/",
   catchErrors(async (req, res) => {
     const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, calculateBadges, forceDate } = req.body || {};
-    console.log(matomoId);
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
     let user = await prisma.user.upsert({
@@ -19,17 +18,16 @@ router.post(
       },
       update: {},
     });
-    console.log(daysWithGoalNoDrink);
     let date;
-    console.log("here");
     if (forceDate) {
       date = forceDate;
-      console.log("forceDate");
       const inprogressGoal = await prisma.goal.findFirst({ where: { userId: user.id, status: "InProgress" } });
       if (inprogressGoal) {
         await prisma.goal.update({ where: { id: inprogressGoal.id }, data: { status: "Failure" } });
       }
-    } else date = dayjs().startOf("week").format("YYYY-MM-DD");
+    } else {
+      date = dayjs().startOf("week").format("YYYY-MM-DD");
+    }
 
     await prisma.goal.upsert({
       where: { id: `${user.id}_${date}` },
@@ -61,6 +59,7 @@ router.post(
           category: "goals",
           stars: 1,
           shown: true,
+          date: date,
         },
       });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });

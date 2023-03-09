@@ -18,7 +18,7 @@ model User {
   notifications      Notification[]
   badges             Badge[]
   consommations      Consommation[]
-  goals          Goal[]
+  goals              Goal[]
   lastConsoAdded     DateTime?
   createdAt          DateTime       @default(now())
   updatedAt          DateTime       @default(now()) @updatedAt
@@ -96,13 +96,14 @@ model Badge {
   userId    String
   category  String
   stars     Int
+  date      String   @default("")
   shown     Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@unique([userId, category, stars])
   @@index([userId], type: Hash)
 }
-
 
 model Consommation {
   id        String   @id @default(uuid())
@@ -118,20 +119,22 @@ model Consommation {
   date      DateTime @default(now())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@index([userId], type: Hash)
 }
 
 model Goal {
-  id               String   @id
-  daysWithGoalNoDrink String[] @default([])
-  dosesByDrinkingDay Float    @default(0)
-  dosesPerWeek Float    @default(0)
-  user             User     @relation(fields: [userId], references: [id])
-  userId           String
-  date             String   @default("")
-  status           GoalStatus   @default(InProgress)
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id                  String     @id
+  daysWithGoalNoDrink String[]   @default([])
+  dosesByDrinkingDay  Float      @default(0)
+  dosesPerWeek        Float      @default(0)
+  user                User       @relation(fields: [userId], references: [id])
+  userId              String
+  date                String     @default("")
+  status              GoalStatus @default(InProgress)
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
   @@index([id], type: Hash)
 }
 
