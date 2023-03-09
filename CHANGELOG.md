@@ -1,3 +1,10 @@
+# [1.84.0](https://github.com/SocialGouv/ozensemble/compare/v1.83.15...v1.84.0) (2023-03-09)
+
+
+### Features
+
+* different announcement modal for new user ([835c34c](https://github.com/SocialGouv/ozensemble/commit/835c34c7188229ef64212f903d0295c27f79c179))
+
 ## [1.83.15](https://github.com/SocialGouv/ozensemble/compare/v1.83.14...v1.83.15) (2023-03-09)
 
 
