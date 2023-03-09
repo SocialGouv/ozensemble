@@ -24,3 +24,8 @@ export const badgesState = atom({
       }),
   ],
 });
+
+export const badgesModalState = atom({
+  key: 'badgesModalState',
+  default: false,
+});

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
 import { hitSlop } from '../../styles/theme';
@@ -13,7 +13,7 @@ import API from '../../services/api';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
-import { badgesCatalogState, badgesState } from '../../recoil/badges';
+import { badgesCatalogState, badgesModalState, badgesState } from '../../recoil/badges';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
@@ -35,7 +35,7 @@ import { shareApp } from '../../services/shareApp';
 
 const BadgeModal = () => {
   const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useRecoilState(badgesModalState);
   const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);

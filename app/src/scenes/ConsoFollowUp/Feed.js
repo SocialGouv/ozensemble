@@ -25,6 +25,7 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import { storage } from '../../services/storage';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import API from '../../services/api';
+import { badgesModalState } from '../../recoil/badges';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -89,7 +90,9 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   const isFocused = useIsFocused();
 
+  const badgeModalOpen = useRecoilValue(badgesModalState);
   const checkNPSAvailability = () => {
+    if (badgeModalOpen) return;
     const daysDrink = days.filter((day) => {
       const drinksOfTheDay = drinks
         .filter(({ timestamp }) => isOnSameDay(timestamp, day))
