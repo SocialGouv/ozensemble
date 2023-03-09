@@ -1,5 +1,5 @@
 -- AlterTable
-ALTER TABLE "User" ADD COLUMN     "announcementModals" TEXT[] DEFAULT ARRAY[]::TEXT[];
+ALTER TABLE "User" ADD COLUMN     "modals" TEXT[] DEFAULT ARRAY[]::TEXT[];
 
 -- CreateTable
 CREATE TABLE "Badge" (

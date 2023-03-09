@@ -10,6 +10,10 @@ router.put(
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
+    const updateObj = {};
+
+    if (req.body.hasOwnProperty("pushNotifToken")) updateObj.push_notif_token = pushNotifToken;
+
     await prisma.user.upsert({
       where: { matomo_id: matomoId },
       update: {

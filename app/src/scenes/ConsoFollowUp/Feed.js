@@ -47,8 +47,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
 
-  const [pleaseNPSModal, setPleaseNPSModal] = useState(false);
-
   const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
@@ -89,62 +87,11 @@ const Feed = ({ hideFeed, scrollToInput }) => {
 
   const isFocused = useIsFocused();
 
-  const checkNPSAvailability = () => {
-    const daysDrink = days.filter((day) => {
-      const drinksOfTheDay = drinks
-        .filter(({ timestamp }) => isOnSameDay(timestamp, day))
-        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
-      if (!drinksOfTheDay.length) return false;
-      return true;
-    });
-    if (daysDrink.length < 4) return;
-    const npsAsked3 = storage.getString('@NPSAsked3');
-    if (npsAsked3) return;
-
-    const npsAsked1 = storage.getString('@NPSAsked1');
-    const npsAsked2 = storage.getString('@NPSAsked2');
-
-    const now = dayjs();
-
-    if (npsAsked1) {
-      if (dayjs(npsAsked1).diff(now, 'day') < 7) {
-        return;
-      }
-    } else if (npsAsked2) {
-      if (dayjs(npsAsked2).diff(now, 'day') < 7) {
-        return;
-      }
-    }
-    setPleaseNPSModal(true);
-  };
-
-  const hideModal = () => {
-    const firstReject = storage.getString('@NPSAsked1');
-    const secondReject = storage.getString('@NPSAsked2');
-    const thirdReject = storage.getString('@NPSAsked3');
-
-    if (!firstReject) {
-      storage.set('@NPSAsked1', dayjs().format('YYYY-MM-DD'));
-    } else if (!secondReject) {
-      storage.set('@NPSAsked2', dayjs().format('YYYY-MM-DD'));
-    } else if (!thirdReject) {
-      storage.set('@NPSAsked3', dayjs().format('YYYY-MM-DD'));
-    }
-    setPleaseNPSModal(false);
-  };
-
   useEffect(() => {
     if (isFocused) {
       setTimestampSelected(null);
     }
   }, [isFocused]);
-
-  useEffect(() => {
-    if (isFocused) {
-      checkNPSAvailability();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [days, isFocused]);
 
   const refs = useRef({});
 
@@ -239,23 +186,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
               </LastDrinkButtons>
             </LastDrink>
           )}
-          <OnBoardingModal
-            title="5 sec pour nous aider à améliorer l'application ?"
-            description={
-              <TextStyled>
-                Nous construisons l'application ensemble et{' '}
-                <TextStyled bold>votre avis sera pris en compte dans les prochaines mises à jour.</TextStyled> Merci
-                d'avance{'\u00A0'}!
-              </TextStyled>
-            }
-            boutonTitle="Je donne mon avis sur Oz"
-            onPress={() => {
-              setPleaseNPSModal(false);
-              navigation.navigate('NPS_SCREEN', { triggeredFrom: 'After three drinks' });
-            }}
-            visible={!!pleaseNPSModal}
-            hide={hideModal}
-          />
           {days.map((day, index) => {
             const isFirst = index === 0;
             const isLast = index === days.length - 1;

@@ -139,7 +139,7 @@ const ConsosList = ({ navigation, route }) => {
           volume: drinkFromCatalog.volume,
         },
       });
-      if (response.showNewBadge) showToast = false;
+      if (response.showNewBadge || response.showInAppModal) showToast = false;
     }
     // setLocalDrinksState([]);
     if (showToast) {

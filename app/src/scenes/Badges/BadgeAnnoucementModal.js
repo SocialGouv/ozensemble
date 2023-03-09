@@ -29,25 +29,7 @@ import { shareApp } from '../../services/shareApp';
 
 */
 
-const BadgeAnnoucementModal = () => {
-  const [modalContent, setModalContent] = useState(null);
-  const setBadges = useSetRecoilState(badgesState);
-  const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
-
-  useEffect(() => {
-    const matomoId = storage.getString('@UserIdv2');
-    // storage.delete('@NewBadgesAnnouncementFeatures');
-    API.get({ path: `/badge/${matomoId}` }).then((res) => {
-      if (res.ok) {
-        setBadges(res.data.badges);
-        setBadgesCatalog(res.data.badgesCatalog);
-        if (res.data.announcementModal?.id) {
-          setModalContent(res.data.announcementModal);
-        }
-      }
-    });
-  }, [setBadges, setBadgesCatalog]);
-
+const BadgeAnnoucementModal = ({ modalContent, setModalContent }) => {
   const navigation = useNavigation();
   const onCTAPress = () => {
     onClose();

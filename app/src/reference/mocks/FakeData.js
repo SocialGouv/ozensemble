@@ -67,7 +67,7 @@ const FakeData = () => {
         <MenuItem
           caption="Envoyer une notification NPS dans 10 secondes"
           onPress={() => {
-            storage.set('@NPSDone', false);
+            storage.delete('@NPSDone');
             const NPSNotificationDate = new Date(Date.now() + 10000);
             NotificationService.scheduleNotification({
               date: NPSNotificationDate,

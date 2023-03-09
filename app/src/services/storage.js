@@ -272,14 +272,14 @@ export async function sendPreviousDrinksToDB() {
   storage.set('hasSentPreviousDrinksToDB', true);
 }
 
-export const hasSentObjectifToDB = storage.getBoolean('hasSentObjectifToDBdlkf');
+export const hasSentObjectifToDB = storage.getBoolean('hasSentObjectifToDB');
 
 export async function sendObjectifToDB() {
   if (hasSentObjectifToDB) return;
   const matomoId = storage.getString('@UserIdv2');
   if (!matomoId?.length) {
     // new user - no drinks to send
-    storage.set('hasSentPreviousDrinksToDB', true);
+    storage.set('hasSentObjectifToDB', true);
     return;
   }
   // @Drinks
@@ -314,4 +314,31 @@ export async function sendObjectifToDB() {
     },
   });
   storage.set('hasSentObjectifToDB', true);
+}
+
+export const hasSentNPSDoneToDB = storage.getBoolean('hasSentNPSDoneToDB');
+
+export async function sendNPSDoneToDB() {
+  if (hasSentNPSDoneToDB) return;
+  const matomoId = storage.getString('@UserIdv2');
+  if (!matomoId?.length) {
+    // new user - no drinks to send
+    storage.set('hasSentNPSDoneToDB', true);
+    return;
+  }
+
+  const NPSDone = storage.getString('@NPSDone');
+  if (!NPSDone) {
+    storage.set('hasSentNPSDoneToDB', true);
+    return;
+  }
+
+  API.post({
+    path: '/appUserMilestone',
+    body: {
+      matomoId,
+      appUserMilestone: '@NPSDone',
+    },
+  });
+  storage.set('hasSentNPSDoneToDB', true);
 }
