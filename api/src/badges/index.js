@@ -37,7 +37,7 @@ const badgesCatalog = [
         title: "7 jours complétés de suite",
         reduced_title: "7 jours",
         content:
-          "Toutes nos félicitations pour votre régularité\u00A0! Partagez l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation.",
+          "Bravo de prendre soin de vous\u00A0! Vous allez pouvoir commencer à comparer d’une semaine à l’autre. Donnez-nous votre avis sur Oz Ensemble, nous lisons tous vos messages.",
         stars: 3,
         category: "drinks",
         CTATitle: "Donner mon avis",
@@ -261,7 +261,7 @@ const badgesCatalog = [
         category: "locked_goals",
         title: "3 semaines réussies",
         reduced_title: "1 jour",
-        content: "Remportez ce badge après avoir ajouté 14 jours de consommation de suite\u00A0!",
+        content: "Remportez ce badge après avoir réussi à tenir votre objectif sur une troisième semaine\u00A0!",
         stars: 4,
         CTATitle: "Ajouter une consommation",
         CTANavigation: ["ADD_DRINK"],
@@ -273,7 +273,7 @@ const badgesCatalog = [
       {
         category: "locked_goals",
         title: "4 semaines réussies",
-        content: "Remportez ce badge après avoir réussi à tenir votre objectif sur une troisième semaine\u00A0!",
+        content: "Remportez ce badge après avoir réussi à tenir votre objectif sur une quatrième semaine\u00A0!",
         stars: 5,
         CTATitle: "Ajouter une consommation",
         CTANavigation: ["ADD_DRINK"],
