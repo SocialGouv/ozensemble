@@ -1,3 +1,11 @@
+## [1.83.15](https://github.com/SocialGouv/ozensemble/compare/v1.83.14...v1.83.15) (2023-03-09)
+
+
+### Bug Fixes
+
+* inprogress anyway ([11d1557](https://github.com/SocialGouv/ozensemble/commit/11d1557c5499443dddc71e4629d6e801d8009032))
+* proper key on badges ([c895f2d](https://github.com/SocialGouv/ozensemble/commit/c895f2db46436afa68c1643a963b25a143e703fd))
+
 ## [1.83.14](https://github.com/SocialGouv/ozensemble/compare/v1.83.13...v1.83.14) (2023-03-09)
 
 
