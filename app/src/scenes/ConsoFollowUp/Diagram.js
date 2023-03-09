@@ -322,7 +322,7 @@ const Diagram = ({ asPreview }) => {
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien !
+                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien{'\u00A0'}!
                 <TextStyled bold>Découvrez nos articles de santé</TextStyled> pour vous motiver à réduire votre
                 consommation.
               </TextStyled>
@@ -340,7 +340,7 @@ const Diagram = ({ asPreview }) => {
             <>
               <TextStyled>
                 Bravo, vous avez consommé {diff} verre{diff > 1 ? 's' : ''} de moins que la semaine dernière,{' '}
-                <TextStyled bold>continuez comme cela !</TextStyled>
+                <TextStyled bold>continuez comme cela{'\u00A0'}!</TextStyled>
               </TextStyled>
             </>
           }
@@ -362,7 +362,7 @@ const Diagram = ({ asPreview }) => {
               <TextStyled />
               <TextStyled>
                 Si besoin d'un coup de pouce, vous pouvez <TextStyled bold>découvrir nos articles santé</TextStyled>{' '}
-                pour vous motiver à réduire votre consommation !{' '}
+                pour vous motiver à réduire votre consommation{'\u00A0'}!{' '}
               </TextStyled>
             </>
           }
