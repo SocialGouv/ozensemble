@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
 import { hitSlop } from '../../styles/theme';
@@ -13,7 +13,7 @@ import API from '../../services/api';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
-import { badgesCatalogState, badgesState } from '../../recoil/badges';
+import { badgesCatalogState, badgesModalState, badgesState } from '../../recoil/badges';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
@@ -144,9 +144,9 @@ const BadgeModal = () => {
             <TextStyled color={'#3C3C43'}>
               {modalContent?.content?.split('__')?.map((string, index) => {
                 return (
-                  <TextStyled key={string} bold={index % 2}>
-                    {string}
-                  </TextStyled>
+                  <React.Fragment key={string}>
+                    <TextStyled bold={index % 2}>{string}</TextStyled>
+                  </React.Fragment>
                 );
               })}
             </TextStyled>
