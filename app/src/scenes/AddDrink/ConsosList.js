@@ -93,11 +93,11 @@ const ConsosList = ({ navigation, route }) => {
   };
 
   const onValidateConsos = async () => {
+    onClose();
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
       timestamp: makeSureTimestamp(addDrinkModalTimestamp),
     }));
-    onClose();
     let drinkNumber = 0;
     let showToast = true;
     for (let drink of drinksWithTimestamps) {
@@ -141,7 +141,7 @@ const ConsosList = ({ navigation, route }) => {
       });
       if (response.showNewBadge) showToast = false;
     }
-    setLocalDrinksState([]);
+    // setLocalDrinksState([]);
     if (showToast) {
       setTimeout(() => {
         toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
