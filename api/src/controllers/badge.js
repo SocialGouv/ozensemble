@@ -37,14 +37,14 @@ router.get(
 
     let announcementModal = null;
 
-    if (!user.announcementModals.includes("@NewBadgesAnnouncementFeatures3")) {
+    if (!user.announcementModals.includes("@NewBadgesAnnouncementFeatures")) {
       announcementModal = {
-        id: "@NewBadgesAnnouncementFeatures3",
+        id: "@NewBadgesAnnouncementFeatures",
         badgesCategories: ["drinks", "goals"], // "defis", "articles"
         title: "Nouveau\u00A0: les badges arrivent dans l'application\u00A0!",
         description:
           "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
-        CTAButton: "Voir mes badges",
+        CTAButton: badges.length ? "Voir mes badges" : null,
         CTANavigation: ["BADGES_LIST"],
       };
       await prisma.user.update({

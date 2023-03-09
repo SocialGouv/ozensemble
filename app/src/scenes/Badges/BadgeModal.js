@@ -151,9 +151,11 @@ const BadgeModal = () => {
               })}
             </TextStyled>
           </Text>
-          <View className="items-center mb-4">
-            <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTATitle} />
-          </View>
+          {!!modalContent?.CTATitle && (
+            <View className="items-center mb-4">
+              <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTATitle} />
+            </View>
+          )}
           {!!modalContent?.secondaryButtonTitle?.length && (
             <TouchableOpacity>
               <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>

@@ -41,7 +41,7 @@ const BadgeAnnoucementModal = () => {
       if (res.ok) {
         setBadges(res.data.badges);
         setBadgesCatalog(res.data.badgesCatalog);
-        if (!!res.data.announcementModal?.id && !storage.getBoolean(res.data.announcementModal.id)) {
+        if (res.data.announcementModal?.id) {
           setModalContent(res.data.announcementModal);
         }
       }
@@ -73,7 +73,6 @@ const BadgeAnnoucementModal = () => {
     });
   };
   const onClose = () => {
-    storage.set(modalContent.id, true);
     setModalContent(null);
   };
 
@@ -118,9 +117,11 @@ const BadgeAnnoucementModal = () => {
           <Text className="text-base font-medium mb-8 text-center">
             <TextStyled color={'#3C3C43'}>{modalContent?.description}</TextStyled>
           </Text>
-          <View className="items-center mb-4">
-            <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTAButton} />
-          </View>
+          {!!modalContent?.CTAButton && (
+            <View className="items-center mb-4">
+              <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTAButton} />
+            </View>
+          )}
         </View>
       </SafeAreaView>
     </Modal>
