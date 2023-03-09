@@ -8,8 +8,7 @@ const router = express.Router();
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, calculateBadges } = req.body || {};
-
+    const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, calculateBadges, forceDate } = req.body || {};
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
     let user = await prisma.user.upsert({
@@ -19,8 +18,17 @@ router.post(
       },
       update: {},
     });
+    let date;
+    if (forceDate) {
+      date = forceDate;
+      const inprogressGoal = await prisma.goal.findFirst({ where: { userId: user.id, status: "InProgress" } });
+      if (inprogressGoal) {
+        await prisma.goal.update({ where: { id: inprogressGoal.id }, data: { status: "Failure" } });
+      }
+    } else {
+      date = dayjs().startOf("week").format("YYYY-MM-DD");
+    }
 
-    const date = dayjs().startOf("week").format("YYYY-MM-DD");
     await prisma.goal.upsert({
       where: { id: `${user.id}_${date}` },
       create: {
@@ -36,6 +44,7 @@ router.post(
         daysWithGoalNoDrink,
         dosesByDrinkingDay,
         dosesPerWeek,
+        status: "InProgress",
       },
     });
 
@@ -51,6 +60,7 @@ router.post(
           category: "goals",
           stars: 1,
           shown: true,
+          date: date,
         },
       });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });

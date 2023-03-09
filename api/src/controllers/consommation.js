@@ -297,7 +297,9 @@ router.post(
       }
     }
 
-    if (showGoalNewBadge?.newBadge) return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+    if (showGoalNewBadge?.newBadge) {
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+    }
     return res.status(200).send({ ok: true });
   })
 );

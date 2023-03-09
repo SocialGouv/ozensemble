@@ -20,7 +20,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
       const lastBadge = goalBadges[0];
       // console.log("lastBadge", lastBadge);
       if (lastBadge && lastBadge.stars === 5) return null;
-      if (dayjs(lastBadge.createdAt).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
+      if (dayjs(lastBadge.date).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
         return null;
       }
     }
@@ -108,12 +108,12 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
   if (!consos.length) return false;
   let consecutiveDays = 1;
   let currentConsoDate = dayjs(consos[0].date).startOf("day");
-  // console.log("currentConsoDate", currentConsoDate);
+  // console.log("currentConsoDate", currentConsoDate.format("YYYY-MM-DD"));
   let differenceDate;
   let consoDate;
   for (const conso of consos) {
     consoDate = dayjs(conso.date).startOf("day");
-    // console.log("consoDate", consoDate);
+    // console.log("consoDate", consoDate.format("YYYY-MM-DD"));
     differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
     // console.log("differenceDate", differenceDate);
     if (differenceDate === 0) {
