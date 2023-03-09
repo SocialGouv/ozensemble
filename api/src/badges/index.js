@@ -261,7 +261,7 @@ const badgesCatalog = [
         category: "locked_goals",
         title: "3 semaines réussies",
         reduced_title: "1 jour",
-        content: "Remportez ce badge après avoir ajouté 14 jours de consommation de suite\u00A0!",
+        content: "Remportez ce badge après avoir réussi à tenir votre objectif sur une troisième semaine\u00A0!",
         stars: 4,
         CTATitle: "Ajouter une consommation",
         CTANavigation: ["ADD_DRINK"],
@@ -273,7 +273,7 @@ const badgesCatalog = [
       {
         category: "locked_goals",
         title: "4 semaines réussies",
-        content: "Remportez ce badge après avoir réussi à tenir votre objectif sur une troisième semaine\u00A0!",
+        content: "Remportez ce badge après avoir réussi à tenir votre objectif sur une quatrième semaine\u00A0!",
         stars: 5,
         CTATitle: "Ajouter une consommation",
         CTANavigation: ["ADD_DRINK"],
