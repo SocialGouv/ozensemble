@@ -44,6 +44,7 @@ router.post(
         daysWithGoalNoDrink,
         dosesByDrinkingDay,
         dosesPerWeek,
+        status: "InProgress",
       },
     });
 
