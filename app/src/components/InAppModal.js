@@ -1,29 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
-import { hitSlop } from '../../styles/theme';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
-import Modal from '../../components/Modal';
-import TextStyled from '../../components/TextStyled';
-import API from '../../services/api';
-import { BadgeDrinks } from './Svgs/BadgeDrinks';
-import { BadgeGoals } from './Svgs/BadgeGoals';
-import { LockedBadge } from './Svgs/LockedBadge';
-import { badgesCatalogState, badgesState } from '../../recoil/badges';
-import { BadgeArticles } from './Svgs/BadgeArticles';
-import { BadgeDefis } from './Svgs/BadgeDefis';
-import { shareApp } from '../../services/shareApp';
+import { hitSlop } from '../styles/theme';
+import ButtonPrimary from './ButtonPrimary';
+import H1 from './H1';
+import Modal from './Modal';
+import TextStyled from './TextStyled';
+import API from '../services/api';
+import { shareApp } from '../services/shareApp';
+import { BagdeDrinksNoStars } from '../scenes/Badges/Svgs/BadgeDrinksNoStars';
+import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
+import { BadgeDefisNoStars } from '../scenes/Badges/Svgs/BadgeDefisNoStars';
+import { BadgeArticlesNoStars } from '../scenes/Badges/Svgs/BadgeArticlesNoStars';
 
 /* example
 {
-    category: 'drinks',
     title: '1er jour complété',
     content: 'Super, vous avez complété votre 1er jour! \n Revenez demain pour ajouter le second! ',
-    stars: 2,
     CTATitle: 'Voir mes badges',
     CTANavigation: ['BADGES_LIST'],
     CTALink: null,
@@ -33,15 +28,12 @@ import { shareApp } from '../../services/shareApp';
 }
 */
 
-const BadgeModal = () => {
+const InAppModal = () => {
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
-  const setBadges = useSetRecoilState(badgesState);
-  const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
   const onClose = () => {
     setShowModal(false);
-    setModalContent(null);
   };
   const onCTAPress = () => {
     onClose();
@@ -92,20 +84,14 @@ const BadgeModal = () => {
     });
   };
 
-  const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
-    // InteractionManager.runAfterInteractions(() => {
-    //   setModalContent(newBadge);
-    //   setShowModal(true);
-    // });
-
-    if (newBadge) setModalContent(newBadge);
-    if (allBadges) setBadges(allBadges);
-    if (badgesCatalog) setBadgesCatalog(badgesCatalog);
+  const handleShowInAppModal = async (inAppModalContent) => {
+    if (!inAppModalContent) return;
+    if (inAppModalContent) setModalContent(inAppModalContent);
     setShowModal(true);
   };
 
   useEffect(() => {
-    API.handleShowBadge = handleShowBadge;
+    API.handleShowInAppModal = handleShowInAppModal;
   });
 
   return (
@@ -129,14 +115,19 @@ const BadgeModal = () => {
               />
             </Svg>
           </TouchableOpacity>
-          <View className="mb-8 mt-4">
-            {modalContent?.category === 'drinks' && <BadgeDrinks stars={modalContent?.stars} />}
-            {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
-            {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
-            {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}
-            {modalContent?.category?.includes('locked_') && <LockedBadge />}
+          <View className="w-full mb-6 mt-4 flex flex-row justify-center gap-x-2">
+            {modalContent?.badgesCategories?.map((badgeCategory) => {
+              return (
+                <View key={badgeCategory}>
+                  {badgeCategory === 'drinks' && <BagdeDrinksNoStars />}
+                  {badgeCategory === 'goals' && <BadgeGoalsNoStars />}
+                  {badgeCategory === 'defis' && <BadgeDefisNoStars />}
+                  {badgeCategory === 'articles' && <BadgeArticlesNoStars />}
+                </View>
+              );
+            })}
           </View>
-          <View className="mb-8">
+          <View className="mb-8 mx-4">
             <H1 className="text-center">
               <TextStyled>{modalContent?.title}</TextStyled>
             </H1>
@@ -170,4 +161,4 @@ const BadgeModal = () => {
   );
 };
 
-export default BadgeModal;
+export default InAppModal;

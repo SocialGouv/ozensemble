@@ -66,6 +66,7 @@ app.use("/reminder", require("./controllers/reminder").router);
 app.use("/badge", require("./controllers/badge"));
 app.use("/consommation", require("./controllers/consommation"));
 app.use("/goal", require("./controllers/goal"));
+app.use("/appMilestone", require("./controllers/appMilestone"));
 
 app.use(errors.sendError);
 

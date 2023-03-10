@@ -19,6 +19,7 @@ import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import BackButton from '../../components/BackButton';
 import { sendMail } from '../../services/mail';
 import useAppState from '../../services/useAppState';
+import API from '../../services/api';
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -116,22 +117,18 @@ const NPSScreen = ({ navigation, route }) => {
   const [contact, setContact] = useState('');
   const [sendButton, setSendButton] = useState('Envoyer');
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (!prevProps.forceView && .props.forceView && !.state.visible) {
-  //     .setState({ visible: true });
-  //   }
-  //   if (prevState.visible && !.state.visible) {
-  //     if (.props.close) {
-  //       .props.close();
-  //     }
-  //     .npsSent = false;
-  //   }
-  // }
-
   useEffect(() => {
     logEvent({
       category: 'NPS',
       action: 'NPS_OPEN',
+    });
+    const matomoId = storage.getString('@UserIdv2');
+    API.post({
+      path: '/appUserMilestone',
+      body: {
+        matomoId,
+        appUserMilestone: '@NPSDone',
+      },
     });
     storage.set('@NPSDone', 'true');
   }, []);

@@ -73,7 +73,7 @@ router.post(
     // if badge 3 day is not present
     // handle 3 days
     if (!drinksBadges.find((badge) => badge.stars === 2)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
+      const enoughConsecutiveDays = checksConsecutiveDays(3, drinksToSave);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -88,7 +88,7 @@ router.post(
     // if badge 7 day is not present
     // handle 7 days
     if (!drinksBadges.find((badge) => badge.stars === 3)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
+      const enoughConsecutiveDays = checksConsecutiveDays(7, drinksToSave);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -102,7 +102,7 @@ router.post(
     // if badge 14 day is not present
     // handle 14 days
     if (!drinksBadges.find((badge) => badge.stars === 4)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
+      const enoughConsecutiveDays = checksConsecutiveDays(14, drinksToSave);
 
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -118,7 +118,7 @@ router.post(
     // if badge 28 day is not present
     // handle 28 days
     if (!drinksBadges.find((badge) => badge.stars === 5)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
+      const enoughConsecutiveDays = checksConsecutiveDays(28, drinksToSave);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -200,7 +200,11 @@ router.post(
     // if badge 3 day is not present
     // handle 3 days
     if (!drinksBadges.find((badge) => badge.stars === 2)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(3, user.id);
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(3, allConsos);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -221,12 +225,18 @@ router.post(
           },
         });
       }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
 
     // if badge 7 day is not present
     // handle 7 days
     if (!drinksBadges.find((badge) => badge.stars === 3)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(7, user.id);
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(7, allConsos);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -246,11 +256,17 @@ router.post(
           },
         });
       }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
     // if badge 14 day is not present
     // handle 14 days
     if (!drinksBadges.find((badge) => badge.stars === 4)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(14, user.id);
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(14, allConsos);
 
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -271,11 +287,17 @@ router.post(
           },
         });
       }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
     // if badge 28 day is not present
     // handle 28 days
     if (!drinksBadges.find((badge) => badge.stars === 5)) {
-      const enoughConsecutiveDays = await checksConsecutiveDays(28, user.id);
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(28, allConsos);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {
@@ -295,6 +317,8 @@ router.post(
           },
         });
       }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
 
     if (showGoalNewBadge?.newBadge) {
@@ -317,13 +341,9 @@ router.delete(
   })
 );
 
-const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
+const checksConsecutiveDays = (consecutiveDaysGoal, allConsos) => {
   let consecutiveDays = 1;
 
-  const allConsos = await prisma.consommation.findMany({
-    where: { userId: userId },
-    orderBy: { date: "desc" },
-  });
   if (!allConsos.length) {
     return false;
   }
@@ -348,6 +368,64 @@ const checksConsecutiveDays = async (consecutiveDaysGoal, userId) => {
     }
     currentConsoDate = consoDate;
   }
+};
+
+const NPSInAppMessage = {
+  id: "@NPSDone",
+  title: "5 sec pour nous aider à améliorer l'application\u00A0?",
+  content: `Nous construisons l'application ensemble et __votre avis sera pris en compte dans les prochaines mises à jour.__ Merci d'avance\u00A0!`,
+  CTATitle: "Je donne mon avis sur Oz",
+  CTANavigation: ["NPS_SCREEN", { triggeredFrom: "5 seconds for NPS" }],
+};
+
+const checkNPSAvailability = async (user, drinks) => {
+  const npsDone = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSDone` } });
+  if (npsDone) return null;
+  const enoughConsecutiveDays = checksConsecutiveDays(4, drinks);
+  if (!enoughConsecutiveDays) return null;
+  const npsAsked3 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked3` } });
+  if (npsAsked3) return null;
+
+  const npsAsked2 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked2` } });
+
+  const now = dayjs();
+
+  if (npsAsked2) {
+    if (dayjs(npsAsked2.date).diff(now, "day") < 7) {
+      return null;
+    }
+    await prisma.appMilestone.create({
+      data: {
+        id: `${user.id}_@NPSAsked3`,
+        date: now.format("YYYY-MM-DD"),
+        userId: user.id,
+      },
+    });
+    return NPSInAppMessage;
+  }
+
+  const npsAsked1 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked1` } });
+  if (npsAsked1) {
+    if (dayjs(npsAsked1.date).diff(now, "day") < 7) {
+      return null;
+    }
+    await prisma.appMilestone.create({
+      data: {
+        id: `${user.id}_@NPSAsked2`,
+        date: now.format("YYYY-MM-DD"),
+        userId: user.id,
+      },
+    });
+    return NPSInAppMessage;
+  }
+  await prisma.appMilestone.create({
+    data: {
+      id: `${user.id}_@NPSAsked1`,
+      date: now.format("YYYY-MM-DD"),
+      userId: user.id,
+    },
+  });
+  return NPSInAppMessage;
 };
 
 module.exports = router;

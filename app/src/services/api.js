@@ -56,6 +56,7 @@ class ApiService {
         const readableRes = await response.json();
         if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
         if (readableRes.showNewBadge) this?.handleShowBadge(readableRes.showNewBadge);
+        if (readableRes.showInAppModal) this?.handleShowInAppModal(readableRes.showInAppModal);
         if (readableRes.newFeatures) {
           NewFeaturePop.handleShowNewFeaturePopup(readableRes.newFeatures);
         }

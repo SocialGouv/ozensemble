@@ -30,6 +30,8 @@ import {
   sendPreviousDrinksToDB,
   hasSentObjectifToDB,
   sendObjectifToDB,
+  hasSentNPSDoneToDB,
+  sendNPSDoneToDB,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -58,6 +60,7 @@ const App = () => {
   const [hasMigratedReminders, setHasMigratedReminders] = useState(hasMigratedRemindersStored);
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasSentObjectifToDB, setHasSentObjectifToDB] = useState(hasSentObjectifToDB);
+  const [_hasSentNPSDoneToDB, setHasSentNPSDoneToDB] = useState(hasSentNPSDoneToDB);
   const [_hasMigratedRemindersToPushToken, setHasMigratedRemindersToPushToken] = useState(
     hasMigratedRemindersToPushToken
   );
@@ -95,8 +98,12 @@ const App = () => {
       setHasSentPreviousDrinksToDB(true);
     }
     if (!_hasSentObjectifToDB) {
-      sendPreviousDrinksToDB();
-      sendObjectifToDB(true);
+      sendObjectifToDB();
+      setHasSentObjectifToDB(true);
+    }
+    if (!_hasSentNPSDoneToDB) {
+      sendNPSDoneToDB();
+      setHasSentNPSDoneToDB(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -108,7 +115,9 @@ const App = () => {
     !hasMigratedDefi1 ||
     !_hasMigratedRemindersToPushToken ||
     !hasMigratedReminders ||
-    !_hasSentPreviousDrinksToDB
+    !_hasSentPreviousDrinksToDB ||
+    !_hasSentObjectifToDB ||
+    !_hasSentNPSDoneToDB
   ) {
     return null;
   }

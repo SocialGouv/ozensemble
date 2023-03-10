@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { useRecoilState } from 'recoil';
 import { useFocusEffect } from '@react-navigation/native';
@@ -15,6 +15,7 @@ const BadgesStatus = ({ navigate }) => {
   const [badges, setBadges] = useRecoilState(badgesState);
   const [badgesCatalog, setBadgesCatalog] = useRecoilState(badgesCatalogState);
   const availableBadges = badgesCatalog.filter((badge) => !badge.category.includes('locked_'));
+
   useFocusEffect(
     useCallback(() => {
       const matomoId = storage.getString('@UserIdv2');
