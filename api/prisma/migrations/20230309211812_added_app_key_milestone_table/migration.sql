@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `modals` on the `User` table. All the data in the column will be lost.
-
-*/
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "modals";
-
 -- CreateTable
 CREATE TABLE "AppMilestone" (
     "id" TEXT NOT NULL,
