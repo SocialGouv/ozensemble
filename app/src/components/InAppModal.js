@@ -127,7 +127,7 @@ const InAppModal = () => {
               );
             })}
           </View>
-          <View className="mb-8">
+          <View className="mb-8 mx-4">
             <H1 className="text-center">
               <TextStyled>{modalContent?.title}</TextStyled>
             </H1>
