@@ -137,8 +137,8 @@ const BadgeModal = () => {
             {modalContent?.category?.includes('locked_') && <LockedBadge />}
           </View>
           <View className="mb-8">
-            <H1 className="text-center">
-              <TextStyled>{modalContent?.title}</TextStyled>
+            <H1 className="text-center" color={'black'}>
+              {modalContent?.title}
             </H1>
           </View>
           <Text className="text-base font-medium mb-8 mx-4 text-center">
