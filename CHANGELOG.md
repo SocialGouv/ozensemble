@@ -1,3 +1,10 @@
+# [1.85.0](https://github.com/SocialGouv/ozensemble/compare/v1.84.1...v1.85.0) (2023-03-10)
+
+
+### Features
+
+* create clean in app message + 5 secondes NPS in backend ([#175](https://github.com/SocialGouv/ozensemble/issues/175)) ([22c12ab](https://github.com/SocialGouv/ozensemble/commit/22c12ab0d07717dc7bd6961eaed3c46d0224444f))
+
 ## [1.84.1](https://github.com/SocialGouv/ozensemble/compare/v1.84.0...v1.84.1) (2023-03-09)
 
 
