@@ -69,8 +69,11 @@ const BadgeModal = () => {
   };
   const onSecondaryPress = () => {
     onClose();
+    console.log('secondary button pressed');
     InteractionManager.runAfterInteractions(async () => {
+      console.log(modalContent.secondaryButtonNavigation);
       if (modalContent.secondaryButtonNavigation) {
+        console.log(modalContent.secondaryButtonNavigation);
         navigation.navigate(...modalContent.secondaryButtonNavigation);
       } else if (modalContent.secondaryButtonShare) {
         await new Promise((resolve) => setTimeout(resolve, 1000));

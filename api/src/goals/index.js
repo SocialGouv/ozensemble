@@ -76,7 +76,7 @@ __Bon courage pour cette nouvelle semaine__ et continuez à bien compléter vos 
           CTANavigation: ["HEALTH"],
           CTALink: null,
           secondaryButtonTitle: "Modifier mon objectif",
-          secondaryButtonNavigation: ["GAINS_MAIN_VIEW", { screen: "GAINS_MY_OBJECTIVE" }],
+          secondaryButtonNavigation: ["GAINS_MY_OBJECTIVE"],
           secondaryButtonLink: "",
         },
       };

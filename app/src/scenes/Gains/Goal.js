@@ -34,13 +34,13 @@ const Goal = ({ navigation, route }) => {
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
-      setDrinksByDrinkingDay([
+      [
         ...drinksByDrinkingDay.filter((drink) => drink.drinkKey !== drinkKey),
         {
           ...drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey),
           quantity,
         },
-      ]);
+      ];
     } else {
       setDrinksByDrinkingDay([
         ...drinksByDrinkingDay,
@@ -162,6 +162,7 @@ const Goal = ({ navigation, route }) => {
                 action: 'REMINDER_OPEN',
                 name: 'GOAL',
               });
+              console.log('Goal');
               navigation.navigate('GAINS_REMINDER', {
                 enableContinueButton: true,
                 onPressContinueNavigation: ['GAINS_SEVRAGE'],

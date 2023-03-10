@@ -215,7 +215,11 @@ const MyGains = () => {
             <GainsGauge title={'Unités d’alcool'} value={numberDrinkInCurrentWeek} goal={maxDrinksPerWeekGoal} />
             <GainsGauge title={'Jours où j’ai bu'} value={numberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />
             <Spacer size={10} />
-            <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
+            <ButtonTouchable
+              onPress={() => {
+                console.log('MyGains');
+                navigation.navigate('GAINS_MY_OBJECTIVE');
+              }}>
               <TextModify>Modifier l'objectif</TextModify>
             </ButtonTouchable>
 

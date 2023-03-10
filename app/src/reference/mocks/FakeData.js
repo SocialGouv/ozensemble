@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 import TextStyled from '../../components/TextStyled';
@@ -17,6 +17,8 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
+import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
+import { v4 as uuidv4 } from 'uuid';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -33,7 +35,8 @@ const deleteStorageValues = (values) => {
 const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
-
+  const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
+  const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -88,8 +91,17 @@ const FakeData = () => {
           caption="Objectif semaine dernière"
           onPress={() => {
             matomoId = storage.getString('@UserIdv2');
+            setDaysWithGoalNoDrink(['wednesday', 'thursday']);
+            setDrinksByDrinkingDay([
+              ...drinksByDrinkingDay,
+              {
+                drinkKey: 'BEER_HALF',
+                quantity: 3,
+                id: uuidv4(),
+              },
+            ]);
             API.post({
-              path: '/goal/',
+              path: '/goal',
               body: {
                 matomoId: matomoId,
                 daysWithGoalNoDrink: ['wednesday', 'thursday'],
