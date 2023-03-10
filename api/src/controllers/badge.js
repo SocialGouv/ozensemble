@@ -37,7 +37,7 @@ router.get(
     });
 
     const newBadgeAnnouncementFeatures = await prisma.appUserMilestone.findUnique({
-      where: { id: `${user.id}_@NewBadgesAnnouncementFeatures` },
+      where: { id: `${user.id}_@NewBadgesAnnouncementFeatures2` },
     });
 
     if (!!newBadgeAnnouncementFeatures) {
@@ -52,7 +52,7 @@ router.get(
 
     await prisma.appUserMilestone.create({
       data: {
-        id: `${user.id}_@NewBadgesAnnouncementFeatures`,
+        id: `${user.id}_@NewBadgesAnnouncementFeatures2`,
         userId: user.id,
         date: dayjs().format("YYYY-MM-DD"),
       },
@@ -63,15 +63,14 @@ router.get(
       data: {
         badges,
         badgesCatalog,
-        announcementModal: {
-          id: "@NewBadgesAnnouncementFeatures",
-          badgesCategories: ["drinks", "goals"], // "defis", "articles"
-          title: "Nouveau\u00A0: les badges arrivent dans l'application\u00A0!",
-          description:
-            "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
-          CTAButton: badges.length ? "Voir mes badges" : null,
-          CTANavigation: ["BADGES_LIST"],
-        },
+      },
+      showInAppModal: {
+        id: "@NewBadgesAnnouncementFeatures2",
+        badgesCategories: ["drinks", "goals"], // "defis", "articles"
+        title: "Nouveau\u00A0: les badges arrivent dans l'application\u00A0!",
+        content: "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
+        CTAButton: badges.length ? "Voir mes badges" : null,
+        CTANavigation: ["BADGES_LIST"],
       },
     });
   })
