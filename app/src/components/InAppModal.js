@@ -10,7 +10,6 @@ import Modal from './Modal';
 import TextStyled from './TextStyled';
 import API from '../services/api';
 import { shareApp } from '../services/shareApp';
-import { storage } from '../services/storage';
 import { BagdeDrinksNoStars } from '../scenes/Badges/Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 import { BadgeDefisNoStars } from '../scenes/Badges/Svgs/BadgeDefisNoStars';
@@ -87,7 +86,6 @@ const InAppModal = () => {
 
   const handleShowInAppModal = async (inAppModalContent) => {
     if (!inAppModalContent) return;
-    if (storage.getString(inAppModalContent.id)) return;
     if (inAppModalContent) setModalContent(inAppModalContent);
     setShowModal(true);
   };
