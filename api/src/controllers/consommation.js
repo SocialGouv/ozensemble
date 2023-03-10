@@ -379,14 +379,14 @@ const NPSInAppMessage = {
 };
 
 const checkNPSAvailability = async (user, drinks) => {
-  const npsDone = await prisma.appUserMilestone.findUnique({ where: { id: `${user.id}_@NPSDone` } });
+  const npsDone = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSDone` } });
   if (npsDone) return null;
   const enoughConsecutiveDays = checksConsecutiveDays(4, drinks);
   if (!enoughConsecutiveDays) return null;
-  const npsAsked3 = await prisma.appUserMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked3` } });
+  const npsAsked3 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked3` } });
   if (npsAsked3) return null;
 
-  const npsAsked2 = await prisma.appUserMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked2` } });
+  const npsAsked2 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked2` } });
 
   const now = dayjs();
 
@@ -394,7 +394,7 @@ const checkNPSAvailability = async (user, drinks) => {
     if (dayjs(npsAsked2.date).diff(now, "day") < 7) {
       return null;
     }
-    await prisma.appUserMilestone.create({
+    await prisma.appMilestone.create({
       data: {
         id: `${user.id}_@NPSAsked3`,
         date: now.format("YYYY-MM-DD"),
@@ -404,12 +404,12 @@ const checkNPSAvailability = async (user, drinks) => {
     return NPSInAppMessage;
   }
 
-  const npsAsked1 = await prisma.appUserMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked1` } });
+  const npsAsked1 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked1` } });
   if (npsAsked1) {
     if (dayjs(npsAsked1.date).diff(now, "day") < 7) {
       return null;
     }
-    await prisma.appUserMilestone.create({
+    await prisma.appMilestone.create({
       data: {
         id: `${user.id}_@NPSAsked2`,
         date: now.format("YYYY-MM-DD"),
@@ -418,7 +418,7 @@ const checkNPSAvailability = async (user, drinks) => {
     });
     return NPSInAppMessage;
   }
-  await prisma.appUserMilestone.create({
+  await prisma.appMilestone.create({
     data: {
       id: `${user.id}_@NPSAsked1`,
       date: now.format("YYYY-MM-DD"),

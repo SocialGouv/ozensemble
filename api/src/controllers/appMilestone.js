@@ -6,7 +6,7 @@ const prisma = require("../prisma");
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    const { matomoId, appUserMilestone } = req.body || {};
+    const { matomoId, appMilestone } = req.body || {};
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
@@ -18,14 +18,14 @@ router.post(
       update: {},
     });
 
-    await prisma.appUserMilestone.upsert({
-      where: { id: `${user.id}_${appUserMilestone}` },
+    await prisma.appMilestone.upsert({
+      where: { id: `${user.id}_${appMilestone}` },
       update: {
         userId: user.id,
         date: dayjs().format("YYYY-MM-DD"),
       },
       create: {
-        id: `${user.id}_${appUserMilestone}`,
+        id: `${user.id}_${appMilestone}`,
         userId: user.id,
         date: dayjs().format("YYYY-MM-DD"),
       },
