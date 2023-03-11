@@ -24,7 +24,7 @@ export const BadgeArticlesNoStars = ({ stars, size = 96 }) => {
       />
       <Path
         d="M16.6859 19.0322H24.7436C26.1683 19.0322 27.5346 19.5987 28.5421 20.607C29.5495 21.6153 30.1154 22.9829 30.1154 24.4089V43.2272C30.1154 42.1577 29.691 41.1321 28.9354 40.3758C28.1798 39.6196 27.1551 39.1947 26.0866 39.1947H16.6859V19.0322Z"
-        stroke="#5150A2"
+        stroke="#4030A5"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -38,7 +38,7 @@ export const BadgeArticlesNoStars = ({ stars, size = 96 }) => {
       />
       <Path
         d="M43.5449 19.0322H35.4872C34.0625 19.0322 32.6962 19.5987 31.6888 20.607C30.6814 21.6153 30.1154 22.9829 30.1154 24.4089V43.2272C30.1154 42.1577 30.5399 41.1321 31.2954 40.3758C32.051 39.6196 33.0758 39.1947 34.1443 39.1947H43.5449V19.0322Z"
-        stroke="#5150A2"
+        stroke="#4030A5"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"

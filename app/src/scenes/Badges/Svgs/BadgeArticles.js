@@ -2,10 +2,10 @@ import React from 'react';
 import Svg, { Path, Rect } from 'react-native-svg';
 
 export const BadgeArticles = ({ stars, size = 96 }) => {
-  const star2 = stars >= 2 ? '#5150A2' : '#E8E8F3';
-  const star3 = stars >= 3 ? '#5150A2' : '#E8E8F3';
-  const star4 = stars >= 4 ? '#5150A2' : '#E8E8F3';
-  const star5 = stars >= 5 ? '#5150A2' : '#E8E8F3';
+  const star2 = stars >= 2 ? '#4030A5' : '#E8E8F3';
+  const star3 = stars >= 3 ? '#4030A5' : '#E8E8F3';
+  const star4 = stars >= 4 ? '#4030A5' : '#E8E8F3';
+  const star5 = stars >= 5 ? '#4030A5' : '#E8E8F3';
   return (
     <Svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/Svg">
       <Path
