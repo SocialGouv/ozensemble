@@ -2,7 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+const { badgesCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
 const dayjs = require("dayjs");
 
 router.get(
@@ -10,7 +10,8 @@ router.get(
   catchErrors(async (req, res) => {
     const { category, stars } = req.query;
 
-    return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog(category, stars) } });
+    const newBadge = category === "missed-goal" ? missedGoal : grabBadgeFromCatalog(category, stars);
+    return res.status(200).send({ ok: true, showNewBadge: { newBadge } });
   })
 );
 
@@ -36,8 +37,10 @@ router.get(
       },
     });
 
+    console.log({ badges });
+
     const newBadgeAnnouncementFeatures = await prisma.appMilestone.findUnique({
-      where: { id: `${user.id}_@NewBadgesAnnouncementFeatures2` },
+      where: { id: `${user.id}_@NewBadgesAnnouncementFeatures` },
     });
 
     if (!!newBadgeAnnouncementFeatures) {
@@ -52,7 +55,7 @@ router.get(
 
     await prisma.appMilestone.create({
       data: {
-        id: `${user.id}_@NewBadgesAnnouncementFeatures2`,
+        id: `${user.id}_@NewBadgesAnnouncementFeatures`,
         userId: user.id,
         date: dayjs().format("YYYY-MM-DD"),
       },
@@ -65,11 +68,11 @@ router.get(
         badgesCatalog,
       },
       showInAppModal: {
-        id: "@NewBadgesAnnouncementFeatures2",
+        id: "@NewBadgesAnnouncementFeatures",
         badgesCategories: ["drinks", "goals"], // "defis", "articles"
         title: "Nouveau\u00A0: les badges arrivent dans l'application\u00A0!",
         content: "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
-        CTAButton: badges.length ? "Voir mes badges" : null,
+        CTATitle: badges.length ? "Voir mes badges" : null,
         CTANavigation: ["BADGES_LIST"],
       },
     });

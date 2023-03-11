@@ -4,7 +4,7 @@ require("dayjs/locale/fr");
 const isBetween = require("dayjs/plugin/isBetween");
 const weekday = require("dayjs/plugin/weekday");
 const dayjs = require("dayjs");
-const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+const { badgesCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
 dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
@@ -64,22 +64,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
         where: { id: lastGoal.id },
         data: { status: "Failure" },
       });
-      return {
-        newBadge: {
-          title: "Objectif dépassé cette semaine",
-          content: `Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien\u00A0!
-
-Nos 2 conseils\u00A0: __découvrez nos articles__ pour vous motiver à réduire votre consommation, et __modifiez votre objectif__ si vous pensez qu'il est trop haut pour le moment.
-
-__Bon courage pour cette nouvelle semaine__ et continuez à bien compléter vos jours, c'est très important pour apprendre à maitriser votre consommation\u00A0!`,
-          CTATitle: "Découvrir les articles santé",
-          CTANavigation: ["HEALTH"],
-          CTALink: null,
-          secondaryButtonTitle: "Modifier mon objectif",
-          secondaryButtonNavigation: ["GAINS_MAIN_VIEW", { screen: "GAINS_MY_OBJECTIVE" }],
-          secondaryButtonLink: "",
-        },
-      };
+      return { newBadge: missedGoal };
     }
     if (goalAchieved) {
       await prisma.goal.update({

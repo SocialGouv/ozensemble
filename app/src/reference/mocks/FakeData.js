@@ -17,6 +17,7 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
+import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -33,7 +34,8 @@ const deleteStorageValues = (values) => {
 const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
-
+  const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
+  const setDrinksByDrinkingDay = useSetRecoilState(drinksByDrinkingDayState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -55,12 +57,21 @@ const FakeData = () => {
           .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
             return (
-              <MenuItem
-                key={title + category}
-                noAlert
-                caption={category.includes('locked') ? `LOCKED ${title}` : title}
-                onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
-              />
+              <React.Fragment key={title + category}>
+                {category === 'goals' && stars === 1 && (
+                  <MenuItem
+                    noAlert
+                    caption="Objectif manqué"
+                    onPress={() => API.get({ path: '/badge/test', query: { category: 'missed-goal' } })}
+                  />
+                )}
+                <MenuItem
+                  key={title + category}
+                  noAlert
+                  caption={category.includes('locked') ? `LOCKED ${title}` : title}
+                  onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
+                />
+              </React.Fragment>
             );
           })}
         <H1Wrapper>Mon NPS</H1Wrapper>
@@ -75,7 +86,6 @@ const FakeData = () => {
               message: 'Avez-vous quelques secondes pour donner votre avis ?',
             });
             storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
-            console.log(storage.getNumber('@NPSNotificationDate'));
           }}
         />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
@@ -87,9 +97,11 @@ const FakeData = () => {
         <MenuItem
           caption="Objectif semaine dernière"
           onPress={() => {
-            matomoId = storage.getString('@UserIdv2');
+            setDaysWithGoalNoDrink(['wednesday', 'thursday']);
+            setDrinksByDrinkingDay([{ drinkKey: 'beer-half', quantity: 7, id: uuid() }]);
+            const matomoId = storage.getString('@UserIdv2');
             API.post({
-              path: '/goal/',
+              path: '/goal',
               body: {
                 matomoId: matomoId,
                 daysWithGoalNoDrink: ['wednesday', 'thursday'],
