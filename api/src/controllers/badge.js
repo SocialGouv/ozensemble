@@ -37,8 +37,6 @@ router.get(
       },
     });
 
-    console.log({ badges });
-
     const newBadgeAnnouncementFeatures = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@NewBadgesAnnouncementFeatures` },
     });
