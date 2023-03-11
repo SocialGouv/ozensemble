@@ -1,3 +1,11 @@
+## [1.85.3](https://github.com/SocialGouv/ozensemble/compare/v1.85.2...v1.85.3) (2023-03-11)
+
+
+### Bug Fixes
+
+* wording suivi conso ([#177](https://github.com/SocialGouv/ozensemble/issues/177)) ([bd4c397](https://github.com/SocialGouv/ozensemble/commit/bd4c397ff60167fd645c4a796310a1882e9b4b4f))
+* wording title goal failed ([#178](https://github.com/SocialGouv/ozensemble/issues/178)) ([515856b](https://github.com/SocialGouv/ozensemble/commit/515856b8bba7e44eb6d6f9ae80f40d8acc0b67c6))
+
 ## [1.85.2](https://github.com/SocialGouv/ozensemble/compare/v1.85.1...v1.85.2) (2023-03-11)
 
 
