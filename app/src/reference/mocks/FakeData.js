@@ -3,7 +3,7 @@ import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid, v4 as uuidv4 } from 'uuid';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -18,7 +18,6 @@ import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
 import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
-import { v4 as uuidv4 } from 'uuid';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -58,12 +57,21 @@ const FakeData = () => {
           .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
             return (
-              <MenuItem
-                key={title + category}
-                noAlert
-                caption={category.includes('locked') ? `LOCKED ${title}` : title}
-                onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
-              />
+              <React.Fragment key={title + category}>
+                {category === 'goals' && stars === 1 && (
+                  <MenuItem
+                    noAlert
+                    caption="Objectif manqué"
+                    onPress={() => API.get({ path: '/badge/test', query: { category: 'missed-goal' } })}
+                  />
+                )}
+                <MenuItem
+                  key={title + category}
+                  noAlert
+                  caption={category.includes('locked') ? `LOCKED ${title}` : title}
+                  onPress={() => API.get({ path: '/badge/test', query: { category, stars } })}
+                />
+              </React.Fragment>
             );
           })}
         <H1Wrapper>Mon NPS</H1Wrapper>
@@ -90,16 +98,9 @@ const FakeData = () => {
         <MenuItem
           caption="Objectif semaine dernière"
           onPress={() => {
-            matomoId = storage.getString('@UserIdv2');
             setDaysWithGoalNoDrink(['wednesday', 'thursday']);
-            setDrinksByDrinkingDay([
-              ...drinksByDrinkingDay,
-              {
-                drinkKey: 'BEER_HALF',
-                quantity: 3,
-                id: uuidv4(),
-              },
-            ]);
+            setDrinksByDrinkingDay(7);
+            const matomoId = storage.getString('@UserIdv2');
             API.post({
               path: '/goal',
               body: {

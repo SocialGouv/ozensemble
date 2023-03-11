@@ -2,7 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+const { badgesCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
 const dayjs = require("dayjs");
 
 router.get(
@@ -10,7 +10,8 @@ router.get(
   catchErrors(async (req, res) => {
     const { category, stars } = req.query;
 
-    return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog(category, stars) } });
+    const newBadge = category === "missed-goal" ? missedGoal : grabBadgeFromCatalog(category, stars);
+    return res.status(200).send({ ok: true, showNewBadge: { newBadge } });
   })
 );
 
