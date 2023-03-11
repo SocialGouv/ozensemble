@@ -34,13 +34,13 @@ const Goal = ({ navigation, route }) => {
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
-      [
+      setDrinksByDrinkingDay([
         ...drinksByDrinkingDay.filter((drink) => drink.drinkKey !== drinkKey),
         {
           ...drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey),
           quantity,
         },
-      ];
+      ]);
     } else {
       setDrinksByDrinkingDay([
         ...drinksByDrinkingDay,

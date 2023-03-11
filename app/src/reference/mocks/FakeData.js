@@ -3,7 +3,7 @@ import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
-import { v4 as uuid, v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -35,7 +35,7 @@ const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
-  const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
+  const setDrinksByDrinkingDay = useSetRecoilState(drinksByDrinkingDayState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -86,7 +86,6 @@ const FakeData = () => {
               message: 'Avez-vous quelques secondes pour donner votre avis ?',
             });
             storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
-            console.log(storage.getNumber('@NPSNotificationDate'));
           }}
         />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
@@ -99,7 +98,7 @@ const FakeData = () => {
           caption="Objectif semaine dernière"
           onPress={() => {
             setDaysWithGoalNoDrink(['wednesday', 'thursday']);
-            setDrinksByDrinkingDay(7);
+            setDrinksByDrinkingDay([{ drinkKey: 'beer-half', quantity: 7, id: uuid() }]);
             const matomoId = storage.getString('@UserIdv2');
             API.post({
               path: '/goal',
