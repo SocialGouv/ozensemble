@@ -1,3 +1,10 @@
+## [1.85.2](https://github.com/SocialGouv/ozensemble/compare/v1.85.1...v1.85.2) (2023-03-11)
+
+
+### Bug Fixes
+
+* bold modal title ([#176](https://github.com/SocialGouv/ozensemble/issues/176)) ([e666862](https://github.com/SocialGouv/ozensemble/commit/e6668629ec8fa30645e0a2e110fb60639a5cf42e))
+
 ## [1.85.1](https://github.com/SocialGouv/ozensemble/compare/v1.85.0...v1.85.1) (2023-03-10)
 
 
