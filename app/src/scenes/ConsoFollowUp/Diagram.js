@@ -311,7 +311,7 @@ const Diagram = ({ asPreview }) => {
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
-          icon={<Increase size={35} />}
+          icon={<Increase size={25} />}
           button
           navigation={navigation}
           message={
@@ -322,11 +322,10 @@ const Diagram = ({ asPreview }) => {
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien{'\u00A0'}!
-                <TextStyled bold>Découvrez nos articles de santé</TextStyled> pour vous motiver à réduire votre
+                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien{'\u00A0'}!{' '}
+                <TextStyled bold>Découvrez nos articles santé</TextStyled> pour vous motiver à réduire votre
                 consommation.
               </TextStyled>
-              <TextStyled />
             </>
           }
         />
@@ -335,7 +334,7 @@ const Diagram = ({ asPreview }) => {
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
-          icon={<Celebration size={35} />}
+          icon={<Celebration size={25} />}
           message={
             <>
               <TextStyled>
@@ -362,7 +361,7 @@ const Diagram = ({ asPreview }) => {
               <TextStyled />
               <TextStyled>
                 Si besoin d'un coup de pouce, vous pouvez <TextStyled bold>découvrir nos articles santé</TextStyled>{' '}
-                pour vous motiver à réduire votre consommation!{' '}
+                pour vous motiver à réduire votre consommation{'\u00A0'}!
               </TextStyled>
             </>
           }
@@ -376,8 +375,8 @@ const Diagram = ({ asPreview }) => {
           message={
             <>
               <TextStyled>
-                Pour accéder aux analyses de variations, il vous faut 2 semaines de consommation complétée d'affilée,
-                pensez à les remplir{'\u00A0'}{' '}
+                Pour accéder aux analyses de variations, il vous faut 2 semaines de consommation complétées d'affilée,
+                pensez à les remplir{'\u00A0'}!
               </TextStyled>
             </>
           }
