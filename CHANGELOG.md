@@ -1,3 +1,10 @@
+## [1.85.6](https://github.com/SocialGouv/ozensemble/compare/v1.85.5...v1.85.6) (2023-03-11)
+
+
+### Bug Fixes
+
+* messages design ([#181](https://github.com/SocialGouv/ozensemble/issues/181)) ([6aaf55f](https://github.com/SocialGouv/ozensemble/commit/6aaf55f592e4ef5031656339ff0a7fc41832b724))
+
 ## [1.85.5](https://github.com/SocialGouv/ozensemble/compare/v1.85.4...v1.85.5) (2023-03-11)
 
 
