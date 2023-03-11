@@ -1,3 +1,10 @@
+## [1.85.4](https://github.com/SocialGouv/ozensemble/compare/v1.85.3...v1.85.4) (2023-03-11)
+
+
+### Bug Fixes
+
+* color indigo ([#179](https://github.com/SocialGouv/ozensemble/issues/179)) ([1f2cf14](https://github.com/SocialGouv/ozensemble/commit/1f2cf146b48d159dacf380cc76edf85c477b9246))
+
 ## [1.85.3](https://github.com/SocialGouv/ozensemble/compare/v1.85.2...v1.85.3) (2023-03-11)
 
 
