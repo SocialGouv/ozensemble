@@ -1,3 +1,10 @@
+## [1.85.5](https://github.com/SocialGouv/ozensemble/compare/v1.85.4...v1.85.5) (2023-03-11)
+
+
+### Bug Fixes
+
+* wrgon color #[#4030](https://github.com/SocialGouv/ozensemble/issues/4030)A5 ([fc36c3c](https://github.com/SocialGouv/ozensemble/commit/fc36c3cd69f37b49e57e9d5693454b06907a47ca)), closes [#4030A5](https://github.com/SocialGouv/ozensemble/issues/4030A5)
+
 ## [1.85.4](https://github.com/SocialGouv/ozensemble/compare/v1.85.3...v1.85.4) (2023-03-11)
 
 
