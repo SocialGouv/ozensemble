@@ -1,3 +1,10 @@
+## [1.85.7](https://github.com/SocialGouv/ozensemble/compare/v1.85.6...v1.85.7) (2023-03-11)
+
+
+### Bug Fixes
+
+* redirection ([#180](https://github.com/SocialGouv/ozensemble/issues/180)) ([3416ddd](https://github.com/SocialGouv/ozensemble/commit/3416dddc95068771ca72f4afc01da25a631ad41e))
+
 ## [1.85.6](https://github.com/SocialGouv/ozensemble/compare/v1.85.5...v1.85.6) (2023-03-11)
 
 
