@@ -162,7 +162,6 @@ const Goal = ({ navigation, route }) => {
                 action: 'REMINDER_OPEN',
                 name: 'GOAL',
               });
-              console.log('Goal');
               navigation.navigate('GAINS_REMINDER', {
                 enableContinueButton: true,
                 onPressContinueNavigation: ['GAINS_SEVRAGE'],

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
 import TextStyled from '../../components/TextStyled';
