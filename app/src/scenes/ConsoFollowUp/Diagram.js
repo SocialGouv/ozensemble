@@ -376,8 +376,8 @@ const Diagram = ({ asPreview }) => {
           message={
             <>
               <TextStyled>
-                Pour avoir accès à l'analyse des variations de la quantité d'alcool consommée cette semaine,{' '}
-                <TextStyled bold>pensez à remplir toutes vos consommations de la semaine précédente.</TextStyled>
+                Pour accéder aux analyses de variations, il vous faut 2 semaines de consommation complétée d'affilée,
+                pensez à les remplir{'\u00A0'}{' '}
               </TextStyled>
             </>
           }
