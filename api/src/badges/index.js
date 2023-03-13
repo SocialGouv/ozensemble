@@ -296,7 +296,7 @@ const badgesCatalog = [
 ];
 
 const missedGoal = {
-  title: "Objectif manqué",
+  title: "Objectif dépassé cette semaine",
   content: `Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien\u00A0!
 
 Nos 2 conseils\u00A0: __découvrez nos articles__ pour vous motiver à réduire votre consommation, et __modifiez votre objectif__ si vous pensez qu'il est trop haut pour le moment.
