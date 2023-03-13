@@ -307,7 +307,7 @@ const Diagram = ({ asPreview }) => {
           }
         })}
       </LegendsContainer>
-      {!!showIncrease && (
+      {!!showIncrease && period === 'day' && (
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
@@ -330,7 +330,7 @@ const Diagram = ({ asPreview }) => {
           }
         />
       )}
-      {!!showDecrease && (
+      {!!showDecrease && period === 'day' && (
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
@@ -345,7 +345,7 @@ const Diagram = ({ asPreview }) => {
           }
         />
       )}
-      {!!showStable && (
+      {!!showStable && period === 'day' && (
         <EvolutionMessage
           background="#F9F9F9"
           border="#C4C4C4"
@@ -367,7 +367,7 @@ const Diagram = ({ asPreview }) => {
           }
         />
       )}
-      {!!showFillConsosFirst && (
+      {!!showFillConsosFirst && period === 'day' && (
         <EvolutionMessage
           background="#e8e8f3"
           border="#4030a5"
