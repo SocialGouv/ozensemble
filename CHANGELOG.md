@@ -1,3 +1,10 @@
+## [1.85.9](https://github.com/SocialGouv/ozensemble/compare/v1.85.8...v1.85.9) (2023-03-13)
+
+
+### Bug Fixes
+
+* wording goal fail ([#182](https://github.com/SocialGouv/ozensemble/issues/182)) ([ef7e6f4](https://github.com/SocialGouv/ozensemble/commit/ef7e6f4b12d43003e61ecd3b27fa44fac3c1840f))
+
 ## [1.85.8](https://github.com/SocialGouv/ozensemble/compare/v1.85.7...v1.85.8) (2023-03-11)
 
 
