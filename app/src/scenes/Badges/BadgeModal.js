@@ -17,6 +17,7 @@ import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 /* example
 {
@@ -46,6 +47,9 @@ const BadgeModal = () => {
   const onCTAPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
+      if (modalContent.CTAEvent) {
+        logEvent(modalContent.CTAEvent);
+      }
       if (modalContent.CTANavigation) {
         navigation.navigate(...modalContent.CTANavigation);
       } else if (modalContent.CTAShare) {
@@ -70,6 +74,9 @@ const BadgeModal = () => {
   const onSecondaryPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
+      if (modalContent.secondaryButtonEvent) {
+        logEvent(modalContent.secondaryButtonEvent);
+      }
       if (modalContent.secondaryButtonNavigation) {
         navigation.navigate(...modalContent.secondaryButtonNavigation);
       } else if (modalContent.secondaryButtonShare) {
