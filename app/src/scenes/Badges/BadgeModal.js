@@ -47,7 +47,6 @@ const BadgeModal = () => {
   const onCTAPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
-      console.log('modalContent.CTAEvent', modalContent.CTAEvent);
       if (modalContent.CTAEvent) {
         logEvent(modalContent.CTAEvent);
       }
