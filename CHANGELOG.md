@@ -1,3 +1,10 @@
+## [1.85.11](https://github.com/SocialGouv/ozensemble/compare/v1.85.10...v1.85.11) (2023-03-13)
+
+
+### Bug Fixes
+
+* add log events ([#184](https://github.com/SocialGouv/ozensemble/issues/184)) ([805b3e6](https://github.com/SocialGouv/ozensemble/commit/805b3e6cac7a66e7a639747a38d6557674781996))
+
 ## [1.85.10](https://github.com/SocialGouv/ozensemble/compare/v1.85.9...v1.85.10) (2023-03-13)
 
 
