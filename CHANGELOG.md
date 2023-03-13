@@ -1,3 +1,10 @@
+## [1.85.13](https://github.com/SocialGouv/ozensemble/compare/v1.85.12...v1.85.13) (2023-03-13)
+
+
+### Bug Fixes
+
+* update mobile version ([#186](https://github.com/SocialGouv/ozensemble/issues/186)) ([7e38c9b](https://github.com/SocialGouv/ozensemble/commit/7e38c9b01b16984492171d796f8c4a6278a6ae45))
+
 ## [1.85.12](https://github.com/SocialGouv/ozensemble/compare/v1.85.11...v1.85.12) (2023-03-13)
 
 
