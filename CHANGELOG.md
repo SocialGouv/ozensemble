@@ -1,3 +1,10 @@
+## [1.85.10](https://github.com/SocialGouv/ozensemble/compare/v1.85.9...v1.85.10) (2023-03-13)
+
+
+### Bug Fixes
+
+* stop display follow message on week and year ([#183](https://github.com/SocialGouv/ozensemble/issues/183)) ([feed579](https://github.com/SocialGouv/ozensemble/commit/feed579c07793a194bbed62d6148a08b931b89cb))
+
 ## [1.85.9](https://github.com/SocialGouv/ozensemble/compare/v1.85.8...v1.85.9) (2023-03-13)
 
 
