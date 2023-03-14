@@ -263,7 +263,13 @@ const Diagram = ({ asPreview }) => {
               </Bar>
             );
           })}
-        {thereIsDrinks && period !== 'month' && <Line bottom={barMaxAcceptableDoseHeight} />}
+        {thereIsDrinks && period === 'day' && <Line bottom={barMaxAcceptableDoseHeight} />}
+        {thereIsDrinks && period === 'week' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+          <Line bottom={barMaxAcceptableDoseHeight} />
+        )}
+        {thereIsDrinks && period === 'month' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
+          <Line bottom={barMaxAcceptableDoseHeight} />
+        )}
       </BarsContainer>
       <LegendsContainer>
         {barsInPeriod.map((day, index) => {
