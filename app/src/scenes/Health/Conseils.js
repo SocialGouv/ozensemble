@@ -13,8 +13,11 @@ const Conseils = ({ navigation }) => {
   return (
     <WrapperContainer>
       <TopTitle>
-        <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
+        <TextStyled color="#4030a5">Santé</TextStyled>
       </TopTitle>
+      <TopSubTitle>
+        <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
+      </TopSubTitle>
       <TopSubTitle>
         <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
       </TopSubTitle>
