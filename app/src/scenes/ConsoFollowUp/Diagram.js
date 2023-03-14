@@ -22,24 +22,11 @@ import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
 const maxDosesOnScreen = 999;
 
 const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
-  const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
   const barHighestHeightPossible = screenHeight * 0.2;
 
-  if (highestDosesInPeriod <= highestAcceptableDosesPerDay) {
-    return {
-      barMaxHeight: barNormalHeightForMaxAcceptableDose,
-      barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
-    };
-  }
-  if (highestDosesInPeriod >= 2 * highestAcceptableDosesPerDay) {
-    return {
-      barMaxHeight: barHighestHeightPossible,
-      barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
-    };
-  }
   return {
-    barMaxHeight: (highestDosesInPeriod / highestAcceptableDosesPerDay) * barNormalHeightForMaxAcceptableDose,
-    barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
+    barMaxHeight: barHighestHeightPossible,
+    barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
   };
 };
 
