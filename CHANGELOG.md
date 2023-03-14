@@ -1,3 +1,10 @@
+## [1.85.15](https://github.com/SocialGouv/ozensemble/compare/v1.85.14...v1.85.15) (2023-03-14)
+
+
+### Bug Fixes
+
+* acceptable line apparition ([#188](https://github.com/SocialGouv/ozensemble/issues/188)) ([d617f73](https://github.com/SocialGouv/ozensemble/commit/d617f735130afaf795a83c8630ec8adebf5e9138))
+
 ## [1.85.14](https://github.com/SocialGouv/ozensemble/compare/v1.85.13...v1.85.14) (2023-03-14)
 
 
