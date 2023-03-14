@@ -46,13 +46,13 @@ const InfosMenu = ({ navigation }) => {
 
   return (
     <WrapperContainer title="Informations">
-      <Container>
+      <View style={styles.container}>
         <TouchableOpacity onPress={() => shareApp()} showArrow={false}>
           <View
             className="h-[70] border-b border-b-[#4030a522] flex flex-row justify-between items-center "
             style={styles.menuItem}>
             <Text>Partager l’application</Text>
-            <View className="flex flex-row border rounded-full py-1 px-2 border-[#4030A5] space-x-2 ">
+            <View className="flex flex-row border items-center rounded-full py-1 px-2 border-[#4030A5] space-x-2 ">
               <ShareIcon />
               <Text className="text-[#4030A5] font-bold">Partager</Text>
             </View>
@@ -68,14 +68,14 @@ const InfosMenu = ({ navigation }) => {
           caption="Mentions Légales & Politique de Confidentialité"
           onPress={() => navigation.push('PRIVACY_POLICY')}
         />
-        <VersionContainer>
+        <View className="mt-7 flex items-center">
           <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
             <VersionLabel>
               version {appJson.version.buildName} ({appJson.version.buildNumber})
             </VersionLabel>
           </TouchableWithoutFeedback>
-        </VersionContainer>
-      </Container>
+        </View>
+      </View>
     </WrapperContainer>
   );
 };
@@ -99,16 +99,11 @@ const styles = StyleSheet.create({
   menuItem: {
     paddingHorizontal: padding,
   },
+  container: {
+    marginHorizontal: -padding,
+  },
 });
-const Container = styled.View`
-  margin-horizontal: -${defaultPaddingFontScale}px;
-`;
 
-const VersionContainer = styled.View`
-  margin-top: 30px;
-  flex: 1;
-  align-items: center;
-`;
 const VersionLabel = styled(TextStyled)`
   color: #ddd;
 `;
