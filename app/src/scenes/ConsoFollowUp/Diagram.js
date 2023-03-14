@@ -24,22 +24,12 @@ const maxDosesOnScreen = 999;
 const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
   const barNormalHeightForMaxAcceptableDose = screenHeight * 0.1;
   const barHighestHeightPossible = screenHeight * 0.2;
+  console.log('highestDosesInPeriod', highestDosesInPeriod);
+  console.log('highestAcceptableDosesPerDay', highestAcceptableDosesPerDay);
 
-  if (highestDosesInPeriod <= highestAcceptableDosesPerDay) {
-    return {
-      barMaxHeight: barNormalHeightForMaxAcceptableDose,
-      barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
-    };
-  }
-  if (highestDosesInPeriod >= 2 * highestAcceptableDosesPerDay) {
-    return {
-      barMaxHeight: barHighestHeightPossible,
-      barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
-    };
-  }
   return {
-    barMaxHeight: (highestDosesInPeriod / highestAcceptableDosesPerDay) * barNormalHeightForMaxAcceptableDose,
-    barMaxAcceptableDoseHeight: barNormalHeightForMaxAcceptableDose,
+    barMaxHeight: barHighestHeightPossible,
+    barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
   };
 };
 
@@ -244,6 +234,7 @@ const Diagram = ({ asPreview }) => {
       )}
 
       <BarsContainer height={barMaxHeight + doseTextHeight}>
+        {console.log(barMaxHeight, doseTextHeight)}
         {barsInPeriod
           .map((bar) => generateBarsValues(bar))
           .map((dailyDose, index) => {
