@@ -1,3 +1,10 @@
+## [1.85.14](https://github.com/SocialGouv/ozensemble/compare/v1.85.13...v1.85.14) (2023-03-14)
+
+
+### Bug Fixes
+
+* diagram size ([#187](https://github.com/SocialGouv/ozensemble/issues/187)) ([0b5e5c9](https://github.com/SocialGouv/ozensemble/commit/0b5e5c9f99af345d5321295ad5a7bf89b902c687))
+
 ## [1.85.13](https://github.com/SocialGouv/ozensemble/compare/v1.85.12...v1.85.13) (2023-03-13)
 
 
