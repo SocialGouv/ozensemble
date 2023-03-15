@@ -21,10 +21,6 @@ const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
-  // const [showDefi2Modal, setshowDefi2Modal] = useState(false);
-  // const [showDefi3Modal, setshowDefi3Modal] = useState(false);
-  // const [showDefi4Modal, setshowDefi4Modal] = useState(false);
-  // const [showDefi5Modal, setshowDefi5Modal] = useState(false);
   const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
@@ -41,36 +37,6 @@ const DefisMenu = ({ navigation }) => {
     if (isFocused) setDefi4Day(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
     if (isFocused) setDefi5Day(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   }, [isFocused]);
-
-  // const defi1CallToAction = useMemo(() => {
-  //   if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
-  //   if (defi1Day === 7) return 'Mes résultats';
-  //   return 'Je continue';
-  // }, [defi1Day, autoEvaluationDone]);
-
-  // const defi2CallToAction = useMemo(() => {
-  //   if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
-  //   if (defi2Day === 7) return 'Mes résultats';
-  //   return 'Je continue';
-  // }, [defi2Day, autoEvaluationDone]);
-
-  // const defi3CallToAction = useMemo(() => {
-  //   if (!autoEvaluationDone || defi3Day === 0) return 'Je commence';
-  //   if (defi3Day === 7) return 'Mes résultats';
-  //   return 'Je continue';
-  // }, [defi3Day, autoEvaluationDone]);
-
-  // const defi4CallToAction = useMemo(() => {
-  //   if (!autoEvaluationDone || defi4Day === 0) return 'Je commence';
-  //   if (defi4Day === 7) return 'Mes résultats';
-  //   return 'Je continue';
-  // }, [defi4Day, autoEvaluationDone]);
-
-  // const defi5CallToAction = useMemo(() => {
-  //   if (!autoEvaluationDone || defi5Day === 0) return 'Je commence';
-  //   if (defi5Day === 7) return 'Mes résultats';
-  //   return 'Je continue';
-  // }, [defi5Day, autoEvaluationDone]);
 
   return (
     <WrapperContainer title={'Mes activités'}>
@@ -89,7 +55,6 @@ const DefisMenu = ({ navigation }) => {
           })
         }
         image={require('../../assets/images/AutoEvaluation.png')}
-        //callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
         onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
         nbStepsCompleted={autoEvaluationToCompletedDays}
       />
@@ -109,7 +74,6 @@ const DefisMenu = ({ navigation }) => {
         onPress={() => navigation.navigate('DEFI1')}
         image={require('../../assets/images/Activity1.png')}
         disabled={!autoEvaluationDone}
-        // callToAction={defi1CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi1Day}
       />
@@ -121,7 +85,6 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity2.png')}
         disabled={!autoEvaluationDone || defi1Day < 7}
-        //callToAction={defi2CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi2Day}
       />
@@ -133,7 +96,6 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity3.png')}
         disabled={!autoEvaluationDone || defi2Day < 7}
-        // callToAction={defi3CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi3Day}
       />
@@ -146,7 +108,6 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity4.png')}
         disabled={!autoEvaluationDone || defi3Day < 7}
-        //callToAction={defi4CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi4Day}
       />
@@ -158,7 +119,6 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity5.png')}
         disabled={!autoEvaluationDone || defi4Day < 7}
-        //callToAction={defi5CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi5Day}
       />
@@ -167,7 +127,6 @@ const DefisMenu = ({ navigation }) => {
         description={'Retrouver tous mes tests des activités'}
         onPress={() => navigation.navigate('TESTS_DEFIS')}
         image={require('../../assets/images/Resultats.png')}
-        //callToAction="Mes résultats"
         disabled={!autoEvaluationDone}
         disabledContainer={!autoEvaluationDone}
         onBoardingPress={() => setShowOnboardingModal(true)}
@@ -202,41 +161,40 @@ const CategorieMenu = ({
         disabled={disabledContainer}
         onPress={disabled ? onBoardingPress : onPress}
         className="border border-[#E8E8EA] rounded-md flex flex-row my-1.5 p-2 items-center justify-around">
-        <View className=" flex flex-row items-center">
-          <Image source={image} className="h-14 w-14" />
-          <View className="px-3 py-1 basis-3/4">
-            {disabled ? (
+        {disabled ? (
+          <View className=" flex flex-row items-center opacity-50">
+            <Image source={image} className="h-14 w-14" />
+            <View className="px-3 py-1 basis-3/4">
               <TitleDisabledContainer>
-                <Text className="text-[#4030A5] font-bold opacity-30">{title}</Text>
+                <Text className="text-[#4030A5] font-bold">{title}</Text>
               </TitleDisabledContainer>
-            ) : (
+              <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
+              <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full"></View>
+            </View>
+          </View>
+        ) : (
+          <View className=" flex flex-row items-center">
+            <Image source={image} className="h-14 w-14" />
+            <View className="px-3 py-1 basis-3/4">
               <TitleContainer>
                 <Text className="text-[#4030A5] font-bold">{title}</Text>
               </TitleContainer>
-            )}
-            <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
-            {title !== 'Mes résultats' && (
-              <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
-                <View
-                  className="rounded-xl h-1.5"
-                  style={{
-                    backgroundColor: '#39CEC1',
-                    width: (nbStepsCompleted / 7) * 100 + '%',
-                  }}
-                />
-              </View>
-            )}
-
-            {/* <ButtonContainer>
-            <ButtonPrimary
-              color={callToAction.includes('résultat') ? '#4030a5' : '#de285e'}
-              content={callToAction}
-              onPress={onPress}
-              disabled={disabled}
-            />
-          </ButtonContainer> */}
+              <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
+              {title !== 'Mes résultats' && (
+                <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
+                  <View
+                    className="rounded-xl h-1.5"
+                    style={{
+                      backgroundColor: '#39CEC1',
+                      width: (nbStepsCompleted / 7) * 100 + '%',
+                    }}
+                  />
+                </View>
+              )}
+            </View>
           </View>
-        </View>
+        )}
+
         <View>{disabled ? <Lock color={'#959595'} size={20} /> : <ArrowRight color={'#4030A5'} size={15} />}</View>
       </TouchableOpacity>
     </>
