@@ -15,6 +15,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 import ValidateIcon from '../../components/ValidateIcon';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import H3 from '../../components/H3';
+import ArrowRight from '../../components/ArrowRight';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
@@ -72,12 +73,12 @@ const DefisMenu = ({ navigation }) => {
 
   return (
     <WrapperContainer title={'Mes activités'}>
-      <SubTitle>
+      <View className="mb-4">
         <TextStyled>
           Chaque activité dure 7 jours et est composée de tests, de quiz et de lectures qui vous aideront à diminuer
           votre consommation et à accroitre votre motivation !
         </TextStyled>
-      </SubTitle>
+      </View>
       <CategorieMenu
         title={'Auto-évaluation'}
         description={'Détecter mon niveau de risque'}
@@ -164,7 +165,7 @@ const DefisMenu = ({ navigation }) => {
         disabledContainer={!autoEvaluationDone}
       />
       <OnBoardingModal
-        title="Sans évaluation, pas de défis"
+        title="Activité non disponible"
         description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
         boutonTitle="Je m'évalue"
         onPress={() => {
@@ -272,30 +273,30 @@ const CategorieMenu = ({
       <TouchableOpacity
         disabled={disabledContainer}
         onPress={disabled ? onBoardingPress : onPress}
-        className="border border-[#E8E8EA] rounded-md flex flex-row my-1 p-2">
-        <Image source={image} />
-        <View className="px-2 py-1">
-          {disabled ? (
-            <TitleDisabledContainer>
-              <H3 bold color="#4030A5">
-                {title}
-              </H3>
-              <Lock color={'#000'} size={16} />
-            </TitleDisabledContainer>
-          ) : (
-            <TitleContainer>
-              <H3 bold color="#4030A5">
-                {title}
-              </H3>
-              {!!callToAction.includes('résultat') && (
-                <ValidateBg>
-                  <ValidateIcon fill="#fff" size={20} />
-                </ValidateBg>
-              )}
-            </TitleContainer>
-          )}
-          <Text className="text-[#4030A5]">{description}</Text>
-          {/* <ButtonContainer>
+        className="border border-[#E8E8EA] rounded-md flex flex-row my-1.5 p-2 items-center justify-between">
+        <View className="flex flex-row items-center h-full">
+          <Image source={image} className="rounded-md " />
+          <View className="px-3 py-1">
+            {disabled ? (
+              <TitleDisabledContainer>
+                <Text className="text-[#4030A5] font-bold">{title}</Text>
+              </TitleDisabledContainer>
+            ) : (
+              <TitleContainer>
+                <Text className="text-[#4030A5] font-bold">{title}</Text>
+              </TitleContainer>
+            )}
+            <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
+            <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
+              <View
+                className="rounded-xl h-2"
+                // style={{
+                //   backgroundColor: badgeCategory.bgColor,
+                //   width: (numberOfBadges / numberOfAvailableBadges) * 100 + '%',
+                // }}
+              />
+            </View>
+            {/* <ButtonContainer>
             <ButtonPrimary
               color={callToAction.includes('résultat') ? '#4030a5' : '#de285e'}
               content={callToAction}
@@ -303,7 +304,9 @@ const CategorieMenu = ({
               disabled={disabled}
             />
           </ButtonContainer> */}
+          </View>
         </View>
+        <View>{disabled ? <Lock color={'#959595'} size={20} /> : <ArrowRight color={'#4030A5'} size={15} />}</View>
       </TouchableOpacity>
     </>
   );
