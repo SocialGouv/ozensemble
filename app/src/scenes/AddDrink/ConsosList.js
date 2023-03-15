@@ -93,7 +93,7 @@ const ConsosList = ({ navigation, route }) => {
   };
 
   const onValidateConsos = async () => {
-    onClose();
+    navigation.navigate('DEFI');
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
       timestamp: makeSureTimestamp(addDrinkModalTimestamp),
