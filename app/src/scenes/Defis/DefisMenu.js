@@ -19,11 +19,12 @@ import ArrowRight from '../../components/ArrowRight';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
+  const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
-  const [showDefi2Modal, setshowDefi2Modal] = useState(false);
-  const [showDefi3Modal, setshowDefi3Modal] = useState(false);
-  const [showDefi4Modal, setshowDefi4Modal] = useState(false);
-  const [showDefi5Modal, setshowDefi5Modal] = useState(false);
+  // const [showDefi2Modal, setshowDefi2Modal] = useState(false);
+  // const [showDefi3Modal, setshowDefi3Modal] = useState(false);
+  // const [showDefi4Modal, setshowDefi4Modal] = useState(false);
+  // const [showDefi5Modal, setshowDefi5Modal] = useState(false);
   const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
@@ -41,35 +42,35 @@ const DefisMenu = ({ navigation }) => {
     if (isFocused) setDefi5Day(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   }, [isFocused]);
 
-  const defi1CallToAction = useMemo(() => {
-    if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
-    if (defi1Day === 7) return 'Mes résultats';
-    return 'Je continue';
-  }, [defi1Day, autoEvaluationDone]);
+  // const defi1CallToAction = useMemo(() => {
+  //   if (!autoEvaluationDone || defi1Day === 0) return 'Je commence';
+  //   if (defi1Day === 7) return 'Mes résultats';
+  //   return 'Je continue';
+  // }, [defi1Day, autoEvaluationDone]);
 
-  const defi2CallToAction = useMemo(() => {
-    if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
-    if (defi2Day === 7) return 'Mes résultats';
-    return 'Je continue';
-  }, [defi2Day, autoEvaluationDone]);
+  // const defi2CallToAction = useMemo(() => {
+  //   if (!autoEvaluationDone || defi2Day === 0) return 'Je commence';
+  //   if (defi2Day === 7) return 'Mes résultats';
+  //   return 'Je continue';
+  // }, [defi2Day, autoEvaluationDone]);
 
-  const defi3CallToAction = useMemo(() => {
-    if (!autoEvaluationDone || defi3Day === 0) return 'Je commence';
-    if (defi3Day === 7) return 'Mes résultats';
-    return 'Je continue';
-  }, [defi3Day, autoEvaluationDone]);
+  // const defi3CallToAction = useMemo(() => {
+  //   if (!autoEvaluationDone || defi3Day === 0) return 'Je commence';
+  //   if (defi3Day === 7) return 'Mes résultats';
+  //   return 'Je continue';
+  // }, [defi3Day, autoEvaluationDone]);
 
-  const defi4CallToAction = useMemo(() => {
-    if (!autoEvaluationDone || defi4Day === 0) return 'Je commence';
-    if (defi4Day === 7) return 'Mes résultats';
-    return 'Je continue';
-  }, [defi4Day, autoEvaluationDone]);
+  // const defi4CallToAction = useMemo(() => {
+  //   if (!autoEvaluationDone || defi4Day === 0) return 'Je commence';
+  //   if (defi4Day === 7) return 'Mes résultats';
+  //   return 'Je continue';
+  // }, [defi4Day, autoEvaluationDone]);
 
-  const defi5CallToAction = useMemo(() => {
-    if (!autoEvaluationDone || defi5Day === 0) return 'Je commence';
-    if (defi5Day === 7) return 'Mes résultats';
-    return 'Je continue';
-  }, [defi5Day, autoEvaluationDone]);
+  // const defi5CallToAction = useMemo(() => {
+  //   if (!autoEvaluationDone || defi5Day === 0) return 'Je commence';
+  //   if (defi5Day === 7) return 'Mes résultats';
+  //   return 'Je continue';
+  // }, [defi5Day, autoEvaluationDone]);
 
   return (
     <WrapperContainer title={'Mes activités'}>
@@ -88,8 +89,9 @@ const DefisMenu = ({ navigation }) => {
           })
         }
         image={require('../../assets/images/AutoEvaluation.png')}
-        callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
+        //callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
         onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
+        nbStepsCompleted={autoEvaluationToCompletedDays}
       />
       {!autoEvaluationDone && (
         <UnderlinedButton
@@ -107,8 +109,9 @@ const DefisMenu = ({ navigation }) => {
         onPress={() => navigation.navigate('DEFI1')}
         image={require('../../assets/images/Activity1.png')}
         disabled={!autoEvaluationDone}
-        callToAction={defi1CallToAction}
+        // callToAction={defi1CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
+        nbStepsCompleted={defi1Day}
       />
       <CategorieMenu
         title={'Activité 2'}
@@ -118,8 +121,9 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity2.png')}
         disabled={!autoEvaluationDone || defi1Day < 7}
-        callToAction={defi2CallToAction}
-        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
+        //callToAction={defi2CallToAction}
+        onBoardingPress={() => setShowOnboardingModal(true)}
+        nbStepsCompleted={defi2Day}
       />
       <CategorieMenu
         title={'Activité 3'}
@@ -129,8 +133,9 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity3.png')}
         disabled={!autoEvaluationDone || defi2Day < 7}
-        callToAction={defi3CallToAction}
-        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi3Modal(true))}
+        // callToAction={defi3CallToAction}
+        onBoardingPress={() => setShowOnboardingModal(true)}
+        nbStepsCompleted={defi3Day}
       />
 
       <CategorieMenu
@@ -141,8 +146,9 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity4.png')}
         disabled={!autoEvaluationDone || defi3Day < 7}
-        callToAction={defi4CallToAction}
-        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi4Modal(true))}
+        //callToAction={defi4CallToAction}
+        onBoardingPress={() => setShowOnboardingModal(true)}
+        nbStepsCompleted={defi4Day}
       />
       <CategorieMenu
         title={'Activité 5'}
@@ -152,105 +158,26 @@ const DefisMenu = ({ navigation }) => {
         }}
         image={require('../../assets/images/Activity5.png')}
         disabled={!autoEvaluationDone || defi4Day < 7}
-        callToAction={defi5CallToAction}
-        onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi5Modal(true))}
+        //callToAction={defi5CallToAction}
+        onBoardingPress={() => setShowOnboardingModal(true)}
+        nbStepsCompleted={defi5Day}
       />
       <CategorieMenu
-        title={'Mes resultats'}
+        title={'Mes résultats'}
         description={'Retrouver tous mes tests des activités'}
         onPress={() => navigation.navigate('TESTS_DEFIS')}
         image={require('../../assets/images/Resultats.png')}
-        callToAction="Mes résultats"
+        //callToAction="Mes résultats"
         disabled={!autoEvaluationDone}
         disabledContainer={!autoEvaluationDone}
+        onBoardingPress={() => setShowOnboardingModal(true)}
       />
       <OnBoardingModal
         title="Activité non disponible"
-        description="En 4 questions, je peux évaluer ma consommation et ensuite commencer mes défis."
-        boutonTitle="Je m'évalue"
-        onPress={() => {
-          setShowOnboardingModal(false);
-          navigation.navigate('ONBOARDING_QUIZZ');
-        }}
+        description="Vous êtes déjà dans une activité, terminez la avant de pouvoir commencer celle-ci :)"
         visible={showOnboardingModal}
         hide={() => {
           setShowOnboardingModal(false);
-        }}
-      />
-      <OnBoardingModal
-        title="Faites le premier défi avant"
-        description="Commencez le défi pour faire le point en 7 jours avant d'aller plus loin :) "
-        boutonTitle={`${defi1CallToAction} le\u000Apremier\u00A0défi`}
-        onPress={() => {
-          setshowDefi2Modal(false);
-          navigation.navigate('DEFI1');
-        }}
-        visible={showDefi2Modal}
-        hide={() => {
-          setshowDefi2Modal(false);
-        }}
-      />
-      <OnBoardingModal
-        title="Faites le deuxième défi avant"
-        description="Commencez le défi 2 avant d'aller plus loin :) "
-        boutonTitle={`${defi2CallToAction} le\u000Adeuxième\u00A0défi`}
-        onPress={() => {
-          setshowDefi3Modal(false);
-          navigation.navigate('DEFI2');
-        }}
-        visible={showDefi3Modal}
-        hide={() => {
-          setshowDefi3Modal(false);
-        }}
-      />
-      <OnBoardingModal
-        title="Faites le troisième défi avant"
-        description="Commencez le défi 3 avant d'aller plus loin :) "
-        boutonTitle={`${defi3CallToAction} le\u000Atroisième\u00A0défi`}
-        onPress={() => {
-          setshowDefi4Modal(false);
-          navigation.navigate('DEFI3');
-        }}
-        visible={showDefi4Modal}
-        hide={() => {
-          setshowDefi4Modal(false);
-        }}
-      />
-      <OnBoardingModal
-        title="Faites le quatrième défi avant"
-        description="Commencez le défi 4 avant d'aller plus loin :) "
-        boutonTitle={`${defi4CallToAction} le\u000Aquatrième\u00A0défi`}
-        onPress={() => {
-          setshowDefi5Modal(false);
-          navigation.navigate('DEFI4');
-        }}
-        visible={showDefi5Modal}
-        hide={() => {
-          setshowDefi5Modal(false);
-        }}
-      />
-      <OnBoardingModal
-        title="Pourquoi faire cette auto-évaluation ?"
-        description={
-          <>
-            <P>
-              En faisant cette évaluation en 4 questions, nous pourrons <Bold>améliorer votre expérience</Bold> au sein
-              de l'application en vous donnant des <Bold>conseils adaptés</Bold>.{'\n\n'}
-            </P>
-            <P>
-              De vous même, vous prendez <Bold>consicence du résultat</Bold> et vous pourrez alors y remédier en
-              apprenant à réduire votre consommation d'alcool.
-            </P>
-          </>
-        }
-        boutonTitle="Je m'évalue"
-        onPress={() => {
-          setShowHowMakeSelfEvaluation(false);
-          navigation.navigate('ONBOARDING_QUIZZ');
-        }}
-        visible={showHowMakeSelfEvaluation}
-        hide={() => {
-          setShowHowMakeSelfEvaluation(false);
         }}
       />
     </WrapperContainer>
@@ -266,6 +193,7 @@ const CategorieMenu = ({
   callToAction,
   disabled,
   disabledContainer,
+  nbStepsCompleted,
 }) => {
   // disabled = __DEV__ ? false : disabled;
   return (
@@ -273,13 +201,13 @@ const CategorieMenu = ({
       <TouchableOpacity
         disabled={disabledContainer}
         onPress={disabled ? onBoardingPress : onPress}
-        className="border border-[#E8E8EA] rounded-md flex flex-row my-1.5 p-2 items-center justify-between">
-        <View className="flex flex-row items-center h-full">
-          <Image source={image} className="rounded-md " />
-          <View className="px-3 py-1">
+        className="border border-[#E8E8EA] rounded-md flex flex-row my-1.5 p-2 items-center justify-around">
+        <View className=" flex flex-row items-center">
+          <Image source={image} className="h-14 w-14" />
+          <View className="px-3 py-1 basis-3/4">
             {disabled ? (
               <TitleDisabledContainer>
-                <Text className="text-[#4030A5] font-bold">{title}</Text>
+                <Text className="text-[#4030A5] font-bold opacity-30">{title}</Text>
               </TitleDisabledContainer>
             ) : (
               <TitleContainer>
@@ -287,15 +215,18 @@ const CategorieMenu = ({
               </TitleContainer>
             )}
             <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
-            <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
-              <View
-                className="rounded-xl h-2"
-                // style={{
-                //   backgroundColor: badgeCategory.bgColor,
-                //   width: (numberOfBadges / numberOfAvailableBadges) * 100 + '%',
-                // }}
-              />
-            </View>
+            {title !== 'Mes résultats' && (
+              <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
+                <View
+                  className="rounded-xl h-1.5"
+                  style={{
+                    backgroundColor: '#39CEC1',
+                    width: (nbStepsCompleted / 7) * 100 + '%',
+                  }}
+                />
+              </View>
+            )}
+
             {/* <ButtonContainer>
             <ButtonPrimary
               color={callToAction.includes('résultat') ? '#4030a5' : '#de285e'}
@@ -311,20 +242,6 @@ const CategorieMenu = ({
     </>
   );
 };
-
-const CategorieContainer = styled.TouchableOpacity`
-  border: 1px solid #79747e;
-  border-radius: 12px;
-  flex-direction: row;
-  margin-vertical: 30px;
-`;
-
-const TextContainer = styled.View`
-  flex-direction: column;
-  justify-content: space-around;
-  margin-horizontal: 10px;
-  flex: 1;
-`;
 
 const TitleContainer = styled.View`
   flex-direction: row;
