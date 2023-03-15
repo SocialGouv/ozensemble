@@ -13,7 +13,8 @@ import { storage } from '../../services/storage';
 import { Bold, P } from '../../components/Articles';
 import WrapperContainer from '../../components/WrapperContainer';
 import ValidateIcon from '../../components/ValidateIcon';
-import { View, Image } from 'react-native';
+import { View, Image, TouchableOpacity, Text } from 'react-native';
+import H3 from '../../components/H3';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
@@ -268,17 +269,24 @@ const CategorieMenu = ({
   // disabled = __DEV__ ? false : disabled;
   return (
     <>
-      <CategorieContainer disabled={disabledContainer} onPress={disabled ? onBoardingPress : onPress}>
+      <TouchableOpacity
+        disabled={disabledContainer}
+        onPress={disabled ? onBoardingPress : onPress}
+        className="border border-[#E8E8EA] rounded-md flex flex-row my-1 p-2">
         <Image source={image} />
-        <TextContainer>
+        <View className="px-2 py-1">
           {disabled ? (
             <TitleDisabledContainer>
-              <TextStyled bold>{title}</TextStyled>
+              <H3 bold color="#4030A5">
+                {title}
+              </H3>
               <Lock color={'#000'} size={16} />
             </TitleDisabledContainer>
           ) : (
             <TitleContainer>
-              <TextStyled bold>{title}</TextStyled>
+              <H3 bold color="#4030A5">
+                {title}
+              </H3>
               {!!callToAction.includes('résultat') && (
                 <ValidateBg>
                   <ValidateIcon fill="#fff" size={20} />
@@ -286,7 +294,7 @@ const CategorieMenu = ({
               )}
             </TitleContainer>
           )}
-          <TextStyled>{description}</TextStyled>
+          <Text className="text-[#4030A5]">{description}</Text>
           {/* <ButtonContainer>
             <ButtonPrimary
               color={callToAction.includes('résultat') ? '#4030a5' : '#de285e'}
@@ -295,8 +303,8 @@ const CategorieMenu = ({
               disabled={disabled}
             />
           </ButtonContainer> */}
-        </TextContainer>
-      </CategorieContainer>
+        </View>
+      </TouchableOpacity>
     </>
   );
 };
