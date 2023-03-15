@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, TouchableOpacity, TouchableWithoutFeedback, Share, Platform } from 'react-native';
+import { Text, TouchableOpacity, TouchableWithoutFeedback, View, StyleSheet } from 'react-native';
 import styled from 'styled-components';
 import appJson from '../../../app.json';
 import Background from '../../components/Background';
@@ -16,7 +16,7 @@ import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import FakeData from '../../reference/mocks/FakeData';
 import { capture } from '../../services/sentry';
 import { shareApp } from '../../services/shareApp';
-
+import ShareIcon from '../../components/illustrations/icons/ShareIcon';
 const InfosStack = createStackNavigator();
 
 const Infos = () => {
@@ -45,63 +45,67 @@ const InfosMenu = ({ navigation }) => {
   }, [debugPressed]);
 
   return (
-    <WrapperContainer title="Mes Informations">
-      <Container>
+    <WrapperContainer title="Informations">
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => shareApp()} showArrow={false}>
+          <View
+            className="h-[70] border-b border-b-[#4030a522] flex flex-row justify-between items-center "
+            style={styles.menuItem}>
+            <Text>Partager l’application</Text>
+            <View className="flex flex-row border items-center rounded-full py-1 px-2 border-[#4030A5] space-x-2 ">
+              <ShareIcon />
+              <Text className="text-[#4030A5] font-bold">Partager</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+        <MenuItem
+          caption="Donner mon avis sur l’application"
+          onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Infos' })}
+        />
+        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
         <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
         <MenuItem
           caption="Mentions Légales & Politique de Confidentialité"
           onPress={() => navigation.push('PRIVACY_POLICY')}
         />
-        <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
-        <MenuItem
-          caption="Mon avis sur l'application"
-          onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Infos' })}
-        />
-        <MenuItem caption="Partager l'application" onPress={() => shareApp()} showArrow={false} />
-        <VersionContainer>
+        <View className="mt-7 flex items-center">
           <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
             <VersionLabel>
               version {appJson.version.buildName} ({appJson.version.buildNumber})
             </VersionLabel>
           </TouchableWithoutFeedback>
-        </VersionContainer>
-      </Container>
+        </View>
+      </View>
     </WrapperContainer>
   );
 };
 
 const MenuItem = ({ caption, onPress, showArrow = true }) => (
   <TouchableOpacity onPress={onPress}>
-    <MenuItemStyled>
+    <View
+      className="h-[70] border-b border-b-[#4030a522] flex flex-row justify-between items-center"
+      style={styles.menuItem}>
       <Text>{caption}</Text>
       {showArrow && <Arrow>{'>'}</Arrow>}
-    </MenuItemStyled>
+    </View>
   </TouchableOpacity>
 );
 
 export default Infos;
 
-const Container = styled.View`
-  margin-horizontal: -${defaultPaddingFontScale}px;
-`;
+const padding = defaultPaddingFontScale();
 
-const VersionContainer = styled.View`
-  margin-top: 30px;
-  flex: 1;
-  align-items: center;
-`;
+const styles = StyleSheet.create({
+  menuItem: {
+    paddingHorizontal: padding,
+  },
+  container: {
+    marginHorizontal: -padding,
+  },
+});
+
 const VersionLabel = styled(TextStyled)`
   color: #ddd;
-`;
-
-const MenuItemStyled = styled.View`
-  height: 70px;
-  border-bottom-width: 1px;
-  border-bottom-color: #4030a522;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const Arrow = styled(TextStyled)`
