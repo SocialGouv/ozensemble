@@ -133,9 +133,4 @@ const commonCss = css`
   flex-shrink: 0;
 `;
 
-const TopSubTitle = styled(H2)`
-  ${commonCss};
-  margin-bottom: 10px;
-`;
-
 export default Conseils;
