@@ -72,7 +72,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
           })}
       </BackgroundEFEFEF>
       <P>
-        Si vous êtes parvenu à <P bold>gérer la situation</P> dans le cadre de ce défi, vous êtes{' '}
+        Si vous êtes parvenu à <P bold>gérer la situation</P> dans le cadre de cette activité, vous êtes{' '}
         <P bold>capable de trouver seul(e) des solutions pour faire autrement.</P>
         {'\n\n'}
         <P bold>Sinon, vous avez pu mieux identifier quels sont vos points de blocage.</P>

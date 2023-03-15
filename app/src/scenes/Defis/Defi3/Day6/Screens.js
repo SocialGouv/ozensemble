@@ -73,7 +73,8 @@ export const Explications = ({ navigation, emotion, answersRiskSituations }) => 
               Nous allons nous pencher sur les raisons qui vous poussent à consommer. {'\n\n'}
               <TextStyled bold>C’est humain de perdre en motivation</TextStyled>, et nous allons vous donner des{' '}
               <TextStyled bold>conseils</TextStyled> pour continuer votre démarche de réduction. {'\n\n'}
-              Pour personnaliser cet exercice, nous reprenons <TextStyled bold>votre situation du défi 2</TextStyled> :
+              Pour personnaliser cet exercice, nous reprenons{' '}
+              <TextStyled bold>votre situation de l'activité 2</TextStyled> :
             </TextStyled>
           </>
         }

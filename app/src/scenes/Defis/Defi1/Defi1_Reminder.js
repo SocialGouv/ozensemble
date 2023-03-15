@@ -46,7 +46,7 @@ const Defi1_Reminder = ({ navigation, route }) => {
           <ReminderIcon size={80} color="#4030a5" selected={false} />
           <Title>
             <TextStyled color="#4030a5" bold>
-              Activez les notifications pour ne pas oublier votre défi de demain !
+              Activez les notifications pour ne pas oublier votre activité de demain !
             </TextStyled>
           </Title>
         </TitleContainer>

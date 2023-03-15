@@ -122,7 +122,8 @@ export const defi1_Data = [
     DescriptionDone: (
       <>
         <Bold>Félicitations !</Bold> Vous avez fait un grand premier pas. Continuez à remplir vos consommations tous les
-        jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble.
+        jours et n'hésitez pas à prendre contact avec un professionnel Oz Ensemble. Merci de prendre 5 secondes pour{' '}
+        <Bold>nous donner votre avis sur cette activité, </Bold> nous améliorons l’application avec vos retours !
       </>
     ),
     textCTA: 'Je consulte mon bilan',

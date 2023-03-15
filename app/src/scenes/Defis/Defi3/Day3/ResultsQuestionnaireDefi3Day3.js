@@ -50,7 +50,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           <TextStyled>
             Vous n'avez pas encore sélectionné de facteurs de difficultés, vous pouvez revenir à ce questionnaire en
             allant dans la rubrique <TextStyled bold>Mes tests</TextStyled> dynamiques
-            <TextStyled bold> Défis</TextStyled>.
+            <TextStyled bold> Activités</TextStyled>.
           </TextStyled>
         )}
         <View>
@@ -148,7 +148,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           <TextStyled>
             Vous n'avez pas encore sélectionné de facteurs d'aide, vous pouvez revenir à ce questionnaire en allant dans
             la rubrique <TextStyled bold>Mes tests</TextStyled> dynamiques
-            <TextStyled bold> Défis</TextStyled>.
+            <TextStyled bold> Activités</TextStyled>.
           </TextStyled>
         )}
         <View>
@@ -219,7 +219,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
       <TextStyled>
         Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine</TextStyled>. Vous pourrez
         retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans{' '}
-        <TextStyled bold>Défis</TextStyled>.
+        <TextStyled bold>Activités</TextStyled>.
       </TextStyled>
       <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate(route.params.rootRoute)} />
     </Wrapper>

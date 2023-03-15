@@ -29,7 +29,7 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="À qui s'adresse ce défi 7 jours ?">
+    <WrapperContainer onPressBackButton={navigation.goBack} title="À qui s'adresse cette activité 7 jours ?">
       <Paragraph>
         <Elem
           bold
@@ -44,7 +44,7 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
             <TextStyled bold>
               vous devez prendre conseil auprès de votre médecin ou d'un professionnel Oz Ensemble
             </TextStyled>{' '}
-            avant de commencer ce défi 7 jours :
+            avant de commencer cette activité 7 jours :
             <Br lines={2} />
             <View
               style={{

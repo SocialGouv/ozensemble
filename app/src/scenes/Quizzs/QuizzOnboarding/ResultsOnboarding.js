@@ -35,7 +35,7 @@ const ResultsOnboarding = ({ navigation, route }) => {
         <>
           <TopButtonContainer>
             <ButtonPrimary
-              content="Je commence le défi"
+              content="Je commence l'activité"
               onPress={() => navigation.navigate('DEFI', { screen: 'DEFI1' })}
             />
           </TopButtonContainer>
@@ -70,7 +70,7 @@ const ResultGood = () => {
       </P>
       <Spacer size={20} />
       <P>
-        Si vous souhaitez en <Bold>apprendre plus sur une démarche de réduction,</Bold> faite le premier défi.{' '}
+        Si vous souhaitez en <Bold>apprendre plus sur une démarche de réduction,</Bold> faite la première activité.{' '}
       </P>
     </>
   );
@@ -87,7 +87,7 @@ const ResultRisk = () => {
       <Spacer size={20} />
       <P>
         Vous êtes <Bold>prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie</Bold>, à
-        travers un premier défi pour faire le point en 7 jours.
+        travers une première activité pour faire le point en 7 jours.
       </P>
       <Spacer size={20} />
       <P>
@@ -126,7 +126,7 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
           </TopButtonContainer>
           <P>
             Nous vous proposons une démarche de maîtrise de votre consommation d'alcool en autonomie,{' '}
-            <Bold>voici un premier défi pour faire le point en 7 jours.</Bold>
+            <Bold>voici une première activité pour faire le point en 7 jours.</Bold>
           </P>
         </>
       )}
@@ -137,7 +137,7 @@ const ResultAddicted = ({ navigation, feeling, setFeeling }) => {
           </P>
           <P>
             Vous êtes prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie, à travers{' '}
-            <Bold>un premier défi pour faire le point en 7 jours.</Bold>
+            <Bold>une première activité pour faire le point en 7 jours.</Bold>
           </P>
           <P>Vous découvrirez aussi de l'information fiable pour mieux appréhender les mécanismes d'addiction.</P>
         </>

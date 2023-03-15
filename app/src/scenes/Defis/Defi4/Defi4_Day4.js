@@ -111,8 +111,8 @@ const Defi4_Day4 = ({ route }) => {
                     </P>
                     <BulletPoint>
                       <P>
-                        {'\u2022'} D’utiliser votre <TextStyled bold>consommation actuelle</TextStyled> comme{' '}
-                        <TextStyled bold>point de départ</TextStyled>.
+                        {'\u2022'} D’utiliser votre <TextStyled bold>bilan de la première semaine</TextStyled>{' '}
+                        d'activité comme <TextStyled bold>point de départ</TextStyled>.
                       </P>
                     </BulletPoint>
                     <BulletPoint>

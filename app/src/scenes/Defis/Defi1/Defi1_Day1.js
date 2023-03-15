@@ -29,9 +29,9 @@ const Defi1_Day1 = ({ navigation, route }) => {
         content={
           <>
             <TextStyled>
-              Les consommations que vous saisissez dans le cadre du défi se retrouvent automatiquement dans votre agenda
-              de consommation disponible dans l'onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez saisir une
-              consommation depuis l'agenda ou en appuyant sur le bouton{' '}
+              Les consommations que vous saisissez dans le cadre de cette activité se retrouvent automatiquement dans
+              votre agenda de consommation disponible dans l'onglet <TextStyled bold>Suivi</TextStyled>. Vous pouvez
+              saisir une consommation depuis l'agenda ou en appuyant sur le bouton{' '}
             </TextStyled>
             <CTAContainer>
               <CTASubContainer>
