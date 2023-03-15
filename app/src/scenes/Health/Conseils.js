@@ -9,7 +9,6 @@ import H1 from '../../components/H1';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
-import { View } from 'react-native';
 
 const Conseils = ({ navigation }) => {
   return (
