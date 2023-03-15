@@ -13,15 +13,15 @@ import WrapperContainer from '../../components/WrapperContainer';
 const Conseils = ({ navigation }) => {
   return (
     <WrapperContainer>
-      <H1 className="mt-2 mb-6">
-        <TextStyled color="#4030a5">Santé</TextStyled>
+      <H1 className="mt-2 mb-6" color="#4030a5">
+        Santé
       </H1>
-      <TopSubTitle>
-        <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
-      </TopSubTitle>
-      <TopSubTitle>
-        <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
-      </TopSubTitle>
+      <H2 color="#4030a5" className="mb-2">
+        Parler avec un professionnel
+      </H2>
+      <H2 color="#000000" className="mb-2">
+        Gratuitement et anonymement
+      </H2>
       <CategorieContainer
         onPress={() => {
           logEvent({
