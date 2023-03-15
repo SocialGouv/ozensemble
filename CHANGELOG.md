@@ -1,3 +1,10 @@
+## [1.85.17](https://github.com/SocialGouv/ozensemble/compare/v1.85.16...v1.85.17) (2023-03-15)
+
+
+### Bug Fixes
+
+* ui informations ([#191](https://github.com/SocialGouv/ozensemble/issues/191)) ([93415b6](https://github.com/SocialGouv/ozensemble/commit/93415b67cd49cc68fc2a154ce47e36a8f1145eda))
+
 ## [1.85.16](https://github.com/SocialGouv/ozensemble/compare/v1.85.15...v1.85.16) (2023-03-14)
 
 
