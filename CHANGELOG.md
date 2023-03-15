@@ -1,3 +1,10 @@
+## [1.85.18](https://github.com/SocialGouv/ozensemble/compare/v1.85.17...v1.85.18) (2023-03-15)
+
+
+### Bug Fixes
+
+* add Sante title ([#192](https://github.com/SocialGouv/ozensemble/issues/192)) ([4a044b6](https://github.com/SocialGouv/ozensemble/commit/4a044b6d4ff0710cfb495410e2132b567e2bfe6c))
+
 ## [1.85.17](https://github.com/SocialGouv/ozensemble/compare/v1.85.16...v1.85.17) (2023-03-15)
 
 
