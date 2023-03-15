@@ -6,15 +6,19 @@ import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
 import H1 from '../../components/H1';
+
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
   return (
     <WrapperContainer>
-      <TopTitle>
+      <H1 className="mt-2 mb-6">
+        <TextStyled color="#4030a5">Santé</TextStyled>
+      </H1>
+      <TopSubTitle>
         <TextStyled color="#4030a5">Parler avec un professionnel</TextStyled>
-      </TopTitle>
+      </TopSubTitle>
       <TopSubTitle>
         <TextStyled color="#000000">Gratuitement et anonymement</TextStyled>
       </TopSubTitle>
@@ -35,9 +39,9 @@ const Conseils = ({ navigation }) => {
           <TextStyled> avec Doctolib</TextStyled>
         </TextContainer>
       </CategorieContainer>
-      <TopTitle>
+      <H2>
         <TextStyled color="#4030a5">Mes conseils</TextStyled>
-      </TopTitle>
+      </H2>
       <ViewConseilsContainer>
         {listConseils.map((conseil, index) => (
           <ConseilContainer
@@ -61,13 +65,6 @@ const Conseils = ({ navigation }) => {
     </WrapperContainer>
   );
 };
-
-export const TopTitle = styled(H1)`
-  width: 95%;
-  flex-shrink: 0;
-  margin-top: 20px;
-  margin-bottom: 10px;
-`;
 
 const ViewConseilsContainer = styled.View`
   margin-left: -${defaultPaddingFontScale()}px;
