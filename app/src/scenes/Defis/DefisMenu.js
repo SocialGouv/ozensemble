@@ -12,12 +12,13 @@ import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import ArrowRight from '../../components/ArrowRight';
+import { Bold, P } from '../../components/Articles';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
-  const setShowHowMakeSelfEvaluation = useState(false);
+  const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
@@ -133,6 +134,30 @@ const DefisMenu = ({ navigation }) => {
         visible={showOnboardingModal}
         hide={() => {
           setShowOnboardingModal(false);
+        }}
+      />
+      <OnBoardingModal
+        title="Pourquoi faire cette auto-évaluation ?"
+        description={
+          <>
+            <P>
+              En faisant cette évaluation en 4 questions, nous pourrons <Bold>améliorer votre expérience</Bold> au sein
+              de l'application en vous donnant des <Bold>conseils adaptés</Bold>.{'\n\n'}
+            </P>
+            <P>
+              De vous même, vous prendez <Bold>consicence du résultat</Bold> et vous pourrez alors y remédier en
+              apprenant à réduire votre consommation d'alcool.
+            </P>
+          </>
+        }
+        boutonTitle="Je m'évalue"
+        onPress={() => {
+          setShowHowMakeSelfEvaluation(false);
+          navigation.navigate('ONBOARDING_QUIZZ');
+        }}
+        visible={showHowMakeSelfEvaluation}
+        hide={() => {
+          setShowHowMakeSelfEvaluation(false);
         }}
       />
     </WrapperContainer>
