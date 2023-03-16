@@ -212,27 +212,4 @@ const TitleDisabledContainer = styled.View`
   width: ${screenWidth * 0.65 - defaultPaddingFontScale() - 10}px;
 `;
 
-const ButtonContainer = styled.View`
-  align-items: flex-end;
-  justify-content: center;
-  margin-right: 5px;
-`;
-
-const ImageStyled = styled.Image`
-  border-bottom-left-radius: 11px;
-  border-top-left-radius: 11px;
-  width: ${screenWidth * 0.3 - defaultPaddingFontScale()}px;
-  height: ${screenWidth * 0.4}px;
-`;
-
-const SubTitle = styled.View``;
-
-const ValidateBg = styled.View`
-  background-color: #39cec0;
-  border-radius: 20px;
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-`;
-
 export default DefisMenu;

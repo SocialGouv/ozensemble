@@ -8,7 +8,7 @@ import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
-import DefisIcon from './components/illustrations/Defis';
+import Activities from './components/illustrations/Activities';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
 import GuidanceIcon from './components/illustrations/GuidanceIcon';
 import InfosIcon from './components/illustrations/Infos';
@@ -86,8 +86,8 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="DEFI"
           options={{
-            tabBarLabel: (props) => <Label {...props}>Défis</Label>,
-            tabBarIcon: ({ size, color }) => <DefisIcon size={size} color={color} />,
+            tabBarLabel: (props) => <Label {...props}>Activités</Label>,
+            tabBarIcon: ({ size, color }) => <Activities size={size} color={color} />,
           }}
           component={DefisNavigator}
         />
