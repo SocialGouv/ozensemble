@@ -1,3 +1,11 @@
+## [1.85.20](https://github.com/SocialGouv/ozensemble/compare/v1.85.19...v1.85.20) (2023-03-16)
+
+
+### Bug Fixes
+
+* bold sante title on android ([#196](https://github.com/SocialGouv/ozensemble/issues/196)) ([9f74a4e](https://github.com/SocialGouv/ozensemble/commit/9f74a4ed4acfacded69d66f919cb2f431c12b69e))
+* wording-defis-to-activities ([#197](https://github.com/SocialGouv/ozensemble/issues/197)) ([082b52e](https://github.com/SocialGouv/ozensemble/commit/082b52eb6d023110cabd436ff55f010b168a0e37))
+
 ## [1.85.19](https://github.com/SocialGouv/ozensemble/compare/v1.85.18...v1.85.19) (2023-03-15)
 
 
