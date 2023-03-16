@@ -31,9 +31,7 @@ const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTit
         <SubTitle>
           <TextStyled color={'#3C3C43'}>{description}</TextStyled>
         </SubTitle>
-        <Continue>
-          <ButtonPrimary onPress={onPress} content={boutonTitle} />
-        </Continue>
+        <Continue>{boutonTitle ? <ButtonPrimary onPress={onPress} content={boutonTitle} /> : null}</Continue>
       </Container>
     </Modal>
   );

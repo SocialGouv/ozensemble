@@ -190,7 +190,7 @@ const QuizzMenu = () => {
       <SubTitle>
         Pour refaire les tests si besoin et continuer à réfléchir au rôle de l'alcool dans ma vie quotidienne.
       </SubTitle>
-      <DefiCategorieTitle color="#4030a5">Premier défi</DefiCategorieTitle>
+      <DefiCategorieTitle color="#4030a5">Première activité</DefiCategorieTitle>
       <QuizzElement
         title="Mieux mesurer ma consommation"
         onStart={() => navigation.navigate('EVALUATE_CONSO_QUIZZ', { initialRouteName: 'QUIZZ_QUESTIONS' })}
@@ -212,7 +212,7 @@ const QuizzMenu = () => {
         done={motivationsQuizzResult !== null}
         showOnlyIfDone
       />
-      <DefiCategorieTitle color="#4030a5">Deuxième défi</DefiCategorieTitle>
+      <DefiCategorieTitle color="#4030a5">Deuxième activité</DefiCategorieTitle>
       <QuizzElement
         title="Mes situations à risque"
         onStart={() => navigation.navigate('RISK_SITUATIONS_QUIZZ', { screen: 'QUIZZ_INTERNAL_SITUATIONS' })}
@@ -233,7 +233,7 @@ const QuizzMenu = () => {
         showOnlyIfDone
       />
 
-      <DefiCategorieTitle color="#4030a5">Troisième défi</DefiCategorieTitle>
+      <DefiCategorieTitle color="#4030a5">Troisième activité</DefiCategorieTitle>
       <QuizzElement
         title="Quiz l'alcool en quelques chiffres"
         onStart={() => navigation.navigate('QUIZZ_ALCOOL_EN_CHIFFRES')}
@@ -252,14 +252,14 @@ const QuizzMenu = () => {
         done={Object.keys(defi3_Day5_Answers).length === 3}
         showOnlyIfDone
       />
-      <DefiCategorieTitle color="#4030a5">Quatrième défi</DefiCategorieTitle>
+      <DefiCategorieTitle color="#4030a5">Quatrième activité</DefiCategorieTitle>
       <QuizzElement
         title="Activités pour se faire plaisir autrement"
         onStart={() => navigation.navigate('SE_FAIRE_PLAISIR_AUTREMENT')}
         done={!!defi4_Day5_Results}
         showOnlyIfDone
       />
-      <DefiCategorieTitle color="#4030a5">Cinquième défi</DefiCategorieTitle>
+      <DefiCategorieTitle color="#4030a5">Cinquième activité</DefiCategorieTitle>
       <QuizzElement
         title="Mesurer ma consommation après 4 semaines"
         onStart={() => navigation.navigate('REEVALUATE_CONSO_QUIZZ')}
