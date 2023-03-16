@@ -15,7 +15,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
         <ButtonPrimary
           content="Conseils de réduction"
           onPress={() => navigation.navigate('ADVISE')}
-          style={{ marginVertical: 30 }}
+          style={{ marginTop: 30 }}
         />
         <ButtonPrimary
           small
@@ -23,10 +23,12 @@ const ResultPopulation = ({ value, hideButtons }) => {
           shadowColor="#201569"
           color="#4030A5"
           onPress={() => navigation.navigate('CONTACT')}
+          style={{ marginTop: 30 }}
         />
         <UnderlinedButton
           content="Retour à l'activité"
           onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+          style={{ marginTop: 10 }}
           color="#4030a5"
         />
       </ButtonsContainer>
