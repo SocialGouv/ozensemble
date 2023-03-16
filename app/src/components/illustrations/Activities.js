@@ -1,10 +1,10 @@
 import React from 'react';
-import Svg, { G, Path, Rect } from 'react-native-svg';
+import Svg, { G, Rect } from 'react-native-svg';
 import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const DefisIcon = ({ color, size, ...props }) => (
+const Activities = ({ color, ...props }) => (
   <StyledSvg width={21} height={21} viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <G id="Infos" stroke={color} strokeWidth={1.5}>
       <Rect x="0.75" y="0.75" width="8.5" height="8.5" rx="1.25" />
@@ -16,4 +16,4 @@ const DefisIcon = ({ color, size, ...props }) => (
   </StyledSvg>
 );
 
-export default DefisIcon;
+export default Activities;

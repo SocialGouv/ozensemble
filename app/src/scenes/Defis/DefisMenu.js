@@ -145,7 +145,6 @@ const CategorieMenu = ({
   onBoardingPress,
   onPress,
   image,
-  callToAction,
   disabled,
   disabledContainer,
   nbStepsCompleted,
