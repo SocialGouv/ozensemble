@@ -1,27 +1,23 @@
 import { useRecoilValue } from 'recoil';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
-import ButtonPrimary from '../../components/ButtonPrimary';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
-import { Bold, P } from '../../components/Articles';
 import WrapperContainer from '../../components/WrapperContainer';
-import ValidateIcon from '../../components/ValidateIcon';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
-import H3 from '../../components/H3';
 import ArrowRight from '../../components/ArrowRight';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
-  const [showHowMakeSelfEvaluation, setShowHowMakeSelfEvaluation] = useState(false);
+  const setShowHowMakeSelfEvaluation = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
