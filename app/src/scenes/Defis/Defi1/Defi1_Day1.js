@@ -80,7 +80,7 @@ const Defi1_Day1 = ({ navigation, route }) => {
       <AddConsoCTAContainer>
         <ButtonPrimary
           onPress={() => {
-            navigation.push('ADD_DRINK', { timestamp: Date.now() });
+            navigation.push('ADD_DRINK', { timestamp: Date.now(), parent: 'Defi1_Day1' });
             logEvent({
               category: 'CONSO',
               action: 'CONSO_OPEN_CONSO_ADDSCREEN',

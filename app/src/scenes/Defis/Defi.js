@@ -37,12 +37,7 @@ const Defi = ({
   const nbdays = data.length;
   const activeDay = Math.min(data.length - 1, activeDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
-
-  const getTitleColor = (dayIndex) => {
-    if (activeDay < dayIndex) return '#c4c4c4';
-    if (validatedDays > dayIndex) return '#4030a5';
-    if (activeDay === dayIndex) return '#de285e';
-  };
+  const [showNotAvailableModal, setShowNotAvailableModal] = useState(false);
 
   return (
     <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
@@ -95,22 +90,39 @@ const Defi = ({
                 locked={activeDay < dayIndex}
                 active={activeDay === dayIndex}
               />
-              <FeedDayContent
-                activeOpacity={0.47}
-                last={dayIndex === data.length - 1}
-                disabled={activeDay < dayIndex || !dayData?.screenCTA}
-                onPress={() => navigation.push(dayData?.screenCTA)}>
-                <View style={{ flex: 1 }}>
-                  <TitleDay color={getTitleColor(dayIndex)}>
-                    {dayData?.title} : {dayData?.tagLine}
-                  </TitleDay>
-                </View>
-                {activeDay === dayIndex ? (
-                  <ArrowRight size={10} color="#de285e" />
-                ) : (
+              {activeDay < dayIndex ? (
+                <FeedDayContent
+                  activeOpacity={0.47}
+                  last={dayIndex === data.length - 1}
+                  onPress={() => {
+                    setShowNotAvailableModal(true);
+                  }}>
+                  <View style={{ flex: 1 }}>
+                    <TitleDay color={'#c4c4c4'}>
+                      {dayData?.title} : {dayData?.tagLine}
+                    </TitleDay>
+                  </View>
                   <ArrowRight size={10} color="#c4c4c4" />
-                )}
-              </FeedDayContent>
+                </FeedDayContent>
+              ) : (
+                <FeedDayContent
+                  activeOpacity={0.47}
+                  last={dayIndex === data.length - 1}
+                  onPress={() => {
+                    navigation.push(dayData?.screenCTA);
+                  }}>
+                  <View style={{ flex: 1 }}>
+                    <TitleDay color={'#4030a5'}>
+                      {dayData?.title} : {dayData?.tagLine}
+                    </TitleDay>
+                  </View>
+                  {activeDay === dayIndex ? (
+                    <ArrowRight size={10} color={'#de285e'} />
+                  ) : (
+                    <ArrowRight size={10} color="#c4c4c4" />
+                  )}
+                </FeedDayContent>
+              )}
             </DefiDay>
           );
         })}
@@ -126,6 +138,14 @@ const Defi = ({
           />
         </ButtonContainer>
       </FeedContainer>
+      <OnBoardingModal
+        title="Jour disponible demain "
+        description="L’activité dure 7 jours, revenez demain pour pouvoir faire le jour suivant :)"
+        visible={showNotAvailableModal}
+        hide={() => {
+          setShowNotAvailableModal(false);
+        }}
+      />
       <OnBoardingModal
         title="Poursuivez votre parcours"
         description={

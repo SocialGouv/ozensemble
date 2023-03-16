@@ -93,7 +93,7 @@ const ConsosList = ({ navigation, route }) => {
   };
 
   const onValidateConsos = async () => {
-    navigation.navigate('DEFI');
+    onClose();
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
       timestamp: makeSureTimestamp(addDrinkModalTimestamp),
@@ -150,7 +150,11 @@ const ConsosList = ({ navigation, route }) => {
   };
 
   const onClose = useCallback(() => {
-    navigation.goBack();
+    if (route?.params?.parent === 'Defi1_Day1') {
+      navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+    } else {
+      navigation.goBack();
+    }
   }, [navigation]);
 
   const onCancelConsos = useCallback(() => {
