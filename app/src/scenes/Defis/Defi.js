@@ -64,7 +64,7 @@ const Defi = ({
           />
         ) : !!activeDayIsDone && activeDay >= 6 ? (
           <FeedCTAButton
-            content={`Donner mon avis sur le défi ${defiNumber}`}
+            content={`Donner mon avis sur l'activité ${defiNumber}`}
             color="#4030a5"
             onPress={() => navigation.navigate('NPS_SCREEN', { forDefi: defiNumber, triggeredFrom: 'Top CTA défi' })}
           />
@@ -146,7 +146,7 @@ const Defi = ({
       />
       <OnBoardingModal
         title="Au menu cette semaine : la place de l’alcool dans la société & ma vie "
-        description="Tout d’abord, félicitez-vous car vous avez déjà réussi 2 défis. Aujourd’hui, nous allons nous questionner sur le rôle de l’alcool dans la société et dans votre vie."
+        description="Tout d’abord, félicitez-vous car vous avez déjà réussi 2 activités. Aujourd’hui, nous allons nous questionner sur le rôle de l’alcool dans la société et dans votre vie."
         boutonTitle="Je commence"
         onPress={() => {
           setOnBoardingDefi3Done(true);

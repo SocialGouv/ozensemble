@@ -192,13 +192,13 @@ const NPSScreen = ({ navigation, route }) => {
                 <TextStyled color="#4030a5">
                   Contribuer à Oz Ensemble{'\n'}
                   {forDefi
-                    ? "Vos retours sur ce défi nous permettront d'améliorer l'application\u00A0!"
+                    ? "Vos retours sur cette activité nous permettront d'améliorer l'application\u00A0!"
                     : 'Nous lisons tous vos messages'}
                 </TextStyled>
               </TopTitle>
               <TopSubTitle>
                 <TextStyled color="#191919">
-                  {forDefi ? 'Ce défi vous a-t-il été utile' : 'Ce service vous a-t-il été utile'}
+                  {forDefi ? 'Cette activité vous a-t-elle été utile' : 'Ce service vous a-t-il été utile'}
                   {'\u00A0'}?
                 </TextStyled>
               </TopSubTitle>
@@ -206,7 +206,7 @@ const NPSScreen = ({ navigation, route }) => {
               <TopSubTitle>
                 <TextStyled color="#191919">
                   {forDefi
-                    ? 'Comment pouvons-nous améliorer ce défi'
+                    ? 'Comment pouvons-nous améliorer cette activité'
                     : 'Pour améliorer notre application, avez-vous quelques recommandations à nous faire'}
                   {'\u00A0'}?
                 </TextStyled>

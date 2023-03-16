@@ -18,7 +18,7 @@ const Defi1_Day7 = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="Le bilan de mon Défi 7 jours">
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Le bilan de mon activité 1">
       <ResultsEvaluateConso wrapped={false} hideButtons />
       <ResultsLifeQuality wrapped={false} />
       <ResultsMotivations wrapped={false} />

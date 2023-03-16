@@ -84,10 +84,10 @@ const Defi5_Day3_Onboarding_2 = ({ navigation }) => {
         content={
           <>
             Nous vous proposons maintenant de refaire{' '}
-            <TextStyled bold>le questionnaire sur votre qualité de vie du défi 1</TextStyled>.{'\n\n'}
+            <TextStyled bold>le questionnaire sur votre qualité de vie de l'activité 1</TextStyled>.{'\n\n'}
             Vous pourrez ainsi visualiser l'évolution des différentes composantes de votre qualité de vie par rapport au
-            résultat de la première phase de votre défi. Ne vous laissez pas influencer par vos résultats précédents et
-            répondez au test au vu de votre situation actuelle.
+            résultat de la première phase de votre activité. Ne vous laissez pas influencer par vos résultats précédents
+            et répondez au test au vu de votre situation actuelle.
           </>
         }
       />

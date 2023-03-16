@@ -35,7 +35,7 @@ const HeaderQuizzsResult = ({ title, description, inMyTests, children, buttonCTA
         {!inMyTests && (
           <TextParagraph>
             Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
-            <TextStyled bold> Défis</TextStyled>.
+            <TextStyled bold> Activités</TextStyled>.
           </TextParagraph>
         )}
       </Content>

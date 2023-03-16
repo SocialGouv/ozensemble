@@ -36,7 +36,7 @@ const ResultsMotivations = ({ wrapped = true, route }) => {
           <TextStyled>
             Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en
             allant dans la rubrique<TextStyled bold>Mes tests</TextStyled> dynamiques
-            <TextStyled bold> Défis</TextStyled>.
+            <TextStyled bold> Activités</TextStyled>.
           </TextStyled>
         )}
         <ItemsContainer>

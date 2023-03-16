@@ -98,7 +98,7 @@ const DefisMenu = ({ navigation }) => {
         />
       )}
       <CategorieMenu
-        title={'Premier défi'}
+        title={'Première activité'}
         description={'Faire le point en 7 jours '}
         onPress={() => navigation.navigate('DEFI1')}
         image={require('../../assets/images/Defi1.png')}
@@ -107,7 +107,7 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => setShowOnboardingModal(true)}
       />
       <CategorieMenu
-        title={'Deuxième défi'}
+        title={'Deuxième activité'}
         description={'Aller plus loin...'}
         onPress={() => {
           navigation.navigate('DEFI2');
@@ -118,7 +118,7 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
       />
       <CategorieMenu
-        title={'Troisième défi'}
+        title={'Troisième activité'}
         description={'Ma vie quotidienne'}
         onPress={() => {
           navigation.navigate('DEFI3');
@@ -130,7 +130,7 @@ const DefisMenu = ({ navigation }) => {
       />
 
       <CategorieMenu
-        title={'Quatrième défi'}
+        title={'Quatrième activité'}
         description={'Mon objectif de consommation'}
         onPress={() => {
           navigation.navigate('DEFI4');
@@ -141,7 +141,7 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi4Modal(true))}
       />
       <CategorieMenu
-        title={'Cinquième défi'}
+        title={'Cinquième actvité'}
         description={'Mon évolution'}
         onPress={() => {
           navigation.navigate('DEFI5');

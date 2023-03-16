@@ -69,7 +69,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
               content={
                 <>
                   Vous aviez identifié des <TextStyled bold>situations à risque</TextStyled> lors de votre semaine de
-                  <TextStyled bold> défi 2</TextStyled>. Vous aviez sélectionné les 2 situations à risque
+                  <TextStyled bold> l'activité 2</TextStyled>. Vous aviez sélectionné les 2 situations à risque
                   <TextStyled bold> extérieures</TextStyled> et les 2 situations à risque
                   <TextStyled bold> intérieures</TextStyled> pour vous.{'\n\n'}Souvenons-nous qu'une situation à risque
                   est un moment dans lequel une personne à l'impression qu'elle a{' '}
@@ -142,7 +142,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
                 <Element
                   content={
                     <>
-                      Depuis le début de votre défi,{' '}
+                      Depuis le début de votre activité,{' '}
                       <TextStyled bold>
                         {' '}
                         vous avez pris conscience des causes extérieures pouvant contribuer à votre consommation
@@ -174,7 +174,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
                 <Element
                   content={
                     <>
-                      Depuis le début de votre défi,{' '}
+                      Depuis le début de votre activité,{' '}
                       <TextStyled bold>
                         {' '}
                         vous avez pris conscience des causes extérieures pouvant contribuer à votre consommation
@@ -192,7 +192,7 @@ const Defi5_Day2 = ({ navigation, route }) => {
                 <Element
                   content={
                     <>
-                      Depuis le début de votre défi,{' '}
+                      Depuis le début de votre activité,{' '}
                       <TextStyled bold>
                         {' '}
                         vous avez pris conscience des causes intérieures pouvant contribuer à votre consommation

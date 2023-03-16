@@ -98,14 +98,14 @@ export const defi3_Data = [
     tagLine: 'Allons plus loin',
     Description: (
       <>
-        Aujourd’hui, capitalisons sur votre défi 2 pour{' '}
+        Aujourd’hui, capitalisons sur votre activité 2 pour{' '}
         <TextStyled bold>mieux comprendre les facteurs qui vous donnent envie de consommer</TextStyled>, mettant à mal
         parfois le cap que vous vous êtes fixé.
       </>
     ),
     DescriptionDone: (
       <>
-        Aujourd’hui, capitalisons sur votre défi 2 pour{' '}
+        Aujourd’hui, capitalisons sur votre activité 2 pour{' '}
         <TextStyled bold>mieux comprendre les facteurs qui vous donnent envie de consommer</TextStyled>, mettant à mal
         parfois le cap que vous vous êtes fixé.
       </>

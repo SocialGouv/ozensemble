@@ -45,7 +45,7 @@ const Defi1_Onboarding = ({ navigation }) => {
         <UnderlinedButton
           color="#4030a5"
           withoutPadding
-          content="À qui s'adresse ce défi 7 jours ?"
+          content="À qui s'adresse cette activité 7 jours ?"
           onPress={() => navigation.navigate('DEFI1_ONBOARDING_INFO')}
         />
         <ButtonsContainer>
