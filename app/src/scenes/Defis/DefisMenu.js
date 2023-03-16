@@ -13,6 +13,7 @@ import { storage } from '../../services/storage';
 import { Bold, P } from '../../components/Articles';
 import WrapperContainer from '../../components/WrapperContainer';
 import ValidateIcon from '../../components/ValidateIcon';
+import { View, Image } from 'react-native';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
@@ -69,21 +70,22 @@ const DefisMenu = ({ navigation }) => {
   }, [defi5Day, autoEvaluationDone]);
 
   return (
-    <WrapperContainer title={'Mes défis 7 jours'}>
+    <WrapperContainer title={'Mes activités'}>
       <SubTitle>
         <TextStyled>
-          J'évalue ma situation, motivations et risques liés à ma consommation grâce aux tests et bilans.
+          Chaque activité dure 7 jours et est composée de tests, de quiz et de lectures qui vous aideront à diminuer
+          votre consommation et à accroitre votre motivation !
         </TextStyled>
       </SubTitle>
       <CategorieMenu
-        title={"Ma consommation d'alcool"}
-        description={"S'évaluer pour détecter des comportements à risque"}
+        title={'Auto-évaluation'}
+        description={'Détecter mon niveau de risque'}
         onPress={() =>
           navigation.navigate('ONBOARDING_QUIZZ', {
             screen: autoEvaluationDone ? 'QUIZZ_RESULTS' : 'QUIZZ_QUESTIONS',
           })
         }
-        image={require('../../assets/images/QuizzEvaluerMaConsommation.png')}
+        image={require('../../assets/images/AutoEvaluation.png')}
         callToAction={autoEvaluationDone ? 'Mon résultat' : 'Je commence'}
         onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
       />
@@ -98,64 +100,64 @@ const DefisMenu = ({ navigation }) => {
         />
       )}
       <CategorieMenu
-        title={'Première activité'}
-        description={'Faire le point en 7 jours '}
+        title={'Activité 1'}
+        description={'Apprendre à diminuer ma consommation'}
         onPress={() => navigation.navigate('DEFI1')}
-        image={require('../../assets/images/Defi1.png')}
+        image={require('../../assets/images/Activity1.png')}
         disabled={!autoEvaluationDone}
         callToAction={defi1CallToAction}
         onBoardingPress={() => setShowOnboardingModal(true)}
       />
       <CategorieMenu
-        title={'Deuxième activité'}
-        description={'Aller plus loin...'}
+        title={'Activité 2'}
+        description={'Repérer mes situations à risque'}
         onPress={() => {
           navigation.navigate('DEFI2');
         }}
-        image={require('../../assets/images/Defi2.png')}
+        image={require('../../assets/images/Activity2.png')}
         disabled={!autoEvaluationDone || defi1Day < 7}
         callToAction={defi2CallToAction}
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi2Modal(true))}
       />
       <CategorieMenu
-        title={'Troisième activité'}
-        description={'Ma vie quotidienne'}
+        title={'Activité 3'}
+        description={"Réfléchir au rôle de l'alcool au quotidien"}
         onPress={() => {
           navigation.navigate('DEFI3');
         }}
-        image={require('../../assets/images/Defi3.jpg')}
+        image={require('../../assets/images/Activity3.png')}
         disabled={!autoEvaluationDone || defi2Day < 7}
         callToAction={defi3CallToAction}
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi3Modal(true))}
       />
 
       <CategorieMenu
-        title={'Quatrième activité'}
-        description={'Mon objectif de consommation'}
+        title={'Activité 4'}
+        description={'Me fixer un objectif de consommation'}
         onPress={() => {
           navigation.navigate('DEFI4');
         }}
-        image={require('../../assets/images/Defi4.png')}
+        image={require('../../assets/images/Activity4.png')}
         disabled={!autoEvaluationDone || defi3Day < 7}
         callToAction={defi4CallToAction}
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi4Modal(true))}
       />
       <CategorieMenu
-        title={'Cinquième actvité'}
-        description={'Mon évolution'}
+        title={'Activité 5'}
+        description={'Faire mon bilan après 4 semaines'}
         onPress={() => {
           navigation.navigate('DEFI5');
         }}
-        image={require('../../assets/images/Defi5.png')}
+        image={require('../../assets/images/Activity5.png')}
         disabled={!autoEvaluationDone || defi4Day < 7}
         callToAction={defi5CallToAction}
         onBoardingPress={() => (!autoEvaluationDone ? setShowOnboardingModal(true) : setshowDefi5Modal(true))}
       />
       <CategorieMenu
-        title={'Mes tests'}
-        description={'Retrouver mes résultats'}
+        title={'Mes resultats'}
+        description={'Retrouver tous mes tests des activités'}
         onPress={() => navigation.navigate('TESTS_DEFIS')}
-        image={require('../../assets/images/TestsDesDefis.png')}
+        image={require('../../assets/images/Resultats.png')}
         callToAction="Mes résultats"
         disabled={!autoEvaluationDone}
         disabledContainer={!autoEvaluationDone}
@@ -267,7 +269,7 @@ const CategorieMenu = ({
   return (
     <>
       <CategorieContainer disabled={disabledContainer} onPress={disabled ? onBoardingPress : onPress}>
-        <ImageStyled source={image} />
+        <Image source={image} />
         <TextContainer>
           {disabled ? (
             <TitleDisabledContainer>
@@ -285,14 +287,14 @@ const CategorieMenu = ({
             </TitleContainer>
           )}
           <TextStyled>{description}</TextStyled>
-          <ButtonContainer>
+          {/* <ButtonContainer>
             <ButtonPrimary
               color={callToAction.includes('résultat') ? '#4030a5' : '#de285e'}
               content={callToAction}
               onPress={onPress}
               disabled={disabled}
             />
-          </ButtonContainer>
+          </ButtonContainer> */}
         </TextContainer>
       </CategorieContainer>
     </>
