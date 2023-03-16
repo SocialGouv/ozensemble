@@ -1,3 +1,10 @@
+## [1.85.21](https://github.com/SocialGouv/ozensemble/compare/v1.85.20...v1.85.21) (2023-03-16)
+
+
+### Bug Fixes
+
+* new UI from defis to activities ([#193](https://github.com/SocialGouv/ozensemble/issues/193)) ([2704ac6](https://github.com/SocialGouv/ozensemble/commit/2704ac6506b60a63d45802ca5f3c7ed02fb23822))
+
 ## [1.85.20](https://github.com/SocialGouv/ozensemble/compare/v1.85.19...v1.85.20) (2023-03-16)
 
 
