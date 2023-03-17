@@ -23,12 +23,11 @@ const maxDosesOnScreen = 999;
 
 const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
   const barHighestHeightPossible = screenHeight * 0.2;
-  if (highestDosesInPeriod < 2) {
-    highestDosesInPeriod = 2;
-  }
+
   return {
     barMaxHeight: barHighestHeightPossible,
-    barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
+    barMaxAcceptableDoseHeight:
+      (highestAcceptableDosesPerDay / (highestDosesInPeriod < 2 ? 2 : highestDosesInPeriod)) * barHighestHeightPossible,
   };
 };
 
