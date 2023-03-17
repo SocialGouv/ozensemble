@@ -1,3 +1,10 @@
+## [1.85.22](https://github.com/SocialGouv/ozensemble/compare/v1.85.21...v1.85.22) (2023-03-17)
+
+
+### Bug Fixes
+
+* crash only no drinks ([#200](https://github.com/SocialGouv/ozensemble/issues/200)) ([6de5807](https://github.com/SocialGouv/ozensemble/commit/6de58072b50a9b9c08456fb8708d9ea3f5c4c353))
+
 ## [1.85.21](https://github.com/SocialGouv/ozensemble/compare/v1.85.20...v1.85.21) (2023-03-16)
 
 
