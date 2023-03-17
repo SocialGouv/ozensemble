@@ -23,7 +23,9 @@ const maxDosesOnScreen = 999;
 
 const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
   const barHighestHeightPossible = screenHeight * 0.2;
-
+  if (highestDosesInPeriod < 2) {
+    highestDosesInPeriod = 2;
+  }
   return {
     barMaxHeight: barHighestHeightPossible,
     barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
@@ -166,6 +168,8 @@ const Diagram = ({ asPreview }) => {
   const highestAcceptableDosesPerDayByOMS = 2;
 
   const drinks = useRecoilValue(drinksState);
+  console.log(drinks);
+  const onlyNoDrinks = drinks?.length === 1 && drinks[0].drinkKey === 'no-conso';
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
 
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
