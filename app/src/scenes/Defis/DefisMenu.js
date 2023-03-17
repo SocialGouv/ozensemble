@@ -6,13 +6,11 @@ import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import ArrowRight from '../../components/ArrowRight';
-import { Bold, P } from '../../components/Articles';
 
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
