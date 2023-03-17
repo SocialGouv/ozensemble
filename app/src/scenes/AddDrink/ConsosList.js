@@ -222,7 +222,7 @@ const ConsosList = ({ navigation, route }) => {
                 date: noConso.timestamp,
               },
             });
-            navigation.goBack();
+            onClose();
           }}
           content={
             dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
