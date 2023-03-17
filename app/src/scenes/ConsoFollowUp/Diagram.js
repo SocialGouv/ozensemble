@@ -26,7 +26,8 @@ const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) =
 
   return {
     barMaxHeight: barHighestHeightPossible,
-    barMaxAcceptableDoseHeight: (highestAcceptableDosesPerDay / highestDosesInPeriod) * barHighestHeightPossible,
+    barMaxAcceptableDoseHeight:
+      (highestAcceptableDosesPerDay / (highestDosesInPeriod < 2 ? 2 : highestDosesInPeriod)) * barHighestHeightPossible,
   };
 };
 
