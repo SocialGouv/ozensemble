@@ -11,7 +11,7 @@ import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drink
 import WrapperContainer from '../../components/WrapperContainer';
 import { sendMail } from '../../services/mail';
 import { P } from '../../components/Articles';
-
+import dayjs from 'dayjs';
 export const HTMLExportSelector = selector({
   key: 'HTMLExportSelector',
   get: ({ get }) => {
@@ -51,7 +51,7 @@ const formatHtmlTable = (drinks, catalog) => {
             })
             .map((drink) => {
               const doses = mapDrinkToDose(drink, catalog);
-              const time = new Date(drink.timestamp).getLocaleDateAndTime('fr');
+              const time = dayjs(drink.timestamp).format('dddd DD MMMM YYYY');
               if (drink.drinkKey === NO_CONSO) return `<tr><td>${time}</td><td>Pas bu ce jour</td></tr>`;
               const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
               return `<tr>
