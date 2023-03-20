@@ -1,3 +1,10 @@
+## [1.85.23](https://github.com/SocialGouv/ozensemble/compare/v1.85.22...v1.85.23) (2023-03-20)
+
+
+### Bug Fixes
+
+*  redirection defis ([#198](https://github.com/SocialGouv/ozensemble/issues/198)) ([33e1843](https://github.com/SocialGouv/ozensemble/commit/33e18431d10433158a105f0793515f018ce3bf9d))
+
 ## [1.85.22](https://github.com/SocialGouv/ozensemble/compare/v1.85.21...v1.85.22) (2023-03-17)
 
 
