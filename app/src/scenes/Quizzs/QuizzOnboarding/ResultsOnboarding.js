@@ -62,9 +62,9 @@ const ResultsOnboarding = ({ navigation, route }) => {
 const ResultGood = () => {
   return (
     <>
-      <H1 color="#4030a5" className="mb-5">
-        Vous ne présentez pas de risque particulier, bravo !
-      </H1>
+      <TopTitle>
+        <TextStyled color="#4030a5">Vous ne présentez pas de risque particulier, bravo !</TextStyled>
+      </TopTitle>
       <P>
         Vous pouvez utiliser l'application pour <Bold>suivre plus finement votre consommation d'alcool.</Bold>
       </P>
