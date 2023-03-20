@@ -68,7 +68,7 @@ const ResultsMotivations = ({ wrapped = true, route }) => {
               content="Commencer l'activité 2"
               shadowColor="#201569"
               onPress={() => {
-                storage.set('@Defi2_ValidatedDays', 1);
+                storage.set('@Defi2_ValidatedDays', 0);
                 navigation.navigate('DEFIS_MENU');
               }}
               style={{ marginVertical: 30, flexGrow: 0 }}
