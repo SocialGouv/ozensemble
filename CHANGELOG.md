@@ -1,3 +1,10 @@
+## [1.85.25](https://github.com/SocialGouv/ozensemble/compare/v1.85.24...v1.85.25) (2023-03-20)
+
+
+### Bug Fixes
+
+* bold Android, first day activity 2 ([#205](https://github.com/SocialGouv/ozensemble/issues/205)) ([e90c2e7](https://github.com/SocialGouv/ozensemble/commit/e90c2e75628342065fd542b4c4da5dadcc03432e))
+
 ## [1.85.24](https://github.com/SocialGouv/ozensemble/compare/v1.85.23...v1.85.24) (2023-03-20)
 
 
