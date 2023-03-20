@@ -144,7 +144,7 @@ const CategorieMenu = ({
       <TouchableOpacity
         disabled={disabledContainer}
         onPress={disabled ? onBoardingPress : onPress}
-        className="border border-[#E8E8EA] rounded-md flex flex-row my-1.5 p-2 items-center justify-around">
+        className="border border-[#E8E8EA] rounded-xl flex flex-row my-1.5 p-2 items-center justify-around">
         {disabled ? (
           <View className=" flex flex-row items-center opacity-50">
             <Image source={image} className="h-14 w-14" />
