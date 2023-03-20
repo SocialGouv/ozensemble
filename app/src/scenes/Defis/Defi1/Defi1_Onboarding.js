@@ -27,7 +27,7 @@ const Defi1_Onboarding = ({ navigation }) => {
       });
       return;
     }
-    navigation.navigate('DEFI1_MENU');
+    navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
   };
 
   return (

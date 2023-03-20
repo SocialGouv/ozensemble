@@ -53,10 +53,10 @@ const Defi1_Day3 = ({ navigation, route }) => {
         />
         <Button
           small
-          content="Retour au suivi"
+          content="Retour à l'activité"
           shadowColor="#201569"
           color="#4030A5"
-          onPress={() => navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', { screen: 'CONSO_FOLLOW_UP' })}
+          onPress={() => navigation.navigate('DEFI1_MENU')}
         />
       </ButtonContainer>
       <Spacer size={25} />

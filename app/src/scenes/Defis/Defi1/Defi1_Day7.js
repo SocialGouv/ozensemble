@@ -5,7 +5,6 @@ import TextStyled from '../../../components/TextStyled';
 import { ResultsEvaluateConso } from '../../Quizzs/QuizzEvaluateConso/ResultsEvaluateConso';
 import { ResultsLifeQuality } from './Defi1_Day4';
 import ResultsMotivations from '../../Quizzs/QuizzMotivations/ResultsMotivations';
-
 import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from '../utils';
 import WrapperContainer from '../../../components/WrapperContainer';
@@ -20,8 +19,8 @@ const Defi1_Day7 = ({ navigation, route }) => {
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Le bilan de mon activité 1">
       <ResultsEvaluateConso wrapped={false} hideButtons />
-      <ResultsLifeQuality wrapped={false} />
-      <ResultsMotivations wrapped={false} />
+      <ResultsLifeQuality wrapped={false} route={route} />
+      <ResultsMotivations wrapped={false} route={route} />
       <Sources>
         <TextStyled>
           Santé publique France,{'\n'}

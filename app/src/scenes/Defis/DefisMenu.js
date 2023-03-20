@@ -6,7 +6,6 @@ import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import Lock from '../../components/illustrations/Lock';
-import UnderlinedButton from '../../components/UnderlinedButton';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -17,7 +16,6 @@ const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
   const [showOnboardingModal, setShowOnboardingModal] = useState(false);
-  const setShowHowMakeSelfEvaluation = useState(false);
   const [defi1Day, setDefi1Day] = useState(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
   const [defi2Day, setDefi2Day] = useState(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
@@ -54,16 +52,7 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
         nbStepsCompleted={autoEvaluationToCompletedDays}
       />
-      {!autoEvaluationDone && (
-        <UnderlinedButton
-          color="#4030a5"
-          withoutPadding
-          content="Pourquoi faire cette auto-évaluation ?"
-          onPress={() => {
-            setShowHowMakeSelfEvaluation(true);
-          }}
-        />
-      )}
+
       <CategorieMenu
         title={'Activité 1'}
         description={'Apprendre à diminuer ma consommation'}
@@ -155,7 +144,7 @@ const CategorieMenu = ({
       <TouchableOpacity
         disabled={disabledContainer}
         onPress={disabled ? onBoardingPress : onPress}
-        className="border border-[#E8E8EA] rounded-md flex flex-row my-1.5 p-2 items-center justify-around">
+        className="border border-[#E8E8EA] rounded-xl flex flex-row my-1.5 p-2 items-center justify-around">
         {disabled ? (
           <View className=" flex flex-row items-center opacity-50">
             <Image source={image} className="h-14 w-14" />

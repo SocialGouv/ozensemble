@@ -13,23 +13,31 @@ const ResultPopulation = ({ value, hideButtons }) => {
     ['RESULT_ARROW_ADDICTED', 'RESULT_ARROW_HARMFUL_USAGE'].includes(value) ? (
       <ButtonsContainer>
         <ButtonPrimary
-          content="Échanger avec un conseiller"
-          onPress={() => navigation.navigate('CONTACT')}
-          style={{ marginVertical: 30 }}
-        />
-        <UnderlinedButton
           content="Conseils de réduction"
           onPress={() => navigation.navigate('ADVISE')}
+          style={{ marginTop: 30 }}
+        />
+        <ButtonPrimary
+          small
+          content="Échanger avec un conseiller"
+          shadowColor="#201569"
+          color="#4030A5"
+          onPress={() => navigation.navigate('CONTACT')}
+          style={{ marginTop: 30 }}
+        />
+        <UnderlinedButton
+          content="Retour à l'activité"
+          onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+          style={{ marginTop: 10 }}
           color="#4030a5"
         />
       </ButtonsContainer>
     ) : (
       <ButtonContainer>
         <ButtonPrimary
-          content="Retour au suivi"
+          content="Retour à l'activité"
           shadowColor="#201569"
-          color="#4030A5"
-          onPress={() => navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', { screen: 'CONSO_FOLLOW_UP' })}
+          onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
           style={{ marginVertical: 30, flexGrow: 0 }}
         />
       </ButtonContainer>

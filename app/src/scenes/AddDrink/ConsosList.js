@@ -150,7 +150,11 @@ const ConsosList = ({ navigation, route }) => {
   };
 
   const onClose = useCallback(() => {
-    navigation.goBack();
+    if (route?.params?.parent === 'Defi1_Day1') {
+      navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+    } else {
+      navigation.goBack();
+    }
   }, [navigation]);
 
   const onCancelConsos = useCallback(() => {
@@ -218,7 +222,7 @@ const ConsosList = ({ navigation, route }) => {
                 date: noConso.timestamp,
               },
             });
-            navigation.goBack();
+            onClose();
           }}
           content={
             dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')

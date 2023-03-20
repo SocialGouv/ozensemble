@@ -13,6 +13,8 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import H3 from '../../../components/H3';
 import { P, Spacer } from '../../../components/Articles';
 import questionsLifeQuality from '../../Quizzs/QuizzLifeQuality/questions';
+import ButtonPrimary from '../../../components/ButtonPrimary';
+import { View } from 'react-native';
 
 const Defi1_Day4 = ({ navigation, route }) => {
   return (
@@ -76,7 +78,7 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
   );
 };
 
-export const ResultsLifeQuality = ({ wrapped = true, route }) => {
+export const ResultsLifeQuality = ({ wrapped = true, route, navigation }) => {
   const isFocused = useIsFocused();
   const resultKey = useRecoilValue(lifeQualityQuizzResultState);
   const resultsToDisplay = useRecoilValue(resultsToDisplaySelector);
@@ -88,6 +90,7 @@ export const ResultsLifeQuality = ({ wrapped = true, route }) => {
   if (!resultKey || !resultsToDisplay) return null;
 
   const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
+  const inDay7Defis = route?.name === 'DEFI1_DAY_7';
 
   return (
     <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
@@ -100,11 +103,20 @@ export const ResultsLifeQuality = ({ wrapped = true, route }) => {
             <EmojiBlock key={i} response={response} question={question} />
           ))}
         </ItemsContainer>
+        {!inDay7Defis && (
+          <View className="flex flex-row justify-center">
+            <ButtonPrimary
+              content="Retour à l'activité"
+              shadowColor="#201569"
+              onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+              style={{ marginVertical: 30, flexGrow: 0 }}
+            />
+          </View>
+        )}
       </ContainerSection>
     </Wrapper>
   );
 };
-
 const ResultContainer = styled.View`
   background-color: #efefef;
   padding-horizontal: ${defaultPaddingFontScale()}px;
