@@ -61,7 +61,7 @@ const DefisMenu = ({ navigation }) => {
 
       <CategorieMenu
         title={'Activité 1'}
-        description={'Diminuer ma consommation'}
+        description={'Diminuer ma consommation d’alcool'}
         onPress={() => navigation.navigate('DEFI1')}
         image="Activity1"
         disabled={!autoEvaluationDone}
