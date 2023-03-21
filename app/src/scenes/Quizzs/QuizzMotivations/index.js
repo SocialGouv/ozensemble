@@ -25,12 +25,6 @@ const QuizzMotivations = ({ navigation, route }) => {
     });
   };
 
-  const validateAnswers = async () => {
-    setMotivationsQuizzResult(true);
-    setValidatedDays(route?.params?.day, '@Defi1');
-    navigation.push('QUIZZ_RESULTS');
-  };
-
   return (
     <QuizzMotivationsStack.Navigator
       screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
@@ -48,7 +42,15 @@ const QuizzMotivations = ({ navigation, route }) => {
               <Section key={id} section={section} onToggle={toggleAnswer} answers={motivationsQuizzAnswers} />
             ))}
             <ButtonsContainer>
-              <ButtonPrimary onPress={validateAnswers} content="Je valide" />
+              <ButtonPrimary
+                onPress={async () => {
+                  setMotivationsQuizzResult(true);
+                  setValidatedDays(route?.params?.day, '@Defi1');
+                  console.log(navigation);
+                  navigation.push('QUIZZ_RESULTS');
+                }}
+                content="Je valide"
+              />
             </ButtonsContainer>
           </WrapperContainer>
         )}

@@ -82,8 +82,9 @@ export const defi5_Data = [
     tagLine: 'Faites-vous confiance !',
     Description: (
       <>
-        Nous arrivons au terme des défis. <TextStyled bold>Vous avez fait des efforts et vous avez évolué !</TextStyled>{' '}
-        Pensez maintenant à l'avenir et n'oubliez pas d'être bon(ne) avec vous-même.
+        Nous arrivons au terme des activités{' '}
+        <TextStyled bold>Vous avez fait des efforts et vous avez évolué !</TextStyled> Pensez maintenant à l'avenir et
+        n'oubliez pas d'être bon(ne) avec vous-même.
       </>
     ),
     textCTA: 'Je me fais confiance',
