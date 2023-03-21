@@ -1,3 +1,10 @@
+## [1.85.29](https://github.com/SocialGouv/ozensemble/compare/v1.85.28...v1.85.29) (2023-03-21)
+
+
+### Bug Fixes
+
+* wording activity1 ([#210](https://github.com/SocialGouv/ozensemble/issues/210)) ([ec85e13](https://github.com/SocialGouv/ozensemble/commit/ec85e13aa268ad85495432fb51e439ac2bcdbb93))
+
 ## [1.85.28](https://github.com/SocialGouv/ozensemble/compare/v1.85.27...v1.85.28) (2023-03-21)
 
 
