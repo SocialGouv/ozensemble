@@ -1,3 +1,10 @@
+## [1.85.26](https://github.com/SocialGouv/ozensemble/compare/v1.85.25...v1.85.26) (2023-03-21)
+
+
+### Bug Fixes
+
+* sentry check ([e7388da](https://github.com/SocialGouv/ozensemble/commit/e7388da485a47fe037fdf5f24cebb7777da25c2c))
+
 ## [1.85.25](https://github.com/SocialGouv/ozensemble/compare/v1.85.24...v1.85.25) (2023-03-20)
 
 
