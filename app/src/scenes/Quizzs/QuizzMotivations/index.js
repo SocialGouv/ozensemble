@@ -46,7 +46,6 @@ const QuizzMotivations = ({ navigation, route }) => {
                 onPress={async () => {
                   setMotivationsQuizzResult(true);
                   setValidatedDays(route?.params?.day, '@Defi1');
-                  console.log(navigation);
                   navigation.push('QUIZZ_RESULTS');
                 }}
                 content="Je valide"
