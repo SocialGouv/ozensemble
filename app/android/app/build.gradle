@@ -188,6 +188,9 @@ dependencies {
     //implementation platform('com.google.firebase:firebase-bom:30.2.0')
     //implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
+    implementation 'androidx.annotation:annotation:1.1.0'
+
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
