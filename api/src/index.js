@@ -10,6 +10,7 @@ const prisma = require("./prisma");
 const { PORT, VERSION, MOBILE_VERSION } = require("./config");
 const errors = require("./middlewares/errors");
 const versionCheck = require("./middlewares/versionCheck");
+const { capture } = require("./third-parties/sentry");
 
 // Put together a schema
 const app = express();
@@ -24,6 +25,11 @@ app.use(cors());
 // kube probe
 app.get("/healthz", async (req, res) => {
   res.send(`Hello World`);
+});
+
+app.get("/sentry-check", async (req, res) => {
+  capture("sentry-check");
+  res.send(`Sentry checked!`);
 });
 
 // hello world
