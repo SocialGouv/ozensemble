@@ -198,7 +198,6 @@ const ConsosList = ({ navigation, route }) => {
         />
         <ButtonPrimaryStyled
           onPress={() => {
-            onClose();
             const noConso = {
               drinkKey: NO_CONSO,
               quantity: 1,
@@ -223,6 +222,7 @@ const ConsosList = ({ navigation, route }) => {
                 date: noConso.timestamp,
               },
             });
+            onClose();
           }}
           content={
             dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
