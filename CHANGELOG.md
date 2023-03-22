@@ -1,3 +1,10 @@
+## [1.85.32](https://github.com/SocialGouv/ozensemble/compare/v1.85.31...v1.85.32) (2023-03-22)
+
+
+### Bug Fixes
+
+* onclose first ([533ebdd](https://github.com/SocialGouv/ozensemble/commit/533ebddd229917a539baafbd639d032d2fdc94b9))
+
 ## [1.85.31](https://github.com/SocialGouv/ozensemble/compare/v1.85.30...v1.85.31) (2023-03-22)
 
 
