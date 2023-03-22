@@ -1,3 +1,10 @@
+## [1.85.33](https://github.com/SocialGouv/ozensemble/compare/v1.85.32...v1.85.33) (2023-03-22)
+
+
+### Bug Fixes
+
+* init conso no user ([#213](https://github.com/SocialGouv/ozensemble/issues/213)) ([3872c50](https://github.com/SocialGouv/ozensemble/commit/3872c509f54fa94acdef35c658266b95a9824050))
+
 ## [1.85.32](https://github.com/SocialGouv/ozensemble/compare/v1.85.31...v1.85.32) (2023-03-22)
 
 
