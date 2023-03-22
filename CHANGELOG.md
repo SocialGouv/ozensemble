@@ -1,3 +1,10 @@
+## [1.85.35](https://github.com/SocialGouv/ozensemble/compare/v1.85.34...v1.85.35) (2023-03-22)
+
+
+### Bug Fixes
+
+* click while toast in ([#215](https://github.com/SocialGouv/ozensemble/issues/215)) ([f367623](https://github.com/SocialGouv/ozensemble/commit/f367623312a8ec1bce102a1ef1dad1a545845fbf))
+
 ## [1.85.34](https://github.com/SocialGouv/ozensemble/compare/v1.85.33...v1.85.34) (2023-03-22)
 
 
