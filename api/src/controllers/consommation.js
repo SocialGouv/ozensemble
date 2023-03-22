@@ -16,7 +16,13 @@ router.post(
 
     if (!drinks.length) return res.status(200).json({ ok: true });
 
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    const user = await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      create: {
+        matomo_id: matomoId,
+      },
+      update: {},
+    });
 
     const drinksToSave = drinks.map((drink) => {
       if (drink.drinkKey === "no-conso") {
