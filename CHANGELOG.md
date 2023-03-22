@@ -1,3 +1,10 @@
+## [1.85.30](https://github.com/SocialGouv/ozensemble/compare/v1.85.29...v1.85.30) (2023-03-22)
+
+
+### Bug Fixes
+
+* days defis ([#211](https://github.com/SocialGouv/ozensemble/issues/211)) ([bc07d20](https://github.com/SocialGouv/ozensemble/commit/bc07d206812ea6bf27cef3ed88e0368cbbc8b67c))
+
 ## [1.85.29](https://github.com/SocialGouv/ozensemble/compare/v1.85.28...v1.85.29) (2023-03-21)
 
 
