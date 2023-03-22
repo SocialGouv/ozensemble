@@ -21,6 +21,7 @@ router.post(
       create: {
         matomo_id: matomoId,
       },
+      update: {},
     });
 
     const drinksToSave = drinks.map((drink) => {
