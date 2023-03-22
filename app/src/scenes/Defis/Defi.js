@@ -38,7 +38,6 @@ const Defi = ({
   const activeDay = Math.min(data.length - 1, activeDayIndex);
   const activeDayIsDone = activeDay <= validatedDays - 1;
   const [showNotAvailableModal, setShowNotAvailableModal] = useState(false);
-
   return (
     <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
       <TopTimeline

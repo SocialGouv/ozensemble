@@ -97,7 +97,7 @@ const Defi5_Navigator = () => {
 };
 
 const Defi5_Menu = ({ navigation }) => {
-  const [validatedDays, setValidateDays] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 6));
+  const [validatedDays, setValidateDays] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   const [lastUpdate, setLastUpdate] = useState(storage.getString('@Defi5_LastUpdate') || '');
 
   const getValidatedDays = async () => {
@@ -128,7 +128,6 @@ const Defi5_Menu = ({ navigation }) => {
 
   const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
   const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
-
   return (
     <Defi
       navigation={navigation}
