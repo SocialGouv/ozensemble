@@ -9,7 +9,7 @@ import Lock from '../../components/illustrations/Lock';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
-import { View, Image, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import ArrowRight from '../../components/ArrowRight';
 import AutoEvaluation from '../../components/illustrations/activities/AutoEvaluation';
 import Activity1 from '../../components/illustrations/activities/Activity1';
@@ -151,7 +151,6 @@ const CategorieMenu = ({
         disabled={disabledContainer}
         onPress={disabled ? onBoardingPress : onPress}
         className="border border-[#E8E8EA] rounded-xl flex flex-row my-1.5 p-2 items-center justify-around">
-        {console.log(image)}
         {disabled ? (
           <View className=" flex flex-row items-center opacity-50">
             {image === 'autoEvaluation' && <AutoEvaluation />}
