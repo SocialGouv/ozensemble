@@ -43,7 +43,7 @@ const DefisMenu = ({ navigation }) => {
       <View className="mb-4">
         <TextStyled lineHeight={18}>
           Chaque activité dure 7 jours et est composée de tests, de quiz et de lectures qui vous aideront à diminuer
-          votre consommation et à accroitre votre motivation !
+          votre consommation et à accroitre votre motivation{'\u00A0'}!
         </TextStyled>
       </View>
       <CategorieMenu
