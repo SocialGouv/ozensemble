@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useRef, useState } from 'react';
+import { StyleSheet, Animated, View } from 'react-native';
 import Modal from '../components/Modal';
 import TextStyled from '../components/TextStyled';
 
-const ModalContext = React.createContext();
+const ViewContext = React.createContext();
 
 export const useToast = () => {
-  const context = React.useContext(ModalContext);
+  const context = React.useContext(ViewContext);
   if (context === undefined) {
     throw new Error('useToast must be used within a ToastProvider');
   }
@@ -15,31 +15,58 @@ export const useToast = () => {
 };
 
 const ToastProvider = (props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  };
   const [caption, setCaption] = useState();
 
   const hide = useCallback(() => setCaption(null), [setCaption]);
 
   const show = useCallback(
-    (caption, timeout = 3000) => {
+    (caption, timeout = 1500) => {
       setCaption(caption);
+      fadeIn();
       setTimeout(() => {
-        setCaption(null);
+        fadeOut();
+        setTimeout(() => {
+          setCaption(null);
+        }, 150);
       }, timeout);
     },
     [setCaption]
   );
 
   return (
-    <ModalContext.Provider value={{ hide, show }} {...props}>
+    <ViewContext.Provider value={{ hide, show }} {...props}>
       {props.children}
-      <Modal visible={Boolean(caption)} hideOnTouch hide={hide} animationType="fade" style={styles.modal}>
-        <View style={styles.wrapper}>
-          <TextStyled maxFontSizeMultiplier={2} style={styles.text} testID="toast">
-            {caption}
-          </TextStyled>
-        </View>
-      </Modal>
-    </ModalContext.Provider>
+      {Boolean(caption) && (
+        <Animated.View
+          style={{ opacity: fadeAnim }}
+          className="flex flex-row w-full justify-center absolute bottom-11"
+          pointerEvents={'box-none'}>
+          <View style={styles.wrapper} className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min	">
+            <TextStyled maxFontSizeMultiplier={2} style={styles.text} testID="toast">
+              {caption}
+            </TextStyled>
+          </View>
+        </Animated.View>
+      )}
+    </ViewContext.Provider>
   );
 };
 
@@ -51,6 +78,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingHorizontal: 20,
+    position: 'absolute',
   },
   wrapper: {
     backgroundColor: '#4030a5',
