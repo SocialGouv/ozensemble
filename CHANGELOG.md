@@ -1,3 +1,10 @@
+## [1.85.34](https://github.com/SocialGouv/ozensemble/compare/v1.85.33...v1.85.34) (2023-03-22)
+
+
+### Bug Fixes
+
+* add year export date ([#214](https://github.com/SocialGouv/ozensemble/issues/214)) ([9f136f6](https://github.com/SocialGouv/ozensemble/commit/9f136f68ff9c3c90f3d2d628f3b5695a5132ea88))
+
 ## [1.85.33](https://github.com/SocialGouv/ozensemble/compare/v1.85.32...v1.85.33) (2023-03-22)
 
 
