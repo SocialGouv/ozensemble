@@ -340,9 +340,11 @@ router.delete(
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     const conso_id = req.body.id;
     // create / update conso
+
     await prisma.consommation.delete({
       where: { id: conso_id },
     });
+    return res.status(200).send({ ok: true });
   })
 );
 

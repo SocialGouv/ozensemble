@@ -121,7 +121,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && !!timestampSelected) {
       setTimestampSelected(null);
     }
   }, [isFocused]);
