@@ -109,7 +109,6 @@ router.post(
     // handle 14 days
     if (!drinksBadges.find((badge) => badge.stars === 4)) {
       const enoughConsecutiveDays = checksConsecutiveDays(14, drinksToSave);
-
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {

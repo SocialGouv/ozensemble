@@ -60,6 +60,39 @@ const Feed = ({ hideFeed, scrollToInput }) => {
     }
   };
 
+  const setNoConsos = async () => {
+    const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
+    const newNoDrink = [];
+    const matomoId = storage.getString('@UserIdv2');
+    for (let i = 1; i <= differenceDay; i++) {
+      const currentDate = dayjs(dateLastEntered).add(i, 'd');
+      const noConso = {
+        drinkKey: NO_CONSO,
+        quantity: 1,
+        timestamp: makeSureTimestamp(currentDate),
+        id: uuidv4(),
+      };
+      logEvent({
+        category: 'CONSO',
+        action: 'NO_CONSO',
+        dimension6: noConso.timestamp,
+      });
+      newNoDrink.push(noConso);
+      await API.post({
+        path: '/consommation',
+        body: {
+          matomoId: matomoId,
+          id: noConso.id,
+          name: noConso.displayDrinkModal,
+          drinkKey: noConso.drinkKey,
+          quantity: Number(noConso.quantity),
+          date: noConso.timestamp,
+        },
+      });
+    }
+    setDrinks((state) => [...state, ...newNoDrink]);
+  };
+
   const addDrinksRequest = (timestamp, fromButton) => {
     navigation.push('ADD_DRINK', { timestamp });
     logEvent({
@@ -139,36 +172,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   content={"Je n'ai rien bu !"}
                   small
                   onPress={() => {
-                    const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
-                    const newNoDrink = [];
-                    const matomoId = storage.getString('@UserIdv2');
-                    for (let i = 1; i <= differenceDay; i++) {
-                      const currentDate = dayjs(dateLastEntered).add(i, 'd');
-                      const noConso = {
-                        drinkKey: NO_CONSO,
-                        quantity: 1,
-                        timestamp: makeSureTimestamp(currentDate),
-                        id: uuidv4(),
-                      };
-                      logEvent({
-                        category: 'CONSO',
-                        action: 'NO_CONSO',
-                        dimension6: noConso.timestamp,
-                      });
-                      newNoDrink.push(noConso);
-                      API.post({
-                        path: '/consommation',
-                        body: {
-                          matomoId: matomoId,
-                          id: noConso.id,
-                          name: noConso.displayDrinkModal,
-                          drinkKey: noConso.drinkKey,
-                          quantity: Number(noConso.quantity),
-                          date: noConso.timestamp,
-                        },
-                      });
-                    }
-                    setDrinks((state) => [...state, ...newNoDrink]);
+                    setNoConsos();
                   }}
                 />
                 <AddDrinkButton
