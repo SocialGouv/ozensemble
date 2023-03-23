@@ -205,7 +205,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                     <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
                   ) : (
                     drinksOfTheDay.map((drink) => {
-                      console.log(drink);
                       if (drink.drinkKey === NO_CONSO) return null;
                       if (!drink.quantity) return null;
                       const position = computePosition(drinksOfTheDay, drink);
