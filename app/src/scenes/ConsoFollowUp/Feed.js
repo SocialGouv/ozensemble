@@ -209,9 +209,11 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                     <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
                   ) : (
                     drinksOfTheDay.map((drink) => {
+                      console.log(drink);
                       if (drink.drinkKey === NO_CONSO) return null;
                       if (!drink.quantity) return null;
                       const position = computePosition(drinksOfTheDay, drink);
+                      console.log('position', position);
                       const selected = timestampSelected === drink.timestamp;
                       const showButtons = computeShowButtons(selected, position);
                       return (
@@ -242,6 +244,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                               body: {
                                 matomoId: matomoId,
                                 id: drink.id,
+                                time: drink.timestamp,
                               },
                             });
                           }}
