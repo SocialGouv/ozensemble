@@ -94,7 +94,6 @@ router.post(
     // if badge 7 day is not present
     // handle 7 days
     if (!drinksBadges.find((badge) => badge.stars === 3)) {
-      console.log("test 7 days");
       const enoughConsecutiveDays = checksConsecutiveDays(7, drinksToSave);
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
@@ -238,7 +237,6 @@ router.post(
     // if badge 7 day is not present
     // handle 7 days
     if (!drinksBadges.find((badge) => badge.stars === 3)) {
-      console.log("test 7 days");
       const allConsos = await prisma.consommation.findMany({
         where: { userId: user.id },
         orderBy: { date: "desc" },
@@ -269,7 +267,6 @@ router.post(
     // if badge 14 day is not present
     // handle 14 days
     if (!drinksBadges.find((badge) => badge.stars === 4)) {
-      console.log("test 14 days");
       const allConsos = await prisma.consommation.findMany({
         where: { userId: user.id },
         orderBy: { date: "desc" },
