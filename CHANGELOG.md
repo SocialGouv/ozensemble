@@ -1,3 +1,10 @@
+## [1.85.38](https://github.com/SocialGouv/ozensemble/compare/v1.85.37...v1.85.38) (2023-03-24)
+
+
+### Bug Fixes
+
+* delete multiple consos ([#219](https://github.com/SocialGouv/ozensemble/issues/219)) ([c17766d](https://github.com/SocialGouv/ozensemble/commit/c17766d4b031e88ca036fe225d920f3a84f4614c))
+
 ## [1.85.37](https://github.com/SocialGouv/ozensemble/compare/v1.85.36...v1.85.37) (2023-03-23)
 
 
