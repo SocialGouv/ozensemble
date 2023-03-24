@@ -156,33 +156,40 @@ router.post(
 
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-    // create / update conso
-    await prisma.consommation.upsert({
-      where: { id: conso_id },
-      update: {
-        name: name,
-        drinkKey: drinkKey,
-        quantity: quantity,
-        userId: user.id,
-        doses: doses,
-        kcal: kcal,
-        price: price,
-        volume: volume,
-        date: dayjs(date).format(),
-      },
-      create: {
-        name: name,
-        drinkKey: drinkKey,
-        quantity: quantity,
-        userId: user.id,
-        doses: doses,
-        kcal: kcal,
-        price: price,
-        volume: volume,
-        date: dayjs(date).format(),
-        id: conso_id,
-      },
-    });
+
+    // check if it should be deleted
+
+    if (quantity === 0) {
+      await prisma.consommation.delete({ where: { id: conso_id } });
+    } else {
+      // create / update conso
+      await prisma.consommation.upsert({
+        where: { id: conso_id },
+        update: {
+          name: name,
+          drinkKey: drinkKey,
+          quantity: quantity,
+          userId: user.id,
+          doses: doses,
+          kcal: kcal,
+          price: price,
+          volume: volume,
+          date: dayjs(date).format(),
+        },
+        create: {
+          name: name,
+          drinkKey: drinkKey,
+          quantity: quantity,
+          userId: user.id,
+          doses: doses,
+          kcal: kcal,
+          price: price,
+          volume: volume,
+          date: dayjs(date).format(),
+          id: conso_id,
+        },
+      });
+    }
 
     const showGoalNewBadge = await checkIfLastWeekGoalAchieved(matomoId);
 
