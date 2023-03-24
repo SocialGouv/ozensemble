@@ -346,8 +346,6 @@ router.delete(
     await prisma.consommation.deleteMany({
       where: { userId: user.id, date: consommation.date },
     });
-    // create / update conso
-
     return res.status(200).send({ ok: true });
   })
 );
