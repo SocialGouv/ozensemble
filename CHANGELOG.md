@@ -1,3 +1,10 @@
+## [1.85.39](https://github.com/SocialGouv/ozensemble/compare/v1.85.38...v1.85.39) (2023-03-24)
+
+
+### Bug Fixes
+
+* delete when quantity is 0 ([#221](https://github.com/SocialGouv/ozensemble/issues/221)) ([5b530d5](https://github.com/SocialGouv/ozensemble/commit/5b530d5d33d47d8adc8eb9aa8541f6090dddb480))
+
 ## [1.85.38](https://github.com/SocialGouv/ozensemble/compare/v1.85.37...v1.85.38) (2023-03-24)
 
 
