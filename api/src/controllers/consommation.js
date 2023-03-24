@@ -338,11 +338,13 @@ router.delete(
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const user = await prisma.user.findFirst({ where: { matomo_id: matomoId } });
     const conso_id = req.body.id;
-    // create / update conso
-
-    await prisma.consommation.delete({
+    const consommation = await prisma.consommation.findFirst({
       where: { id: conso_id },
+    });
+    await prisma.consommation.deleteMany({
+      where: { userId: user.id, date: consommation.date },
     });
     return res.status(200).send({ ok: true });
   })
