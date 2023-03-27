@@ -72,7 +72,7 @@ router.get(
       },
       showInAppModal: {
         id: "@ArticlesActivitiesBadgesAnnouncementFeatures",
-        badgesCategories: ["activities", "articles"],
+        badgesCategories: ["defis", "articles"],
         title: "Les badges activités et articles arrivent dans l'application\u00A0!",
         content:
           "Gagnez ces nouveaux badges symboliques en réalisant tous les jours de la première activité et en découvrant les articles de santé\u00A0!",
