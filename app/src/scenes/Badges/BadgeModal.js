@@ -46,7 +46,7 @@ const BadgeModal = () => {
       if (modalContent?.stars === 4) {
         last = true;
       }
-    } else if (modalContent?.stars === 5) {
+    } else if (modalContent?.stars === 5 && !modalContent?.category.includes('locked')) {
       last = true;
     }
     return last;
