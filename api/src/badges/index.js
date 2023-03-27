@@ -330,7 +330,7 @@ const badgesCatalog = [
     category: "defis",
     titleForList: "Badges activités",
     titleForStatus: "Activités réalisées",
-    description: "Gagnez ces badges en découvrant les articles de santé écrits pour vous informer et vous motiver dans votre parcours de réduction !",
+    description: "Gagnez ces badges en réalisant l’évaluation de votre consommation, puis en effectuant les 7 jours de l’activité 1.",
     bgColor: "#C79CFF",
     badges: [
       {
