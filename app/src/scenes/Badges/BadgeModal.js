@@ -18,7 +18,7 @@ import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
 import { logEvent } from '../../services/logEventsWithMatomo';
-
+import ConfettiCannon from 'react-native-confetti-cannon';
 /* example
 {
     category: 'drinks',
@@ -33,13 +33,24 @@ import { logEvent } from '../../services/logEventsWithMatomo';
     secondaryButtonLink: null,
 }
 */
-
 const BadgeModal = () => {
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
+  const [lastBadge, setLastBadge] = useState(false);
+  const isLastBadge = () => {
+    let last = false;
+    if (modalContent?.category === 'articles') {
+      if (modalContent?.stars === 4) {
+        last = true;
+      }
+    } else if (modalContent?.stars === 5) {
+      last = true;
+    }
+    return last;
+  };
   const onClose = () => {
     setShowModal(false);
     setModalContent(null);
@@ -98,23 +109,20 @@ const BadgeModal = () => {
       }
     });
   };
-
   const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
     // InteractionManager.runAfterInteractions(() => {
     //   setModalContent(newBadge);
     //   setShowModal(true);
     // });
-
     if (newBadge) setModalContent(newBadge);
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);
     setShowModal(true);
   };
-
   useEffect(() => {
     API.handleShowBadge = handleShowBadge;
+    setLastBadge(isLastBadge());
   });
-
   return (
     <Modal
       safeAreaView={false}
@@ -172,9 +180,19 @@ const BadgeModal = () => {
             </TouchableOpacity>
           )}
         </View>
+        {lastBadge && (
+          <ConfettiCannon
+            className="absolute"
+            count={200}
+            fallSpeed={2000}
+            origin={{ x: 0, y: 500 }}
+            autoStart={true}
+            fadeOut={true}
+            explosionSpeed={0}
+          />
+        )}
       </SafeAreaView>
     </Modal>
   );
 };
-
 export default BadgeModal;

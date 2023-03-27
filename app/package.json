@@ -1,3 +1,4 @@
+
 {
   "name": "oz_ensemble",
   "version": "1.13.0",
@@ -43,6 +44,7 @@
     "react-native-bootsplash": "^4.1.5",
     "react-native-calendars": "^1.1284.0",
     "react-native-camera": "^3.30.0",
+    "react-native-confetti-cannon": "^1.5.2",
     "react-native-config": "^1.4.5",
     "react-native-device-info": "^8.4.8",
     "react-native-draggable-flatlist": "^3.1.1",
