@@ -188,7 +188,7 @@ const BadgeModal = () => {
             origin={{ x: 0, y: 500 }}
             autoStart={true}
             fadeOut={true}
-            explosionSpeed={250}
+            explosionSpeed={0}
           />
         )}
       </SafeAreaView>
