@@ -32,6 +32,8 @@ import {
   sendObjectifToDB,
   hasSentNPSDoneToDB,
   sendNPSDoneToDB,
+  hasCreateBadgeaForDoneDefis,
+  createBadgesForDoneDefis,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -64,6 +66,7 @@ const App = () => {
   const [_hasMigratedRemindersToPushToken, setHasMigratedRemindersToPushToken] = useState(
     hasMigratedRemindersToPushToken
   );
+  const [_hasCreateBadgeaForDoneDefis, setHasCreateBadgeaForDoneDefis] = useState(hasCreateBadgeaForDoneDefis);
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
@@ -104,6 +107,11 @@ const App = () => {
     if (!_hasSentNPSDoneToDB) {
       sendNPSDoneToDB();
       setHasSentNPSDoneToDB(true);
+    }
+    console.log('\n _hasCreateBadgeaForDoneDefis', _hasCreateBadgeaForDoneDefis);
+    if (!_hasCreateBadgeaForDoneDefis) {
+      createBadgesForDoneDefis();
+      setHasCreateBadgeaForDoneDefis(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

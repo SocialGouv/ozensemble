@@ -342,3 +342,27 @@ export async function sendNPSDoneToDB() {
   });
   storage.set('hasSentNPSDoneToDB', true);
 }
+
+export const hasCreateBadgeaForDoneDefis = storage.getBoolean('hasSentNPSDoneToDB');
+
+export async function createBadgesForDoneDefis() {
+  if (hasCreateBadgeaForDoneDefis) {
+    return;
+  }
+  const daysCompleted = [
+    { daysEvaluation: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
+    { daysDefi1: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
+    { daysDefi2: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
+    { daysDefi3: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
+    { daysDefi4: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
+    { daysDefi5: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
+  ];
+
+  daysCompleted.map((defi) => {
+    if (Object.values(defi) === 7) {
+      console.log(Object.keys(defi));
+    }
+  });
+
+  storage.set('hasCreateBadgeaForDoneDefis', true);
+}
