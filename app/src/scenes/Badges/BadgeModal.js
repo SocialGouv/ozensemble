@@ -18,7 +18,7 @@ import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import ConfettiCannon from 'react-native-confetti-cannon';
+import Confetti from '../../components/Confettis';
 /* example
 {
     category: 'drinks',
@@ -39,7 +39,6 @@ const BadgeModal = () => {
   const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
-  const [lastBadge, setLastBadge] = useState(false);
   const isLastBadge = () => {
     let last = false;
     if (modalContent?.category === 'articles') {
@@ -121,7 +120,6 @@ const BadgeModal = () => {
   };
   useEffect(() => {
     API.handleShowBadge = handleShowBadge;
-    setLastBadge(isLastBadge());
   });
   return (
     <Modal
@@ -180,17 +178,7 @@ const BadgeModal = () => {
             </TouchableOpacity>
           )}
         </View>
-        {lastBadge && (
-          <ConfettiCannon
-            className="absolute"
-            count={200}
-            fallSpeed={2000}
-            origin={{ x: 0, y: 500 }}
-            autoStart={true}
-            fadeOut={true}
-            explosionSpeed={0}
-          />
-        )}
+        {isLastBadge() && <Confetti run={true} />}
       </SafeAreaView>
     </Modal>
   );
