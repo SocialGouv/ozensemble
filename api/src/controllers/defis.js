@@ -8,7 +8,8 @@ router.post(
   "/init",
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
-    const stars = req.body?.stars;
+    const daysValidated = Number(req.body?.daysValidated);
+    const autoEvaluationDone = req.body?.autoEvaluationDone;
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
@@ -20,13 +21,52 @@ router.post(
       update: {},
     });
 
-    await prisma.badge.create({
-      data: {
-        userId: user.id,
-        category: "defis",
-        stars: Number(stars),
-      },
-    });
+    if (autoEvaluationDone) {
+      await prisma.badge.create({
+        data: {
+          userId: user.id,
+          category: "defis",
+          stars: 1,
+        },
+      });
+    }
+    if (daysValidated >= 1) {
+      await prisma.badge.create({
+        data: {
+          userId: user.id,
+          category: "defis",
+          stars: 2,
+        },
+      });
+    }
+    if (daysValidated >= 2) {
+      await prisma.badge.create({
+        data: {
+          userId: user.id,
+          category: "defis",
+          stars: 3,
+        },
+      });
+    }
+
+    if (daysValidated >= 3) {
+      await prisma.badge.create({
+        data: {
+          userId: user.id,
+          category: "defis",
+          stars: 4,
+        },
+      });
+    }
+    if (daysValidated >= 7) {
+      await prisma.badge.create({
+        data: {
+          userId: user.id,
+          category: "defis",
+          stars: 5,
+        },
+      });
+    }
 
     return res.status(200).send({ ok: true });
   })

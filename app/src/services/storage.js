@@ -351,26 +351,15 @@ export async function createBadgesForDoneDefis() {
   }
   const matomoId = storage.getString('@UserIdv2');
   const autoEvaluationDone = storage.getBoolean('@Quizz_answers');
-  const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
-  const daysCompleted = {
-    1: Number(autoEvaluationToCompletedDays),
-    2: Number(storage.getNumber('@Defi1_ValidatedDays') || 0),
-    3: Number(storage.getNumber('@Defi2_ValidatedDays') || 0),
-    4: Number(storage.getNumber('@Defi3_ValidatedDays') || 0),
-    5: Number(storage.getNumber('@Defi4_ValidatedDays') || 0),
-    6: Number(storage.getNumber('@Defi5_ValidatedDays') || 0),
-  };
-  Object.keys(daysCompleted).map((defi) => {
-    if (daysCompleted[defi] === 7) {
-      console.log(defi);
-      API.post({
-        path: '/defis/init',
-        body: {
-          matomoId,
-          stars: defi,
-        },
-      });
-    }
+  const daysValidated = Number(storage.getNumber('@Defi1_ValidatedDays'));
+
+  API.post({
+    path: '/defis/init',
+    body: {
+      matomoId,
+      autoEvaluationDone,
+      daysValidated,
+    },
   });
-  storage.set('hasCreateBadgeaForDoneDefis', true);
+  //storage.set('hasCreateBadgeaForDoneDefis', true);
 }
