@@ -10,6 +10,8 @@ import BackButton from '../../../components/BackButton';
 import Sources from '../../Quizzs/Sources';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import API from '../../../services/api';
+import { storage } from '../../../services/storage';
 
 const NavigationWrapper = ({
   children,
@@ -30,7 +32,16 @@ const NavigationWrapper = ({
   return (
     <WrapperContainer
       noPaddingHorizontal={noPaddingHorizontal}
-      onPressBackButton={navigation.goBack}
+      onPressBackButton={() => {
+        const matomoId = storage.getString('@UserIdv2');
+        API.post({
+          path: '/articles/display',
+          body: {
+            matomoId: matomoId,
+          },
+        });
+        navigation.goBack();
+      }}
       title={title}
       onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent) && !hasScrollToEnd.current) {
@@ -39,6 +50,14 @@ const NavigationWrapper = ({
             category: 'HEALTH',
             action: 'HEALTH_SCROLL_ARTICLE_TO_BOTTOM',
             name: title,
+          });
+          const matomoId = storage.getString('@UserIdv2');
+          API.post({
+            path: '/articles',
+            body: {
+              matomoId: matomoId,
+              articleTitle: title,
+            },
           });
         }
       }}
@@ -103,7 +122,21 @@ const NavigationWrapper = ({
           </>
         </Sources>
         <Spacer size={25} />
-        <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
+        <BackButton
+          content="< Retour"
+          bold
+          onPress={() => {
+            const matomoId = storage.getString('@UserIdv2');
+            API.post({
+              path: '/articles/display',
+              body: {
+                matomoId: matomoId,
+              },
+            });
+            navigation.goBack();
+          }}
+          bottom
+        />
       </ConditionalPaddingContainer>
     </WrapperContainer>
   );

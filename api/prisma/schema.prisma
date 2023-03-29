@@ -11,18 +11,20 @@ datasource db {
 }
 
 model User {
-  id                 String         @id @default(uuid())
-  matomo_id          String         @unique
-  push_notif_token   String         @default("")
-  reminder           Reminder?
-  notifications      Notification[]
-  badges             Badge[]
-  consommations      Consommation[]
-  goals              Goal[]
-  appUserMilestones     AppMilestone[]
-  lastConsoAdded     DateTime?
-  createdAt          DateTime       @default(now())
-  updatedAt          DateTime       @default(now()) @updatedAt
+  id                String         @id @default(uuid())
+  matomo_id         String         @unique
+  push_notif_token  String         @default("")
+  reminder          Reminder?
+  notifications     Notification[]
+  badges            Badge[]
+  consommations     Consommation[]
+  goals             Goal[]
+  appUserMilestones AppMilestone[]
+  articles          Article[]
+
+  lastConsoAdded DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @default(now()) @updatedAt
 
   @@index([push_notif_token], type: Hash)
 }
@@ -128,6 +130,7 @@ enum GoalStatus {
   Failure
   InProgress
 }
+
 model Goal {
   id                  String     @id
   daysWithGoalNoDrink String[]   @default([])
@@ -142,14 +145,25 @@ model Goal {
 
   @@index([id], type: Hash)
 }
+
 model AppMilestone {
-  id                  String     @id
-  user                User       @relation(fields: [userId], references: [id])
-  userId              String
-  date                String     @default("")
-  createdAt           DateTime   @default(now())
-  updatedAt           DateTime   @updatedAt
+  id        String   @id
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  date      String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([id], type: Hash)
 }
 
+model Article {
+  id        String   @id @default(uuid())
+  title     String   @default("")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, title])
+}

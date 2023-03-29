@@ -16,10 +16,24 @@ import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndMotivation from './Articles/AlcoholAndMotivation';
 import AlcoholAndHealthRisks from './Articles/AlcoholAndHealthRisks';
 import AlcoholAndDependency from './Articles/AlcoholAndDependency';
+import { useFocusEffect } from '@react-navigation/native';
+import API from '../../services/api';
+import { storage } from '../../services/storage';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
   useToggleCTA({ navigator: 'Health' });
+  useFocusEffect(
+    React.useCallback(() => {
+      const matomoId = storage.getString('@UserIdv2');
+      API.post({
+        path: '/articles/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }, [])
+  );
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />

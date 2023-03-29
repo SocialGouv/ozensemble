@@ -73,6 +73,7 @@ app.use("/badge", require("./controllers/badge"));
 app.use("/consommation", require("./controllers/consommation"));
 app.use("/goal", require("./controllers/goal"));
 app.use("/appMilestone", require("./controllers/appMilestone"));
+app.use("/articles", require("./controllers/articles"));
 
 app.use(errors.sendError);
 
