@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import ConfettiImage from '../assets/images/confetti.png';
 
 const NUM_CONFETTI = 100;
-const COLORS = ['#00e4b2', '#09aec5', '#107ed5'];
+const COLORS = ['#107ed5', '#DE285E', '#39CEC1', '#09aec5'];
 const CONFETTI_SIZE = 16;
 
 const createConfetti = () => {
