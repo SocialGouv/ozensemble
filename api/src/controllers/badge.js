@@ -19,6 +19,15 @@ router.get(
   "/:matomoId",
   catchErrors(async (req, res) => {
     const { matomoId } = req.params;
+    // If app version is not up to date, don't show defis and articles badges
+    let catalog = badgesCatalog;
+    if (req.headers.appversion < 150) {
+      catalog = badgesCatalog.filter((badge) => {
+        return (
+          badge.category !== "defis" && badge.category !== "locked_defis" && badge.category !== "articles" && badge.category !== "locked_articles"
+        );
+      });
+    }
 
     if (!matomoId) return res.status(200).send({ ok: true, data: [] });
 
@@ -46,7 +55,7 @@ router.get(
         ok: true,
         data: {
           badges,
-          badgesCatalog,
+          badgesCatalog: catalog,
         },
       });
     }
@@ -63,7 +72,7 @@ router.get(
       ok: true,
       data: {
         badges,
-        badgesCatalog,
+        badgesCatalog: catalog,
       },
       showInAppModal: {
         id: "@NewBadgesAnnouncementFeatures",
