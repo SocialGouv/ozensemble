@@ -77,8 +77,6 @@ router.post(
     });
 
     const badge_articles_to_show = badge_articles.find((badge) => !badge.shown);
-
-    console.log(badge_articles_to_show);
     if (badge_articles_to_show) {
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
       await prisma.badge.update({
