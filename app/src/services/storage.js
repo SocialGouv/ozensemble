@@ -361,5 +361,5 @@ export async function createBadgesForDoneDefis() {
       daysValidated,
     },
   });
-  //storage.set('hasCreateBadgeaForDoneDefis', true);
+  storage.set('hasCreateBadgeaForDoneDefis', true);
 }
