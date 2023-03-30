@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { Spacer } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
@@ -28,6 +28,19 @@ const NavigationWrapper = ({
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
     layoutMeasurement.height + contentOffset.y >= contentSize.height - 1500; // almost to bottom
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    const matomoId = storage.getString('@UserIdv2');
+    if (!isFocused) {
+      API.post({
+        path: '/articles/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
+  }, [isFocused]);
 
   return (
     <WrapperContainer
