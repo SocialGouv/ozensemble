@@ -22,11 +22,7 @@ router.get(
     // If app version is not up to date, don't show defis and articles badges
     let catalog = badgesCatalog;
     if (req.headers.appversion < 151) {
-      catalog = badgesCatalog.filter((badge) => {
-        return (
-          badge.category !== "defis" && badge.category !== "locked_defis" && badge.category !== "articles" && badge.category !== "locked_articles"
-        );
-      });
+      catalog = badgesCatalog.filter((badge) => !['defis', 'articles'].includes(badge.category)));
     }
 
     if (!matomoId) return res.status(200).send({ ok: true, data: [] });
