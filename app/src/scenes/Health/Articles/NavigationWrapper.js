@@ -46,13 +46,6 @@ const NavigationWrapper = ({
     <WrapperContainer
       noPaddingHorizontal={noPaddingHorizontal}
       onPressBackButton={() => {
-        const matomoId = storage.getString('@UserIdv2');
-        API.post({
-          path: '/articles/display',
-          body: {
-            matomoId: matomoId,
-          },
-        });
         navigation.goBack();
       }}
       title={title}
@@ -139,13 +132,6 @@ const NavigationWrapper = ({
           content="< Retour"
           bold
           onPress={() => {
-            const matomoId = storage.getString('@UserIdv2');
-            API.post({
-              path: '/articles/display',
-              body: {
-                matomoId: matomoId,
-              },
-            });
             navigation.goBack();
           }}
           bottom

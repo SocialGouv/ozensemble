@@ -56,7 +56,6 @@ const Sevrage = ({ navigation, route }) => {
           content="J'ai compris et je commence "
           onPress={() => {
             const matomoId = storage.getString('@UserIdv2');
-            console.log('MIAM');
             API.post({
               path: '/goal',
               body: {
