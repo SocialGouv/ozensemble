@@ -1,3 +1,15 @@
+# [1.86.0](https://github.com/SocialGouv/ozensemble/compare/v1.85.39...v1.86.0) (2023-03-30)
+
+
+### Bug Fixes
+
+* error delete conso that is already deleted ([#226](https://github.com/SocialGouv/ozensemble/issues/226)) ([2f7f530](https://github.com/SocialGouv/ozensemble/commit/2f7f530573740f865422b32b0b86237de7354b86))
+
+
+### Features
+
+*  new badges content ([#224](https://github.com/SocialGouv/ozensemble/issues/224)) ([a2b758f](https://github.com/SocialGouv/ozensemble/commit/a2b758f0bd2330621e56b256e1700217db103e0f))
+
 ## [1.85.39](https://github.com/SocialGouv/ozensemble/compare/v1.85.38...v1.85.39) (2023-03-24)
 
 
