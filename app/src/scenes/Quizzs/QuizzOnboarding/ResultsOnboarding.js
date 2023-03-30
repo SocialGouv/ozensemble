@@ -14,11 +14,21 @@ import { storage } from '../../../services/storage';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { useNavigation } from '@react-navigation/native';
+import API from '../../../services/api';
 
 const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
   const [feeling, setFeeling] = useState(() => storage.getBoolean('@Quizz_surprised') || null);
   useEffect(() => {
+    const matomoId = storage.getString('@UserIdv2');
+
+    API.post({
+      path: '/defis',
+      body: {
+        matomoId: matomoId,
+        autoEvaluationDone: true,
+      },
+    });
     if (feeling !== null) storage.set('@Quizz_surprised', feeling);
   }, [feeling]);
 
