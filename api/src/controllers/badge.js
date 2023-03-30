@@ -21,7 +21,7 @@ router.get(
     const { matomoId } = req.params;
     // If app version is not up to date, don't show defis and articles badges
     let catalog = badgesCatalog;
-    if (req.headers.appversion < 149) {
+    if (req.headers.appversion < 151) {
       catalog = badgesCatalog.filter((badge) => !["defis", "articles"].includes(badge.category));
     }
 
