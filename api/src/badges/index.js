@@ -330,7 +330,7 @@ const badgesCatalog = [
     category: "defis",
     titleForList: "Badges activités",
     titleForStatus: "Activités réalisées",
-    description: "Gagnez ces badges en réalisant l’évaluation de votre consommation, puis en effectuant les 7 jours de l’activité 1.",
+    description: "Gagnez ces badges en réalisant l’évaluation de votre consommation, puis en effectuant les 7 jours de l’activité\u00A01.",
     bgColor: "#C79CFF",
     badges: [
       {
