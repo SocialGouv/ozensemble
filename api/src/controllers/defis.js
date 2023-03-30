@@ -80,7 +80,6 @@ router.post(
     const matomoId = req.body?.matomoId;
     const completedDays = Number(req.body?.daysValidated);
     const autoEvaluationDone = req.body?.autoEvaluationDone;
-    console.log("here");
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
     const user = await prisma.user.upsert({
@@ -102,11 +101,11 @@ router.post(
           userId: user.id,
           category: "defis",
           stars: 1,
+          shown: false,
         },
       });
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog } });
+      return res.status(200).send({ ok: true });
     }
 
     if (completedDays === 1 && !defis_badges.find((badge) => badge.stars === 2)) {
@@ -115,11 +114,11 @@ router.post(
           userId: user.id,
           category: "defis",
           stars: 2,
+          shown: false,
         },
       });
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 2), allBadges, badgesCatalog } });
+      return res.status(200).send({ ok: true });
     }
     if (completedDays === 2 && !defis_badges.find((badge) => badge.stars === 3)) {
       await prisma.badge.create({
@@ -127,11 +126,11 @@ router.post(
           userId: user.id,
           category: "defis",
           stars: 3,
+          shown: false,
         },
       });
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 3), allBadges, badgesCatalog } });
+      return res.status(200).send({ ok: true });
     }
     if (completedDays === 3 && !defis_badges.find((badge) => badge.stars === 4)) {
       await prisma.badge.create({
@@ -139,11 +138,11 @@ router.post(
           userId: user.id,
           category: "defis",
           stars: 4,
+          shown: false,
         },
       });
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 4), allBadges, badgesCatalog } });
+      return res.status(200).send({ ok: true });
     }
     if (completedDays === 7 && !defis_badges.find((badge) => badge.stars === 5)) {
       await prisma.badge.create({
@@ -151,13 +150,38 @@ router.post(
           userId: user.id,
           category: "defis",
           stars: 5,
+          shown: false,
         },
       });
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
 
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 5), allBadges, badgesCatalog } });
+      return res.status(200).send({ ok: true });
     }
 
+    return res.status(200).send({ ok: true });
+  })
+);
+
+router.post(
+  "/display",
+  catchErrors(async (req, res) => {
+    const { matomoId } = req.body || {};
+    const user = await prisma.user.findUnique({
+      where: { matomo_id: matomoId },
+    });
+    const badge_defis_to_show = await prisma.badge.findFirst({
+      where: { userId: user.id, category: "defis", shown: false },
+    });
+
+    if (badge_defis_to_show) {
+      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+      await prisma.badge.update({
+        where: { id: badge_defis_to_show.id },
+        data: { shown: true },
+      });
+      return res
+        .status(200)
+        .send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("defis", badge_defis_to_show.stars), allBadges, badgesCatalog } });
+    }
     return res.status(200).send({ ok: true });
   })
 );

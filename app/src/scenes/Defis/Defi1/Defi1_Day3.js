@@ -10,12 +10,23 @@ import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from '../utils';
 import { P, Spacer } from '../../../components/Articles';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { storage } from '../../../services/storage';
+import API from '../../../services/api';
 
 const Defi1_Day3 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    const matomoId = storage.getString('@UserIdv2');
+    if (!isFocused) {
+      API.post({
+        path: '/defis/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
   }, [route?.params, isFocused]);
 
   return (
