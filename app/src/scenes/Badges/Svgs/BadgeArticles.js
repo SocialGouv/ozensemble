@@ -11,7 +11,7 @@ export const BadgeArticles = ({ stars, size = 96 }) => {
       width={size}
       height={size}
       viewBox="0 0 60 60"
-      className="m-auto"
+      className="m-auto shrink-0"
       fill="none"
       xmlns="http://www.w3.org/2000/Svg">
       <Path

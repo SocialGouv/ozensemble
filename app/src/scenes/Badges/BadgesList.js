@@ -37,7 +37,7 @@ const BadgesList = ({ navigation }) => {
                         const stars = badge.stars;
                         API.get({ path: '/badge/test', query: { category, stars } });
                       }}>
-                      <View>
+                      <View className="mb-4">
                         {badgeCategory.category === 'drinks' && (
                           <BadgeDrinks stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
