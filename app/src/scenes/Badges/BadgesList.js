@@ -8,6 +8,7 @@ import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import API from '../../services/api';
+import { BadgeDefis } from './Svgs/BadgeDefis';
 
 const BadgesList = ({ navigation }) => {
   const userBadges = useRecoilValue(badgesState);
@@ -36,7 +37,7 @@ const BadgesList = ({ navigation }) => {
                         const stars = badge.stars;
                         API.get({ path: '/badge/test', query: { category, stars } });
                       }}>
-                      <View>
+                      <View className="mb-4">
                         {badgeCategory.category === 'drinks' && (
                           <BadgeDrinks stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
@@ -44,7 +45,7 @@ const BadgesList = ({ navigation }) => {
                           <BadgeGoals stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
                         {badgeCategory.category === 'defis' && (
-                          <BadgeGoals stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
+                          <BadgeDefis stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
                         {badgeCategory.category === 'articles' && (
                           <BadgeArticles stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
