@@ -112,7 +112,6 @@ const BadgeModal = () => {
   };
 
   useEffect(() => {
-    console.log('BadgeModal mounted');
     API.handleShowBadge = handleShowBadge;
   });
 
