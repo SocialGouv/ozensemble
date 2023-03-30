@@ -158,7 +158,10 @@ router.post(
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
     //check if it should be deleted
     if (quantity === 0) {
-      await prisma.consommation.delete({ where: { id: conso_id } });
+      const conso = await prisma.consommation.findFirst({ where: { id: conso_id } });
+      if (conso) {
+        await prisma.consommation.delete({ where: { id: conso_id } });
+      }
     } else {
       // create / update conso
       await prisma.consommation.upsert({
