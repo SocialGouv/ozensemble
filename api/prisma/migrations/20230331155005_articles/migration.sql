@@ -5,9 +5,6 @@
 
 */
 -- AlterTable
-ALTER TABLE "AppMilestone" RENAME CONSTRAINT "AppUserMilestone_pkey" TO "AppMilestone_pkey";
-
--- AlterTable
 ALTER TABLE "User" DROP COLUMN "modals";
 
 -- CreateTable
