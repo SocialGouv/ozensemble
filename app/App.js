@@ -32,7 +32,7 @@ import {
   sendObjectifToDB,
   hasSentNPSDoneToDB,
   sendNPSDoneToDB,
-  hasCreateBadgeaForDoneDefis,
+  hasCreateBadgeForDoneDefis,
   createBadgesForDoneDefis,
 } from './src/services/storage';
 
@@ -66,7 +66,7 @@ const App = () => {
   const [_hasMigratedRemindersToPushToken, setHasMigratedRemindersToPushToken] = useState(
     hasMigratedRemindersToPushToken
   );
-  const [_hasCreateBadgeaForDoneDefis, setHasCreateBadgeaForDoneDefis] = useState(hasCreateBadgeaForDoneDefis);
+  const [_hasCreateBadgeForDoneDefis, setHasCreateBadgeForDoneDefis] = useState(hasCreateBadgeForDoneDefis);
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
@@ -108,10 +108,10 @@ const App = () => {
       sendNPSDoneToDB();
       setHasSentNPSDoneToDB(true);
     }
-    console.log('\n _hasCreateBadgeaForDoneDefis', _hasCreateBadgeaForDoneDefis);
-    if (!_hasCreateBadgeaForDoneDefis) {
+    console.log('\n _hasCreateBadgeForDoneDefis', _hasCreateBadgeForDoneDefis);
+    if (!_hasCreateBadgeForDoneDefis) {
       createBadgesForDoneDefis();
-      setHasCreateBadgeaForDoneDefis(true);
+      setHasCreateBadgeForDoneDefis(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

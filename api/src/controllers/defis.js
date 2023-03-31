@@ -3,13 +3,11 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
 
-router.get(
+router.post(
   "/init",
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
-    const defisTitle = req.body?.defisTitle;
     const stars = req.body?.stars;
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
@@ -26,7 +24,7 @@ router.get(
       data: {
         userId: user.id,
         category: "defis",
-        stars: stars,
+        stars: Number(stars),
       },
     });
 

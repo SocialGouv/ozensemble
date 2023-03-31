@@ -343,26 +343,34 @@ export async function sendNPSDoneToDB() {
   storage.set('hasSentNPSDoneToDB', true);
 }
 
-export const hasCreateBadgeaForDoneDefis = storage.getBoolean('hasSentNPSDoneToDB');
+export const hasCreateBadgeForDoneDefis = storage.getBoolean('hasCreateBadgeaForDoneDefis');
 
 export async function createBadgesForDoneDefis() {
-  if (hasCreateBadgeaForDoneDefis) {
+  if (hasCreateBadgeForDoneDefis) {
     return;
   }
-  const daysCompleted = [
-    { daysEvaluation: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
-    { daysDefi1: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
-    { daysDefi2: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
-    { daysDefi3: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
-    { daysDefi4: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
-    { daysDefi5: Number(storage.getNumber('@Defi1_ValidatedDays') || 0) },
-  ];
-
-  daysCompleted.map((defi) => {
-    if (Object.values(defi) === 7) {
-      console.log(Object.keys(defi));
+  const matomoId = storage.getString('@UserIdv2');
+  const autoEvaluationDone = storage.getBoolean('@Quizz_answers');
+  const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
+  const daysCompleted = {
+    1: Number(autoEvaluationToCompletedDays),
+    2: Number(storage.getNumber('@Defi1_ValidatedDays') || 0),
+    3: Number(storage.getNumber('@Defi2_ValidatedDays') || 0),
+    4: Number(storage.getNumber('@Defi3_ValidatedDays') || 0),
+    5: Number(storage.getNumber('@Defi4_ValidatedDays') || 0),
+    6: Number(storage.getNumber('@Defi5_ValidatedDays') || 0),
+  };
+  Object.keys(daysCompleted).map((defi) => {
+    if (daysCompleted[defi] === 7) {
+      console.log(defi);
+      API.post({
+        path: '/defis/init',
+        body: {
+          matomoId,
+          stars: defi,
+        },
+      });
     }
   });
-
   storage.set('hasCreateBadgeaForDoneDefis', true);
 }
