@@ -1,3 +1,10 @@
+# [1.88.0](https://github.com/SocialGouv/ozensemble/compare/v1.87.0...v1.88.0) (2023-03-31)
+
+
+### Features
+
+*  confettis badges ([#223](https://github.com/SocialGouv/ozensemble/issues/223)) ([4905841](https://github.com/SocialGouv/ozensemble/commit/49058412462d853a5ea24e797ff917e7c72c0834))
+
 # [1.87.0](https://github.com/SocialGouv/ozensemble/compare/v1.86.0...v1.87.0) (2023-03-31)
 
 
