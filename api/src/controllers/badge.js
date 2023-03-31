@@ -51,26 +51,22 @@ router.get(
       where: { id: `${user.id}_@ArticlesActivitiesBadgesAnnouncementFeatures` },
     });
 
-    if (req.headers.appversion < 151) {
-      if (!!newBadgeAnnouncementFeaturesDrinksGoals) {
-        return res.status(200).send({
-          ok: true,
-          data: {
-            badges,
-            badgesCatalog: catalog,
-          },
-        });
-      }
-    } else {
-      if (!!newBadgeAnnouncementFeaturesDefisArticles) {
-        return res.status(200).send({
-          ok: true,
-          data: {
-            badges,
-            badgesCatalog: catalog,
-          },
-        });
-      }
+    if (req.headers.appversion < 151 && !!newBadgeAnnouncementFeaturesDrinksGoals) {
+      return res.status(200).send({
+        ok: true,
+        data: {
+          badges,
+          badgesCatalog: catalog,
+        },
+      });
+    } else if (!!newBadgeAnnouncementFeaturesDefisArticles) {
+      return res.status(200).send({
+        ok: true,
+        data: {
+          badges,
+          badgesCatalog: catalog,
+        },
+      });
     }
 
     // If app not up to date => create first badges milestone
