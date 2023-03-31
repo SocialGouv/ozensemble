@@ -1,3 +1,15 @@
+# [1.87.0](https://github.com/SocialGouv/ozensemble/compare/v1.86.0...v1.87.0) (2023-03-31)
+
+
+### Bug Fixes
+
+* update wording mes conseils ([#228](https://github.com/SocialGouv/ozensemble/issues/228)) ([294dbe9](https://github.com/SocialGouv/ozensemble/commit/294dbe970e912331932663e5d2bea905ed2d03f6))
+
+
+### Features
+
+* display badge for read articles ([#227](https://github.com/SocialGouv/ozensemble/issues/227)) ([5f1fa95](https://github.com/SocialGouv/ozensemble/commit/5f1fa9562f35255151d9bc4ea504b739e6ccfed4))
+
 # [1.86.0](https://github.com/SocialGouv/ozensemble/compare/v1.85.39...v1.86.0) (2023-03-30)
 
 
