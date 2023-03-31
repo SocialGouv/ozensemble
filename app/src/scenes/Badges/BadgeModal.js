@@ -18,7 +18,7 @@ import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
 import { shareApp } from '../../services/shareApp';
 import { logEvent } from '../../services/logEventsWithMatomo';
-
+import Confetti from '../../components/Confettis';
 /* example
 {
     category: 'drinks',
@@ -33,13 +33,23 @@ import { logEvent } from '../../services/logEventsWithMatomo';
     secondaryButtonLink: null,
 }
 */
-
 const BadgeModal = () => {
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
+  const isLastBadge = () => {
+    let last = false;
+    if (modalContent?.category === 'articles') {
+      if (modalContent?.stars === 4) {
+        last = true;
+      }
+    } else if (modalContent?.stars === 5 && !modalContent?.category.includes('locked')) {
+      last = true;
+    }
+    return last;
+  };
   const onClose = () => {
     setShowModal(false);
     setModalContent(null);
@@ -98,23 +108,19 @@ const BadgeModal = () => {
       }
     });
   };
-
   const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
     // InteractionManager.runAfterInteractions(() => {
     //   setModalContent(newBadge);
     //   setShowModal(true);
     // });
-
     if (newBadge) setModalContent(newBadge);
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);
     setShowModal(true);
   };
-
   useEffect(() => {
     API.handleShowBadge = handleShowBadge;
   });
-
   return (
     <Modal
       safeAreaView={false}
@@ -172,9 +178,9 @@ const BadgeModal = () => {
             </TouchableOpacity>
           )}
         </View>
+        {isLastBadge() && <Confetti run={true} />}
       </SafeAreaView>
     </Modal>
   );
 };
-
 export default BadgeModal;
