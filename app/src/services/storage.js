@@ -342,3 +342,24 @@ export async function sendNPSDoneToDB() {
   });
   storage.set('hasSentNPSDoneToDB', true);
 }
+
+export const hasCreateBadgeForDoneDefis = storage.getBoolean('hasCreateBadgeaForDoneDefis');
+
+export async function createBadgesForDoneDefis() {
+  if (hasCreateBadgeForDoneDefis) {
+    return;
+  }
+  const matomoId = storage.getString('@UserIdv2');
+  const autoEvaluationDone = storage.getBoolean('@Quizz_answers');
+  const daysValidated = Number(storage.getNumber('@Defi1_ValidatedDays'));
+
+  API.post({
+    path: '/defis/init',
+    body: {
+      matomoId,
+      autoEvaluationDone,
+      daysValidated,
+    },
+  });
+  storage.set('hasCreateBadgeaForDoneDefis', true);
+}

@@ -12,6 +12,8 @@ import ResultPopulation from './ResultPopulation';
 import { betterEvaluateQuizzResultState } from '../../../../recoil/quizzs';
 import TextStyled from '../../../../components/TextStyled';
 import { defaultPaddingFontScale } from '../../../../styles/theme';
+import { storage } from '../../../../services/storage';
+import API from '../../../../services/api';
 
 const QuizzEvaluateResultStack = createStackNavigator();
 
@@ -20,6 +22,15 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    const matomoId = storage.getString('@UserIdv2');
+    if (!isFocused) {
+      API.post({
+        path: '/defis/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
     if (resultKey && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
   }, [route?.params, isFocused, resultKey]);
 

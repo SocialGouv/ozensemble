@@ -8,12 +8,23 @@ import ResultsMotivations from '../../Quizzs/QuizzMotivations/ResultsMotivations
 import Sources from '../../Quizzs/Sources';
 import { setValidatedDays } from '../utils';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { storage } from '../../../services/storage';
+import API from '../../../services/api';
 
 const Defi1_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    const matomoId = storage.getString('@UserIdv2');
+    if (!isFocused) {
+      API.post({
+        path: '/defis/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
   }, [route?.params, isFocused]);
 
   return (

@@ -13,14 +13,37 @@ import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import API from '../../../services/api';
 
 const ResultsOnboarding = ({ navigation, route }) => {
   const resultKey = useRecoilValue(autoEvaluationQuizzResultState);
   const [feeling, setFeeling] = useState(() => storage.getBoolean('@Quizz_surprised') || null);
+  const isFocused = useIsFocused();
+
   useEffect(() => {
+    const matomoId = storage.getString('@UserIdv2');
+    console.log(isFocused);
+
+    if (!isFocused) {
+      console.log('isUnfocsed');
+      API.post({
+        path: '/defis/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
+
+    API.post({
+      path: '/defis',
+      body: {
+        matomoId: matomoId,
+        autoEvaluationDone: true,
+      },
+    });
     if (feeling !== null) storage.set('@Quizz_surprised', feeling);
-  }, [feeling]);
+  }, [feeling, isFocused]);
 
   return (
     <WrapperContainer

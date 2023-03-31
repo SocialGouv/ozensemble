@@ -13,14 +13,26 @@ import ElementDayDefi from '../../../components/ElementDayDefi';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import API from '../../../services/api';
+import { storage } from '../../../services/storage';
 
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
-
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
 
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    const matomoId = storage.getString('@UserIdv2');
+    if (!isFocused) {
+      console.log('isUnfocsed');
+
+      API.post({
+        path: '/defis/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
   }, [route?.params, isFocused]);
 
   return (
