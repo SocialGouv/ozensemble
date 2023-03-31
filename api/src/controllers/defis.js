@@ -95,7 +95,6 @@ router.post(
     });
 
     if (autoEvaluationDone && !defis_badges.find((badge) => badge.stars === 1)) {
-      console.log("no 1st badge");
       await prisma.badge.create({
         data: {
           userId: user.id,
