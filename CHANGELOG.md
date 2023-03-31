@@ -1,3 +1,10 @@
+# [1.89.0](https://github.com/SocialGouv/ozensemble/compare/v1.88.0...v1.89.0) (2023-03-31)
+
+
+### Features
+
+*  init badges activities ([#225](https://github.com/SocialGouv/ozensemble/issues/225)) ([424b098](https://github.com/SocialGouv/ozensemble/commit/424b0984545ba19e8c3346f6b3aa21d3ce982af7))
+
 # [1.88.0](https://github.com/SocialGouv/ozensemble/compare/v1.87.0...v1.88.0) (2023-03-31)
 
 
