@@ -43,27 +43,38 @@ router.get(
     });
 
     // If app not up to date => check if first badges milestone already exists
-    let newBadgeAnnouncementFeatures = null;
+
+    const newBadgeAnnouncementFeaturesDrinksGoals = await prisma.appMilestone.findUnique({
+      where: { id: `${user.id}_@NewBadgesAnnouncementFeatures` },
+    });
+    const newBadgeAnnouncementFeaturesDefisArticles = await prisma.appMilestone.findUnique({
+      where: { id: `${user.id}_@ArticlesActivitiesBadgesAnnouncementFeatures` },
+    });
+
     if (req.headers.appversion < 151) {
-      newBadgeAnnouncementFeatures = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@NewBadgesAnnouncementFeatures` },
-      });
+      if (!!newBadgeAnnouncementFeaturesDrinksGoals) {
+        return res.status(200).send({
+          ok: true,
+          data: {
+            badges,
+            badgesCatalog: catalog,
+          },
+        });
+      }
     } else {
-      newBadgeAnnouncementFeatures = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@ArticlesActivitiesBadgesAnnouncementFeatures` },
-      });
-    }
-    if (!!newBadgeAnnouncementFeatures) {
-      return res.status(200).send({
-        ok: true,
-        data: {
-          badges,
-          badgesCatalog: catalog,
-        },
-      });
+      if (!!newBadgeAnnouncementFeaturesDefisArticles) {
+        return res.status(200).send({
+          ok: true,
+          data: {
+            badges,
+            badgesCatalog: catalog,
+          },
+        });
+      }
     }
 
     // If app not up to date => create first badges milestone
+    console.log("check for milestone");
     if (req.headers.appversion < 151) {
       await prisma.appMilestone.create({
         data: {
@@ -72,18 +83,6 @@ router.get(
           date: dayjs().format("YYYY-MM-DD"),
         },
       });
-    } else {
-      await prisma.appMilestone.create({
-        data: {
-          id: `${user.id}_@ArticlesActivitiesBadgesAnnouncementFeatures`,
-          userId: user.id,
-          date: dayjs().format("YYYY-MM-DD"),
-        },
-      });
-    }
-
-    // If app not up to date => return old showInAppModal
-    if (req.headers.appversion < 151) {
       return res.status(200).send({
         ok: true,
         data: {
@@ -100,22 +99,48 @@ router.get(
         },
       });
     } else {
-      return res.status(200).send({
-        ok: true,
+      await prisma.appMilestone.create({
         data: {
-          badges,
-          badgesCatalog,
-        },
-        showInAppModal: {
-          id: "@ArticlesActivitiesBadgesAnnouncementFeatures",
-          badgesCategories: ["defis", "articles"],
-          title: "Les badges activités et articles sont arrivés dans l'application\u00A0!",
-          content:
-            "Gagnez ces nouveaux badges symboliques en réalisant tous les jours de la première activité et en découvrant les articles de santé\u00A0!",
-          CTATitle: badges.length ? "Voir mes badges" : null,
-          CTANavigation: ["BADGES_LIST"],
+          id: `${user.id}_@ArticlesActivitiesBadgesAnnouncementFeatures`,
+          userId: user.id,
+          date: dayjs().format("YYYY-MM-DD"),
         },
       });
+      if (newBadgeAnnouncementFeaturesDrinksGoals) {
+        return res.status(200).send({
+          ok: true,
+          data: {
+            badges,
+            badgesCatalog,
+          },
+          showInAppModal: {
+            id: "@ArticlesActivitiesBadgesAnnouncementFeatures",
+            badgesCategories: ["defis", "articles"],
+            title: "Les badges activités et articles sont arrivés dans l'application\u00A0!",
+            content:
+              "Gagnez ces nouveaux badges symboliques en réalisant tous les jours de la première activité et en découvrant les articles de santé\u00A0!",
+            CTATitle: badges.length ? "Voir mes badges" : null,
+            CTANavigation: ["BADGES_LIST"],
+          },
+        });
+      } else {
+        return res.status(200).send({
+          ok: true,
+          data: {
+            badges,
+            badgesCatalog,
+          },
+          showInAppModal: {
+            id: "@ArticlesActivitiesBadgesAnnouncementFeatures",
+            badgesCategories: ["drinks", "goals", "defis", "articles"],
+            title: "Nouveau : les badges arrivent dans l'application\u00A0!",
+            content:
+              "Gagnez ces nouveaux badges symboliques en réalisant tous les jours de la première activité et en découvrant les articles de santé\u00A0!",
+            CTATitle: badges.length ? "Voir mes badges" : null,
+            CTANavigation: ["BADGES_LIST"],
+          },
+        });
+      }
     }
   })
 );
