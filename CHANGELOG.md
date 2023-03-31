@@ -1,3 +1,10 @@
+# [1.90.0](https://github.com/SocialGouv/ozensemble/compare/v1.89.0...v1.90.0) (2023-03-31)
+
+
+### Features
+
+*  modal new badges activities articles ([#222](https://github.com/SocialGouv/ozensemble/issues/222)) ([4f36395](https://github.com/SocialGouv/ozensemble/commit/4f36395c6ce445857b858cb8ebdfc915d5c7368a))
+
 # [1.89.0](https://github.com/SocialGouv/ozensemble/compare/v1.88.0...v1.89.0) (2023-03-31)
 
 
