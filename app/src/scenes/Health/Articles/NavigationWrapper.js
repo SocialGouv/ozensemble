@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { Linking } from 'react-native';
 import { Spacer } from './../../../components/Articles';
 import Clock from '../../../components/illustrations/Clock';
@@ -10,6 +10,8 @@ import BackButton from '../../../components/BackButton';
 import Sources from '../../Quizzs/Sources';
 import WrapperContainer from '../../../components/WrapperContainer';
 import { defaultPaddingFontScale } from '../../../styles/theme';
+import API from '../../../services/api';
+import { storage } from '../../../services/storage';
 
 const NavigationWrapper = ({
   children,
@@ -26,11 +28,26 @@ const NavigationWrapper = ({
   const hasScrollToEnd = useRef(false);
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) =>
     layoutMeasurement.height + contentOffset.y >= contentSize.height - 1500; // almost to bottom
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    const matomoId = storage.getString('@UserIdv2');
+    if (!isFocused) {
+      API.post({
+        path: '/articles/display',
+        body: {
+          matomoId: matomoId,
+        },
+      });
+    }
+  }, [isFocused]);
 
   return (
     <WrapperContainer
       noPaddingHorizontal={noPaddingHorizontal}
-      onPressBackButton={navigation.goBack}
+      onPressBackButton={() => {
+        navigation.goBack();
+      }}
       title={title}
       onScroll={({ nativeEvent }) => {
         if (isCloseToBottom(nativeEvent) && !hasScrollToEnd.current) {
@@ -39,6 +56,14 @@ const NavigationWrapper = ({
             category: 'HEALTH',
             action: 'HEALTH_SCROLL_ARTICLE_TO_BOTTOM',
             name: title,
+          });
+          const matomoId = storage.getString('@UserIdv2');
+          API.post({
+            path: '/articles',
+            body: {
+              matomoId: matomoId,
+              articleTitle: title,
+            },
           });
         }
       }}
@@ -103,7 +128,14 @@ const NavigationWrapper = ({
           </>
         </Sources>
         <Spacer size={25} />
-        <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
+        <BackButton
+          content="< Retour"
+          bold
+          onPress={() => {
+            navigation.goBack();
+          }}
+          bottom
+        />
       </ConditionalPaddingContainer>
     </WrapperContainer>
   );
