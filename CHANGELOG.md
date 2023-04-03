@@ -1,3 +1,10 @@
+## [1.90.9](https://github.com/SocialGouv/ozensemble/compare/v1.90.8...v1.90.9) (2023-04-03)
+
+
+### Bug Fixes
+
+* wordings announcement modale ([#236](https://github.com/SocialGouv/ozensemble/issues/236)) ([dbef454](https://github.com/SocialGouv/ozensemble/commit/dbef45413f3d094e5a885d7d42d644347ec9102e))
+
 ## [1.90.8](https://github.com/SocialGouv/ozensemble/compare/v1.90.7...v1.90.8) (2023-04-03)
 
 
