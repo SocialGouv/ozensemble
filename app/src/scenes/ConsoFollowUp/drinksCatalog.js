@@ -12,12 +12,12 @@ import ChampagneBottle from '../../components/illustrations/drinksAndFood/Champa
 import ChampagneGlass from '../../components/illustrations/drinksAndFood/ChampagneGlass';
 
 // categories
-export const BEER = 'Bières';
-export const WINE = 'Vins';
+export const BEER = 'Bière';
+export const WINE = 'Vin';
 export const CHAMPAGNE = 'Champagne';
 export const CIDER = 'Cidre';
-export const HARD_SMALL = 'Shot et Cocktail';
-export const HARD_BIG = 'Spiritueux';
+export const APERITIVES = 'Apéritif';
+export const SPIRITS = 'Spiritueux';
 
 // subCategories
 export const NO_CONSO = 'no-conso';
@@ -29,10 +29,10 @@ export const WINE_GLASS = 'wine-glass';
 export const WINE_BOTTLE = 'wine-bottle';
 export const CHAMPAGNE_GLASS = 'champagne-glass';
 export const CHAMPAGNE_BOTTLE = 'champagne-bottle';
-export const HARD_COCKTAIL = 'hard-cocktail';
-export const HARD_BOTTLE = 'hard-bottle';
-export const HARD_SHOT = 'hard-shot';
-export const HARD_FLASQUE = 'hard-flasque';
+export const SPIRITS_COCKTAIL = 'spirits-cocktail';
+export const SPIRITS_BOTTLE = 'spirits-bottle';
+export const SPIRITS_SHOT = 'spirits-shot';
+export const SPIRITS_FLASQUE = 'spirits-flasque';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
@@ -214,8 +214,8 @@ export const drinksCatalog = [
     style: { marginBottom: 20 },
   },
   {
-    categoryKey: HARD_SMALL,
-    drinkKey: HARD_SHOT,
+    categoryKey: SPIRITS,
+    drinkKey: SPIRITS_SHOT,
     displayFeed: (q) => (q > 1 ? 'shots' : 'shot'),
     displayDrinkModal: 'shot',
     volume: '3 cl',
@@ -225,8 +225,8 @@ export const drinksCatalog = [
     kcal: 100,
   },
   {
-    categoryKey: HARD_SMALL,
-    drinkKey: HARD_COCKTAIL,
+    categoryKey: SPIRITS,
+    drinkKey: SPIRITS_COCKTAIL,
     displayFeed: (q) => (q > 1 ? 'cocktails' : 'cocktail'),
     displayDrinkModal: 'cocktail',
     volume: '5 cl',
@@ -236,8 +236,8 @@ export const drinksCatalog = [
     kcal: 133,
   },
   {
-    categoryKey: HARD_BIG,
-    drinkKey: HARD_FLASQUE,
+    categoryKey: SPIRITS,
+    drinkKey: SPIRITS_FLASQUE,
     displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
     displayDrinkModal: 'flasque',
     volume: '20 cl',
@@ -247,8 +247,8 @@ export const drinksCatalog = [
     kcal: 750,
   },
   {
-    categoryKey: HARD_BIG,
-    drinkKey: HARD_BOTTLE,
+    categoryKey: SPIRITS,
+    drinkKey: SPIRITS_BOTTLE,
     displayFeed: (q) => (q > 1 ? 'bouteilles de spiritueux' : 'bouteille de spiritueux'),
     displayDrinkModal: 'bouteille',
     volume: '75 cl',

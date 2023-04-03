@@ -19,16 +19,19 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, 
     <CategoryContainer asPreview={asPreview} darkBackground={index % 2}>
       <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
       <DrinksContainer>
-        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey) => (
-          <DrinkQuantitySetter
-            asPreview={asPreview}
-            key={drinkKey}
-            drinkKey={drinkKey}
-            setDrinkQuantity={setDrinkQuantity}
-            quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
-            catalog={drinksCatalog}
-          />
-        ))}
+        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey) => {
+          console.log(getDrinksKeysFromCategory(category, drinksCatalog).length);
+          return (
+            <DrinkQuantitySetter
+              asPreview={asPreview}
+              key={drinkKey}
+              drinkKey={drinkKey}
+              setDrinkQuantity={setDrinkQuantity}
+              quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+              catalog={drinksCatalog}
+            />
+          );
+        })}
       </DrinksContainer>
     </CategoryContainer>
   );
@@ -54,7 +57,7 @@ const CategoryDisplay = styled(TextStyled)`
 const DrinksContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   margin: 15px 5px;
 `;
 
