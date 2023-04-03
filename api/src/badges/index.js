@@ -19,6 +19,7 @@ const badgesCatalog = [
         secondaryButtonTitle: null,
         secondaryButtonNavigation: null,
         secondaryButtonLink: null,
+        showConfettis: true,
       },
       {
         category: "drinks",
@@ -32,6 +33,7 @@ const badgesCatalog = [
         secondaryButtonTitle: null,
         secondaryButtonNavigation: null,
         secondaryButtonLink: null,
+        showConfettis: true,
       },
       {
         title: "7 jours complétés de suite",
@@ -56,6 +58,7 @@ const badgesCatalog = [
         },
         secondaryButtonLink: null,
         secondaryButtonShare: true,
+        showConfettis: true,
       },
       {
         title: "14 jours complétés de suite",
@@ -74,6 +77,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: null,
+        showConfettis: true,
       },
       {
         title: "28 jours complétés de suite",
@@ -92,6 +96,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
     ],
   },
@@ -114,6 +119,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "1 semaine réussie",
@@ -126,6 +132,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "2 semaines réussies",
@@ -142,6 +149,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "3 semaines réussies",
@@ -166,6 +174,7 @@ const badgesCatalog = [
         secondaryButtonLink: "",
         secondaryButtonNavigation: null,
         secondaryButtonShare: true,
+        showConfettis: true,
       },
       {
         title: "4 semaines réussies",
@@ -184,6 +193,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
     ],
   },
@@ -346,6 +356,7 @@ const badgesCatalog = [
         secondaryButtonTitle: null,
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "Jour 1 terminé",
@@ -359,6 +370,7 @@ const badgesCatalog = [
         secondaryButtonTitle: null,
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "Jour 2 terminé",
@@ -372,6 +384,7 @@ const badgesCatalog = [
         secondaryButtonTitle: null,
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "Jour 3 terminé",
@@ -395,6 +408,7 @@ const badgesCatalog = [
         },
         secondaryButtonLink: null,
         secondaryButtonShare: true,
+        showConfettis: true,
       },
       {
         title: "Activité 1 terminée",
@@ -414,6 +428,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
     ],
   },
@@ -509,6 +524,7 @@ const badgesCatalog = [
         secondaryButtonTitle: null,
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
       {
         title: "2 articles lus",
@@ -532,6 +548,7 @@ const badgesCatalog = [
         },
         secondaryButtonLink: null,
         secondaryButtonShare: true,
+        showConfettis: true,
       },
       {
         title: "5 articles lus",
@@ -549,6 +566,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: null,
+        showConfettis: true,
       },
       {
         title: "9 articles lus",
@@ -566,6 +584,7 @@ const badgesCatalog = [
         secondaryButtonTitle: "Non merci",
         secondaryButtonNavigation: null,
         secondaryButtonLink: "",
+        showConfettis: true,
       },
     ],
   },

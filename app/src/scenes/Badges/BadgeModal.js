@@ -167,7 +167,7 @@ const BadgeModal = () => {
             </TouchableOpacity>
           )}
         </View>
-        {modalContent?.title !== 'Objectif dépassé cette semaine' && <Confetti run={true} />}
+        {modalContent?.showConfettis && <Confetti run={true} />}
       </SafeAreaView>
     </Modal>
   );
