@@ -1,3 +1,10 @@
+## [1.90.8](https://github.com/SocialGouv/ozensemble/compare/v1.90.7...v1.90.8) (2023-04-03)
+
+
+### Bug Fixes
+
+* bold android ([#234](https://github.com/SocialGouv/ozensemble/issues/234)) ([e07872a](https://github.com/SocialGouv/ozensemble/commit/e07872a91933df4b4cf4ecf5e27b9371cfae03e9))
+
 ## [1.90.7](https://github.com/SocialGouv/ozensemble/compare/v1.90.6...v1.90.7) (2023-04-03)
 
 
