@@ -1,3 +1,10 @@
+## [1.90.6](https://github.com/SocialGouv/ozensemble/compare/v1.90.5...v1.90.6) (2023-04-03)
+
+
+### Bug Fixes
+
+* display confettis on all badges expect missed goal ([#232](https://github.com/SocialGouv/ozensemble/issues/232)) ([bac9494](https://github.com/SocialGouv/ozensemble/commit/bac9494dd064f952983993f8ff9f67ecf7acaf4f))
+
 ## [1.90.5](https://github.com/SocialGouv/ozensemble/compare/v1.90.4...v1.90.5) (2023-04-03)
 
 
