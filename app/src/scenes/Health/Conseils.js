@@ -39,9 +39,7 @@ const Conseils = ({ navigation }) => {
           <TextStyled> avec Doctolib</TextStyled>
         </TextContainer>
       </CategorieContainer>
-      <H2>
-        <TextStyled color="#4030a5">Mes articles conseils</TextStyled>
-      </H2>
+      <H2 color="#4030a5">Mes articles conseils</H2>
       <ViewConseilsContainer>
         {listConseils.map((conseil, index) => (
           <ConseilContainer
