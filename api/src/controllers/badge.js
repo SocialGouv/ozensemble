@@ -112,7 +112,7 @@ router.get(
           showInAppModal: {
             id: "@ArticlesActivitiesBadgesAnnouncementFeatures",
             badgesCategories: ["defis", "articles"],
-            title: "Les badges activités et articles sont arrivés dans l'application\u00A0!",
+            title: "Les badges activités et articles arrivent dans l’application\u00A0!",
             content:
               "Gagnez ces nouveaux badges symboliques en réalisant tous les jours de la première activité et en découvrant les articles de santé\u00A0!",
             CTATitle: badges.length ? "Voir mes badges" : null,
@@ -131,7 +131,7 @@ router.get(
             badgesCategories: ["drinks", "goals", "defis", "articles"],
             title: "Nouveau : les badges arrivent dans l'application\u00A0!",
             content:
-              "Gagnez ces nouveaux badges symboliques en réalisant tous les jours de la première activité et en découvrant les articles de santé\u00A0!",
+              "Gagnez des badges symboliques en ajoutant vos consommations tous les jours ou en atteignant votre objectif de la semaine\u00A0!",
             CTATitle: badges.length ? "Voir mes badges" : null,
             CTANavigation: ["BADGES_LIST"],
           },
