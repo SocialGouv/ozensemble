@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import styled, { css } from 'styled-components';
 import {
   getDisplayDrinksModalName,
@@ -21,13 +22,16 @@ const DrinkQuantitySetter = ({
   catalog,
   index,
   onDelete,
+  margin,
 }) => {
   const Icon = getIcon(drinkKey, catalog);
   const volume = getVolume(drinkKey, catalog);
   const doses = getDoses(drinkKey, catalog);
   const style = getStyle(drinkKey, catalog);
   const name = getDisplayDrinksModalName(drinkKey, catalog);
-
+  console.log(margin);
+  const containerClassName = 'h-24 w-36 flex justify-center shrink-0 grow-0 ' + margin;
+  console.log(containerClassName);
   const onSetQuantity = (q) => {
     if (asPreview) return;
     setDrinkQuantity(drinkKey, q);
@@ -61,6 +65,7 @@ const DrinkQuantitySetter = ({
       volume={volume}
       name={name}
       doses={doses}
+      containerClassName={containerClassName}
     />
   );
 };
@@ -91,9 +96,19 @@ const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, nam
   </TouchableDelete>
 );
 
-const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, doses, name, style }) => {
+const SquareDrinkQuantitySetter = ({
+  asPreview,
+  quantity,
+  onSetQuantity,
+  Icon,
+  volume,
+  doses,
+  name,
+  style,
+  containerClassName,
+}) => {
   return (
-    <Container>
+    <View className={containerClassName}>
       <TopContainer>
         <QButton content="-" disabled={!asPreview && quantity <= 0} onPress={() => onSetQuantity(quantity - 1)} />
         <Icon size={50} style={style} />
@@ -116,17 +131,9 @@ const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, v
           {doses} unité{doses > 1 ? 's' : ''}
         </Doses>
       </BottomContainer>
-    </Container>
+    </View>
   );
 };
-
-const Container = styled.View`
-  height: 100px;
-  width: 145px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  justify-content: center;
-`;
 
 const OneLineContainer = styled.View`
   height: ${(props) => (props.first ? 70 : 60)}px;

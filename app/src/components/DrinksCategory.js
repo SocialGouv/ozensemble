@@ -19,8 +19,21 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, 
     <CategoryContainer asPreview={asPreview} darkBackground={index % 2}>
       <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
       <DrinksContainer>
-        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey) => {
-          console.log(getDrinksKeysFromCategory(category, drinksCatalog).length);
+        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey, index) => {
+          if (index > 1) {
+            return (
+              <DrinkQuantitySetter
+                asPreview={asPreview}
+                key={drinkKey}
+                drinkKey={drinkKey}
+                setDrinkQuantity={setDrinkQuantity}
+                quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+                catalog={drinksCatalog}
+                margin={'mt-9'}
+              />
+            );
+          } else {
+          }
           return (
             <DrinkQuantitySetter
               asPreview={asPreview}
