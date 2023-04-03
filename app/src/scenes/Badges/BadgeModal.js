@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
 import { hitSlop } from '../../styles/theme';
@@ -39,17 +39,6 @@ const BadgeModal = () => {
   const [modalContent, setModalContent] = useState(null);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
-  const isLastBadge = () => {
-    let last = false;
-    if (modalContent?.category === 'articles') {
-      if (modalContent?.stars === 4) {
-        last = true;
-      }
-    } else if (modalContent?.stars === 5 && !modalContent?.category.includes('locked')) {
-      last = true;
-    }
-    return last;
-  };
   const onClose = () => {
     setShowModal(false);
     setModalContent(null);
@@ -178,7 +167,7 @@ const BadgeModal = () => {
             </TouchableOpacity>
           )}
         </View>
-        {isLastBadge() && <Confetti run={true} />}
+        {modalContent?.title !== 'Objectif dépassé cette semaine' && <Confetti run={true} />}
       </SafeAreaView>
     </Modal>
   );
