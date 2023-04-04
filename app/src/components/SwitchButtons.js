@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
-//import { useDrawerStatus } from '@react-navigation/drawer';
 
 const SwitchButtons = () => {
   const translateX = useRef(new Animated.Value(0)).current;
