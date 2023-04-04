@@ -19,8 +19,8 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, 
     <CategoryContainer asPreview={asPreview} darkBackground={(index + 1) % 2}>
       <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
       <DrinksContainer>
-        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey, index) => {
-          if (index > 1) {
+        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey, position) => {
+          if (position > 1) {
             return (
               <DrinkQuantitySetter
                 asPreview={asPreview}

@@ -8,15 +8,14 @@ import H1 from '../../components/H1';
 import { TextInput } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import ArrowDown from '../../components/ArrowDown';
+import { QuantitySetter } from '../../components/DrinkQuantitySetter';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import SwitchButtons from '../../components/SwitchButtons';
-
-const AddOwnDrink = ({ navigation, route, onPressBackButton }) => {
-  const [isCoktail, setIsCoktail] = useState(false);
+const AddOwnDrink = ({ navigation }) => {
   const [quantity, setQuantity] = useState(0);
-  const [alcoholDegree, setAlcoholDegree] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [drinkKey, setDrinkKey] = useState('');
+  const onSetQuantity = (q) => {
+    setQuantity(q);
+  };
 
   return (
     <View className="h-full bg-white">
@@ -62,6 +61,7 @@ const AddOwnDrink = ({ navigation, route, onPressBackButton }) => {
             </View>
             <View className="flex flex-row justify-between items-center">
               <TextStyled bold>Quantité bue aujourd'hui</TextStyled>
+              <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
             </View>
           </View>
           <View className="flex flex-row justify-center mt-14 mb-10">

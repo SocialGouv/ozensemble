@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
+//import { useDrawerStatus } from '@react-navigation/drawer';
 
 const SwitchButtons = () => {
   const translateX = useRef(new Animated.Value(0)).current;
@@ -15,7 +16,7 @@ const SwitchButtons = () => {
     const width = await new Promise((res) =>
       insideContainerRef.current.measureLayout(
         findNodeHandle(containerRef.current),
-        (width) => {
+        (x, y, width) => {
           res(width);
         },
         (error) => capture('error finding ref', { extra: { error } })
@@ -25,7 +26,7 @@ const SwitchButtons = () => {
     const buttonWidth = await new Promise((res) =>
       buttonRef.current.measureLayout(
         findNodeHandle(insideContainerRef.current),
-        (width) => {
+        (x, y, width) => {
           res(width);
         },
         (error) => capture('error finding ref', { extra: { error } })
@@ -49,16 +50,16 @@ const SwitchButtons = () => {
   const panResponder = useRef(
     PanResponder.create({
       // Ask to be the responder:
-      onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-      onMoveShouldSetPanResponder: (evt, gestureState) => false,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
+      onStartShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponder: () => false,
+      onMoveShouldSetPanResponderCapture: () => false,
       // onPanResponderGrant: (evt, gestureState) => {},
       // onPanResponderMove: (evt, gestureState) => {},
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderTerminationRequest: () => true,
       onPanResponderRelease: onTerminate,
       // onPanResponderTerminate: (evt, gestureState) => {},
-      onShouldBlockNativeResponder: (evt, gestureState) => true,
+      onShouldBlockNativeResponder: () => true,
     })
   ).current;
 
