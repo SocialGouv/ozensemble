@@ -1,0 +1,229 @@
+import React, { useRef } from 'react';
+import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
+import { capture } from '../services/sentry';
+import TextStyled from './TextStyled';
+//import { useDrawerStatus } from '@react-navigation/drawer';
+
+const SwitchButtons = () => {
+  const translateX = useRef(new Animated.Value(0)).current;
+  const position = useRef(new Animated.Value(0)).current;
+
+  const containerRef = useRef(null);
+  const insideContainerRef = useRef(null);
+  const buttonRef = useRef(null);
+  const onTerminate = async (evt, gestureState) => {
+    const newX = evt.nativeEvent.locationX;
+    const width = await new Promise((res) =>
+      insideContainerRef.current.measureLayout(
+        findNodeHandle(containerRef.current),
+        (x, y, width, height) => {
+          res(width);
+        },
+        (error) => capture('error finding ref', { extra: { error } })
+      )
+    );
+    const newPosition = Number(newX > width / 2);
+    const buttonWidth = await new Promise((res) =>
+      buttonRef.current.measureLayout(
+        findNodeHandle(insideContainerRef.current),
+        (x, y, width, height) => {
+          res(width);
+        },
+        (error) => capture('error finding ref', { extra: { error } })
+      )
+    );
+
+    Animated.parallel([
+      Animated.timing(translateX, {
+        toValue: newPosition * (buttonWidth - 4),
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(position, {
+        toValue: newPosition,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const initPosition = async () => {
+    const buttonWidth = await new Promise((res) =>
+      buttonRef.current.measureLayout(
+        findNodeHandle(insideContainerRef.current),
+        (x, y, width, height) => {
+          res(width);
+        },
+        (error) => capture('error finding ref', { extra: { error } })
+      )
+    );
+    position.setValue(1);
+    translateX.setValue(buttonWidth);
+  };
+  /*
+  const isDrawerOpen = useDrawerStatus() === 'open';
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      const state = navigation.getState();
+      const firstRoute = state?.routes[state.index];
+      if (firstRoute?.state?.routes[firstRoute?.state?.index || 0]?.name?.includes('DRIVER_ORGANIZER')) {
+        initPosition();
+      }
+    }
+  }, [isDrawerOpen]);
+*/
+  const panResponder = useRef(
+    PanResponder.create({
+      // Ask to be the responder:
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => false,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
+      // onPanResponderGrant: (evt, gestureState) => {},
+      // onPanResponderMove: (evt, gestureState) => {},
+      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderRelease: onTerminate,
+      // onPanResponderTerminate: (evt, gestureState) => {},
+      onShouldBlockNativeResponder: (evt, gestureState) => true,
+    })
+  ).current;
+
+  return (
+    <View style={styles.outerContainer}>
+      <View
+        ref={containerRef}
+        style={[styles.container]}
+        {...(panResponder?.panHandlers || {})}
+        pointerEvents="box-only">
+        <View ref={insideContainerRef} style={styles.content}>
+          <Animated.View ref={buttonRef} style={[styles.button, { transform: [{ translateX }] }]} />
+        </View>
+        <View style={styles.textsContainer}>
+          <View style={styles.textContainer}>
+            <Animated.View
+              style={[
+                styles.textColorsContainer,
+                {
+                  opacity: position.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ]}>
+              <TextStyled bold color={'#000'}>
+                oui
+              </TextStyled>
+            </Animated.View>
+            <Animated.View
+              style={[
+                styles.textColorsContainer,
+                {
+                  opacity: position.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ]}>
+              <TextStyled bold color={'#fff'}>
+                oui
+              </TextStyled>
+            </Animated.View>
+          </View>
+          <View style={styles.textContainer}>
+            <Animated.View
+              style={[
+                styles.textColorsContainer,
+                {
+                  opacity: position.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [1, 0],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ]}>
+              <TextStyled bold color={'#000'}>
+                non
+              </TextStyled>
+            </Animated.View>
+            <Animated.View
+              style={[
+                styles.textColorsContainer,
+                {
+                  opacity: position.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ]}>
+              <TextStyled bold color={'#fff'}>
+                non
+              </TextStyled>
+            </Animated.View>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const padding = 4;
+
+const styles = StyleSheet.create({
+  outerContainer: {
+    width: '40%',
+    alignItems: 'center',
+  },
+  title: {
+    marginBottom: 10,
+  },
+  container: {
+    width: '70%',
+    borderRadius: 30,
+    overflow: 'hidden',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderWidth: 1,
+    borderColor: '#DBDBE8',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  content: {
+    width: '100%',
+  },
+  button: {
+    backgroundColor: '#4030A5',
+    width: '50%',
+    minHeight: 30,
+    borderRadius: 30,
+    margin: 2,
+  },
+  textsContainer: {
+    position: 'absolute',
+    top: padding,
+    left: padding,
+    right: padding,
+    bottom: padding,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textColorsContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    marginVertical: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+});
+
+export default SwitchButtons;

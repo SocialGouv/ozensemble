@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ConsosList from './ConsosList';
+import AddOwnDrink from './AddOwnDrink';
 
 const AddDrinkStack = createStackNavigator();
 const AddDrinkNavigator = ({ route }) => {
@@ -11,6 +12,7 @@ const AddDrinkNavigator = ({ route }) => {
         name="CONSOS_LIST">
         {(props) => <ConsosList {...props} />}
       </AddDrinkStack.Screen>
+      <AddDrinkStack.Screen name="ADD_OWN_DRINK" component={AddOwnDrink} />
     </AddDrinkStack.Navigator>
   );
 };

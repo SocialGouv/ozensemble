@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform } from 'react-native';
+import { BackHandler, Platform, View, Text } from 'react-native';
 import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -27,6 +27,8 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import TextStyled from '../../components/TextStyled';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -196,7 +198,9 @@ const ConsosList = ({ navigation, route }) => {
           addDrinkModalTimestamp={addDrinkModalTimestamp}
           setDrinkModalTimestamp={setDrinkModalTimestamp}
         />
-        <ButtonPrimaryStyled
+        <ButtonPrimary
+          className="mt-5 mb-7 self-center"
+          small
           onPress={() => {
             onClose();
             const noConso = {
@@ -247,6 +251,16 @@ const ConsosList = ({ navigation, route }) => {
             ))}
             <DrinksHeader content="Génériques" />
           </>
+        )}
+        {!withOwnDrinks && (
+          <View className="p-5 bg-[#efefef]">
+            <TextStyled color="#4030a5" bold center className="mb-4">
+              Vous ne trouvez pas votre boisson dans la liste ?
+            </TextStyled>
+            <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
+              <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
+            </TouchableOpacity>
+          </View>
         )}
         {drinksCatalog
           .map(({ categoryKey }) => categoryKey)
@@ -319,12 +333,6 @@ const ButtonsContainer = styled.View`
 const MarginBottom = styled.View`
   height: ${({ small }) => buttonHeight * (small ? 0 : 2) + 2 * buttonsPadding}px;
   flex-shrink: 0;
-`;
-
-const ButtonPrimaryStyled = styled(ButtonPrimary)`
-  margin-top: 40px;
-  margin-bottom: 40px;
-  align-self: center;
 `;
 
 export default ConsosList;

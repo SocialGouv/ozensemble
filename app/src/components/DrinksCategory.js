@@ -16,7 +16,7 @@ export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
 
 const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, drinksCatalog }) => {
   return (
-    <CategoryContainer asPreview={asPreview} darkBackground={index % 2}>
+    <CategoryContainer asPreview={asPreview} darkBackground={(index + 1) % 2}>
       <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
       <DrinksContainer>
         {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey, index) => {

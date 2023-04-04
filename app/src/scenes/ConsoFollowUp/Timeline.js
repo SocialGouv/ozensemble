@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ArrowDown from '../../components/ArrowDown';
+import ArrowDown from '../../components/ArrowUp';
 
 const Timeline = ({ first, last }) => (
   <TimelineContainer>

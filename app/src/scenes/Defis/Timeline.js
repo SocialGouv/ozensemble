@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ArrowDown from '../../components/ArrowDown';
+import ArrowDown from '../../components/ArrowUp';
 import Lock from '../../components/illustrations/Lock';
 import StarButton from '../../components/illustrations/StarButton';
 

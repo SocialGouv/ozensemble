@@ -70,7 +70,6 @@ router.get(
     }
 
     // If app not up to date => create first badges milestone
-    console.log("check for milestone");
     if (req.headers.appversion < 151) {
       await prisma.appMilestone.create({
         data: {

@@ -23,10 +23,8 @@ const ResultsOnboarding = ({ navigation, route }) => {
 
   useEffect(() => {
     const matomoId = storage.getString('@UserIdv2');
-    console.log(isFocused);
 
     if (!isFocused) {
-      console.log('isUnfocsed');
       API.post({
         path: '/defis/display',
         body: {
