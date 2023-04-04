@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
-//import { useDrawerStatus } from '@react-navigation/drawer';
 
 const SwitchButtons = () => {
   const translateX = useRef(new Animated.Value(0)).current;
@@ -11,12 +10,12 @@ const SwitchButtons = () => {
   const containerRef = useRef(null);
   const insideContainerRef = useRef(null);
   const buttonRef = useRef(null);
-  const onTerminate = async (evt, gestureState) => {
+  const onTerminate = async (evt) => {
     const newX = evt.nativeEvent.locationX;
     const width = await new Promise((res) =>
       insideContainerRef.current.measureLayout(
         findNodeHandle(containerRef.current),
-        (x, y, width, height) => {
+        (width) => {
           res(width);
         },
         (error) => capture('error finding ref', { extra: { error } })
@@ -26,7 +25,7 @@ const SwitchButtons = () => {
     const buttonWidth = await new Promise((res) =>
       buttonRef.current.measureLayout(
         findNodeHandle(insideContainerRef.current),
-        (x, y, width, height) => {
+        (width) => {
           res(width);
         },
         (error) => capture('error finding ref', { extra: { error } })
@@ -47,32 +46,6 @@ const SwitchButtons = () => {
     ]).start();
   };
 
-  const initPosition = async () => {
-    const buttonWidth = await new Promise((res) =>
-      buttonRef.current.measureLayout(
-        findNodeHandle(insideContainerRef.current),
-        (x, y, width, height) => {
-          res(width);
-        },
-        (error) => capture('error finding ref', { extra: { error } })
-      )
-    );
-    position.setValue(1);
-    translateX.setValue(buttonWidth);
-  };
-  /*
-  const isDrawerOpen = useDrawerStatus() === 'open';
-
-  useEffect(() => {
-    if (isDrawerOpen) {
-      const state = navigation.getState();
-      const firstRoute = state?.routes[state.index];
-      if (firstRoute?.state?.routes[firstRoute?.state?.index || 0]?.name?.includes('DRIVER_ORGANIZER')) {
-        initPosition();
-      }
-    }
-  }, [isDrawerOpen]);
-*/
   const panResponder = useRef(
     PanResponder.create({
       // Ask to be the responder:
