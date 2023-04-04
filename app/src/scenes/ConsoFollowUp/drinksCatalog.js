@@ -253,7 +253,7 @@ export const drinksCatalog = [
     categoryKey: SPIRITS,
     drinkKey: HARD_COCKTAIL,
     displayFeed: (q) => (q > 1 ? 'cocktails' : 'cocktail'),
-    displayDrinkModal: 'cocktail',
+    displayDrinkModal: 'verre',
     volume: '5 cl + diluant',
     doses: 1.6,
     icon: CocktailGlass,

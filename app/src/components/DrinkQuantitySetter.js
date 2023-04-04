@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import styled, { css } from 'styled-components';
 import {
   getDisplayDrinksModalName,
@@ -119,10 +119,10 @@ const SquareDrinkQuantitySetter = ({
       </TopContainer>
       <BottomContainer>
         <DisplayName>{name}</DisplayName>
-        <Volume>
+        <Text>
           {' - '}
           {volume}
-        </Volume>
+        </Text>
       </BottomContainer>
       <BottomContainer>
         <Doses>

@@ -33,17 +33,17 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, 
               />
             );
           } else {
+            return (
+              <DrinkQuantitySetter
+                asPreview={asPreview}
+                key={drinkKey}
+                drinkKey={drinkKey}
+                setDrinkQuantity={setDrinkQuantity}
+                quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+                catalog={drinksCatalog}
+              />
+            );
           }
-          return (
-            <DrinkQuantitySetter
-              asPreview={asPreview}
-              key={drinkKey}
-              drinkKey={drinkKey}
-              setDrinkQuantity={setDrinkQuantity}
-              quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
-              catalog={drinksCatalog}
-            />
-          );
         })}
       </DrinksContainer>
     </CategoryContainer>

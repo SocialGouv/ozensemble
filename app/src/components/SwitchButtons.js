@@ -188,8 +188,6 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     borderWidth: 1,
     borderColor: '#DBDBE8',
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
   content: {
     width: '100%',
