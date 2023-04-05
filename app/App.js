@@ -108,7 +108,6 @@ const App = () => {
       sendNPSDoneToDB();
       setHasSentNPSDoneToDB(true);
     }
-    console.log('\n _hasCreateBadgeForDoneDefis', _hasCreateBadgeForDoneDefis);
     if (!_hasCreateBadgeForDoneDefis) {
       createBadgesForDoneDefis();
       setHasCreateBadgeForDoneDefis(true);

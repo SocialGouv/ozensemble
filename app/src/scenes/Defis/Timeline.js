@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ArrowDown from '../../components/ArrowDown';
+import ArrowUp from '../../components/ArrowUp';
 import Lock from '../../components/illustrations/Lock';
 import StarButton from '../../components/illustrations/StarButton';
 
@@ -54,7 +54,7 @@ export const Dot = styled.View`
   background: ${({ active }) => (active ? '#de285e' : '#C4C4C4')};
 `;
 
-const ArrowDownStyled = styled(ArrowDown)`
+const ArrowDownStyled = styled(ArrowUp)`
   margin-top: 1px;
 `;
 

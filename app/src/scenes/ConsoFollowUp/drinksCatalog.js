@@ -10,15 +10,15 @@ import Shoot from '../../components/illustrations/drinksAndFood/Shoot';
 import Flasque from '../../components/illustrations/drinksAndFood/Flasque';
 import ChampagneBottle from '../../components/illustrations/drinksAndFood/ChampagneBottle';
 import ChampagneGlass from '../../components/illustrations/drinksAndFood/ChampagneGlass';
-
+import AperitiveGlass from '../../components/illustrations/drinksAndFood/AperitiveGlass';
+import AperitiveBottle from '../../components/illustrations/drinksAndFood/AperitiveBottle';
 // categories
-export const BEER = 'Bières';
-export const WINE = 'Vins';
-export const CHAMPAGNE = 'Champagne';
-export const CIDER = 'Cidre';
-export const HARD_SMALL = 'Shot et Cocktail';
-export const HARD_BIG = 'Spiritueux';
-
+export const BEER = 'Bière (5%)';
+export const WINE = 'Vin (12,5%)';
+export const CHAMPAGNE = 'Champagne (12,5%)';
+export const CIDER = 'Cidre (5%)';
+export const APERITIVE = 'Apéritif (15 à 18%) : porto, vermouth...';
+export const SPIRITS = 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...';
 // subCategories
 export const NO_CONSO = 'no-conso';
 export const BEER_HALF = 'beer-half';
@@ -33,6 +33,8 @@ export const HARD_COCKTAIL = 'hard-cocktail';
 export const HARD_BOTTLE = 'hard-bottle';
 export const HARD_SHOT = 'hard-shot';
 export const HARD_FLASQUE = 'hard-flasque';
+export const APERITIVE_GLASS = 'aperitive-glass';
+export const APERITIVE_BOTTLE = 'aperitive-bottle';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
@@ -130,7 +132,7 @@ export const drinksCatalog = [
     doses: 1,
     icon: HalfBeer,
     price: 3.5,
-    kcal: 105,
+    kcal: 70,
   },
   {
     categoryKey: BEER,
@@ -141,7 +143,7 @@ export const drinksCatalog = [
     doses: 2,
     icon: Pint,
     price: 7,
-    kcal: 210,
+    kcal: 140,
   },
 
   {
@@ -153,7 +155,7 @@ export const drinksCatalog = [
     doses: 1,
     icon: HalfCider,
     price: 2,
-    kcal: 102,
+    kcal: 70,
   },
   {
     categoryKey: CIDER,
@@ -164,7 +166,7 @@ export const drinksCatalog = [
     doses: 2,
     icon: PintCider,
     price: 4,
-    kcal: 204,
+    kcal: 140,
     style: { marginBottom: 10 },
   },
   {
@@ -172,11 +174,11 @@ export const drinksCatalog = [
     drinkKey: WINE_GLASS,
     displayFeed: (q) => (q > 1 ? 'verres de vin' : 'verre de vin'),
     displayDrinkModal: 'verre',
-    volume: '12 cl',
+    volume: '10 cl',
     doses: 1,
     icon: WineGlass,
     price: 4,
-    kcal: 100,
+    kcal: 70,
   },
   {
     categoryKey: WINE,
@@ -184,10 +186,10 @@ export const drinksCatalog = [
     displayFeed: (q) => (q > 1 ? 'bouteilles de vin' : 'bouteille de vin'),
     displayDrinkModal: 'bouteille',
     volume: '75 cl',
-    doses: 8,
+    doses: 7.5,
     icon: WineBottle,
     price: 10,
-    kcal: 600,
+    kcal: 525,
     style: { marginBottom: 20 },
   },
   {
@@ -195,11 +197,11 @@ export const drinksCatalog = [
     drinkKey: CHAMPAGNE_GLASS,
     displayFeed: (q) => (q > 1 ? 'verres de champagne' : 'verre de champagne'),
     displayDrinkModal: 'coupe',
-    volume: '12cl',
+    volume: '10cl',
     doses: 1,
     icon: ChampagneGlass,
     price: 5,
-    kcal: 90,
+    kcal: 70,
   },
   {
     categoryKey: CHAMPAGNE,
@@ -210,11 +212,34 @@ export const drinksCatalog = [
     doses: 8,
     icon: ChampagneBottle,
     price: 20,
-    kcal: 622,
+    kcal: 525,
     style: { marginBottom: 20 },
   },
   {
-    categoryKey: HARD_SMALL,
+    categoryKey: APERITIVE,
+    drinkKey: APERITIVE_GLASS,
+    displayFeed: (q) => (q > 1 ? "verre d'apéritif" : "verres d'apéritif"),
+    displayDrinkModal: 'verre',
+    volume: '7cl',
+    doses: 1,
+    icon: AperitiveGlass,
+    price: 4,
+    kcal: 71,
+  },
+  {
+    categoryKey: APERITIVE,
+    drinkKey: APERITIVE_BOTTLE,
+    displayFeed: (q) => (q > 1 ? "bouteille d'apéritif" : "bouteilles d'apéritif"),
+    displayDrinkModal: 'bouteille',
+    volume: '7cl',
+    doses: 75,
+    icon: AperitiveBottle,
+    price: 10,
+    kcal: 756,
+    style: { marginBottom: 20 },
+  },
+  {
+    categoryKey: SPIRITS,
     drinkKey: HARD_SHOT,
     displayFeed: (q) => (q > 1 ? 'shots' : 'shot'),
     displayDrinkModal: 'shot',
@@ -222,39 +247,39 @@ export const drinksCatalog = [
     doses: 1,
     icon: Shoot,
     price: 2,
-    kcal: 100,
+    kcal: 67,
   },
   {
-    categoryKey: HARD_SMALL,
+    categoryKey: SPIRITS,
     drinkKey: HARD_COCKTAIL,
     displayFeed: (q) => (q > 1 ? 'cocktails' : 'cocktail'),
-    displayDrinkModal: 'cocktail',
-    volume: '5 cl',
-    doses: 1,
+    displayDrinkModal: 'verre',
+    volume: '5 cl + diluant',
+    doses: 1.6,
     icon: CocktailGlass,
     price: 8,
     kcal: 133,
   },
   {
-    categoryKey: HARD_BIG,
+    categoryKey: SPIRITS,
     drinkKey: HARD_FLASQUE,
     displayFeed: (q) => (q > 1 ? 'flasques' : 'flasque'),
     displayDrinkModal: 'flasque',
     volume: '20 cl',
-    doses: 7,
+    doses: 6.4,
     icon: Flasque,
     price: 4,
     kcal: 750,
   },
   {
-    categoryKey: HARD_BIG,
+    categoryKey: SPIRITS,
     drinkKey: HARD_BOTTLE,
     displayFeed: (q) => (q > 1 ? 'bouteilles de spiritueux' : 'bouteille de spiritueux'),
     displayDrinkModal: 'bouteille',
     volume: '75 cl',
-    doses: 22,
+    doses: 24,
     icon: CocktailBottle,
     price: 15,
-    kcal: 1875,
+    kcal: 1680,
   },
 ];

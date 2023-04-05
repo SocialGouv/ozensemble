@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import styled, { css } from 'styled-components';
 import { screenWidth } from '../styles/theme';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
@@ -16,20 +17,36 @@ export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
 
 const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, drinksCatalog }) => {
   return (
-    <CategoryContainer asPreview={asPreview} darkBackground={index % 2}>
+    <CategoryContainer asPreview={asPreview} darkBackground={(index + 1) % 2}>
       <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
-      <DrinksContainer>
-        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey) => (
-          <DrinkQuantitySetter
-            asPreview={asPreview}
-            key={drinkKey}
-            drinkKey={drinkKey}
-            setDrinkQuantity={setDrinkQuantity}
-            quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
-            catalog={drinksCatalog}
-          />
-        ))}
-      </DrinksContainer>
+      <View className="flex flex-row justify-around flex-wrap my-4 mx-1">
+        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey, position) => {
+          if (position > 1) {
+            return (
+              <DrinkQuantitySetter
+                asPreview={asPreview}
+                key={drinkKey}
+                drinkKey={drinkKey}
+                setDrinkQuantity={setDrinkQuantity}
+                quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+                catalog={drinksCatalog}
+                margin={true}
+              />
+            );
+          } else {
+            return (
+              <DrinkQuantitySetter
+                asPreview={asPreview}
+                key={drinkKey}
+                drinkKey={drinkKey}
+                setDrinkQuantity={setDrinkQuantity}
+                quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+                catalog={drinksCatalog}
+              />
+            );
+          }
+        })}
+      </View>
     </CategoryContainer>
   );
 };
@@ -49,13 +66,6 @@ const CategoryContainer = styled.View`
 const CategoryDisplay = styled(TextStyled)`
   margin: 15px 30px 0px;
   font-weight: bold;
-`;
-
-const DrinksContainer = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-  margin: 15px 5px;
 `;
 
 export default DrinksCategory;

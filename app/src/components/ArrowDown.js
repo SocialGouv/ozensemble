@@ -1,15 +1,10 @@
 import React from 'react';
-import Svg, { Polygon } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 import styled from 'styled-components';
 
 const ArrowDown = ({ color = '#39cec0', size, ...style }) => (
-  <StyledSvg height={size} width={size} viewBox="0 0 270 185" {...style}>
-    <Polygon
-      id="ArrowDown"
-      fill={color}
-      transform="translate(135.143315, 134.812629) rotate(135.000000) translate(-135.143315, -134.812629) "
-      points="110 40 110 160 230.28663 160 230.28663 229.625259 40 229.625259 40 40"
-    />
+  <StyledSvg height={size} width={size} color={color} viewBox="0 0 24 24" {...style} fill="none">
+    <Path d="M6 9L12 15L18 9" stroke="black" stroke-linecap="round" stroke-linejoin="round" />
   </StyledSvg>
 );
 

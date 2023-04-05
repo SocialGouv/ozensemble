@@ -24,8 +24,6 @@ const Defi1_Day1 = ({ navigation, route }) => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
     const matomoId = storage.getString('@UserIdv2');
     if (!isFocused) {
-      console.log('isUnfocsed');
-
       API.post({
         path: '/defis/display',
         body: {
