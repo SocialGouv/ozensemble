@@ -21,7 +21,6 @@ const AddCocktail = ({ navigation, route }) => {
 
   useEffect(() => {
     getCocktailsCatalog();
-    console.log(cocktailsCatalog);
   }, [cocktailsCatalog]);
   return (
     <View className="h-full bg-white pt-5">
