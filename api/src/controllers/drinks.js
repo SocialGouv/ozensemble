@@ -6,8 +6,7 @@ const { cocktailsCatalog } = require("../cocktails");
 
 router.get(
   "/cocktails",
-  catchErrors(async (res) => {
-    console.log("cocktailsCatalog", cocktailsCatalog);
+  catchErrors(async (req, res) => {
     return res.status(200).send({ ok: true, data: cocktailsCatalog });
   })
 );

@@ -23,7 +23,7 @@ const AddCoktail = ({ navigation, route }) => {
           Cliquez sur un cocktail pour compléter le champ. Si votre dose d'alcool est plus importante, revenez en
           arrière et cliquez sur «non» pour paramétrer la quantité d'alcool.
         </TextStyled>
-        {coktailsCatalog.map((coktail) => {
+        {/* {coktailsCatalog.map((coktail) => {
           return (
             <TouchableOpacity
               key={coktail.drinkKey}
@@ -40,7 +40,7 @@ const AddCoktail = ({ navigation, route }) => {
               </View>
             </TouchableOpacity>
           );
-        })}
+        })} */}
         <View className="mt-7 mb-20">
           <H3 bold color="#4030a5">
             {'Vous ne trouvez pas votre cocktail\u00A0?'}
