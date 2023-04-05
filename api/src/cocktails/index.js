@@ -74,7 +74,7 @@ const cocktailsCatalog = [
   {
     categoryKey: "cocktail",
     drinkKey: "cosmopolitan",
-    displayFeed: (q) => (q > 1 ? "cocktail cosmopolitan" : "cocktail cosmopolitan"),
+    displayFeed: (q) => (q > 1 ? "cocktail cosmopolitan" : "cocktails cosmopolitan"),
     displayDrinkModal: "Cocktail Cosmopolitan",
     displaySelection: "Cosmopolitan",
     volume: "6 cl vodka et liqueur 40%",

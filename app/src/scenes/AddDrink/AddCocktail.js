@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { View, Text, TouchableOpacity } from 'react-native';
 import BackButton from '../../components/BackButton';
-import styled from 'styled-components';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
