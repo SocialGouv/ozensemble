@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { View, Text, TouchableOpacity } from 'react-native';
 import BackButton from '../../components/BackButton';
@@ -9,9 +9,20 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
 import H3 from '../../components/H3';
 import H2 from '../../components/H2';
+import API from '../../services/api';
 const AddCoktail = ({ navigation, route }) => {
-  const coktailsCatalog = route.params?.coktailsCatalog;
+  const [cocktailsCatalog, setCocktailsCatalog] = useState([]);
+  const getCocktailsCatalog = async () => {
+    const res = await API.get({ path: '/drinks/cocktails' });
+    setCocktailsCatalog(res.data);
+  };
+
   const [newCocktailName, setNewCocktailName] = useState('');
+
+  useEffect(() => {
+    getCocktailsCatalog();
+    console.log(cocktailsCatalog);
+  }, [cocktailsCatalog]);
   return (
     <View className="h-full bg-white pt-5">
       <ScrollView className="pb-5" style={{ padding: defaultPaddingFontScale() }}>
@@ -23,10 +34,10 @@ const AddCoktail = ({ navigation, route }) => {
           Cliquez sur un cocktail pour compléter le champ. Si votre dose d'alcool est plus importante, revenez en
           arrière et cliquez sur «non» pour paramétrer la quantité d'alcool.
         </TextStyled>
-        {/* {coktailsCatalog.map((coktail) => {
+        {cocktailsCatalog.map((cocktail) => {
           return (
             <TouchableOpacity
-              key={coktail.drinkKey}
+              key={cocktail.drinkKey}
               className="flex flex-row bg-[#F3F3F6] h-12 mb-3 rounded-lg border border-[#DBDBE8] items-center px-2"
               onPress={() => {
                 //TODO
@@ -34,13 +45,13 @@ const AddCoktail = ({ navigation, route }) => {
               <CocktailGlass size={32} />
               <View className="flex flex-row flex-wrap ml-2 w-10/12">
                 <TextStyled bold className="">
-                  {coktail.displaySelection} :{' '}
+                  {cocktail.displaySelection} :{' '}
                 </TextStyled>
-                <Text>{coktail.volume}</Text>
+                <Text>{cocktail.volume}</Text>
               </View>
             </TouchableOpacity>
           );
-        })} */}
+        })}
         <View className="mt-7 mb-20">
           <H3 bold color="#4030a5">
             {'Vous ne trouvez pas votre cocktail\u00A0?'}
