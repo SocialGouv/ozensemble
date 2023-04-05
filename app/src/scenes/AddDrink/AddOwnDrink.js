@@ -20,7 +20,7 @@ const AddOwnDrink = ({ navigation }) => {
   return (
     <View className="h-full bg-white">
       <SafeAreaView className="bg-white rounded-xl mt-auto absolute bottom-0 w-full shadow-xl shadow-[#5E5E5E]	">
-        <Container>
+        <View style={{ paddingHorizontal: defaultPaddingFontScale(), paddingTop: defaultPaddingFontScale() }}>
           <BackButton content="Retour" bold onPress={() => navigation.goBack()} />
           <H1 className="mt-5 mb-8">Créez une nouvelle boisson</H1>
           <View className="mb-8 flex flex-row justify-between">
@@ -72,15 +72,10 @@ const AddOwnDrink = ({ navigation }) => {
               }}
             />
           </View>
-        </Container>
+        </View>
       </SafeAreaView>
     </View>
   );
 };
 
 export default AddOwnDrink;
-
-export const Container = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-  padding-top: ${defaultPaddingFontScale()}px;
-`;

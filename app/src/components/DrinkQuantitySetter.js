@@ -29,7 +29,11 @@ const DrinkQuantitySetter = ({
   const doses = getDoses(drinkKey, catalog);
   const style = getStyle(drinkKey, catalog);
   const name = getDisplayDrinksModalName(drinkKey, catalog);
-  const containerClassName = 'h-24 w-36 flex justify-center shrink-0 grow-0 ' + margin;
+  if (margin) {
+    const containerClassName = 'h-24 w-36 flex justify-center shrink-0 grow-0 mt-9';
+  } else {
+    const containerClassName = 'h-24 w-36 flex justify-center shrink-0 grow-0';
+  }
   const onSetQuantity = (q) => {
     if (asPreview) return;
     setDrinkQuantity(drinkKey, q);
