@@ -1,3 +1,10 @@
+# [1.91.0](https://github.com/SocialGouv/ozensemble/compare/v1.90.11...v1.91.0) (2023-04-05)
+
+
+### Features
+
+* modale cocktail choice ([#238](https://github.com/SocialGouv/ozensemble/issues/238)) ([7bfe4ad](https://github.com/SocialGouv/ozensemble/commit/7bfe4ad1527abcbf60234b464ce840e892890c04))
+
 ## [1.90.11](https://github.com/SocialGouv/ozensemble/compare/v1.90.10...v1.90.11) (2023-04-05)
 
 
