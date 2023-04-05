@@ -1,3 +1,10 @@
+## [1.90.11](https://github.com/SocialGouv/ozensemble/compare/v1.90.10...v1.90.11) (2023-04-05)
+
+
+### Bug Fixes
+
+*  screen add conso ([#237](https://github.com/SocialGouv/ozensemble/issues/237)) ([b57202e](https://github.com/SocialGouv/ozensemble/commit/b57202ec710795759f5649749cc3ba896a552388))
+
 ## [1.90.10](https://github.com/SocialGouv/ozensemble/compare/v1.90.9...v1.90.10) (2023-04-03)
 
 
