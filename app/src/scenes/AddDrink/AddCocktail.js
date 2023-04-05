@@ -10,7 +10,7 @@ import CocktailGlass from '../../components/illustrations/drinksAndFood/Cocktail
 import H3 from '../../components/H3';
 import H2 from '../../components/H2';
 import API from '../../services/api';
-const AddCoktail = ({ navigation, route }) => {
+const AddCocktail = ({ navigation, route }) => {
   const [cocktailsCatalog, setCocktailsCatalog] = useState([]);
   const getCocktailsCatalog = async () => {
     const res = await API.get({ path: '/drinks/cocktails' });
@@ -74,4 +74,4 @@ const AddCoktail = ({ navigation, route }) => {
   );
 };
 
-export default AddCoktail;
+export default AddCocktail;
