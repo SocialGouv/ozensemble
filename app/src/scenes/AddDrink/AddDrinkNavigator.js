@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ConsosList from './ConsosList';
 import AddOwnDrink from './AddOwnDrink';
 import AddCoktail from './AddCocktail';
+import AddAlcoolQuantity from './AddAlcoolQuantity';
 
 const AddDrinkStack = createStackNavigator();
 const AddDrinkNavigator = ({ route }) => {
@@ -15,6 +16,7 @@ const AddDrinkNavigator = ({ route }) => {
       </AddDrinkStack.Screen>
       <AddDrinkStack.Screen name="ADD_OWN_DRINK" component={AddOwnDrink} />
       <AddDrinkStack.Screen name="ADD_COCKTAIL" component={AddCoktail} />
+      <AddDrinkStack.Screen name="ADD_QUANTITY" component={AddAlcoolQuantity} />
     </AddDrinkStack.Navigator>
   );
 };
