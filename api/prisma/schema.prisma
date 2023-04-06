@@ -21,10 +21,10 @@ model User {
   goals             Goal[]
   appUserMilestones AppMilestone[]
   articles          Article[]
-
-  lastConsoAdded DateTime?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @default(now()) @updatedAt
+  drinks            Drink[]
+  lastConsoAdded    DateTime?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @default(now()) @updatedAt
 
   @@index([push_notif_token], type: Hash)
 }
@@ -166,4 +166,18 @@ model Article {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, title])
+}
+
+model Drink {
+  id               String   @id @default(uuid())
+  name             String   @default("")
+  volume           Float    @default(0)
+  price            Float    @default(0)
+  alcoolPercentage Float    @default(0)
+  user             User     @relation(fields: [userId], references: [id])
+  userId           String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([userId, name])
 }
