@@ -17,55 +17,32 @@ export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
 
 const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, drinksCatalog }) => {
   return (
-    <CategoryContainer asPreview={asPreview} darkBackground={(index + 1) % 2}>
-      <CategoryDisplay color="#4030a5">{category}</CategoryDisplay>
-      <View className="flex flex-row justify-around flex-wrap my-4 mx-1">
-        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey, position) => {
-          if (position > 1) {
-            return (
-              <DrinkQuantitySetter
-                asPreview={asPreview}
-                key={drinkKey}
-                drinkKey={drinkKey}
-                setDrinkQuantity={setDrinkQuantity}
-                quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
-                catalog={drinksCatalog}
-                margin={true}
-              />
-            );
-          } else {
-            return (
-              <DrinkQuantitySetter
-                asPreview={asPreview}
-                key={drinkKey}
-                drinkKey={drinkKey}
-                setDrinkQuantity={setDrinkQuantity}
-                quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
-                catalog={drinksCatalog}
-              />
-            );
-          }
+    <View
+      className={[
+        asPreview ? '-ml-5 my-5 w-full transform scale-90' : '',
+        (index + 1) % 2 ? 'bg-gray-100' : 'bg-gray-200',
+      ].join(' ')}>
+      <View className="pt-4 px-7">
+        <TextStyled bold color="#4030a5">
+          {category}
+        </TextStyled>
+      </View>
+      <View className="flex flex-row justify-around flex-wrap mt-4 mx-1">
+        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey) => {
+          return (
+            <DrinkQuantitySetter
+              asPreview={asPreview}
+              key={drinkKey}
+              drinkKey={drinkKey}
+              setDrinkQuantity={setDrinkQuantity}
+              quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
+              catalog={drinksCatalog}
+            />
+          );
         })}
       </View>
-    </CategoryContainer>
+    </View>
   );
 };
-
-const previewCss = css`
-  margin-left: -20px;
-  margin-vertical: 20px;
-  width: ${screenWidth}px;
-  transform: scale(0.9);
-`;
-
-const CategoryContainer = styled.View`
-  background: ${({ darkBackground }) => (darkBackground ? '#f9f9f9' : '#efefef')};
-  ${(props) => props.asPreview && previewCss}
-`;
-
-const CategoryDisplay = styled(TextStyled)`
-  margin: 15px 30px 0px;
-  font-weight: bold;
-`;
 
 export default DrinksCategory;
