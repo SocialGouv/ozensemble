@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { View, Text, TouchableOpacity } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
-import H3 from '../../components/H3';
 import H2 from '../../components/H2';
-import API from '../../services/api';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
 const AddAlcoolQuantity = ({ navigation, handleQuantitySelection }) => {
   return (
