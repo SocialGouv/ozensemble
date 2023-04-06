@@ -1,4 +1,3 @@
-import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
 import DigestiveDrink from '../../components/illustrations/drinksAndFood/DigestiveDrink';
 import HalfBeer from '../../components/illustrations/drinksAndFood/HalfBeer';
 import Pint from '../../components/illustrations/drinksAndFood/Pint';
@@ -7,7 +6,6 @@ import SmallCan from '../../components/illustrations/drinksAndFood/SmallCan';
 import WineBottle from '../../components/illustrations/drinksAndFood/WineBottle';
 import WineGlass from '../../components/illustrations/drinksAndFood/WineGlass';
 import Flasque from '../../components/illustrations/drinksAndFood/Flasque';
-import DefisMenu from '../Defis/DefisMenu';
 import SpiritsBottle from '../../components/illustrations/drinksAndFood/SpiritsBottle';
 import Mojito from '../../components/illustrations/drinksAndFood/Mojito';
 
