@@ -5,9 +5,8 @@ import { TextInput } from 'react-native-gesture-handler';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
-import ButtonPrimary from './ButtonPrimary';
 
-const DrinkPersonalisation = ({}) => {
+const DrinkPersonalisation = () => {
   const [quantity, setQuantity] = useState(0);
   const onSetQuantity = (q) => {
     setQuantity(q);
