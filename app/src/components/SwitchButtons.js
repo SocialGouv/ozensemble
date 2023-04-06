@@ -3,7 +3,7 @@ import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
 
-const SwitchButtons = () => {
+const SwitchButtons = ({ handleSwitchChange }) => {
   const translateX = useRef(new Animated.Value(0)).current;
   const position = useRef(new Animated.Value(0)).current;
 
@@ -44,6 +44,7 @@ const SwitchButtons = () => {
         useNativeDriver: true,
       }),
     ]).start();
+    handleSwitchChange(newPosition);
   };
 
   const panResponder = useRef(
@@ -86,7 +87,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#000'}>
-                oui
+                non
               </TextStyled>
             </Animated.View>
             <Animated.View
@@ -101,7 +102,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#fff'}>
-                oui
+                non
               </TextStyled>
             </Animated.View>
           </View>
@@ -118,7 +119,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#000'}>
-                non
+                oui
               </TextStyled>
             </Animated.View>
             <Animated.View
@@ -133,7 +134,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#fff'}>
-                non
+                oui
               </TextStyled>
             </Animated.View>
           </View>
