@@ -6,7 +6,7 @@ import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 
-const DrinkPersonalisation = ({ navigation }) => {
+const CocktailPersonalisation = ({ navigation }) => {
   const [quantity, setQuantity] = useState(0);
   const onSetQuantity = (q) => {
     setQuantity(q);
@@ -41,4 +41,4 @@ const DrinkPersonalisation = ({ navigation }) => {
   );
 };
 
-export default DrinkPersonalisation;
+export default CocktailPersonalisation;
