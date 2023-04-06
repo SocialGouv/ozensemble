@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { SafeAreaView, View, Text, TouchableOpacity } from 'react-native';
 import BackButton from '../../components/BackButton';
-import styled from 'styled-components';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import H1 from '../../components/H1';
 import { TextInput } from 'react-native-gesture-handler';
@@ -11,6 +10,7 @@ import ArrowDown from '../../components/ArrowDown';
 import { QuantitySetter } from '../../components/DrinkQuantitySetter';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import SwitchButtons from '../../components/SwitchButtons';
+
 const AddOwnDrink = ({ navigation }) => {
   const [quantity, setQuantity] = useState(0);
   const onSetQuantity = (q) => {

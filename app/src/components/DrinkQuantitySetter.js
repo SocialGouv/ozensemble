@@ -29,7 +29,6 @@ const DrinkQuantitySetter = ({
   const doses = getDoses(drinkKey, catalog);
   const style = getStyle(drinkKey, catalog);
   const name = getDisplayDrinksModalName(drinkKey, catalog);
-  const containerClassName = 'h-24 w-36 flex justify-center shrink-0 grow-0 ' + margin;
   const onSetQuantity = (q) => {
     if (asPreview) return;
     setDrinkQuantity(drinkKey, q);
@@ -63,7 +62,6 @@ const DrinkQuantitySetter = ({
       volume={volume}
       name={name}
       doses={doses}
-      containerClassName={containerClassName}
     />
   );
 };
@@ -94,19 +92,9 @@ const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, nam
   </TouchableDelete>
 );
 
-const SquareDrinkQuantitySetter = ({
-  asPreview,
-  quantity,
-  onSetQuantity,
-  Icon,
-  volume,
-  doses,
-  name,
-  style,
-  containerClassName,
-}) => {
+const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, doses, name, style }) => {
   return (
-    <View className={containerClassName}>
+    <View className="min-h-24 w-36 flex justify-center shrink-0 grow-0 mb-4">
       <TopContainer>
         <QButton content="-" disabled={!asPreview && quantity <= 0} onPress={() => onSetQuantity(quantity - 1)} />
         <Icon size={50} style={style} />
