@@ -40,13 +40,12 @@ const DrinkQuantitySetter = ({
   if (oneLine) {
     return (
       <OneLineDrinkQuantitySetter
+        asPreview={asPreview}
         quantity={quantity}
         onSetQuantity={onSetQuantity}
-        Icon={Icon}
         volume={volume}
         name={name}
-        index={index}
-        onDelete={onDeleteRequest}
+        doses={doses}
       />
     );
   }

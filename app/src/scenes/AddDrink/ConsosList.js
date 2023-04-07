@@ -10,16 +10,14 @@ import DrinksCategory from '../../components/DrinksCategory';
 import {
   drinksCatalog,
   // formatNewDrink,
-  getDoses,
+  // getDoses,
   getDrinksKeysFromCatalog,
-  getDrinkQuantityFromDrinks,
+  // getDrinkQuantityFromDrinks,
   NO_CONSO,
 } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
-import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
-import DrinksHeader from '../../components/DrinksHeader';
 import { drinksState, ownDrinksState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
@@ -29,6 +27,8 @@ import API from '../../services/api';
 import { storage } from '../../services/storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
+import OwnDrinkSelector from '../../components/OwnDrinkSelector';
+import Conseils from '../Health/Conseils';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -54,6 +54,7 @@ const drinksPerCurrenTimestampSelector = selectorFamily({
 });
 
 const ConsosList = ({ navigation, route }) => {
+  const [ownDrinksList, setOwnDrinksList] = useState([]);
   const timestamp = route?.params?.timestamp || new Date();
   const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => timestamp);
   const drinksPerCurrentaTimestamp = useRecoilValue(
@@ -61,18 +62,16 @@ const ConsosList = ({ navigation, route }) => {
   );
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
-
   const toast = useToast();
 
   const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
-
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
   const mergedOwnDrinksKeys = mergeOwnDrinksKeys(ownDrinks, localDrinksState);
   const withOwnDrinks = mergedOwnDrinksKeys.length > 0;
 
-  const setDrinkQuantityRequest = (drinkKey, quantity) => {
+  const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
     const oldDrink = localDrinksState.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
       setLocalDrinksState([
@@ -89,6 +88,7 @@ const ConsosList = ({ navigation, route }) => {
           drinkKey,
           quantity,
           id: uuidv4(),
+          isOwnDrink,
         },
       ]);
     }
@@ -111,6 +111,7 @@ const ConsosList = ({ navigation, route }) => {
             drinkKey: drink.drinkKey,
             quantity: drink.quantity,
             id: drink.id,
+            isOwnDrink: drink.isOwnDrink,
             timestamp: makeSureTimestamp(addDrinkModalTimestamp),
           },
         ].filter((d) => d.quantity > 0)
@@ -126,6 +127,22 @@ const ConsosList = ({ navigation, route }) => {
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
       });
       const matomoId = storage.getString('@UserIdv2');
+      let doses = null;
+      let kcal = null;
+      let price = null;
+      let volume = null;
+      if (drink.isOwnDrink) {
+        completeDrink = ownDrinksList.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
+        doses = completeDrink.doses;
+        kcal = completeDrink.kcal;
+        price = completeDrink.price;
+        volume = completeDrink.volume + ' cl';
+      } else {
+        doses = drinkFromCatalog.doses;
+        kcal = drinkFromCatalog.kcal;
+        price = drinkFromCatalog.price;
+        volume = drinkFromCatalog.volume;
+      }
       const response = await API.post({
         path: '/consommation',
         body: {
@@ -135,10 +152,10 @@ const ConsosList = ({ navigation, route }) => {
           drinkKey: drink.drinkKey,
           quantity: Number(drink.quantity),
           date: makeSureTimestamp(addDrinkModalTimestamp),
-          doses: drinkFromCatalog.doses,
-          kcal: drinkFromCatalog.kcal,
-          price: drinkFromCatalog.price,
-          volume: drinkFromCatalog.volume,
+          doses: doses,
+          kcal: kcal,
+          price: price,
+          volume: volume,
         },
       });
       if (response.showNewBadge || response.showInAppModal) showToast = false;
@@ -184,6 +201,12 @@ const ConsosList = ({ navigation, route }) => {
 
   useEffect(() => {
     if (isFocused) {
+      const matomoId = storage.getString('@UserIdv2');
+      API.get({ path: `/drinks/${matomoId}` }).then((res) => {
+        if (res.ok) {
+          setOwnDrinksList(res.ownDrinksList);
+        }
+      });
       setLocalDrinksState(drinksPerCurrentaTimestamp);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
     }
@@ -234,26 +257,28 @@ const ConsosList = ({ navigation, route }) => {
               : "Je n'ai rien bu ce jour"
           }
         />
-        {withOwnDrinks && (
+        {ownDrinksList.length > 0 && (
           <>
-            <DrinksHeader content="Mes boissons" />
-            {mergedOwnDrinksKeys.map((drinkKey, index) => (
-              <DrinkQuantitySetter
-                oneLine
-                key={drinkKey}
-                drinkKey={drinkKey}
-                setDrinkQuantity={setDrinkQuantityRequest}
-                quantity={getDrinkQuantityFromDrinks(localDrinksState, drinkKey)}
-                catalog={ownDrinks}
-                index={index}
-                onDelete={removeOwnDrinkRequest}
-              />
-            ))}
-            <DrinksHeader content="Génériques" />
+            <View className="bg-[#EFEFEF] p-4">
+              <TextStyled bold color="#4030a5" className="mb-5 px-4">
+                Mes boissons créées
+              </TextStyled>
+              {ownDrinksList.map((drink) => (
+                <OwnDrinkSelector
+                  drinkKey={drink.drinkKey}
+                  volume={drink.volume}
+                  doses={drink.doses}
+                  alcoolPercentage={drink.alcoolPercentage}
+                  category={drink.category}
+                  setDrinkQuantityRequest={setDrinkQuantityRequest}
+                />
+              ))}
+              <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
+            </View>
           </>
         )}
-        {!withOwnDrinks && (
-          <View className="p-5 bg-[#efefef]">
+        {ownDrinksList.length === 0 && (
+          <View className=" bg-[#EFEFEF]">
             <TextStyled color="#4030a5" bold center className="mb-4">
               Vous ne trouvez pas votre boisson dans la liste ?
             </TextStyled>

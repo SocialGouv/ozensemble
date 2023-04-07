@@ -46,11 +46,21 @@ const computeShowButtons = (selected, position) => {
 const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
-
+  const [ownDrinksList, setOwnDrinksList] = useState();
   const [timestampSelected, setTimestampSelected] = useState(null);
-
   const navigation = useNavigation();
   const route = useRoute();
+  const getOwnDrinksList = async () => {
+    const matomoId = storage.getString('@UserIdv2');
+    await API.get({ path: `/drinks/${matomoId}` }).then((res) => {
+      if (res.ok) {
+        setOwnDrinksList(res.ownDrinksList);
+      }
+    });
+  };
+  if (!ownDrinksList) {
+    getOwnDrinksList();
+  }
 
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
@@ -59,6 +69,8 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       setTimestampSelected(timestamp);
     }
   };
+  if (ownDrinksList === []) {
+  }
 
   const setNoConsos = async () => {
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
@@ -151,7 +163,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       </TouchableWithoutFeedback>
     );
   }
-
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
@@ -209,15 +220,20 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                     <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
                   ) : (
                     drinksOfTheDay.map((drink) => {
-                      if (drink.drinkKey === NO_CONSO) return null;
-                      if (!drink.quantity) return null;
-                      const position = computePosition(drinksOfTheDay, drink);
-                      const selected = timestampSelected === drink.timestamp;
+                      let checkedDrink = drink;
+                      if (drink.isOwnDrink) {
+                        checkedDrink = ownDrinksList.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
+                        checkedDrink.quantity = drink.quantity;
+                      }
+                      if (checkedDrink.drinkKey === NO_CONSO) return null;
+                      if (!checkedDrink.quantity) return null;
+                      const position = computePosition(drinksOfTheDay, checkedDrink);
+                      const selected = timestampSelected === checkedDrink.timestamp;
                       const showButtons = computeShowButtons(selected, position);
                       return (
                         <ConsoFeedDisplay
-                          key={drink.id}
-                          {...drink}
+                          key={checkedDrink.id}
+                          {...checkedDrink}
                           selected={selected}
                           showButtons={showButtons}
                           nothingSelected={timestampSelected === null}
@@ -228,20 +244,20 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                               category: 'CONSO',
                               action: 'CONSO_UPDATE',
                             });
-                            addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
+                            addDrinksRequest(checkedDrink.timestamp, 'FROM_CONSO_UPDATE');
                           }}
                           deleteDrinkRequest={async () => {
                             logEvent({
                               category: 'CONSO',
                               action: 'CONSO_DELETE',
                             });
-                            deleteDrinkRequest(drink.timestamp);
+                            deleteDrinkRequest(checkedDrink.timestamp);
                             const matomoId = storage.getString('@UserIdv2');
                             API.delete({
                               path: '/consommation',
                               body: {
                                 matomoId: matomoId,
-                                id: drink.id,
+                                id: checkedDrink.id,
                               },
                             });
                           }}

@@ -170,14 +170,19 @@ model Article {
 
 model Drink {
   id               String   @id @default(uuid())
+  drinkKey         String   @default("")
   name             String   @default("")
   volume           Float    @default(0)
   price            Float    @default(0)
   alcoolPercentage Float    @default(0)
+  doses            Float    @default(0)
+  kcal             Float    @default(0)
+  category         String   @default("")
+  icon             String   @default("")
   user             User     @relation(fields: [userId], references: [id])
   userId           String
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  @@unique([userId, name])
+  @@unique([userId, drinkKey])
 }

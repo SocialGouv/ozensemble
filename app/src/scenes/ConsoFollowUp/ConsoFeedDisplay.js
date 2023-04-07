@@ -7,6 +7,33 @@ import H3 from '../../components/H3';
 import { consolidatedCatalogSelector } from '../../recoil/consos';
 import { getDisplayName, getIcon, getVolume } from './drinksCatalog';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
+import HalfBeer from '../../components/illustrations/drinksAndFood/HalfBeer';
+import Pint from '../../components/illustrations/drinksAndFood/Pint';
+import WineBottle from '../../components/illustrations/drinksAndFood/WineBottle';
+import Shoot from '../../components/illustrations/drinksAndFood/Shoot';
+import Flasque from '../../components/illustrations/drinksAndFood/Flasque';
+import ChampagneBottle from '../../components/illustrations/drinksAndFood/ChampagneBottle';
+import WineGlass from '../../components/illustrations/drinksAndFood/WineGlass';
+import ChampagneGlass from '../../components/illustrations/drinksAndFood/ChampagneGlass';
+import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
+import CocktailBottle from '../../components/illustrations/drinksAndFood/CocktailBottle';
+
+const getOwnDrinkIcon = (name) => {
+  const list = {
+    HALFBEER: HalfBeer,
+    PINT: Pint,
+    WINE_GLASS: WineGlass,
+    WINE_BOTTLE: WineBottle,
+    SHOOT: Shoot,
+    FLASQUE: Flasque,
+    CHAMPAGNE_BOTTLE: ChampagneBottle,
+    CHAMPAGNE_GLASS: ChampagneGlass,
+    COCKTAIL_GLASS: CocktailGlass,
+    COCKTAIL_BOTTLE: CocktailBottle,
+  };
+  res = list.name;
+  return res;
+};
 
 const isFirst = (position) => position === 'first';
 const isAlone = (position) => position === 'alone';
@@ -21,20 +48,25 @@ const ConsoFeedDisplay = ({
   drinkKey,
   timestamp,
   quantity,
+  name,
+  volume,
+  icon,
   updateDrinkRequest,
   deleteDrinkRequest,
   position,
 }) => {
+  getOwnDrinkIcon('COCKTAIL_BOTTLE');
+
   const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
-  const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
-  const drinkVolumne = getVolume(drinkKey, consolidatedCatalog);
-  const Icon = getIcon(drinkKey, consolidatedCatalog);
+  const drinkName = name ? name : getDisplayName(drinkKey, quantity, consolidatedCatalog);
+  const drinkVolumne = volume ? volume : getVolume(drinkKey, consolidatedCatalog);
+  const Icon = icon ? getOwnDrinkIcon(name) : getIcon(drinkKey, consolidatedCatalog);
+  console.log(Icon);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
         <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
           <Content>
-            <Icon size={25} />
             <Drink>
               {quantity} {drinkName}{' '}
             </Drink>
