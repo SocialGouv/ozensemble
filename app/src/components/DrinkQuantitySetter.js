@@ -22,7 +22,6 @@ const DrinkQuantitySetter = ({
   catalog,
   index,
   onDelete,
-  margin,
 }) => {
   const Icon = getIcon(drinkKey, catalog);
   const volume = getVolume(drinkKey, catalog);

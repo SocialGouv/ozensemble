@@ -190,7 +190,7 @@ export const drinksCatalog = [
     icon: WineBottle,
     price: 10,
     kcal: 525,
-    style: { marginBottom: 20 },
+    style: { marginBottom: 20, transform: [{ scale: 1.2 }] },
   },
   {
     categoryKey: CHAMPAGNE,

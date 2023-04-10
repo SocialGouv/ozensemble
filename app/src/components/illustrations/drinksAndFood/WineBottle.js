@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledSvg = styled(Svg)``;
 
 const WineBottle = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size * 1.5} viewBox="0 0 19 58" {...props}>
+  <StyledSvg width={size} height={size * 1.25} viewBox="0 0 19 58" {...props}>
     <Path
       fillRule="evenodd"
       clipRule="evenodd"
