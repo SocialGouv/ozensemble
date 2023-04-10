@@ -1,3 +1,10 @@
+# [1.92.0](https://github.com/SocialGouv/ozensemble/compare/v1.91.0...v1.92.0) (2023-04-10)
+
+
+### Features
+
+*  list alcool quantity ([#241](https://github.com/SocialGouv/ozensemble/issues/241)) ([5a4cdda](https://github.com/SocialGouv/ozensemble/commit/5a4cdda1fb5d802bc205f37163a472c72d1f4376))
+
 # [1.91.0](https://github.com/SocialGouv/ozensemble/compare/v1.90.11...v1.91.0) (2023-04-05)
 
 
