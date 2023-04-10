@@ -1,3 +1,11 @@
+## [1.92.3](https://github.com/SocialGouv/ozensemble/compare/v1.92.2...v1.92.3) (2023-04-10)
+
+
+### Bug Fixes
+
+* revert commit e5c6.. ([92a39c2](https://github.com/SocialGouv/ozensemble/commit/92a39c28f33fec5fc8db1fd6eacbabb74454d262))
+* revert release ([0f5bd3d](https://github.com/SocialGouv/ozensemble/commit/0f5bd3df6b8781e31aa326ecc4360f114fb7e556))
+
 ## [1.92.1](https://github.com/SocialGouv/ozensemble/compare/v1.92.0...v1.92.1) (2023-04-10)
 
 
