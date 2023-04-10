@@ -7,7 +7,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
-const AddAlcoolQuantity = ({ navigation, handleQuantitySelection }) => {
+import { drinkQuantitySelectedState } from '../../recoil/drinks';
+import { useSetRecoilState } from 'recoil';
+const AddAlcoolQuantity = ({ navigation }) => {
+  const setQuantitySelected = useSetRecoilState(drinkQuantitySelectedState);
   return (
     <View className="h-full bg-white py-10">
       <View className="bg-white rounded-xl mt-auto absolute bottom-0 w-full h-full shadow-xl shadow-[#5E5E5E]">
@@ -26,7 +29,8 @@ const AddAlcoolQuantity = ({ navigation, handleQuantitySelection }) => {
                   key={quantity.name}
                   className="flex flex-row bg-[#F3F3F6] h-12 mb-3 rounded-lg border border-[#DBDBE8] items-center px-2"
                   onPress={() => {
-                    handleQuantitySelection(quantity.name, quantity.vol);
+                    setQuantitySelected([quantity.name, quantity.volume]);
+                    navigation.goBack();
                   }}>
                   <quantity.icon size={30} />
                   <View className="flex flex-row flex-wrap ml-2 w-10/12">

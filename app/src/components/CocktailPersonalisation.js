@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
+import ButtonPrimary from './ButtonPrimary';
 
 const CocktailPersonalisation = ({ navigation }) => {
   const [quantity, setQuantity] = useState(0);
@@ -35,6 +36,9 @@ const CocktailPersonalisation = ({ navigation }) => {
         <View className="flex flex-row justify-between items-center flex-wrap">
           <TextStyled bold>Quantité bue aujourd'hui</TextStyled>
           <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
+        </View>
+        <View className="flex flex-row justify-center mt-14 mb-10">
+          <ButtonPrimary content="Créer mon cocktail" onPress={() => {}} />
         </View>
       </View>
     </View>
