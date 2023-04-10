@@ -1,3 +1,10 @@
+## [1.92.1](https://github.com/SocialGouv/ozensemble/compare/v1.92.0...v1.92.1) (2023-04-10)
+
+
+### Bug Fixes
+
+* connections switch button create cocktail or drinks ([#240](https://github.com/SocialGouv/ozensemble/issues/240)) ([d14a4b4](https://github.com/SocialGouv/ozensemble/commit/d14a4b4bb458961165f0097c2c5fbbea6580dbd3))
+
 # [1.92.0](https://github.com/SocialGouv/ozensemble/compare/v1.91.0...v1.92.0) (2023-04-10)
 
 
