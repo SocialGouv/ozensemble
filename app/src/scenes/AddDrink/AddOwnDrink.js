@@ -22,7 +22,12 @@ const AddOwnDrink = ({ navigation }) => {
               <H1 className="mt-5 mb-8">Créez une nouvelle boisson</H1>
               <View className="mb-8 flex flex-row justify-between items-center">
                 <Text className="font-bold text-lg">{'Est-ce un cocktail\u00A0?'}</Text>
-                <SwitchButtons handleSwitchChange={setSwitchPosition} />
+                <SwitchButtons
+                  leftContent={'oui'}
+                  leftContentNonSelected={'oui'}
+                  rightContent={'non'}
+                  handleSwitchChange={setSwitchPosition}
+                />
               </View>
               <DrinkPersonalisation />
             </View>
