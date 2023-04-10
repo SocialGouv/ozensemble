@@ -28,7 +28,6 @@ import { storage } from '../../services/storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
-import Conseils from '../Health/Conseils';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
