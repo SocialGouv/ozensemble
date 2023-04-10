@@ -1,12 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
 
-const SwitchButtons = () => {
+const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
   const translateX = useRef(new Animated.Value(0)).current;
+  const [contentLeft] = useState(leftContent);
+  const [contentRight] = useState(rightContent);
   const position = useRef(new Animated.Value(0)).current;
-
   const containerRef = useRef(null);
   const insideContainerRef = useRef(null);
   const buttonRef = useRef(null);
@@ -44,6 +45,7 @@ const SwitchButtons = () => {
         useNativeDriver: true,
       }),
     ]).start();
+    handleSwitchChange(newPosition);
   };
 
   const panResponder = useRef(
@@ -86,7 +88,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#000'}>
-                oui
+                {contentRight}
               </TextStyled>
             </Animated.View>
             <Animated.View
@@ -101,7 +103,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#fff'}>
-                oui
+                {contentRight}
               </TextStyled>
             </Animated.View>
           </View>
@@ -118,7 +120,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#000'}>
-                non
+                {contentLeft}
               </TextStyled>
             </Animated.View>
             <Animated.View
@@ -133,7 +135,7 @@ const SwitchButtons = () => {
                 },
               ]}>
               <TextStyled bold color={'#fff'}>
-                non
+                {contentLeft}
               </TextStyled>
             </Animated.View>
           </View>
