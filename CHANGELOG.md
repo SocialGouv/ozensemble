@@ -1,10 +1,3 @@
-## [1.92.2](https://github.com/SocialGouv/ozensemble/compare/v1.92.1...v1.92.2) (2023-04-10)
-
-
-### Bug Fixes
-
-* link add quantity ([e5c6419](https://github.com/SocialGouv/ozensemble/commit/e5c6419189a1ed477b7b635e217f65c98c279db9))
-
 ## [1.92.1](https://github.com/SocialGouv/ozensemble/compare/v1.92.0...v1.92.1) (2023-04-10)
 
 
