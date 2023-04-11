@@ -22,7 +22,6 @@ const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
                 content="Retour"
                 bold
                 onPress={() => {
-                  setQuantitySelected([]);
                   navigation.goBack();
                 }}
               />
