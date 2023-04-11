@@ -9,12 +9,9 @@ import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { ScrollView } from 'react-native-gesture-handler';
-import { drinkQuantitySelectedState } from '../../recoil/drinks';
-import { useSetRecoilState } from 'recoil';
 
-const AddOwnDrink = ({ navigation }) => {
+const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
   const [switchPosition, setSwitchPosition] = useState(0);
-  const setDrinkQuantitySelectedState = useSetRecoilState(drinkQuantitySelectedState);
 
   if (switchPosition === 0) {
     return (
@@ -26,7 +23,7 @@ const AddOwnDrink = ({ navigation }) => {
                 content="Retour"
                 bold
                 onPress={() => {
-                  setDrinkQuantitySelectedState([]);
+                  setQuantitySelected([]);
                   navigation.goBack();
                 }}
               />
@@ -40,7 +37,11 @@ const AddOwnDrink = ({ navigation }) => {
                   handleSwitchChange={setSwitchPosition}
                 />
               </View>
-              <DrinkPersonalisation navigation={navigation} />
+              <DrinkPersonalisation
+                navigation={navigation}
+                quantitySelected={quantitySelected}
+                setQuantitySelected={setQuantitySelected}
+              />
             </View>
           </ScrollView>
         </View>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ConsosList from './ConsosList';
 import AddOwnDrink from './AddOwnDrink';
@@ -7,6 +7,7 @@ import AddAlcoolQuantity from './AddAlcoolQuantity';
 
 const AddDrinkStack = createStackNavigator();
 const AddDrinkNavigator = ({ route }) => {
+  const [quantitySelected, setQuantitySelected] = useState();
   return (
     <AddDrinkStack.Navigator headerMode="none" mode="modal" initialRouteName="CONSOS_LIST">
       <AddDrinkStack.Screen
@@ -14,9 +15,15 @@ const AddDrinkNavigator = ({ route }) => {
         name="CONSOS_LIST">
         {(props) => <ConsosList {...props} />}
       </AddDrinkStack.Screen>
-      <AddDrinkStack.Screen name="ADD_OWN_DRINK" component={AddOwnDrink} />
+      <AddDrinkStack.Screen name="ADD_OWN_DRINK">
+        {(props) => (
+          <AddOwnDrink {...props} quantitySelected={quantitySelected} setQuantitySelected={setQuantitySelected} />
+        )}
+      </AddDrinkStack.Screen>
       <AddDrinkStack.Screen name="ADD_COCKTAIL" component={AddCoktail} />
-      <AddDrinkStack.Screen name="ADD_QUANTITY" component={AddAlcoolQuantity} />
+      <AddDrinkStack.Screen name="ADD_QUANTITY">
+        {(props) => <AddAlcoolQuantity {...props} setQuantitySelected={setQuantitySelected} />}
+      </AddDrinkStack.Screen>
     </AddDrinkStack.Navigator>
   );
 };

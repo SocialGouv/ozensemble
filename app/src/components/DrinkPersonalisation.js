@@ -5,20 +5,16 @@ import { TextInput } from 'react-native-gesture-handler';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
-import { useRecoilState } from 'recoil';
-import { drinkQuantitySelectedState } from '../recoil/drinks';
 import ButtonPrimary from './ButtonPrimary';
 
-const DrinkPersonalisation = ({ navigation }) => {
-  const [quantity, setQuantity] = useState(0);
+const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [quantitySelected, setQuantitySelected] = useRecoilState(drinkQuantitySelectedState);
   const [drinkName, setDrinkName] = useState('');
   const [drinkPrice, setDrinkPrice] = useState(0);
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(0);
-
+  const [quantity, setQuantity] = useState(0);
   return (
     <View>
       <View>
@@ -34,7 +30,7 @@ const DrinkPersonalisation = ({ navigation }) => {
         </View>
         <View className="mb-4">
           <TextStyled bold>Quantité d'alcool servie (cl)</TextStyled>
-          {!quantitySelected[1] ? (
+          {!quantitySelected?.volume ? (
             <TouchableOpacity
               className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
               onPress={() => navigation.navigate('ADD_QUANTITY')}>
@@ -45,7 +41,7 @@ const DrinkPersonalisation = ({ navigation }) => {
             <TouchableOpacity
               className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
               onPress={() => navigation.navigate('ADD_QUANTITY')}>
-              <Text className="text-[#4030A5] flex">{quantitySelected[1]?.split(' ')[0]}</Text>
+              <Text className="text-[#4030A5] flex">{quantitySelected?.volume?.split(' ')[0]}</Text>
             </TouchableOpacity>
           )}
         </View>
@@ -77,9 +73,11 @@ const DrinkPersonalisation = ({ navigation }) => {
           <ButtonPrimary
             content="Créer ma boisson"
             onPress={() => {
-              setQuantitySelected([]);
+              setQuantitySelected(null);
             }}
-            disabled={drinkPrice === 0 || drinkAlcoolPercentage === 0 || drinkName === '' || !quantitySelected[1]}
+            disabled={
+              drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume
+            }
           />
         </View>
       </View>
