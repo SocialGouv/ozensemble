@@ -7,7 +7,6 @@ import H1 from '../../components/H1';
 import SwitchButtons from '../../components/SwitchButtons';
 import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
-import ButtonPrimary from '../../components/ButtonPrimary';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
