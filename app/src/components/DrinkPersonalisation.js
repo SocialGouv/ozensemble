@@ -6,6 +6,8 @@ import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
+import { ownDrinksState } from '../recoil/consos';
+import { useSetRecoilState } from 'recoil';
 
 const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
   const onSetQuantity = (q) => {
@@ -15,6 +17,33 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const [drinkPrice, setDrinkPrice] = useState(0);
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const setOwnDrinksCatalog = useSetRecoilState(ownDrinksState);
+  const saveDrink = (name, volume, alcoolPercentage, price, icon) => {
+    setOwnDrinksCatalog((oldState) => {
+      const doses = Math.round((alcoolPercentage * 0.8 * volume) / 100, 3);
+      const kCal = ((alcoolPercentage * 0.8 * volume) / 10) * 7;
+      const oldDrink = oldState.find((drink) => drink.drinkKey === name);
+      if (oldDrink) {
+        return oldState;
+      } else {
+        return [
+          ...oldState,
+          {
+            categoryKey: 'ownDrink',
+            drinkKey: name,
+            displayFeed: name,
+            volume: volume,
+            doses: doses,
+            icon: icon,
+            price: price,
+            alcoolPercentage: alcoolPercentage,
+            kcal: kCal,
+            custom: true,
+          },
+        ];
+      }
+    });
+  };
   return (
     <View>
       <View>
@@ -74,6 +103,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
             content="Créer ma boisson"
             onPress={() => {
               setQuantitySelected(null);
+              saveDrink(drinkName, quantitySelected?.volume, drinkAlcoolPercentage, drinkPrice, quantitySelected?.name);
             }}
             disabled={
               drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume

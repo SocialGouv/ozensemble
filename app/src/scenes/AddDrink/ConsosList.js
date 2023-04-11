@@ -28,7 +28,6 @@ import { storage } from '../../services/storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
-
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
 // const initDrinkState = { name: '', volume: '', degrees: '', isNew: true, code: null };
@@ -53,7 +52,6 @@ const drinksPerCurrenTimestampSelector = selectorFamily({
 });
 
 const ConsosList = ({ navigation, route }) => {
-  const [ownDrinksList, setOwnDrinksList] = useState([]);
   const timestamp = route?.params?.timestamp || new Date();
   const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => timestamp);
   const drinksPerCurrentaTimestamp = useRecoilValue(
@@ -131,7 +129,7 @@ const ConsosList = ({ navigation, route }) => {
       let price = null;
       let volume = null;
       if (drink.isOwnDrink) {
-        completeDrink = ownDrinksList.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
+        completeDrink = ownDrinks.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
         doses = completeDrink.doses;
         kcal = completeDrink.kcal;
         price = completeDrink.price;
@@ -200,12 +198,6 @@ const ConsosList = ({ navigation, route }) => {
 
   useEffect(() => {
     if (isFocused) {
-      const matomoId = storage.getString('@UserIdv2');
-      API.get({ path: `/drinks/${matomoId}` }).then((res) => {
-        if (res.ok) {
-          setOwnDrinksList(res.ownDrinksList);
-        }
-      });
       setLocalDrinksState(drinksPerCurrentaTimestamp);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
     }
@@ -256,13 +248,13 @@ const ConsosList = ({ navigation, route }) => {
               : "Je n'ai rien bu ce jour"
           }
         />
-        {ownDrinksList.length > 0 && (
+        {ownDrinks.length > 0 && (
           <>
             <View className="bg-[#EFEFEF] p-4">
               <TextStyled bold color="#4030a5" className="mb-5 px-4">
                 Mes boissons créées
               </TextStyled>
-              {ownDrinksList.map((drink) => (
+              {ownDrinks.map((drink) => (
                 <OwnDrinkSelector
                   drinkKey={drink.drinkKey}
                   volume={drink.volume}
@@ -272,11 +264,13 @@ const ConsosList = ({ navigation, route }) => {
                   setDrinkQuantityRequest={setDrinkQuantityRequest}
                 />
               ))}
-              <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
+              <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
+                <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
+              </TouchableOpacity>
             </View>
           </>
         )}
-        {ownDrinksList.length === 0 && (
+        {ownDrinks.length === 0 && (
           <View className=" bg-[#EFEFEF]">
             <TextStyled color="#4030a5" bold center className="mb-4">
               Vous ne trouvez pas votre boisson dans la liste ?

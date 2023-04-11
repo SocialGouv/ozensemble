@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState, feedDaysSelector } from '../../recoil/consos';
+import { drinksState, feedDaysSelector, ownDrinksState } from '../../recoil/consos';
 import { isOnSameDay, isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -23,7 +23,6 @@ import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import { storage } from '../../services/storage';
-import OnBoardingModal from '../../components/OnBoardingModal';
 import API from '../../services/api';
 
 const computePosition = (drinksOfTheDay, drink) => {
@@ -46,21 +45,10 @@ const computeShowButtons = (selected, position) => {
 const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
-  const [ownDrinksList, setOwnDrinksList] = useState();
+  const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
   const [timestampSelected, setTimestampSelected] = useState(null);
   const navigation = useNavigation();
   const route = useRoute();
-  const getOwnDrinksList = async () => {
-    const matomoId = storage.getString('@UserIdv2');
-    await API.get({ path: `/drinks/${matomoId}` }).then((res) => {
-      if (res.ok) {
-        setOwnDrinksList(res.ownDrinksList);
-      }
-    });
-  };
-  if (!ownDrinksList) {
-    getOwnDrinksList();
-  }
 
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
@@ -69,8 +57,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       setTimestampSelected(timestamp);
     }
   };
-  if (ownDrinksList === []) {
-  }
 
   const setNoConsos = async () => {
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
@@ -221,8 +207,8 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                   ) : (
                     drinksOfTheDay.map((drink) => {
                       let checkedDrink = drink;
-                      if (drink.isOwnDrink) {
-                        checkedDrink = ownDrinksList.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
+                      if (drink.category === 'ownDrink') {
+                        checkedDrink = ownDrinks.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
                         checkedDrink.quantity = drink.quantity;
                       }
                       if (checkedDrink.drinkKey === NO_CONSO) return null;
@@ -238,6 +224,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                           showButtons={showButtons}
                           nothingSelected={timestampSelected === null}
                           onPress={setConsoSelectedRequest}
+                          category={checkedDrink.category}
                           position={position}
                           updateDrinkRequest={async () => {
                             logEvent({

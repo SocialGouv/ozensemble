@@ -17,7 +17,7 @@ export const drinksState = atom({
 export const ownDrinksState = atom({
   key: 'ownDrinksState',
   default: getInitValueFromStorage('@OwnDrinks', []),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@OwnDrinks', newValue))],
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@OwnDrinks', JSON.stringify(newValue)))],
 });
 
 // Selectors

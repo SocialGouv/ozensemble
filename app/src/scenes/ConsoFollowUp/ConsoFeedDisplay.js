@@ -55,24 +55,20 @@ const ConsoFeedDisplay = ({
   deleteDrinkRequest,
   position,
 }) => {
-  getOwnDrinkIcon('COCKTAIL_BOTTLE');
-
   const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
-  const drinkName = name ? name : getDisplayName(drinkKey, quantity, consolidatedCatalog);
-  const drinkVolumne = volume ? volume : getVolume(drinkKey, consolidatedCatalog);
-  const Icon = icon ? getOwnDrinkIcon(name) : getIcon(drinkKey, consolidatedCatalog);
-  console.log(Icon);
+  const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
+  const drinkVolumne = getVolume(drinkKey, consolidatedCatalog);
+  const Icon = getIcon(drinkKey, consolidatedCatalog);
+  console.log('drinkName', drinkName);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
         <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
           <Content>
+            <Icon size={25} />
             <Drink>
               {quantity} {drinkName}{' '}
             </Drink>
-            <Volume numberOfLines={1} ellipsizeMode="tail">
-              ({drinkVolumne})
-            </Volume>
             {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
           </Content>
         </FeedButton>

@@ -50,25 +50,3 @@ router.post(
     return res.status(200).send({ ok: true });
   })
 );
-
-router.get(
-  "/:matomoId",
-  catchErrors(async (req, res) => {
-    const { matomoId } = req.params;
-
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-      },
-      update: {},
-    });
-
-    const ownDrinks = await prisma.drink.findMany({ where: { userId: user.id } });
-
-    return res.status(200).send({ ok: true, ownDrinksList: ownDrinks });
-  })
-);
-module.exports = router;
