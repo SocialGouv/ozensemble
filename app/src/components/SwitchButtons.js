@@ -1,14 +1,32 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
 
-const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
-  const translateX = useRef(new Animated.Value(0)).current;
-  const position = useRef(new Animated.Value(0)).current;
+const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosition = 1 }) => {
+  const translateX = useRef(new Animated.Value(initPosition)).current;
+  const position = useRef(new Animated.Value(initPosition)).current;
   const containerRef = useRef(null);
   const insideContainerRef = useRef(null);
   const buttonRef = useRef(null);
+  const [measuredWidth, setMeasuredWidth] = useState(null);
+  const onLayout = useCallback(
+    ({
+      nativeEvent: {
+        layout: { width },
+      },
+    }) => {
+      setMeasuredWidth(width);
+      Animated.parallel([
+        Animated.timing(translateX, {
+          toValue: initPosition * (width - 4),
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    },
+    []
+  );
   const onTerminate = async (evt) => {
     const newX = evt.nativeEvent.locationX;
     const width = await new Promise((res) =>
@@ -70,7 +88,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
         {...(panResponder?.panHandlers || {})}
         pointerEvents="box-only">
         <View ref={insideContainerRef} style={styles.content}>
-          <Animated.View ref={buttonRef} style={[styles.button, { transform: [{ translateX }] }]} />
+          <Animated.View ref={buttonRef} onLayout={onLayout} style={[styles.button, { transform: [{ translateX }] }]} />
         </View>
         <View style={styles.textsContainer}>
           <View style={styles.textContainer}>

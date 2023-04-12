@@ -16,10 +16,12 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [drinkPrice, setDrinkPrice] = useState('');
+  const [drinkPrice, setDrinkPrice] = useState(Number(route?.params?.price));
   const [quantity, setQuantity] = useState(0);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+
+  console.log('priceCocktail', drinkPrice);
   const saveDrink = async () => {
     const oldDrink = ownDrinksCatalog.find((drink) => drink.drinkKey === quantitySelected.name);
     if (oldDrink) {
@@ -74,7 +76,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
     <>
       <View className="mb-4">
         <TextStyled bold>Cocktail</TextStyled>
-        {!quantitySelected?.name ? (
+        {!quantitySelected?.name && !route?.params?.drinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
@@ -85,18 +87,22 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
-            <Text className="text-[#4030A5] flex">{quantitySelected?.name}</Text>
+            {quantitySelected?.name ? (
+              <Text className="text-[#4030A5] flex">{quantitySelected?.name}</Text>
+            ) : (
+              <Text className="text-[#4030A5] flex">{route?.params?.drinkKey}</Text>
+            )}
           </TouchableOpacity>
         )}
       </View>
       <View className="mb-5">
         <TextStyled bold>Prix (€)</TextStyled>
         <TextInput
-          value={drinkPrice}
           className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
           placeholder="Euros"
           keyboardType="decimal-pad"
           maxLength={5}
+          value={drinkPrice}
           onChangeText={(value) => setDrinkPrice(value)}
         />
       </View>

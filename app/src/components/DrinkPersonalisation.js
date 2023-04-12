@@ -88,7 +88,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           value={drinkName}
           onChangeText={(value) => setDrinkName(value)}
         />
-        <Text className="text-xs">(30 caractères max)</Text>
+        <Text className="text-xs">(23 caractères max)</Text>
       </View>
       <View className="mb-4">
         <TextStyled bold>Quantité d'alcool servie (cl)</TextStyled>
