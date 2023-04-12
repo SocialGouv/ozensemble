@@ -15,9 +15,7 @@ import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
   hasMigratedFromAsyncStorage,
-  hasMigratedFromReduxToRecoil,
   migrateFromAsyncStorage,
-  migrateFromReduxToRecoil,
   hasMigratedGenderAndAge,
   migrateGenderAndAge,
   migratedDefi7Jours,
@@ -56,7 +54,6 @@ if (!__DEV__) {
 const App = () => {
   // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
   const [hasMigrated, setHasMigrated] = useState(hasMigratedFromAsyncStorage);
-  const [hasMigratedToRecoil, setHasMigratedToRecoil] = useState(hasMigratedFromReduxToRecoil);
   const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
   const [hasMigratedDefi1, setHasMigratedDefi1] = useState(hasMigratedDefi1Stored);
   const [hasMigratedReminders, setHasMigratedReminders] = useState(hasMigratedRemindersStored);
@@ -69,13 +66,11 @@ const App = () => {
   const [_hasCreateBadgeForDoneDefis, setHasCreateBadgeForDoneDefis] = useState(hasCreateBadgeForDoneDefis);
 
   useEffect(() => {
-    if (!hasMigratedFromAsyncStorage || !hasMigratedToRecoil || !hasGenderAndAge) {
+    if (!hasMigratedFromAsyncStorage || !hasGenderAndAge) {
       InteractionManager.runAfterInteractions(async () => {
         try {
           await migrateFromAsyncStorage();
           setHasMigrated(true);
-          await migrateFromReduxToRecoil();
-          setHasMigratedToRecoil(true);
           await migrateGenderAndAge();
           setHasGenderAndAge(true);
         } catch (e) {
@@ -117,7 +112,6 @@ const App = () => {
 
   if (
     !hasMigrated ||
-    !hasMigratedToRecoil ||
     !hasGenderAndAge ||
     !hasMigratedDefi1 ||
     !_hasMigratedRemindersToPushToken ||
