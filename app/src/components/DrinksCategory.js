@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
 import TextStyled from './TextStyled';
-import { getDrinkQuantityFromDrinks } from '../scenes/AddDrink/ConsosList';
+import { getDrinkQuantityFromDrinks } from '../scenes/ConsoFollowUp/drinksCatalog';
 
 export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
   catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);

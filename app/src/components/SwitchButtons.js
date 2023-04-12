@@ -1,12 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
 
 const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
   const translateX = useRef(new Animated.Value(0)).current;
-  const [contentLeft] = useState(leftContent);
-  const [contentRight] = useState(rightContent);
   const position = useRef(new Animated.Value(0)).current;
   const containerRef = useRef(null);
   const insideContainerRef = useRef(null);
@@ -45,7 +43,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
         useNativeDriver: true,
       }),
     ]).start();
-    handleSwitchChange(newPosition);
+    handleSwitchChange(newPosition === 0 ? leftContent : rightContent);
   };
 
   const panResponder = useRef(
@@ -88,7 +86,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
                 },
               ]}>
               <TextStyled bold color={'#000'}>
-                {contentRight}
+                {leftContent}
               </TextStyled>
             </Animated.View>
             <Animated.View
@@ -103,7 +101,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
                 },
               ]}>
               <TextStyled bold color={'#fff'}>
-                {contentRight}
+                {leftContent}
               </TextStyled>
             </Animated.View>
           </View>
@@ -120,7 +118,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
                 },
               ]}>
               <TextStyled bold color={'#000'}>
-                {contentLeft}
+                {rightContent}
               </TextStyled>
             </Animated.View>
             <Animated.View
@@ -135,7 +133,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange }) => {
                 },
               ]}>
               <TextStyled bold color={'#fff'}>
-                {contentLeft}
+                {rightContent}
               </TextStyled>
             </Animated.View>
           </View>

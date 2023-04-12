@@ -14,8 +14,8 @@ export const drinksState = atom({
   effects: [({ onSet }) => onSet((newValue) => storage.set('@Drinks', JSON.stringify(newValue)))],
 });
 
-export const ownDrinksCatalog = atom({
-  key: 'ownDrinksCatalog',
+export const ownDrinksCatalogState = atom({
+  key: 'ownDrinksCatalogState',
   default: getInitValueFromStorage('@OwnDrinks', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@OwnDrinks', JSON.stringify(newValue)))],
 });
@@ -40,7 +40,7 @@ const reduceDrinksToDailyDoses = (drinks, catalog) =>
 export const consolidatedCatalogSelector = selector({
   key: 'consolidatedCatalogSelector',
   get: ({ get }) => {
-    const ownDrinks = get(ownDrinksCatalog);
+    const ownDrinks = get(ownDrinksCatalogState);
     return [...ownDrinks, ...drinksCatalog];
   },
 });

@@ -11,7 +11,7 @@ import { drinksCatalog, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFol
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
-import { drinksState, ownDrinksCatalog } from '../../recoil/consos';
+import { drinksState, ownDrinksCatalogState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
@@ -45,7 +45,7 @@ const ConsosList = ({ navigation, route }) => {
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const toast = useToast();
 
-  const ownDrinks = useRecoilValue(ownDrinksCatalog);
+  const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
@@ -94,7 +94,7 @@ const ConsosList = ({ navigation, route }) => {
           },
         ].filter((d) => d.quantity > 0)
       );
-      const drinkFromCatalog = [...(ownDrinks || []), ...drinksCatalog].find(
+      const drinkFromCatalog = [...(ownDrinksCatalog || []), ...drinksCatalog].find(
         (_drink) => _drink.drinkKey === drink.drinkKey
       );
       logEvent({
@@ -204,13 +204,13 @@ const ConsosList = ({ navigation, route }) => {
               : "Je n'ai rien bu ce jour"
           }
         />
-        {ownDrinks.length > 0 && (
+        {ownDrinksCatalog.length > 0 && (
           <>
             <View className="bg-[#EFEFEF] p-4">
               <TextStyled bold color="#4030a5" className="mb-5 px-4">
                 Mes boissons créées
               </TextStyled>
-              {ownDrinks.map((drink) => {
+              {ownDrinksCatalog.map((drink) => {
                 return (
                   <OwnDrinkSelector
                     key={drink.drinkKey}
@@ -230,7 +230,7 @@ const ConsosList = ({ navigation, route }) => {
             </View>
           </>
         )}
-        {ownDrinks.length === 0 && (
+        {ownDrinksCatalog.length === 0 && (
           <View className=" bg-[#EFEFEF] p-4">
             <TextStyled color="#4030a5" bold center className="mb-4">
               Vous ne trouvez pas votre boisson dans la liste ?
