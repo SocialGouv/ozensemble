@@ -47,10 +47,10 @@ router.post(
         quantity: Number(drink.quantity),
         date: dayjs(drink.timestamp).format(),
         userId: user.id,
-        doses: drinkFromCatalog.doses,
-        kcal: drinkFromCatalog.kcal,
-        price: drinkFromCatalog.price,
-        volume: drinkFromCatalog.volume,
+        doses: Number(drinkFromCatalog.doses),
+        kcal: Number(drinkFromCatalog.kcal),
+        price: Number(drinkFromCatalog.price),
+        volume: Number(drinkFromCatalog.volume),
       };
     });
 

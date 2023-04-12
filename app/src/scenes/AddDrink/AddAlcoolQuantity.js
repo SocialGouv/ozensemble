@@ -26,7 +26,7 @@ const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
                   key={quantity.name}
                   className="flex flex-row bg-[#F3F3F6] h-12 mb-3 rounded-lg border border-[#DBDBE8] items-center px-2"
                   onPress={() => {
-                    setQuantitySelected({ name: quantity.name, volume: quantity.volume });
+                    setQuantitySelected({ name: quantity.name, volume: quantity.volume, icon: quantity.icon });
                     navigation.goBack();
                   }}>
                   <quantity.icon size={30} />

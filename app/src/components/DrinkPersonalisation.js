@@ -20,7 +20,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const setOwnDrinksCatalog = useSetRecoilState(ownDrinksState);
   const saveDrink = (name, volume, alcoolPercentage, price, icon) => {
     setOwnDrinksCatalog((oldState) => {
-      const doses = Math.round((alcoolPercentage * 0.8 * volume) / 100, 3);
+      const doses = Math.round((alcoolPercentage * 0.8 * volume) / 10) / 10;
       const kCal = ((alcoolPercentage * 0.8 * volume) / 10) * 7;
       const oldDrink = oldState.find((drink) => drink.drinkKey === name);
       if (oldDrink) {
@@ -103,7 +103,13 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
             content="Créer ma boisson"
             onPress={() => {
               setQuantitySelected(null);
-              saveDrink(drinkName, quantitySelected?.volume, drinkAlcoolPercentage, drinkPrice, quantitySelected?.name);
+              saveDrink(
+                drinkName,
+                quantitySelected?.volume.split(' ')[0],
+                drinkAlcoolPercentage,
+                drinkPrice,
+                quantitySelected.icon
+              );
             }}
             disabled={
               drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume

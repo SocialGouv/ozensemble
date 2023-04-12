@@ -102,12 +102,12 @@ export const getStyle = (drinkKey, catalog) => {
 
 export const getIcon = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (drink.custom) {
-    const evDrink = drinksCatalog.find((catDrink) => catDrink.icon.name === drink.icon);
+  // if (drink.custom) {
+  //   const evDrink = drinksCatalog.find((catDrink) => catDrink.icon.name === drink.icon);
 
-    if (!evDrink) return SmallCan;
-    return evDrink.icon;
-  }
+  //   if (!evDrink) return SmallCan;
+  //   return evDrink.icon;
+  // }
   return drink.icon;
 };
 
