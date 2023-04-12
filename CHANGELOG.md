@@ -1,3 +1,10 @@
+## [1.93.1](https://github.com/SocialGouv/ozensemble/compare/v1.93.0...v1.93.1) (2023-04-12)
+
+
+### Bug Fixes
+
+* clean migration ([#245](https://github.com/SocialGouv/ozensemble/issues/245)) ([82c5b44](https://github.com/SocialGouv/ozensemble/commit/82c5b446cf359c1e1b6b827b94a5aed1c5d35f22))
+
 # [1.93.0](https://github.com/SocialGouv/ozensemble/compare/v1.92.4...v1.93.0) (2023-04-12)
 
 
