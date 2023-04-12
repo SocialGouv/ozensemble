@@ -12,8 +12,8 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
     setQuantity(q);
   };
   const [drinkName, setDrinkName] = useState('');
-  const [drinkPrice, setDrinkPrice] = useState(0);
-  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(0);
+  const [drinkPrice, setDrinkPrice] = useState('');
+  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState('');
   const [quantity, setQuantity] = useState(0);
   return (
     <View>
@@ -61,6 +61,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
               className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
               placeholder="Euros"
               value={drinkPrice}
+              keyboardType="number-pad"
               onChangeText={(value) => setDrinkPrice(value)}
             />
           </View>
