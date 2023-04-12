@@ -1,3 +1,10 @@
+## [1.93.3](https://github.com/SocialGouv/ozensemble/compare/v1.93.2...v1.93.3) (2023-04-12)
+
+
+### Bug Fixes
+
+* add all drink at the same time ([#247](https://github.com/SocialGouv/ozensemble/issues/247)) ([9c46571](https://github.com/SocialGouv/ozensemble/commit/9c465713a4585ab49f799e406ec635e906c27777))
+
 ## [1.93.2](https://github.com/SocialGouv/ozensemble/compare/v1.93.1...v1.93.2) (2023-04-12)
 
 
