@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Modal } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useRoute } from '@react-navigation/native';
 import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
@@ -10,8 +10,6 @@ import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
 import API from '../services/api';
 import { storage } from '../services/storage';
-import Svg, { Path } from 'react-native-svg';
-import H1 from './H1';
 
 const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
   const route = useRoute();
@@ -20,7 +18,6 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [showModal, setShowModal] = useState(false);
   const [drinkName, setDrinkName] = useState('');
   const [drinkPrice, setDrinkPrice] = useState('');
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState('');
@@ -36,7 +33,17 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
     const oldDrink = ownDrinksCatalog.find((drink) => drink.drinkKey === drinkName);
     if (oldDrink) {
       const keepGoing = await new Promise((resolve) => {
-        setShowModal(true);
+        Alert.alert('Vous avez déjà enregistré ce verre', 'Voulez-vous le remplacer ?', [
+          {
+            text: 'Annuler',
+            onPress: () => resolve(false),
+            style: 'cancel',
+          },
+          {
+            text: 'Remplacer',
+            onPress: () => resolve(true),
+          },
+        ]);
       });
       if (!keepGoing) return;
     }
@@ -155,32 +162,6 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           disabled={drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume}
         />
       </View>
-      <Modal
-        safeAreaView={false}
-        visible={showModal}
-        animationType="fade"
-        withBackground
-        hideOnTouch
-        className="absolute bottom-0 w-full">
-        <SafeAreaView className="bg-white rounded-t-xl mt-auto">
-          <View className="p-4">
-            <TouchableOpacity onPress={() => setShowModal(false)}>
-              <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
-                <Path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={3}
-                  stroke="black"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </Svg>
-            </TouchableOpacity>
-            <View className="w-full mb-6 mt-4 flex flex-row justify-center gap-x-2">
-              <Text>Modal</Text>
-            </View>
-          </View>
-        </SafeAreaView>
-      </Modal>
     </>
   );
 };
