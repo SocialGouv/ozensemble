@@ -79,21 +79,6 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           },
         ].filter((d) => d.quantity > 0)
       );
-      API.post({
-        path: '/consommation',
-        body: {
-          id: drinkId,
-          matomoId: matomoId,
-          name: drinkName,
-          drinkKey: drinkName,
-          quantity: Number(quantity),
-          date: timestamp,
-          doses: Number(doses),
-          kcal: Number(kCal),
-          price: Number(drinkPrice),
-          volume: quantitySelected?.volume,
-        },
-      });
     }
   };
   return (
