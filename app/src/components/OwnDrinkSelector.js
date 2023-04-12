@@ -27,7 +27,7 @@ const OwnDrinkSelector = ({
               </Text>
             ) : (
               <Text className="text-sm">
-                {volume} cl - {alcoolPercentage}% - {doses} {doses < 1 ? 'unité' : 'unités'}
+                {volume} - {alcoolPercentage}% - {doses} {doses < 1 ? 'unité' : 'unités'}
               </Text>
             )}
           </TouchableOpacity>
