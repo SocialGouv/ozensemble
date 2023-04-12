@@ -1,3 +1,10 @@
+## [1.93.2](https://github.com/SocialGouv/ozensemble/compare/v1.93.1...v1.93.2) (2023-04-12)
+
+
+### Bug Fixes
+
+* save cocktails and create consos ([#246](https://github.com/SocialGouv/ozensemble/issues/246)) ([ce044c3](https://github.com/SocialGouv/ozensemble/commit/ce044c3a2ea82a1e6b7c094865329078507d909a))
+
 ## [1.93.1](https://github.com/SocialGouv/ozensemble/compare/v1.93.0...v1.93.1) (2023-04-12)
 
 
