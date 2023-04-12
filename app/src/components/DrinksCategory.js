@@ -20,7 +20,7 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, 
     <View
       className={[
         asPreview ? '-ml-5 my-5 w-full transform scale-90' : '',
-        (index + 1) % 2 ? 'bg-gray-100' : 'bg-gray-200',
+        (index + 1) % 2 ? 'bg-[#F9F9F9]' : 'bg-[#EFEFEF]',
       ].join(' ')}>
       <View className="pt-4 px-7">
         <TextStyled bold color="#4030a5">

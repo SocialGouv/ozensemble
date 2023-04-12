@@ -27,7 +27,6 @@ const ConsoFeedDisplay = ({
 }) => {
   const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
   const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
-  const drinkVolumne = getVolume(drinkKey, consolidatedCatalog);
   const Icon = getIcon(drinkKey, consolidatedCatalog);
   return (
     <>

@@ -20,7 +20,9 @@ const AddCocktail = ({ navigation }) => {
   const [newCocktailName, setNewCocktailName] = useState('');
 
   useEffect(() => {
-    getCocktailsCatalog();
+    if (cocktailsCatalog.length === 0) {
+      getCocktailsCatalog();
+    }
   }, [cocktailsCatalog]);
   return (
     <View className="h-full bg-white py-10">

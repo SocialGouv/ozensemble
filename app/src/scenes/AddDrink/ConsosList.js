@@ -65,9 +65,6 @@ const ConsosList = ({ navigation, route }) => {
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
-  const mergedOwnDrinksKeys = mergeOwnDrinksKeys(ownDrinks, localDrinksState);
-  const withOwnDrinks = mergedOwnDrinksKeys.length > 0;
-
   const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
     const oldDrink = localDrinksState.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
@@ -129,7 +126,7 @@ const ConsosList = ({ navigation, route }) => {
       let price = null;
       let volume = null;
       if (drink.isOwnDrink) {
-        completeDrink = ownDrinks.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
+        const completeDrink = ownDrinks.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
         doses = completeDrink.doses;
         kcal = completeDrink.kcal;
         price = completeDrink.price;
@@ -182,19 +179,6 @@ const ConsosList = ({ navigation, route }) => {
     });
     return true;
   }, [navigation]);
-
-  const removeOwnDrinkRequest = (drinkKey) => {
-    setDrinkQuantityRequest(drinkKey, 0);
-    setOwnDrinks((ownDrinks) =>
-      ownDrinks.map((d) => {
-        if (d.drinkKey !== drinkKey) return d;
-        return {
-          ...d,
-          active: false,
-        };
-      })
-    );
-  };
 
   useEffect(() => {
     if (isFocused) {
@@ -271,7 +255,7 @@ const ConsosList = ({ navigation, route }) => {
           </>
         )}
         {ownDrinks.length === 0 && (
-          <View className=" bg-[#EFEFEF]">
+          <View className=" bg-[#EFEFEF] p-4">
             <TextStyled color="#4030a5" bold center className="mb-4">
               Vous ne trouvez pas votre boisson dans la liste ?
             </TextStyled>
