@@ -1,3 +1,10 @@
+# [1.93.0](https://github.com/SocialGouv/ozensemble/compare/v1.92.4...v1.93.0) (2023-04-12)
+
+
+### Features
+
+*  save new drinks ([#242](https://github.com/SocialGouv/ozensemble/issues/242)) ([3beb9d2](https://github.com/SocialGouv/ozensemble/commit/3beb9d22e15b71469a2d1539762a982bcaf818c8))
+
 ## [1.92.4](https://github.com/SocialGouv/ozensemble/compare/v1.92.3...v1.92.4) (2023-04-11)
 
 
