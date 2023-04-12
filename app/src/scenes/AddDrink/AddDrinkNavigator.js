@@ -13,9 +13,9 @@ const AddDrinkNavigator = ({ route }) => {
       <AddDrinkStack.Screen
         initialParams={{ timestamp: route?.params?.timestamp, parent: route?.params?.parent }}
         name="CONSOS_LIST">
-        {(props) => <ConsosList {...props} />}
+        {(props) => <ConsosList {...props} timestamp={route?.params?.timestamp} />}
       </AddDrinkStack.Screen>
-      <AddDrinkStack.Screen name="ADD_OWN_DRINK">
+      <AddDrinkStack.Screen name="ADD_OWN_DRINK" initialParams={{ timestamp: route?.params?.timestamp }}>
         {(props) => (
           <AddOwnDrink {...props} quantitySelected={quantitySelected} setQuantitySelected={setQuantitySelected} />
         )}
