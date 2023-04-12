@@ -8,7 +8,6 @@ import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
-import API from '../services/api';
 import { storage } from '../services/storage';
 
 const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
@@ -65,7 +64,6 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
       ];
     });
     if (quantity > 0) {
-      const matomoId = storage.getString('@UserIdv2');
       const drinkId = uuidv4();
       setGlobalDrinksState((state) =>
         [
