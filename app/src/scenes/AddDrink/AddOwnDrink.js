@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import H1 from '../../components/H1';

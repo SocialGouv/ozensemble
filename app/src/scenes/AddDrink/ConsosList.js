@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text } from 'react-native';
+import { BackHandler, Platform, View, Text, TouchableOpacity } from 'react-native';
 import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -18,7 +18,6 @@ import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
 

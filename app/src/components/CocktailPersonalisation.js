@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text, TouchableOpacity } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';

@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
-import { ScrollView } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
+
 const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
   return (
     <View className="h-full bg-white py-10">

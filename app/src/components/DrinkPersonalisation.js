@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import { drinksState, ownDrinksState } from '../recoil/consos';
