@@ -13,16 +13,7 @@ import QButton from './QButton';
 import TextStyled from './TextStyled';
 import TouchableDelete from './TouchableDelete';
 
-const DrinkQuantitySetter = ({
-  oneLine,
-  asPreview,
-  drinkKey,
-  quantity = 0,
-  setDrinkQuantity,
-  catalog,
-  index,
-  onDelete,
-}) => {
+const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, catalog, onDelete }) => {
   const Icon = getIcon(drinkKey, catalog);
   const volume = getVolume(drinkKey, catalog);
   const doses = getDoses(drinkKey, catalog);
@@ -33,20 +24,15 @@ const DrinkQuantitySetter = ({
     setDrinkQuantity(drinkKey, q);
   };
 
-  const onDeleteRequest = () => {
-    onDelete(drinkKey);
-  };
-
   if (oneLine) {
     return (
       <OneLineDrinkQuantitySetter
+        asPreview={asPreview}
         quantity={quantity}
         onSetQuantity={onSetQuantity}
-        Icon={Icon}
         volume={volume}
         name={name}
-        index={index}
-        onDelete={onDeleteRequest}
+        doses={doses}
       />
     );
   }

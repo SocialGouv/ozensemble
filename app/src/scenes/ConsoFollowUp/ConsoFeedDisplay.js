@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H3 from '../../components/H3';
 import { consolidatedCatalogSelector } from '../../recoil/consos';
-import { getDisplayName, getIcon, getVolume } from './drinksCatalog';
+import { getDisplayName, getIcon } from './drinksCatalog';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 
 const isFirst = (position) => position === 'first';
@@ -27,7 +27,6 @@ const ConsoFeedDisplay = ({
 }) => {
   const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
   const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
-  const drinkVolumne = getVolume(drinkKey, consolidatedCatalog);
   const Icon = getIcon(drinkKey, consolidatedCatalog);
   return (
     <>
@@ -38,9 +37,6 @@ const ConsoFeedDisplay = ({
             <Drink>
               {quantity} {drinkName}{' '}
             </Drink>
-            <Volume numberOfLines={1} ellipsizeMode="tail">
-              ({drinkVolumne})
-            </Volume>
             {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
           </Content>
         </FeedButton>

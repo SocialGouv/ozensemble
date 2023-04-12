@@ -12,6 +12,8 @@ import ChampagneBottle from '../../components/illustrations/drinksAndFood/Champa
 import ChampagneGlass from '../../components/illustrations/drinksAndFood/ChampagneGlass';
 import AperitiveGlass from '../../components/illustrations/drinksAndFood/AperitiveGlass';
 import AperitiveBottle from '../../components/illustrations/drinksAndFood/AperitiveBottle';
+import SmallCan from '../../components/illustrations/drinksAndFood/SmallCan';
+
 // categories
 export const BEER = 'Bière (5%)';
 export const WINE = 'Vin (12,5%)';
@@ -37,8 +39,9 @@ export const APERITIVE_GLASS = 'aperitive-glass';
 export const APERITIVE_BOTTLE = 'aperitive-bottle';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
+  if (drinks === undefined) drinks = 'Cocktails et spiritueux';
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
-  if (drink) return drink.quantity;
+  if (drink !== undefined) return drink.quantity;
   return 0;
 };
 
@@ -100,11 +103,6 @@ export const getStyle = (drinkKey, catalog) => {
 
 export const getIcon = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (drink.custom) {
-    const evDrink = drinksCatalog.find((catDrink) => catDrink.drinkKey === drink.iconOf);
-    if (!evDrink) return HalfBeer;
-    return evDrink.icon;
-  }
   return drink.icon;
 };
 
@@ -197,7 +195,7 @@ export const drinksCatalog = [
     drinkKey: CHAMPAGNE_GLASS,
     displayFeed: (q) => (q > 1 ? 'verres de champagne' : 'verre de champagne'),
     displayDrinkModal: 'coupe',
-    volume: '10cl',
+    volume: '10 cl',
     doses: 1,
     icon: ChampagneGlass,
     price: 5,
@@ -208,7 +206,7 @@ export const drinksCatalog = [
     drinkKey: CHAMPAGNE_BOTTLE,
     displayFeed: (q) => (q > 1 ? 'bouteilles de champagnes' : 'bouteille de champagne'),
     displayDrinkModal: 'bouteille',
-    volume: '75cl',
+    volume: '75 cl',
     doses: 8,
     icon: ChampagneBottle,
     price: 20,
@@ -220,7 +218,7 @@ export const drinksCatalog = [
     drinkKey: APERITIVE_GLASS,
     displayFeed: (q) => (q > 1 ? "verre d'apéritif" : "verres d'apéritif"),
     displayDrinkModal: 'verre',
-    volume: '7cl',
+    volume: '7 cl',
     doses: 1,
     icon: AperitiveGlass,
     price: 4,
@@ -231,7 +229,7 @@ export const drinksCatalog = [
     drinkKey: APERITIVE_BOTTLE,
     displayFeed: (q) => (q > 1 ? "bouteille d'apéritif" : "bouteilles d'apéritif"),
     displayDrinkModal: 'bouteille',
-    volume: '7cl',
+    volume: '7 cl',
     doses: 75,
     icon: AperitiveBottle,
     price: 10,

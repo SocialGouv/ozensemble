@@ -10,5 +10,4 @@ router.get(
     return res.status(200).send({ ok: true, data: cocktailsCatalog });
   })
 );
-
 module.exports = router;

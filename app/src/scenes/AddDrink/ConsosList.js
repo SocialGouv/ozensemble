@@ -1,47 +1,29 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text } from 'react-native';
-import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { BackHandler, Platform, View, Text, TouchableOpacity } from 'react-native';
+import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import DrinksCategory from '../../components/DrinksCategory';
-import {
-  drinksCatalog,
-  // formatNewDrink,
-  getDoses,
-  getDrinksKeysFromCatalog,
-  getDrinkQuantityFromDrinks,
-  NO_CONSO,
-} from '../ConsoFollowUp/drinksCatalog';
+import { drinksCatalog, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
-import DrinkQuantitySetter from '../../components/DrinkQuantitySetter';
-import DrinksHeader from '../../components/DrinksHeader';
-import { drinksState, ownDrinksState } from '../../recoil/consos';
+import { drinksState, ownDrinksCatalogState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
+import OwnDrinkSelector from '../../components/OwnDrinkSelector';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
 // const initDrinkState = { name: '', volume: '', degrees: '', isNew: true, code: null };
-
-const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
-  const ownDrinksKeys = getDrinksKeysFromCatalog(ownDrinks);
-  const ownAllDrinksKeys = ownDrinks.map((d) => d.drinkKey);
-  const localOwnDrinksKeys = localDrinksState
-    .filter((d) => ownAllDrinksKeys.includes(d.drinkKey))
-    .map((d) => d.drinkKey);
-  return [...new Set([...ownDrinksKeys, ...localOwnDrinksKeys])];
-};
 
 const drinksPerCurrenTimestampSelector = selectorFamily({
   key: 'drinksPerCurrenTimestampSelector',
@@ -61,18 +43,13 @@ const ConsosList = ({ navigation, route }) => {
   );
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
-
   const toast = useToast();
 
-  const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
-
+  const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
-  const mergedOwnDrinksKeys = mergeOwnDrinksKeys(ownDrinks, localDrinksState);
-  const withOwnDrinks = mergedOwnDrinksKeys.length > 0;
-
-  const setDrinkQuantityRequest = (drinkKey, quantity) => {
+  const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
     const oldDrink = localDrinksState.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
       setLocalDrinksState([
@@ -89,6 +66,7 @@ const ConsosList = ({ navigation, route }) => {
           drinkKey,
           quantity,
           id: uuidv4(),
+          isOwnDrink,
         },
       ]);
     }
@@ -111,11 +89,12 @@ const ConsosList = ({ navigation, route }) => {
             drinkKey: drink.drinkKey,
             quantity: drink.quantity,
             id: drink.id,
+            isOwnDrink: drink.isOwnDrink,
             timestamp: makeSureTimestamp(addDrinkModalTimestamp),
           },
         ].filter((d) => d.quantity > 0)
       );
-      const drinkFromCatalog = [...(ownDrinks || []), ...drinksCatalog].find(
+      const drinkFromCatalog = [...(ownDrinksCatalog || []), ...drinksCatalog].find(
         (_drink) => _drink.drinkKey === drink.drinkKey
       );
       logEvent({
@@ -126,6 +105,10 @@ const ConsosList = ({ navigation, route }) => {
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
       });
       const matomoId = storage.getString('@UserIdv2');
+      const doses = drinkFromCatalog.doses;
+      const kcal = drinkFromCatalog.kcal;
+      const price = drinkFromCatalog.price;
+      const volume = drinkFromCatalog.volume;
       const response = await API.post({
         path: '/consommation',
         body: {
@@ -135,10 +118,10 @@ const ConsosList = ({ navigation, route }) => {
           drinkKey: drink.drinkKey,
           quantity: Number(drink.quantity),
           date: makeSureTimestamp(addDrinkModalTimestamp),
-          doses: drinkFromCatalog.doses,
-          kcal: drinkFromCatalog.kcal,
-          price: drinkFromCatalog.price,
-          volume: drinkFromCatalog.volume,
+          doses: doses,
+          kcal: kcal,
+          price: price,
+          volume: volume,
         },
       });
       if (response.showNewBadge || response.showInAppModal) showToast = false;
@@ -157,7 +140,7 @@ const ConsosList = ({ navigation, route }) => {
     } else {
       navigation.goBack();
     }
-  }, [navigation]);
+  }, [navigation, route?.params?.parent]);
 
   const onCancelConsos = useCallback(() => {
     navigation.goBack();
@@ -168,19 +151,6 @@ const ConsosList = ({ navigation, route }) => {
     });
     return true;
   }, [navigation]);
-
-  const removeOwnDrinkRequest = (drinkKey) => {
-    setDrinkQuantityRequest(drinkKey, 0);
-    setOwnDrinks((ownDrinks) =>
-      ownDrinks.map((d) => {
-        if (d.drinkKey !== drinkKey) return d;
-        return {
-          ...d,
-          active: false,
-        };
-      })
-    );
-  };
 
   useEffect(() => {
     if (isFocused) {
@@ -234,26 +204,34 @@ const ConsosList = ({ navigation, route }) => {
               : "Je n'ai rien bu ce jour"
           }
         />
-        {withOwnDrinks && (
+        {ownDrinksCatalog.length > 0 && (
           <>
-            <DrinksHeader content="Mes boissons" />
-            {mergedOwnDrinksKeys.map((drinkKey, index) => (
-              <DrinkQuantitySetter
-                oneLine
-                key={drinkKey}
-                drinkKey={drinkKey}
-                setDrinkQuantity={setDrinkQuantityRequest}
-                quantity={getDrinkQuantityFromDrinks(localDrinksState, drinkKey)}
-                catalog={ownDrinks}
-                index={index}
-                onDelete={removeOwnDrinkRequest}
-              />
-            ))}
-            <DrinksHeader content="Génériques" />
+            <View className="bg-[#EFEFEF] p-4">
+              <TextStyled bold color="#4030a5" className="mb-5 px-4">
+                Mes boissons créées
+              </TextStyled>
+              {ownDrinksCatalog.map((drink) => {
+                return (
+                  <OwnDrinkSelector
+                    key={drink.drinkKey}
+                    drinkKey={drink.drinkKey}
+                    volume={drink.volume}
+                    doses={drink.doses}
+                    alcoolPercentage={drink.alcoolPercentage}
+                    category={drink.category}
+                    quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
+                    setDrinkQuantityRequest={setDrinkQuantityRequest}
+                  />
+                );
+              })}
+              <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
+                <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
+              </TouchableOpacity>
+            </View>
           </>
         )}
-        {!withOwnDrinks && (
-          <View className="p-5 bg-[#efefef]">
+        {ownDrinksCatalog.length === 0 && (
+          <View className=" bg-[#EFEFEF] p-4">
             <TextStyled color="#4030a5" bold center className="mb-4">
               Vous ne trouvez pas votre boisson dans la liste ?
             </TextStyled>

@@ -23,7 +23,6 @@ import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import { storage } from '../../services/storage';
-import OnBoardingModal from '../../components/OnBoardingModal';
 import API from '../../services/api';
 
 const computePosition = (drinksOfTheDay, drink) => {
@@ -46,9 +45,7 @@ const computeShowButtons = (selected, position) => {
 const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
-
   const [timestampSelected, setTimestampSelected] = useState(null);
-
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -151,7 +148,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
       </TouchableWithoutFeedback>
     );
   }
-
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
@@ -222,6 +218,7 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                           showButtons={showButtons}
                           nothingSelected={timestampSelected === null}
                           onPress={setConsoSelectedRequest}
+                          category={drink.category}
                           position={position}
                           updateDrinkRequest={async () => {
                             logEvent({
