@@ -213,12 +213,14 @@ const ConsosList = ({ navigation, route }) => {
               {ownDrinksCatalog.map((drink) => {
                 return (
                   <OwnDrinkSelector
+                    navigation={navigation}
                     key={drink.drinkKey}
                     drinkKey={drink.drinkKey}
                     volume={drink.volume}
                     doses={drink.doses}
                     alcoolPercentage={drink.alcoolPercentage}
-                    categoryKey={drink.categoryKey}
+                    category={drink.categoryKey}
+                    price={drink.price}
                     quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
                     setDrinkQuantityRequest={setDrinkQuantityRequest}
                   />

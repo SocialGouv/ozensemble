@@ -4,6 +4,7 @@ import { QuantitySetter } from './DrinkQuantitySetter';
 import TextStyled from './TextStyled';
 
 const OwnDrinkSelector = ({
+  navigation,
   drinkKey,
   volume,
   doses,
@@ -11,15 +12,21 @@ const OwnDrinkSelector = ({
   alcoolPercentage,
   categoryKey,
   setDrinkQuantityRequest,
+  price,
 }) => {
   const onSetQuantity = (q) => {
     setDrinkQuantityRequest(drinkKey, q, true);
   };
+  const volumeNumber = volume?.split(' ')[0];
   return (
     <View className="flex flex-row justify-center mb-2 px-4">
       <View className="w-full">
         <View className="bg-white rounded-md border border-[#DFDFEB] flex flex-row flex-wrap justify-between px-3 py-1 ">
-          <TouchableOpacity className="mr-2 my-2">
+          <TouchableOpacity
+            className="mr-2 my-2"
+            onPress={() => {
+              navigation.navigate('ADD_OWN_DRINK', { drinkKey, volumeNumber, alcoolPercentage, category, price });
+            }}>
             <TextStyled bold>{drinkKey}</TextStyled>
             {categoryKey === 'ownCocktail' ? (
               <Text className="text-sm">
