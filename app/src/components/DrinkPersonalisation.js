@@ -54,7 +54,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           categoryKey: 'ownDrink',
           drinkKey: drinkName,
           displayFeed: drinkName,
-          volume: quantitySelected?.volume,
+          volume: quantitySelected?.volume + ' cl',
           doses: doses,
           icon: icon,
           price: Number(drinkPrice),
