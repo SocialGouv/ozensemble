@@ -9,7 +9,7 @@ const OwnDrinkSelector = ({
   doses,
   quantity,
   alcoolPercentage,
-  category,
+  categoryKey,
   setDrinkQuantityRequest,
 }) => {
   const onSetQuantity = (q) => {
@@ -21,13 +21,13 @@ const OwnDrinkSelector = ({
         <View className="bg-white rounded-md border border-[#DFDFEB] flex flex-row flex-wrap justify-between px-3 py-1 ">
           <TouchableOpacity className="mr-2 my-2">
             <TextStyled bold>{drinkKey}</TextStyled>
-            {category === 'cocktail' ? (
+            {categoryKey === 'ownCocktail' ? (
               <Text className="text-sm">
-                {doses} {doses < 1 ? 'unité' : 'unités'}
+                {doses} {doses <= 1 ? 'unité' : 'unités'}
               </Text>
             ) : (
               <Text className="text-sm">
-                {volume} cl - {alcoolPercentage}% - {doses} {doses < 1 ? 'unité' : 'unités'}
+                {volume} - {alcoolPercentage}% - {doses} {doses < 1 ? 'unité' : 'unités'}
               </Text>
             )}
           </TouchableOpacity>

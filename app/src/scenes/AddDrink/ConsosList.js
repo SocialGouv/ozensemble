@@ -218,7 +218,7 @@ const ConsosList = ({ navigation, route }) => {
                     volume={drink.volume}
                     doses={drink.doses}
                     alcoolPercentage={drink.alcoolPercentage}
-                    category={drink.category}
+                    categoryKey={drink.categoryKey}
                     quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
                     setDrinkQuantityRequest={setDrinkQuantityRequest}
                   />
