@@ -26,7 +26,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const setGlobalDrinksState = useSetRecoilState(drinksState);
 
   const saveDrink = async () => {
-    const volumeNumber = Number(quantitySelected?.volume.split(' ')[0]);
+    const volumeNumber = Number(quantitySelected?.volume);
     const doses = Math.round((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
     const icon = quantitySelected.icon;
     const kCal = ((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
@@ -57,8 +57,8 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           volume: quantitySelected?.volume,
           doses: doses,
           icon: icon,
-          price: drinkPrice,
-          alcoolPercentage: drinkAlcoolPercentage,
+          price: Number(drinkPrice),
+          alcoolPercentage: Number(drinkAlcoolPercentage),
           kcal: kCal,
           custom: true,
         },
@@ -121,7 +121,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_QUANTITY')}>
-            <Text className="text-[#4030A5] flex">{quantitySelected?.volume?.split(' ')[0]}</Text>
+            <Text className="text-[#4030A5] flex">{quantitySelected?.volume}</Text>
           </TouchableOpacity>
         )}
       </View>

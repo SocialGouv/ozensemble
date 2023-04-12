@@ -20,7 +20,9 @@ const AddDrinkNavigator = ({ route }) => {
           <AddOwnDrink {...props} quantitySelected={quantitySelected} setQuantitySelected={setQuantitySelected} />
         )}
       </AddDrinkStack.Screen>
-      <AddDrinkStack.Screen name="ADD_COCKTAIL" component={AddCocktail} />
+      <AddDrinkStack.Screen name="ADD_COCKTAIL">
+        {(props) => <AddCocktail {...props} setQuantitySelected={setQuantitySelected} />}
+      </AddDrinkStack.Screen>
       <AddDrinkStack.Screen name="ADD_QUANTITY">
         {(props) => <AddAlcoolQuantity {...props} setQuantitySelected={setQuantitySelected} />}
       </AddDrinkStack.Screen>

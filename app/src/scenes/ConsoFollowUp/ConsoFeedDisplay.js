@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H3 from '../../components/H3';
 import { consolidatedCatalogSelector } from '../../recoil/consos';
-import { getDisplayName, getIcon } from './drinksCatalog';
+import { getDisplayName, getIcon, getVolume } from './drinksCatalog';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 
 const isFirst = (position) => position === 'first';

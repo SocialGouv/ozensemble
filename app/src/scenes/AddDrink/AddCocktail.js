@@ -10,7 +10,7 @@ import H3 from '../../components/H3';
 import H2 from '../../components/H2';
 import API from '../../services/api';
 
-const AddCocktail = ({ navigation }) => {
+const AddCocktail = ({ navigation, setQuantitySelected }) => {
   const [cocktailsCatalog, setCocktailsCatalog] = useState([]);
   const getCocktailsCatalog = async () => {
     const res = await API.get({ path: '/drinks/cocktails' });
@@ -42,7 +42,14 @@ const AddCocktail = ({ navigation }) => {
                 key={cocktail.drinkKey}
                 className="flex flex-row bg-[#F3F3F6] h-12 mb-3 rounded-lg border border-[#DBDBE8] items-center px-2"
                 onPress={() => {
-                  //TODO
+                  navigation.goBack();
+                  setQuantitySelected({
+                    drinkKey: cocktail.drinkKey,
+                    name: cocktail.displayDrinkModal,
+                    volume: cocktail.volumeNumber,
+                    doses: cocktail.doses,
+                    kCal: cocktail.kcal,
+                  });
                 }}>
                 <CocktailGlass size={32} />
                 <View className="flex flex-row flex-wrap ml-2 w-10/12">

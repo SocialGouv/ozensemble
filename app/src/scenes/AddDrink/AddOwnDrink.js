@@ -23,7 +23,11 @@ const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
                 <SwitchButtons leftContent="non" rightContent="oui" handleSwitchChange={setSwitchPosition} />
               </View>
               {showCockatil ? (
-                <CocktailPersonalisation navigation={navigation} />
+                <CocktailPersonalisation
+                  navigation={navigation}
+                  quantitySelected={quantitySelected}
+                  setQuantitySelected={setQuantitySelected}
+                />
               ) : (
                 <DrinkPersonalisation
                   navigation={navigation}
