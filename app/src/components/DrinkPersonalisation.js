@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { drinksState } from '../recoil/consos';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import dayjs from 'dayjs';
+import { drinksState, ownDrinksState } from '../recoil/consos';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
-import { ownDrinksState } from '../recoil/consos';
-import { useSetRecoilState } from 'recoil';
 import API from '../services/api';
 import { storage } from '../services/storage';
-import dayjs from 'dayjs';
 import { makeSureTimestamp } from '../helpers/dateHelpers';
 
 const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
@@ -22,37 +21,79 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const [drinkPrice, setDrinkPrice] = useState(0);
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const setOwnDrinksCatalog = useSetRecoilState(ownDrinksState);
-  const [doses, setDoses] = useState(0);
-  const [kCal, setkCal] = useState(0);
-  const [oldDrink, setOldDrink] = useState(null);
+  const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksState);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
 
-  const saveDrink = (name, volume, alcoolPercentage, price, icon) => {
-    setOwnDrinksCatalog((oldState) => {
-      setDoses(Math.round((alcoolPercentage * 0.8 * volume) / 10) / 10);
-      setkCal(((alcoolPercentage * 0.8 * volume) / 10) * 7);
-      setOldDrink(oldState.find((drink) => drink.drinkKey === name));
-      if (oldDrink) {
-        return oldState;
-      } else {
-        return [
-          ...oldState,
+  const saveDrink = async () => {
+    const volume = quantitySelected?.volume.split(' ')[0];
+    const doses = Math.round((drinkAlcoolPercentage * 0.8 * volume) / 10) / 10;
+    const icon = quantitySelected.icon;
+    const kCal = ((drinkAlcoolPercentage * 0.8 * volume) / 10) * 7;
+    const oldDrink = ownDrinksCatalog.find((drink) => drink.drinkKey === drinkName);
+    if (oldDrink) {
+      const keepGoing = await new Promise((resolve) => {
+        Alert.alert('Vous avez déjà enregistré ce verre', 'Voulez-vous le remplacer ?', [
           {
-            categoryKey: 'ownDrink',
-            drinkKey: name,
-            displayFeed: name,
-            volume: volume,
-            doses: doses,
-            icon: icon,
-            price: price,
-            alcoolPercentage: alcoolPercentage,
-            kcal: kCal,
-            custom: true,
+            text: 'Annuler',
+            onPress: () => resolve(false),
+            style: 'cancel',
           },
-        ];
-      }
+          {
+            text: 'Remplacer',
+            onPress: () => resolve(true),
+          },
+        ]);
+      });
+      if (!keepGoing) return;
+    }
+    setOwnDrinksCatalog((oldState) => {
+      return [
+        ...oldState,
+        {
+          categoryKey: 'ownDrink',
+          drinkKey: drinkName,
+          displayFeed: drinkName,
+          volume: volume,
+          doses: doses,
+          icon: icon,
+          price: drinkPrice,
+          alcoolPercentage: drinkAlcoolPercentage,
+          kcal: kCal,
+          custom: true,
+        },
+      ];
     });
+    if (quantity > 0) {
+      const matomoId = storage.getString('@UserIdv2');
+      const drinkId = uuidv4();
+      setGlobalDrinksState((state) =>
+        [
+          ...state.filter((_drink) => _drink.id !== drinkId),
+          {
+            drinkKey: drinkName,
+            quantity: Number(quantity),
+            id: drinkId,
+            isOwnDrink: true,
+            timestamp: makeSureTimestamp(dayjs()),
+          },
+        ].filter((d) => d.quantity > 0)
+      );
+      API.post({
+        path: '/consommation',
+        body: {
+          id: drinkId,
+          matomoId: matomoId,
+          name: drinkName,
+          drinkKey: drinkName,
+          quantity: Number(quantity),
+          date: makeSureTimestamp(dayjs()),
+          doses: Number(doses),
+          kcal: Number(kCal),
+          price: Number(drinkPrice),
+          volume: quantitySelected?.volume,
+        },
+      });
+    }
   };
   return (
     <View>
@@ -113,45 +154,8 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
             content="Créer ma boisson"
             onPress={() => {
               setQuantitySelected(null);
+              saveDrink();
               navigation.goBack();
-              saveDrink(
-                drinkName,
-                quantitySelected?.volume.split(' ')[0],
-                drinkAlcoolPercentage,
-                drinkPrice,
-                quantitySelected.icon
-              );
-              if (quantity > 0) {
-                const matomoId = storage.getString('@UserIdv2');
-                const drinkId = uuidv4();
-                setGlobalDrinksState((state) =>
-                  [
-                    ...state.filter((_drink) => _drink.id !== drinkId),
-                    {
-                      drinkKey: drinkName,
-                      quantity: Number(quantity),
-                      id: drinkId,
-                      isOwnDrink: true,
-                      timestamp: makeSureTimestamp(dayjs()),
-                    },
-                  ].filter((d) => d.quantity > 0)
-                );
-                API.post({
-                  path: '/consommation',
-                  body: {
-                    id: drinkId,
-                    matomoId: matomoId,
-                    name: drinkName,
-                    drinkKey: drinkName,
-                    quantity: Number(quantity),
-                    date: makeSureTimestamp(dayjs()),
-                    doses: Number(doses),
-                    kcal: Number(kCal),
-                    price: Number(drinkPrice),
-                    volume: quantitySelected?.volume,
-                  },
-                });
-              }
             }}
             disabled={
               drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume
