@@ -19,8 +19,8 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
     setQuantity(q);
   };
   const [drinkName, setDrinkName] = useState('');
-  const [drinkPrice, setDrinkPrice] = useState(0);
-  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(0);
+  const [drinkPrice, setDrinkPrice] = useState('');
+  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
