@@ -1,14 +1,19 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import TextStyled from './TextStyled';
 
-const OwnDrinkSelector = ({ drinkKey, volume, doses, alcoolPercentage, category, setDrinkQuantityRequest }) => {
-  const [quantity, setQuantity] = useState(0);
+const OwnDrinkSelector = ({
+  drinkKey,
+  volume,
+  doses,
+  quantity,
+  alcoolPercentage,
+  category,
+  setDrinkQuantityRequest,
+}) => {
   const onSetQuantity = (q) => {
-    setQuantity(q);
     setDrinkQuantityRequest(drinkKey, q, true);
   };
   return (

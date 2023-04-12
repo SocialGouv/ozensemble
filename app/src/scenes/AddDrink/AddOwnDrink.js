@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { ScrollView } from 'react-native-gesture-handler';
 import { View, Text } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -7,7 +7,6 @@ import H1 from '../../components/H1';
 import SwitchButtons from '../../components/SwitchButtons';
 import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
   const [switchPosition, setSwitchPosition] = useState(0);

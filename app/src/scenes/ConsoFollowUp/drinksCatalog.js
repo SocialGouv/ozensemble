@@ -39,8 +39,9 @@ export const APERITIVE_GLASS = 'aperitive-glass';
 export const APERITIVE_BOTTLE = 'aperitive-bottle';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
+  if (drinks === undefined) drinks = 'Cocktails et spiritueux';
   const drink = drinks.find((d) => d.drinkKey === drinkKey);
-  if (drink) return drink.quantity;
+  if (drink !== undefined) return drink.quantity;
   return 0;
 };
 
@@ -200,7 +201,7 @@ export const drinksCatalog = [
     drinkKey: CHAMPAGNE_GLASS,
     displayFeed: (q) => (q > 1 ? 'verres de champagne' : 'verre de champagne'),
     displayDrinkModal: 'coupe',
-    volume: '10cl',
+    volume: '10 cl',
     doses: 1,
     icon: ChampagneGlass,
     price: 5,
@@ -211,7 +212,7 @@ export const drinksCatalog = [
     drinkKey: CHAMPAGNE_BOTTLE,
     displayFeed: (q) => (q > 1 ? 'bouteilles de champagnes' : 'bouteille de champagne'),
     displayDrinkModal: 'bouteille',
-    volume: '75cl',
+    volume: '75 cl',
     doses: 8,
     icon: ChampagneBottle,
     price: 20,
@@ -223,7 +224,7 @@ export const drinksCatalog = [
     drinkKey: APERITIVE_GLASS,
     displayFeed: (q) => (q > 1 ? "verre d'apéritif" : "verres d'apéritif"),
     displayDrinkModal: 'verre',
-    volume: '7cl',
+    volume: '7 cl',
     doses: 1,
     icon: AperitiveGlass,
     price: 4,
@@ -234,7 +235,7 @@ export const drinksCatalog = [
     drinkKey: APERITIVE_BOTTLE,
     displayFeed: (q) => (q > 1 ? "bouteille d'apéritif" : "bouteilles d'apéritif"),
     displayDrinkModal: 'bouteille',
-    volume: '7cl',
+    volume: '7 cl',
     doses: 75,
     icon: AperitiveBottle,
     price: 10,

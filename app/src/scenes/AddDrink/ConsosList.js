@@ -2,19 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
 import { BackHandler, Platform, View, Text } from 'react-native';
-import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import DrinksCategory from '../../components/DrinksCategory';
-import {
-  drinksCatalog,
-  // formatNewDrink,
-  // getDoses,
-  getDrinksKeysFromCatalog,
-  // getDrinkQuantityFromDrinks,
-  NO_CONSO,
-} from '../ConsoFollowUp/drinksCatalog';
+import { drinksCatalog, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
@@ -28,18 +21,10 @@ import { storage } from '../../services/storage';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
+
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
 // const initDrinkState = { name: '', volume: '', degrees: '', isNew: true, code: null };
-
-const mergeOwnDrinksKeys = (ownDrinks, localDrinksState) => {
-  const ownDrinksKeys = getDrinksKeysFromCatalog(ownDrinks);
-  const ownAllDrinksKeys = ownDrinks.map((d) => d.drinkKey);
-  const localOwnDrinksKeys = localDrinksState
-    .filter((d) => ownAllDrinksKeys.includes(d.drinkKey))
-    .map((d) => d.drinkKey);
-  return [...new Set([...ownDrinksKeys, ...localOwnDrinksKeys])];
-};
 
 const drinksPerCurrenTimestampSelector = selectorFamily({
   key: 'drinksPerCurrenTimestampSelector',
@@ -61,7 +46,7 @@ const ConsosList = ({ navigation, route }) => {
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const toast = useToast();
 
-  const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
+  const ownDrinks = useRecoilValue(ownDrinksState);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
@@ -121,22 +106,10 @@ const ConsosList = ({ navigation, route }) => {
         dimension6: makeSureTimestamp(addDrinkModalTimestamp),
       });
       const matomoId = storage.getString('@UserIdv2');
-      let doses = null;
-      let kcal = null;
-      let price = null;
-      let volume = null;
-      if (drink.isOwnDrink) {
-        const completeDrink = ownDrinks.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
-        doses = completeDrink.doses;
-        kcal = completeDrink.kcal;
-        price = completeDrink.price;
-        volume = completeDrink.volume + ' cl';
-      } else {
-        doses = drinkFromCatalog.doses;
-        kcal = drinkFromCatalog.kcal;
-        price = drinkFromCatalog.price;
-        volume = drinkFromCatalog.volume;
-      }
+      const doses = drinkFromCatalog.doses;
+      const kcal = drinkFromCatalog.kcal;
+      const price = drinkFromCatalog.price;
+      const volume = drinkFromCatalog.volume;
       const response = await API.post({
         path: '/consommation',
         body: {
@@ -168,7 +141,7 @@ const ConsosList = ({ navigation, route }) => {
     } else {
       navigation.goBack();
     }
-  }, [navigation]);
+  }, [navigation, route?.params?.parent]);
 
   const onCancelConsos = useCallback(() => {
     navigation.goBack();
@@ -238,16 +211,20 @@ const ConsosList = ({ navigation, route }) => {
               <TextStyled bold color="#4030a5" className="mb-5 px-4">
                 Mes boissons créées
               </TextStyled>
-              {ownDrinks.map((drink) => (
-                <OwnDrinkSelector
-                  drinkKey={drink.drinkKey}
-                  volume={drink.volume}
-                  doses={drink.doses}
-                  alcoolPercentage={drink.alcoolPercentage}
-                  category={drink.category}
-                  setDrinkQuantityRequest={setDrinkQuantityRequest}
-                />
-              ))}
+              {ownDrinks.map((drink) => {
+                return (
+                  <OwnDrinkSelector
+                    key={drink.drinkKey}
+                    drinkKey={drink.drinkKey}
+                    volume={drink.volume}
+                    doses={drink.doses}
+                    alcoolPercentage={drink.alcoolPercentage}
+                    category={drink.category}
+                    quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
+                    setDrinkQuantityRequest={setDrinkQuantityRequest}
+                  />
+                );
+              })}
               <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
                 <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
               </TouchableOpacity>

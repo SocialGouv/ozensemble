@@ -1,19 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
-import styled, { css } from 'styled-components';
-import { screenWidth } from '../styles/theme';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
 import TextStyled from './TextStyled';
+import { getDrinkQuantityFromDrinks } from '../scenes/AddDrink/ConsosList';
 
 export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
   catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
-
-export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
-  if (drinks === undefined) drinks = 'Cocktails et spiritueux';
-  const drink = drinks.find((d) => d.drinkKey === drinkKey);
-  if (drink !== undefined) return drink.quantity;
-  return 0;
-};
 
 const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, drinksCatalog }) => {
   return (
