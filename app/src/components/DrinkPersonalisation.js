@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
-import { drinksState, ownDrinksState } from '../recoil/consos';
+import { drinksState, ownDrinksCatalog } from '../recoil/consos';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
@@ -20,7 +20,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const [drinkPrice, setDrinkPrice] = useState(0);
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(0);
   const [quantity, setQuantity] = useState(0);
-  const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksState);
+  const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalog);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
 
   const saveDrink = async () => {

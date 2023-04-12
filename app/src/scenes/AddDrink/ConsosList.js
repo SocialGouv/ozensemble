@@ -11,7 +11,7 @@ import { drinksCatalog, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFol
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
-import { drinksState, ownDrinksState } from '../../recoil/consos';
+import { drinksState, ownDrinksCatalog } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
@@ -45,7 +45,7 @@ const ConsosList = ({ navigation, route }) => {
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const toast = useToast();
 
-  const ownDrinks = useRecoilValue(ownDrinksState);
+  const ownDrinks = useRecoilValue(ownDrinksCatalog);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 

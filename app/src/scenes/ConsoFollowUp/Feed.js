@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState, feedDaysSelector, ownDrinksState } from '../../recoil/consos';
+import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import { isOnSameDay, isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -45,7 +45,6 @@ const computeShowButtons = (selected, position) => {
 const Feed = ({ hideFeed, scrollToInput }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
-  const [ownDrinks, setOwnDrinks] = useRecoilState(ownDrinksState);
   const [timestampSelected, setTimestampSelected] = useState(null);
   const navigation = useNavigation();
   const route = useRoute();
@@ -206,45 +205,40 @@ const Feed = ({ hideFeed, scrollToInput }) => {
                     <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
                   ) : (
                     drinksOfTheDay.map((drink) => {
-                      let checkedDrink = drink;
-                      if (drink.category === 'ownDrink') {
-                        checkedDrink = ownDrinks.find((ownDrink) => ownDrink.drinkKey === drink.drinkKey);
-                        checkedDrink.quantity = drink.quantity;
-                      }
-                      if (checkedDrink.drinkKey === NO_CONSO) return null;
-                      if (!checkedDrink.quantity) return null;
-                      const position = computePosition(drinksOfTheDay, checkedDrink);
-                      const selected = timestampSelected === checkedDrink.timestamp;
+                      if (drink.drinkKey === NO_CONSO) return null;
+                      if (!drink.quantity) return null;
+                      const position = computePosition(drinksOfTheDay, drink);
+                      const selected = timestampSelected === drink.timestamp;
                       const showButtons = computeShowButtons(selected, position);
                       return (
                         <ConsoFeedDisplay
-                          key={checkedDrink.id}
-                          {...checkedDrink}
+                          key={drink.id}
+                          {...drink}
                           selected={selected}
                           showButtons={showButtons}
                           nothingSelected={timestampSelected === null}
                           onPress={setConsoSelectedRequest}
-                          category={checkedDrink.category}
+                          category={drink.category}
                           position={position}
                           updateDrinkRequest={async () => {
                             logEvent({
                               category: 'CONSO',
                               action: 'CONSO_UPDATE',
                             });
-                            addDrinksRequest(checkedDrink.timestamp, 'FROM_CONSO_UPDATE');
+                            addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
                           }}
                           deleteDrinkRequest={async () => {
                             logEvent({
                               category: 'CONSO',
                               action: 'CONSO_DELETE',
                             });
-                            deleteDrinkRequest(checkedDrink.timestamp);
+                            deleteDrinkRequest(drink.timestamp);
                             const matomoId = storage.getString('@UserIdv2');
                             API.delete({
                               path: '/consommation',
                               body: {
                                 matomoId: matomoId,
-                                id: checkedDrink.id,
+                                id: drink.id,
                               },
                             });
                           }}
