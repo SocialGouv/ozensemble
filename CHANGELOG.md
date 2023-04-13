@@ -1,3 +1,10 @@
+# [1.94.0](https://github.com/SocialGouv/ozensemble/compare/v1.93.3...v1.94.0) (2023-04-13)
+
+
+### Features
+
+*  update drink ([#248](https://github.com/SocialGouv/ozensemble/issues/248)) ([8a618e3](https://github.com/SocialGouv/ozensemble/commit/8a618e313c23418e22469ed910782e2393342a30))
+
 ## [1.93.3](https://github.com/SocialGouv/ozensemble/compare/v1.93.2...v1.93.3) (2023-04-12)
 
 
