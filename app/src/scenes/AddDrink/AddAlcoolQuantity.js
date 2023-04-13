@@ -6,7 +6,6 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
-
 const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
   return (
     <View className="h-full bg-white py-10">

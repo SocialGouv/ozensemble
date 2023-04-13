@@ -6,10 +6,17 @@ import H1 from '../../components/H1';
 import SwitchButtons from '../../components/SwitchButtons';
 import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
+import { useRoute } from '@react-navigation/native';
+import { useRecoilValue } from 'recoil';
+import { ownDrinksCatalogState } from '../../recoil/consos';
 
 const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
-  const [switchPosition, setSwitchPosition] = useState('non');
-  const showCockatil = switchPosition === 'oui';
+  const route = useRoute();
+  const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
+  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+  const [switchPosition, setSwitchPosition] = useState(drink?.categoryKey === 'ownCocktail' ? 'oui' : 'non');
+  const showCocktail = switchPosition === 'oui';
+  const initCocktail = drink?.categoryKey === 'ownCocktail';
   return (
     <KeyboardAvoidingView enabled behavior={Platform.select({ ios: 'padding', android: null })}>
       <View className="h-full bg-white py-10">
@@ -20,9 +27,14 @@ const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
               <H1 className="mt-5 mb-8">Créez une nouvelle boisson</H1>
               <View className="mb-8 flex flex-row justify-between items-center">
                 <Text className="font-bold text-lg">{'Est-ce un cocktail\u00A0?'}</Text>
-                <SwitchButtons leftContent="non" rightContent="oui" handleSwitchChange={setSwitchPosition} />
+                <SwitchButtons
+                  leftContent="oui"
+                  rightContent="non"
+                  handleSwitchChange={setSwitchPosition}
+                  initPosition={Number(!initCocktail)}
+                />
               </View>
-              {showCockatil ? (
+              {showCocktail ? (
                 <CocktailPersonalisation
                   navigation={navigation}
                   quantitySelected={quantitySelected}

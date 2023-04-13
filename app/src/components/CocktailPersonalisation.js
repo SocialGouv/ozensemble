@@ -16,9 +16,10 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [drinkPrice, setDrinkPrice] = useState('');
-  const [quantity, setQuantity] = useState(0);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
+  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+  const [drinkPrice, setDrinkPrice] = useState(Number(drink?.price));
+  const [quantity, setQuantity] = useState(0);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const saveDrink = async () => {
     const oldDrink = ownDrinksCatalog.find((drink) => drink.drinkKey === quantitySelected.name);
@@ -74,7 +75,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
     <>
       <View className="mb-4">
         <TextStyled bold>Cocktail</TextStyled>
-        {!quantitySelected?.name ? (
+        {!quantitySelected?.name && !route?.params?.drinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
@@ -85,18 +86,18 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
-            <Text className="text-[#4030A5] flex">{quantitySelected?.name}</Text>
+            <Text className="text-[#4030A5] flex">{quantitySelected?.name ?? route?.params?.drinkKey}</Text>
           </TouchableOpacity>
         )}
       </View>
       <View className="mb-5">
         <TextStyled bold>Prix (€)</TextStyled>
         <TextInput
-          value={drinkPrice}
           className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
           placeholder="Euros"
           keyboardType="decimal-pad"
           maxLength={5}
+          value={drinkPrice}
           onChangeText={(value) => setDrinkPrice(value)}
         />
       </View>

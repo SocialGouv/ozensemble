@@ -17,13 +17,15 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [drinkName, setDrinkName] = useState('');
-  const [drinkPrice, setDrinkPrice] = useState('');
-  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState('');
-  const [quantity, setQuantity] = useState(0);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
-  const setGlobalDrinksState = useSetRecoilState(drinksState);
 
+  const [drinkName, setDrinkName] = useState(route?.params?.drinkKey);
+  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+
+  const [drinkPrice, setDrinkPrice] = useState(Number(drink?.price));
+  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(drink?.alcoolPercentage);
+  const [quantity, setQuantity] = useState(0);
+  const setGlobalDrinksState = useSetRecoilState(drinksState);
   const saveDrink = async () => {
     const volumeNumber = Number(quantitySelected?.volume);
     const doses = Math.round((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
@@ -89,11 +91,11 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           value={drinkName}
           onChangeText={(value) => setDrinkName(value)}
         />
-        <Text className="text-xs">(30 caractères max)</Text>
+        <Text className="text-xs">(23 caractères max)</Text>
       </View>
       <View className="mb-4">
         <TextStyled bold>Quantité d'alcool servie (cl)</TextStyled>
-        {!quantitySelected?.volume ? (
+        {!quantitySelected?.volume && !route?.params?.drinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_QUANTITY')}>
@@ -104,7 +106,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_QUANTITY')}>
-            <Text className="text-[#4030A5] flex">{quantitySelected?.volume}</Text>
+            <Text className="text-[#4030A5] flex">{quantitySelected?.volume ?? route?.params?.volumeNumber}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -135,15 +137,29 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
         <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
       </View>
       <View className="flex flex-row justify-center mt-14 mb-10 ">
-        <ButtonPrimary
-          content="Créer ma boisson"
-          onPress={() => {
-            setQuantitySelected(null);
-            saveDrink();
-            navigation.goBack();
-          }}
-          disabled={drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume}
-        />
+        {!route?.params?.drinkKey ? (
+          <ButtonPrimary
+            content="Créer ma boisson"
+            onPress={() => {
+              setQuantitySelected(null);
+              saveDrink();
+              navigation.goBack();
+            }}
+            disabled={
+              drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume
+            }
+          />
+        ) : (
+          <ButtonPrimary
+            content="Modifier ma boisson"
+            onPress={() => {
+              setQuantitySelected(null);
+              saveDrink();
+              navigation.goBack();
+            }}
+            disabled={!drinkPrice || !drinkAlcoolPercentage || !drinkName || !quantitySelected?.volume}
+          />
+        )}
       </View>
     </>
   );
