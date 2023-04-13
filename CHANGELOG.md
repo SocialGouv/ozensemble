@@ -1,3 +1,10 @@
+# [1.95.0](https://github.com/SocialGouv/ozensemble/compare/v1.94.0...v1.95.0) (2023-04-13)
+
+
+### Features
+
+*  modal change ([#249](https://github.com/SocialGouv/ozensemble/issues/249)) ([82ef94b](https://github.com/SocialGouv/ozensemble/commit/82ef94bec9568041aaefcaa8fe2ec8de1a8608b1))
+
 # [1.94.0](https://github.com/SocialGouv/ozensemble/compare/v1.93.3...v1.94.0) (2023-04-13)
 
 
