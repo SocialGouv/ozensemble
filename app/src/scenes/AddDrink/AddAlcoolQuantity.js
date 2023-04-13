@@ -24,7 +24,7 @@ const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
           </TextStyled>
           <View className="mb-10">
             {alcoolQuantityCatalog.map((quantity) => {
-              let FoundIcon = getIcon(quantity.icon);
+              const Icon = getIcon(quantity.icon);
               return (
                 <TouchableOpacity
                   key={quantity.name}
