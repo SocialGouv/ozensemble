@@ -155,7 +155,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
               navigation.goBack();
             }}
             disabled={
-              drinkPrice === '' || drinkAlcoolPercentage === '' || drinkName === '' || !quantitySelected?.volume
+              !drinkPrice || !drinkAlcoolPercentage || !drinkName || !quantitySelected?.volume
             }
           />
         )}
