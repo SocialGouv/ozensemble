@@ -12,13 +12,10 @@ const OwnDrinkSelector = ({
   alcoolPercentage,
   categoryKey,
   setDrinkQuantityRequest,
-  price,
 }) => {
   const onSetQuantity = (q) => {
     setDrinkQuantityRequest(drinkKey, q, true);
   };
-  const volumeNumber = volume?.split(' ')[0];
-  console.log('categoeyKey', categoryKey);
   return (
     <View className="flex flex-row justify-center mb-2 px-4">
       <View className="w-full">
@@ -26,7 +23,7 @@ const OwnDrinkSelector = ({
           <TouchableOpacity
             className="mr-2 my-2"
             onPress={() => {
-              navigation.navigate('ADD_OWN_DRINK', { drinkKey, volumeNumber, alcoolPercentage, categoryKey, price });
+              navigation.navigate('ADD_OWN_DRINK', { drinkKey });
             }}>
             <TextStyled bold>{drinkKey}</TextStyled>
             {categoryKey === 'ownCocktail' ? (

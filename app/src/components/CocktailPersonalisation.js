@@ -16,12 +16,11 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [drinkPrice, setDrinkPrice] = useState(Number(route?.params?.price));
-  const [quantity, setQuantity] = useState(0);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
+  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+  const [drinkPrice, setDrinkPrice] = useState(Number(drink?.price));
+  const [quantity, setQuantity] = useState(0);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
-
-  console.log('priceCocktail', drinkPrice);
   const saveDrink = async () => {
     const oldDrink = ownDrinksCatalog.find((drink) => drink.drinkKey === quantitySelected.name);
     if (oldDrink) {

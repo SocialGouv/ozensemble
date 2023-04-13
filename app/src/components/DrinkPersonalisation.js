@@ -17,11 +17,14 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [drinkName, setDrinkName] = useState(route?.params?.drinkKey);
-  const [drinkPrice, setDrinkPrice] = useState(route?.params?.price);
-  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(route?.params?.alcoolPercentage);
-  const [quantity, setQuantity] = useState(0);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
+
+  const [drinkName, setDrinkName] = useState(route?.params?.drinkKey);
+  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+
+  const [drinkPrice, setDrinkPrice] = useState(Number(drink?.price));
+  const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(drink?.alcoolPercentage);
+  const [quantity, setQuantity] = useState(0);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const saveDrink = async () => {
     const volumeNumber = Number(quantitySelected?.volume);
@@ -154,9 +157,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
               saveDrink();
               navigation.goBack();
             }}
-            disabled={
-              !drinkPrice || !drinkAlcoolPercentage || !drinkName || !quantitySelected?.volume
-            }
+            disabled={!drinkPrice || !drinkAlcoolPercentage || !drinkName || !quantitySelected?.volume}
           />
         )}
       </View>
