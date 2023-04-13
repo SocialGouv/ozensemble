@@ -111,10 +111,6 @@ export const getIcon = (drinkKey, catalog) => {
   return drink.icon;
 };
 
-export const getIconViaIconName = (iconName) => {
-  return mapIconNameToIcon[iconName];
-};
-
 export const formatNewDrink = (name, quantity, degrees, drinkKey) => ({
   categoryKey: `${name}-${quantity}-${degrees}`,
   drinkKey: `${name}-${quantity}-${degrees}`,

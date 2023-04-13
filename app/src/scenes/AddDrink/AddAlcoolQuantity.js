@@ -6,7 +6,6 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
-import { getIconViaIconName } from '../ConsoFollowUp/drinksCatalog';
 import { mapIconNameToIcon } from '../ConsoFollowUp/drinksCatalog';
 const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
   const getIcon = (iconName) => {
