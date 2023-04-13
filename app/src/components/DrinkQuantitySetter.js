@@ -1,24 +1,18 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import styled, { css } from 'styled-components';
-import {
-  getDisplayDrinksModalName,
-  getDoses,
-  getIcon,
-  getStyle,
-  getVolume,
-} from '../scenes/ConsoFollowUp/drinksCatalog';
+import { getIcon } from '../scenes/ConsoFollowUp/drinksCatalog';
 import H3 from './H3';
 import QButton from './QButton';
 import TextStyled from './TextStyled';
 import TouchableDelete from './TouchableDelete';
-
-const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, catalog, onDelete }) => {
-  const Icon = getIcon(drinkKey, catalog);
-  const volume = getVolume(drinkKey, catalog);
-  const doses = getDoses(drinkKey, catalog);
-  const style = getStyle(drinkKey, catalog);
-  const name = getDisplayDrinksModalName(drinkKey, catalog);
+const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, catalog }) => {
+  const drink = catalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
+  const Icon = getIcon(drink.icon);
+  const volume = drink.volume;
+  const doses = drink.doses;
+  const style = drink.style || {};
+  const name = drink.displayDrinkModal.capitalize();
   const onSetQuantity = (q) => {
     if (asPreview) return;
     setDrinkQuantity(drinkKey, q);

@@ -46,6 +46,7 @@ const ConsosList = ({ navigation, route }) => {
   const toast = useToast();
 
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
+  const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
 
@@ -94,7 +95,7 @@ const ConsosList = ({ navigation, route }) => {
           },
         ].filter((d) => d.quantity > 0)
       );
-      const drinkFromCatalog = [...(ownDrinksCatalog || []), ...drinksCatalog].find(
+      const drinkFromCatalog = [...(availableOwnDrinksCatalog || []), ...drinksCatalog].find(
         (_drink) => _drink.drinkKey === drink.drinkKey
       );
       logEvent({
@@ -204,21 +205,23 @@ const ConsosList = ({ navigation, route }) => {
               : "Je n'ai rien bu ce jour"
           }
         />
-        {ownDrinksCatalog.length > 0 && (
+        {availableOwnDrinksCatalog.length > 0 && (
           <>
             <View className="bg-[#EFEFEF] p-4">
               <TextStyled bold color="#4030a5" className="mb-5 px-4">
                 Mes boissons créées
               </TextStyled>
-              {ownDrinksCatalog.map((drink) => {
-                return (
-                  <OwnDrinkSelector
-                    navigation={navigation}
-                    {...drink}
-                    quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
-                    setDrinkQuantityRequest={setDrinkQuantityRequest}
-                  />
-                );
+              {availableOwnDrinksCatalog.map((drink) => {
+                if (!drink.isDeleted) {
+                  return (
+                    <OwnDrinkSelector
+                      navigation={navigation}
+                      {...drink}
+                      quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
+                      setDrinkQuantityRequest={setDrinkQuantityRequest}
+                    />
+                  );
+                }
               })}
               <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
                 <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
@@ -226,7 +229,7 @@ const ConsosList = ({ navigation, route }) => {
             </View>
           </>
         )}
-        {ownDrinksCatalog.length === 0 && (
+        {availableOwnDrinksCatalog.length === 0 && (
           <View className=" bg-[#EFEFEF] p-4">
             <TextStyled color="#4030a5" bold center className="mb-4">
               Vous ne trouvez pas votre boisson dans la liste ?
