@@ -103,11 +103,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_QUANTITY')}>
-            {quantitySelected?.volume ? (
-              <Text className="text-[#4030A5] flex">{quantitySelected?.volume}</Text>
-            ) : (
-              <Text className="text-[#4030A5] flex">{route?.params?.volumeNumber}</Text>
-            )}
+            <Text className="text-[#4030A5] flex">{quantitySelected?.volume ?? route?.params?.volumeNumber}</Text>
           </TouchableOpacity>
         )}
       </View>
