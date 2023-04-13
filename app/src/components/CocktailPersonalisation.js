@@ -53,21 +53,22 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
         if (!keepGoing) return;
       }
       setOwnDrinksCatalog((oldState) => {
-        return [
-          ...oldState.filter((_drink) => _drink.id !== oldDrink.id),
-          {
-            categoryKey: 'ownCocktail',
-            drinkKey: drinkName,
-            displayFeed: drinkName,
-            volume: drinkVolume,
-            doses: drinkDoses,
-            icon: 'CocktailGlass',
-            price: Number(drinkPrice),
-            kcal: drinkKcal,
-            custom: true,
-            isDeleted: false,
-          },
-        ];
+        return oldState.map((drink) =>
+          drink.drinkKey == drinkName
+            ? {
+                categoryKey: 'ownCocktail',
+                drinkKey: drinkName,
+                displayFeed: drinkName,
+                volume: drinkVolume,
+                doses: drinkDoses,
+                icon: 'CocktailGlass',
+                price: Number(drinkPrice),
+                kcal: drinkKcal,
+                custom: true,
+                isDeleted: false,
+              }
+            : drink
+        );
       });
       return;
     }
