@@ -6,7 +6,12 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
+import { getIconViaIconName } from '../ConsoFollowUp/drinksCatalog';
+import { mapIconNameToIcon } from '../ConsoFollowUp/drinksCatalog';
 const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
+  const getIcon = (iconName) => {
+    return mapIconNameToIcon[iconName];
+  };
   return (
     <View className="h-full bg-white py-10">
       <View className="bg-white rounded-xl mt-auto absolute bottom-0 w-full h-full shadow-xl shadow-[#5E5E5E]">
@@ -20,6 +25,7 @@ const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
           </TextStyled>
           <View className="mb-10">
             {alcoolQuantityCatalog.map((quantity) => {
+              let FoundIcon = getIcon(quantity.icon);
               return (
                 <TouchableOpacity
                   key={quantity.name}
@@ -32,7 +38,7 @@ const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
                     });
                     navigation.goBack();
                   }}>
-                  <quantity.icon size={30} />
+                  <FoundIcon size={30} />
                   <View className="flex flex-row flex-wrap ml-2 w-10/12">
                     <TextStyled bold className="">
                       {quantity.name} :{' '}

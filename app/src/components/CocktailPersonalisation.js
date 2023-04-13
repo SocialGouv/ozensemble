@@ -7,8 +7,9 @@ import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
-import CocktailGlass from './illustrations/drinksAndFood/CocktailGlass';
 import { useRoute } from '@react-navigation/native';
+
+import ModalModification from './ModalModification';
 
 const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySelected }) => {
   const route = useRoute();
@@ -16,52 +17,82 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
+  const [showModal, setShowModal] = useState(false);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+  const drinkName = route?.params?.drinkKey ?? quantitySelected?.name;
   const [drinkPrice, setDrinkPrice] = useState(Number(drink?.price));
+  const drinkVolume = quantitySelected?.volume ?? drink?.volume;
+  const drinkDoses = quantitySelected?.doses ?? drink?.doses;
+  const drinkKcal = quantitySelected?.kCal ?? drink?.kcal;
   const [quantity, setQuantity] = useState(0);
+  const [isUpdateWanted, setIsUpdateWanted] = useState(false);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+
   const saveDrink = async () => {
-    const oldDrink = ownDrinksCatalog.find((drink) => drink.drinkKey === quantitySelected.name);
+    const oldDrink =
+      drink ?? ownDrinksCatalog.find((drink) => drink.drinkKey === quantitySelected?.name && drink.isDeleted === false);
     if (oldDrink) {
-      const keepGoing = await new Promise((resolve) => {
-        Alert.alert('Vous avez déjà enregistré ce verre', 'Voulez-vous le remplacer ?', [
+      if (!isUpdateWanted) {
+        const keepGoing = await new Promise((resolve) => {
+          Alert.alert('Vous avez déjà enregistré ce verre', 'Voulez-vous le remplacer ?', [
+            {
+              text: 'Annuler',
+              onPress: () => resolve(false),
+              style: 'cancel',
+            },
+            {
+              text: 'Remplacer',
+              onPress: () => resolve(true),
+            },
+          ]);
+        });
+        if (!keepGoing) return;
+      }
+      setOwnDrinksCatalog((oldState) => {
+        return [
+          ...oldState.filter((_drink) => _drink.id !== oldDrink.id),
           {
-            text: 'Annuler',
-            onPress: () => resolve(false),
-            style: 'cancel',
+            categoryKey: 'ownCocktail',
+            drinkKey: drinkName,
+            displayFeed: drinkName,
+            volume: drinkVolume,
+            doses: drinkDoses,
+            icon: 'CocktailGlass',
+            price: Number(drinkPrice),
+            kcal: drinkKcal,
+            custom: true,
+            isDeleted: false,
           },
-          {
-            text: 'Remplacer',
-            onPress: () => resolve(true),
-          },
-        ]);
+        ];
       });
-      if (!keepGoing) return;
+      return;
     }
     setOwnDrinksCatalog((oldState) => {
       return [
         ...oldState,
         {
           categoryKey: 'ownCocktail',
-          drinkKey: quantitySelected.name,
-          displayFeed: quantitySelected.name,
-          volume: quantitySelected?.volume + ' cl',
-          doses: quantitySelected.doses,
-          icon: CocktailGlass,
+          drinkKey: drinkName,
+          displayFeed: drinkName,
+          volume: drinkVolume + ' cl',
+          doses: drinkDoses,
+          icon: 'CocktailGlass',
           price: Number(drinkPrice),
-          kcal: quantitySelected.kCal,
+          kcal: drinkKcal,
           custom: true,
+          isDeleted: false,
         },
       ];
     });
+
     if (quantity > 0) {
       const drinkId = uuidv4();
       setGlobalDrinksState((state) =>
         [
           ...state.filter((_drink) => _drink.id !== drinkId),
           {
-            drinkKey: quantitySelected.name,
+            drinkKey: drinkName,
             quantity: Number(quantity),
             id: drinkId,
             isOwnDrink: true,
@@ -70,6 +101,26 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
         ].filter((d) => d.quantity > 0)
       );
     }
+  };
+
+  const deleteDrink = async () => {
+    setOwnDrinksCatalog((oldState) => {
+      return [
+        ...oldState.filter((drinkOldState) => drinkOldState.drinkKey !== drink.drinkKey),
+        {
+          categoryKey: 'ownCocktail',
+          drinkKey: drinkName,
+          displayFeed: drinkName,
+          volume: drinkVolume + ' cl',
+          doses: drinkDoses,
+          icon: 'CocktailGlass',
+          price: Number(drinkPrice),
+          kcal: drinkKcal,
+          custom: true,
+          isDeleted: true,
+        },
+      ];
+    });
   };
   return (
     <>
@@ -106,15 +157,57 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
         <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
       </View>
       <View className="flex flex-row justify-center mt-14 mb-10">
-        <ButtonPrimary
-          content="Créer mon cocktail"
-          onPress={() => {
-            setQuantitySelected(null);
-            navigation.goBack();
-            saveDrink();
-          }}
-        />
+        {!route?.params?.drinkKey ? (
+          <ButtonPrimary
+            content="Créer mon cocktail"
+            onPress={() => {
+              setQuantitySelected(null);
+              saveDrink();
+              navigation.goBack();
+            }}
+            disabled={!drinkPrice || !drinkName}
+          />
+        ) : (
+          <View>
+            <ButtonPrimary
+              content="Modifier mon cocktail"
+              onPress={() => {
+                setQuantitySelected(null);
+                setIsUpdateWanted(true);
+                setShowModal(true);
+                //navigation.goBack();
+              }}
+              disabled={!drinkPrice || !drinkName}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setQuantitySelected(null);
+                setIsUpdateWanted(false);
+                setShowModal(true);
+              }}>
+              <Text className="text-[#4030A5] text-center underline text-base">Supprimer mon cocktail</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
+      <ModalModification
+        isUpdate={isUpdateWanted}
+        showModal={showModal}
+        onClose={() => {
+          navigation.goBack();
+          setShowModal(false);
+        }}
+        onUpdate={() => {
+          navigation.goBack();
+          setIsUpdateWanted(true);
+          saveDrink();
+        }}
+        onDelete={() => {
+          navigation.goBack();
+          setQuantitySelected(null);
+          deleteDrink();
+        }}
+      />
     </>
   );
 };

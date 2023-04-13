@@ -13,7 +13,9 @@ import ChampagneGlass from '../../components/illustrations/drinksAndFood/Champag
 import AperitiveGlass from '../../components/illustrations/drinksAndFood/AperitiveGlass';
 import AperitiveBottle from '../../components/illustrations/drinksAndFood/AperitiveBottle';
 import SmallCan from '../../components/illustrations/drinksAndFood/SmallCan';
-
+import Mojito from '../../components/illustrations/drinksAndFood/Mojito';
+import DigestiveDrink from '../../components/illustrations/drinksAndFood/DigestiveDrink';
+import SpiritsBottle from '../../components/illustrations/drinksAndFood/DigestiveDrink';
 // categories
 export const BEER = 'Bière (5%)';
 export const WINE = 'Vin (12,5%)';
@@ -103,7 +105,14 @@ export const getStyle = (drinkKey, catalog) => {
 
 export const getIcon = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  if (drink.categoryKey.includes('own')) {
+    return mapIconNameToIcon[drink.icon];
+  }
   return drink.icon;
+};
+
+export const getIconViaIconName = (iconName) => {
+  return mapIconNameToIcon[iconName];
 };
 
 export const formatNewDrink = (name, quantity, degrees, drinkKey) => ({
@@ -119,6 +128,27 @@ export const formatNewDrink = (name, quantity, degrees, drinkKey) => ({
   price: 0,
   kcal: 0,
 });
+
+export const mapIconNameToIcon = {
+  HalfBeer: HalfBeer,
+  Pint: Pint,
+  HalfCider: HalfCider,
+  PintCider: PintCider,
+  CocktailBottle: CocktailBottle,
+  CocktailGlass: CocktailGlass,
+  WineGlass: WineGlass,
+  WineBottle: WineBottle,
+  AperitiveGlass: AperitiveGlass,
+  AperitiveBottle: AperitiveBottle,
+  Shoot: Shoot,
+  Flasque: Flasque,
+  SmallCan: SmallCan,
+  ChampagneBottle: ChampagneBottle,
+  ChampagneGlass: ChampagneGlass,
+  Mojito: Mojito,
+  DigestiveDrink: DigestiveDrink,
+  SpiritsBottle: SpiritsBottle,
+};
 
 export const drinksCatalog = [
   {

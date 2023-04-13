@@ -48,7 +48,6 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const [timestampSelected, setTimestampSelected] = useState(null);
   const navigation = useNavigation();
   const route = useRoute();
-
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
       setTimestampSelected(null);
