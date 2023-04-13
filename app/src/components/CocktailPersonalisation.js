@@ -105,21 +105,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
 
   const deleteDrink = async () => {
     setOwnDrinksCatalog((oldState) => {
-      return [
-        ...oldState.filter((drinkOldState) => drinkOldState.drinkKey !== drink.drinkKey),
-        {
-          categoryKey: 'ownCocktail',
-          drinkKey: drinkName,
-          displayFeed: drinkName,
-          volume: drinkVolume + ' cl',
-          doses: drinkDoses,
-          icon: 'CocktailGlass',
-          price: Number(drinkPrice),
-          kcal: drinkKcal,
-          custom: true,
-          isDeleted: true,
-        },
-      ];
+      return oldState.map((drink) => (drink.drinkKey == drinkName ? { ...drink, isDeleted: true } : drink));
     });
   };
   return (
@@ -185,7 +171,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
                 setIsUpdateWanted(false);
                 setShowModal(true);
               }}>
-              <Text className="text-[#4030A5] text-center underline text-base">Supprimer mon cocktail</Text>
+              <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer mon cocktail</Text>
             </TouchableOpacity>
           </View>
         )}
