@@ -8,7 +8,6 @@ import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
-import { storage } from '../services/storage';
 
 const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
   const route = useRoute();

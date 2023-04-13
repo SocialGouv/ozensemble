@@ -24,10 +24,11 @@ const ConsoFeedDisplay = ({
   updateDrinkRequest,
   deleteDrinkRequest,
   position,
+  icon,
 }) => {
   const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
   const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
-  const Icon = getIcon(drinkKey, consolidatedCatalog);
+  const Icon = getIcon(icon);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>

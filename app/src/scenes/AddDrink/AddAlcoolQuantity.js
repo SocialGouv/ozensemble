@@ -6,11 +6,8 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 import H2 from '../../components/H2';
 import { alcoolQuantityCatalog } from './alcoolQuantityCatalog';
-import { mapIconNameToIcon } from '../ConsoFollowUp/drinksCatalog';
+import { getIcon } from '../ConsoFollowUp/drinksCatalog';
 const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
-  const getIcon = (iconName) => {
-    return mapIconNameToIcon[iconName];
-  };
   return (
     <View className="h-full bg-white py-10">
       <View className="bg-white rounded-xl mt-auto absolute bottom-0 w-full h-full shadow-xl shadow-[#5E5E5E]">

@@ -103,12 +103,8 @@ export const getStyle = (drinkKey, catalog) => {
   return drink.style || {};
 };
 
-export const getIcon = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (drink.categoryKey.includes('own')) {
-    return mapIconNameToIcon[drink.icon];
-  }
-  return drink.icon;
+export const getIcon = (iconName) => {
+  return mapIconNameToIcon[iconName];
 };
 
 export const formatNewDrink = (name, quantity, degrees, drinkKey) => ({
@@ -154,7 +150,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'demi',
     volume: '25 cl',
     doses: 1,
-    icon: HalfBeer,
+    icon: 'HalfBeer',
     price: 3.5,
     kcal: 70,
   },
@@ -165,7 +161,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'pinte',
     volume: '50 cl',
     doses: 2,
-    icon: Pint,
+    icon: 'Pint',
     price: 7,
     kcal: 140,
   },
@@ -177,7 +173,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'demi',
     volume: '25 cl',
     doses: 1,
-    icon: HalfCider,
+    icon: 'HalfCider',
     price: 2,
     kcal: 70,
   },
@@ -188,7 +184,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'pinte',
     volume: '50 cl',
     doses: 2,
-    icon: PintCider,
+    icon: 'PintCider',
     price: 4,
     kcal: 140,
     style: { marginBottom: 10 },
@@ -200,7 +196,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'verre',
     volume: '10 cl',
     doses: 1,
-    icon: WineGlass,
+    icon: 'WineGlass',
     price: 4,
     kcal: 70,
   },
@@ -211,7 +207,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'bouteille',
     volume: '75 cl',
     doses: 7.5,
-    icon: WineBottle,
+    icon: 'WineBottle',
     price: 10,
     kcal: 525,
     style: { marginBottom: 20, transform: [{ scale: 1.2 }] },
@@ -223,7 +219,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'coupe',
     volume: '10 cl',
     doses: 1,
-    icon: ChampagneGlass,
+    icon: 'ChampagneGlass',
     price: 5,
     kcal: 70,
   },
@@ -234,7 +230,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'bouteille',
     volume: '75 cl',
     doses: 8,
-    icon: ChampagneBottle,
+    icon: 'ChampagneBottle',
     price: 20,
     kcal: 525,
     style: { marginBottom: 20 },
@@ -246,7 +242,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'verre',
     volume: '7 cl',
     doses: 1,
-    icon: AperitiveGlass,
+    icon: 'AperitiveGlass',
     price: 4,
     kcal: 71,
   },
@@ -257,7 +253,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'bouteille',
     volume: '7 cl',
     doses: 75,
-    icon: AperitiveBottle,
+    icon: 'AperitiveBottle',
     price: 10,
     kcal: 756,
     style: { marginBottom: 20 },
@@ -269,7 +265,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'shot',
     volume: '3 cl',
     doses: 1,
-    icon: Shoot,
+    icon: 'Shoot',
     price: 2,
     kcal: 67,
   },
@@ -280,7 +276,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'verre',
     volume: '5 cl + diluant',
     doses: 1.6,
-    icon: CocktailGlass,
+    icon: 'CocktailGlass',
     price: 8,
     kcal: 133,
   },
@@ -291,7 +287,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'flasque',
     volume: '20 cl',
     doses: 6.4,
-    icon: Flasque,
+    icon: 'Flasque',
     price: 4,
     kcal: 750,
   },
@@ -302,7 +298,7 @@ export const drinksCatalog = [
     displayDrinkModal: 'bouteille',
     volume: '75 cl',
     doses: 24,
-    icon: CocktailBottle,
+    icon: 'CocktailBottle',
     price: 15,
     kcal: 1680,
   },
