@@ -87,11 +87,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
-            {quantitySelected?.name ? (
-              <Text className="text-[#4030A5] flex">{quantitySelected?.name}</Text>
-            ) : (
-              <Text className="text-[#4030A5] flex">{route?.params?.drinkKey}</Text>
-            )}
+            <Text className="text-[#4030A5] flex">{quantitySelected?.name ?? route?.params?.drinkKey}</Text>
           </TouchableOpacity>
         )}
       </View>
