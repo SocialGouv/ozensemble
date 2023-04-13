@@ -34,7 +34,7 @@ const AddAlcoolQuantity = ({ navigation, setQuantitySelected }) => {
                     });
                     navigation.goBack();
                   }}>
-                  <FoundIcon size={30} />
+                  <Icon size={30} />
                   <View className="flex flex-row flex-wrap ml-2 w-10/12">
                     <TextStyled bold className="">
                       {quantity.name} :{' '}
