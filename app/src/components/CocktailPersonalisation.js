@@ -9,7 +9,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
 import { useRoute } from '@react-navigation/native';
 
-import ModalModification from './ModalModification';
+import ModalModification from './ModalUpdateSuppression';
 
 const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySelected }) => {
   const route = useRoute();
@@ -31,7 +31,10 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
 
   const saveDrink = async () => {
     const oldDrink =
-      drink ?? ownDrinksCatalog.find((drink) => drink.drinkKey === quantitySelected?.name && drink.isDeleted === false);
+      drink ??
+      ownDrinksCatalog.find(
+        (catalogDrink) => catalogDrink.drinkKey === quantitySelected?.name && catalogDrink.isDeleted === false
+      );
     if (oldDrink) {
       if (!isUpdateWanted) {
         const keepGoing = await new Promise((resolve) => {
@@ -161,7 +164,6 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
                 setQuantitySelected(null);
                 setIsUpdateWanted(true);
                 setShowModal(true);
-                //navigation.goBack();
               }}
               disabled={!drinkPrice || !drinkName}
             />

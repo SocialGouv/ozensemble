@@ -15,7 +15,7 @@ import AperitiveBottle from '../../components/illustrations/drinksAndFood/Aperit
 import SmallCan from '../../components/illustrations/drinksAndFood/SmallCan';
 import Mojito from '../../components/illustrations/drinksAndFood/Mojito';
 import DigestiveDrink from '../../components/illustrations/drinksAndFood/DigestiveDrink';
-import SpiritsBottle from '../../components/illustrations/drinksAndFood/DigestiveDrink';
+import SpiritsBottle from '../../components/illustrations/drinksAndFood/SpiritsBottle';
 // categories
 export const BEER = 'Bière (5%)';
 export const WINE = 'Vin (12,5%)';
