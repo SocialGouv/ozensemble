@@ -1,3 +1,10 @@
+## [1.96.3](https://github.com/SocialGouv/ozensemble/compare/v1.96.2...v1.96.3) (2023-04-14)
+
+
+### Bug Fixes
+
+* warning key consolist ([#255](https://github.com/SocialGouv/ozensemble/issues/255)) ([ec0bdb4](https://github.com/SocialGouv/ozensemble/commit/ec0bdb41b36bd3e3bc07200345ac1855f9f19ab8))
+
 ## [1.96.2](https://github.com/SocialGouv/ozensemble/compare/v1.96.1...v1.96.2) (2023-04-14)
 
 
