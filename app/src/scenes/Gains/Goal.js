@@ -65,9 +65,13 @@ const Goal = ({ navigation, route }) => {
         </ContainerTime>
         <Row>
           <Calendar size={24} />
-          <TextSemiBold>
-            <TextStyled>Jours où je m'engage à ne pas boire d'alcool</TextStyled>
-          </TextSemiBold>
+          <TextStyled bold className={'ml-3'}>
+            Jours où je m'engage à ne{' '}
+            <TextStyled bold underline>
+              pas
+            </TextStyled>{' '}
+            boire d'alcool
+          </TextStyled>
         </Row>
         <DayContainer>
           <DayButton
@@ -108,9 +112,13 @@ const Goal = ({ navigation, route }) => {
         </DayContainer>
         <Row>
           <CocktailGlassTriangle size={24} />
-          <TextSemiBold>
-            <TextStyled>Unité(s) par jour que je m'autorise quand je bois de l'alcool</TextStyled>
-          </TextSemiBold>
+          <TextStyled bold className="ml-3">
+            Unité(s){' '}
+            <TextStyled bold underline>
+              par jour
+            </TextStyled>{' '}
+            que je m'autorise quand je bois de l'alcool
+          </TextStyled>
         </Row>
         <Row margins>
           <HelpModalCountConsumption event="GOAL" />
@@ -173,7 +181,7 @@ const Goal = ({ navigation, route }) => {
         </View>
         <CTAButtonContainer>
           <ButtonPrimary
-            content="Continuer"
+            content="Je continue"
             onPress={() => {
               logEvent({
                 category: 'GAINS',
@@ -222,7 +230,6 @@ const Row = styled.View`
   margin-bottom: ${screenHeight * 0.02}px;
   justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
   width: 100%;
   ${(props) => props.margins && 'margin-top: 10px;'}
   ${(props) => props.margins && 'margin-bottom: 15px;'}
