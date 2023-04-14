@@ -1,3 +1,10 @@
+# [1.97.0](https://github.com/SocialGouv/ozensemble/compare/v1.96.3...v1.97.0) (2023-04-14)
+
+
+### Features
+
+* **Infos:** Replace legals by PDF ([#251](https://github.com/SocialGouv/ozensemble/issues/251)) ([0328563](https://github.com/SocialGouv/ozensemble/commit/03285636d66582868643c7f2d8278a5c90f7148b))
+
 ## [1.96.3](https://github.com/SocialGouv/ozensemble/compare/v1.96.2...v1.96.3) (2023-04-14)
 
 
