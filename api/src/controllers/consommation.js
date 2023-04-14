@@ -456,7 +456,6 @@ router.post(
     const kcal = req.body?.kcal;
     const price = req.body?.price;
     const volume = req.body?.volume;
-    const conso_id = req.body?.id;
 
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
@@ -467,7 +466,6 @@ router.post(
         drinkKey: drinkKey,
         doses: doses,
         kcal: kcal,
-        price,
         price,
         volume: volume,
       },

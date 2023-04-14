@@ -34,7 +34,6 @@ const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected, setCoc
                     rightContent="non"
                     handleSwitchChange={setSwitchPosition}
                     initPosition={Number(!initCocktail)}
-                    disabled={route?.params?.drinkKey}
                   />
                 </View>
                 {showCocktail ? (
