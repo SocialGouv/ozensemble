@@ -167,10 +167,7 @@ const Diagram = ({ asPreview }) => {
   const highestAcceptableDosesPerDayByOMS = 2;
 
   const drinks = useRecoilValue(drinksState);
-  console.log('drinks', drinks);
-  console.log(asPreview);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
-  console.log(thereIsDrinks);
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
 
   const highestAcceptableDosesInPeriod = useMemo(() => {
