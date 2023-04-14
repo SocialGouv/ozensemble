@@ -58,30 +58,30 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
         });
         if (!keepGoing) return;
       }
-      const icon = quantitySelected?.icon ?? oldDrink.icon;
+      const drinkIcon = quantitySelected?.icon ?? oldDrink.icon;
       setOwnDrinksCatalog((oldState) => {
-        return oldState.map((drink) =>
-          drink.drinkKey == oldDrink.drinkKey
+        return oldState.map((oldStateDrink) =>
+          oldStateDrink.drinkKey == oldDrink.drinkKey
             ? {
                 categoryKey: 'ownDrink',
                 drinkKey: drinkName,
                 displayFeed: drinkName,
                 volume: volumeNumber + ' cl',
                 doses: doses,
-                icon: icon,
+                icon: drinkIcon,
                 price: Number(drinkPrice),
                 alcoolPercentage: Number(drinkAlcoolPercentage),
                 kcal: kCal,
                 custom: true,
                 isDeleted: false,
               }
-            : drink
+            : oldStateDrink
         );
       });
 
       setGlobalDrinksState((oldState) => {
-        return oldState.map((drink) =>
-          drink.drinkKey === oldDrink.drinkKey ? { ...drink, drinkKey: drinkName } : drink
+        return oldState.map((oldStateDrink) =>
+          oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
         );
       });
 
@@ -139,7 +139,9 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
 
   const deleteDrink = async () => {
     setOwnDrinksCatalog((oldState) => {
-      return oldState.map((drink) => (drink.drinkKey == drinkName ? { ...drink, isDeleted: true } : drink));
+      return oldState.map((oldStateDrink) =>
+        oldStateDrink.drinkKey == drinkName ? { ...oldStateDrink, isDeleted: true } : oldStateDrink
+      );
     });
   };
 

@@ -57,8 +57,8 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
         if (!keepGoing) return;
       }
       setOwnDrinksCatalog((oldState) => {
-        return oldState.map((drink) =>
-          drink.drinkKey === oldDrink.drinkKey
+        return oldState.map((oldStateDrink) =>
+          oldStateDrink.drinkKey === oldDrink.drinkKey
             ? {
                 categoryKey: 'ownCocktail',
                 drinkKey: drinkName,
@@ -71,12 +71,12 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
                 custom: true,
                 isDeleted: false,
               }
-            : drink
+            : oldStateDrink
         );
       });
       setGlobalDrinksState((oldState) => {
-        return oldState.map((drink) =>
-          drink.drinkKey === oldDrink.drinkKey ? { ...drink, drinkKey: drinkName } : drink
+        return oldState.map((oldStateDrink) =>
+          oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
         );
       });
       const matomoId = storage.getString('@UserIdv2');
