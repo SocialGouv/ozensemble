@@ -214,6 +214,7 @@ const ConsosList = ({ navigation, route }) => {
                 if (!drink.isDeleted) {
                   return (
                     <OwnDrinkSelector
+                      key={drink.drinkKey}
                       navigation={navigation}
                       {...drink}
                       quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}

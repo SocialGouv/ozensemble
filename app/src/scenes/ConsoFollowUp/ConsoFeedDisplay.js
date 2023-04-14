@@ -29,7 +29,7 @@ const ConsoFeedDisplay = ({
   const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
 
   const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
-  const Icon = getIcon(drink?.icon);
+  const Icon = getIcon(drink.icon);
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
