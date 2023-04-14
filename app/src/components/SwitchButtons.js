@@ -3,13 +3,16 @@ import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
 
-const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosition = 1 }) => {
+const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosition = 1, disabled }) => {
   const translateX = useRef(new Animated.Value(initPosition)).current;
   const position = useRef(new Animated.Value(initPosition)).current;
   const containerRef = useRef(null);
   const insideContainerRef = useRef(null);
   const buttonRef = useRef(null);
   const [measuredWidth, setMeasuredWidth] = useState(null);
+  const outerContainerStyle = disabled
+    ? { width: '40%', alignItems: 'center', opacity: 0.5 }
+    : { width: '40%', alignItems: 'center' };
   const onLayout = useCallback(
     ({
       nativeEvent: {
@@ -28,40 +31,42 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
     []
   );
   const onTerminate = async (evt) => {
-    const newX = evt.nativeEvent.locationX;
-    const width = await new Promise((res) =>
-      insideContainerRef.current.measureLayout(
-        findNodeHandle(containerRef.current),
-        (x, y, width) => {
-          res(width);
-        },
-        (error) => capture('error finding ref', { extra: { error } })
-      )
-    );
-    const newPosition = Number(newX > width / 2);
-    const buttonWidth = await new Promise((res) =>
-      buttonRef.current.measureLayout(
-        findNodeHandle(insideContainerRef.current),
-        (x, y, width) => {
-          res(width);
-        },
-        (error) => capture('error finding ref', { extra: { error } })
-      )
-    );
+    if (!disabled) {
+      const newX = evt.nativeEvent.locationX;
+      const width = await new Promise((res) =>
+        insideContainerRef.current.measureLayout(
+          findNodeHandle(containerRef.current),
+          (x, y, width) => {
+            res(width);
+          },
+          (error) => capture('error finding ref', { extra: { error } })
+        )
+      );
+      const newPosition = Number(newX > width / 2);
+      const buttonWidth = await new Promise((res) =>
+        buttonRef.current.measureLayout(
+          findNodeHandle(insideContainerRef.current),
+          (x, y, width) => {
+            res(width);
+          },
+          (error) => capture('error finding ref', { extra: { error } })
+        )
+      );
 
-    Animated.parallel([
-      Animated.timing(translateX, {
-        toValue: newPosition * (buttonWidth - 4),
-        duration: 250,
-        useNativeDriver: true,
-      }),
-      Animated.timing(position, {
-        toValue: newPosition,
-        duration: 250,
-        useNativeDriver: true,
-      }),
-    ]).start();
-    handleSwitchChange(newPosition === 0 ? leftContent : rightContent);
+      Animated.parallel([
+        Animated.timing(translateX, {
+          toValue: newPosition * (buttonWidth - 4),
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(position, {
+          toValue: newPosition,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
+      handleSwitchChange(newPosition === 0 ? leftContent : rightContent);
+    }
   };
 
   const panResponder = useRef(
@@ -81,7 +86,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
   ).current;
 
   return (
-    <View style={styles.outerContainer}>
+    <View style={outerContainerStyle}>
       <View
         ref={containerRef}
         style={[styles.container]}
@@ -168,6 +173,7 @@ const styles = StyleSheet.create({
     width: '40%',
     alignItems: 'center',
   },
+
   title: {
     marginBottom: 10,
   },

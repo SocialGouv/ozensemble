@@ -13,7 +13,7 @@ import ModalUpdateSuppressionCocktail from './ModalUpdateSuppressionCocktail';
 import { storage } from '../services/storage';
 import API from '../services/api';
 
-const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySelected }) => {
+const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSelected }) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
   const onSetQuantity = (q) => {
@@ -24,11 +24,11 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
   const drink = ownDrinksCatalog.find(
     (catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey && catalogdrink.isDeleted === false
   );
-  const drinkName = quantitySelected?.name ?? route?.params?.drinkKey;
+  const drinkName = cocktailSelected?.name ?? route?.params?.drinkKey;
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
-  const drinkVolume = quantitySelected?.volume ?? drink?.volume;
-  const drinkDoses = quantitySelected?.doses ?? drink?.doses;
-  const drinkKcal = quantitySelected?.kCal ?? drink?.kcal;
+  const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
+  const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
+  const drinkKcal = cocktailSelected?.kCal ?? drink?.kcal;
   const [quantity, setQuantity] = useState(0);
   const [isUpdateWanted, setIsUpdateWanted] = useState(false);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
@@ -37,7 +37,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
-        (catalogDrink) => catalogDrink.drinkKey === quantitySelected?.name && catalogDrink.isDeleted === false
+        (catalogDrink) => catalogDrink.drinkKey === cocktailSelected?.name && catalogDrink.isDeleted === false
       );
     if (oldDrink) {
       if (!isUpdateWanted) {
@@ -138,7 +138,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
     <>
       <View className="mb-4">
         <TextStyled bold>Cocktail</TextStyled>
-        {!quantitySelected?.name && !route?.params?.drinkKey ? (
+        {!cocktailSelected?.name && !route?.params?.drinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
@@ -149,7 +149,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => navigation.navigate('ADD_COCKTAIL')}>
-            <Text className="text-[#4030A5] flex">{quantitySelected?.name ?? route?.params?.drinkKey}</Text>
+            <Text className="text-[#4030A5] flex">{cocktailSelected?.name ?? route?.params?.drinkKey}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -174,7 +174,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
             content="Créer mon cocktail"
             onPress={() => {
               saveDrink();
-              setQuantitySelected(null);
+              setCocktailSelected(null);
 
               navigation.goBack();
             }}
@@ -214,7 +214,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
         }}
         onDelete={() => {
           navigation.goBack();
-          setQuantitySelected(null);
+          setCocktailSelected(null);
           deleteDrink();
         }}
       />
