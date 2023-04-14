@@ -81,7 +81,7 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
       });
       const matomoId = storage.getString('@UserIdv2');
       await API.post({
-        path: '/consommation/updateConso',
+        path: '/consommation/update-own-conso',
         body: {
           matomoId: matomoId,
           oldDrinkKey: oldDrink.drinkKey,
