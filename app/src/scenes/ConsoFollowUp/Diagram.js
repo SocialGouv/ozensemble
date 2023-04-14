@@ -238,7 +238,6 @@ const Diagram = ({ asPreview }) => {
               return <Bar key={index} height={doseHeight * highestAcceptableDosesInPeriod} empty />;
             }
             const dailyDoseHeight = Math.round(dailyDose > 0 && dailyDose) || 0;
-            console.log(dailyDoseHeight);
             const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesInPeriod);
             const overLineValue =
               dailyDoseHeight > highestAcceptableDosesInPeriod && dailyDoseHeight - highestAcceptableDosesInPeriod;
