@@ -25,7 +25,7 @@ export const totalDrinksByDrinkingDaySelector = selector({
     const drinksByDrinkingDay = get(drinksByDrinkingDayState);
     return drinksByDrinkingDay.reduce(
       (sum, drink) =>
-        Math.round(
+        Math.ceil(
           sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses
         ),
       0
