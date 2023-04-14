@@ -17,6 +17,7 @@ import FakeData from '../../reference/mocks/FakeData';
 import { capture } from '../../services/sentry';
 import { shareApp } from '../../services/shareApp';
 import ShareIcon from '../../components/illustrations/icons/ShareIcon';
+import MentionsLegales from './MentionsLegales';
 const InfosStack = createStackNavigator();
 
 const Infos = () => {
@@ -27,6 +28,9 @@ const Infos = () => {
       <InfosStack.Navigator initialRouteName="INFOS_MENU" headerMode="none">
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
+        <InfosStack.Screen name="MENTIONS_LEGALES">
+          {({ navigation }) => <MentionsLegales onClose={navigation.goBack} />}
+        </InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
         </InfosStack.Screen>
@@ -64,10 +68,8 @@ const InfosMenu = ({ navigation }) => {
         />
         <MenuItem caption="Exporter mes données" onPress={() => navigation.push('EXPORT')} />
         <MenuItem caption="Conditions Générales d'Utilisation" onPress={() => navigation.push('CGU')} />
-        <MenuItem
-          caption="Mentions Légales & Politique de Confidentialité"
-          onPress={() => navigation.push('PRIVACY_POLICY')}
-        />
+        <MenuItem caption="Mentions Légales" onPress={() => navigation.push('MENTIONS_LEGALES')} />
+        <MenuItem caption="Politique de Confidentialité" onPress={() => navigation.push('PRIVACY_POLICY')} />
         <View className="mt-7 flex items-center">
           <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
             <VersionLabel>

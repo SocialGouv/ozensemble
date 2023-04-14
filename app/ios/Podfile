@@ -8,8 +8,6 @@ target 'oz_ensemble' do
   config = use_native_modules!
   permissions_path = '../node_modules/react-native-permissions/ios'
 
-  pod 'RNCPushNotificationIOS', :path => '../node_modules/@react-native-community/push-notification-ios'
-  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
   pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
@@ -25,6 +23,10 @@ target 'oz_ensemble' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
+  pod 'react-native-blob-util', :path => '../node_modules/react-native-blob-util'
+
+  pod 'react-native-pdf', :path => '../node_modules/react-native-pdf'
 
   target 'oz_ensembleTests' do
     inherit! :complete
