@@ -1,3 +1,10 @@
+## [1.96.2](https://github.com/SocialGouv/ozensemble/compare/v1.96.1...v1.96.2) (2023-04-14)
+
+
+### Bug Fixes
+
+* round feed values ([#253](https://github.com/SocialGouv/ozensemble/issues/253)) ([3aacb70](https://github.com/SocialGouv/ozensemble/commit/3aacb7031c9b6f34b309f86201f2b527713e8b9e))
+
 ## [1.96.1](https://github.com/SocialGouv/ozensemble/compare/v1.96.0...v1.96.1) (2023-04-14)
 
 
