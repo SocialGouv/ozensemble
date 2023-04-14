@@ -81,7 +81,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
   ).current;
 
   return (
-    <View style={styles.outerContainer}>
+    <View style={[styles.outerContainer]}>
       <View
         ref={containerRef}
         style={[styles.container]}
@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     width: '40%',
     alignItems: 'center',
   },
+
   title: {
     marginBottom: 10,
   },

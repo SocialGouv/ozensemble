@@ -10,7 +10,7 @@ import { useRoute } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import { ownDrinksCatalogState } from '../../recoil/consos';
 
-const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
+const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected, setCocktailSelected, cocktailSelected }) => {
   const route = useRoute();
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
@@ -39,8 +39,8 @@ const AddOwnDrink = ({ navigation, quantitySelected, setQuantitySelected }) => {
                 {showCocktail ? (
                   <CocktailPersonalisation
                     navigation={navigation}
-                    quantitySelected={quantitySelected}
-                    setQuantitySelected={setQuantitySelected}
+                    cocktailSelected={cocktailSelected}
+                    setCocktailSelected={setCocktailSelected}
                   />
                 ) : (
                   <DrinkPersonalisation

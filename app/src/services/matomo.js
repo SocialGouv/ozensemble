@@ -80,7 +80,7 @@ class _Matomo {
       if (!this.initDone) throw new Error('matomo not initialized yet');
       const url = `${this.baseUrl}?${this.computeParams(params, this.idsite)}`;
       if (__DEV__) {
-        console.log(params);
+        // console.log(params);
         // console.log(params, this.dimensions);
         return;
       }

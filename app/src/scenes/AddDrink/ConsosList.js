@@ -49,7 +49,6 @@ const ConsosList = ({ navigation, route }) => {
   const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
-
   const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
     const oldDrink = localDrinksState.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {

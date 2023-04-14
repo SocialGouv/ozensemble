@@ -445,4 +445,34 @@ const checkNPSAvailability = async (user, drinks) => {
   return NPSInAppMessage;
 };
 
+router.post(
+  "/updateConso",
+  catchErrors(async (req, res) => {
+    const matomoId = req.body?.matomoId;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const oldDrinkKey = req.body?.oldDrinkKey;
+    const drinkKey = req.body?.drinkKey;
+    const doses = req.body?.doses;
+    const kcal = req.body?.kcal;
+    const price = req.body?.price;
+    const volume = req.body?.volume;
+
+    // find user with matomoId
+    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+
+    await prisma.consommation.updateMany({
+      where: { userId: user.id, drinkKey: oldDrinkKey },
+      data: {
+        drinkKey: drinkKey,
+        doses: doses,
+        kcal: kcal,
+        price,
+        volume: volume,
+      },
+    });
+
+    return res.status(200).send({ ok: true });
+  })
+);
+
 module.exports = router;
