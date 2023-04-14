@@ -9,7 +9,9 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
 import { useRoute } from '@react-navigation/native';
 
-import ModalModification from './ModalUpdateSuppression';
+import ModalUpdateSuppressionCocktail from './ModalUpdateSuppressionCocktail';
+import { storage } from '../services/storage';
+import API from '../services/api';
 
 const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySelected }) => {
   const route = useRoute();
@@ -19,9 +21,11 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
   };
   const [showModal, setShowModal] = useState(false);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
-  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
-  const drinkName = route?.params?.drinkKey ?? quantitySelected?.name;
-  const [drinkPrice, setDrinkPrice] = useState(Number(drink?.price));
+  const drink = ownDrinksCatalog.find(
+    (catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey && catalogdrink.isDeleted === false
+  );
+  const drinkName = quantitySelected?.name ?? route?.params?.drinkKey;
+  const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const drinkVolume = quantitySelected?.volume ?? drink?.volume;
   const drinkDoses = quantitySelected?.doses ?? drink?.doses;
   const drinkKcal = quantitySelected?.kCal ?? drink?.kcal;
@@ -54,12 +58,12 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
       }
       setOwnDrinksCatalog((oldState) => {
         return oldState.map((drink) =>
-          drink.drinkKey == drinkName
+          drink.drinkKey === oldDrink.drinkKey
             ? {
                 categoryKey: 'ownCocktail',
                 drinkKey: drinkName,
                 displayFeed: drinkName,
-                volume: drinkVolume,
+                volume: drinkVolume + ' cl',
                 doses: drinkDoses,
                 icon: 'CocktailGlass',
                 price: Number(drinkPrice),
@@ -69,6 +73,24 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
               }
             : drink
         );
+      });
+      setGlobalDrinksState((oldState) => {
+        return oldState.map((drink) =>
+          drink.drinkKey === oldDrink.drinkKey ? { ...drink, drinkKey: drinkName } : drink
+        );
+      });
+      const matomoId = storage.getString('@UserIdv2');
+      await API.post({
+        path: '/consommation/updateConso',
+        body: {
+          matomoId: matomoId,
+          oldDrinkKey: oldDrink.drinkKey,
+          drinkKey: drinkName,
+          volume: drinkVolume + ' cl',
+          doses: drinkDoses,
+          price: Number(drinkPrice),
+          kcal: drinkKcal,
+        },
       });
       return;
     }
@@ -138,7 +160,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           placeholder="Euros"
           keyboardType="decimal-pad"
           maxLength={5}
-          value={drinkPrice}
+          value={String(drinkPrice)}
           onChangeText={(value) => setDrinkPrice(value)}
         />
       </View>
@@ -151,8 +173,9 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           <ButtonPrimary
             content="Créer mon cocktail"
             onPress={() => {
-              setQuantitySelected(null);
               saveDrink();
+              setQuantitySelected(null);
+
               navigation.goBack();
             }}
             disabled={!drinkPrice || !drinkName}
@@ -162,7 +185,6 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
             <ButtonPrimary
               content="Modifier mon cocktail"
               onPress={() => {
-                setQuantitySelected(null);
                 setIsUpdateWanted(true);
                 setShowModal(true);
               }}
@@ -170,7 +192,6 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
             />
             <TouchableOpacity
               onPress={() => {
-                setQuantitySelected(null);
                 setIsUpdateWanted(false);
                 setShowModal(true);
               }}>
@@ -179,7 +200,7 @@ const CocktailPersonalisation = ({ navigation, setQuantitySelected, quantitySele
           </View>
         )}
       </View>
-      <ModalModification
+      <ModalUpdateSuppressionCocktail
         isUpdate={isUpdateWanted}
         showModal={showModal}
         onClose={() => {

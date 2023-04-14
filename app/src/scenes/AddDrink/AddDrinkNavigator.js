@@ -8,6 +8,7 @@ import AddAlcoolQuantity from './AddAlcoolQuantity';
 const AddDrinkStack = createStackNavigator();
 const AddDrinkNavigator = ({ route }) => {
   const [quantitySelected, setQuantitySelected] = useState();
+
   return (
     <AddDrinkStack.Navigator headerMode="none" mode="modal" initialRouteName="CONSOS_LIST">
       <AddDrinkStack.Screen
