@@ -81,7 +81,7 @@ const MyGains = () => {
     () =>
       days
         .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
-        .reduce((sum, day) => sum + (dailyDoses[day] ? dailyDoses[day] : 0), 0),
+        .reduce((sum, day) => Math.ceil(sum + (dailyDoses[day] ? dailyDoses[day] : 0)), 0),
     [days, dailyDoses, firstDay]
   );
 
