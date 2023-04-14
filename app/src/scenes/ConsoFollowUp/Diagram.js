@@ -167,8 +167,10 @@ const Diagram = ({ asPreview }) => {
   const highestAcceptableDosesPerDayByOMS = 2;
 
   const drinks = useRecoilValue(drinksState);
+  console.log('drinks', drinks);
+  console.log(asPreview);
   const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
-
+  console.log(thereIsDrinks);
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
 
   const highestAcceptableDosesInPeriod = useMemo(() => {
@@ -238,7 +240,8 @@ const Diagram = ({ asPreview }) => {
             if (dailyDose === null || dailyDose === undefined) {
               return <Bar key={index} height={doseHeight * highestAcceptableDosesInPeriod} empty />;
             }
-            const dailyDoseHeight = (dailyDose > 0 && dailyDose) || 0;
+            const dailyDoseHeight = Math.round(dailyDose > 0 && dailyDose) || 0;
+            console.log(dailyDoseHeight);
             const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesInPeriod);
             const overLineValue =
               dailyDoseHeight > highestAcceptableDosesInPeriod && dailyDoseHeight - highestAcceptableDosesInPeriod;
@@ -250,7 +253,7 @@ const Diagram = ({ asPreview }) => {
                 heightFactor={dailyDoseHeight || 0}>
                 {dailyDose >= 0 ? (
                   <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
-                    {dailyDose}
+                    {Math.round(dailyDose)}
                   </Dose>
                 ) : (
                   <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
