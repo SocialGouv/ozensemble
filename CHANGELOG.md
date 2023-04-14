@@ -1,3 +1,11 @@
+## [1.96.1](https://github.com/SocialGouv/ozensemble/compare/v1.96.0...v1.96.1) (2023-04-14)
+
+
+### Bug Fixes
+
+* round value goal ([#254](https://github.com/SocialGouv/ozensemble/issues/254)) ([14ac79b](https://github.com/SocialGouv/ozensemble/commit/14ac79b03b84b560dfe3136d117c5bd038660470))
+* update goal infos display ([#252](https://github.com/SocialGouv/ozensemble/issues/252)) ([2d9c9a9](https://github.com/SocialGouv/ozensemble/commit/2d9c9a96ef7bd429c57024180552e758ea405211))
+
 # [1.96.0](https://github.com/SocialGouv/ozensemble/compare/v1.95.0...v1.96.0) (2023-04-14)
 
 
