@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { ScrollView, TextInput, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, TextInput, View, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
@@ -26,7 +26,10 @@ const AddCocktail = ({ navigation, setCocktailSelected }) => {
   }, [cocktailsCatalog]);
   return (
     <View className="h-full bg-white py-10">
-      <View className="bg-white rounded-xl mt-auto absolute bottom-0 w-full h-full shadow-xl shadow-[#5E5E5E]">
+      <KeyboardAvoidingView
+        enabled
+        behavior={Platform.select({ ios: 'padding', android: null })}
+        className="bg-white rounded-xl mt-auto absolute bottom-0 w-full h-full shadow-xl shadow-[#5E5E5E]">
         <ScrollView className="pb-5" style={{ padding: defaultPaddingFontScale() }}>
           <BackButton content="Retour" bold onPress={() => navigation.goBack()} />
           <H2 color="#4030a5" className="mt-5 mb-4">
@@ -79,7 +82,7 @@ const AddCocktail = ({ navigation, setCocktailSelected }) => {
             </View>
           </View>
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 };
