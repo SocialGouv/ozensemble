@@ -41,9 +41,9 @@ const ModalUpdateSuppressionCocktail = ({ isUpdate, showModal, onClose, onUpdate
 
           <View className=" justify-around mt-6 space-y-4">
             {isUpdate ? (
-              <ButtonPrimary content="Oui modifier" onPress={onUpdate} color={'#4030A5'} />
+              <ButtonPrimary content="Oui modifier" onPress={onUpdate} />
             ) : (
-              <ButtonPrimary content="Oui supprimer" onPress={onDelete} color={'#4030A5'} />
+              <ButtonPrimary content="Oui supprimer" onPress={onDelete} />
             )}
             <TouchableOpacity onPress={onClose} content={'Oui supprimer'} color={'#4030A5'}>
               <Text className="text-[#4030A5] text-center underline text-base">Non</Text>
