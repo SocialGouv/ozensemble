@@ -30,6 +30,7 @@ const ConsoFeedDisplay = ({
 
   const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
   const Icon = getIcon(drink.icon);
+
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
@@ -39,7 +40,7 @@ const ConsoFeedDisplay = ({
             <Drink>
               {quantity} {drinkName}{' '}
             </Drink>
-            {!drink.categoryKey.includes('own') && (
+            {!drink.categoryKey.includes('ownCocktail') && (
               <Volume numberOfLines={1} ellipsizeMode="tail">
                 ({drink.volume})
               </Volume>
