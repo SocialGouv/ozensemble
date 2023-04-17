@@ -1,3 +1,12 @@
+## [1.97.7](https://github.com/SocialGouv/ozensemble/compare/v1.97.6...v1.97.7) (2023-04-17)
+
+
+### Bug Fixes
+
+* hide volume only on cocktails ([26e83cb](https://github.com/SocialGouv/ozensemble/commit/26e83cb006ec362a412ea66dcc264b810788fa49))
+* migration ([e687925](https://github.com/SocialGouv/ozensemble/commit/e687925e0e4d3e2a6dc7d674fb994625458ba813))
+* reset modal ([5713c09](https://github.com/SocialGouv/ozensemble/commit/5713c0903b3e81f5e903254c326445cd06d07ddd))
+
 ## [1.97.6](https://github.com/SocialGouv/ozensemble/compare/v1.97.5...v1.97.6) (2023-04-17)
 
 
