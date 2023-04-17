@@ -39,6 +39,11 @@ const ConsoFeedDisplay = ({
             <Drink>
               {quantity} {drinkName}{' '}
             </Drink>
+            {!drink.categoryKey.includes('own') && (
+              <Volume numberOfLines={1} ellipsizeMode="tail">
+                ({drink.volume})
+              </Volume>
+            )}
             {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
           </Content>
         </FeedButton>
