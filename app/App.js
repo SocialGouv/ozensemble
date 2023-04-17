@@ -33,6 +33,7 @@ import {
   hasCreateBadgeForDoneDefis,
   createBadgesForDoneDefis,
 } from './src/services/storage';
+import API from './src/services/api';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
@@ -65,6 +66,15 @@ const App = () => {
   );
   const [_hasCreateBadgeForDoneDefis, setHasCreateBadgeForDoneDefis] = useState(hasCreateBadgeForDoneDefis);
 
+  const checkNewFeatureModal = async () => {
+    const matomoId = storage.getString('@UserIdv2');
+    await API.post({
+      path: '/appMilestone/check',
+      body: {
+        matomoId,
+      },
+    });
+  };
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasGenderAndAge) {
       InteractionManager.runAfterInteractions(async () => {
@@ -107,6 +117,7 @@ const App = () => {
       createBadgesForDoneDefis();
       setHasCreateBadgeForDoneDefis(true);
     }
+    checkNewFeatureModal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
