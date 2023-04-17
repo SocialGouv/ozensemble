@@ -1,3 +1,10 @@
+## [1.97.3](https://github.com/SocialGouv/ozensemble/compare/v1.97.2...v1.97.3) (2023-04-17)
+
+
+### Bug Fixes
+
+* from nav to modals ([#257](https://github.com/SocialGouv/ozensemble/issues/257)) ([8c69783](https://github.com/SocialGouv/ozensemble/commit/8c697833d6a49e13d4801f2e1555f69103627df3))
+
 ## [1.97.2](https://github.com/SocialGouv/ozensemble/compare/v1.97.1...v1.97.2) (2023-04-17)
 
 
