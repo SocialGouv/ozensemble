@@ -71,7 +71,6 @@ router.post(
           content:
             "Vous ne trouvez pas votre boisson dans la liste ? Aucun problème, vous pouvez désormais la créer en ajoutant son propre __degrés__ d'alcool et son propre __prix__.",
           CTATitle: "J'ai compris",
-          CTANavigation: ["WELCOME"],
         },
       });
     } else {
