@@ -32,6 +32,7 @@ import {
   sendNPSDoneToDB,
   hasCreateBadgeForDoneDefis,
   createBadgesForDoneDefis,
+  storage,
 } from './src/services/storage';
 import API from './src/services/api';
 
@@ -68,8 +69,9 @@ const App = () => {
 
   const checkNewFeatureModal = async () => {
     const matomoId = storage.getString('@UserIdv2');
+    console.log('poost');
     await API.post({
-      path: '/appMilestone/check',
+      path: '/appMilestone/init',
       body: {
         matomoId,
       },

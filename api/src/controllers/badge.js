@@ -3,7 +3,6 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { badgesCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
-const dayjs = require("dayjs");
 
 router.get(
   "/test",
