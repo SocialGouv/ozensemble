@@ -54,7 +54,8 @@ router.post(
     });
     console.log("newBadgeAnnouncementAddOwnDrink", newBadgeAnnouncementAddOwnDrink);
     // If app not up to date => create first badges milestone
-    if (req.headers.appversion >= 145 && !newBadgeAnnouncementAddOwnDrink) {
+    console.log(req.headers.appversion);
+    if (req.headers.appversion >= 154 && !newBadgeAnnouncementAddOwnDrink) {
       await prisma.appMilestone.create({
         data: {
           id: `${user.id}_@newBadgeAnnouncementAddOwnDrink`,
