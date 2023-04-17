@@ -1,3 +1,10 @@
+## [1.97.6](https://github.com/SocialGouv/ozensemble/compare/v1.97.5...v1.97.6) (2023-04-17)
+
+
+### Bug Fixes
+
+* update version ([#263](https://github.com/SocialGouv/ozensemble/issues/263)) ([2e245cb](https://github.com/SocialGouv/ozensemble/commit/2e245cbf5f3e19d9cbcd2f9a5f5838158e59c1f9))
+
 ## [1.97.5](https://github.com/SocialGouv/ozensemble/compare/v1.97.4...v1.97.5) (2023-04-17)
 
 
