@@ -20,7 +20,7 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [showModalUdate, setShowModalUpdate] = useState(false);
+  const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [showModalAddCocktail, setShowModalAddCocktail] = useState(false);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find(
@@ -204,7 +204,7 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
       </View>
       <ModalUpdateSuppressionCocktail
         isUpdate={isUpdateWanted}
-        visible={showModalUdate}
+        visible={showModalUpdate}
         onClose={() => {
           hide();
           setShowModalUpdate(false);

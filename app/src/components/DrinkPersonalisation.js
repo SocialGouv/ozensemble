@@ -21,7 +21,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
     setQuantity(q);
   };
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
-  const [showModalUdate, setShowModal] = useState(false);
+  const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [showQuantityModal, setShowQuantityModal] = useState(false);
 
   const [drinkName, setDrinkName] = useState(updateDrinkKey);
@@ -221,14 +221,14 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
               content="Modifier ma boisson"
               onPress={() => {
                 setIsUpdateWanted(true);
-                setShowModal(true);
+                setShowModalUpdate(true);
               }}
               disabled={!drinkPrice || !drinkAlcoolPercentage || !drinkName || !volumeNumber}
             />
             <TouchableOpacity
               onPress={() => {
                 setIsUpdateWanted(false);
-                setShowModal(true);
+                setShowModalUpdate(true);
               }}>
               <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer ma boisson</Text>
             </TouchableOpacity>
@@ -240,7 +240,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         visible={showModalUpdate}
         onClose={() => {
           hide();
-          setShowModal(false);
+          setShowModalUpdate(false);
         }}
         onUpdate={() => {
           hide();
