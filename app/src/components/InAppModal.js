@@ -14,6 +14,7 @@ import { BagdeDrinksNoStars } from '../scenes/Badges/Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 import { BadgeDefisNoStars } from '../scenes/Badges/Svgs/BadgeDefisNoStars';
 import { BadgeArticlesNoStars } from '../scenes/Badges/Svgs/BadgeArticlesNoStars';
+import IconAdd from './illustrations/IconAdd';
 
 /* example
 {
@@ -116,16 +117,7 @@ const InAppModal = () => {
             </Svg>
           </TouchableOpacity>
           <View className="w-full mb-6 mt-4 flex flex-row justify-center gap-x-2">
-            {modalContent?.badgesCategories?.map((badgeCategory) => {
-              return (
-                <View key={badgeCategory}>
-                  {badgeCategory === 'drinks' && <BagdeDrinksNoStars />}
-                  {badgeCategory === 'goals' && <BadgeGoalsNoStars />}
-                  {badgeCategory === 'defis' && <BadgeDefisNoStars />}
-                  {badgeCategory === 'articles' && <BadgeArticlesNoStars />}
-                </View>
-              );
-            })}
+            <IconAdd />
           </View>
           <View className="mb-8 mx-4">
             <H1 className="text-center" color={'black'}>
