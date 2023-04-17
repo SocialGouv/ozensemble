@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
 import { capture } from '../services/sentry';
 import TextStyled from './TextStyled';
@@ -9,14 +9,12 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
   const containerRef = useRef(null);
   const insideContainerRef = useRef(null);
   const buttonRef = useRef(null);
-  const [measuredWidth, setMeasuredWidth] = useState(null);
   const onLayout = useCallback(
     ({
       nativeEvent: {
         layout: { width },
       },
     }) => {
-      setMeasuredWidth(width);
       Animated.parallel([
         Animated.timing(translateX, {
           toValue: initPosition * (width - 4),
