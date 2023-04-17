@@ -1,3 +1,11 @@
+## [1.97.4](https://github.com/SocialGouv/ozensemble/compare/v1.97.3...v1.97.4) (2023-04-17)
+
+
+### Bug Fixes
+
+* add volume to non custom drink ([#260](https://github.com/SocialGouv/ozensemble/issues/260)) ([ec20b9b](https://github.com/SocialGouv/ozensemble/commit/ec20b9b46d9fe5909b46b076443e3e565a7ddf50))
+* update app version: ([#261](https://github.com/SocialGouv/ozensemble/issues/261)) ([8c47daf](https://github.com/SocialGouv/ozensemble/commit/8c47daf368126e1ebc2c32bbb7ee75d9f33f4519))
+
 ## [1.97.3](https://github.com/SocialGouv/ozensemble/compare/v1.97.2...v1.97.3) (2023-04-17)
 
 
