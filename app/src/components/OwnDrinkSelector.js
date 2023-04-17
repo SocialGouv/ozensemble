@@ -3,28 +3,14 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import TextStyled from './TextStyled';
 
-const OwnDrinkSelector = ({
-  navigation,
-  drinkKey,
-  volume,
-  doses,
-  quantity,
-  alcoolPercentage,
-  categoryKey,
-  setDrinkQuantityRequest,
-}) => {
-  const onSetQuantity = (q) => {
-    setDrinkQuantityRequest(drinkKey, q, true);
-  };
+const OwnDrinkSelector = ({ drink, quantity, setDrinkQuantityRequest, onUpdateDrink }) => {
+  const { drinkKey, volume, doses, alcoolPercentage, categoryKey } = drink;
+
   return (
     <View className="flex flex-row justify-center mb-2 px-4">
       <View className="w-full">
         <View className="bg-white rounded-md border border-[#DFDFEB] flex flex-row flex-wrap justify-between px-3 py-1 ">
-          <TouchableOpacity
-            className="mr-2 my-2"
-            onPress={() => {
-              navigation.navigate('ADD_OWN_DRINK', { drinkKey });
-            }}>
+          <TouchableOpacity className="mr-2 my-2" onPress={onUpdateDrink}>
             <TextStyled bold>{drinkKey}</TextStyled>
             {categoryKey === 'ownCocktail' ? (
               <Text className="text-sm">
@@ -37,7 +23,12 @@ const OwnDrinkSelector = ({
             )}
           </TouchableOpacity>
           <View className="my-2">
-            <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
+            <QuantitySetter
+              quantity={quantity}
+              onSetQuantity={(q) => {
+                setDrinkQuantityRequest(drinkKey, q, true);
+              }}
+            />
           </View>
         </View>
       </View>

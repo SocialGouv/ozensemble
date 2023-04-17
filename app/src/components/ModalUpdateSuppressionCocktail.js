@@ -1,14 +1,14 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
+import { View, TouchableOpacity, Text } from 'react-native';
 import H2 from './H2';
 import Modal from './Modal';
 import { hitSlop } from '../styles/theme';
-import { View, TouchableOpacity, Text } from 'react-native';
 import ButtonPrimary from './ButtonPrimary';
 
-const ModalUpdateSuppressionCocktail = ({ isUpdate, showModal, onClose, onUpdate, onDelete }) => {
+const ModalUpdateSuppressionCocktail = ({ isUpdate, visible, onClose, onUpdate, onDelete }) => {
   return (
-    <Modal visible={showModal} animationType="fade" withBackground hideOnTouch>
+    <Modal visible={visible} animationType="fade" withBackground hideOnTouch>
       <View className="bg-white rounded-xl m-auto w-10/12">
         <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
           <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
