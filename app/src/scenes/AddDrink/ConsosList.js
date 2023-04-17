@@ -210,7 +210,7 @@ const ConsosList = ({ navigation, route }) => {
           />
           {availableOwnDrinksCatalog.length > 0 && (
             <>
-              <View className="bg-[#EFEFEF] p-4">
+              <View className="bg-[#EFEFEF] py-4 px-2">
                 <TextStyled bold color="#4030a5" className="mb-5 px-4">
                   Mes boissons créées
                 </TextStyled>

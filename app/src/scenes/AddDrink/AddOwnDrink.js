@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useRoute } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -11,13 +10,13 @@ import CocktailPersonalisation from '../../components/CocktailPersonalisation';
 import { ownDrinksCatalogState } from '../../recoil/consos';
 
 const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
-  const route = useRoute();
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
-  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey);
+  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === updateDrinkKey);
   const [switchPosition, setSwitchPosition] = useState(drink?.categoryKey === 'ownCocktail' ? 'oui' : 'non');
   const [quantitySelected, setQuantitySelected] = useState();
   const [cocktailSelected, setCocktailSelected] = useState();
   const showCocktail = switchPosition === 'oui';
+  console.log(drink);
   const initCocktail = drink?.categoryKey === 'ownCocktail';
 
   return (
