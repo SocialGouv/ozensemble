@@ -52,7 +52,7 @@ router.post(
     const newBadgeAnnouncementAddOwnDrink = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@newBadgeAnnouncementAddOwnDrink` },
     });
-    console.log(newBadgeAnnouncementAddOwnDrink);
+    console.log("newBadgeAnnouncementAddOwnDrink", newBadgeAnnouncementAddOwnDrink);
     // If app not up to date => create first badges milestone
     if (req.headers.appversion >= 145 && !newBadgeAnnouncementAddOwnDrink) {
       await prisma.appMilestone.create({
@@ -68,7 +68,7 @@ router.post(
           iid: "@newBadgeAnnouncementAddOwnDrink",
           title: "Nouveau\u00A0: Ajoutez vos propres boissons personnalisées\u00A0!",
           content:
-            "Vous ne trouvez pas votre boisson dans la liste ? Aucun problème, vous pouvez désormais la créer en ajoutant son propre _degrés d'alcool et son propre _prix.",
+            "Vous ne trouvez pas votre boisson dans la liste ? Aucun problème, vous pouvez désormais la créer en ajoutant son propre __degrés__ d'alcool et son propre __prix__.",
           CTATitle: "J'ai compris",
           CTANavigation: ["WELCOME"],
         },

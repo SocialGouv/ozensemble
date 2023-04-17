@@ -10,11 +10,8 @@ import Modal from './Modal';
 import TextStyled from './TextStyled';
 import API from '../services/api';
 import { shareApp } from '../services/shareApp';
-import { BagdeDrinksNoStars } from '../scenes/Badges/Svgs/BadgeDrinksNoStars';
-import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
-import { BadgeDefisNoStars } from '../scenes/Badges/Svgs/BadgeDefisNoStars';
-import { BadgeArticlesNoStars } from '../scenes/Badges/Svgs/BadgeArticlesNoStars';
 import IconAdd from './illustrations/IconAdd';
+import { storage } from '../services/storage';
 
 /* example
 {
@@ -91,8 +88,23 @@ const InAppModal = () => {
     setShowModal(true);
   };
 
+  const getModalNewFeature = async () => {
+    const isModalViewed = storage.getBoolean('@newBadgeAnnouncementAddOwnDrink');
+    if (!isModalViewed) {
+      const matomoId = storage.getString('@UserIdv2');
+      await API.post({
+        path: '/appMilestone/init',
+        body: {
+          matomoId,
+        },
+      });
+      storage.set('@newBadgeAnnouncementAddOwnDrink', true);
+    }
+  };
+
   useEffect(() => {
     API.handleShowInAppModal = handleShowInAppModal;
+    getModalNewFeature();
   });
 
   return (
