@@ -1,3 +1,10 @@
+## [1.97.5](https://github.com/SocialGouv/ozensemble/compare/v1.97.4...v1.97.5) (2023-04-17)
+
+
+### Bug Fixes
+
+* switch and design ([#262](https://github.com/SocialGouv/ozensemble/issues/262)) ([465b343](https://github.com/SocialGouv/ozensemble/commit/465b343cc242bf4fed0794556f184efd895b1260))
+
 ## [1.97.4](https://github.com/SocialGouv/ozensemble/compare/v1.97.3...v1.97.4) (2023-04-17)
 
 
