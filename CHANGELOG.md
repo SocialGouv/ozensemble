@@ -1,3 +1,10 @@
+## [1.97.2](https://github.com/SocialGouv/ozensemble/compare/v1.97.1...v1.97.2) (2023-04-17)
+
+
+### Bug Fixes
+
+* change button position and color ([#258](https://github.com/SocialGouv/ozensemble/issues/258)) ([ee37373](https://github.com/SocialGouv/ozensemble/commit/ee37373c1fb91eb6331d7f3a76adaee9533f1350))
+
 ## [1.97.1](https://github.com/SocialGouv/ozensemble/compare/v1.97.0...v1.97.1) (2023-04-14)
 
 
