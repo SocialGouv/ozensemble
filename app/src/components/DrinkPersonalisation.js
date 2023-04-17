@@ -36,7 +36,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   );
   const [quantity, setQuantity] = useState(0);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
-  const [isUpdateWanted, setIsUpdateWanted] = useState(false);
+  const [isUpdateWanted, setIsUpdateWanted] = useState(true);
   const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(' ')[0];
 
   const saveDrink = async () => {
@@ -226,6 +226,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
               disabled={!drinkPrice || !drinkAlcoolPercentage || !drinkName || !volumeNumber}
             />
             <TouchableOpacity
+              key={isUpdateWanted}
               onPress={() => {
                 setIsUpdateWanted(false);
                 setShowModalUpdate(true);
@@ -236,7 +237,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         )}
       </View>
       <ModalUpdateSuppressionDrink
-        updateDrinkKey={isUpdateWanted}
+        isUpdate={isUpdateWanted}
         visible={showModalUpdate}
         onClose={() => {
           hide();
