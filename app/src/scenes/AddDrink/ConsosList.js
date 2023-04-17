@@ -230,7 +230,7 @@ const ConsosList = ({ navigation, route }) => {
                     );
                   }
                 })}
-                <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
+                <TouchableOpacity onPress={() => setOwnDrinksModalVisible(true)}>
                   <Text className="text-[#4030A5] text-center underline text-base mt-2">
                     Créer une nouvelle boisson
                   </Text>
@@ -243,7 +243,7 @@ const ConsosList = ({ navigation, route }) => {
               <TextStyled color="#4030a5" bold center className="mb-4">
                 Vous ne trouvez pas votre boisson dans la liste ?
               </TextStyled>
-              <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
+              <TouchableOpacity onPress={() => setOwnDrinksModalVisible(true)}>
                 <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
               </TouchableOpacity>
             </View>

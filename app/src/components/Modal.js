@@ -3,7 +3,6 @@ import { Modal, SafeAreaView, StyleSheet, TouchableWithoutFeedback, View } from 
 
 const ModalContainer = ({
   animationType = 'fade',
-  presentationStyle,
   visible,
   hide,
   withBackground,
@@ -20,7 +19,6 @@ const ModalContainer = ({
       visible={visible}
       onRequestClose={hide}
       animationType={animationType}
-      presentationStyle={presentationStyle}
       style={styles.modalContainer}>
       <>
         <Wrapper {...wrapperProps}>

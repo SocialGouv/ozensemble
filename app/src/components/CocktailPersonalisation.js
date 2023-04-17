@@ -143,14 +143,14 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
         {!cocktailSelected?.name && !updateDrinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => setShowModalAddCocktail(trueeerwefdsxz)}>
+            onPress={() => setShowModalAddCocktail(true)}>
             <Text className="text-[#CACACD] flex">Sélectionnez un cocktail</Text>
             <ArrowDown color="#000000" size={30} strokeWidth={2} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => setShowModalAddCocktail(trueeerwefdsxz)}>
+            onPress={() => setShowModalAddCocktail(true)}>
             <Text className="text-[#4030A5] flex">{cocktailSelected?.name ?? updateDrinkKey}</Text>
           </TouchableOpacity>
         )}
