@@ -11,8 +11,9 @@ import ButtonPrimary from './ButtonPrimary';
 import ModalUpdateSuppressionDrink from './ModalUpdateSuppressionDrink';
 import API from '../services/api';
 import { storage } from '../services/storage';
+import AddAlcoolQuantity from '../scenes/AddDrink/AddAlcoolQuantity';
 
-const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelected }) => {
+const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected }) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
 
@@ -20,12 +21,15 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
     setQuantity(q);
   };
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
-  const [showModal, setShowModal] = useState(false);
+  const [showModalUdate, setShowModal] = useState(false);
+  const [showQuantityModal, setShowQuantityModal] = useState(false);
 
-  const [drinkName, setDrinkName] = useState(route?.params?.drinkKey);
-  const drink = ownDrinksCatalog.find(
-    (catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey && catalogdrink.isDeleted === false
-  );
+  const [drinkName, setDrinkName] = useState(updateDrinkKey);
+  const drink = !updateDrinkKey
+    ? null
+    : ownDrinksCatalog.find(
+        (catalogdrink) => catalogdrink.drinkKey === updateDrinkKey && catalogdrink.isDeleted === false
+      );
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(
     drink?.alcoolPercentage ? String(drink?.alcoolPercentage) : ''
@@ -61,7 +65,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
       const drinkIcon = quantitySelected?.icon ?? oldDrink.icon;
       setOwnDrinksCatalog((oldState) => {
         return oldState.map((oldStateDrink) =>
-          oldStateDrink.drinkKey == oldDrink.drinkKey
+          oldStateDrink.drinkKey === oldDrink.drinkKey
             ? {
                 categoryKey: 'ownDrink',
                 drinkKey: drinkName,
@@ -140,7 +144,7 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
   const deleteDrink = async () => {
     setOwnDrinksCatalog((oldState) => {
       return oldState.map((oldStateDrink) =>
-        oldStateDrink.drinkKey == drinkName ? { ...oldStateDrink, isDeleted: true } : oldStateDrink
+        oldStateDrink.drinkKey === drinkName ? { ...oldStateDrink, isDeleted: true } : oldStateDrink
       );
     });
   };
@@ -159,17 +163,17 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
       </View>
       <View className="mb-4">
         <TextStyled bold>Quantité d'alcool servie (cl)</TextStyled>
-        {!quantitySelected?.volume && !route?.params?.drinkKey ? (
+        {!quantitySelected?.volume && !updateDrinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => navigation.navigate('ADD_QUANTITY')}>
+            onPress={() => setShowQuantityModal(true)}>
             <Text className="text-[#CACACD] flex">Sélectionnez une quantité</Text>
             <ArrowDown color="#000000" size={30} strokeWidth={2} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => navigation.navigate('ADD_QUANTITY')}>
+            onPress={() => setShowQuantityModal(true)}>
             <Text className="text-[#4030A5] flex">{volumeNumber}</Text>
           </TouchableOpacity>
         )}
@@ -201,11 +205,11 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
         <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
       </View>
       <View className="flex flex-row justify-center mt-14 mb-10 ">
-        {!route?.params?.drinkKey ? (
+        {!updateDrinkKey ? (
           <ButtonPrimary
             content="Créer ma boisson"
             onPress={() => {
-              navigation.goBack();
+              hide();
               setQuantitySelected(null);
               saveDrink();
             }}
@@ -232,22 +236,27 @@ const DrinkPersonalisation = ({ navigation, quantitySelected, setQuantitySelecte
         )}
       </View>
       <ModalUpdateSuppressionDrink
-        isUpdate={isUpdateWanted}
-        showModal={showModal}
+        updateDrinkKey={isUpdateWanted}
+        visible={showModalUdate}
         onClose={() => {
-          navigation.goBack();
+          hide();
           setShowModal(false);
         }}
         onUpdate={() => {
-          navigation.goBack();
+          hide();
           setIsUpdateWanted(true);
           saveDrink();
         }}
         onDelete={() => {
-          navigation.goBack();
+          hide();
           setQuantitySelected(null);
           deleteDrink();
         }}
+      />
+      <AddAlcoolQuantity
+        visible={showQuantityModal}
+        hide={() => setShowQuantityModal(false)}
+        setQuantitySelected={setQuantitySelected}
       />
     </>
   );

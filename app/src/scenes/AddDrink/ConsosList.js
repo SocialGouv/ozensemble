@@ -20,6 +20,7 @@ import API from '../../services/api';
 import { storage } from '../../services/storage';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
+import AddOwnDrink from './AddOwnDrink';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -43,6 +44,8 @@ const ConsosList = ({ navigation, route }) => {
   );
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
+  const [ownDrinksModalVisible, setOwnDrinksModalVisible] = useState(false);
+  const [updateOwnDrinkKey, setUpdateOwnDrinkKey] = useState(null);
   const toast = useToast();
 
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
@@ -161,106 +164,118 @@ const ConsosList = ({ navigation, route }) => {
   }, [isFocused, onCancelConsos, drinksPerCurrentaTimestamp]);
 
   return (
-    <Container>
-      <ModalContent ref={scrollRef} disableHorizontal>
-        <Title>Sélectionnez vos consommations</Title>
-        <DateAndTimePickers
-          addDrinkModalTimestamp={addDrinkModalTimestamp}
-          setDrinkModalTimestamp={setDrinkModalTimestamp}
-        />
-        <ButtonPrimary
-          className="mt-5 mb-7 self-center"
-          small
-          onPress={() => {
-            onClose();
-            const noConso = {
-              drinkKey: NO_CONSO,
-              quantity: 1,
-              timestamp: makeSureTimestamp(addDrinkModalTimestamp),
-              id: uuidv4(),
-            };
-            logEvent({
-              category: 'CONSO',
-              action: 'NO_CONSO',
-              dimension6: noConso.timestamp,
-            });
-            setGlobalDrinksState((state) => [...state, noConso]);
-            const matomoId = storage.getString('@UserIdv2');
-            API.post({
-              path: '/consommation',
-              body: {
-                matomoId: matomoId,
-                id: noConso.id,
-                name: noConso.displayDrinkModal,
-                drinkKey: noConso.drinkKey,
-                quantity: Number(noConso.quantity),
-                date: noConso.timestamp,
-              },
-            });
-          }}
-          content={
-            dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
-              ? "Je n'ai rien bu aujourd'hui"
-              : "Je n'ai rien bu ce jour"
-          }
-        />
-        {availableOwnDrinksCatalog.length > 0 && (
-          <>
-            <View className="bg-[#EFEFEF] p-4">
-              <TextStyled bold color="#4030a5" className="mb-5 px-4">
-                Mes boissons créées
+    <>
+      <Container>
+        <ModalContent ref={scrollRef} disableHorizontal>
+          <Title>Sélectionnez vos consommations</Title>
+          <DateAndTimePickers
+            addDrinkModalTimestamp={addDrinkModalTimestamp}
+            setDrinkModalTimestamp={setDrinkModalTimestamp}
+          />
+          <ButtonPrimary
+            className="mt-5 mb-7 self-center"
+            small
+            onPress={() => {
+              onClose();
+              const noConso = {
+                drinkKey: NO_CONSO,
+                quantity: 1,
+                timestamp: makeSureTimestamp(addDrinkModalTimestamp),
+                id: uuidv4(),
+              };
+              logEvent({
+                category: 'CONSO',
+                action: 'NO_CONSO',
+                dimension6: noConso.timestamp,
+              });
+              setGlobalDrinksState((state) => [...state, noConso]);
+              const matomoId = storage.getString('@UserIdv2');
+              API.post({
+                path: '/consommation',
+                body: {
+                  matomoId: matomoId,
+                  id: noConso.id,
+                  name: noConso.displayDrinkModal,
+                  drinkKey: noConso.drinkKey,
+                  quantity: Number(noConso.quantity),
+                  date: noConso.timestamp,
+                },
+              });
+            }}
+            content={
+              dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+                ? "Je n'ai rien bu aujourd'hui"
+                : "Je n'ai rien bu ce jour"
+            }
+          />
+          {availableOwnDrinksCatalog.length > 0 && (
+            <>
+              <View className="bg-[#EFEFEF] p-4">
+                <TextStyled bold color="#4030a5" className="mb-5 px-4">
+                  Mes boissons créées
+                </TextStyled>
+                {availableOwnDrinksCatalog.map((drink) => {
+                  if (!drink.isDeleted) {
+                    return (
+                      <OwnDrinkSelector
+                        key={drink.drinkKey}
+                        onUpdateDrink={() => {
+                          setOwnDrinksModalVisible(true);
+                          setUpdateOwnDrinkKey(drink.drinkKey);
+                        }}
+                        drink={drink}
+                        quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
+                        setDrinkQuantityRequest={setDrinkQuantityRequest}
+                      />
+                    );
+                  }
+                })}
+                <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
+                  <Text className="text-[#4030A5] text-center underline text-base mt-2">
+                    Créer une nouvelle boisson
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          )}
+          {availableOwnDrinksCatalog.length === 0 && (
+            <View className=" bg-[#EFEFEF] p-4">
+              <TextStyled color="#4030a5" bold center className="mb-4">
+                Vous ne trouvez pas votre boisson dans la liste ?
               </TextStyled>
-              {availableOwnDrinksCatalog.map((drink) => {
-                if (!drink.isDeleted) {
-                  return (
-                    <OwnDrinkSelector
-                      key={drink.drinkKey}
-                      navigation={navigation}
-                      {...drink}
-                      quantity={getDrinkQuantityFromDrinks(localDrinksState, drink.drinkKey)}
-                      setDrinkQuantityRequest={setDrinkQuantityRequest}
-                    />
-                  );
-                }
-              })}
               <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
-                <Text className="text-[#4030A5] text-center underline text-base mt-2">Créer une nouvelle boisson</Text>
+                <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
               </TouchableOpacity>
             </View>
-          </>
-        )}
-        {availableOwnDrinksCatalog.length === 0 && (
-          <View className=" bg-[#EFEFEF] p-4">
-            <TextStyled color="#4030a5" bold center className="mb-4">
-              Vous ne trouvez pas votre boisson dans la liste ?
-            </TextStyled>
-            <TouchableOpacity onPress={() => navigation.navigate('ADD_OWN_DRINK')}>
-              <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        {drinksCatalog
-          .map(({ categoryKey }) => categoryKey)
-          .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-          .map((category, index) => (
-            <DrinksCategory
-              key={index}
-              drinksCatalog={drinksCatalog}
-              category={category}
-              index={index}
-              drinks={localDrinksState}
-              setDrinkQuantity={setDrinkQuantityRequest}
-            />
-          ))}
-        <MarginBottom />
-      </ModalContent>
-      <ButtonsContainerSafe>
-        <ButtonsContainer>
-          <BackButton content="Retour" bold onPress={onCancelConsos} />
-          <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
-        </ButtonsContainer>
-      </ButtonsContainerSafe>
-    </Container>
+          )}
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={index}
+                drinksCatalog={drinksCatalog}
+                category={category}
+                index={index}
+                drinks={localDrinksState}
+                setDrinkQuantity={setDrinkQuantityRequest}
+              />
+            ))}
+          <MarginBottom />
+        </ModalContent>
+        <ButtonsContainerSafe>
+          <ButtonsContainer>
+            <BackButton content="Retour" bold onPress={onCancelConsos} />
+            <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
+          </ButtonsContainer>
+        </ButtonsContainerSafe>
+      </Container>
+      <AddOwnDrink
+        visible={ownDrinksModalVisible}
+        hide={() => setOwnDrinksModalVisible(false)}
+        updateDrinkKey={updateOwnDrinkKey}
+      />
+    </>
   );
 };
 

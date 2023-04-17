@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
-import { useRoute } from '@react-navigation/native';
 
 import ModalUpdateSuppressionCocktail from './ModalUpdateSuppressionCocktail';
 import { storage } from '../services/storage';
 import API from '../services/api';
+import AddCocktail from '../scenes/AddDrink/AddCocktail';
 
-const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSelected }) => {
+const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, cocktailSelected }) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
   const onSetQuantity = (q) => {
     setQuantity(q);
   };
-  const [showModal, setShowModal] = useState(false);
+  const [showModalUdate, setShowModalUpdate] = useState(false);
+  const [showModalAddCocktail, setShowModalAddCocktail] = useState(false);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find(
-    (catalogdrink) => catalogdrink.drinkKey === route?.params?.drinkKey && catalogdrink.isDeleted === false
+    (catalogdrink) => catalogdrink.drinkKey === updateDrinkKey && catalogdrink.isDeleted === false
   );
-  const drinkName = cocktailSelected?.name ?? route?.params?.drinkKey;
+  const drinkName = cocktailSelected?.name ?? updateDrinkKey;
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
@@ -138,18 +140,18 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
     <>
       <View className="mb-4">
         <TextStyled bold>Cocktail</TextStyled>
-        {!cocktailSelected?.name && !route?.params?.drinkKey ? (
+        {!cocktailSelected?.name && !updateDrinkKey ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => navigation.navigate('ADD_COCKTAIL')}>
+            onPress={() => setShowModalAddCocktail(trueeerwefdsxz)}>
             <Text className="text-[#CACACD] flex">Sélectionnez un cocktail</Text>
             <ArrowDown color="#000000" size={30} strokeWidth={2} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => navigation.navigate('ADD_COCKTAIL')}>
-            <Text className="text-[#4030A5] flex">{cocktailSelected?.name ?? route?.params?.drinkKey}</Text>
+            onPress={() => setShowModalAddCocktail(trueeerwefdsxz)}>
+            <Text className="text-[#4030A5] flex">{cocktailSelected?.name ?? updateDrinkKey}</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -169,14 +171,14 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
         <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
       </View>
       <View className="flex flex-row justify-center mt-14 mb-10">
-        {!route?.params?.drinkKey ? (
+        {!updateDrinkKey ? (
           <ButtonPrimary
             content="Créer mon cocktail"
             onPress={() => {
               saveDrink();
               setCocktailSelected(null);
 
-              navigation.goBack();
+              hide();
             }}
             disabled={!drinkPrice || !drinkName}
           />
@@ -186,14 +188,14 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
               content="Modifier mon cocktail"
               onPress={() => {
                 setIsUpdateWanted(true);
-                setShowModal(true);
+                setShowModalUpdate(true);
               }}
               disabled={!drinkPrice || !drinkName}
             />
             <TouchableOpacity
               onPress={() => {
                 setIsUpdateWanted(false);
-                setShowModal(true);
+                setShowModalUpdate(true);
               }}>
               <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer mon cocktail</Text>
             </TouchableOpacity>
@@ -202,21 +204,26 @@ const CocktailPersonalisation = ({ navigation, setCocktailSelected, cocktailSele
       </View>
       <ModalUpdateSuppressionCocktail
         isUpdate={isUpdateWanted}
-        showModal={showModal}
+        visible={showModalUdate}
         onClose={() => {
-          navigation.goBack();
-          setShowModal(false);
+          hide();
+          setShowModalUpdate(false);
         }}
         onUpdate={() => {
-          navigation.goBack();
+          hide();
           setIsUpdateWanted(true);
           saveDrink();
         }}
         onDelete={() => {
-          navigation.goBack();
+          hide();
           setCocktailSelected(null);
           deleteDrink();
         }}
+      />
+      <AddCocktail
+        visible={showModalAddCocktail}
+        hide={() => setShowModalAddCocktail(false)}
+        setCocktailSelected={setCocktailSelected}
       />
     </>
   );
