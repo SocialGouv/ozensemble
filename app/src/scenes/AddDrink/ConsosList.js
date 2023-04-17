@@ -230,7 +230,11 @@ const ConsosList = ({ navigation, route }) => {
                     );
                   }
                 })}
-                <TouchableOpacity onPress={() => setOwnDrinksModalVisible(true)}>
+                <TouchableOpacity
+                  onPress={() => {
+                    setOwnDrinksModalVisible(true);
+                    setUpdateOwnDrinkKey(null);
+                  }}>
                   <Text className="text-[#4030A5] text-center underline text-base mt-2">
                     Créer une nouvelle boisson
                   </Text>
@@ -274,6 +278,7 @@ const ConsosList = ({ navigation, route }) => {
         visible={ownDrinksModalVisible}
         hide={() => setOwnDrinksModalVisible(false)}
         updateDrinkKey={updateOwnDrinkKey}
+        key={updateOwnDrinkKey}
       />
     </>
   );

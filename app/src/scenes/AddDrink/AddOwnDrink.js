@@ -16,7 +16,6 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
   const [quantitySelected, setQuantitySelected] = useState();
   const [cocktailSelected, setCocktailSelected] = useState();
   const showCocktail = switchPosition === 'oui';
-  console.log(drink);
   const initCocktail = drink?.categoryKey === 'ownCocktail';
 
   return (
@@ -26,7 +25,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
           <ScrollView>
             <View className="mt-10" style={{ padding: defaultPaddingFontScale() }}>
               <BackButton content="Retour" bold onPress={hide} />
-              <H1 className="mt-5 mb-8">Créez une nouvelle boisson</H1>
+              <H1 className="mt-5 mb-8">{updateDrinkKey ? 'Modifiez votre boisson' : 'Créez une nouvelle boisson'}</H1>
               <View className="mb-8 flex flex-row justify-between items-center">
                 <Text className="font-bold text-lg">{'Est-ce un cocktail\u00A0?'}</Text>
                 <SwitchButtons
@@ -40,6 +39,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
                 <CocktailPersonalisation
                   updateDrinkKey={updateDrinkKey}
                   hide={hide}
+                  key={showCocktail}
                   cocktailSelected={cocktailSelected}
                   setCocktailSelected={setCocktailSelected}
                 />
@@ -47,6 +47,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
                 <DrinkPersonalisation
                   updateDrinkKey={updateDrinkKey}
                   hide={hide}
+                  key={showCocktail}
                   quantitySelected={quantitySelected}
                   setQuantitySelected={setQuantitySelected}
                 />
