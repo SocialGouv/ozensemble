@@ -237,7 +237,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       </View>
       <ModalUpdateSuppressionDrink
         updateDrinkKey={isUpdateWanted}
-        visible={showModalUdate}
+        visible={showModalUpdate}
         onClose={() => {
           hide();
           setShowModal(false);
