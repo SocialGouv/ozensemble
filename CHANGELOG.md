@@ -1,3 +1,10 @@
+## [1.97.8](https://github.com/SocialGouv/ozensemble/compare/v1.97.7...v1.97.8) (2023-04-17)
+
+
+### Bug Fixes
+
+* udpdate wanted ([#264](https://github.com/SocialGouv/ozensemble/issues/264)) ([6166396](https://github.com/SocialGouv/ozensemble/commit/6166396e51af3c99a78426b20710afab1c761478))
+
 ## [1.97.7](https://github.com/SocialGouv/ozensemble/compare/v1.97.6...v1.97.7) (2023-04-17)
 
 
