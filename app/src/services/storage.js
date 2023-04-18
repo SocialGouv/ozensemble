@@ -5,6 +5,9 @@ import API from './api';
 import NotificationService from './notifications';
 import { capture } from './sentry';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
+import { useRecoilState } from 'recoil';
+import { ownDrinksCatalogState } from '../recoil/consos';
+import CocktailGlass from '../components/illustrations/drinksAndFood/CocktailGlass';
 
 export const storage = new MMKV();
 if (__DEV__) {
@@ -341,3 +344,208 @@ export async function createBadgesForDoneDefis() {
   });
   storage.set('hasCreateBadgeaForDoneDefis', true);
 }
+
+export async function migrationOwnCatalog() {
+  const drinks = [
+    {
+      active: true,
+      categoryKey: 'Coupe de champagne -12-12',
+      custom: true,
+      displayDrinkModal: 'Coupe de champagne ',
+      displayFeed: 'Coupe de champagne ',
+      doses: 1,
+      drinkKey: 'Coupe de champagne -12-12',
+      iconOf: 'wine-glass',
+      volume: '12 cl - 12˚',
+    },
+    {
+      active: true,
+      categoryKey: 'Rhum-4-35',
+      custom: true,
+      displayDrinkModal: 'Rhum',
+      displayFeed: 'Rhum',
+      doses: 1,
+      drinkKey: 'Rhum-4-35',
+      iconOf: 'hard-shot',
+      volume: '4 cl - 35˚',
+    },
+    {
+      categoryKey: 'Bières',
+      displayDrinkModal: 'demi',
+      doses: 1,
+      drinkKey: 'beer-half',
+      kcal: 105,
+      price: 3.5,
+      volume: '25 cl',
+    },
+    {
+      categoryKey: 'Bières',
+      displayDrinkModal: 'pinte',
+      doses: 2,
+      drinkKey: 'beer-pint',
+      kcal: 210,
+      price: 7,
+      volume: '50 cl',
+    },
+    {
+      categoryKey: 'Cidre',
+      displayDrinkModal: 'demi',
+      doses: 1,
+      drinkKey: 'cider-half',
+      kcal: 102,
+      price: 2,
+      volume: '25 cl',
+    },
+    {
+      categoryKey: 'Cidre',
+      displayDrinkModal: 'pinte',
+      doses: 2,
+      drinkKey: 'cider-pint',
+      kcal: 204,
+      price: 4,
+      style: {
+        marginBottom: 10,
+      },
+      volume: '50 cl',
+    },
+    {
+      categoryKey: 'Vins',
+      displayDrinkModal: 'verre',
+      doses: 1,
+      drinkKey: 'wine-glass',
+      kcal: 100,
+      price: 4,
+      volume: '12 cl',
+    },
+    {
+      categoryKey: 'Vins',
+      displayDrinkModal: 'bouteille',
+      doses: 8,
+      drinkKey: 'wine-bottle',
+      kcal: 600,
+      price: 10,
+      style: {
+        marginBottom: 20,
+      },
+      volume: '75 cl',
+    },
+    {
+      categoryKey: 'Champagne',
+      displayDrinkModal: 'coupe',
+      doses: 1,
+      drinkKey: 'champagne-glass',
+      kcal: 90,
+      price: 5,
+      volume: '12cl',
+    },
+    {
+      categoryKey: 'Champagne',
+      displayDrinkModal: 'bouteille',
+      doses: 8,
+      drinkKey: 'champagne-bottle',
+      kcal: 622,
+      price: 20,
+      style: {
+        marginBottom: 20,
+      },
+      volume: '75cl',
+    },
+    {
+      categoryKey: 'Shot et Cocktail',
+      displayDrinkModal: 'shot',
+      doses: 1,
+      drinkKey: 'hard-shot',
+      kcal: 100,
+      price: 2,
+      volume: '3 cl',
+    },
+    {
+      categoryKey: 'Shot et Cocktail',
+      displayDrinkModal: 'cocktail',
+      doses: 1,
+      drinkKey: 'hard-cocktail',
+      kcal: 133,
+      price: 8,
+      volume: '5 cl',
+    },
+    {
+      categoryKey: 'Spiritueux',
+      displayDrinkModal: 'flasque',
+      doses: 7,
+      drinkKey: 'hard-flasque',
+      kcal: 750,
+      price: 4,
+      volume: '20 cl',
+    },
+    {
+      categoryKey: 'Spiritueux',
+      displayDrinkModal: 'bouteille',
+      doses: 22,
+      drinkKey: 'hard-bottle',
+      kcal: 1875,
+      price: 15,
+      volume: '75 cl',
+    },
+  ];
+  let newDrinks = [];
+  drinks.map((oldDrink) => {
+    if (oldDrink.custom === true) {
+      const drinkKey = oldDrink.categoryKey.split('-')[0];
+      const icon = mapIconOfToIconName(oldDrink.iconOf);
+      const categoryKey = 'ownDrink';
+      const volume = Number(oldDrink.categoryKey.split('-')[1]);
+      const isDeleted = false;
+      const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2]);
+      const kcal = Math.round((alcoolPercentage * 0.8 * volume) / 10) / 10;
+
+      newDrinks = [
+        ...newDrinks,
+        {
+          drinkKey: drinkKey,
+          icon: icon,
+          categoryKey: categoryKey,
+          volume: volume + ' cl',
+          isDeleted: isDeleted,
+          kcal: kcal,
+          doses: oldDrink.doses,
+          displayFeed: oldDrink.displayFeed,
+          displayDrinkModal: oldDrink.displayDrinkModal,
+          custom: true,
+        },
+      ];
+    } else {
+      newDrinks = [...newDrinks, oldDrink];
+    }
+  });
+  console.log(newDrinks);
+  return newDrinks;
+}
+
+const mapIconOfToIconName = (iconOf) => {
+  switch (iconOf) {
+    case 'beer-pint':
+      return 'Pint';
+    case 'beer-half':
+      return 'HalfBeer';
+    case 'hard-shoot':
+      return 'Shoot';
+    case 'hard-bottle':
+      return 'Flasque';
+    case 'wine-glass':
+      return 'WineGlass';
+    case 'wine-bottle':
+      return 'WineBottle';
+    case 'champagne-glass':
+      return 'ChampagneGlass';
+    case 'champagne-glass':
+      return 'ChampagneBottle';
+    case 'cocktail-glass':
+      return 'CocktailGlass';
+    case 'cockatil-bottle':
+      return 'CocktailBotte';
+    case 'cider-half':
+      return 'CiderHalf';
+    case 'cider-pint':
+      return 'CiderPint';
+  }
+};
