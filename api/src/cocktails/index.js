@@ -7,7 +7,7 @@ const cocktailsCatalog = [
     displaySelection: "Whisky cola",
     volume: "5cl whisky 40%",
     volumeNumber: 5,
-    doses: 1,
+    doses: 1.6,
     kcal: 230,
   },
   {
@@ -18,7 +18,7 @@ const cocktailsCatalog = [
     displaySelection: "Gin tonic",
     volume: "5cl gin 40%",
     volumeNumber: 5,
-    doses: 1,
+    doses: 1.6,
     kcal: 140,
   },
 
@@ -30,7 +30,7 @@ const cocktailsCatalog = [
     displaySelection: "Cuba libre",
     volumeNumber: 5,
     volume: "5cl rhum 40%",
-    doses: 1,
+    doses: 1.6,
     kcal: 160,
   },
   {
@@ -41,7 +41,7 @@ const cocktailsCatalog = [
     displaySelection: "Mojito",
     volume: "5cl rhum 40%",
     volumeNumber: 5,
-    doses: 1,
+    doses: 1.6,
     kcal: 160,
   },
   {
@@ -52,7 +52,7 @@ const cocktailsCatalog = [
     displaySelection: "Spritz",
     volume: "10cl apéritif et prosecco 11%",
     volumeNumber: 10,
-    doses: 1,
+    doses: 0.9,
     kcal: 120,
   },
   {
@@ -63,7 +63,7 @@ const cocktailsCatalog = [
     displaySelection: "Caïpirinha",
     volume: "5cl cachaça 40%",
     volumeNumber: 5,
-    doses: 1,
+    doses: 1.6,
     kcal: 149,
   },
   {
@@ -74,7 +74,7 @@ const cocktailsCatalog = [
     displaySelection: "Piña Colada",
     volume: "6cl rhum 40%",
     volumeNumber: 6,
-    doses: 1,
+    doses: 1.9,
     kcal: 300,
   },
   {
@@ -85,7 +85,7 @@ const cocktailsCatalog = [
     displaySelection: "Cosmopolitan",
     volume: "6 cl vodka et liqueur 40%",
     volumeNumber: 6,
-    doses: 1,
+    doses: 1.9,
     kcal: 200,
   },
   {
@@ -96,7 +96,7 @@ const cocktailsCatalog = [
     displaySelection: "Margarita",
     volume: "6 cl tequila et liqueur 40%",
     volumeNumber: 6,
-    doses: 1,
+    doses: 1.8,
     kcal: 140,
   },
   {
@@ -107,7 +107,7 @@ const cocktailsCatalog = [
     displaySelection: "Tequila sunrise",
     volume: "4 cl tequila 35%",
     volumeNumber: 4,
-    doses: 1,
+    doses: 1.1,
     kcal: 230,
   },
 ];
