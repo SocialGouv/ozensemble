@@ -1,3 +1,10 @@
+## [1.97.13](https://github.com/SocialGouv/ozensemble/compare/v1.97.12...v1.97.13) (2023-04-18)
+
+
+### Bug Fixes
+
+* request to add cocktail to list ([#269](https://github.com/SocialGouv/ozensemble/issues/269)) ([ee8a3d6](https://github.com/SocialGouv/ozensemble/commit/ee8a3d68938ce8e3fa59a9c472b003804b1b95e8))
+
 ## [1.97.12](https://github.com/SocialGouv/ozensemble/compare/v1.97.11...v1.97.12) (2023-04-18)
 
 
