@@ -41,7 +41,7 @@ const ModalUpdateSuppressionDrink = ({ isUpdate, visible, onClose, onUpdate, onD
 
           <View className=" justify-around mt-6 space-y-4">
             {isUpdate ? (
-              <ButtonPrimary content="Oui modifier" onPress={onUpdate} />
+              <ButtonPrimary content="Oui mettre à jour" onPress={onUpdate} />
             ) : (
               <ButtonPrimary content="Oui supprimer" onPress={onDelete} />
             )}
