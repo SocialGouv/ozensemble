@@ -1,3 +1,10 @@
+## [1.97.15](https://github.com/SocialGouv/ozensemble/compare/v1.97.14...v1.97.15) (2023-04-18)
+
+
+### Bug Fixes
+
+* send string to DB instead of casting to number ([#273](https://github.com/SocialGouv/ozensemble/issues/273)) ([0c63a07](https://github.com/SocialGouv/ozensemble/commit/0c63a075bfae57f9ad2fbbd30bc1fec3ee628dab))
+
 ## [1.97.14](https://github.com/SocialGouv/ozensemble/compare/v1.97.13...v1.97.14) (2023-04-18)
 
 
