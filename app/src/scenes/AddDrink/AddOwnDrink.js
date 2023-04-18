@@ -13,6 +13,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === updateDrinkKey);
   const [switchPosition, setSwitchPosition] = useState(drink?.categoryKey === 'ownCocktail' ? 'oui' : 'non');
+
   const [quantitySelected, setQuantitySelected] = useState();
   const [cocktailSelected, setCocktailSelected] = useState();
   const showCocktail = switchPosition === 'oui';
@@ -42,6 +43,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
                   key={showCocktail}
                   cocktailSelected={cocktailSelected}
                   setCocktailSelected={setCocktailSelected}
+                  setSwitchPosition={setSwitchPosition}
                 />
               ) : (
                 <DrinkPersonalisation
