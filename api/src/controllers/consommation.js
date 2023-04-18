@@ -50,7 +50,7 @@ router.post(
         doses: Number(drinkFromCatalog.doses),
         kcal: Number(drinkFromCatalog.kcal),
         price: Number(drinkFromCatalog.price),
-        volume: Number(drinkFromCatalog.volume),
+        volume: drinkFromCatalog.volume,
       };
     });
 
