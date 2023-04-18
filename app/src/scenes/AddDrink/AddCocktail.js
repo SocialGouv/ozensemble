@@ -89,7 +89,7 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
                   <ButtonPrimary
                     small
                     content={'Envoyer'}
-                    disabled={newCocktailName === ''}
+                    disabled={!newCocktailName}
                     onPress={() => {
                       hide();
                       setNewCocktailName('');
