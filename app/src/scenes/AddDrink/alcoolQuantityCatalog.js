@@ -10,7 +10,7 @@ export const alcoolQuantityCatalog = [
     icon: 'SmallCan',
   },
   {
-    name: 'Pinte',
+    name: 'Pinte ou Grande canette',
     volume: '50 cl',
     icon: 'Pint',
   },

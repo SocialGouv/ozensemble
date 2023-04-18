@@ -185,7 +185,7 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
         ) : (
           <View>
             <ButtonPrimary
-              content="Modifier mon cocktail"
+              content="Mettre à jour mon cocktail"
               onPress={() => {
                 setIsUpdateWanted(true);
                 setShowModalUpdate(true);

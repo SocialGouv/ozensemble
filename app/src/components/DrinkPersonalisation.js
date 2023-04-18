@@ -218,7 +218,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         ) : (
           <View>
             <ButtonPrimary
-              content="Modifier ma boisson"
+              content="Mettre à jour ma boisson"
               onPress={() => {
                 setIsUpdateWanted(true);
                 setShowModalUpdate(true);
