@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { StyleSheet, Animated, View } from 'react-native';
-import Modal from '../components/Modal';
+import { Animated, View } from 'react-native';
+
 import TextStyled from '../components/TextStyled';
 
 const ViewContext = React.createContext();

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { View, Text, TouchableOpacity, TextInput, Alert, Animated } from 'react-native';
 import { useRoute } from '@react-navigation/native';
@@ -242,7 +242,7 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
         pointerEvents={'box-none'}>
         <View className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min px-4	">
           <TextStyled maxFontSizeMultiplier={2} color={'#FFF'} testID="toast" className="text-center py-2">
-            nouveau cocktail demandé
+            Nouveau cocktail demandé
           </TextStyled>
         </View>
       </Animated.View>
