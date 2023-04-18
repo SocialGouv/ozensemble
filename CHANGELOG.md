@@ -1,3 +1,12 @@
+## [1.97.17](https://github.com/SocialGouv/ozensemble/compare/v1.97.16...v1.97.17) (2023-04-18)
+
+
+### Bug Fixes
+
+* put last drink on top ([#277](https://github.com/SocialGouv/ozensemble/issues/277)) ([7615e3f](https://github.com/SocialGouv/ozensemble/commit/7615e3f1cb39633af2cb24b99ca35c46042070cb))
+* test testflight ([#275](https://github.com/SocialGouv/ozensemble/issues/275)) ([4611fd8](https://github.com/SocialGouv/ozensemble/commit/4611fd8d3b12f2211c3a7b42920e14ec3abdfd8d))
+* update app version ([#276](https://github.com/SocialGouv/ozensemble/issues/276)) ([cef104d](https://github.com/SocialGouv/ozensemble/commit/cef104d0e5b18fd3ed529e12fb6c44f9a41dd312))
+
 ## [1.97.16](https://github.com/SocialGouv/ozensemble/compare/v1.97.15...v1.97.16) (2023-04-18)
 
 
