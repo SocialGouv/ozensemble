@@ -1,3 +1,11 @@
+## [1.97.11](https://github.com/SocialGouv/ozensemble/compare/v1.97.10...v1.97.11) (2023-04-18)
+
+
+### Bug Fixes
+
+* add limit to name input ([#270](https://github.com/SocialGouv/ozensemble/issues/270)) ([242e413](https://github.com/SocialGouv/ozensemble/commit/242e413acef148e0be3e94fc118fe4e05261c9b3))
+* put updateOwnDrinkKey to null when pressing on 'create my drink' ([#271](https://github.com/SocialGouv/ozensemble/issues/271)) ([2512e3d](https://github.com/SocialGouv/ozensemble/commit/2512e3d21e0a4e813651fa385475f30abdc18875))
+
 ## [1.97.10](https://github.com/SocialGouv/ozensemble/compare/v1.97.9...v1.97.10) (2023-04-18)
 
 
