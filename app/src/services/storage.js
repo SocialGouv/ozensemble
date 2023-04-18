@@ -238,7 +238,7 @@ export async function sendPreviousDrinksToDB() {
   const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks') || '[]');
 
   if (drinks.length) {
-    await API.post({
+    API.post({
       path: '/consommation/init',
       body: {
         matomoId,
@@ -279,7 +279,7 @@ export async function sendObjectifToDB() {
   );
   const dosesPerWeek = (7 - daysWithGoalNoDrink.length) * dosesByDrinkingDay;
 
-  await API.post({
+  API.post({
     path: '/goal',
     body: {
       matomoId: matomoId,
@@ -311,7 +311,7 @@ export async function sendNPSDoneToDB() {
     return;
   }
 
-  await API.post({
+  API.post({
     path: '/appUserMilestone',
     body: {
       matomoId,
@@ -331,7 +331,7 @@ export async function createBadgesForDoneDefis() {
   const autoEvaluationDone = storage.getBoolean('@Quizz_answers');
   const daysValidated = Number(storage.getNumber('@Defi1_ValidatedDays'));
 
-  await API.post({
+  API.post({
     path: '/defis/init',
     body: {
       matomoId,

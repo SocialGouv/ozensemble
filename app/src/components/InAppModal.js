@@ -98,7 +98,6 @@ const InAppModal = () => {
           matomoId,
         },
       });
-      storage.set('@newBadgeAnnouncementAddOwnDrink', true);
     }
   };
 
