@@ -13,7 +13,13 @@ import { storage } from '../services/storage';
 import API from '../services/api';
 import AddCocktail from '../scenes/AddDrink/AddCocktail';
 
-const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, cocktailSelected }) => {
+const CocktailPersonalisation = ({
+  updateDrinkKey,
+  hide,
+  setCocktailSelected,
+  cocktailSelected,
+  setSwitchPosition,
+}) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
   const onSetQuantity = (q) => {
@@ -193,7 +199,8 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
             onPress={() => {
               saveDrink();
               setCocktailSelected(null);
-
+              setSwitchPosition('non');
+              console.log('here');
               hide();
             }}
             disabled={!drinkPrice || !drinkName}
