@@ -156,6 +156,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         <TextInput
           className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
           placeholder="Bière forte, verre de vin au bar..."
+          maxLength={23}
           value={drinkName}
           onChangeText={(value) => setDrinkName(value)}
         />
