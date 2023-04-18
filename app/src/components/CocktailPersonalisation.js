@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { View, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Alert, Animated } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextStyled from './TextStyled';
@@ -8,7 +8,6 @@ import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
 import ButtonPrimary from './ButtonPrimary';
 import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
-
 import ModalUpdateSuppressionCocktail from './ModalUpdateSuppressionCocktail';
 import { storage } from '../services/storage';
 import API from '../services/api';
@@ -31,9 +30,26 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
   const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
   const drinkKcal = cocktailSelected?.kCal ?? drink?.kcal;
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const [isUpdateWanted, setIsUpdateWanted] = useState(false);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const showToast = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+    setTimeout(() => {
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }).start();
+    }, 1500);
+  };
 
   const saveDrink = async () => {
     const oldDrink =
@@ -98,7 +114,6 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
     }
     setOwnDrinksCatalog((oldState) => {
       return [
-        ...oldState,
         {
           categoryKey: 'ownCocktail',
           drinkKey: drinkName,
@@ -111,6 +126,7 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
           custom: true,
           isDeleted: false,
         },
+        ...oldState,
       ];
     });
 
@@ -220,10 +236,21 @@ const CocktailPersonalisation = ({ updateDrinkKey, hide, setCocktailSelected, co
           deleteDrink();
         }}
       />
+      <Animated.View
+        style={{ opacity: fadeAnim }}
+        className="flex flex-row w-screen justify-center absolute -bottom-2"
+        pointerEvents={'box-none'}>
+        <View className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min px-4	">
+          <TextStyled maxFontSizeMultiplier={2} color={'#FFF'} testID="toast" className="text-center py-2">
+            nouveau cocktail demandé
+          </TextStyled>
+        </View>
+      </Animated.View>
       <AddCocktail
         visible={showModalAddCocktail}
         hide={() => setShowModalAddCocktail(false)}
         setCocktailSelected={setCocktailSelected}
+        showToast={showToast}
       />
     </>
   );

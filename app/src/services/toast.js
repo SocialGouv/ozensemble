@@ -59,8 +59,8 @@ const ToastProvider = (props) => {
           style={{ opacity: fadeAnim }}
           className="flex flex-row w-full justify-center absolute bottom-11"
           pointerEvents={'box-none'}>
-          <View style={styles.wrapper} className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min	">
-            <TextStyled maxFontSizeMultiplier={2} style={styles.text} testID="toast">
+          <View className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min px-4	">
+            <TextStyled maxFontSizeMultiplier={2} color={'#FFF'} testID="toast" className="text-center py-2">
               {caption}
             </TextStyled>
           </View>
@@ -71,24 +71,3 @@ const ToastProvider = (props) => {
 };
 
 export default ToastProvider;
-
-const styles = StyleSheet.create({
-  modal: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    position: 'absolute',
-  },
-  wrapper: {
-    backgroundColor: '#4030a5',
-    borderRadius: 16,
-    paddingHorizontal: 15,
-    marginBottom: 15,
-  },
-  text: {
-    color: '#FFF',
-    textAlign: 'center',
-    paddingVertical: 10,
-  },
-});

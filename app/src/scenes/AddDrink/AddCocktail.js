@@ -19,7 +19,7 @@ import H3 from '../../components/H3';
 import H2 from '../../components/H2';
 import API from '../../services/api';
 
-const AddCocktail = ({ visible, hide, setCocktailSelected }) => {
+const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
   const [cocktailsCatalog, setCocktailsCatalog] = useState([]);
   const getCocktailsCatalog = async () => {
     const res = await API.get({ path: '/drinks/cocktails' });
@@ -86,7 +86,22 @@ const AddCocktail = ({ visible, hide, setCocktailSelected }) => {
                   value={newCocktailName}
                 />
                 <View className="flex flex-row mt-3">
-                  <ButtonPrimary small content={'Envoyer'} disabled={newCocktailName === ''} />
+                  <ButtonPrimary
+                    small
+                    content={'Envoyer'}
+                    disabled={newCocktailName === ''}
+                    onPress={() => {
+                      hide();
+                      setNewCocktailName('');
+                      showToast();
+                      API.post({
+                        path: '/drinks/new-cocktail-request',
+                        body: {
+                          cocktailName: newCocktailName,
+                        },
+                      });
+                    }}
+                  />
                 </View>
               </View>
             </View>
