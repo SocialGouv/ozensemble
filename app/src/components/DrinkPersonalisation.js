@@ -34,7 +34,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(
     drink?.alcoolPercentage ? String(drink?.alcoolPercentage) : ''
   );
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
   const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(' ')[0];
