@@ -238,7 +238,7 @@ export const drinksCatalog = [
   {
     categoryKey: APERITIVE,
     drinkKey: APERITIVE_GLASS,
-    displayFeed: (q) => (q > 1 ? "verre d'apéritif" : "verres d'apéritif"),
+    displayFeed: (q) => (q > 1 ? "verres d'apéritif" : "verre d'apéritif"),
     displayDrinkModal: 'verre',
     volume: '7 cl',
     doses: 1,
@@ -249,7 +249,7 @@ export const drinksCatalog = [
   {
     categoryKey: APERITIVE,
     drinkKey: APERITIVE_BOTTLE,
-    displayFeed: (q) => (q > 1 ? "bouteille d'apéritif" : "bouteilles d'apéritif"),
+    displayFeed: (q) => (q > 1 ? "bouteilles d'apéritif" : "bouteille d'apéritif"),
     displayDrinkModal: 'bouteille',
     volume: '70 cl',
     doses: 75,

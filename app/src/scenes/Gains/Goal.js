@@ -181,7 +181,7 @@ const Goal = ({ navigation, route }) => {
         </View>
         <CTAButtonContainer>
           <ButtonPrimary
-            content="Je continue"
+            content="Valider mon objectif"
             onPress={() => {
               logEvent({
                 category: 'GAINS',

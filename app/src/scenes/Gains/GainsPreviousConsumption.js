@@ -50,7 +50,9 @@ const GainsPreviousConsumption = () => {
       noPaddingHorizontal>
       <Container>
         <DescriptionText>
-          <P bold>Sur une semaine type, combien d'unités d'alcool consommez-vous ?</P>
+          <P bold>
+            Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
+          </P>
         </DescriptionText>
         <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
       </Container>
