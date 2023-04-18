@@ -52,7 +52,6 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
                   key={showCocktail}
                   quantitySelected={quantitySelected}
                   setQuantitySelected={setQuantitySelected}
-                  setSwitchPosition={setCocktailSelected}
                 />
               )}
             </View>
