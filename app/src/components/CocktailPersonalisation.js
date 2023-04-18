@@ -200,7 +200,6 @@ const CocktailPersonalisation = ({
               saveDrink();
               setCocktailSelected(null);
               setSwitchPosition('non');
-              console.log('here');
               hide();
             }}
             disabled={!drinkPrice || !drinkName}
