@@ -1,3 +1,10 @@
+## [1.97.18](https://github.com/SocialGouv/ozensemble/compare/v1.97.17...v1.97.18) (2023-04-18)
+
+
+### Bug Fixes
+
+* put isCocktail back to non when a cocktail is saved ([#278](https://github.com/SocialGouv/ozensemble/issues/278)) ([22cf790](https://github.com/SocialGouv/ozensemble/commit/22cf7904e518af239ca0b17e7e54196a8323f521))
+
 ## [1.97.17](https://github.com/SocialGouv/ozensemble/compare/v1.97.16...v1.97.17) (2023-04-18)
 
 
