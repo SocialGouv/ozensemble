@@ -346,7 +346,7 @@ export async function createBadgesForDoneDefis() {
 }
 
 export async function migrationOwnCatalog() {
-  const drinks = [
+  const drinksCatalog = [
     {
       active: true,
       categoryKey: 'Coupe de champagne -12-12',
@@ -487,10 +487,9 @@ export async function migrationOwnCatalog() {
       volume: '75 cl',
     },
   ];
-  let newDrinks = [];
-  drinks.map((oldDrink) => {
+  let newOwnDrinksCatalog = [];
+  drinksCatalog.map((oldDrink) => {
     if (oldDrink.custom === true) {
-      const drinkKey = oldDrink.categoryKey.split('-')[0];
       const icon = mapIconOfToIconName(oldDrink.iconOf);
       const categoryKey = 'ownDrink';
       const volume = Number(oldDrink.categoryKey.split('-')[1]);
@@ -498,10 +497,10 @@ export async function migrationOwnCatalog() {
       const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2]);
       const kcal = Math.round((alcoolPercentage * 0.8 * volume) / 10) / 10;
 
-      newDrinks = [
-        ...newDrinks,
+      newOwnDrinksCatalog = [
+        ...newOwnDrinksCatalog,
         {
-          drinkKey: drinkKey,
+          drinkKey: oldDrink.categoryKey,
           icon: icon,
           categoryKey: categoryKey,
           volume: volume + ' cl',
@@ -513,12 +512,11 @@ export async function migrationOwnCatalog() {
           custom: true,
         },
       ];
-    } else {
-      newDrinks = [...newDrinks, oldDrink];
     }
   });
-  console.log(newDrinks);
-  return newDrinks;
+  console.log(newOwnDrinksCatalog);
+
+  return newOwnDrinksCatalog;
 }
 
 const mapIconOfToIconName = (iconOf) => {

@@ -44,7 +44,7 @@ router.post(
         id: drink.id,
         drinkKey: drink.drinkKey,
         name: drinkFromCatalog.displayDrinkModal,
-        quantity: Number(drink.quantity),
+        quantity: drink.quantity,
         date: dayjs(drink.timestamp).format(),
         userId: user.id,
         doses: Number(drinkFromCatalog.doses),
