@@ -108,7 +108,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
     const icon = quantitySelected.icon;
     setOwnDrinksCatalog((oldState) => {
       return [
-        ...oldState,
         {
           categoryKey: 'ownDrink',
           drinkKey: drinkName,
@@ -122,6 +121,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           custom: true,
           isDeleted: false,
         },
+        ...oldState,
       ];
     });
     if (quantity > 0) {
