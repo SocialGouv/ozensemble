@@ -247,7 +247,11 @@ const ConsosList = ({ navigation, route }) => {
               <TextStyled color="#4030a5" bold center className="mb-4">
                 Vous ne trouvez pas votre boisson dans la liste ?
               </TextStyled>
-              <TouchableOpacity onPress={() => setOwnDrinksModalVisible(true)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setUpdateOwnDrinkKey(null);
+                  setOwnDrinksModalVisible(true);
+                }}>
                 <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
               </TouchableOpacity>
             </View>
