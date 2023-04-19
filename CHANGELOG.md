@@ -1,3 +1,10 @@
+## [1.97.19](https://github.com/SocialGouv/ozensemble/compare/v1.97.18...v1.97.19) (2023-04-19)
+
+
+### Bug Fixes
+
+* wordings review build 160 ([da0000d](https://github.com/SocialGouv/ozensemble/commit/da0000d98e84453b8007888f91754e6b36ee44c8))
+
 ## [1.97.18](https://github.com/SocialGouv/ozensemble/compare/v1.97.17...v1.97.18) (2023-04-18)
 
 
