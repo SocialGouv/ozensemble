@@ -348,152 +348,11 @@ export async function createBadgesForDoneDefis() {
 export const hasMigrateOwnDrinksCatalog = storage.getBoolean('@hasMigrateOwnDrinksCatalog');
 
 export async function migrateOwnDrinksCatalog() {
-  // const drinksCatalog = [
-  //   {
-  //     active: true,
-  //     categoryKey: 'Coupe de champagne -12-12',
-  //     custom: true,
-  //     displayDrinkModal: 'Coupe de champagne ',
-  //     displayFeed: 'Coupe de champagne ',
-  //     doses: 1,
-  //     drinkKey: 'Coupe de champagne -12-12',
-  //     iconOf: 'wine-glass',
-  //     volume: '12 cl - 12˚',
-  //   },
-  //   {
-  //     active: true,
-  //     categoryKey: 'Rhum-4-35',
-  //     custom: true,
-  //     displayDrinkModal: 'Rhum',
-  //     displayFeed: 'Rhum',
-  //     doses: 1,
-  //     drinkKey: 'Rhum-4-35',
-  //     iconOf: 'hard-shot',
-  //     volume: '4 cl - 35˚',
-  //   },
-  //   {
-  //     categoryKey: 'Bières',
-  //     displayDrinkModal: 'demi',
-  //     doses: 1,
-  //     drinkKey: 'beer-half',
-  //     kcal: 105,
-  //     price: 3.5,
-  //     volume: '25 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Bières',
-  //     displayDrinkModal: 'pinte',
-  //     doses: 2,
-  //     drinkKey: 'beer-pint',
-  //     kcal: 210,
-  //     price: 7,
-  //     volume: '50 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Cidre',
-  //     displayDrinkModal: 'demi',
-  //     doses: 1,
-  //     drinkKey: 'cider-half',
-  //     kcal: 102,
-  //     price: 2,
-  //     volume: '25 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Cidre',
-  //     displayDrinkModal: 'pinte',
-  //     doses: 2,
-  //     drinkKey: 'cider-pint',
-  //     kcal: 204,
-  //     price: 4,
-  //     style: {
-  //       marginBottom: 10,
-  //     },
-  //     volume: '50 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Vins',
-  //     displayDrinkModal: 'verre',
-  //     doses: 1,
-  //     drinkKey: 'wine-glass',
-  //     kcal: 100,
-  //     price: 4,
-  //     volume: '12 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Vins',
-  //     displayDrinkModal: 'bouteille',
-  //     doses: 8,
-  //     drinkKey: 'wine-bottle',
-  //     kcal: 600,
-  //     price: 10,
-  //     style: {
-  //       marginBottom: 20,
-  //     },
-  //     volume: '75 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Champagne',
-  //     displayDrinkModal: 'coupe',
-  //     doses: 1,
-  //     drinkKey: 'champagne-glass',
-  //     kcal: 90,
-  //     price: 5,
-  //     volume: '12cl',
-  //   },
-  //   {
-  //     categoryKey: 'Champagne',
-  //     displayDrinkModal: 'bouteille',
-  //     doses: 8,
-  //     drinkKey: 'champagne-bottle',
-  //     kcal: 622,
-  //     price: 20,
-  //     style: {
-  //       marginBottom: 20,
-  //     },
-  //     volume: '75cl',
-  //   },
-  //   {
-  //     categoryKey: 'Shot et Cocktail',
-  //     displayDrinkModal: 'shot',
-  //     doses: 1,
-  //     drinkKey: 'hard-shot',
-  //     kcal: 100,
-  //     price: 2,
-  //     volume: '3 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Shot et Cocktail',
-  //     displayDrinkModal: 'cocktail',
-  //     doses: 1,
-  //     drinkKey: 'hard-cocktail',
-  //     kcal: 133,
-  //     price: 8,
-  //     volume: '5 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Spiritueux',
-  //     displayDrinkModal: 'flasque',
-  //     doses: 7,
-  //     drinkKey: 'hard-flasque',
-  //     kcal: 750,
-  //     price: 4,
-  //     volume: '20 cl',
-  //   },
-  //   {
-  //     categoryKey: 'Spiritueux',
-  //     displayDrinkModal: 'bouteille',
-  //     doses: 22,
-  //     drinkKey: 'hard-bottle',
-  //     kcal: 1875,
-  //     price: 15,
-  //     volume: '75 cl',
-  //   },
-  // ];
-  // storage.set('@OwnDrinks', JSON.stringify(drinksCatalog));
-  const oldDrinkCatalog = JSON.parse(storage.getString('@OwnDrinks'));
-  if (oldDrinkCatalog) {
+  const catalog = storage.getString('@OwnDrinks');
+  if (catalog) {
+    const oldDrinkCatalog = JSON.parse(catalog);
     let newOwnDrinksCatalog = [];
-    oldDrinkCatalog.map((oldDrink) => {
+    oldDrinkCatalog.forEach((oldDrink) => {
       if (oldDrink.custom === true) {
         const icon = mapIconOfToIconName(oldDrink.iconOf);
         const categoryKey = 'ownDrink';
@@ -524,7 +383,7 @@ export async function migrateOwnDrinksCatalog() {
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
     console.log(newOwnDrinksCatalog);
   }
-  storage.set('@hasMigrateOwnDrinksCatalog', true);
+  // storage.set('@hasMigrateOwnDrinksCatalog', true);
 }
 
 const mapIconOfToIconName = (iconOf) => {
