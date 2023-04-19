@@ -1,3 +1,10 @@
+## [1.97.26](https://github.com/SocialGouv/ozensemble/compare/v1.97.25...v1.97.26) (2023-04-19)
+
+
+### Bug Fixes
+
+* displayDrinkModal ([6214e49](https://github.com/SocialGouv/ozensemble/commit/6214e491ef653abc78fd3c981de446b7a6af256b))
+
 ## [1.97.25](https://github.com/SocialGouv/ozensemble/compare/v1.97.24...v1.97.25) (2023-04-19)
 
 
