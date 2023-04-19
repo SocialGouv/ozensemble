@@ -39,7 +39,6 @@ router.post(
 router.post(
   "/init",
   catchErrors(async (req, res) => {
-    console.log(req.headers.appversion);
     const matomoId = req.body?.matomoId;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     const user = await prisma.user.upsert({
@@ -53,9 +52,7 @@ router.post(
     const newBadgeAnnouncementAddOwnDrink = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@newBadgeAnnouncementAddOwnDrink` },
     });
-    console.log("newBadgeAnnouncementAddOwnDrink", newBadgeAnnouncementAddOwnDrink);
     // If app not up to date => create first badges milestone
-    console.log(req.headers.appversion);
     if (req.headers.appversion >= 158 && !newBadgeAnnouncementAddOwnDrink) {
       await prisma.appMilestone.create({
         data: {
