@@ -1,35 +1,27 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
 import Pdf from 'react-native-pdf';
+import styled from 'styled-components';
+import BackButton from '../../components/BackButton';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const pdfUrl =
   'https://ozensemble.fr/files/11042023_oz_ensemble_politique_de_confidentialit%C3%A9_de_l_application_v_3.pdf';
 
 const PrivacyPolicy = ({ onClose }) => (
-  <View style={styles.container}>
+  <View className="flex-1 justify-start items-center mt-6">
+    <View className="flex flex-row w-full mb-4" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      <BackButton onPress={onClose} />
+    </View>
     <Pdf
       trustAllCerts={false}
       source={{
         uri: pdfUrl,
         cache: true,
       }}
-      style={styles.pdf}
+      className="flex-1 w-screen h-screen"
     />
   </View>
 );
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: 25,
-  },
-  pdf: {
-    flex: 1,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-});
 
 export default PrivacyPolicy;
