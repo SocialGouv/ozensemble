@@ -29,9 +29,12 @@ const CocktailPersonalisation = ({
   const [showModalAddCocktail, setShowModalAddCocktail] = useState(false);
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find(
-    (catalogdrink) => catalogdrink.drinkKey === updateDrinkKey && catalogdrink.isDeleted === false
+    (catalogdrink) =>
+      catalogdrink.drinkKey === updateDrinkKey &&
+      catalogdrink.isDeleted === false &&
+      catalogdrink.categoryKey === 'ownCocktail'
   );
-  const drinkName = cocktailSelected?.name ?? updateDrinkKey;
+  const drinkName = updateDrinkKey;
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
@@ -62,6 +65,9 @@ const CocktailPersonalisation = ({
       drink ??
       ownDrinksCatalog.find(
         (catalogDrink) => catalogDrink.drinkKey === cocktailSelected?.name && catalogDrink.isDeleted === false
+      ) ??
+      ownDrinksCatalog.find(
+        (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
       );
     if (oldDrink) {
       if (!isUpdateWanted) {
@@ -85,8 +91,8 @@ const CocktailPersonalisation = ({
           oldStateDrink.drinkKey === oldDrink.drinkKey
             ? {
                 categoryKey: 'ownCocktail',
-                drinkKey: drinkName,
-                displayFeed: drinkName,
+                drinkKey: cocktailSelected.name,
+                displayFeed: cocktailSelected.name,
                 volume: drinkVolume + ' cl',
                 doses: drinkDoses,
                 icon: 'CocktailGlass',
@@ -100,7 +106,9 @@ const CocktailPersonalisation = ({
       });
       setGlobalDrinksState((oldState) => {
         return oldState.map((oldStateDrink) =>
-          oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
+          oldStateDrink.drinkKey === oldDrink.drinkKey
+            ? { ...oldStateDrink, drinkKey: cocktailSelected.name }
+            : oldStateDrink
         );
       });
       const matomoId = storage.getString('@UserIdv2');
@@ -109,7 +117,7 @@ const CocktailPersonalisation = ({
         body: {
           matomoId: matomoId,
           oldDrinkKey: oldDrink.drinkKey,
-          drinkKey: drinkName,
+          drinkKey: cocktailSelected.name,
           volume: drinkVolume + ' cl',
           doses: drinkDoses,
           price: Number(drinkPrice),
@@ -122,8 +130,8 @@ const CocktailPersonalisation = ({
       return [
         {
           categoryKey: 'ownCocktail',
-          drinkKey: drinkName,
-          displayFeed: drinkName,
+          drinkKey: cocktailSelected.name,
+          displayFeed: cocktailSelected.name,
           volume: drinkVolume + ' cl',
           doses: drinkDoses,
           icon: 'CocktailGlass',
@@ -142,7 +150,7 @@ const CocktailPersonalisation = ({
         [
           ...state.filter((_drink) => _drink.id !== drinkId),
           {
-            drinkKey: drinkName,
+            drinkKey: cocktailSelected.name,
             quantity: Number(quantity),
             id: drinkId,
             isOwnDrink: true,
@@ -162,7 +170,7 @@ const CocktailPersonalisation = ({
     <>
       <View className="mb-4">
         <TextStyled bold>Cocktail</TextStyled>
-        {!cocktailSelected?.name && !updateDrinkKey ? (
+        {!cocktailSelected?.name && !drink ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => setShowModalAddCocktail(true)}>
@@ -202,7 +210,7 @@ const CocktailPersonalisation = ({
               setSwitchPosition('non');
               hide();
             }}
-            disabled={!drinkPrice || !drinkName}
+            disabled={!drinkPrice || !cocktailSelected}
           />
         ) : (
           <View>
@@ -212,7 +220,7 @@ const CocktailPersonalisation = ({
                 setIsUpdateWanted(true);
                 setShowModalUpdate(true);
               }}
-              disabled={!drinkPrice || !drinkName}
+              disabled={!drinkPrice || !cocktailSelected}
             />
             <TouchableOpacity
               onPress={() => {
