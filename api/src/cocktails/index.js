@@ -1,9 +1,9 @@
 const cocktailsCatalog = [
   {
     categoryKey: "cocktail",
-    drinkKey: "whiksy-cola",
+    drinkKey: "whisky-cola",
     displayFeed: (q) => (q > 1 ? "cocktail whisky cola" : "cocktails whisky cola"),
-    displayDrinkModal: "Cocktail Whiksy Cola",
+    displayDrinkModal: "Cocktail Whisky Cola",
     displaySelection: "Whisky cola",
     volume: "5cl whisky 40%",
     volumeNumber: 5,

@@ -251,7 +251,7 @@ export const drinksCatalog = [
     drinkKey: APERITIVE_BOTTLE,
     displayFeed: (q) => (q > 1 ? "bouteilles d'apéritif" : "bouteille d'apéritif"),
     displayDrinkModal: 'bouteille',
-    volume: '70 cl',
+    volume: '75 cl',
     doses: 10.8,
     icon: 'AperitiveBottle',
     price: 10,
@@ -272,7 +272,7 @@ export const drinksCatalog = [
   {
     categoryKey: SPIRITS,
     drinkKey: HARD_COCKTAIL,
-    displayFeed: (q) => (q > 1 ? 'cocktails' : 'cocktail'),
+    displayFeed: (q) => (q > 1 ? 'verres de spiritueux' : 'verre de spiritueux'),
     displayDrinkModal: 'verre',
     volume: '5 cl + diluant',
     doses: 1.6,
