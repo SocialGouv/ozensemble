@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { View, Text, TouchableOpacity, TextInput, Alert, Animated } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
