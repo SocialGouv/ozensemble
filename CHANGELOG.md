@@ -1,3 +1,11 @@
+## [1.97.20](https://github.com/SocialGouv/ozensemble/compare/v1.97.19...v1.97.20) (2023-04-19)
+
+
+### Bug Fixes
+
+* add back button to CGU and InfosLegales ([#280](https://github.com/SocialGouv/ozensemble/issues/280)) ([7c0b22b](https://github.com/SocialGouv/ozensemble/commit/7c0b22b7c38ee1536be1e934d1e39906902fef67))
+* color icon new feature modal ([#279](https://github.com/SocialGouv/ozensemble/issues/279)) ([fa2ca14](https://github.com/SocialGouv/ozensemble/commit/fa2ca14b75221282e42112a7a8ea7e0a3c7e08ba))
+
 ## [1.97.19](https://github.com/SocialGouv/ozensemble/compare/v1.97.18...v1.97.19) (2023-04-19)
 
 
