@@ -78,6 +78,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
                 categoryKey: 'ownDrink',
                 drinkKey: drinkName,
                 displayFeed: drinkName,
+                displayDrinkModal: drinkName,
                 volume: volumeNumber + ' cl',
                 doses: doses,
                 icon: drinkIcon,
@@ -120,6 +121,8 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           categoryKey: 'ownDrink',
           drinkKey: drinkName,
           displayFeed: drinkName,
+          displayDrinkModal: drinkName,
+
           volume: quantitySelected?.volume + ' cl',
           doses: doses,
           icon: icon,
