@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { View, Text, TouchableOpacity, TextInput, Alert, Animated } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import TextStyled from './TextStyled';
 import ArrowDown from './ArrowDown';
 import { QuantitySetter } from './DrinkQuantitySetter';
@@ -19,6 +19,7 @@ const CocktailPersonalisation = ({
   setCocktailSelected,
   cocktailSelected,
   setSwitchPosition,
+  setLocalDrinksState,
 }) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
@@ -42,6 +43,7 @@ const CocktailPersonalisation = ({
   const [quantity, setQuantity] = useState(1);
   const [isUpdateWanted, setIsUpdateWanted] = useState(false);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const showToast = () => {
@@ -148,18 +150,16 @@ const CocktailPersonalisation = ({
 
     if (quantity > 0) {
       const drinkId = uuidv4();
-      setGlobalDrinksState((state) =>
-        [
-          ...state.filter((_drink) => _drink.id !== drinkId),
-          {
-            drinkKey: cocktailSelected.name,
-            quantity: Number(quantity),
-            id: drinkId,
-            isOwnDrink: true,
-            timestamp,
-          },
-        ].filter((d) => d.quantity > 0)
-      );
+      setLocalDrinksState((localDrinksState) => [
+        ...localDrinksState,
+        {
+          drinkKey: cocktailSelected.name,
+          quantity: Number(quantity),
+          id: drinkId,
+          isOwnDrink: true,
+          timestamp,
+        },
+      ]);
     }
   };
 

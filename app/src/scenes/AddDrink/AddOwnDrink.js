@@ -9,7 +9,7 @@ import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
 import { ownDrinksCatalogState } from '../../recoil/consos';
 
-const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
+const AddOwnDrink = ({ visible, hide, updateDrinkKey, setLocalDrinksState }) => {
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === updateDrinkKey);
   const [switchPosition, setSwitchPosition] = useState(drink?.categoryKey === 'ownCocktail' ? 'oui' : 'non');
@@ -43,6 +43,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
                   cocktailSelected={cocktailSelected}
                   setCocktailSelected={setCocktailSelected}
                   setSwitchPosition={setSwitchPosition}
+                  setLocalDrinksState={setLocalDrinksState}
                 />
               ) : (
                 <DrinkPersonalisation
@@ -51,6 +52,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey }) => {
                   key={updateDrinkKey}
                   quantitySelected={quantitySelected}
                   setQuantitySelected={setQuantitySelected}
+                  setLocalDrinksState={setLocalDrinksState}
                 />
               )}
             </View>
