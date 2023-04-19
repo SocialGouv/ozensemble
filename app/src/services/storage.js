@@ -383,7 +383,7 @@ export async function migrateOwnDrinksCatalog() {
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
     console.log(newOwnDrinksCatalog);
   }
-  storage.set('@hasMigrateOwnDrinksCatalog', true);
+  // storage.set('@hasMigrateOwnDrinksCatalog', true);
 }
 
 const mapIconOfToIconName = (iconOf) => {

@@ -84,7 +84,7 @@ const ConsosList = ({ navigation, route }) => {
     }));
     let drinkNumber = 0;
     let showToast = true;
-    for (let drink of testDrinksToAdd) {
+    for (let drink of drinksWithTimestamps) {
       drinkNumber++;
       setGlobalDrinksState((state) =>
         [
