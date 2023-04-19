@@ -402,7 +402,7 @@ const mapIconOfToIconName = (iconOf) => {
       return 'WineBottle';
     case 'champagne-glass':
       return 'ChampagneGlass';
-    case 'champagne-glass':
+    case 'champagne-bottle':
       return 'ChampagneBottle';
     case 'cocktail-glass':
       return 'CocktailGlass';
