@@ -47,7 +47,6 @@ const ConsosList = ({ navigation, route }) => {
   const [ownDrinksModalVisible, setOwnDrinksModalVisible] = useState(false);
   const [updateOwnDrinkKey, setUpdateOwnDrinkKey] = useState(null);
   const toast = useToast();
-
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
   const scrollRef = useRef(null);
@@ -280,7 +279,10 @@ const ConsosList = ({ navigation, route }) => {
       </Container>
       <AddOwnDrink
         visible={ownDrinksModalVisible}
-        hide={() => setOwnDrinksModalVisible(false)}
+        hide={() => {
+          setUpdateOwnDrinkKey(null);
+          setOwnDrinksModalVisible(false);
+        }}
         updateDrinkKey={updateOwnDrinkKey}
         key={updateOwnDrinkKey}
       />
