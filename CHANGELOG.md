@@ -1,3 +1,11 @@
+## [1.97.22](https://github.com/SocialGouv/ozensemble/compare/v1.97.21...v1.97.22) (2023-04-19)
+
+
+### Bug Fixes
+
+* not use values of cocktail when switching to drink and vice versa ([#281](https://github.com/SocialGouv/ozensemble/issues/281)) ([18cc9d7](https://github.com/SocialGouv/ozensemble/commit/18cc9d7252f9199b71f778fbe7df21185850dbca))
+* remove cl for own drinks ([#283](https://github.com/SocialGouv/ozensemble/issues/283)) ([72724df](https://github.com/SocialGouv/ozensemble/commit/72724df8061d202f15d28a880ba067d75e890eb1))
+
 ## [1.97.21](https://github.com/SocialGouv/ozensemble/compare/v1.97.20...v1.97.21) (2023-04-19)
 
 
