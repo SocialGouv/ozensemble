@@ -28,7 +28,10 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const drink = !updateDrinkKey
     ? null
     : ownDrinksCatalog.find(
-        (catalogdrink) => catalogdrink.drinkKey === updateDrinkKey && catalogdrink.isDeleted === false
+        (catalogdrink) =>
+          catalogdrink.drinkKey === updateDrinkKey &&
+          catalogdrink.isDeleted === false &&
+          catalogdrink.categoryKey === 'ownDrink'
       );
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(
@@ -42,7 +45,12 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const saveDrink = async () => {
     const oldDrink =
       drink ??
-      ownDrinksCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkName && catalogDrink.isDeleted === false);
+      ownDrinksCatalog.find(
+        (catalogDrink) => catalogDrink.drinkKey === drinkName && catalogDrink.isDeleted === false
+      ) ??
+      ownDrinksCatalog.find(
+        (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
+      );
     const kCal = ((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
     const doses = Math.round((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
     if (oldDrink) {
@@ -157,14 +165,14 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
           placeholder="Bière forte, verre de vin au bar..."
           maxLength={23}
-          value={drinkName}
+          value={drink?.drinkKey}
           onChangeText={(value) => setDrinkName(value)}
         />
         <Text className="text-xs">(23 caractères max)</Text>
       </View>
       <View className="mb-4">
         <TextStyled bold>Quantité d'alcool servie (cl)</TextStyled>
-        {!quantitySelected?.volume && !updateDrinkKey ? (
+        {!quantitySelected?.volume && !drink ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => setShowQuantityModal(true)}>
