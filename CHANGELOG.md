@@ -1,3 +1,11 @@
+## [1.97.24](https://github.com/SocialGouv/ozensemble/compare/v1.97.23...v1.97.24) (2023-04-19)
+
+
+### Bug Fixes
+
+* add displayModal ([#286](https://github.com/SocialGouv/ozensemble/issues/286)) ([70ab38c](https://github.com/SocialGouv/ozensemble/commit/70ab38cde0621dd5aa47e2d3163e9aa7511522f9))
+* save migration done ([#285](https://github.com/SocialGouv/ozensemble/issues/285)) ([40ac579](https://github.com/SocialGouv/ozensemble/commit/40ac579b9ff8add2d87197cc3fe14d917639dcef))
+
 ## [1.97.23](https://github.com/SocialGouv/ozensemble/compare/v1.97.22...v1.97.23) (2023-04-19)
 
 
