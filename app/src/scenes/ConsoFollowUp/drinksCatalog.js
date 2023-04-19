@@ -76,7 +76,7 @@ export const getDrinksKeysFromCatalog = (catalog) =>
 export const getDisplayName = (drinkKey, quantity, catalog) => {
   try {
     const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-    return drink.custom ? drink.displayFeed : drink.displayFeed(quantity);
+    return drink?.custom ? drink.displayFeed : drink.displayFeed(quantity);
   } catch (e) {
     console.log('error getDisplayName', e);
     return 0;

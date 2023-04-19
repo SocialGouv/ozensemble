@@ -32,6 +32,8 @@ import {
   sendNPSDoneToDB,
   hasCreateBadgeForDoneDefis,
   createBadgesForDoneDefis,
+  hasMigrateOwnDrinksCatalog,
+  migrateOwnDrinksCatalog,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -64,6 +66,7 @@ const App = () => {
     hasMigratedRemindersToPushToken
   );
   const [_hasCreateBadgeForDoneDefis, setHasCreateBadgeForDoneDefis] = useState(hasCreateBadgeForDoneDefis);
+  const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
     if (!hasMigratedFromAsyncStorage || !hasGenderAndAge) {
@@ -106,6 +109,10 @@ const App = () => {
     if (!_hasCreateBadgeForDoneDefis) {
       createBadgesForDoneDefis();
       setHasCreateBadgeForDoneDefis(true);
+    }
+    if (!hasMigrateOwnDrinksCatalog) {
+      migrateOwnDrinksCatalog();
+      setHasMigratedOwnDrinksCatalog(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

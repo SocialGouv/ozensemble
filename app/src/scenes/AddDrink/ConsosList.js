@@ -42,6 +42,7 @@ const ConsosList = ({ navigation, route }) => {
   const drinksPerCurrentaTimestamp = useRecoilValue(
     drinksPerCurrenTimestampSelector({ modalTimestamp: addDrinkModalTimestamp })
   );
+
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const [ownDrinksModalVisible, setOwnDrinksModalVisible] = useState(false);
@@ -49,6 +50,7 @@ const ConsosList = ({ navigation, route }) => {
   const toast = useToast();
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
+
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
   const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
@@ -96,7 +98,7 @@ const ConsosList = ({ navigation, route }) => {
           },
         ].filter((d) => d.quantity > 0)
       );
-      const drinkFromCatalog = [...(availableOwnDrinksCatalog || []), ...drinksCatalog].find(
+      const drinkFromCatalog = [...(ownDrinksCatalog || []), ...drinksCatalog].find(
         (_drink) => _drink.drinkKey === drink.drinkKey
       );
       logEvent({
