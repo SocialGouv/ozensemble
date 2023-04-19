@@ -5,9 +5,6 @@ import API from './api';
 import NotificationService from './notifications';
 import { capture } from './sentry';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
-import { useRecoilState } from 'recoil';
-import { ownDrinksCatalogState } from '../recoil/consos';
-import CocktailGlass from '../components/illustrations/drinksAndFood/CocktailGlass';
 
 export const storage = new MMKV();
 if (__DEV__) {
