@@ -5,9 +5,6 @@ import API from './api';
 import NotificationService from './notifications';
 import { capture } from './sentry';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
-import { useRecoilState } from 'recoil';
-import { ownDrinksCatalogState } from '../recoil/consos';
-import CocktailGlass from '../components/illustrations/drinksAndFood/CocktailGlass';
 
 export const storage = new MMKV();
 if (__DEV__) {
@@ -349,6 +346,7 @@ export const hasMigrateOwnDrinksCatalog = storage.getBoolean('@hasMigrateOwnDrin
 
 export async function migrateOwnDrinksCatalog() {
   const catalog = storage.getString('@OwnDrinks');
+
   if (catalog) {
     const oldDrinkCatalog = JSON.parse(catalog);
     let newOwnDrinksCatalog = [];
@@ -381,9 +379,8 @@ export async function migrateOwnDrinksCatalog() {
       }
     });
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
-    console.log(newOwnDrinksCatalog);
   }
-  // storage.set('@hasMigrateOwnDrinksCatalog', true);
+  storage.set('@hasMigrateOwnDrinksCatalog', true);
 }
 
 const mapIconOfToIconName = (iconOf) => {
