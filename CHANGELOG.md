@@ -1,3 +1,10 @@
+## [1.97.23](https://github.com/SocialGouv/ozensemble/compare/v1.97.22...v1.97.23) (2023-04-19)
+
+
+### Bug Fixes
+
+*  migration own drinks ([#272](https://github.com/SocialGouv/ozensemble/issues/272)) ([f704b60](https://github.com/SocialGouv/ozensemble/commit/f704b60a045c787a08933a164dddfc336bd5d7e3))
+
 ## [1.97.22](https://github.com/SocialGouv/ozensemble/compare/v1.97.21...v1.97.22) (2023-04-19)
 
 
