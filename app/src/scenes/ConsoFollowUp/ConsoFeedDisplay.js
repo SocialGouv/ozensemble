@@ -40,7 +40,7 @@ const ConsoFeedDisplay = ({
             <Drink>
               {quantity} {drinkName}{' '}
             </Drink>
-            {!drink.categoryKey.includes('ownCocktail') && (
+            {!drink.categoryKey.includes('own') && (
               <Volume numberOfLines={1} ellipsizeMode="tail">
                 ({drink.volume})
               </Volume>
