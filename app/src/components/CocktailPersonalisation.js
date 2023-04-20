@@ -126,26 +126,26 @@ const CocktailPersonalisation = ({
           kcal: drinkKcal,
         },
       });
-    } else {
-      setOwnDrinksCatalog((oldState) => {
-        return [
-          {
-            categoryKey: 'ownCocktail',
-            drinkKey: drinkName,
-            displayFeed: drinkName,
-            displayDrinkModal: drinkName,
-            volume: drinkVolume + ' cl',
-            doses: drinkDoses,
-            icon: 'CocktailGlass',
-            price: Number(drinkPrice),
-            kcal: drinkKcal,
-            custom: true,
-            isDeleted: false,
-          },
-          ...oldState,
-        ];
-      });
+      return;
     }
+    setOwnDrinksCatalog((oldState) => {
+      return [
+        {
+          categoryKey: 'ownCocktail',
+          drinkKey: drinkName,
+          displayFeed: drinkName,
+          displayDrinkModal: drinkName,
+          volume: drinkVolume + ' cl',
+          doses: drinkDoses,
+          icon: 'CocktailGlass',
+          price: Number(drinkPrice),
+          kcal: drinkKcal,
+          custom: true,
+          isDeleted: false,
+        },
+        ...oldState,
+      ];
+    });
 
     if (quantity > 0) {
       const drinkId = uuidv4();
