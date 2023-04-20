@@ -41,7 +41,7 @@ const CocktailPersonalisation = ({
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
   const drinkKcal = cocktailSelected?.kCal ?? drink?.kcal;
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
-  const [quantity, setQuantity] = useState(isUpdateWanted ? 0 : 1);
+  const [quantity, setQuantity] = useState(updateDrinkKey ? 0 : 1);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
