@@ -223,10 +223,13 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           />
         </View>
       </View>
-      <View className="flex flex-row justify-between items-center flex-wrap gap-y-6">
-        <TextStyled bold>Quantité bue aujourd'hui</TextStyled>
-        <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
-      </View>
+      {!updateDrinkKey && (
+        <View className="flex flex-row justify-between items-center flex-wrap gap-y-6">
+          <TextStyled bold>Quantité bue aujourd'hui</TextStyled>
+          <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
+        </View>
+      )}
+
       <View className="flex flex-row justify-center mt-14 mb-10 ">
         {!updateDrinkKey ? (
           <ButtonPrimary

@@ -155,6 +155,7 @@ const ConsosList = ({ navigation, route }) => {
 
   useEffect(() => {
     if (isFocused) {
+      setLocalDrinksState(drinksPerCurrentaTimestamp);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
     }
     return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);

@@ -40,10 +40,9 @@ const CocktailPersonalisation = ({
   const drinkVolume = cocktailSelected?.volume ? cocktailSelected?.volume + ' cl' : drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
   const drinkKcal = cocktailSelected?.kCal ?? drink?.kcal;
-  const [quantity, setQuantity] = useState(1);
-  const [isUpdateWanted, setIsUpdateWanted] = useState(false);
+  const [isUpdateWanted, setIsUpdateWanted] = useState(true);
+  const [quantity, setQuantity] = useState(isUpdateWanted ? 0 : 1);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
-
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   const showToast = () => {
@@ -209,10 +208,13 @@ const CocktailPersonalisation = ({
           onChangeText={(value) => setDrinkPrice(value)}
         />
       </View>
-      <View className="flex flex-row justify-between items-center flex-wrap">
-        <TextStyled bold>Quantité bue aujourd'hui</TextStyled>
-        <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
-      </View>
+      {!updateDrinkKey && (
+        <View className="flex flex-row justify-between items-center flex-wrap">
+          <TextStyled bold>Quantité bue aujourd'hui</TextStyled>
+          <QuantitySetter quantity={quantity} onSetQuantity={onSetQuantity} />
+        </View>
+      )}
+
       <View className="flex flex-row justify-center mt-14 mb-10">
         {!updateDrinkKey ? (
           <ButtonPrimary
