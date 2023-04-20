@@ -1,3 +1,10 @@
+## [1.97.29](https://github.com/SocialGouv/ozensemble/compare/v1.97.28...v1.97.29) (2023-04-20)
+
+
+### Bug Fixes
+
+* use local state in own drink ([#291](https://github.com/SocialGouv/ozensemble/issues/291)) ([19720fb](https://github.com/SocialGouv/ozensemble/commit/19720fb8aa6d9546b914365fbddeaa405d897302))
+
 ## [1.97.28](https://github.com/SocialGouv/ozensemble/compare/v1.97.27...v1.97.28) (2023-04-20)
 
 
