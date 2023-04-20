@@ -1,3 +1,10 @@
+## [1.97.27](https://github.com/SocialGouv/ozensemble/compare/v1.97.26...v1.97.27) (2023-04-20)
+
+
+### Bug Fixes
+
+* save quantity on local srinkState ([#288](https://github.com/SocialGouv/ozensemble/issues/288)) ([ce67453](https://github.com/SocialGouv/ozensemble/commit/ce67453c2488594c154b71579db2e5f4a91e2509))
+
 ## [1.97.26](https://github.com/SocialGouv/ozensemble/compare/v1.97.25...v1.97.26) (2023-04-19)
 
 
