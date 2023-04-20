@@ -36,6 +36,7 @@ const CocktailPersonalisation = ({
       catalogdrink.categoryKey === 'ownCocktail'
   );
   const drinkName = drink?.drinkKey ?? cocktailSelected?.name;
+  console.log(cocktailSelected);
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
