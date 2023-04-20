@@ -13,7 +13,7 @@ import API from '../services/api';
 import { storage } from '../services/storage';
 import AddAlcoolQuantity from '../scenes/AddDrink/AddAlcoolQuantity';
 
-const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected }) => {
+const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected, setLocalDrinksState }) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
 
@@ -24,7 +24,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [showQuantityModal, setShowQuantityModal] = useState(false);
 
-  const [drinkName, setDrinkName] = useState(updateDrinkKey);
   const drink = !updateDrinkKey
     ? null
     : ownDrinksCatalog.find(
@@ -33,6 +32,8 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           catalogdrink.isDeleted === false &&
           catalogdrink.categoryKey === 'ownDrink'
       );
+  const [drinkName, setDrinkName] = useState(drink?.drinkKey);
+
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(
     drink?.alcoolPercentage ? String(drink?.alcoolPercentage) : ''
@@ -111,32 +112,33 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           kcal: kCal,
         },
       });
-    } else {
-      const icon = quantitySelected.icon;
-      setOwnDrinksCatalog((oldState) => {
-        return [
-          {
-            categoryKey: 'ownDrink',
-            drinkKey: drinkName,
-            displayFeed: drinkName,
-            displayDrinkModal: drinkName,
-
-            volume: quantitySelected?.volume + ' cl',
-            doses: doses,
-            icon: icon,
-            price: Number(drinkPrice),
-            alcoolPercentage: Number(drinkAlcoolPercentage),
-            kcal: kCal,
-            custom: true,
-            isDeleted: false,
-          },
-          ...oldState,
-        ];
-      });
+      return;
     }
+
+    const icon = quantitySelected.icon;
+    setOwnDrinksCatalog((oldState) => {
+      return [
+        {
+          categoryKey: 'ownDrink',
+          drinkKey: drinkName,
+          displayFeed: drinkName,
+          displayDrinkModal: drinkName,
+
+          volume: quantitySelected?.volume + ' cl',
+          doses: doses,
+          icon: icon,
+          price: Number(drinkPrice),
+          alcoolPercentage: Number(drinkAlcoolPercentage),
+          kcal: kCal,
+          custom: true,
+          isDeleted: false,
+        },
+        ...oldState,
+      ];
+    });
     if (quantity > 0) {
       const drinkId = uuidv4();
-      setGlobalDrinksState((state) =>
+      setLocalDrinksState((state) =>
         [
           ...state.filter((_drink) => _drink.id !== drinkId),
           {
@@ -167,7 +169,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
           placeholder="Bière forte, verre de vin au bar..."
           maxLength={23}
-          value={drink?.drinkKey}
+          value={drinkName}
           onChangeText={(value) => setDrinkName(value)}
         />
         <Text className="text-xs">(23 caractères max)</Text>
