@@ -1,3 +1,11 @@
+## [1.97.28](https://github.com/SocialGouv/ozensemble/compare/v1.97.27...v1.97.28) (2023-04-20)
+
+
+### Bug Fixes
+
+* bump version to 163 ([#290](https://github.com/SocialGouv/ozensemble/issues/290)) ([44d5951](https://github.com/SocialGouv/ozensemble/commit/44d595118dbd68b1ef530d2af8f3b45a00b364fd))
+* put updated drink quantity to localDrinkState ([#289](https://github.com/SocialGouv/ozensemble/issues/289)) ([3457220](https://github.com/SocialGouv/ozensemble/commit/3457220f0f6a689b7ea96363d76c051ec724c5b5))
+
 ## [1.97.27](https://github.com/SocialGouv/ozensemble/compare/v1.97.26...v1.97.27) (2023-04-20)
 
 
