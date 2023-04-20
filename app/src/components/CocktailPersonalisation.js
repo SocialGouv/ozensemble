@@ -35,7 +35,8 @@ const CocktailPersonalisation = ({
       catalogdrink.isDeleted === false &&
       catalogdrink.categoryKey === 'ownCocktail'
   );
-  const drinkName = updateDrinkKey;
+  const drinkName = drink?.drinkKey ?? cocktailSelected?.name;
+  console.log(cocktailSelected);
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
   const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
@@ -93,9 +94,9 @@ const CocktailPersonalisation = ({
           oldStateDrink.drinkKey === oldDrink.drinkKey
             ? {
                 categoryKey: 'ownCocktail',
-                drinkKey: cocktailSelected.name,
-                displayFeed: cocktailSelected.name,
-                displayDrinkModal: cocktailSelected.name,
+                drinkKey: drinkName,
+                displayFeed: drinkName,
+                displayDrinkModal: drinkName,
                 volume: drinkVolume + ' cl',
                 doses: drinkDoses,
                 icon: 'CocktailGlass',
@@ -109,9 +110,7 @@ const CocktailPersonalisation = ({
       });
       setGlobalDrinksState((oldState) => {
         return oldState.map((oldStateDrink) =>
-          oldStateDrink.drinkKey === oldDrink.drinkKey
-            ? { ...oldStateDrink, drinkKey: cocktailSelected.name }
-            : oldStateDrink
+          oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
         );
       });
       const matomoId = storage.getString('@UserIdv2');
@@ -120,40 +119,40 @@ const CocktailPersonalisation = ({
         body: {
           matomoId: matomoId,
           oldDrinkKey: oldDrink.drinkKey,
-          drinkKey: cocktailSelected.name,
+          drinkKey: drinkName,
           volume: drinkVolume + ' cl',
           doses: drinkDoses,
           price: Number(drinkPrice),
           kcal: drinkKcal,
         },
       });
-      return;
+    } else {
+      setOwnDrinksCatalog((oldState) => {
+        return [
+          {
+            categoryKey: 'ownCocktail',
+            drinkKey: drinkName,
+            displayFeed: drinkName,
+            displayDrinkModal: drinkName,
+            volume: drinkVolume + ' cl',
+            doses: drinkDoses,
+            icon: 'CocktailGlass',
+            price: Number(drinkPrice),
+            kcal: drinkKcal,
+            custom: true,
+            isDeleted: false,
+          },
+          ...oldState,
+        ];
+      });
     }
-    setOwnDrinksCatalog((oldState) => {
-      return [
-        {
-          categoryKey: 'ownCocktail',
-          drinkKey: cocktailSelected.name,
-          displayFeed: cocktailSelected.name,
-          displayDrinkModal: cocktailSelected.name,
-          volume: drinkVolume + ' cl',
-          doses: drinkDoses,
-          icon: 'CocktailGlass',
-          price: Number(drinkPrice),
-          kcal: drinkKcal,
-          custom: true,
-          isDeleted: false,
-        },
-        ...oldState,
-      ];
-    });
 
     if (quantity > 0) {
       const drinkId = uuidv4();
       setLocalDrinksState((localDrinksState) => [
         ...localDrinksState,
         {
-          drinkKey: cocktailSelected.name,
+          drinkKey: drinkName,
           quantity: Number(quantity),
           id: drinkId,
           isOwnDrink: true,
@@ -165,7 +164,9 @@ const CocktailPersonalisation = ({
 
   const deleteDrink = async () => {
     setOwnDrinksCatalog((oldState) => {
-      return oldState.map((drink) => (drink.drinkKey == drinkName ? { ...drink, isDeleted: true } : drink));
+      return oldState.map((oldDrink) =>
+        oldDrink.drinkKey == drink.drinkKey ? { ...oldDrink, isDeleted: true } : oldDrink
+      );
     });
   };
   return (
@@ -222,7 +223,7 @@ const CocktailPersonalisation = ({
                 setIsUpdateWanted(true);
                 setShowModalUpdate(true);
               }}
-              disabled={!drinkPrice || !cocktailSelected}
+              disabled={!drinkPrice || (!cocktailSelected && !drink)}
             />
             <TouchableOpacity
               onPress={() => {

@@ -286,7 +286,7 @@ const ConsosList = ({ navigation, route }) => {
           setOwnDrinksModalVisible(false);
         }}
         updateDrinkKey={updateOwnDrinkKey}
-        key={updateOwnDrinkKey}
+        key={ownDrinksModalVisible}
         setLocalDrinksState={setLocalDrinksState}
       />
     </>
