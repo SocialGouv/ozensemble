@@ -23,7 +23,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const [ownDrinksCatalog, setOwnDrinksCatalog] = useRecoilState(ownDrinksCatalogState);
   const [showModalUpdate, setShowModalUpdate] = useState(false);
   const [showQuantityModal, setShowQuantityModal] = useState(false);
-
   const drink = !updateDrinkKey
     ? null
     : ownDrinksCatalog.find(
@@ -112,6 +111,17 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           kcal: kCal,
         },
       });
+      const drinkId = uuidv4();
+      setLocalDrinksState((state) => [
+        ...state.filter((localStateDrink) => localStateDrink.drinkKey !== oldDrink.drinkKey),
+        {
+          drinkKey: drinkName,
+          quantity: Number(quantity),
+          id: drinkId,
+          isOwnDrink: true,
+          timestamp,
+        },
+      ]);
       return;
     }
 

@@ -35,10 +35,9 @@ const CocktailPersonalisation = ({
       catalogdrink.isDeleted === false &&
       catalogdrink.categoryKey === 'ownCocktail'
   );
-  const drinkName = drink?.drinkKey ?? cocktailSelected?.name;
-  console.log(cocktailSelected);
+  const drinkName = cocktailSelected?.name ?? drink?.drinkKey;
   const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
-  const drinkVolume = cocktailSelected?.volume ?? drink?.volume;
+  const drinkVolume = cocktailSelected?.volume ? cocktailSelected?.volume + ' cl' : drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
   const drinkKcal = cocktailSelected?.kCal ?? drink?.kcal;
   const [quantity, setQuantity] = useState(1);
@@ -97,7 +96,7 @@ const CocktailPersonalisation = ({
                 drinkKey: drinkName,
                 displayFeed: drinkName,
                 displayDrinkModal: drinkName,
-                volume: drinkVolume + ' cl',
+                volume: drinkVolume,
                 doses: drinkDoses,
                 icon: 'CocktailGlass',
                 price: Number(drinkPrice),
@@ -113,6 +112,7 @@ const CocktailPersonalisation = ({
           oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
         );
       });
+
       const matomoId = storage.getString('@UserIdv2');
       await API.post({
         path: '/consommation/update-own-conso',
@@ -120,12 +120,23 @@ const CocktailPersonalisation = ({
           matomoId: matomoId,
           oldDrinkKey: oldDrink.drinkKey,
           drinkKey: drinkName,
-          volume: drinkVolume + ' cl',
+          volume: drinkVolume,
           doses: drinkDoses,
           price: Number(drinkPrice),
           kcal: drinkKcal,
         },
       });
+      const drinkId = uuidv4();
+      setLocalDrinksState((state) => [
+        ...state.filter((localStateDrink) => localStateDrink.drinkKey !== oldDrink.drinkKey),
+        {
+          drinkKey: drinkName,
+          quantity: Number(quantity),
+          id: drinkId,
+          isOwnDrink: true,
+          timestamp,
+        },
+      ]);
       return;
     }
     setOwnDrinksCatalog((oldState) => {
@@ -135,7 +146,7 @@ const CocktailPersonalisation = ({
           drinkKey: drinkName,
           displayFeed: drinkName,
           displayDrinkModal: drinkName,
-          volume: drinkVolume + ' cl',
+          volume: drinkVolume,
           doses: drinkDoses,
           icon: 'CocktailGlass',
           price: Number(drinkPrice),
@@ -146,9 +157,8 @@ const CocktailPersonalisation = ({
         ...oldState,
       ];
     });
-
+    const drinkId = uuidv4();
     if (quantity > 0) {
-      const drinkId = uuidv4();
       setLocalDrinksState((localDrinksState) => [
         ...localDrinksState,
         {

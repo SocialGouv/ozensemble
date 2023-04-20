@@ -42,7 +42,6 @@ const ConsosList = ({ navigation, route }) => {
   const drinksPerCurrentaTimestamp = useRecoilValue(
     drinksPerCurrenTimestampSelector({ modalTimestamp: addDrinkModalTimestamp })
   );
-
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [localDrinksState, setLocalDrinksState] = useState(drinksPerCurrentaTimestamp);
   const [ownDrinksModalVisible, setOwnDrinksModalVisible] = useState(false);
@@ -50,7 +49,6 @@ const ConsosList = ({ navigation, route }) => {
   const toast = useToast();
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
-
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
   const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
@@ -75,7 +73,6 @@ const ConsosList = ({ navigation, route }) => {
       ]);
     }
   };
-
   const onValidateConsos = async () => {
     onClose();
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
@@ -158,7 +155,6 @@ const ConsosList = ({ navigation, route }) => {
 
   useEffect(() => {
     if (isFocused) {
-      setLocalDrinksState(drinksPerCurrentaTimestamp);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
     }
     return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
