@@ -111,30 +111,29 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           kcal: kCal,
         },
       });
-      return;
+    } else {
+      const icon = quantitySelected.icon;
+      setOwnDrinksCatalog((oldState) => {
+        return [
+          {
+            categoryKey: 'ownDrink',
+            drinkKey: drinkName,
+            displayFeed: drinkName,
+            displayDrinkModal: drinkName,
+
+            volume: quantitySelected?.volume + ' cl',
+            doses: doses,
+            icon: icon,
+            price: Number(drinkPrice),
+            alcoolPercentage: Number(drinkAlcoolPercentage),
+            kcal: kCal,
+            custom: true,
+            isDeleted: false,
+          },
+          ...oldState,
+        ];
+      });
     }
-
-    const icon = quantitySelected.icon;
-    setOwnDrinksCatalog((oldState) => {
-      return [
-        {
-          categoryKey: 'ownDrink',
-          drinkKey: drinkName,
-          displayFeed: drinkName,
-          displayDrinkModal: drinkName,
-
-          volume: quantitySelected?.volume + ' cl',
-          doses: doses,
-          icon: icon,
-          price: Number(drinkPrice),
-          alcoolPercentage: Number(drinkAlcoolPercentage),
-          kcal: kCal,
-          custom: true,
-          isDeleted: false,
-        },
-        ...oldState,
-      ];
-    });
     if (quantity > 0) {
       const drinkId = uuidv4();
       setGlobalDrinksState((state) =>
