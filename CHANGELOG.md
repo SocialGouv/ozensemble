@@ -1,3 +1,10 @@
+## [1.97.30](https://github.com/SocialGouv/ozensemble/compare/v1.97.29...v1.97.30) (2023-04-20)
+
+
+### Bug Fixes
+
+* save quantity on update ([#292](https://github.com/SocialGouv/ozensemble/issues/292)) ([8c1657c](https://github.com/SocialGouv/ozensemble/commit/8c1657c1785011115e392f8412b9a51f8e84e8f0))
+
 ## [1.97.29](https://github.com/SocialGouv/ozensemble/compare/v1.97.28...v1.97.29) (2023-04-20)
 
 
