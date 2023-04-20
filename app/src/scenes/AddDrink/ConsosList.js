@@ -73,7 +73,6 @@ const ConsosList = ({ navigation, route }) => {
       ]);
     }
   };
-  console.log('list localDrinksState', localDrinksState);
   const onValidateConsos = async () => {
     onClose();
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
