@@ -147,7 +147,6 @@ const ConsosList = ({ navigation, route }) => {
   }, [navigation, route?.params?.parent]);
 
   const onCancelConsos = useCallback(() => {
-    console.log('rerours');
     navigation.goBack();
     setLocalDrinksState([]);
     logEvent({
@@ -288,6 +287,7 @@ const ConsosList = ({ navigation, route }) => {
         }}
         updateDrinkKey={updateOwnDrinkKey}
         key={updateOwnDrinkKey}
+        setLocalDrinksState={setLocalDrinksState}
       />
     </>
   );
