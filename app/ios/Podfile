@@ -49,12 +49,9 @@ target 'oz_ensemble' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-<<<<<<< HEAD
   pod 'react-native-blob-util', :path => '../node_modules/react-native-blob-util'
 
   pod 'react-native-pdf', :path => '../node_modules/react-native-pdf'
-=======
->>>>>>> 8c357fa5 (first try - failing on android)
 
   target 'oz_ensembleTests' do
     inherit! :complete
