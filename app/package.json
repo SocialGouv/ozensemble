@@ -37,7 +37,6 @@
     "fetch-retry": "^5.0.2",
     "jetifier": "^2.0.0",
     "nativewind": "^2.0.11",
-    "node-talisman": "^1.29.9",
     "prop-types": "^15.7.2",
     "react": "18.2.0",
     "react-native": "0.71.4",
