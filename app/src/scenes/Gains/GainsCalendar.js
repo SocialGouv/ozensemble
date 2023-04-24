@@ -147,7 +147,6 @@ const Container = styled.View`
 const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
-  margin-top: 10px;
 `;
 
 const Legend = styled(TextStyled)`

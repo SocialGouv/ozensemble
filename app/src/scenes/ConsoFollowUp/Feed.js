@@ -294,7 +294,6 @@ const ButtonContainer = styled.View`
 `;
 
 const LastDrink = styled.View`
-  background-color: #efefef;
   border: #5150a215;
   padding: 10px 5px;
   border-radius: 5px;
@@ -329,7 +328,6 @@ const MessageContainer = styled.View`
   width: 88%;
 `;
 const FeedContainer = styled.View`
-  background-color: #f9f9f9;
   padding-horizontal: -${defaultPaddingFontScale()}px;
 `;
 
