@@ -24,7 +24,7 @@ import { initMatomo, logEvent } from './services/logEventsWithMatomo';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
 import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
-import StarsTabIcon from './components/illustrations/StarsTabIcon';
+import StarsTabIcon from './components/illustrations/CalendarIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
@@ -78,8 +78,8 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="GAINS_NAVIGATOR"
           options={{
-            tabBarLabel: (props) => <Label {...props}>Gains</Label>,
-            tabBarIcon: ({ size, color }) => <StarsTabIcon size={size} color={color} fillOpacity={1} />,
+            tabBarLabel: (props) => <Label {...props}>Suivi</Label>,
+            tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
           }}
           component={GainsNavigator}
         />
@@ -94,8 +94,8 @@ const TabsNavigator = ({ navigation }) => {
         <Tabs.Screen
           name="CONSO_FOLLOW_UP_NAVIGATOR"
           options={{
-            tabBarLabel: (props) => <Label {...props}>Suivi</Label>,
-            tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
+            tabBarLabel: (props) => <Label {...props}>Calendrier</Label>,
+            tabBarIcon: ({ size, color }) => <StarsTabIcon size={size} color={color} fillOpacity={1} />,
           }}
           component={ConsoFollowupNavigator}
         />
