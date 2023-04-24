@@ -10,7 +10,6 @@ import Economy from '../../components/illustrations/Economy';
 import InfosIcon from '../../components/illustrations/InfoObjectif';
 import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import GainsCalendar from './GainsCalendar';
 import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';

@@ -4,7 +4,6 @@ import { findNodeHandle } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-import DiagramHelpModal from './DiagramHelpModal';
 import Feed from './Feed';
 import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 import { drinksState } from '../../recoil/consos';
@@ -41,7 +40,6 @@ export default ConsoFollowUpNavigator;
 
 const ConsoFollowUp = () => {
   const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
-  const [showHelpModal, setShowHelpModal] = useState(false);
   const scrollViewRef = useRef(null);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
