@@ -30,6 +30,7 @@ router.get(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        created_from: "badges",
       },
       update: {},
     });
