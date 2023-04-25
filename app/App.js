@@ -36,19 +36,24 @@ if (!__DEV__) {
   });
 }
 
+const sendDrinksToBd = async () => {
+  await sendPreviousDrinksToDB();
+};
+
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
-    if (!_hasSentPreviousDrinksToDB) {
-      sendPreviousDrinksToDB();
-      setHasSentPreviousDrinksToDB(true);
-    }
     if (!hasMigrateOwnDrinksCatalog) {
       migrateOwnDrinksCatalog();
       setHasMigratedOwnDrinksCatalog(true);
     }
+    if (!_hasSentPreviousDrinksToDB) {
+      sendDrinksToBd();
+      setHasSentPreviousDrinksToDB(true);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

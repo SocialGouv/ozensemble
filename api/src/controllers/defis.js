@@ -1,7 +1,5 @@
-const dayjs = require("dayjs");
 const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
-const { defis } = require("../new-features");
 const router = express.Router();
 const prisma = require("../prisma");
 const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
