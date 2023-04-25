@@ -24,7 +24,7 @@ import { initMatomo, logEvent } from './services/logEventsWithMatomo';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
 import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
-import StarsTabIcon from './components/illustrations/CalendarIcon';
+import CalendarIcon from './components/illustrations/CalendarIcon';
 import API from './services/api';
 import DefisNavigator from './scenes/Defis/DefisNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
@@ -95,7 +95,7 @@ const TabsNavigator = ({ navigation }) => {
           name="CONSO_FOLLOW_UP_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Calendrier</Label>,
-            tabBarIcon: ({ size, color }) => <StarsTabIcon size={size} color={color} fillOpacity={1} />,
+            tabBarIcon: ({ size, color }) => <CalendarIcon size={size} color={color} fillOpacity={1} />,
           }}
           component={ConsoFollowupNavigator}
         />

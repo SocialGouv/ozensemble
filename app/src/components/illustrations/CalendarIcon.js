@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const Calendar = ({ color = '#5150A2', fillOpacity = 0.25, size, ...props }) => (
+const CalendarIcon = ({ color = '#5150A2', size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 21 21" {...props}>
     <G id="Calendar" fill={color} fillRule="evenodd">
       <Path
@@ -20,4 +20,4 @@ const Calendar = ({ color = '#5150A2', fillOpacity = 0.25, size, ...props }) => 
   </StyledSvg>
 );
 
-export default Calendar;
+export default CalendarIcon;
