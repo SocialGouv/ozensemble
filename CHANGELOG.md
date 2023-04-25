@@ -1,3 +1,11 @@
+## [1.97.33](https://github.com/SocialGouv/ozensemble/compare/v1.97.32...v1.97.33) (2023-04-25)
+
+
+### Bug Fixes
+
+* switch calendar and diagram followup ([#296](https://github.com/SocialGouv/ozensemble/issues/296)) ([a270dd4](https://github.com/SocialGouv/ozensemble/commit/a270dd49ff710c45459db0c23b9c212585671b62))
+* wordings and icons navbar ([#295](https://github.com/SocialGouv/ozensemble/issues/295)) ([ac685a9](https://github.com/SocialGouv/ozensemble/commit/ac685a9f5faf8c4fd1ee1c4405cfaf70520bf57c))
+
 ## [1.97.32](https://github.com/SocialGouv/ozensemble/compare/v1.97.31...v1.97.32) (2023-04-25)
 
 
