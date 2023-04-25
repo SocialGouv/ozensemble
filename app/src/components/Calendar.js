@@ -1,20 +1,21 @@
 import dayjs from 'dayjs';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
-import H3 from './H3';
 
 const Calendar = () => {
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const firstDayOfMonth = selectedMonth.startOf('month');
+  const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
-  const getCalendarDayByWeek = () => {
+  const calendarDayByWeek = useMemo(() => {
     let days = [firstDayOfCalendar];
     let previousDay = firstDayOfCalendar;
     let res = [];
-    for (let i = 1; i <= 35; ++i) {
+    const nbDays = previousDay.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
+    for (let i = 1; i <= nbDays; ++i) {
       if (i % 7 === 0) {
         res.push(days);
         days = [];
@@ -24,8 +25,7 @@ const Calendar = () => {
       previousDay = day;
     }
     return res;
-  };
-  const calendarDayByWeek = getCalendarDayByWeek();
+  }, [firstDayOfCalendar]);
 
   return (
     <>
