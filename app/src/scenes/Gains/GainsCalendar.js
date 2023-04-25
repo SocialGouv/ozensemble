@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
-import { Calendar, LocaleConfig } from 'react-native-calendars';
 import styled, { css } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
-import { logEvent } from '../../services/logEventsWithMatomo';
+import Calendar from '../../components/Calendar';
+import { View } from 'react-native';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -49,11 +49,10 @@ const needToFillupConso = {
   },
 };
 
-const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
+const GainsCalendar = () => {
   const dailyDoses = useRecoilValue(dailyDosesSelector());
   const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
 
-  const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
@@ -79,59 +78,9 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
       <TopTitle>
         <H1 color="#4030a5">Mon Calendrier</H1>
       </TopTitle>
-      <CalendarContainer>
-        <Calendar
-          theme={{
-            backgroundColor: 'transparent',
-            calendarBackground: 'transparent',
-            arrowColor: '#4130a5',
-            todayTextColor: '#000000',
-            todayDotColor: '#000000',
-          }}
-          pastScrollRange={50}
-          futureScrollRange={50}
-          scrollEnabled
-          showScrollIndicator
-          hideExtraDays={false}
-          showSixWeeks
-          enableSwipeMonths
-          firstDay={1}
-          minDate="2022-01-01"
-          maxDate={dayjs().format('YYYY-MM-DD')}
-          markedDates={JSON.parse(JSON.stringify(markedDays))}
-          markingType="custom"
-          disableAllTouchEventsForDisabledDays={false}
-          onMonthChange={(month) => {
-            setCurrentMonth(month.dateString);
-          }}
-          onDayPress={({ dateString }) => {
-            if (!isOnboarded) return setShowOnboardingGainModal(true);
-            if (markedDays[dateString]?.isDrinkDay) {
-              navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR', {
-                screen: 'CONSO_FOLLOW_UP',
-                params: { scrollToDay: dateString },
-              });
-              logEvent({
-                category: 'GAINS',
-                action: 'CALENDAR_DAY_PRESS_TO_CONSO_FOLLOW_UP',
-              });
-            } else {
-              const now = dayjs();
-              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              navigation.push('ADD_DRINK', { timestamp: date });
-              logEvent({
-                category: 'GAINS',
-                action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
-              });
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                name: 'FROM_GAINS',
-              });
-            }
-          }}
-        />
-      </CalendarContainer>
+      <View className="mt-7 mb-4">
+        <Calendar />
+      </View>
       <Legend>État de ma consommation</Legend>
       <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
       <PartDescription value={"J'ai bu"} color={'#de295e'} />
@@ -185,31 +134,5 @@ const Dot = styled.View`
   ${(props) => props.dashed && 'border-style: dashed;'}
   ${(props) => props.dashed && 'border-width: 1px;'}
 `;
-
-const CalendarContainer = styled.View`
-  margin-vertical: 15px;
-`;
-
-LocaleConfig.locales.fr = {
-  monthNames: [
-    'Janvier',
-    'Février',
-    'Mars',
-    'Avril',
-    'Mai',
-    'Juin',
-    'Juillet',
-    'Août',
-    'Septembre',
-    'Octobre',
-    'Novembre',
-    'Décembre',
-  ],
-  monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
-  dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
-  dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
-  today: "Aujourd'hui",
-};
-LocaleConfig.defaultLocale = 'fr';
 
 export default GainsCalendar;
