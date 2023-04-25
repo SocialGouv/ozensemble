@@ -10,9 +10,7 @@ import Economy from '../../components/illustrations/Economy';
 import InfosIcon from '../../components/illustrations/InfoObjectif';
 import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import GainsCalendar from './GainsCalendar';
 import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
-import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
@@ -30,6 +28,12 @@ import WrapperContainer from '../../components/WrapperContainer';
 import GainsGauge from './GainsGauge';
 import PeriodSelector from '../../components/PeriodSelector';
 import { badgesState } from '../../recoil/badges';
+import H2 from '../../components/H2';
+import { BEER, BEER_HALF, drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import DrinksCategory from '../../components/DrinksCategory';
+import Diagram from '../ConsoFollowUp/Diagram';
+import DiagramHelpModal from '../ConsoFollowUp/DiagramHelpModal';
+const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
 dayjs.extend(isBetween);
 
@@ -50,6 +54,10 @@ const MyGains = () => {
   const mode = useRecoilValue(reminderGainMode);
   const weekDay = useRecoilValue(reminderGainWeekDay);
   const reminderHasBeenSet = useRecoilValue(reminderGainsHasBeenSetState);
+
+  const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
+  const [showHelpModal, setShowHelpModal] = useState(false);
+  const [selectedBar, setSelectedBar] = useState({});
 
   useEffect(() => {
     logEvent({
@@ -251,8 +259,72 @@ const MyGains = () => {
             </Container>
           </>
         )}
+        <View className="mt-10">
+          <H1>Mon suivi de consommation</H1>
+          <SubtitleContainer>
+            <Help
+              onPress={() => {
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_HELP',
+                });
+                setShowHelpModal(true);
+              }}
+              hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+              <HelpText>?</HelpText>
+            </Help>
+            <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
 
-        <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
+            <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
+          </SubtitleContainer>
+          {showWelcomeMessage ? (
+            <>
+              <SubTitle>
+                <TextStyled color="#191919">
+                  Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
+                </TextStyled>
+                <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
+              </SubTitle>
+              {drinksCatalog
+                .filter(({ categoryKey }) => categoryKey === BEER)
+                .map(({ categoryKey }) => categoryKey)
+                .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+                .map((category, index) => (
+                  <DrinksCategory
+                    drinksCatalog={drinksCatalog}
+                    asPreview
+                    key={category}
+                    category={category}
+                    index={index + 1}
+                    drinks={fakeDrinks}
+                  />
+                ))}
+              <SubTitle>
+                <TextStyled color="#191919">
+                  Un graphique récapitule vos consommations en unité d'alcool{'\n'}
+                </TextStyled>
+              </SubTitle>
+              <Diagram asPreview />
+              <SubTitle last>
+                <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
+              </SubTitle>
+            </>
+          ) : null}
+          {!showWelcomeMessage && (
+            <Diagram
+              onShowHelp={() => {
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_HELP',
+                });
+                setShowHelpModal(true);
+              }}
+              selectedBar={selectedBar}
+              setSelectedBar={setSelectedBar}
+            />
+          )}
+        </View>
+
         <BadgesStatus
           isOnboarded={isOnboarded}
           userBadges={badges}
@@ -466,4 +538,39 @@ const ButtonTouchable = styled.TouchableOpacity`
   margin-bottom: 10px;
 `;
 
+const SubTitle = styled(H2)`
+  flex-shrink: 0;
+  font-weight: 500;
+  ${(props) => props.last && 'margin-bottom: 40px;'}
+`;
+
+const SubtitleContainer = styled.View`
+  flex-direction: row-reverse;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const DiagramTitle = styled(H2)`
+  font-weight: 500;
+  flex-shrink: 1;
+`;
+const helpsize = 25;
+
+const HelpText = styled(TextStyled)`
+  color: #de285e;
+  font-weight: bold;
+  font-size: ${helpsize * 0.5}px;
+`;
+const Help = styled.TouchableOpacity`
+  width: ${helpsize}px;
+  height: ${helpsize}px;
+  border-radius: ${helpsize}px;
+  border: 1px solid #de285e;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 5px;
+`;
 export default MyGains;
