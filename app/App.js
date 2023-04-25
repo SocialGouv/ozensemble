@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RecoilRoot } from 'recoil';
 import dayjs from 'dayjs';
-import { InteractionManager } from 'react-native';
 import 'dayjs/locale/fr';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import weekday from 'dayjs/plugin/weekday';
@@ -14,10 +13,6 @@ import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
-  hasSentObjectifToDB,
-  sendObjectifToDB,
-  hasSentNPSDoneToDB,
-  sendNPSDoneToDB,
   hasMigrateOwnDrinksCatalog,
   migrateOwnDrinksCatalog,
   hasSentPreviousDrinksToDB,
@@ -43,22 +38,12 @@ if (!__DEV__) {
 
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
-  const [_hasSentObjectifToDB, setHasSentObjectifToDB] = useState(hasSentObjectifToDB);
-  const [_hasSentNPSDoneToDB, setHasSentNPSDoneToDB] = useState(hasSentNPSDoneToDB);
   const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
     if (!_hasSentPreviousDrinksToDB) {
       sendPreviousDrinksToDB();
       setHasSentPreviousDrinksToDB(true);
-    }
-    if (!_hasSentObjectifToDB) {
-      sendObjectifToDB();
-      setHasSentObjectifToDB(true);
-    }
-    if (!_hasSentNPSDoneToDB) {
-      sendNPSDoneToDB();
-      setHasSentNPSDoneToDB(true);
     }
     if (!hasMigrateOwnDrinksCatalog) {
       migrateOwnDrinksCatalog();
@@ -67,7 +52,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!_hasSentPreviousDrinksToDB || !_hasSentObjectifToDB || !_hasSentNPSDoneToDB) {
+  if (!_hasSentPreviousDrinksToDB || !_hasMigratedOwnDrinksCatalog) {
     return null;
   }
 

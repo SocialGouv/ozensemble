@@ -19,7 +19,7 @@ export async function sendPreviousDrinksToDB() {
   const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks') || '[]');
 
   if (drinks.length) {
-    API.post({
+    await API.post({
       path: '/consommation/init',
       body: {
         matomoId,
@@ -29,76 +29,6 @@ export async function sendPreviousDrinksToDB() {
     });
   }
   storage.set('hasSentPreviousDrinksToDB', true);
-}
-export const hasSentObjectifToDB = storage.getBoolean('hasSentObjectifToDB');
-
-export async function sendObjectifToDB() {
-  if (hasSentObjectifToDB) return;
-  const matomoId = storage.getString('@UserIdv2');
-  if (!matomoId?.length) {
-    // new user - no drinks to send
-    storage.set('hasSentObjectifToDB', true);
-    return;
-  }
-  // @Drinks
-  const daysWithGoalNoDrinkJSON = storage.getString('@DaysWithGoalNoDrink');
-  const drinksByDrinkingDayJSON = storage.getString('@StoredDetailedDrinksByDrinkingDay');
-
-  if (!daysWithGoalNoDrinkJSON || !drinksByDrinkingDayJSON) {
-    storage.set('hasSentObjectifToDB', true);
-    return;
-  }
-
-  const daysWithGoalNoDrink = JSON.parse(daysWithGoalNoDrinkJSON);
-  const drinksByDrinkingDay = JSON.parse(drinksByDrinkingDayJSON);
-
-  const dosesByDrinkingDay = drinksByDrinkingDay.reduce(
-    (sum, drink) =>
-      sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses,
-    0
-  );
-  const dosesPerWeek = (7 - daysWithGoalNoDrink.length) * dosesByDrinkingDay;
-
-  API.post({
-    path: '/goal',
-    body: {
-      matomoId: matomoId,
-      daysWithGoalNoDrink,
-      drinksByDrinkingDay,
-      dosesByDrinkingDay,
-      dosesPerWeek,
-      noDisplayBadge: true,
-      calculateBadges: true,
-    },
-  });
-  storage.set('hasSentObjectifToDB', true);
-}
-
-export const hasSentNPSDoneToDB = storage.getBoolean('hasSentNPSDoneToDB');
-
-export async function sendNPSDoneToDB() {
-  if (hasSentNPSDoneToDB) return;
-  const matomoId = storage.getString('@UserIdv2');
-  if (!matomoId?.length) {
-    // new user - no drinks to send
-    storage.set('hasSentNPSDoneToDB', true);
-    return;
-  }
-
-  const NPSDone = storage.getString('@NPSDone');
-  if (!NPSDone) {
-    storage.set('hasSentNPSDoneToDB', true);
-    return;
-  }
-
-  API.post({
-    path: '/appUserMilestone',
-    body: {
-      matomoId,
-      appUserMilestone: '@NPSDone',
-    },
-  });
-  storage.set('hasSentNPSDoneToDB', true);
 }
 
 export const hasMigrateOwnDrinksCatalog = storage.getBoolean('@hasMigrateOwnDrinksCatalog');
