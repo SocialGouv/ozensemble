@@ -95,7 +95,7 @@ const TabsNavigator = ({ navigation }) => {
           name="CONSO_FOLLOW_UP_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Calendrier</Label>,
-            tabBarIcon: ({ size, color }) => <CalendarIcon size={size} color={color} fillOpacity={1} />,
+            tabBarIcon: ({ size, color }) => <CalendarIcon size={size} color={color} />,
           }}
           component={ConsoFollowupNavigator}
         />
