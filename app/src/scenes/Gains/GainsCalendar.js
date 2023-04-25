@@ -8,6 +8,7 @@ import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import Calendar from '../../components/Calendar';
+import { View } from 'react-native';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -79,9 +80,9 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
       <TopTitle>
         <H1 color="#4030a5">Mon Calendrier</H1>
       </TopTitle>
-      <CalendarContainer>
+      <View className="mt-7 mb-4">
         <Calendar />
-      </CalendarContainer>
+      </View>
       <Legend>État de ma consommation</Legend>
       <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
       <PartDescription value={"J'ai bu"} color={'#de295e'} />
@@ -134,10 +135,6 @@ const Dot = styled.View`
   background-color: ${({ color }) => color};
   ${(props) => props.dashed && 'border-style: dashed;'}
   ${(props) => props.dashed && 'border-width: 1px;'}
-`;
-
-const CalendarContainer = styled.View`
-  margin-vertical: 15px;
 `;
 
 export default GainsCalendar;

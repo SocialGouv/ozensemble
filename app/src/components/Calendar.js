@@ -29,7 +29,7 @@ const Calendar = () => {
 
   return (
     <>
-      <View className="flex flex-row w-full justify-between">
+      <View className="flex flex-row w-full justify-between px-5">
         <TouchableOpacity
           onPress={() => {
             setSelectedMonth(selectedMonth.subtract(1, 'month'));
