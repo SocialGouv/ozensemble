@@ -20,6 +20,8 @@ import {
   sendNPSDoneToDB,
   hasMigrateOwnDrinksCatalog,
   migrateOwnDrinksCatalog,
+  hasSentPreviousDrinksToDB,
+  sendPreviousDrinksToDB,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -40,12 +42,16 @@ if (!__DEV__) {
 }
 
 const App = () => {
-  // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
+  const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasSentObjectifToDB, setHasSentObjectifToDB] = useState(hasSentObjectifToDB);
   const [_hasSentNPSDoneToDB, setHasSentNPSDoneToDB] = useState(hasSentNPSDoneToDB);
   const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
+    if (!_hasSentPreviousDrinksToDB) {
+      sendPreviousDrinksToDB();
+      setHasSentPreviousDrinksToDB(true);
+    }
     if (!_hasSentObjectifToDB) {
       sendObjectifToDB();
       setHasSentObjectifToDB(true);
@@ -61,7 +67,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!_hasSentObjectifToDB || !_hasSentNPSDoneToDB) {
+  if (!_hasSentPreviousDrinksToDB || !_hasSentObjectifToDB || !_hasSentNPSDoneToDB) {
     return null;
   }
 

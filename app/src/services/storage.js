@@ -1,21 +1,35 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNLocalize from 'react-native-localize';
 import { MMKV } from 'react-native-mmkv';
 import API from './api';
-import NotificationService from './notifications';
-import { capture } from './sentry';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
 
 export const storage = new MMKV();
-if (__DEV__) {
-  (() => {
-    // AsyncStorage.clear();
-    // storage.clearAll();
-  })();
+
+export const hasSentPreviousDrinksToDB = storage.getBoolean('hasSentPreviousDrinksToDB');
+
+export async function sendPreviousDrinksToDB() {
+  if (hasSentPreviousDrinksToDB) return;
+  const matomoId = storage.getString('@UserIdv2');
+  if (!matomoId?.length) {
+    // new user - no drinks to send
+    storage.set('hasSentPreviousDrinksToDB', true);
+    return;
+  }
+  // @Drinks
+  const drinks = JSON.parse(storage.getString('@Drinks') || '[]');
+  const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks') || '[]');
+
+  if (drinks.length) {
+    API.post({
+      path: '/consommation/init',
+      body: {
+        matomoId,
+        drinks,
+        drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
+      },
+    });
+  }
+  storage.set('hasSentPreviousDrinksToDB', true);
 }
-
-export const hasMigratedFromReduxToRecoil = storage.getBoolean('hasMigratedFromReduxToRecoil');
-
 export const hasSentObjectifToDB = storage.getBoolean('hasSentObjectifToDB');
 
 export async function sendObjectifToDB() {
