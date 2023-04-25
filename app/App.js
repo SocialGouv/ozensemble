@@ -3,7 +3,6 @@ import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RecoilRoot } from 'recoil';
 import dayjs from 'dayjs';
-import { InteractionManager } from 'react-native';
 import 'dayjs/locale/fr';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import weekday from 'dayjs/plugin/weekday';
@@ -14,26 +13,10 @@ import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
-  hasMigratedFromAsyncStorage,
-  migrateFromAsyncStorage,
-  hasMigratedGenderAndAge,
-  migrateGenderAndAge,
-  migratedDefi7Jours,
-  hasMigratedDefi1Stored,
-  hasMigratedRemindersStored,
-  migrateReminders,
-  hasMigratedRemindersToPushToken,
-  migrateRemindersToPushToken,
-  hasSentPreviousDrinksToDB,
-  sendPreviousDrinksToDB,
-  hasSentObjectifToDB,
-  sendObjectifToDB,
-  hasSentNPSDoneToDB,
-  sendNPSDoneToDB,
-  hasCreateBadgeForDoneDefis,
-  createBadgesForDoneDefis,
   hasMigrateOwnDrinksCatalog,
   migrateOwnDrinksCatalog,
+  hasSentPreviousDrinksToDB,
+  sendPreviousDrinksToDB,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -53,80 +36,28 @@ if (!__DEV__) {
   });
 }
 
+const sendDrinksToBd = async () => {
+  await sendPreviousDrinksToDB();
+};
+
 const App = () => {
-  // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
-  const [hasMigrated, setHasMigrated] = useState(hasMigratedFromAsyncStorage);
-  const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
-  const [hasMigratedDefi1, setHasMigratedDefi1] = useState(hasMigratedDefi1Stored);
-  const [hasMigratedReminders, setHasMigratedReminders] = useState(hasMigratedRemindersStored);
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
-  const [_hasSentObjectifToDB, setHasSentObjectifToDB] = useState(hasSentObjectifToDB);
-  const [_hasSentNPSDoneToDB, setHasSentNPSDoneToDB] = useState(hasSentNPSDoneToDB);
-  const [_hasMigratedRemindersToPushToken, setHasMigratedRemindersToPushToken] = useState(
-    hasMigratedRemindersToPushToken
-  );
-  const [_hasCreateBadgeForDoneDefis, setHasCreateBadgeForDoneDefis] = useState(hasCreateBadgeForDoneDefis);
   const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
-    if (!hasMigratedFromAsyncStorage || !hasGenderAndAge) {
-      InteractionManager.runAfterInteractions(async () => {
-        try {
-          await migrateFromAsyncStorage();
-          setHasMigrated(true);
-          await migrateGenderAndAge();
-          setHasGenderAndAge(true);
-        } catch (e) {
-          console.log('error migrating', e);
-          // TODO: fall back to AsyncStorage? Wipe storage clean and use MMKV? Crash app?
-        }
-      });
-    }
-    if (!hasMigratedDefi1) {
-      migratedDefi7Jours();
-      setHasMigratedDefi1(true);
-    }
-    if (!hasMigratedReminders) {
-      migrateReminders();
-      setHasMigratedReminders(true);
-    }
-    if (!_hasMigratedRemindersToPushToken) {
-      migrateRemindersToPushToken();
-      setHasMigratedRemindersToPushToken(true);
-    }
-    if (!_hasSentPreviousDrinksToDB) {
-      sendPreviousDrinksToDB();
-      setHasSentPreviousDrinksToDB(true);
-    }
-    if (!_hasSentObjectifToDB) {
-      sendObjectifToDB();
-      setHasSentObjectifToDB(true);
-    }
-    if (!_hasSentNPSDoneToDB) {
-      sendNPSDoneToDB();
-      setHasSentNPSDoneToDB(true);
-    }
-    if (!_hasCreateBadgeForDoneDefis) {
-      createBadgesForDoneDefis();
-      setHasCreateBadgeForDoneDefis(true);
-    }
     if (!hasMigrateOwnDrinksCatalog) {
       migrateOwnDrinksCatalog();
       setHasMigratedOwnDrinksCatalog(true);
     }
+    if (!_hasSentPreviousDrinksToDB) {
+      sendDrinksToBd();
+      setHasSentPreviousDrinksToDB(true);
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (
-    !hasMigrated ||
-    !hasGenderAndAge ||
-    !hasMigratedDefi1 ||
-    !_hasMigratedRemindersToPushToken ||
-    !hasMigratedReminders ||
-    !_hasSentPreviousDrinksToDB ||
-    !_hasSentObjectifToDB ||
-    !_hasSentNPSDoneToDB
-  ) {
+  if (!_hasSentPreviousDrinksToDB || !_hasMigratedOwnDrinksCatalog) {
     return null;
   }
 
