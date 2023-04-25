@@ -29,14 +29,14 @@ const Calendar = () => {
 
   return (
     <>
-      <View className="flex flex-row w-full justify-between px-5">
+      <View className="flex flex-row w-full justify-between px-5 items-center">
         <TouchableOpacity
           onPress={() => {
             setSelectedMonth(selectedMonth.subtract(1, 'month'));
           }}>
           <ArrowLeft color="#4030A5" size={15} />
         </TouchableOpacity>
-        <H3 semibold>{selectedMonth.format('MMMM YYYY').capitalize()}</H3>
+        <Text className="text-lg">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
         <TouchableOpacity
           onPress={() => {
             setSelectedMonth(selectedMonth.add(1, 'month'));
