@@ -6,7 +6,6 @@ import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
-import { logEvent } from '../../services/logEventsWithMatomo';
 import Calendar from '../../components/Calendar';
 import { View } from 'react-native';
 
@@ -50,11 +49,10 @@ const needToFillupConso = {
   },
 };
 
-const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal }) => {
+const GainsCalendar = () => {
   const dailyDoses = useRecoilValue(dailyDosesSelector());
   const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
 
-  const navigation = useNavigation();
   const markedDays = useMemo(() => {
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
