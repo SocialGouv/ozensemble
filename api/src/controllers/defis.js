@@ -7,6 +7,13 @@ const prisma = require("../prisma");
 const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
 
 router.post(
+  "/init",
+  catchErrors(async (req, res) => {
+    return res.status(200).send({ ok: true });
+  })
+);
+
+router.post(
   "/",
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
