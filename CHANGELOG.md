@@ -1,3 +1,10 @@
+# [1.98.0](https://github.com/SocialGouv/ozensemble/compare/v1.97.33...v1.98.0) (2023-04-25)
+
+
+### Features
+
+* create our own calendar ([#300](https://github.com/SocialGouv/ozensemble/issues/300)) ([67ba85d](https://github.com/SocialGouv/ozensemble/commit/67ba85d7b9643a129da298b21b5209aa395e6c0c))
+
 ## [1.97.33](https://github.com/SocialGouv/ozensemble/compare/v1.97.32...v1.97.33) (2023-04-25)
 
 
