@@ -5,7 +5,7 @@ import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
 import H3 from './H3';
 
-const Calendar = ({}) => {
+const Calendar = () => {
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const firstDayOfMonth = selectedMonth.startOf('month');
