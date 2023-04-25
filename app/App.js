@@ -69,31 +69,6 @@ const App = () => {
   const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
-    if (!hasMigratedFromAsyncStorage || !hasGenderAndAge) {
-      InteractionManager.runAfterInteractions(async () => {
-        try {
-          await migrateFromAsyncStorage();
-          setHasMigrated(true);
-          await migrateGenderAndAge();
-          setHasGenderAndAge(true);
-        } catch (e) {
-          console.log('error migrating', e);
-          // TODO: fall back to AsyncStorage? Wipe storage clean and use MMKV? Crash app?
-        }
-      });
-    }
-    if (!hasMigratedDefi1) {
-      migratedDefi7Jours();
-      setHasMigratedDefi1(true);
-    }
-    if (!hasMigratedReminders) {
-      migrateReminders();
-      setHasMigratedReminders(true);
-    }
-    if (!_hasMigratedRemindersToPushToken) {
-      migrateRemindersToPushToken();
-      setHasMigratedRemindersToPushToken(true);
-    }
     if (!_hasSentPreviousDrinksToDB) {
       sendPreviousDrinksToDB();
       setHasSentPreviousDrinksToDB(true);
@@ -105,10 +80,6 @@ const App = () => {
     if (!_hasSentNPSDoneToDB) {
       sendNPSDoneToDB();
       setHasSentNPSDoneToDB(true);
-    }
-    if (!_hasCreateBadgeForDoneDefis) {
-      createBadgesForDoneDefis();
-      setHasCreateBadgeForDoneDefis(true);
     }
     if (!hasMigrateOwnDrinksCatalog) {
       migrateOwnDrinksCatalog();
