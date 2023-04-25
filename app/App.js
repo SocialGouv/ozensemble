@@ -14,24 +14,10 @@ import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
-  hasMigratedFromAsyncStorage,
-  migrateFromAsyncStorage,
-  hasMigratedGenderAndAge,
-  migrateGenderAndAge,
-  migratedDefi7Jours,
-  hasMigratedDefi1Stored,
-  hasMigratedRemindersStored,
-  migrateReminders,
-  hasMigratedRemindersToPushToken,
-  migrateRemindersToPushToken,
-  hasSentPreviousDrinksToDB,
-  sendPreviousDrinksToDB,
   hasSentObjectifToDB,
   sendObjectifToDB,
   hasSentNPSDoneToDB,
   sendNPSDoneToDB,
-  hasCreateBadgeForDoneDefis,
-  createBadgesForDoneDefis,
   hasMigrateOwnDrinksCatalog,
   migrateOwnDrinksCatalog,
 } from './src/services/storage';
@@ -55,24 +41,11 @@ if (!__DEV__) {
 
 const App = () => {
   // TODO: Remove `hasMigratedFromAsyncStorage` after a while (when everyone has migrated)
-  const [hasMigrated, setHasMigrated] = useState(hasMigratedFromAsyncStorage);
-  const [hasGenderAndAge, setHasGenderAndAge] = useState(hasMigratedGenderAndAge);
-  const [hasMigratedDefi1, setHasMigratedDefi1] = useState(hasMigratedDefi1Stored);
-  const [hasMigratedReminders, setHasMigratedReminders] = useState(hasMigratedRemindersStored);
-  const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasSentObjectifToDB, setHasSentObjectifToDB] = useState(hasSentObjectifToDB);
   const [_hasSentNPSDoneToDB, setHasSentNPSDoneToDB] = useState(hasSentNPSDoneToDB);
-  const [_hasMigratedRemindersToPushToken, setHasMigratedRemindersToPushToken] = useState(
-    hasMigratedRemindersToPushToken
-  );
-  const [_hasCreateBadgeForDoneDefis, setHasCreateBadgeForDoneDefis] = useState(hasCreateBadgeForDoneDefis);
   const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
 
   useEffect(() => {
-    if (!_hasSentPreviousDrinksToDB) {
-      sendPreviousDrinksToDB();
-      setHasSentPreviousDrinksToDB(true);
-    }
     if (!_hasSentObjectifToDB) {
       sendObjectifToDB();
       setHasSentObjectifToDB(true);
@@ -88,16 +61,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (
-    !hasMigrated ||
-    !hasGenderAndAge ||
-    !hasMigratedDefi1 ||
-    !_hasMigratedRemindersToPushToken ||
-    !hasMigratedReminders ||
-    !_hasSentPreviousDrinksToDB ||
-    !_hasSentObjectifToDB ||
-    !_hasSentNPSDoneToDB
-  ) {
+  if (!_hasSentObjectifToDB || !_hasSentNPSDoneToDB) {
     return null;
   }
 
