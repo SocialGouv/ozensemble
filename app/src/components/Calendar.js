@@ -92,6 +92,7 @@ const Calendar = () => {
     return res;
   }, [firstDayOfCalendar, dailyDoses]);
 
+  // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
     const newSize = 15 * widthBaseScale;
