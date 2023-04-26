@@ -1,3 +1,10 @@
+## [1.99.1](https://github.com/SocialGouv/ozensemble/compare/v1.99.0...v1.99.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* add comments ([#303](https://github.com/SocialGouv/ozensemble/issues/303)) ([99366db](https://github.com/SocialGouv/ozensemble/commit/99366db621c6690969611a8dba9a64e40b9e8818))
+
 # [1.99.0](https://github.com/SocialGouv/ozensemble/compare/v1.98.1...v1.99.0) (2023-04-26)
 
 
