@@ -1,3 +1,10 @@
+## [1.98.1](https://github.com/SocialGouv/ozensemble/compare/v1.98.0...v1.98.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* color, margins, bgColor, border ([#301](https://github.com/SocialGouv/ozensemble/issues/301)) ([a0c382b](https://github.com/SocialGouv/ozensemble/commit/a0c382b0b8b85e155477b20a35ce67dbe21e5f59))
+
 # [1.98.0](https://github.com/SocialGouv/ozensemble/compare/v1.97.33...v1.98.0) (2023-04-25)
 
 
