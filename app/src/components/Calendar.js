@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
-import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
-import { PixelRatio } from 'react-native';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const Calendar = () => {
