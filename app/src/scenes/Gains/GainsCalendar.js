@@ -78,7 +78,7 @@ const GainsCalendar = () => {
       <TopTitle>
         <H1 color="#4030a5">Mon Calendrier</H1>
       </TopTitle>
-      <View className="mt-7 mb-4">
+      <View className="mt-7 mb-">
         <Calendar />
       </View>
       <Legend>État de ma consommation</Legend>

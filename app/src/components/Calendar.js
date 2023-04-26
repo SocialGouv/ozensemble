@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
 import React, { useMemo, useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
+import { PixelRatio } from 'react-native';
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const Calendar = () => {
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
@@ -26,7 +28,11 @@ const Calendar = () => {
     }
     return res;
   }, [firstDayOfCalendar]);
-
+  const widthBaseScale = SCREEN_WIDTH / 414;
+  const fontSize = useMemo(() => {
+    const newSize = 15 * widthBaseScale;
+    return Math.round(PixelRatio.roundToNearestPixel(newSize));
+  }, [SCREEN_WIDTH]);
   return (
     <>
       <View className="flex flex-row w-full justify-between px-5 items-center">
@@ -46,8 +52,8 @@ const Calendar = () => {
       </View>
       <View className="flex flex-row justify-between mt-3">
         {cols.map((col) => (
-          <View className="w-9">
-            <Text key={col} className="text-[#B6C1CD] text-center">
+          <View className="flex flex-row grow justify-center basis-4">
+            <Text key={col} className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
               {col}
             </Text>
           </View>
@@ -55,17 +61,35 @@ const Calendar = () => {
       </View>
       <View>
         {calendarDayByWeek.map((calendarWeek) => {
+          const bgColor = dayjs().startOf('day').diff(calendarWeek[0]) > 0 ? '#F5F6FA' : 'none';
           return (
-            <View className="flex flex-row justify-between mt-2 " key={calendarWeek[0]}>
+            <View
+              className="flex flex-row justify-between mt-2 rounded-lg"
+              key={calendarWeek[0]}
+              style={{ backgroundColor: bgColor }}>
               {calendarWeek.map((calendarDay) => {
-                return (
-                  <View key={calendarDay} className="w-9 mt-1 ">
-                    <Text className="text-center">{calendarDay.date()}</Text>
+                return calendarDay.diff(dayjs().startOf('day'), 'day') > 0 ? (
+                  <View
+                    key={calendarDay}
+                    className="flex flex-row grow items-center basis-4 justify-center rounded-md aspect-square m-1">
+                    <Text className="text-[#DCE3E9] font-semibold" style={{ fontSize: fontSize }}>
+                      {calendarDay.date()}
+                    </Text>
                   </View>
+                ) : (
+                  <TouchableOpacity
+                    key={calendarDay + 'blue'}
+                    className="flex flex-row grow basis-4 items-center justify-center border border-dotted bg-white border-[#4030A5] rounded-md aspect-square m-1">
+                    <Text className="text-[#4030A5] font-semibold" style={{ fontSize: fontSize }}>
+                      {calendarDay.date()}
+                    </Text>
+                  </TouchableOpacity>
                 );
               })}
-              <View className="w-9 mt-1">
-                <Text className="text-center">X</Text>
+              <View
+                className="flex flex-row grow basis-4  items-center justify-center rounded-md aspect-square m-1"
+                key={calendarWeek[0] + 'goal'}>
+                <Text style={{ fontSize: fontSize }}>X</Text>
               </View>
             </View>
           );

@@ -63,7 +63,7 @@ const ConsoFollowUp = () => {
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
   );
   return (
-    <ScrollView style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+    <ScrollView className="bg-white" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       <FeedAddConsoTodayContainer zIndex={10}>
         {!!showWelcomeMessage && <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />}
