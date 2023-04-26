@@ -22,8 +22,12 @@ const Calendar = () => {
   const computeStyleWithDrinks = (day) => {
     const formatedDay = day.format('YYYY-MM-DD');
     const doses = dailyDoses[formatedDay];
+
+    // If there is doses for the day
     if (doses >= 0) {
+      // If there is a goal registered
       if (nbDayWithNoDrinkGoal !== 0) {
+        //there is a goal and doses > to the daily goal
         if (doses > maxDosesByDrinkingDay) {
           return {
             borderStyle: 'solid',
@@ -32,7 +36,9 @@ const Calendar = () => {
             textColor: '#fff',
             isStar: false,
           };
-        } else if (doses > 0) {
+        }
+        //there is a goal and the doses are like 0 < doses < daily goal
+        if (doses > 0) {
           return {
             borderStyle: 'solid',
             borderColor: '#34D39A',
@@ -40,7 +46,9 @@ const Calendar = () => {
             textColor: '#fff',
             isStar: false,
           };
-        } else {
+        }
+        //there is a goal and the doses are 0
+        else {
           return {
             borderStyle: 'solid',
             borderColor: 'transparent',
@@ -49,7 +57,10 @@ const Calendar = () => {
             isStar: true,
           };
         }
-      } else {
+      }
+      // if there is no goal registered
+      else {
+        // if there is no goal and no doses
         if (doses > 0) {
           return {
             borderStyle: 'solid',
@@ -58,7 +69,8 @@ const Calendar = () => {
             textColor: '#fff',
             isStar: false,
           };
-        } else {
+        } // if there is no goal and doses
+        else {
           return {
             borderStyle: 'solid',
             borderColor: 'transparent',
