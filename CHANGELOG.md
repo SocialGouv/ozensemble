@@ -1,3 +1,10 @@
+# [1.99.0](https://github.com/SocialGouv/ozensemble/compare/v1.98.1...v1.99.0) (2023-04-26)
+
+
+### Features
+
+*  compute calendar color drinks ([#302](https://github.com/SocialGouv/ozensemble/issues/302)) ([d24618c](https://github.com/SocialGouv/ozensemble/commit/d24618cdb678b820de8b9965159fe8a60698e067))
+
 ## [1.98.1](https://github.com/SocialGouv/ozensemble/compare/v1.98.0...v1.98.1) (2023-04-26)
 
 
