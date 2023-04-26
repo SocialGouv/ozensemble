@@ -6,6 +6,7 @@ import { dailyDosesSelector } from '../recoil/consos';
 import { totalDrinksByDrinkingDaySelector, daysWithGoalNoDrinkState } from '../recoil/gains';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
+import LegendStar from './illustrations/icons/LegendStar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -18,11 +19,10 @@ const Calendar = () => {
   const dailyDoses = useRecoilValue(dailyDosesSelector());
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const nbDayWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState).length;
-
   const computeStyleWithDrinks = (day) => {
     const formatedDay = day.format('YYYY-MM-DD');
     const doses = dailyDoses[formatedDay];
-    if (doses) {
+    if (doses >= 0) {
       if (nbDayWithNoDrinkGoal !== 0) {
         if (doses > maxDosesByDrinkingDay) {
           return {
@@ -43,8 +43,8 @@ const Calendar = () => {
         } else {
           return {
             borderStyle: 'solid',
-            borderColor: '#FC8383',
-            backgroundColor: '#FC8383',
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
             textColor: '#fff',
             isStar: true,
           };
@@ -61,10 +61,10 @@ const Calendar = () => {
         } else {
           return {
             borderStyle: 'solid',
-            borderColor: '#34D39A',
-            backgroundColor: '#34D39A',
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
             textColor: '#fff',
-            isStar: false,
+            isStar: true,
           };
         }
       }
@@ -155,9 +155,14 @@ const Calendar = () => {
                       borderColor: calendarDay.styles.borderColor,
                       borderWidth: 1,
                     }}>
-                    <View></View>
+                    {Boolean(calendarDay.styles.isStar) && (
+                      <View className="absolute">
+                        <LegendStar size={fontSize * 2.5} />
+                      </View>
+                    )}
+
                     <Text
-                      className="font-semibold"
+                      className="font-semibold absolute"
                       style={{
                         fontSize: fontSize,
                         color: calendarDay.styles.textColor,
