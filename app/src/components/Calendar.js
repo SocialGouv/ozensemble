@@ -10,7 +10,7 @@ import LegendStar from './illustrations/icons/LegendStar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const Calendar = () => {
+const Calendar = ({ onDayPress }) => {
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const firstDayOfMonth = selectedMonth.startOf('month');
@@ -167,6 +167,9 @@ const Calendar = () => {
                       backgroundColor: calendarDay.styles.backgroundColor,
                       borderColor: calendarDay.styles.borderColor,
                       borderWidth: 1,
+                    }}
+                    onPress={() => {
+                      onDayPress(calendarDay.day.format('YYYY-MM-DD'));
                     }}>
                     {Boolean(calendarDay.styles.isStar) && (
                       <View className="absolute">
