@@ -1,3 +1,10 @@
+# [1.100.0](https://github.com/SocialGouv/ozensemble/compare/v1.99.1...v1.100.0) (2023-04-28)
+
+
+### Features
+
+* add onPres event on calendar days ([#304](https://github.com/SocialGouv/ozensemble/issues/304)) ([068f019](https://github.com/SocialGouv/ozensemble/commit/068f019d1845737ba017f6e7af2fc750bfd70f3e))
+
 ## [1.99.1](https://github.com/SocialGouv/ozensemble/compare/v1.99.0...v1.99.1) (2023-04-26)
 
 
