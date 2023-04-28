@@ -8,6 +8,7 @@ import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { View } from 'react-native';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -49,9 +50,10 @@ const needToFillupConso = {
   },
 };
 
-const GainsCalendar = () => {
+const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector());
   const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
+  const navigation = useNavigation();
 
   const markedDays = useMemo(() => {
     const today = dayjs().format('YYYY-MM-DD');
@@ -79,7 +81,27 @@ const GainsCalendar = () => {
         <H1 color="#4030a5">Mon Calendrier</H1>
       </TopTitle>
       <View className="mt-7 mb-">
-        <Calendar />
+        <Calendar
+          onDayPress={(dateString) => {
+            if (!isOnboarded) return setShowOnboardingGainModal(true);
+            if (markedDays[dateString]?.isDrinkDay) {
+              setDateToScroll(dateString);
+            } else {
+              const now = dayjs();
+              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+              navigation.push('ADD_DRINK', { timestamp: String(date) });
+              logEvent({
+                category: 'GAINS',
+                action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
+              });
+              logEvent({
+                category: 'CONSO',
+                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                name: 'FROM_GAINS',
+              });
+            }
+          }}
+        />
       </View>
       <Legend>État de ma consommation</Legend>
       <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />

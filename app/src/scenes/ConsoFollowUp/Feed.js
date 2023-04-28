@@ -1,4 +1,4 @@
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -42,12 +42,11 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ hideFeed, scrollToInput }) => {
+const Feed = ({ hideFeed, scrollToInput, dateToScroll }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
   const [timestampSelected, setTimestampSelected] = useState(null);
   const navigation = useNavigation();
-  const route = useRoute();
   const setConsoSelectedRequest = (timestamp) => {
     if (timestampSelected === timestamp) {
       setTimestampSelected(null);
@@ -125,12 +124,12 @@ const Feed = ({ hideFeed, scrollToInput }) => {
   const refs = useRef({});
 
   useEffect(() => {
-    if (route?.params?.scrollToDay) {
+    if (dateToScroll) {
       setTimeout(() => {
-        scrollToInput(refs?.current?.[route?.params?.scrollToDay]);
+        scrollToInput(refs?.current?.[dateToScroll]);
       });
     }
-  }, [route?.params?.scrollToDay, scrollToInput]);
+  }, [dateToScroll, scrollToInput]);
 
   if (hideFeed) {
     return (
