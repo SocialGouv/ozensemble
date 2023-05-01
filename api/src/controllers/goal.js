@@ -75,7 +75,7 @@ router.post(
 router.get(
   "/list",
   catchErrors(async (req, res) => {
-    const { matomoId, firstDay, lastDay } = req.query;
+    const { matomoId } = req.query;
     const user = await prisma.user.upsert({
       where: { matomo_id: matomoId },
       create: {
@@ -85,18 +85,9 @@ router.get(
     });
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
+      orderBy: { createdAt: "asc" },
     });
-    let listGoal = [];
-    if (goals) {
-      goals.map((goal) => {
-        console.log(dayjs(goal.date).format("YYYY-MM-DD"), dayjs(firstDay).format("YYYY-MM-DD"), dayjs(lastDay).format("YYYY-MM-DD"));
-        if (dayjs(goal.date).diff(lastDay, "day") <= 0 && dayjs(goal.date).diff(firstDay, "day") >= 0) {
-          listGoal = [...listGoal, goal];
-        }
-      });
-    }
-    console.log(listGoal);
-    return res.status(200).send({ ok: true, data: listGoal });
+    return res.status(200).send({ ok: true, data: goals });
   })
 );
 

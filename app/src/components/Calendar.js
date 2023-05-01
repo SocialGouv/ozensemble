@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { dailyDosesSelector } from '../recoil/consos';
@@ -9,6 +9,8 @@ import API from '../services/api';
 import { storage } from '../services/storage';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
+import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
+import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -32,7 +34,6 @@ const Calendar = ({ onDayPress }) => {
       daysWithGoalNoDrink: daysWithNoDrinkGoal,
     },
   ]);
-
   useFocusEffect(
     useCallback(() => {
       async function getGoals() {
@@ -41,8 +42,6 @@ const Calendar = ({ onDayPress }) => {
           path: '/goal/list',
           query: {
             matomoId: matomoId,
-            firstDay: firstDayOfCalendar.format('YYYY-MM-DD'),
-            lastDay: firstDayOfCalendar.add(nbDays, 'days').format('YYYY-MM-DD'),
           },
         });
         setGoals(query.data);
@@ -50,25 +49,39 @@ const Calendar = ({ onDayPress }) => {
       getGoals();
     }, [setGoals])
   );
-
   const computeGoalSuccess = (day) => {
-    if (!goals) {
-      return 'NoGoal';
+    if (goals.length === 0) {
+      return { status: 'NoGoal' };
     }
     let searchedDay = day.subtract(6, 'day');
+    const goal = goals?.find((goal) => goal.date === searchedDay.format('YYYY-MM-DD'));
     let sumDoses = 0;
-    for (i = 0; i < 7; ++i) {
+    let drinkingDay = 0;
+    for (let i = 0; i < 7; ++i) {
       const formatedDay = searchedDay.format('YYYY-MM-DD');
       sumDoses += dailyDoses[formatedDay];
+      if (dailyDoses[formatedDay] > 0) {
+        drinkingDay++;
+      }
       searchedDay = searchedDay.add(1, 'day');
     }
-    if (sumDoses) {
-      const goal = goals?.find((goal) => goal.date === searchedDay);
+    if (sumDoses >= 0) {
       const checkedGoal = goal ? goal : goals[0];
-      if (sumDoses <= checkedGoal.dosesPerWeek) {
-        return 'Success';
+      if (sumDoses <= checkedGoal.dosesPerWeek && drinkingDay <= 7 - checkedGoal.daysWithGoalNoDrink.length) {
+        const consommationMessage = 'Vos consommations de cette semaine sont dans votre objectif fixé.';
+        const drinkingDayMessage = 'Vous avez respecté le nombre de jours où vous vous autorisiez à boire.';
+        return { status: 'Success', consommationMessage: consommationMessage, drinkingDayMessage: drinkingDayMessage };
       }
-      return 'Fail';
+      const consommationMessage =
+        sumDoses > checkedGoal.dosesPerWeek
+          ? 'Vos consommations de cette semaine sont supérieures à votre objectif fixé.'
+          : 'Vos consommations de cette semaine sont dans votre objectif fixé.';
+
+      const drinkingDayMessage =
+        drinkingDay > 7 - checkedGoal.daysWithGoalNoDrink.length
+          ? 'Vous avez dépassé le nombre de jours où vous vous autorisiez à boire.'
+          : 'Vous avez respecté le nombre de jours où vous vous autorisiez à boire.';
+      return { status: 'Fail', consommationMessage: consommationMessage, drinkingDayMessage: drinkingDayMessage };
     }
     return 'MissCompletedDays';
   };
@@ -245,9 +258,29 @@ const Calendar = ({ onDayPress }) => {
               <View
                 className="flex flex-row grow basis-4  items-center justify-center rounded-md aspect-square m-1"
                 key={calendarWeek.days[0].day + 'goal'}>
-                {console.log(calendarWeek.goalStatus)}
-                {calendarWeek.goalStatus === 'Success' && <Text style={{ fontSize: fontSize }}>O</Text>}
-                {calendarWeek.goalStatus !== 'Success' && <Text style={{ fontSize: fontSize }}>X</Text>}
+                {calendarWeek.goalStatus.status === 'Success' && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      //TODO
+                    }}>
+                    <CheckDefisValidated size={fontSize * 1.8} />
+                  </TouchableOpacity>
+                )}
+                {calendarWeek.goalStatus.status === 'Fail' && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      //TODO
+                    }}>
+                    <CrossDefisFailed size={fontSize * 1.8} />
+                  </TouchableOpacity>
+                )}
+                {calendarWeek.goalStatus.status === 'NoGoal' && bgColor === '#F5F6FA' && (
+                  <TouchableOpacity className="rounded-full bg-[#767676] flex flex-row grow aspect-square justify-center m-1 items-center">
+                    <Text className="font-bold text-white" style={{ fontSize: fontSize * 1.3 }}>
+                      ?
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           );
