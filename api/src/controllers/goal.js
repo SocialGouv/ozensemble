@@ -72,4 +72,23 @@ router.post(
   })
 );
 
+router.get(
+  "/list",
+  catchErrors(async (req, res) => {
+    const { matomoId } = req.query;
+    const user = await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      create: {
+        matomo_id: matomoId,
+      },
+      update: {},
+    });
+    const goals = await prisma.goal.findMany({
+      where: { userId: user.id },
+      orderBy: { createdAt: "asc" },
+    });
+    return res.status(200).send({ ok: true, data: goals });
+  })
+);
+
 module.exports = router;
