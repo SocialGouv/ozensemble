@@ -12,6 +12,8 @@ import API from '../services/api';
 import { shareApp } from '../services/shareApp';
 import IconAdd from './illustrations/IconAdd';
 import { storage } from '../services/storage';
+import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
+import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
 
 /* example
 {
@@ -127,8 +129,9 @@ const InAppModal = () => {
               />
             </Svg>
           </TouchableOpacity>
-          <View className="w-full mb-6 mt-4 flex flex-row justify-center gap-x-2">
-            <IconAdd />
+          <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+            <AnnouncementCalendar1 />
+            <AnnouncementCalendar2 />
           </View>
           <View className="mb-8 mx-4">
             <H1 className="text-center" color={'black'}>
