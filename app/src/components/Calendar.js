@@ -36,21 +36,24 @@ const Calendar = ({ onDayPress }) => {
   ]);
   useFocusEffect(
     useCallback(() => {
-      async function getGoals() {
-        const matomoId = storage.getString('@UserIdv2');
-        const query = await API.get({
-          path: '/goal/list',
-          query: {
-            matomoId: matomoId,
-          },
-        });
-        setGoals(query.data);
-      }
-      getGoals();
+      API.get({
+        path: '/goal/list',
+        query: {
+          matomoId: storage.getString('@UserIdv2'),
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            setGoals(res.data);
+          }
+        })
+        .catch((err) => console.log('Get goals err', err));
     }, [setGoals])
   );
+
   const computeGoalSuccess = (day) => {
-    if (goals.length === 0) {
+    const goalRegistered = goals[0]?.dosesPerWeek;
+    if (!goalRegistered) {
       return { status: 'NoGoal' };
     }
     let searchedDay = day.subtract(6, 'day');
@@ -154,21 +157,22 @@ const Calendar = ({ onDayPress }) => {
 
   const calendarDayByWeek = useMemo(() => {
     const firstDayStyles = computeStyleWithDrinks(firstDayOfCalendar);
-    let days = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
+    let WeekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
     let previousDay = firstDayOfCalendar;
-    let res = [];
+    let daysByWeek = [];
     for (let i = 1; i <= nbDays; ++i) {
-      if (i % 7 === 0) {
+      isDayIsSunday = i % 7 === 0;
+      if (isDayIsSunday) {
         const goalStatus = computeGoalSuccess(day);
-        res.push({ days: days, goalStatus: goalStatus });
-        days = [];
+        daysByWeek.push({ days: WeekDays, goalStatus: goalStatus });
+        WeekDays = [];
       }
       const day = previousDay.add(1, 'day');
       const styles = computeStyleWithDrinks(day);
-      days = [...days, { day: day, styles: styles }];
+      WeekDays = [...WeekDays, { day: day, styles: styles }];
       previousDay = day;
     }
-    return res;
+    return daysByWeek;
   }, [firstDayOfCalendar, dailyDoses]);
 
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
