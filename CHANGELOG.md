@@ -1,3 +1,10 @@
+# [1.101.0](https://github.com/SocialGouv/ozensemble/compare/v1.100.0...v1.101.0) (2023-05-01)
+
+
+### Features
+
+* show correct icon for goals in calendar ([#305](https://github.com/SocialGouv/ozensemble/issues/305)) ([d0e2a17](https://github.com/SocialGouv/ozensemble/commit/d0e2a179fc3b3e673cfa2193680c8abdccf1845d))
+
 # [1.100.0](https://github.com/SocialGouv/ozensemble/compare/v1.99.1...v1.100.0) (2023-04-28)
 
 
