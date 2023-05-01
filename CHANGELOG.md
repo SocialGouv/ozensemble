@@ -1,3 +1,15 @@
+# [1.102.0](https://github.com/SocialGouv/ozensemble/compare/v1.101.0...v1.102.0) (2023-05-01)
+
+
+### Bug Fixes
+
+* revert ([a653987](https://github.com/SocialGouv/ozensemble/commit/a6539873a54dfe45585f718f82ebf155f797d673))
+
+
+### Features
+
+* add onPress events for goal icons ([cc18189](https://github.com/SocialGouv/ozensemble/commit/cc181897395231f8f2c6074b0ad5efe8a3c15137))
+
 # [1.101.0](https://github.com/SocialGouv/ozensemble/compare/v1.100.0...v1.101.0) (2023-05-01)
 
 
