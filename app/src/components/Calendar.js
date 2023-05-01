@@ -157,19 +157,19 @@ const Calendar = ({ onDayPress }) => {
 
   const calendarDayByWeek = useMemo(() => {
     const firstDayStyles = computeStyleWithDrinks(firstDayOfCalendar);
-    let WeekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
+    let weekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
     let previousDay = firstDayOfCalendar;
     let daysByWeek = [];
     for (let i = 1; i <= nbDays; ++i) {
       isDayIsSunday = i % 7 === 0;
       if (isDayIsSunday) {
         const goalStatus = computeGoalSuccess(day);
-        daysByWeek.push({ days: WeekDays, goalStatus: goalStatus });
-        WeekDays = [];
+        daysByWeek.push({ days: weekDays, goalStatus: goalStatus });
+        weekDays = [];
       }
       const day = previousDay.add(1, 'day');
       const styles = computeStyleWithDrinks(day);
-      WeekDays = [...WeekDays, { day: day, styles: styles }];
+      weekDays = [...weekDays, { day: day, styles: styles }];
       previousDay = day;
     }
     return daysByWeek;
