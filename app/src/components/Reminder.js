@@ -46,7 +46,6 @@ const Reminder = ({
   const [weekDay, setWeekDay] = useRecoilState(reminderWeekDayState); // 0 Sunday, 1 Monday -> 6 Saturday
   const [reminderSetupVisible, setReminderSetupVisible] = useState(false);
   const [reminderErrorAlertVisible, setReminderErrorAlertVisible] = useState(false);
-
   const getReminder = async (showAlert = true) => {
     const isRegistered = await NotificationService.checkPermission();
     if (Boolean(reminder) && !dayjs(reminder).isValid()) {
@@ -129,7 +128,6 @@ const Reminder = ({
 
     const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
     if (!isConnected) return setReminderErrorAlertVisible(true);
-
     const res = await API.put({
       path: '/reminder',
       body: {
