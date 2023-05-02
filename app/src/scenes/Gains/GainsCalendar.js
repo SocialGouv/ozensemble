@@ -9,7 +9,9 @@ import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { View } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
-
+import { View, Text } from 'react-native';
+import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
+import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
 {
@@ -103,10 +105,25 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           }}
         />
       </View>
-      <Legend>État de ma consommation</Legend>
-      <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
-      <PartDescription value={"J'ai bu"} color={'#de295e'} />
-      <PartDescription value={'Je saisis ma consommation'} color={'transparent'} dashed />
+      <View className="flex flex-row justify-start space-x-4 mt-3 bg-[#FAFAFA]">
+        <View>
+          <TextStyled color={'#939EA6'}>Consommations jour</TextStyled>
+          <PartDescription value={'Pas bu'} color={'#34D39A'} />
+          <PartDescription value={"Dans l'objectif"} color={'#FCBC49'} />
+          <PartDescription value={"Au dessus de l'objectif"} color={'#FF7878'} />
+        </View>
+        <View>
+          <TextStyled color={'#939EA6'}>Objectif semaine</TextStyled>
+          <View className="flex flex-row items-center space-x-2 my-1 ">
+            <CheckDefisValidated />
+            <Text>Réussi</Text>
+          </View>
+          <View className="flex flex-row items-center space-x-2">
+            <CrossDefisFailed />
+            <Text>Dépassé</Text>
+          </View>
+        </View>
+      </View>
     </Container>
   );
 };
@@ -119,12 +136,6 @@ const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
 `;
-
-const Legend = styled(TextStyled)`
-  color: #4030a5;
-  margin-bottom: 5px;
-`;
-
 const PartDescription = ({ color, value, dashed }) => (
   <PartContainer>
     <Dot color={color} dashed={dashed} />
@@ -137,13 +148,13 @@ const PartContainer = styled.View`
   align-items: center;
 `;
 
-const dotSize = 30;
+const dotSize = 25;
 
 const dotCss = css`
   width: ${dotSize}px;
   height: ${dotSize}px;
-  border-radius: ${dotSize}px;
-  margin-right: 20px;
+  border-radius: 10px;
+  margin-right: 5px;
   margin-bottom: 2px;
   margin-top: 2px;
   overflow: hidden;
