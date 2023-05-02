@@ -109,33 +109,29 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       </View>
       <View className="flex flex-row justify-start space-x-2 mt-3">
         <View>
-          <View className="flex flex-row items-center space-x-1">
-            <TextStyled color={'#939EA6'} className="text-xs">
-              Consommations jour
-            </TextStyled>
+          <View className="flex flex-row items-center space-x-2">
+            <TextStyled color={'#939EA6'}>Consommations jour</TextStyled>
             <LegendInfos />
           </View>
           <View className="flex flex-row space-x-1 items-center">
             <LegendStar />
-            <Text className="text-xs">Pas bu</Text>
+            <Text>Pas bu</Text>
           </View>
           <PartDescription value={"Dans l'objectif"} color={'#34D39A'} />
           <PartDescription value={"Au dessus de l'objectif"} color={'#FF7878'} />
         </View>
         <View>
-          <View className="flex flex-row items-center space-x-1">
-            <TextStyled color={'#939EA6'} className="text-xs">
-              Objectif semaine
-            </TextStyled>
+          <View className="flex flex-row items-center space-x-2">
+            <TextStyled color={'#939EA6'}>Objectif semaine</TextStyled>
             <LegendInfos />
           </View>
           <View className="flex flex-row items-center space-x-2 my-1 ">
             <CheckDefisValidated />
-            <Text className="text-xs">Réussi</Text>
+            <Text>Réussi</Text>
           </View>
           <View className="flex flex-row items-center space-x-2">
             <CrossDefisFailed />
-            <Text className="text-xs">Dépassé</Text>
+            <Text>Dépassé</Text>
           </View>
         </View>
       </View>
@@ -146,7 +142,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
 const PartDescription = ({ color, value, dashed }) => (
   <View className="flex flex-row items-center">
     <Dot color={color} dashed={dashed} />
-    <TextStyled className="text-xs">{value}</TextStyled>
+    <TextStyled>{value}</TextStyled>
   </View>
 );
 
