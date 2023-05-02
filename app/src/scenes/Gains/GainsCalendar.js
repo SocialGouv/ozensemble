@@ -1,14 +1,13 @@
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
-import styled, { css } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
-import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
-import { View } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { View } from 'react-native';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -76,11 +75,11 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   }, [dailyDoses, currentMonth]);
 
   return (
-    <Container>
-      <TopTitle>
-        <H1 color="#4030a5">Mon Calendrier</H1>
-      </TopTitle>
-      <View className="mt-7 mb-">
+    <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      <View className="flex flex-row shrink-0 mb-4">
+        <H1 color="#4030a5">Calendrier</H1>
+      </View>
+      <View>
         <Calendar
           onDayPress={(dateString) => {
             if (!isOnboarded) return setShowOnboardingGainModal(true);
@@ -103,58 +102,8 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           }}
         />
       </View>
-      <Legend>État de ma consommation</Legend>
-      <PartDescription value={"Je n'ai pas bu"} color={'#2c864d'} />
-      <PartDescription value={"J'ai bu"} color={'#de295e'} />
-      <PartDescription value={'Je saisis ma consommation'} color={'transparent'} dashed />
-    </Container>
+    </View>
   );
 };
-
-const Container = styled.View`
-  padding-vertical: 20px;
-`;
-
-const TopTitle = styled.View`
-  flex-direction: row;
-  flex-shrink: 0;
-`;
-
-const Legend = styled(TextStyled)`
-  color: #4030a5;
-  margin-bottom: 5px;
-`;
-
-const PartDescription = ({ color, value, dashed }) => (
-  <PartContainer>
-    <Dot color={color} dashed={dashed} />
-    <TextStyled>{value}</TextStyled>
-  </PartContainer>
-);
-
-const PartContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const dotSize = 30;
-
-const dotCss = css`
-  width: ${dotSize}px;
-  height: ${dotSize}px;
-  border-radius: ${dotSize}px;
-  margin-right: 20px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  overflow: hidden;
-`;
-
-const Dot = styled.View`
-  ${dotCss}
-  margin-top: ${dotSize * 0.12}px;
-  background-color: ${({ color }) => color};
-  ${(props) => props.dashed && 'border-style: dashed;'}
-  ${(props) => props.dashed && 'border-width: 1px;'}
-`;
 
 export default GainsCalendar;
