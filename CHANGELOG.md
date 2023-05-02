@@ -1,3 +1,11 @@
+## [1.102.2](https://github.com/SocialGouv/ozensemble/compare/v1.102.1...v1.102.2) (2023-05-02)
+
+
+### Bug Fixes
+
+* Update calendar legend ([#298](https://github.com/SocialGouv/ozensemble/issues/298)) ([4d4e0a9](https://github.com/SocialGouv/ozensemble/commit/4d4e0a91362459ce287bb8c268e0d56234d70e70))
+* update new feature modal ([#306](https://github.com/SocialGouv/ozensemble/issues/306)) ([3f34deb](https://github.com/SocialGouv/ozensemble/commit/3f34deb118c92286eb1edf2bcffb19ddb75c41e0))
+
 ## [1.102.1](https://github.com/SocialGouv/ozensemble/compare/v1.102.0...v1.102.1) (2023-05-02)
 
 
