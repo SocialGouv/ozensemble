@@ -64,7 +64,7 @@ router.post(
         return res.status(200).send({
           ok: true,
           showInAppModal: {
-            iid: "@newBadgeAnnouncementAddOwnDrink",
+            id: "@newBadgeAnnouncementAddOwnDrink",
             title: "Nouveau\u00A0: Ajoutez vos propres boissons personnalisées\u00A0!",
             content:
               "Vous ne trouvez pas votre boisson dans la liste ? Aucun problème, vous pouvez désormais la créer en ajoutant son propre __degrés__ d'alcool et son propre __prix__.",
@@ -90,7 +90,7 @@ router.post(
         return res.status(200).send({
           ok: true,
           showInAppModal: {
-            iid: "@NewCalendarAnnouncement",
+            id: "@NewCalendarAnnouncement",
             title: "Nouveau\u00A0: le calendrier a été mis à jour avec votre objectif\u00A0!",
             content:
               "Chaque jour est affiché d'une couleur différente en fonction de votre consommation du jour.\nEt chaque semaine, vous pouvez suivre si vous avez tenu ou non votre objectif\u00A0!",
