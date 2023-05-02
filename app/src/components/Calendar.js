@@ -26,9 +26,7 @@ const Calendar = ({ onDayPress }) => {
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
   const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
-  const [modalContent, setModalContent] = useState({
-    visible: false,
-  });
+  const [modalContent, setModalContent] = useState(null);
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
   const [goals, setGoals] = useState([
     {
@@ -361,7 +359,7 @@ const Calendar = ({ onDayPress }) => {
         <ModalGoal
           content={modalContent}
           onClose={() => {
-            setModalContent({ visible: false });
+            setModalContent(null);
           }}
         />
       </View>
