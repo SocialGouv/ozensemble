@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { findNodeHandle, View, Text } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import OnBoardingModal from '../../components/OnBoardingModal';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 import Feed from './Feed';

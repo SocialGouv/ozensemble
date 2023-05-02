@@ -1,14 +1,12 @@
 import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
-import styled, { css } from 'styled-components';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
-import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
