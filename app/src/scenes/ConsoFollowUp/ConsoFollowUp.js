@@ -67,9 +67,13 @@ const ConsoFollowUp = () => {
     [maxDrinksPerWeekGoal, previousDrinksPerWeek]
   );
   const scrollToInput = (ref) => {
+    console.log('scroll');
     if (!ref) return;
+    console.log('ref');
     if (!scrollViewRef.current) return;
+    console.log('scrollViewREf');
     setTimeout(() => {
+      console.log('timeout');
       ref.measureLayout(
         findNodeHandle(scrollViewRef.current),
         (x, y) => {
@@ -77,12 +81,17 @@ const ConsoFollowUp = () => {
         },
         (error) => console.log('error scrolling', error)
       );
+      console.log('afterTimeout');
       setDateToScroll(null);
     }, 250);
   };
   return (
-    <ScrollView className="bg-white">
-      <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
+    <ScrollView ref={scrollViewRef} className="bg-white">
+      <GainsCalendar
+        isOnboarded={isOnboarded}
+        setShowOnboardingGainModal={setShowOnboardingGainModal}
+        setDateToScroll={setDateToScroll}
+      />
       <View
         className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]"
         style={{ paddingHorizontal: defaultPaddingFontScale() }}>

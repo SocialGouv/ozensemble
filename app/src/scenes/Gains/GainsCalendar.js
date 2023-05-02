@@ -9,10 +9,7 @@ import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { View, Text } from 'react-native';
-import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
-import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
-import LegendStar from '../../components/illustrations/icons/LegendStar';
-import LegendInfos from '../../components/illustrations/icons/LegendInfos';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -80,9 +77,9 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   }, [dailyDoses, currentMonth]);
 
   return (
-    <View className="py-5">
-      <View className="flex flex-row shrink-0">
-        <H1 color="#4030a5">Mon Calendrier</H1>
+    <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      <View className="flex flex-row shrink-0 mb-4">
+        <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View>
         <Calendar
@@ -107,64 +104,8 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           }}
         />
       </View>
-      <View className="flex flex-row justify-start space-x-2 mt-3">
-        <View>
-          <View className="flex flex-row items-center space-x-2">
-            <TextStyled color={'#939EA6'}>Consommations jour</TextStyled>
-            <LegendInfos />
-          </View>
-          <View className="flex flex-row space-x-1 items-center">
-            <LegendStar />
-            <Text>Pas bu</Text>
-          </View>
-          <PartDescription value={"Dans l'objectif"} color={'#34D39A'} />
-          <PartDescription value={"Au dessus de l'objectif"} color={'#FF7878'} />
-        </View>
-        <View>
-          <View className="flex flex-row items-center space-x-2">
-            <TextStyled color={'#939EA6'}>Objectif semaine</TextStyled>
-            <LegendInfos />
-          </View>
-          <View className="flex flex-row items-center space-x-2 my-1 ">
-            <CheckDefisValidated />
-            <Text>Réussi</Text>
-          </View>
-          <View className="flex flex-row items-center space-x-2">
-            <CrossDefisFailed />
-            <Text>Dépassé</Text>
-          </View>
-        </View>
-      </View>
     </View>
   );
 };
-
-const PartDescription = ({ color, value, dashed }) => (
-  <View className="flex flex-row items-center">
-    <Dot color={color} dashed={dashed} />
-    <TextStyled>{value}</TextStyled>
-  </View>
-);
-
-const dotSize = 20;
-
-const dotCss = css`
-  width: ${dotSize}px;
-  height: ${dotSize}px;
-  border-radius: 7px;
-  margin-right: 5px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  overflow: hidden;
-`;
-
-const Dot = styled.View`
-  ${dotCss}
-  margin-top: ${dotSize * 0.12}px;
-  margin-left: 1px
-  background-color: ${({ color }) => color};
-  ${(props) => props.dashed && 'border-style: dashed;'}
-  ${(props) => props.dashed && 'border-width: 1px;'}
-`;
 
 export default GainsCalendar;
