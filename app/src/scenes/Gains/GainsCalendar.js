@@ -7,7 +7,6 @@ import H1 from '../../components/H1';
 import TextStyled from '../../components/TextStyled';
 import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
-import { View } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { View, Text } from 'react-native';
 import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
@@ -105,7 +104,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           }}
         />
       </View>
-      <View className="flex flex-row justify-start space-x-4 mt-3 bg-[#FAFAFA]">
+      <View className="flex flex-row justify-start space-x-2 mt-3">
         <View>
           <TextStyled color={'#939EA6'}>Consommations jour</TextStyled>
           <PartDescription value={'Pas bu'} color={'#34D39A'} />
@@ -135,6 +134,7 @@ const Container = styled.View`
 const TopTitle = styled.View`
   flex-direction: row;
   flex-shrink: 0;
+  margin-top: 10px;
 `;
 const PartDescription = ({ color, value, dashed }) => (
   <PartContainer>
