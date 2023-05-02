@@ -9,22 +9,9 @@ import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import TextStyled from './TextStyled';
 import InterogationMark from './illustrations/icons/InterogationMark';
 
-const ModalGoal = ({
-  visible,
-  onClose,
-  title,
-  contentDrinks,
-  contentDrinkingDay,
-  goalWeek,
-  consoWeek,
-  drinkingDayGoal,
-  drinkingDays,
-  failed,
-  firstDay,
-  lastDay,
-}) => {
+const ModalGoal = ({ content, onClose }) => {
   return (
-    <Modal visible={visible} animationType="fade" withBackground hideOnTouch>
+    <Modal visible={content.visible} animationType="fade" withBackground hideOnTouch>
       <View className="bg-white rounded-xl">
         <View className="h-5 flex flex-row  justify-end">
           <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
@@ -41,30 +28,30 @@ const ModalGoal = ({
         </View>
 
         <View className="flex flex-row justify-center">
-          {!goalWeek && <InterogationMark size={50} />}
-          {goalWeek && failed && <CrossDefisFailed size={50} />}
-          {goalWeek && !failed && <CheckDefisValidated size={50} />}
+          {!content.consosWeekGoal && <InterogationMark size={50} />}
+          {content.consosWeekGoal && content.failed && <CrossDefisFailed size={50} />}
+          {content.consoWeek && !content.failed && <CheckDefisValidated size={50} />}
         </View>
 
         <View className="mb-4 p-2">
           <H2 color="#000" className="text-center mb-1">
-            {title}
+            {content.title}
           </H2>
           <Text className="text-xs text-[#939EA6] text-center">
-            semaine du {firstDay} au {lastDay}
+            semaine du {content.firstDay} au {content.lastDay}
           </Text>
           <View className="flex flex-row justify-around mt-8">
             <View>
               <Text className="text-[#4030A5] font-semibold text-center text-xs">Consos semaine</Text>
               <Text className="text-center font-bold mt-1 text-lg">
-                {consoWeek} {consoWeek > 1 ? 'unités' : 'unité'}
+                {content.consosWeek} {content.consosWeek > 1 ? 'unités' : 'unité'}
               </Text>
             </View>
             <View>
               <Text className="text-[#4030A5] font-semibold text-center text-xs">Objectif max</Text>
-              {goalWeek ? (
+              {content.consosWeekGoal ? (
                 <Text className="text-center font-bold mt-1 text-lg">
-                  {goalWeek} {goalWeek > 1 ? 'unités' : 'unité'}
+                  {content.consosWeekGoal} {content.consosWeekGoal > 1 ? 'unités' : 'unité'}
                 </Text>
               ) : (
                 <Text className="text-center font-bold mt-1 text-xl">?</Text>
@@ -72,7 +59,7 @@ const ModalGoal = ({
             </View>
           </View>
           <Text className="text-center mt-4">
-            {contentDrinks?.split('__')?.map((string, index) => {
+            {content.consommationContent?.split('__')?.map((string, index) => {
               return (
                 <React.Fragment key={string}>
                   <TextStyled bold={index % 2}>{string}</TextStyled>
@@ -80,7 +67,7 @@ const ModalGoal = ({
               );
             })}
           </Text>
-          {goalWeek && (
+          {content.consosWeekGoal && (
             <View>
               <View className="flex flex-row justify-center">
                 <View className="w-3/4 border border-[#DDDDDD] my-8"></View>
@@ -90,18 +77,18 @@ const ModalGoal = ({
                 <View>
                   <Text className="text-[#4030A5] text-center font-semibold text-xs">Jours où j'ai bu</Text>
                   <Text className="text-center font-bold text-lg mt-1">
-                    {drinkingDays} {drinkingDays > 1 ? 'jours' : 'jour'}
+                    {content.drinkingDays} {content.drinkingDays > 1 ? 'jours' : 'jour'}
                   </Text>
                 </View>
                 <View>
                   <Text className="text-[#4030A5] text-center font-semibold text-xs">Objectif max</Text>
                   <Text className="text-center font-bold text-lg mt-1">
-                    {drinkingDayGoal} {drinkingDayGoal > 1 ? 'jours' : 'jour'}
+                    {content.drinkingDaysGoal} {content.drinkingDaysGoal > 1 ? 'jours' : 'jour'}
                   </Text>
                 </View>
               </View>
               <Text className="text-center mt-4">
-                {contentDrinkingDay?.split('__')?.map((string, index) => {
+                {content.drinkingDaysContent?.split('__')?.map((string, index) => {
                   return (
                     <React.Fragment key={string}>
                       <TextStyled bold={index % 2}>{string}</TextStyled>

@@ -26,17 +26,9 @@ const Calendar = ({ onDayPress }) => {
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
   const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
-  const [modalTitle, setModalTitle] = useState();
-  const [modalDrinksContent, setModalDrinksContent] = useState();
-  const [modalDrinkingDayContent, setModalDrinkingDayContent] = useState();
-  const [modalGoalWeek, setModalGoalWeek] = useState();
-  const [modalDrinkingDaysGoal, setModalDrinkingDaysGoal] = useState();
-  const [modalFirstDay, setModalFirstDay] = useState();
-  const [modalLastDay, setModalLastDay] = useState();
-  const [modalDrinkingDays, setModalDrinkingDays] = useState();
-  const [modalConsosWeek, setModalConsosWeek] = useState();
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalFailed, setModalFailed] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    visible: false,
+  });
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
   const [goals, setGoals] = useState([
     {
@@ -302,17 +294,19 @@ const Calendar = ({ onDayPress }) => {
                 {calendarWeek.goalStatus.status === 'Success' && (
                   <TouchableOpacity
                     onPress={() => {
-                      setModalDrinksContent(calendarWeek.goalStatus.consommationMessage);
-                      setModalTitle('Objectif réussi, bravo\u00A0!');
-                      setModalDrinkingDayContent(calendarWeek.goalStatus.drinkingDayMessage);
-                      setModalDrinkingDaysGoal(calendarWeek.goalStatus.drinkingDaysGoal);
-                      setModalDrinkingDays(calendarWeek.goalStatus.drinkingDays);
-                      setModalGoalWeek(calendarWeek.goalStatus.consosWeekGoal);
-                      setModalConsosWeek(calendarWeek.goalStatus.consosWeek);
-                      setModalFirstDay(calendarWeek.days[0].day.format('DD'));
-                      setModalLastDay(calendarWeek.days[6].day.format('DD MMMM'));
-                      setModalFailed(false);
-                      setModalVisible(true);
+                      setModalContent({
+                        consommationContent: calendarWeek.goalStatus.consommationMessage,
+                        title: 'Objectif réussi, bravo\u00A0!',
+                        drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
+                        drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
+                        drinkingDays: calendarWeek.goalStatus.drinkingDays,
+                        consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
+                        consosWeek: calendarWeek.goalStatus.consosWeek,
+                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        failed: false,
+                        visible: true,
+                      });
                     }}>
                     <CheckDefisValidated size={fontSize * 1.8} />
                   </TouchableOpacity>
@@ -320,17 +314,19 @@ const Calendar = ({ onDayPress }) => {
                 {calendarWeek.goalStatus.status === 'Fail' && (
                   <TouchableOpacity
                     onPress={() => {
-                      setModalDrinksContent(calendarWeek.goalStatus.consommationMessage);
-                      setModalTitle('Objectif dépassé');
-                      setModalDrinkingDayContent(calendarWeek.goalStatus.drinkingDayMessage);
-                      setModalDrinkingDaysGoal(calendarWeek.goalStatus.drinkingDaysGoal);
-                      setModalDrinkingDays(calendarWeek.goalStatus.drinkingDays);
-                      setModalGoalWeek(calendarWeek.goalStatus.consosWeekGoal);
-                      setModalConsosWeek(calendarWeek.goalStatus.consosWeek);
-                      setModalFirstDay(calendarWeek.days[0].day.format('DD'));
-                      setModalLastDay(calendarWeek.days[6].day.format('DD MMMM'));
-                      setModalFailed(true);
-                      setModalVisible(true);
+                      setModalContent({
+                        consommationContent: calendarWeek.goalStatus.consommationMessage,
+                        title: 'Objectif dépassé',
+                        drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
+                        drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
+                        drinkingDays: calendarWeek.goalStatus.drinkingDays,
+                        consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
+                        consosWeek: calendarWeek.goalStatus.consosWeek,
+                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        failed: true,
+                        visible: true,
+                      });
                     }}>
                     <CrossDefisFailed size={fontSize * 1.8} />
                   </TouchableOpacity>
@@ -339,17 +335,19 @@ const Calendar = ({ onDayPress }) => {
                   <TouchableOpacity
                     className="rounded-full bg-[#767676] flex flex-row grow aspect-square justify-center m-1 items-center"
                     onPress={() => {
-                      setModalTitle("Pas d'objectif fixé");
-                      setModalDrinksContent(calendarWeek.goalStatus.consommationMessage);
-                      setModalDrinkingDayContent(null);
-                      setModalDrinkingDaysGoal(null);
-                      setModalDrinkingDays(null);
-                      setModalGoalWeek(null);
-                      setModalConsosWeek(calendarWeek.goalStatus.consosWeek);
-                      setModalFirstDay(calendarWeek.days[0].day.format('DD'));
-                      setModalLastDay(calendarWeek.days[6].day.format('DD MMMM'));
-                      setModalFailed(false);
-                      setModalVisible(true);
+                      setModalContent({
+                        consommationContent: calendarWeek.goalStatus.consommationMessage,
+                        title: "Pas d'objectif fixé",
+                        drinkingDaysContent: null,
+                        drinkingDaysGoal: null,
+                        drinkingDays: null,
+                        consosWeekGoal: null,
+                        consosWeek: calendarWeek.goalStatus.consosWeek,
+                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        failed: false,
+                        visible: true,
+                      });
                     }}>
                     <Text className="font-bold text-white" style={{ fontSize: fontSize * 1.3 }}>
                       ?
@@ -361,19 +359,9 @@ const Calendar = ({ onDayPress }) => {
           );
         })}
         <ModalGoal
-          visible={modalVisible}
-          title={modalTitle}
-          contentDrinks={modalDrinksContent}
-          contentDrinkingDay={modalDrinkingDayContent}
-          goalWeek={modalGoalWeek}
-          drinkingDayGoal={modalDrinkingDaysGoal}
-          drinkingDays={modalDrinkingDays}
-          firstDay={modalFirstDay}
-          lastDay={modalLastDay}
-          consoWeek={modalConsosWeek}
-          failed={modalFailed}
+          content={modalContent}
           onClose={() => {
-            setModalVisible(false);
+            setModalContent({ ...modalContent, visible: false });
           }}
         />
       </View>
