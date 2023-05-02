@@ -361,7 +361,7 @@ const Calendar = ({ onDayPress }) => {
         <ModalGoal
           content={modalContent}
           onClose={() => {
-            setModalContent({ ...modalContent, visible: false });
+            setModalContent({ visible: false });
           }}
         />
       </View>
