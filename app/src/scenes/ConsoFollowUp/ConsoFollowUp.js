@@ -84,10 +84,10 @@ const ConsoFollowUp = () => {
     <ScrollView className="bg-white">
       <GainsCalendar isOnboarded={isOnboarded} setShowOnboardingGainModal={setShowOnboardingGainModal} />
       <View
-        className="flex flex-row justify-start mt-3 bg-[#FAFAFA]"
+        className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]"
         style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <View>
-          <View className="flex flex-row items-center space-x-1">
+          <View className="flex flex-row items-center space-x-1 mb-1">
             <TextStyled color={'#939EA6'} className="text-xs">
               Consommations jour
             </TextStyled>
@@ -97,11 +97,17 @@ const ConsoFollowUp = () => {
             <LegendStar />
             <Text className="text-xs">Pas bu</Text>
           </View>
-          <PartDescription value={"Dans l'objectif"} color={'#34D39A'} />
-          <PartDescription value={"Au dessus de l'objectif"} color={'#FF7878'} />
+          <View className="flex flex-row items-center">
+            <View className="bg-[#34D39A] w-5 h-5 rounded-md mt-1 mr-1"></View>
+            <Text className="text-xs mt-1">Dans l'objectif</Text>
+          </View>
+          <View className="flex flex-row items-center">
+            <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1"></View>
+            <Text className="text-xs mt-1">Au dessus de l'objectif</Text>
+          </View>
         </View>
         <View className="mx-auto">
-          <View className="flex flex-row items-center space-x-1">
+          <View className="flex flex-row items-center space-x-1 mb-1">
             <TextStyled color={'#939EA6'} className="text-xs">
               Objectif semaine
             </TextStyled>
@@ -137,31 +143,4 @@ const ConsoFollowUp = () => {
 
 const FeedAddConsoTodayContainer = styled.View`
   align-items: center;
-`;
-const PartDescription = ({ color, value, dashed }) => (
-  <View className="flex flex-row items-center">
-    <Dot color={color} dashed={dashed} />
-    <TextStyled className="text-xs">{value}</TextStyled>
-  </View>
-);
-
-const dotSize = 20;
-
-const dotCss = css`
-  width: ${dotSize}px;
-  height: ${dotSize}px;
-  border-radius: 7px;
-  margin-right: 5px;
-  margin-bottom: 2px;
-  margin-top: 2px;
-  overflow: hidden;
-`;
-
-const Dot = styled.View`
-  ${dotCss}
-  margin-top: ${dotSize * 0.12}px;
-  margin-left: 1px
-  background-color: ${({ color }) => color};
-  ${(props) => props.dashed && 'border-style: dashed;'}
-  ${(props) => props.dashed && 'border-width: 1px;'}
 `;
