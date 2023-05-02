@@ -11,6 +11,9 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import { View, Text } from 'react-native';
 import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
+import LegendStar from '../../components/illustrations/icons/LegendStar';
+import LegendInfos from '../../components/illustrations/icons/LegendInfos';
+
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
 {
@@ -77,11 +80,11 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   }, [dailyDoses, currentMonth]);
 
   return (
-    <Container>
-      <TopTitle>
+    <View className="py-5">
+      <View className="flex flex-row shrink-0">
         <H1 color="#4030a5">Mon Calendrier</H1>
-      </TopTitle>
-      <View className="mt-7 mb-">
+      </View>
+      <View>
         <Calendar
           onDayPress={(dateString) => {
             if (!isOnboarded) return setShowOnboardingGainModal(true);
@@ -106,13 +109,22 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       </View>
       <View className="flex flex-row justify-start space-x-2 mt-3">
         <View>
-          <TextStyled color={'#939EA6'}>Consommations jour</TextStyled>
-          <PartDescription value={'Pas bu'} color={'#34D39A'} />
-          <PartDescription value={"Dans l'objectif"} color={'#FCBC49'} />
+          <View className="flex flex-row items-center space-x-2">
+            <TextStyled color={'#939EA6'}>Consommations jour</TextStyled>
+            <LegendInfos />
+          </View>
+          <View className="flex flex-row space-x-1 items-center">
+            <LegendStar />
+            <Text>Pas bu</Text>
+          </View>
+          <PartDescription value={"Dans l'objectif"} color={'#34D39A'} />
           <PartDescription value={"Au dessus de l'objectif"} color={'#FF7878'} />
         </View>
         <View>
-          <TextStyled color={'#939EA6'}>Objectif semaine</TextStyled>
+          <View className="flex flex-row items-center space-x-2">
+            <TextStyled color={'#939EA6'}>Objectif semaine</TextStyled>
+            <LegendInfos />
+          </View>
           <View className="flex flex-row items-center space-x-2 my-1 ">
             <CheckDefisValidated />
             <Text>Réussi</Text>
@@ -123,37 +135,23 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           </View>
         </View>
       </View>
-    </Container>
+    </View>
   );
 };
 
-const Container = styled.View`
-  padding-vertical: 20px;
-`;
-
-const TopTitle = styled.View`
-  flex-direction: row;
-  flex-shrink: 0;
-  margin-top: 10px;
-`;
 const PartDescription = ({ color, value, dashed }) => (
-  <PartContainer>
+  <View className="flex flex-row items-center">
     <Dot color={color} dashed={dashed} />
     <TextStyled>{value}</TextStyled>
-  </PartContainer>
+  </View>
 );
 
-const PartContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const dotSize = 25;
+const dotSize = 20;
 
 const dotCss = css`
   width: ${dotSize}px;
   height: ${dotSize}px;
-  border-radius: 10px;
+  border-radius: 7px;
   margin-right: 5px;
   margin-bottom: 2px;
   margin-top: 2px;
@@ -163,6 +161,7 @@ const dotCss = css`
 const Dot = styled.View`
   ${dotCss}
   margin-top: ${dotSize * 0.12}px;
+  margin-left: 1px
   background-color: ${({ color }) => color};
   ${(props) => props.dashed && 'border-style: dashed;'}
   ${(props) => props.dashed && 'border-width: 1px;'}
