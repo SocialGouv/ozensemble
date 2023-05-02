@@ -49,7 +49,7 @@ router.post(
       update: {},
     });
     // If not up app up to date check for add own drink announcement
-    if (req.headers.appversion >= 158) {
+    if (req.headers.appversion <= 164) {
       const newBadgeAnnouncementAddOwnDrink = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@newBadgeAnnouncementAddOwnDrink` },
       });
