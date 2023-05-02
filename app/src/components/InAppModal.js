@@ -10,7 +10,6 @@ import Modal from './Modal';
 import TextStyled from './TextStyled';
 import API from '../services/api';
 import { shareApp } from '../services/shareApp';
-import IconAdd from './illustrations/IconAdd';
 import { storage } from '../services/storage';
 import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
 import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
