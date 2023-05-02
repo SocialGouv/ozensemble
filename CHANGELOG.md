@@ -1,3 +1,10 @@
+## [1.102.1](https://github.com/SocialGouv/ozensemble/compare/v1.102.0...v1.102.1) (2023-05-02)
+
+
+### Bug Fixes
+
+* update react native version ([#207](https://github.com/SocialGouv/ozensemble/issues/207)) ([59b4118](https://github.com/SocialGouv/ozensemble/commit/59b4118b1fe59b04b8e9274156073c54189d7e9f))
+
 # [1.102.0](https://github.com/SocialGouv/ozensemble/compare/v1.101.0...v1.102.0) (2023-05-01)
 
 
