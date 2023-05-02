@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { findNodeHandle, View, Text } from 'react-native';
+import { findNodeHandle, View, Text, TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import styled from 'styled-components';
@@ -25,6 +25,7 @@ import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFai
 import LegendStar from '../../components/illustrations/icons/LegendStar';
 import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import LegendHelpModal from './LegendHelpModal';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -55,6 +56,7 @@ const ConsoFollowUp = () => {
   const [dateToScroll, setDateToScroll] = useState(null);
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
+  const [helpModalVisible, setHelpModalVisible] = useState(false);
   const navigateToFirstStep = () => {
     logEvent({
       category: 'GAINS',
@@ -88,7 +90,10 @@ const ConsoFollowUp = () => {
         setShowOnboardingGainModal={setShowOnboardingGainModal}
         setDateToScroll={setDateToScroll}
       />
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          setHelpModalVisible(true);
+        }}
         className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]"
         style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <View className="mt-2 mb-4">
@@ -146,7 +151,7 @@ const ConsoFollowUp = () => {
             </View>
           )}
         </View>
-      </View>
+      </TouchableOpacity>
       <FeedAddConsoTodayContainer zIndex={10}>
         {!!showWelcomeMessage && <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />}
       </FeedAddConsoTodayContainer>
@@ -159,6 +164,12 @@ const ConsoFollowUp = () => {
         visible={showOnboardingGainModal}
         hide={() => {
           setShowOnboardingGainModal(false);
+        }}
+      />
+      <LegendHelpModal
+        visible={helpModalVisible}
+        hide={() => {
+          setHelpModalVisible(false);
         }}
       />
     </ScrollView>
