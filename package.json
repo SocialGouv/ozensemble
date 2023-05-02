@@ -2,13 +2,9 @@
   "devDependencies": {
     "husky": "^8.0.1",
     "is-ci": "^3.0.1",
-    "node-talisman": "^1.29.3",
-    "react-native-clean-project": "^4.0.1"
+    "node-talisman": "^1.29.3"
   },
   "scripts": {
     "postinstall": "is-ci || husky install"
-  },
-  "dependencies": {
-    "react-native": "^0.72.0-rc.0"
   }
 }
