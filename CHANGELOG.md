@@ -1,3 +1,15 @@
+# [1.103.0](https://github.com/SocialGouv/ozensemble/compare/v1.102.2...v1.103.0) (2023-05-02)
+
+
+### Bug Fixes
+
+* correct round dots calendar ([#309](https://github.com/SocialGouv/ozensemble/issues/309)) ([76eb7c4](https://github.com/SocialGouv/ozensemble/commit/76eb7c4c8f50d14c22b168d001fb3d37b4e0456a))
+
+
+### Features
+
+* help modal on press on legend ([#308](https://github.com/SocialGouv/ozensemble/issues/308)) ([d019c69](https://github.com/SocialGouv/ozensemble/commit/d019c697b0856c06e6a3587cb9e6f94cece824c0))
+
 ## [1.102.2](https://github.com/SocialGouv/ozensemble/compare/v1.102.1...v1.102.2) (2023-05-02)
 
 
