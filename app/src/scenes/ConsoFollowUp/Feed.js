@@ -327,7 +327,7 @@ const MessageContainer = styled.View`
   width: 88%;
 `;
 const FeedContainer = styled.View`
-  padding-horizontal: -${defaultPaddingFontScale()}px;
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const FeedDay = styled.View`
