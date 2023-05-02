@@ -1,3 +1,10 @@
+## [1.103.1](https://github.com/SocialGouv/ozensemble/compare/v1.103.0...v1.103.1) (2023-05-02)
+
+
+### Bug Fixes
+
+* bump appversion to 166 ([#312](https://github.com/SocialGouv/ozensemble/issues/312)) ([144ff77](https://github.com/SocialGouv/ozensemble/commit/144ff77229ef4d32775af65fd8f0d89735d3470e))
+
 # [1.103.0](https://github.com/SocialGouv/ozensemble/compare/v1.102.2...v1.103.0) (2023-05-02)
 
 
