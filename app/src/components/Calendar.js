@@ -240,14 +240,14 @@ const Calendar = ({ onDayPress }) => {
           const bgColor = dayjs().startOf('day').diff(calendarWeek.days[0].day) > 0 ? '#F5F6FA' : 'none';
           return (
             <View
-              className="flex flex-row justify-between mt-2 rounded-lg"
+              className="flex flex-row justify-between mt-2"
               key={calendarWeek.days[0].day + 'week'}
               style={{ backgroundColor: bgColor }}>
               {calendarWeek.days.map((calendarDay) => {
                 return calendarDay.day.diff(dayjs().startOf('day'), 'day') > 0 ? (
                   <View
                     key={calendarDay.day}
-                    className="flex flex-row grow items-center basis-4 justify-center rounded-md aspect-square m-1">
+                    className="flex flex-row grow items-center basis-4 justify-center aspect-square m-1">
                     <Text
                       className="text-[#DCE3E9] font-semibold"
                       style={{
@@ -259,7 +259,7 @@ const Calendar = ({ onDayPress }) => {
                 ) : (
                   <TouchableOpacity
                     key={calendarDay.day + 'blue'}
-                    className="flex flex-row grow basis-4 items-center justify-center rounded-md aspect-square m-1"
+                    className="flex flex-row grow basis-4 items-center justify-center rounded-lg aspect-square m-1"
                     style={{
                       borderStyle: calendarDay.styles.borderStyle,
                       backgroundColor: calendarDay.styles.backgroundColor,
@@ -287,7 +287,7 @@ const Calendar = ({ onDayPress }) => {
                 );
               })}
               <View
-                className="flex flex-row grow basis-4  items-center justify-center rounded-md aspect-square m-1"
+                className="flex flex-row grow basis-4  items-center justify-center aspect-square m-1"
                 key={calendarWeek.days[0].day + 'goal'}>
                 {calendarWeek.goalStatus.status === 'Success' && (
                   <TouchableOpacity
