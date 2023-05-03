@@ -1,4 +1,4 @@
-import React, { useState, useEffect, version } from 'react';
+import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
