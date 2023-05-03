@@ -220,7 +220,7 @@ const Calendar = ({ onDayPress }) => {
           }}>
           <ArrowLeft color="#4030A5" size={15} />
         </TouchableOpacity>
-        <Text className="text-lg">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+        <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
         <TouchableOpacity
           hitSlop={hitSlop(15)}
           onPress={() => {
