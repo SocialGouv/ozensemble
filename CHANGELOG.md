@@ -1,3 +1,10 @@
+## [1.103.5](https://github.com/SocialGouv/ozensemble/compare/v1.103.4...v1.103.5) (2023-05-03)
+
+
+### Bug Fixes
+
+* let the margin from svg even when we do not use them ([#316](https://github.com/SocialGouv/ozensemble/issues/316)) ([50c3fc5](https://github.com/SocialGouv/ozensemble/commit/50c3fc5589e4a0231c579c3e9c98a4a251fd87fc))
+
 ## [1.103.4](https://github.com/SocialGouv/ozensemble/compare/v1.103.3...v1.103.4) (2023-05-03)
 
 
