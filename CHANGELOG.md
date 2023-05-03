@@ -1,3 +1,10 @@
+## [1.103.9](https://github.com/SocialGouv/ozensemble/compare/v1.103.8...v1.103.9) (2023-05-03)
+
+
+### Bug Fixes
+
+* alignement of two svgs in InAppModal ([#322](https://github.com/SocialGouv/ozensemble/issues/322)) ([3bed952](https://github.com/SocialGouv/ozensemble/commit/3bed952d60f7a839dd58f41d17ece6e5adf15b89))
+
 ## [1.103.8](https://github.com/SocialGouv/ozensemble/compare/v1.103.7...v1.103.8) (2023-05-03)
 
 
