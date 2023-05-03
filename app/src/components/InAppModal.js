@@ -90,7 +90,7 @@ const InAppModal = () => {
   };
 
   const getModalNewFeature = async () => {
-    const isModalViewed = storage.getBoolean('@newBadgeAnnouncementAddOwnDrink');
+    const isModalViewed = storage.getBoolean('@NewCalendarAnnouncement');
     if (!isModalViewed) {
       const matomoId = storage.getString('@UserIdv2');
       await API.post({
