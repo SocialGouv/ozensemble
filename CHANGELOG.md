@@ -1,3 +1,10 @@
+## [1.103.2](https://github.com/SocialGouv/ozensemble/compare/v1.103.1...v1.103.2) (2023-05-03)
+
+
+### Bug Fixes
+
+* way to validate goal ([#314](https://github.com/SocialGouv/ozensemble/issues/314)) ([3bf233a](https://github.com/SocialGouv/ozensemble/commit/3bf233aedf45af5b7ed87a7cf20bc297a1f8c00a))
+
 ## [1.103.1](https://github.com/SocialGouv/ozensemble/compare/v1.103.0...v1.103.1) (2023-05-02)
 
 
