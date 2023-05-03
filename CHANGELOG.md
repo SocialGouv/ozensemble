@@ -1,3 +1,10 @@
+## [1.103.4](https://github.com/SocialGouv/ozensemble/compare/v1.103.3...v1.103.4) (2023-05-03)
+
+
+### Bug Fixes
+
+* do not show InAppModal svgs when using NPS ([#311](https://github.com/SocialGouv/ozensemble/issues/311)) ([1eeb388](https://github.com/SocialGouv/ozensemble/commit/1eeb388b4c20dd19901c18e1892ebe540edcd157))
+
 ## [1.103.3](https://github.com/SocialGouv/ozensemble/compare/v1.103.2...v1.103.3) (2023-05-03)
 
 
