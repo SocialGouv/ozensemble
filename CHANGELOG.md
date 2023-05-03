@@ -1,3 +1,12 @@
+## [1.103.8](https://github.com/SocialGouv/ozensemble/compare/v1.103.7...v1.103.8) (2023-05-03)
+
+
+### Bug Fixes
+
+* bump version to 168 ([#321](https://github.com/SocialGouv/ozensemble/issues/321)) ([d3b8c26](https://github.com/SocialGouv/ozensemble/commit/d3b8c26d5ee5fafa064d9a283f37dcdc15388574))
+* put month year of calendar in semibold ([#320](https://github.com/SocialGouv/ozensemble/issues/320)) ([26d3744](https://github.com/SocialGouv/ozensemble/commit/26d37445a702c42800f6db0ca0c87e8d00d0f026))
+* show icon for successed goal ([#319](https://github.com/SocialGouv/ozensemble/issues/319)) ([f67b58e](https://github.com/SocialGouv/ozensemble/commit/f67b58e4c07dd4efc91bf7a20e12b930f750a366))
+
 ## [1.103.7](https://github.com/SocialGouv/ozensemble/compare/v1.103.6...v1.103.7) (2023-05-03)
 
 
