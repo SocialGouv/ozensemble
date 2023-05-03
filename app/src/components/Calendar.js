@@ -7,6 +7,7 @@ import { dailyDosesSelector } from '../recoil/consos';
 import { totalDrinksByDrinkingDaySelector, daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
+import { hitSlop } from '../styles/theme';
 import ArrowLeft from './ArrowLeft';
 import ArrowRight from './ArrowRight';
 import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
@@ -213,6 +214,7 @@ const Calendar = ({ onDayPress }) => {
     <>
       <View className="flex flex-row w-full justify-between px-5 items-center">
         <TouchableOpacity
+          hitSlop={hitSlop(15)}
           onPress={() => {
             setSelectedMonth(selectedMonth.subtract(1, 'month'));
           }}>
@@ -220,6 +222,7 @@ const Calendar = ({ onDayPress }) => {
         </TouchableOpacity>
         <Text className="text-lg">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
         <TouchableOpacity
+          hitSlop={hitSlop(15)}
           onPress={() => {
             setSelectedMonth(selectedMonth.add(1, 'month'));
           }}>
