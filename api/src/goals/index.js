@@ -42,7 +42,10 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     // console.log("allDaysFilled", allDaysFilled);
     if (!allDaysFilled) return null;
     const totalDoses = weekConsos.filter((drink) => drink.drinkKey !== "no-conso").reduce((total, drink) => total + drink.doses * drink.quantity, 0);
-    const goalAchieved = totalDoses <= lastGoal.dosesPerWeek;
+    const totalDaysWithNoDrink = weekConsos.filter((drink) => drink.drinkKey === "no-conso").length;
+    console.log("totalDaysWithNoDrink", totalDaysWithNoDrink);
+    console.log("lastGoal", lastGoal.daysWithGoalNoDrink);
+    const goalAchieved = totalDoses <= lastGoal.dosesPerWeek && totalDaysWithNoDrink >= lastGoal.daysWithGoalNoDrink.length;
 
     const nextGoalStartDate = dayjs().startOf("week").format("YYYY-MM-DD");
     await prisma.goal.upsert({
