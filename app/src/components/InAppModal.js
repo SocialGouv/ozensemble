@@ -128,7 +128,7 @@ const InAppModal = () => {
               />
             </Svg>
           </TouchableOpacity>
-          {!modalContent?.id.includes('NPS') && (
+          {modalContent?.id.includes('NewCalendarAnnouncement') && (
             <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
               <AnnouncementCalendar1 />
               <AnnouncementCalendar2 />
