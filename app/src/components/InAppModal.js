@@ -13,7 +13,6 @@ import { shareApp } from '../services/shareApp';
 import { storage } from '../services/storage';
 import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
 import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
-import { getBuildNumber } from 'react-native-device-info';
 
 /* example
 {
@@ -91,11 +90,7 @@ const InAppModal = () => {
   };
 
   const getModalNewFeature = async () => {
-    const buildNumber = getBuildNumber();
-    const isModalViewed =
-      buildNumber >= 166
-        ? storage.getBoolean('@NewCalendarAnnouncement')
-        : storage.getBoolean('@newBadgeAnnouncementAddOwnDrink');
+    const isModalViewed = storage.getBoolean('@NewCalendarAnnouncement');
     if (!isModalViewed) {
       const matomoId = storage.getString('@UserIdv2');
       await API.post({
