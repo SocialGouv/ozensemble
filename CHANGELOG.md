@@ -1,3 +1,10 @@
+## [1.103.6](https://github.com/SocialGouv/ozensemble/compare/v1.103.5...v1.103.6) (2023-05-03)
+
+
+### Bug Fixes
+
+* add hitSlop to calendar arrows ([#317](https://github.com/SocialGouv/ozensemble/issues/317)) ([fd93898](https://github.com/SocialGouv/ozensemble/commit/fd938984aaf71f9c24c16203a2f6ccb24656a9a6))
+
 ## [1.103.5](https://github.com/SocialGouv/ozensemble/compare/v1.103.4...v1.103.5) (2023-05-03)
 
 
