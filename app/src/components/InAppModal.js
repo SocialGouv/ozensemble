@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, version } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
@@ -13,6 +13,7 @@ import { shareApp } from '../services/shareApp';
 import { storage } from '../services/storage';
 import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
 import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
+import { getBuildNumber } from 'react-native-device-info';
 
 /* example
 {
@@ -90,7 +91,11 @@ const InAppModal = () => {
   };
 
   const getModalNewFeature = async () => {
-    const isModalViewed = storage.getBoolean('@newBadgeAnnouncementAddOwnDrink');
+    const buildNumber = getBuildNumber();
+    const isModalViewed =
+      buildNumber >= 166
+        ? storage.getBoolean('@NewCalendarAnnouncement')
+        : storage.getBoolean('@newBadgeAnnouncementAddOwnDrink');
     if (!isModalViewed) {
       const matomoId = storage.getString('@UserIdv2');
       await API.post({
