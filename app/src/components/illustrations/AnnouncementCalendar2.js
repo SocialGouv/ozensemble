@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledSvg = styled(Svg)``;
 
 const AnnouncementCalendar2 = ({ size, ...props }) => (
-  <StyledSvg width="324" height="36" viewBox="0 0 324 36" fill="none" {...props}>
+  <StyledSvg width={size} height="36" viewBox="0 0 324 36" fill="none" {...props}>
     <Rect width="324" height="36" rx="10" fill="#F5F6FA" />
     <Rect x="87" y="3" width="30" height="30" rx="8" fill="#34D39A" />
     <Path
