@@ -1,3 +1,10 @@
+## [1.103.3](https://github.com/SocialGouv/ozensemble/compare/v1.103.2...v1.103.3) (2023-05-03)
+
+
+### Bug Fixes
+
+* show new modal at the right moment for older users ([#313](https://github.com/SocialGouv/ozensemble/issues/313)) ([317cfe9](https://github.com/SocialGouv/ozensemble/commit/317cfe932b17bd80d1e458031166ffa191cd7462))
+
 ## [1.103.2](https://github.com/SocialGouv/ozensemble/compare/v1.103.1...v1.103.2) (2023-05-03)
 
 
