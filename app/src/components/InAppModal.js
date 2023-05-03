@@ -1,9 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Linking,
+  Platform,
+  InteractionManager,
+  Dimensions,
+} from 'react-native';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
-import { hitSlop } from '../styles/theme';
+import { defaultPaddingFontScale, hitSlop } from '../styles/theme';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import Modal from './Modal';
@@ -28,6 +37,9 @@ import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
 */
 
 const InAppModal = () => {
+  const screenWidth = Number(Dimensions.get('window').width - 50);
+  console.log(screenWidth);
+  console.log(defaultPaddingFontScale());
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -130,9 +142,9 @@ const InAppModal = () => {
           </TouchableOpacity>
           <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
             {modalContent?.id.includes('NewCalendarAnnouncement') && (
-              <View>
-                <AnnouncementCalendar1 />
-                <AnnouncementCalendar2 />
+              <View className="mx-2 flex flex-col items-center">
+                <AnnouncementCalendar1 size={screenWidth - 14} />
+                <AnnouncementCalendar2 size={screenWidth} />
               </View>
             )}
           </View>
