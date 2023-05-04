@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
-import { defaultPaddingFontScale, hitSlop } from '../styles/theme';
+import { hitSlop } from '../styles/theme';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import Modal from './Modal';
@@ -38,8 +38,6 @@ import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
 
 const InAppModal = () => {
   const screenWidth = Number(Dimensions.get('window').width - 50);
-  console.log(screenWidth);
-  console.log(defaultPaddingFontScale());
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
