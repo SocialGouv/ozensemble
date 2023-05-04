@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
-import { defaultPaddingFontScale, hitSlop } from '../styles/theme';
+import { hitSlop } from '../styles/theme';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import Modal from './Modal';
@@ -103,12 +103,12 @@ const InAppModal = () => {
     const isModalViewed = storage.getBoolean('@NewCalendarAnnouncement');
     if (!isModalViewed) {
       const matomoId = storage.getString('@UserIdv2');
-      // await API.post({
-      //   path: '/appMilestone/init',
-      //   body: {
-      //     matomoId,
-      //   },
-      // });
+      await API.post({
+        path: '/appMilestone/init',
+        body: {
+          matomoId,
+        },
+      });
     }
   };
 
