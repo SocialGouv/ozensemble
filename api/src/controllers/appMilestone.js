@@ -87,16 +87,32 @@ router.post(
             date: dayjs().format("YYYY-MM-DD"),
           },
         });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@NewCalendarAnnouncement",
-            title: "Nouveau\u00A0: le calendrier a été mis à jour avec votre objectif\u00A0!",
-            content:
-              "Chaque jour est affiché d'une couleur différente en fonction de votre consommation du jour.\nEt chaque semaine, vous pouvez suivre si vous avez tenu ou non votre objectif\u00A0!",
-            CTATitle: "J'ai compris",
-          },
-        });
+        const existingGoal = await prisma.goal.findFirst({ where: { userId: user.id } });
+        if (existingGoal) {
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@NewCalendarAnnouncement",
+              title: "Nouveau\u00A0: le calendrier a été mis à jour avec votre objectif\u00A0!",
+              content:
+                "Chaque jour est affiché d'une couleur différente en fonction de votre consommation du jour.\nEt chaque semaine, vous pouvez suivre si vous avez tenu ou non votre objectif\u00A0!",
+              CTATitle: "Découvrir",
+              CTANavigation: ["CONSO_FOLLOW_UP_NAVIGATOR"],
+            },
+          });
+        } else {
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@NewCalendarAnnouncement",
+              title: "Nouveau\u00A0: le calendrier a été mis à jour avec votre objectif\u00A0!",
+              content:
+                "Chaque jour est affiché d'une couleur différente en fonction de votre consommation du jour.\nEt chaque semaine, vous pouvez suivre si vous avez tenu ou non votre objectif\u00A0!",
+              CTATitle: "Se fixer un objectif",
+              CTANavigation: ["GAINS_ESTIMATE_PREVIOUS_CONSUMPTION"],
+            },
+          });
+        }
       } else {
         return res.status(200).send({ ok: true });
       }

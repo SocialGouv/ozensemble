@@ -38,8 +38,6 @@ import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
 
 const InAppModal = () => {
   const screenWidth = Number(Dimensions.get('window').width - 50);
-  console.log(screenWidth);
-  console.log(defaultPaddingFontScale());
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -105,12 +103,12 @@ const InAppModal = () => {
     const isModalViewed = storage.getBoolean('@NewCalendarAnnouncement');
     if (!isModalViewed) {
       const matomoId = storage.getString('@UserIdv2');
-      await API.post({
-        path: '/appMilestone/init',
-        body: {
-          matomoId,
-        },
-      });
+      // await API.post({
+      //   path: '/appMilestone/init',
+      //   body: {
+      //     matomoId,
+      //   },
+      // });
     }
   };
 
