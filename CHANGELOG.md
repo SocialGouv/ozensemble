@@ -1,3 +1,18 @@
+# [1.104.0](https://github.com/SocialGouv/ozensemble/compare/v1.103.11...v1.104.0) (2023-05-05)
+
+
+### Bug Fixes
+
+*  calendar and modalHelp UI ([#326](https://github.com/SocialGouv/ozensemble/issues/326)) ([086650f](https://github.com/SocialGouv/ozensemble/commit/086650fef57ecdd59119585ae59b0d3fdbdb00ba))
+* remove two buttons at the bottom of calendar ([#328](https://github.com/SocialGouv/ozensemble/issues/328)) ([33df39b](https://github.com/SocialGouv/ozensemble/commit/33df39b7ac7f3125723cb1b3c6a2628de9099adf))
+* ui modal goal ([#327](https://github.com/SocialGouv/ozensemble/issues/327)) ([65d3942](https://github.com/SocialGouv/ozensemble/commit/65d3942978f497e230d97cd54566e5b3b273192e))
+* When selected put tabBar text in bold and remove underline ([#325](https://github.com/SocialGouv/ozensemble/issues/325)) ([668040c](https://github.com/SocialGouv/ozensemble/commit/668040c3fd2d916a653ef03503c49f27446e087b))
+
+
+### Features
+
+* add confettis to goal modal ([#329](https://github.com/SocialGouv/ozensemble/issues/329)) ([32d4dbc](https://github.com/SocialGouv/ozensemble/commit/32d4dbc59c982cdd4be3dd6100ee32f57e27285a))
+
 ## [1.103.11](https://github.com/SocialGouv/ozensemble/compare/v1.103.10...v1.103.11) (2023-05-04)
 
 
