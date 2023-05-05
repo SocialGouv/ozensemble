@@ -42,7 +42,7 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ hideFeed, scrollToInput, dateToScroll }) => {
+const Feed = ({ scrollToInput, dateToScroll }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
   const [timestampSelected, setTimestampSelected] = useState(null);

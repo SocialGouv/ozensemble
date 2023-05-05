@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 import Feed from './Feed';
-import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 import { drinksState } from '../../recoil/consos';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import HeaderBackground from '../../components/HeaderBackground';
