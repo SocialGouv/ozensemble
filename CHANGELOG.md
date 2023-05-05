@@ -1,3 +1,10 @@
+## [1.104.1](https://github.com/SocialGouv/ozensemble/compare/v1.104.0...v1.104.1) (2023-05-05)
+
+
+### Bug Fixes
+
+* refacto calendar ([#330](https://github.com/SocialGouv/ozensemble/issues/330)) ([3dd3e07](https://github.com/SocialGouv/ozensemble/commit/3dd3e0735cfa63a02f26a4a9a5748efcedb96270))
+
 # [1.104.0](https://github.com/SocialGouv/ozensemble/compare/v1.103.11...v1.104.0) (2023-05-05)
 
 
