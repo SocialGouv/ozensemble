@@ -34,25 +34,33 @@ const ModalGoal = ({ content, onClose }) => {
         </View>
 
         <View className="mb-4 p-2">
-          <H2 color="#000" className="text-center mb-1">
+          <Text color="#000" className="text-center mb-1 text-xl font-extrabold">
             {content?.title}
-          </H2>
+          </Text>
           <Text className="text-xs text-[#939EA6] text-center">
             semaine du {content?.firstDay} au {content?.lastDay}
           </Text>
           <View className="flex flex-row justify-around mt-8">
             <View>
               <Text className="text-[#4030A5] font-semibold text-center text-xs">Consos semaine</Text>
-              <Text className="text-center font-bold mt-1 text-lg">
-                {content?.consosWeek} {content?.consosWeek > 1 ? 'unités' : 'unité'}
-              </Text>
+              <View className={'flex flex-row justify-center'}>
+                <Text className="text-center font-bold mt-1 text-xl">{Math.round(content?.consosWeek)}</Text>
+                <Text className="text-center font-bold mt-1 text-lg">
+                  {' '}
+                  {Math.round(content?.consosWeek) > 1 ? 'unités' : 'unité'}
+                </Text>
+              </View>
             </View>
             <View>
               <Text className="text-[#4030A5] font-semibold text-center text-xs">Objectif max</Text>
               {content?.consosWeekGoal ? (
-                <Text className="text-center font-bold mt-1 text-lg">
-                  {content?.consosWeekGoal} {content?.consosWeekGoal > 1 ? 'unités' : 'unité'}
-                </Text>
+                <View className={'flex flex-row justify-center'}>
+                  <Text className="text-center font-bold mt-1 text-xl">{Math.round(content?.consosWeekGoal)}</Text>
+                  <Text className="text-center font-bold mt-1 text-lg">
+                    {' '}
+                    {Math.round(content?.consosWeekGoal) > 1 ? 'unités' : 'unité'}
+                  </Text>
+                </View>
               ) : (
                 <Text className="text-center font-bold mt-1 text-xl">?</Text>
               )}
@@ -76,15 +84,23 @@ const ModalGoal = ({ content, onClose }) => {
               <View className="flex flex-row justify-around">
                 <View>
                   <Text className="text-[#4030A5] text-center font-semibold text-xs">Jours où j'ai bu</Text>
-                  <Text className="text-center font-bold text-lg mt-1">
-                    {content?.drinkingDays} {content?.drinkingDays > 1 ? 'jours' : 'jour'}
-                  </Text>
+                  <View className={'flex flex-row justify-center'}>
+                    <Text className="text-center font-bold mt-1 text-xl ">{content?.drinkingDays}</Text>
+                    <Text className="text-center font-bold mt-1 text-lg">
+                      {' '}
+                      {content?.drinkingDays > 1 ? 'jours' : 'jour'}
+                    </Text>
+                  </View>
                 </View>
                 <View>
                   <Text className="text-[#4030A5] text-center font-semibold text-xs">Objectif max</Text>
-                  <Text className="text-center font-bold text-lg mt-1">
-                    {content?.drinkingDaysGoal} {content?.drinkingDaysGoal > 1 ? 'jours' : 'jour'}
-                  </Text>
+                  <View className={'flex flex-row justify-center'}>
+                    <Text className="text-center font-bold mt-1 text-xl">{content?.drinkingDaysGoal}</Text>
+                    <Text className="text-center font-bold mt-1 text-lg">
+                      {' '}
+                      {content?.drinkingDaysGoal > 1 ? 'jours' : 'jour'}
+                    </Text>
+                  </View>
                 </View>
               </View>
               <Text className="text-center mt-4">
