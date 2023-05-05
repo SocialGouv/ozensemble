@@ -54,7 +54,7 @@ const LegendHelpModal = ({ visible, hide }) => {
               </View>
             </View>
             <View className="flex flex-row mt-4" style={{ paddingRight: defaultPaddingFontScale() }}>
-              <View className="w-5 h-5 rounded-md mr-2 border border-dotted border-[#4030A5]"></View>
+              <View className="w-5 h-5 rounded-md mr-2 border border-dashed border-[#4030A5]"></View>
               <View>
                 <Text className="font-bold">Jour à compléter</Text>
                 <View className="flex flex-row flex-wrap">
