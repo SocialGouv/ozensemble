@@ -179,7 +179,7 @@ const Calendar = ({ onDayPress }) => {
         }
       }
     } else {
-      return { borderStyle: 'dotted', borderColor: '#4030A5', backgroundColor: 'white', textColor: '#4030A5' };
+      return { borderStyle: 'dashed', borderColor: '#4030A5', backgroundColor: 'white', textColor: '#4030A5' };
     }
   };
 
@@ -232,9 +232,15 @@ const Calendar = ({ onDayPress }) => {
       <View className="flex flex-row justify-between mt-3">
         {cols.map((col) => (
           <View key={col} className="flex flex-row grow justify-center basis-4">
-            <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
-              {col}
-            </Text>
+            {col === 'Obj.' ? (
+              <Text className="text-[#4030A5] font-semibold" style={{ fontSize: fontSize }}>
+                {col}
+              </Text>
+            ) : (
+              <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+                {col}
+              </Text>
+            )}
           </View>
         ))}
       </View>
@@ -243,7 +249,7 @@ const Calendar = ({ onDayPress }) => {
           const bgColor = dayjs().startOf('day').diff(calendarWeek.days[0].day) > 0 ? '#F5F6FA' : 'none';
           return (
             <View
-              className="flex flex-row justify-between mt-2"
+              className="flex flex-row justify-between mt-2 rounded-lg"
               key={calendarWeek.days[0].day + 'week'}
               style={{ backgroundColor: bgColor }}>
               {calendarWeek.days.map((calendarDay) => {
