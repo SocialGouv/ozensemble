@@ -8,6 +8,7 @@ import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import TextStyled from './TextStyled';
 import InterogationMark from './illustrations/icons/InterogationMark';
+import Confetti from './Confettis';
 
 const ModalGoal = ({ content, onClose }) => {
   return (
@@ -100,6 +101,7 @@ const ModalGoal = ({ content, onClose }) => {
           )}
         </View>
       </View>
+      {!content?.failed && <Confetti run={true} />}
     </Modal>
   );
 };
