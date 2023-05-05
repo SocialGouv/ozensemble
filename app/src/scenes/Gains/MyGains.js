@@ -192,24 +192,91 @@ const MyGains = () => {
     <>
       <WrapperContainer title={'Mon objectif cette semaine'}>
         {!isOnboarded ? (
-          <TouchableOpacity
-            onPress={() => {
-              logEvent({
-                category: 'GAINS',
-                action: 'TOOLTIP_GOAL',
-              });
-              navigateToFirstStep();
-            }}>
-            <Description>
-              <InfosIcon size={24} />
-              <TextDescritpion>
-                <Text>
-                  Pour calculer vos gains{'\n'}financiers et en kilocalories,{'\n'}fixez-vous un <Bold>objectif</Bold>
-                </Text>
-              </TextDescritpion>
-              <Arrow>{'>'}</Arrow>
-            </Description>
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              onPress={() => {
+                logEvent({
+                  category: 'GAINS',
+                  action: 'TOOLTIP_GOAL',
+                });
+                navigateToFirstStep();
+              }}>
+              <Description>
+                <InfosIcon size={24} />
+                <TextDescritpion>
+                  <Text>
+                    Pour calculer vos gains{'\n'}financiers et en kilocalories,{'\n'}fixez-vous un <Bold>objectif</Bold>
+                  </Text>
+                </TextDescritpion>
+                <Arrow>{'>'}</Arrow>
+              </Description>
+            </TouchableOpacity>
+            <View className="mt-10">
+              <H1>Mon suivi de consommation</H1>
+              <SubtitleContainer>
+                <Help
+                  onPress={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                  <HelpText>?</HelpText>
+                </Help>
+                <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
+
+                <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
+              </SubtitleContainer>
+              {showWelcomeMessage ? (
+                <>
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
+                    </TextStyled>
+                    <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
+                  </SubTitle>
+                  {drinksCatalog
+                    .filter(({ categoryKey }) => categoryKey === BEER)
+                    .map(({ categoryKey }) => categoryKey)
+                    .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+                    .map((category, index) => (
+                      <DrinksCategory
+                        drinksCatalog={drinksCatalog}
+                        asPreview
+                        key={category}
+                        category={category}
+                        index={index + 1}
+                        drinks={fakeDrinks}
+                      />
+                    ))}
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Un graphique récapitule vos consommations en unité d'alcool{'\n'}
+                    </TextStyled>
+                  </SubTitle>
+                  <Diagram asPreview />
+                  <SubTitle last>
+                    <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
+                  </SubTitle>
+                </>
+              ) : null}
+              {!showWelcomeMessage && (
+                <Diagram
+                  onShowHelp={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  selectedBar={selectedBar}
+                  setSelectedBar={setSelectedBar}
+                />
+              )}
+            </View>
+          </View>
         ) : (
           <>
             <PeriodSelector
@@ -226,6 +293,71 @@ const MyGains = () => {
             <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
               <TextModify>Modifier l'objectif</TextModify>
             </ButtonTouchable>
+            <View className="mt-5">
+              <H1>Mon suivi de consommation</H1>
+              <SubtitleContainer>
+                <Help
+                  onPress={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                  <HelpText>?</HelpText>
+                </Help>
+                <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
+
+                <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
+              </SubtitleContainer>
+              {showWelcomeMessage ? (
+                <>
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
+                    </TextStyled>
+                    <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
+                  </SubTitle>
+                  {drinksCatalog
+                    .filter(({ categoryKey }) => categoryKey === BEER)
+                    .map(({ categoryKey }) => categoryKey)
+                    .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+                    .map((category, index) => (
+                      <DrinksCategory
+                        drinksCatalog={drinksCatalog}
+                        asPreview
+                        key={category}
+                        category={category}
+                        index={index + 1}
+                        drinks={fakeDrinks}
+                      />
+                    ))}
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Un graphique récapitule vos consommations en unité d'alcool{'\n'}
+                    </TextStyled>
+                  </SubTitle>
+                  <Diagram asPreview />
+                  <SubTitle last>
+                    <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
+                  </SubTitle>
+                </>
+              ) : null}
+              {!showWelcomeMessage && (
+                <Diagram
+                  onShowHelp={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  selectedBar={selectedBar}
+                  setSelectedBar={setSelectedBar}
+                />
+              )}
+            </View>
 
             <Container>
               <TopTitle>
@@ -259,71 +391,6 @@ const MyGains = () => {
             </Container>
           </>
         )}
-        <View className="mt-10">
-          <H1>Mon suivi de consommation</H1>
-          <SubtitleContainer>
-            <Help
-              onPress={() => {
-                logEvent({
-                  category: 'CONSO',
-                  action: 'CONSO_OPEN_HELP',
-                });
-                setShowHelpModal(true);
-              }}
-              hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
-              <HelpText>?</HelpText>
-            </Help>
-            <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
-
-            <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
-          </SubtitleContainer>
-          {showWelcomeMessage ? (
-            <>
-              <SubTitle>
-                <TextStyled color="#191919">
-                  Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
-                </TextStyled>
-                <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
-              </SubTitle>
-              {drinksCatalog
-                .filter(({ categoryKey }) => categoryKey === BEER)
-                .map(({ categoryKey }) => categoryKey)
-                .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-                .map((category, index) => (
-                  <DrinksCategory
-                    drinksCatalog={drinksCatalog}
-                    asPreview
-                    key={category}
-                    category={category}
-                    index={index + 1}
-                    drinks={fakeDrinks}
-                  />
-                ))}
-              <SubTitle>
-                <TextStyled color="#191919">
-                  Un graphique récapitule vos consommations en unité d'alcool{'\n'}
-                </TextStyled>
-              </SubTitle>
-              <Diagram asPreview />
-              <SubTitle last>
-                <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
-              </SubTitle>
-            </>
-          ) : null}
-          {!showWelcomeMessage && (
-            <Diagram
-              onShowHelp={() => {
-                logEvent({
-                  category: 'CONSO',
-                  action: 'CONSO_OPEN_HELP',
-                });
-                setShowHelpModal(true);
-              }}
-              selectedBar={selectedBar}
-              setSelectedBar={setSelectedBar}
-            />
-          )}
-        </View>
 
         <BadgesStatus
           isOnboarded={isOnboarded}
