@@ -42,7 +42,7 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ hideFeed, scrollToInput, dateToScroll }) => {
+const Feed = ({ scrollToInput, dateToScroll }) => {
   const days = useRecoilValue(feedDaysSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
   const [timestampSelected, setTimestampSelected] = useState(null);
@@ -131,21 +131,6 @@ const Feed = ({ hideFeed, scrollToInput, dateToScroll }) => {
     }
   }, [dateToScroll, scrollToInput]);
 
-  if (hideFeed) {
-    return (
-      <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
-        <ButtonContainer>
-          <ButtonPrimary
-            small
-            content="Contribuer à Oz Ensemble"
-            shadowColor="#201569"
-            color="#4030A5"
-            onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button empty feed' })}
-          />
-        </ButtonContainer>
-      </TouchableWithoutFeedback>
-    );
-  }
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>

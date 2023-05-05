@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 import Feed from './Feed';
-import { NoDrinkTodayButton } from './NoConsoYetFeedDisplay';
 import { drinksState } from '../../recoil/consos';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import HeaderBackground from '../../components/HeaderBackground';
@@ -152,9 +151,6 @@ const ConsoFollowUp = () => {
           )}
         </View>
       </TouchableOpacity>
-      <FeedAddConsoTodayContainer zIndex={10}>
-        {!!showWelcomeMessage && <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />}
-      </FeedAddConsoTodayContainer>
       <Feed hideFeed={showWelcomeMessage} scrollToInput={scrollToInput} dateToScroll={dateToScroll} />
       <OnBoardingModal
         title="Sans objectif, pas de gains"
