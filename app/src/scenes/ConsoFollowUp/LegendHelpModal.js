@@ -1,12 +1,10 @@
 import React from 'react';
-
 import { ScrollView, View, Text, Modal } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 import H3 from '../../components/H3';
 import LegendStar from '../../components/illustrations/icons/LegendStar';
-import Svg, { Path } from 'react-native-svg';
 import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
 
