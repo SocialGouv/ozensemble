@@ -10,6 +10,9 @@ import TextStyled from './TextStyled';
 import InterogationMark from './illustrations/icons/InterogationMark';
 
 const ModalGoal = ({ content, onClose }) => {
+  const firstDayMonth = content?.firstDay?.split(' ')[1];
+  const lastDayMonth = content?.lastDay?.split(' ')[1];
+  const firstDayDisplay = firstDayMonth === lastDayMonth ? content?.firstDay?.split(' ')[0] : content?.firstDay;
   return (
     <Modal visible={!!content} animationType="fade" withBackground hideOnTouch>
       <View className="bg-white rounded-xl">
@@ -38,7 +41,7 @@ const ModalGoal = ({ content, onClose }) => {
             {content?.title}
           </Text>
           <Text className="text-xs text-[#939EA6] text-center">
-            semaine du {content?.firstDay} au {content?.lastDay}
+            semaine du {firstDayDisplay} au {content?.lastDay}
           </Text>
           <View className="flex flex-row justify-around mt-8">
             <View>
