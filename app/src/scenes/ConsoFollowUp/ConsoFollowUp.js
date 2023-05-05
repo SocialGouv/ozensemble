@@ -152,9 +152,6 @@ const ConsoFollowUp = () => {
           )}
         </View>
       </TouchableOpacity>
-      <FeedAddConsoTodayContainer zIndex={10}>
-        {!!showWelcomeMessage && <NoDrinkTodayButton timestamp={Date.now()} content="Je n'ai rien bu aujourd'hui !" />}
-      </FeedAddConsoTodayContainer>
       <Feed hideFeed={showWelcomeMessage} scrollToInput={scrollToInput} dateToScroll={dateToScroll} />
       <OnBoardingModal
         title="Sans objectif, pas de gains"
