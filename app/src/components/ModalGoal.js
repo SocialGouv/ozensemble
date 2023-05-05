@@ -1,7 +1,6 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { View, TouchableOpacity, Text } from 'react-native';
-import H2 from './H2';
 import Modal from './Modal';
 import { hitSlop } from '../styles/theme';
 import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
