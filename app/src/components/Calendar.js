@@ -230,19 +230,22 @@ const Calendar = ({ onDayPress }) => {
         </TouchableOpacity>
       </View>
       <View className="flex flex-row justify-between mt-3">
-        {cols.map((col) => (
-          <View key={col} className="flex flex-row grow justify-center basis-4">
-            {col === 'Obj.' ? (
-              <Text className="text-[#4030A5] font-semibold" style={{ fontSize: fontSize }}>
-                {col}
-              </Text>
-            ) : (
-              <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
-                {col}
-              </Text>
-            )}
-          </View>
-        ))}
+        {cols.map((col) => {
+          const isObjectifColonnes = col === 'Obj.';
+          return (
+            <View key={col} className="flex flex-row grow justify-center basis-4">
+              {isObjectifColonnes ? (
+                <Text className="text-[#4030A5] font-semibold" style={{ fontSize: fontSize }}>
+                  {col}
+                </Text>
+              ) : (
+                <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+                  {col}
+                </Text>
+              )}
+            </View>
+          );
+        })}
       </View>
       <View>
         {calendarDayByWeek.map((calendarWeek) => {
