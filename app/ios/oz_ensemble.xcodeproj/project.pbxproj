@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* ozensembleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ozensembleTests.m */; };
+		00E356F31AD99517003FC87E /* oz_ensembleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* oz_ensembleTests.m */; };
+		05C7610D96F5070547EAA651 /* libPods-oz_ensemble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 565D98F4284F7E771269251C /* libPods-oz_ensemble.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2A9243F340726F5339D5E937 /* libPods-ozensemble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DFD3BB528573FEE4578EDA8 /* libPods-ozensemble.a */; };
+		13BE71B24F32F54358B36951 /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F329E60A04A0237F3A0DEBAA /* libPods-oz_ensemble-oz_ensembleTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F998549792CCFDCB3ED85D6F /* libPods-ozensemble-ozensembleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8487264DF6624624C6CC8170 /* libPods-ozensemble-ozensembleTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,28 +22,28 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = ozensemble;
+			remoteInfo = oz_ensemble;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E356EE1AD99517003FC87E /* ozensembleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ozensembleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* oz_ensembleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = oz_ensembleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* ozensembleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ozensembleTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* ozensemble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ozensemble.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ozensemble/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ozensemble/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ozensemble/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ozensemble/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ozensemble/main.m; sourceTree = "<group>"; };
-		2CB8B697F9E82E8AE9B98982 /* Pods-ozensemble-ozensembleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ozensemble-ozensembleTests.release.xcconfig"; path = "Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ozensemble/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8487264DF6624624C6CC8170 /* libPods-ozensemble-ozensembleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ozensemble-ozensembleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8DFD3BB528573FEE4578EDA8 /* libPods-ozensemble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ozensemble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0A4B5827E2BEF8C9D32F2C8 /* Pods-ozensemble-ozensembleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ozensemble-ozensembleTests.debug.xcconfig"; path = "Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B329698DF7BA912EFF6D41F2 /* Pods-ozensemble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ozensemble.debug.xcconfig"; path = "Target Support Files/Pods-ozensemble/Pods-ozensemble.debug.xcconfig"; sourceTree = "<group>"; };
-		DC6A1642F4B938C4B5C7BAF8 /* Pods-ozensemble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ozensemble.release.xcconfig"; path = "Target Support Files/Pods-ozensemble/Pods-ozensemble.release.xcconfig"; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* oz_ensembleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oz_ensembleTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* oz_ensemble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = oz_ensemble.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = oz_ensemble/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = oz_ensemble/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = oz_ensemble/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = oz_ensemble/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = oz_ensemble/main.m; sourceTree = "<group>"; };
+		4A9AAEDC6CF8BFE186C5B1BF /* Pods-oz_ensemble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble.release.xcconfig"; sourceTree = "<group>"; };
+		565D98F4284F7E771269251C /* libPods-oz_ensemble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oz_ensemble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = oz_ensemble/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		83DB3BF8FD265CEDF12D3ECD /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		91F9C11878D7C8AF9E1E55CD /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; sourceTree = "<group>"; };
+		C5F4A175B35DA1098BC20F83 /* Pods-oz_ensemble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble.debug.xcconfig"; path = "Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F329E60A04A0237F3A0DEBAA /* libPods-oz_ensemble-oz_ensembleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oz_ensemble-oz_ensembleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F998549792CCFDCB3ED85D6F /* libPods-ozensemble-ozensembleTests.a in Frameworks */,
+				13BE71B24F32F54358B36951 /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,20 +59,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A9243F340726F5339D5E937 /* libPods-ozensemble.a in Frameworks */,
+				05C7610D96F5070547EAA651 /* libPods-oz_ensemble.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* ozensembleTests */ = {
+		00E356EF1AD99517003FC87E /* oz_ensembleTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* ozensembleTests.m */,
+				00E356F21AD99517003FC87E /* oz_ensembleTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = ozensembleTests;
+			path = oz_ensembleTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -83,7 +83,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* ozensemble */ = {
+		13B07FAE1A68108700A75B9A /* oz_ensemble */ = {
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -93,15 +93,15 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = ozensemble;
+			name = oz_ensemble;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				8DFD3BB528573FEE4578EDA8 /* libPods-ozensemble.a */,
-				8487264DF6624624C6CC8170 /* libPods-ozensemble-ozensembleTests.a */,
+				565D98F4284F7E771269251C /* libPods-oz_ensemble.a */,
+				F329E60A04A0237F3A0DEBAA /* libPods-oz_ensemble-oz_ensembleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -116,9 +116,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* ozensemble */,
+				13B07FAE1A68108700A75B9A /* oz_ensemble */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* ozensembleTests */,
+				00E356EF1AD99517003FC87E /* oz_ensembleTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -131,8 +131,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* ozensemble.app */,
-				00E356EE1AD99517003FC87E /* ozensembleTests.xctest */,
+				13B07F961A680F5B00A75B9A /* oz_ensemble.app */,
+				00E356EE1AD99517003FC87E /* oz_ensembleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,10 +140,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B329698DF7BA912EFF6D41F2 /* Pods-ozensemble.debug.xcconfig */,
-				DC6A1642F4B938C4B5C7BAF8 /* Pods-ozensemble.release.xcconfig */,
-				A0A4B5827E2BEF8C9D32F2C8 /* Pods-ozensemble-ozensembleTests.debug.xcconfig */,
-				2CB8B697F9E82E8AE9B98982 /* Pods-ozensemble-ozensembleTests.release.xcconfig */,
+				C5F4A175B35DA1098BC20F83 /* Pods-oz_ensemble.debug.xcconfig */,
+				4A9AAEDC6CF8BFE186C5B1BF /* Pods-oz_ensemble.release.xcconfig */,
+				83DB3BF8FD265CEDF12D3ECD /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */,
+				91F9C11878D7C8AF9E1E55CD /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -151,47 +151,47 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* ozensembleTests */ = {
+		00E356ED1AD99517003FC87E /* oz_ensembleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ozensembleTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "oz_ensembleTests" */;
 			buildPhases = (
-				C64BBF6930996316F2F5CAAD /* [CP] Check Pods Manifest.lock */,
+				4D29A24B92ACECE33E0EF529 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				53CDE29AE452D69E13863E3F /* [CP] Embed Pods Frameworks */,
-				642D57CB618ABF0DC3809432 /* [CP] Copy Pods Resources */,
+				1FBEC632A42E9514680722B8 /* [CP] Embed Pods Frameworks */,
+				5C00B6551D941FF249913FE1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = ozensembleTests;
-			productName = ozensembleTests;
-			productReference = 00E356EE1AD99517003FC87E /* ozensembleTests.xctest */;
+			name = oz_ensembleTests;
+			productName = oz_ensembleTests;
+			productReference = 00E356EE1AD99517003FC87E /* oz_ensembleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* ozensemble */ = {
+		13B07F861A680F5B00A75B9A /* oz_ensemble */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ozensemble" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "oz_ensemble" */;
 			buildPhases = (
-				9EA329B2B5BBFBAD3AF699D6 /* [CP] Check Pods Manifest.lock */,
+				7451EBB0E272A258514CCFFC /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				223BEA7ED7CFD04D29795F68 /* [CP] Embed Pods Frameworks */,
-				2A517BC17BBBEA9BAEAE09A2 /* [CP] Copy Pods Resources */,
+				3D8800CACEB7239836039DF4 /* [CP] Embed Pods Frameworks */,
+				6EFBA4FF0F9C3801D3E83016 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = ozensemble;
-			productName = ozensemble;
-			productReference = 13B07F961A680F5B00A75B9A /* ozensemble.app */;
+			name = oz_ensemble;
+			productName = oz_ensemble;
+			productReference = 13B07F961A680F5B00A75B9A /* oz_ensemble.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -211,7 +211,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ozensemble" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "oz_ensemble" */;
 			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -224,8 +224,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* ozensemble */,
-				00E356ED1AD99517003FC87E /* ozensembleTests */,
+				13B07F861A680F5B00A75B9A /* oz_ensemble */,
+				00E356ED1AD99517003FC87E /* oz_ensembleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -266,75 +266,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		223BEA7ED7CFD04D29795F68 /* [CP] Embed Pods Frameworks */ = {
+		1FBEC632A42E9514680722B8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble/Pods-ozensemble-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble/Pods-ozensemble-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ozensemble/Pods-ozensemble-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2A517BC17BBBEA9BAEAE09A2 /* [CP] Copy Pods Resources */ = {
+		3D8800CACEB7239836039DF4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble/Pods-ozensemble-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble/Pods-ozensemble-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ozensemble/Pods-ozensemble-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		53CDE29AE452D69E13863E3F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		642D57CB618ABF0DC3809432 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ozensemble-ozensembleTests/Pods-ozensemble-ozensembleTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9EA329B2B5BBFBAD3AF699D6 /* [CP] Check Pods Manifest.lock */ = {
+		4D29A24B92ACECE33E0EF529 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -349,14 +315,48 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ozensemble-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-oz_ensemble-oz_ensembleTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C64BBF6930996316F2F5CAAD /* [CP] Check Pods Manifest.lock */ = {
+		5C00B6551D941FF249913FE1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6EFBA4FF0F9C3801D3E83016 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7451EBB0E272A258514CCFFC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -371,7 +371,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ozensemble-ozensembleTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-oz_ensemble-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -404,7 +404,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* ozensembleTests.m in Sources */,
+				00E356F31AD99517003FC87E /* oz_ensembleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +422,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* ozensemble */;
+			target = 13B07F861A680F5B00A75B9A /* oz_ensemble */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -430,14 +430,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0A4B5827E2BEF8C9D32F2C8 /* Pods-ozensemble-ozensembleTests.debug.xcconfig */;
+			baseConfigurationReference = 83DB3BF8FD265CEDF12D3ECD /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = ozensembleTests/Info.plist;
+				INFOPLIST_FILE = oz_ensembleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -451,17 +451,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ozensemble.app/ozensemble";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/oz_ensemble.app/oz_ensemble";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2CB8B697F9E82E8AE9B98982 /* Pods-ozensemble-ozensembleTests.release.xcconfig */;
+			baseConfigurationReference = 91F9C11878D7C8AF9E1E55CD /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = ozensembleTests/Info.plist;
+				INFOPLIST_FILE = oz_ensembleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -475,19 +475,19 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ozensemble.app/ozensemble";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/oz_ensemble.app/oz_ensemble";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B329698DF7BA912EFF6D41F2 /* Pods-ozensemble.debug.xcconfig */;
+			baseConfigurationReference = C5F4A175B35DA1098BC20F83 /* Pods-oz_ensemble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 169;
 				ENABLE_BITCODE = NO;
-				INFOPLIST_FILE = ozensemble/Info.plist;
+				INFOPLIST_FILE = oz_ensemble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -499,7 +499,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ozensemble;
+				PRODUCT_NAME = oz_ensemble;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -508,12 +508,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC6A1642F4B938C4B5C7BAF8 /* Pods-ozensemble.release.xcconfig */;
+			baseConfigurationReference = 4A9AAEDC6CF8BFE186C5B1BF /* Pods-oz_ensemble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1.16.0;
-				INFOPLIST_FILE = ozensemble/Info.plist;
+				INFOPLIST_FILE = oz_ensemble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,7 +525,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = ozensemble;
+				PRODUCT_NAME = oz_ensemble;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -671,7 +671,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ozensembleTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "oz_ensembleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -680,7 +680,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ozensemble" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "oz_ensemble" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -689,7 +689,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "ozensemble" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "oz_ensemble" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
