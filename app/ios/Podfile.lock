@@ -1,4 +1,5 @@
 PODS:
+  - BEMCheckBox (1.4.1)
   - boost (1.76.0)
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
@@ -90,11 +91,11 @@ PODS:
     - MMKVCore (~> 1.2.16)
   - MMKVCore (1.2.16)
   - OpenSSL-Universal (1.1.1100)
-  - Permission-Camera (3.3.1):
+  - Permission-Camera (3.8.0):
     - RNPermissions
-  - Permission-Notifications (3.3.1):
+  - Permission-Notifications (3.8.0):
     - RNPermissions
-  - Permission-PhotoLibrary (3.3.1):
+  - Permission-PhotoLibrary (3.8.0):
     - RNPermissions
   - RCT-Folly (2021.07.22.00):
     - boost
@@ -357,13 +358,13 @@ PODS:
     - React-Core
   - react-native-camera/RN (3.44.3):
     - React-Core
-  - react-native-config (1.4.5):
-    - react-native-config/App (= 1.4.5)
-  - react-native-config/App (1.4.5):
+  - react-native-config (1.5.0):
+    - react-native-config/App (= 1.5.0)
+  - react-native-config/App (1.5.0):
     - React-Core
-  - react-native-in-app-review (4.2.1):
+  - react-native-in-app-review (4.3.3):
     - React-Core
-  - react-native-mmkv (2.6.3):
+  - react-native-mmkv (2.8.0):
     - MMKV (>= 1.2.13)
     - React-Core
   - react-native-netinfo (6.2.1):
@@ -458,15 +459,16 @@ PODS:
     - React-jsi (= 0.71.4)
     - React-logger (= 0.71.4)
     - React-perflogger (= 0.71.4)
-  - RNBootSplash (4.5.3):
+  - RNBootSplash (4.6.0):
     - React-Core
-  - RNCCheckbox (0.5.12):
+  - RNCCheckbox (0.5.15):
+    - BEMCheckBox (~> 1.4)
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
-  - RNCPushNotificationIOS (1.10.1):
+  - RNCPushNotificationIOS (1.11.0):
     - React-Core
-  - RNDateTimePicker (6.1.3):
+  - RNDateTimePicker (6.7.5):
     - React-Core
   - RNDeviceInfo (8.7.1):
     - React-Core
@@ -476,11 +478,11 @@ PODS:
     - SDWebImageWebPCoder (~> 0.8.4)
   - RNGestureHandler (1.10.3):
     - React-Core
-  - RNLocalize (2.2.4):
+  - RNLocalize (2.2.6):
     - React-Core
-  - RNPermissions (3.3.1):
+  - RNPermissions (3.8.0):
     - React-Core
-  - RNReanimated (2.14.4):
+  - RNReanimated (2.17.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -507,12 +509,12 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.18.2):
+  - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
-  - RNSentry (5.1.1):
+  - RNSentry (5.4.1):
     - React-Core
-    - Sentry/HybridSDK (= 8.3.0)
+    - Sentry/HybridSDK (= 8.6.0)
   - RNSVG (11.0.1):
     - React
   - SDWebImage (5.11.1):
@@ -521,9 +523,9 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Sentry/HybridSDK (8.3.0):
-    - SentryPrivate (= 8.3.0)
-  - SentryPrivate (8.3.0)
+  - Sentry/HybridSDK (8.6.0):
+    - SentryPrivate (= 8.6.0)
+  - SentryPrivate (8.6.0)
   - SocketRocket (0.6.0)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -618,6 +620,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - BEMCheckBox
     - CocoaAsyncSocket
     - Flipper
     - Flipper-Boost-iOSX
@@ -764,6 +767,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  BEMCheckBox: 5ba6e37ade3d3657b36caecc35c8b75c6c2b1a4e
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
@@ -786,9 +790,9 @@ SPEC CHECKSUMS:
   MMKV: 784471ce430a2e2d16afef9053d63fab1b357d9e
   MMKVCore: 9cfef4c48c6c46f66226fc2e4634d78490206a48
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
-  Permission-Camera: bae27a8503530770c35aadfecbb97ec71823382a
-  Permission-Notifications: 4b21cfdd5e8aab2cbb1f117aaa17b44e1f5736c4
-  Permission-PhotoLibrary: ddb5a158725b29cb12e9e477e8a5f5151c66cc3c
+  Permission-Camera: e6d142d7d8b714afe0a83e5e6ae17eb949f1e3e9
+  Permission-Notifications: aa91ec29236626ff59cb60e08389c0a59a9d32c5
+  Permission-PhotoLibrary: 31787bbe77d0d3ae6a5267b8435e4a2e9ef78f1d
   RCT-Folly: 424b8c9a7a0b9ab2886ffe9c3b041ef628fd4fb1
   RCTRequired: 5a024fdf458fa8c0d82fc262e76f982d4dcdecdd
   RCTTypeSafety: b6c253064466411c6810b45f66bc1e43ce0c54ba
@@ -805,9 +809,9 @@ SPEC CHECKSUMS:
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
   react-native-blob-util: 99f4d79189252f597fe0d810c57a3733b1b1dea6
   react-native-camera: b8cc03e2feec0c04403d0998e37cf519d8fd4c6f
-  react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
-  react-native-in-app-review: a073f67c5f3392af6ea7fb383217cdb1aa2aa726
-  react-native-mmkv: 2e5bf67513cc8deed86fcffe87e12b8cc250dfab
+  react-native-config: 5330c8258265c1e5fdb8c009d2cabd6badd96727
+  react-native-in-app-review: db8bb167a5f238e7ceca5c242d6b36ce8c4404a4
+  react-native-mmkv: 7da5e18e55c04a9af9a7e0ab9792a1e8d33765a1
   react-native-netinfo: 3d3769f0d65de15c83a9bf1346f8be71de5a24bf
   react-native-pdf: 33c622cbdf776a649929e8b9d1ce2d313347c4fa
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
@@ -825,28 +829,28 @@ SPEC CHECKSUMS:
   React-RCTVibration: ad17efcfb2fa8f6bfd8ac0cf48d96668b8b28e0b
   React-runtimeexecutor: 8fa50b38df6b992c76537993a2b0553d3b088004
   ReactCommon: b49a4b00ca6d181ff74b17c12b2d59ac4add0bde
-  RNBootSplash: 8fb33325dc3620a01984c6660c42cbd93fadcc80
-  RNCCheckbox: ed1b4ca295475b41e7251ebae046360a703b6eb5
+  RNBootSplash: 91e0c16bfc96703cb5b0562785b9a8cbfeb298fe
+  RNCCheckbox: 43bcc6493611468af0e19f19f029dab3da8561c4
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
-  RNCPushNotificationIOS: 87b8d16d3ede4532745e05b03c42cff33a36cc45
-  RNDateTimePicker: 04b805a3cb4d386e5e6aff54b47ace7bad706fda
+  RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
+  RNDateTimePicker: 65e1d202799460b286ff5e741d8baf54695e8abd
   RNDeviceInfo: aad3c663b25752a52bf8fce93f2354001dd185aa
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNGestureHandler: a479ebd5ed4221a810967000735517df0d2db211
-  RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
-  RNPermissions: 34d678157c800b25b22a488e4d8babb57456e796
-  RNReanimated: cc5e3aa479cb9170bcccf8204291a6950a3be128
-  RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
-  RNSentry: 43658c8c327376e0c06149ce981899f5f84e90d9
+  RNLocalize: d4b8af4e442d4bcca54e68fc687a2129b4d71a81
+  RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
+  RNReanimated: f186e85d9f28c9383d05ca39e11dd194f59093ec
+  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNSentry: 60f2359d2859591cae2d6731ae9a7ac1595ff8c2
   RNSVG: 67f1f12dae2cef6ed59a42cae74a6b8f5a9e7b46
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
-  Sentry: 757565eb01e2a6ef6b26e897e4e47e8213e12f06
-  SentryPrivate: 668d6ce46835769b32e61dc8b5c78ef0b6cdcef8
+  Sentry: d80553ff85ea72def75b792aaa5a71c158e51595
+  SentryPrivate: ef1c5b3dfe44ec0c70e2eb343a5be2689164c021
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   Yoga: 79dd7410de6f8ad73a77c868d3d368843f0c93e0
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 94189e48d4589405fbf52da2cfb8549e96de8e74
+PODFILE CHECKSUM: f261c04434796c9d8755b03280d367e49217db56
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.1

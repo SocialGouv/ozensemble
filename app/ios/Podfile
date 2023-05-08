@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '13.0'
+platform :ios, min_ios_version_supported
 prepare_react_native_project!
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
@@ -14,21 +14,22 @@ prepare_react_native_project!
 #     ...(process.env.NO_FLIPPER ? { 'react-native-flipper': { platforms: { ios: null } } } : {}),
 # ```
 flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
-
+permissions_path = '../node_modules/react-native-permissions/ios'
+pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 linkage = ENV['USE_FRAMEWORKS']
+
+pod 'react-native-blob-util',
+    :path => '../node_modules/react-native-blob-util'
+
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'oz_ensemble' do
+target 'ozensemble' do
   config = use_native_modules!
-
-  permissions_path = '../node_modules/react-native-permissions/ios'
-
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
-  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
-  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 
   # Flags change depending on the env values.
   flags = get_default_flags()
@@ -49,24 +50,10 @@ target 'oz_ensemble' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  pod 'react-native-blob-util', :path => '../node_modules/react-native-blob-util'
-
-  pod 'react-native-pdf', :path => '../node_modules/react-native-pdf'
-
-  target 'oz_ensembleTests' do
+  target 'ozensembleTests' do
     inherit! :complete
     # Pods for testing
   end
-
-  # Enables Flipper.
-  #
-  # Note that if you have use_frameworks! enabled, Flipper will not work and
-  # you should disable the next line.
-  use_flipper!()
-  ENVFILES = {
-    'Debug' => '$(PODS_ROOT)/../../.env.local',
-    'Release' => '$(PODS_ROOT)/../../.env',
-  }
 
   post_install do |installer|
     react_native_post_install(
