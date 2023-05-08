@@ -1,3 +1,10 @@
+## [1.104.2](https://github.com/SocialGouv/ozensemble/compare/v1.104.1...v1.104.2) (2023-05-08)
+
+
+### Bug Fixes
+
+* bump version to 170 ([#332](https://github.com/SocialGouv/ozensemble/issues/332)) ([0440e2a](https://github.com/SocialGouv/ozensemble/commit/0440e2a9aff55d53b1c1ab9b25807ad49bf5c2ec))
+
 ## [1.104.1](https://github.com/SocialGouv/ozensemble/compare/v1.104.0...v1.104.1) (2023-05-05)
 
 
