@@ -1,7 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
-//apply plugin: 'com.google.gms.google-services'
-
+apply plugin: 'com.google.gms.google-services'
 
 import com.android.build.OutputFile
 
@@ -100,26 +99,24 @@ def reactNativeArchitectures() {
 }
 
 android {
-
     packagingOptions {
-       pickFirst 'lib/x86/libc++_shared.so'
-       pickFirst 'lib/x86_64/libjsc.so'
-       pickFirst 'lib/arm64-v8a/libjsc.so'
-       pickFirst 'lib/arm64-v8a/libc++_shared.so'
-       pickFirst 'lib/x86_64/libc++_shared.so'
-       pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libjsc.so'
+        pickFirst 'lib/arm64-v8a/libjsc.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
     }
-
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "com.addicto"
     defaultConfig {
+        missingDimensionStrategy 'react-native-camera', 'general'
         applicationId "com.addicto"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
         versionCode 170
         versionName "1.16.0"
@@ -133,7 +130,7 @@ android {
             include (*reactNativeArchitectures())
         }
     }
-    signingConfigs {
+     signingConfigs {
         debug {
             storeFile file(project.env.get('MYAPP_UPLOAD_STORE_FILE'))
             storePassword project.env.get("MYAPP_UPLOAD_STORE_PASSWORD")
@@ -147,6 +144,7 @@ android {
             keyPassword project.env.get("MYAPP_UPLOAD_KEY_PASSWORD")
         }
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
@@ -180,21 +178,16 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
-
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    implementation("androidx.core:core-splashscreen:1.0.0") // Add this line
-    //implementation platform('com.google.firebase:firebase-bom:30.2.0')
-    //implementation 'com.google.firebase:firebase-analytics:17.3.0'
-
-    implementation 'androidx.annotation:annotation:1.1.0'
-
+    implementation ('com.google.firebase:firebase-core:9.6.1')
+    implementation ('com.google.firebase:firebase-analytics:17.3.0')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.squareup.okhttp3', module:'okhttp'
     }
+    implementation project(':react-native-push-notification')
+
 
     debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
     if (hermesEnabled.toBoolean()) {

@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* oz_ensembleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* oz_ensembleTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-oz_ensemble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-oz_ensemble.a */; };
+		03B70CDF59CBAF1AABB2C8BD /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D62FE35000C59C4528A87F1D /* libPods-oz_ensemble-oz_ensembleTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-oz_ensemble-oz_ensembleTests.a */; };
+		5A20A67DD6DA2D1E9BB29E90 /* libPods-oz_ensemble.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D16D6527AEEC5A715F9D058 /* libPods-oz_ensemble.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -36,15 +36,14 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = oz_ensemble/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = oz_ensemble/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = oz_ensemble/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-oz_ensemble-oz_ensembleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oz_ensemble-oz_ensembleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-oz_ensemble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble.debug.xcconfig"; path = "Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-oz_ensemble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-oz_ensemble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oz_ensemble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		20BE42C8C3BCC605C3687E18 /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; sourceTree = "<group>"; };
+		6D16D6527AEEC5A715F9D058 /* libPods-oz_ensemble.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oz_ensemble.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = oz_ensemble/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; sourceTree = "<group>"; };
+		9C51AC40C9E520C339A78497 /* Pods-oz_ensemble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble.debug.xcconfig"; path = "Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble.debug.xcconfig"; sourceTree = "<group>"; };
+		A3F873CB1B8EDAD47BB3F957 /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C2F712AB7C81E302A33708CC /* Pods-oz_ensemble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble.release.xcconfig"; sourceTree = "<group>"; };
+		D62FE35000C59C4528A87F1D /* libPods-oz_ensemble-oz_ensembleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-oz_ensemble-oz_ensembleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F7947A312832452A0086E246 /* oz_ensemble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = oz_ensemble.entitlements; path = oz_ensemble/oz_ensemble.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */,
+				03B70CDF59CBAF1AABB2C8BD /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-oz_ensemble.a in Frameworks */,
+				5A20A67DD6DA2D1E9BB29E90 /* libPods-oz_ensemble.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +86,6 @@
 		13B07FAE1A68108700A75B9A /* oz_ensemble */ = {
 			isa = PBXGroup;
 			children = (
-				F7947A312832452A0086E246 /* oz_ensemble.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -102,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-oz_ensemble.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-oz_ensemble-oz_ensembleTests.a */,
+				6D16D6527AEEC5A715F9D058 /* libPods-oz_ensemble.a */,
+				D62FE35000C59C4528A87F1D /* libPods-oz_ensemble-oz_ensembleTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,10 +140,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-oz_ensemble.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-oz_ensemble.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */,
+				9C51AC40C9E520C339A78497 /* Pods-oz_ensemble.debug.xcconfig */,
+				C2F712AB7C81E302A33708CC /* Pods-oz_ensemble.release.xcconfig */,
+				A3F873CB1B8EDAD47BB3F957 /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */,
+				20BE42C8C3BCC605C3687E18 /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -157,12 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "oz_ensembleTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				216B68508E49D502D32542D7 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				9B9908E47C8F6883280C4BE8 /* [CP] Embed Pods Frameworks */,
+				3FBC14508542A9B1477946DE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -178,15 +176,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "oz_ensemble" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				D3764ADF7106620162236ADB /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				28E204EB628C47AEB0ABA5C7 /* Upload Debug Symbols to Sentry */,
+				72A57F70D7CCD1B14FCEA958 /* [CP] Embed Pods Frameworks */,
+				C1B24F376AE60F91E4F6E6F5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,46 +256,17 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/.xcode.env",
 			);
 			name = "Bundle React Native code and images";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nset -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		28E204EB628C47AEB0ABA5C7 /* Upload Debug Symbols to Sentry */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Debug Symbols to Sentry";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\n../node_modules/@sentry/cli/bin/sentry-cli upload-dsym";
-		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		216B68508E49D502D32542D7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -320,7 +288,75 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		3FBC14508542A9B1477946DE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		72A57F70D7CCD1B14FCEA958 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B9908E47C8F6883280C4BE8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1B24F376AE60F91E4F6E6F5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D3764ADF7106620162236ADB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -340,57 +376,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble/Pods-oz_ensemble-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -445,7 +430,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */;
+			baseConfigurationReference = A3F873CB1B8EDAD47BB3F957 /* Pods-oz_ensemble-oz_ensembleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -472,7 +457,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */;
+			baseConfigurationReference = 20BE42C8C3BCC605C3687E18 /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -496,18 +481,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-oz_ensemble.debug.xcconfig */;
+			baseConfigurationReference = 9C51AC40C9E520C339A78497 /* Pods-oz_ensemble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 170;
-				DEVELOPMENT_TEAM = 76GBKHVK25;
+				DEVELOPMENT_TEAM = 76GBKHVK25;				
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -518,9 +499,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = oz_ensemble;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -529,18 +509,17 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-oz_ensemble.release.xcconfig */;
+			baseConfigurationReference = C2F712AB7C81E302A33708CC /* Pods-oz_ensemble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 170;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 76GBKHVK25;
+				CURRENT_PROJECT_VERSION = 170;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
-				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -551,10 +530,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = oz_ensemble;
-				PROVISIONING_PROFILE_SPECIFIER = "Oz Ensemble Disrtribution";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Oz Ensemble Disrtribution";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -621,7 +598,6 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -686,7 +662,6 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = "$(inherited)";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
