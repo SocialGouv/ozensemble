@@ -1,3 +1,10 @@
+## [1.104.7](https://github.com/SocialGouv/ozensemble/compare/v1.104.6...v1.104.7) (2023-05-09)
+
+
+### Bug Fixes
+
+* add workspace files ([#339](https://github.com/SocialGouv/ozensemble/issues/339)) ([836f852](https://github.com/SocialGouv/ozensemble/commit/836f8521f3574a3f16c032f997f6d577fa6371e0))
+
 ## [1.104.6](https://github.com/SocialGouv/ozensemble/compare/v1.104.5...v1.104.6) (2023-05-09)
 
 
