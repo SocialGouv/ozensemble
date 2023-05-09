@@ -1,3 +1,10 @@
+## [1.104.9](https://github.com/SocialGouv/ozensemble/compare/v1.104.8...v1.104.9) (2023-05-09)
+
+
+### Bug Fixes
+
+* fix pods to deploy ([#341](https://github.com/SocialGouv/ozensemble/issues/341)) ([f647ff1](https://github.com/SocialGouv/ozensemble/commit/f647ff1e246565055c3f3b09329a7a16b1968800))
+
 ## [1.104.8](https://github.com/SocialGouv/ozensemble/compare/v1.104.7...v1.104.8) (2023-05-09)
 
 
