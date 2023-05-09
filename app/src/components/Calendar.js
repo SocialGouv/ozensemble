@@ -249,7 +249,7 @@ const Calendar = ({ onDayPress }) => {
       </View>
       <View>
         {calendarDayByWeek.map((calendarWeek) => {
-          const bgColor = dayjs().startOf('day').diff(calendarWeek.days[0].day) > 0 ? '#F5F6FA' : 'none';
+          const bgColor = dayjs().startOf('day').diff(calendarWeek.days[0].day) >= 0 ? '#F5F6FA' : 'none';
           return (
             <View
               className="flex flex-row justify-between mt-2 rounded-lg"
