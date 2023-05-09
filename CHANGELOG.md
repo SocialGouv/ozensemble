@@ -1,3 +1,10 @@
+## [1.104.6](https://github.com/SocialGouv/ozensemble/compare/v1.104.5...v1.104.6) (2023-05-09)
+
+
+### Bug Fixes
+
+* add prod build infos ([#337](https://github.com/SocialGouv/ozensemble/issues/337)) ([a08e9be](https://github.com/SocialGouv/ozensemble/commit/a08e9bef50e0bfc6637b8b04cb1c79e75b01aa1e))
+
 ## [1.104.5](https://github.com/SocialGouv/ozensemble/compare/v1.104.4...v1.104.5) (2023-05-09)
 
 
