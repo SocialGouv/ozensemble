@@ -1,3 +1,10 @@
+## [1.104.4](https://github.com/SocialGouv/ozensemble/compare/v1.104.3...v1.104.4) (2023-05-09)
+
+
+### Bug Fixes
+
+* change fonts location ([#335](https://github.com/SocialGouv/ozensemble/issues/335)) ([e14f3ae](https://github.com/SocialGouv/ozensemble/commit/e14f3ae5eb9d9d6048f4aec994c6f39d68a9a53a))
+
 ## [1.104.3](https://github.com/SocialGouv/ozensemble/compare/v1.104.2...v1.104.3) (2023-05-09)
 
 
