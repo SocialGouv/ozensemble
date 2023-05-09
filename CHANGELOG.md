@@ -1,3 +1,11 @@
+## [1.104.3](https://github.com/SocialGouv/ozensemble/compare/v1.104.2...v1.104.3) (2023-05-09)
+
+
+### Bug Fixes
+
+* add grey background from monday ([#334](https://github.com/SocialGouv/ozensemble/issues/334)) ([fda9783](https://github.com/SocialGouv/ozensemble/commit/fda9783214732eec1db5dbc4b9f958cf35e36aeb))
+* do not show help modal when no goal ([#331](https://github.com/SocialGouv/ozensemble/issues/331)) ([9ad0730](https://github.com/SocialGouv/ozensemble/commit/9ad0730e68e7ad767642e805457fe218bd4cf764))
+
 ## [1.104.2](https://github.com/SocialGouv/ozensemble/compare/v1.104.1...v1.104.2) (2023-05-08)
 
 
