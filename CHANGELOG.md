@@ -1,3 +1,10 @@
+## [1.104.5](https://github.com/SocialGouv/ozensemble/compare/v1.104.4...v1.104.5) (2023-05-09)
+
+
+### Bug Fixes
+
+* ios entitlements ([#336](https://github.com/SocialGouv/ozensemble/issues/336)) ([13005d2](https://github.com/SocialGouv/ozensemble/commit/13005d27afdfe25bc9da944a9d15a690a3efd4ad))
+
 ## [1.104.4](https://github.com/SocialGouv/ozensemble/compare/v1.104.3...v1.104.4) (2023-05-09)
 
 
