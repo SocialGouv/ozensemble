@@ -1,3 +1,10 @@
+## [1.104.10](https://github.com/SocialGouv/ozensemble/compare/v1.104.9...v1.104.10) (2023-05-09)
+
+
+### Bug Fixes
+
+* copy past old project.pbxproj ([#342](https://github.com/SocialGouv/ozensemble/issues/342)) ([800c2eb](https://github.com/SocialGouv/ozensemble/commit/800c2eb2fb0d9b707577b618bd948188943c1ff4))
+
 ## [1.104.9](https://github.com/SocialGouv/ozensemble/compare/v1.104.8...v1.104.9) (2023-05-09)
 
 
