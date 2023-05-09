@@ -1,3 +1,10 @@
+## [1.104.8](https://github.com/SocialGouv/ozensemble/compare/v1.104.7...v1.104.8) (2023-05-09)
+
+
+### Bug Fixes
+
+* add entitlements lines ([#340](https://github.com/SocialGouv/ozensemble/issues/340)) ([4270517](https://github.com/SocialGouv/ozensemble/commit/4270517ad4a616317ac7926f03b1556969c148b4))
+
 ## [1.104.7](https://github.com/SocialGouv/ozensemble/compare/v1.104.6...v1.104.7) (2023-05-09)
 
 
