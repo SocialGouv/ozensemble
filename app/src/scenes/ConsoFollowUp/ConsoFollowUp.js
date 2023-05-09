@@ -93,6 +93,7 @@ const ConsoFollowUp = () => {
         onPress={() => {
           setHelpModalVisible(true);
         }}
+        disabled={!isOnboarded}
         className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]"
         style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <View className="mt-2 mb-4">
