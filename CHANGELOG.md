@@ -1,3 +1,10 @@
+## [1.104.13](https://github.com/SocialGouv/ozensemble/compare/v1.104.12...v1.104.13) (2023-05-10)
+
+
+### Bug Fixes
+
+* round consommations in diagram ([#345](https://github.com/SocialGouv/ozensemble/issues/345)) ([2c798b8](https://github.com/SocialGouv/ozensemble/commit/2c798b85665133b75808983dffd46a584dc4a4ce))
+
 ## [1.104.12](https://github.com/SocialGouv/ozensemble/compare/v1.104.11...v1.104.12) (2023-05-10)
 
 
