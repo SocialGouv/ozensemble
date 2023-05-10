@@ -92,7 +92,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
 
-      const diff = lastWeekNumberOfDrinks - thisWeekNumberOfDrinks;
+      const diff = Math.round(lastWeekNumberOfDrinks - thisWeekNumberOfDrinks);
       const decrease = diff > 0;
       const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
       return { diff, decrease, pourcentageOfDecrease, thisWeekNumberOfDrinks };
