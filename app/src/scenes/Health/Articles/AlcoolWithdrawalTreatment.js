@@ -9,7 +9,7 @@ const AlcoolWithdrawalTreatment = () => {
   const title = 'Traitement médicamenteux du sevrage';
   const navigation = useNavigation();
   return (
-    <NavigationWrapper title={title} timeReading={2} link={'https://www.inserm.fr/dossier/alcool-sante/'}>
+    <NavigationWrapper title={title} timeReading={2}>
       <TopContainer>
         <P>
           Dans cet article nous vous proposons une vulgarisation des concepts de symptômes de sevrage et un lexique des
@@ -26,7 +26,7 @@ const AlcoolWithdrawalTreatment = () => {
               <Bold>{'   •  '}</Bold>
             </P>
           </View>
-          <View>
+          <View className="flex flex-row basis-11/12">
             <P noMarginBottom>
               <Bold>les symptômes de sevrage mineur</Bold> tel que agitation, nervosité ou des troubles du sommeil
             </P>
@@ -38,7 +38,7 @@ const AlcoolWithdrawalTreatment = () => {
               <Bold>{'   •  '}</Bold>
             </P>
           </View>
-          <View>
+          <View className="flex flex-row basis-11/12">
             <P noMarginBottom>
               <Bold>les symptômes de sevrage sévère</Bold> tel que les crises convulsives de sevrage (qui s'apparente à
               une crise convulsive de l'épilepsie) ou d'autres manifestations décrites dans l'article dédié (
@@ -57,7 +57,7 @@ const AlcoolWithdrawalTreatment = () => {
           </View>
         </View>
         <Spacer size={20} />
-        <P>
+        <P className="flex flex-row basis-11/12">
           Il existe des <Bold>traitements médicamenteux qui peuvent vous être proposés par un médecin</Bold> pour ces
           trois grandes catégories de symptômes.
         </P>
@@ -70,7 +70,6 @@ const AlcoolWithdrawalTreatment = () => {
           Il faut savoir que nous ne sommes pas tous égaux face à leur apparition et leur sévérité sans que ce ne soit
           forcément lié à la quantité d'alcool que vous consommiez.
         </P>
-        <Spacer size={20} />
         <P>
           <Bold>
             Aussi, si vous présentez des symptômes importants, que vous vous en inquiétez ou que vous avez une autre
