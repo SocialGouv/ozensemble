@@ -12,7 +12,7 @@ const AlcoolWithdrawalBenefits = () => {
   const title = 'Les bénéfices au sevrage';
   const navigation = useNavigation();
   return (
-    <NavigationWrapper title={title} timeReading={2} sourcesDrTalbot={false}>
+    <NavigationWrapper title={title} timeReading={2}>
       <TopContainer>
         <H2 color={'#4030a5'} underline>
           Court terme
