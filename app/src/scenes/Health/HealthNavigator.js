@@ -16,6 +16,7 @@ import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndMotivation from './Articles/AlcoholAndMotivation';
 import AlcoholAndHealthRisks from './Articles/AlcoholAndHealthRisks';
 import AlcoholAndDependency from './Articles/AlcoholAndDependency';
+import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
@@ -36,6 +37,7 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
         <HealthStack.Screen name="TO_SAY_NO" component={ToSayNo} />
         <HealthStack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} />
+        <HealthStack.Screen name="ALCOOL_WITHDRAWAL_BENEFITS" component={AlcoolWithdrawalBenefits} />
         <HealthStack.Screen name="ALCOHOL_ADDICTION" component={AlcoholAddiction} />
         <HealthStack.Screen name="ALCOHOL_AND_CALORIES" component={AlcoholAndCalories} />
         <HealthStack.Screen name="TO_HELP_ME_REDUCE" component={ToHelpMeReduce} />
