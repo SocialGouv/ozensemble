@@ -10,11 +10,18 @@ const CravingsTreatment = () => {
   const title = "Traitement médicamenteux du craving (l'envie)";
   const navigation = useNavigation();
   return (
-    <NavigationWrapper title={title} timeReading={4} link={'https://www.inserm.fr/dossier/alcool-sante/'}>
+    <NavigationWrapper title={title} timeReading={4} sourcesDrTalbot={true}>
       <TopContainer>
         <P>
           Dans cet article nous vous proposons une vulgarisation des concepts de symptômes de sevrage, du « craving » et
           un lexique des principaux traitements utilisés dans le sevrage de la consommation d'alcool.
+        </P>
+        <P>
+          Dans le domaine de l'addiction, le{' '}
+          <Bold>
+            craving désigne une envie irrépressible de consommer une substance ou d'exécuter un comportement gratifiant
+            alors qu'on ne le veut pas à ce moment-là.
+          </Bold>
         </P>
         <P>La notion de craving présente un intérêt principalement à deux points de vue:</P>
         <View className="flex flex-row">
