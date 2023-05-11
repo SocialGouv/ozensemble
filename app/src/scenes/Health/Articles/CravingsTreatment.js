@@ -2,10 +2,13 @@ import React from 'react';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
-import { View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
+import CravingSchema from '../../../components/illustrations/articles/CravingSchema';
+import { useNavigation } from '@react-navigation/native';
 
 const CravingsTreatment = () => {
   const title = "Traitement médicamenteux du craving (l'envie)";
+  const navigation = useNavigation();
   return (
     <NavigationWrapper title={title} timeReading={4} link={'https://www.inserm.fr/dossier/alcool-sante/'}>
       <TopContainer>
@@ -22,7 +25,8 @@ const CravingsTreatment = () => {
           </View>
           <View>
             <P noMarginBottom>
-              <Bold>les symptômes de sevrage mineur</Bold> tel que agitation, nervosité ou des troubles du sommeil
+              du point de vue de l<Bold>'évaluation de son risque alcool</Bold> puisque plus il est élevé, plus c'est le
+              signe que la personne s'est habituée à l'alcool.
             </P>
           </View>
         </View>
@@ -34,59 +38,122 @@ const CravingsTreatment = () => {
           </View>
           <View>
             <P noMarginBottom>
-              <Bold>les symptômes de sevrage sévère</Bold> tel que les crises convulsives de sevrage (qui s'apparente à
-              une crise convulsive de l'épilepsie) ou d'autres manifestations décrites dans l'article dédié (article
-              dépendance physique à l'alcool)
+              du point de vue de l<Bold>'évaluation de la difficulté à réduire ou du risque de “rechute”</Bold>, plus il
+              est élevé, plus il est difficile de décrocher de ses habitudes sans une aide de professionnels.
+            </P>
+          </View>
+        </View>
+        <View className="flex flex-row justify-center">
+          <CravingSchema />
+        </View>
+        <Spacer size={20} />
+        <H2 color={'#4030a5'}>Comment évaluer "son" craving</H2>
+        <Spacer size={20} />
+        <P>
+          Il s'agit d'une <Bold>échelle visuelle de craving</Bold>, sur le modèle des procédés utilisés dans la prise en
+          charge de la douleur, l'autoévaluation par échelle visuelle analogique (EVA) consiste à se demander
+          directement le niveau de son envie.{' '}
+        </P>
+        <P>L'échelle va :</P>
+        <View className="flex flex-row">
+          <View className=" ">
+            <P noMarginBottom>
+              <Bold>{'   •  '}</Bold>
+            </P>
+          </View>
+          <View>
+            <P noMarginBottom>de 0 : pas d'envie (« Pas du tout envie »)</P>
+          </View>
+        </View>
+        <View className="flex flex-row">
+          <View className=" ">
+            <P noMarginBottom>
+              <Bold>{'   •  '}</Bold>
+            </P>
+          </View>
+          <View>
+            <P>à la position de 10 : une envie maximale (« Très&nbsp;envie »).</P>
+          </View>
+        </View>
+        <P>
+          Il est utile de se poser la question vis à vis d'une situation “calme” (par exemple une journée tranquille de
+          repos) et vis à vis d'une situation “à risque de consommer de l'alcool” (par exemple).
+        </P>
+        <Spacer size={20} />
+        <H2 color={'#4030a5'}>Une aide médicamenteuse de diminution du craving</H2>
+        <Spacer size={20} />
+        <P bold>
+          Des aides médicamenteuses peuvent vous être proposées par un médecin pour soutenir votre motivation dans
+          l'arrêt des consommations.
+        </P>
+        <Spacer size={20} />
+        <P bold color={'#DE285E'}>
+          Attention
+        </P>
+        <View className="flex flex-row">
+          <View className=" ">
+            <P noMarginBottom>
+              <Bold>{'   •  '}</Bold>
+            </P>
+          </View>
+          <View>
+            <P noMarginBottom>
+              il ne s'agit pas des mêmes médicaments que ceux qui traitent le <Bold>syndrôme</Bold> de sevrage ! (
+              <Text className="underline" onPress={() => navigation.navigate('ALCOOL_WITHDRAWAL_TREATMENT')}>
+                article Traitement médicamenteux du sevrage
+              </Text>
+              )
             </P>
           </View>
         </View>
         <View className="flex flex-row">
+          <View className=" ">
+            <P noMarginBottom>
+              <Bold>{'   •  '}</Bold>
+            </P>
+          </View>
           <View>
-            <P noMainBottom>
-              <Bold>{'   • '}</Bold> le <Bold>craving</Bold>
+            <P>
+              il ne s'agit pas d'une baguette magique mais bien d'un <Bold>soutien complémentaire</Bold> à votre
+              motivation qui diminue le craving.
             </P>
           </View>
         </View>
+        <Spacer size={40} />
+        <H2 color={'#4030a5'}>Cinqs médicaments bénéficient actuellement d'une autorisation officielle :</H2>
         <Spacer size={20} />
+        <H2>L'Acamprosate</H2>
         <P>
-          Il existe des <Bold>traitements médicamenteux qui peuvent vous être proposés par un médecin</Bold> pour ces
-          trois grandes catégories de symptômes.
-        </P>
-        <P>
-          Ces symptômes apparaissent généralement entre <Bold>6 heures et 3 jours</Bold> et s'améliorent de manière
-          rapide sur <Bold>3 à 5 jours.</Bold>
-        </P>
-        <Spacer size={20} />
-        <P>
-          Il faut savoir que nous ne sommes pas tous égaux face à leur apparition et leur sévérité sans que ce ne soit
-          forcément lié à la quantité d'alcool que vous consommiez.
+          constitue un des traitements de première intention, utilisables dès que possible après l'arrêt de la
+          consommation d'alcool dans l'objectif de réduire l'appétence pour l'alcool et ainsi les risques de rechute.
+          L'Acamprosate ne présente pas de contre-indication ou d'incompatibilité majeure, il peut être utilisé dès le
+          début du sevrage chez tout patient alcoolo-dépendant.
         </P>
         <Spacer size={20} />
+        <H2>La Naltrexone</H2>
         <P>
-          <Bold>
-            Aussi, si vous présentez des symptômes importants, que vous vous en inquiétez ou que vous avez une autre
-            pathologie chronique, n'hésitez pas à en parler à un professionnel de santé.
-          </Bold>{' '}
-          Les traitements ont vocation à soulager ces symptôme pour vous permettre de vous passer de l'alcool dans de
-          bonnes conditions.
+          est aussi un traitement de première intention mais contre-indiqué chez les sujets dépendants aux opiacés,
+          bénéficiant d'un traitement de substitution ou relevant d'une antalgie majeure par opiacés. Elle cible la «
+          récompense » associée à l'usage d'alcool et donc peut-être plus les sujets présentant une consommation
+          impulsive. Les deux traitements peuvent être associés. Le maintien d'une consommation d'alcool lors de la
+          prise de ces traitements n'impose pas l'arrêt du traitement mais lors d'un traitement par Naltrexone, les
+          effets sédatifs peuvent être cumulés avec l'alcool, imposant une vigilance accrue.
         </P>
         <Spacer size={20} />
-        <H2 color={'#4030a5'}>Les symptômes de sevrage mineur</H2>
-        <Spacer size={20} />
+        <H2>Le Nalmefène</H2>
         <P>
-          Le traitement de ces symptômes n'est pas toujours nécessaire et comprend généralement des médicaments ciblant
-          un symptôme : à visée sédative ou anxiolytique par exemple.
+          est aussi un traitement de première intention plus récent mais contre-indiqué chez les sujets dépendants aux
+          opiacés, bénéficiant d'un traitement de substitution ou relevant d'une antalgie majeure par opiacés. Il cible
+          la « récompense » associée à l'usage d'alcool et donc peut-être plus les sujets présentant une consommation
+          impulsive. Ce traitement à une autorisation tant dans l'obtention et le maintien du sevrage, que dans
+          l'accompagnement à la réduction de consommation (sans arrêt total nécessairement).
         </P>
         <Spacer size={20} />
-        <H2 color={'#4030a5'}>Les symptômes de sevrage sévère</H2>
-        <Spacer size={20} />
+        <H2>Le Baclofène</H2>
         <P>
-          Le traitement des symptômes de sevrage sévère est nécessaire afin de diminuer le risque de complications de
-          sevrage. Il existe un vrai risque pour la santé à ne pas prendre en compte ces “signaux d'alerte” du corps.
-        </P>
-        <P bold>
-          Les médicaments qui sont alors prescrit appartiennent le plus souvent à  la classe des benzodiazépine, tel que
-          le DIAZEPAM, OXAZEPAM.
+          est un des traitements apparus plus récemment. Il est indiqué en seconde intention et le plus souvent proposé
+          par un médecin addictologue. Ce traitement pourrait s'avérer particulièrement utile dans les situations de
+          consommation d'alcool en lien avec un trouble anxieux.
         </P>
       </TopContainer>
     </NavigationWrapper>
