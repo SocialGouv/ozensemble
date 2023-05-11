@@ -17,7 +17,7 @@ export const listConseils = [
   {
     img: require('../../assets/images/ToHelpMeReduce.png'),
     title: 'Bénéfices au sevrage',
-    link: 'BENEFITS_ALCOOL_WITHDRAWAL',
+    link: 'ALCOOL_WITHDRAWAL_TREATMENT',
   },
   {
     img: require('../../assets/images/AlcoholAndNorms.png'),

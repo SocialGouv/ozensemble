@@ -36,7 +36,7 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="HEALTH" component={Conseils} />
         <HealthStack.Screen name="CONTACT" component={ContactForm} />
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
-        <HealthStack.Screen name="BENEFITS_ALCOOL_WITHDRAWAL" component={AlcoolWithdrawalTreatment} />
+        <HealthStack.Screen name="ALCOOL_WITHDRAWAL_TREATMENT" component={AlcoolWithdrawalTreatment} />
         <HealthStack.Screen name="TO_SAY_NO" component={ToSayNo} />
         <HealthStack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} />
         <HealthStack.Screen name="ALCOOL_WITHDRAWAL_BENEFITS" component={AlcoolWithdrawalBenefits} />
