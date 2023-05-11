@@ -1,3 +1,10 @@
+## [1.104.17](https://github.com/SocialGouv/ozensemble/compare/v1.104.16...v1.104.17) (2023-05-11)
+
+
+### Bug Fixes
+
+* update wordings bottom modals ([#297](https://github.com/SocialGouv/ozensemble/issues/297)) ([81608fd](https://github.com/SocialGouv/ozensemble/commit/81608fd3e41ef80a50b7aae9a1cb16ecfd0c6e4f))
+
 ## [1.104.16](https://github.com/SocialGouv/ozensemble/compare/v1.104.15...v1.104.16) (2023-05-10)
 
 
