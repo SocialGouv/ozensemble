@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+import { View } from 'react-native';
 import styled from 'styled-components';
 import { defaultPaddingFontScale } from '../styles/theme';
 import BackButton from './BackButton';
@@ -14,11 +15,13 @@ const WrapperContainer = forwardRef(
       backgroundColor,
       noMarginBottom,
       children,
+      Icon,
       debug = false,
       ...props
     },
     ref
   ) => {
+    console.log(Icon);
     return (
       <ScreenBgStyled ref={ref} debug={debug} noPaddingTop={noPaddingTop} backgroundColor={backgroundColor} {...props}>
         {!!onPressBackButton && (
@@ -26,7 +29,12 @@ const WrapperContainer = forwardRef(
             <BackButton onPress={onPressBackButton} />
           </BackButtonContainer>
         )}
-        {!!title && <Title>{title}</Title>}
+        <View
+          className="flex flex-row items-center space-x-2 mb-4"
+          style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+          {!!Icon && <Icon size={25} />}
+          {!!title && <H1>{title}</H1>}
+        </View>
         <Content debug={debug} noPaddingHorizontal={noPaddingHorizontal}>
           {children}
         </Content>

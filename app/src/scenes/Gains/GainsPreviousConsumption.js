@@ -1,5 +1,5 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -9,17 +9,22 @@ import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../reco
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { P, Spacer } from '../../components/Articles';
+import { Bold, P, Spacer } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import WrapperContainer from '../../components/WrapperContainer';
+import { Modal, Text, View } from 'react-native';
+import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const GainsPreviousConsumption = () => {
   const navigation = useNavigation();
   const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
-
+  const [modalVisible, setModalVisible] = useState(true);
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
-
+  useFocusEffect(() => {
+    setModalVisible(true);
+  });
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = previousDrinksPerWeek.find((drink) => drink.drinkKey === drinkKey);
 
@@ -44,70 +49,69 @@ const GainsPreviousConsumption = () => {
   };
 
   return (
-    <WrapperContainer
-      onPressBackButton={navigation.goBack}
-      title="Ma conso actuelle avant objectif"
-      noPaddingHorizontal>
-      <Container>
-        <DescriptionText>
-          <P bold>
+    <Modal visible={modalVisible}>
+      <SafeAreaView className="bg-[#39cec0]"></SafeAreaView>
+      <WrapperContainer
+        onPressBackButton={navigation.goBack}
+        title="Mon estimation initiale"
+        noPaddingHorizontal
+        Icon={PreviousConsumption}>
+        <Container>
+          <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
+            <Text className="mb-4">
+              Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera ensuite comparée à ce
+              que vous consommerez pour calculer vos gains.{' '}
+              <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus de transparence
+              possible.
+            </Text>
+            <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
+          </View>
+          <Text className="font-bold text-center">
             Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
-          </P>
-        </DescriptionText>
-        <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
-      </Container>
-      <Spacer size={20} />
-      {drinksCatalog
-        .map(({ categoryKey }) => categoryKey)
-        .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-        .map((category, index) => (
-          <DrinksCategory
-            key={category}
-            drinksCatalog={drinksCatalog}
-            category={category}
-            index={index}
-            drinks={previousDrinksPerWeek}
-            setDrinkQuantity={setDrinkQuantityRequest}
+          </Text>
+        </Container>
+        <Spacer size={20} />
+        <View className="border-2 border-[#EFEFEF]">
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={category}
+                drinksCatalog={drinksCatalog}
+                category={category}
+                index={index}
+                drinks={previousDrinksPerWeek}
+                setDrinkQuantity={setDrinkQuantityRequest}
+              />
+            ))}
+        </View>
+        <Spacer size={40} />
+        <CTAButtonContainer>
+          <ButtonPrimary
+            disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
+            content="Continuer"
+            onPress={() => {
+              setModalVisible(false);
+              const numberDrinkEstimation = previousDrinksPerWeek.reduce(
+                (sum, drink) =>
+                  sum +
+                  drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
+                0
+              );
+              logEvent({
+                category: 'GAINS',
+                action: 'GOAL_ESTIMATION_DRINK',
+                value: numberDrinkEstimation,
+              });
+              isOnboarded
+                ? navigation.navigate('GAINS_MAIN_VIEW')
+                : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
+            }}
           />
-        ))}
-      <Spacer size={20} />
-      <Container>
-        <P>
-          <TextStyled>
-            <TextStyled bold>Vos réponses sont anonymes, </TextStyled>répondez avec le plus de transparence possible.
-          </TextStyled>
-        </P>
-        <DescriptionText>
-          <P>
-            <TextStyled bold>Cette estimation sera comparée à ce que vous consommerez par la suite</TextStyled>, pour
-            calculer vos gains en&nbsp;€ et kCal.
-          </P>
-        </DescriptionText>
-      </Container>
-      <Spacer size={25} />
-      <CTAButtonContainer>
-        <ButtonPrimary
-          disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
-          content="Je continue"
-          onPress={() => {
-            const numberDrinkEstimation = previousDrinksPerWeek.reduce(
-              (sum, drink) =>
-                sum +
-                drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
-              0
-            );
-            logEvent({
-              category: 'GAINS',
-              action: 'GOAL_ESTIMATION_DRINK',
-              value: numberDrinkEstimation,
-            });
-            isOnboarded
-              ? navigation.navigate('GAINS_MAIN_VIEW')
-              : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
-          }}
-        />
-      </CTAButtonContainer>
-    </WrapperContainer>
+        </CTAButtonContainer>
+      </WrapperContainer>
+    </Modal>
   );
 };
 
