@@ -9,7 +9,7 @@ import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../reco
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { Bold, P, Spacer } from '../../components/Articles';
+import { Spacer } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import WrapperContainer from '../../components/WrapperContainer';

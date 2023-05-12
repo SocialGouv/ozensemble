@@ -21,7 +21,6 @@ const WrapperContainer = forwardRef(
     },
     ref
   ) => {
-    console.log(Icon);
     return (
       <ScreenBgStyled ref={ref} debug={debug} noPaddingTop={noPaddingTop} backgroundColor={backgroundColor} {...props}>
         {!!onPressBackButton && (
