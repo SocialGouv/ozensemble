@@ -64,11 +64,11 @@ const Calendar = ({ onDayPress }) => {
     let nbDaysRegistered = 0;
     for (let i = 0; i < 7; ++i) {
       const formatedDay = searchedDay.format('YYYY-MM-DD');
-      sumDoses += dailyDoses[formatedDay];
-      if (dailyDoses[formatedDay] > 0) {
-        drinkingDay++;
-      }
       if (dailyDoses[formatedDay] >= 0) {
+        sumDoses += dailyDoses[formatedDay];
+        if (dailyDoses[formatedDay] > 0) {
+          drinkingDay++;
+        }
         nbDaysRegistered++;
       }
       searchedDay = searchedDay.add(1, 'day');
@@ -82,7 +82,6 @@ const Calendar = ({ onDayPress }) => {
       };
     }
     const checkedGoal = goal ? goal : goals[0];
-
     if (nbDaysRegistered < 7) {
       if (weekStarted) {
         return {
@@ -321,6 +320,7 @@ const Calendar = ({ onDayPress }) => {
                       setModalContent({
                         consommationContent: calendarWeek.goalStatus.consommationMessage,
                         title: 'Objectif réussi, bravo\u00A0!',
+                        status: 'Success',
                         drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
                         drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
@@ -328,7 +328,6 @@ const Calendar = ({ onDayPress }) => {
                         consosWeek: calendarWeek.goalStatus.consosWeek,
                         firstDay: calendarWeek.days[0].day.format('DD MMMM'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
-                        failed: false,
                         visible: true,
                       });
                     }}>
@@ -341,6 +340,7 @@ const Calendar = ({ onDayPress }) => {
                       setModalContent({
                         consommationContent: calendarWeek.goalStatus.consommationMessage,
                         title: 'Objectif dépassé',
+                        status: 'Failed',
                         drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
                         drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
@@ -348,7 +348,6 @@ const Calendar = ({ onDayPress }) => {
                         consosWeek: calendarWeek.goalStatus.consosWeek,
                         firstDay: calendarWeek.days[0].day.format('DD'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
-                        failed: true,
                         visible: true,
                       });
                     }}>
@@ -360,6 +359,7 @@ const Calendar = ({ onDayPress }) => {
                     onPress={() => {
                       setModalContent({
                         title: 'Objectif en cours',
+                        status: 'Ongoing',
                         drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
                         drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
@@ -367,7 +367,6 @@ const Calendar = ({ onDayPress }) => {
                         consosWeek: calendarWeek.goalStatus.consosWeek,
                         firstDay: calendarWeek.days[0].day.format('DD'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
-                        failed: true,
                         visible: true,
                       });
                     }}>
@@ -388,7 +387,6 @@ const Calendar = ({ onDayPress }) => {
                         consosWeek: calendarWeek.goalStatus.consosWeek,
                         firstDay: calendarWeek.days[0].day.format('DD'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
-                        failed: false,
                         visible: true,
                       });
                     }}>
