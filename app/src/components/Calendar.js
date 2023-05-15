@@ -14,7 +14,7 @@ import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
 import ModalGoal from './ModalGoal';
-
+import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const Calendar = ({ onDayPress }) => {
@@ -57,6 +57,7 @@ const Calendar = ({ onDayPress }) => {
   const computeGoalSuccess = (day) => {
     const goalRegistered = goals[0]?.dosesPerWeek;
     let searchedDay = day.subtract(6, 'day');
+    const weekStarted = searchedDay.diff(dayjs().startOf('day')) <= 0;
     const goal = goals?.find((goal) => goal.date === searchedDay.format('YYYY-MM-DD'));
     let sumDoses = 0;
     let drinkingDay = 0;
@@ -72,9 +73,6 @@ const Calendar = ({ onDayPress }) => {
       }
       searchedDay = searchedDay.add(1, 'day');
     }
-    if (nbDaysRegistered < 7) {
-      return 'MissCompletedDays';
-    }
     if (!goalRegistered) {
       return {
         status: 'NoGoal',
@@ -84,6 +82,22 @@ const Calendar = ({ onDayPress }) => {
       };
     }
     const checkedGoal = goal ? goal : goals[0];
+
+    if (nbDaysRegistered < 7) {
+      if (weekStarted) {
+        return {
+          status: 'Ongoing',
+          drinkingDayMessage:
+            'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
+          consosWeekGoal: checkedGoal.dosesPerWeek,
+          consosWeek: sumDoses,
+          drinkingDaysGoal: 7 - checkedGoal.daysWithGoalNoDrink.length,
+          drinkingDays: drinkingDay,
+        };
+      } else {
+        return 'WeekNotStarted';
+      }
+    }
     if (sumDoses <= checkedGoal.dosesPerWeek && drinkingDay <= 7 - checkedGoal.daysWithGoalNoDrink.length) {
       const consommationMessage = 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.';
       const drinkingDayMessage = 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.';
@@ -339,6 +353,25 @@ const Calendar = ({ onDayPress }) => {
                       });
                     }}>
                     <CrossDefisFailed size={fontSize * 1.8} />
+                  </TouchableOpacity>
+                )}
+                {calendarWeek.goalStatus.status === 'Ongoing' && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      setModalContent({
+                        title: 'Objectif en cours',
+                        drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
+                        drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
+                        drinkingDays: calendarWeek.goalStatus.drinkingDays,
+                        consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
+                        consosWeek: calendarWeek.goalStatus.consosWeek,
+                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        failed: true,
+                        visible: true,
+                      });
+                    }}>
+                    <OnGoingGoal size={fontSize * 1.8} />
                   </TouchableOpacity>
                 )}
                 {calendarWeek.goalStatus.status === 'NoGoal' && bgColor === '#F5F6FA' && (
