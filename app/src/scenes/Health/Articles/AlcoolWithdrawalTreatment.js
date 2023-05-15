@@ -17,7 +17,7 @@ const AlcoolWithdrawalTreatment = () => {
         </P>
         <P>
           Il peut exister plusieurs <Bold>types de symptômes</Bold> lors de la réduction, ou de l'arrêt de la
-          consommation d'alcool :
+          consommation d'alcool&nbsp;:
         </P>
 
         <View className="flex flex-row">
