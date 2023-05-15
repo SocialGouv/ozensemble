@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -21,9 +21,11 @@ import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { Modal, Text, View } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
+import ModalGoalValidation from '../../components/ModalGoalValidation';
+import { setValidatedDays } from '../Defis/utils';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 
 const Goal = ({ navigation, route }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -38,15 +40,18 @@ const Goal = ({ navigation, route }) => {
         sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
       0
     );
-  }, [numberDrinkEstimation]);
+  }, [previousDrinksPerWeek]);
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      setModalVisible(true);
+    }
+  }, [isFocused]);
   const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
-
+  const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const isOnboarded = !route.params?.forOnboarding;
-  useFocusEffect(() => {
-    setModalVisible(true);
-  });
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
@@ -70,138 +75,285 @@ const Goal = ({ navigation, route }) => {
   };
 
   return (
-    <Modal visible={modalVisible}>
-      <SafeAreaView className="bg-[#39cec0]"></SafeAreaView>
-      <WrapperContainer
-        noPaddingHorizontal
-        onPressBackButton={navigation.goBack}
-        title="Mon objectif semaine"
-        Icon={GoalSetup}>
-        <Container>
-          <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
-            <Text className="mb-4">
-              Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{' '}
-              <Text className="font-bold">nombre de jours sans boire</Text> et en{' '}
-              <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre consommation et de
-              diminuer les risques associés à l'usage répété de l'alcool.
-            </Text>
-            <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
-          </View>
-          <Row>
-            <Calendar size={24} />
-            <Text className={'font-bold ml-3'}>
-              Jours où je m'engage à ne <Text className="underline">pas</Text> boire d'alcool
-            </Text>
-          </Row>
-          <DayContainer>
-            <DayButton
-              content="L"
-              active={daysWithGoalNoDrink.includes('monday')}
-              onPress={() => toggleDayWithGoalNoDrink('monday')}
-            />
-            <DayButton
-              content="M"
-              active={daysWithGoalNoDrink.includes('tuesday')}
-              onPress={() => toggleDayWithGoalNoDrink('tuesday')}
-            />
-            <DayButton
-              content="M"
-              active={daysWithGoalNoDrink.includes('wednesday')}
-              onPress={() => toggleDayWithGoalNoDrink('wednesday')}
-            />
-            <DayButton
-              content="J"
-              active={daysWithGoalNoDrink.includes('thursday')}
-              onPress={() => toggleDayWithGoalNoDrink('thursday')}
-            />
-            <DayButton
-              content="V"
-              active={daysWithGoalNoDrink.includes('friday')}
-              onPress={() => toggleDayWithGoalNoDrink('friday')}
-            />
-            <DayButton
-              content="S"
-              active={daysWithGoalNoDrink.includes('saturday')}
-              onPress={() => toggleDayWithGoalNoDrink('saturday')}
-            />
-            <DayButton
-              content="D"
-              active={daysWithGoalNoDrink.includes('sunday')}
-              onPress={() => toggleDayWithGoalNoDrink('sunday')}
-            />
-          </DayContainer>
-          <Row>
-            <CocktailGlassTriangle size={24} />
-            <Text className="font-bold ml-3">
-              Unités <Text className="underline">par semaine</Text> que je m'autorise à boire{' '}
-            </Text>
-          </Row>
-          <View className="bg-[#F5F6FA] p-2 mb-2">
-            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation actuelle par semaine</Text>
-            <View className="flex flex-row justify-center items-center mt-2">
-              <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
-              <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
+    <>
+      <View>
+        <WrapperContainer
+          noPaddingHorizontal
+          onPressBackButton={navigation.goBack}
+          title="Mon objectif semaine"
+          Icon={GoalSetup}>
+          <Container>
+            <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
+              <Text className="mb-4">
+                Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{' '}
+                <Text className="font-bold">nombre de jours sans boire</Text> et en{' '}
+                <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre consommation et
+                de diminuer les risques associés à l'usage répété de l'alcool.
+              </Text>
+              <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
             </View>
-          </View>
-        </Container>
-        {drinksCatalog
-          .map(({ categoryKey }) => categoryKey)
-          .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-          .map((category, index) => (
-            <DrinksCategory
-              key={index}
-              drinksCatalog={drinksCatalog}
-              category={category}
-              index={index}
-              drinks={drinksByDrinkingDay}
-              setDrinkQuantity={setDrinkQuantityRequest}
-            />
-          ))}
-        <Container>
-          <View className=" p-2 mt-4">
-            <Text>
-              Pensez bien à ajouter vos consommations <Text className="font-bold">tous les jours</Text> même quand vous
-              n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre objectif de la
-              semaine !{' '}
-            </Text>
-          </View>
-          <CTAButtonContainer>
-            <ButtonPrimary
-              content="Valider mon objectif"
-              onPress={() => {
-                setModalVisible(false);
+            <Row>
+              <Calendar size={24} />
+              <Text className={'font-bold ml-3'}>
+                Jours où je m'engage à ne <Text className="underline">pas</Text> boire d'alcool
+              </Text>
+            </Row>
+            <DayContainer>
+              <DayButton
+                content="L"
+                active={daysWithGoalNoDrink.includes('monday')}
+                onPress={() => toggleDayWithGoalNoDrink('monday')}
+              />
+              <DayButton
+                content="M"
+                active={daysWithGoalNoDrink.includes('tuesday')}
+                onPress={() => toggleDayWithGoalNoDrink('tuesday')}
+              />
+              <DayButton
+                content="M"
+                active={daysWithGoalNoDrink.includes('wednesday')}
+                onPress={() => toggleDayWithGoalNoDrink('wednesday')}
+              />
+              <DayButton
+                content="J"
+                active={daysWithGoalNoDrink.includes('thursday')}
+                onPress={() => toggleDayWithGoalNoDrink('thursday')}
+              />
+              <DayButton
+                content="V"
+                active={daysWithGoalNoDrink.includes('friday')}
+                onPress={() => toggleDayWithGoalNoDrink('friday')}
+              />
+              <DayButton
+                content="S"
+                active={daysWithGoalNoDrink.includes('saturday')}
+                onPress={() => toggleDayWithGoalNoDrink('saturday')}
+              />
+              <DayButton
+                content="D"
+                active={daysWithGoalNoDrink.includes('sunday')}
+                onPress={() => toggleDayWithGoalNoDrink('sunday')}
+              />
+            </DayContainer>
+            <Row>
+              <CocktailGlassTriangle size={24} />
+              <Text className="font-bold ml-3">
+                Unités <Text className="underline">par semaine</Text> que je m'autorise à boire{' '}
+              </Text>
+            </Row>
+            <View className="bg-[#F5F6FA] p-2 mb-2">
+              <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation actuelle par semaine</Text>
+              <View className="flex flex-row justify-center items-center mt-2">
+                <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
+                <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
+              </View>
+            </View>
+          </Container>
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={index}
+                drinksCatalog={drinksCatalog}
+                category={category}
+                index={index}
+                drinks={drinksByDrinkingDay}
+                setDrinkQuantity={setDrinkQuantityRequest}
+              />
+            ))}
+          <Container>
+            <View className=" p-2 mt-4">
+              <Text>
+                Pensez bien à ajouter vos consommations <Text className="font-bold">tous les jours</Text> même quand
+                vous n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre
+                objectif de la semaine !{' '}
+              </Text>
+            </View>
+            <CTAButtonContainer>
+              <ButtonPrimary
+                content="Valider mon objectif"
+                onPress={() => {
+                  setModalVisible(false);
 
-                logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_DRINKLESS',
-                  name: daysWithGoalNoDrink,
-                  value: daysWithGoalNoDrink.length,
-                });
-                logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_DRINKWEEK',
-                  value: dosesPerWeek,
-                });
-                if (isOnboarded) {
-                  navigation.navigate('GAINS_SEVRAGE');
-                  return;
-                }
-                logEvent({
-                  category: 'REMINDER',
-                  action: 'REMINDER_OPEN',
-                  name: 'GOAL',
-                });
-                navigation.navigate('GAINS_REMINDER', {
-                  enableContinueButton: true,
-                  onPressContinueNavigation: ['GAINS_SEVRAGE'],
-                });
-              }}
-              disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
-            />
-          </CTAButtonContainer>
-        </Container>
-      </WrapperContainer>
-    </Modal>
+                  logEvent({
+                    category: 'GAINS',
+                    action: 'GOAL_DRINKLESS',
+                    name: daysWithGoalNoDrink,
+                    value: daysWithGoalNoDrink.length,
+                  });
+                  logEvent({
+                    category: 'GAINS',
+                    action: 'GOAL_DRINKWEEK',
+                    value: dosesPerWeek,
+                  });
+                  if (isOnboarded) {
+                    navigation.navigate('GAINS_SEVRAGE');
+                    return;
+                  }
+                  logEvent({
+                    category: 'REMINDER',
+                    action: 'REMINDER_OPEN',
+                    name: 'GOAL',
+                  });
+                  navigation.navigate('GAINS_REMINDER', {
+                    enableContinueButton: true,
+                    onPressContinueNavigation: ['GAINS_SEVRAGE'],
+                  });
+                }}
+                disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
+              />
+            </CTAButtonContainer>
+          </Container>
+        </WrapperContainer>
+      </View>
+      <ModalGoalValidation
+        content={{
+          drinksGoal: dosesPerWeek,
+          daysGoal: 7 - daysWithGoalNoDrink.length,
+        }}
+        onUpdate={() => {
+          setModalVisible(true);
+          setModalValidationVisible(false);
+        }}
+        onValidate={() => {
+          setModalValidationVisible(false);
+          logEvent({
+            category: 'GAINS',
+            action: 'GOAL_DRINKLESS',
+            name: daysWithGoalNoDrink,
+            value: daysWithGoalNoDrink.length,
+          });
+          logEvent({
+            category: 'GAINS',
+            action: 'GOAL_DRINKWEEK',
+            value: dosesPerWeek,
+          });
+          if (isOnboarded) {
+            navigation.navigate('GAINS_SEVRAGE');
+            return;
+          }
+          logEvent({
+            category: 'REMINDER',
+            action: 'REMINDER_OPEN',
+            name: 'GOAL',
+          });
+          navigation.navigate('GAINS_REMINDER', {
+            enableContinueButton: true,
+            onPressContinueNavigation: ['GAINS_SEVRAGE'],
+          });
+        }}
+        visible={modalValidationVisible}
+      />
+      <Modal visible={modalVisible}>
+        <SafeAreaView className="bg-[#39cec0]"></SafeAreaView>
+        <WrapperContainer
+          noPaddingHorizontal
+          onPressBackButton={navigation.goBack}
+          title="Mon objectif semaine"
+          Icon={GoalSetup}>
+          <Container>
+            <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
+              <Text className="mb-4">
+                Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{' '}
+                <Text className="font-bold">nombre de jours sans boire</Text> et en{' '}
+                <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre consommation et
+                de diminuer les risques associés à l'usage répété de l'alcool.
+              </Text>
+              <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
+            </View>
+            <Row>
+              <Calendar size={24} />
+              <Text className={'font-bold ml-3'}>
+                Jours où je m'engage à ne <Text className="underline">pas</Text> boire d'alcool
+              </Text>
+            </Row>
+            <DayContainer>
+              <DayButton
+                content="L"
+                active={daysWithGoalNoDrink.includes('monday')}
+                onPress={() => toggleDayWithGoalNoDrink('monday')}
+              />
+              <DayButton
+                content="M"
+                active={daysWithGoalNoDrink.includes('tuesday')}
+                onPress={() => toggleDayWithGoalNoDrink('tuesday')}
+              />
+              <DayButton
+                content="M"
+                active={daysWithGoalNoDrink.includes('wednesday')}
+                onPress={() => toggleDayWithGoalNoDrink('wednesday')}
+              />
+              <DayButton
+                content="J"
+                active={daysWithGoalNoDrink.includes('thursday')}
+                onPress={() => toggleDayWithGoalNoDrink('thursday')}
+              />
+              <DayButton
+                content="V"
+                active={daysWithGoalNoDrink.includes('friday')}
+                onPress={() => toggleDayWithGoalNoDrink('friday')}
+              />
+              <DayButton
+                content="S"
+                active={daysWithGoalNoDrink.includes('saturday')}
+                onPress={() => toggleDayWithGoalNoDrink('saturday')}
+              />
+              <DayButton
+                content="D"
+                active={daysWithGoalNoDrink.includes('sunday')}
+                onPress={() => toggleDayWithGoalNoDrink('sunday')}
+              />
+            </DayContainer>
+            <Row>
+              <CocktailGlassTriangle size={24} />
+              <Text className="font-bold ml-3">
+                Unités <Text className="underline">par semaine</Text> que je m'autorise à boire{' '}
+              </Text>
+            </Row>
+            <View className="bg-[#F5F6FA] p-2 mb-2">
+              <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation actuelle par semaine</Text>
+              <View className="flex flex-row justify-center items-center mt-2">
+                <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
+                <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
+              </View>
+            </View>
+          </Container>
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={index}
+                drinksCatalog={drinksCatalog}
+                category={category}
+                index={index}
+                drinks={drinksByDrinkingDay}
+                setDrinkQuantity={setDrinkQuantityRequest}
+              />
+            ))}
+          <Container>
+            <View className=" p-2 mt-4">
+              <Text>
+                Pensez bien à ajouter vos consommations <Text className="font-bold">tous les jours</Text> même quand
+                vous n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre
+                objectif de la semaine !{' '}
+              </Text>
+            </View>
+            <CTAButtonContainer>
+              <ButtonPrimary
+                content="Valider mon objectif"
+                onPress={() => {
+                  setModalVisible(false);
+                  setModalValidationVisible(true);
+                }}
+                disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
+              />
+            </CTAButtonContainer>
+          </Container>
+        </WrapperContainer>
+      </Modal>
+    </>
   );
 };
 
