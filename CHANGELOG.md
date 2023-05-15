@@ -1,3 +1,10 @@
+## [1.104.18](https://github.com/SocialGouv/ozensemble/compare/v1.104.17...v1.104.18) (2023-05-15)
+
+
+### Bug Fixes
+
+* UI previous consos ([#352](https://github.com/SocialGouv/ozensemble/issues/352)) ([33ffa93](https://github.com/SocialGouv/ozensemble/commit/33ffa936b71d4fef066dd80daf3e1efe70a37a80))
+
 ## [1.104.17](https://github.com/SocialGouv/ozensemble/compare/v1.104.16...v1.104.17) (2023-05-11)
 
 
