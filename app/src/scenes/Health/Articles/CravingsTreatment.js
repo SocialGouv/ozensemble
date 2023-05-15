@@ -64,7 +64,7 @@ const CravingsTreatment = () => {
           charge de la douleur, l'autoévaluation par échelle visuelle analogique (EVA) consiste à se demander
           directement le niveau de son envie.{' '}
         </P>
-        <P noMarginBottom>L'échelle va :</P>
+        <P noMarginBottom>L'échelle va{'\u00A0'}:</P>
         <Spacer size={5} />
         <View className="flex flex-row">
           <View className=" ">
