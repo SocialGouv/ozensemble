@@ -14,9 +14,11 @@ const CravingsTreatment = () => {
       title={title}
       timeReading={4}
       sourcesDrTalbot={true}
-      link={
-        'https://www.has-sante.fr/jcms/c_1795221/fr/outil-d-aide-au-reperage-precoce-et-intervention-breve-alcool-cannabis-tabac-chez-l-adulte'
-      }>
+      link={[
+        'https://www.has-sante.fr/jcms/c_1795221/fr/outil-d-aide-au-reperage-precoce-et-intervention-breve-alcool-cannabis-tabac-chez-l-adulte',
+        'https://ansm.sante.fr/actualites/alcoolo-dependance-nouvelles-recommandations-posologiques-pour-le-baclofene',
+        'https://ansm.sante.fr/actualites/alcoolo-dependance-nouvelles-recommandations-posologiques-pour-le-baclofene',
+      ]}>
       <TopContainer>
         <P>
           Dans cet article nous vous proposons une vulgarisation des concepts de symptômes de sevrage, du
