@@ -83,7 +83,7 @@ const AlcoolWithdrawalTreatment = () => {
         <Spacer size={20} />
         <P>
           Le traitement de ces symptômes n'est pas toujours nécessaire et comprend généralement des médicaments ciblant
-          un symptôme : à visée sédative ou anxiolytique par exemple.
+          un symptôme&nbsp;: à visée sédative ou anxiolytique par exemple.
         </P>
         <Spacer size={20} />
         <H2 color={'#4030a5'}>Les symptômes de sevrage sévère</H2>
