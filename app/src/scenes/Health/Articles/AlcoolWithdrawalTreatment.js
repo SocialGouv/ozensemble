@@ -9,7 +9,12 @@ const AlcoolWithdrawalTreatment = () => {
   const title = 'Traitement médicamenteux du sevrage';
   const navigation = useNavigation();
   return (
-    <NavigationWrapper title={title} timeReading={2}>
+    <NavigationWrapper
+      title={title}
+      timeReading={2}
+      link={
+        'https://www.has-sante.fr/jcms/c_1795221/fr/outil-d-aide-au-reperage-precoce-et-intervention-breve-alcool-cannabis-tabac-chez-l-adulte'
+      }>
       <TopContainer>
         <P>
           Dans cet article nous vous proposons une vulgarisation des concepts de symptômes de sevrage et un lexique des
@@ -93,8 +98,8 @@ const AlcoolWithdrawalTreatment = () => {
           sevrage. Il existe un vrai risque pour la santé à ne pas prendre en compte ces “signaux d'alerte” du corps.
         </P>
         <P bold>
-          Les médicaments qui sont alors prescrits appartiennent le plus souvent à  la classe des benzodiazépine, tel que
-          le DIAZEPAM, OXAZEPAM.
+          Les médicaments qui sont alors prescrits appartiennent le plus souvent à  la classe des benzodiazépine, tel
+          que le DIAZEPAM, OXAZEPAM.
         </P>
       </TopContainer>
     </NavigationWrapper>
