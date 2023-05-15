@@ -75,7 +75,7 @@ const AlcoolWithdrawalTreatment = () => {
             Aussi, si vous présentez des symptômes importants, que vous vous en inquiétez ou que vous avez une autre
             pathologie chronique, n'hésitez pas à en parler à un professionnel de santé.
           </Bold>{' '}
-          Les traitements ont vocation à soulager ces symptôme pour vous permettre de vous passer de l'alcool dans de
+          Les traitements ont vocation à soulager ces symptômes pour vous permettre de vous passer de l'alcool dans de
           bonnes conditions.
         </P>
         <Spacer size={20} />
