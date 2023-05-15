@@ -10,11 +10,18 @@ const CravingsTreatment = () => {
   const title = "Traitement médicamenteux du craving (l'envie)";
   const navigation = useNavigation();
   return (
-    <NavigationWrapper title={title} timeReading={4} sourcesDrTalbot={true}>
+    <NavigationWrapper
+      title={title}
+      timeReading={4}
+      sourcesDrTalbot={true}
+      link={
+        'https://www.has-sante.fr/jcms/c_1795221/fr/outil-d-aide-au-reperage-precoce-et-intervention-breve-alcool-cannabis-tabac-chez-l-adulte'
+      }>
       <TopContainer>
         <P>
-          Dans cet article nous vous proposons une vulgarisation des concepts de symptômes de sevrage, du « craving » et
-          un lexique des principaux traitements utilisés dans le sevrage de la consommation d'alcool.
+          Dans cet article nous vous proposons une vulgarisation des concepts de symptômes de sevrage, du
+          «&nbsp;craving&nbsp;» et un lexique des principaux traitements utilisés dans le sevrage de la consommation
+          d'alcool.
         </P>
         <Spacer size={20} />
         <P>
@@ -25,7 +32,7 @@ const CravingsTreatment = () => {
           </Bold>
         </P>
         <Spacer size={20} />
-        <P>La notion de craving présente un intérêt principalement à deux points de vue{'\u00A0'}:</P>
+        <P>La notion de craving présente un intérêt principalement à deux points de vue&nbsp;:</P>
         <View className="flex flex-row">
           <View className=" ">
             <P noMarginBottom>
@@ -64,7 +71,7 @@ const CravingsTreatment = () => {
           charge de la douleur, l'autoévaluation par échelle visuelle analogique (EVA) consiste à se demander
           directement le niveau de son envie.{' '}
         </P>
-        <P noMarginBottom>L'échelle va{'\u00A0'}:</P>
+        <P noMarginBottom>L'échelle va&nbsp;:</P>
         <Spacer size={5} />
         <View className="flex flex-row">
           <View className=" ">
@@ -73,7 +80,7 @@ const CravingsTreatment = () => {
             </P>
           </View>
           <View>
-            <P noMarginBottom>de 0 : pas d'envie (« Pas du tout envie »)</P>
+            <P noMarginBottom>de 0&nbsp;: pas d'envie («&nbsp;Pas du tout envie&nbsp;»)</P>
           </View>
         </View>
         <View className="flex flex-row">
@@ -83,7 +90,7 @@ const CravingsTreatment = () => {
             </P>
           </View>
           <View>
-            <P>à la position de 10 : une envie maximale (« Très&nbsp;envie »).</P>
+            <P>à la position de 10&nbsp;: une envie maximale («&nbsp;Très&nbsp;envie&nbsp;»).</P>
           </View>
         </View>
         <P>
@@ -109,7 +116,7 @@ const CravingsTreatment = () => {
           </View>
           <View className="flex flex-row basis-11/12">
             <P noMarginBottom>
-              il ne s'agit pas des mêmes médicaments que ceux qui traitent le <Bold>syndrôme</Bold> de sevrage ! (
+              il ne s'agit pas des mêmes médicaments que ceux qui traitent le <Bold>syndrôme</Bold> de sevrage&nbsp;! (
               <Text className="underline" onPress={() => navigation.navigate('ALCOOL_WITHDRAWAL_TREATMENT')}>
                 article Traitement médicamenteux du sevrage
               </Text>
@@ -131,7 +138,7 @@ const CravingsTreatment = () => {
           </View>
         </View>
         <Spacer size={40} />
-        <H2 color={'#4030a5'}>Cinqs médicaments bénéficient actuellement d'une autorisation officielle :</H2>
+        <H2 color={'#4030a5'}>Cinqs médicaments bénéficient actuellement d'une autorisation officielle&nbsp;:</H2>
         <Spacer size={40} />
         <H2>L'Acamprosate</H2>
         <P>
@@ -145,8 +152,8 @@ const CravingsTreatment = () => {
         <P>
           C'est aussi un traitement de première intention mais{' '}
           <Bold>contre-indiqué chez les sujets dépendants aux opiacés</Bold>, bénéficiant d'un traitement de
-          substitution ou relevant d'une antalgie majeure par opiacés. Elle cible la « récompense » associée à l'usage
-          d'alcool et donc peut-être plus les sujets présentant une consommation impulsive.
+          substitution ou relevant d'une antalgie majeure par opiacés. Elle cible la «&nbsp;récompense&nbsp;» associée à
+          l'usage d'alcool et donc peut-être plus les sujets présentant une consommation impulsive.
         </P>
         <Spacer size={20} />
         <P>
@@ -157,25 +164,25 @@ const CravingsTreatment = () => {
         <Spacer size={40} />
         <H2>Le Nalmefène</H2>
         <P>
-          est aussi un traitement de première intention plus récent mais{' '}
+          C'est aussi un traitement de première intention plus récent mais{' '}
           <Bold>contre-indiqué chez les sujets dépendants aux opiacés</Bold>, bénéficiant d'un traitement de
-          substitution ou relevant d'une antalgie majeure par opiacés. Il cible la « récompense » associée à l'usage
-          d'alcool et donc peut-être plus les sujets présentant une consommation impulsive. Ce traitement à une
+          substitution ou relevant d'une antalgie majeure par opiacés. Il cible la «&nbsp;récompense&nbsp;» associée à
+          l'usage d'alcool et donc peut-être plus les sujets présentant une consommation impulsive. Ce traitement à une
           autorisation tant dans l'obtention et le maintien du sevrage, que dans l'accompagnement à la réduction de
           consommation (sans arrêt total nécessairement).
         </P>
         <Spacer size={40} />
         <H2>Le Baclofène</H2>
         <P>
-          est un des traitements apparus plus récemment. Il est indiqué en seconde intention et le plus souvent proposé
-          par un médecin addictologue. Ce traitement pourrait s'avérer particulièrement{' '}
+          C'est un des traitements apparus plus récemment. Il est indiqué en seconde intention et le plus souvent
+          proposé par un médecin addictologue. Ce traitement pourrait s'avérer particulièrement{' '}
           <Bold>utile dans les situations de consommation d'alcool en lien avec un trouble anxieux.</Bold>
         </P>
         <Spacer size={40} />
         <H2>Le Disulfirame</H2>
         <P>
-          est par contre un traitement de <Bold>seconde intention</Bold> présentant de nombreuses contre-indications et
-          un maniement délicat, réservé aux patients en échec avec les précédents traitements et bénéficiant d'un
+          C'est par contre un traitement de <Bold>seconde intention</Bold> présentant de nombreuses contre-indications
+          et un maniement délicat, réservé aux patients en échec avec les précédents traitements et bénéficiant d'un
           soutien de l'entourage. Il est de moins en moins prescrit et peut s'avérer{' '}
           <Bold>dangereux s' il est associé à une consommation d'alcool.</Bold>
         </P>
