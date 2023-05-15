@@ -80,7 +80,7 @@ const AlcoolWithdrawalBenefits = () => {
           <Bold>{'   •  '}</Bold>agitation,
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>sentiment de « malaise »,
+          <Bold>{'   •  '}</Bold>sentiment de «&nbsp;malaise&nbsp;»,
         </P>
         <P noMarginBottom>
           <Bold>{'   •  '}</Bold>insomnie,
