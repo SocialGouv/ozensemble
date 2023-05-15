@@ -25,7 +25,7 @@ const CravingsTreatment = () => {
           </Bold>
         </P>
         <Spacer size={20} />
-        <P>La notion de craving présente un intérêt principalement à deux points de vue:</P>
+        <P>La notion de craving présente un intérêt principalement à deux points de vue{'\u00A0'}:</P>
         <View className="flex flex-row">
           <View className=" ">
             <P noMarginBottom>
