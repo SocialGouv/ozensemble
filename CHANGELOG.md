@@ -1,3 +1,10 @@
+## [1.104.19](https://github.com/SocialGouv/ozensemble/compare/v1.104.18...v1.104.19) (2023-05-15)
+
+
+### Bug Fixes
+
+* UI goal setup ([#353](https://github.com/SocialGouv/ozensemble/issues/353)) ([d8e805d](https://github.com/SocialGouv/ozensemble/commit/d8e805debf705d6b71b2acebbd1d186f6025270b))
+
 ## [1.104.18](https://github.com/SocialGouv/ozensemble/compare/v1.104.17...v1.104.18) (2023-05-15)
 
 
