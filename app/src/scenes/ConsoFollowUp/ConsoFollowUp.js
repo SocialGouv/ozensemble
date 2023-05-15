@@ -140,9 +140,13 @@ const ConsoFollowUp = () => {
                 <CheckDefisValidated />
                 <Text className="text-xs">Réussi</Text>
               </View>
-              <View className="flex flex-row items-center space-x-2">
+              <View className="flex flex-row items-center space-x-2 mb-1">
                 <CrossDefisFailed />
                 <Text className="text-xs">Dépassé</Text>
+              </View>
+              <View className="flex flex-row items-center space-x-2">
+                <CrossDefisFailed />
+                <Text className="text-xs">En cours</Text>
               </View>
             </View>
           ) : (

@@ -97,6 +97,15 @@ const LegendHelpModal = ({ visible, hide }) => {
                   </Text>
                 </View>
               </View>
+              <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
+                <CrossDefisFailed size={23} />
+                <View className="ml-2">
+                  <Text className="font-bold">Objectif en cours</Text>
+                  <Text className="flex flex-row flex-wrap">
+                    Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse.
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
         </ScrollView>
