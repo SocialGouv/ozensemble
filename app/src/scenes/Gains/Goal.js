@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -21,10 +21,8 @@ import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { Modal, Text, View } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Bold } from '../../components/Articles';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 
 const Goal = ({ navigation, route }) => {
@@ -34,11 +32,13 @@ const Goal = ({ navigation, route }) => {
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
   const [modalVisible, setModalVisible] = useState(true);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const numberDrinkEstimation = previousDrinksPerWeek.reduce(
-    (sum, drink) =>
-      sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
-    0
-  );
+  const numberDrinkEstimation = useMemo(() => {
+    return previousDrinksPerWeek.reduce(
+      (sum, drink) =>
+        sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
+      0
+    );
+  }, [numberDrinkEstimation]);
   const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
