@@ -93,7 +93,7 @@ const AlcoolWithdrawalTreatment = () => {
           sevrage. Il existe un vrai risque pour la santé à ne pas prendre en compte ces “signaux d'alerte” du corps.
         </P>
         <P bold>
-          Les médicaments qui sont alors prescrit appartiennent le plus souvent à  la classe des benzodiazépine, tel que
+          Les médicaments qui sont alors prescrits appartiennent le plus souvent à  la classe des benzodiazépine, tel que
           le DIAZEPAM, OXAZEPAM.
         </P>
       </TopContainer>
