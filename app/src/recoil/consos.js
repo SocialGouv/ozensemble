@@ -64,15 +64,13 @@ export const feedDaysSelector = selector({
   },
 });
 
-export const dailyDosesSelector = selectorFamily({
+export const dailyDosesSelector = selector({
   key: 'dailyDosesSelector',
-  get:
-    ({ asPreview = false } = {}) =>
-    ({ get }) => {
-      const consolidatedCatalog = get(consolidatedCatalogSelector);
-      const drinks = asPreview ? fakeConsoData.partial.drinks : get(drinksState);
-      return reduceDrinksToDailyDoses(drinks, consolidatedCatalog);
-    },
+  get: ({ get }) => {
+    const consolidatedCatalog = get(consolidatedCatalogSelector);
+    const drinks = get(drinksState);
+    return reduceDrinksToDailyDoses(drinks, consolidatedCatalog);
+  },
 });
 
 export const diffWithPreviousWeekSelector = selectorFamily({

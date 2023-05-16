@@ -33,6 +33,7 @@ import { BEER, BEER_HALF, drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import Diagram from '../ConsoFollowUp/Diagram';
 import DiagramHelpModal from '../ConsoFollowUp/DiagramHelpModal';
+import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
 dayjs.extend(isBetween);
@@ -44,7 +45,7 @@ const MyGains = () => {
   const navigation = useNavigation();
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
-  const dailyDoses = useRecoilValue(dailyDosesSelector());
+  const dailyDoses = useRecoilValue(dailyDosesSelector);
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const daysNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
@@ -190,7 +191,7 @@ const MyGains = () => {
 
   return (
     <>
-      <WrapperContainer title={'Mon objectif cette semaine'}>
+      <WrapperContainer title={'Suivi'}>
         {!isOnboarded ? (
           <View>
             <TouchableOpacity
@@ -244,7 +245,6 @@ const MyGains = () => {
                     .map((category, index) => (
                       <DrinksCategory
                         drinksCatalog={drinksCatalog}
-                        asPreview
                         key={category}
                         category={category}
                         index={index + 1}
@@ -256,7 +256,7 @@ const MyGains = () => {
                       Un graphique récapitule vos consommations en unité d'alcool{'\n'}
                     </TextStyled>
                   </SubTitle>
-                  <Diagram asPreview />
+                  <Diagram />
                   <SubTitle last>
                     <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
                   </SubTitle>
@@ -279,23 +279,9 @@ const MyGains = () => {
           </View>
         ) : (
           <>
-            <PeriodSelector
-              firstDay={firstDay}
-              setFirstDay={setFirstDay}
-              lastDay={lastDay}
-              logEventCategory={'GAINS'}
-              logEventAction={'CHANGE_DATE'}
-            />
-
-            <GainsGauge title={'Unités d’alcool'} value={numberDrinkInCurrentWeek} goal={maxDrinksPerWeekGoal} />
-            <GainsGauge title={'Jours où j’ai bu'} value={numberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />
-            <Spacer size={10} />
-            <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
-              <TextModify>Modifier l'objectif</TextModify>
-            </ButtonTouchable>
-            <View className="mt-5">
-              <H1>Mon suivi de consommation</H1>
-              <SubtitleContainer>
+            <View>
+              <H2 color={'#4030a5'}>Mon suivi de consommation</H2>
+              {/* <SubtitleContainer>
                 <Help
                   onPress={() => {
                     logEvent({
@@ -307,56 +293,21 @@ const MyGains = () => {
                   hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
                   <HelpText>?</HelpText>
                 </Help>
-                <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
+                <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} /> // recuperer la modal d'aide
 
                 <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
-              </SubtitleContainer>
-              {showWelcomeMessage ? (
-                <>
-                  <SubTitle>
-                    <TextStyled color="#191919">
-                      Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
-                    </TextStyled>
-                    <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
-                  </SubTitle>
-                  {drinksCatalog
-                    .filter(({ categoryKey }) => categoryKey === BEER)
-                    .map(({ categoryKey }) => categoryKey)
-                    .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-                    .map((category, index) => (
-                      <DrinksCategory
-                        drinksCatalog={drinksCatalog}
-                        asPreview
-                        key={category}
-                        category={category}
-                        index={index + 1}
-                        drinks={fakeDrinks}
-                      />
-                    ))}
-                  <SubTitle>
-                    <TextStyled color="#191919">
-                      Un graphique récapitule vos consommations en unité d'alcool{'\n'}
-                    </TextStyled>
-                  </SubTitle>
-                  <Diagram asPreview />
-                  <SubTitle last>
-                    <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
-                  </SubTitle>
-                </>
-              ) : null}
-              {!showWelcomeMessage && (
-                <Diagram
-                  onShowHelp={() => {
-                    logEvent({
-                      category: 'CONSO',
-                      action: 'CONSO_OPEN_HELP',
-                    });
-                    setShowHelpModal(true);
-                  }}
-                  selectedBar={selectedBar}
-                  setSelectedBar={setSelectedBar}
-                />
-              )}
+              </SubtitleContainer> */}
+              <Diagram
+                onShowHelp={() => {
+                  logEvent({
+                    category: 'CONSO',
+                    action: 'CONSO_OPEN_HELP',
+                  });
+                  setShowHelpModal(true);
+                }}
+                selectedBar={selectedBar}
+                setSelectedBar={setSelectedBar}
+              />
             </View>
 
             <Container>

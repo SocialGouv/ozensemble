@@ -34,9 +34,9 @@ const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) =
 const highestDosesInPeriodSelector = selectorFamily({
   key: 'highestDosesInPeriodSelector',
   get:
-    ({ asPreview = false, period } = {}) =>
+    ({ period } = {}) =>
     ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector({ asPreview }));
+      const dailyDoses = get(dailyDosesSelector);
       let bars_doses = {};
       if (period === 'day') {
         return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
@@ -71,7 +71,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({ firstDay }) =>
     ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector());
+      const dailyDoses = get(dailyDosesSelector);
       const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
@@ -100,7 +100,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
 });
 
 const minBarHeight = 1;
-const Diagram = ({ asPreview }) => {
+const Diagram = () => {
   const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(
@@ -160,16 +160,11 @@ const Diagram = ({ asPreview }) => {
   };
 
   const navigation = useNavigation();
-  const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
+  const dailyDoses = useRecoilValue(dailyDosesSelector);
 
-  const highestDosesInPeriod = useRecoilValue(highestDosesInPeriodSelector({ asPreview, period }));
-
+  const highestDosesInPeriod = useRecoilValue(highestDosesInPeriodSelector({ period }));
   const highestAcceptableDosesPerDayByOMS = 2;
-
-  const drinks = useRecoilValue(drinksState);
-  const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-
   const highestAcceptableDosesInPeriod = useMemo(() => {
     switch (period) {
       case 'month':
@@ -192,43 +187,34 @@ const Diagram = ({ asPreview }) => {
   const { diff, decrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
   );
-  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview, fillConsoFirst]);
+  const showFillConsosFirst = useMemo(() => fillConsoFirst, [fillConsoFirst]);
   const showDecrease = useMemo(
-    () => !showFillConsosFirst && !asPreview && diff !== 0 && decrease,
-    [asPreview, diff, decrease, showFillConsosFirst]
+    () => !showFillConsosFirst && diff !== 0 && decrease,
+    [diff, decrease, showFillConsosFirst]
   );
   const showIncrease = useMemo(
-    () => !showFillConsosFirst && !asPreview && diff !== 0 && !decrease,
-    [asPreview, diff, decrease, showFillConsosFirst]
+    () => !showFillConsosFirst && diff !== 0 && !decrease,
+    [diff, decrease, showFillConsosFirst]
   );
-  const showStable = useMemo(
-    () => !showFillConsosFirst && !asPreview && diff === 0,
-    [asPreview, diff, showFillConsosFirst]
-  );
+  const showStable = useMemo(() => !showFillConsosFirst && diff === 0, [diff, showFillConsosFirst]);
 
   return (
     <>
-      {!asPreview && (
-        <>
-          <PeriodSwitchToggle
-            period={period}
-            setPeriod={(newPeriod) => {
-              setPeriod(newPeriod);
-              setFirstDay(
-                newPeriod === 'day' ? dayjs().startOf('week') : dayjs().startOf(newPeriod).add(-5, newPeriod)
-              );
-            }}
-          />
-          <PeriodSelector
-            firstDay={firstDay}
-            setFirstDay={setFirstDay}
-            lastDay={lastDay}
-            period={period}
-            logEventCategory={'ANALYSIS'}
-            logEventAction={'ANALYSIS_DATE'}
-          />
-        </>
-      )}
+      <PeriodSwitchToggle
+        period={period}
+        setPeriod={(newPeriod) => {
+          setPeriod(newPeriod);
+          setFirstDay(newPeriod === 'day' ? dayjs().startOf('week') : dayjs().startOf(newPeriod).add(-5, newPeriod));
+        }}
+      />
+      <PeriodSelector
+        firstDay={firstDay}
+        setFirstDay={setFirstDay}
+        lastDay={lastDay}
+        period={period}
+        logEventCategory={'ANALYSIS'}
+        logEventAction={'ANALYSIS_DATE'}
+      />
 
       <BarsContainer height={barMaxHeight + doseTextHeight}>
         {barsInPeriod
@@ -263,11 +249,13 @@ const Diagram = ({ asPreview }) => {
               </Bar>
             );
           })}
-        {thereIsDrinks && period === 'day' && <Line bottom={barMaxAcceptableDoseHeight} />}
-        {thereIsDrinks && period === 'week' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+        {period === 'day' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 1 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
-        {thereIsDrinks && period === 'month' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
+        {period === 'week' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+          <Line bottom={barMaxAcceptableDoseHeight} />
+        )}
+        {period === 'month' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
       </BarsContainer>

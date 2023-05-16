@@ -50,7 +50,7 @@ const needToFillupConso = {
 };
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
-  const dailyDoses = useRecoilValue(dailyDosesSelector());
+  const dailyDoses = useRecoilValue(dailyDosesSelector);
   const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
   const navigation = useNavigation();
 
