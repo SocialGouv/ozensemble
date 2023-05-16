@@ -54,4 +54,9 @@ export const listConseils = [
     title: 'Dépendance physique',
     link: 'ALCOHOL_AND_DEPENDENCY',
   },
+  {
+    img: require('../../assets/images/withdrawalTreatment.jpg'),
+    title: 'Traitement du sevrage',
+    link: 'ALCOOL_WITHDRAWAL_TREATMENT',
+  },
 ];
