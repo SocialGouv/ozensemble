@@ -1,3 +1,10 @@
+# [1.110.0](https://github.com/SocialGouv/ozensemble/compare/v1.109.0...v1.110.0) (2023-05-16)
+
+
+### Features
+
+* show icon and pop-in for ongoing goal ([#354](https://github.com/SocialGouv/ozensemble/issues/354)) ([e420f10](https://github.com/SocialGouv/ozensemble/commit/e420f10a8dd39776e530940c6583f0a3984e7def))
+
 # [1.109.0](https://github.com/SocialGouv/ozensemble/compare/v1.108.0...v1.109.0) (2023-05-16)
 
 
