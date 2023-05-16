@@ -1,3 +1,10 @@
+# [1.105.0](https://github.com/SocialGouv/ozensemble/compare/v1.104.19...v1.105.0) (2023-05-16)
+
+
+### Features
+
+* add new article on alcool withdrawal benefits ([#351](https://github.com/SocialGouv/ozensemble/issues/351)) ([41983a7](https://github.com/SocialGouv/ozensemble/commit/41983a71b844de4afe1660943fd6af0be57215dd))
+
 ## [1.104.19](https://github.com/SocialGouv/ozensemble/compare/v1.104.18...v1.104.19) (2023-05-15)
 
 
