@@ -15,6 +15,11 @@ export const listConseils = [
     link: 'ALCOOL_WITHDRAWAL_BENEFITS',
   },
   {
+    img: require('../../assets/images/ToHelpMeReduce.png'),
+    title: 'Bénéfices au sevrage',
+    link: 'BENEFITS_ALCOOL_WITHDRAWAL',
+  },
+  {
     img: require('../../assets/images/AlcoholAndNorms.png'),
     title: "L'alcool et les normes",
     link: 'ALCOHOL_AND_NORMS',
