@@ -8,6 +8,7 @@ import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import TextStyled from './TextStyled';
 import InterogationMark from './illustrations/icons/InterogationMark';
 import Confetti from './Confettis';
+import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 
 const ModalGoal = ({ content, onClose }) => {
   const firstDayMonth = content?.firstDay?.split(' ')[1];
@@ -32,8 +33,9 @@ const ModalGoal = ({ content, onClose }) => {
 
         <View className="flex flex-row justify-center">
           {!content?.consosWeekGoal && <InterogationMark size={50} />}
-          {content?.consosWeekGoal && content?.failed && <CrossDefisFailed size={50} />}
-          {content?.consosWeekGoal && !content?.failed && <CheckDefisValidated size={50} />}
+          {content?.consosWeekGoal && content?.status === 'Ongoing' && <OnGoingGoal size={50} />}
+          {content?.consosWeekGoal && content?.status === 'Failed' && <CrossDefisFailed size={50} />}
+          {content?.consosWeekGoal && content?.status === 'Success' && <CheckDefisValidated size={50} />}
         </View>
 
         <View className="mb-4 p-2">
@@ -119,7 +121,7 @@ const ModalGoal = ({ content, onClose }) => {
           )}
         </View>
       </View>
-      {!content?.failed && <Confetti run={true} />}
+      {content?.status === 'Success' && <Confetti run={true} />}
     </Modal>
   );
 };
