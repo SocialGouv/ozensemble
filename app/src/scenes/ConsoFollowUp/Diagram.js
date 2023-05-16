@@ -1,23 +1,21 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { screenHeight } from '../../styles/theme';
-import { dailyDosesSelector, drinksState } from '../../recoil/consos';
+import { dailyDosesSelector } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
-import Celebration from '../../components/illustrations/Celebration';
-import Increase from '../../components/illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import PlusIcon from '../../components/illustrations/PlusIcon';
 import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
 import PeriodSelector from '../../components/PeriodSelector';
 import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
+import DiagramHelpModal from './DiagramHelpModal';
 
 const maxDosesOnScreen = 999;
 
@@ -34,9 +32,9 @@ const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) =
 const highestDosesInPeriodSelector = selectorFamily({
   key: 'highestDosesInPeriodSelector',
   get:
-    ({ asPreview = false, period } = {}) =>
+    ({ period } = {}) =>
     ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector({ asPreview }));
+      const dailyDoses = get(dailyDosesSelector);
       let bars_doses = {};
       if (period === 'day') {
         return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
@@ -71,7 +69,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({ firstDay }) =>
     ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector());
+      const dailyDoses = get(dailyDosesSelector);
       const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
@@ -98,9 +96,8 @@ const diffWithPreviousWeekSelector = selectorFamily({
       return { diff, decrease, pourcentageOfDecrease, thisWeekNumberOfDrinks };
     },
 });
-
 const minBarHeight = 1;
-const Diagram = ({ asPreview }) => {
+const Diagram = () => {
   const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(
@@ -160,16 +157,11 @@ const Diagram = ({ asPreview }) => {
   };
 
   const navigation = useNavigation();
-  const dailyDoses = useRecoilValue(dailyDosesSelector({ asPreview }));
+  const dailyDoses = useRecoilValue(dailyDosesSelector);
 
-  const highestDosesInPeriod = useRecoilValue(highestDosesInPeriodSelector({ asPreview, period }));
-
+  const highestDosesInPeriod = useRecoilValue(highestDosesInPeriodSelector({ period }));
   const highestAcceptableDosesPerDayByOMS = 2;
-
-  const drinks = useRecoilValue(drinksState);
-  const thereIsDrinks = useMemo(() => asPreview || drinks.length, [asPreview, drinks.length]);
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-
   const highestAcceptableDosesInPeriod = useMemo(() => {
     switch (period) {
       case 'month':
@@ -192,43 +184,35 @@ const Diagram = ({ asPreview }) => {
   const { diff, decrease, fillConsoFirst, thisWeekNumberOfDrinks } = useRecoilValue(
     diffWithPreviousWeekSelector({ firstDay })
   );
-  const showFillConsosFirst = useMemo(() => !asPreview && fillConsoFirst, [asPreview, fillConsoFirst]);
+  const showFillConsosFirst = useMemo(() => fillConsoFirst, [fillConsoFirst]);
   const showDecrease = useMemo(
-    () => !showFillConsosFirst && !asPreview && diff !== 0 && decrease,
-    [asPreview, diff, decrease, showFillConsosFirst]
+    () => !showFillConsosFirst && diff !== 0 && decrease,
+    [diff, decrease, showFillConsosFirst]
   );
   const showIncrease = useMemo(
-    () => !showFillConsosFirst && !asPreview && diff !== 0 && !decrease,
-    [asPreview, diff, decrease, showFillConsosFirst]
+    () => !showFillConsosFirst && diff !== 0 && !decrease,
+    [diff, decrease, showFillConsosFirst]
   );
-  const showStable = useMemo(
-    () => !showFillConsosFirst && !asPreview && diff === 0,
-    [asPreview, diff, showFillConsosFirst]
-  );
+  const showStable = useMemo(() => !showFillConsosFirst && diff === 0, [diff, showFillConsosFirst]);
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   return (
     <>
-      {!asPreview && (
-        <>
-          <PeriodSwitchToggle
-            period={period}
-            setPeriod={(newPeriod) => {
-              setPeriod(newPeriod);
-              setFirstDay(
-                newPeriod === 'day' ? dayjs().startOf('week') : dayjs().startOf(newPeriod).add(-5, newPeriod)
-              );
-            }}
-          />
-          <PeriodSelector
-            firstDay={firstDay}
-            setFirstDay={setFirstDay}
-            lastDay={lastDay}
-            period={period}
-            logEventCategory={'ANALYSIS'}
-            logEventAction={'ANALYSIS_DATE'}
-          />
-        </>
-      )}
+      <PeriodSwitchToggle
+        period={period}
+        setPeriod={(newPeriod) => {
+          setPeriod(newPeriod);
+          setFirstDay(newPeriod === 'day' ? dayjs().startOf('week') : dayjs().startOf(newPeriod).add(-5, newPeriod));
+        }}
+      />
+      <PeriodSelector
+        firstDay={firstDay}
+        setFirstDay={setFirstDay}
+        lastDay={lastDay}
+        period={period}
+        logEventCategory={'ANALYSIS'}
+        logEventAction={'ANALYSIS_DATE'}
+      />
 
       <BarsContainer height={barMaxHeight + doseTextHeight}>
         {barsInPeriod
@@ -263,11 +247,13 @@ const Diagram = ({ asPreview }) => {
               </Bar>
             );
           })}
-        {thereIsDrinks && period === 'day' && <Line bottom={barMaxAcceptableDoseHeight} />}
-        {thereIsDrinks && period === 'week' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+        {period === 'day' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 1 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
-        {thereIsDrinks && period === 'month' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
+        {period === 'week' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+          <Line bottom={barMaxAcceptableDoseHeight} />
+        )}
+        {period === 'month' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
       </BarsContainer>
@@ -300,11 +286,16 @@ const Diagram = ({ asPreview }) => {
           }
         })}
       </LegendsContainer>
+      <TouchableOpacity className="mb-6">
+        <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
+          Comprendre le graphique et les unités d'alcool
+        </Text>
+      </TouchableOpacity>
+      <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
       {!!showIncrease && period === 'day' && (
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
-          icon={<Increase size={25} />}
           button
           navigation={navigation}
           message={
@@ -327,7 +318,6 @@ const Diagram = ({ asPreview }) => {
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
-          icon={<Celebration size={25} />}
           message={
             <>
               <TextStyled>
@@ -348,8 +338,7 @@ const Diagram = ({ asPreview }) => {
           message={
             <>
               <TextStyled>
-                Votre consommation est <TextStyled bold>identique </TextStyled>à la semaine précédente (soit{' '}
-                {thisWeekNumberOfDrinks} verres).
+                Votre consommation est identique à la semaine précédente (soit {thisWeekNumberOfDrinks} verres).
               </TextStyled>
               <TextStyled />
               <TextStyled>
@@ -364,12 +353,11 @@ const Diagram = ({ asPreview }) => {
         <EvolutionMessage
           background="#e8e8f3"
           border="#4030a5"
-          icon={<PlusIcon size={25} />}
           message={
             <>
               <TextStyled>
-                Pour accéder aux analyses de variations, il vous faut 2 semaines de consommation complétées d'affilée,
-                pensez à les remplir{'\u00A0'}!
+                Ajoutez vos consommations <TextStyled bold>tous les jours</TextStyled> pour accéder à l'analyse de la
+                semaine. Bon courage{'\u00A0'}!
               </TextStyled>
             </>
           }
@@ -385,7 +373,7 @@ const LegendsContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 5px;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 `;
 
 const Legend = styled(TextStyled)`
@@ -401,11 +389,10 @@ const LegendContainer = styled.View`
   min-width: 35px;
 `;
 
-const EvolutionMessage = ({ background, border, icon, message, button, navigation }) => {
+const EvolutionMessage = ({ background, border, message, button, navigation }) => {
   return (
     <EvolutionContainer background={background} border={border}>
       <EvolutionContainerText>
-        <Icon>{icon}</Icon>
         <MessageContainer>{message}</MessageContainer>
       </EvolutionContainerText>
       {!!button && (
