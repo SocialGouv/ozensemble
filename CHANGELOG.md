@@ -1,3 +1,10 @@
+# [1.106.0](https://github.com/SocialGouv/ozensemble/compare/v1.105.0...v1.106.0) (2023-05-16)
+
+
+### Features
+
+* update ui suivi, diagram ([#357](https://github.com/SocialGouv/ozensemble/issues/357)) ([617700d](https://github.com/SocialGouv/ozensemble/commit/617700d78ecb2ec5851750e15eae7659a189c098))
+
 # [1.105.0](https://github.com/SocialGouv/ozensemble/compare/v1.104.19...v1.105.0) (2023-05-16)
 
 
