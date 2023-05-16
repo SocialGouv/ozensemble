@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import { Text, TouchableOpacity } from 'react-native';
@@ -9,11 +9,8 @@ import { dailyDosesSelector } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
-import Celebration from '../../components/illustrations/Celebration';
-import Increase from '../../components/illustrations/Increase';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import PlusIcon from '../../components/illustrations/PlusIcon';
 import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
 import PeriodSelector from '../../components/PeriodSelector';
@@ -100,7 +97,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
     },
 });
 const minBarHeight = 1;
-const Diagram = ({ onHelpPress }) => {
+const Diagram = () => {
   const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(

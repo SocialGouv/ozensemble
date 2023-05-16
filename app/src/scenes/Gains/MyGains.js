@@ -5,58 +5,35 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-import H1 from '../../components/H1';
-import Economy from '../../components/illustrations/Economy';
-import InfosIcon from '../../components/illustrations/InfoObjectif';
+
 import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
+import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
-import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
-import ReminderIcon from '../../components/illustrations/ReminderIcon';
-import HelpModalCountConsumption from './HelpModalCountConsumption';
+import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import BadgesStatus from '../Badges/BadgesStatus';
-import {
-  reminderGain,
-  reminderGainMode,
-  reminderGainsHasBeenSetState,
-  reminderGainWeekDay,
-} from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { badgesState } from '../../recoil/badges';
 import H2 from '../../components/H2';
-import { BEER, BEER_HALF, drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
-import DrinksCategory from '../../components/DrinksCategory';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import Diagram from '../ConsoFollowUp/Diagram';
-import DiagramHelpModal from '../ConsoFollowUp/DiagramHelpModal';
 import FollowUpConsos from '../../components/illustrations/icons/FollowUpConsos';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ArrowRight from '../../components/ArrowRight';
 import IconAdd from '../../components/illustrations/IconAdd';
 import GainsIcon from '../../components/illustrations/icons/GainsIcon';
 
-const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
-
 dayjs.extend(isBetween);
 
 const MyGains = () => {
-  const firstDay = dayjs().startOf('week');
   const navigation = useNavigation();
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
 
   const badges = useRecoilValue(badgesState);
-  const reminder = useRecoilValue(reminderGain);
-  const mode = useRecoilValue(reminderGainMode);
-  const weekDay = useRecoilValue(reminderGainWeekDay);
-  const reminderHasBeenSet = useRecoilValue(reminderGainsHasBeenSetState);
-
-  const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
   const [selectedBar, setSelectedBar] = useState({});
 
   useEffect(() => {
@@ -84,14 +61,6 @@ const MyGains = () => {
     if (!days.length) return null;
     return dayjs(days[days.length - 1]);
   }, [days]);
-
-  const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
-    return previousDrinksPerWeek.reduce(
-      (sum, drink) =>
-        sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses,
-      0
-    );
-  }, [previousDrinksPerWeek]);
 
   const myWeeklyExpensesBeforeObjective = useMemo(
     () =>
@@ -142,18 +111,6 @@ const MyGains = () => {
     const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
     return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
   }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
-
-  const goToReminder = () => {
-    logEvent({
-      category: 'REMINDER',
-      action: 'REMINDER_OPEN',
-      name: 'GAIN',
-    });
-    navigation.navigate('GAINS_REMINDER', {
-      enableContinueButton: true,
-      onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
-    });
-  };
 
   const appOpenEvent = useRef(false);
   const isFocused = useIsFocused();
@@ -272,43 +229,6 @@ const MyGains = () => {
   );
 };
 
-const MyReminder = ({ reminderHasBeenSet, reminder, goToReminder, mode, weekDay }) => (
-  <>
-    <Title>
-      <H1 color="#4030a5">Mon rappel</H1>
-    </Title>
-    <MyGoalSubContainer>
-      <MyGoalSubContainerInside>
-        <PartContainer>
-          <ReminderIcon size={20} color="#000" selected />
-          <TextStyled>
-            {'   '}
-            {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
-              'Pas de rappel encore'
-            ) : (
-              <>
-                {mode === 'day'
-                  ? 'Tous les jours '
-                  : `Tous les ${dayjs()
-                      .day(weekDay + 1)
-                      .format('dddd')}s `}
-                à {dayjs(reminder).format('HH:mm')}
-              </>
-            )}
-          </TextStyled>
-        </PartContainer>
-      </MyGoalSubContainerInside>
-    </MyGoalSubContainer>
-    <ButtonTouchable onPress={goToReminder}>
-      <TextModify>
-        <TextStyled>
-          {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
-        </TextStyled>
-      </TextModify>
-    </ButtonTouchable>
-  </>
-);
-
 const Spacer = styled.View`
   height: ${({ size }) => size || 20}px;
   width: ${({ size }) => size || 20}px;
@@ -341,39 +261,6 @@ const Categorie = styled.View`
 
 const Container = styled.View`
   padding-top: 20px;
-`;
-
-const Title = styled.View`
-  flex-shrink: 0;
-  margin-top: 35px;
-  margin-bottom: 20px;
-`;
-
-const MyGoalSubContainer = styled.View`
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin: 10px 5px 10px;
-`;
-
-const PartContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  padding: 10px 20px;
-`;
-
-const MyGoalSubContainerInside = styled.View`
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const TextModify = styled(TextStyled)`
-  text-decoration: underline;
-`;
-
-const ButtonTouchable = styled.TouchableOpacity`
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
 `;
 
 export default MyGains;
