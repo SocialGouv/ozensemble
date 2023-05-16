@@ -50,13 +50,13 @@ export const listConseils = [
     link: 'ALCOHOL_AND_NORMS',
   },
   {
+    img: require('../../assets/images/cravingTreatment.jpg'),
+    title: 'Traitement du craving',
+    link: 'CRAVING_TREATMENT',
+  },
+  {
     img: require('../../assets/images/withdrawalTreatment.jpg'),
     title: 'Traitement du sevrage',
     link: 'ALCOOL_WITHDRAWAL_TREATMENT',
-  },
-  {
-    img: require('../../assets/images/AlcoholAndDependency.png'),
-    title: 'Traitement du craving',
-    link: 'CRAVING_TREATMENT',
   },
 ];
