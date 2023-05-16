@@ -18,6 +18,7 @@ import AlcoholAndHealthRisks from './Articles/AlcoholAndHealthRisks';
 import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
+import CravingsTreatment from './Articles/CravingsTreatment';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
@@ -38,6 +39,7 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
         <HealthStack.Screen name="ALCOOL_WITHDRAWAL_TREATMENT" component={AlcoolWithdrawalTreatment} />
         <HealthStack.Screen name="TO_SAY_NO" component={ToSayNo} />
+        <HealthStack.Screen name="CRAVING_TREATMENT" component={CravingsTreatment} />
         <HealthStack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} />
         <HealthStack.Screen name="ALCOOL_WITHDRAWAL_BENEFITS" component={AlcoolWithdrawalBenefits} />
         <HealthStack.Screen name="ALCOHOL_ADDICTION" component={AlcoholAddiction} />
