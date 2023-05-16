@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import { atom, selector, selectorFamily } from 'recoil';
-import { differenceOfDays, today } from '../helpers/dateHelpers';
-import { fakeConsoData } from '../reference/mocks/fakeConsoData';
+import { differenceOfDays } from '../helpers/dateHelpers';
 import { drinksCatalog, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';

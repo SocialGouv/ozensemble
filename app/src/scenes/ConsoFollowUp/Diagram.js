@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { selectorFamily, useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { screenHeight } from '../../styles/theme';
-import { dailyDosesSelector, drinksState } from '../../recoil/consos';
+import { dailyDosesSelector } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
@@ -18,6 +18,7 @@ import Equality from '../../components/illustrations/Equality';
 import H3 from '../../components/H3';
 import PeriodSelector from '../../components/PeriodSelector';
 import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
+import DiagramHelpModal from './DiagramHelpModal';
 
 const maxDosesOnScreen = 999;
 
@@ -98,9 +99,8 @@ const diffWithPreviousWeekSelector = selectorFamily({
       return { diff, decrease, pourcentageOfDecrease, thisWeekNumberOfDrinks };
     },
 });
-
 const minBarHeight = 1;
-const Diagram = () => {
+const Diagram = ({ onHelpPress }) => {
   const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(
@@ -197,6 +197,7 @@ const Diagram = () => {
     [diff, decrease, showFillConsosFirst]
   );
   const showStable = useMemo(() => !showFillConsosFirst && diff === 0, [diff, showFillConsosFirst]);
+  const [showHelpModal, setShowHelpModal] = useState(false);
 
   return (
     <>
@@ -288,11 +289,16 @@ const Diagram = () => {
           }
         })}
       </LegendsContainer>
+      <TouchableOpacity className="mb-6">
+        <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
+          Comprendre le graphique et les unités d'alcool
+        </Text>
+      </TouchableOpacity>
+      <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
       {!!showIncrease && period === 'day' && (
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
-          icon={<Increase size={25} />}
           button
           navigation={navigation}
           message={
@@ -315,7 +321,6 @@ const Diagram = () => {
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
-          icon={<Celebration size={25} />}
           message={
             <>
               <TextStyled>
@@ -336,8 +341,7 @@ const Diagram = () => {
           message={
             <>
               <TextStyled>
-                Votre consommation est <TextStyled bold>identique </TextStyled>à la semaine précédente (soit{' '}
-                {thisWeekNumberOfDrinks} verres).
+                Votre consommation est identique à la semaine précédente (soit {thisWeekNumberOfDrinks} verres).
               </TextStyled>
               <TextStyled />
               <TextStyled>
@@ -352,12 +356,11 @@ const Diagram = () => {
         <EvolutionMessage
           background="#e8e8f3"
           border="#4030a5"
-          icon={<PlusIcon size={25} />}
           message={
             <>
               <TextStyled>
-                Pour accéder aux analyses de variations, il vous faut 2 semaines de consommation complétées d'affilée,
-                pensez à les remplir{'\u00A0'}!
+                Ajoutez vos consommations <TextStyled bold>tous les jours</TextStyled> pour accéder à l'analyse de la
+                semaine. Bon courage{'\u00A0'}!
               </TextStyled>
             </>
           }
@@ -373,7 +376,7 @@ const LegendsContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 5px;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 `;
 
 const Legend = styled(TextStyled)`
@@ -389,11 +392,10 @@ const LegendContainer = styled.View`
   min-width: 35px;
 `;
 
-const EvolutionMessage = ({ background, border, icon, message, button, navigation }) => {
+const EvolutionMessage = ({ background, border, message, button, navigation }) => {
   return (
     <EvolutionContainer background={background} border={border}>
       <EvolutionContainerText>
-        <Icon>{icon}</Icon>
         <MessageContainer>{message}</MessageContainer>
       </EvolutionContainerText>
       {!!button && (
