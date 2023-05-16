@@ -7,6 +7,7 @@ import H3 from '../../components/H3';
 import LegendStar from '../../components/illustrations/icons/LegendStar';
 import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
+import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
 
 const LegendHelpModal = ({ visible, hide }) => {
   return (
@@ -98,7 +99,7 @@ const LegendHelpModal = ({ visible, hide }) => {
                 </View>
               </View>
               <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
-                <CrossDefisFailed size={23} />
+                <OnGoingGoal size={23} />
                 <View className="ml-2">
                   <Text className="font-bold">Objectif en cours</Text>
                   <Text className="flex flex-row flex-wrap">

@@ -25,6 +25,7 @@ import LegendStar from '../../components/illustrations/icons/LegendStar';
 import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import LegendHelpModal from './LegendHelpModal';
+import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -145,7 +146,7 @@ const ConsoFollowUp = () => {
                 <Text className="text-xs">Dépassé</Text>
               </View>
               <View className="flex flex-row items-center space-x-2">
-                <CrossDefisFailed />
+                <OnGoingGoal />
                 <Text className="text-xs">En cours</Text>
               </View>
             </View>
