@@ -1,7 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { TouchableOpacity, View, Text } from 'react-native';
 import { useRecoilState } from 'recoil';
 import { useFocusEffect } from '@react-navigation/native';
+import H1 from '../../components/H1';
 import { BagdeDrinksNoStars } from './Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
@@ -9,8 +10,6 @@ import { storage } from '../../services/storage';
 import API from '../../services/api';
 import { BadgeDefisNoStars } from './Svgs/BadgeDefisNoStars';
 import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
-import H2 from '../../components/H2';
-import BagdesIcon from '../../components/illustrations/icons/BagdesIcon';
 
 const BadgesStatus = ({ navigate }) => {
   const [badges, setBadges] = useRecoilState(badgesState);
@@ -33,9 +32,10 @@ const BadgesStatus = ({ navigate }) => {
 
   return (
     <TouchableOpacity className="py-5" onPress={navigate}>
-      <View className="mt-2 flex flex-row space-x-1 items-center mb-3">
-        <BagdesIcon size={25} />
-        <H2 color="#4030a5">Mes badges obtenus</H2>
+      <View className="mt-2">
+        <H1 color="#4030a5" className="mb-4">
+          Mes badges obtenus
+        </H1>
       </View>
       <View className="flex flex-row flex-wrap -m-2">
         {availableBadges.map((badgeCategory) => {

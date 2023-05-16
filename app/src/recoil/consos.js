@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { atom, selector, selectorFamily } from 'recoil';
-import { differenceOfDays } from '../helpers/dateHelpers';
+import { differenceOfDays, today } from '../helpers/dateHelpers';
+import { fakeConsoData } from '../reference/mocks/fakeConsoData';
 import { drinksCatalog, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';
@@ -63,13 +64,15 @@ export const feedDaysSelector = selector({
   },
 });
 
-export const dailyDosesSelector = selector({
+export const dailyDosesSelector = selectorFamily({
   key: 'dailyDosesSelector',
-  get: ({ get }) => {
-    const consolidatedCatalog = get(consolidatedCatalogSelector);
-    const drinks = get(drinksState);
-    return reduceDrinksToDailyDoses(drinks, consolidatedCatalog);
-  },
+  get:
+    ({ asPreview = false } = {}) =>
+    ({ get }) => {
+      const consolidatedCatalog = get(consolidatedCatalogSelector);
+      const drinks = asPreview ? fakeConsoData.partial.drinks : get(drinksState);
+      return reduceDrinksToDailyDoses(drinks, consolidatedCatalog);
+    },
 });
 
 export const diffWithPreviousWeekSelector = selectorFamily({

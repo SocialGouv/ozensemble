@@ -5,35 +5,58 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-
+import H1 from '../../components/H1';
+import Economy from '../../components/illustrations/Economy';
+import InfosIcon from '../../components/illustrations/InfoObjectif';
 import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
+import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
+import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
-import { drinksState, feedDaysSelector } from '../../recoil/consos';
+import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
+import ReminderIcon from '../../components/illustrations/ReminderIcon';
+import HelpModalCountConsumption from './HelpModalCountConsumption';
 import BadgesStatus from '../Badges/BadgesStatus';
+import {
+  reminderGain,
+  reminderGainMode,
+  reminderGainsHasBeenSetState,
+  reminderGainWeekDay,
+} from '../../recoil/reminder';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
+import GainsGauge from './GainsGauge';
+import PeriodSelector from '../../components/PeriodSelector';
 import { badgesState } from '../../recoil/badges';
 import H2 from '../../components/H2';
-import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { BEER, BEER_HALF, drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import DrinksCategory from '../../components/DrinksCategory';
 import Diagram from '../ConsoFollowUp/Diagram';
-import FollowUpConsos from '../../components/illustrations/icons/FollowUpConsos';
-import GoalSetup from '../../components/illustrations/icons/GoalSetup';
-import ArrowRight from '../../components/ArrowRight';
-import IconAdd from '../../components/illustrations/IconAdd';
-import GainsIcon from '../../components/illustrations/icons/GainsIcon';
+import DiagramHelpModal from '../ConsoFollowUp/DiagramHelpModal';
+const fakeDrinks = [{ drinkKey: BEER_HALF, quantity: 1 }];
 
 dayjs.extend(isBetween);
 
 const MyGains = () => {
+  const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
+  const lastDay = useMemo(() => dayjs(firstDay).endOf('week'), [firstDay]);
+
   const navigation = useNavigation();
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
+  const dailyDoses = useRecoilValue(dailyDosesSelector());
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
+  const daysNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const badges = useRecoilValue(badgesState);
+  const reminder = useRecoilValue(reminderGain);
+  const mode = useRecoilValue(reminderGainMode);
+  const weekDay = useRecoilValue(reminderGainWeekDay);
+  const reminderHasBeenSet = useRecoilValue(reminderGainsHasBeenSetState);
+
+  const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
+  const [showHelpModal, setShowHelpModal] = useState(false);
   const [selectedBar, setSelectedBar] = useState({});
 
   useEffect(() => {
@@ -61,6 +84,30 @@ const MyGains = () => {
     if (!days.length) return null;
     return dayjs(days[days.length - 1]);
   }, [days]);
+
+  const numberDrinkInCurrentWeek = useMemo(
+    () =>
+      days
+        .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
+        .reduce((sum, day) => Math.ceil(sum + (dailyDoses[day] ? dailyDoses[day] : 0)), 0),
+    [days, dailyDoses, firstDay]
+  );
+
+  const numberOfDrinkingDaysInCurrentWeek = useMemo(
+    () =>
+      days
+        .filter((day) => dayjs(day).isBetween(firstDay, firstDay.add(1, 'week'), 'day', '[)'))
+        .reduce((sum, day) => sum + (dailyDoses[day] > 0 ? 1 : 0), 0),
+    [days, dailyDoses, firstDay]
+  );
+
+  const myWeeklyNumberOfDrinksBeforeObjective = useMemo(() => {
+    return previousDrinksPerWeek.reduce(
+      (sum, drink) =>
+        sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses,
+      0
+    );
+  }, [previousDrinksPerWeek]);
 
   const myWeeklyExpensesBeforeObjective = useMemo(
     () =>
@@ -112,6 +159,18 @@ const MyGains = () => {
     return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
   }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
+  const goToReminder = () => {
+    logEvent({
+      category: 'REMINDER',
+      action: 'REMINDER_OPEN',
+      name: 'GAIN',
+    });
+    navigation.navigate('GAINS_REMINDER', {
+      enableContinueButton: true,
+      onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
+    });
+  };
+
   const appOpenEvent = useRef(false);
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -131,13 +190,9 @@ const MyGains = () => {
 
   return (
     <>
-      <WrapperContainer title={'Suivi'}>
-        {!isOnboarded && (
-          <View className="mb-8">
-            <View className="flex flex-row space-x-1 items-center mb-3">
-              <GoalSetup size={25} />
-              <H2 color={'#4030a5'}>Estimation et Objectif semaine</H2>
-            </View>
+      <WrapperContainer title={'Mon objectif cette semaine'}>
+        {!isOnboarded ? (
+          <View>
             <TouchableOpacity
               onPress={() => {
                 logEvent({
@@ -145,75 +200,255 @@ const MyGains = () => {
                   action: 'TOOLTIP_GOAL',
                 });
                 navigateToFirstStep();
-              }}
-              className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg px-4 py-2 border border-[#4030a5]">
-              <IconAdd size={35} color={'#4030a5'} />
-              <Text className="mx-6">
-                Estimez votre consommation <Text className="font-bold">actuelle</Text> et fixez-vous un{' '}
-                <Text className="font-bold">objectif</Text> pour calculer vos gains dans le temps&nbsp;!
-              </Text>
-              <View>
-                <ArrowRight color="#4030a5" size={15} />
-              </View>
+              }}>
+              <Description>
+                <InfosIcon size={24} />
+                <TextDescritpion>
+                  <Text>
+                    Pour calculer vos gains{'\n'}financiers et en kilocalories,{'\n'}fixez-vous un <Bold>objectif</Bold>
+                  </Text>
+                </TextDescritpion>
+                <Arrow>{'>'}</Arrow>
+              </Description>
             </TouchableOpacity>
-          </View>
-        )}
-        <>
-          <View>
-            <View className="flex flex-row space-x-1 items-center mb-3">
-              <FollowUpConsos size={25} />
-              <H2 color={'#4030a5'}>Suivi des consommations</H2>
-            </View>
-            <Diagram
-              onShowHelp={() => {
-                logEvent({
-                  category: 'CONSO',
-                  action: 'CONSO_OPEN_HELP',
-                });
-                setShowHelpModal(true);
-              }}
-              selectedBar={selectedBar}
-              setSelectedBar={setSelectedBar}
-            />
-          </View>
+            <View className="mt-10">
+              <H1>Mon suivi de consommation</H1>
+              <SubtitleContainer>
+                <Help
+                  onPress={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                  <HelpText>?</HelpText>
+                </Help>
+                <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
 
-          <Container>
-            <View className="flex flex-row space-x-1 items-center mb-3">
-              <GainsIcon size={25} />
-              <H2 color="#4030a5">Mes gains depuis le début</H2>
-              <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
-                <InfoRoundIcon size={25} />
-              </GainsFromStartInfoButton>
+                <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
+              </SubtitleContainer>
+              {showWelcomeMessage ? (
+                <>
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
+                    </TextStyled>
+                    <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
+                  </SubTitle>
+                  {drinksCatalog
+                    .filter(({ categoryKey }) => categoryKey === BEER)
+                    .map(({ categoryKey }) => categoryKey)
+                    .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+                    .map((category, index) => (
+                      <DrinksCategory
+                        drinksCatalog={drinksCatalog}
+                        asPreview
+                        key={category}
+                        category={category}
+                        index={index + 1}
+                        drinks={fakeDrinks}
+                      />
+                    ))}
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Un graphique récapitule vos consommations en unité d'alcool{'\n'}
+                    </TextStyled>
+                  </SubTitle>
+                  <Diagram asPreview />
+                  <SubTitle last>
+                    <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
+                  </SubTitle>
+                </>
+              ) : null}
+              {!showWelcomeMessage && (
+                <Diagram
+                  onShowHelp={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  selectedBar={selectedBar}
+                  setSelectedBar={setSelectedBar}
+                />
+              )}
             </View>
-            <CategoriesContainer>
-              <Categorie>
-                <View>
-                  <CategorieText>Euros économisés</CategorieText>
-                </View>
-                <Spacer size={5} />
-                <TextStyled bold size={35}>
-                  {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}
-                </TextStyled>
-              </Categorie>
-              <Spacer size={20} />
-              <Categorie>
-                <View>
-                  <CategorieText>Calories économisées</CategorieText>
-                </View>
-                <Spacer size={5} />
-                <TextStyled bold size={35}>
-                  {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
-                </TextStyled>
-              </Categorie>
-            </CategoriesContainer>
-          </Container>
-        </>
+          </View>
+        ) : (
+          <>
+            <PeriodSelector
+              firstDay={firstDay}
+              setFirstDay={setFirstDay}
+              lastDay={lastDay}
+              logEventCategory={'GAINS'}
+              logEventAction={'CHANGE_DATE'}
+            />
+
+            <GainsGauge title={'Unités d’alcool'} value={numberDrinkInCurrentWeek} goal={maxDrinksPerWeekGoal} />
+            <GainsGauge title={'Jours où j’ai bu'} value={numberOfDrinkingDaysInCurrentWeek} goal={7 - daysNoDrink} />
+            <Spacer size={10} />
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_MY_OBJECTIVE')}>
+              <TextModify>Modifier l'objectif</TextModify>
+            </ButtonTouchable>
+            <View className="mt-5">
+              <H1>Mon suivi de consommation</H1>
+              <SubtitleContainer>
+                <Help
+                  onPress={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  hitSlop={{ top: 40, bottom: 40, left: 40, right: 40 }}>
+                  <HelpText>?</HelpText>
+                </Help>
+                <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
+
+                <DiagramTitle color="#191919">Nombre d'unités d'alcool consommées</DiagramTitle>
+              </SubtitleContainer>
+              {showWelcomeMessage ? (
+                <>
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Voici un outil simple pour se rendre compte de sa consommation.{'\n\n'}
+                    </TextStyled>
+                    <TextStyled color="#191919">Tous les jours vous renseignez votre consommation.{'\n'}</TextStyled>
+                  </SubTitle>
+                  {drinksCatalog
+                    .filter(({ categoryKey }) => categoryKey === BEER)
+                    .map(({ categoryKey }) => categoryKey)
+                    .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+                    .map((category, index) => (
+                      <DrinksCategory
+                        drinksCatalog={drinksCatalog}
+                        asPreview
+                        key={category}
+                        category={category}
+                        index={index + 1}
+                        drinks={fakeDrinks}
+                      />
+                    ))}
+                  <SubTitle>
+                    <TextStyled color="#191919">
+                      Un graphique récapitule vos consommations en unité d'alcool{'\n'}
+                    </TextStyled>
+                  </SubTitle>
+                  <Diagram asPreview />
+                  <SubTitle last>
+                    <TextStyled color="#191919">Le rouge représente ce qui est supérieur au seuil de l'OMS</TextStyled>
+                  </SubTitle>
+                </>
+              ) : null}
+              {!showWelcomeMessage && (
+                <Diagram
+                  onShowHelp={() => {
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_HELP',
+                    });
+                    setShowHelpModal(true);
+                  }}
+                  selectedBar={selectedBar}
+                  setSelectedBar={setSelectedBar}
+                />
+              )}
+            </View>
+
+            <Container>
+              <TopTitle>
+                <H1 color="#4030a5">Mes gains depuis le début</H1>
+                <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
+                  <InfoRoundIcon size={25} />
+                </GainsFromStartInfoButton>
+              </TopTitle>
+
+              <CategoriesContainer>
+                <Categorie>
+                  <View>
+                    <CategorieText>Euros économisés</CategorieText>
+                  </View>
+                  <Spacer size={5} />
+                  <TextStyled bold size={35}>
+                    {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}
+                  </TextStyled>
+                </Categorie>
+                <Spacer size={20} />
+                <Categorie>
+                  <View>
+                    <CategorieText>Calories économisées</CategorieText>
+                  </View>
+                  <Spacer size={5} />
+                  <TextStyled bold size={35}>
+                    {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
+                  </TextStyled>
+                </Categorie>
+              </CategoriesContainer>
+            </Container>
+          </>
+        )}
 
         <BadgesStatus
           isOnboarded={isOnboarded}
           userBadges={badges}
           navigate={() => navigation.navigate('BADGES_LIST')}
         />
+        {isOnboarded && (
+          <>
+            <Title>
+              <H1 color="#4030a5">Mon estimation hebdo avant de réduire</H1>
+            </Title>
+            <MyGoalSubContainer>
+              <MyGoalSubContainerInside>
+                <PartContainer>
+                  <Economy size={20} />
+                  <TextStyled>
+                    {'   '}
+                    {myWeeklyExpensesBeforeObjective} €
+                  </TextStyled>
+                </PartContainer>
+                <PartContainer>
+                  <CocktailGlass size={20} />
+                  <TextStyled>
+                    {'   '}
+                    {myWeeklyNumberOfDrinksBeforeObjective} unité
+                    {myWeeklyNumberOfDrinksBeforeObjective > 1 ? 's' : ''} d'alcool{'  '}
+                  </TextStyled>
+                  <HelpModalCountConsumption event="ESTIMATION">
+                    <InfosIcon size={15} color={'#000000'} />
+                  </HelpModalCountConsumption>
+                </PartContainer>
+              </MyGoalSubContainerInside>
+            </MyGoalSubContainer>
+            <ButtonTouchable onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}>
+              <TextModify>
+                <TextStyled>Modifier l'estimation</TextStyled>
+              </TextModify>
+            </ButtonTouchable>
+
+            <MyReminder
+              reminderHasBeenSet={reminderHasBeenSet}
+              reminder={reminder}
+              goToReminder={goToReminder}
+              mode={mode}
+              weekDay={weekDay}
+            />
+          </>
+        )}
+
+        {!isOnboarded && reminderHasBeenSet && (
+          <MyReminder
+            reminderHasBeenSet={reminderHasBeenSet}
+            reminder={reminder}
+            goToReminder={goToReminder}
+            mode={mode}
+            weekDay={weekDay}
+          />
+        )}
       </WrapperContainer>
       <OnBoardingModal
         title="Sans objectif, pas de gains"
@@ -228,6 +463,43 @@ const MyGains = () => {
     </>
   );
 };
+
+const MyReminder = ({ reminderHasBeenSet, reminder, goToReminder, mode, weekDay }) => (
+  <>
+    <Title>
+      <H1 color="#4030a5">Mon rappel</H1>
+    </Title>
+    <MyGoalSubContainer>
+      <MyGoalSubContainerInside>
+        <PartContainer>
+          <ReminderIcon size={20} color="#000" selected />
+          <TextStyled>
+            {'   '}
+            {!reminderHasBeenSet || !dayjs(reminder).isValid() ? (
+              'Pas de rappel encore'
+            ) : (
+              <>
+                {mode === 'day'
+                  ? 'Tous les jours '
+                  : `Tous les ${dayjs()
+                      .day(weekDay + 1)
+                      .format('dddd')}s `}
+                à {dayjs(reminder).format('HH:mm')}
+              </>
+            )}
+          </TextStyled>
+        </PartContainer>
+      </MyGoalSubContainerInside>
+    </MyGoalSubContainer>
+    <ButtonTouchable onPress={goToReminder}>
+      <TextModify>
+        <TextStyled>
+          {!reminderHasBeenSet || !dayjs(reminder).isValid() ? 'Ajouter un rappel' : 'Modifier le rappel'}
+        </TextStyled>
+      </TextModify>
+    </ButtonTouchable>
+  </>
+);
 
 const Spacer = styled.View`
   height: ${({ size }) => size || 20}px;
@@ -245,6 +517,7 @@ const CategorieText = styled(TextStyled)`
 const CategoriesContainer = styled.View`
   justify-content: space-between;
   flex-direction: row;
+  margin-top: 15px;
   margin-bottom: 15px;
 `;
 
@@ -263,4 +536,108 @@ const Container = styled.View`
   padding-top: 20px;
 `;
 
+const TopTitle = styled.View`
+  flex-shrink: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Description = styled.View`
+  background-color: #c5f3ba29;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #81db9557;
+  padding: 13px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+`;
+
+const Arrow = styled(TextStyled)`
+  color: #4030a5;
+  font-weight: bold;
+`;
+
+const TextDescritpion = styled(TextStyled)`
+  padding: 10px;
+  font-size: 16px;
+  line-height: 20px;
+`;
+
+const Bold = styled(TextStyled)`
+  font-weight: bold;
+`;
+
+const Title = styled.View`
+  flex-shrink: 0;
+  margin-top: 35px;
+  margin-bottom: 20px;
+`;
+
+const MyGoalSubContainer = styled.View`
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px 5px 10px;
+`;
+
+const PartContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px;
+`;
+
+const MyGoalSubContainerInside = styled.View`
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const TextModify = styled(TextStyled)`
+  text-decoration: underline;
+`;
+
+const ButtonTouchable = styled.TouchableOpacity`
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const SubTitle = styled(H2)`
+  flex-shrink: 0;
+  font-weight: 500;
+  ${(props) => props.last && 'margin-bottom: 40px;'}
+`;
+
+const SubtitleContainer = styled.View`
+  flex-direction: row-reverse;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const DiagramTitle = styled(H2)`
+  font-weight: 500;
+  flex-shrink: 1;
+`;
+const helpsize = 25;
+
+const HelpText = styled(TextStyled)`
+  color: #de285e;
+  font-weight: bold;
+  font-size: ${helpsize * 0.5}px;
+`;
+const Help = styled.TouchableOpacity`
+  width: ${helpsize}px;
+  height: ${helpsize}px;
+  border-radius: ${helpsize}px;
+  border: 1px solid #de285e;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin: 5px;
+`;
 export default MyGains;

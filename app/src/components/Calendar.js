@@ -23,7 +23,7 @@ const Calendar = ({ onDayPress }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
+  const dailyDoses = useRecoilValue(dailyDosesSelector());
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
   const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
