@@ -1,3 +1,10 @@
+# [1.108.0](https://github.com/SocialGouv/ozensemble/compare/v1.107.0...v1.108.0) (2023-05-16)
+
+
+### Features
+
+* new article alcool withdrawal treatment ([#350](https://github.com/SocialGouv/ozensemble/issues/350)) ([f445188](https://github.com/SocialGouv/ozensemble/commit/f4451885bee50db396d82e2a0426da54b1734df3))
+
 # [1.107.0](https://github.com/SocialGouv/ozensemble/compare/v1.106.0...v1.107.0) (2023-05-16)
 
 
