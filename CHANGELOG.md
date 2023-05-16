@@ -1,3 +1,10 @@
+# [1.107.0](https://github.com/SocialGouv/ozensemble/compare/v1.106.0...v1.107.0) (2023-05-16)
+
+
+### Features
+
+* add ongoing status to calendar legend ([#356](https://github.com/SocialGouv/ozensemble/issues/356)) ([345dd2d](https://github.com/SocialGouv/ozensemble/commit/345dd2d9de5e35277b69e356d8ac4694c7ceda06))
+
 # [1.106.0](https://github.com/SocialGouv/ozensemble/compare/v1.105.0...v1.106.0) (2023-05-16)
 
 
