@@ -1,3 +1,10 @@
+# [1.109.0](https://github.com/SocialGouv/ozensemble/compare/v1.108.0...v1.109.0) (2023-05-16)
+
+
+### Features
+
+* new article cravings treatment ([#349](https://github.com/SocialGouv/ozensemble/issues/349)) ([26e048b](https://github.com/SocialGouv/ozensemble/commit/26e048b412e7b5dbe2633b22e072a12faec756aa))
+
 # [1.108.0](https://github.com/SocialGouv/ozensemble/compare/v1.107.0...v1.108.0) (2023-05-16)
 
 
