@@ -66,6 +66,19 @@ const AlcoolWithdrawalBenefits = () => {
           <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits12.png')} />
         </ImageContainer>
         <Spacer size={20} />
+        <ImageContainer>
+          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits13.png')} />
+        </ImageContainer>
+        <Spacer size={20} />
+        <ImageContainer>
+          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits14.png')} />
+        </ImageContainer>
+        <Spacer size={20} />
+        <ImageContainer>
+          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits15.png')} />
+        </ImageContainer>
+        <Spacer size={20} />
+
         <P>
           Selon le degré initial d'habitation au corps à l'alcool, il peut y avoir des <Bold>symptômes de sevrage</Bold>{' '}
           lors de l'arrêt des consommations, les plus connus sont&nbsp;:
@@ -150,6 +163,10 @@ const AlcoolWithdrawalBenefits = () => {
         <ImageContainer>
           <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_9.png')} />
         </ImageContainer>
+        <Spacer size={20} />
+        <ImageContainer>
+          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_10.png')} />
+        </ImageContainer>
         <Spacer size={50} />
         <H2 color={'#4030a5'} underline>
           Long terme
@@ -169,6 +186,10 @@ const AlcoolWithdrawalBenefits = () => {
         <Spacer size={20} />
         <ImageContainer>
           <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3_4.png')} />
+        </ImageContainer>
+        <Spacer size={20} />
+        <ImageContainer>
+          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3_5.png')} />
         </ImageContainer>
         <Spacer size={20} />
       </TopContainer>
