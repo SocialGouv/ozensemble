@@ -15,6 +15,11 @@ export const listConseils = [
     link: 'ALCOOL_WITHDRAWAL_BENEFITS',
   },
   {
+    img: require('../../assets/images/ToHelpMeReduce.png'),
+    title: 'Bénéfices au sevrage',
+    link: 'ALCOOL_WITHDRAWAL_TREATMENT',
+  },
+  {
     img: require('../../assets/images/AlcoholAndNorms.png'),
     title: "L'alcool et les normes",
     link: 'ALCOHOL_AND_NORMS',
@@ -48,5 +53,10 @@ export const listConseils = [
     img: require('../../assets/images/AlcoholAndDependency.png'),
     title: 'Dépendance physique',
     link: 'ALCOHOL_AND_DEPENDENCY',
+  },
+  {
+    img: require('../../assets/images/withdrawalTreatment.jpg'),
+    title: 'Traitement du sevrage',
+    link: 'ALCOOL_WITHDRAWAL_TREATMENT',
   },
 ];
