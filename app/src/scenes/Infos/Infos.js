@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import styled from 'styled-components';
 import appJson from '../../../app.json';
 import Background from '../../components/Background';
@@ -198,21 +198,25 @@ const InfosMenu = ({ navigation }) => {
   );
 };
 
-const MenuItem = ({ caption, onPress, Icon, disabled }) => (
-  <TouchableOpacity onPress={onPress} showArrow={false} disabled={disabled}>
-    <View className="flex flex-row justify-between items-center flex-wrap ">
-      <View className="flex flex-row space-x-1">
-        <Icon size={30} />
-        <View>
-          <Text className="text-[#4030a5] font-semibold mt-2 ">{caption}</Text>
+const MenuItem = ({ caption, onPress, Icon, disabled }) => {
+  const screenWidth = Dimensions.get('window').width;
+  const basis = screenWidth <= 350 ? 200 : 'auto'; // reduce size of text container for screens ~ iphone SE
+  return (
+    <TouchableOpacity onPress={onPress} showArrow={false} disabled={disabled}>
+      <View className="flex flex-row justify-between items-center ">
+        <View className="flex flex-row space-x-1 items-center">
+          <Icon size={30} />
+          <Text className="text-[#4030a5] font-semibold" style={{ flexBasis: basis }}>
+            {caption}
+          </Text>
+        </View>
+        <View className="flex flex-row justify-end grow">
+          <ArrowRight size={15} color="#4030a5" />
         </View>
       </View>
-      <View className="flex flex-row justify-end grow">
-        <ArrowRight size={15} color="#4030a5" />
-      </View>
-    </View>
-  </TouchableOpacity>
-);
+    </TouchableOpacity>
+  );
+};
 
 export default Infos;
 
