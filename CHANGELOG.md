@@ -1,3 +1,10 @@
+## [1.111.1](https://github.com/SocialGouv/ozensemble/compare/v1.111.0...v1.111.1) (2023-05-17)
+
+
+### Bug Fixes
+
+* display correct icon for ongoing goal ([#360](https://github.com/SocialGouv/ozensemble/issues/360)) ([edeffa5](https://github.com/SocialGouv/ozensemble/commit/edeffa58d111c59bf87c539601d7ef1745e282e7))
+
 # [1.111.0](https://github.com/SocialGouv/ozensemble/compare/v1.110.0...v1.111.0) (2023-05-16)
 
 
