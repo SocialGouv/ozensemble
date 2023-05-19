@@ -69,7 +69,7 @@ const TabsNavigator = ({ navigation }) => {
   return (
     <>
       <Tabs.Navigator
-        initialRouteName={'GAINS_NAVIGATOR'}
+        initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
         lazy={false}
         tabBarOptions={{
           activeTintColor: '#4030A5',
