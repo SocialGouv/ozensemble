@@ -1,3 +1,10 @@
+# [1.112.0](https://github.com/SocialGouv/ozensemble/compare/v1.111.2...v1.112.0) (2023-05-19)
+
+
+### Features
+
+* show calendar first when oppening app ([#363](https://github.com/SocialGouv/ozensemble/issues/363)) ([448c6df](https://github.com/SocialGouv/ozensemble/commit/448c6df6a7084928aa4c63a8164c6a54ed41d294))
+
 ## [1.111.2](https://github.com/SocialGouv/ozensemble/compare/v1.111.1...v1.111.2) (2023-05-19)
 
 
