@@ -1,3 +1,10 @@
+# [1.114.0](https://github.com/SocialGouv/ozensemble/compare/v1.113.0...v1.114.0) (2023-05-22)
+
+
+### Features
+
+* ci on kontinuous ([#367](https://github.com/SocialGouv/ozensemble/issues/367)) ([94b16bb](https://github.com/SocialGouv/ozensemble/commit/94b16bb02509ff59791128aa584172b0a48727fe))
+
 # [1.113.0](https://github.com/SocialGouv/ozensemble/compare/v1.112.0...v1.113.0) (2023-05-22)
 
 
