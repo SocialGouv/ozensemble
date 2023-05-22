@@ -39,7 +39,6 @@ import Goal from './scenes/Gains/Goal';
 import GainsReminder from './scenes/Gains/GainsReminder';
 import GainsPreviousConsumption from './scenes/Gains/GainsPreviousConsumption';
 import Sevrage from './scenes/Gains/Sevrage';
-import Background from './components/Background';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
