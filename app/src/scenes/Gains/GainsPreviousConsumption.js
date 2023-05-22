@@ -21,7 +21,6 @@ import { Text, View } from 'react-native';
 import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
 import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Background from '../../components/Background';
 
 const GainsPreviousConsumption = () => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
