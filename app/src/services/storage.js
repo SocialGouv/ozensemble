@@ -31,48 +31,9 @@ export async function sendPreviousDrinksToDB() {
   storage.set('hasSentPreviousDrinksToDB', true);
 }
 
-export const hasMigrateOwnDrinksCatalog = storage.getBoolean('@hasMigrateOwnDrinksCatalog');
+export const hasCleanConsoAndCatalog = storage.getBoolean('@hasCleanConsoAndCatalog');
 
-// export function migrateOwnDrinksCatalog() {
-//   const catalog = storage.getString('@OwnDrinks');
-
-//   if (catalog) {
-//     const oldDrinkCatalog = JSON.parse(catalog);
-//     let newOwnDrinksCatalog = [];
-//     oldDrinkCatalog.forEach((oldDrink) => {
-//       if (oldDrink.custom === true) {
-//         const icon = mapIconOfToIconName(oldDrink.iconOf);
-//         const categoryKey = 'ownDrink';
-//         const volume = Number(oldDrink.categoryKey.split('-')[1]);
-//         const isDeleted = false;
-//         const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2]);
-//         const kcal = Math.round(((alcoolPercentage * 0.8 * volume) / 10) * 7);
-//         const doses = Math.round((alcoolPercentage * 0.8 * volume) / 10) / 10;
-
-//         newOwnDrinksCatalog = [
-//           ...newOwnDrinksCatalog,
-//           {
-//             drinkKey: oldDrink.categoryKey,
-//             icon: icon,
-//             categoryKey: categoryKey,
-//             volume: volume + ' cl',
-//             isDeleted: isDeleted,
-//             kcal: kcal,
-//             doses: doses,
-//             displayFeed: oldDrink.displayFeed,
-//             displayDrinkModal: oldDrink.displayDrinkModal,
-//             custom: true,
-//             alcoolPercentage: Number(alcoolPercentage),
-//           },
-//         ];
-//       }
-//     });
-//     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
-//   }
-//   storage.set('@hasMigrateOwnDrinksCatalog', true);
-// }
-
-export function cleanConsoAndCatalog() {
+export async function cleanConsosAndCatalog() {
   const catalog = storage.getString('@OwnDrinks');
   if (catalog) {
     const oldDrinkCatalog = JSON.parse(catalog);
@@ -85,8 +46,6 @@ export function cleanConsoAndCatalog() {
       const icon = mapIconOfToIconName(oldDrink.iconOf);
       const categoryKey = 'ownDrink';
       const volume = Number(oldDrink.categoryKey.split('-')[1]);
-      const isDeleted = false;
-      const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2]);
       newOwnDrinksCatalog = [
         ...newOwnDrinksCatalog,
         {
@@ -107,23 +66,33 @@ export function cleanConsoAndCatalog() {
     });
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
   }
-  storage.set('@hascleanConsoAndCatalog', true);
+  addMissingConsosToBD();
+  storage.set('@hasCleanConsoAndCatalog', true);
 }
 
 export function addMissingConsosToBD() {
-  const matomoId = storage.getString('@UserIdv2');
-  const drinks = JSON.parse(storage.getString('@Drinks') || '[]');
-  const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks') || '[]');
-
-  if (drinks.length) {
-    API.post({
-      path: '/consommation/post',
-      body: {
-        matomoId,
-        drinks,
-        drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
-      },
+  const ownDrinksCatalog = JSON.parse(storage.getString('@OwnDrinks'));
+  if (ownDrinksCatalog) {
+    const drinks = JSON.parse(storage.getString('@Drinks'));
+    const matomoId = storage.getString('@UserIdv2');
+    const consoList = [];
+    ownDrinksCatalog.forEach((ownDrink) => {
+      consoList = [
+        ...consoList,
+        drinks.filter((conso) => {
+          conso.drinkKey === ownDrink.drinkKey;
+        }),
+      ];
     });
+    if (drinks.length) {
+      API.post({
+        path: '/consommation/repare',
+        body: {
+          matomoId: matomoId,
+          drinks: consoList,
+        },
+      });
+    }
   }
 }
 

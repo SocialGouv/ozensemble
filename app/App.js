@@ -13,10 +13,10 @@ import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
-  hasMigrateOwnDrinksCatalog,
-  migrateOwnDrinksCatalog,
-  hasSentPreviousDrinksToDB,
+  hasCleanConsoAndCatalog,
   sendPreviousDrinksToDB,
+  hasSentPreviousDrinksToDB,
+  cleanConsosAndCatalog,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -42,12 +42,12 @@ const sendDrinksToBd = async () => {
 
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
-  const [_hasMigratedOwnDrinksCatalog, setHasMigratedOwnDrinksCatalog] = useState(hasMigrateOwnDrinksCatalog);
+  const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
 
   useEffect(() => {
     if (!hasMigrateOwnDrinksCatalog) {
-      migrateOwnDrinksCatalog();
-      setHasMigratedOwnDrinksCatalog(true);
+      cleanConsosAndCatalog();
+      setHasCleanConsoAndCatalog(true);
     }
     if (!_hasSentPreviousDrinksToDB) {
       sendDrinksToBd();
