@@ -43,6 +43,9 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(' ')[0];
 
   const saveDrink = async () => {
+    const formatedPrice = drinkPrice.replace(',', '.');
+    const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(',', '.');
+    console.log(formatedPrice);
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
@@ -51,8 +54,8 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       ownDrinksCatalog.find(
         (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
       );
-    const kCal = ((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
-    const doses = Math.round((drinkAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
+    const kCal = ((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
+    const doses = Math.round((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
     if (oldDrink) {
       if (!isUpdateWanted) {
         const keepGoing = await new Promise((resolve) => {
@@ -82,8 +85,8 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
                 volume: volumeNumber + ' cl',
                 doses: doses,
                 icon: drinkIcon,
-                price: Number(drinkPrice),
-                alcoolPercentage: Number(drinkAlcoolPercentage),
+                price: Number(formatedPrice),
+                alcoolPercentage: Number(formatedAlcoolPercentage),
                 kcal: kCal,
                 custom: true,
                 isDeleted: false,
@@ -99,6 +102,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       });
 
       const matomoId = storage.getString('@UserIdv2');
+
       API.post({
         path: '/consommation/update-own-conso',
         body: {
@@ -107,7 +111,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           drinkKey: drinkName,
           volume: volumeNumber + ' cl',
           doses: doses,
-          price: Number(drinkPrice),
+          price: Number(formatedPrice),
           kcal: kCal,
         },
       });
@@ -137,8 +141,8 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           volume: quantitySelected?.volume + ' cl',
           doses: doses,
           icon: icon,
-          price: Number(drinkPrice),
-          alcoolPercentage: Number(drinkAlcoolPercentage),
+          price: Number(formatedPrice),
+          alcoolPercentage: Number(formatedAlcoolPercentage),
           kcal: kCal,
           custom: true,
           isDeleted: false,
