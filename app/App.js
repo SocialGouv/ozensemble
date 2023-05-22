@@ -45,7 +45,7 @@ const App = () => {
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
 
   useEffect(() => {
-    if (!hasMigrateOwnDrinksCatalog) {
+    if (!_hasCleanConsoAndCatalog) {
       cleanConsosAndCatalog();
       setHasCleanConsoAndCatalog(true);
     }
@@ -57,7 +57,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!_hasSentPreviousDrinksToDB || !_hasMigratedOwnDrinksCatalog) {
+  if (!_hasSentPreviousDrinksToDB || !_hasCleanConsoAndCatalog) {
     return null;
   }
 
