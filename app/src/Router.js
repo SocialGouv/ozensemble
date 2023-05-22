@@ -35,6 +35,10 @@ import NotificationService from './services/notifications';
 import BadgeModal from './scenes/Badges/BadgeModal';
 import InAppModal from './components/InAppModal';
 import { getBuildNumber } from 'react-native-device-info';
+import Goal from './scenes/Gains/Goal';
+import GainsReminder from './scenes/Gains/GainsReminder';
+import GainsPreviousConsumption from './scenes/Gains/GainsPreviousConsumption';
+import Sevrage from './scenes/Gains/Sevrage';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -159,6 +163,7 @@ const App = () => {
           headerShown: false,
         }}
       />
+
       <AppStack.Screen name="TABS" component={TabsNavigator} />
     </AppStack.Navigator>
   );
@@ -241,6 +246,16 @@ const Router = () => {
             options={{
               stackPresentation: 'fullScreenModal',
               headerShown: false,
+            }}
+          />
+          <RouterStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
+          <RouterStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
+          <RouterStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
+          <RouterStack.Screen
+            name="GAINS_SEVRAGE"
+            component={Sevrage}
+            initialParams={{
+              rootRoute: 'GAINS_MAIN_VIEW',
             }}
           />
         </RouterStack.Navigator>
