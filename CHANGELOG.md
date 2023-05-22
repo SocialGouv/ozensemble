@@ -1,3 +1,10 @@
+# [1.113.0](https://github.com/SocialGouv/ozensemble/compare/v1.112.0...v1.113.0) (2023-05-22)
+
+
+### Features
+
+* new ui infos page ([#361](https://github.com/SocialGouv/ozensemble/issues/361)) ([518430d](https://github.com/SocialGouv/ozensemble/commit/518430d4c433bbc2569ec8e7fabe2cf305b53c57))
+
 # [1.112.0](https://github.com/SocialGouv/ozensemble/compare/v1.111.2...v1.112.0) (2023-05-19)
 
 
