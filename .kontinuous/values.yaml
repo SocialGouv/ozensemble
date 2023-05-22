@@ -6,3 +6,9 @@ app:
         name: "pg-user"
     - secretRef:
         name: api
+
+jobs:
+  runs:
+    build-app:
+      with:
+        context: api
