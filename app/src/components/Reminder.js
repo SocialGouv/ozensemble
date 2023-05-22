@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, SafeAreaView } from 'react-native';
 import { openSettings } from 'react-native-permissions';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -22,6 +22,7 @@ import API from '../services/api';
 import { storage } from '../services/storage';
 import NetInfo from '@react-native-community/netinfo';
 import { capture } from '../services/sentry';
+import Background from './Background';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
@@ -268,55 +269,58 @@ const Reminder = ({
   };
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title={wrapperTitle}>
-      <Container>
-        <ReminderIcon size={80} color="#4030a5" selected={false} />
-        {children ? (
-          children({ reminder, mode, weekDay })
-        ) : (
-          <>
-            <Title>
-              <TextStyled color="#4030a5">{title || 'Une aide pour penser à noter vos consommations'}</TextStyled>
-            </Title>
-            <SubTitle>
-              {reminder ? (
-                <>
-                  <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                  <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
-                  <TextStyled color="#191919">tous les jours.</TextStyled>
-                </>
-              ) : (
-                <TextStyled color="#191919">
-                  Définissez un rappel quotidien sur votre téléphone pour vous rappeler
-                </TextStyled>
-              )}
-            </SubTitle>
-          </>
-        )}
-        <ButtonsContainer>
-          {reminder ? (
-            <>
-              <EditButton content={'Modifier le rappel'} onPress={showReminderSetup} />
-              <RemoveButton content="Désactiver le rappel" onPress={deleteReminder} />
-              {continueButton && <ButtonPrimary content="Continuer" onPress={continueButtonOnPress} />}
-            </>
+    <>
+      <SafeAreaView className="bg-[#39CEC0]"></SafeAreaView>
+      <WrapperContainer onPressBackButton={navigation.goBack} title={wrapperTitle}>
+        <Container>
+          <ReminderIcon size={80} color="#4030a5" selected={false} />
+          {children ? (
+            children({ reminder, mode, weekDay })
           ) : (
             <>
-              <ButtonPrimary content={'Définir un rappel'} onPress={showReminderSetup} />
-              {continueButton && <EditButton content="Continuer" onPress={continueButtonOnPress} />}
+              <Title>
+                <TextStyled color="#4030a5">{title || 'Une aide pour penser à noter vos consommations'}</TextStyled>
+              </Title>
+              <SubTitle>
+                {reminder ? (
+                  <>
+                    <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
+                    <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format('HH:mm')} \n `}</TextStyled>
+                    <TextStyled color="#191919">tous les jours.</TextStyled>
+                  </>
+                ) : (
+                  <TextStyled color="#191919">
+                    Définissez un rappel quotidien sur votre téléphone pour vous rappeler
+                  </TextStyled>
+                )}
+              </SubTitle>
             </>
           )}
-        </ButtonsContainer>
-        <ModeAndWeekDayChooseModal
-          key={reminderSetupVisible}
-          onlyDaily={onlyDaily}
-          visible={reminderSetupVisible}
-          hide={() => setReminderSetupVisible(false)}
-          setReminderRequest={setReminderRequest}
-        />
-        <ReminderErrorAlert visible={reminderErrorAlertVisible} hide={() => setReminderErrorAlertVisible(false)} />
-      </Container>
-    </WrapperContainer>
+          <ButtonsContainer>
+            {reminder ? (
+              <>
+                <EditButton content={'Modifier le rappel'} onPress={showReminderSetup} />
+                <RemoveButton content="Désactiver le rappel" onPress={deleteReminder} />
+                {continueButton && <ButtonPrimary content="Continuer" onPress={continueButtonOnPress} />}
+              </>
+            ) : (
+              <>
+                <ButtonPrimary content={'Définir un rappel'} onPress={showReminderSetup} />
+                {continueButton && <EditButton content="Continuer" onPress={continueButtonOnPress} />}
+              </>
+            )}
+          </ButtonsContainer>
+          <ModeAndWeekDayChooseModal
+            key={reminderSetupVisible}
+            onlyDaily={onlyDaily}
+            visible={reminderSetupVisible}
+            hide={() => setReminderSetupVisible(false)}
+            setReminderRequest={setReminderRequest}
+          />
+          <ReminderErrorAlert visible={reminderErrorAlertVisible} hide={() => setReminderErrorAlertVisible(false)} />
+        </Container>
+      </WrapperContainer>
+    </>
   );
 };
 

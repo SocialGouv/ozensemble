@@ -24,15 +24,7 @@ const GainsNavigator = () => {
       <HeaderBackground />
       <GainsStack.Navigator headerMode="none" initialRouteName="GAINS_MAIN_VIEW">
         <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
-        <GainsStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
         <GainsStack.Screen name="BADGES_LIST" component={BadgesList} />
-        <GainsStack.Screen
-          name="GAINS_SEVRAGE"
-          component={Sevrage}
-          initialParams={{
-            rootRoute: 'GAINS_MAIN_VIEW',
-          }}
-        />
         <GainsStack.Screen name="GAINS_FROM_START_MODALE" component={GainsFromStartModale} />
       </GainsStack.Navigator>
     </Background>
