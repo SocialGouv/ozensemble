@@ -26,6 +26,7 @@ import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import LegendHelpModal from './LegendHelpModal';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
+import { storage } from '../../services/storage';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -65,10 +66,7 @@ const ConsoFollowUp = () => {
     navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const isOnboarded = storage.getBoolean('@IsOnboarded');
   const scrollToInput = (ref) => {
     if (!ref) return;
     if (!scrollViewRef.current) return;

@@ -18,6 +18,7 @@ import Goal from '../../Gains/Goal';
 import Sevrage from '../../Gains/Sevrage';
 import GainsPreviousConsumption from '../../Gains/GainsPreviousConsumption';
 import GainsReminder from '../../Gains/GainsReminder';
+import { storage } from '../../../services/storage';
 
 const Defi4_Day4_Stack = createStackNavigator();
 
@@ -27,10 +28,7 @@ const Defi4_Day4 = ({ route }) => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const isOnboarded = storage.getBoolean('@IsOnboarded');
 
   useEffect(() => {
     if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');

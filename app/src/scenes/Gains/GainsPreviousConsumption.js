@@ -22,11 +22,12 @@ import PreviousConsumption from '../../components/illustrations/icons/PreviousCo
 import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
+import { storage } from '../../services/storage';
 
 const GainsPreviousConsumption = () => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const navigation = useNavigation();
-  const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
+  const isOnboarded = storage.getBoolean('@IsOnboarded');
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const numberDrinkEstimation = useMemo(() => {

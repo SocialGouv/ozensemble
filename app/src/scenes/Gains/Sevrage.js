@@ -73,6 +73,7 @@ const Sevrage = ({ navigation, route }) => {
                 category: 'GAINS',
                 action: 'GOAL_FINISH',
               });
+              storage.set('@IsOnboarded', true);
               navigation.navigate(route?.params?.rootRoute);
             }}
           />

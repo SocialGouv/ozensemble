@@ -23,6 +23,7 @@ import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ArrowRight from '../../components/ArrowRight';
 import IconAdd from '../../components/illustrations/IconAdd';
 import GainsIcon from '../../components/illustrations/icons/GainsIcon';
+import { storage } from '../../services/storage';
 
 dayjs.extend(isBetween);
 
@@ -52,10 +53,7 @@ const MyGains = () => {
     navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const isOnboarded = storage.getBoolean('@IsOnboarded');
 
   const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
