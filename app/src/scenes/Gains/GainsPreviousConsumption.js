@@ -1,11 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import React, { useMemo, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
+import {
+  maxDrinksPerWeekSelector,
+  previousDrinksPerWeekState,
+  totalDrinksByDrinkingDaySelector,
+} from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
@@ -13,15 +17,16 @@ import { Spacer } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import WrapperContainer from '../../components/WrapperContainer';
-import { Modal, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Background from '../../components/Background';
 
 const GainsPreviousConsumption = () => {
+  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const navigation = useNavigation();
   const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
-  const [modalVisible, setModalVisible] = useState(true);
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const numberDrinkEstimation = useMemo(() => {
@@ -74,64 +79,8 @@ const GainsPreviousConsumption = () => {
     }
   };
 
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    if (isFocused) {
-      setModalVisible(true);
-    }
-  }, [isFocused]);
-
   return (
     <>
-      <View>
-        <WrapperContainer
-          onPressBackButton={navigation.goBack}
-          title="Mon estimation initiale"
-          noPaddingHorizontal
-          Icon={PreviousConsumption}>
-          <Container>
-            <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
-              <Text className="mb-4">
-                Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera ensuite comparée à ce
-                que vous consommerez pour calculer vos gains.{' '}
-                <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus de transparence
-                possible.
-              </Text>
-              <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
-            </View>
-            <Text className="font-bold text-center">
-              Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
-            </Text>
-          </Container>
-          <Spacer size={20} />
-          <View className="border-2 border-[#EFEFEF]">
-            {drinksCatalog
-              .map(({ categoryKey }) => categoryKey)
-              .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-              .map((category, index) => (
-                <DrinksCategory
-                  key={category}
-                  drinksCatalog={drinksCatalog}
-                  category={category}
-                  index={index}
-                  drinks={previousDrinksPerWeek}
-                  setDrinkQuantity={setDrinkQuantityRequest}
-                />
-              ))}
-          </View>
-          <Spacer size={40} />
-          <CTAButtonContainer>
-            <ButtonPrimary
-              disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
-              content="Continuer"
-              onPress={() => {
-                setModalVisible(false);
-                setModalValidationVisible(true);
-              }}
-            />
-          </CTAButtonContainer>
-        </WrapperContainer>
-      </View>
       <ModalPreviousDrinksValidation
         content={{
           numberDrinkEstimation: numberDrinkEstimation,
@@ -139,7 +88,6 @@ const GainsPreviousConsumption = () => {
           kcals: myWeeklyKcalBeforeObjective,
         }}
         onUpdate={() => {
-          setModalVisible(true);
           setModalValidationVisible(false);
         }}
         onValidate={() => {
@@ -155,8 +103,7 @@ const GainsPreviousConsumption = () => {
         }}
         visible={modalValidationVisible}
       />
-      <Modal visible={modalVisible}>
-        <SafeAreaView className="bg-[#39cec0]"></SafeAreaView>
+      <Background color="#39cec0" withSwiperContainer>
         <WrapperContainer
           onPressBackButton={navigation.goBack}
           title="Mon estimation initiale"
@@ -198,21 +145,15 @@ const GainsPreviousConsumption = () => {
               disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
               content="Continuer"
               onPress={() => {
-                setModalVisible(false);
                 setModalValidationVisible(true);
               }}
             />
           </CTAButtonContainer>
         </WrapperContainer>
-      </Modal>
+      </Background>
     </>
   );
 };
-
-const DescriptionText = styled(TextStyled)`
-  margin-bottom: 14px;
-  ${(props) => props.big && 'font-size: 16px;'}
-`;
 
 export const Container = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;

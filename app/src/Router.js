@@ -35,6 +35,9 @@ import NotificationService from './services/notifications';
 import BadgeModal from './scenes/Badges/BadgeModal';
 import InAppModal from './components/InAppModal';
 import { getBuildNumber } from 'react-native-device-info';
+import Goal from './scenes/Gains/Goal';
+import GainsReminder from './scenes/Gains/GainsReminder';
+import GainsPreviousConsumption from './scenes/Gains/GainsPreviousConsumption';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -159,6 +162,7 @@ const App = () => {
           headerShown: false,
         }}
       />
+
       <AppStack.Screen name="TABS" component={TabsNavigator} />
     </AppStack.Navigator>
   );
@@ -243,6 +247,8 @@ const Router = () => {
               headerShown: false,
             }}
           />
+          <RouterStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
+          <RouterStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
         </RouterStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>

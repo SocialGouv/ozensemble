@@ -24,10 +24,8 @@ const GainsNavigator = () => {
       <HeaderBackground />
       <GainsStack.Navigator headerMode="none" initialRouteName="GAINS_MAIN_VIEW">
         <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
-        <GainsStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
         <GainsStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
         <GainsStack.Screen name="BADGES_LIST" component={BadgesList} />
-        <GainsStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
         <GainsStack.Screen
           name="GAINS_SEVRAGE"
           component={Sevrage}
