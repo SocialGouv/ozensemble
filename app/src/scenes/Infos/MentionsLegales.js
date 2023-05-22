@@ -47,9 +47,9 @@ const MentionsLegales = ({ onClose }) => (
       <Text
         className="text-indigo-700"
         onPress={() => {
-          Linking.openURL('http://references.modernisation.gouv.fr/accessibilite-numerique');
+          Linking.openURL('https://references.modernisation.gouv.fr/accessibilite-numerique');
         }}>
-        http://references.modernisation.gouv.fr/accessibilite-numerique
+        https://references.modernisation.gouv.fr/accessibilite-numerique
       </Text>
     </P>
     <Spacer size={30} />
@@ -73,7 +73,7 @@ const MentionsLegales = ({ onClose }) => (
           <Text
             className="text-indigo-700"
             onPress={() => {
-              Linking.openURL('http://references.modernisation.gouv.fr/accessibilite-numerique');
+              Linking.openURL('https://references.modernisation.gouv.fr/accessibilite-numerique');
             }}>
             https://formulaire.defenseurdesdroits.fr/code/afficher.php?ETAPE=accueil_2016
           </Text>
