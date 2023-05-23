@@ -45,7 +45,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const saveDrink = async () => {
     const formatedPrice = drinkPrice.replace(',', '.');
     const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(',', '.');
-    console.log(formatedPrice);
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
