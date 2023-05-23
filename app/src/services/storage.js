@@ -40,14 +40,16 @@ export async function cleanConsosAndCatalog() {
     let newOwnDrinksCatalog = [];
     oldDrinkCatalog.forEach((oldDrink) => {
       if (oldDrink.custom === true) {
-        const formatedPrice = oldDrink.price ? String(oldDrink.price).replace(',', '.') : 1;
+        const formatedPrice = oldDrink.price ? String(oldDrink.price).replace(',', '.') : 5;
         // two cases:
         // old style: categoryKey = 'ownDrink -70-40'
         // new style: categoryKey = 'ownDrink'
         const volume = oldDrink.categoryKey.split('-')[1]
           ? Number(oldDrink.categoryKey.split('-')[1])
           : Number(oldDrink.volume.split(' ')[0]);
-        const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2]);
+        const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2])
+          ? Number(oldDrink.categoryKey.split('-')[2])
+          : 5;
         const formatedAlcoolPercentage = oldDrink.alcoolPercentage
           ? String(oldDrink.alcoolPercentage).replace(',', '.')
           : alcoolPercentage;
@@ -69,37 +71,40 @@ export async function cleanConsosAndCatalog() {
             displayDrinkModal: oldDrink.displayDrinkModal,
             custom: true,
             alcoolPercentage: Number(formatedAlcoolPercentage),
-            price: Number(formatedPrice),
+            price: formatedPrice ? Number(formatedPrice) : 4,
           },
         ];
       }
     });
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
     if (newOwnDrinksCatalog) {
-      const drinks = JSON.parse(storage.getString('@Drinks'));
-      const matomoId = storage.getString('@UserIdv2');
-      newOwnDrinksCatalog.forEach((ownDrink) => {
-        const drinkList = drinks.filter((conso) => conso.drinkKey === ownDrink.drinkKey);
-        if (drinkList.length) {
-          drinkList.forEach((conso) => {
-            API.post({
-              path: '/consommation',
-              body: {
-                matomoId: matomoId,
-                id: conso.id,
-                name: ownDrink.displayDrinkModal,
-                drinkKey: ownDrink.drinkKey,
-                quantity: Number(conso.quantity),
-                date: conso.timestamp,
-                doses: ownDrink.doses,
-                kcal: ownDrink.kcal,
-                price: ownDrink.price,
-                volume: ownDrink.volume,
-              },
+      const consoStored = storage.getString('@Drinks');
+      if (consoStored) {
+        const drinks = JSON.parse(consoStored);
+        const matomoId = storage.getString('@UserIdv2');
+        newOwnDrinksCatalog.forEach((ownDrink) => {
+          const drinkList = drinks.filter((conso) => conso.drinkKey === ownDrink.drinkKey);
+          if (drinkList.length) {
+            drinkList.forEach((conso) => {
+              API.post({
+                path: '/consommation',
+                body: {
+                  matomoId: matomoId,
+                  id: conso.id,
+                  name: ownDrink.displayDrinkModal,
+                  drinkKey: ownDrink.drinkKey,
+                  quantity: Number(conso.quantity),
+                  date: conso.timestamp,
+                  doses: ownDrink.doses,
+                  kcal: ownDrink.kcal,
+                  price: ownDrink.price,
+                  volume: ownDrink.volume,
+                },
+              });
             });
-          });
-        }
-      });
+          }
+        });
+      }
     }
   }
   storage.set('@hasCleanConsoAndCatalog', true);
