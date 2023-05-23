@@ -27,7 +27,6 @@ router.post(
     const price = req.body.price;
     const volume = req.body.volume;
     const conso_id = req.body.id;
-
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
     //check if it should be deleted
