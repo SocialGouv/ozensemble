@@ -21,7 +21,6 @@ import { Text, View } from 'react-native';
 import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
 import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Background from '../../components/Background';
 
 const GainsPreviousConsumption = () => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
@@ -81,6 +80,7 @@ const GainsPreviousConsumption = () => {
 
   return (
     <>
+      <SafeAreaView edges={['top']} className="bg-[#39CEC0]"></SafeAreaView>
       <ModalPreviousDrinksValidation
         content={{
           numberDrinkEstimation: numberDrinkEstimation,
@@ -103,54 +103,52 @@ const GainsPreviousConsumption = () => {
         }}
         visible={modalValidationVisible}
       />
-      <Background color="#39cec0" withSwiperContainer>
-        <WrapperContainer
-          onPressBackButton={navigation.goBack}
-          title="Mon estimation initiale"
-          noPaddingHorizontal
-          Icon={PreviousConsumption}>
-          <Container>
-            <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
-              <Text className="mb-4">
-                Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera ensuite comparée à ce
-                que vous consommerez pour calculer vos gains.{' '}
-                <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus de transparence
-                possible.
-              </Text>
-              <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
-            </View>
-            <Text className="font-bold text-center">
-              Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
+      <WrapperContainer
+        onPressBackButton={navigation.goBack}
+        title="Mon estimation initiale"
+        noPaddingHorizontal
+        Icon={PreviousConsumption}>
+        <Container>
+          <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
+            <Text className="mb-4">
+              Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera ensuite comparée à ce
+              que vous consommerez pour calculer vos gains.{' '}
+              <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus de transparence
+              possible.
             </Text>
-          </Container>
-          <Spacer size={20} />
-          <View className="border-2 border-[#EFEFEF]">
-            {drinksCatalog
-              .map(({ categoryKey }) => categoryKey)
-              .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-              .map((category, index) => (
-                <DrinksCategory
-                  key={category}
-                  drinksCatalog={drinksCatalog}
-                  category={category}
-                  index={index}
-                  drinks={previousDrinksPerWeek}
-                  setDrinkQuantity={setDrinkQuantityRequest}
-                />
-              ))}
+            <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
-          <Spacer size={40} />
-          <CTAButtonContainer>
-            <ButtonPrimary
-              disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
-              content="Continuer"
-              onPress={() => {
-                setModalValidationVisible(true);
-              }}
-            />
-          </CTAButtonContainer>
-        </WrapperContainer>
-      </Background>
+          <Text className="font-bold text-center">
+            Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
+          </Text>
+        </Container>
+        <Spacer size={20} />
+        <View className="border-2 border-[#EFEFEF]">
+          {drinksCatalog
+            .map(({ categoryKey }) => categoryKey)
+            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+            .map((category, index) => (
+              <DrinksCategory
+                key={category}
+                drinksCatalog={drinksCatalog}
+                category={category}
+                index={index}
+                drinks={previousDrinksPerWeek}
+                setDrinkQuantity={setDrinkQuantityRequest}
+              />
+            ))}
+        </View>
+        <Spacer size={40} />
+        <CTAButtonContainer>
+          <ButtonPrimary
+            disabled={!previousDrinksPerWeek.find((drink) => drink.quantity !== 0)}
+            content="Continuer"
+            onPress={() => {
+              setModalValidationVisible(true);
+            }}
+          />
+        </CTAButtonContainer>
+      </WrapperContainer>
     </>
   );
 };
