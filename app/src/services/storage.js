@@ -39,7 +39,6 @@ export function addMissingConsosToBD(ownDrinksCatalog) {
       const drinkList = drinks.filter((conso) => conso.drinkKey === ownDrink.drinkKey);
       if (drinkList.length) {
         drinkList.forEach((conso) => {
-          console.log(conso);
           API.post({
             path: '/consommation',
             body: {
@@ -102,7 +101,6 @@ export async function cleanConsosAndCatalog() {
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
     addMissingConsosToBD(newOwnDrinksCatalog);
   }
-  console.log('storage.getString(@OwnDrinks)');
   //storage.set('@hasCleanConsoAndCatalog', true);
 }
 
