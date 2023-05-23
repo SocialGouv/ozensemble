@@ -71,7 +71,7 @@ export async function cleanConsosAndCatalog() {
             displayDrinkModal: oldDrink.displayDrinkModal,
             custom: true,
             alcoolPercentage: Number(formatedAlcoolPercentage),
-            price: formatedPrice ? Number(formatedPrice) : 4,
+            price: formatedPrice ? Number(formatedPrice) : 5,
           },
         ];
       }
