@@ -106,7 +106,7 @@ export async function cleanConsosAndCatalog() {
     console.log('newOwnDrinksCatalog', newOwnDrinksCatalog);
     addMissingConsosToBD(newOwnDrinksCatalog);
   }
-  //storage.set('@hasCleanConsoAndCatalog', true);
+  storage.set('@hasCleanConsoAndCatalog', true);
 }
 
 const mapIconOfToIconName = (iconOf) => {
