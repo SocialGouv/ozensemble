@@ -1,3 +1,10 @@
+## [1.114.2](https://github.com/SocialGouv/ozensemble/compare/v1.114.1...v1.114.2) (2023-05-23)
+
+
+### Bug Fixes
+
+* NaN values ([#369](https://github.com/SocialGouv/ozensemble/issues/369)) ([79ee34f](https://github.com/SocialGouv/ozensemble/commit/79ee34fb20a024e7be31884c2befcac0217fc9ee))
+
 ## [1.114.1](https://github.com/SocialGouv/ozensemble/compare/v1.114.0...v1.114.1) (2023-05-23)
 
 
