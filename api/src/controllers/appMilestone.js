@@ -15,6 +15,7 @@ router.post(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        created_from: "AppMilestone",
       },
       update: {},
     });
@@ -45,6 +46,7 @@ router.post(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        created_from: "AppMilestone",
       },
       update: {},
     });

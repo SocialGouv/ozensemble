@@ -15,6 +15,7 @@ router.post(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        created_from: "Goal",
       },
       update: {},
     });
@@ -80,6 +81,7 @@ router.get(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        created_from: "GetGoal",
       },
       update: {},
     });
