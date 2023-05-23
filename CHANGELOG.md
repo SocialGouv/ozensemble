@@ -1,3 +1,11 @@
+## [1.114.1](https://github.com/SocialGouv/ozensemble/compare/v1.114.0...v1.114.1) (2023-05-23)
+
+
+### Bug Fixes
+
+* tail margins on screens ([#364](https://github.com/SocialGouv/ozensemble/issues/364)) ([7ba6e01](https://github.com/SocialGouv/ozensemble/commit/7ba6e0167e318025dc6eb708d3e19f380b550065))
+* update legals mentions ([#365](https://github.com/SocialGouv/ozensemble/issues/365)) ([bbe2a8b](https://github.com/SocialGouv/ozensemble/commit/bbe2a8bbc8335c438bee128fa2dbc62ce2b0cf18))
+
 # [1.114.0](https://github.com/SocialGouv/ozensemble/compare/v1.113.0...v1.114.0) (2023-05-22)
 
 
