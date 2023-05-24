@@ -1,3 +1,12 @@
+## [1.114.10](https://github.com/SocialGouv/ozensemble/compare/v1.114.9...v1.114.10) (2023-05-24)
+
+
+### Bug Fixes
+
+*   review content withdrawal ([#374](https://github.com/SocialGouv/ozensemble/issues/374)) ([7ad9444](https://github.com/SocialGouv/ozensemble/commit/7ad944450fbea18f039c3a38f2f7f075a16663c0))
+* add from where user is created ([#370](https://github.com/SocialGouv/ozensemble/issues/370)) ([ab2604f](https://github.com/SocialGouv/ozensemble/commit/ab2604f370afa05e59bd6909907d2de6fec6a87e))
+* wording when setting goal ([#377](https://github.com/SocialGouv/ozensemble/issues/377)) ([e304357](https://github.com/SocialGouv/ozensemble/commit/e304357a0057071c96301c0808906e2756b0c82b))
+
 ## [1.114.9](https://github.com/SocialGouv/ozensemble/compare/v1.114.8...v1.114.9) (2023-05-24)
 
 
