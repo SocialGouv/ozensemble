@@ -1,3 +1,11 @@
+## [1.114.8](https://github.com/SocialGouv/ozensemble/compare/v1.114.7...v1.114.8) (2023-05-24)
+
+
+### Bug Fixes
+
+* do not show analyses and help modal link inside help modal ([#373](https://github.com/SocialGouv/ozensemble/issues/373)) ([7d899da](https://github.com/SocialGouv/ozensemble/commit/7d899da7d54214ebaa6db4ea967f1fc7e997df90))
+* wording review ([#372](https://github.com/SocialGouv/ozensemble/issues/372)) ([e494f07](https://github.com/SocialGouv/ozensemble/commit/e494f074462a77622ecd2459be1ced1e8c50f6fc))
+
 ## [1.114.7](https://github.com/SocialGouv/ozensemble/compare/v1.114.6...v1.114.7) (2023-05-24)
 
 
