@@ -13,11 +13,11 @@ const CravingsTreatment = () => {
     <NavigationWrapper
       title={title}
       timeReading={4}
-      sourcesDrTalbot={true}
+      sourcesDrTalbot={false}
       link={[
         'https://www.has-sante.fr/jcms/c_1795221/fr/outil-d-aide-au-reperage-precoce-et-intervention-breve-alcool-cannabis-tabac-chez-l-adulte',
         'https://ansm.sante.fr/actualites/alcoolo-dependance-nouvelles-recommandations-posologiques-pour-le-baclofene',
-        'https://ansm.sante.fr/actualites/alcoolo-dependance-nouvelles-recommandations-posologiques-pour-le-baclofene',
+        'https://ansm.sante.fr/tableau-marr/nalmefene',
       ]}>
       <TopContainer>
         <P>
