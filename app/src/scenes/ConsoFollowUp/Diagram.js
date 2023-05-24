@@ -97,7 +97,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
     },
 });
 const minBarHeight = 1;
-const Diagram = () => {
+const Diagram = ({ inModalHelp = false }) => {
   const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
   const lastDay = useMemo(
@@ -286,13 +286,16 @@ const Diagram = () => {
           }
         })}
       </LegendsContainer>
-      <TouchableOpacity className="mb-6">
-        <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
-          Comprendre le graphique et les unités d'alcool
-        </Text>
-      </TouchableOpacity>
+      {!inModalHelp && (
+        <TouchableOpacity className="mb-6">
+          <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
+            Comprendre le graphique et les unités d'alcool
+          </Text>
+        </TouchableOpacity>
+      )}
+
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
-      {!!showIncrease && period === 'day' && (
+      {!!showIncrease && !inModalHelp && period === 'day' && (
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
@@ -314,7 +317,7 @@ const Diagram = () => {
           }
         />
       )}
-      {!!showDecrease && period === 'day' && (
+      {!!showDecrease && !inModalHelp && period === 'day' && (
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
@@ -328,7 +331,7 @@ const Diagram = () => {
           }
         />
       )}
-      {!!showStable && period === 'day' && (
+      {!!showStable && !inModalHelp && period === 'day' && (
         <EvolutionMessage
           background="#F9F9F9"
           border="#C4C4C4"
@@ -349,7 +352,7 @@ const Diagram = () => {
           }
         />
       )}
-      {!!showFillConsosFirst && period === 'day' && (
+      {!!showFillConsosFirst && !inModalHelp && period === 'day' && (
         <EvolutionMessage
           background="#e8e8f3"
           border="#4030a5"

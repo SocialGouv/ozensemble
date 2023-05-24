@@ -11,7 +11,7 @@ export const listConseils = [
   },
   {
     img: require('../../assets/images/alcoolWithdrawalBenefits.jpg'),
-    title: 'Les benefices au sevrage',
+    title: 'Les bénéfices au sevrage',
     link: 'ALCOOL_WITHDRAWAL_BENEFITS',
   },
   {
