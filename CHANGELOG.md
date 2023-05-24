@@ -1,3 +1,10 @@
+## [1.114.4](https://github.com/SocialGouv/ozensemble/compare/v1.114.3...v1.114.4) (2023-05-24)
+
+
+### Bug Fixes
+
+* review content alcool withdrawal article ([2a45758](https://github.com/SocialGouv/ozensemble/commit/2a45758d58eeaf98694807535af0aa44ded0fbc5))
+
 ## [1.114.3](https://github.com/SocialGouv/ozensemble/compare/v1.114.2...v1.114.3) (2023-05-23)
 
 
