@@ -33,7 +33,7 @@ const AlcoolWithdrawalBenefits = () => {
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
             <Text className="text-white font-bold text-base">3</Text>
           </View>
-          <Text className="font-semibold">Ne pas prendre « juste un verre de plus » qui en appelle un autre </Text>
+          <Text className="font-semibold">Ne pas prendre «{'\u00A0'}juste un verre de plus{'\u00A0'}» qui en appelle un autre </Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
