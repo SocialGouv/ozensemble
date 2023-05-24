@@ -7,15 +7,67 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import styled from 'styled-components';
 import { screenWidth } from '../../../styles/theme';
 import { logEvent } from '../../../services/logEventsWithMatomo';
+import { View, Text } from 'react-native';
 
 const AlcoolWithdrawalBenefits = () => {
   const title = 'Les bénéfices au sevrage';
   const navigation = useNavigation();
   return (
-    <NavigationWrapper title={title} timeReading={2}>
+    <NavigationWrapper title={title} timeReading={4}>
       <TopContainer>
-        <H2 color={'#4030a5'} underline>
-          Court terme
+        <H2 color={'#4030a5'}>8 clés pour maitriser sa consommation</H2>
+        <Spacer size={20} />
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">1</Text>
+          </View>
+          <Text className="font-semibold">Se fixer un objectif d'arrêt ou de réduction</Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">2</Text>
+          </View>
+          <Text className="font-semibold">Ne pas avoir d'alcool disponible à la maison </Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">3</Text>
+          </View>
+          <Text className="font-semibold">Ne pas prendre «{'\u00A0'}juste un verre de plus{'\u00A0'}» qui en appelle un autre </Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">4</Text>
+          </View>
+          <Text className="font-semibold">Ne pas «{'\u00A0'}compenser{'\u00A0'}» avec du tabac, café, sucre </Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">5</Text>
+          </View>
+          <Text className="font-semibold">Éviter les consommations déclenchant l'envie</Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">6</Text>
+          </View>
+          <Text className="font-semibold">S'hydrater régulièrement et en grande quantité</Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">7</Text>
+          </View>
+          <Text className="font-semibold">L'envie de consommer dure 15 min{'\u00A0'}: distrayez-vous</Text>
+        </View>
+        <View className="flex flex-row space-x-1 items-center mb-4">
+          <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
+            <Text className="text-white font-bold text-base">8</Text>
+          </View>
+          <Text className="font-semibold">Faire de l'exercice physique pour gérer le stress</Text>
+        </View>
+        <Spacer size={20} />
+        <H2 color={'#4030a5'}>
+          Bénéfices à <Text className="underline">court terme</Text>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
@@ -78,10 +130,9 @@ const AlcoolWithdrawalBenefits = () => {
           <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits15.png')} />
         </ImageContainer>
         <Spacer size={20} />
-
         <P>
           Selon le degré initial d'habitation au corps à l'alcool, il peut y avoir des <Bold>symptômes de sevrage</Bold>{' '}
-          lors de l'arrêt des consommations, les plus connus sont&nbsp;:
+          lors de l'arrêt des consommations, les plus connus sont{'\u00A0'}:
         </P>
         <P noMarginBottom>
           <Bold>{'   •  '}</Bold>transpiration,
@@ -124,8 +175,8 @@ const AlcoolWithdrawalBenefits = () => {
           small
         />
         <Spacer size={50} />
-        <H2 color={'#4030a5'} underline>
-          Moyen terme
+        <H2 color={'#4030a5'}>
+          Bénéfices à <Text className="underline">moyen terme</Text>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
@@ -168,8 +219,8 @@ const AlcoolWithdrawalBenefits = () => {
           <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_10.png')} />
         </ImageContainer>
         <Spacer size={50} />
-        <H2 color={'#4030a5'} underline>
-          Long terme
+        <H2 color={'#4030a5'}>
+          Bénéfices à <Text className="underline">long terme</Text>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
