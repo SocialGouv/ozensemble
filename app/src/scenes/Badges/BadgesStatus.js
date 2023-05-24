@@ -32,7 +32,7 @@ const BadgesStatus = ({ navigate }) => {
   if (!badgesCatalog.length) return null;
 
   return (
-    <TouchableOpacity className="py-5" onPress={navigate}>
+    <TouchableOpacity className="py-5 mt-4" onPress={navigate}>
       <View className="mt-2 flex flex-row space-x-1 items-center mb-3">
         <BagdesIcon size={25} />
         <H2 color="#4030a5">Mes badges obtenus</H2>
