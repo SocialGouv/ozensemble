@@ -346,7 +346,7 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
                         visible: true,
                       });
@@ -365,7 +365,7 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
                         visible: true,
                       });
@@ -385,7 +385,7 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: null,
                         consosWeekGoal: null,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD'),
+                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
                         lastDay: calendarWeek.days[6].day.format('DD MMMM'),
                         visible: true,
                       });
