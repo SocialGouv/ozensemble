@@ -57,7 +57,7 @@ const AlcoolWithdrawalBenefits = () => {
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
             <Text className="text-white font-bold text-base">7</Text>
           </View>
-          <Text className="font-semibold">L'envie de consommer dure 15 min&nbps;: distrayez-vous</Text>
+          <Text className="font-semibold">L'envie de consommer dure 15 min{'\u00A0'}: distrayez-vous</Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
