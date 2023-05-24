@@ -178,7 +178,7 @@ const MyGains = () => {
           </View>
 
           <Container>
-            <View className="flex flex-row space-x-1 items-center mb-3 mt-8">
+            <View className="flex flex-row space-x-1 items-center mb-3 mt-6">
               <GainsIcon size={25} />
               <H2 color="#4030a5">Mes gains depuis le début</H2>
               <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
