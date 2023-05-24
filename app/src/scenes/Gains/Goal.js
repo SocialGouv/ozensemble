@@ -23,8 +23,8 @@ import WrapperContainer from '../../components/WrapperContainer';
 import { Text, View } from 'react-native';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
-import Background from '../../components/Background';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ModalWrongValue from '../../components/ModalWrongValue';
 
 const Goal = ({ navigation, route }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -43,6 +43,7 @@ const Goal = ({ navigation, route }) => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
+  const [modalWrongValueVisible, setModalWrongValueVisible] = useState(false);
   const isOnboarded = !route.params?.forOnboarding;
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
@@ -105,6 +106,16 @@ const Goal = ({ navigation, route }) => {
           });
         }}
         visible={modalValidationVisible}
+      />
+      <ModalWrongValue
+        visible={modalWrongValueVisible}
+        onUpdateGoal={() => {
+          setModalWrongValueVisible(false);
+        }}
+        onUpdatePreviousConso={() => {
+          setModalWrongValueVisible(false);
+          navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+        }}
       />
       <WrapperContainer
         noPaddingHorizontal
@@ -203,7 +214,13 @@ const Goal = ({ navigation, route }) => {
             <ButtonPrimary
               content="Valider mon objectif"
               onPress={() => {
-                setModalValidationVisible(true);
+                console.log('dosesPerWeek', dosesPerWeek);
+                console.log('previousDrinksPerWeek', previousDrinksPerWeek);
+                if (dosesPerWeek >= numberDrinkEstimation) {
+                  setModalWrongValueVisible(true);
+                } else {
+                  setModalValidationVisible(true);
+                }
               }}
               disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
             />
