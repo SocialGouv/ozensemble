@@ -1,3 +1,11 @@
+## [1.114.9](https://github.com/SocialGouv/ozensemble/compare/v1.114.8...v1.114.9) (2023-05-24)
+
+
+### Bug Fixes
+
+* add margin between gain modules ([#375](https://github.com/SocialGouv/ozensemble/issues/375)) ([033d380](https://github.com/SocialGouv/ozensemble/commit/033d380955253e4ed317bb5667ec0c88b071c69a))
+* show month name on pop in when week on 2 different months ([#376](https://github.com/SocialGouv/ozensemble/issues/376)) ([ecaca44](https://github.com/SocialGouv/ozensemble/commit/ecaca443cc08121fcbda6a7164d7d79dc8a8607b))
+
 ## [1.114.8](https://github.com/SocialGouv/ozensemble/compare/v1.114.7...v1.114.8) (2023-05-24)
 
 
