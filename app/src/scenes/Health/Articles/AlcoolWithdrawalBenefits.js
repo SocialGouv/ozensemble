@@ -132,7 +132,7 @@ const AlcoolWithdrawalBenefits = () => {
         <Spacer size={20} />
         <P>
           Selon le degré initial d'habitation au corps à l'alcool, il peut y avoir des <Bold>symptômes de sevrage</Bold>{' '}
-          lors de l'arrêt des consommations, les plus connus sont&nbsp;:
+          lors de l'arrêt des consommations, les plus connus sont{'\u00A0'}:
         </P>
         <P noMarginBottom>
           <Bold>{'   •  '}</Bold>transpiration,
