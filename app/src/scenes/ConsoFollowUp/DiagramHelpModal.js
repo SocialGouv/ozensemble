@@ -23,7 +23,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   return (
     <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onCloseHelp}>
       <WrapperContainer onPressBackButton={onCloseHelp}>
-        <Diagram asPreview />
+        <Diagram inModalHelp={true} />
         <Paragraph>
           <Elem
             content={
