@@ -171,7 +171,7 @@ const Goal = ({ navigation, route }) => {
             </Text>
           </Row>
           <View className="bg-[#F5F6FA] p-2 mb-2">
-            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation actuelle par semaine</Text>
+            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation initiale par semaine</Text>
             <View className="flex flex-row justify-center items-center mt-2">
               <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
               <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
