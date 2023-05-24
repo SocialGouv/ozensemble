@@ -12,6 +12,7 @@ const AlcoolWithdrawalTreatment = () => {
     <NavigationWrapper
       title={title}
       timeReading={2}
+      sourcesDrTalbot={false}
       link={
         'https://www.has-sante.fr/jcms/c_1795221/fr/outil-d-aide-au-reperage-precoce-et-intervention-breve-alcool-cannabis-tabac-chez-l-adulte'
       }>
