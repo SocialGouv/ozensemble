@@ -27,6 +27,7 @@ import InAppReview from 'react-native-in-app-review';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useRecoilValue } from 'recoil';
 import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
+import { badgesState } from '../../recoil/badges';
 
 const InfosStack = createStackNavigator();
 
@@ -54,10 +55,11 @@ const Infos = () => {
 const InfosMenu = ({ navigation }) => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const badges = useRecoilValue(badgesState);
+  const isOnboarded = useMemo(() => {
+    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
+    return firstBadge ? true : false;
+  });
   const [debugPressed, setDebugPressed] = useState(0);
   useEffect(() => {
     if (debugPressed >= (__DEV__ ? 2 : 8)) navigation.navigate('FAKE_DATA');

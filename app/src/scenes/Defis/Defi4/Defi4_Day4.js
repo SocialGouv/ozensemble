@@ -18,6 +18,7 @@ import Goal from '../../Gains/Goal';
 import Sevrage from '../../Gains/Sevrage';
 import GainsPreviousConsumption from '../../Gains/GainsPreviousConsumption';
 import GainsReminder from '../../Gains/GainsReminder';
+import { badgesState } from '../../../recoil/badges';
 
 const Defi4_Day4_Stack = createStackNavigator();
 
@@ -27,10 +28,11 @@ const Defi4_Day4 = ({ route }) => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const badges = useRecoilValue(badgesState);
+  const isOnboarded = useMemo(() => {
+    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
+    return firstBadge ? true : false;
+  });
 
   useEffect(() => {
     if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');

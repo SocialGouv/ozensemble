@@ -16,6 +16,8 @@ import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWe
 import Done from '../../../components/illustrations/Done';
 import { defi4_Day5_Answers_State } from '../../../recoil/quizzs';
 import { answersDefi4Day5 } from './Defi4_Day5';
+import { storage } from '../../../services/storage';
+import { badgesState } from '../../../recoil/badges';
 
 const Defi4_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -23,10 +25,11 @@ const Defi4_Day7 = ({ navigation, route }) => {
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
   const defi4_Day5_Answers = useRecoilValue(defi4_Day5_Answers_State);
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const badges = useRecoilValue(badgesState);
+  const isOnboarded = useMemo(() => {
+    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
+    return firstBadge ? true : false;
+  });
 
   useEffect(() => {
     if (route?.params?.inDefi4) {

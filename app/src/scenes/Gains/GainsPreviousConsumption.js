@@ -21,11 +21,16 @@ import { Text, View } from 'react-native';
 import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
 import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { badgesState } from '../../recoil/badges';
 
 const GainsPreviousConsumption = () => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const navigation = useNavigation();
-  const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
+  const badges = useRecoilValue(badgesState);
+  const isOnboarded = useMemo(() => {
+    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
+    return firstBadge ? true : false;
+  });
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const numberDrinkEstimation = useMemo(() => {

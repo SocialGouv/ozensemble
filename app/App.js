@@ -17,6 +17,8 @@ import {
   sendPreviousDrinksToDB,
   hasSentPreviousDrinksToDB,
   cleanConsosAndCatalog,
+  hasCheckedForOnboarding,
+  checkForOnboarding,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -43,7 +45,7 @@ const sendDrinksToBd = async () => {
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
-
+  const [_hasCheckedForOnboarding, setHasCheckedForOnboarding] = useState(hasCheckedForOnboarding);
   useEffect(() => {
     if (!_hasCleanConsoAndCatalog) {
       cleanConsosAndCatalog();
@@ -52,6 +54,12 @@ const App = () => {
     if (!_hasSentPreviousDrinksToDB) {
       sendDrinksToBd();
       setHasSentPreviousDrinksToDB(true);
+    }
+    console.log(_hasCheckedForOnboarding);
+    if (!_hasCheckedForOnboarding) {
+      console.log('checkForOnboarding');
+      checkForOnboarding();
+      setHasCheckedForOnboarding(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
