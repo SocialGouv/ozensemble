@@ -25,7 +25,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
     FROM "public"."matomo"
     WHERE ((("public"."matomo"."action_eventcategory" = 'DEFI'
     OR "public"."matomo"."action_eventcategory" = 'DEFI_7_DAYS' or "public"."matomo"."action_eventcategory" = 'DEFI1')
-   AND ("public"."matomo"."action_eventaction" = 'DEFI_7_DAYS_VALIDATE_DAY' or "public"."matomo"."action_eventaction" = 'DEFI1_VALIDATE_DAY') AND "public"."matomo"."action_eventvalue" = 2))
+   AND ("public"."matomo"."action_eventaction" = 'DEFI_7_DAYS_VALIDATE_DAY' or "public"."matomo"."action_eventaction" = 'DEFI1_VALIDATE_DAY') AND "public"."matomo"."action_eventvalue" = 3))
 ), defi as (
 	select "timestamp", "action", "userid", "dimension1" from ranked_defi where rn = 1
 ), saisies_conso as (
@@ -100,7 +100,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
     where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE'
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), santé as (
-    select "userid", date_trunc('month', "time") as "timestamp", 'SANTE' as "action", "dimension1"
+    select "userid", date_trunc('day', "time") as "timestamp", 'SANTE' as "action", "dimension1"
     from "saisies_santé" where "rn"=2
 ), petits_engagés_full as (
   SELECT 'conso' AS source, "timestamp", "userid", "dimension1", "action" FROM "conso" UNION ALL
@@ -113,7 +113,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
   FROM petits_engagés_full
 ), petits_engagés as (
    select "userid", "action_timestamp", "dimension1", "action" FROM petits_engagés_ranked WHERE rn = 1
-) select * from petits_engagés
+) select * from petits_engagés;
 
 
 
