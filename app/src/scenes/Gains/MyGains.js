@@ -8,7 +8,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 
 import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
+import { previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import BadgesStatus from '../Badges/BadgesStatus';

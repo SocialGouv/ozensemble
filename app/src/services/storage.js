@@ -110,12 +110,6 @@ export async function cleanConsosAndCatalog() {
   storage.set('@hasCleanConsoAndCatalog', true);
 }
 
-export const hasCheckedForOnboarding = storage.getBoolean('@hasCheckedForOnboarding');
-
-export async function checkForOnboarding() {
-  const badges = storage.getString('@Badges');
-}
-
 const mapIconOfToIconName = (iconOf) => {
   switch (iconOf) {
     case 'beer-pint':

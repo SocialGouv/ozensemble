@@ -26,7 +26,6 @@ import FilesIcon from '../../components/illustrations/icons/FilesIcon';
 import InAppReview from 'react-native-in-app-review';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useRecoilValue } from 'recoil';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import { badgesState } from '../../recoil/badges';
 
 const InfosStack = createStackNavigator();
