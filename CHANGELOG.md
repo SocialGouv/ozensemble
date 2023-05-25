@@ -1,3 +1,10 @@
+## [1.114.13](https://github.com/SocialGouv/ozensemble/compare/v1.114.12...v1.114.13) (2023-05-25)
+
+
+### Bug Fixes
+
+* check if onborded with first badge goal ([#378](https://github.com/SocialGouv/ozensemble/issues/378)) ([c1adeb5](https://github.com/SocialGouv/ozensemble/commit/c1adeb53db5410f8cc629fa23b2c317aee95c5a5))
+
 ## [1.114.12](https://github.com/SocialGouv/ozensemble/compare/v1.114.11...v1.114.12) (2023-05-25)
 
 
