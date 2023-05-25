@@ -11,7 +11,7 @@ import { P, Spacer } from '../../../components/Articles';
 import Calculate from '../../../components/illustrations/icons/Calculate';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { useRecoilValue } from 'recoil';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../../recoil/gains';
+import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import H1 from '../../../components/H1';
 import Done from '../../../components/illustrations/Done';
 import Goal from '../../Gains/Goal';
@@ -25,7 +25,6 @@ const Defi4_Day4_Stack = createStackNavigator();
 const Defi4_Day4 = ({ route }) => {
   const isFocused = useIsFocused();
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
   const badges = useRecoilValue(badgesState);

@@ -23,11 +23,10 @@ import WrapperContainer from '../../components/WrapperContainer';
 import { Text, View } from 'react-native';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
-import Background from '../../components/Background';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { badgesState } from '../../recoil/badges';
 
-const Goal = ({ navigation, route }) => {
+const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
 
   const toggleDayWithGoalNoDrink = (day) =>

@@ -14,7 +14,6 @@ import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import GainsCalendar from '../Gains/GainsCalendar';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import { ScrollView } from 'react-native-gesture-handler';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useNavigation } from '@react-navigation/native';
@@ -55,8 +54,6 @@ const ConsoFollowUp = () => {
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigation = useNavigation();
   const [dateToScroll, setDateToScroll] = useState(null);
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const [helpModalVisible, setHelpModalVisible] = useState(false);
   const navigateToFirstStep = () => {
     logEvent({

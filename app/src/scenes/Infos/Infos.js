@@ -53,8 +53,6 @@ const Infos = () => {
 };
 
 const InfosMenu = ({ navigation }) => {
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const badges = useRecoilValue(badgesState);
   const isOnboarded = useMemo(() => {
     const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);

@@ -30,7 +30,6 @@ const MyGains = () => {
   const navigation = useNavigation();
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
 
   const badges = useRecoilValue(badgesState);
