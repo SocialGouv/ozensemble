@@ -25,7 +25,6 @@ const Calendar = ({ onDayPress }) => {
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
   const dailyDoses = useRecoilValue(dailyDosesSelector);
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-  console.log(maxDosesByDrinkingDay);
   const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
   const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalContent, setModalContent] = useState(null);
