@@ -214,8 +214,6 @@ const Goal = ({ navigation, route }) => {
             <ButtonPrimary
               content="Valider mon objectif"
               onPress={() => {
-                console.log('dosesPerWeek', dosesPerWeek);
-                console.log('previousDrinksPerWeek', previousDrinksPerWeek);
                 if (dosesPerWeek >= numberDrinkEstimation) {
                   setModalWrongValueVisible(true);
                 } else {
