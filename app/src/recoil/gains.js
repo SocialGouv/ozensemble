@@ -1,6 +1,7 @@
 import { atom, selector } from 'recoil';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
+import { badgesState } from './badges';
 import { getInitValueFromStorage } from './utils';
 export const daysWithGoalNoDrinkState = atom({
   key: 'daysWithGoalNoDrinkState',
@@ -38,5 +39,14 @@ export const maxDrinksPerWeekSelector = selector({
     const totalDrinksByDrinkingDay = get(totalDrinksByDrinkingDaySelector);
     const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);
     return (7 - daysWithGoalNoDrink.length) * totalDrinksByDrinkingDay;
+  },
+});
+
+export const isOnboardedSelector = selector({
+  key: 'isOnboardedSelector',
+  get: ({ get }) => {
+    const badges = get(badgesState);
+    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
+    return firstBadge ? true : false;
   },
 });

@@ -1,5 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import { setValidatedDays } from '../utils';
@@ -11,14 +11,13 @@ import { P, Spacer } from '../../../components/Articles';
 import Calculate from '../../../components/illustrations/icons/Calculate';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { useRecoilValue } from 'recoil';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../../../recoil/gains';
+import { daysWithGoalNoDrinkState, isOnboardedSelector, maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import H1 from '../../../components/H1';
 import Done from '../../../components/illustrations/Done';
 import Goal from '../../Gains/Goal';
 import Sevrage from '../../Gains/Sevrage';
 import GainsPreviousConsumption from '../../Gains/GainsPreviousConsumption';
 import GainsReminder from '../../Gains/GainsReminder';
-import { badgesState } from '../../../recoil/badges';
 
 const Defi4_Day4_Stack = createStackNavigator();
 
@@ -27,11 +26,7 @@ const Defi4_Day4 = ({ route }) => {
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const badges = useRecoilValue(badgesState);
-  const isOnboarded = useMemo(() => {
-    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
-    return firstBadge ? true : false;
-  });
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
 
   useEffect(() => {
     if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');

@@ -13,6 +13,7 @@ import {
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
   previousDrinksPerWeekState,
+  isOnboardedSelector,
 } from '../../recoil/gains';
 
 import HelpModalCountConsumption from './HelpModalCountConsumption';
@@ -24,7 +25,6 @@ import { Text, View } from 'react-native';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { badgesState } from '../../recoil/badges';
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -43,11 +43,8 @@ const Goal = ({ navigation }) => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
-  const badges = useRecoilValue(badgesState);
-  const isOnboarded = useMemo(() => {
-    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
-    return firstBadge ? true : false;
-  });
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
+
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {

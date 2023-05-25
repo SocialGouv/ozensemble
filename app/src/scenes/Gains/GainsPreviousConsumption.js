@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
-import { previousDrinksPerWeekState } from '../../recoil/gains';
+import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
@@ -17,15 +17,11 @@ import { Text, View } from 'react-native';
 import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
 import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { badgesState } from '../../recoil/badges';
 
 const GainsPreviousConsumption = () => {
   const navigation = useNavigation();
-  const badges = useRecoilValue(badgesState);
-  const isOnboarded = useMemo(() => {
-    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
-    return firstBadge ? true : false;
-  });
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
+
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const numberDrinkEstimation = useMemo(() => {

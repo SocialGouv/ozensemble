@@ -26,7 +26,7 @@ import FilesIcon from '../../components/illustrations/icons/FilesIcon';
 import InAppReview from 'react-native-in-app-review';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useRecoilValue } from 'recoil';
-import { badgesState } from '../../recoil/badges';
+import { isOnboardedSelector } from '../../recoil/gains';
 
 const InfosStack = createStackNavigator();
 
@@ -52,11 +52,8 @@ const Infos = () => {
 };
 
 const InfosMenu = ({ navigation }) => {
-  const badges = useRecoilValue(badgesState);
-  const isOnboarded = useMemo(() => {
-    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
-    return firstBadge ? true : false;
-  });
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
+
   const [debugPressed, setDebugPressed] = useState(0);
   useEffect(() => {
     if (debugPressed >= (__DEV__ ? 2 : 8)) navigation.navigate('FAKE_DATA');

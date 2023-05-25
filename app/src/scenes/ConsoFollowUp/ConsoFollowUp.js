@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { findNodeHandle, View, Text, TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
@@ -25,7 +25,7 @@ import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import LegendHelpModal from './LegendHelpModal';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
-import { badgesState } from '../../recoil/badges';
+import { isOnboardedSelector } from '../../recoil/gains';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -63,11 +63,7 @@ const ConsoFollowUp = () => {
     navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
-  const badges = useRecoilValue(badgesState);
-  const isOnboarded = useMemo(() => {
-    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
-    return firstBadge ? true : false;
-  });
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
   const scrollToInput = (ref) => {
     if (!ref) return;
     if (!scrollViewRef.current) return;

@@ -8,7 +8,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 
 import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import TextStyled from '../../components/TextStyled';
-import { previousDrinksPerWeekState } from '../../recoil/gains';
+import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import BadgesStatus from '../Badges/BadgesStatus';
@@ -51,10 +51,7 @@ const MyGains = () => {
     navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
-  const isOnboarded = useMemo(() => {
-    const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
-    return firstBadge ? true : false;
-  });
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
 
   const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
