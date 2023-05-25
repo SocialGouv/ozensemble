@@ -1,5 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
 import { setValidatedDays } from '../utils';
@@ -11,7 +11,7 @@ import { P, Spacer } from '../../../components/Articles';
 import Calculate from '../../../components/illustrations/icons/Calculate';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { useRecoilValue } from 'recoil';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../../recoil/gains';
+import { daysWithGoalNoDrinkState, isOnboardedSelector, maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import H1 from '../../../components/H1';
 import Done from '../../../components/illustrations/Done';
 import Goal from '../../Gains/Goal';
@@ -24,13 +24,9 @@ const Defi4_Day4_Stack = createStackNavigator();
 const Defi4_Day4 = ({ route }) => {
   const isFocused = useIsFocused();
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
 
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
 
   useEffect(() => {
     if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');

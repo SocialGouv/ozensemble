@@ -13,6 +13,7 @@ import {
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
   previousDrinksPerWeekState,
+  isOnboardedSelector,
 } from '../../recoil/gains';
 
 import HelpModalCountConsumption from './HelpModalCountConsumption';
@@ -26,7 +27,7 @@ import ModalGoalValidation from '../../components/ModalGoalValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ModalWrongValue from '../../components/ModalWrongValue';
 
-const Goal = ({ navigation, route }) => {
+const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
 
   const toggleDayWithGoalNoDrink = (day) =>
@@ -43,8 +44,7 @@ const Goal = ({ navigation, route }) => {
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
-  const [modalWrongValueVisible, setModalWrongValueVisible] = useState(false);
-  const isOnboarded = !route.params?.forOnboarding;
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {

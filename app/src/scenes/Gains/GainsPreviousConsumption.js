@@ -5,11 +5,7 @@ import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
-import {
-  maxDrinksPerWeekSelector,
-  previousDrinksPerWeekState,
-  totalDrinksByDrinkingDaySelector,
-} from '../../recoil/gains';
+import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
 import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
@@ -23,9 +19,9 @@ import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksV
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const GainsPreviousConsumption = () => {
-  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const navigation = useNavigation();
-  const isOnboarded = useRecoilValue(maxDrinksPerWeekSelector);
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
+
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const numberDrinkEstimation = useMemo(() => {

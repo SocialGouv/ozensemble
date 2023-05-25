@@ -1,5 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { Linking, View } from 'react-native';
@@ -12,7 +12,7 @@ import { Bold, P } from '../../../components/Articles';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import WrapperContainer from '../../../components/WrapperContainer';
-import { daysWithGoalNoDrinkState, maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../../recoil/gains';
+import { daysWithGoalNoDrinkState, isOnboardedSelector, maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import Done from '../../../components/illustrations/Done';
 import { defi4_Day5_Answers_State } from '../../../recoil/quizzs';
 import { answersDefi4Day5 } from './Defi4_Day5';
@@ -20,13 +20,9 @@ import { answersDefi4Day5 } from './Defi4_Day5';
 const Defi4_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const dayNoDrink = useRecoilValue(daysWithGoalNoDrinkState)?.length;
   const defi4_Day5_Answers = useRecoilValue(defi4_Day5_Answers_State);
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
 
   useEffect(() => {
     if (route?.params?.inDefi4) {

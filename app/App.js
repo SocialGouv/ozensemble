@@ -43,7 +43,6 @@ const sendDrinksToBd = async () => {
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
-
   useEffect(() => {
     if (!_hasCleanConsoAndCatalog) {
       cleanConsosAndCatalog();

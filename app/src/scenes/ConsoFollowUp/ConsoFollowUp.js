@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { findNodeHandle, View, Text, TouchableOpacity } from 'react-native';
 import { useRecoilValue } from 'recoil';
@@ -14,7 +14,6 @@ import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import GainsCalendar from '../Gains/GainsCalendar';
-import { maxDrinksPerWeekSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import { ScrollView } from 'react-native-gesture-handler';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useNavigation } from '@react-navigation/native';
@@ -26,6 +25,7 @@ import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import LegendHelpModal from './LegendHelpModal';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
+import { isOnboardedSelector } from '../../recoil/gains';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -54,8 +54,6 @@ const ConsoFollowUp = () => {
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigation = useNavigation();
   const [dateToScroll, setDateToScroll] = useState(null);
-  const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const [helpModalVisible, setHelpModalVisible] = useState(false);
   const navigateToFirstStep = () => {
     logEvent({
@@ -65,10 +63,7 @@ const ConsoFollowUp = () => {
     navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
-  const isOnboarded = useMemo(
-    () => !!maxDrinksPerWeekGoal && !!previousDrinksPerWeek.length,
-    [maxDrinksPerWeekGoal, previousDrinksPerWeek]
-  );
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
   const scrollToInput = (ref) => {
     if (!ref) return;
     if (!scrollViewRef.current) return;
