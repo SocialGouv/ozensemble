@@ -25,6 +25,7 @@ import { Text, View } from 'react-native';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ModalWrongValue from '../../components/ModalWrongValue';
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -44,7 +45,6 @@ const Goal = ({ navigation }) => {
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const isOnboarded = useRecoilValue(isOnboardedSelector);
-
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
@@ -106,6 +106,16 @@ const Goal = ({ navigation }) => {
           });
         }}
         visible={modalValidationVisible}
+      />
+      <ModalWrongValue
+        visible={modalWrongValueVisible}
+        onUpdateGoal={() => {
+          setModalWrongValueVisible(false);
+        }}
+        onUpdatePreviousConso={() => {
+          setModalWrongValueVisible(false);
+          navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+        }}
       />
       <WrapperContainer
         noPaddingHorizontal
@@ -172,7 +182,7 @@ const Goal = ({ navigation }) => {
             </Text>
           </Row>
           <View className="bg-[#F5F6FA] p-2 mb-2">
-            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation actuelle par semaine</Text>
+            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation initiale par semaine</Text>
             <View className="flex flex-row justify-center items-center mt-2">
               <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
               <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
@@ -204,7 +214,11 @@ const Goal = ({ navigation }) => {
             <ButtonPrimary
               content="Valider mon objectif"
               onPress={() => {
-                setModalValidationVisible(true);
+                if (dosesPerWeek >= numberDrinkEstimation) {
+                  setModalWrongValueVisible(true);
+                } else {
+                  setModalValidationVisible(true);
+                }
               }}
               disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
             />

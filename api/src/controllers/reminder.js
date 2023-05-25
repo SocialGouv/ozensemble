@@ -100,6 +100,7 @@ router.put(
       create: {
         push_notif_token: pushNotifToken,
         matomo_id: matomoId,
+        created_from: "Reminder",
       },
     });
 

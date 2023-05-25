@@ -1,3 +1,49 @@
+## [1.114.12](https://github.com/SocialGouv/ozensemble/compare/v1.114.11...v1.114.12) (2023-05-25)
+
+
+### Bug Fixes
+
+* add modal goal too high ([#379](https://github.com/SocialGouv/ozensemble/issues/379)) ([a0079d7](https://github.com/SocialGouv/ozensemble/commit/a0079d7115d55f572f2df78137e1e228591618af))
+
+## [1.114.11](https://github.com/SocialGouv/ozensemble/compare/v1.114.10...v1.114.11) (2023-05-25)
+
+
+### Bug Fixes
+
+* bump version to 177 ([#380](https://github.com/SocialGouv/ozensemble/issues/380)) ([5871f98](https://github.com/SocialGouv/ozensemble/commit/5871f985ddd65d368aee8f522f7e72053db3d9d9))
+
+## [1.114.10](https://github.com/SocialGouv/ozensemble/compare/v1.114.9...v1.114.10) (2023-05-24)
+
+
+### Bug Fixes
+
+*   review content withdrawal ([#374](https://github.com/SocialGouv/ozensemble/issues/374)) ([7ad9444](https://github.com/SocialGouv/ozensemble/commit/7ad944450fbea18f039c3a38f2f7f075a16663c0))
+* add from where user is created ([#370](https://github.com/SocialGouv/ozensemble/issues/370)) ([ab2604f](https://github.com/SocialGouv/ozensemble/commit/ab2604f370afa05e59bd6909907d2de6fec6a87e))
+* wording when setting goal ([#377](https://github.com/SocialGouv/ozensemble/issues/377)) ([e304357](https://github.com/SocialGouv/ozensemble/commit/e304357a0057071c96301c0808906e2756b0c82b))
+
+## [1.114.9](https://github.com/SocialGouv/ozensemble/compare/v1.114.8...v1.114.9) (2023-05-24)
+
+
+### Bug Fixes
+
+* add margin between gain modules ([#375](https://github.com/SocialGouv/ozensemble/issues/375)) ([033d380](https://github.com/SocialGouv/ozensemble/commit/033d380955253e4ed317bb5667ec0c88b071c69a))
+* show month name on pop in when week on 2 different months ([#376](https://github.com/SocialGouv/ozensemble/issues/376)) ([ecaca44](https://github.com/SocialGouv/ozensemble/commit/ecaca443cc08121fcbda6a7164d7d79dc8a8607b))
+
+## [1.114.8](https://github.com/SocialGouv/ozensemble/compare/v1.114.7...v1.114.8) (2023-05-24)
+
+
+### Bug Fixes
+
+* do not show analyses and help modal link inside help modal ([#373](https://github.com/SocialGouv/ozensemble/issues/373)) ([7d899da](https://github.com/SocialGouv/ozensemble/commit/7d899da7d54214ebaa6db4ea967f1fc7e997df90))
+* wording review ([#372](https://github.com/SocialGouv/ozensemble/issues/372)) ([e494f07](https://github.com/SocialGouv/ozensemble/commit/e494f074462a77622ecd2459be1ced1e8c50f6fc))
+
+## [1.114.7](https://github.com/SocialGouv/ozensemble/compare/v1.114.6...v1.114.7) (2023-05-24)
+
+
+### Bug Fixes
+
+* revert 292ea06df10e4b5e0e58ebfee96bb4dd2154c6ff ([eac2b8e](https://github.com/SocialGouv/ozensemble/commit/eac2b8eda85e46393891883d7e1f1c7e861ee158))
+
 ## [1.114.6](https://github.com/SocialGouv/ozensemble/compare/v1.114.5...v1.114.6) (2023-05-24)
 
 

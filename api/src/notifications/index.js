@@ -12,6 +12,7 @@ const updateLastConsoAdded = async (matomoId) => {
       create: {
         matomo_id: matomoId,
         lastConsoAdded: dayjs().utc().toDate(),
+        created_from: "UpdateLastConso",
       },
       update: { lastConsoAdded: dayjs().utc().toDate() },
     });
@@ -84,7 +85,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
   const type = "DEFI1_DAY1";
   const user = await prisma.user.upsert({
     where: { matomo_id: matomoId },
-    create: { matomo_id: matomoId },
+    create: { matomo_id: matomoId, created_from: "SheduleDefiDay1" },
     update: {},
   });
 
