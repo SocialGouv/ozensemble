@@ -7,7 +7,6 @@ import WrapperContainer from '../../components/WrapperContainer';
 import TextStyled from '../../components/TextStyled';
 import {
   daysWithGoalNoDrinkState,
-  drinksByDrinkingDayState,
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
 } from '../../recoil/gains';
@@ -17,7 +16,6 @@ import { SafeAreaView } from 'react-native';
 
 const Sevrage = ({ navigation, route }) => {
   const daysWithGoalNoDrink = useRecoilValue(daysWithGoalNoDrinkState);
-  const drinksByDrinkingDay = useRecoilValue(drinksByDrinkingDayState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
 
@@ -64,7 +62,6 @@ const Sevrage = ({ navigation, route }) => {
                 body: {
                   matomoId: matomoId,
                   daysWithGoalNoDrink,
-                  drinksByDrinkingDay,
                   dosesByDrinkingDay,
                   dosesPerWeek,
                 },

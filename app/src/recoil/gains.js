@@ -8,11 +8,11 @@ export const daysWithGoalNoDrinkState = atom({
   default: getInitValueFromStorage('@DaysWithGoalNoDrink', []),
   effects: [({ onSet }) => onSet((newValue) => storage.set('@DaysWithGoalNoDrink', JSON.stringify(newValue)))],
 });
-export const drinksByDrinkingDayState = atom({
-  key: 'drinksByDrinkingDayState',
-  default: getInitValueFromStorage('@StoredDetailedDrinksByDrinkingDay', []),
+export const drinksByWeekState = atom({
+  key: 'drinksByWeekState',
+  default: getInitValueFromStorage('@StoredDetaileddrinksByWeekState', []),
   effects: [
-    ({ onSet }) => onSet((newValue) => storage.set('@StoredDetailedDrinksByDrinkingDay', JSON.stringify(newValue))),
+    ({ onSet }) => onSet((newValue) => storage.set('@StoredDetaileddrinksByWeekState', JSON.stringify(newValue))),
   ],
 });
 export const previousDrinksPerWeekState = atom({
@@ -23,22 +23,25 @@ export const previousDrinksPerWeekState = atom({
 export const totalDrinksByDrinkingDaySelector = selector({
   key: 'totalDrinksByDrinkingDaySelector',
   get: ({ get }) => {
-    const drinksByDrinkingDay = get(drinksByDrinkingDayState);
-    return drinksByDrinkingDay.reduce(
+    const totalDrinksByWeek = get(maxDrinksPerWeekSelector);
+    const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);
+    console.log('totalDrinksByWeek', totalDrinksByWeek);
+    console.log('daysWithGoalNoDrink', daysWithGoalNoDrink);
+    console.log(Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length)));
+    return Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length));
+  },
+});
+export const maxDrinksPerWeekSelector = selector({
+  key: 'maxDrinksPerWeekSelector',
+  get: ({ get }) => {
+    const drinksByWeek = get(drinksByWeekState);
+    return drinksByWeek.reduce(
       (sum, drink) =>
         Math.ceil(
           sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses
         ),
       0
     );
-  },
-});
-export const maxDrinksPerWeekSelector = selector({
-  key: 'maxDrinksPerWeekSelector',
-  get: ({ get }) => {
-    const totalDrinksByDrinkingDay = get(totalDrinksByDrinkingDaySelector);
-    const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);
-    return (7 - daysWithGoalNoDrink.length) * totalDrinksByDrinkingDay;
   },
 });
 
