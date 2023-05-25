@@ -17,7 +17,7 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
-import { daysWithGoalNoDrinkState, drinksByWeekState, setDrinksByWeek } from '../../recoil/gains';
+import { daysWithGoalNoDrinkState, setDrinksByWeek } from '../../recoil/gains';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -35,7 +35,6 @@ const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
-  const setDrinkByWeekState = useSetRecoilState(drinksByWeekState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
