@@ -1,3 +1,10 @@
+## [1.114.12](https://github.com/SocialGouv/ozensemble/compare/v1.114.11...v1.114.12) (2023-05-25)
+
+
+### Bug Fixes
+
+* add modal goal too high ([#379](https://github.com/SocialGouv/ozensemble/issues/379)) ([a0079d7](https://github.com/SocialGouv/ozensemble/commit/a0079d7115d55f572f2df78137e1e228591618af))
+
 ## [1.114.11](https://github.com/SocialGouv/ozensemble/compare/v1.114.10...v1.114.11) (2023-05-25)
 
 
