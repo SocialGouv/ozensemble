@@ -71,15 +71,18 @@ const ModalGoal = ({ content, onClose }) => {
               )}
             </View>
           </View>
-          <Text className="text-center mt-4">
-            {content?.consommationContent?.split('__')?.map((string, index) => {
-              return (
-                <React.Fragment key={string}>
-                  <TextStyled bold={index % 2}>{string}</TextStyled>
-                </React.Fragment>
-              );
-            })}
-          </Text>
+          {content?.consommationContent && (
+            <Text className="text-center mt-4">
+              {content?.consommationContent?.split('__')?.map((string, index) => {
+                return (
+                  <React.Fragment key={string}>
+                    <TextStyled bold={index % 2}>{string}</TextStyled>
+                  </React.Fragment>
+                );
+              })}
+            </Text>
+          )}
+
           {content?.consosWeekGoal && (
             <View>
               <View className="flex flex-row justify-center">
