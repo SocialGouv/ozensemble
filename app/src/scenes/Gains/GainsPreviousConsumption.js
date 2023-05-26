@@ -27,7 +27,9 @@ const GainsPreviousConsumption = () => {
   const numberDrinkEstimation = useMemo(() => {
     return previousDrinksPerWeek.reduce(
       (sum, drink) =>
-        sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses, //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
+        Math.round(
+          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses
+        ), //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
       0
     );
   }, [previousDrinksPerWeek]);
