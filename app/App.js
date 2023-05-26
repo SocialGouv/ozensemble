@@ -59,7 +59,6 @@ const App = () => {
       setHasSentPreviousDrinksToDB(true);
     }
     if (!hasMigrateFromDailyGoalToWeekly) {
-      console.log('here');
       migrateFromDailyGoalToWeekly();
       sethasMigrateFromDailyGoalToWeekly(true);
     }

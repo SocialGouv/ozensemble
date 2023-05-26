@@ -115,24 +115,19 @@ export async function cleanConsosAndCatalog() {
 export const hasMigrateFromDailyGoalToWeekly = storage.getBoolean('hasMigrateFromDailyGoalToWeekly');
 
 export async function migrateFromDailyGoalToWeekly() {
-  console.log('here');
   const drinksByDrinkingDayString = storage.getString('@StoredDetailedDrinksByDrinkingDay');
   if (drinksByDrinkingDayString) {
     const drinkingDaysString = storage.getString('@DaysWithGoalNoDrink');
     const drinkingDays = JSON.parse(drinkingDaysString);
-    console.log(drinkingDays);
     const drinksByDrinkingDay = JSON.parse(drinksByDrinkingDayString);
-    console.log('drinksByDrinkingDay', drinksByDrinkingDay);
     let drinksByWeek = [];
     drinksByDrinkingDay.forEach((drink) => {
-      console.log(drinkingDays.length);
       const migratedDrink = { ...drink, quantity: drink.quantity * (7 - drinkingDays.length) };
       drinksByWeek = [...drinksByWeek, migratedDrink];
     });
-    console.log('drinksByWeek', drinksByWeek);
+    storage.set('@StoredDetaileddrinksByWeekState', drinksByWeek);
   }
-
-  //storage.set('hasMigrateFromDailyGoalToWeekly', true);
+  storage.set('hasMigrateFromDailyGoalToWeekly', true);
 }
 
 const mapIconOfToIconName = (iconOf) => {
