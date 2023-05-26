@@ -9,7 +9,7 @@ import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, hitSlop, screenHeight } from '../../styles/theme';
 import {
   daysWithGoalNoDrinkState,
-  drinksByDrinkingDayState,
+  drinksByWeekState,
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
   previousDrinksPerWeekState,
@@ -40,24 +40,26 @@ const Goal = ({ navigation }) => {
       0
     );
   }, [previousDrinksPerWeek]);
-  const [drinksByDrinkingDay, setDrinksByDrinkingDay] = useRecoilState(drinksByDrinkingDayState);
+  const [drinksByWeek, setDrinksByWeek] = useRecoilState(drinksByWeekState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
+  const [modalWrongValueVisible, setModalWrongValueVisible] = useState(false);
+
   const isOnboarded = useRecoilValue(isOnboardedSelector);
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
-    const oldDrink = drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey);
+    const oldDrink = drinksByWeek.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
-      setDrinksByDrinkingDay([
-        ...drinksByDrinkingDay.filter((drink) => drink.drinkKey !== drinkKey),
+      setDrinksByWeek([
+        ...drinksByWeek.filter((drink) => drink.drinkKey !== drinkKey),
         {
-          ...drinksByDrinkingDay.find((drink) => drink.drinkKey === drinkKey),
+          ...drinksByWeek.find((drink) => drink.drinkKey === drinkKey),
           quantity,
         },
       ]);
     } else {
-      setDrinksByDrinkingDay([
-        ...drinksByDrinkingDay,
+      setDrinksByWeek([
+        ...drinksByWeek,
         {
           drinkKey,
           quantity,
@@ -198,7 +200,7 @@ const Goal = ({ navigation }) => {
               drinksCatalog={drinksCatalog}
               category={category}
               index={index}
-              drinks={drinksByDrinkingDay}
+              drinks={drinksByWeek}
               setDrinkQuantity={setDrinkQuantityRequest}
             />
           ))}

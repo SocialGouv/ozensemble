@@ -17,7 +17,7 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
-import { daysWithGoalNoDrinkState, drinksByDrinkingDayState } from '../../recoil/gains';
+import { daysWithGoalNoDrinkState, setDrinksByWeek } from '../../recoil/gains';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -35,7 +35,6 @@ const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
-  const setDrinksByDrinkingDay = useSetRecoilState(drinksByDrinkingDayState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -98,7 +97,7 @@ const FakeData = () => {
           caption="Objectif semaine dernière"
           onPress={() => {
             setDaysWithGoalNoDrink(['wednesday', 'thursday']);
-            setDrinksByDrinkingDay([{ drinkKey: 'beer-half', quantity: 7, id: uuid() }]);
+            setDrinksByWeek([{ drinkKey: 'beer-half', quantity: 7, id: uuid() }]);
             const matomoId = storage.getString('@UserIdv2');
             API.post({
               path: '/goal',
