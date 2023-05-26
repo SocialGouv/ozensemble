@@ -1,3 +1,10 @@
+## [1.114.15](https://github.com/SocialGouv/ozensemble/compare/v1.114.14...v1.114.15) (2023-05-26)
+
+
+### Bug Fixes
+
+* remove margin on detail calendar pop in when not all week completed ([#382](https://github.com/SocialGouv/ozensemble/issues/382)) ([7b82376](https://github.com/SocialGouv/ozensemble/commit/7b8237647de3c08087cd227130500fa825dc09f7))
+
 ## [1.114.14](https://github.com/SocialGouv/ozensemble/compare/v1.114.13...v1.114.14) (2023-05-26)
 
 
