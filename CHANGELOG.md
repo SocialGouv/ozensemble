@@ -1,3 +1,10 @@
+## [1.114.16](https://github.com/SocialGouv/ozensemble/compare/v1.114.15...v1.114.16) (2023-05-26)
+
+
+### Bug Fixes
+
+* save goal conso per week instead of days ([#381](https://github.com/SocialGouv/ozensemble/issues/381)) ([33bbbc9](https://github.com/SocialGouv/ozensemble/commit/33bbbc94d3c965cdb64c74e1290446e85e81c829))
+
 ## [1.114.15](https://github.com/SocialGouv/ozensemble/compare/v1.114.14...v1.114.15) (2023-05-26)
 
 
