@@ -1,15 +1,31 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useRecoilValue } from 'recoil';
-import { dailyDosesSelector } from '../recoil/consos';
+import { dailyDosesSelector, drinksState } from '../recoil/consos';
 
 const WeeklyGain = ({ selectedMonth }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
-  //const drinksState = useRecoilValue(drinksState); ????? pk ça marche po
-  //console.log(drinksState);
+  const [consosList, setConsosList] = useState();
+  useFocusEffect(
+    useCallback(() => {
+      API.get({
+        path: '/goal/list',
+        query: {
+          matomoId: storage.getString('@UserIdv2'),
+        },
+      })
+        .then((res) => {
+          if (res.ok) {
+            setConsosList(res.data);
+          }
+        })
+        .catch((err) => console.log('Get goals err', err));
+    }, [setGoals])
+  );
+  console.log(consosList);
   const computeWeeklyInfos = useMemo(() => {
     let previousDay = firstDayOfCalendar;
     let sumEuros = 0;
@@ -19,14 +35,23 @@ const WeeklyGain = ({ selectedMonth }) => {
       isDayIsSunday = i % 7 === 0;
       const formatedDay = previousDay.format('YYYY-MM-DD');
       if (isDayIsSunday) {
+        weeklyInfos = [
+          ...weeklyInfos,
+          {
+            euros: sumEuros,
+            sumKcal: sumKcal,
+          },
+        ];
       }
-      sumEuros += drinksState[formatedDay]?.price;
-      sumKcal += drinksState[formatedDay].kcal;
+      console.log('conso', consosList[formatedDay]?.price);
+      sumEuros += consosList[formatedDay]?.price;
+      sumKcal += consosList[formatedDay]?.kcal;
       const day = previousDay.add(1, 'day');
       previousDay = day;
     }
+    console.log(weeklyInfos);
     return weeklyInfos;
-  }, [firstDayOfCalendar, dailyDoses]);
+  }, [firstDayOfCalendar, consosList]);
 
   return (
     <>
