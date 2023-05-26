@@ -125,7 +125,7 @@ export async function migrateFromDailyGoalToWeekly() {
       const migratedDrink = { ...drink, quantity: drink.quantity * (7 - drinkingDays.length) };
       drinksByWeek = [...drinksByWeek, migratedDrink];
     });
-    storage.set('@StoredDetaileddrinksByWeekState', drinksByWeek);
+    storage.set('@StoredDetaileddrinksByWeekState', JSON.stringify(drinksByWeek));
   }
   storage.set('hasMigrateFromDailyGoalToWeekly', true);
 }
