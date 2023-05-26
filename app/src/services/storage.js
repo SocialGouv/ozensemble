@@ -1,6 +1,8 @@
 import { MMKV } from 'react-native-mmkv';
 import API from './api';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
+import { useRecoilValue } from 'recoil';
+import { daysWithGoalNoDrinkState } from '../recoil/gains';
 
 export const storage = new MMKV();
 
@@ -108,6 +110,26 @@ export async function cleanConsosAndCatalog() {
     }
   }
   storage.set('@hasCleanConsoAndCatalog', true);
+}
+
+export const hasMigrateFromDailyGoalToWeekly = storage.getBoolean('hasMigrateFromDailyGoalToWeekly');
+
+export async function migrateFromDailyGoalToWeekly() {
+  console.log('here');
+  const drinksByDrinkingDayString = storage.getString('@StoredDetailedDrinksByDrinkingDay');
+  if (drinksByDrinkingDayString) {
+    const drinkingDays = useRecoilValue(daysWithGoalNoDrinkState);
+    const drinksByDrinkingDay = JSON.parse(drinksByDrinkingDayString);
+    console.log('drinksByDrinkingDay', drinksByDrinkingDay);
+    let drinksByWeek = [];
+    drinksByDrinkingDay.forEach((drink) => {
+      const migratedDrink = { ...drink, quantity: drink.quantity * drinkingDays.length };
+      drinksByWeek = [...drinksByWeek, migratedDrink];
+    });
+    console.log('drinksByWeek', drinksByWeek);
+  }
+
+  //storage.set('hasMigrateFromDailyGoalToWeekly', true);
 }
 
 const mapIconOfToIconName = (iconOf) => {

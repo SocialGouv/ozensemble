@@ -17,6 +17,8 @@ import {
   sendPreviousDrinksToDB,
   hasSentPreviousDrinksToDB,
   cleanConsosAndCatalog,
+  hasMigrateFromDailyGoalToWeekly,
+  migrateFromDailyGoalToWeekly,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -43,6 +45,10 @@ const sendDrinksToBd = async () => {
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
+    hasMigrateFromDailyGoalToWeekly
+  );
+
   useEffect(() => {
     if (!_hasCleanConsoAndCatalog) {
       cleanConsosAndCatalog();
@@ -51,6 +57,11 @@ const App = () => {
     if (!_hasSentPreviousDrinksToDB) {
       sendDrinksToBd();
       setHasSentPreviousDrinksToDB(true);
+    }
+    if (!hasMigrateFromDailyGoalToWeekly) {
+      console.log('here');
+      migrateFromDailyGoalToWeekly();
+      sethasMigrateFromDailyGoalToWeekly(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
