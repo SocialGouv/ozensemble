@@ -1,3 +1,11 @@
+## [1.114.18](https://github.com/SocialGouv/ozensemble/compare/v1.114.17...v1.114.18) (2023-05-26)
+
+
+### Bug Fixes
+
+* bump verison to 178 ([#384](https://github.com/SocialGouv/ozensemble/issues/384)) ([84cbb9b](https://github.com/SocialGouv/ozensemble/commit/84cbb9b2353f266641d6a36fd0324fc4e0dee87d))
+* round previous week consos ([#385](https://github.com/SocialGouv/ozensemble/issues/385)) ([8540cdd](https://github.com/SocialGouv/ozensemble/commit/8540cdda5f2bbd850e183ea2d4336b18d33ec5a9))
+
 ## [1.114.17](https://github.com/SocialGouv/ozensemble/compare/v1.114.16...v1.114.17) (2023-05-26)
 
 
