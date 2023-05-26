@@ -1,3 +1,11 @@
+## [1.114.19](https://github.com/SocialGouv/ozensemble/compare/v1.114.18...v1.114.19) (2023-05-26)
+
+
+### Bug Fixes
+
+* bump version to 179 ([#386](https://github.com/SocialGouv/ozensemble/issues/386)) ([7c1beda](https://github.com/SocialGouv/ozensemble/commit/7c1beda97a912c260306f73e0874a1a88c73a07b))
+* round previous consos to display in goal setup ([#387](https://github.com/SocialGouv/ozensemble/issues/387)) ([cb62412](https://github.com/SocialGouv/ozensemble/commit/cb62412f85e2789c7a356bff421f68a03029a417))
+
 ## [1.114.18](https://github.com/SocialGouv/ozensemble/compare/v1.114.17...v1.114.18) (2023-05-26)
 
 
