@@ -1,14 +1,18 @@
 import dayjs from 'dayjs';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
 import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { defaultPaddingFontScale } from '../../styles/theme';
-
+import CalendarSwitch from '../../components/CalendarSwitch';
+import { hitSlop } from '../../styles/theme';
+import ArrowLeft from '../../components/ArrowLeft';
+import ArrowRight from '../../components/ArrowRight';
+import WeeklyGain from '../../components/WeeklyGains';
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
 {
@@ -74,33 +78,59 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     return days;
   }, [dailyDoses, currentMonth]);
 
+  const [window, setWindow] = useState('calendar');
+  const [selectedMonth, setSelectedMonth] = useState(dayjs());
+
   return (
     <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <View className="flex flex-row shrink-0 mb-4">
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View>
-        <Calendar
-          onDayPress={(dateString) => {
-            if (!isOnboarded) return setShowOnboardingGainModal(true);
-            if (markedDays[dateString]?.isDrinkDay) {
-              setDateToScroll(dateString);
-            } else {
-              const now = dayjs();
-              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              navigation.push('ADD_DRINK', { timestamp: String(date) });
-              logEvent({
-                category: 'GAINS',
-                action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
-              });
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                name: 'FROM_GAINS',
-              });
-            }
-          }}
-        />
+        <CalendarSwitch window={window} setWindow={setWindow} />
+        <View className="flex flex-row w-full justify-between px-5 items-center">
+          <TouchableOpacity
+            hitSlop={hitSlop(15)}
+            onPress={() => {
+              setSelectedMonth(selectedMonth.subtract(1, 'month'));
+            }}>
+            <ArrowLeft color="#4030A5" size={15} />
+          </TouchableOpacity>
+          <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+          <TouchableOpacity
+            hitSlop={hitSlop(15)}
+            onPress={() => {
+              setSelectedMonth(selectedMonth.add(1, 'month'));
+            }}>
+            <ArrowRight color="#4030A5" size={15} />
+          </TouchableOpacity>
+        </View>
+        {window === 'calendar' ? (
+          <Calendar
+            selectedMonth={selectedMonth}
+            onDayPress={(dateString) => {
+              if (!isOnboarded) return setShowOnboardingGainModal(true);
+              if (markedDays[dateString]?.isDrinkDay) {
+                setDateToScroll(dateString);
+              } else {
+                const now = dayjs();
+                const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+                navigation.push('ADD_DRINK', { timestamp: String(date) });
+                logEvent({
+                  category: 'GAINS',
+                  action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
+                });
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                  name: 'FROM_GAINS',
+                });
+              }
+            }}
+          />
+        ) : (
+          <WeeklyGain selectedMonth={selectedMonth} />
+        )}
       </View>
     </View>
   );
