@@ -118,12 +118,15 @@ export async function migrateFromDailyGoalToWeekly() {
   console.log('here');
   const drinksByDrinkingDayString = storage.getString('@StoredDetailedDrinksByDrinkingDay');
   if (drinksByDrinkingDayString) {
-    const drinkingDays = useRecoilValue(daysWithGoalNoDrinkState);
+    const drinkingDaysString = storage.getString('@DaysWithGoalNoDrink');
+    const drinkingDays = JSON.parse(drinkingDaysString);
+    console.log(drinkingDays);
     const drinksByDrinkingDay = JSON.parse(drinksByDrinkingDayString);
     console.log('drinksByDrinkingDay', drinksByDrinkingDay);
     let drinksByWeek = [];
     drinksByDrinkingDay.forEach((drink) => {
-      const migratedDrink = { ...drink, quantity: drink.quantity * drinkingDays.length };
+      console.log(drinkingDays.length);
+      const migratedDrink = { ...drink, quantity: drink.quantity * (7 - drinkingDays.length) };
       drinksByWeek = [...drinksByWeek, migratedDrink];
     });
     console.log('drinksByWeek', drinksByWeek);
