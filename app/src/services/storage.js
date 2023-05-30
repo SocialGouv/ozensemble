@@ -164,11 +164,11 @@ export async function fixConsosAndCatalog() {
               drinkKey: ['ownDrink', 'ownCocktail'].includes(oldDrink.drinkKey)
                 ? oldDrink.displayFeed
                 : oldDrink.drinkKey,
+              categoryKey: oldDrink.drinkKey === 'ownCocktail' ? 'ownCocktail' : oldDrink.categoryKey,
             },
           ];
         }
       });
-      console.log('newOwnDrinksCatalog', newOwnDrinksCatalog);
       storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
       const consoStored = storage.getString('@Drinks');
       if (consoStored) {
