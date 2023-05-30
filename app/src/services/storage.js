@@ -78,11 +78,13 @@ export async function cleanConsosAndCatalog() {
           newOwnDrinksCatalog = [
             ...newOwnDrinksCatalog,
             {
-              drinkKey: !['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
-                ? oldDrink.categoryKey
-                : oldDrink.drinkKey,
+              drinkKey: ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
+                ? oldDrink.drinkKey
+                : oldDrink.categoryKey,
               icon: icon,
-              categoryKey: oldDrink.categoryKey ?? 'ownDrink',
+              categoryKey: ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
+                ? oldDrink.categoryKey
+                : 'ownDrink',
               volume: volume + ' cl',
               isDeleted: oldDrink.isDeleted === undefined ? false : oldDrink.isDeleted,
               kcal: kcal,
