@@ -80,7 +80,7 @@ export async function cleanConsosAndCatalog() {
             {
               drinkKey: ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
                 ? oldDrink.drinkKey
-                : oldDrink.categoryKey,
+                : oldDrink.categoryKey, // because back in 2020, categoryKey for ownDrinks was "drinkName -70-40"
               icon: icon,
               categoryKey: ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
                 ? oldDrink.categoryKey
