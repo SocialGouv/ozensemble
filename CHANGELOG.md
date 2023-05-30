@@ -1,3 +1,10 @@
+## [1.114.25](https://github.com/SocialGouv/ozensemble/compare/v1.114.24...v1.114.25) (2023-05-30)
+
+
+### Bug Fixes
+
+* pushtoken not defined ([45ed68c](https://github.com/SocialGouv/ozensemble/commit/45ed68cd537f928c17ead4f4242f11aeca8f9217))
+
 ## [1.114.24](https://github.com/SocialGouv/ozensemble/compare/v1.114.23...v1.114.24) (2023-05-30)
 
 
