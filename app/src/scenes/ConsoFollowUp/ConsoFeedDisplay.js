@@ -25,38 +25,67 @@ const ConsoFeedDisplay = ({
   deleteDrinkRequest,
   position,
 }) => {
-  const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
-  const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
+  try {
+    const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
+    const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
 
-  const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
-  const Icon = getIcon(drink.icon);
+    const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
+    const Icon = getIcon(drink.icon);
 
-  return (
-    <>
-      <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
-        <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
-          <Content>
-            <Icon size={25} />
-            <Drink>
-              {quantity} {drinkName}{' '}
-            </Drink>
-            {!drink.categoryKey.includes('own') && (
-              <Volume numberOfLines={1} ellipsizeMode="tail">
-                ({drink.volume})
-              </Volume>
-            )}
-            {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
-          </Content>
-        </FeedButton>
-      </TouchableWithoutFeedback>
-      {showButtons && (
-        <UpdateContainer>
-          <UpdateButton small content="Modifier" onPress={updateDrinkRequest} />
-          <DeleteButton small content="Supprimer" onPress={deleteDrinkRequest} color="#4030a5" shadowColor="#171586" />
-        </UpdateContainer>
-      )}
-    </>
-  );
+    return (
+      <>
+        <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
+          <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
+            <Content>
+              <Icon size={25} />
+              <Drink>
+                {quantity} {drinkName}{' '}
+              </Drink>
+              {!drink.categoryKey.includes('own') && (
+                <Volume numberOfLines={1} ellipsizeMode="tail">
+                  ({drink.volume})
+                </Volume>
+              )}
+              {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
+            </Content>
+          </FeedButton>
+        </TouchableWithoutFeedback>
+        {showButtons && (
+          <UpdateContainer>
+            <UpdateButton small content="Modifier" onPress={updateDrinkRequest} />
+            <DeleteButton
+              small
+              content="Supprimer"
+              onPress={deleteDrinkRequest}
+              color="#4030a5"
+              shadowColor="#171586"
+            />
+          </UpdateContainer>
+        )}
+      </>
+    );
+  } catch (e) {
+    console.log(e);
+
+    const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
+    const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
+
+    const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
+    console.log(
+      JSON.stringify(
+        {
+          consolidatedCatalog,
+          drinkName,
+          drinkKey,
+          quantity,
+          drink,
+        },
+        null,
+        2
+      )
+    );
+    return null;
+  }
 };
 
 const noRadiusBottom = css`
