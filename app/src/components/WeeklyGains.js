@@ -36,7 +36,32 @@ const WeeklyGain = ({ selectedMonth }) => {
       },
     });
     console.log('response', response.data);
-    return response.data;
+    const consos = response.data;
+    console.log(consos);
+    let previousDay = firstDayOfCalendar;
+    let sumEuros = 0;
+    let sumKcal = 0;
+    let weeklyInfos = [];
+    for (let i = 1; i <= nbDays; ++i) {
+      isDayIsSunday = i % 7 === 0;
+      const formatedDay = previousDay.format('YYYY-MM-DD');
+      if (isDayIsSunday) {
+        weeklyInfos = [
+          ...weeklyInfos,
+          {
+            euros: sumEuros,
+            sumKcal: sumKcal,
+          },
+        ];
+      }
+      console.log('conso', consos[formatedDay]?.price);
+      sumEuros += Number(consos[formatedDay]?.(price));
+      sumKcal += Number(consos[formatedDay]?.kcal);
+      const day = previousDay.add(1, 'day');
+      previousDay = day;
+    }
+    console.log(weeklyInfos);
+    return weeklyInfos;
   }, [firstDayOfCalendar]);
 
   console.log('consosList', consosList);
