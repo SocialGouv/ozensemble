@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
 import styled from 'styled-components';
+import * as Sentry from '@sentry/react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import dayjs from 'dayjs';
 import { v4 as uuid } from 'uuid';
@@ -18,6 +19,7 @@ import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
 import { daysWithGoalNoDrinkState, setDrinksByWeek } from '../../recoil/gains';
+import { capture } from '../../services/sentry';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -165,6 +167,44 @@ const FakeData = () => {
             }
             setGlobalDrinksState(drinks);
             storage.delete('nps-asked-after-more-than-3-consos');
+          }}
+        />
+        <H1Wrapper delete>Test Sentry</H1Wrapper>
+        <MenuItem
+          caption="Test App Sentry"
+          noAlert
+          onPress={() => {
+            Sentry.captureMessage('test sentry directly from lib', {
+              extra: {
+                test: 'test',
+              },
+            });
+            capture('test sentry from capture', {
+              extra: {
+                test: 'test',
+              },
+            });
+            Alert.alert('Error sent to Sentry');
+          }}
+        />
+        <MenuItem
+          caption="Test Api Sentry"
+          noAlert
+          onPress={() => {
+            API.post({
+              path: '/sentry-check',
+              body: {
+                matomoId: storage.getString('@UserIdv2'),
+              },
+            });
+            Alert.alert('Error sent to Sentry');
+          }}
+        />
+        <MenuItem
+          caption="Test Crash"
+          noAlert
+          onPress={() => {
+            lol;
           }}
         />
         <H1Wrapper delete>Effacer des données</H1Wrapper>
