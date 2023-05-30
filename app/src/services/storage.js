@@ -80,7 +80,10 @@ export async function cleanConsosAndCatalog() {
           newOwnDrinksCatalog = [
             ...newOwnDrinksCatalog,
             {
-              drinkKey: oldDrink.categoryKey !== 'ownDrink' ? oldDrink.categoryKey : oldDrink.drinkKey,
+              drinkKey:
+                oldDrink.categoryKey !== 'ownDrink' && oldDrink.categoryKey !== 'ownCocktail'
+                  ? oldDrink.categoryKey
+                  : oldDrink.drinkKey,
               icon: icon,
               categoryKey: categoryKey,
               volume: volume + ' cl',
