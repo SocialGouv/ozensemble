@@ -27,11 +27,11 @@ dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
 dayjs.extend(weekday);
 
-if (!__DEV__) {
-  Sentry.init({
-    dsn: SENTRY_XXX,
-  });
-}
+// if (!__DEV__) {
+Sentry.init({
+  dsn: SENTRY_XXX,
+});
+// }
 
 const sendDrinksToBd = async () => {
   await sendPreviousDrinksToDB();
