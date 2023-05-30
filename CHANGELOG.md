@@ -1,3 +1,11 @@
+## [1.114.23](https://github.com/SocialGouv/ozensemble/compare/v1.114.22...v1.114.23) (2023-05-30)
+
+
+### Bug Fixes
+
+* bug with conso feed display ([#391](https://github.com/SocialGouv/ozensemble/issues/391)) ([a1d874c](https://github.com/SocialGouv/ozensemble/commit/a1d874cf17ffb42234b43e7f230a6c226fff0b54))
+* init user ([#392](https://github.com/SocialGouv/ozensemble/issues/392)) ([ab9b052](https://github.com/SocialGouv/ozensemble/commit/ab9b052b467c2d261eb17cec401d52d03e794cd1))
+
 ## [1.114.22](https://github.com/SocialGouv/ozensemble/compare/v1.114.21...v1.114.22) (2023-05-30)
 
 
