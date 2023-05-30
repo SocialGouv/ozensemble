@@ -12,7 +12,7 @@ router.put(
 
     const updateObj = {};
 
-    if (req.body.hasOwnProperty("pushNotifToken")) updateObj.push_notif_token = pushNotifToken;
+    if (req.body.hasOwnProperty("pushNotifToken")) updateObj.push_notif_token = req.body.pushNotifToken;
 
     await prisma.user.upsert({
       where: { matomo_id: matomoId },
