@@ -6,7 +6,6 @@ import { capture } from './sentry';
 export const storage = new MMKV();
 
 export const hasSentPreviousDrinksToDB = storage.getBoolean('hasSentPreviousDrinksToDB');
-
 export async function sendPreviousDrinksToDB() {
   try {
     if (hasSentPreviousDrinksToDB) return;
@@ -41,12 +40,13 @@ export async function sendPreviousDrinksToDB() {
       },
     });
     const allData = {};
-    storage.getAllKeys().then((keys) => {
-      keys.forEach((key) => {
-        allData[key] = storage.getString(key);
-      });
+    for (const key of storage.getAllKeys()) {
+      allData[key] = storage.getString(key);
+    }
+    capture('data for sendPreviousDrinksToDB', {
+      extra: { allData, migration: 'sendPreviousDrinksToDB' },
+      user: { id: storage.getString('@UserIdv2') },
     });
-    capture(e, { extra: { allData }, user: { id: storage.getString('@UserIdv2') } });
   }
 }
 
@@ -138,12 +138,13 @@ export async function cleanConsosAndCatalog() {
       },
     });
     const allData = {};
-    storage.getAllKeys().then((keys) => {
-      keys.forEach((key) => {
-        allData[key] = storage.getString(key);
-      });
+    for (const key of storage.getAllKeys()) {
+      allData[key] = storage.getString(key);
+    }
+    capture('data for hasCleanConsoAndCatalog', {
+      extra: { allData, migration: 'hasCleanConsoAndCatalog' },
+      user: { id: storage.getString('@UserIdv2') },
     });
-    capture(e, { extra: { allData }, user: { id: storage.getString('@UserIdv2') } });
   }
 }
 
@@ -174,12 +175,13 @@ export async function migrateFromDailyGoalToWeekly() {
       },
     });
     const allData = {};
-    storage.getAllKeys().then((keys) => {
-      keys.forEach((key) => {
-        allData[key] = storage.getString(key);
-      });
+    for (const key of storage.getAllKeys()) {
+      allData[key] = storage.getString(key);
+    }
+    capture('data for hasMigrateFromDailyGoalToWeekly', {
+      extra: { allData, migration: 'hasMigrateFromDailyGoalToWeekly' },
+      user: { id: storage.getString('@UserIdv2') },
     });
-    capture(e, { extra: { allData }, user: { id: storage.getString('@UserIdv2') } });
   }
 }
 
