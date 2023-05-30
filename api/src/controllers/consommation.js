@@ -224,6 +224,9 @@ router.delete(
     const consommation = await prisma.consommation.findFirst({
       where: { id: conso_id },
     });
+    if (!consommation) {
+      return res.status(200).send({ ok: true });
+    }
     await prisma.consommation.deleteMany({
       where: { userId: user.id, date: consommation.date },
     });
