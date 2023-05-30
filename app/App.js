@@ -19,6 +19,8 @@ import {
   cleanConsosAndCatalog,
   hasMigrateFromDailyGoalToWeekly,
   migrateFromDailyGoalToWeekly,
+  rectifyCocktailProblem,
+  hasRectifiedCocktailProblem,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -41,6 +43,7 @@ const App = () => {
   const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
     hasMigrateFromDailyGoalToWeekly
   );
+  const [_hasRectifiedCocktailProblem, setHasRectifiedCocktailProblem] = useState(hasRectifiedCocktailProblem);
 
   useEffect(() => {
     if (!_hasCleanConsoAndCatalog) {
@@ -54,6 +57,10 @@ const App = () => {
     if (!hasMigrateFromDailyGoalToWeekly) {
       migrateFromDailyGoalToWeekly();
       sethasMigrateFromDailyGoalToWeekly(true);
+    }
+    if (!hasRectifiedCocktailProblem) {
+      rectifyCocktailProblem();
+      setHasRectifiedCocktailProblem(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
