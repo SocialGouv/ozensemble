@@ -12,7 +12,15 @@ import CalendarSwitch from '../../components/CalendarSwitch';
 import { hitSlop } from '../../styles/theme';
 import ArrowLeft from '../../components/ArrowLeft';
 import ArrowRight from '../../components/ArrowRight';
-import WeeklyGain from '../../components/WeeklyGains';
+import WeeklyGains from '../../components/WeeklyGains';
+import TextStyled from '../../components/TextStyled';
+import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
+import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
+import LegendStar from '../../components/illustrations/icons/LegendStar';
+import LegendInfos from '../../components/illustrations/icons/LegendInfos';
+import ButtonPrimary from '../../components/ButtonPrimary';
+import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
+
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
 {
@@ -56,6 +64,14 @@ const needToFillupConso = {
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector);
   const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
+  const navigateToFirstStep = () => {
+    logEvent({
+      category: 'GAINS',
+      action: 'GOAL_OPEN',
+    });
+    navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+    setShowOnboardingGainModal(false);
+  };
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {
@@ -106,30 +122,99 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           </TouchableOpacity>
         </View>
         {window === 'calendar' ? (
-          <Calendar
-            selectedMonth={selectedMonth}
-            onDayPress={(dateString) => {
-              if (!isOnboarded) return setShowOnboardingGainModal(true);
-              if (markedDays[dateString]?.isDrinkDay) {
-                setDateToScroll(dateString);
-              } else {
-                const now = dayjs();
-                const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-                navigation.push('ADD_DRINK', { timestamp: String(date) });
-                logEvent({
-                  category: 'GAINS',
-                  action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
-                });
-                logEvent({
-                  category: 'CONSO',
-                  action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                  name: 'FROM_GAINS',
-                });
-              }
-            }}
-          />
+          <>
+            <Calendar
+              selectedMonth={selectedMonth}
+              onDayPress={(dateString) => {
+                if (!isOnboarded) return setShowOnboardingGainModal(true);
+                if (markedDays[dateString]?.isDrinkDay) {
+                  setDateToScroll(dateString);
+                } else {
+                  const now = dayjs();
+                  const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+                  navigation.push('ADD_DRINK', { timestamp: String(date) });
+                  logEvent({
+                    category: 'GAINS',
+                    action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
+                  });
+                  logEvent({
+                    category: 'CONSO',
+                    action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                    name: 'FROM_GAINS',
+                  });
+                }
+              }}
+            />
+            <TouchableOpacity
+              onPress={() => {
+                setHelpModalVisible(true);
+              }}
+              style={{ paddingHorizontal: -defaultPaddingFontScale() }}
+              disabled={!isOnboarded}
+              className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]">
+              <View className="mt-2 mb-4">
+                <View className="flex flex-row items-center space-x-1 mb-1">
+                  <TextStyled color={'#939EA6'} className="text-xs">
+                    Consommations jour
+                  </TextStyled>
+                  {isOnboarded && <LegendInfos />}
+                </View>
+                <View className="flex flex-row space-x-1 items-center">
+                  <LegendStar />
+                  <Text className="text-xs">Pas bu</Text>
+                </View>
+                {isOnboarded ? (
+                  <View>
+                    <View className="flex flex-row items-center">
+                      <View className="bg-[#34D39A] w-5 h-5 rounded-md mt-1 mr-1"></View>
+                      <Text className="text-xs mt-1">Dans l'objectif</Text>
+                    </View>
+                    <View className="flex flex-row items-center">
+                      <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1"></View>
+                      <Text className="text-xs mt-1">Au dessus de l'objectif</Text>
+                    </View>
+                  </View>
+                ) : (
+                  <View>
+                    <View className="flex flex-row items-center">
+                      <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1"></View>
+                      <Text className="text-xs mt-1">Bu</Text>
+                    </View>
+                  </View>
+                )}
+              </View>
+              <View className="mx-auto mt-2 mb-4">
+                <View className="flex flex-row items-center space-x-1 mb-1 justify-center">
+                  <TextStyled color={'#939EA6'} className="text-xs">
+                    Objectif semaine
+                  </TextStyled>
+                  {isOnboarded && <LegendInfos />}
+                </View>
+                {isOnboarded ? (
+                  <View>
+                    <View className="flex flex-row items-center space-x-2 my-1 ">
+                      <CheckDefisValidated />
+                      <Text className="text-xs">Réussi</Text>
+                    </View>
+                    <View className="flex flex-row items-center space-x-2 mb-1">
+                      <CrossDefisFailed />
+                      <Text className="text-xs">Dépassé</Text>
+                    </View>
+                    <View className="flex flex-row items-center space-x-2">
+                      <OnGoingGoal />
+                      <Text className="text-xs">En cours</Text>
+                    </View>
+                  </View>
+                ) : (
+                  <View className="mt-2">
+                    <ButtonPrimary content={'Me fixer un objectif'} small onPress={navigateToFirstStep} />
+                  </View>
+                )}
+              </View>
+            </TouchableOpacity>
+          </>
         ) : (
-          <WeeklyGain selectedMonth={selectedMonth} />
+          <WeeklyGains selectedMonth={selectedMonth} />
         )}
       </View>
     </View>
