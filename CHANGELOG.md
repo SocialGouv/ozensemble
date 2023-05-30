@@ -1,3 +1,10 @@
+## [1.114.20](https://github.com/SocialGouv/ozensemble/compare/v1.114.19...v1.114.20) (2023-05-30)
+
+
+### Bug Fixes
+
+* consommation.date is null api error ([#388](https://github.com/SocialGouv/ozensemble/issues/388)) ([a74812b](https://github.com/SocialGouv/ozensemble/commit/a74812b8e7c205662f254ef0e0e8fd92ec6fbd59))
+
 ## [1.114.19](https://github.com/SocialGouv/ozensemble/compare/v1.114.18...v1.114.19) (2023-05-26)
 
 
