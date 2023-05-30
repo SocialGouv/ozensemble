@@ -7,6 +7,7 @@ import { mapOnboardingResultToMatomoProfile } from '../scenes/Quizzs/QuizzOnboar
 import { storage } from './storage';
 import CONSTANTS from '../reference/constants';
 import API from './api';
+import * as Sentry from '@sentry/react-native';
 
 // https://docs.google.com/spreadsheets/d/1FzFrt-JsNK-OXqBz8f5sop3BcHhcvjGieZUF4gXHBJg/edit#gid=367769533
 
@@ -24,6 +25,7 @@ export const initMatomo = async () => {
     userId = Matomo.makeid();
     storage.set('@UserIdv2', userId);
   }
+  Sentry.setUser({ id: userId });
   API.userId = userId;
 
   const prevVisits = storage.getString('@NumberOfVisits');
