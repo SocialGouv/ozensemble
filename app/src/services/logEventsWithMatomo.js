@@ -19,11 +19,18 @@ const parseStringMaybeStringified = (string) => {
   }
 };
 
+// storage.delete('@UserIdv2');
 export const initMatomo = async () => {
   let userId = storage.getString('@UserIdv2');
   if (!userId) {
     userId = Matomo.makeid();
     storage.set('@UserIdv2', userId);
+    API.put({
+      path: '/user',
+      body: {
+        matomoId: userId,
+      },
+    });
   }
   Sentry.setUser({ id: userId });
   API.userId = userId;
