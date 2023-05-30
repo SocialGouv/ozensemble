@@ -1,3 +1,10 @@
+## [1.114.22](https://github.com/SocialGouv/ozensemble/compare/v1.114.21...v1.114.22) (2023-05-30)
+
+
+### Bug Fixes
+
+* sentry tests + tags + user ([#390](https://github.com/SocialGouv/ozensemble/issues/390)) ([1d904ce](https://github.com/SocialGouv/ozensemble/commit/1d904ceda58a48e285640fb5a933e75ff099e00d))
+
 ## [1.114.21](https://github.com/SocialGouv/ozensemble/compare/v1.114.20...v1.114.21) (2023-05-30)
 
 
