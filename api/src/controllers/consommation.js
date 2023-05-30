@@ -359,6 +359,7 @@ router.post(
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     const endingDate = req.body.endingDate;
     const startingDate = req.body.startingDate;
+    console.log(endingDate);
     // find user with matomoId
     const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
     console.log(user);
@@ -371,7 +372,6 @@ router.post(
         },
       },
     });
-    console.log("here");
     console.log(data);
     return res.status(200).send({ ok: true, data: data });
   })

@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, View } from 'react-native';
 import API from '../services/api';
 import { storage } from '../services/storage';
+import dayjs from 'dayjs';
 
 const WeeklyGain = ({ selectedMonth }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
@@ -27,70 +28,36 @@ const WeeklyGain = ({ selectedMonth }) => {
 
   const consosList = useMemo(async () => {
     const matomoId = storage.getString('@UserIdv2');
+
     const response = await API.post({
       path: '/consommation/get-conso-list',
       body: {
         matomoId: matomoId,
-        startingDay: firstDayOfMonth,
-        endingDay: firstDayOfCalendar.add(nbDays, 'days'),
+        startingDate: firstDayOfMonth,
+        endingDate: firstDayOfCalendar.add(nbDays, 'days'),
       },
     });
-    console.log('response', response.data);
     const consos = response.data;
-    console.log(consos);
     let previousDay = firstDayOfCalendar;
     let sumEuros = 0;
     let sumKcal = 0;
-    let weeklyInfos = [];
-    for (let i = 1; i <= nbDays; ++i) {
-      isDayIsSunday = i % 7 === 0;
-      const formatedDay = previousDay.format('YYYY-MM-DD');
-      if (isDayIsSunday) {
-        weeklyInfos = [
-          ...weeklyInfos,
-          {
-            euros: sumEuros,
-            sumKcal: sumKcal,
-          },
-        ];
-      }
-      console.log('conso', consos[formatedDay]?.price);
-      sumEuros += Number(consos[formatedDay]?.(price));
-      sumKcal += Number(consos[formatedDay]?.kcal);
-      const day = previousDay.add(1, 'day');
-      previousDay = day;
-    }
-    console.log(weeklyInfos);
+    let weeklyInfos = {
+      1: { kcal: 0, euros: 0 },
+      2: { kcal: 0, euros: 0 },
+      3: { kcal: 0, euros: 0 },
+      4: { kcal: 0, euros: 0 },
+      5: { kcal: 0, euros: 0 },
+    };
+    consos.map((conso) => {
+      console.log(dayjs(conso.date).format('YYYY-MM-DD'));
+      const weekNumber = Math.abs(firstDayOfCalendar.diff(dayjs(conso.date).format('YYYY-MM-DD'), 'week'));
+      weeklyInfos[weekNumber].kcal += conso.kcal;
+      weeklyInfos[weekNumber].euros += conso.price;
+    });
     return weeklyInfos;
   }, [firstDayOfCalendar]);
 
-  console.log('consosList', consosList);
-  // const computeWeeklyInfos = useMemo(() => {
-  //   let previousDay = firstDayOfCalendar;
-  //   let sumEuros = 0;
-  //   let sumKcal = 0;
-  //   let weeklyInfos = [];
-  //   for (let i = 1; i <= nbDays; ++i) {
-  //     isDayIsSunday = i % 7 === 0;
-  //     const formatedDay = previousDay.format('YYYY-MM-DD');
-  //     if (isDayIsSunday) {
-  //       weeklyInfos = [
-  //         ...weeklyInfos,
-  //         {
-  //           euros: sumEuros,
-  //           sumKcal: sumKcal,
-  //         },
-  //       ];
-  //     }
-  //     console.log('conso', consosList[formatedDay]?.price);
-  //     sumEuros += consosList[formatedDay]?.price;
-  //     sumKcal += consosList[formatedDay]?.kcal;
-  //     const day = previousDay.add(1, 'day');
-  //     previousDay = day;
-  //   }
-  //   console.log(weeklyInfos);
-  //   return weeklyInfos;
-  // }, [firstDayOfCalendar, consosList]);
+  console.log('consosList', consosList[1]);
 
   return (
     <>
