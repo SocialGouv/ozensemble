@@ -13,25 +13,25 @@ import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
 import {
+  hasFixedConsosAndCatalog,
+  fixConsosAndCatalog,
   hasCleanConsoAndCatalog,
   sendPreviousDrinksToDB,
   hasSentPreviousDrinksToDB,
   cleanConsosAndCatalog,
   hasMigrateFromDailyGoalToWeekly,
   migrateFromDailyGoalToWeekly,
-  rectifyCocktailProblem,
-  hasRectifiedCocktailProblem,
 } from './src/services/storage';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
 dayjs.extend(weekday);
 
-// if (!__DEV__) {
-Sentry.init({
-  dsn: SENTRY_XXX,
-});
-// }
+if (!__DEV__) {
+  Sentry.init({
+    dsn: SENTRY_XXX,
+  });
+}
 
 const sendDrinksToBd = async () => {
   await sendPreviousDrinksToDB();
@@ -40,10 +40,10 @@ const sendDrinksToBd = async () => {
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [_hasFixedConsosAndCatalog, setHasFixedConsosAndCatalog] = useState(hasFixedConsosAndCatalog);
   const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
     hasMigrateFromDailyGoalToWeekly
   );
-  const [_hasRectifiedCocktailProblem, setHasRectifiedCocktailProblem] = useState(hasRectifiedCocktailProblem);
 
   useEffect(() => {
     if (!_hasCleanConsoAndCatalog) {
@@ -54,19 +54,24 @@ const App = () => {
       sendDrinksToBd();
       setHasSentPreviousDrinksToDB(true);
     }
-    if (!hasMigrateFromDailyGoalToWeekly) {
+    if (!_hasMigrateFromDailyGoalToWeekly) {
       migrateFromDailyGoalToWeekly();
       sethasMigrateFromDailyGoalToWeekly(true);
     }
-    if (!hasRectifiedCocktailProblem) {
-      rectifyCocktailProblem();
-      setHasRectifiedCocktailProblem(true);
+    if (!_hasFixedConsosAndCatalog) {
+      fixConsosAndCatalog();
+      setHasFixedConsosAndCatalog(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!_hasSentPreviousDrinksToDB || !_hasCleanConsoAndCatalog) {
+  if (
+    !_hasSentPreviousDrinksToDB ||
+    !_hasCleanConsoAndCatalog ||
+    !_hasMigrateFromDailyGoalToWeekly ||
+    !_hasFixedConsosAndCatalog
+  ) {
     return null;
   }
 
