@@ -16,6 +16,7 @@ import SmallCan from '../../components/illustrations/drinksAndFood/SmallCan';
 import Mojito from '../../components/illustrations/drinksAndFood/Mojito';
 import DigestiveDrink from '../../components/illustrations/drinksAndFood/DigestiveDrink';
 import SpiritsBottle from '../../components/illustrations/drinksAndFood/SpiritsBottle';
+import { capture } from '../../services/sentry';
 // categories
 export const BEER = 'Bière (5%)';
 export const WINE = 'Vin (12,5%)';
@@ -78,9 +79,8 @@ export const getDisplayName = (drinkKey, quantity, catalog) => {
     const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
     return drink?.custom ? drink.displayFeed : drink.displayFeed(quantity);
   } catch (e) {
-    console.log('error getDisplayName', e);
-    console.log('drinkKey', drinkKey);
-    return 0;
+    capture(e, { extra: { drinkKey, quantity, catalog, function: 'getDisplayName' } });
+    return '';
   }
 };
 

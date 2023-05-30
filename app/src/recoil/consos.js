@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { atom, selector, selectorFamily } from 'recoil';
+import * as Sentry from '@sentry/react-native';
 import { differenceOfDays } from '../helpers/dateHelpers';
 import { drinksCatalog, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
@@ -10,13 +11,25 @@ export const followupNumberOfDays = 7;
 export const drinksState = atom({
   key: 'drinksState',
   default: getInitValueFromStorage('@Drinks', []),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@Drinks', JSON.stringify(newValue)))],
+  effects: [
+    ({ onSet }) =>
+      onSet((newValue) => {
+        storage.set('@Drinks', JSON.stringify(newValue));
+        Sentry.setExtra('drinks', newValue.slice(0, 50));
+      }),
+  ],
 });
 
 export const ownDrinksCatalogState = atom({
   key: 'ownDrinksCatalogState',
   default: getInitValueFromStorage('@OwnDrinks', []),
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@OwnDrinks', JSON.stringify(newValue)))],
+  effects: [
+    ({ onSet }) =>
+      onSet((newValue) => {
+        storage.set('@OwnDrinks', JSON.stringify(newValue));
+        Sentry.setExtra('ownDrinksCatalog', newValue);
+      }),
+  ],
 });
 
 // Selectors
