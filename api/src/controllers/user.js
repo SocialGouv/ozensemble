@@ -6,7 +6,7 @@ const prisma = require("../prisma");
 router.put(
   "/",
   catchErrors(async (req, res) => {
-    const { matomoId, pushNotifToken } = req.body || {};
+    const { matomoId } = req.body || {};
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
@@ -16,13 +16,11 @@ router.put(
 
     await prisma.user.upsert({
       where: { matomo_id: matomoId },
-      update: {
-        push_notif_token: pushNotifToken,
-      },
+      update: updateObj,
       create: {
-        push_notif_token: pushNotifToken,
         matomo_id: matomoId,
         created_from: "User",
+        ...updateObj,
       },
     });
 
