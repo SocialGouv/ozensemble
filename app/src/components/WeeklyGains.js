@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
 import { consolidatedCatalogSelector, drinksState } from '../recoil/consos';
 import { previousDrinksPerWeekState } from '../recoil/gains';
+import { defaultPaddingFontScale } from '../styles/theme';
 
 const WeeklyGains = ({ selectedMonth }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
@@ -62,7 +63,7 @@ const WeeklyGains = ({ selectedMonth }) => {
   }, [firstDayOfCalendar]);
 
   return (
-    <>
+    <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <View className="flex flex-row mt-4 mb-2">
         <View className=" flex flex-grow">
           <Text className="text-center text-sm text-[#B6C1CD]">Semaine</Text>
@@ -115,7 +116,7 @@ const WeeklyGains = ({ selectedMonth }) => {
           </View>
         );
       })}
-    </>
+    </View>
   );
 };
 
