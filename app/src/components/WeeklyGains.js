@@ -74,7 +74,7 @@ const WeeklyGains = ({ selectedMonth }) => {
         <View className=" flex flex-grow ">
           <Text className="flex flex-grow text-center text-sm text-[#B6C1CD]">KCAL évitées</Text>
         </View>
-        <View className=" flex flex-grow ">
+        <View className=" flex flex-grow mr-1">
           <Text className="flex flex-grow text-center text-sm text-[#B6C1CD]">Détails</Text>
         </View>
       </View>
@@ -100,7 +100,7 @@ const WeeklyGains = ({ selectedMonth }) => {
             <View className="flex flex-row grow justify-center items-center basis-20">
               <View
                 className={[
-                  'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow',
+                  'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow',
                   week.kcal > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                 ].join(' ')}>
                 <Text className="text-sm text-white font-semibold">
