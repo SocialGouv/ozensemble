@@ -1,3 +1,10 @@
+# [1.115.0](https://github.com/SocialGouv/ozensemble/compare/v1.114.26...v1.115.0) (2023-05-31)
+
+
+### Features
+
+*  modal gain details ([#395](https://github.com/SocialGouv/ozensemble/issues/395)) ([07943c1](https://github.com/SocialGouv/ozensemble/commit/07943c1b44adb1751d9348dd2cce4f0291936392))
+
 ## [1.114.26](https://github.com/SocialGouv/ozensemble/compare/v1.114.25...v1.114.26) (2023-05-30)
 
 
