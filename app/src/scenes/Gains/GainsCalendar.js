@@ -92,7 +92,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     }
     return days;
   }, [dailyDoses, currentMonth]);
-
+  const [helpModalVisible, setHelpModalVisible] = useState(false);
   const [window, setWindow] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
 
