@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { findNodeHandle, View, Text, TouchableOpacity } from 'react-native';
+import { findNodeHandle } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import styled from 'styled-components';

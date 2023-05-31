@@ -56,8 +56,6 @@ const WeeklyGains = ({ selectedMonth }) => {
       weeklyInfos[weekNumber].kcal += drinkFromCatalog.kcal;
       weeklyInfos[weekNumber].euros += drinkFromCatalog.price;
     });
-    console.log(myWeeklyExpensesBeforeObjective);
-    console.log(myWeeklyKcalBeforeObjective);
     return weeklyInfos;
   }, [firstDayOfCalendar]);
 

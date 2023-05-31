@@ -7,9 +7,8 @@ import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { defaultPaddingFontScale } from '../../styles/theme';
+import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
 import CalendarSwitch from '../../components/CalendarSwitch';
-import { hitSlop } from '../../styles/theme';
 import ArrowLeft from '../../components/ArrowLeft';
 import ArrowRight from '../../components/ArrowRight';
 import WeeklyGains from '../../components/WeeklyGains';
@@ -98,29 +97,32 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
 
   return (
-    <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-      <View className="flex flex-row shrink-0 mb-4">
+    <View className="py-5">
+      <View className="flex flex-row shrink-0 mb-4" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View>
-        <CalendarSwitch window={window} setWindow={setWindow} />
-        <View className="flex flex-row w-full justify-between px-5 items-center">
-          <TouchableOpacity
-            hitSlop={hitSlop(15)}
-            onPress={() => {
-              setSelectedMonth(selectedMonth.subtract(1, 'month'));
-            }}>
-            <ArrowLeft color="#4030A5" size={15} />
-          </TouchableOpacity>
-          <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
-          <TouchableOpacity
-            hitSlop={hitSlop(15)}
-            onPress={() => {
-              setSelectedMonth(selectedMonth.add(1, 'month'));
-            }}>
-            <ArrowRight color="#4030A5" size={15} />
-          </TouchableOpacity>
+        <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+          <CalendarSwitch window={window} setWindow={setWindow} />
+          <View className="flex flex-row w-full justify-between px-5 items-center">
+            <TouchableOpacity
+              hitSlop={hitSlop(15)}
+              onPress={() => {
+                setSelectedMonth(selectedMonth.subtract(1, 'month'));
+              }}>
+              <ArrowLeft color="#4030A5" size={15} />
+            </TouchableOpacity>
+            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+            <TouchableOpacity
+              hitSlop={hitSlop(15)}
+              onPress={() => {
+                setSelectedMonth(selectedMonth.add(1, 'month'));
+              }}>
+              <ArrowRight color="#4030A5" size={15} />
+            </TouchableOpacity>
+          </View>
         </View>
+
         {window === 'calendar' ? (
           <>
             <Calendar
@@ -149,9 +151,9 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
               onPress={() => {
                 setHelpModalVisible(true);
               }}
-              style={{ paddingHorizontal: -defaultPaddingFontScale() }}
               disabled={!isOnboarded}
-              className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]">
+              className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]"
+              style={{ paddingHorizontal: defaultPaddingFontScale() }}>
               <View className="mt-2 mb-4">
                 <View className="flex flex-row items-center space-x-1 mb-1">
                   <TextStyled color={'#939EA6'} className="text-xs">

@@ -12,12 +12,7 @@ const CalendarSwitch = ({ window, setWindow }) => {
   }, [window]);
 
   const renderValue = () => {
-    switch (window) {
-      case 'gains':
-        return 1;
-      default:
-        return 0;
-    }
+    return Number(window === 'gains');
   };
 
   const runAnimation = (toValue) => {

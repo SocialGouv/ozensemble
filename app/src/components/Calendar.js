@@ -12,6 +12,7 @@ import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
 import ModalGoal from './ModalGoal';
 import OnGoingGoal from './illustrations/icons/OnGoingGoal';
+import { defaultPaddingFontScale } from '../styles/theme';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const Calendar = ({ onDayPress, selectedMonth }) => {
@@ -220,7 +221,7 @@ const Calendar = ({ onDayPress, selectedMonth }) => {
   }, [SCREEN_WIDTH]);
 
   return (
-    <>
+    <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <View className="flex flex-row justify-between mt-3">
         {cols.map((col) => {
           const isObjectifColonnes = col === 'Obj.';
@@ -385,7 +386,7 @@ const Calendar = ({ onDayPress, selectedMonth }) => {
           }}
         />
       </View>
-    </>
+    </View>
   );
 };
 
