@@ -28,7 +28,7 @@ const ModalGainDetails = ({ content, onClose, visible }) => {
           </TouchableOpacity>
         </View>
 
-        <View className="mb-4 p-2">
+        <View className=" p-2">
           <Text color="#000" className="text-center mb-1 text-xl font-extrabold">
             Résultats semaine
           </Text>
@@ -60,7 +60,7 @@ const ModalGainDetails = ({ content, onClose, visible }) => {
             <View
               className={[
                 'mx-auto px-2 py-1 rounded-md mt-2',
-                caloriesTitle === 'Calories en plus' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
+                eurosTitle === 'Euros non-épargnés' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
               ].join(' ')}>
               <Text className="text-center text-white font-bold text-xl">
                 {Math.round(Math.abs(content?.weekExpenses - content?.estimationExpenses) * 10) / 10}€
@@ -88,21 +88,22 @@ const ModalGainDetails = ({ content, onClose, visible }) => {
               </View>
             </View>
           </View>
-        </View>
-        <View className="py-2 bg-[#F5F6FA] rounded-md">
-          <Text className="text-center text-[#939EA6] text-xs">{caloriesTitle}</Text>
-          <View
-            className={[
-              'flex flex-row justify-center mx-auto px-2 py-1 rounded-md mt-2 items-baseline',
-              caloriesTitle === 'Calories en plus' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
-            ].join(' ')}>
-            <Text className="text-center font-bold text-xl text-white">
-              {Math.round(Math.abs(content?.weekKcal - content?.estimationKcal) * 10) / 10}
-            </Text>
-            <Text className="text-center font-bold text-base text-white"> KCAL</Text>
+          <View className="py-2 bg-[#F5F6FA] rounded-md mt-3">
+            <Text className="text-center text-[#939EA6] text-xs">{caloriesTitle}</Text>
+            <View
+              className={[
+                'flex flex-row justify-center mx-auto px-2 py-1 rounded-md mt-2 items-baseline',
+                caloriesTitle === 'Calories en plus' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
+              ].join(' ')}>
+              <Text className="text-center font-bold text-xl text-white">
+                {Math.round(Math.abs(content?.weekKcal - content?.estimationKcal) * 10) / 10}
+              </Text>
+              <Text className="text-center font-bold text-base text-white"> KCAL</Text>
+            </View>
           </View>
         </View>
       </View>
+
       {content?.status === 'Success' && <Confetti run={true} />}
     </Modal>
   );
