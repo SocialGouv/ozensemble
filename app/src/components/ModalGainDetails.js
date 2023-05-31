@@ -93,7 +93,7 @@ const ModalGainDetails = ({ content, onClose, visible }) => {
             <View
               className={[
                 'flex flex-row justify-center mx-auto px-2 py-1 rounded-md mt-2 items-baseline',
-                caloriesTitle === 'Calories en plus' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
+                caloriesTitle === 'KCalories en plus' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
               ].join(' ')}>
               <Text className="text-center font-bold text-xl text-white">
                 {Math.round(Math.abs(content?.weekKcal - content?.estimationKcal) * 10) / 10}
