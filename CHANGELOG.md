@@ -1,3 +1,10 @@
+## [1.115.1](https://github.com/SocialGouv/ozensemble/compare/v1.115.0...v1.115.1) (2023-05-31)
+
+
+### Bug Fixes
+
+* revert 98b95f6 ([657b343](https://github.com/SocialGouv/ozensemble/commit/657b343de621aea6a15c05f698cd97db7c15e8cf))
+
 # [1.115.0](https://github.com/SocialGouv/ozensemble/compare/v1.114.26...v1.115.0) (2023-05-31)
 
 
