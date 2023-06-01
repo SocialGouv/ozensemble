@@ -1,3 +1,10 @@
+# [1.117.0](https://github.com/SocialGouv/ozensemble/compare/v1.116.0...v1.117.0) (2023-06-01)
+
+
+### Features
+
+* manage cases when the week is not completed for the gains window ([#396](https://github.com/SocialGouv/ozensemble/issues/396)) ([b625c0e](https://github.com/SocialGouv/ozensemble/commit/b625c0e9f7513d64fa192f950057fe30d5cc59fa))
+
 # [1.116.0](https://github.com/SocialGouv/ozensemble/compare/v1.115.1...v1.116.0) (2023-06-01)
 
 
