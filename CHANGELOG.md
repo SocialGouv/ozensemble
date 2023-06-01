@@ -1,3 +1,10 @@
+# [1.116.0](https://github.com/SocialGouv/ozensemble/compare/v1.115.1...v1.116.0) (2023-06-01)
+
+
+### Features
+
+* manage view gain when no goal in fixed ([#397](https://github.com/SocialGouv/ozensemble/issues/397)) ([fe3d8f5](https://github.com/SocialGouv/ozensemble/commit/fe3d8f506a7f58d216de756c83c3ac9788dee205))
+
 ## [1.115.1](https://github.com/SocialGouv/ozensemble/compare/v1.115.0...v1.115.1) (2023-05-31)
 
 
