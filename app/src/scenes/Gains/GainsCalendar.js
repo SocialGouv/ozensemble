@@ -19,6 +19,7 @@ import LegendStar from '../../components/illustrations/icons/LegendStar';
 import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
+import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
@@ -92,7 +93,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     }
     return days;
   }, [dailyDoses, currentMonth]);
-
+  const [helpModalVisible, setHelpModalVisible] = useState(false);
   const [window, setWindow] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
 
@@ -216,7 +217,25 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
             </TouchableOpacity>
           </>
         ) : (
-          <WeeklyGains selectedMonth={selectedMonth} />
+          <>
+            {isOnboarded ? (
+              <WeeklyGains selectedMonth={selectedMonth} />
+            ) : (
+              <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+                <View className="flex flex-row mt-3 mb-3 bg-[#E8E8F3] border border-[#4030A5] rounded items-center justify-center space-x-5">
+                  <GoalSetup size={25} />
+                  <View className="flex flex-row basis-40">
+                    <Text className="">
+                      Complétez l'estimation de votre consommation initiale et fixez vous un objectif pour calculer vos
+                      gains.
+                    </Text>
+                  </View>
+
+                  <ArrowRight color="#4030A5" size={15} />
+                </View>
+              </View>
+            )}
+          </>
         )}
       </View>
     </View>
