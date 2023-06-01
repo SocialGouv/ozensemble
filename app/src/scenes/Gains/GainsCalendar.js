@@ -20,6 +20,8 @@ import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
 
+import TargetGoal from '../../components/illustrations/icons/TargetGoal';
+
 /*
 markedDates is an object with keys such as `2022-04-30` and values such as
 {
@@ -103,23 +105,25 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       <View>
         <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
           <CalendarSwitch window={window} setWindow={setWindow} />
-          <View className="flex flex-row w-full justify-between px-5 items-center">
-            <TouchableOpacity
-              hitSlop={hitSlop(15)}
-              onPress={() => {
-                setSelectedMonth(selectedMonth.subtract(1, 'month'));
-              }}>
-              <ArrowLeft color="#4030A5" size={15} />
-            </TouchableOpacity>
-            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
-            <TouchableOpacity
-              hitSlop={hitSlop(15)}
-              onPress={() => {
-                setSelectedMonth(selectedMonth.add(1, 'month'));
-              }}>
-              <ArrowRight color="#4030A5" size={15} />
-            </TouchableOpacity>
-          </View>
+          {(isOnboarded || window === 'calendar') && (
+            <View className="flex flex-row w-full justify-between px-5 items-center">
+              <TouchableOpacity
+                hitSlop={hitSlop(15)}
+                onPress={() => {
+                  setSelectedMonth(selectedMonth.subtract(1, 'month'));
+                }}>
+                <ArrowLeft color="#4030A5" size={15} />
+              </TouchableOpacity>
+              <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+              <TouchableOpacity
+                hitSlop={hitSlop(15)}
+                onPress={() => {
+                  setSelectedMonth(selectedMonth.add(1, 'month'));
+                }}>
+                <ArrowRight color="#4030A5" size={15} />
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
 
         {window === 'calendar' ? (
@@ -215,7 +219,33 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
             </TouchableOpacity>
           </>
         ) : (
-          <WeeklyGains selectedMonth={selectedMonth} />
+          <>
+            {isOnboarded ? (
+              <WeeklyGains selectedMonth={selectedMonth} />
+            ) : (
+              <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    logEvent({
+                      category: 'GAINS',
+                      action: 'TOOLTIP_GOAL',
+                    });
+                    navigateToFirstStep();
+                  }}
+                  className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
+                  <TargetGoal size={35} />
+                  <Text className="mx-6">
+                    Complétez l’
+                    <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
+                    <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
+                  </Text>
+                  <View>
+                    <ArrowRight color="#4030a5" size={15} />
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+          </>
         )}
       </View>
     </View>
