@@ -72,12 +72,14 @@ const ConsoFollowUp = () => {
     }, 250);
   };
   const isOnboarded = useRecoilValue(isOnboardedSelector);
+  console.log(isOnboarded);
   return (
     <ScrollView ref={scrollViewRef} className="bg-white">
       <GainsCalendar
         isOnboarded={isOnboarded}
         setShowOnboardingGainModal={setShowOnboardingGainModal}
         setDateToScroll={setDateToScroll}
+        onLegendClick={setHelpModalVisible}
       />
       <Feed hideFeed={showWelcomeMessage} scrollToInput={scrollToInput} dateToScroll={dateToScroll} />
 

@@ -60,7 +60,7 @@ const needToFillupConso = {
   },
 };
 
-const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
+const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll, onLegendClick }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector);
   const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
   const navigateToFirstStep = () => {
@@ -92,7 +92,6 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     }
     return days;
   }, [dailyDoses, currentMonth]);
-
   const [window, setWindow] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
 
@@ -149,7 +148,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
             />
             <TouchableOpacity
               onPress={() => {
-                setHelpModalVisible(true);
+                onLegendClick(true);
               }}
               disabled={!isOnboarded}
               className="flex flex-row justify-start mt-3 mb-3 bg-[#FAFAFA]"
