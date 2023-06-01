@@ -1,3 +1,10 @@
+# [1.118.0](https://github.com/SocialGouv/ozensemble/compare/v1.117.0...v1.118.0) (2023-06-01)
+
+
+### Features
+
+* manage gains display when no goal setup ([#400](https://github.com/SocialGouv/ozensemble/issues/400)) ([6786fdf](https://github.com/SocialGouv/ozensemble/commit/6786fdf1f50dba9bc3cd251e904d9d883402763b))
+
 # [1.117.0](https://github.com/SocialGouv/ozensemble/compare/v1.116.0...v1.117.0) (2023-06-01)
 
 
