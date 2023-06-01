@@ -310,36 +310,44 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
             )}
             <WeeklyGains selectedMonth={selectedMonth} />
             <View className="pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-              <View className="flex flex-row space-x-1 items-center mb-3 mt-6">
-                <GainsIcon size={25} />
-                <H2 color="#4030a5">Mes gains depuis le début</H2>
-                <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
-                  <InfoRoundIcon size={25} />
-                </GainsFromStartInfoButton>
-              </View>
-              <CategoriesContainer>
-                <Categorie>
+              <H2 color="#4030a5">Total depuis que j'utilise Oz</H2>
+              <View className="flex flex-row justify-between mt-4">
+                <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA]">
                   <View>
                     <EuroIcon size={25} />
                   </View>
                   <Spacer size={5} />
-                  <TextStyled bold size={35}>
-                    {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}
-                  </TextStyled>
-                  <Text>Euros épargnés</Text>
-                </Categorie>
+                  {isOnboarded ? (
+                    <Text className="font-bold text-2xl">
+                      {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€
+                    </Text>
+                  ) : (
+                    <Text className="font-bold text-2xl">-€</Text>
+                  )}
+
+                  <Text className="text-xs text-[#939EA6]">Euros épargnés</Text>
+                </View>
                 <Spacer size={20} />
-                <Categorie>
+                <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA] p-3">
                   <View>
                     <KcalIcon size={25} />
                   </View>
                   <Spacer size={5} />
-                  <TextStyled bold size={35}>
-                    {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
-                  </TextStyled>
-                  <CategorieText>KCalories évitées</CategorieText>
-                </Categorie>
-              </CategoriesContainer>
+                  {isOnboarded ? (
+                    <View className="flex flex-row justify-center items-baseline">
+                      <Text className="font-bold text-2xl">
+                        {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
+                      </Text>
+                      <Text className="font-bold text-lg ">KCAL</Text>
+                    </View>
+                  ) : (
+                    <>
+                      <Text className="text-lg font-bold">- KCAL</Text>
+                    </>
+                  )}
+                  <Text className="text-xs text-[#939EA6]">KCalories évitées</Text>
+                </View>
+              </View>
             </View>
           </>
         )}
@@ -351,35 +359,6 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
 const Spacer = styled.View`
   height: ${({ size }) => size || 20}px;
   width: ${({ size }) => size || 20}px;
-`;
-
-const GainsFromStartInfoButton = styled.TouchableOpacity`
-  justify-content: center;
-`;
-
-const CategorieText = styled(TextStyled)`
-  text-align: center;
-`;
-
-const CategoriesContainer = styled.View`
-  justify-content: space-between;
-  flex-direction: row;
-  margin-bottom: 15px;
-`;
-
-const Categorie = styled.View`
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-end;
-  overflow: hidden;
-  padding: 10px 4px 10px 4px;
-  min-height: 90px;
-`;
-
-const Container = styled.View`
-  padding-top: 20px;
 `;
 
 export default GainsCalendar;
