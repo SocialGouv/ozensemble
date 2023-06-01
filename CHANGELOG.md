@@ -1,3 +1,10 @@
+# [1.119.0](https://github.com/SocialGouv/ozensemble/compare/v1.118.0...v1.119.0) (2023-06-01)
+
+
+### Features
+
+* display all time gains in the gains window ([#401](https://github.com/SocialGouv/ozensemble/issues/401)) ([02b8415](https://github.com/SocialGouv/ozensemble/commit/02b84158a63bd343c8094f9f90f5f3ce05b66391))
+
 # [1.118.0](https://github.com/SocialGouv/ozensemble/compare/v1.117.0...v1.118.0) (2023-06-01)
 
 
