@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import H1 from '../../components/H1';
-import { dailyDosesSelector } from '../../recoil/consos';
+import { dailyDosesSelector, drinksState, feedDaysSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -19,6 +19,12 @@ import LegendStar from '../../components/illustrations/icons/LegendStar';
 import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
+import H2 from '../../components/H2';
+import styled from 'styled-components';
+import { previousDrinksPerWeekState } from '../../recoil/gains';
+import EuroIcon from '../../components/illustrations/icons/EuroIcon';
+import KcalIcon from '../../components/illustrations/icons/KcalIcon';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 
 import TargetGoal from '../../components/illustrations/icons/TargetGoal';
 
@@ -96,6 +102,62 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   }, [dailyDoses, currentMonth]);
   const [window, setWindow] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
+  const days = useRecoilValue(feedDaysSelector);
+  const beginDateOfOz = useMemo(() => {
+    if (!days.length) return null;
+    return dayjs(days[days.length - 1]);
+  }, [days]);
+  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
+  const drinks = useRecoilValue(drinksState);
+
+  const myWeeklyExpensesBeforeObjective = useMemo(
+    () =>
+      previousDrinksPerWeek.reduce(
+        (sum, drink) =>
+          sum +
+          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
+        0
+      ),
+    [previousDrinksPerWeek]
+  );
+
+  const myWeeklyKcalBeforeObjective = useMemo(
+    () =>
+      previousDrinksPerWeek.reduce(
+        (sum, drink) =>
+          sum +
+          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
+        0
+      ),
+    [previousDrinksPerWeek]
+  );
+  const mySavingsSinceBeginning = useMemo(() => {
+    if (!days.length) return null;
+    const myExpensesSinceBegnining = drinks.reduce(
+      (sum, drink) =>
+        sum +
+        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
+      0
+    );
+    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
+    const averageDailyExpenses = myExpensesSinceBegnining / numberOfDaysSinceBeginning;
+    const averageDailyExpensesBeforeObjective = myWeeklyExpensesBeforeObjective / 7;
+    return Math.ceil(averageDailyExpensesBeforeObjective - averageDailyExpenses) * numberOfDaysSinceBeginning;
+  }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDateOfOz]);
+
+  const myKcalSavingsSinceBeginning = useMemo(() => {
+    if (!days.length) return null;
+    const myKcalSinceBegnining = drinks.reduce(
+      (sum, drink) =>
+        sum +
+        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
+      0
+    );
+    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
+    const averageDailyKcal = myKcalSinceBegnining / numberOfDaysSinceBeginning;
+    const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
+    return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
+  }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
   return (
     <View className="py-5">
@@ -221,7 +283,49 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
         ) : (
           <>
             {isOnboarded ? (
-              <WeeklyGains selectedMonth={selectedMonth} />
+              <>
+                <WeeklyGains selectedMonth={selectedMonth} />
+                <View className="pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+                  <H2 color="#4030a5">Total depuis que j'utilise Oz</H2>
+                  <View className="flex flex-row justify-between mt-4">
+                    <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA]">
+                      <View>
+                        <EuroIcon size={25} />
+                      </View>
+                      <Spacer size={5} />
+                      {isOnboarded ? (
+                        <Text className="font-bold text-2xl">
+                          {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€
+                        </Text>
+                      ) : (
+                        <Text className="font-bold text-2xl">-€</Text>
+                      )}
+
+                      <Text className="text-xs text-[#939EA6]">Euros épargnés</Text>
+                    </View>
+                    <Spacer size={20} />
+                    <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA] p-3">
+                      <View>
+                        <KcalIcon size={25} />
+                      </View>
+                      <Spacer size={5} />
+                      {isOnboarded ? (
+                        <View className="flex flex-row justify-center items-baseline">
+                          <Text className="font-bold text-2xl">
+                            {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
+                          </Text>
+                          <Text className="font-bold text-lg ">KCAL</Text>
+                        </View>
+                      ) : (
+                        <>
+                          <Text className="text-lg font-bold">- KCAL</Text>
+                        </>
+                      )}
+                      <Text className="text-xs text-[#939EA6]">KCalories évitées</Text>
+                    </View>
+                  </View>
+                </View>
+              </>
             ) : (
               <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
                 <TouchableOpacity
@@ -235,7 +339,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
                   className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
                   <TargetGoal size={35} />
                   <Text className="mx-6">
-                    Complétez l’
+                    Complétez l'
                     <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
                     <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
                   </Text>
@@ -251,5 +355,10 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     </View>
   );
 };
+
+const Spacer = styled.View`
+  height: ${({ size }) => size || 20}px;
+  width: ${({ size }) => size || 20}px;
+`;
 
 export default GainsCalendar;

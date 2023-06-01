@@ -6,8 +6,6 @@ import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
-import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
-import TextStyled from '../../components/TextStyled';
 import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
 import { drinksState, feedDaysSelector } from '../../recoil/consos';
@@ -22,15 +20,11 @@ import FollowUpConsos from '../../components/illustrations/icons/FollowUpConsos'
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ArrowRight from '../../components/ArrowRight';
 import IconAdd from '../../components/illustrations/IconAdd';
-import GainsIcon from '../../components/illustrations/icons/GainsIcon';
 
 dayjs.extend(isBetween);
 
 const MyGains = () => {
   const navigation = useNavigation();
-  const drinks = useRecoilValue(drinksState);
-  const days = useRecoilValue(feedDaysSelector);
-  const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
 
   const badges = useRecoilValue(badgesState);
   const [selectedBar, setSelectedBar] = useState({});
@@ -52,61 +46,6 @@ const MyGains = () => {
     setShowOnboardingGainModal(false);
   };
   const isOnboarded = useRecoilValue(isOnboardedSelector);
-
-  const beginDateOfOz = useMemo(() => {
-    if (!days.length) return null;
-    return dayjs(days[days.length - 1]);
-  }, [days]);
-
-  const myWeeklyExpensesBeforeObjective = useMemo(
-    () =>
-      previousDrinksPerWeek.reduce(
-        (sum, drink) =>
-          sum +
-          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
-        0
-      ),
-    [previousDrinksPerWeek]
-  );
-
-  const myWeeklyKcalBeforeObjective = useMemo(
-    () =>
-      previousDrinksPerWeek.reduce(
-        (sum, drink) =>
-          sum +
-          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
-        0
-      ),
-    [previousDrinksPerWeek]
-  );
-
-  const mySavingsSinceBeginning = useMemo(() => {
-    if (!days.length) return null;
-    const myExpensesSinceBegnining = drinks.reduce(
-      (sum, drink) =>
-        sum +
-        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
-      0
-    );
-    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
-    const averageDailyExpenses = myExpensesSinceBegnining / numberOfDaysSinceBeginning;
-    const averageDailyExpensesBeforeObjective = myWeeklyExpensesBeforeObjective / 7;
-    return Math.ceil(averageDailyExpensesBeforeObjective - averageDailyExpenses) * numberOfDaysSinceBeginning;
-  }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDateOfOz]);
-
-  const myKcalSavingsSinceBeginning = useMemo(() => {
-    if (!days.length) return null;
-    const myKcalSinceBegnining = drinks.reduce(
-      (sum, drink) =>
-        sum +
-        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
-      0
-    );
-    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
-    const averageDailyKcal = myKcalSinceBegnining / numberOfDaysSinceBeginning;
-    const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
-    return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
-  }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
 
   const appOpenEvent = useRef(false);
   const isFocused = useIsFocused();
@@ -172,37 +111,6 @@ const MyGains = () => {
               setSelectedBar={setSelectedBar}
             />
           </View>
-
-          <Container>
-            <View className="flex flex-row space-x-1 items-center mb-3 mt-6">
-              <GainsIcon size={25} />
-              <H2 color="#4030a5">Mes gains depuis le début</H2>
-              <GainsFromStartInfoButton onPress={() => navigation.push('GAINS_FROM_START_MODALE')}>
-                <InfoRoundIcon size={25} />
-              </GainsFromStartInfoButton>
-            </View>
-            <CategoriesContainer>
-              <Categorie>
-                <View>
-                  <CategorieText>Euros économisés</CategorieText>
-                </View>
-                <Spacer size={5} />
-                <TextStyled bold size={35}>
-                  {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}
-                </TextStyled>
-              </Categorie>
-              <Spacer size={20} />
-              <Categorie>
-                <View>
-                  <CategorieText>Calories économisées</CategorieText>
-                </View>
-                <Spacer size={5} />
-                <TextStyled bold size={35}>
-                  {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
-                </TextStyled>
-              </Categorie>
-            </CategoriesContainer>
-          </Container>
         </>
 
         <BadgesStatus
@@ -224,39 +132,5 @@ const MyGains = () => {
     </>
   );
 };
-
-const Spacer = styled.View`
-  height: ${({ size }) => size || 20}px;
-  width: ${({ size }) => size || 20}px;
-`;
-
-const GainsFromStartInfoButton = styled.TouchableOpacity`
-  justify-content: center;
-`;
-
-const CategorieText = styled(TextStyled)`
-  text-align: center;
-`;
-
-const CategoriesContainer = styled.View`
-  justify-content: space-between;
-  flex-direction: row;
-  margin-bottom: 15px;
-`;
-
-const Categorie = styled.View`
-  border: 1px solid #dddddd;
-  border-radius: 5px;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-end;
-  overflow: hidden;
-  padding: 10px 4px 10px 4px;
-  min-height: 90px;
-`;
-
-const Container = styled.View`
-  padding-top: 20px;
-`;
 
 export default MyGains;
