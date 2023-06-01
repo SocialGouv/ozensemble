@@ -19,13 +19,12 @@ import LegendStar from '../../components/illustrations/icons/LegendStar';
 import LegendInfos from '../../components/illustrations/icons/LegendInfos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
-import GainsIcon from '../../components/illustrations/icons/GainsIcon';
 import H2 from '../../components/H2';
 import styled from 'styled-components';
-import InfoRoundIcon from '../../components/illustrations/icons/InfoRoundIcon';
 import { previousDrinksPerWeekState } from '../../recoil/gains';
 import EuroIcon from '../../components/illustrations/icons/EuroIcon';
 import KcalIcon from '../../components/illustrations/icons/KcalIcon';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 
 import TargetGoal from '../../components/illustrations/icons/TargetGoal';
 
@@ -284,7 +283,49 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
         ) : (
           <>
             {isOnboarded ? (
-              <WeeklyGains selectedMonth={selectedMonth} />
+              <>
+                <WeeklyGains selectedMonth={selectedMonth} />
+                <View className="pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+                  <H2 color="#4030a5">Total depuis que j'utilise Oz</H2>
+                  <View className="flex flex-row justify-between mt-4">
+                    <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA]">
+                      <View>
+                        <EuroIcon size={25} />
+                      </View>
+                      <Spacer size={5} />
+                      {isOnboarded ? (
+                        <Text className="font-bold text-2xl">
+                          {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€
+                        </Text>
+                      ) : (
+                        <Text className="font-bold text-2xl">-€</Text>
+                      )}
+
+                      <Text className="text-xs text-[#939EA6]">Euros épargnés</Text>
+                    </View>
+                    <Spacer size={20} />
+                    <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA] p-3">
+                      <View>
+                        <KcalIcon size={25} />
+                      </View>
+                      <Spacer size={5} />
+                      {isOnboarded ? (
+                        <View className="flex flex-row justify-center items-baseline">
+                          <Text className="font-bold text-2xl">
+                            {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
+                          </Text>
+                          <Text className="font-bold text-lg ">KCAL</Text>
+                        </View>
+                      ) : (
+                        <>
+                          <Text className="text-lg font-bold">- KCAL</Text>
+                        </>
+                      )}
+                      <Text className="text-xs text-[#939EA6]">KCalories évitées</Text>
+                    </View>
+                  </View>
+                </View>
+              </>
             ) : (
               <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
                 <TouchableOpacity
@@ -298,7 +339,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
                   className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
                   <TargetGoal size={35} />
                   <Text className="mx-6">
-                    Complétez l’
+                    Complétez l'
                     <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
                     <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
                   </Text>
@@ -308,47 +349,6 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
                 </TouchableOpacity>
               </View>
             )}
-            <WeeklyGains selectedMonth={selectedMonth} />
-            <View className="pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-              <H2 color="#4030a5">Total depuis que j'utilise Oz</H2>
-              <View className="flex flex-row justify-between mt-4">
-                <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA]">
-                  <View>
-                    <EuroIcon size={25} />
-                  </View>
-                  <Spacer size={5} />
-                  {isOnboarded ? (
-                    <Text className="font-bold text-2xl">
-                      {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€
-                    </Text>
-                  ) : (
-                    <Text className="font-bold text-2xl">-€</Text>
-                  )}
-
-                  <Text className="text-xs text-[#939EA6]">Euros épargnés</Text>
-                </View>
-                <Spacer size={20} />
-                <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA] p-3">
-                  <View>
-                    <KcalIcon size={25} />
-                  </View>
-                  <Spacer size={5} />
-                  {isOnboarded ? (
-                    <View className="flex flex-row justify-center items-baseline">
-                      <Text className="font-bold text-2xl">
-                        {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
-                      </Text>
-                      <Text className="font-bold text-lg ">KCAL</Text>
-                    </View>
-                  ) : (
-                    <>
-                      <Text className="text-lg font-bold">- KCAL</Text>
-                    </>
-                  )}
-                  <Text className="text-xs text-[#939EA6]">KCalories évitées</Text>
-                </View>
-              </View>
-            </View>
           </>
         )}
       </View>
