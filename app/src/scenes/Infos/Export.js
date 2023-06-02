@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Alert } from 'react-native';
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -7,78 +7,137 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
 import { screenHeight } from '../../styles/theme';
-import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
+import { getDisplayDrinksModalName, getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import WrapperContainer from '../../components/WrapperContainer';
 import { sendMail } from '../../services/mail';
 import { P } from '../../components/Articles';
 import dayjs from 'dayjs';
-export const HTMLExportSelector = selector({
-  key: 'HTMLExportSelector',
-  get: ({ get }) => {
-    const consolidatedCatalog = get(consolidatedCatalogSelector);
-    const drinks = get(drinksState);
-    return formatHtmlTable(drinks, consolidatedCatalog);
-  },
-});
+import { storage } from '../../services/storage';
+import API from '../../services/api';
 
-const formatHtmlTable = (drinks, catalog) => {
-  return `
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="https://www.w3.org/1999/xhtml">
-    <head>
-      <title>Bilan des consommations</title>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
-      <style>
-      table { background-color: white; width: 100%; }
-      td, th { border: 1px solid #ddd; text-align: center; }
-      span { font-weight: bold; }
-      </style>
-    </head>
-    <body>
-      <span>Bilan des consommations</span>
-      <table class="table">
-        <tbody>
-          <tr>
-            <th>Date</th>
-            <th>Quantité</th>
-          </tr>
-          ${[...drinks]
-            .sort((drink1, drink2) => {
-              if (drink1.timestamp < drink2.timestamp) return -1;
-              return 1;
-            })
-            .map((drink) => {
-              const doses = mapDrinkToDose(drink, catalog);
-              let time = dayjs(drink.timestamp).format('dddd DD MMMM YYYY');
-              let firstLetter = time.charAt(0);
-              time = firstLetter.toUpperCase() + time.substring(1);
-              if (drink.drinkKey === NO_CONSO) return `<tr><td>${time}</td><td>Pas bu ce jour</td></tr>`;
-              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
-              return `<tr>
-                  <td>${time}</td>
-                  <td>${drink.quantity} ${name} (${doses} dose${doses > 1 ? 's' : ''})</td>
-                </tr>`;
-            })
-            .join('')}
-        </tbody>
-      </table>
-    </body>
-  </html>
-  `;
+const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
+  const docHeader = `
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="https://www.w3.org/1999/xhtml">
+  <head>
+    <title>Export des consommations - Oz Ensemble</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 " />
+    <style>
+    table { background-color: white; width: 100%; }
+    td, th { border: 1px solid #ddd; text-align: center; padding: 5px;
+  }
+    span { font-weight: bold; }
+    .bg-oz {background-color: #4030A5; color: white;}
+    </style>
+  </head>
+  <body>
+    <span>Export des consommations - Oz Ensemble</span>
+    <table class="table">
+      <tbody>`;
+  const docClosing = `</tbody>
+  </table>
+</body>
+</html>
+`;
+  let body = '';
+  consoFilteredByWeek.forEach((week, index) => {
+    const firstDayOfWeek = firstDay.add(index, 'week');
+    const lastDay = firstDayOfWeek.endOf('week');
+    const displayedDate =
+      firstDayOfWeek.format('MM') === lastDay.format('MM')
+        ? firstDayOfWeek.format('DD') +
+          ' au ' +
+          lastDay.format('DD ') +
+          lastDay.format('MMMM ').capitalize() +
+          lastDay.format('YYYY')
+        : lastDay.format('MM') +
+          firstDayOfWeek.format('DD') +
+          lastDay.format('MMMM').capitalize() +
+          ' au ' +
+          lastDay.format('DD ') +
+          lastDay.format('MMMM ').capitalize() +
+          lastDay.format('YYYY');
+    var sumWeeklyDoses = 0;
+    const weekHeader = ` <tr class="bg-oz" style=><td colspan="3">Semaine du ${displayedDate}</td></tr> 
+<tr class="bg-oz">
+    <th>Date</th>
+    <th>Boisson</th>
+    <th>Unité d'alcool</th>
+</tr>`;
+    let dailycontent = '';
+    week.forEach((day) => {
+      if (day.length === 0) {
+        dailycontent += `<tr><td colspan="3"> Pas de consommation enregistrée</td></tr>`;
+      } else {
+        const dayDate =
+          dayjs(day[0].date).format('dddd DD ').capitalize() + dayjs(day[0].date).format('MMMM').capitalize();
+        let sumDayDoses = 0;
+        let consosInfos = '';
+        day.forEach((conso, index) => {
+          if (conso.drinkKey === 'no-conso') {
+            if (day.length < 2) {
+              consosInfos += 'Pas bu ce jour';
+            }
+          } else {
+            consosInfos +=
+              conso.quantity + ' ' + getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity) + ' de ';
+            consosInfos +=
+              index + 1 === day.lenght
+                ? getDisplayName(conso.drinkKey, (quantity = 1), catalog)
+                : `${getDisplayName(conso.drinkKey, (quantity = 1), catalog)} </br>`;
+          }
+          sumDayDoses += conso.doses * conso.quantity;
+        });
+        sumDayDoses = Math.round(sumDayDoses * 10) / 10;
+        const sumDayDosesDisplay = sumDayDoses > 1 ? sumDayDoses + ' unités' : sumDayDoses + ' unité';
+        dailycontent += `<tr><td>${dayDate}</td><td>${consosInfos}</td><td>${sumDayDosesDisplay}</td></tr>`;
+        sumWeeklyDoses += sumDayDoses;
+      }
+    });
+    const sumWeeklyDosesDisplay = sumWeeklyDoses > 1 ? sumWeeklyDoses + ' unités' : sumWeeklyDoses + ' unité';
+
+    const weekClosing = `<tr class="bg-oz"><td colspan="2">Total semaine du ${displayedDate}</td><td>${sumWeeklyDosesDisplay}</td></tr>`;
+    body += weekHeader + dailycontent + weekClosing;
+  });
+
+  return docHeader + body + docClosing;
 };
 
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 const Export = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const toast = useToast();
-  const htmlExport = useRecoilValue(HTMLExportSelector);
+  const catalog = useRecoilValue(consolidatedCatalogSelector);
   const exportData = async () => {
+    const matomoId = storage.getString('@UserIdv2');
+    htmlExport = await API.get({ path: '/consommation/get-all-consos', query: { matomoId } }).then((res) => {
+      if (res.ok) {
+        const consos = res.data;
+        const firstDay = dayjs(consos[0].date).startOf('week');
+        const nbDays = dayjs().diff(firstDay, 'days');
+        const consoFilteredByWeek = [];
+        let weeklyConsos = [];
+        for (let i = 0; i < nbDays; i++) {
+          const dailyConsos = consos.filter((conso) => {
+            return dayjs(conso.date).format('YYYY-MM-DD') === firstDay.add(i, 'day').format('YYYY-MM-DD');
+          });
+          weeklyConsos.push(dailyConsos);
+          if (firstDay.add(i, 'days').format('dddd') === 'dimanche') {
+            consoFilteredByWeek.push(weeklyConsos);
+            weeklyConsos = [];
+          }
+        }
+        return formatHtmlTable(consoFilteredByWeek, catalog, firstDay);
+      }
+      return null;
+    });
     if (!emailFormat(email)) {
       Alert.alert('Adresse email non valide');
       return;
     }
+
     const res = await sendMail({
       to: email,
       subject: 'Export de données',
@@ -86,7 +145,7 @@ const Export = ({ navigation }) => {
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
-    navigation.goBack();
+    //navigation.goBack();
   };
 
   return (

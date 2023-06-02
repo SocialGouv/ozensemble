@@ -322,7 +322,7 @@ const checkNPSAvailability = async (user, drinks) => {
 };
 
 router.post(
-  "/update-own-conso",
+  "/update-own-conso/:matomoId",
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
@@ -348,6 +348,26 @@ router.post(
     });
 
     return res.status(200).send({ ok: true });
+  })
+);
+
+router.get(
+  "/get-all-consos",
+  catchErrors(async (req, res) => {
+    const { matomoId } = req.query;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+
+    // find user with matomoId
+    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+
+    consos = await prisma.consommation.findMany({
+      where: { userId: user.id },
+      orderBy: {
+        date: "asc",
+      },
+    });
+
+    return res.status(200).send({ ok: true, data: consos });
   })
 );
 

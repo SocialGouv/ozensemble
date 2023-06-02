@@ -84,9 +84,10 @@ export const getDisplayName = (drinkKey, quantity, catalog) => {
   }
 };
 
-export const getDisplayDrinksModalName = (drinkKey, catalog) => {
+export const getDisplayDrinksModalName = (drinkKey, catalog, quantity = 1) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  return drink.displayDrinkModal.capitalize();
+  const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
+  return formatedDisplay.capitalize();
 };
 
 export const getVolume = (drinkKey, catalog) => {
