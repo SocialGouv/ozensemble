@@ -50,12 +50,210 @@ export async function sendPreviousDrinksToDB() {
   }
 }
 
-export const hasCleanConsoAndCatalog = storage.getBoolean('@hasCleanConsoAndCatalog');
+export const hasCleanConsoAndCatalog = storage.getBoolean('@hasCleanedAndFixedCatalog');
 export async function cleanConsosAndCatalog() {
   try {
-    const catalog = storage.getString('@OwnDrinks');
+    catalog = [
+      {
+        drinkKey: 'ownDrink',
+        icon: 'CocktailGlass',
+        categoryKey: 'ownDrink',
+        volume: '5 cl',
+        isDeleted: false,
+        kcal: 14,
+        doses: 0.2,
+        displayFeed: 'Cocktail Gin Tonic',
+        displayDrinkModal: 'Cocktail Gin Tonic',
+        custom: true,
+        alcoolPercentage: 5,
+        price: 5,
+      },
+      {
+        drinkKey: 'Non',
+        icon: 'WineGlass',
+        categoryKey: 'ownDrink',
+        volume: '10 cl',
+        isDeleted: false,
+        kcal: 19,
+        doses: 0.3,
+        displayFeed: 'Non',
+        displayDrinkModal: 'Non',
+        custom: true,
+        alcoolPercentage: 3.4,
+        price: 2.3,
+      },
+      {
+        categoryKey: 'Bière (5%)',
+        drinkKey: 'beer-half',
+        displayDrinkModal: 'demi',
+        volume: '25 cl',
+        doses: 1,
+        icon: 'HalfBeer',
+        price: 3.5,
+        kcal: 70,
+      },
+      {
+        categoryKey: 'Bière (5%)',
+        drinkKey: 'beer-pint',
+        displayDrinkModal: 'pinte',
+        volume: '50 cl',
+        doses: 2,
+        icon: 'Pint',
+        price: 7,
+        kcal: 140,
+      },
+      {
+        categoryKey: 'Cidre (5%)',
+        drinkKey: 'cider-half',
+        displayDrinkModal: 'demi',
+        volume: '25 cl',
+        doses: 1,
+        icon: 'HalfCider',
+        price: 2,
+        kcal: 70,
+      },
+      {
+        categoryKey: 'Cidre (5%)',
+        drinkKey: 'cider-pint',
+        displayDrinkModal: 'pinte',
+        volume: '50 cl',
+        doses: 2,
+        icon: 'PintCider',
+        price: 4,
+        kcal: 140,
+        style: {
+          marginBottom: 10,
+        },
+      },
+      {
+        active: true,
+        categoryKey: 'Coupe de champagne -12-12',
+        custom: true,
+        displayDrinkModal: 'Coupe de champagne ',
+        displayFeed: 'Coupe de champagne ',
+        doses: 1,
+        drinkKey: 'Coupe de champagne -12-12',
+        iconOf: 'wine-glass',
+        volume: '12 cl - 12˚',
+      },
+      {
+        categoryKey: 'Vin (12,5%)',
+        drinkKey: 'wine-glass',
+        displayDrinkModal: 'verre',
+        volume: '10 cl',
+        doses: 1,
+        icon: 'WineGlass',
+        price: 4,
+        kcal: 70,
+      },
+      {
+        categoryKey: 'Vin (12,5%)',
+        drinkKey: 'wine-bottle',
+        displayDrinkModal: 'bouteille',
+        volume: '75 cl',
+        doses: 7.5,
+        icon: 'WineBottle',
+        price: 10,
+        kcal: 525,
+        style: {
+          marginBottom: 20,
+          transform: [
+            {
+              scale: 1.2,
+            },
+          ],
+        },
+      },
+
+      {
+        categoryKey: 'Champagne (12,5%)',
+        drinkKey: 'champagne-glass',
+        displayDrinkModal: 'coupe',
+        volume: '10 cl',
+        doses: 1,
+        icon: 'ChampagneGlass',
+        price: 5,
+        kcal: 70,
+      },
+      {
+        categoryKey: 'Champagne (12,5%)',
+        drinkKey: 'champagne-bottle',
+        displayDrinkModal: 'bouteille',
+        volume: '75 cl',
+        doses: 7.5,
+        icon: 'ChampagneBottle',
+        price: 20,
+        kcal: 525,
+        style: {
+          marginBottom: 20,
+        },
+      },
+      {
+        categoryKey: 'Apéritif (15 à 18%) : porto, vermouth...',
+        drinkKey: 'aperitive-glass',
+        displayDrinkModal: 'verre',
+        volume: '7 cl',
+        doses: 1,
+        icon: 'AperitiveGlass',
+        price: 4,
+        kcal: 71,
+      },
+      {
+        categoryKey: 'Apéritif (15 à 18%) : porto, vermouth...',
+        drinkKey: 'aperitive-bottle',
+        displayDrinkModal: 'bouteille',
+        volume: '75 cl',
+        doses: 10.8,
+        icon: 'AperitiveBottle',
+        price: 10,
+        kcal: 756,
+        style: {
+          marginBottom: 20,
+        },
+      },
+      {
+        categoryKey: 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...',
+        drinkKey: 'hard-shot',
+        displayDrinkModal: 'shot',
+        volume: '3 cl',
+        doses: 1,
+        icon: 'Shoot',
+        price: 2,
+        kcal: 67,
+      },
+      {
+        categoryKey: 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...',
+        drinkKey: 'hard-cocktail',
+        displayDrinkModal: 'verre',
+        volume: '5 cl + diluant',
+        doses: 1.6,
+        icon: 'CocktailGlass',
+        price: 8,
+        kcal: 133,
+      },
+      {
+        categoryKey: 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...',
+        drinkKey: 'hard-flasque',
+        displayDrinkModal: 'flasque',
+        volume: '20 cl',
+        doses: 6.4,
+        icon: 'Flasque',
+        price: 4,
+        kcal: 750,
+      },
+      {
+        categoryKey: 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...',
+        drinkKey: 'hard-bottle',
+        displayDrinkModal: 'bouteille',
+        volume: '75 cl',
+        doses: 24,
+        icon: 'CocktailBottle',
+        price: 15,
+        kcal: 1680,
+      },
+    ];
     if (catalog) {
-      const oldDrinkCatalog = JSON.parse(catalog);
+      const oldDrinkCatalog = catalog;
       let newOwnDrinksCatalog = [];
       oldDrinkCatalog.forEach((oldDrink) => {
         if (oldDrink.custom === true) {
@@ -98,13 +296,14 @@ export async function cleanConsosAndCatalog() {
           ];
         }
       });
-      storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
-      if (newOwnDrinksCatalog) {
+      const fixedNewOwnDrinksCatalog = fixConsosAndCatalog(newOwnDrinksCatalog)._j;
+      storage.set('@OwnDrinks', JSON.stringify(fixedNewOwnDrinksCatalog));
+      if (fixedNewOwnDrinksCatalog) {
         const consoStored = storage.getString('@Drinks');
         if (consoStored) {
           const drinks = JSON.parse(consoStored);
           const matomoId = storage.getString('@UserIdv2');
-          newOwnDrinksCatalog.forEach((ownDrink) => {
+          fixedNewOwnDrinksCatalog.forEach((ownDrink) => {
             const drinkList = drinks.filter((conso) => conso.drinkKey === ownDrink.drinkKey);
             if (drinkList.length) {
               drinkList.forEach((conso) => {
@@ -129,7 +328,7 @@ export async function cleanConsosAndCatalog() {
         }
       }
     }
-    storage.set('@hasCleanConsoAndCatalog', true);
+    //storage.set('@hasCleanedAndFixedCatalog', true);
   } catch (e) {
     capture(e, {
       extra: {
@@ -150,12 +349,9 @@ export async function cleanConsosAndCatalog() {
   }
 }
 
-export const hasFixedConsosAndCatalog = storage.getBoolean('@fixConsosAndCatalog');
-export async function fixConsosAndCatalog() {
+export async function fixConsosAndCatalog(oldDrinkCatalog) {
   try {
-    const catalog = storage.getString('@OwnDrinks');
-    if (catalog) {
-      const oldDrinkCatalog = JSON.parse(catalog);
+    if (oldDrinkCatalog) {
       let newOwnDrinksCatalog = [];
       oldDrinkCatalog.forEach((oldDrink) => {
         if (oldDrink.custom === true) {
@@ -171,36 +367,8 @@ export async function fixConsosAndCatalog() {
           ];
         }
       });
-      storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
-      const consoStored = storage.getString('@Drinks');
-      if (consoStored) {
-        const drinks = JSON.parse(consoStored);
-        const matomoId = storage.getString('@UserIdv2');
-        newOwnDrinksCatalog.forEach((ownDrink) => {
-          const drinkList = drinks.filter((conso) => conso.drinkKey === ownDrink.drinkKey);
-          if (drinkList.length) {
-            drinkList.forEach((conso) => {
-              API.post({
-                path: '/consommation',
-                body: {
-                  matomoId: matomoId,
-                  id: conso.id,
-                  name: ownDrink.displayDrinkModal,
-                  drinkKey: ownDrink.drinkKey,
-                  quantity: Number(conso.quantity),
-                  date: conso.timestamp,
-                  doses: ownDrink.doses,
-                  kcal: ownDrink.kcal,
-                  price: ownDrink.price,
-                  volume: ownDrink.volume,
-                },
-              });
-            });
-          }
-        });
-      }
+      return newOwnDrinksCatalog;
     }
-    storage.set('@fixConsosAndCatalog', true);
   } catch (e) {
     capture(e, {
       extra: {
