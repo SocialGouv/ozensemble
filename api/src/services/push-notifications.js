@@ -2,7 +2,6 @@ const PushNotifications = require("node-pushnotifications");
 const { capture } = require("../third-parties/sentry");
 const { PUSH_NOTIFICATION_GCM_ID, PUSH_NOTIFICATION_APN_KEY, PUSH_NOTIFICATION_APN_KEY_ID, PUSH_NOTIFICATION_APN_TEAM_ID } = require("../config");
 const matomo = require("../third-parties/matomo");
-import * as Sentry from "@sentry/react-native";
 
 const config = {
   gcm: {
