@@ -151,7 +151,7 @@ const Export = ({ navigation }) => {
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
-    //navigation.goBack();
+    navigation.goBack();
   };
 
   return (
