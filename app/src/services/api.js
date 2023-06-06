@@ -1,7 +1,6 @@
 import URI from 'urijs';
 import { Alert, Platform } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
-import fetchRetry from 'fetch-retry';
 import deviceInfoModule from 'react-native-device-info';
 
 import { SCHEME, API_HOST } from '../config';
@@ -20,7 +19,7 @@ export const checkNetwork = async (test = false) => {
 class ApiService {
   host = API_HOST;
   scheme = SCHEME;
-  fetch = fetchRetry(fetch);
+  fetch = fetch;
   getUrl = (path, query) => {
     return new URI().host(this.host).scheme(this.scheme).path(path).setSearch(query).toString();
   };
