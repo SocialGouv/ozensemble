@@ -83,8 +83,8 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
           } else {
             // if conso is beer need to add the contenent in front of name beer
             const displayName = conso.drinkKey.includes('beer')
-              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).capitalize() + ' de bière'
-              : getDisplayName(conso.drinkKey, (quantity = 1), catalog).capitalize();
+              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).toLowerCase() + ' de bière'
+              : getDisplayName(conso.drinkKey, (quantity = 1), catalog);
             consosInfos += conso.quantity + ' ' + displayName;
             const numberVolume = Number(conso.volume.split(' ')[0]);
             const alcoolPercentage = Math.round((conso.doses * 100) / numberVolume / 0.8);
