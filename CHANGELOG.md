@@ -1,3 +1,10 @@
+## [1.119.1](https://github.com/SocialGouv/ozensemble/compare/v1.119.0...v1.119.1) (2023-06-06)
+
+
+### Bug Fixes
+
+* android error when no internet ([#404](https://github.com/SocialGouv/ozensemble/issues/404)) ([41e431f](https://github.com/SocialGouv/ozensemble/commit/41e431fc117fbcee0f8ab10a9ccea21338dcafe3))
+
 # [1.119.0](https://github.com/SocialGouv/ozensemble/compare/v1.118.0...v1.119.0) (2023-06-01)
 
 
