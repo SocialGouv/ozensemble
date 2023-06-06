@@ -20,12 +20,14 @@ const BadgesStatus = ({ navigate }) => {
   useFocusEffect(
     useCallback(() => {
       const matomoId = storage.getString('@UserIdv2');
-      API.get({ path: `/badge/${matomoId}` }).then((res) => {
-        if (res.ok) {
-          setBadges(res.data.badges);
-          setBadgesCatalog(res.data.badgesCatalog);
-        }
-      });
+      API.get({ path: `/badge/${matomoId}` })
+        .then((res) => {
+          if (res.ok) {
+            setBadges(res.data.badges);
+            setBadgesCatalog(res.data.badgesCatalog);
+          }
+        })
+        .catch((err) => console.log('Get goals err', err));
     }, [setBadges, setBadgesCatalog])
   );
 
