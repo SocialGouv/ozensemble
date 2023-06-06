@@ -2,6 +2,7 @@ const PushNotifications = require("node-pushnotifications");
 const { capture } = require("../third-parties/sentry");
 const { PUSH_NOTIFICATION_GCM_ID, PUSH_NOTIFICATION_APN_KEY, PUSH_NOTIFICATION_APN_KEY_ID, PUSH_NOTIFICATION_APN_TEAM_ID } = require("../config");
 const matomo = require("../third-parties/matomo");
+import * as Sentry from "@sentry/react-native";
 
 const config = {
   gcm: {
@@ -45,6 +46,8 @@ const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, lin
         });
       } else if (results[0]?.failure) {
         capture(`push notification sent failure: ${results[0].message?.[0]?.errorMsg}`, { extra: { results, data, pushNotifToken } });
+        Sentry.setUser({ id: matomoId });
+
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "FAILED",
