@@ -322,7 +322,7 @@ const checkNPSAvailability = async (user, drinks) => {
 };
 
 router.post(
-  "/update-own-conso/:matomoId",
+  "/update-own-conso/",
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
