@@ -1,3 +1,15 @@
+# [1.120.0](https://github.com/SocialGouv/ozensemble/compare/v1.119.1...v1.120.0) (2023-06-06)
+
+
+### Bug Fixes
+
+* migration problem and add try catch for consosFeedDisplay ([#403](https://github.com/SocialGouv/ozensemble/issues/403)) ([c9a9ce8](https://github.com/SocialGouv/ozensemble/commit/c9a9ce8c85d22e6199fb9edac3464386c6616581))
+
+
+### Features
+
+* display confetti when weekly gains are positives ([#402](https://github.com/SocialGouv/ozensemble/issues/402)) ([2cab4e5](https://github.com/SocialGouv/ozensemble/commit/2cab4e597a31a5d7713e7787f5985536eff05675))
+
 ## [1.119.1](https://github.com/SocialGouv/ozensemble/compare/v1.119.0...v1.119.1) (2023-06-06)
 
 
