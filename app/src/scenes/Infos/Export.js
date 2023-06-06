@@ -34,15 +34,16 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
   </head>
   <body>
     <span>Export des consommations - Oz Ensemble</span>
-    <table class="table">
-      <tbody>`;
-  const docClosing = `</tbody>
-  </table>
+    <br>
+    <br>
+      `;
+  const docClosing = `
 </body>
 </html>
 `;
   let body = '';
   consoFilteredByWeek.forEach((week, index) => {
+    body += '<table><tbody>';
     const firstDayOfWeek = firstDay.add(index, 'week');
     const lastDay = firstDayOfWeek.endOf('week');
     const displayedDate =
@@ -52,15 +53,14 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
           lastDay.format('DD ') +
           lastDay.format('MMMM ').capitalize() +
           lastDay.format('YYYY')
-        : lastDay.format('MM') +
-          firstDayOfWeek.format('DD') +
-          lastDay.format('MMMM').capitalize() +
+        : firstDayOfWeek.format('DD ') +
+          firstDayOfWeek.format('MMMM').capitalize() +
           ' au ' +
           lastDay.format('DD ') +
           lastDay.format('MMMM ').capitalize() +
           lastDay.format('YYYY');
     var sumWeeklyDoses = 0;
-    const weekHeader = ` <tr class="bg-oz" style=><td colspan="3">Semaine du ${displayedDate}</td></tr> 
+    const weekHeader = ` <tr class="bg-oz"><td colspan="3">Semaine du ${displayedDate}</td></tr> 
 <tr class="bg-oz">
     <th>Date</th>
     <th>Boisson</th>
@@ -81,12 +81,18 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
               consosInfos += 'Pas bu ce jour';
             }
           } else {
-            consosInfos +=
-              conso.quantity + ' ' + getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity) + ' de ';
-            consosInfos +=
-              index + 1 === day.lenght
-                ? getDisplayName(conso.drinkKey, (quantity = 1), catalog)
-                : `${getDisplayName(conso.drinkKey, (quantity = 1), catalog)} </br>`;
+            // if conso is beer need to add the contenent in front of name beer
+            const displayName = conso.drinkKey.includes('beer')
+              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).capitalize() + ' de bière'
+              : getDisplayName(conso.drinkKey, (quantity = 1), catalog).capitalize();
+            consosInfos += conso.quantity + ' ' + displayName;
+            const numberVolume = Number(conso.volume.split(' ')[0]);
+            const alcoolPercentage = Math.round((conso.doses * 100) / numberVolume / 0.8);
+            consosInfos += ` (${alcoolPercentage}%)`;
+            if (index + 1 !== day.length) {
+              // is conso not last of the day the day add <br>
+              consosInfos += `<br>`;
+            }
           }
           sumDayDoses += conso.doses * conso.quantity;
         });
@@ -98,8 +104,8 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
     });
     const sumWeeklyDosesDisplay = sumWeeklyDoses > 1 ? sumWeeklyDoses + ' unités' : sumWeeklyDoses + ' unité';
 
-    const weekClosing = `<tr class="bg-oz"><td colspan="2">Total semaine du ${displayedDate}</td><td>${sumWeeklyDosesDisplay}</td></tr>`;
-    body += weekHeader + dailycontent + weekClosing;
+    const weekClosing = `<tr class="bg-oz"><td colspan="2">Total semaine du ${displayedDate}</td><td style="font-weight: bold;">${sumWeeklyDosesDisplay}</td></tr>`;
+    body += weekHeader + dailycontent + weekClosing + '</tbody></table> <br>';
   });
 
   return docHeader + body + docClosing;
@@ -119,12 +125,12 @@ const Export = ({ navigation }) => {
         const nbDays = dayjs().diff(firstDay, 'days');
         const consoFilteredByWeek = [];
         let weeklyConsos = [];
-        for (let i = 0; i < nbDays; i++) {
+        for (let i = 0; i <= nbDays; i++) {
           const dailyConsos = consos.filter((conso) => {
             return dayjs(conso.date).format('YYYY-MM-DD') === firstDay.add(i, 'day').format('YYYY-MM-DD');
           });
           weeklyConsos.push(dailyConsos);
-          if (firstDay.add(i, 'days').format('dddd') === 'dimanche') {
+          if (firstDay.add(i, 'days').format('dddd') === 'dimanche' || i === nbDays) {
             consoFilteredByWeek.push(weeklyConsos);
             weeklyConsos = [];
           }
