@@ -51,14 +51,18 @@ class ApiService {
       const response = await this.fetch(url, config);
 
       if (response.json) {
-        const readableRes = await response.json();
-        if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
-        if (readableRes.showNewBadge) this?.handleShowBadge(readableRes.showNewBadge);
-        if (readableRes.showInAppModal) this?.handleShowInAppModal(readableRes.showInAppModal);
-        if (readableRes.newFeatures) {
-          NewFeaturePop.handleShowNewFeaturePopup(readableRes.newFeatures);
+        try {
+          const readableRes = await response.json();
+          if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
+          if (readableRes.showNewBadge) this?.handleShowBadge(readableRes.showNewBadge);
+          if (readableRes.showInAppModal) this?.handleShowInAppModal(readableRes.showInAppModal);
+          if (readableRes.newFeatures) {
+            NewFeaturePop.handleShowNewFeaturePopup(readableRes.newFeatures);
+          }
+          return readableRes;
+        } catch (e) {
+          console.log(e);
         }
-        return readableRes;
       }
 
       return response;

@@ -125,7 +125,7 @@ const ConsosList = ({ navigation, route }) => {
           volume: volume,
         },
       });
-      if (response.showNewBadge || response.showInAppModal) showToast = false;
+      if (response?.showNewBadge || response?.showInAppModal) showToast = false;
     }
     // setLocalDrinksState([]);
     if (showToast) {
