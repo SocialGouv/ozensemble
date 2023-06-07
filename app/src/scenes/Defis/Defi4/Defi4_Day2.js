@@ -196,8 +196,8 @@ const ArrowText = styled(TextStyled)`
 `;
 
 const ArrowContainer = styled.View`
-  width: ${screenWidth};
-  height: ${screenWidth * 0.12};
+  width: ${screenWidth}px;
+  height: ${screenWidth * 0.12}px;
   position: absolute;
   top: 0;
 `;

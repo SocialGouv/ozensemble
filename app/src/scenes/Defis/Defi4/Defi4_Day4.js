@@ -216,8 +216,8 @@ const TimelineContainer = styled.View`
 `;
 
 const TimelineImage = styled.Image`
-  width: ${screenWidth * 0.9};
-  height: ${screenWidth * 0.9 * 0.56};
+  width: ${screenWidth * 0.9}px;
+  height: ${screenWidth * 0.9 * 0.56}px;
 `;
 
 const BulletPoint = styled.View`
