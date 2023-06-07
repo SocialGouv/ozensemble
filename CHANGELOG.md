@@ -1,3 +1,10 @@
+## [1.121.1](https://github.com/SocialGouv/ozensemble/compare/v1.121.0...v1.121.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* mapDrinkToDose ([5e89066](https://github.com/SocialGouv/ozensemble/commit/5e890668baf7b6ed714a355b01dfe6528fab00e3))
+
 # [1.121.0](https://github.com/SocialGouv/ozensemble/compare/v1.120.5...v1.121.0) (2023-06-07)
 
 
