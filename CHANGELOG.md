@@ -1,3 +1,11 @@
+## [1.120.1](https://github.com/SocialGouv/ozensemble/compare/v1.120.0...v1.120.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* add user in sentry logs ([#408](https://github.com/SocialGouv/ozensemble/issues/408)) ([169fb8c](https://github.com/SocialGouv/ozensemble/commit/169fb8c58910ff98fc943c118f9b4d919ae7341d))
+* remove fetch retry ([#407](https://github.com/SocialGouv/ozensemble/issues/407)) ([c172542](https://github.com/SocialGouv/ozensemble/commit/c172542860e73ae6a907bc70f57339ffc050b93b))
+
 # [1.120.0](https://github.com/SocialGouv/ozensemble/compare/v1.119.1...v1.120.0) (2023-06-06)
 
 
