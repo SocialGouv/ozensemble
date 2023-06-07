@@ -1,3 +1,10 @@
+## [1.120.5](https://github.com/SocialGouv/ozensemble/compare/v1.120.4...v1.120.5) (2023-06-07)
+
+
+### Bug Fixes
+
+* px when required ([#414](https://github.com/SocialGouv/ozensemble/issues/414)) ([e014aab](https://github.com/SocialGouv/ozensemble/commit/e014aabf9207b39ef70bd615175421f239a3e8bb))
+
 ## [1.120.4](https://github.com/SocialGouv/ozensemble/compare/v1.120.3...v1.120.4) (2023-06-07)
 
 
