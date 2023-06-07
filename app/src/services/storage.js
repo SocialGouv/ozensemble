@@ -34,18 +34,13 @@ export async function sendPreviousDrinksToDB() {
     capture(e, {
       extra: {
         migration: 'sendPreviousDrinksToDB',
+        '@Drinks': storage.getString('@Drinks'),
+        '@OwnDrinks': storage.getString('@OwnDrinks'),
+        hasSentPreviousDrinksToDB: storage.getBoolean('hasSentPreviousDrinksToDB'),
       },
       user: {
         id: storage.getString('@UserIdv2'),
       },
-    });
-    const allData = {};
-    for (const key of storage.getAllKeys()) {
-      allData[key] = storage.getString(key);
-    }
-    capture('data for sendPreviousDrinksToDB', {
-      extra: { allData, migration: 'sendPreviousDrinksToDB' },
-      user: { id: storage.getString('@UserIdv2') },
     });
   }
 }
@@ -109,6 +104,9 @@ export async function cleanConsosAndCatalog() {
     capture(e, {
       extra: {
         migration: 'cleanConsosAndCatalog',
+        '@OwnDrinks': storage.getString('@OwnDrinks'),
+        '@Drinks': storage.getString('@Drinks'),
+        hasCleanConsoAndCatalog: storage.getBoolean('@hasCleanedAndFixedCatalog'),
       },
       user: {
         id: storage.getString('@UserIdv2'),
