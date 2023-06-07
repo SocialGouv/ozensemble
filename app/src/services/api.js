@@ -39,8 +39,6 @@ class ApiService {
           ...headers,
         },
         body: body ? JSON.stringify(body) : null,
-        retries: 3,
-        retryDelay: 1000,
       };
 
       const url = this.getUrl(path, query);
@@ -48,7 +46,7 @@ class ApiService {
       const canFetch = await checkNetwork();
       if (!canFetch) return;
 
-      const response = await this.fetch(url, config);
+      const response = await fetch(url, config);
 
       if (response.json) {
         try {
@@ -61,6 +59,7 @@ class ApiService {
           }
           return readableRes;
         } catch (e) {
+          console.log('ERROR IN RESPONSE JSON', response);
           console.log(e);
         }
       }

@@ -1,10 +1,28 @@
 import { dateWithoutTime, today } from '../../helpers/dateHelpers';
 import { v4 as uuid } from 'uuid';
+import { drinksCatalog } from '../../scenes/ConsoFollowUp/drinksCatalog';
 
 export const fakeConsoData = {
   empty: {
     startDate: today(),
     drinks: [],
+  },
+  long: () => {
+    const startDate = Date.parse(dateWithoutTime(new Date(), -14));
+    const drinks = [];
+    for (let i = 0; i < 70; i++) {
+      drinks.push({
+        timestamp: Date.parse(dateWithoutTime(new Date(), -i)),
+        drinkKey: drinksCatalog[Math.floor(Math.random() * drinksCatalog.length)].drinkKey,
+        quantity: Math.floor(Math.random() * 10) + 1,
+        id: uuid(),
+      });
+    }
+    console.log('DONE', drinks.length);
+    return {
+      startDate,
+      drinks,
+    };
   },
   full: {
     startDate: Date.parse(dateWithoutTime(new Date(), -14)),

@@ -57,6 +57,7 @@ const FakeData = () => {
         {badgesCatalog
           .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
+            console.log({ title, category, stars });
             return (
               <React.Fragment key={title + category}>
                 {category === 'goals' && stars === 1 && (
@@ -131,6 +132,13 @@ const FakeData = () => {
         <MenuItem caption="Tout le défi 4" onPress={() => replaceStorageValues(fakeDefi4)} />
         <MenuItem caption="Tout le défi 5" onPress={() => replaceStorageValues(fakeDefi5)} />
         <H1Wrapper>Consommations</H1Wrapper>
+        <MenuItem
+          caption="2 ans avec une boisson par jour"
+          onPress={() => {
+            setGlobalDrinksState(fakeConsoData.long().drinks);
+            storage.delete('nps-asked-after-more-than-3-consos');
+          }}
+        />
         <MenuItem
           caption="14 jours de conso complets"
           onPress={() => {
