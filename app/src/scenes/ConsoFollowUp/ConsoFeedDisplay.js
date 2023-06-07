@@ -29,23 +29,36 @@ const ConsoFeedDisplay = ({
   const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
 
   const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
-  const Icon = getIcon(drink.icon);
+  const Icon = getIcon(drink?.icon) ? getIcon(drink?.icon) : CocktailGlass;
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
         <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
           <Content>
-            <Icon size={25} />
-            <Drink>
-              {quantity} {drinkName}{' '}
-            </Drink>
-            {!drink.categoryKey.includes('own') && (
-              <Volume numberOfLines={1} ellipsizeMode="tail">
-                ({drink.volume})
-              </Volume>
+            {!!drink ? (
+              <>
+                <Icon size={25} />
+                <Drink>
+                  {quantity} {drinkName}{' '}
+                </Drink>
+                {!drink.categoryKey.includes('own') && (
+                  <Volume numberOfLines={1} ellipsizeMode="tail">
+                    ({drink.volume})
+                  </Volume>
+                )}
+                {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
+              </>
+            ) : (
+              <>
+                <Icon size={25} />
+                <Drink>
+                  {quantity} {'Boisson inconnue'}{' '}
+                </Drink>
+
+                {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
+              </>
             )}
-            {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
           </Content>
         </FeedButton>
       </TouchableWithoutFeedback>
