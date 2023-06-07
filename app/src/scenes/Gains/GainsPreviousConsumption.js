@@ -25,13 +25,9 @@ const GainsPreviousConsumption = () => {
   const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const numberDrinkEstimation = useMemo(() => {
-    return previousDrinksPerWeek.reduce(
-      (sum, drink) =>
-        Math.round(
-          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses
-        ), //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
-      0
-    );
+    return previousDrinksPerWeek.reduce((sum, drink) => {
+      return Math.round(sum + mapDrinkToDose(drink, drinksCatalog));
+    }, 0);
   }, [previousDrinksPerWeek]);
   const myWeeklyKcalBeforeObjective = useMemo(
     () =>

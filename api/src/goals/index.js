@@ -36,7 +36,11 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
     });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
     if (!allDaysFilled) return null;
-    const totalDoses = weekConsos.filter((drink) => drink.drinkKey !== "no-conso").reduce((total, drink) => total + drink.doses * drink.quantity, 0);
+    const totalDoses = weekConsos
+      .filter((drink) => drink.drinkKey !== "no-conso")
+      .reduce((total, drink) => {
+        return total + drink.doses * drink.quantity;
+      }, 0);
     const totalDaysWithNoDrink = weekConsos.filter((drink) => drink.drinkKey === "no-conso").length;
     const goalAchieved = totalDoses <= lastGoal.dosesPerWeek && totalDaysWithNoDrink >= lastGoal.daysWithGoalNoDrink.length;
 

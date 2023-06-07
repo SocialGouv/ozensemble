@@ -34,13 +34,9 @@ const Goal = ({ navigation }) => {
     setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const numberDrinkEstimation = useMemo(() => {
-    return previousDrinksPerWeek.reduce(
-      (sum, drink) =>
-        Math.round(
-          sum + drink.quantity * drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses
-        ), //sum + drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey).doses,
-      0
-    );
+    return previousDrinksPerWeek.reduce((sum, drink) => {
+      return Math.round(sum + mapDrinkToDose(drink, drinksCatalog));
+    }, 0);
   }, [previousDrinksPerWeek]);
   const [drinksByWeek, setDrinksByWeek] = useRecoilState(drinksByWeekState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);

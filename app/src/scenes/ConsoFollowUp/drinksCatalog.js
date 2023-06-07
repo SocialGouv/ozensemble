@@ -67,12 +67,17 @@ const getDoseOfDrink = (volume, degrees) => {
 export const mapDrinkToDose = ({ drinkKey, quantity }, catalog) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'mapDrinkToDose' } });
+    return 0;
+  }
   if (drink) return drink.doses * quantity;
   return 0;
 };
 
-export const getDrinksKeysFromCatalog = (catalog) =>
-  catalog.filter(({ active }) => Boolean(active)).map(({ drinkKey }) => drinkKey);
+export const getDrinksKeysFromCatalog = (catalog) => {
+  return catalog.filter(({ active }) => Boolean(active)).map(({ drinkKey }) => drinkKey);
+};
 
 export const getDisplayName = (drinkKey, quantity, catalog) => {
   try {
@@ -86,26 +91,47 @@ export const getDisplayName = (drinkKey, quantity, catalog) => {
 
 export const getDisplayDrinksModalName = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getDisplayDrinksModalName' } });
+    return '';
+  }
   return drink.displayDrinkModal.capitalize();
 };
 
 export const getVolume = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getVolume' } });
+    return 0;
+  }
   return drink.volume;
 };
 
 export const getDoses = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getDoses' } });
+    return 0;
+  }
   return drink.doses;
 };
 
 export const getStyle = (drinkKey, catalog) => {
   const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getStyle' } });
+    return {};
+  }
   return drink.style || {};
 };
 
 export const getIcon = (iconName) => {
-  return mapIconNameToIcon[iconName];
+  const icon = mapIconNameToIcon[iconName];
+  if (!icon) {
+    capture(new Error('icon not found'), { extra: { iconName, function: 'getIcon' } });
+    return HalfBeer;
+  }
+  return icon;
 };
 
 export const formatNewDrink = (name, quantity, degrees, drinkKey) => ({

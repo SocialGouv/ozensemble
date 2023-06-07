@@ -6,6 +6,7 @@ import H3 from './H3';
 import QButton from './QButton';
 import TextStyled from './TextStyled';
 import TouchableDelete from './TouchableDelete';
+
 const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, catalog }) => {
   const drink = catalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
   const Icon = getIcon(drink.icon);
