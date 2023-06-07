@@ -82,7 +82,11 @@ export const getDrinksKeysFromCatalog = (catalog) => {
 export const getDisplayName = (drinkKey, quantity, catalog) => {
   try {
     const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-    return drink?.custom ? drink.displayFeed : drink.displayFeed(quantity);
+    if (!drink) {
+      capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getDisplayName' } });
+      return '';
+    }
+    return drink.custom ? drink.displayFeed : drink.displayFeed?.(quantity);
   } catch (e) {
     capture(e, { extra: { drinkKey, quantity, catalog, function: 'getDisplayName' } });
     return '';
