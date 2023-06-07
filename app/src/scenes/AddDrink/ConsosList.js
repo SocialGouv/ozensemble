@@ -126,7 +126,7 @@ const ConsosList = ({ navigation, route }) => {
             volume: volume,
           },
         });
-        if (response.showNewBadge || response.showInAppModal) showToast = false;
+        if (response?.showNewBadge || response?.showInAppModal) showToast = false;
       } catch (e) {
         console.log(e);
       }
