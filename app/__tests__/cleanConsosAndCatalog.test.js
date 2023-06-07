@@ -16,7 +16,7 @@ jest.mock('react-native-mmkv', () => ({
 jest.mock('../src/services/api.js', () => ({}));
 
 describe('cleanCatalog', () => {
-  test('case old drink catalog from 2020', () => {
+  test('Case old drink catalog from 2020', () => {
     const catalog = [
       {
         active: true,
@@ -38,7 +38,7 @@ describe('cleanCatalog', () => {
         drinkKey: 'Coupe de champagne -12-12',
         icon: 'WineGlass',
         isDeleted: false,
-        kcal: Math.round(((12 * 0.8 * 12) / 10) * 7),
+        kcal: 81,
         price: 5,
         volume: '12 cl',
         alcoolPercentage: 12,
@@ -49,18 +49,18 @@ describe('cleanCatalog', () => {
   });
 
   // test drinks with , instead of . for price and volume
-  test(', instead of . for price and volume', () => {
+  test('Remove NaN values from using comas intead of points', () => {
     const catalog = [
       {
-        drinkKey: 'Non',
+        drinkKey: 'Vin Rouge',
         icon: 'WineGlass',
         categoryKey: 'ownDrink',
         volume: '10 cl',
         isDeleted: false,
         kcal: NaN,
         doses: NaN,
-        displayFeed: 'Non',
-        displayDrinkModal: 'Non',
+        displayFeed: 'Vin Rouge',
+        displayDrinkModal: 'Vin Rouge',
         custom: true,
         alcoolPercentage: NaN,
         price: NaN,
@@ -70,23 +70,22 @@ describe('cleanCatalog', () => {
       {
         categoryKey: 'ownDrink',
         custom: true,
-        displayDrinkModal: 'Non',
-        drinkKey: 'Non',
+        displayDrinkModal: 'Vin Rouge',
+        drinkKey: 'Vin Rouge',
         icon: 'WineGlass',
         isDeleted: false,
-        kcal: Math.round(((5 * 0.8 * 10) / 10) * 7),
+        kcal: 28,
         price: 5,
         volume: '10 cl',
         alcoolPercentage: 5,
-        doses: Math.round((5 * 0.8 * 10) / 10) / 10,
-        displayFeed: 'Non',
+        doses: 0.4,
+        displayFeed: 'Vin Rouge',
       },
     ]);
   });
 
   // test bug of first migration when we forgot ownCocktail
-
-  test('bug of first migration when we forgot ownCocktail', () => {
+  test('Bug of first migration when we forgot ownCocktail', () => {
     const catalog = [
       {
         drinkKey: 'ownCocktail',
@@ -96,8 +95,8 @@ describe('cleanCatalog', () => {
         isDeleted: false,
         kcal: NaN,
         doses: NaN,
-        displayFeed: 'Non',
-        displayDrinkModal: 'Non',
+        displayFeed: 'Cocktail Spritz',
+        displayDrinkModal: 'Cocktail Spritz',
         custom: true,
         alcoolPercentage: NaN,
         price: NaN,
@@ -107,21 +106,21 @@ describe('cleanCatalog', () => {
       {
         categoryKey: 'ownCocktail',
         custom: true,
-        displayDrinkModal: 'Non',
-        drinkKey: 'Non',
+        displayDrinkModal: 'Cocktail Spritz',
+        drinkKey: 'Cocktail Spritz',
         icon: 'WineGlass',
         isDeleted: false,
-        kcal: Math.round(((5 * 0.8 * 10) / 10) * 7),
+        kcal: 28,
         price: 5,
         volume: '10 cl',
         alcoolPercentage: 5,
-        doses: Math.round((5 * 0.8 * 10) / 10) / 10,
-        displayFeed: 'Non',
+        doses: 0.4,
+        displayFeed: 'Cocktail Spritz',
       },
     ]);
   });
 
-  test('correct cocktail', () => {
+  test('Correct cocktail', () => {
     const catalog = [
       {
         categoryKey: 'ownCocktail',
@@ -156,7 +155,7 @@ describe('cleanCatalog', () => {
   });
 
   // test no custom drinks
-  test('no custom drinks', () => {
+  test('No custom drinks', () => {
     const catalog = [
       {
         categoryKey: 'Bière (5%)',
@@ -172,18 +171,18 @@ describe('cleanCatalog', () => {
     expect(cleanCatalog(catalog)).toEqual([]);
   });
 
-  test('Good custom drink', () => {
+  test('Correct custom drink', () => {
     const catalog = [
       {
-        drinkKey: 'Non',
+        drinkKey: 'Vin Rouge',
         icon: 'WineGlass',
         categoryKey: 'ownDrink',
         volume: '10 cl',
         isDeleted: false,
         kcal: 19,
         doses: 0.3,
-        displayFeed: 'Non',
-        displayDrinkModal: 'Non',
+        displayFeed: 'Vin Rouge',
+        displayDrinkModal: 'Vin Rouge',
         custom: true,
         alcoolPercentage: 3.4,
         price: 2.3,
@@ -191,15 +190,15 @@ describe('cleanCatalog', () => {
     ];
     expect(cleanCatalog(catalog)).toEqual([
       {
-        drinkKey: 'Non',
+        drinkKey: 'Vin Rouge',
         icon: 'WineGlass',
         categoryKey: 'ownDrink',
         volume: '10 cl',
         isDeleted: false,
         kcal: 19,
         doses: 0.3,
-        displayFeed: 'Non',
-        displayDrinkModal: 'Non',
+        displayFeed: 'Vin Rouge',
+        displayDrinkModal: 'Vin Rouge',
         custom: true,
         alcoolPercentage: 3.4,
         price: 2.3,
