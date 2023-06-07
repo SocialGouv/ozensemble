@@ -149,7 +149,12 @@ export function cleanCatalog(oldDrinkCatalog) {
     const categoryKeyEvolution1 = ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
       ? oldDrink.categoryKey
       : 'ownDrink';
+
     const categoryKeyEvolution2 = drinkKeyEvolution1 === 'ownCocktail' ? 'ownCocktail' : categoryKeyEvolution1;
+
+    const checkedKcal = oldDrink.kcal ? oldDrink.kcal : kcal;
+    const checkedDoses = oldDrink.doses ? oldDrink.doses : doses;
+    const checkedAlcoolPercentage = oldDrink.alcoolPercentage ? oldDrink.alcoolPercentage : formatedAlcoolPercentage;
 
     newOwnDrinksCatalog.push({
       drinkKey: drinkKeyEvolution2,
@@ -157,8 +162,8 @@ export function cleanCatalog(oldDrinkCatalog) {
       categoryKey: categoryKeyEvolution2,
       volume: volume + ' cl',
       isDeleted: oldDrink.isDeleted === undefined ? false : oldDrink.isDeleted,
-      kcal: kcal,
-      doses: doses,
+      kcal: checkedKcal,
+      doses: checkedDoses,
       displayFeed: oldDrink.displayFeed,
       displayDrinkModal: oldDrink.displayDrinkModal,
       custom: true,
