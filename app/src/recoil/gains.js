@@ -1,5 +1,5 @@
 import { atom, selector } from 'recoil';
-import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
+import { drinksCatalog, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { badgesState } from './badges';
 import { getInitValueFromStorage } from './utils';
@@ -32,13 +32,10 @@ export const maxDrinksPerWeekSelector = selector({
   key: 'maxDrinksPerWeekSelector',
   get: ({ get }) => {
     const drinksByWeek = get(drinksByWeekState);
-    return drinksByWeek.reduce(
-      (sum, drink) =>
-        Math.ceil(
-          sum + drink.quantity * drinksCatalog.find((drinkcatalog) => drinkcatalog.drinkKey === drink.drinkKey).doses
-        ),
-      0
-    );
+    return drinksByWeek.reduce((sum, drink) => {
+      const dose = mapDrinkToDose(drink, drinksCatalog);
+      return Math.ceil(sum + dose);
+    }, 0);
   },
 });
 
