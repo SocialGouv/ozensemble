@@ -1,3 +1,10 @@
+## [1.120.3](https://github.com/SocialGouv/ozensemble/compare/v1.120.2...v1.120.3) (2023-06-07)
+
+
+### Bug Fixes
+
+*  show new badge undefined ([#406](https://github.com/SocialGouv/ozensemble/issues/406)) ([c11d557](https://github.com/SocialGouv/ozensemble/commit/c11d557a0e8ff5acaec48e8f082e9fa2c164d391))
+
 ## [1.120.2](https://github.com/SocialGouv/ozensemble/compare/v1.120.1...v1.120.2) (2023-06-07)
 
 
