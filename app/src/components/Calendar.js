@@ -194,10 +194,13 @@ const Calendar = ({ onDayPress, selectedMonth }) => {
   };
 
   const calendarDayByWeek = useMemo(() => {
+    let date = Date.now();
     const firstDayStyles = computeStyleWithDrinks(firstDayOfCalendar);
+    console.log('computeStyleWithDrinks(firstDayOfCalendar) : ', Date.now() - date);
     let weekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
     let previousDay = firstDayOfCalendar;
     let daysByWeek = [];
+    date = Date.now();
     for (let i = 1; i <= nbDays; ++i) {
       isDayIsSunday = i % 7 === 0;
       if (isDayIsSunday) {
@@ -210,6 +213,7 @@ const Calendar = ({ onDayPress, selectedMonth }) => {
       weekDays = [...weekDays, { day: day, styles: styles }];
       previousDay = day;
     }
+    console.log('calendarDayByWeek : ', Date.now() - date);
     return daysByWeek;
   }, [firstDayOfCalendar, dailyDoses]);
 

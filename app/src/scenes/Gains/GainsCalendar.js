@@ -82,6 +82,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {
+    let date = Date.now();
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
@@ -91,6 +92,8 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
           : noDrinkDay(dayjs(day).isSame(currentMonth, 'month'));
       days[day] = { ...days[day], marked: day === today };
     }
+    console.log('markedDays 1', date - Date.now());
+    date = Date.now();
     const firstTrackedDay = dayjs().startOf('week').add(-1, 'week');
     const differenceDays = dayjs().diff(firstTrackedDay, 'day');
     for (let i = 0; i < differenceDays; i++) {
@@ -98,6 +101,8 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       if (days[day]) continue;
       days[day] = needToFillupConso;
     }
+    console.log('markedDays 1', date - Date.now());
+
     return days;
   }, [dailyDoses, currentMonth]);
   const [window, setWindow] = useState('calendar');
@@ -108,8 +113,9 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     return dayjs(days[days.length - 1]);
   }, [days]);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
+  let date = Date.now();
   const drinks = useRecoilValue(drinksState);
-
+  console.log('drinksState', date - Date.now());
   const myWeeklyExpensesBeforeObjective = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
@@ -132,6 +138,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     [previousDrinksPerWeek]
   );
   const mySavingsSinceBeginning = useMemo(() => {
+    date = Date.now();
     if (!days.length) return null;
     const myExpensesSinceBegnining = drinks.reduce(
       (sum, drink) =>
@@ -142,6 +149,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
     const averageDailyExpenses = myExpensesSinceBegnining / numberOfDaysSinceBeginning;
     const averageDailyExpensesBeforeObjective = myWeeklyExpensesBeforeObjective / 7;
+    console.log('mySavingsSinceBeginning', Date.now() - date);
     return Math.ceil(averageDailyExpensesBeforeObjective - averageDailyExpenses) * numberOfDaysSinceBeginning;
   }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDateOfOz]);
 
