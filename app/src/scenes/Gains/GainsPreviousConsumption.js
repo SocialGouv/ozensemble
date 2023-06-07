@@ -7,7 +7,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
 import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import DrinksCategory from '../../components/DrinksCategory';
-import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { drinksCatalog, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { Spacer } from '../../components/Articles';
 import { defaultPaddingFontScale } from '../../styles/theme';

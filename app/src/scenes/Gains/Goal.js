@@ -17,7 +17,7 @@ import {
 } from '../../recoil/gains';
 
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
+import { drinksCatalog, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
