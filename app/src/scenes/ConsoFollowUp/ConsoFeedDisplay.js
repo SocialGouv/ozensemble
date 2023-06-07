@@ -7,7 +7,6 @@ import H3 from '../../components/H3';
 import { consolidatedCatalogSelector } from '../../recoil/consos';
 import { getDisplayName, getIcon } from './drinksCatalog';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
-import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
 
 const isFirst = (position) => position === 'first';
 const isAlone = (position) => position === 'alone';
@@ -30,36 +29,23 @@ const ConsoFeedDisplay = ({
   const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
 
   const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
-  const Icon = getIcon(drink?.icon) ? getIcon(drink?.icon) : CocktailGlass;
+  const Icon = getIcon(drink.icon);
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
         <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
           <Content>
-            {!!drink ? (
-              <>
-                <Icon size={25} />
-                <Drink>
-                  {quantity} {drinkName}{' '}
-                </Drink>
-                {!drink.categoryKey.includes('own') && (
-                  <Volume numberOfLines={1} ellipsizeMode="tail">
-                    ({drink.volume})
-                  </Volume>
-                )}
-                {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
-              </>
-            ) : (
-              <>
-                <Icon size={25} />
-                <Drink>
-                  {quantity} {'Boisson inconnue'}{' '}
-                </Drink>
-
-                {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
-              </>
+            <Icon size={25} />
+            <Drink>
+              {quantity} {drinkName}{' '}
+            </Drink>
+            {!drink.categoryKey.includes('own') && (
+              <Volume numberOfLines={1} ellipsizeMode="tail">
+                ({drink.volume})
+              </Volume>
             )}
+            {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime('fr')}</Hour>}
           </Content>
         </FeedButton>
       </TouchableWithoutFeedback>
