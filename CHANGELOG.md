@@ -1,3 +1,11 @@
+## [1.120.4](https://github.com/SocialGouv/ozensemble/compare/v1.120.3...v1.120.4) (2023-06-07)
+
+
+### Bug Fixes
+
+* json parse error ([#412](https://github.com/SocialGouv/ozensemble/issues/412)) ([2a54cad](https://github.com/SocialGouv/ozensemble/commit/2a54cad18502b855034f68af220b18dc8eb6a1b2))
+* OZENSEMBLE-4R ([#411](https://github.com/SocialGouv/ozensemble/issues/411)) ([bce0412](https://github.com/SocialGouv/ozensemble/commit/bce0412301d93a123768fde2321ef405da13ceb4))
+
 ## [1.120.3](https://github.com/SocialGouv/ozensemble/compare/v1.120.2...v1.120.3) (2023-06-07)
 
 
