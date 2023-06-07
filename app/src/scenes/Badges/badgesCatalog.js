@@ -88,7 +88,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           "Bravo, vous venez de fixer votre premier objectif, c'est une étape essentielle pour commencer à modifier vos habitudes.",
         stars: 1,
-        category: 'GOALS',
+        category: 'goals',
         CTATitle: 'Voir mes badges',
         secondaryButtonTitle: '',
         secondaryButtonLink: '',
@@ -98,7 +98,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           'Bien joué, votre consommation de la semaine dernière est inférieure ou égale à votre objectif, continuez comme ça\u00A0!',
         stars: 2,
-        category: 'GOALS',
+        category: 'goals',
         CTATitle: 'Voir mes badges',
         secondaryButtonTitle: '',
         secondaryButtonLink: '',
@@ -108,7 +108,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           "Objectif atteint une 2ème fois, félicitations\u00A0! Partagez l'application à vos proches afin d'atteindre vos objectifs ensemble.",
         stars: 3,
-        category: 'GOALS',
+        category: 'goals',
         CTATitle: "Partager l'application",
         secondaryButtonTitle: 'Non merci',
         secondaryButtonLink: '',
@@ -118,7 +118,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           "Objectif atteint une 3ème semaine, bravo\u00A0! Donnez-nous votre avis sur Oz pour améliorer l'application ensemble, nous lisons tous vos messages.",
         stars: 4,
-        category: 'GOALS',
+        category: 'goals',
         CTATitle: 'Donner mon avis',
         secondaryButtonTitle: "Partager l'application",
         secondaryButtonLink: '',
@@ -128,7 +128,7 @@ export const defaultBackupBadgeCatalog = [
         content:
           'Toutes nos félicitations pour ce nouvel objectif atteint\u00A0! Si Oz Ensemble vous a aidé, merci de mettre 5 étoiles, ça nous aiderait beaucoup.',
         stars: 5,
-        category: 'GOALS',
+        category: 'goals',
         CTATitle: "Noter l'application",
         secondaryButtonTitle: 'Non merci',
         secondaryButtonLink: '',
