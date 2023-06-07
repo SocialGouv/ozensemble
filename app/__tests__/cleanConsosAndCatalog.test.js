@@ -127,21 +127,7 @@ describe('cleanCatalog', () => {
       kcal: 120,
       alcoolPercentage: 5,
     };
-    const newDrink = {
-      drinkKey: oldDrink.drinkKey,
-      categoryKey: oldDrink.categoryKey,
-      isDeleted: oldDrink.isDeleted,
-      custom: oldDrink.custom,
-      displayFeed: oldDrink.displayFeed,
-      displayDrinkModal: oldDrink.displayDrinkModal,
-      icon: oldDrink.icon,
-      volume: oldDrink.volume,
-      kcal: oldDrink.kcal,
-      doses: oldDrink.doses,
-      alcoolPercentage: oldDrink.alcoolPercentage,
-      price: oldDrink.price,
-    };
-    expect(cleanCatalog([oldDrink])).toEqual([newDrink]);
+    expect(cleanCatalog([oldDrink])).toEqual([oldDrink]);
   });
 
   // test no custom drinks
