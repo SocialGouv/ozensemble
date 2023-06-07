@@ -110,26 +110,22 @@ const ConsosList = ({ navigation, route }) => {
       const kcal = drinkFromCatalog.kcal;
       const price = drinkFromCatalog.price;
       const volume = drinkFromCatalog.volume;
-      try {
-        const response = await API.post({
-          path: '/consommation',
-          body: {
-            matomoId: matomoId,
-            id: drink.id,
-            name: drink.displayDrinkModal,
-            drinkKey: drink.drinkKey,
-            quantity: Number(drink.quantity),
-            date: makeSureTimestamp(addDrinkModalTimestamp),
-            doses: doses,
-            kcal: kcal,
-            price: price,
-            volume: volume,
-          },
-        });
-        if (response?.showNewBadge || response?.showInAppModal) showToast = false;
-      } catch (e) {
-        console.log(e);
-      }
+      const response = await API.post({
+        path: '/consommation',
+        body: {
+          matomoId: matomoId,
+          id: drink.id,
+          name: drink.displayDrinkModal,
+          drinkKey: drink.drinkKey,
+          quantity: Number(drink.quantity),
+          date: makeSureTimestamp(addDrinkModalTimestamp),
+          doses: doses,
+          kcal: kcal,
+          price: price,
+          volume: volume,
+        },
+      });
+      if (response?.showNewBadge || response?.showInAppModal) showToast = false;
     }
     // setLocalDrinksState([]);
     if (showToast) {
