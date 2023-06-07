@@ -177,6 +177,9 @@ export async function migrateFromDailyGoalToWeekly() {
     const drinksByDrinkingDayString = storage.getString('@StoredDetailedDrinksByDrinkingDay');
     if (drinksByDrinkingDayString) {
       const drinkingDaysString = storage.getString('@DaysWithGoalNoDrink');
+      if (!drinkingDaysString) {
+        return;
+      }
       const drinkingDays = JSON.parse(drinkingDaysString);
       const drinksByDrinkingDay = JSON.parse(drinksByDrinkingDayString);
       let drinksByWeek = [];
