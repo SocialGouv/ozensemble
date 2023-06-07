@@ -7,16 +7,19 @@ import { dailyDosesSelector } from '../recoil/consos';
 import { totalDrinksByDrinkingDaySelector, daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
+import { hitSlop } from '../styles/theme';
+import ArrowLeft from './ArrowLeft';
+import ArrowRight from './ArrowRight';
 import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
 import ModalGoal from './ModalGoal';
 import OnGoingGoal from './illustrations/icons/OnGoingGoal';
-import { defaultPaddingFontScale } from '../styles/theme';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const Calendar = ({ onDayPress, selectedMonth }) => {
+const Calendar = ({ onDayPress }) => {
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
+  const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
@@ -221,7 +224,24 @@ const Calendar = ({ onDayPress, selectedMonth }) => {
   }, [SCREEN_WIDTH]);
 
   return (
-    <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+    <>
+      <View className="flex flex-row w-full justify-between px-5 items-center">
+        <TouchableOpacity
+          hitSlop={hitSlop(15)}
+          onPress={() => {
+            setSelectedMonth(selectedMonth.subtract(1, 'month'));
+          }}>
+          <ArrowLeft color="#4030A5" size={15} />
+        </TouchableOpacity>
+        <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+        <TouchableOpacity
+          hitSlop={hitSlop(15)}
+          onPress={() => {
+            setSelectedMonth(selectedMonth.add(1, 'month'));
+          }}>
+          <ArrowRight color="#4030A5" size={15} />
+        </TouchableOpacity>
+      </View>
       <View className="flex flex-row justify-between mt-3">
         {cols.map((col) => {
           const isObjectifColonnes = col === 'Obj.';
@@ -386,7 +406,7 @@ const Calendar = ({ onDayPress, selectedMonth }) => {
           }}
         />
       </View>
-    </View>
+    </>
   );
 };
 

@@ -7,7 +7,6 @@ import H3 from '../../components/H3';
 import { consolidatedCatalogSelector } from '../../recoil/consos';
 import { getDisplayName, getIcon } from './drinksCatalog';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
-import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
 
 const isFirst = (position) => position === 'first';
 const isAlone = (position) => position === 'alone';

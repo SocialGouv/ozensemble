@@ -45,7 +45,7 @@ export async function sendPreviousDrinksToDB() {
   }
 }
 
-export const hasCleanConsoAndCatalog = storage.getBoolean('@hasCleanedAndFixedCatalog');
+export const hasCleanConsoAndCatalog = storage.getBoolean('@hasCleanedAndFixedCatalog2');
 export async function cleanConsosAndCatalog() {
   // 3 steps:
   // 1. clean catalog
@@ -55,24 +55,24 @@ export async function cleanConsosAndCatalog() {
     const matomoId = storage.getString('@UserIdv2');
     if (!matomoId?.length) {
       // new user - no drinks to send
-      storage.set('@hasCleanedAndFixedCatalog', true);
+      storage.set('@hasCleanedAndFixedCatalog2', true);
       return;
     }
     const catalog = storage.getString('@OwnDrinks');
     if (!catalog?.length) {
-      storage.set('@hasCleanedAndFixedCatalog', true);
+      storage.set('@hasCleanedAndFixedCatalog2', true);
       return;
     }
     const oldDrinkCatalog = JSON.parse(catalog);
     const newOwnDrinksCatalog = cleanCatalog(oldDrinkCatalog);
     storage.set('@OwnDrinks', JSON.stringify(newOwnDrinksCatalog));
     if (!newOwnDrinksCatalog?.length) {
-      storage.set('@hasCleanedAndFixedCatalog', true);
+      storage.set('@hasCleanedAndFixedCatalog2', true);
       return;
     }
     const consoStored = storage.getString('@Drinks');
     if (!consoStored?.length) {
-      storage.set('@hasCleanedAndFixedCatalog', true);
+      storage.set('@hasCleanedAndFixedCatalog2', true);
       return;
     }
     const drinks = JSON.parse(consoStored);
@@ -99,14 +99,14 @@ export async function cleanConsosAndCatalog() {
         });
       }
     }
-    storage.set('@hasCleanedAndFixedCatalog', true);
+    storage.set('@hasCleanedAndFixedCatalog2', true);
   } catch (e) {
     capture(e, {
       extra: {
-        migration: 'cleanConsosAndCatalog',
+        migration: 'cleanConsosAndCatalog2',
         '@OwnDrinks': storage.getString('@OwnDrinks'),
         '@Drinks': storage.getString('@Drinks'),
-        hasCleanConsoAndCatalog: storage.getBoolean('@hasCleanedAndFixedCatalog'),
+        hasCleanConsoAndCatalog: storage.getBoolean('@hasCleanedAndFixedCatalog2'),
       },
       user: {
         id: storage.getString('@UserIdv2'),
