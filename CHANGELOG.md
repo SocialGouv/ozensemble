@@ -1,3 +1,10 @@
+## [1.120.2](https://github.com/SocialGouv/ozensemble/compare/v1.120.1...v1.120.2) (2023-06-07)
+
+
+### Bug Fixes
+
+* doses from undefined ([#410](https://github.com/SocialGouv/ozensemble/issues/410)) ([04ead48](https://github.com/SocialGouv/ozensemble/commit/04ead4852d03228113fd56048e96ca52218934e3))
+
 ## [1.120.1](https://github.com/SocialGouv/ozensemble/compare/v1.120.0...v1.120.1) (2023-06-07)
 
 
