@@ -40,7 +40,7 @@ class ApiService {
         },
         body: body ? JSON.stringify(body) : null,
         retries: 3,
-        retryDelay: 000,
+        retryDelay: 1000,
       };
 
       const url = this.getUrl(path, query);

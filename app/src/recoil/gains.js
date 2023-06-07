@@ -33,8 +33,6 @@ export const maxDrinksPerWeekSelector = selector({
   get: ({ get }) => {
     const drinksByWeek = get(drinksByWeekState);
     return drinksByWeek.reduce((sum, drink) => {
-      if (drink.drinkKey === 'no-conso') return sum;
-      if (drink.quantity === 0) return sum;
       const dose = mapDrinkToDose(drink, drinksCatalog);
       return Math.ceil(sum + dose);
     }, 0);
