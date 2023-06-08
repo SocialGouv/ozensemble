@@ -34,47 +34,59 @@ const highestDosesInPeriodSelector = selectorFamily({
   get:
     ({ period } = {}) =>
     ({ get }) => {
-      const now = Date.now();
+      let now = Date.now();
       const dailyDoses = get(dailyDosesSelector);
       console.log('highestDosesInPeriodSelector 1', Date.now() - now);
+      now = Date.now();
       let bars_doses = {};
       if (period === 'day') {
         const highestDose = Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
         console.log('highestDosesInPeriodSelector 2', Date.now() - now);
+        now = Date.now();
         return highestDose;
       } else if (period === 'week') {
         console.log('highestDosesInPeriodSelector 3', Date.now() - now);
+        now = Date.now();
         let week_number = 0;
         let end_of_this_week = dayjs().endOf('week');
         for (const [date, doses] of Object.entries(dailyDoses)) {
           // console.log('highestDosesInPeriodSelector 4', Date.now() - now);
+          //now = Date.now();
           week_number = Math.abs(Math.trunc(end_of_this_week.diff(dayjs(date), 'days') / 7));
           // console.log('highestDosesInPeriodSelector 5', Date.now() - now);
+          //now = Date.now();
           if (bars_doses[week_number]) {
             bars_doses[week_number] += doses;
           } else {
             bars_doses[week_number] = doses;
           }
           // console.log('highestDosesInPeriodSelector 6', Date.now() - now);
+          //now = Date.now();
         }
       } else {
         console.log('highestDosesInPeriodSelector 7', Date.now() - now);
+        now = Date.now();
         let month_year;
         for (const [date, doses] of Object.entries(dailyDoses)) {
           // console.log('highestDosesInPeriodSelector 8', Date.now() - now);
+          //now = Date.now();
           month_year = date.slice(0, 'YYYY-MM'.length);
           // console.log('highestDosesInPeriodSelector 9', Date.now() - now);
+          //now = Date.now();
           if (bars_doses[month_year]) {
             bars_doses[month_year] = bars_doses[month_year] + doses;
           } else {
             bars_doses[month_year] = doses;
           }
           // console.log('highestDosesInPeriodSelector 10', Date.now() - now);
+          //now = Date.now();
         }
       }
       console.log('highestDosesInPeriodSelector 11', Date.now() - now);
+      now = Date.now();
       const highestDose = Math.min(maxDosesOnScreen, Math.max(...Object.values(bars_doses)));
       console.log('highestDosesInPeriodSelector 12', Date.now() - now);
+      now = Date.now();
       return highestDose;
     },
 });
@@ -84,27 +96,43 @@ const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({ firstDay }) =>
     ({ get }) => {
+      let now = Date.now();
       const dailyDoses = get(dailyDosesSelector);
+      console.log('diffWithPreviousWeekSelector 1', Date.now() - now);
+      now = Date.now();
       const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
+      console.log('diffWithPreviousWeekSelector 2', Date.now() - now);
+      now = Date.now();
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfLastWeek.push(nextDay);
       }
+      console.log('diffWithPreviousWeekSelector 3', Date.now() - now);
+      now = Date.now();
       if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0) return { fillConsoFirst: true };
+      console.log('diffWithPreviousWeekSelector 4', Date.now() - now);
+      now = Date.now();
       const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
+      console.log('diffWithPreviousWeekSelector 5', Date.now() - now);
+      now = Date.now();
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfThisWeek.push(nextDay);
       }
+      console.log('diffWithPreviousWeekSelector 6', Date.now() - now);
+      now = Date.now();
       const lastWeekNumberOfDrinks = daysOfLastWeek
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
+      console.log('diffWithPreviousWeekSelector 7', Date.now() - now);
+      now = Date.now();
       const thisWeekNumberOfDrinks = daysOfThisWeek
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
-
+      console.log('diffWithPreviousWeekSelector 8', Date.now() - now);
+      now = Date.now();
       const diff = Math.round(lastWeekNumberOfDrinks - thisWeekNumberOfDrinks);
       const decrease = diff > 0;
       const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
@@ -113,24 +141,29 @@ const diffWithPreviousWeekSelector = selectorFamily({
 });
 const minBarHeight = 1;
 const Diagram = ({ inModalHelp = false }) => {
+  let now = Date.now();
   const [period, setPeriod] = useState('day');
   const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
-  const lastDay = useMemo(
-    () =>
-      dayjs(firstDay)
-        .add(6, period)
-        .subtract(period === 'day' ? 0 : 1, 'day'),
-    [firstDay, period]
-  );
+  console.log('Diagramme 1', console.log(Date.now() - now));
+  now = Date.now();
+  const lastDay = useMemo(() => {
+    const lastDay = dayjs(firstDay)
+      .add(6, period)
+      .subtract(period === 'day' ? 0 : 1, 'day');
+    console.log('Diagramme last Day Memo', Date.now() - now);
+    return lastDay;
+  }, [firstDay, period]);
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-
+  now = Date.now();
   const barsInPeriod = useMemo(() => {
     const dates = [];
+
     for (let i = 0; i <= (period === 'day' ? 6 : 5); i++) {
       const nextDate = dayjs(firstDay).add(i, period).format('YYYY-MM-DD');
       dates.push(nextDate);
     }
+    console.log('barsInPeriodMemo', Date.now() - now);
     return dates;
   }, [firstDay, period]);
 
@@ -147,6 +180,7 @@ const Diagram = ({ inModalHelp = false }) => {
     let howManyKnownValues = 0;
     switch (period) {
       case 'month':
+        now = Date.now();
         for (let i = 0; dayjs(day).add(i, 'day') < dayjs(day).add(1, 'month'); i++) {
           const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
           if (dayValue >= 0) {
@@ -154,16 +188,22 @@ const Diagram = ({ inModalHelp = false }) => {
             total += dayValue;
           }
         }
+        console.log('generateBarsValues month', Date.now() - now); // 340 MS per bar sor times 6
+
         return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
 
       case 'week':
         for (let i = 0; i <= 6; i++) {
+          now = Date.now();
+
           const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
           if (dayValue >= 0) {
             howManyKnownValues++;
             total += dayValue;
           }
         }
+        console.log('generateBarsValues week', Date.now() - now); // 3 MS per bar sor times 6
+
         return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
 
       default:

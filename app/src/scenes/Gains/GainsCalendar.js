@@ -54,6 +54,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {
+    const date = Date.now();
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
@@ -67,6 +68,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       if (days[day]) continue;
       days[day] = needToFillupConso;
     }
+    console.log('Gains calendar 1', Date.now() - date);
     return days;
   }, [dailyDoses]);
 

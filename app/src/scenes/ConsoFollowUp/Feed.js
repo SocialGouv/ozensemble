@@ -7,7 +7,12 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksByDaySelector, drinksState, feedDaysSelector } from '../../recoil/consos';
+import {
+  consolidatedCatalogObjectSelector,
+  drinksByDaySelector,
+  drinksState,
+  feedDaysSelector,
+} from '../../recoil/consos';
 import { isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -24,8 +29,10 @@ import UnderlinedButton from '../../components/UnderlinedButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+import { FlashList } from '@shopify/flash-list';
 
 const computePosition = (drinksOfTheDay, drink) => {
+  let date = Date.now();
   const sameTimeStamp = drinksOfTheDay
     .filter((d) => d.timestamp === drink.timestamp)
     .filter((d) => d.drinkKey !== NO_CONSO);
@@ -33,6 +40,7 @@ const computePosition = (drinksOfTheDay, drink) => {
   const position = sameTimeStamp.findIndex((d) => d.id === drink.id);
   if (position === 0) return 'first';
   if (position === sameTimeStamp.length - 1) return 'last';
+  console.log('FeedComputePosition', Date.now() - date);
   return 'middle';
 };
 
@@ -64,7 +72,10 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
   );
 
   const setNoConsos = useCallback(async () => {
+    let date = Date.now();
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
+    console.log('setNoConsos 1', Date.now() - date);
+    date = Date.now();
     const newNoDrink = [];
     const matomoId = storage.getString('@UserIdv2');
     for (let i = 1; i <= differenceDay; i++) {
@@ -92,6 +103,7 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
           date: noConso.timestamp,
         },
       });
+      console.log('setNoConsos 2', Date.now() - date);
     }
     setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
   }, [dateLastEntered, setDrinks]);
@@ -117,13 +129,19 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
   );
 
   const dateLastEntered = useMemo(() => {
+    let date = Date.now();
     const drinksTimestamp = drinks.map((drink) => drink.timestamp);
+    console.log('dateLastEntered', Date.now() - date);
     return Math.max(...drinksTimestamp);
   }, [drinks]);
 
   const showNoConsoSinceLongTime = useMemo(
     // the last day entered is before today
-    () => dayjs(dateLastEntered).format('YYYY-MM-DD') < dayjs().add(-1, 'day').format('YYYY-MM-DD'),
+    () => {
+      let now = Date.now();
+      const date = dayjs(dateLastEntered).format('YYYY-MM-DD') < dayjs().add(-1, 'day').format('YYYY-MM-DD');
+      console.log('ShowNoConsoSinceLongTime', Date.now() - now);
+    },
     [dateLastEntered]
   );
 
@@ -145,6 +163,7 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
     }
   }, [dateToScroll, scrollToInput]);
 
+  const date = Date.now();
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
@@ -183,91 +202,98 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
               </LastDrinkButtons>
             </LastDrink>
           )}
-          {days.map((day, index) => {
-            const isFirst = index === 0;
-            const isLast = index === days.length - 1;
-            const drinksOfTheDay = drinksByDay[day] || [];
-            const noDrinksYet = !drinksOfTheDay.length;
-            const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
-            return (
-              <FeedDay key={index} ref={(r) => (refs.current[day] = r)}>
-                <Timeline first={isFirst} last={isLast} />
-                <FeedDayContent>
-                  <DateDisplay day={day} />
-                  {!!isFirst && <ThoughtOfTheDay day={day} selected={timestampSelected === null} />}
-                  {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={day} />}
-                  {noDrinksConfirmed ? (
-                    <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
-                  ) : (
-                    drinksOfTheDay.map((drink) => {
-                      if (drink.drinkKey === NO_CONSO) return null;
-                      if (!drink.quantity) return null;
-                      const position = computePosition(drinksOfTheDay, drink);
-                      const selected = timestampSelected === drink.timestamp;
-                      const showButtons = computeShowButtons(selected, position);
-                      return (
-                        <ConsoFeedDisplay
-                          key={drink.id}
-                          {...drink}
-                          selected={selected}
-                          showButtons={showButtons}
-                          nothingSelected={timestampSelected === null}
-                          onPress={setConsoSelectedRequest}
-                          category={drink.category}
-                          position={position}
-                          updateDrinkRequest={async () => {
-                            logEvent({
-                              category: 'CONSO',
-                              action: 'CONSO_UPDATE',
-                            });
-                            addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
-                          }}
-                          deleteDrinkRequest={async () => {
-                            logEvent({
-                              category: 'CONSO',
-                              action: 'CONSO_DELETE',
-                            });
-                            deleteDrinkRequest(drink.timestamp);
-                            const matomoId = storage.getString('@UserIdv2');
-                            API.delete({
-                              path: '/consommation',
-                              body: {
-                                matomoId: matomoId,
-                                id: drink.id,
-                              },
-                            });
-                          }}
-                        />
-                      );
-                    })
-                  )}
-                  {!isToday(day) && (
-                    <FeedBottomButton
-                      color="#4030a5"
-                      content="Ajouter une consommation"
-                      withoutPadding
-                      onPress={async () => {
-                        let selectedTimestamp = Date.parse(day);
-                        if (Date.parse(day)) {
-                          // if a bar is selected, we use it, and we set the hours and minutes to present
-                          const now = new Date();
-                          const h = now.getHours();
-                          const m = now.getMinutes();
-                          const timestamp = makeSureTimestamp(Date.parse(day));
-                          const tempDate = new Date(timestamp);
-                          tempDate.setHours(h);
-                          tempDate.setMinutes(m);
-                          selectedTimestamp = makeSureTimestamp(tempDate);
-                        }
-                        addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
-                      }}
-                    />
-                  )}
-                  {isLast && <ResultsFeedDisplay selected={timestampSelected === null} />}
-                </FeedDayContent>
-              </FeedDay>
-            );
-          })}
+          <FlashList
+            data={days}
+            estimatedItemSize={40}
+            renderItem={({ item, index }) => {
+              console.log('dayFlash', item);
+              const isFirst = index === 0;
+              const isLast = index === days.length - 1;
+              const drinksOfTheDay = drinksByDay[item] || [];
+              const noDrinksYet = !drinksOfTheDay.length;
+              console.log('noDrinksYer', noDrinksYet);
+              const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
+              return (
+                <FeedDay key={index} ref={(r) => (refs.current[item] = r)}>
+                  <Timeline first={isFirst} last={isLast} />
+                  <FeedDayContent>
+                    <DateDisplay day={item} />
+                    {!!isFirst && <ThoughtOfTheDay day={item} selected={timestampSelected === null} />}
+                    {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={item} />}
+                    {noDrinksConfirmed ? (
+                      <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
+                    ) : (
+                      drinksOfTheDay.map((drink) => {
+                        if (drink.drinkKey === NO_CONSO) return null;
+                        if (!drink.quantity) return null;
+                        const position = computePosition(drinksOfTheDay, drink);
+                        const selected = timestampSelected === drink.timestamp;
+                        const showButtons = computeShowButtons(selected, position);
+                        return (
+                          <ConsoFeedDisplay
+                            key={drink.id}
+                            {...drink}
+                            selected={selected}
+                            showButtons={showButtons}
+                            nothingSelected={timestampSelected === null}
+                            onPress={setConsoSelectedRequest}
+                            category={drink.category}
+                            position={position}
+                            updateDrinkRequest={async () => {
+                              logEvent({
+                                category: 'CONSO',
+                                action: 'CONSO_UPDATE',
+                              });
+                              addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
+                            }}
+                            deleteDrinkRequest={async () => {
+                              logEvent({
+                                category: 'CONSO',
+                                action: 'CONSO_DELETE',
+                              });
+                              deleteDrinkRequest(drink.timestamp);
+                              const matomoId = storage.getString('@UserIdv2');
+                              API.delete({
+                                path: '/consommation',
+                                body: {
+                                  matomoId: matomoId,
+                                  id: drink.id,
+                                },
+                              });
+                            }}
+                          />
+                        );
+                      })
+                    )}
+                    {!isToday(item) && (
+                      <FeedBottomButton
+                        color="#4030a5"
+                        content="Ajouter une consommation"
+                        withoutPadding
+                        onPress={async () => {
+                          let selectedTimestamp = Date.parse(item);
+                          if (Date.parse(item)) {
+                            // if a bar is selected, we use it, and we set the hours and minutes to present
+                            const now = new Date();
+                            const h = now.getHours();
+                            const m = now.getMinutes();
+                            const timestamp = makeSureTimestamp(Date.parse(item));
+                            const tempDate = new Date(timestamp);
+                            tempDate.setHours(h);
+                            tempDate.setMinutes(m);
+                            selectedTimestamp = makeSureTimestamp(tempDate);
+                          }
+                          addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
+                        }}
+                      />
+                    )}
+                    {isLast && <ResultsFeedDisplay selected={timestampSelected === null} />}
+                  </FeedDayContent>
+                </FeedDay>
+              );
+            }}
+          />
+
           <ButtonContainer>
             <ButtonPrimary
               small

@@ -18,6 +18,7 @@ import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const Calendar = ({ onDayPress }) => {
+  let date = Date.now();
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const firstDayOfMonth = selectedMonth.startOf('month');
@@ -197,22 +198,33 @@ const Calendar = ({ onDayPress }) => {
   };
 
   const calendarDayByWeek = useMemo(() => {
+    console.log('Calendar 1', Date.now() - date);
+    date = Date.now();
     const firstDayStyles = computeStyleWithDrinks(firstDayOfCalendar);
+    console.log('Calendar 2', Date.now() - date);
+    date = Date.now();
+
     let weekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
     let previousDay = firstDayOfCalendar;
     let daysByWeek = [];
     for (let i = 1; i <= nbDays; ++i) {
       const isDayIsSunday = i % 7 === 0;
       if (isDayIsSunday) {
+        date = Date.now();
         const goalStatus = computeGoalSuccess(day);
+        //console.log('Calendar computeGoalSuccess', Date.now() - date); // 30 ms
         daysByWeek.push({ days: weekDays, goalStatus: goalStatus });
         weekDays = [];
       }
       const day = previousDay.add(1, 'day');
+      date = Date.now();
       const styles = computeStyleWithDrinks(day);
+      //console.log('Calendar computeStyleWithDrinks', Date.now() - date);
       weekDays = [...weekDays, { day: day, styles: styles }];
       previousDay = day;
     }
+    console.log('Calendar 3', Date.now() - date); // 222 ms mais fix peut import le nombre de consos
+    date = Date.now();
     return daysByWeek;
   }, [firstDayOfCalendar, computeGoalSuccess, computeStyleWithDrinks, nbDays]);
 
@@ -269,6 +281,7 @@ const Calendar = ({ onDayPress }) => {
               key={calendarWeek.days[0].day + 'week'}
               style={{ backgroundColor: bgColor }}>
               {calendarWeek.days.map((calendarDay) => {
+                console.log('Calendar day', Date.now() - date); // 520 ms fix peut importe le nombre de consos ~ 10 ~ 15 ms /day
                 return calendarDay.day.diff(dayjs().startOf('day'), 'day') > 0 ? (
                   <View
                     key={calendarDay.day}
@@ -278,7 +291,7 @@ const Calendar = ({ onDayPress }) => {
                       style={{
                         fontSize: fontSize,
                       }}>
-                      {calendarDay.day.date()}
+                      {calendarDay.day.toISOString().split('-')[2].split('T')[0]}
                     </Text>
                   </View>
                 ) : (
@@ -306,7 +319,7 @@ const Calendar = ({ onDayPress }) => {
                         fontSize: fontSize,
                         color: calendarDay.styles.textColor,
                       }}>
-                      {calendarDay.day.date()}
+                      {calendarDay.day.toISOString().split('-')[2].split('T')[0]}
                     </Text>
                   </TouchableOpacity>
                 );
