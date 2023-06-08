@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import { View } from 'react-native';
 import H1 from '../../components/H1';
-import { dailyDosesSelector } from '../../recoil/consos';
+import { dosesByPeriodSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -50,7 +50,7 @@ const needToFillupConso = {
 };
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
+  const [dailyDoses] = useRecoilValue(dosesByPeriodSelector);
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {

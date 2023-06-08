@@ -81,12 +81,12 @@ const ConsoFollowUp = () => {
 
   return (
     <ScrollView ref={scrollViewRef} className="bg-white">
-      <GainsCalendar
+      {/* <GainsCalendar
         isOnboarded={isOnboarded}
         setShowOnboardingGainModal={setShowOnboardingGainModal}
         setDateToScroll={setDateToScroll}
         onLegendClick={setHelpModalVisible}
-      />
+      /> */}
       <TouchableOpacity
         onPress={() => {
           setHelpModalVisible(true);

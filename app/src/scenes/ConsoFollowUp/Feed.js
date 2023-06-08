@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
@@ -54,22 +54,8 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
   const days = useRecoilValue(feedDaysSelector);
 
   const [drinks, setDrinks] = useRecoilState(drinksState);
-  const drinksByDay = useRecoilValue(drinksByDaySelector);
-
-  const [timestampSelected, setTimestampSelected] = useState(null);
 
   const navigation = useNavigation();
-
-  const setConsoSelectedRequest = useCallback(
-    (timestamp) => {
-      if (timestampSelected === timestamp) {
-        setTimestampSelected(null);
-      } else {
-        setTimestampSelected(timestamp);
-      }
-    },
-    [timestampSelected, setTimestampSelected]
-  );
 
   const setNoConsos = useCallback(async () => {
     let date = Date.now();
@@ -122,10 +108,9 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
 
   const deleteDrinkRequest = useCallback(
     (timestamp) => {
-      setTimestampSelected(null);
       setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
     },
-    [setTimestampSelected, setDrinks]
+    [setDrinks]
   );
 
   const dateLastEntered = useMemo(() => {
@@ -145,14 +130,6 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
     [dateLastEntered]
   );
 
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (isFocused && !!timestampSelected) {
-      setTimestampSelected(null);
-    }
-  }, [isFocused]);
-
   const refs = useRef({});
 
   useEffect(() => {
@@ -163,147 +140,191 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
     }
   }, [dateToScroll, scrollToInput]);
 
-  const date = Date.now();
   return (
     <>
-      <TouchableWithoutFeedback onPress={() => setTimestampSelected(null)}>
-        <FeedContainer>
-          {!!showNoConsoSinceLongTime && (
-            <LastDrink>
-              <LastDrinkText>
-                <Pint size={30} color="#4030A5" />
-                <MessageContainer>
-                  <TextStyled>
-                    Vous n'avez pas saisi de consommations depuis le{' '}
-                    <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
-                  </TextStyled>
-                </MessageContainer>
-              </LastDrinkText>
-              <LastDrinkButtons>
-                <ButtonPrimary
-                  content={"Je n'ai rien bu !"}
-                  small
-                  onPress={() => {
-                    setNoConsos();
-                  }}
+      <FeedContainer>
+        {!!showNoConsoSinceLongTime && (
+          <LastDrink>
+            <LastDrinkText>
+              <Pint size={30} color="#4030A5" />
+              <MessageContainer>
+                <TextStyled>
+                  Vous n'avez pas saisi de consommations depuis le{' '}
+                  <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
+                </TextStyled>
+              </MessageContainer>
+            </LastDrinkText>
+            <LastDrinkButtons>
+              <ButtonPrimary
+                content={"Je n'ai rien bu !"}
+                small
+                onPress={() => {
+                  setNoConsos();
+                }}
+              />
+              <AddDrinkButton
+                onPress={() => {
+                  navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                  logEvent({
+                    category: 'CONSO',
+                    action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                  });
+                }}>
+                <AddDrinkText>
+                  <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
+                </AddDrinkText>
+              </AddDrinkButton>
+            </LastDrinkButtons>
+          </LastDrink>
+        )}
+        <FlashList
+          data={days}
+          keyExtractor={(item) => item}
+          estimatedItemSize={190} // height of one item with one drink
+          renderItem={({ item, index }) => {
+            return (
+              <FeedDay ref={(r) => (refs.current[item] = r)}>
+                <FeedDayItem
+                  item={item}
+                  index={index}
+                  deleteDrinkRequest={deleteDrinkRequest}
+                  addDrinksRequest={addDrinksRequest}
                 />
-                <AddDrinkButton
-                  onPress={() => {
-                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
-                    logEvent({
-                      category: 'CONSO',
-                      action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                    });
-                  }}>
-                  <AddDrinkText>
-                    <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
-                  </AddDrinkText>
-                </AddDrinkButton>
-              </LastDrinkButtons>
-            </LastDrink>
-          )}
-          <FlashList
-            data={days}
-            estimatedItemSize={40}
-            renderItem={({ item, index }) => {
-              console.log('dayFlash', item);
-              const isFirst = index === 0;
-              const isLast = index === days.length - 1;
-              const drinksOfTheDay = drinksByDay[item] || [];
-              const noDrinksYet = !drinksOfTheDay.length;
-              console.log('noDrinksYer', noDrinksYet);
-              const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
-              return (
-                <FeedDay key={index} ref={(r) => (refs.current[item] = r)}>
-                  <Timeline first={isFirst} last={isLast} />
-                  <FeedDayContent>
-                    <DateDisplay day={item} />
-                    {!!isFirst && <ThoughtOfTheDay day={item} selected={timestampSelected === null} />}
-                    {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={item} />}
-                    {noDrinksConfirmed ? (
-                      <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
-                    ) : (
-                      drinksOfTheDay.map((drink) => {
-                        if (drink.drinkKey === NO_CONSO) return null;
-                        if (!drink.quantity) return null;
-                        const position = computePosition(drinksOfTheDay, drink);
-                        const selected = timestampSelected === drink.timestamp;
-                        const showButtons = computeShowButtons(selected, position);
-                        return (
-                          <ConsoFeedDisplay
-                            key={drink.id}
-                            {...drink}
-                            selected={selected}
-                            showButtons={showButtons}
-                            nothingSelected={timestampSelected === null}
-                            onPress={setConsoSelectedRequest}
-                            category={drink.category}
-                            position={position}
-                            updateDrinkRequest={async () => {
-                              logEvent({
-                                category: 'CONSO',
-                                action: 'CONSO_UPDATE',
-                              });
-                              addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
-                            }}
-                            deleteDrinkRequest={async () => {
-                              logEvent({
-                                category: 'CONSO',
-                                action: 'CONSO_DELETE',
-                              });
-                              deleteDrinkRequest(drink.timestamp);
-                              const matomoId = storage.getString('@UserIdv2');
-                              API.delete({
-                                path: '/consommation',
-                                body: {
-                                  matomoId: matomoId,
-                                  id: drink.id,
-                                },
-                              });
-                            }}
-                          />
-                        );
-                      })
-                    )}
-                    {!isToday(item) && (
-                      <FeedBottomButton
-                        color="#4030a5"
-                        content="Ajouter une consommation"
-                        withoutPadding
-                        onPress={async () => {
-                          let selectedTimestamp = Date.parse(item);
-                          if (Date.parse(item)) {
-                            // if a bar is selected, we use it, and we set the hours and minutes to present
-                            const now = new Date();
-                            const h = now.getHours();
-                            const m = now.getMinutes();
-                            const timestamp = makeSureTimestamp(Date.parse(item));
-                            const tempDate = new Date(timestamp);
-                            tempDate.setHours(h);
-                            tempDate.setMinutes(m);
-                            selectedTimestamp = makeSureTimestamp(tempDate);
-                          }
-                          addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
-                        }}
-                      />
-                    )}
-                    {isLast && <ResultsFeedDisplay selected={timestampSelected === null} />}
-                  </FeedDayContent>
-                </FeedDay>
-              );
-            }}
-          />
+              </FeedDay>
+            );
+          }}
+        />
 
-          <ButtonContainer>
-            <ButtonPrimary
-              small
-              content="Contribuer à Oz Ensemble"
-              shadowColor="#201569"
-              color="#4030A5"
-              onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
-            />
-          </ButtonContainer>
-        </FeedContainer>
+        <ButtonContainer>
+          <ButtonPrimary
+            small
+            content="Contribuer à Oz Ensemble"
+            shadowColor="#201569"
+            color="#4030A5"
+            onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
+          />
+        </ButtonContainer>
+      </FeedContainer>
+    </>
+  );
+};
+
+const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
+  const days = useRecoilValue(feedDaysSelector);
+  const drinksByDay = useRecoilValue(drinksByDaySelector);
+
+  const isFirst = index === 0;
+  const isLast = index === days.length - 1;
+  const drinksOfTheDay = drinksByDay[item] || [];
+  const noDrinksYet = !drinksOfTheDay.length;
+  const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
+
+  const [timestampSelected, setTimestampSelected] = useState(null);
+  const setConsoSelectedRequest = useCallback(
+    (timestamp) => {
+      console.log('setConsoSelectedRequest', timestamp, timestampSelected);
+      if (timestampSelected === timestamp) {
+        setTimestampSelected(null);
+      } else {
+        setTimestampSelected(timestamp);
+      }
+    },
+    [timestampSelected, setTimestampSelected]
+  );
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    if (isFocused && !!timestampSelected) {
+      setTimestampSelected(null);
+    }
+  }, [isFocused]);
+
+  return (
+    <>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          console.log('ON PRESS');
+          setTimestampSelected(null);
+        }}>
+        <>
+          <Timeline first={isFirst} last={isLast} />
+          <FeedDayContent>
+            <DateDisplay day={item} />
+            {!!isFirst && <ThoughtOfTheDay day={item} selected={timestampSelected === null} />}
+            {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={item} />}
+            {noDrinksConfirmed ? (
+              <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
+            ) : (
+              drinksOfTheDay.map((drink) => {
+                if (drink.drinkKey === NO_CONSO) return null;
+                if (!drink.quantity) return null;
+                const position = computePosition(drinksOfTheDay, drink);
+                const selected = timestampSelected === drink.timestamp;
+                const showButtons = computeShowButtons(selected, position);
+                return (
+                  <ConsoFeedDisplay
+                    key={drink.id}
+                    drinkKey={drink.drinkKey}
+                    timestamp={drink.timestamp}
+                    quantity={drink.quantity}
+                    selected={selected}
+                    showButtons={showButtons}
+                    nothingSelected={timestampSelected === null}
+                    onPress={setConsoSelectedRequest}
+                    category={drink.category}
+                    position={position}
+                    updateDrinkRequest={async () => {
+                      logEvent({
+                        category: 'CONSO',
+                        action: 'CONSO_UPDATE',
+                      });
+                      addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
+                    }}
+                    deleteDrinkRequest={async () => {
+                      setTimestampSelected(null);
+                      logEvent({
+                        category: 'CONSO',
+                        action: 'CONSO_DELETE',
+                      });
+                      deleteDrinkRequest(drink.timestamp);
+                      const matomoId = storage.getString('@UserIdv2');
+                      API.delete({
+                        path: '/consommation',
+                        body: {
+                          matomoId: matomoId,
+                          id: drink.id,
+                        },
+                      });
+                    }}
+                  />
+                );
+              })
+            )}
+            {!isToday(item) && (
+              <FeedBottomButton
+                color="#4030a5"
+                content="Ajouter une consommation"
+                withoutPadding
+                onPress={async () => {
+                  let selectedTimestamp = Date.parse(item);
+                  if (Date.parse(item)) {
+                    // if a bar is selected, we use it, and we set the hours and minutes to present
+                    const now = new Date();
+                    const h = now.getHours();
+                    const m = now.getMinutes();
+                    const timestamp = makeSureTimestamp(Date.parse(item));
+                    const tempDate = new Date(timestamp);
+                    tempDate.setHours(h);
+                    tempDate.setMinutes(m);
+                    selectedTimestamp = makeSureTimestamp(tempDate);
+                  }
+                  addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
+                }}
+              />
+            )}
+            {isLast && <ResultsFeedDisplay selected={timestampSelected === null} />}
+          </FeedDayContent>
+        </>
       </TouchableWithoutFeedback>
     </>
   );
@@ -351,6 +372,7 @@ const MessageContainer = styled.View`
 `;
 const FeedContainer = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
+  height: ${Dimensions.get('window').height}px;
 `;
 
 const FeedDay = styled.View`

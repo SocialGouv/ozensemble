@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilValue } from 'recoil';
-import { dailyDosesSelector } from '../recoil/consos';
+import { dosesByPeriodSelector } from '../recoil/consos';
 import { totalDrinksByDrinkingDaySelector, daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
@@ -24,7 +24,7 @@ const Calendar = ({ onDayPress }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
+  const [dailyDoses] = useRecoilValue(dosesByPeriodSelector);
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
   const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);

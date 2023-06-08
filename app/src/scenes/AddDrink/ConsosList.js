@@ -113,11 +113,12 @@ const ConsosList = ({ navigation, route }) => {
       if (response?.showNewBadge || response?.showInAppModal) showToast = false;
     }
     const newDrinksIds = drinksWithTimestamps.map((drink) => drink.id);
-    setGlobalDrinksState((state) =>
-      [...state.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
+    setGlobalDrinksState((state) => {
+      const nextState = [...state.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
         .filter((d) => d.quantity > 0)
-        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
-    );
+        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+      return nextState;
+    });
     if (showToast) {
       setTimeout(() => {
         toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');

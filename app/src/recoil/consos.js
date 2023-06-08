@@ -5,6 +5,8 @@ import { differenceOfDays } from '../helpers/dateHelpers';
 import { drinksCatalogObject, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';
+import weekOfYear from 'dayjs/plugin/weekOfYear';
+dayjs.extend(weekOfYear);
 
 export const followupNumberOfDays = 7;
 
@@ -111,21 +113,35 @@ export const drinksByDaySelector = selector({
   },
 });
 
-export const dailyDosesSelector = selector({
-  key: 'dailyDosesSelector',
+export const dosesByPeriodSelector = selector({
+  key: 'dosesByPeriodSelector',
   get: ({ get }) => {
     const consolidatedCatalogObject = get(consolidatedCatalogObjectSelector);
+    // drinks are sorted by timestamps
     const drinks = get(drinksState);
     const dailyDoses = {};
+    const weeklyDoses = {};
+    const monthlyDoses = {};
+    let drinkStartOfWeek = null;
+    const now = Date.now();
     for (const drink of drinks) {
       const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
-      if (dailyDoses[day]) {
-        dailyDoses[day] = dailyDoses[day] + mapDrinkToDose(drink, consolidatedCatalogObject);
-      } else {
-        dailyDoses[day] = mapDrinkToDose(drink, consolidatedCatalogObject);
-      }
+      if (!drinkStartOfWeek) drinkStartOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
+      if (drinkStartOfWeek > day) drinkStartOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
+      // daily doses
+      const dose = mapDrinkToDose(drink, consolidatedCatalogObject);
+      if (!dailyDoses[day]) dailyDoses[day] = 0;
+      dailyDoses[day] = dailyDoses[day] + dose;
+      // weekly doses
+      if (!weeklyDoses[drinkStartOfWeek]) weeklyDoses[drinkStartOfWeek] = 0;
+      weeklyDoses[drinkStartOfWeek] = weeklyDoses[drinkStartOfWeek] + dose;
+      // monthly doses
+      const month = day.slice(0, 'YYYY-MM'.length);
+      if (!monthlyDoses[month]) monthlyDoses[month] = 0;
+      monthlyDoses[month] = monthlyDoses[month] + dose;
     }
-    return dailyDoses;
+    console.log('dosesByPeriodSelector', Date.now() - now);
+    return [dailyDoses, weeklyDoses, monthlyDoses];
   },
 });
 
@@ -134,7 +150,7 @@ export const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({} = {}) =>
     ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector);
+      const [dailyDoses] = get(dosesByPeriodSelector);
       const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {

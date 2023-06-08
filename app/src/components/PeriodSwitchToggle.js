@@ -13,10 +13,11 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
 
   const renderValue = () => {
     switch (period) {
-      case 'week':
-        return 1;
-      case 'month':
+      case 'monthly':
         return 2;
+      case 'weekly':
+        return 1;
+      case 'daily':
       default:
         return 0;
     }
@@ -53,7 +54,7 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
       <Cells>
         <CellContainerTouchable
           onPress={() => {
-            setPeriod('day');
+            setPeriod('daily');
           }}>
           <CellText
             style={{
@@ -67,7 +68,7 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
         </CellContainerTouchable>
         <CellContainerTouchable
           onPress={() => {
-            setPeriod('week');
+            setPeriod('weekly');
           }}>
           <CellText
             style={{
@@ -81,7 +82,7 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
         </CellContainerTouchable>
         <CellContainerTouchable
           onPress={() => {
-            setPeriod('month');
+            setPeriod('monthly');
           }}>
           <CellText
             style={{
