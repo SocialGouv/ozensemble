@@ -24,12 +24,9 @@ export const previousDrinksPerWeekState = atom({
 export const totalDrinksByDrinkingDaySelector = selector({
   key: 'totalDrinksByDrinkingDaySelector',
   get: ({ get }) => {
-    const now = Date.now();
-    console.log('totalDrinksByDrinkingDaySelector start');
     const totalDrinksByWeek = get(maxDrinksPerWeekSelector);
     const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);
     const totalDrinksByDrinkingDay = Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length));
-    console.log('totalDrinksByDrinkingDaySelector end', Date.now() - now);
     return totalDrinksByDrinkingDay;
   },
 });

@@ -120,9 +120,8 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
   const showNoConsoSinceLongTime = useMemo(
     // the last day entered is before today
     () => {
-      let now = Date.now();
       const date = dayjs(dateLastEntered).format('YYYY-MM-DD') < dayjs().add(-1, 'day').format('YYYY-MM-DD');
-      console.log('ShowNoConsoSinceLongTime', Date.now() - now);
+      return date;
     },
     [dateLastEntered]
   );
