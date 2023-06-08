@@ -2,9 +2,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { dosesByPeriodSelector } from '../recoil/consos';
-import { totalDrinksByDrinkingDaySelector, daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../recoil/gains';
+import {
+  totalDrinksByDrinkingDaySelector,
+  daysWithGoalNoDrinkState,
+  maxDrinksPerWeekSelector,
+  goalsByWeekState,
+} from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import { hitSlop } from '../styles/theme';
@@ -17,6 +22,13 @@ import ModalGoal from './ModalGoal';
 import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+const goalsSuccessByWeekSelector = selector({
+  key: 'goalsSuccessByWeekSelector',
+  get: ({ get }) => {
+    const goals = get(goalsByWeekState);
+  },
+});
+
 const Calendar = ({ onDayPress }) => {
   let date = Date.now();
   const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
@@ -24,20 +36,13 @@ const Calendar = ({ onDayPress }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
-  const [dailyDoses] = useRecoilValue(dosesByPeriodSelector);
+  const { dailyDoses } = useRecoilValue(dosesByPeriodSelector);
   const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
-  const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const [modalContent, setModalContent] = useState(null);
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
-  const [goals, setGoals] = useState([
-    {
-      date: dayjs(),
-      dosesByDrinkingDay: maxDosesByDrinkingDay,
-      dosesPerWeek: maxDosesPerWeek,
-      daysWithGoalNoDrink: daysWithNoDrinkGoal,
-    },
-  ]);
+  const [goals, setGoals] = useRecoilState(goalsByWeekState);
+
   useFocusEffect(
     useCallback(() => {
       API.get({

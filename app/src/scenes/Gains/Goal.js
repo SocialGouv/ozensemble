@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import Calendar from '../../components/illustrations/Calendar';
+import CalendarIllus from '../../components/illustrations/CalendarIllus';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, hitSlop, screenHeight } from '../../styles/theme';
@@ -142,7 +142,7 @@ const Goal = ({ navigation }) => {
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
           <Row>
-            <Calendar size={24} />
+            <CalendarIllus size={24} />
             <Text className={'font-bold ml-3'}>
               Jours où je m'engage à ne <Text className="underline">pas</Text> boire d'alcool
             </Text>

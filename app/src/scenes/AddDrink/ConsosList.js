@@ -32,6 +32,7 @@ const drinksPerCurrenTimestampSelector = selectorFamily({
     ({ modalTimestamp }) =>
     ({ get }) => {
       const drinks = get(drinksState);
+      if (!modalTimestamp) return [];
       return drinks.filter((drink) => drink.timestamp === modalTimestamp);
     },
 });

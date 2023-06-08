@@ -53,3 +53,22 @@ export const isOnboardedSelector = selector({
     return firstBadge ? true : false;
   },
 });
+
+export const goalsByWeekState = atom({
+  key: 'goalsByWeekState',
+  default: getInitValueFromStorage('goalsByWeekState', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('goalsByWeekState', JSON.stringify(newValue)))],
+  /*
+  array of
+      {
+        id: `${user.id}_${date}`,
+        userId: user.id,
+        date,
+        daysWithGoalNoDrink,
+        dosesByDrinkingDay,
+        dosesPerWeek,
+        status: "InProgress",
+      }
+   */
+});
+// export const goalSuccessSelector = selectorFamily({

@@ -50,7 +50,7 @@ const needToFillupConso = {
 };
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
-  const [dailyDoses] = useRecoilValue(dosesByPeriodSelector);
+  const { dailyDoses } = useRecoilValue(dosesByPeriodSelector);
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {

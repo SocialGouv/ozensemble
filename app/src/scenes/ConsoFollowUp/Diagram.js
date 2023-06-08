@@ -35,7 +35,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({ firstDay }) =>
     ({ get }) => {
-      const [dailyDoses] = get(dosesByPeriodSelector);
+      const { dailyDoses } = get(dosesByPeriodSelector);
       const firstDayLastWeek = dayjs(firstDay).startOf('week').add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
@@ -72,7 +72,7 @@ const Diagram = ({ inModalHelp = false }) => {
   let now = Date.now();
 
   const navigation = useNavigation();
-  const [dailyDoses, weeklyDoses, monthlyDoses] = useRecoilValue(dosesByPeriodSelector);
+  const { dailyDoses, weeklyDoses, monthlyDoses } = useRecoilValue(dosesByPeriodSelector);
 
   // three kind of display:
   // 'daily': we display the daily diagram for a week, from Monday to Sunday (6 bars)

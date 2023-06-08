@@ -9,7 +9,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import {
   consolidatedCatalogObjectSelector,
-  drinksByDaySelector,
+  dosesByPeriodSelector,
   drinksState,
   feedDaysSelector,
 } from '../../recoil/consos';
@@ -56,6 +56,10 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
   const [drinks, setDrinks] = useRecoilState(drinksState);
 
   const navigation = useNavigation();
+
+  const dateLastEntered = useMemo(() => {
+    return drinks[0]?.timestamp || null;
+  }, [drinks]);
 
   const setNoConsos = useCallback(async () => {
     let date = Date.now();
@@ -112,13 +116,6 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
     },
     [setDrinks]
   );
-
-  const dateLastEntered = useMemo(() => {
-    let date = Date.now();
-    const drinksTimestamp = drinks.map((drink) => drink.timestamp);
-    console.log('dateLastEntered', Date.now() - date);
-    return Math.max(...drinksTimestamp);
-  }, [drinks]);
 
   const showNoConsoSinceLongTime = useMemo(
     // the last day entered is before today
@@ -211,7 +208,7 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
 
 const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
   const days = useRecoilValue(feedDaysSelector);
-  const drinksByDay = useRecoilValue(drinksByDaySelector);
+  const { drinksByDay } = useRecoilValue(dosesByPeriodSelector);
 
   const isFirst = index === 0;
   const isLast = index === days.length - 1;

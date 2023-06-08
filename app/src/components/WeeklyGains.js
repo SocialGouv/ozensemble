@@ -17,7 +17,7 @@ const WeeklyGains = ({ selectedMonth }) => {
   const drinks = useRecoilValue(drinksState);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const [dailyDoses] = useRecoilValue(dosesByPeriodSelector);
+  const { dailyDoses } = useRecoilValue(dosesByPeriodSelector);
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
@@ -62,6 +62,7 @@ const WeeklyGains = ({ selectedMonth }) => {
         isWeekCompleted: daysWithConsos === 7,
       };
     }
+    // TODO: optimize with selector
     drinks
       .filter((drink) => {
         return (
