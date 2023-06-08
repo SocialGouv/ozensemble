@@ -250,14 +250,9 @@ const Reminder = ({
   const notificationListener = useRef();
   useEffect(() => {
     getReminder(false);
-    console.log('here', notificationListener);
-    const test = NotificationService.subscribe(handleNotification);
-    console.log('plaf', test);
     notificationListener.current = NotificationService.subscribe(handleNotification);
-    console.log('there', notificationListener);
     return () => {
       NotificationService.unsubscribe(notificationListener.current);
-      console.log('plop');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
