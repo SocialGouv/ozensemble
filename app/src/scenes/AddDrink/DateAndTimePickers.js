@@ -13,15 +13,17 @@ const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) 
   const updateModalTimestamp = (newTimestamp) => {
     const oldTimestamp = addDrinkModalTimestamp;
     setDrinksState((drinks) =>
-      drinks.map((drink) => {
-        if (drink.timestamp === oldTimestamp) {
-          return {
-            ...drink,
-            timestamp: newTimestamp,
-          };
-        }
-        return drink;
-      })
+      drinks
+        .map((drink) => {
+          if (drink.timestamp === oldTimestamp) {
+            return {
+              ...drink,
+              timestamp: newTimestamp,
+            };
+          }
+          return drink;
+        })
+        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
     );
     setDrinkModalTimestamp(newTimestamp);
   };

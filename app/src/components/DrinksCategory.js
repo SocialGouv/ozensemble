@@ -2,12 +2,15 @@ import React from 'react';
 import { View } from 'react-native';
 import DrinkQuantitySetter from './DrinkQuantitySetter';
 import TextStyled from './TextStyled';
-import { getDrinkQuantityFromDrinks } from '../scenes/ConsoFollowUp/drinksCatalog';
+import {
+  drinkKeysByCategory,
+  drinksCatalogObject,
+  getDrinkQuantityFromDrinks,
+} from '../scenes/ConsoFollowUp/drinksCatalog';
 
-export const getDrinksKeysFromCategory = (categoryKey, catalog) =>
-  catalog.filter((drink) => drink.categoryKey === categoryKey).map(({ drinkKey }) => drinkKey);
-
-const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, drinksCatalog }) => {
+const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity }) => {
+  const drinksKeys = drinkKeysByCategory[category];
+  // return null;
   return (
     <View
       className={[
@@ -20,15 +23,16 @@ const DrinksCategory = ({ asPreview, category, index, drinks, setDrinkQuantity, 
         </TextStyled>
       </View>
       <View className="flex flex-row justify-around flex-wrap mt-4 mx-1">
-        {getDrinksKeysFromCategory(category, drinksCatalog).map((drinkKey) => {
+        {drinksKeys.map((drinkKey) => {
+          const quantity = getDrinkQuantityFromDrinks(drinks, drinkKey);
           return (
             <DrinkQuantitySetter
               asPreview={asPreview}
               key={drinkKey}
               drinkKey={drinkKey}
               setDrinkQuantity={setDrinkQuantity}
-              quantity={getDrinkQuantityFromDrinks(drinks, drinkKey)}
-              catalog={drinksCatalog}
+              quantity={quantity}
+              drink={drinksCatalogObject[drinkKey]}
             />
           );
         })}

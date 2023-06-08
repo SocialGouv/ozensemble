@@ -64,69 +64,29 @@ const getDoseOfDrink = (volume, degrees) => {
   return Math.round((volume * degrees) / 12 / 10);
 };
 
-export const mapDrinkToDose = ({ drinkKey, quantity }, catalog) => {
+export const mapDrinkToDose = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'mapDrinkToDose' } });
+    capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'mapDrinkToDose' } });
     return 0;
   }
   if (drink) return drink.doses * quantity;
   return 0;
 };
 
-export const getDrinksKeysFromCatalog = (catalog) => {
-  return catalog.filter(({ active }) => Boolean(active)).map(({ drinkKey }) => drinkKey);
-};
-
-export const getDisplayName = (drinkKey, quantity, catalog) => {
+export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   try {
-    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    const drink = catalogObject[drinkKey];
     if (!drink) {
-      capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getDisplayName' } });
+      capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'getDisplayName' } });
       return '';
     }
     return drink.custom ? drink.displayFeed : drink.displayFeed?.(quantity);
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalog, function: 'getDisplayName' } });
+    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayName' } });
     return '';
   }
-};
-
-export const getDisplayDrinksModalName = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getDisplayDrinksModalName' } });
-    return '';
-  }
-  return drink.displayDrinkModal.capitalize();
-};
-
-export const getVolume = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getVolume' } });
-    return 0;
-  }
-  return drink.volume;
-};
-
-export const getDoses = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getDoses' } });
-    return 0;
-  }
-  return drink.doses;
-};
-
-export const getStyle = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalog, function: 'getStyle' } });
-    return {};
-  }
-  return drink.style || {};
 };
 
 export const getIcon = (iconName) => {
@@ -334,3 +294,20 @@ export const drinksCatalog = [
     kcal: 1680,
   },
 ];
+
+export const drinksCatalogObject = {};
+for (const drink of drinksCatalog) {
+  drinksCatalogObject[drink.drinkKey] = drink;
+}
+
+// [BEER, CIDER, WINE, CHAMPAGNE, APERITIVE, SPIRITS]
+export const drinksCategories = drinksCatalog
+  .map(({ categoryKey }) => categoryKey)
+  .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index);
+
+export const drinkKeysByCategory = {};
+for (const categoryKey of drinksCategories) {
+  drinkKeysByCategory[categoryKey] = drinksCatalog
+    .filter((drink) => drink.categoryKey === categoryKey)
+    .map(({ drinkKey }) => drinkKey);
+}

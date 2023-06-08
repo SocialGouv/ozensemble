@@ -6,7 +6,7 @@ function SvgComponent(props) {
     <Svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <G id="OGImages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <Rect id="Rectangle" fill="#CFD5F6" fill-rule="nonzero" x="0" y="0" width="50" height="50" rx="7" />
-        <G id="Group" stroke={(stroke = '#3E5DE6')} strokeWidth={2}>
+        <G id="Group" stroke="#3E5DE6" strokeWidth={2}>
           <Rect id="Rectangle" x="12.636" y="19.1992" width="6.63609" height="17.7627" rx="3" />
           <Rect id="Rectangle" stroke="#3E5DE6" x="12.636" y="19.1992" width="6.63609" height="17.7627" rx="3" />
           <Rect id="Rectangle" stroke="#3E5DE6" x="21.9082" y="24.7627" width="6.63609" height="12.1994" rx="3" />

@@ -7,10 +7,10 @@ export const fakeConsoData = {
     startDate: today(),
     drinks: [],
   },
-  long: () => {
+  long: (numberOfDays) => {
     const startDate = Date.parse(dateWithoutTime(new Date(), -14));
     const drinks = [];
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < numberOfDays; i++) {
       drinks.push({
         timestamp: Date.parse(dateWithoutTime(new Date(), -i)),
         drinkKey: drinksCatalog[Math.floor(Math.random() * drinksCatalog.length)].drinkKey,

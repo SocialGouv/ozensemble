@@ -7,11 +7,11 @@ import H1 from '../../components/H1';
 import SwitchButtons from '../../components/SwitchButtons';
 import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
-import { ownDrinksCatalogState } from '../../recoil/consos';
+import { ownDrinksCatalogObjectSelector } from '../../recoil/consos';
 
 const AddOwnDrink = ({ visible, hide, updateDrinkKey, setLocalDrinksState }) => {
-  const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
-  const drink = ownDrinksCatalog.find((catalogdrink) => catalogdrink.drinkKey === updateDrinkKey);
+  const ownDrinksCatalogObject = useRecoilValue(ownDrinksCatalogObjectSelector);
+  const drink = ownDrinksCatalogObject[updateDrinkKey];
   const [switchPosition, setSwitchPosition] = useState(drink?.categoryKey === 'ownCocktail' ? 'oui' : 'non');
   const [quantitySelected, setQuantitySelected] = useState();
   const [cocktailSelected, setCocktailSelected] = useState();

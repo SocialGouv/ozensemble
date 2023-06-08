@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { selector, useRecoilValue } from 'recoil';
+import { View } from 'react-native';
 import { lifeQualityQuizzAnswersState, lifeQualityQuizzResultState } from '../../../recoil/quizzs';
 import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
 import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
@@ -14,7 +15,6 @@ import H3 from '../../../components/H3';
 import { P, Spacer } from '../../../components/Articles';
 import questionsLifeQuality from '../../Quizzs/QuizzLifeQuality/questions';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { View } from 'react-native';
 
 const Defi1_Day4 = ({ navigation, route }) => {
   return (

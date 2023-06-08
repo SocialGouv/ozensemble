@@ -4,9 +4,10 @@ import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H3 from '../../components/H3';
-import { consolidatedCatalogSelector } from '../../recoil/consos';
+import { consolidatedCatalogObjectSelector } from '../../recoil/consos';
 import { getDisplayName, getIcon } from './drinksCatalog';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
+import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
 
 const isFirst = (position) => position === 'first';
 const isAlone = (position) => position === 'alone';
@@ -25,10 +26,10 @@ const ConsoFeedDisplay = ({
   deleteDrinkRequest,
   position,
 }) => {
-  const consolidatedCatalog = useRecoilValue(consolidatedCatalogSelector);
-  const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalog);
+  const consolidatedCatalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
+  const drinkName = getDisplayName(drinkKey, quantity, consolidatedCatalogObject);
 
-  const drink = consolidatedCatalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
+  const drink = consolidatedCatalogObject[drinkKey];
   const Icon = getIcon(drink?.icon) ? getIcon(drink?.icon) : CocktailGlass;
 
   return (

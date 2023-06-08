@@ -18,7 +18,7 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
-import { daysWithGoalNoDrinkState, setDrinksByWeek } from '../../recoil/gains';
+import { daysWithGoalNoDrinkState, drinksByWeekState } from '../../recoil/gains';
 import { capture } from '../../services/sentry';
 
 const replaceStorageValues = (values) => {
@@ -37,6 +37,7 @@ const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
+  const setDrinksByWeek = useSetRecoilState(drinksByWeekState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -133,9 +134,10 @@ const FakeData = () => {
         <MenuItem caption="Tout le défi 5" onPress={() => replaceStorageValues(fakeDefi5)} />
         <H1Wrapper>Consommations</H1Wrapper>
         <MenuItem
-          caption="2 ans avec une boisson par jour"
+          caption="2 mois avec une boisson par jour"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.long().drinks);
+            setGlobalDrinksState(fakeConsoData.long(60).drinks);
+
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />

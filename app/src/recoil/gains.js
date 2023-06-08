@@ -1,8 +1,9 @@
 import { atom, selector } from 'recoil';
-import { drinksCatalog, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
+import { drinksCatalogObject, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { badgesState } from './badges';
 import { getInitValueFromStorage } from './utils';
+
 export const daysWithGoalNoDrinkState = atom({
   key: 'daysWithGoalNoDrinkState',
   default: getInitValueFromStorage('@DaysWithGoalNoDrink', []),
@@ -23,9 +24,13 @@ export const previousDrinksPerWeekState = atom({
 export const totalDrinksByDrinkingDaySelector = selector({
   key: 'totalDrinksByDrinkingDaySelector',
   get: ({ get }) => {
+    const now = Date.now();
+    console.log('totalDrinksByDrinkingDaySelector start');
     const totalDrinksByWeek = get(maxDrinksPerWeekSelector);
     const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);
-    return Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length));
+    const totalDrinksByDrinkingDay = Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length));
+    console.log('totalDrinksByDrinkingDaySelector end', Date.now() - now);
+    return totalDrinksByDrinkingDay;
   },
 });
 export const maxDrinksPerWeekSelector = selector({
@@ -33,7 +38,7 @@ export const maxDrinksPerWeekSelector = selector({
   get: ({ get }) => {
     const drinksByWeek = get(drinksByWeekState);
     return drinksByWeek.reduce((sum, drink) => {
-      const dose = mapDrinkToDose(drink, drinksCatalog);
+      const dose = mapDrinkToDose(drink, drinksCatalogObject);
       return Math.ceil(sum + dose);
     }, 0);
   },
@@ -43,6 +48,7 @@ export const isOnboardedSelector = selector({
   key: 'isOnboardedSelector',
   get: ({ get }) => {
     const badges = get(badgesState);
+    console.log({ badges });
     const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
     return firstBadge ? true : false;
   },

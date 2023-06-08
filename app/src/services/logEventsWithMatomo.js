@@ -1,13 +1,13 @@
 import NetInfo from '@react-native-community/netinfo';
 import DeviceInfo from 'react-native-device-info';
 import { Platform } from 'react-native';
+import * as Sentry from '@sentry/react-native';
 import Matomo from './matomo';
 import { MATOMO_IDSITE_1, MATOMO_IDSITE_2, MATOMO_URL, MATOMO_URL_2 } from '../config';
 import { mapOnboardingResultToMatomoProfile } from '../scenes/Quizzs/QuizzOnboarding/utils';
 import { storage } from './storage';
 import CONSTANTS from '../reference/constants';
 import API from './api';
-import * as Sentry from '@sentry/react-native';
 
 // https://docs.google.com/spreadsheets/d/1FzFrt-JsNK-OXqBz8f5sop3BcHhcvjGieZUF4gXHBJg/edit#gid=367769533
 

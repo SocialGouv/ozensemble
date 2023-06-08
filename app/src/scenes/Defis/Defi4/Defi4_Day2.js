@@ -1,11 +1,11 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import Element from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
-import styled from 'styled-components';
 import ToggleContent from '../../../components/ToggleContent';
 import Danger from '../../../components/illustrations/icons/Danger';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Animated from 'react-native-reanimated';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -34,7 +34,14 @@ const createConfetti = () => {
 
 const Confetti = () => {
   const confetti = useMemo(createConfetti, []);
-
+  // cleanup function to stop all clocks when the component is unmounted
+  useEffect(() => {
+    return () => {
+      confetti.forEach(({ clock }) => {
+        Animated.stopClock(clock);
+      });
+    };
+  }, [confetti]);
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
       {confetti.map(({ key, x, y, angle, xVel, yVel, angleVel, color, elasticity, delay, clock }) => {

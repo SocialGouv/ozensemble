@@ -5,7 +5,6 @@ import Background from '../../../components/Background';
 import { storage } from '../../../services/storage';
 import Defi from '../Defi';
 import { defi3_Data } from './defi3_Data';
-import { setValidatedDays } from '../utils';
 import Defi3_Day1 from './Defi3_Day1';
 import Defi3_Day2 from './Defi3_Day2';
 import Defi3_Day3 from './Day3';

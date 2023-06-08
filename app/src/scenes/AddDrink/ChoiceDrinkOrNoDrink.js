@@ -50,7 +50,7 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
               action: 'NO_CONSO',
               dimension6: noConso.timestamp,
             });
-            setGlobalDrinksState((state) => [...state, noConso]);
+            setGlobalDrinksState((state) => [...state, noConso].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             const matomoId = storage.getString('@UserIdv2');
             API.post({
               path: '/consommation',

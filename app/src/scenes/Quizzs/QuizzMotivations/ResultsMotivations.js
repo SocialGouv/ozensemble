@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { useNavigation } from '@react-navigation/native';
-import { storage } from '../../../services/storage';
+import { View } from 'react-native';
 import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
 import H3 from '../../../components/H3';
 import TextStyled from '../../../components/TextStyled';
@@ -11,7 +11,6 @@ import sections from './sections';
 import { screenWidth } from '../../../styles/theme';
 import { motivationsQuizzAnswersState } from '../../../recoil/quizzs';
 import ButtonPrimary from '../../../components/ButtonPrimary';
-import { View } from 'react-native';
 
 const Wrapper = ({ children, wrapped, inMyTests }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);

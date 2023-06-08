@@ -154,7 +154,6 @@ export function cleanCatalog(oldDrinkCatalog) {
 
     const checkedKcal = oldDrink.kcal ? oldDrink.kcal : kcal;
     const checkedDoses = oldDrink.doses ? oldDrink.doses : doses;
-    const checkedAlcoolPercentage = oldDrink.alcoolPercentage ? oldDrink.alcoolPercentage : formatedAlcoolPercentage;
 
     newOwnDrinksCatalog.push({
       drinkKey: drinkKeyEvolution2,

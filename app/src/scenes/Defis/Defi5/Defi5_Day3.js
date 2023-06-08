@@ -11,7 +11,6 @@ import TextStyled from '../../../components/TextStyled';
 import WrapperContainer from '../../../components/WrapperContainer';
 import {
   lifeQualityQuizzAnswersState,
-  lifeQualityQuizzResultState,
   relifeQualityQuizzAnswersState,
   relifeQualityQuizzResultState,
 } from '../../../recoil/quizzs';
