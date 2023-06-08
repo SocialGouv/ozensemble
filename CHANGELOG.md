@@ -1,3 +1,10 @@
+## [1.121.3](https://github.com/SocialGouv/ozensemble/compare/v1.121.2...v1.121.3) (2023-06-08)
+
+
+### Bug Fixes
+
+* reminder crash ([#419](https://github.com/SocialGouv/ozensemble/issues/419)) ([b1e0b7f](https://github.com/SocialGouv/ozensemble/commit/b1e0b7f332a66e8102352eda8a7272e32281ea8f))
+
 ## [1.121.2](https://github.com/SocialGouv/ozensemble/compare/v1.121.1...v1.121.2) (2023-06-08)
 
 
