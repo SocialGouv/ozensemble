@@ -136,7 +136,6 @@ const FakeData = () => {
           caption="2 mois avec une boisson par jour"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.long(60).drinks);
-
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
