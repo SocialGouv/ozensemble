@@ -1,3 +1,10 @@
+## [1.121.2](https://github.com/SocialGouv/ozensemble/compare/v1.121.1...v1.121.2) (2023-06-08)
+
+
+### Bug Fixes
+
+* merge ([518430d](https://github.com/SocialGouv/ozensemble/commit/518430d169b885829ec7a4763aa3f83a537ef1ac))
+
 ## [1.121.1](https://github.com/SocialGouv/ozensemble/compare/v1.121.0...v1.121.1) (2023-06-07)
 
 
