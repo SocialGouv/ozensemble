@@ -5,7 +5,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { screenHeight } from '../../styles/theme';
-import { dosesByPeriodSelector, weeklyDosesSelector } from '../../recoil/consos';
+import { dosesByPeriodSelector } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
@@ -35,46 +35,35 @@ const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({ firstDay }) =>
     ({ get }) => {
-      let now = Date.now();
       const [dailyDoses] = get(dosesByPeriodSelector);
-      console.log('diffWithPreviousWeekSelector 1', Date.now() - now);
-      now = Date.now();
-      const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
-      console.log('diffWithPreviousWeekSelector 2', Date.now() - now);
-      now = Date.now();
+      const firstDayLastWeek = dayjs(firstDay).startOf('week').add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfLastWeek.push(nextDay);
       }
-      console.log('diffWithPreviousWeekSelector 3', Date.now() - now);
-      now = Date.now();
+
       if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0) return { fillConsoFirst: true };
-      console.log('diffWithPreviousWeekSelector 4', Date.now() - now);
-      now = Date.now();
+
       const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
-      console.log('diffWithPreviousWeekSelector 5', Date.now() - now);
-      now = Date.now();
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfThisWeek.push(nextDay);
       }
-      console.log('diffWithPreviousWeekSelector 6', Date.now() - now);
-      now = Date.now();
+
       const lastWeekNumberOfDrinks = daysOfLastWeek
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
-      console.log('diffWithPreviousWeekSelector 7', Date.now() - now);
-      now = Date.now();
+
       const thisWeekNumberOfDrinks = daysOfThisWeek
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
-      console.log('diffWithPreviousWeekSelector 8', Date.now() - now);
-      now = Date.now();
+
       const diff = Math.round(lastWeekNumberOfDrinks - thisWeekNumberOfDrinks);
       const decrease = diff > 0;
       const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
+
       return { diff, decrease, pourcentageOfDecrease, thisWeekNumberOfDrinks };
     },
 });
@@ -142,7 +131,6 @@ const Diagram = ({ inModalHelp = false }) => {
   }, [xAxis, period]);
 
   const highestDosesInPeriod = Math.max(...yValues);
-  console.log({ xAxis, yValues, highestDosesInPeriod });
   const highestAcceptableDosesPerDayByOMS = 2;
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const highestAcceptableDosesInPeriod = useMemo(() => {
@@ -202,7 +190,6 @@ const Diagram = ({ inModalHelp = false }) => {
 
       <BarsContainer height={barMaxHeight + doseTextHeight}>
         {yValues.map((yValue, index) => {
-          console.log({ yValue });
           if (yValue === null || yValue === undefined) {
             return <Bar key={index} height={doseHeight * highestAcceptableDosesInPeriod} empty />;
           }
