@@ -133,9 +133,9 @@ const FakeData = () => {
         <MenuItem caption="Tout le défi 5" onPress={() => replaceStorageValues(fakeDefi5)} />
         <H1Wrapper>Consommations</H1Wrapper>
         <MenuItem
-          caption="2 ans avec une boisson par jour"
+          caption="2 mois avec une boisson par jour"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.long().drinks);
+            setGlobalDrinksState(fakeConsoData.long(60).drinks);
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
