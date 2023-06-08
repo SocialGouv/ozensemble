@@ -1,5 +1,5 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
@@ -7,8 +7,8 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState, feedDaysSelector } from '../../recoil/consos';
-import { isOnSameDay, isToday } from '../../services/dates';
+import { drinksByDaySelector, drinksState, feedDaysSelector } from '../../recoil/consos';
+import { isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
 import DateDisplay from './DateDisplay';
@@ -44,18 +44,26 @@ const computeShowButtons = (selected, position) => {
 
 const Feed = ({ scrollToInput, dateToScroll }) => {
   const days = useRecoilValue(feedDaysSelector);
-  const [drinks, setDrinks] = useRecoilState(drinksState);
-  const [timestampSelected, setTimestampSelected] = useState(null);
-  const navigation = useNavigation();
-  const setConsoSelectedRequest = (timestamp) => {
-    if (timestampSelected === timestamp) {
-      setTimestampSelected(null);
-    } else {
-      setTimestampSelected(timestamp);
-    }
-  };
 
-  const setNoConsos = async () => {
+  const [drinks, setDrinks] = useRecoilState(drinksState);
+  const drinksByDay = useRecoilValue(drinksByDaySelector);
+
+  const [timestampSelected, setTimestampSelected] = useState(null);
+
+  const navigation = useNavigation();
+
+  const setConsoSelectedRequest = useCallback(
+    (timestamp) => {
+      if (timestampSelected === timestamp) {
+        setTimestampSelected(null);
+      } else {
+        setTimestampSelected(timestamp);
+      }
+    },
+    [timestampSelected, setTimestampSelected]
+  );
+
+  const setNoConsos = useCallback(async () => {
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
     const newNoDrink = [];
     const matomoId = storage.getString('@UserIdv2');
@@ -85,22 +93,28 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
         },
       });
     }
-    setDrinks((state) => [...state, ...newNoDrink]);
-  };
+    setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+  }, [dateLastEntered, setDrinks]);
 
-  const addDrinksRequest = (timestamp, fromButton) => {
-    navigation.push('ADD_DRINK', { timestamp });
-    logEvent({
-      category: 'CONSO',
-      action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-      name: fromButton,
-    });
-  };
+  const addDrinksRequest = useCallback(
+    (timestamp, fromButton) => {
+      navigation.push('ADD_DRINK', { timestamp });
+      logEvent({
+        category: 'CONSO',
+        action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+        name: fromButton,
+      });
+    },
+    [navigation]
+  );
 
-  const deleteDrinkRequest = (timestamp) => {
-    setTimestampSelected(null);
-    setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
-  };
+  const deleteDrinkRequest = useCallback(
+    (timestamp) => {
+      setTimestampSelected(null);
+      setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
+    },
+    [setTimestampSelected, setDrinks]
+  );
 
   const dateLastEntered = useMemo(() => {
     const drinksTimestamp = drinks.map((drink) => drink.timestamp);
@@ -172,9 +186,7 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
           {days.map((day, index) => {
             const isFirst = index === 0;
             const isLast = index === days.length - 1;
-            const drinksOfTheDay = drinks
-              .filter(({ timestamp }) => isOnSameDay(timestamp, day))
-              .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
+            const drinksOfTheDay = drinksByDay[day] || [];
             const noDrinksYet = !drinksOfTheDay.length;
             const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
             return (

@@ -7,11 +7,11 @@ import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
 import DrinksCategory from '../../components/DrinksCategory';
-import { drinksCatalog, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
+import { drinksCategories, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
-import { drinksState, ownDrinksCatalogState } from '../../recoil/consos';
+import { consolidatedCatalogObjectSelector, drinksState, ownDrinksCatalogState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
 import DateAndTimePickers from './DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
@@ -49,6 +49,7 @@ const ConsosList = ({ navigation, route }) => {
   const toast = useToast();
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
   const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
+  const consolidatedCatalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
   const setDrinkQuantityRequest = (drinkKey, quantity, isOwnDrink = false) => {
@@ -79,25 +80,9 @@ const ConsosList = ({ navigation, route }) => {
       ...drink,
       timestamp: makeSureTimestamp(addDrinkModalTimestamp),
     }));
-    let drinkNumber = 0;
     let showToast = true;
     for (let drink of drinksWithTimestamps) {
-      drinkNumber++;
-      setGlobalDrinksState((state) =>
-        [
-          ...state.filter((_drink) => _drink.id !== drink.id),
-          {
-            drinkKey: drink.drinkKey,
-            quantity: drink.quantity,
-            id: drink.id,
-            isOwnDrink: drink.isOwnDrink,
-            timestamp: makeSureTimestamp(addDrinkModalTimestamp),
-          },
-        ].filter((d) => d.quantity > 0)
-      );
-      const drinkFromCatalog = [...(ownDrinksCatalog || []), ...drinksCatalog].find(
-        (_drink) => _drink.drinkKey === drink.drinkKey
-      );
+      const drinkFromCatalog = consolidatedCatalogObject[drink.drinkKey];
       logEvent({
         category: 'CONSO',
         action: 'CONSO_ADD',
@@ -127,10 +112,15 @@ const ConsosList = ({ navigation, route }) => {
       });
       if (response?.showNewBadge || response?.showInAppModal) showToast = false;
     }
-    // setLocalDrinksState([]);
+    const newDrinksIds = drinksWithTimestamps.map((drink) => drink.id);
+    setGlobalDrinksState((state) =>
+      [...state.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
+        .filter((d) => d.quantity > 0)
+        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+    );
     if (showToast) {
       setTimeout(() => {
-        toast.show(drinkNumber > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+        toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
       }, 250);
     }
   };
@@ -254,19 +244,15 @@ const ConsosList = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
           )}
-          {drinksCatalog
-            .map(({ categoryKey }) => categoryKey)
-            .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
-            .map((category, index) => (
-              <DrinksCategory
-                key={index}
-                drinksCatalog={drinksCatalog}
-                category={category}
-                index={index}
-                drinks={localDrinksState}
-                setDrinkQuantity={setDrinkQuantityRequest}
-              />
-            ))}
+          {drinksCategories.map((category, index) => (
+            <DrinksCategory
+              key={index}
+              category={category}
+              index={index}
+              drinks={localDrinksState}
+              setDrinkQuantity={setDrinkQuantityRequest}
+            />
+          ))}
           <MarginBottom />
         </ModalContent>
         <ButtonsContainerSafe>

@@ -4,7 +4,6 @@ import TextStyled from '../../../../components/TextStyled';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import Element from '../../../../components/ElementDayDefi';
 import WrapperContainer from '../../../../components/WrapperContainer';
-import { TouchableOpacity } from 'react-native';
 import { Spacer } from '../../../../components/Articles';
 import TestimonyQuote from '../../../../components/illustrations/TestimonyQuote';
 import TestimonyQuoteInversed from '../../../../components/illustrations/TestimonyQuoteInversed';

@@ -1,16 +1,16 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { TouchableOpacity } from 'react-native';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import Element from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
-import styled from 'styled-components';
 import AddCircle from '../../../components/illustrations/icons/AddCircle';
 import MinusCircle from '../../../components/illustrations/icons/MinusCircle';
 import Defi3_day2_Schema from '../../../components/Defi3_day2_Schema';
 import ToggleContent from '../../../components/ToggleContent';
-import { TouchableOpacity } from 'react-native';
 
 const Defi3_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();

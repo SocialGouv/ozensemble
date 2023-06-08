@@ -1,9 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
 import TextStyled from '../../../../components/TextStyled';
 import ButtonPrimary from '../../../../components/ButtonPrimary';
 import Element from '../../../../components/ElementDayDefi';
 import WrapperContainer from '../../../../components/WrapperContainer';
-import styled from 'styled-components';
 import { screenWidth, defaultPaddingFontScale } from '../../../../styles/theme';
 import H2 from '../../../../components/H2';
 import { P, Spacer } from '../../../../components/Articles';
@@ -132,7 +132,7 @@ export const Explications = ({ navigation, emotion, answersRiskSituations }) => 
   </WrapperContainer>
 );
 
-export const Conseils = ({ navigation, emotion, situationText, answersRiskSituations, conseil }) => (
+export const Conseils = ({ navigation, emotion, situationText, answersRiskSituations }) => (
   <WrapperContainer
     onPressBackButton={navigation.goBack}
     noPaddingHorizontal

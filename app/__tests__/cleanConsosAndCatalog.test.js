@@ -1,4 +1,5 @@
 import { cleanCatalog } from '../src/services/storage';
+
 jest.mock('@react-native-community/netinfo', () => ({
   fetch: () => Promise.resolve({ isConnected: true }),
 }));

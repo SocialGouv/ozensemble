@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import H1 from '../../../components/H1';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import TextStyled from '../../../components/TextStyled';
@@ -13,7 +14,6 @@ import { autoEvaluationQuizzResultState } from '../../../recoil/quizzs';
 import { storage } from '../../../services/storage';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import WrapperContainer from '../../../components/WrapperContainer';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
 import API from '../../../services/api';
 
 const ResultsOnboarding = ({ navigation, route }) => {

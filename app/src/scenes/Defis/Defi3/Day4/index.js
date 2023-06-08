@@ -1,14 +1,14 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { setValidatedDays } from '../../utils';
 import { createStackNavigator } from '@react-navigation/stack';
+import { setValidatedDays } from '../../utils';
 import { Screen1, Screen2, Screen3 } from './screens';
 import Doctolib from '../../../Health/Doctolib';
 import ContactForm from '../../../Health/ContactForm';
 
 const Explicationstack = createStackNavigator();
 
-const Defi3_Day4 = ({ navigation, route }) => {
+const Defi3_Day4 = ({ route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {

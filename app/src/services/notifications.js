@@ -231,7 +231,7 @@ class NotificationService {
   subscribe = (callback) => {
     let listenerKey = null;
     while (!listenerKey) {
-      listenerKey = parseInt(Math.random() * 9999).toString();
+      listenerKey = parseInt(Math.random() * 9999, 10).toString();
       if (this.listeners.hasOwnProperty(listenerKey)) {
         listenerKey = null;
       }
@@ -246,17 +246,6 @@ class NotificationService {
     const _initialNotification = this.initialNotification;
     this.initNotification = null;
     return _initialNotification;
-  };
-
-  listen = (callback) => {
-    // const listenerKey = `listener_${Date.now()}`;
-    // this.listeners[listenerKey] = callback;
-    // if (this.initNotification) this.handleNotification(this.initNotification);
-    // return listenerKey;
-  };
-
-  remove = (listenerKey) => {
-    // delete this.listeners[listenerKey];
   };
 }
 

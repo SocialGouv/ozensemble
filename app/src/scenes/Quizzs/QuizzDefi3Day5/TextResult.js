@@ -1,8 +1,8 @@
 import React from 'react';
-import TextStyled from '../../../components/TextStyled';
-import { Spacer } from '../../../components/Articles';
 import { View } from 'react-native';
 import styled from 'styled-components';
+import TextStyled from '../../../components/TextStyled';
+import { Spacer } from '../../../components/Articles';
 
 const BulletPoint = styled.View`
   margin: 10px;

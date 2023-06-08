@@ -18,7 +18,7 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
-import { daysWithGoalNoDrinkState, setDrinksByWeek } from '../../recoil/gains';
+import { daysWithGoalNoDrinkState, drinksByWeekState } from '../../recoil/gains';
 import { capture } from '../../services/sentry';
 
 const replaceStorageValues = (values) => {
@@ -37,6 +37,7 @@ const FakeData = () => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
+  const setDrinksByWeek = useSetRecoilState(drinksByWeekState);
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -57,7 +58,6 @@ const FakeData = () => {
         {badgesCatalog
           .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
-            console.log({ title, category, stars });
             return (
               <React.Fragment key={title + category}>
                 {category === 'goals' && stars === 1 && (

@@ -2,6 +2,7 @@ import { useRecoilValue } from 'recoil';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useIsFocused } from '@react-navigation/native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import TextStyled from '../../components/TextStyled';
 import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
 import OnBoardingModal from '../../components/OnBoardingModal';
@@ -9,7 +10,6 @@ import Lock from '../../components/illustrations/Lock';
 import { autoEvaluationQuizzResultState } from '../../recoil/quizzs';
 import { storage } from '../../services/storage';
 import WrapperContainer from '../../components/WrapperContainer';
-import { View, TouchableOpacity, Text } from 'react-native';
 import ArrowRight from '../../components/ArrowRight';
 import AutoEvaluation from '../../components/illustrations/activities/AutoEvaluation';
 import Activity1 from '../../components/illustrations/activities/Activity1';
@@ -18,6 +18,7 @@ import Activity3 from '../../components/illustrations/activities/Activity3';
 import Activity4 from '../../components/illustrations/activities/Activity4';
 import Activity5 from '../../components/illustrations/activities/Activity5';
 import Results from '../../components/illustrations/activities/Results';
+
 const DefisMenu = ({ navigation }) => {
   const autoEvaluationDone = useRecoilValue(autoEvaluationQuizzResultState);
   const autoEvaluationToCompletedDays = autoEvaluationDone ? 7 : 0;
@@ -165,7 +166,7 @@ const CategorieMenu = ({
                 <Text className="text-[#4030A5] font-bold">{title}</Text>
               </TitleDisabledContainer>
               <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
-              <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full"></View>
+              <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full" />
             </View>
           </View>
         ) : (
