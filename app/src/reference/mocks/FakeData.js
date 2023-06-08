@@ -58,7 +58,6 @@ const FakeData = () => {
         {badgesCatalog
           .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
-            console.log({ title, category, stars });
             return (
               <React.Fragment key={title + category}>
                 {category === 'goals' && stars === 1 && (

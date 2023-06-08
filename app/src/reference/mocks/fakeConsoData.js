@@ -18,7 +18,7 @@ export const fakeConsoData = {
         id: uuid(),
       });
     }
-    console.log('DONE', drinks.length);
+
     return {
       startDate,
       drinks,
