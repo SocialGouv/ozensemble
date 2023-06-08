@@ -58,6 +58,7 @@ const FakeData = () => {
         {badgesCatalog
           .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
+            console.log({ title, category, stars });
             return (
               <React.Fragment key={title + category}>
                 {category === 'goals' && stars === 1 && (
@@ -136,6 +137,7 @@ const FakeData = () => {
           caption="2 mois avec une boisson par jour"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.long(60).drinks);
+
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
