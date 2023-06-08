@@ -89,8 +89,7 @@ export const feedDaysSelector = selector({
     if (feedDays[0] !== today) {
       feedDays = getAllDatesBetweenNowAndFiveMonthsAgo(amplitudeOfRecords);
     }
-    const filteredDays = feedDays.filter((date) => date <= today && date >= firstDay);
-    return filteredDays;
+    return feedDays.filter((date) => date <= today && date >= firstDay);
   },
 });
 

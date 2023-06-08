@@ -46,7 +46,6 @@ const ConsoFollowUpNavigator = () => {
 export default ConsoFollowUpNavigator;
 
 const ConsoFollowUp = () => {
-  const now = Date.now();
   const scrollViewRef = useRef(null);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigation = useNavigation();

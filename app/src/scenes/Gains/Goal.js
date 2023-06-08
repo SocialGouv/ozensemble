@@ -281,13 +281,4 @@ const DayButton = ({ content, onPress, active }) => {
   );
 };
 
-// const QButtonContent = styled(TextStyled)`
-//   font-size: 16px;
-//   font-weight: bold;
-//   line-height: 25px;
-//   justify-content: center;
-//   align-items: center;
-//   text-align-vertical: center;
-// `;
-
 export default Goal;
