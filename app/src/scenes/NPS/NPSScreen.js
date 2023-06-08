@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions, Platform, StatusBar } from 'react-native';
+import { Alert, Dimensions, Platform, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
@@ -79,7 +79,7 @@ export const useCheckNeedNPS = (
     //   storage.delete('@NPSInitialOpening'); // useful in dev mode
     // }
     checkNeedNPS();
-  });
+  }, []);
 };
 
 export const useNPSNotif = (

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import TextStyled from '../../components/TextStyled';
+import styled from 'styled-components';
 import WrapperContainer from '../../components/WrapperContainer';
 import ElementDayDefi from '../../components/ElementDayDefi';
 

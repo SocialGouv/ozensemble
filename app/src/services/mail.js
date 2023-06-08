@@ -1,13 +1,11 @@
-import API from './api';
+import API from "./api";
 
-export const sendMail = async ({ to, subject, text, html }) => {
+export const sendMail = async ({to, subject, text, html}) => {
+
   return await API.post({
-    path: '/mail',
+    path: "/mail",
     body: {
-      to,
-      subject,
-      text,
-      html,
+      to, subject, text, html,
     },
-  }).catch((err) => console.error('send mail error', err));
+  }).catch((err) => console.error("send mail error", err));
 };

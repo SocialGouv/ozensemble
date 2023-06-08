@@ -16,30 +16,29 @@ export const useToast = () => {
 
 const ToastProvider = (props) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  };
 
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 3 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 250,
+      useNativeDriver: true,
+    }).start();
+  };
   const [caption, setCaption] = useState();
 
   const hide = useCallback(() => setCaption(null), [setCaption]);
 
   const show = useCallback(
     (caption, timeout = 1500) => {
-      const fadeIn = () => {
-        // Will change fadeAnim value to 1 in 5 seconds
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 250,
-          useNativeDriver: true,
-        }).start();
-      };
-
-      const fadeOut = () => {
-        // Will change fadeAnim value to 0 in 3 seconds
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 250,
-          useNativeDriver: true,
-        }).start();
-      };
       setCaption(caption);
       fadeIn();
       setTimeout(() => {
@@ -49,7 +48,7 @@ const ToastProvider = (props) => {
         }, 150);
       }, timeout);
     },
-    [setCaption, fadeAnim]
+    [setCaption]
   );
 
   return (

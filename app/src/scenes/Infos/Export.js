@@ -2,27 +2,26 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { selector, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import dayjs from 'dayjs';
 import TextInputStyled from '../../components/TextInputStyled';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { consolidatedCatalogObjectSelector, drinksState } from '../../recoil/consos';
+import { consolidatedCatalogSelector, drinksState } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
 import { screenHeight } from '../../styles/theme';
 import { getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
 import WrapperContainer from '../../components/WrapperContainer';
 import { sendMail } from '../../services/mail';
 import { P } from '../../components/Articles';
-
+import dayjs from 'dayjs';
 export const HTMLExportSelector = selector({
   key: 'HTMLExportSelector',
   get: ({ get }) => {
-    const consolidatedCatalogObject = get(consolidatedCatalogObjectSelector);
+    const consolidatedCatalog = get(consolidatedCatalogSelector);
     const drinks = get(drinksState);
-    return formatHtmlTable(drinks, consolidatedCatalogObject);
+    return formatHtmlTable(drinks, consolidatedCatalog);
   },
 });
 
-const formatHtmlTable = (drinks, catalogObject) => {
+const formatHtmlTable = (drinks, catalog) => {
   return `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
     <html xmlns="https://www.w3.org/1999/xhtml">
@@ -51,12 +50,12 @@ const formatHtmlTable = (drinks, catalogObject) => {
               return 1;
             })
             .map((drink) => {
-              const doses = mapDrinkToDose(drink, catalogObject);
+              const doses = mapDrinkToDose(drink, catalog);
               let time = dayjs(drink.timestamp).format('dddd DD MMMM YYYY');
               let firstLetter = time.charAt(0);
               time = firstLetter.toUpperCase() + time.substring(1);
               if (drink.drinkKey === NO_CONSO) return `<tr><td>${time}</td><td>Pas bu ce jour</td></tr>`;
-              const name = getDisplayName(drink.drinkKey, drink.quantity, catalogObject);
+              const name = getDisplayName(drink.drinkKey, drink.quantity, catalog);
               return `<tr>
                   <td>${time}</td>
                   <td>${drink.quantity} ${name} (${doses} dose${doses > 1 ? 's' : ''})</td>

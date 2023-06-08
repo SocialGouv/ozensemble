@@ -34,6 +34,7 @@ import NPSScreen, { useCheckNeedNPS, useNPSNotif } from './scenes/NPS/NPSScreen'
 import NotificationService from './services/notifications';
 import BadgeModal from './scenes/Badges/BadgeModal';
 import InAppModal from './components/InAppModal';
+import { getBuildNumber } from 'react-native-device-info';
 import Goal from './scenes/Gains/Goal';
 import GainsReminder from './scenes/Gains/GainsReminder';
 import GainsPreviousConsumption from './scenes/Gains/GainsPreviousConsumption';
@@ -52,7 +53,7 @@ const LabelStyled = styled(TextStyled)`
   margin-top: -3px;
   margin-bottom: 3px;
 `;
-
+console.log(getBuildNumber());
 const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   useNPSNotif();

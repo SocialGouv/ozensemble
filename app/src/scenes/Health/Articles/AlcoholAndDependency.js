@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 import ButtonPrimary from '../../../components/ButtonPrimary';
+import styled from 'styled-components';
 import { screenWidth } from '../../../styles/theme';
 
 const AlcoholAndDependency = () => {

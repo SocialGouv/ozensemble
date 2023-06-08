@@ -1,14 +1,16 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
+import { Text } from 'react-native';
+import { Spacer, P, TopContainer, Bold, Underlined } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
+import styled from 'styled-components';
+import { View } from 'react-native';
 import KeyAutonomy from '../../../components/illustrations/icons/KeyAutonomy';
 import KeyCompetency from '../../../components/illustrations/icons/KeyCompetency';
 import KeyLink from '../../../components/illustrations/icons/KeyLink';
 import KeyMeaning from '../../../components/illustrations/icons/KeyMeaning';
 
-const AlcoholAndMotivation = () => {
+const AlcoholAndMotivation = ({ navigation }) => {
   const title = 'Alcool et motivation';
   return (
     <NavigationWrapper

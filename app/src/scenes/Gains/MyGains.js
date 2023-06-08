@@ -1,17 +1,20 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 
-import { isOnboardedSelector } from '../../recoil/gains';
+import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
 import OnBoardingModal from '../../components/OnBoardingModal';
+import { drinksState, feedDaysSelector } from '../../recoil/consos';
 import BadgesStatus from '../Badges/BadgesStatus';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import { badgesState } from '../../recoil/badges';
 import H2 from '../../components/H2';
+import { drinksCatalog } from '../ConsoFollowUp/drinksCatalog';
 import Diagram from '../ConsoFollowUp/Diagram';
 import FollowUpConsos from '../../components/illustrations/icons/FollowUpConsos';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
@@ -102,6 +105,7 @@ const MyGains = () => {
                   category: 'CONSO',
                   action: 'CONSO_OPEN_HELP',
                 });
+                setShowHelpModal(true);
               }}
               selectedBar={selectedBar}
               setSelectedBar={setSelectedBar}

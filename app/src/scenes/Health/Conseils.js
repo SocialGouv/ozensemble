@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import H2 from '../../components/H2';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
@@ -124,6 +124,11 @@ const ImageStyled = styled.Image`
 
 const Space = styled.View`
   width: 50px;
+`;
+
+const commonCss = css`
+  width: 95%;
+  flex-shrink: 0;
 `;
 
 export default Conseils;

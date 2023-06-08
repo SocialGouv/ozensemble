@@ -36,7 +36,7 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
           dimension6: makeSureTimestamp(timestamp),
         });
         const noConso = { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(timestamp), id: uuidv4() };
-        setGlobalDrinksState((state) => [...state, noConso].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+        setGlobalDrinksState((state) => [...state, noConso]);
         const matomoId = storage.getString('@UserIdv2');
         API.post({
           path: '/consommation',

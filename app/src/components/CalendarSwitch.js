@@ -5,7 +5,7 @@ import AnimatedTextStyled from './AnimatedTextStyled';
 
 const CalendarSwitch = ({ window, setWindow }) => {
   const [componentWidth, setComponentWidth] = useState(0);
-  const [animatedXValue] = useState(new Animated.Value(0));
+  const [animatedXValue, setAnimatedXValue] = useState(new Animated.Value(0));
 
   useEffect(() => {
     runAnimation(renderValue(window));

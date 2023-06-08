@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import * as RNLocalize from 'react-native-localize';
-import NetInfo from '@react-native-community/netinfo';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import H2 from './H2';
@@ -21,7 +20,9 @@ import { defaultPaddingFontScale } from '../styles/theme';
 import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
 import { storage } from '../services/storage';
+import NetInfo from '@react-native-community/netinfo';
 import { capture } from '../services/sentry';
+import Background from './Background';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 

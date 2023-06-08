@@ -2,8 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import Calendar from '../../components/illustrations/Calendar';
 import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
@@ -17,43 +15,36 @@ import {
   previousDrinksPerWeekState,
   isOnboardedSelector,
 } from '../../recoil/gains';
+
 import HelpModalCountConsumption from './HelpModalCountConsumption';
-import { drinksCatalogObject, drinksCategories, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
+import { drinksCatalog, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
 import DrinksCategory from '../../components/DrinksCategory';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
+import { Text, View } from 'react-native';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ModalWrongValue from '../../components/ModalWrongValue';
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
 
-  const toggleDayWithGoalNoDrink = (day) => {
-    const newState = daysWithGoalNoDrink.includes(day)
-      ? daysWithGoalNoDrink.filter((d) => d !== day)
-      : [...daysWithGoalNoDrink, day];
-
-    setDaysWithGoalNoDrink(newState);
-  };
+  const toggleDayWithGoalNoDrink = (day) =>
+    setDaysWithGoalNoDrink((days) => (days.includes(day) ? days.filter((d) => d !== day) : [...days, day]));
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-
   const numberDrinkEstimation = useMemo(() => {
     return previousDrinksPerWeek.reduce((sum, drink) => {
-      return Math.round(sum + mapDrinkToDose(drink, drinksCatalogObject));
+      return Math.round(sum + mapDrinkToDose(drink, drinksCatalog));
     }, 0);
   }, [previousDrinksPerWeek]);
-
   const [drinksByWeek, setDrinksByWeek] = useRecoilState(drinksByWeekState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
-
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
   const [modalWrongValueVisible, setModalWrongValueVisible] = useState(false);
 
   const isOnboarded = useRecoilValue(isOnboardedSelector);
-
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByWeek.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
@@ -78,7 +69,7 @@ const Goal = ({ navigation }) => {
 
   return (
     <>
-      <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
+      <SafeAreaView edges={['top']} className="bg-[#39CEC0]"></SafeAreaView>
       <ModalGoalValidation
         content={{
           drinksGoal: dosesPerWeek,
@@ -151,9 +142,7 @@ const Goal = ({ navigation }) => {
             <DayButton
               content="L"
               active={daysWithGoalNoDrink.includes('monday')}
-              onPress={() => {
-                toggleDayWithGoalNoDrink('monday');
-              }}
+              onPress={() => toggleDayWithGoalNoDrink('monday')}
             />
             <DayButton
               content="M"
@@ -200,15 +189,19 @@ const Goal = ({ navigation }) => {
             </View>
           </View>
         </Container>
-        {drinksCategories.map((category, index) => (
-          <DrinksCategory
-            key={index}
-            category={category}
-            index={index}
-            drinks={drinksByWeek}
-            setDrinkQuantity={setDrinkQuantityRequest}
-          />
-        ))}
+        {drinksCatalog
+          .map(({ categoryKey }) => categoryKey)
+          .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index)
+          .map((category, index) => (
+            <DrinksCategory
+              key={index}
+              drinksCatalog={drinksCatalog}
+              category={category}
+              index={index}
+              drinks={drinksByWeek}
+              setDrinkQuantity={setDrinkQuantityRequest}
+            />
+          ))}
         <Container>
           <View className=" p-2 mt-4">
             <Text>
@@ -263,31 +256,35 @@ const DayContainer = styled.View`
   margin-bottom: ${screenHeight * 0.06}px;
 `;
 
-const qButtonSize = 36;
-const buttonHitSlop = hitSlop(qButtonSize);
-const DayButton = ({ content, onPress, active }) => {
-  return (
-    <TouchableOpacity hitSlop={buttonHitSlop} className="p-px" onPress={onPress}>
-      <View
-        className={[
-          'h-9 w-9 rounded-full border border-[#4030A5] justify-center items-center',
-          active ? 'bg-[#4030A5]' : 'bg-[#eeeeee]',
-        ].join(' ')}>
-        <TextStyled className="text-base font-bold justify-center items-center" color={active ? '#eeeeee' : '#000000'}>
-          {content}
-        </TextStyled>
-      </View>
-    </TouchableOpacity>
-  );
-};
+const DayButton = ({ content, onPress, active }) => (
+  <QButtonStyled onPress={onPress}>
+    <QButtonContentContainer hitSlop={hitSlop(qButtonSize)} backgroundColor={active ? '#4030A5' : '#eeeeee'}>
+      <QButtonContent color={active ? '#eeeeee' : '#000000'}>{content}</QButtonContent>
+    </QButtonContentContainer>
+  </QButtonStyled>
+);
 
-// const QButtonContent = styled(TextStyled)`
-//   font-size: 16px;
-//   font-weight: bold;
-//   line-height: 25px;
-//   justify-content: center;
-//   align-items: center;
-//   text-align-vertical: center;
-// `;
+const qButtonSize = 35;
+const QButtonStyled = styled.TouchableOpacity`
+  padding: 1px;
+`;
+
+const QButtonContentContainer = styled.View`
+  height: ${qButtonSize}px;
+  width: ${qButtonSize}px;
+  border-radius: ${qButtonSize}px;
+  border: 1px solid #4030a5;
+  justify-content: center;
+  align-items: center;
+`;
+
+const QButtonContent = styled(TextStyled)`
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 25px;
+  justify-content: center;
+  align-items: center;
+  text-align-vertical: center;
+`;
 
 export default Goal;

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { View, Text } from 'react-native';
 import styled, { css } from 'styled-components';
 import { getIcon } from '../scenes/ConsoFollowUp/drinksCatalog';
@@ -7,19 +7,17 @@ import QButton from './QButton';
 import TextStyled from './TextStyled';
 import TouchableDelete from './TouchableDelete';
 
-const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, drink }) => {
+const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, catalog }) => {
+  const drink = catalog.find((catalogDrink) => catalogDrink.drinkKey === drinkKey);
   const Icon = getIcon(drink.icon);
   const volume = drink.volume;
   const doses = drink.doses;
   const style = drink.style || {};
   const name = drink.displayDrinkModal.capitalize();
-  const onSetQuantity = useCallback(
-    (q) => {
-      if (asPreview) return;
-      setDrinkQuantity(drinkKey, q);
-    },
-    [asPreview, drinkKey, setDrinkQuantity]
-  );
+  const onSetQuantity = (q) => {
+    if (asPreview) return;
+    setDrinkQuantity(drinkKey, q);
+  };
 
   if (oneLine) {
     return (

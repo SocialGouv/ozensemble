@@ -1,13 +1,13 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components';
-import { View, Text } from 'react-native';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 import ButtonPrimary from '../../../components/ButtonPrimary';
+import styled from 'styled-components';
 import { screenWidth } from '../../../styles/theme';
 import { logEvent } from '../../../services/logEventsWithMatomo';
+import { View, Text } from 'react-native';
 
 const AlcoolWithdrawalBenefits = () => {
   const title = 'Les bénéfices au sevrage';
@@ -33,17 +33,13 @@ const AlcoolWithdrawalBenefits = () => {
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
             <Text className="text-white font-bold text-base">3</Text>
           </View>
-          <Text className="font-semibold">
-            Ne pas prendre «{'\u00A0'}juste un verre de plus{'\u00A0'}» qui en appelle un autre{' '}
-          </Text>
+          <Text className="font-semibold">Ne pas prendre «{'\u00A0'}juste un verre de plus{'\u00A0'}» qui en appelle un autre </Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
             <Text className="text-white font-bold text-base">4</Text>
           </View>
-          <Text className="font-semibold">
-            Ne pas «{'\u00A0'}compenser{'\u00A0'}» avec du tabac, café, sucre{' '}
-          </Text>
+          <Text className="font-semibold">Ne pas «{'\u00A0'}compenser{'\u00A0'}» avec du tabac, café, sucre </Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">

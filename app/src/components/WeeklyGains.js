@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Dimensions, PixelRatio, View, Text, TouchableOpacity } from 'react-native';
+import { Dimensions, Text, TouchableOpacity, View, PixelRatio } from 'react-native';
+
 import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
-import { consolidatedCatalogObjectSelector, dailyDosesSelector, drinksState } from '../recoil/consos';
+import { consolidatedCatalogSelector, dailyDosesSelector, drinksState } from '../recoil/consos';
 import { previousDrinksPerWeekState } from '../recoil/gains';
 import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
@@ -13,7 +14,7 @@ const WeeklyGains = ({ selectedMonth }) => {
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42; // 35 days if the month run on 5 weeks, 42 if it run on 6 weeks
-  const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
+  const catalog = useRecoilValue(consolidatedCatalogSelector);
   const drinks = useRecoilValue(drinksState);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
@@ -27,7 +28,8 @@ const WeeklyGains = ({ selectedMonth }) => {
   const myWeeklyKcalBeforeObjective = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
-        (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
+        (sum, drink) =>
+          sum + drink.quantity * (catalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -35,7 +37,8 @@ const WeeklyGains = ({ selectedMonth }) => {
   const myWeeklyExpensesBeforeObjective = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
-        (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
+        (sum, drink) =>
+          sum + drink.quantity * (catalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -71,7 +74,7 @@ const WeeklyGains = ({ selectedMonth }) => {
       })
       .forEach((conso) => {
         const weekNumber = dayjs(conso.timestamp).diff(firstDayOfCalendar, 'week');
-        const drinkFromCatalog = catalogObject[conso.drinkKey];
+        const drinkFromCatalog = catalog.find((_drink) => _drink.drinkKey === conso.drinkKey);
         if (conso.drinkKey !== 'no-conso') {
           _weekInfos[weekNumber].kcal += drinkFromCatalog.kcal * conso.quantity;
           _weekInfos[weekNumber].euros += drinkFromCatalog.price * conso.quantity;

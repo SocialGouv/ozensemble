@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { StyleSheet, View, Platform, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Platform, TouchableOpacity } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import TextStyled from '../components/TextStyled';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../styles/theme';

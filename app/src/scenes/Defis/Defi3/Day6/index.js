@@ -1,24 +1,24 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { createStackNavigator } from '@react-navigation/stack';
 import { setValidatedDays } from '../../utils';
+import { createStackNavigator } from '@react-navigation/stack';
 import { riskSituationsAnswersKeysSelector } from '../../../../recoil/quizzs';
 import { defi2EmotionState } from '../../../../recoil/defis';
 import emotions from '../../../../components/emotions';
+import { useRecoilValue } from 'recoil';
 import Doctolib from '../../../Health/Doctolib';
 import ContactForm from '../../../Health/ContactForm';
 import { Conseils, Explications } from './Screens';
 
 const Day6Stack = createStackNavigator();
 
-const Defi3_Day6 = ({ route }) => {
+const Defi3_Day6 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const answersRiskSituations = useRecoilValue(riskSituationsAnswersKeysSelector);
   const emotionValue = useRecoilValue(defi2EmotionState);
   const emotion = emotions.find((e) => e.value === emotionValue);
   const answerSection = answersRiskSituations[0]?.answerKey.split('.')[0];
-  const situationText = answerSection === 1 ? 'C’est une situation extérieure' : 'C’est une situation intérieure';
+  const situationText = answerSection == 1 ? 'C’est une situation extérieure' : 'C’est une situation intérieure';
 
   useEffect(() => {
     if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');

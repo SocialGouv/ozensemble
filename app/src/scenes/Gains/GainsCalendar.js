@@ -2,11 +2,11 @@ import dayjs from 'dayjs';
 import React, { useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
-import { View } from 'react-native';
 import H1 from '../../components/H1';
 import { dailyDosesSelector } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { View } from 'react-native';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
@@ -19,7 +19,7 @@ markedDates is an object with keys such as `2022-04-30` and values such as
       }
 
 */
-const noDrinkDay = () => ({
+const noDrinkDay = (activeMonth) => ({
   selected: true,
   startingDay: true,
   endingDay: true,
@@ -29,7 +29,7 @@ const noDrinkDay = () => ({
   activeOpacity: 0.5,
 });
 
-const drinkDay = () => ({
+const drinkDay = (activeMonth) => ({
   selected: true,
   startingDay: true,
   endingDay: true,
@@ -51,13 +51,17 @@ const needToFillupConso = {
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
   const dailyDoses = useRecoilValue(dailyDosesSelector);
+  const [currentMonth, setCurrentMonth] = React.useState(dayjs().format('YYYY-MM'));
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
-      days[day] = doses > 0 ? drinkDay() : noDrinkDay();
+      days[day] =
+        doses > 0
+          ? drinkDay(dayjs(day).isSame(currentMonth, 'month'))
+          : noDrinkDay(dayjs(day).isSame(currentMonth, 'month'));
       days[day] = { ...days[day], marked: day === today };
     }
     const firstTrackedDay = dayjs().startOf('week').add(-1, 'week');
@@ -68,7 +72,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       days[day] = needToFillupConso;
     }
     return days;
-  }, [dailyDoses]);
+  }, [dailyDoses, currentMonth]);
 
   return (
     <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>

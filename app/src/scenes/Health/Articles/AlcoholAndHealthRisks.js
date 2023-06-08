@@ -1,8 +1,10 @@
 import React from 'react';
-import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
+import { Text } from 'react-native';
+import { Spacer, P, TopContainer, Bold, Underlined } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 import styled from 'styled-components';
+import { View } from 'react-native';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import AlcoholAndHealthRisks1 from '../../../components/illustrations/articles/AlcoholAndHealthRisks1';
 import AlcoholAndHealthRisks2 from '../../../components/illustrations/articles/AlcoholAndHealthRisks2';
@@ -12,7 +14,7 @@ import AlcoholAndHealthRisks5 from '../../../components/illustrations/articles/A
 import AlcoholAndHealthRisks6 from '../../../components/illustrations/articles/AlcoholAndHealthRisks6';
 import AlcoholAndHealthRisks7 from '../../../components/illustrations/articles/AlcoholAndHealthRisks7';
 
-const AlcoholAndHealthRisks = () => {
+const AlcoholAndHealthRisks = ({ navigation }) => {
   const title = 'Alcool et risques sur la santé';
   return (
     <NavigationWrapper

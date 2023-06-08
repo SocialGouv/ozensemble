@@ -1,9 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
-import { useNavigation } from '@react-navigation/native';
 import H2 from '../../../../components/H2';
 import { P } from '../../../../components/Articles';
+import { useNavigation } from '@react-navigation/native';
 import TextStyled from '../../../../components/TextStyled';
 
 const ResultAddiction = ({ value }) => {

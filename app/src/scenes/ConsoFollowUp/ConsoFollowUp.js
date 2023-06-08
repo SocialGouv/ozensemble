@@ -2,15 +2,20 @@ import React, { useRef, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { findNodeHandle, TouchableOpacity, View, Text } from 'react-native';
 import { useRecoilValue } from 'recoil';
-import { useNavigation } from '@react-navigation/native';
 import OnBoardingModal from '../../components/OnBoardingModal';
+import styled from 'styled-components';
+
+import { drinksState } from '../../recoil/consos';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import HeaderBackground from '../../components/HeaderBackground';
 import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
+import GainsCalendar from '../Gains/GainsCalendar';
 import { ScrollView } from 'react-native-gesture-handler';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { useNavigation } from '@react-navigation/native';
+
 import LegendHelpModal from './LegendHelpModal';
 import { isOnboardedSelector } from '../../recoil/gains';
 import Feed from './Feed';
@@ -18,11 +23,6 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
 import LegendStar from '../../components/illustrations/icons/LegendStar';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import LegendInfos from '../../components/illustrations/icons/LegendInfos';
-import CheckDefisValidated from '../../components/illustrations/icons/CheckDefisValidated';
-import CrossDefisFailed from '../../components/illustrations/icons/CrossDefisFailed';
-import OnGoingGoal from '../../components/illustrations/icons/OnGoingGoal';
-import GainsCalendar from '../Gains/GainsCalendar';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -46,7 +46,7 @@ const ConsoFollowUpNavigator = () => {
 export default ConsoFollowUpNavigator;
 
 const ConsoFollowUp = () => {
-  const now = Date.now();
+  const showWelcomeMessage = !useRecoilValue(drinksState)?.length;
   const scrollViewRef = useRef(null);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigation = useNavigation();
@@ -61,7 +61,6 @@ const ConsoFollowUp = () => {
     navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
     setShowOnboardingGainModal(false);
   };
-
   const scrollToInput = (ref) => {
     if (!ref) return;
     if (!scrollViewRef.current) return;
@@ -76,9 +75,8 @@ const ConsoFollowUp = () => {
       setDateToScroll(null);
     }, 250);
   };
-
   const isOnboarded = useRecoilValue(isOnboardedSelector);
-
+  console.log(isOnboarded);
   return (
     <ScrollView ref={scrollViewRef} className="bg-white">
       <GainsCalendar
@@ -108,18 +106,18 @@ const ConsoFollowUp = () => {
           {isOnboarded ? (
             <View>
               <View className="flex flex-row items-center">
-                <View className="bg-[#34D39A] w-5 h-5 rounded-md mt-1 mr-1" />
+                <View className="bg-[#34D39A] w-5 h-5 rounded-md mt-1 mr-1"></View>
                 <Text className="text-xs mt-1">Dans l'objectif</Text>
               </View>
               <View className="flex flex-row items-center">
-                <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1" />
+                <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1"></View>
                 <Text className="text-xs mt-1">Au dessus de l'objectif</Text>
               </View>
             </View>
           ) : (
             <View>
               <View className="flex flex-row items-center">
-                <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1" />
+                <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1"></View>
                 <Text className="text-xs mt-1">Bu</Text>
               </View>
             </View>
@@ -154,7 +152,7 @@ const ConsoFollowUp = () => {
           )}
         </View>
       </TouchableOpacity>
-      <Feed scrollToInput={scrollToInput} dateToScroll={dateToScroll} />
+      <Feed hideFeed={showWelcomeMessage} scrollToInput={scrollToInput} dateToScroll={dateToScroll} />
 
       <OnBoardingModal
         title="Sans objectif, pas de gains"
@@ -175,3 +173,7 @@ const ConsoFollowUp = () => {
     </ScrollView>
   );
 };
+
+const FeedAddConsoTodayContainer = styled.View`
+  align-items: center;
+`;

@@ -174,7 +174,7 @@ const CocktailPersonalisation = ({
   const deleteDrink = async () => {
     setOwnDrinksCatalog((oldState) => {
       return oldState.map((oldDrink) =>
-        oldDrink.drinkKey === drink.drinkKey ? { ...oldDrink, isDeleted: true } : oldDrink
+        oldDrink.drinkKey == drink.drinkKey ? { ...oldDrink, isDeleted: true } : oldDrink
       );
     });
   };

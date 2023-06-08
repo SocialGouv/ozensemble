@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
+import { Text, View } from 'react-native';
 import CravingSchema from '../../../components/illustrations/articles/CravingSchema';
+import { useNavigation } from '@react-navigation/native';
 
 const CravingsTreatment = () => {
   const title = "Traitement médicamenteux du craving (l'envie)";

@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { SafeAreaView } from 'react-native';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -13,6 +12,7 @@ import {
 } from '../../recoil/gains';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+import { SafeAreaView } from 'react-native';
 
 const Sevrage = ({ navigation, route }) => {
   const daysWithGoalNoDrink = useRecoilValue(daysWithGoalNoDrinkState);
@@ -21,7 +21,7 @@ const Sevrage = ({ navigation, route }) => {
 
   return (
     <>
-      <SafeAreaView className="bg-[#39CEC0]" />
+      <SafeAreaView className="bg-[#39CEC0]"></SafeAreaView>
       <WrapperContainer title={'Les signes de sevrages'} onPressBackButton={navigation.goBack}>
         <DescriptionSymptome>
           Le sevrage à l'alcool peut entraîner des complications graves et possiblement mortelles.

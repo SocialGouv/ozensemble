@@ -2,7 +2,6 @@ import { useIsFocused } from '@react-navigation/native';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useRecoilValue } from 'recoil';
 import { setValidatedDays } from '../utils';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
@@ -11,6 +10,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import { P, Spacer } from '../../../components/Articles';
 import Calculate from '../../../components/illustrations/icons/Calculate';
 import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
+import { useRecoilValue } from 'recoil';
 import { daysWithGoalNoDrinkState, isOnboardedSelector, maxDrinksPerWeekSelector } from '../../../recoil/gains';
 import H1 from '../../../components/H1';
 import Done from '../../../components/illustrations/Done';
@@ -222,6 +222,11 @@ const TimelineImage = styled.Image`
 
 const BulletPoint = styled.View`
   margin-top: 5px;
+`;
+
+const KeyPNG = styled.Image`
+  width: 35px;
+  height: ${(props) => props.height}px;
 `;
 
 const TextContainer = styled.View`

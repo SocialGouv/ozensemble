@@ -202,7 +202,7 @@ const Calendar = ({ onDayPress }) => {
     let previousDay = firstDayOfCalendar;
     let daysByWeek = [];
     for (let i = 1; i <= nbDays; ++i) {
-      const isDayIsSunday = i % 7 === 0;
+      isDayIsSunday = i % 7 === 0;
       if (isDayIsSunday) {
         const goalStatus = computeGoalSuccess(day);
         daysByWeek.push({ days: weekDays, goalStatus: goalStatus });
@@ -214,14 +214,14 @@ const Calendar = ({ onDayPress }) => {
       previousDay = day;
     }
     return daysByWeek;
-  }, [firstDayOfCalendar, computeGoalSuccess, computeStyleWithDrinks, nbDays]);
+  }, [firstDayOfCalendar, dailyDoses]);
 
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
     const newSize = 15 * widthBaseScale;
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
-  }, [widthBaseScale]);
+  }, [SCREEN_WIDTH]);
 
   return (
     <>

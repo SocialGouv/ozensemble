@@ -1,9 +1,10 @@
 import React from 'react';
-import { Spacer, P, TopContainer, Bold } from './../../../components/Articles';
+import { Text } from 'react-native';
+import { Spacer, P, TopContainer, Bold, Underlined } from './../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 
-const ToHelpMeReduce = () => {
+const ToHelpMeReduce = ({ navigation }) => {
   const title = "Pour m'aider à réduire";
   return (
     <NavigationWrapper

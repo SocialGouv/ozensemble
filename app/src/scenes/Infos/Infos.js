@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import InAppReview from 'react-native-in-app-review';
 import appJson from '../../../app.json';
 import Background from '../../components/Background';
 import HeaderBackground from '../../components/HeaderBackground';
@@ -25,7 +23,9 @@ import ShareAppIcon from '../../components/illustrations/icons/ShareAppIcon';
 import RateAppIcon from '../../components/illustrations/icons/RateAppIcon';
 import GiveFeedbackIcon from '../../components/illustrations/icons/GiveFeedbackIcon';
 import FilesIcon from '../../components/illustrations/icons/FilesIcon';
+import InAppReview from 'react-native-in-app-review';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { useRecoilValue } from 'recoil';
 import { isOnboardedSelector } from '../../recoil/gains';
 
 const InfosStack = createStackNavigator();
@@ -76,7 +76,7 @@ const InfosMenu = ({ navigation }) => {
               shareApp();
             }}
           />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-"></View>
           <MenuItem
             caption={'Donner mon avis'}
             Icon={GiveFeedbackIcon}
@@ -88,7 +88,7 @@ const InfosMenu = ({ navigation }) => {
               navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Infos' });
             }}
           />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4"></View>
           <MenuItem
             caption={'Noter 5 étoiles'}
             Icon={RateAppIcon}
@@ -111,7 +111,7 @@ const InfosMenu = ({ navigation }) => {
             Icon={PreviousConsumption}
             onPress={() => navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION')}
           />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-"></View>
           <MenuItem
             caption={'Mon objectif par semaine'}
             Icon={GoalSetup}
@@ -128,7 +128,7 @@ const InfosMenu = ({ navigation }) => {
               }
             }}
           />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4"></View>
           <MenuItem
             caption={'Mon rappel'}
             Icon={ReminderIcon}
@@ -153,7 +153,7 @@ const InfosMenu = ({ navigation }) => {
               }
             }}
           />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4"></View>
           <MenuItem
             caption={'Exporter mes consommations'}
             Icon={ExportDataIcon}
@@ -173,9 +173,9 @@ const InfosMenu = ({ navigation }) => {
             Icon={FilesIcon}
             onPress={() => navigation.push('CGU')}
           />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-"></View>
           <MenuItem caption={'Mentions Légales'} Icon={FilesIcon} onPress={() => navigation.push('MENTIONS_LEGALES')} />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4"></View>
           <MenuItem
             caption={'Politique de confidentialité'}
             Icon={FilesIcon}
@@ -218,4 +218,9 @@ export default Infos;
 
 const VersionLabel = styled(TextStyled)`
   color: #ddd;
+`;
+
+const Arrow = styled(TextStyled)`
+  color: #4030a5;
+  font-weight: bold;
 `;

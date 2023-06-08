@@ -13,7 +13,7 @@ import WrapperContainer from '../../../components/WrapperContainer';
 
 const QuizzMotivationsStack = createStackNavigator();
 
-const QuizzMotivations = ({ route }) => {
+const QuizzMotivations = ({ navigation, route }) => {
   const [motivationsQuizzAnswers, setMotivationsQuizzAnswers] = useRecoilState(motivationsQuizzAnswersState);
   const setMotivationsQuizzResult = useSetRecoilState(motivationsQuizzResultState);
 

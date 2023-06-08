@@ -34,48 +34,33 @@ const highestDosesInPeriodSelector = selectorFamily({
   get:
     ({ period } = {}) =>
     ({ get }) => {
-      const now = Date.now();
       const dailyDoses = get(dailyDosesSelector);
-      console.log('highestDosesInPeriodSelector 1', Date.now() - now);
       let bars_doses = {};
       if (period === 'day') {
-        const highestDose = Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
-        console.log('highestDosesInPeriodSelector 2', Date.now() - now);
-        return highestDose;
+        return Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
       } else if (period === 'week') {
-        console.log('highestDosesInPeriodSelector 3', Date.now() - now);
         let week_number = 0;
         let end_of_this_week = dayjs().endOf('week');
-        for (const [date, doses] of Object.entries(dailyDoses)) {
-          // console.log('highestDosesInPeriodSelector 4', Date.now() - now);
+        Object.keys(dailyDoses).map((date) => {
           week_number = Math.abs(Math.trunc(end_of_this_week.diff(dayjs(date), 'days') / 7));
-          // console.log('highestDosesInPeriodSelector 5', Date.now() - now);
           if (bars_doses[week_number]) {
-            bars_doses[week_number] += doses;
+            bars_doses[week_number] += dailyDoses[date];
           } else {
-            bars_doses[week_number] = doses;
+            bars_doses[week_number] = dailyDoses[date];
           }
-          // console.log('highestDosesInPeriodSelector 6', Date.now() - now);
-        }
+        });
       } else {
-        console.log('highestDosesInPeriodSelector 7', Date.now() - now);
         let month_year;
-        for (const [date, doses] of Object.entries(dailyDoses)) {
-          // console.log('highestDosesInPeriodSelector 8', Date.now() - now);
-          month_year = date.slice(0, 'YYYY-MM'.length);
-          // console.log('highestDosesInPeriodSelector 9', Date.now() - now);
+        Object.keys(dailyDoses).map((date) => {
+          month_year = dayjs(date).format('YYYY-MM');
           if (bars_doses[month_year]) {
-            bars_doses[month_year] = bars_doses[month_year] + doses;
+            bars_doses[month_year] = bars_doses[month_year] + dailyDoses[date];
           } else {
-            bars_doses[month_year] = doses;
+            bars_doses[month_year] = dailyDoses[date];
           }
-          // console.log('highestDosesInPeriodSelector 10', Date.now() - now);
-        }
+        });
       }
-      console.log('highestDosesInPeriodSelector 11', Date.now() - now);
-      const highestDose = Math.min(maxDosesOnScreen, Math.max(...Object.values(bars_doses)));
-      console.log('highestDosesInPeriodSelector 12', Date.now() - now);
-      return highestDose;
+      return Math.min(maxDosesOnScreen, Math.max(...Object.values(bars_doses)));
     },
 });
 
