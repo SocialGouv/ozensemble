@@ -250,8 +250,10 @@ const Reminder = ({
   const notificationListener = useRef();
   useEffect(() => {
     getReminder(false);
-    notificationListener.current = NotificationService.listen(handleNotification);
-    return () => NotificationService.remove(notificationListener.current);
+    notificationListener.current = NotificationService.subscribe(handleNotification);
+    return () => {
+      NotificationService.unsubscribe(notificationListener.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
