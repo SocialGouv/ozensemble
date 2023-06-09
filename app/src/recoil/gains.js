@@ -48,8 +48,40 @@ export const isOnboardedSelector = selector({
   key: 'isOnboardedSelector',
   get: ({ get }) => {
     const badges = get(badgesState);
-    console.log({ badges });
     const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
     return firstBadge ? true : false;
   },
 });
+
+export const goalsState = atom({
+  key: 'goalsState',
+  default: getInitValueFromStorage('goalsState', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('goalsState', JSON.stringify(newValue)))],
+  /*
+  array of
+      {
+        id: `${user.id}_${date}`,
+        userId: user.id,
+        date,
+        daysWithGoalNoDrink,
+        dosesByDrinkingDay,
+        dosesPerWeek,
+        status: "InProgress",
+      }
+   */
+});
+
+export const goalsByWeekState = selector({
+  key: 'goalsByWeekState',
+  get: ({ get }) => {
+    const goals = get(goalsState);
+    const goalsByWeek = {};
+    for (const goal of goals) {
+      const startOfWeek = goal.date;
+      goalsByWeek[startOfWeek] = goal;
+    }
+    return goalsByWeek;
+  },
+});
+
+// export const goalSuccessSelector = selectorFamily({

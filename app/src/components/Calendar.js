@@ -1,10 +1,10 @@
 import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
-import { useRecoilValue } from 'recoil';
-import { dailyDosesSelector } from '../recoil/consos';
-import { totalDrinksByDrinkingDaySelector, daysWithGoalNoDrinkState, maxDrinksPerWeekSelector } from '../recoil/gains';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { derivedDataFromDrinksState } from '../recoil/consos';
+import { goalsState } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import { hitSlop } from '../styles/theme';
@@ -15,28 +15,74 @@ import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
 import ModalGoal from './ModalGoal';
 import OnGoingGoal from './illustrations/icons/OnGoingGoal';
+
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+const dayStyles = {
+  goalExistsButNotRespected: {
+    borderStyle: 'solid',
+    borderColor: '#FC8383',
+    backgroundColor: '#FC8383',
+    textColor: '#fff',
+    isStar: false,
+  },
+  goalExistsAndDosesWithinGoal: {
+    borderStyle: 'solid',
+    borderColor: '#34D39A',
+    backgroundColor: '#34D39A',
+    textColor: '#fff',
+    isStar: false,
+  },
+  goalExistsAndNoDoses: {
+    borderStyle: 'solid',
+    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+    textColor: '#fff',
+    isStar: true,
+  },
+  noGoalAndDoses: {
+    borderStyle: 'solid',
+    borderColor: '#FC8383',
+    backgroundColor: '#FC8383',
+    textColor: '#fff',
+    isStar: false,
+  },
+  noGoalAndNoDoses: {
+    borderStyle: 'solid',
+    borderColor: 'transparent',
+    backgroundColor: 'transparent',
+    textColor: '#fff',
+    isStar: false,
+  },
+  notFilled: {
+    borderStyle: 'dashed',
+    borderColor: '#4030A5',
+    backgroundColor: 'white',
+    textColor: '#4030A5',
+    isStar: false,
+  },
+};
+
+const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
+
+// arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
+const widthBaseScale = SCREEN_WIDTH / 414;
+const fontSize = Math.round(PixelRatio.roundToNearestPixel(15 * widthBaseScale));
+
 const Calendar = ({ onDayPress }) => {
-  const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
+  let now = Date.now();
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
-  const firstDayOfCalendar = firstDayOfMonth.startOf('week');
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
-  const maxDosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-  const daysWithNoDrinkGoal = useRecoilValue(daysWithGoalNoDrinkState);
-  const maxDosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
+  const firstDayOfCalendar = firstDayOfMonth.startOf('week').format('YYYY-MM-DD');
+  const today = dayjs().startOf('day');
+  const { calendarDays, calendarGoalsStartOfWeek } = useRecoilValue(derivedDataFromDrinksState);
   const [modalContent, setModalContent] = useState(null);
-  const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
-  const [goals, setGoals] = useState([
-    {
-      date: dayjs(),
-      dosesByDrinkingDay: maxDosesByDrinkingDay,
-      dosesPerWeek: maxDosesPerWeek,
-      daysWithGoalNoDrink: daysWithNoDrinkGoal,
-    },
-  ]);
+  const nbDays = dayjs(firstDayOfCalendar).add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
+  const [goals, setGoals] = useRecoilState(goalsState);
+
+  // console.log(JSON.stringify({ calendarGoalsStartOfWeek }, null, 2));
+
   useFocusEffect(
     useCallback(() => {
       API.get({
@@ -47,181 +93,55 @@ const Calendar = ({ onDayPress }) => {
       })
         .then((res) => {
           if (res.ok) {
-            setGoals(res.data);
+            if (JSON.stringify(res.data) !== JSON.stringify(goals)) {
+              setGoals(res.data);
+            }
           }
         })
         .catch((err) => console.log('Get goals err', err));
-    }, [setGoals])
+    }, [setGoals, goals])
   );
 
-  const computeGoalSuccess = (day) => {
-    const goalRegistered = goals[0]?.dosesPerWeek;
-    let searchedDay = day.subtract(6, 'day');
-    const weekStarted = searchedDay.diff(dayjs().startOf('day')) <= 0;
-    const goal = goals?.find((goal) => goal.date === searchedDay.format('YYYY-MM-DD'));
-    let sumDoses = 0;
-    let drinkingDay = 0;
-    let nbDaysRegistered = 0;
-    for (let i = 0; i < 7; ++i) {
-      const formatedDay = searchedDay.format('YYYY-MM-DD');
-      if (dailyDoses[formatedDay] >= 0) {
-        sumDoses += dailyDoses[formatedDay];
-        if (dailyDoses[formatedDay] > 0) {
-          drinkingDay++;
-        }
-        nbDaysRegistered++;
-      }
-      searchedDay = searchedDay.add(1, 'day');
-    }
-    if (!goalRegistered) {
-      return {
-        status: 'NoGoal',
-        consommationMessage:
-          'Fixez vous un objectif maximum de consommations pour analyser vos résultats chaque semaine',
-        consosWeek: sumDoses,
-      };
-    }
-    const checkedGoal = goal ? goal : goals[0];
-    if (nbDaysRegistered < 7) {
-      if (weekStarted) {
-        return {
-          status: 'Ongoing',
-          drinkingDayMessage:
-            'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
-          consosWeekGoal: checkedGoal.dosesPerWeek,
-          consosWeek: sumDoses,
-          drinkingDaysGoal: 7 - checkedGoal.daysWithGoalNoDrink.length,
-          drinkingDays: drinkingDay,
-        };
-      } else {
-        return 'WeekNotStarted';
-      }
-    }
-    if (sumDoses <= checkedGoal.dosesPerWeek && drinkingDay <= 7 - checkedGoal.daysWithGoalNoDrink.length) {
-      const consommationMessage = 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.';
-      const drinkingDayMessage = 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.';
-      return {
-        status: 'Success',
-        consommationMessage: consommationMessage,
-        drinkingDayMessage: drinkingDayMessage,
-        consosWeekGoal: checkedGoal.dosesPerWeek,
-        consosWeek: sumDoses,
-        drinkingDaysGoal: 7 - checkedGoal.daysWithGoalNoDrink.length,
-        drinkingDays: drinkingDay,
-      };
-    }
-    const consommationMessage =
-      sumDoses > checkedGoal.dosesPerWeek
-        ? 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.'
-        : 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.';
-
-    const drinkingDayMessage =
-      drinkingDay > 7 - checkedGoal.daysWithGoalNoDrink.length
-        ? 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.'
-        : 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.';
-    return {
-      status: 'Fail',
-      consommationMessage: consommationMessage,
-      drinkingDayMessage: drinkingDayMessage,
-      consosWeekGoal: checkedGoal.dosesPerWeek,
-      consosWeek: sumDoses,
-      drinkingDaysGoal: 7 - checkedGoal.daysWithGoalNoDrink.length,
-      drinkingDays: drinkingDay,
-    };
-  };
-
-  const computeStyleWithDrinks = (day) => {
-    const formatedDay = day.format('YYYY-MM-DD');
-    const doses = dailyDoses[formatedDay];
-
-    // If there is doses for the day
-    if (doses >= 0) {
-      // If there is a goal registered
-      if (daysWithNoDrinkGoal.length !== 0) {
-        //there is a goal and doses > to the daily goal
-        if (doses > maxDosesByDrinkingDay) {
-          return {
-            borderStyle: 'solid',
-            borderColor: '#FC8383',
-            backgroundColor: '#FC8383',
-            textColor: '#fff',
-            isStar: false,
-          };
-        }
-        //there is a goal and the doses are like 0 < doses < daily goal
-        if (doses > 0) {
-          return {
-            borderStyle: 'solid',
-            borderColor: '#34D39A',
-            backgroundColor: '#34D39A',
-            textColor: '#fff',
-            isStar: false,
-          };
-        }
-        //there is a goal and the doses are 0
-        else {
-          return {
-            borderStyle: 'solid',
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            textColor: '#fff',
-            isStar: true,
-          };
-        }
-      }
-      // if there is no goal registered
-      else {
-        // if there is no goal and no doses
-        if (doses > 0) {
-          return {
-            borderStyle: 'solid',
-            borderColor: '#FC8383',
-            backgroundColor: '#FC8383',
-            textColor: '#fff',
-            isStar: false,
-          };
-        } // if there is no goal and doses
-        else {
-          return {
-            borderStyle: 'solid',
-            borderColor: 'transparent',
-            backgroundColor: 'transparent',
-            textColor: '#fff',
-            isStar: true,
-          };
-        }
-      }
-    } else {
-      return { borderStyle: 'dashed', borderColor: '#4030A5', backgroundColor: 'white', textColor: '#4030A5' };
-    }
-  };
-
   const calendarDayByWeek = useMemo(() => {
-    const firstDayStyles = computeStyleWithDrinks(firstDayOfCalendar);
-    let weekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
-    let previousDay = firstDayOfCalendar;
+    // console.log('Calendar 1', Date.now() - now);
+    // now = Date.now();
+    // console.log({ firstDayOfCalendar });
+    // console.log('Calendar 2', Date.now() - now);
+    // now = Date.now();
+    let weekDays = [];
     let daysByWeek = [];
-    for (let i = 1; i <= nbDays; ++i) {
-      const isDayIsSunday = i % 7 === 0;
+    let goalStatus = null;
+    for (let i = 0; i < nbDays; ++i) {
+      const isDayIsMonday = i % 7 === 0;
+      const isDayIsSunday = i % 7 === 6;
+      const day = dayjs(firstDayOfCalendar).add(i, 'days').format('YYYY-MM-DD');
+      // now = Date.now();
+      const styles = dayStyles[calendarDays[day] || 'notFilled'];
+      // console.log('Calendar computeStyleWithDrinks', Date.now() - now);
+      weekDays = [
+        ...weekDays,
+        {
+          day: day,
+          isAfterToday: dayjs(day).diff(today, 'day') > 0,
+          formattedDay: dayjs(day).format('D'),
+          styles: styles,
+        },
+      ];
+      if (isDayIsMonday) {
+        // now = Date.now();
+        goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
+        // console.log('Calendar computeGoalSuccess', Date.now() - now); // 30 ms
+      }
       if (isDayIsSunday) {
-        const goalStatus = computeGoalSuccess(day);
-        daysByWeek.push({ days: weekDays, goalStatus: goalStatus });
+        const bgColor = today.diff(dayjs(weekDays[0].day)) >= 0 ? '#F5F6FA' : 'none';
+        daysByWeek.push({ days: weekDays, goalStatus, bgColor });
         weekDays = [];
       }
-      const day = previousDay.add(1, 'day');
-      const styles = computeStyleWithDrinks(day);
-      weekDays = [...weekDays, { day: day, styles: styles }];
-      previousDay = day;
     }
+    // console.log('Calendar 3', Date.now() - now); // 222 ms mais fix peut import le nombre de consos
+    // now = Date.now();
     return daysByWeek;
-  }, [firstDayOfCalendar, computeGoalSuccess, computeStyleWithDrinks, nbDays]);
-
-  // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
-  const widthBaseScale = SCREEN_WIDTH / 414;
-  const fontSize = useMemo(() => {
-    const newSize = 15 * widthBaseScale;
-    return Math.round(PixelRatio.roundToNearestPixel(newSize));
-  }, [widthBaseScale]);
+  }, [firstDayOfCalendar, nbDays]);
 
   return (
     <>
@@ -262,53 +182,22 @@ const Calendar = ({ onDayPress }) => {
       </View>
       <View>
         {calendarDayByWeek.map((calendarWeek) => {
-          const bgColor = dayjs().startOf('day').diff(calendarWeek.days[0].day) >= 0 ? '#F5F6FA' : 'none';
           return (
             <View
               className="flex flex-row justify-between mt-2 rounded-lg"
               key={calendarWeek.days[0].day + 'week'}
-              style={{ backgroundColor: bgColor }}>
+              style={{ backgroundColor: calendarWeek.bgColor }}>
               {calendarWeek.days.map((calendarDay) => {
-                return calendarDay.day.diff(dayjs().startOf('day'), 'day') > 0 ? (
-                  <View
+                // console.log('Calendar day', Date.now() - now); // 520 ms fix peut importe le nombre de consos ~ 10 ~ 15 ms /day
+                return (
+                  <CalendarDay
                     key={calendarDay.day}
-                    className="flex flex-row grow items-center basis-4 justify-center aspect-square m-1">
-                    <Text
-                      className="text-[#DCE3E9] font-semibold"
-                      style={{
-                        fontSize: fontSize,
-                      }}>
-                      {calendarDay.day.date()}
-                    </Text>
-                  </View>
-                ) : (
-                  <TouchableOpacity
-                    key={calendarDay.day + 'blue'}
-                    className="flex flex-row grow basis-4 items-center justify-center rounded-lg aspect-square m-1"
-                    style={{
-                      borderStyle: calendarDay.styles.borderStyle,
-                      backgroundColor: calendarDay.styles.backgroundColor,
-                      borderColor: calendarDay.styles.borderColor,
-                      borderWidth: 1,
-                    }}
-                    onPress={() => {
-                      onDayPress(calendarDay.day.format('YYYY-MM-DD'));
-                    }}>
-                    {Boolean(calendarDay.styles.isStar) && (
-                      <View className="absolute">
-                        <LegendStar size={fontSize * 2.5} />
-                      </View>
-                    )}
-
-                    <Text
-                      className="font-semibold absolute"
-                      style={{
-                        fontSize: fontSize,
-                        color: calendarDay.styles.textColor,
-                      }}>
-                      {calendarDay.day.date()}
-                    </Text>
-                  </TouchableOpacity>
+                    day={calendarDay.day}
+                    styles={calendarDay.styles}
+                    isAfterToday={calendarDay.isAfterToday}
+                    formattedDay={calendarDay.formattedDay}
+                    onDayPress={onDayPress}
+                  />
                 );
               })}
               <View
@@ -326,8 +215,8 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
@@ -346,8 +235,8 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
@@ -365,15 +254,15 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
                     <OnGoingGoal size={fontSize * 1.8} />
                   </TouchableOpacity>
                 )}
-                {calendarWeek.goalStatus.status === 'NoGoal' && bgColor === '#F5F6FA' && (
+                {calendarWeek.goalStatus.status === 'NoGoal' && calendarWeek.bgColor === '#F5F6FA' && (
                   <TouchableOpacity
                     className="rounded-full bg-[#767676] flex flex-row grow aspect-square justify-center m-1 items-center"
                     onPress={() => {
@@ -385,8 +274,8 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: null,
                         consosWeekGoal: null,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
@@ -409,5 +298,43 @@ const Calendar = ({ onDayPress }) => {
     </>
   );
 };
+
+const CalendarDay = memo(({ day, isAfterToday, formattedDay, styles, onDayPress }) => {
+  return isAfterToday ? (
+    <View key={day} className="flex flex-row grow items-center basis-4 justify-center aspect-square m-1">
+      <Text className="text-[#DCE3E9] font-semibold" style={{ fontSize }}>
+        {formattedDay}
+      </Text>
+    </View>
+  ) : (
+    <TouchableOpacity
+      key={day + 'blue'}
+      className="flex flex-row grow basis-4 items-center justify-center rounded-lg aspect-square m-1"
+      style={{
+        borderStyle: styles.borderStyle,
+        backgroundColor: styles.backgroundColor,
+        borderColor: styles.borderColor,
+        borderWidth: 1,
+      }}
+      onPress={() => {
+        onDayPress(day);
+      }}>
+      {Boolean(styles.isStar) && (
+        <View className="absolute">
+          <LegendStar size={fontSize * 2.5} />
+        </View>
+      )}
+
+      <Text
+        className="font-semibold absolute"
+        style={{
+          fontSize: fontSize,
+          color: styles.textColor,
+        }}>
+        {formattedDay}
+      </Text>
+    </TouchableOpacity>
+  );
+});
 
 export default Calendar;

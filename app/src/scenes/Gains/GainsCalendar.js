@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import { View } from 'react-native';
 import H1 from '../../components/H1';
-import { dailyDosesSelector } from '../../recoil/consos';
+import { derivedDataFromDrinksState } from '../../recoil/consos';
 import Calendar from '../../components/Calendar';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { defaultPaddingFontScale } from '../../styles/theme';
@@ -50,10 +50,11 @@ const needToFillupConso = {
 };
 
 const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScroll }) => {
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
+  const { dailyDoses } = useRecoilValue(derivedDataFromDrinksState);
   const navigation = useNavigation();
 
   const markedDays = useMemo(() => {
+    const date = Date.now();
     const today = dayjs().format('YYYY-MM-DD');
     const days = { [today]: { marked: true } };
     for (const [day, doses] of Object.entries(dailyDoses)) {
@@ -67,8 +68,32 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
       if (days[day]) continue;
       days[day] = needToFillupConso;
     }
+    console.log('Gains calendar 1', Date.now() - date);
     return days;
   }, [dailyDoses]);
+
+  const handlenDayPress = useCallback(
+    (dateString) => {
+      if (!isOnboarded) return setShowOnboardingGainModal(true);
+      if (markedDays[dateString]?.isDrinkDay) {
+        setDateToScroll(dateString);
+      } else {
+        const now = dayjs();
+        const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+        navigation.push('ADD_DRINK', { timestamp: String(date) });
+        logEvent({
+          category: 'GAINS',
+          action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
+        });
+        logEvent({
+          category: 'CONSO',
+          action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+          name: 'FROM_GAINS',
+        });
+      }
+    },
+    [markedDays, setDateToScroll, isOnboarded, setShowOnboardingGainModal, navigation]
+  );
 
   return (
     <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
@@ -76,27 +101,7 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View>
-        <Calendar
-          onDayPress={(dateString) => {
-            if (!isOnboarded) return setShowOnboardingGainModal(true);
-            if (markedDays[dateString]?.isDrinkDay) {
-              setDateToScroll(dateString);
-            } else {
-              const now = dayjs();
-              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              navigation.push('ADD_DRINK', { timestamp: String(date) });
-              logEvent({
-                category: 'GAINS',
-                action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
-              });
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                name: 'FROM_GAINS',
-              });
-            }
-          }}
-        />
+        <Calendar onDayPress={handlenDayPress} />
       </View>
     </View>
   );

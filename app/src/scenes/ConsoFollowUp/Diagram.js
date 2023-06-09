@@ -5,7 +5,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { screenHeight } from '../../styles/theme';
-import { dailyDosesSelector } from '../../recoil/consos';
+import { derivedDataFromDrinksState } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
@@ -18,6 +18,7 @@ import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
 import DiagramHelpModal from './DiagramHelpModal';
 
 const maxDosesOnScreen = 999;
+const minBarHeight = 1;
 
 const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) => {
   const barHighestHeightPossible = screenHeight * 0.2;
@@ -29,78 +30,32 @@ const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) =
   };
 };
 
-const highestDosesInPeriodSelector = selectorFamily({
-  key: 'highestDosesInPeriodSelector',
-  get:
-    ({ period } = {}) =>
-    ({ get }) => {
-      const now = Date.now();
-      const dailyDoses = get(dailyDosesSelector);
-      console.log('highestDosesInPeriodSelector 1', Date.now() - now);
-      let bars_doses = {};
-      if (period === 'day') {
-        const highestDose = Math.min(maxDosesOnScreen, Math.max(...Object.values(dailyDoses)));
-        console.log('highestDosesInPeriodSelector 2', Date.now() - now);
-        return highestDose;
-      } else if (period === 'week') {
-        console.log('highestDosesInPeriodSelector 3', Date.now() - now);
-        let week_number = 0;
-        let end_of_this_week = dayjs().endOf('week');
-        for (const [date, doses] of Object.entries(dailyDoses)) {
-          // console.log('highestDosesInPeriodSelector 4', Date.now() - now);
-          week_number = Math.abs(Math.trunc(end_of_this_week.diff(dayjs(date), 'days') / 7));
-          // console.log('highestDosesInPeriodSelector 5', Date.now() - now);
-          if (bars_doses[week_number]) {
-            bars_doses[week_number] += doses;
-          } else {
-            bars_doses[week_number] = doses;
-          }
-          // console.log('highestDosesInPeriodSelector 6', Date.now() - now);
-        }
-      } else {
-        console.log('highestDosesInPeriodSelector 7', Date.now() - now);
-        let month_year;
-        for (const [date, doses] of Object.entries(dailyDoses)) {
-          // console.log('highestDosesInPeriodSelector 8', Date.now() - now);
-          month_year = date.slice(0, 'YYYY-MM'.length);
-          // console.log('highestDosesInPeriodSelector 9', Date.now() - now);
-          if (bars_doses[month_year]) {
-            bars_doses[month_year] = bars_doses[month_year] + doses;
-          } else {
-            bars_doses[month_year] = doses;
-          }
-          // console.log('highestDosesInPeriodSelector 10', Date.now() - now);
-        }
-      }
-      console.log('highestDosesInPeriodSelector 11', Date.now() - now);
-      const highestDose = Math.min(maxDosesOnScreen, Math.max(...Object.values(bars_doses)));
-      console.log('highestDosesInPeriodSelector 12', Date.now() - now);
-      return highestDose;
-    },
-});
-
 const diffWithPreviousWeekSelector = selectorFamily({
   key: 'diffWithPreviousWeekSelector',
   get:
     ({ firstDay }) =>
     ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector);
-      const firstDayLastWeek = dayjs(dayjs(firstDay).startOf('week')).add(-1, 'week');
+      const { dailyDoses } = get(derivedDataFromDrinksState);
+      const firstDayLastWeek = dayjs(firstDay).startOf('week').add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfLastWeek.push(nextDay);
       }
+
       if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0) return { fillConsoFirst: true };
+
       const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
         const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
         daysOfThisWeek.push(nextDay);
       }
+
       const lastWeekNumberOfDrinks = daysOfLastWeek
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
+
       const thisWeekNumberOfDrinks = daysOfThisWeek
         .map((day) => dailyDoses[day])
         .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
@@ -108,83 +63,85 @@ const diffWithPreviousWeekSelector = selectorFamily({
       const diff = Math.round(lastWeekNumberOfDrinks - thisWeekNumberOfDrinks);
       const decrease = diff > 0;
       const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
+
       return { diff, decrease, pourcentageOfDecrease, thisWeekNumberOfDrinks };
     },
 });
-const minBarHeight = 1;
+
 const Diagram = ({ inModalHelp = false }) => {
-  const [period, setPeriod] = useState('day');
-  const [firstDay, setFirstDay] = useState(dayjs().startOf('week'));
-  const lastDay = useMemo(
-    () =>
-      dayjs(firstDay)
-        .add(6, period)
-        .subtract(period === 'day' ? 0 : 1, 'day'),
-    [firstDay, period]
-  );
+  let now = Date.now();
+
+  const navigation = useNavigation();
+  const { dailyDoses, weeklyDoses, monthlyDoses } = useRecoilValue(derivedDataFromDrinksState);
+
+  // three kind of display:
+  // 'daily': we display the daily diagram for a week, from Monday to Sunday (6 bars)
+  // 'weekly': we display the weekly diagram for 6 weeks
+  // 'monthly': we display the monthly diagram for 6 weeks
+  const [period, setPeriod] = useState('daily'); // 'week', 'month'
+  const [firstDay, setFirstDay] = useState(() => dayjs().startOf('week'));
+  const lastDay = useMemo(() => {
+    if (period === 'weekly') return dayjs(firstDay).add(5, 'week').endOf('week');
+    if (period === 'monthly') return dayjs(firstDay).add(5, 'month').endOf('month');
+    // period === 'daily'
+    return dayjs(firstDay).add(6, 'day');
+  }, [firstDay, period]);
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-
-  const barsInPeriod = useMemo(() => {
+  now = Date.now();
+  const xAxis = useMemo(() => {
     const dates = [];
-    for (let i = 0; i <= (period === 'day' ? 6 : 5); i++) {
-      const nextDate = dayjs(firstDay).add(i, period).format('YYYY-MM-DD');
-      dates.push(nextDate);
+
+    // we'll display 7 bars if the period is'day' (from monday to sunday)
+    // we'll display 6 bars if period is  'week' or 'month'
+
+    const numberOfBars = period === 'daily' ? 7 : 6;
+
+    for (let i = 0; i < numberOfBars; i++) {
+      if (period === 'daily') {
+        const nextDate = dayjs(firstDay).add(i, 'day').format('YYYY-MM-DD');
+        dates.push(nextDate);
+      }
+      if (period === 'weekly') {
+        const nextDate = dayjs(firstDay).add(i, 'week').format('YYYY-MM-DD');
+        dates.push(nextDate);
+      }
+      if (period === 'monthly') {
+        const nextDate = dayjs(firstDay).add(i, 'month').format('YYYY-MM-DD');
+        dates.push(nextDate);
+      }
     }
     return dates;
   }, [firstDay, period]);
 
-  const generateBarsValues = (day) => {
-    if (dayjs(day).isAfter(dayjs())) {
-      return null;
+  const yValues = useMemo(() => {
+    const values = [];
+    for (const xValue of xAxis) {
+      if (period === 'daily') {
+        values.push(Math.min(maxDosesOnScreen, dailyDoses[xValue] ?? 0));
+      }
+      if (period === 'weekly') {
+        values.push(Math.min(maxDosesOnScreen, weeklyDoses[xValue] ?? 0));
+      }
+      if (period === 'monthly') {
+        values.push(Math.min(maxDosesOnScreen, monthlyDoses[xValue.slice(0, 'YYYY-MM'.length)] ?? 0));
+      }
     }
+    return values;
+  }, [xAxis, period]);
 
-    if (dailyDoses[day] < 0) {
-      return -1;
-    }
-
-    let total = 0;
-    let howManyKnownValues = 0;
-    switch (period) {
-      case 'month':
-        for (let i = 0; dayjs(day).add(i, 'day') < dayjs(day).add(1, 'month'); i++) {
-          const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
-          if (dayValue >= 0) {
-            howManyKnownValues++;
-            total += dayValue;
-          }
-        }
-        return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
-
-      case 'week':
-        for (let i = 0; i <= 6; i++) {
-          const dayValue = dailyDoses[dayjs(day).add(i, 'day').format('YYYY-MM-DD')];
-          if (dayValue >= 0) {
-            howManyKnownValues++;
-            total += dayValue;
-          }
-        }
-        return Math.min(maxDosesOnScreen, howManyKnownValues > 0 ? total : undefined);
-
-      default:
-        return Math.min(maxDosesOnScreen, dailyDoses[day]);
-    }
-  };
-
-  const navigation = useNavigation();
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
-
-  const highestDosesInPeriod = useRecoilValue(highestDosesInPeriodSelector({ period }));
+  const highestDosesInPeriod = Math.max(...yValues);
   const highestAcceptableDosesPerDayByOMS = 2;
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const highestAcceptableDosesInPeriod = useMemo(() => {
     switch (period) {
-      case 'month':
+      case 'monthly':
         return maxDrinksPerWeekGoal * 4.33 || highestAcceptableDosesPerDayByOMS * 30;
 
-      case 'week':
+      case 'weekly':
         return maxDrinksPerWeekGoal || highestAcceptableDosesPerDayByOMS * 7;
 
+      case 'daily':
       default:
         return totalDrinksByDrinkingDay || highestAcceptableDosesPerDayByOMS;
     }
@@ -217,7 +174,9 @@ const Diagram = ({ inModalHelp = false }) => {
         period={period}
         setPeriod={(newPeriod) => {
           setPeriod(newPeriod);
-          setFirstDay(newPeriod === 'day' ? dayjs().startOf('week') : dayjs().startOf(newPeriod).add(-5, newPeriod));
+          if (newPeriod === 'daily') setFirstDay(dayjs().startOf('week'));
+          if (newPeriod === 'weekly') setFirstDay(dayjs().startOf('week').add(-5, 'weeks'));
+          if (newPeriod === 'monthly') setFirstDay(dayjs().startOf('month').add(-5, 'months'));
         }}
       />
       <PeriodSelector
@@ -230,58 +189,57 @@ const Diagram = ({ inModalHelp = false }) => {
       />
 
       <BarsContainer height={barMaxHeight + doseTextHeight}>
-        {barsInPeriod
-          .map((bar) => generateBarsValues(bar))
-          .map((dailyDose, index) => {
-            if (dailyDose === null || dailyDose === undefined) {
-              return <Bar key={index} height={doseHeight * highestAcceptableDosesInPeriod} empty />;
-            }
-            const dailyDoseHeight = Math.round(dailyDose > 0 && dailyDose) || 0;
-            const underLineValue = Math.min(dailyDoseHeight, highestAcceptableDosesInPeriod);
-            const overLineValue =
-              dailyDoseHeight > highestAcceptableDosesInPeriod && dailyDoseHeight - highestAcceptableDosesInPeriod;
+        {yValues.map((yValue, index) => {
+          if (yValue === null || yValue === undefined) {
+            return <Bar key={index} height={doseHeight * highestAcceptableDosesInPeriod} empty />;
+          }
 
-            return (
-              <Bar
-                key={index}
-                height={(doseHeight * dailyDoseHeight || minBarHeight) + doseTextHeight}
-                heightFactor={dailyDoseHeight || 0}>
-                {dailyDose >= 0 ? (
-                  <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
-                    {Math.round(dailyDose)}
-                  </Dose>
-                ) : (
-                  <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
-                    ?
-                  </Dose>
-                )}
-                {Boolean(overLineValue) && (
-                  <UpperBar bottom={doseHeight * highestAcceptableDosesInPeriod} height={doseHeight * overLineValue} />
-                )}
-                <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
-              </Bar>
-            );
-          })}
-        {period === 'day' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 1 && (
+          const barHeight = yValue > 0 ? Math.round(yValue) : 0;
+          const underLineValue = Math.min(barHeight, highestAcceptableDosesInPeriod);
+          const overLineValue =
+            barHeight > highestAcceptableDosesInPeriod && barHeight - highestAcceptableDosesInPeriod;
+
+          return (
+            <Bar
+              key={index}
+              height={(doseHeight * barHeight || minBarHeight) + doseTextHeight}
+              heightFactor={barHeight || 0}>
+              {yValue >= 0 ? (
+                <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                  {Math.round(yValue)}
+                </Dose>
+              ) : (
+                <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                  ?
+                </Dose>
+              )}
+              {Boolean(overLineValue) && (
+                <UpperBar bottom={doseHeight * highestAcceptableDosesInPeriod} height={doseHeight * overLineValue} />
+              )}
+              <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
+            </Bar>
+          );
+        })}
+        {period === 'daily' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 1 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
-        {period === 'week' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+        {period === 'weekly' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
-        {period === 'month' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
+        {period === 'monthly' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
       </BarsContainer>
       <LegendsContainer>
-        {barsInPeriod.map((day, index) => {
+        {xAxis.map((day, index) => {
           switch (period) {
-            case 'month':
+            case 'monthly':
               return (
                 <LegendContainer backgound={'transparent'} key={index}>
                   <Legend color={'#4030A5'}>{dayjs(day).format('MMM').capitalize().slice(0, 3)}</Legend>
                 </LegendContainer>
               );
-            case 'week':
+            case 'weekly':
               return (
                 <LegendContainer backgound={'transparent'} key={index}>
                   <Legend color={'#4030A5'}>
@@ -289,6 +247,7 @@ const Diagram = ({ inModalHelp = false }) => {
                   </Legend>
                 </LegendContainer>
               );
+            case 'daily':
             default:
               const formatday = dayjs(day).format('ddd').capitalize().slice(0, 3);
               const backgound = isToday(day) ? '#4030A5' : 'transparent';
@@ -310,7 +269,7 @@ const Diagram = ({ inModalHelp = false }) => {
       )}
 
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
-      {!!showIncrease && !inModalHelp && period === 'day' && (
+      {!!showIncrease && !inModalHelp && period === 'daily' && (
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
@@ -332,7 +291,7 @@ const Diagram = ({ inModalHelp = false }) => {
           }
         />
       )}
-      {!!showDecrease && !inModalHelp && period === 'day' && (
+      {!!showDecrease && !inModalHelp && period === 'daily' && (
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
@@ -346,7 +305,7 @@ const Diagram = ({ inModalHelp = false }) => {
           }
         />
       )}
-      {!!showStable && !inModalHelp && period === 'day' && (
+      {!!showStable && !inModalHelp && period === 'daily' && (
         <EvolutionMessage
           background="#F9F9F9"
           border="#C4C4C4"
@@ -367,7 +326,7 @@ const Diagram = ({ inModalHelp = false }) => {
           }
         />
       )}
-      {!!showFillConsosFirst && !inModalHelp && period === 'day' && (
+      {!!showFillConsosFirst && !inModalHelp && period === 'daily' && (
         <EvolutionMessage
           background="#e8e8f3"
           border="#4030a5"

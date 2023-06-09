@@ -138,12 +138,13 @@ model Goal {
   dosesPerWeek        Float      @default(0)
   user                User       @relation(fields: [userId], references: [id])
   userId              String
-  date                String     @default("")
+  date                String     @default("") // start of week YYYY-MM-DD
   status              GoalStatus @default(InProgress)
   createdAt           DateTime   @default(now())
   updatedAt           DateTime   @updatedAt
 
   @@index([id], type: Hash)
+  @@index([userId, date], type: BTree)
 }
 
 model AppMilestone {

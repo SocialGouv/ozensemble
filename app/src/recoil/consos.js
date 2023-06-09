@@ -5,6 +5,7 @@ import { differenceOfDays } from '../helpers/dateHelpers';
 import { drinksCatalogObject, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';
+import { goalsByWeekState, goalsState } from './gains';
 
 export const followupNumberOfDays = 7;
 
@@ -94,69 +95,157 @@ export const feedDaysSelector = selector({
   },
 });
 
-export const drinksByDaySelector = selector({
-  key: 'drinksByDaySelector',
+export const derivedDataFromDrinksState = selector({
+  key: 'derivedDataFromDrinksState',
   get: ({ get }) => {
-    const drinks = get(drinksState);
-    const drinksByDay = {};
-    for (const drink of drinks) {
-      const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
-      if (drinksByDay[day]) {
-        drinksByDay[day].push(drink);
-      } else {
-        drinksByDay[day] = [drink];
-      }
-    }
-    return drinksByDay;
-  },
-});
-
-export const dailyDosesSelector = selector({
-  key: 'dailyDosesSelector',
-  get: ({ get }) => {
+    // we do this selector to
+    // - map only once through all drinks
+    // - avoid expensive calculations with dayjs
     const consolidatedCatalogObject = get(consolidatedCatalogObjectSelector);
+    // drinks are sorted by timestamps
     const drinks = get(drinksState);
+    // goals are sorted by date
+    const goals = get(goalsState);
+    const goalsByWeek = get(goalsByWeekState);
+
+    // derived data to return
+    const drinksByDay = {};
     const dailyDoses = {};
+    const weeklyDoses = {};
+    const monthlyDoses = {};
+    const calendarDays = {};
+    const calendarGoalsStartOfWeek = {};
+
+    // temp variables
+    let startOfWeek = null;
+    let goalStartOfWeek = null;
+    let currentWeek = {};
+
     for (const drink of drinks) {
       const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
-      if (dailyDoses[day]) {
-        dailyDoses[day] = dailyDoses[day] + mapDrinkToDose(drink, consolidatedCatalogObject);
+      // init startOfWeek
+      if (!startOfWeek) {
+        startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
+      }
+      // init goalStartOfWeek
+      if (!goalStartOfWeek) {
+        goalStartOfWeek = goalsByWeek[startOfWeek];
+        if (!goalStartOfWeek) goalStartOfWeek = goals[0];
+        // save the first goal of the week
+        calendarGoalsStartOfWeek[startOfWeek] = goalStartOfWeek;
+      }
+      if (startOfWeek > day) {
+        // update startOfWeek for weekly doses and goals
+        startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
+        currentWeek = {};
+        // update goalStartOfWeek
+        const nextGoal = goalsByWeek[startOfWeek];
+        if (nextGoal) goalStartOfWeek = nextGoal;
+        calendarGoalsStartOfWeek[startOfWeek] = goalStartOfWeek;
+      }
+
+      // daily drinks
+      if (!drinksByDay[day]) drinksByDay[day] = [];
+      drinksByDay[day].push(drink);
+
+      // daily doses
+      const dose = mapDrinkToDose(drink, consolidatedCatalogObject);
+      if (!dailyDoses[day]) dailyDoses[day] = 0;
+      dailyDoses[day] = dailyDoses[day] + dose;
+      // weekly doses
+      if (!weeklyDoses[startOfWeek]) weeklyDoses[startOfWeek] = 0;
+      weeklyDoses[startOfWeek] = weeklyDoses[startOfWeek] + dose;
+      // monthly doses
+      const month = day.slice(0, 'YYYY-MM'.length);
+      if (!monthlyDoses[month]) monthlyDoses[month] = 0;
+      monthlyDoses[month] = monthlyDoses[month] + dose;
+
+      // calendar days
+      if (!goalStartOfWeek) {
+        calendarDays[day] = dailyDoses[day] > 0 ? 'noGoalAndDoses' : 'noGoalAndNoDoses';
       } else {
-        dailyDoses[day] = mapDrinkToDose(drink, consolidatedCatalogObject);
+        if (dailyDoses[day] === 0) {
+          calendarDays[day] = 'goalExistsAndNoDoses';
+        } else if (dailyDoses[day] > goalStartOfWeek.dosesByDrinkingDay) {
+          calendarDays[day] = 'goalExistsButNotRespected';
+        } else {
+          calendarDays[day] = 'goalExistsAndDosesWithinGoal';
+        }
+      }
+
+      // calendar goals
+      // count days in current week
+      currentWeek[day] = dailyDoses[day];
+      if (day === startOfWeek) {
+        const daysFilled = Object.keys(currentWeek).length;
+        const daysWithNoDrink = Object.values(currentWeek).filter((dose) => dose === 0).length;
+        if (!goalStartOfWeek) {
+          calendarGoalsStartOfWeek[startOfWeek] = {
+            status: 'NoGoal',
+            consommationMessage:
+              'Fixez vous un objectif maximum de consommations pour analyser vos résultats chaque semaine',
+            consosWeek: weeklyDoses[startOfWeek],
+          };
+        } else if (daysFilled < 7) {
+          calendarGoalsStartOfWeek[startOfWeek] = {
+            status: 'Ongoing',
+            drinkingDayMessage:
+              'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
+            consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+            consosWeek: weeklyDoses[startOfWeek],
+            drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+            drinkingDays: daysWithNoDrink,
+          };
+        } else {
+          const dosesAreGood = weeklyDoses[startOfWeek] <= goalStartOfWeek.dosesPerWeek;
+          const drinkDaysAreGood = daysWithNoDrink >= goalStartOfWeek.daysWithGoalNoDrink.length;
+          if (dosesAreGood && drinkDaysAreGood) {
+            calendarGoalsStartOfWeek[startOfWeek] = {
+              status: 'Success',
+              consommationMessage: 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.',
+              drinkingDayMessage: 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.',
+              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+              consosWeek: weeklyDoses[startOfWeek],
+              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+              drinkingDays: daysWithNoDrink,
+            };
+          }
+          if (!dosesAreGood && drinkDaysAreGood) {
+            calendarGoalsStartOfWeek[startOfWeek] = {
+              status: 'Fail',
+              consommationMessage: 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.',
+              drinkingDayMessage: 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.',
+              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+              consosWeek: weeklyDoses[startOfWeek],
+              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+              drinkingDays: daysWithNoDrink,
+            };
+          }
+          if (dosesAreGood && !drinkDaysAreGood) {
+            calendarGoalsStartOfWeek[startOfWeek] = {
+              status: 'Fail',
+              consommationMessage: 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.',
+              drinkingDayMessage: 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.',
+              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+              consosWeek: weeklyDoses[startOfWeek],
+              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+              drinkingDays: daysWithNoDrink,
+            };
+          }
+          if (!dosesAreGood && !drinkDaysAreGood) {
+            calendarGoalsStartOfWeek[startOfWeek] = {
+              status: 'Fail',
+              consommationMessage: 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.',
+              drinkingDayMessage: 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.',
+              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+              consosWeek: weeklyDoses[startOfWeek],
+              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+              drinkingDays: daysWithNoDrink,
+            };
+          }
+        }
       }
     }
-    return dailyDoses;
+    return { drinksByDay, dailyDoses, weeklyDoses, monthlyDoses, calendarDays, calendarGoalsStartOfWeek };
   },
-});
-
-export const diffWithPreviousWeekSelector = selectorFamily({
-  key: 'diffWithPreviousWeekSelector',
-  get:
-    ({} = {}) =>
-    ({ get }) => {
-      const dailyDoses = get(dailyDosesSelector);
-      const firstDayLastWeek = dayjs(dayjs().startOf('week')).add(-1, 'week');
-      const daysOfLastWeek = [];
-      for (let i = 0; i <= 6; i++) {
-        const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
-        daysOfLastWeek.push(nextDay);
-      }
-      const firstDayThisWeek = dayjs(dayjs().startOf('week'));
-      const daysOfThisWeek = [];
-      for (let i = 0; i <= 6; i++) {
-        const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
-        daysOfThisWeek.push(nextDay);
-      }
-      const lastWeekNumberOfDrinks = daysOfLastWeek
-        .map((day) => dailyDoses[day])
-        .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
-      const thisWeekNumberOfDrinks = daysOfThisWeek
-        .map((day) => dailyDoses[day])
-        .reduce((sum, dailyDose) => sum + (dailyDose ? dailyDose : 0), 0);
-
-      const diff = lastWeekNumberOfDrinks - thisWeekNumberOfDrinks;
-      const decrease = diff > 0;
-      const pourcentageOfDecrease = Math.round((diff / (lastWeekNumberOfDrinks || 1)) * 100);
-      return [diff, decrease, pourcentageOfDecrease];
-    },
 });

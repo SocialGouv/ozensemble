@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Dimensions, PixelRatio, View, Text, TouchableOpacity } from 'react-native';
 import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
-import { consolidatedCatalogObjectSelector, dailyDosesSelector, drinksState } from '../recoil/consos';
+import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState, drinksState } from '../recoil/consos';
 import { previousDrinksPerWeekState } from '../recoil/gains';
 import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
@@ -17,7 +17,7 @@ const WeeklyGains = ({ selectedMonth }) => {
   const drinks = useRecoilValue(drinksState);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const dailyDoses = useRecoilValue(dailyDosesSelector);
+  const { dailyDoses } = useRecoilValue(derivedDataFromDrinksState);
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
@@ -62,6 +62,7 @@ const WeeklyGains = ({ selectedMonth }) => {
         isWeekCompleted: daysWithConsos === 7,
       };
     }
+    // TODO: optimize with selector
     drinks
       .filter((drink) => {
         return (

@@ -155,7 +155,6 @@ const ConsoFollowUp = () => {
         </View>
       </TouchableOpacity>
       <Feed scrollToInput={scrollToInput} dateToScroll={dateToScroll} />
-
       <OnBoardingModal
         title="Sans objectif, pas de gains"
         description="En 3 étapes, je peux me fixer un objectif pour réduire ma consommation d'alcool."
