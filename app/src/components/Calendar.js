@@ -101,39 +101,6 @@ const Calendar = ({ onDayPress }) => {
         .catch((err) => console.log('Get goals err', err));
     }, [setGoals, goals])
   );
-  /*
-  const calendarDayByWeek = useMemo(() => {
-    console.log('Calendar 1', Date.now() - now);
-    now = Date.now();
-    console.log({ firstDayOfCalendar });
-    const firstDayStyles = dayStyles[calendarDays[firstDayOfCalendar] || 'notFilled'];
-    console.log('Calendar 2', Date.now() - now);
-    now = Date.now();
-
-    let weekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
-    let previousDay = firstDayOfCalendar;
-    let daysByWeek = [];
-    for (let i = 1; i <= nbDays; ++i) {
-      const isDayIsMonday = i % 7 === 0;
-      if (isDayIsMonday) {
-        now = Date.now();
-        const goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
-        //console.log('Calendar computeGoalSuccess', Date.now() - now); // 30 ms
-        daysByWeek.push({ days: weekDays, goalStatus: goalStatus });
-        weekDays = [];
-      }
-      const day = previousDay.add(1, 'day');
-      now = Date.now();
-      const styles = dayStyles[calendarDays[day] || 'notFilled'];
-      //console.log('Calendar computeStyleWithDrinks', Date.now() - now);
-      weekDays = [...weekDays, { day: day, styles: styles }];
-      previousDay = day;
-    }
-    console.log('Calendar 3', Date.now() - now); // 222 ms mais fix peut import le nombre de consos
-    now = Date.now();
-    return daysByWeek;
-  }, [firstDayOfCalendar, nbDays]);
- */
 
   const calendarDayByWeek = useMemo(() => {
     // console.log('Calendar 1', Date.now() - now);

@@ -144,6 +144,7 @@ model Goal {
   updatedAt           DateTime   @updatedAt
 
   @@index([id], type: Hash)
+  @@index([userId, date], type: BTree)
 }
 
 model AppMilestone {
