@@ -1,3 +1,10 @@
+## [1.121.5](https://github.com/SocialGouv/ozensemble/compare/v1.121.4...v1.121.5) (2023-06-09)
+
+
+### Bug Fixes
+
+* require cycle ([#421](https://github.com/SocialGouv/ozensemble/issues/421)) ([9fa6036](https://github.com/SocialGouv/ozensemble/commit/9fa60364cdfe88f7d6b90983e17fe802f618eb10))
+
 ## [1.121.4](https://github.com/SocialGouv/ozensemble/compare/v1.121.3...v1.121.4) (2023-06-09)
 
 
