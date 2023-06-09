@@ -1,6 +1,6 @@
 import { useFocusEffect } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { derivedDataFromDrinksState } from '../recoil/consos';
@@ -81,6 +81,8 @@ const Calendar = ({ onDayPress }) => {
   const nbDays = dayjs(firstDayOfCalendar).add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
   const [goals, setGoals] = useRecoilState(goalsState);
 
+  // console.log(JSON.stringify({ calendarGoalsStartOfWeek }, null, 2));
+
   useFocusEffect(
     useCallback(() => {
       API.get({
@@ -112,8 +114,8 @@ const Calendar = ({ onDayPress }) => {
     let previousDay = firstDayOfCalendar;
     let daysByWeek = [];
     for (let i = 1; i <= nbDays; ++i) {
-      const isDayIsSunday = i % 7 === 0;
-      if (isDayIsSunday) {
+      const isDayIsMonday = i % 7 === 0;
+      if (isDayIsMonday) {
         now = Date.now();
         const goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
         //console.log('Calendar computeGoalSuccess', Date.now() - now); // 30 ms
@@ -137,28 +139,37 @@ const Calendar = ({ onDayPress }) => {
     // console.log('Calendar 1', Date.now() - now);
     // now = Date.now();
     // console.log({ firstDayOfCalendar });
-    const firstDayStyles = dayStyles[calendarDays[firstDayOfCalendar] || 'notFilled'];
     // console.log('Calendar 2', Date.now() - now);
     // now = Date.now();
-    console.log({ firstDayOfCalendar, nbDays });
-    let weekDays = [{ day: firstDayOfCalendar, styles: firstDayStyles }];
-    let previousDay = firstDayOfCalendar;
+    let weekDays = [];
     let daysByWeek = [];
-    for (let i = 1; i <= nbDays; ++i) {
-      const isDayIsSunday = i % 7 === 0;
-      if (isDayIsSunday) {
-        // now = Date.now();
-        const goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
-        // console.log('Calendar computeGoalSuccess', Date.now() - now); // 30 ms
-        daysByWeek.push({ days: weekDays, goalStatus: goalStatus });
-        weekDays = [];
-      }
-      const day = dayjs(previousDay).add(1, 'day').format('YYYY-MM-DD');
+    let goalStatus = null;
+    for (let i = 0; i < nbDays; ++i) {
+      const isDayIsMonday = i % 7 === 0;
+      const isDayIsSunday = i % 7 === 6;
+      const day = dayjs(firstDayOfCalendar).add(i, 'days').format('YYYY-MM-DD');
       // now = Date.now();
       const styles = dayStyles[calendarDays[day] || 'notFilled'];
       // console.log('Calendar computeStyleWithDrinks', Date.now() - now);
-      weekDays = [...weekDays, { day: day, styles: styles }];
-      previousDay = day;
+      weekDays = [
+        ...weekDays,
+        {
+          day: day,
+          isAfterToday: dayjs(day).diff(today, 'day') > 0,
+          formattedDay: dayjs(day).format('D'),
+          styles: styles,
+        },
+      ];
+      if (isDayIsMonday) {
+        // now = Date.now();
+        goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
+        // console.log('Calendar computeGoalSuccess', Date.now() - now); // 30 ms
+      }
+      if (isDayIsSunday) {
+        const bgColor = today.diff(dayjs(weekDays[0].day)) >= 0 ? '#F5F6FA' : 'none';
+        daysByWeek.push({ days: weekDays, goalStatus, bgColor });
+        weekDays = [];
+      }
     }
     // console.log('Calendar 3', Date.now() - now); // 222 ms mais fix peut import le nombre de consos
     // now = Date.now();
@@ -204,54 +215,22 @@ const Calendar = ({ onDayPress }) => {
       </View>
       <View>
         {calendarDayByWeek.map((calendarWeek) => {
-          const bgColor = today.diff(dayjs(calendarWeek.days[0].day)) >= 0 ? '#F5F6FA' : 'none';
           return (
             <View
               className="flex flex-row justify-between mt-2 rounded-lg"
               key={calendarWeek.days[0].day + 'week'}
-              style={{ backgroundColor: bgColor }}>
+              style={{ backgroundColor: calendarWeek.bgColor }}>
               {calendarWeek.days.map((calendarDay) => {
-                console.log('Calendar day', Date.now() - now); // 520 ms fix peut importe le nombre de consos ~ 10 ~ 15 ms /day
-                return dayjs(calendarDay.day).diff(today, 'day') > 0 ? (
-                  <View
+                // console.log('Calendar day', Date.now() - now); // 520 ms fix peut importe le nombre de consos ~ 10 ~ 15 ms /day
+                return (
+                  <CalendarDay
                     key={calendarDay.day}
-                    className="flex flex-row grow items-center basis-4 justify-center aspect-square m-1">
-                    <Text
-                      className="text-[#DCE3E9] font-semibold"
-                      style={{
-                        fontSize: fontSize,
-                      }}>
-                      {dayjs(calendarDay.day).format('D')}
-                    </Text>
-                  </View>
-                ) : (
-                  <TouchableOpacity
-                    key={calendarDay.day + 'blue'}
-                    className="flex flex-row grow basis-4 items-center justify-center rounded-lg aspect-square m-1"
-                    style={{
-                      borderStyle: calendarDay.styles.borderStyle,
-                      backgroundColor: calendarDay.styles.backgroundColor,
-                      borderColor: calendarDay.styles.borderColor,
-                      borderWidth: 1,
-                    }}
-                    onPress={() => {
-                      onDayPress(calendarDay.day.format('YYYY-MM-DD'));
-                    }}>
-                    {Boolean(calendarDay.styles.isStar) && (
-                      <View className="absolute">
-                        <LegendStar size={fontSize * 2.5} />
-                      </View>
-                    )}
-
-                    <Text
-                      className="font-semibold absolute"
-                      style={{
-                        fontSize: fontSize,
-                        color: calendarDay.styles.textColor,
-                      }}>
-                      {dayjs(calendarDay.day).format('D')}
-                    </Text>
-                  </TouchableOpacity>
+                    day={calendarDay.day}
+                    styles={calendarDay.styles}
+                    isAfterToday={calendarDay.isAfterToday}
+                    formattedDay={calendarDay.formattedDay}
+                    onDayPress={onDayPress}
+                  />
                 );
               })}
               <View
@@ -269,8 +248,8 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
@@ -289,8 +268,8 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
@@ -308,15 +287,15 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: calendarWeek.goalStatus.drinkingDays,
                         consosWeekGoal: calendarWeek.goalStatus.consosWeekGoal,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
                     <OnGoingGoal size={fontSize * 1.8} />
                   </TouchableOpacity>
                 )}
-                {calendarWeek.goalStatus.status === 'NoGoal' && bgColor === '#F5F6FA' && (
+                {calendarWeek.goalStatus.status === 'NoGoal' && calendarWeek.bgColor === '#F5F6FA' && (
                   <TouchableOpacity
                     className="rounded-full bg-[#767676] flex flex-row grow aspect-square justify-center m-1 items-center"
                     onPress={() => {
@@ -328,8 +307,8 @@ const Calendar = ({ onDayPress }) => {
                         drinkingDays: null,
                         consosWeekGoal: null,
                         consosWeek: calendarWeek.goalStatus.consosWeek,
-                        firstDay: calendarWeek.days[0].day.format('DD MMMM'),
-                        lastDay: calendarWeek.days[6].day.format('DD MMMM'),
+                        firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                        lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
                         visible: true,
                       });
                     }}>
@@ -352,5 +331,43 @@ const Calendar = ({ onDayPress }) => {
     </>
   );
 };
+
+const CalendarDay = memo(({ day, isAfterToday, formattedDay, styles, onDayPress }) => {
+  return isAfterToday ? (
+    <View key={day} className="flex flex-row grow items-center basis-4 justify-center aspect-square m-1">
+      <Text className="text-[#DCE3E9] font-semibold" style={{ fontSize }}>
+        {formattedDay}
+      </Text>
+    </View>
+  ) : (
+    <TouchableOpacity
+      key={day + 'blue'}
+      className="flex flex-row grow basis-4 items-center justify-center rounded-lg aspect-square m-1"
+      style={{
+        borderStyle: styles.borderStyle,
+        backgroundColor: styles.backgroundColor,
+        borderColor: styles.borderColor,
+        borderWidth: 1,
+      }}
+      onPress={() => {
+        onDayPress(day);
+      }}>
+      {Boolean(styles.isStar) && (
+        <View className="absolute">
+          <LegendStar size={fontSize * 2.5} />
+        </View>
+      )}
+
+      <Text
+        className="font-semibold absolute"
+        style={{
+          fontSize: fontSize,
+          color: styles.textColor,
+        }}>
+        {formattedDay}
+      </Text>
+    </TouchableOpacity>
+  );
+});
 
 export default Calendar;

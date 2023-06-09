@@ -48,7 +48,6 @@ export const isOnboardedSelector = selector({
   key: 'isOnboardedSelector',
   get: ({ get }) => {
     const badges = get(badgesState);
-    console.log({ badges });
     const firstBadge = badges?.find((badge) => badge.category === 'goals' && badge.stars === 1);
     return firstBadge ? true : false;
   },

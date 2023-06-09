@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useRecoilValue } from 'recoil';
 import { View } from 'react-native';
@@ -72,33 +72,36 @@ const GainsCalendar = ({ isOnboarded, setShowOnboardingGainModal, setDateToScrol
     return days;
   }, [dailyDoses]);
 
+  const handlenDayPress = useCallback(
+    (dateString) => {
+      if (!isOnboarded) return setShowOnboardingGainModal(true);
+      if (markedDays[dateString]?.isDrinkDay) {
+        setDateToScroll(dateString);
+      } else {
+        const now = dayjs();
+        const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
+        navigation.push('ADD_DRINK', { timestamp: String(date) });
+        logEvent({
+          category: 'GAINS',
+          action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
+        });
+        logEvent({
+          category: 'CONSO',
+          action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+          name: 'FROM_GAINS',
+        });
+      }
+    },
+    [markedDays, setDateToScroll, isOnboarded, setShowOnboardingGainModal, navigation]
+  );
+
   return (
     <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <View className="flex flex-row shrink-0 mb-4">
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View>
-        <Calendar
-          onDayPress={(dateString) => {
-            if (!isOnboarded) return setShowOnboardingGainModal(true);
-            if (markedDays[dateString]?.isDrinkDay) {
-              setDateToScroll(dateString);
-            } else {
-              const now = dayjs();
-              const date = dayjs(dateString).set('hours', now.get('hours')).set('minutes', now.get('minutes'));
-              navigation.push('ADD_DRINK', { timestamp: String(date) });
-              logEvent({
-                category: 'GAINS',
-                action: 'CALENDAR_DAY_PRESS_TO_ADD_CONSO',
-              });
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                name: 'FROM_GAINS',
-              });
-            }
-          }}
-        />
+        <Calendar onDayPress={handlenDayPress} />
       </View>
     </View>
   );
