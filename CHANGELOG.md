@@ -1,3 +1,10 @@
+## [1.121.4](https://github.com/SocialGouv/ozensemble/compare/v1.121.3...v1.121.4) (2023-06-09)
+
+
+### Bug Fixes
+
+* use flashList for the feed to remove the lag + perf of Diagram and Calendar ([#420](https://github.com/SocialGouv/ozensemble/issues/420)) ([c590112](https://github.com/SocialGouv/ozensemble/commit/c5901127c647f50f1eb2ca836dc835b95a292bcd))
+
 ## [1.121.3](https://github.com/SocialGouv/ozensemble/compare/v1.121.2...v1.121.3) (2023-06-08)
 
 
