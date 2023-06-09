@@ -1,3 +1,10 @@
+## [1.121.7](https://github.com/SocialGouv/ozensemble/compare/v1.121.6...v1.121.7) (2023-06-09)
+
+
+### Bug Fixes
+
+* header and footer in flashlist ([#423](https://github.com/SocialGouv/ozensemble/issues/423)) ([48cf3b3](https://github.com/SocialGouv/ozensemble/commit/48cf3b30ada49178a8ef1d7b4717260ad4ed457a))
+
 ## [1.121.6](https://github.com/SocialGouv/ozensemble/compare/v1.121.5...v1.121.6) (2023-06-09)
 
 
