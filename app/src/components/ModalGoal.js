@@ -33,7 +33,7 @@ const ModalGoal = ({ content, onClose }) => {
 
         <View className="flex flex-row justify-center">
           {!content?.consosWeekGoal && <InterogationMark size={50} />}
-          {content?.consosWeekGoal && content?.status === 'Ongoing' && <OnGoingGoal size={50} />}
+          {content?.consosWeekGoal && content?.status === 'InProgress' && <OnGoingGoal size={50} />}
           {content?.consosWeekGoal && content?.status === 'Failed' && <CrossDefisFailed size={50} />}
           {content?.consosWeekGoal && content?.status === 'Success' && <CheckDefisValidated size={50} />}
         </View>

@@ -51,7 +51,7 @@ const FakeData = () => {
             replaceStorageValues(fakeDefi5);
             replaceStorageValues(fakeOnboardingQuizz.risk);
             replaceStorageValues(fakeGain);
-            setGlobalDrinksState(fakeConsoData.full.drinks);
+            setGlobalDrinksState(fakeConsoData.full.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
           }}
         />
         <H1Wrapper>Simuler un badge</H1Wrapper>
@@ -135,28 +135,28 @@ const FakeData = () => {
         <MenuItem
           caption="2 mois avec une boisson par jour"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.long(700).drinks);
+            setGlobalDrinksState(fakeConsoData.long(700).drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="14 jours de conso complets"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.full.drinks);
+            setGlobalDrinksState(fakeConsoData.full.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="14 jours de conso partiels"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.partial.drinks);
+            setGlobalDrinksState(fakeConsoData.partial.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="10 jours de conso pas trop chargés"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.onlyBelow.drinks);
+            setGlobalDrinksState(fakeConsoData.onlyBelow.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
@@ -173,7 +173,7 @@ const FakeData = () => {
                 id: uuid(),
               });
             }
-            setGlobalDrinksState(drinks);
+            setGlobalDrinksState(drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
@@ -236,7 +236,7 @@ const FakeData = () => {
         <MenuItem
           caption="Toutes mes consos"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.empty.drinks);
+            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />

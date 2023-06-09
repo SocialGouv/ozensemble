@@ -127,10 +127,11 @@ export const derivedDataFromDrinksState = selector({
       if (!startOfWeek) {
         startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
       }
+
       // init goalStartOfWeek
       if (!goalStartOfWeek) {
         goalStartOfWeek = goalsByWeek[startOfWeek];
-        if (!goalStartOfWeek) goalStartOfWeek = goals[0];
+        if (!goalStartOfWeek) goalStartOfWeek = goals.at(-1);
         // save the first goal of the week
         calendarGoalsStartOfWeek[startOfWeek] = goalStartOfWeek;
       }
@@ -143,7 +144,6 @@ export const derivedDataFromDrinksState = selector({
         if (nextGoal) goalStartOfWeek = nextGoal;
         calendarGoalsStartOfWeek[startOfWeek] = goalStartOfWeek;
       }
-
       // daily drinks
       if (!drinksByDay[day]) drinksByDay[day] = [];
       drinksByDay[day].push(drink);
@@ -188,7 +188,7 @@ export const derivedDataFromDrinksState = selector({
           };
         } else if (daysFilled < 7) {
           calendarGoalsStartOfWeek[startOfWeek] = {
-            status: 'Ongoing',
+            status: 'InProgress',
             drinkingDayMessage:
               'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
             consosWeekGoal: goalStartOfWeek.dosesPerWeek,

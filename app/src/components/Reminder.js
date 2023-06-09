@@ -247,12 +247,11 @@ const Reminder = ({
     });
   };
 
-  const notificationListener = useRef();
   useEffect(() => {
     getReminder(false);
-    notificationListener.current = NotificationService.subscribe(handleNotification);
+    const unsubscribe = NotificationService.subscribe(handleNotification);
     return () => {
-      NotificationService.unsubscribe(notificationListener.current);
+      unsubscribe();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

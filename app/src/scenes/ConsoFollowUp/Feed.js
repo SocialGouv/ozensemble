@@ -28,7 +28,6 @@ import Calendar from '../../components/Calendar';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
 const computePosition = (drinksOfTheDay, drink) => {
-  let date = Date.now();
   const sameTimeStamp = drinksOfTheDay
     .filter((d) => d.timestamp === drink.timestamp)
     .filter((d) => d.drinkKey !== NO_CONSO);
@@ -36,7 +35,6 @@ const computePosition = (drinksOfTheDay, drink) => {
   const position = sameTimeStamp.findIndex((d) => d.id === drink.id);
   if (position === 0) return 'first';
   if (position === sameTimeStamp.length - 1) return 'last';
-  console.log('FeedComputePosition', Date.now() - date);
   return 'middle';
 };
 
@@ -50,6 +48,7 @@ const Header = ({ onScrollToDate }) => {
   const navigation = useNavigation();
 
   const [drinks, setDrinks] = useRecoilState(drinksState);
+  const [noConsoLoading, setNoConsoLoading] = useState(false);
 
   const dateLastEntered = useMemo(() => {
     return drinks[0]?.timestamp || null;
@@ -65,12 +64,10 @@ const Header = ({ onScrollToDate }) => {
   );
 
   const setNoConsos = useCallback(async () => {
-    let date = Date.now();
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
-    console.log('setNoConsos 1', Date.now() - date);
-    date = Date.now();
     const newNoDrink = [];
     const matomoId = storage.getString('@UserIdv2');
+    setNoConsoLoading(true);
     for (let i = 1; i <= differenceDay; i++) {
       const currentDate = dayjs(dateLastEntered).add(i, 'd');
       const noConso = {
@@ -96,9 +93,9 @@ const Header = ({ onScrollToDate }) => {
           date: noConso.timestamp,
         },
       });
-      console.log('setNoConsos 2', Date.now() - date);
     }
     setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+    setNoConsoLoading(false);
   }, [dateLastEntered, setDrinks]);
 
   return (
@@ -119,6 +116,7 @@ const Header = ({ onScrollToDate }) => {
             <ButtonPrimary
               content={"Je n'ai rien bu !"}
               small
+              disabled={noConsoLoading}
               onPress={() => {
                 setNoConsos();
               }}
@@ -350,9 +348,9 @@ const ButtonContainer = styled.View`
 const LastDrink = styled.View`
   border: #5150a215;
   padding: 10px 5px;
+  margin-horizontal: ${defaultPaddingFontScale()}px;
   border-radius: 5px;
   margin-bottom: 10px;
-  margin-right: 20px;
   elevation: 5;
   shadow-offset: 0px 5px;
   shadow-color: #efefef;
@@ -383,13 +381,14 @@ const MessageContainer = styled.View`
 `;
 const FeedContainer = styled.View`
   height: ${Dimensions.get('window').height}px;
+  background-color: #fff;
 `;
 
 const FeedDay = styled.View`
   flex-direction: row;
   flex-shrink: 1;
   flex-grow: 0;
-  padding-horizontal: ${defaultPaddingFontScale()};
+  padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
 const FeedDayContent = styled.View`

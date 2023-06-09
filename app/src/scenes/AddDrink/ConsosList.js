@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text, TouchableOpacity } from 'react-native';
+import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager } from 'react-native';
 import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -77,42 +77,12 @@ const ConsosList = ({ navigation, route }) => {
   };
   const onValidateConsos = async () => {
     onClose();
+    await new Promise((resolve) => setTimeout(resolve, 100));
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
       timestamp: makeSureTimestamp(addDrinkModalTimestamp),
     }));
     let showToast = true;
-    for (let drink of drinksWithTimestamps) {
-      const drinkFromCatalog = consolidatedCatalogObject[drink.drinkKey];
-      logEvent({
-        category: 'CONSO',
-        action: 'CONSO_ADD',
-        name: drink.drinkKey,
-        value: Number(drink.quantity),
-        dimension6: makeSureTimestamp(addDrinkModalTimestamp),
-      });
-      const matomoId = storage.getString('@UserIdv2');
-      const doses = drinkFromCatalog.doses;
-      const kcal = drinkFromCatalog.kcal;
-      const price = drinkFromCatalog.price;
-      const volume = drinkFromCatalog.volume;
-      const response = await API.post({
-        path: '/consommation',
-        body: {
-          matomoId: matomoId,
-          id: drink.id,
-          name: drink.displayDrinkModal,
-          drinkKey: drink.drinkKey,
-          quantity: Number(drink.quantity),
-          date: makeSureTimestamp(addDrinkModalTimestamp),
-          doses: doses,
-          kcal: kcal,
-          price: price,
-          volume: volume,
-        },
-      });
-      if (response?.showNewBadge || response?.showInAppModal) showToast = false;
-    }
     const newDrinksIds = drinksWithTimestamps.map((drink) => drink.id);
     setGlobalDrinksState((state) => {
       const nextState = [...state.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
@@ -120,11 +90,44 @@ const ConsosList = ({ navigation, route }) => {
         .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
       return nextState;
     });
-    if (showToast) {
-      setTimeout(() => {
-        toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
-      }, 250);
-    }
+    InteractionManager.runAfterInteractions(async () => {
+      for (let drink of drinksWithTimestamps) {
+        const drinkFromCatalog = consolidatedCatalogObject[drink.drinkKey];
+        logEvent({
+          category: 'CONSO',
+          action: 'CONSO_ADD',
+          name: drink.drinkKey,
+          value: Number(drink.quantity),
+          dimension6: makeSureTimestamp(addDrinkModalTimestamp),
+        });
+        const matomoId = storage.getString('@UserIdv2');
+        const doses = drinkFromCatalog.doses;
+        const kcal = drinkFromCatalog.kcal;
+        const price = drinkFromCatalog.price;
+        const volume = drinkFromCatalog.volume;
+        const response = await API.post({
+          path: '/consommation',
+          body: {
+            matomoId: matomoId,
+            id: drink.id,
+            name: drink.displayDrinkModal,
+            drinkKey: drink.drinkKey,
+            quantity: Number(drink.quantity),
+            date: makeSureTimestamp(addDrinkModalTimestamp),
+            doses: doses,
+            kcal: kcal,
+            price: price,
+            volume: volume,
+          },
+        });
+        if (response?.showNewBadge || response?.showInAppModal) showToast = false;
+      }
+      if (showToast) {
+        setTimeout(() => {
+          toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+        }, 250);
+      }
+    });
   };
 
   const onClose = useCallback(() => {
@@ -178,7 +181,7 @@ const ConsosList = ({ navigation, route }) => {
                 action: 'NO_CONSO',
                 dimension6: noConso.timestamp,
               });
-              setGlobalDrinksState((state) => [...state, noConso]);
+              setGlobalDrinksState((state) => [...state, noConso].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
               const matomoId = storage.getString('@UserIdv2');
               API.post({
                 path: '/consommation',

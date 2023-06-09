@@ -79,7 +79,8 @@ const Calendar = ({ onScrollToDate }) => {
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week').format('YYYY-MM-DD');
   const today = dayjs().startOf('day');
-  const { dailyDoses, calendarDays, calendarGoalsStartOfWeek } = useRecoilValue(derivedDataFromDrinksState);
+  const { dailyDoses, weeklyDoses, calendarDays, calendarGoalsStartOfWeek } =
+    useRecoilValue(derivedDataFromDrinksState);
   const isOnboarded = useRecoilValue(isOnboardedSelector);
   const [modalContent, setModalContent] = useState(null);
   const nbDays = dayjs(firstDayOfCalendar).add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
@@ -134,7 +135,30 @@ const Calendar = ({ onScrollToDate }) => {
         },
       ];
       if (isDayIsMonday) {
-        goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
+        if (calendarGoalsStartOfWeek[day]) goalStatus = calendarGoalsStartOfWeek[day];
+        if (!calendarGoalsStartOfWeek[day]) {
+          if (!goals.length) {
+            goalStatus = {
+              status: 'WeekNotStarted',
+              consommationMessage:
+                'Fixez vous un objectif maximum de consommations pour analyser vos résultats chaque semaine',
+              consosWeek: 0,
+            };
+          } else {
+            // no drinks in drinksState so no computation of calendarGoalsStartOfWeek;
+            // so we do it manually
+            const goal = goals.find((goal) => goal.date === day) ?? goals.at(-1);
+            goalStatus = {
+              status: 'InProgress',
+              drinkingDayMessage:
+                'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
+              consosWeekGoal: goal.dosesPerWeek,
+              consosWeek: 0,
+              drinkingDaysGoal: 7 - goal.daysWithGoalNoDrink.length,
+              drinkingDays: 0,
+            };
+          }
+        }
       }
       if (isDayIsSunday) {
         const bgColor = today.diff(dayjs(weekDays[0].day)) >= 0 ? '#F5F6FA' : 'none';
@@ -143,7 +167,7 @@ const Calendar = ({ onScrollToDate }) => {
       }
     }
     return daysByWeek;
-  }, [firstDayOfCalendar, nbDays, calendarDays, calendarGoalsStartOfWeek, today]);
+  }, [firstDayOfCalendar, nbDays, calendarDays, calendarGoalsStartOfWeek, today, weeklyDoses, goals.length]);
 
   const handleDayPress = useCallback(
     (dateString) => {
@@ -212,6 +236,8 @@ const Calendar = ({ onScrollToDate }) => {
           </View>
           <View>
             {calendarDayByWeek.map((calendarWeek) => {
+              const weekIsAfterTodaysWeek = calendarWeek.bgColor !== '#F5F6FA';
+              // console.log({ calendarWeek });
               return (
                 <View
                   className="flex flex-row justify-between mt-2 rounded-lg"
@@ -273,12 +299,12 @@ const Calendar = ({ onScrollToDate }) => {
                         <CrossDefisFailed size={fontSize * 1.8} />
                       </TouchableOpacity>
                     )}
-                    {calendarWeek.goalStatus.status === 'Ongoing' && (
+                    {calendarWeek.goalStatus.status === 'InProgress' && !weekIsAfterTodaysWeek && (
                       <TouchableOpacity
                         onPress={() => {
                           setModalContent({
                             title: 'Objectif en cours',
-                            status: 'Ongoing',
+                            status: 'InProgress',
                             drinkingDaysContent: calendarWeek.goalStatus.drinkingDayMessage,
                             drinkingDaysGoal: calendarWeek.goalStatus.drinkingDaysGoal,
                             drinkingDays: calendarWeek.goalStatus.drinkingDays,
@@ -292,28 +318,29 @@ const Calendar = ({ onScrollToDate }) => {
                         <OnGoingGoal size={fontSize * 1.8} />
                       </TouchableOpacity>
                     )}
-                    {calendarWeek.goalStatus.status === 'NoGoal' && calendarWeek.bgColor === '#F5F6FA' && (
-                      <TouchableOpacity
-                        className="rounded-full bg-[#767676] flex flex-row grow aspect-square justify-center m-1 items-center"
-                        onPress={() => {
-                          setModalContent({
-                            consommationContent: calendarWeek.goalStatus.consommationMessage,
-                            title: "Pas d'objectif fixé",
-                            drinkingDaysContent: null,
-                            drinkingDaysGoal: null,
-                            drinkingDays: null,
-                            consosWeekGoal: null,
-                            consosWeek: calendarWeek.goalStatus.consosWeek,
-                            firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
-                            lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
-                            visible: true,
-                          });
-                        }}>
-                        <Text className="font-bold text-white" style={{ fontSize: fontSize * 1.3 }}>
-                          ?
-                        </Text>
-                      </TouchableOpacity>
-                    )}
+                    {['NoGoal', 'WeekNotStarted'].includes(calendarWeek.goalStatus.status) &&
+                      !weekIsAfterTodaysWeek && (
+                        <TouchableOpacity
+                          className="rounded-full bg-[#767676] flex flex-row grow aspect-square justify-center m-1 items-center"
+                          onPress={() => {
+                            setModalContent({
+                              consommationContent: calendarWeek.goalStatus.consommationMessage,
+                              title: "Pas d'objectif fixé",
+                              drinkingDaysContent: null,
+                              drinkingDaysGoal: null,
+                              drinkingDays: null,
+                              consosWeekGoal: null,
+                              consosWeek: calendarWeek.goalStatus.consosWeek,
+                              firstDay: dayjs(calendarWeek.days[0].day).format('DD MMMM'),
+                              lastDay: dayjs(calendarWeek.days[6].day).format('DD MMMM'),
+                              visible: true,
+                            });
+                          }}>
+                          <Text className="font-bold text-white" style={{ fontSize: fontSize * 1.3 }}>
+                            ?
+                          </Text>
+                        </TouchableOpacity>
+                      )}
                   </View>
                 </View>
               );
