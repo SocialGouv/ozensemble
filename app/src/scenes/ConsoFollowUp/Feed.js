@@ -1,18 +1,13 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Dimensions, TouchableWithoutFeedback } from 'react-native';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import {
-  consolidatedCatalogObjectSelector,
-  derivedDataFromDrinksState,
-  drinksState,
-  feedDaysSelector,
-} from '../../recoil/consos';
+import { derivedDataFromDrinksState, drinksState, feedDaysSelector } from '../../recoil/consos';
 import { isToday } from '../../services/dates';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import ConsoFeedDisplay from './ConsoFeedDisplay';
@@ -26,10 +21,11 @@ import Timeline from './Timeline';
 import Pint from '../../components/illustrations/drinksAndFood/Pint';
 import TextStyled from '../../components/TextStyled';
 import UnderlinedButton from '../../components/UnderlinedButton';
-import { defaultPaddingFontScale } from '../../styles/theme';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
 import { FlashList } from '@shopify/flash-list';
+import Calendar from '../../components/Calendar';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 const computePosition = (drinksOfTheDay, drink) => {
   let date = Date.now();
@@ -50,16 +46,23 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Feed = ({ scrollToInput, dateToScroll }) => {
-  const days = useRecoilValue(feedDaysSelector);
+const Header = ({ onScrollToDate }) => {
+  const navigation = useNavigation();
 
   const [drinks, setDrinks] = useRecoilState(drinksState);
-
-  const navigation = useNavigation();
 
   const dateLastEntered = useMemo(() => {
     return drinks[0]?.timestamp || null;
   }, [drinks]);
+
+  const showNoConsoSinceLongTime = useMemo(
+    // the last day entered is before today
+    () => {
+      const date = dayjs(dateLastEntered).format('YYYY-MM-DD') < dayjs().add(-1, 'day').format('YYYY-MM-DD');
+      return date;
+    },
+    [dateLastEntered]
+  );
 
   const setNoConsos = useCallback(async () => {
     let date = Date.now();
@@ -98,6 +101,64 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
     setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
   }, [dateLastEntered, setDrinks]);
 
+  return (
+    <>
+      <Calendar onScrollToDate={onScrollToDate} />
+      {!!showNoConsoSinceLongTime && (
+        <LastDrink>
+          <LastDrinkText>
+            <Pint size={30} color="#4030A5" />
+            <MessageContainer>
+              <TextStyled>
+                Vous n'avez pas saisi de consommations depuis le{' '}
+                <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
+              </TextStyled>
+            </MessageContainer>
+          </LastDrinkText>
+          <LastDrinkButtons>
+            <ButtonPrimary
+              content={"Je n'ai rien bu !"}
+              small
+              onPress={() => {
+                setNoConsos();
+              }}
+            />
+            <AddDrinkButton
+              onPress={() => {
+                navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                logEvent({
+                  category: 'CONSO',
+                  action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                });
+              }}>
+              <AddDrinkText>
+                <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
+              </AddDrinkText>
+            </AddDrinkButton>
+          </LastDrinkButtons>
+        </LastDrink>
+      )}
+    </>
+  );
+};
+
+const Feed = () => {
+  const days = useRecoilValue(feedDaysSelector);
+  const setDrinks = useSetRecoilState(drinksState);
+
+  const flashListRef = useRef(null);
+  const handleScrollToDate = useCallback(
+    (date) => {
+      const index = days.findIndex((_date) => _date === date);
+      setTimeout(() => {
+        flashListRef.current.scrollToIndex({ index, animated: true });
+      }, 250);
+    },
+    [days]
+  );
+
+  const navigation = useNavigation();
+
   const addDrinksRequest = useCallback(
     (timestamp, fromButton) => {
       navigation.push('ADD_DRINK', { timestamp });
@@ -117,89 +178,43 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
     [setDrinks]
   );
 
-  const showNoConsoSinceLongTime = useMemo(
-    // the last day entered is before today
-    () => {
-      const date = dayjs(dateLastEntered).format('YYYY-MM-DD') < dayjs().add(-1, 'day').format('YYYY-MM-DD');
-      return date;
-    },
-    [dateLastEntered]
+  const ListHeaderComponent = useMemo(() => <Header onScrollToDate={handleScrollToDate} />, [handleScrollToDate]);
+  const ListFooterComponent = useMemo(
+    () => (
+      <ButtonContainer>
+        <ButtonPrimary
+          small
+          content="Contribuer à Oz Ensemble"
+          shadowColor="#201569"
+          color="#4030A5"
+          onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
+        />
+      </ButtonContainer>
+    ),
+    [navigation]
   );
-
-  const refs = useRef({});
-
-  useEffect(() => {
-    if (dateToScroll) {
-      setTimeout(() => {
-        scrollToInput(refs?.current?.[dateToScroll]);
-      });
-    }
-  }, [dateToScroll, scrollToInput]);
 
   return (
     <>
       <FeedContainer>
-        {!!showNoConsoSinceLongTime && (
-          <LastDrink>
-            <LastDrinkText>
-              <Pint size={30} color="#4030A5" />
-              <MessageContainer>
-                <TextStyled>
-                  Vous n'avez pas saisi de consommations depuis le{' '}
-                  <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
-                </TextStyled>
-              </MessageContainer>
-            </LastDrinkText>
-            <LastDrinkButtons>
-              <ButtonPrimary
-                content={"Je n'ai rien bu !"}
-                small
-                onPress={() => {
-                  setNoConsos();
-                }}
-              />
-              <AddDrinkButton
-                onPress={() => {
-                  navigation.push('ADD_DRINK', { timestamp: Date.now() });
-                  logEvent({
-                    category: 'CONSO',
-                    action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                  });
-                }}>
-                <AddDrinkText>
-                  <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
-                </AddDrinkText>
-              </AddDrinkButton>
-            </LastDrinkButtons>
-          </LastDrink>
-        )}
         <FlashList
+          ref={flashListRef}
           data={days}
+          ListHeaderComponent={ListHeaderComponent}
           keyExtractor={(item) => item}
           estimatedItemSize={190} // height of one item with one drink
           renderItem={({ item, index }) => {
             return (
-              <FeedDay ref={(r) => (refs.current[item] = r)}>
-                <FeedDayItem
-                  item={item}
-                  index={index}
-                  deleteDrinkRequest={deleteDrinkRequest}
-                  addDrinksRequest={addDrinksRequest}
-                />
-              </FeedDay>
+              <FeedDayItem
+                item={item}
+                index={index}
+                deleteDrinkRequest={deleteDrinkRequest}
+                addDrinksRequest={addDrinksRequest}
+              />
             );
           }}
+          ListFooterComponent={ListFooterComponent}
         />
-
-        <ButtonContainer>
-          <ButtonPrimary
-            small
-            content="Contribuer à Oz Ensemble"
-            shadowColor="#201569"
-            color="#4030A5"
-            onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
-          />
-        </ButtonContainer>
       </FeedContainer>
     </>
   );
@@ -218,7 +233,6 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
   const [timestampSelected, setTimestampSelected] = useState(null);
   const setConsoSelectedRequest = useCallback(
     (timestamp) => {
-      console.log('setConsoSelectedRequest', timestamp, timestampSelected);
       if (timestampSelected === timestamp) {
         setTimestampSelected(null);
       } else {
@@ -236,7 +250,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
   }, [isFocused]);
 
   return (
-    <>
+    <FeedDay>
       <TouchableWithoutFeedback
         onPress={() => {
           console.log('ON PRESS');
@@ -322,7 +336,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
           </FeedDayContent>
         </>
       </TouchableWithoutFeedback>
-    </>
+    </FeedDay>
   );
 };
 
@@ -330,6 +344,7 @@ const ButtonContainer = styled.View`
   margin-top: 28px;
   align-items: center;
   justify-content: center;
+  padding-bottom: 150px;
 `;
 
 const LastDrink = styled.View`
@@ -367,7 +382,6 @@ const MessageContainer = styled.View`
   width: 88%;
 `;
 const FeedContainer = styled.View`
-  padding-horizontal: ${defaultPaddingFontScale()}px;
   height: ${Dimensions.get('window').height}px;
 `;
 
@@ -375,6 +389,7 @@ const FeedDay = styled.View`
   flex-direction: row;
   flex-shrink: 1;
   flex-grow: 0;
+  padding-horizontal: ${defaultPaddingFontScale()};
 `;
 
 const FeedDayContent = styled.View`
