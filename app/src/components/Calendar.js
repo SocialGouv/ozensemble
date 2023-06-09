@@ -56,7 +56,7 @@ const dayStyles = {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
     textColor: '#fff',
-    isStar: false,
+    isStar: true,
   },
   notFilled: {
     borderStyle: 'dashed',
@@ -143,7 +143,7 @@ const Calendar = ({ onScrollToDate }) => {
       }
     }
     return daysByWeek;
-  }, [firstDayOfCalendar, nbDays]);
+  }, [firstDayOfCalendar, nbDays, calendarDays, calendarGoalsStartOfWeek, today]);
 
   const handleDayPress = useCallback(
     (dateString) => {
