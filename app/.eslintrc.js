@@ -23,8 +23,12 @@ module.exports = {
     ],
   },
   rules: {
+    // TEMP
+    'import/first': 'off',
+    'react-native/no-inline-styles': 'off',
+    // NO TEMP
     'import/export': 'error',
-    'import/first': ['error', 'absolute-first'],
+    // 'import/first': ['error', 'absolute-first'],
     'import/newline-after-import': 'error',
     'import/no-named-as-default-member': 'off',
     'import/no-named-as-default': 'off',

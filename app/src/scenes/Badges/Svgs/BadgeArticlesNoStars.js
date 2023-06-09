@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export const BadgeArticlesNoStars = ({ stars, size = 96 }) => {
+export const BadgeArticlesNoStars = () => {
   return (
     <Svg className="w-16 h-16 m-auto" width="60" height="60" viewBox="0 0 60 60" fill="none">
       <Path

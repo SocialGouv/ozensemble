@@ -12,7 +12,7 @@ export const showCTAButtonState = atom({
   default: true,
 });
 
-export const useToggleCTA = ({ routesToHideCTA = [], hideCTA = false, navigator } = {}) => {
+export const useToggleCTA = ({ routesToHideCTA = [], hideCTA = false } = {}) => {
   const route = useRoute();
   const focusedRoute = getFocusedRouteNameFromRoute(route);
   const isFocused = useIsFocused();

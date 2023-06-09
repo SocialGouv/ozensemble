@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { atom, selector, selectorFamily } from 'recoil';
+import { atom, selector } from 'recoil';
 import * as Sentry from '@sentry/react-native';
 import { differenceOfDays } from '../helpers/dateHelpers';
 import { drinksCatalogObject, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';

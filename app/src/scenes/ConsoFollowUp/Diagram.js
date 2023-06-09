@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { Modal, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import { screenHeight } from '../../styles/theme';
+import { screenHeight, defaultPaddingFontScale } from '../../styles/theme';
 import { derivedDataFromDrinksState } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
@@ -18,7 +18,6 @@ import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
 import Stars from '../../components/illustrations/Stars';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import WrapperContainer from '../../components/WrapperContainer';
-import { defaultPaddingFontScale } from '../../styles/theme';
 
 const maxDosesOnScreen = 999;
 const minBarHeight = 1;
@@ -72,8 +71,6 @@ const diffWithPreviousWeekSelector = selectorFamily({
 });
 
 export default function Diagram({ inModalHelp = false }) {
-  let now = Date.now();
-
   const navigation = useNavigation();
   const { dailyDoses, weeklyDoses, monthlyDoses } = useRecoilValue(derivedDataFromDrinksState);
 
@@ -91,7 +88,7 @@ export default function Diagram({ inModalHelp = false }) {
   }, [firstDay, period]);
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
-  now = Date.now();
+
   const xAxis = useMemo(() => {
     const dates = [];
 
@@ -131,7 +128,7 @@ export default function Diagram({ inModalHelp = false }) {
       }
     }
     return values;
-  }, [xAxis, period]);
+  }, [xAxis, period, dailyDoses, weeklyDoses, monthlyDoses]);
 
   const highestDosesInPeriod = Math.max(...yValues);
   const highestAcceptableDosesPerDayByOMS = 2;
@@ -398,10 +395,6 @@ const EvolutionMessage = ({ background, border, message, button, navigation }) =
 const MessageContainer = styled.View`
   margin-left: 10px;
   flex-shrink: 1;
-`;
-
-const Icon = styled.View`
-  margin-top: 5px;
 `;
 
 const EvolutionContainer = styled.View`

@@ -245,6 +245,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
     if (isFocused && !!timestampSelected) {
       setTimestampSelected(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   return (

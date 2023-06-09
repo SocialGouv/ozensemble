@@ -62,6 +62,7 @@ const CocktailPersonalisation = ({
   };
 
   const saveDrink = async () => {
+    const formatedPrice = drinkPrice.replace(',', '.');
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
@@ -98,7 +99,7 @@ const CocktailPersonalisation = ({
                 volume: drinkVolume,
                 doses: drinkDoses,
                 icon: 'CocktailGlass',
-                price: Number(drinkPrice),
+                price: Number(formatedPrice),
                 kcal: drinkKcal,
                 custom: true,
                 isDeleted: false,
@@ -121,7 +122,7 @@ const CocktailPersonalisation = ({
           drinkKey: drinkName,
           volume: drinkVolume,
           doses: drinkDoses,
-          price: Number(drinkPrice),
+          price: Number(formatedPrice),
           kcal: drinkKcal,
         },
       });

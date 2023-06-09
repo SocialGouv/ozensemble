@@ -23,7 +23,7 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
   const [cocktailsCatalog, setCocktailsCatalog] = useState([]);
   const getCocktailsCatalog = async () => {
     const res = await API.get({ path: '/drinks/cocktails' });
-    setCocktailsCatalog(res.data);
+    if (res.ok) setCocktailsCatalog(res.data);
   };
 
   const [newCocktailName, setNewCocktailName] = useState('');
