@@ -9,7 +9,7 @@ const OPEN_FOOD_FACT_PASSWORD = envConfig.OPEN_FOOD_FACT_PASSWORD;
 const OPEN_FOOD_FACT_USER_ID = envConfig.OPEN_FOOD_FACT_USER_ID;
 const SCHEME = envConfig.SCHEME;
 // const API_HOST = envConfig.API_HOST;
-const API_HOST = '10.101.1.57:3615';
+const API_HOST = '192.168.178.49:3615';
 const APP_ENV = envConfig.APP_ENV;
 
 export {

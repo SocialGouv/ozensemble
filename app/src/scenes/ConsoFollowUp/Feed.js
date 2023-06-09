@@ -9,7 +9,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import {
   consolidatedCatalogObjectSelector,
-  dosesByPeriodSelector,
+  derivedDataFromDrinksState,
   drinksState,
   feedDaysSelector,
 } from '../../recoil/consos';
@@ -208,7 +208,7 @@ const Feed = ({ scrollToInput, dateToScroll }) => {
 
 const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
   const days = useRecoilValue(feedDaysSelector);
-  const { drinksByDay } = useRecoilValue(dosesByPeriodSelector);
+  const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
 
   const isFirst = index === 0;
   const isLast = index === days.length - 1;

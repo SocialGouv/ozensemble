@@ -87,7 +87,7 @@ router.get(
     });
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
-      orderBy: { createdAt: "asc" },
+      orderBy: { date: "desc" },
     });
     return res.status(200).send({ ok: true, data: goals });
   })

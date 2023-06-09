@@ -5,7 +5,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import { screenHeight } from '../../styles/theme';
-import { dosesByPeriodSelector } from '../../recoil/consos';
+import { derivedDataFromDrinksState } from '../../recoil/consos';
 import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
 import TextStyled from '../../components/TextStyled';
 import { isToday } from '../../services/dates';
@@ -35,7 +35,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
   get:
     ({ firstDay }) =>
     ({ get }) => {
-      const { dailyDoses } = get(dosesByPeriodSelector);
+      const { dailyDoses } = get(derivedDataFromDrinksState);
       const firstDayLastWeek = dayjs(firstDay).startOf('week').add(-1, 'week');
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
@@ -72,7 +72,7 @@ const Diagram = ({ inModalHelp = false }) => {
   let now = Date.now();
 
   const navigation = useNavigation();
-  const { dailyDoses, weeklyDoses, monthlyDoses } = useRecoilValue(dosesByPeriodSelector);
+  const { dailyDoses, weeklyDoses, monthlyDoses } = useRecoilValue(derivedDataFromDrinksState);
 
   // three kind of display:
   // 'daily': we display the daily diagram for a week, from Monday to Sunday (6 bars)
