@@ -81,8 +81,6 @@ const Calendar = ({ onDayPress }) => {
   const nbDays = dayjs(firstDayOfCalendar).add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
   const [goals, setGoals] = useRecoilState(goalsState);
 
-  // console.log(JSON.stringify({ calendarGoalsStartOfWeek }, null, 2));
-
   useFocusEffect(
     useCallback(() => {
       API.get({
@@ -103,11 +101,6 @@ const Calendar = ({ onDayPress }) => {
   );
 
   const calendarDayByWeek = useMemo(() => {
-    // console.log('Calendar 1', Date.now() - now);
-    // now = Date.now();
-    // console.log({ firstDayOfCalendar });
-    // console.log('Calendar 2', Date.now() - now);
-    // now = Date.now();
     let weekDays = [];
     let daysByWeek = [];
     let goalStatus = null;
@@ -115,9 +108,7 @@ const Calendar = ({ onDayPress }) => {
       const isDayIsMonday = i % 7 === 0;
       const isDayIsSunday = i % 7 === 6;
       const day = dayjs(firstDayOfCalendar).add(i, 'days').format('YYYY-MM-DD');
-      // now = Date.now();
       const styles = dayStyles[calendarDays[day] || 'notFilled'];
-      // console.log('Calendar computeStyleWithDrinks', Date.now() - now);
       weekDays = [
         ...weekDays,
         {
@@ -128,9 +119,7 @@ const Calendar = ({ onDayPress }) => {
         },
       ];
       if (isDayIsMonday) {
-        // now = Date.now();
         goalStatus = calendarGoalsStartOfWeek[day] ?? 'WeekNotStarted';
-        // console.log('Calendar computeGoalSuccess', Date.now() - now); // 30 ms
       }
       if (isDayIsSunday) {
         const bgColor = today.diff(dayjs(weekDays[0].day)) >= 0 ? '#F5F6FA' : 'none';
@@ -138,8 +127,6 @@ const Calendar = ({ onDayPress }) => {
         weekDays = [];
       }
     }
-    // console.log('Calendar 3', Date.now() - now); // 222 ms mais fix peut import le nombre de consos
-    // now = Date.now();
     return daysByWeek;
   }, [firstDayOfCalendar, nbDays, calendarDays]);
 
@@ -188,7 +175,6 @@ const Calendar = ({ onDayPress }) => {
               key={calendarWeek.days[0].day + 'week'}
               style={{ backgroundColor: calendarWeek.bgColor }}>
               {calendarWeek.days.map((calendarDay) => {
-                // console.log('Calendar day', Date.now() - now); // 520 ms fix peut importe le nombre de consos ~ 10 ~ 15 ms /day
                 return (
                   <CalendarDay
                     key={calendarDay.day}
