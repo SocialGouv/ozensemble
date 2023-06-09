@@ -1,3 +1,10 @@
+## [1.121.6](https://github.com/SocialGouv/ozensemble/compare/v1.121.5...v1.121.6) (2023-06-09)
+
+
+### Bug Fixes
+
+* display when new consos added and show stars when no drink and n… ([#422](https://github.com/SocialGouv/ozensemble/issues/422)) ([31ea069](https://github.com/SocialGouv/ozensemble/commit/31ea06975c44b032e359fffc646b859b3a9b2d9d))
+
 ## [1.121.5](https://github.com/SocialGouv/ozensemble/compare/v1.121.4...v1.121.5) (2023-06-09)
 
 
