@@ -98,6 +98,7 @@ export const feedDaysSelector = selector({
 export const derivedDataFromDrinksState = selector({
   key: 'derivedDataFromDrinksState',
   get: ({ get }) => {
+    const now = Date.now();
     // we do this selector to
     // - map only once through all drinks
     // - avoid expensive calculations with dayjs
@@ -138,6 +139,7 @@ export const derivedDataFromDrinksState = selector({
       if (startOfWeek > day) {
         // update startOfWeek for weekly doses and goals
         startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
+        console.log('RESET', startOfWeek, day, currentWeek);
         currentWeek = {};
         // update goalStartOfWeek
         const nextGoal = goalsByWeek[startOfWeek];
@@ -176,73 +178,72 @@ export const derivedDataFromDrinksState = selector({
       // calendar goals
       // count days in current week
       currentWeek[day] = dailyDoses[day];
-      if (day === startOfWeek) {
-        const daysFilled = Object.keys(currentWeek).length;
-        const daysWithNoDrink = Object.values(currentWeek).filter((dose) => dose === 0).length;
-        if (!goalStartOfWeek) {
+      const daysFilled = Object.keys(currentWeek).length;
+      const daysWithDrinks = Object.values(currentWeek).filter((dose) => dose > 0).length;
+      const daysWithNoDrink = 7 - daysWithDrinks;
+      if (!goalStartOfWeek) {
+        calendarGoalsStartOfWeek[startOfWeek] = {
+          status: 'NoGoal',
+          consommationMessage:
+            'Fixez vous un objectif maximum de consommations pour analyser vos résultats chaque semaine',
+          consosWeek: weeklyDoses[startOfWeek],
+        };
+      } else if (daysFilled < 7) {
+        calendarGoalsStartOfWeek[startOfWeek] = {
+          status: 'InProgress',
+          drinkingDayMessage:
+            'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
+          consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+          consosWeek: weeklyDoses[startOfWeek],
+          drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+          drinkingDays: daysWithDrinks,
+        };
+      } else {
+        const dosesAreGood = weeklyDoses[startOfWeek] <= goalStartOfWeek.dosesPerWeek;
+        const drinkDaysAreGood = daysWithNoDrink >= goalStartOfWeek.daysWithGoalNoDrink.length;
+        if (dosesAreGood && drinkDaysAreGood) {
           calendarGoalsStartOfWeek[startOfWeek] = {
-            status: 'NoGoal',
-            consommationMessage:
-              'Fixez vous un objectif maximum de consommations pour analyser vos résultats chaque semaine',
-            consosWeek: weeklyDoses[startOfWeek],
-          };
-        } else if (daysFilled < 7) {
-          calendarGoalsStartOfWeek[startOfWeek] = {
-            status: 'InProgress',
-            drinkingDayMessage:
-              'Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse, bon courage !',
+            status: 'Success',
+            consommationMessage: 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.',
+            drinkingDayMessage: 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.',
             consosWeekGoal: goalStartOfWeek.dosesPerWeek,
             consosWeek: weeklyDoses[startOfWeek],
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
-            drinkingDays: daysWithNoDrink,
+            drinkingDays: daysWithDrinks,
           };
-        } else {
-          const dosesAreGood = weeklyDoses[startOfWeek] <= goalStartOfWeek.dosesPerWeek;
-          const drinkDaysAreGood = daysWithNoDrink >= goalStartOfWeek.daysWithGoalNoDrink.length;
-          if (dosesAreGood && drinkDaysAreGood) {
-            calendarGoalsStartOfWeek[startOfWeek] = {
-              status: 'Success',
-              consommationMessage: 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.',
-              drinkingDayMessage: 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.',
-              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
-              consosWeek: weeklyDoses[startOfWeek],
-              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
-              drinkingDays: daysWithNoDrink,
-            };
-          }
-          if (!dosesAreGood && drinkDaysAreGood) {
-            calendarGoalsStartOfWeek[startOfWeek] = {
-              status: 'Fail',
-              consommationMessage: 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.',
-              drinkingDayMessage: 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.',
-              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
-              consosWeek: weeklyDoses[startOfWeek],
-              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
-              drinkingDays: daysWithNoDrink,
-            };
-          }
-          if (dosesAreGood && !drinkDaysAreGood) {
-            calendarGoalsStartOfWeek[startOfWeek] = {
-              status: 'Fail',
-              consommationMessage: 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.',
-              drinkingDayMessage: 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.',
-              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
-              consosWeek: weeklyDoses[startOfWeek],
-              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
-              drinkingDays: daysWithNoDrink,
-            };
-          }
-          if (!dosesAreGood && !drinkDaysAreGood) {
-            calendarGoalsStartOfWeek[startOfWeek] = {
-              status: 'Fail',
-              consommationMessage: 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.',
-              drinkingDayMessage: 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.',
-              consosWeekGoal: goalStartOfWeek.dosesPerWeek,
-              consosWeek: weeklyDoses[startOfWeek],
-              drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
-              drinkingDays: daysWithNoDrink,
-            };
-          }
+        }
+        if (!dosesAreGood && drinkDaysAreGood) {
+          calendarGoalsStartOfWeek[startOfWeek] = {
+            status: 'Fail',
+            consommationMessage: 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.',
+            drinkingDayMessage: 'Vous avez __respecté le nombre de jours__ où vous vous autorisiez à boire.',
+            consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+            consosWeek: weeklyDoses[startOfWeek],
+            drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+            drinkingDays: daysWithDrinks,
+          };
+        }
+        if (dosesAreGood && !drinkDaysAreGood) {
+          calendarGoalsStartOfWeek[startOfWeek] = {
+            status: 'Fail',
+            consommationMessage: 'Vos consommations de cette semaine sont __dans__ votre objectif fixé.',
+            drinkingDayMessage: 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.',
+            consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+            consosWeek: weeklyDoses[startOfWeek],
+            drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+            drinkingDays: daysWithDrinks,
+          };
+        }
+        if (!dosesAreGood && !drinkDaysAreGood) {
+          calendarGoalsStartOfWeek[startOfWeek] = {
+            status: 'Fail',
+            consommationMessage: 'Vos consommations de cette semaine sont __supérieures__ à votre objectif fixé.',
+            drinkingDayMessage: 'Vous avez __dépassé le nombre de jours__ où vous vous autorisiez à boire.',
+            consosWeekGoal: goalStartOfWeek.dosesPerWeek,
+            consosWeek: weeklyDoses[startOfWeek],
+            drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
+            drinkingDays: daysWithDrinks,
+          };
         }
       }
     }
