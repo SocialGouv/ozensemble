@@ -52,7 +52,7 @@ const dayStyles = {
     borderColor: 'transparent',
     backgroundColor: 'transparent',
     textColor: '#fff',
-    isStar: false,
+    isStar: true,
   },
   notFilled: {
     borderStyle: 'dashed',
@@ -141,7 +141,7 @@ const Calendar = ({ onDayPress }) => {
     // console.log('Calendar 3', Date.now() - now); // 222 ms mais fix peut import le nombre de consos
     // now = Date.now();
     return daysByWeek;
-  }, [firstDayOfCalendar, nbDays]);
+  }, [firstDayOfCalendar, nbDays, calendarDays]);
 
   return (
     <>
