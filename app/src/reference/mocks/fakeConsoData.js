@@ -11,12 +11,15 @@ export const fakeConsoData = {
     const startDate = Date.parse(dateWithoutTime(new Date(), -14));
     const drinks = [];
     for (let i = 0; i < numberOfDays; i++) {
-      drinks.push({
-        timestamp: Date.parse(dateWithoutTime(new Date(), -i)),
-        drinkKey: drinksCatalog[Math.floor(Math.random() * drinksCatalog.length)].drinkKey,
-        quantity: Math.floor(Math.random() * 10) + 1,
-        id: uuid(),
-      });
+      const timestamp = Date.parse(dateWithoutTime(new Date(), -i));
+      for (let j = 0; j < Math.floor(Math.random() * 5); j++) {
+        drinks.push({
+          timestamp: timestamp + Math.floor(Math.random() * 5) * 60 * 60 * 1000,
+          drinkKey: drinksCatalog[Math.floor(Math.random() * drinksCatalog.length)].drinkKey,
+          quantity: Math.floor(Math.random() * 10) + 1,
+          id: uuid(),
+        });
+      }
     }
 
     return {

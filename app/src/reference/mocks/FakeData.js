@@ -135,7 +135,7 @@ const FakeData = () => {
         <MenuItem
           caption="2 mois avec une boisson par jour"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.long(60).drinks);
+            setGlobalDrinksState(fakeConsoData.long(700).drinks);
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
