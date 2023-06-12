@@ -6,6 +6,7 @@ import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import Feed from './Feed';
+import GainsSwitchingView from '../Gains/GainsSwitchingView';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -14,7 +15,7 @@ const ConsoFollowUpNavigator = () => {
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
       <ConsoFollowUpStack.Navigator headerMode="none" initialRouteName="CONSO_FOLLOW_UP">
-        <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={Feed} />
+        <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={GainsSwitchingView} />
         <ConsoFollowUpStack.Screen
           name="ONBOARDING_QUIZZ"
           component={QuizzOnboarding}

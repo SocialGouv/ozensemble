@@ -73,8 +73,7 @@ const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
 const widthBaseScale = SCREEN_WIDTH / 414;
 const fontSize = Math.round(PixelRatio.roundToNearestPixel(15 * widthBaseScale));
 
-const Calendar = ({ onScrollToDate }) => {
-  const [selectedMonth, setSelectedMonth] = useState(dayjs());
+const Calendar = ({ onScrollToDate, selectedMonth }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week').format('YYYY-MM-DD');
@@ -195,27 +194,7 @@ const Calendar = ({ onScrollToDate }) => {
   return (
     <>
       <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-        <View className="flex flex-row shrink-0 mb-4">
-          <H1 color="#4030a5">Calendrier</H1>
-        </View>
         <View>
-          <View className="flex flex-row w-full justify-between px-5 items-center">
-            <TouchableOpacity
-              hitSlop={hitSlop(15)}
-              onPress={() => {
-                setSelectedMonth(selectedMonth.subtract(1, 'month'));
-              }}>
-              <ArrowLeft color="#4030A5" size={15} />
-            </TouchableOpacity>
-            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
-            <TouchableOpacity
-              hitSlop={hitSlop(15)}
-              onPress={() => {
-                setSelectedMonth(selectedMonth.add(1, 'month'));
-              }}>
-              <ArrowRight color="#4030A5" size={15} />
-            </TouchableOpacity>
-          </View>
           <View className="flex flex-row justify-between mt-3">
             {cols.map((col) => {
               const isObjectifColonnes = col === 'Obj.';

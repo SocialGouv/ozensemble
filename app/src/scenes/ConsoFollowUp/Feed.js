@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, TouchableWithoutFeedback, View } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
@@ -44,7 +44,7 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Header = ({ onScrollToDate }) => {
+const Header = ({ onScrollToDate, selectedMonth }) => {
   const navigation = useNavigation();
 
   const [drinks, setDrinks] = useRecoilState(drinksState);
@@ -100,7 +100,7 @@ const Header = ({ onScrollToDate }) => {
 
   return (
     <>
-      <Calendar onScrollToDate={onScrollToDate} />
+      <Calendar onScrollToDate={onScrollToDate} selectedMonth={selectedMonth} />
       {!!showNoConsoSinceLongTime && (
         <LastDrink>
           <LastDrinkText>
@@ -140,7 +140,7 @@ const Header = ({ onScrollToDate }) => {
   );
 };
 
-const Feed = () => {
+const Feed = ({ selectedMonth, show }) => {
   const days = useRecoilValue(feedDaysSelector);
   const setDrinks = useSetRecoilState(drinksState);
 
@@ -176,7 +176,10 @@ const Feed = () => {
     [setDrinks]
   );
 
-  const ListHeaderComponent = useMemo(() => <Header onScrollToDate={handleScrollToDate} />, [handleScrollToDate]);
+  const ListHeaderComponent = useMemo(
+    () => <Header onScrollToDate={handleScrollToDate} selectedMonth={selectedMonth} />,
+    [handleScrollToDate]
+  );
   const ListFooterComponent = useMemo(
     () => (
       <ButtonContainer>
@@ -193,7 +196,7 @@ const Feed = () => {
   );
 
   return (
-    <>
+    <View style={{ opacity: show }} className="absolute w-full">
       <FeedContainer>
         <FlashList
           ref={flashListRef}
@@ -214,7 +217,7 @@ const Feed = () => {
           ListFooterComponent={ListFooterComponent}
         />
       </FeedContainer>
-    </>
+    </View>
   );
 };
 
