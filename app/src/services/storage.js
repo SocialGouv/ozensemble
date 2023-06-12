@@ -47,9 +47,9 @@ export async function sendPreviousDrinksToDB() {
 
 export const hasCleanConsoAndCatalog = storage.getBoolean('@hasCleanedAndFixedCatalog2');
 export async function cleanConsosAndCatalog() {
-  // 3 steps:
-  // 1. clean catalog
-
+  // original target of thes migration: get the old own drinks catalog from 2020 to the new spec of 2023
+  // original target changed because we fucked up the first migration
+  // so we have to fix our problems too
   try {
     if (hasCleanConsoAndCatalog) return;
     const matomoId = storage.getString('@UserIdv2');
@@ -116,44 +116,65 @@ export async function cleanConsosAndCatalog() {
 }
 
 export function cleanCatalog(oldDrinkCatalog) {
+  // old drink is either
+  // a. a drink from the old catalog from 2020
+  // b. a drink that has been created in april/may 2023 but might has been bugged by the migration
   const newOwnDrinksCatalog = [];
   for (const oldDrink of oldDrinkCatalog) {
     if (!oldDrink.custom) {
       continue;
     }
+    // 1. clean price because of the "," instead of "."
+    // if isNan we don't know the price, so we put 5
     const formatedPrice = oldDrink.price ? String(oldDrink.price).replace(',', '.') : 5;
+
+    // 2. clean the volume
     // two cases:
-    // old style: categoryKey = 'ownDrink -70-40'
-    // new style: categoryKey = 'ownDrink'
+    // a. create the volume for the old drinks catalog, extracted from old style from 2020: categoryKey = 'MyDrinkName -70-40'
+    // b. the original volume was stored as "X cL" and we want to keep it as "X" as a number
+    // NOTE: for old drinks from 2020, the `categoryKey`and `drinkKey` is the same
+    // we choose `categoryKey` here so that we know it's an old drink from 2020
     const volume = oldDrink.categoryKey.split('-')[1]
       ? Number(oldDrink.categoryKey.split('-')[1])
       : Number(oldDrink.volume.split(' ')[0]);
+
+    // 3. clean alcoolPercentage because of the "," instead of "."
+    // two cases:
+    // a. create the alcoolPercentage for the old drinks catalog, extracted from old style from 2020: categoryKey = 'MyDrinkName -70-40'
+    // b. clean alcoolPercentage because of the "," instead of "."
     const alcoolPercentage = Number(oldDrink.categoryKey.split('-')[2])
       ? Number(oldDrink.categoryKey.split('-')[2])
-      : 5;
-    const formatedAlcoolPercentage = oldDrink.alcoolPercentage
+      : oldDrink.alcoolPercentage
       ? String(oldDrink.alcoolPercentage).replace(',', '.')
-      : alcoolPercentage;
-    const kcal = Math.round(((Number(formatedAlcoolPercentage) * 0.8 * volume) / 10) * 7);
-    const doses = Math.round((Number(formatedAlcoolPercentage) * 0.8 * volume) / 10) / 10;
+      : 5;
+
+    // 4. create kcal and doses if they don't exist
+    const kcal = Math.round(((Number(alcoolPercentage) * 0.8 * volume) / 10) * 7);
+    const doses = Math.round((Number(alcoolPercentage) * 0.8 * volume) / 10) / 10;
+
+    // 5. migrate the icon
     const icon = oldDrink.iconOf ? mapIconOfToIconName(oldDrink.iconOf) : oldDrink.icon;
 
-    // first migration:
+    // 6. first migration: migrate the old 2020 own drinks catalog to the new 2023 own drinks catalog
+    // if the categoryKey is `ownDrinks` or `ownCocktail`, the drink was created in april/may 2023 so we don'ttouch the drinkKey
+    // if the categoryKey is `drinkName -70-40`, the drink was created in 2020 so we have to migrate the drinkKey to be the old categoryKey
     const drinkKeyEvolution1 = ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
       ? oldDrink.drinkKey
       : oldDrink.categoryKey; // because back in 2020, categoryKey for ownDrinks was "drinkName -70-40";
+
+    // 7. second migration: we forgot the `ownCocktail` in step 6 so all the new cocktails were broken
+    // this one is to fix the new cocktails
     const drinkKeyEvolution2 = ['ownDrink', 'ownCocktail'].includes(oldDrink.drinkKey)
       ? oldDrink.displayFeed
       : oldDrink.drinkKey;
 
+    // 8. we switch the old categoryKey from 2020 to the new one
     const categoryKeyEvolution1 = ['ownDrink', 'ownCocktail'].includes(oldDrink.categoryKey)
       ? oldDrink.categoryKey
       : 'ownDrink';
 
+    //  9. we fix the bug of the new cocktails
     const categoryKeyEvolution2 = drinkKeyEvolution1 === 'ownCocktail' ? 'ownCocktail' : categoryKeyEvolution1;
-
-    const checkedKcal = oldDrink.kcal ? oldDrink.kcal : kcal;
-    const checkedDoses = oldDrink.doses ? oldDrink.doses : doses;
 
     newOwnDrinksCatalog.push({
       drinkKey: drinkKeyEvolution2,
@@ -161,12 +182,12 @@ export function cleanCatalog(oldDrinkCatalog) {
       categoryKey: categoryKeyEvolution2,
       volume: volume + ' cl',
       isDeleted: oldDrink.isDeleted === undefined ? false : oldDrink.isDeleted,
-      kcal: checkedKcal,
-      doses: checkedDoses,
+      kcal,
+      doses,
       displayFeed: oldDrink.displayFeed,
       displayDrinkModal: oldDrink.displayDrinkModal,
       custom: true,
-      alcoolPercentage: Number(formatedAlcoolPercentage),
+      alcoolPercentage: Number(alcoolPercentage),
       price: formatedPrice ? Number(formatedPrice) : 5,
     });
   }
