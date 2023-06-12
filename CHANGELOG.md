@@ -1,3 +1,10 @@
+## [1.121.9](https://github.com/SocialGouv/ozensemble/compare/v1.121.8...v1.121.9) (2023-06-12)
+
+
+### Bug Fixes
+
+* repaire user consos and catalog ([#425](https://github.com/SocialGouv/ozensemble/issues/425)) ([e024a0f](https://github.com/SocialGouv/ozensemble/commit/e024a0f5c7d1a4d3d595b099b4674795c66033f5))
+
 ## [1.121.8](https://github.com/SocialGouv/ozensemble/compare/v1.121.7...v1.121.8) (2023-06-12)
 
 
