@@ -21,7 +21,6 @@
     "@slack/webhook": "^6.1.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "csv-stringify": "^6.4.0",
     "date-fns": "^2.29.3",
     "date-fns-tz": "^1.3.7",
     "dayjs": "^1.11.7",
@@ -32,9 +31,7 @@
     "node-cron": "^3.0.2",
     "node-fetch": "^2.6.7",
     "node-pushnotifications": "^2.0.3",
-    "prisma": "^4.0.0",
-    "react-native-base64": "^0.2.1",
-    "utf8": "^3.0.0"
+    "prisma": "^4.0.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
