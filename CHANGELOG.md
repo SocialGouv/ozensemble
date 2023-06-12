@@ -1,3 +1,10 @@
+## [1.121.8](https://github.com/SocialGouv/ozensemble/compare/v1.121.7...v1.121.8) (2023-06-12)
+
+
+### Bug Fixes
+
+* OZENSEMBLE-5A ([#424](https://github.com/SocialGouv/ozensemble/issues/424)) ([0094029](https://github.com/SocialGouv/ozensemble/commit/00940294898a120acc6530f57e17d798bfe55d4c))
+
 ## [1.121.7](https://github.com/SocialGouv/ozensemble/compare/v1.121.6...v1.121.7) (2023-06-09)
 
 
