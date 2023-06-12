@@ -1,18 +1,17 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { selector, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import TextInputStyled from '../../components/TextInputStyled';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import { consolidatedCatalogObjectSelector, drinksState } from '../../recoil/consos';
+import { consolidatedCatalogObjectSelector } from '../../recoil/consos';
 import { useToast } from '../../services/toast';
 import { screenHeight } from '../../styles/theme';
-import { getDisplayDrinksModalName, getDisplayName, mapDrinkToDose, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
+import { getDisplayDrinksModalName, getDisplayName } from '../ConsoFollowUp/drinksCatalog';
 import WrapperContainer from '../../components/WrapperContainer';
 import { sendMail } from '../../services/mail';
 import { P } from '../../components/Articles';
-import dayjs from 'dayjs';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
 
@@ -60,7 +59,7 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
           lastDay.format('DD ') +
           lastDay.format('MMMM ').capitalize() +
           lastDay.format('YYYY');
-    var sumWeeklyDoses = 0;
+    let sumWeeklyDoses = 0;
     const weekHeader = ` <tr class="bg-oz"><td colspan="3">Semaine du ${displayedDate}</td></tr> 
 <tr class="bg-oz">
     <th>Date</th>
@@ -70,7 +69,7 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
     let dailycontent = '';
     week.forEach((day) => {
       if (day.length === 0) {
-        dailycontent += `<tr><td colspan="3"> Pas de consommation enregistrée</td></tr>`;
+        dailycontent += `<tr><td colspan="3">Pas de consommation enregistrée</td></tr>`;
       } else {
         const dayDate =
           dayjs(day[0].date).format('dddd DD ').capitalize() + dayjs(day[0].date).format('MMMM').capitalize();
@@ -116,12 +115,13 @@ const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(
 const Export = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const toast = useToast();
-  const catalog = useRecoilValue(consolidatedCatalogSelector);
+  const catalog = useRecoilValue(consolidatedCatalogObjectSelector);
+  let consos = [];
   const exportData = async () => {
     const matomoId = storage.getString('@UserIdv2');
-    htmlExport = await API.get({ path: '/consommation/get-all-consos', query: { matomoId } }).then((res) => {
-      if (res.ok) {
-        const consos = res.data;
+    const htmlExport = await API.get({ path: '/consommation/get-all-consos', query: { matomoId } }).then((response) => {
+      if (response.ok) {
+        consos = response.data;
         const firstDay = dayjs(consos[0].date).startOf('week');
         const nbDays = dayjs().diff(firstDay, 'days');
         const consoFilteredByWeek = [];
@@ -149,6 +149,8 @@ const Export = ({ navigation }) => {
       to: email,
       subject: 'Export de données',
       html: htmlExport,
+      consosToExport: consos,
+      catalog: catalog,
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
