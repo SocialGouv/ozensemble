@@ -89,6 +89,27 @@ export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   }
 };
 
+export const getDisplayDrinksModalName = (drinkKey, catalog, quantity = 1) => {
+  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
+  return formatedDisplay.capitalize();
+};
+
+export const getVolume = (drinkKey, catalog) => {
+  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  return drink.volume;
+};
+
+export const getDoses = (drinkKey, catalog) => {
+  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  return drink.doses;
+};
+
+export const getStyle = (drinkKey, catalog) => {
+  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+  return drink.style || {};
+};
+
 export const getIcon = (iconName) => {
   const icon = mapIconNameToIcon[iconName];
   if (!icon) {
