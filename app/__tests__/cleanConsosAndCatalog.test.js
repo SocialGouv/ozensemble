@@ -147,4 +147,22 @@ describe('cleanCatalog', () => {
     ];
     expect(cleanCatalog(catalog)).toEqual([]);
   });
+
+  test('Correct custom drink', () => {
+    const oldDrink = {
+      drinkKey: 'Vin Rouge',
+      icon: 'WineGlass',
+      categoryKey: 'ownDrink',
+      volume: '10 cl',
+      isDeleted: false,
+      kcal: 19,
+      doses: 0.3,
+      displayFeed: 'Vin Rouge',
+      displayDrinkModal: 'Vin Rouge',
+      custom: true,
+      alcoolPercentage: 3.4,
+      price: 2.3,
+    };
+    expect(cleanCatalog([oldDrink])).toEqual([oldDrink]);
+  });
 });
