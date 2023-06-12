@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { P } from '../../../components/Articles';
 import CheckboxLabelled from '../../../components/CheckboxLabelled';
 
-const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers, ...props }) => {
+const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers = [], ...props }) => {
   const disabled = useMemo(
     () => (maxNumberOfCheckedBoxes ? answers.length >= maxNumberOfCheckedBoxes : false),
     [answers, maxNumberOfCheckedBoxes]

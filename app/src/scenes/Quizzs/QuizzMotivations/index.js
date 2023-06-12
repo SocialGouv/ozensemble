@@ -18,7 +18,7 @@ const QuizzMotivations = ({ route }) => {
   const setMotivationsQuizzResult = useSetRecoilState(motivationsQuizzResultState);
 
   const toggleAnswer = async (answerKey, checked) => {
-    setMotivationsQuizzAnswers((prevAnswers) => {
+    setMotivationsQuizzAnswers((prevAnswers = []) => {
       if (checked && !prevAnswers.includes(answerKey)) return [...prevAnswers, answerKey];
       if (!checked && prevAnswers.includes(answerKey)) return prevAnswers.filter((key) => key !== answerKey);
       return prevAnswers;
