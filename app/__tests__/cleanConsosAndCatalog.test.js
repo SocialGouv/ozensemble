@@ -147,40 +147,4 @@ describe('cleanCatalog', () => {
     ];
     expect(cleanCatalog(catalog)).toEqual([]);
   });
-
-  test('Nico catalog 1', () => {
-    const oldDrink = {
-      drinkKey: 'Stella-25-5',
-      icon: 'HalfBeer',
-      categoryKey: 'ownDrink',
-      volume: '25 cl',
-      isDeleted: false,
-      kcal: 70,
-      doses: 1,
-      displayFeed: 'Stella ',
-      displayDrinkModal: 'Stella ',
-      custom: true,
-      alcoolPercentage: 5,
-      price: 5,
-    };
-    expect(cleanCatalog([oldDrink])).toEqual([oldDrink]);
-  });
-});
-
-test('Nico Catalog 2', () => {
-  const oldDrink = {
-    drinkKey: 'Stella ',
-    icon: 'HalfBeer',
-    categoryKey: 'ownDrink',
-    volume: '25 cl',
-    isDeleted: false,
-    kcal: 70,
-    doses: 1,
-    displayFeed: 'Stella ',
-    displayDrinkModal: 'Stella ',
-    custom: true,
-    alcoolPercentage: 5,
-    price: 5,
-  };
-  expect(cleanCatalog([oldDrink])).toEqual([oldDrink]);
 });
