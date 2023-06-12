@@ -19,6 +19,8 @@ import {
   cleanConsosAndCatalog,
   hasMigrateFromDailyGoalToWeekly,
   migrateFromDailyGoalToWeekly,
+  hasRepairedNicosConsos,
+  repairNicosConsos,
 } from './src/services/storage';
 
 dayjs.locale('fr');
@@ -41,6 +43,7 @@ const App = () => {
   const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
     hasMigrateFromDailyGoalToWeekly
   );
+  const [_hasRepairedNicosConsoshasFixed, setHasRepairedNicosConsoshasFixed] = useState(hasRepairedNicosConsos);
 
   useEffect(() => {
     if (!_hasCleanConsoAndCatalog) {
@@ -54,6 +57,10 @@ const App = () => {
     if (!_hasMigrateFromDailyGoalToWeekly) {
       migrateFromDailyGoalToWeekly();
       sethasMigrateFromDailyGoalToWeekly(true);
+    }
+    if (!_hasRepairedNicosConsoshasFixed) {
+      repairNicosConsos();
+      setHasRepairedNicosConsoshasFixed(true);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

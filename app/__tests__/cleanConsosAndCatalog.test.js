@@ -148,21 +148,39 @@ describe('cleanCatalog', () => {
     expect(cleanCatalog(catalog)).toEqual([]);
   });
 
-  test('Correct custom drink', () => {
+  test('Nico catalog 1', () => {
     const oldDrink = {
-      drinkKey: 'Vin Rouge',
-      icon: 'WineGlass',
+      drinkKey: 'Stella-25-5',
+      icon: 'HalfBeer',
       categoryKey: 'ownDrink',
-      volume: '10 cl',
+      volume: '25 cl',
       isDeleted: false,
-      kcal: 19,
-      doses: 0.3,
-      displayFeed: 'Vin Rouge',
-      displayDrinkModal: 'Vin Rouge',
+      kcal: 70,
+      doses: 1,
+      displayFeed: 'Stella ',
+      displayDrinkModal: 'Stella ',
       custom: true,
-      alcoolPercentage: 3.4,
-      price: 2.3,
+      alcoolPercentage: 5,
+      price: 5,
     };
     expect(cleanCatalog([oldDrink])).toEqual([oldDrink]);
   });
+});
+
+test('Nico Catalog 2', () => {
+  const oldDrink = {
+    drinkKey: 'Stella ',
+    icon: 'HalfBeer',
+    categoryKey: 'ownDrink',
+    volume: '25 cl',
+    isDeleted: false,
+    kcal: 70,
+    doses: 1,
+    displayFeed: 'Stella ',
+    displayDrinkModal: 'Stella ',
+    custom: true,
+    alcoolPercentage: 5,
+    price: 5,
+  };
+  expect(cleanCatalog([oldDrink])).toEqual([oldDrink]);
 });
