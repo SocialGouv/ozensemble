@@ -1,3 +1,10 @@
+# [1.122.0](https://github.com/SocialGouv/ozensemble/compare/v1.121.9...v1.122.0) (2023-06-13)
+
+
+### Features
+
+* new table export data ([#405](https://github.com/SocialGouv/ozensemble/issues/405)) ([1177119](https://github.com/SocialGouv/ozensemble/commit/11771199b53969ab2f7961bd0947f970ed2809a2))
+
 ## [1.121.9](https://github.com/SocialGouv/ozensemble/compare/v1.121.8...v1.121.9) (2023-06-12)
 
 
