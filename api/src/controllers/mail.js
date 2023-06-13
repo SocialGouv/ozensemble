@@ -4,12 +4,13 @@ const { TIPIMAIL_API_USER, TIPIMAIL_API_KEY, TIPIMAIL_EMAIL_TO, TIPIMAIL_EMAIL_F
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const { capture } = require("../third-parties/sentry");
+const fs = require("fs");
+const csv = require("csv-stringify");
 
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    let { to, replyTo, replyToName, subject, text, html } = req.body || {};
-
+    let { to, replyTo, replyToName, subject, text, html, consosToExport } = req.body || {};
     if (!subject || (!text && !html)) return res.status(400).json({ ok: false, error: "wrong parameters" });
 
     if (!to) {
@@ -20,10 +21,10 @@ router.post(
       replyTo = undefined;
       replyToName = undefined;
     }
+    const file = { filename: "Export.csv", content: "Date,Consommation,Dose(s),Volume,Calories,Prix" };
 
     const from = TIPIMAIL_EMAIL_FROM;
     const fromName = "Oz Ensemble";
-
     const apiRes = await fetch("https://api.tipimail.com/v1/messages/send", {
       method: "POST",
       headers: {
@@ -50,6 +51,13 @@ router.post(
           subject,
           text,
           html,
+          attachments: [
+            {
+              contentType: "text/csv",
+              filename: "myfile.csv",
+              content: "Date,Consommation,Dose(s),Volume,Calories,Prix",
+            },
+          ],
         },
       }),
     }).catch((err) => capture(err, { extra: { route: "POST /mail", body: req.body } }));

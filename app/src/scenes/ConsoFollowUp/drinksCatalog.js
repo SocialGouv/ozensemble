@@ -111,9 +111,9 @@ export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   }
 };
 
-export const getDisplayDrinksModalName = (drinkKey, catalog, quantity = 1) => {
+export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1) => {
   try {
-    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    const drink = catalogObject[drinkKey];
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getDisplayDrinksModalName' },
@@ -121,16 +121,17 @@ export const getDisplayDrinksModalName = (drinkKey, catalog, quantity = 1) => {
       return '';
     }
     const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
-    return formatedDisplay.capitalize();
+    console.log('formatedDisplay', formatedDisplay);
+    return formatedDisplay;
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayName' } });
+    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayDrinksModalName' } });
     return '';
   }
 };
 
-export const getVolume = (drinkKey, catalog) => {
+export const getVolume = (drinkKey, catalogObject) => {
   try {
-    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    const drink = catalogObject[drinkKey];
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getVolume' },
@@ -144,9 +145,9 @@ export const getVolume = (drinkKey, catalog) => {
   }
 };
 
-export const getDoses = (drinkKey, catalog) => {
+export const getDoses = (drinkKey, catalogObject) => {
   try {
-    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    const drink = catalogObject[drinkKey];
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getDoses' },
@@ -160,9 +161,9 @@ export const getDoses = (drinkKey, catalog) => {
   }
 };
 
-export const getStyle = (drinkKey, catalog) => {
+export const getStyle = (drinkKey, catalogObject) => {
   try {
-    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    const drink = catalogObject[drinkKey];
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getStyle' },
