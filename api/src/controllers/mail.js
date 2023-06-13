@@ -30,7 +30,7 @@ router.post(
         const drinkFromCatalog = catalog[conso.drinkKey];
         const displayName = drinkFromCatalog.categoryKey.includes("own")
           ? drinkFromCatalog.displayFeed + ` (${drinkFromCatalog.alcoolPercentage}%)`
-          : drinkFromCatalog.categoryKey;
+          : drinkFromCatalog.categoryKey.split(":")[0].replace(",", ".");
         file.content += `${dayjs(conso.date).format("DD/MM/YYYY")},${displayName},${conso.doses},${conso.quantity},${conso.volume},${Math.round(
           conso.kcal
         )},${conso.price} \n`;

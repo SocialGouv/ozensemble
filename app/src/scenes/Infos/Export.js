@@ -82,8 +82,10 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
             }
           } else {
             // if conso is beer need to add the contenent in front of name beer
-            const displayName = conso.drinkKey.includes('beer')
-              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).toLowerCase() + ' de bière'
+            const displayName = ['beer-half', 'cider-half', 'beer-pint', 'cider-pint'].includes(conso.drinkKey)
+              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).toLowerCase() +
+                ' de ' +
+                getDisplayName(conso.drinkKey, (quantity = 1), catalog)
               : getDisplayName(conso.drinkKey, (quantity = 1), catalog);
             consosInfos += conso.quantity + ' ' + displayName;
             const numberVolume = Number(conso.volume.split(' ')[0]);
