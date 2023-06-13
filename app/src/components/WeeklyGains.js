@@ -8,6 +8,7 @@ import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
 
 const WeeklyGains = ({ selectedMonth }) => {
+  console.log('selectedMonthgains', selectedMonth);
   const { width: SCREEN_WIDTH } = Dimensions.get('window');
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
@@ -17,7 +18,8 @@ const WeeklyGains = ({ selectedMonth }) => {
   const drinks = useRecoilValue(drinksState);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const { dailyDoses } = useRecoilValue(derivedDataFromDrinksState);
+  const { dailyDoses, weeklyExpenses, weeklyKcals } = useRecoilValue(derivedDataFromDrinksState);
+  console.log('weeklyExpenses', weeklyExpenses);
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
@@ -41,6 +43,7 @@ const WeeklyGains = ({ selectedMonth }) => {
     [previousDrinksPerWeek]
   );
   const weekInfos = useMemo(() => {
+    let now = Date.now();
     const _weekInfos = [];
     const nbWeeks = nbDays / 7;
     for (let i = 0; i < nbWeeks; i++) {
@@ -54,30 +57,15 @@ const WeeklyGains = ({ selectedMonth }) => {
         }
         day = day.add(1, 'day');
       }
+      console.log('startDay', startDay);
       _weekInfos[i] = {
         startDay: startDay,
         endDay: endDay,
-        kcal: 0,
-        euros: 0,
         isWeekCompleted: daysWithConsos === 7,
+        kcals: weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')],
+        euros: weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')],
       };
     }
-    // TODO: optimize with selector
-    drinks
-      .filter((drink) => {
-        return (
-          dayjs(drink.timestamp).diff(firstDayOfCalendar, 'days') >= 0 &&
-          dayjs(drink.timestamp).diff(firstDayOfCalendar.add(nbDays, 'days'), 'days') <= 0
-        );
-      })
-      .forEach((conso) => {
-        const weekNumber = dayjs(conso.timestamp).diff(firstDayOfCalendar, 'week');
-        const drinkFromCatalog = catalogObject[conso.drinkKey];
-        if (conso.drinkKey !== 'no-conso') {
-          _weekInfos[weekNumber].kcal += drinkFromCatalog.kcal * conso.quantity;
-          _weekInfos[weekNumber].euros += drinkFromCatalog.price * conso.quantity;
-        }
-      });
     return _weekInfos;
   }, [firstDayOfCalendar]);
 
@@ -131,10 +119,10 @@ const WeeklyGains = ({ selectedMonth }) => {
                   <View
                     className={[
                       'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow',
-                      week.kcal > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
+                      week.kcals > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                     ].join(' ')}>
                     <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
-                      {Math.round(Math.abs(week.kcal - myWeeklyKcalBeforeObjective))} KCAL
+                      {Math.round(Math.abs(week.kcals - myWeeklyKcalBeforeObjective))} KCAL
                     </Text>
                   </View>
                 </View>
@@ -163,7 +151,7 @@ const WeeklyGains = ({ selectedMonth }) => {
                 className="bg-[#4030A5] rounded-full py-1 px-2"
                 onPress={() => {
                   setModalContent({
-                    weekKcal: week.kcal,
+                    weekKcal: week.kcals,
                     estimationKcal: myWeeklyKcalBeforeObjective,
                     weekExpenses: week.euros,
                     estimationExpenses: myWeeklyExpensesBeforeObjective,

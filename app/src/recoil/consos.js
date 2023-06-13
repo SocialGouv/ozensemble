@@ -2,7 +2,12 @@ import dayjs from 'dayjs';
 import { atom, selector } from 'recoil';
 import * as Sentry from '@sentry/react-native';
 import { differenceOfDays } from '../helpers/dateHelpers';
-import { drinksCatalogObject, mapDrinkToDose } from '../scenes/ConsoFollowUp/drinksCatalog';
+import {
+  drinksCatalogObject,
+  mapDrinkToDose,
+  mapDrinkToKcals,
+  mapDrinkToPrice,
+} from '../scenes/ConsoFollowUp/drinksCatalog';
 import { storage } from '../services/storage';
 import { getInitValueFromStorage } from './utils';
 import { goalsByWeekState, goalsState } from './gains';
@@ -116,6 +121,8 @@ export const derivedDataFromDrinksState = selector({
     const monthlyDoses = {};
     const calendarDays = {};
     const calendarGoalsStartOfWeek = {};
+    const weeklyKcals = {};
+    const weeklyExpenses = {};
 
     // temp variables
     let startOfWeek = null;
@@ -246,7 +253,27 @@ export const derivedDataFromDrinksState = selector({
           };
         }
       }
+
+      // Weekly gains
+      //weekly kcals
+      const kcals = mapDrinkToKcals(drink, consolidatedCatalogObject);
+      if (!weeklyKcals[startOfWeek]) weeklyKcals[startOfWeek] = 0;
+      weeklyKcals[startOfWeek] = weeklyKcals[startOfWeek] + kcals;
+      //weekly kcals
+      const expenses = mapDrinkToPrice(drink, consolidatedCatalogObject);
+      if (!weeklyExpenses[startOfWeek]) weeklyExpenses[startOfWeek] = 0;
+      weeklyExpenses[startOfWeek] = weeklyExpenses[startOfWeek] + expenses;
     }
-    return { drinksByDay, dailyDoses, weeklyDoses, monthlyDoses, calendarDays, calendarGoalsStartOfWeek };
+
+    return {
+      drinksByDay,
+      dailyDoses,
+      weeklyDoses,
+      monthlyDoses,
+      calendarDays,
+      calendarGoalsStartOfWeek,
+      weeklyKcals,
+      weeklyExpenses,
+    };
   },
 });

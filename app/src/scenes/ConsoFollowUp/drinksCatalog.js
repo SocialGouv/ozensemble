@@ -75,6 +75,28 @@ export const mapDrinkToDose = ({ drinkKey, quantity }, catalogObject) => {
   return 0;
 };
 
+export const mapDrinkToKcals = ({ drinkKey, quantity }, catalogObject) => {
+  if (drinkKey === NO_CONSO) return 0;
+  const drink = catalogObject[drinkKey];
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'mapDrinkToDose' } });
+    return 0;
+  }
+  if (drink) return drink.kcal * quantity;
+  return 0;
+};
+
+export const mapDrinkToPrice = ({ drinkKey, quantity }, catalogObject) => {
+  if (drinkKey === NO_CONSO) return 0;
+  const drink = catalogObject[drinkKey];
+  if (!drink) {
+    capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'mapDrinkToDose' } });
+    return 0;
+  }
+  if (drink) return drink.price * quantity;
+  return 0;
+};
+
 export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   try {
     const drink = catalogObject[drinkKey];

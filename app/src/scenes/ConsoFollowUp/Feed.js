@@ -141,6 +141,7 @@ const Header = ({ onScrollToDate, selectedMonth }) => {
 };
 
 const Feed = ({ selectedMonth, show }) => {
+  console.log('feed', selectedMonth);
   const days = useRecoilValue(feedDaysSelector);
   const setDrinks = useSetRecoilState(drinksState);
 
@@ -178,7 +179,7 @@ const Feed = ({ selectedMonth, show }) => {
 
   const ListHeaderComponent = useMemo(
     () => <Header onScrollToDate={handleScrollToDate} selectedMonth={selectedMonth} />,
-    [handleScrollToDate]
+    [handleScrollToDate, selectedMonth]
   );
   const ListFooterComponent = useMemo(
     () => (
