@@ -90,24 +90,68 @@ export const getDisplayName = (drinkKey, quantity, catalogObject) => {
 };
 
 export const getDisplayDrinksModalName = (drinkKey, catalog, quantity = 1) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
-  return formatedDisplay.capitalize();
+  try {
+    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    if (!drink) {
+      capture(new Error('drink not found'), {
+        extra: { drinkKey, catalogObject, function: 'getDisplayDrinksModalName' },
+      });
+      return '';
+    }
+    const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
+    return formatedDisplay.capitalize();
+  } catch (e) {
+    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayName' } });
+    return '';
+  }
 };
 
 export const getVolume = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  return drink.volume;
+  try {
+    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    if (!drink) {
+      capture(new Error('drink not found'), {
+        extra: { drinkKey, catalogObject, function: 'getVolume' },
+      });
+      return '';
+    }
+    return drink.volume;
+  } catch (e) {
+    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getVolume' } });
+    return '0 cl';
+  }
 };
 
 export const getDoses = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  return drink.doses;
+  try {
+    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    if (!drink) {
+      capture(new Error('drink not found'), {
+        extra: { drinkKey, catalogObject, function: 'getDoses' },
+      });
+      return 0;
+    }
+    return drink.doses;
+  } catch (e) {
+    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDoses' } });
+    return '0 cl';
+  }
 };
 
 export const getStyle = (drinkKey, catalog) => {
-  const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
-  return drink.style || {};
+  try {
+    const drink = catalog.find((drink) => drink.drinkKey === drinkKey);
+    if (!drink) {
+      capture(new Error('drink not found'), {
+        extra: { drinkKey, catalogObject, function: 'getStyle' },
+      });
+      return {};
+    }
+    return drink.style || {};
+  } catch (e) {
+    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getStyle' } });
+    return {};
+  }
 };
 
 export const getIcon = (iconName) => {
