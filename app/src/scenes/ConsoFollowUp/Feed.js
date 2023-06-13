@@ -29,7 +29,7 @@ import { FlashList } from '@shopify/flash-list';
 import Calendar from '../../components/Calendar';
 import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
 import WeeklyGains from '../../components/WeeklyGains';
-import GainSinceTheBeginning from '../../components/GainsSinceTheBeginnig';
+import GainSinceTheBeginning from '../../components/GainsSinceTheBeginning';
 import H1 from '../../components/H1';
 import CalendarSwitch from '../../components/CalendarSwitch';
 import ArrowLeft from '../../components/ArrowLeft';
@@ -53,7 +53,7 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Header = ({ onScrollToDate, window, setWindow, selectedMonth, setSelectedMonth }) => {
+const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }) => {
   const navigation = useNavigation();
   const isOnboarded = useRecoilValue(isOnboardedSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
@@ -111,8 +111,8 @@ const Header = ({ onScrollToDate, window, setWindow, selectedMonth, setSelectedM
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-        <CalendarSwitch window={window} setWindow={setWindow} />
-        {(isOnboarded || window === 'calendar') && (
+        <CalendarSwitch tab={tab} setTab={setTab} />
+        {(isOnboarded || tab === 'calendar') && (
           <View className="flex flex-row w-gfain justify-between px-5 items-center">
             <TouchableOpacity
               hitSlop={hitSlop(15)}
@@ -132,7 +132,7 @@ const Header = ({ onScrollToDate, window, setWindow, selectedMonth, setSelectedM
           </View>
         )}
       </View>
-      {window === 'calendar' ? (
+      {tab === 'calendar' ? (
         <>
           <Calendar onScrollToDate={onScrollToDate} selectedMonth={selectedMonth} />
           {!!showNoConsoSinceLongTime && (
@@ -206,7 +206,7 @@ const Header = ({ onScrollToDate, window, setWindow, selectedMonth, setSelectedM
 };
 
 const Feed = () => {
-  const [window, setWindow] = useState('calendar');
+  const [tab, setTab] = useState('calendar');
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const days = useRecoilValue(feedDaysSelector);
   const setDrinks = useSetRecoilState(drinksState);
@@ -248,12 +248,12 @@ const Feed = () => {
       <Header
         onScrollToDate={handleScrollToDate}
         selectedMonth={selectedMonth}
-        window={window}
-        setWindow={setWindow}
+        tab={tab}
+        setTab={setTab}
         setSelectedMonth={setSelectedMonth}
       />
     ),
-    [handleScrollToDate, selectedMonth, window]
+    [handleScrollToDate, selectedMonth, tab]
   );
   const ListFooterComponent = useMemo(
     () => (
@@ -277,10 +277,10 @@ const Feed = () => {
         ListHeaderComponent={ListHeaderComponent}
         keyExtractor={(item) => item}
         estimatedItemSize={190} // height of one item with one drink
-        extraData={window}
+        extraData={tab}
         renderItem={({ item, index }) => {
           return (
-            <View style={{ opacity: window === 'calendar' }}>
+            <View style={{ opacity: tab === 'calendar' }}>
               <FeedDayItem
                 item={item}
                 index={index}

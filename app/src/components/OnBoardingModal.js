@@ -9,7 +9,6 @@ import Modal from './Modal';
 import TextStyled from './TextStyled';
 
 const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTitle }) => {
-  console.log(description);
   return (
     <Modal visible={visible} animationType="fade" hide={hide} withBackground hideOnTouch>
       <Container>
