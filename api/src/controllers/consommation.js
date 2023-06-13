@@ -351,4 +351,24 @@ router.post(
   })
 );
 
+router.get(
+  "/get-all-consos",
+  catchErrors(async (req, res) => {
+    const { matomoId } = req.query;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+
+    // find user with matomoId
+    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+
+    consos = await prisma.consommation.findMany({
+      where: { userId: user.id },
+      orderBy: {
+        date: "asc",
+      },
+    });
+
+    return res.status(200).send({ ok: true, data: consos });
+  })
+);
+
 module.exports = router;
