@@ -1,3 +1,10 @@
+## [1.122.1](https://github.com/SocialGouv/ozensemble/compare/v1.122.0...v1.122.1) (2023-06-13)
+
+
+### Bug Fixes
+
+*  show again new feat ([#426](https://github.com/SocialGouv/ozensemble/issues/426)) ([9abcd16](https://github.com/SocialGouv/ozensemble/commit/9abcd16d043287658e73abdc34cca131b016c79d))
+
 # [1.122.0](https://github.com/SocialGouv/ozensemble/compare/v1.121.9...v1.122.0) (2023-06-13)
 
 
