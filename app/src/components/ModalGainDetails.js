@@ -11,10 +11,6 @@ const ModalGainDetails = ({ content, onClose }) => {
   const firstDayDisplay = firstDayMonth === lastDayMonth ? content?.firstDay?.split(' ')[0] : content?.firstDay;
   const caloriesTitle = content?.weekKcal <= content?.estimationKcal ? 'KCalories évitées' : 'KCalories en plus';
   const eurosTitle = content?.weekExpenses <= content?.estimationExpenses ? 'Euros épargnés' : 'Euros non-épargnés';
-  console.log('content?.weekKcal', content?.weekKcal);
-  console.log('content?.estimationKcal', content?.estimationKcal);
-  console.log('content?.weekExpenses', content?.weekExpenses);
-  console.log('content?.estimationExpenses', content?.estimationExpenses);
   return (
     <Modal visible={!!content} animationType="fade" withBackground hideOnTouch>
       <View className="bg-white rounded-xl">

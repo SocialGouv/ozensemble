@@ -8,7 +8,6 @@ import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
 
 const WeeklyGains = ({ selectedMonth }) => {
-  console.log('selectedMonthgains', selectedMonth);
   const { width: SCREEN_WIDTH } = Dimensions.get('window');
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
@@ -19,7 +18,6 @@ const WeeklyGains = ({ selectedMonth }) => {
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const { dailyDoses, weeklyExpenses, weeklyKcals } = useRecoilValue(derivedDataFromDrinksState);
-  console.log('weeklyExpenses', weeklyExpenses);
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
@@ -43,7 +41,6 @@ const WeeklyGains = ({ selectedMonth }) => {
     [previousDrinksPerWeek]
   );
   const weekInfos = useMemo(() => {
-    let now = Date.now();
     const _weekInfos = [];
     const nbWeeks = nbDays / 7;
     for (let i = 0; i < nbWeeks; i++) {
@@ -57,7 +54,6 @@ const WeeklyGains = ({ selectedMonth }) => {
         }
         day = day.add(1, 'day');
       }
-      console.log('startDay', startDay);
       _weekInfos[i] = {
         startDay: startDay,
         endDay: endDay,
