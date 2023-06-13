@@ -3,16 +3,16 @@ import { Animated } from 'react-native';
 import styled from 'styled-components';
 import AnimatedTextStyled from './AnimatedTextStyled';
 
-const CalendarSwitch = ({ window, setWindow }) => {
+const CalendarSwitch = ({ tab, setTab }) => {
   const [componentWidth, setComponentWidth] = useState(0);
   const [animatedXValue] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    runAnimation(renderValue(window));
-  }, [window]);
+    runAnimation(renderValue(tab));
+  }, [tab]);
 
   const renderValue = () => {
-    return Number(window === 'gains');
+    return Number(tab === 'gains');
   };
 
   const runAnimation = (toValue) => {
@@ -45,7 +45,7 @@ const CalendarSwitch = ({ window, setWindow }) => {
       <Cells>
         <CellContainerTouchable
           onPress={() => {
-            setWindow('calendar');
+            setTab('calendar');
           }}>
           <CellText
             style={{
@@ -59,7 +59,7 @@ const CalendarSwitch = ({ window, setWindow }) => {
         </CellContainerTouchable>
         <CellContainerTouchable
           onPress={() => {
-            setWindow('gains');
+            setTab('gains');
           }}>
           <CellText
             style={{

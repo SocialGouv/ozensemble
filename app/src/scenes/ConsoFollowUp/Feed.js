@@ -1,10 +1,12 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Dimensions, TouchableWithoutFeedback, View, Text, TouchableOpacity } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
+import { isOnboardedSelector } from '../../recoil/gains';
+
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { derivedDataFromDrinksState, drinksState, feedDaysSelector } from '../../recoil/consos';
@@ -25,7 +27,14 @@ import { storage } from '../../services/storage';
 import API from '../../services/api';
 import { FlashList } from '@shopify/flash-list';
 import Calendar from '../../components/Calendar';
-import { defaultPaddingFontScale } from '../../styles/theme';
+import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
+import WeeklyGains from '../../components/WeeklyGains';
+import GainSinceTheBeginning from '../../components/GainsSinceTheBeginning';
+import H1 from '../../components/H1';
+import CalendarSwitch from '../../components/CalendarSwitch';
+import ArrowLeft from '../../components/ArrowLeft';
+import ArrowRight from '../../components/ArrowRight';
+import TargetGoal from '../../components/illustrations/icons/TargetGoal';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -44,12 +53,11 @@ const computeShowButtons = (selected, position) => {
   return false;
 };
 
-const Header = ({ onScrollToDate }) => {
+const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }) => {
   const navigation = useNavigation();
-
+  const isOnboarded = useRecoilValue(isOnboardedSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
   const [noConsoLoading, setNoConsoLoading] = useState(false);
-
   const dateLastEntered = useMemo(() => {
     return drinks[0]?.timestamp || null;
   }, [drinks]);
@@ -97,50 +105,109 @@ const Header = ({ onScrollToDate }) => {
     setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
     setNoConsoLoading(false);
   }, [dateLastEntered, setDrinks]);
-
   return (
     <>
-      <Calendar onScrollToDate={onScrollToDate} />
-      {!!showNoConsoSinceLongTime && (
-        <LastDrink>
-          <LastDrinkText>
-            <Pint size={30} color="#4030A5" />
-            <MessageContainer>
-              <TextStyled>
-                Vous n'avez pas saisi de consommations depuis le{' '}
-                <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
-              </TextStyled>
-            </MessageContainer>
-          </LastDrinkText>
-          <LastDrinkButtons>
-            <ButtonPrimary
-              content={"Je n'ai rien bu !"}
-              small
-              disabled={noConsoLoading}
+      <View className="flex flex-row shrink-0 mb-4" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+        <H1 color="#4030a5">Calendrier</H1>
+      </View>
+      <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+        <CalendarSwitch tab={tab} setTab={setTab} />
+        {(isOnboarded || tab === 'calendar') && (
+          <View className="flex flex-row w-gfain justify-between px-5 items-center">
+            <TouchableOpacity
+              hitSlop={hitSlop(15)}
               onPress={() => {
-                setNoConsos();
-              }}
-            />
-            <AddDrinkButton
-              onPress={() => {
-                navigation.push('ADD_DRINK', { timestamp: Date.now() });
-                logEvent({
-                  category: 'CONSO',
-                  action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                });
+                setSelectedMonth(selectedMonth.subtract(1, 'month'));
               }}>
-              <AddDrinkText>
-                <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
-              </AddDrinkText>
-            </AddDrinkButton>
-          </LastDrinkButtons>
-        </LastDrink>
+              <ArrowLeft color="#4030A5" size={15} />
+            </TouchableOpacity>
+            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+            <TouchableOpacity
+              hitSlop={hitSlop(15)}
+              onPress={() => {
+                setSelectedMonth(selectedMonth.add(1, 'month'));
+              }}>
+              <ArrowRight color="#4030A5" size={15} />
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+      {tab === 'calendar' ? (
+        <>
+          <Calendar onScrollToDate={onScrollToDate} selectedMonth={selectedMonth} />
+          {!!showNoConsoSinceLongTime && (
+            <LastDrink>
+              <LastDrinkText>
+                <Pint size={30} color="#4030A5" />
+                <MessageContainer>
+                  <TextStyled>
+                    Vous n'avez pas saisi de consommations depuis le{' '}
+                    <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
+                  </TextStyled>
+                </MessageContainer>
+              </LastDrinkText>
+              <LastDrinkButtons>
+                <ButtonPrimary
+                  content={"Je n'ai rien bu !"}
+                  small
+                  disabled={noConsoLoading}
+                  onPress={() => {
+                    setNoConsos();
+                  }}
+                />
+                <AddDrinkButton
+                  onPress={() => {
+                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                    logEvent({
+                      category: 'CONSO',
+                      action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                    });
+                  }}>
+                  <AddDrinkText>
+                    <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
+                  </AddDrinkText>
+                </AddDrinkButton>
+              </LastDrinkButtons>
+            </LastDrink>
+          )}
+        </>
+      ) : (
+        <>
+          {!isOnboarded ? (
+            <View style={{ paddingHorizontal: defaultPaddingFontScale() }} className="mb-4">
+              <TouchableOpacity
+                onPress={() => {
+                  logEvent({
+                    category: 'GAINS',
+                    action: 'TOOLTIP_GOAL',
+                  });
+                  navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+                }}
+                className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
+                <TargetGoal size={35} />
+                <Text className="mx-6">
+                  Complétez l'
+                  <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
+                  <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
+                </Text>
+                <View>
+                  <ArrowRight color="#4030a5" size={15} />
+                </View>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <WeeklyGains selectedMonth={selectedMonth} />
+          )}
+          <GainSinceTheBeginning isOnboarded={isOnboarded} navigation={navigation} />
+        </>
       )}
     </>
   );
 };
 
 const Feed = () => {
+  const [tab, setTab] = useState('calendar');
+  const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const days = useRecoilValue(feedDaysSelector);
   const setDrinks = useSetRecoilState(drinksState);
 
@@ -176,7 +243,18 @@ const Feed = () => {
     [setDrinks]
   );
 
-  const ListHeaderComponent = useMemo(() => <Header onScrollToDate={handleScrollToDate} />, [handleScrollToDate]);
+  const ListHeaderComponent = useMemo(
+    () => (
+      <Header
+        onScrollToDate={handleScrollToDate}
+        selectedMonth={selectedMonth}
+        tab={tab}
+        setTab={setTab}
+        setSelectedMonth={setSelectedMonth}
+      />
+    ),
+    [handleScrollToDate, selectedMonth, tab]
+  );
   const ListFooterComponent = useMemo(
     () => (
       <ButtonContainer>
@@ -191,30 +269,30 @@ const Feed = () => {
     ),
     [navigation]
   );
-
   return (
-    <>
-      <FeedContainer>
-        <FlashList
-          ref={flashListRef}
-          data={days}
-          ListHeaderComponent={ListHeaderComponent}
-          keyExtractor={(item) => item}
-          estimatedItemSize={190} // height of one item with one drink
-          renderItem={({ item, index }) => {
-            return (
+    <View className="h-full bg-white pt-5">
+      <FlashList
+        ref={flashListRef}
+        data={days}
+        ListHeaderComponent={ListHeaderComponent}
+        keyExtractor={(item) => item}
+        estimatedItemSize={190} // height of one item with one drink
+        extraData={tab}
+        renderItem={({ item, index }) => {
+          return (
+            <View style={{ opacity: tab === 'calendar' }}>
               <FeedDayItem
                 item={item}
                 index={index}
                 deleteDrinkRequest={deleteDrinkRequest}
                 addDrinksRequest={addDrinksRequest}
               />
-            );
-          }}
-          ListFooterComponent={ListFooterComponent}
-        />
-      </FeedContainer>
-    </>
+            </View>
+          );
+        }}
+        ListFooterComponent={ListFooterComponent}
+      />
+    </View>
   );
 };
 
@@ -249,7 +327,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
   }, [isFocused]);
 
   return (
-    <FeedDay>
+    <View className="flex flex-row shrink grow-0" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <TouchableWithoutFeedback
         onPress={() => {
           console.log('ON PRESS');
@@ -335,7 +413,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
           </FeedDayContent>
         </>
       </TouchableWithoutFeedback>
-    </FeedDay>
+    </View>
   );
 };
 
@@ -401,6 +479,11 @@ const FeedDayContent = styled.View`
 const FeedBottomButton = styled(UnderlinedButton)`
   align-items: center;
   margin-bottom: 15px;
+`;
+
+const Spacer = styled.View`
+  height: ${({ size }) => size || 20}px;
+  width: ${({ size }) => size || 20}px;
 `;
 
 export default Feed;

@@ -1,15 +1,13 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { derivedDataFromDrinksState } from '../recoil/consos';
 import { goalsState, isOnboardedSelector } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
-import { defaultPaddingFontScale, hitSlop } from '../styles/theme';
-import ArrowLeft from './ArrowLeft';
-import ArrowRight from './ArrowRight';
+import { defaultPaddingFontScale } from '../styles/theme';
 import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
@@ -18,7 +16,6 @@ import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 import OnBoardingModal from './OnBoardingModal';
 import CalendarLegend from './CalendarLegend';
 import { logEvent } from '../services/logEventsWithMatomo';
-import H1 from './H1';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -73,8 +70,7 @@ const cols = ['Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.', 'Dim.', 'Obj.'];
 const widthBaseScale = SCREEN_WIDTH / 414;
 const fontSize = Math.round(PixelRatio.roundToNearestPixel(15 * widthBaseScale));
 
-const Calendar = ({ onScrollToDate }) => {
-  const [selectedMonth, setSelectedMonth] = useState(dayjs());
+const Calendar = ({ onScrollToDate, selectedMonth }) => {
   const firstDayOfMonth = selectedMonth.startOf('month');
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week').format('YYYY-MM-DD');
@@ -195,27 +191,7 @@ const Calendar = ({ onScrollToDate }) => {
   return (
     <>
       <View className="py-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-        <View className="flex flex-row shrink-0 mb-4">
-          <H1 color="#4030a5">Calendrier</H1>
-        </View>
         <View>
-          <View className="flex flex-row w-full justify-between px-5 items-center">
-            <TouchableOpacity
-              hitSlop={hitSlop(15)}
-              onPress={() => {
-                setSelectedMonth(selectedMonth.subtract(1, 'month'));
-              }}>
-              <ArrowLeft color="#4030A5" size={15} />
-            </TouchableOpacity>
-            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
-            <TouchableOpacity
-              hitSlop={hitSlop(15)}
-              onPress={() => {
-                setSelectedMonth(selectedMonth.add(1, 'month'));
-              }}>
-              <ArrowRight color="#4030A5" size={15} />
-            </TouchableOpacity>
-          </View>
           <View className="flex flex-row justify-between mt-3">
             {cols.map((col) => {
               const isObjectifColonnes = col === 'Obj.';

@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Dimensions, PixelRatio, View, Text, TouchableOpacity } from 'react-native';
 import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
-import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState, drinksState } from '../recoil/consos';
+import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState } from '../recoil/consos';
 import { previousDrinksPerWeekState } from '../recoil/gains';
 import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
@@ -14,10 +14,9 @@ const WeeklyGains = ({ selectedMonth }) => {
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42; // 35 days if the month run on 5 weeks, 42 if it run on 6 weeks
   const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
-  const drinks = useRecoilValue(drinksState);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const { dailyDoses } = useRecoilValue(derivedDataFromDrinksState);
+  const { dailyDoses, weeklyExpenses, weeklyKcals } = useRecoilValue(derivedDataFromDrinksState);
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
@@ -57,33 +56,17 @@ const WeeklyGains = ({ selectedMonth }) => {
       _weekInfos[i] = {
         startDay: startDay,
         endDay: endDay,
-        kcal: 0,
-        euros: 0,
         isWeekCompleted: daysWithConsos === 7,
+        kcals: weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')],
+        euros: weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')],
       };
     }
-    // TODO: optimize with selector
-    drinks
-      .filter((drink) => {
-        return (
-          dayjs(drink.timestamp).diff(firstDayOfCalendar, 'days') >= 0 &&
-          dayjs(drink.timestamp).diff(firstDayOfCalendar.add(nbDays, 'days'), 'days') <= 0
-        );
-      })
-      .forEach((conso) => {
-        const weekNumber = dayjs(conso.timestamp).diff(firstDayOfCalendar, 'week');
-        const drinkFromCatalog = catalogObject[conso.drinkKey];
-        if (conso.drinkKey !== 'no-conso') {
-          _weekInfos[weekNumber].kcal += drinkFromCatalog.kcal * conso.quantity;
-          _weekInfos[weekNumber].euros += drinkFromCatalog.price * conso.quantity;
-        }
-      });
     return _weekInfos;
   }, [firstDayOfCalendar]);
 
   return (
-    <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-      <View className="flex flex-row mt-4 mb-2">
+    <View style={{ paddingHorizontal: defaultPaddingFontScale() }} className="py-5">
+      <View className="flex flex-row mt-3 mb-2">
         <View className="flex flex-row grow justify-center basis-14">
           <Text className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             Semaine
@@ -131,10 +114,10 @@ const WeeklyGains = ({ selectedMonth }) => {
                   <View
                     className={[
                       'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow',
-                      week.kcal > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
+                      week.kcals > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                     ].join(' ')}>
                     <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
-                      {Math.round(Math.abs(week.kcal - myWeeklyKcalBeforeObjective))} KCAL
+                      {Math.round(Math.abs(week.kcals - myWeeklyKcalBeforeObjective))} KCAL
                     </Text>
                   </View>
                 </View>
@@ -163,7 +146,7 @@ const WeeklyGains = ({ selectedMonth }) => {
                 className="bg-[#4030A5] rounded-full py-1 px-2"
                 onPress={() => {
                   setModalContent({
-                    weekKcal: week.kcal,
+                    weekKcal: week.kcals,
                     estimationKcal: myWeeklyKcalBeforeObjective,
                     weekExpenses: week.euros,
                     estimationExpenses: myWeeklyExpensesBeforeObjective,

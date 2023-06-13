@@ -117,7 +117,9 @@ const ModalGainDetails = ({ content, onClose }) => {
         </View>
       </View>
 
-      {content?.status === 'Success' && <Confetti run={true} />}
+      {eurosTitle === 'Euros épargnés' && caloriesTitle === 'KCalories évitées' && content?.isWeekCompleted && (
+        <Confetti run={true} />
+      )}
     </Modal>
   );
 };
