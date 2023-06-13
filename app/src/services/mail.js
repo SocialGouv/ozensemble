@@ -1,6 +1,6 @@
 import API from './api';
 
-export const sendMail = async ({ to, subject, text, html, consosToExport, catalog }) => {
+export const sendMail = async ({ to, subject, text, html, fileContent, fileName, fileType }) => {
   return await API.post({
     path: '/mail',
     body: {
@@ -8,8 +8,9 @@ export const sendMail = async ({ to, subject, text, html, consosToExport, catalo
       subject,
       text,
       html,
-      consosToExport,
-      catalog,
+      fileContent,
+      fileName,
+      fileType,
     },
   }).catch((err) => console.error('send mail error', err));
 };

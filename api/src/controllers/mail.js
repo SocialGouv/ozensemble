@@ -9,7 +9,7 @@ const dayjs = require("dayjs");
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    let { to, replyTo, replyToName, subject, text, html, consosToExport, catalog } = req.body || {};
+    let { to, replyTo, replyToName, subject, text, html, fileContent, fileName, fileType } = req.body || {};
     if (!subject || (!text && !html)) return res.status(400).json({ ok: false, error: "wrong parameters" });
 
     if (!to) {
@@ -20,23 +20,6 @@ router.post(
       replyTo = undefined;
       replyToName = undefined;
     }
-    const file = {
-      filename: "MesConsommationOz.csv",
-      content: `Date,Consommation,Unité(s),Quantité,Volume,Calories,Prix (Euros)\n`,
-    };
-
-    if (consosToExport) {
-      consosToExport.forEach((conso) => {
-        const drinkFromCatalog = catalog[conso.drinkKey];
-        const displayName = drinkFromCatalog.categoryKey.includes("own")
-          ? drinkFromCatalog.displayFeed + ` (${drinkFromCatalog.alcoolPercentage}%)`
-          : drinkFromCatalog.categoryKey.split(":")[0].replace(",", ".");
-        file.content += `${dayjs(conso.date).format("DD/MM/YYYY")},${displayName},${conso.doses},${conso.quantity},${conso.volume},${Math.round(
-          conso.kcal
-        )},${conso.price} \n`;
-      });
-    }
-    const content = Buffer.from(file.content, "binary").toString("base64");
     const from = TIPIMAIL_EMAIL_FROM;
     const fromName = "Oz Ensemble";
     const apiRes = await fetch("https://api.tipimail.com/v1/messages/send", {
@@ -67,9 +50,9 @@ router.post(
           html,
           attachments: [
             {
-              contentType: "text/csv",
-              filename: file.filename,
-              content: content,
+              contentType: fileType,
+              filename: fileName,
+              content: fileContent,
             },
           ],
         },
