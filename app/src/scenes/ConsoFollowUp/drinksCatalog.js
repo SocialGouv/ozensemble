@@ -113,7 +113,7 @@ export const getVolume = (drinkKey, catalog) => {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getVolume' },
       });
-      return '';
+      return '0 cl';
     }
     return drink.volume;
   } catch (e) {
@@ -134,7 +134,7 @@ export const getDoses = (drinkKey, catalog) => {
     return drink.doses;
   } catch (e) {
     capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDoses' } });
-    return '0 cl';
+    return 0;
   }
 };
 
