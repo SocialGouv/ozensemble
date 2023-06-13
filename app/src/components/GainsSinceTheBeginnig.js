@@ -1,20 +1,17 @@
-import { useCallback, useMemo } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { useMemo } from 'react';
+import { View, Text } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { previousDrinksPerWeekState } from '../recoil/gains';
-import { logEvent } from '../services/logEventsWithMatomo';
 import { defaultPaddingFontScale } from '../styles/theme';
 import { Spacer } from './Articles';
 import H2 from './H2';
 import EuroIcon from './illustrations/icons/EuroIcon';
 import KcalIcon from './illustrations/icons/KcalIcon';
-import TargetGoal from './illustrations/icons/TargetGoal';
 import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
 import { drinksState, feedDaysSelector } from '../recoil/consos';
 import dayjs from 'dayjs';
-import ArrowRight from './ArrowRight';
 
-const GainSinceTheBeginning = ({ isOnboarded, navigation }) => {
+const GainSinceTheBeginning = ({ isOnboarded }) => {
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
   const beginDateOfOz = useMemo(() => {

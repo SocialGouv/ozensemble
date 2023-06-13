@@ -29,16 +29,12 @@ import { FlashList } from '@shopify/flash-list';
 import Calendar from '../../components/Calendar';
 import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
 import WeeklyGains from '../../components/WeeklyGains';
-import H2 from '../../components/H2';
-import EuroIcon from '../../components/illustrations/icons/EuroIcon';
-import KcalIcon from '../../components/illustrations/icons/KcalIcon';
 import GainSinceTheBeginning from '../../components/GainsSinceTheBeginnig';
 import H1 from '../../components/H1';
 import CalendarSwitch from '../../components/CalendarSwitch';
 import ArrowLeft from '../../components/ArrowLeft';
 import ArrowRight from '../../components/ArrowRight';
 import TargetGoal from '../../components/illustrations/icons/TargetGoal';
-import OnBoardingModal from '../../components/OnBoardingModal';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay

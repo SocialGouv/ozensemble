@@ -1,15 +1,13 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { derivedDataFromDrinksState } from '../recoil/consos';
 import { goalsState, isOnboardedSelector } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
-import { defaultPaddingFontScale, hitSlop } from '../styles/theme';
-import ArrowLeft from './ArrowLeft';
-import ArrowRight from './ArrowRight';
+import { defaultPaddingFontScale } from '../styles/theme';
 import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
 import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
 import LegendStar from './illustrations/icons/LegendStar';
@@ -18,7 +16,6 @@ import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 import OnBoardingModal from './OnBoardingModal';
 import CalendarLegend from './CalendarLegend';
 import { logEvent } from '../services/logEventsWithMatomo';
-import H1 from './H1';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
