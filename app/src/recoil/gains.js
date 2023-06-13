@@ -26,7 +26,8 @@ export const totalDrinksByDrinkingDaySelector = selector({
   get: ({ get }) => {
     const totalDrinksByWeek = get(maxDrinksPerWeekSelector);
     const daysWithGoalNoDrink = get(daysWithGoalNoDrinkState);
-    const totalDrinksByDrinkingDay = Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length));
+    const totalDrinksByDrinkingDay =
+      daysWithGoalNoDrink.length < 7 ? Math.ceil(totalDrinksByWeek / (7 - daysWithGoalNoDrink.length)) : 0;
     return totalDrinksByDrinkingDay;
   },
 });

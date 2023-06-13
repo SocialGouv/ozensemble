@@ -32,10 +32,10 @@ const ModalGoal = ({ content, onClose }) => {
         </View>
 
         <View className="flex flex-row justify-center">
-          {!content?.consosWeekGoal && <InterogationMark size={50} />}
-          {content?.consosWeekGoal && content?.status === 'InProgress' && <OnGoingGoal size={50} />}
-          {content?.consosWeekGoal && content?.status === 'Failed' && <CrossDefisFailed size={50} />}
-          {content?.consosWeekGoal && content?.status === 'Success' && <CheckDefisValidated size={50} />}
+          {!content?.consosWeekGoal >= 0 && content?.status === 'NoGoal' && <InterogationMark size={50} />}
+          {content?.consosWeekGoal >= 0 && content?.status === 'InProgress' && <OnGoingGoal size={50} />}
+          {content?.consosWeekGoal >= 0 && content?.status === 'Failed' && <CrossDefisFailed size={50} />}
+          {content?.consosWeekGoal >= 0 && content?.status === 'Success' && <CheckDefisValidated size={50} />}
         </View>
 
         <View className="mb-4 p-2">
@@ -58,7 +58,7 @@ const ModalGoal = ({ content, onClose }) => {
             </View>
             <View>
               <Text className="text-[#4030A5] font-semibold text-center text-xs">Objectif max</Text>
-              {content?.consosWeekGoal ? (
+              {content?.consosWeekGoal >= 0 ? (
                 <View className={'flex flex-row justify-center'}>
                   <Text className="text-center font-bold mt-1 text-xl">{Math.round(content?.consosWeekGoal)}</Text>
                   <Text className="text-center font-bold mt-1 text-lg">
@@ -83,7 +83,7 @@ const ModalGoal = ({ content, onClose }) => {
             </Text>
           )}
 
-          {content?.consosWeekGoal && (
+          {content?.consosWeekGoal >= 0 && (
             <View>
               <View className="flex flex-row justify-center">
                 <View className="w-3/4 border border-[#DDDDDD] my-8"></View>

@@ -213,14 +213,12 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
           <View>
             {calendarDayByWeek.map((calendarWeek) => {
               const weekIsAfterTodaysWeek = calendarWeek.bgColor !== '#F5F6FA';
-              // console.log({ calendarWeek });
               return (
                 <View
                   className="flex flex-row justify-between mt-2 rounded-lg"
                   key={calendarWeek.days[0].day + 'week'}
                   style={{ backgroundColor: calendarWeek.bgColor }}>
                   {calendarWeek.days.map((calendarDay) => {
-                    // console.log('Calendar day', Date.now() - now); // 520 ms fix peut importe le nombre de consos ~ 10 ~ 15 ms /day
                     return (
                       <CalendarDay
                         key={calendarDay.day}
@@ -302,6 +300,7 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
                             setModalContent({
                               consommationContent: calendarWeek.goalStatus.consommationMessage,
                               title: "Pas d'objectif fixé",
+                              status: 'NoGoal',
                               drinkingDaysContent: null,
                               drinkingDaysGoal: null,
                               drinkingDays: null,
