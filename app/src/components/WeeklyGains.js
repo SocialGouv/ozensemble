@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Dimensions, PixelRatio, View, Text, TouchableOpacity } from 'react-native';
 import dayjs from 'dayjs';
 import { useRecoilValue } from 'recoil';
-import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState, drinksState } from '../recoil/consos';
+import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState } from '../recoil/consos';
 import { previousDrinksPerWeekState } from '../recoil/gains';
 import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
@@ -14,7 +14,6 @@ const WeeklyGains = ({ selectedMonth }) => {
   const firstDayOfCalendar = firstDayOfMonth.startOf('week');
   const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42; // 35 days if the month run on 5 weeks, 42 if it run on 6 weeks
   const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
-  const drinks = useRecoilValue(drinksState);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
   const { dailyDoses, weeklyExpenses, weeklyKcals } = useRecoilValue(derivedDataFromDrinksState);
@@ -66,8 +65,8 @@ const WeeklyGains = ({ selectedMonth }) => {
   }, [firstDayOfCalendar]);
 
   return (
-    <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
-      <View className="flex flex-row mt-4 mb-2">
+    <View style={{ paddingHorizontal: defaultPaddingFontScale() }} className="py-5">
+      <View className="flex flex-row mt-3 mb-2">
         <View className="flex flex-row grow justify-center basis-14">
           <Text className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             Semaine
