@@ -1,3 +1,10 @@
+# [1.124.0](https://github.com/SocialGouv/ozensemble/compare/v1.123.0...v1.124.0) (2023-06-14)
+
+
+### Features
+
+* send csv with consos ([#409](https://github.com/SocialGouv/ozensemble/issues/409)) ([a3c0053](https://github.com/SocialGouv/ozensemble/commit/a3c0053ad692daa5d1260a861411b6fe33d38c0a))
+
 # [1.123.0](https://github.com/SocialGouv/ozensemble/compare/v1.122.2...v1.123.0) (2023-06-14)
 
 
