@@ -9,7 +9,7 @@ const dayjs = require("dayjs");
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    let { to, replyTo, replyToName, subject, text, html, fileContent, fileName, fileType } = req.body || {};
+    let { to, replyTo, replyToName, subject, text, html, attachments } = req.body || {};
     if (!subject || (!text && !html)) return res.status(400).json({ ok: false, error: "wrong parameters" });
 
     if (!to) {
@@ -20,6 +20,8 @@ router.post(
       replyTo = undefined;
       replyToName = undefined;
     }
+
+    console.log(attachments);
     const from = TIPIMAIL_EMAIL_FROM;
     const fromName = "Oz Ensemble";
     const apiRes = await fetch("https://api.tipimail.com/v1/messages/send", {
@@ -48,13 +50,7 @@ router.post(
           subject,
           text,
           html,
-          attachments: [
-            {
-              contentType: fileType,
-              filename: fileName,
-              content: fileContent,
-            },
-          ],
+          attachments,
         },
       }),
     }).catch((err) => capture(err, { extra: { route: "POST /mail", body: req.body } }));

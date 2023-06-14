@@ -122,9 +122,9 @@ const Export = ({ navigation }) => {
   const exportData = async () => {
     const matomoId = storage.getString('@UserIdv2');
     const file = {
+      contentType: 'text/csv',
       filename: 'MesConsommationOz.csv',
       content: `Date,Consommation,Unité(s),Quantité,Volume,Calories,Prix (Euros)\n`,
-      fileType: 'text/csv',
     };
     const htmlExport = await API.get({ path: '/consommation/get-all-consos', query: { matomoId } }).then((response) => {
       if (response.ok) {
@@ -161,15 +161,13 @@ const Export = ({ navigation }) => {
       return;
     }
 
-    const base64Data = Buffer.from(file.content, 'binary').toString('base64');
+    file.content = Buffer.from(file.content, 'binary').toString('base64');
 
     const res = await sendMail({
       to: email,
       subject: 'Export de données',
       html: htmlExport,
-      fileContent: base64Data,
-      fileName: file.filename,
-      fileType: file.fileType,
+      attachments: [file],
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
