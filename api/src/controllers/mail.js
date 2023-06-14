@@ -4,7 +4,6 @@ const { TIPIMAIL_API_USER, TIPIMAIL_API_KEY, TIPIMAIL_EMAIL_TO, TIPIMAIL_EMAIL_F
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const { capture } = require("../third-parties/sentry");
-const dayjs = require("dayjs");
 
 router.post(
   "/",
@@ -21,7 +20,6 @@ router.post(
       replyToName = undefined;
     }
 
-    console.log(attachments);
     const from = TIPIMAIL_EMAIL_FROM;
     const fromName = "Oz Ensemble";
     const apiRes = await fetch("https://api.tipimail.com/v1/messages/send", {

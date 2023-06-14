@@ -116,10 +116,16 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 const Export = ({ navigation }) => {
   const [email, setEmail] = useState('');
+  const [disable, setDisable] = useState(!email);
   const toast = useToast();
   const catalog = useRecoilValue(consolidatedCatalogObjectSelector);
   let consos = [];
   const exportData = async () => {
+    if (!emailFormat(email)) {
+      Alert.alert('Adresse email non valide');
+      return;
+    }
+    setDisable(true);
     const matomoId = storage.getString('@UserIdv2');
     const file = {
       contentType: 'text/csv',
@@ -144,23 +150,24 @@ const Export = ({ navigation }) => {
           }
         }
         consos.forEach((conso) => {
-          console.log(conso);
-          const drinkFromCatalog = catalog[conso.drinkKey];
-          const displayName = drinkFromCatalog?.categoryKey.includes('own')
-            ? drinkFromCatalog.displayFeed + ` (${drinkFromCatalog.alcoolPercentage}%)`
-            : drinkFromCatalog?.categoryKey.split(':')[0].replace(',', '.');
-          file.content += `${dayjs(conso.date).format('DD/MM/YYYY')},${displayName},${conso.doses},${conso.quantity},${
-            conso.volume
-          },${Math.round(conso.kcal)},${conso.price} \n`;
+          if (conso.drinkKey === 'no-conso') {
+            file.content += `${dayjs(conso.date).format('DD/MM/YYYY')},Pas bu ce jour,0,1,0,0,0 \n`;
+          } else {
+            const drinkFromCatalog = catalog[conso.drinkKey];
+            const numberVolume = Number(conso.volume.split(' ')[0]);
+            const alcoolPercentage = Math.round((conso.doses * 100) / numberVolume / 0.8);
+            const displayName = drinkFromCatalog?.categoryKey.includes('own')
+              ? drinkFromCatalog.displayFeed + ` (${alcoolPercentage}%)`
+              : drinkFromCatalog?.categoryKey.split(':')[0].replace(',', '.');
+            file.content += `${dayjs(conso.date).format('DD/MM/YYYY')},${displayName},${conso.doses},${
+              conso.quantity
+            },${conso.volume},${Math.round(conso.kcal)},${conso.price} \n`;
+          }
         });
         return formatHtmlTable(consoFilteredByWeek, catalog, firstDay);
       }
       return null;
     });
-    if (!emailFormat(email)) {
-      Alert.alert('Adresse email non valide');
-      return;
-    }
 
     file.content = Buffer.from(file.content, 'binary').toString('base64');
 
@@ -188,7 +195,10 @@ const Export = ({ navigation }) => {
           <EmailInput
             value={email}
             placeholder="Adresse email"
-            onChangeText={setEmail}
+            onChangeText={(value) => {
+              setEmail(value);
+              setDisable(!value);
+            }}
             autoCompleteType="email"
             autoCorrect={false}
             keyboardType="email-address"
@@ -199,7 +209,7 @@ const Export = ({ navigation }) => {
             placeholderTextColor="#c9c9cc"
           />
           <ButtonsContainer>
-            <ButtonPrimary content="Envoyer" disabled={!email} onPress={exportData} />
+            <ButtonPrimary content="Envoyer" disabled={disable} onPress={exportData} />
           </ButtonsContainer>
         </SubContainer>
       </KeyboardAvoidingView>
