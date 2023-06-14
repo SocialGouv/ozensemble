@@ -1,3 +1,10 @@
+## [1.122.2](https://github.com/SocialGouv/ozensemble/compare/v1.122.1...v1.122.2) (2023-06-14)
+
+
+### Bug Fixes
+
+* update version to 1.18.0 ([43dcdc7](https://github.com/SocialGouv/ozensemble/commit/43dcdc7bc4d7bbdeb21386e4c21b5e054b260d67))
+
 ## [1.122.1](https://github.com/SocialGouv/ozensemble/compare/v1.122.0...v1.122.1) (2023-06-13)
 
 
