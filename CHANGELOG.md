@@ -1,3 +1,11 @@
+## [1.124.4](https://github.com/SocialGouv/ozensemble/compare/v1.124.3...v1.124.4) (2023-06-14)
+
+
+### Bug Fixes
+
+*  undefined mail ([#434](https://github.com/SocialGouv/ozensemble/issues/434)) ([0a8a14b](https://github.com/SocialGouv/ozensemble/commit/0a8a14b5573b3896319af2601478af0b91367bfa))
+* bump version to 195 ([#435](https://github.com/SocialGouv/ozensemble/issues/435)) ([0bbad64](https://github.com/SocialGouv/ozensemble/commit/0bbad64e9bdfb46b0e4dd0046e7de3f023adb3c2))
+
 ## [1.124.3](https://github.com/SocialGouv/ozensemble/compare/v1.124.2...v1.124.3) (2023-06-14)
 
 
