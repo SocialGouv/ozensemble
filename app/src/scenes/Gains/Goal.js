@@ -51,7 +51,6 @@ const Goal = ({ navigation }) => {
   const [modalWrongValueVisible, setModalWrongValueVisible] = useState(false);
 
   const isOnboarded = useRecoilValue(isOnboardedSelector);
-  const maxDrinksPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByWeek.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
@@ -73,7 +72,6 @@ const Goal = ({ navigation }) => {
       ]);
     }
   };
-  console.log(maxDrinksPerWeek);
   return (
     <>
       <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
@@ -236,7 +234,7 @@ const Goal = ({ navigation }) => {
                   setModalValidationVisible(true);
                 }
               }}
-              disabled={maxDrinksPerWeek >= 1 && daysWithGoalNoDrink.length === 7}
+              disabled={dosesPerWeek >= 1 && daysWithGoalNoDrink.length === 7}
             />
           </CTAButtonContainer>
         </Container>

@@ -16,15 +16,27 @@ const ModalGoalValidation = ({ content, onUpdate, onValidate, visible }) => {
           <View className="space-y-2 bg-[#F5F6FA] rounded-lg p-2 mt-4">
             <Text className="text-xs text-[#939EA6] text-center">Jours par semaine où je m'autorise à boire</Text>
             <View className="flex flex-row justify-center">
-              <Text className="font-bold text-xl">{content.daysGoal} </Text>
-              <Text className="font-bold text-lg">{content.daysGoal > 1 ? 'jours' : 'jour'} max</Text>
+              {content.daysGoal > 0 ? (
+                <>
+                  <Text className="font-bold text-xl">{content.daysGoal} </Text>
+                  <Text className="font-bold text-lg">{content.daysGoal > 1 ? 'jours' : 'jour'} max</Text>
+                </>
+              ) : (
+                <Text className="font-bold text-lg">Aucun jour</Text>
+              )}
             </View>
           </View>
           <View className="space-y-2 bg-[#F5F6FA] rounded-lg p-2 mt-3 mb-8">
             <Text className="text-xs text-[#939EA6] text-center">Quantité par semaine que je m'autorise à boire</Text>
             <View className="flex flex-row justify-center">
-              <Text className="font-bold text-xl">{content.drinksGoal} </Text>
-              <Text className="font-bold text-lg">{content.drinksGoal > 1 ? 'unités' : 'unité'} max</Text>
+              {content.drinksGoal > 0 ? (
+                <>
+                  <Text className="font-bold text-xl">{content.drinksGoal} </Text>
+                  <Text className="font-bold text-lg">{content.drinksGoal > 1 ? 'unités' : 'unité'} max</Text>
+                </>
+              ) : (
+                <Text className="font-bold text-lg">Aucune unité</Text>
+              )}
             </View>
           </View>
           <ButtonPrimary content={'Valider mon objectif'} onPress={onValidate} />
