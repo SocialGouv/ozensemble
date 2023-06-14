@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
+import { Alert, KeyboardAvoidingView } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -176,28 +176,32 @@ const Export = ({ navigation }) => {
 
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes données">
-      <P>
-        Partagez votre agenda de consommation auprès de la personne de votre choix, renseignez son adresse email
-        ci-dessous{'\u00A0'}:
-      </P>
-      <SubContainer>
-        <EmailInput
-          value={email}
-          placeholder="Adresse email"
-          onChangeText={setEmail}
-          autoCompleteType="email"
-          autoCorrect={false}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          returnKeyType="go"
-          textContentType="emailAddress"
-          onSubmitEditing={exportData}
-          placeholderTextColor="#c9c9cc"
-        />
-        <ButtonsContainer>
-          <ButtonPrimary content="Envoyer" disabled={!email} onPress={exportData} />
-        </ButtonsContainer>
-      </SubContainer>
+      <KeyboardAvoidingView
+        behavior={Platform.select({ ios: 'padding', android: null })}
+        keyboardVerticalOffset={Platform.select({ ios: 250, android: 250 })}>
+        <P>
+          Partagez votre agenda de consommation auprès de la personne de votre choix, renseignez son adresse email
+          ci-dessous{'\u00A0'}:
+        </P>
+        <SubContainer>
+          <EmailInput
+            value={email}
+            placeholder="Adresse email"
+            onChangeText={setEmail}
+            autoCompleteType="email"
+            autoCorrect={false}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            returnKeyType="go"
+            textContentType="emailAddress"
+            onSubmitEditing={exportData}
+            placeholderTextColor="#c9c9cc"
+          />
+          <ButtonsContainer>
+            <ButtonPrimary content="Envoyer" disabled={!email} onPress={exportData} />
+          </ButtonsContainer>
+        </SubContainer>
+      </KeyboardAvoidingView>
     </WrapperContainer>
   );
 };
