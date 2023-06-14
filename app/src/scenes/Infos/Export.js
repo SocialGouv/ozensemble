@@ -95,8 +95,8 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
               // is conso not last of the day the day add <br>
               consosInfos += `<br>`;
             }
+            sumDayDoses += conso.doses * conso.quantity;
           }
-          sumDayDoses += conso.doses * conso.quantity;
         });
         sumDayDoses = Math.round(sumDayDoses * 10) / 10;
         const sumDayDosesDisplay = sumDayDoses > 1 ? sumDayDoses + ' unités' : sumDayDoses + ' unité';
