@@ -280,7 +280,7 @@ const Feed = () => {
         extraData={tab}
         renderItem={({ item, index }) => {
           return (
-            <View style={{ opacity: tab === 'calendar' }}>
+            <View style={{ opacity: Number(tab === 'calendar') }}>
               <FeedDayItem
                 item={item}
                 index={index}
