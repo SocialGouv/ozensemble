@@ -1,3 +1,11 @@
+## [1.124.1](https://github.com/SocialGouv/ozensemble/compare/v1.124.0...v1.124.1) (2023-06-14)
+
+
+### Bug Fixes
+
+* bump version to 193 ([#429](https://github.com/SocialGouv/ozensemble/issues/429)) ([a6a8ba9](https://github.com/SocialGouv/ozensemble/commit/a6a8ba902517b5f88870412a8baf5d1b7a67fd39))
+* opacity crash ([#428](https://github.com/SocialGouv/ozensemble/issues/428)) ([bf183fe](https://github.com/SocialGouv/ozensemble/commit/bf183fee10061d96fa547a2d07641a5577de0e2c))
+
 # [1.124.0](https://github.com/SocialGouv/ozensemble/compare/v1.123.0...v1.124.0) (2023-06-14)
 
 
