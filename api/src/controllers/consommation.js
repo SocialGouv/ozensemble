@@ -360,7 +360,7 @@ router.get(
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
 
-    consos = await prisma.consommation.findMany({
+    const consos = await prisma.consommation.findMany({
       where: { userId: user.id },
       orderBy: {
         date: "asc",

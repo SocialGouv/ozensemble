@@ -4,12 +4,12 @@ const { TIPIMAIL_API_USER, TIPIMAIL_API_KEY, TIPIMAIL_EMAIL_TO, TIPIMAIL_EMAIL_F
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const { capture } = require("../third-parties/sentry");
+const dayjs = require("dayjs");
 
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    let { to, replyTo, replyToName, subject, text, html } = req.body || {};
-
+    let { to, replyTo, replyToName, subject, text, html, attachments } = req.body || {};
     if (!subject || (!text && !html)) return res.status(400).json({ ok: false, error: "wrong parameters" });
 
     if (!to) {
@@ -21,9 +21,9 @@ router.post(
       replyToName = undefined;
     }
 
+    console.log(attachments);
     const from = TIPIMAIL_EMAIL_FROM;
     const fromName = "Oz Ensemble";
-
     const apiRes = await fetch("https://api.tipimail.com/v1/messages/send", {
       method: "POST",
       headers: {
@@ -50,6 +50,7 @@ router.post(
           subject,
           text,
           html,
+          attachments,
         },
       }),
     }).catch((err) => capture(err, { extra: { route: "POST /mail", body: req.body } }));

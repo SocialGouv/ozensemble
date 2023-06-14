@@ -14,7 +14,7 @@ import { sendMail } from '../../services/mail';
 import { P } from '../../components/Articles';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
-
+const Buffer = require('buffer').Buffer;
 const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
   const docHeader = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -82,8 +82,10 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
             }
           } else {
             // if conso is beer need to add the contenent in front of name beer
-            const displayName = conso.drinkKey.includes('beer')
-              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).toLowerCase() + ' de bière'
+            const displayName = ['beer-half', 'cider-half', 'beer-pint', 'cider-pint'].includes(conso.drinkKey)
+              ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).toLowerCase() +
+                ' de ' +
+                getDisplayName(conso.drinkKey, (quantity = 1), catalog)
               : getDisplayName(conso.drinkKey, (quantity = 1), catalog);
             consosInfos += conso.quantity + ' ' + displayName;
             const numberVolume = Number(conso.volume.split(' ')[0]);
@@ -119,6 +121,11 @@ const Export = ({ navigation }) => {
   let consos = [];
   const exportData = async () => {
     const matomoId = storage.getString('@UserIdv2');
+    const file = {
+      contentType: 'text/csv',
+      filename: 'MesConsommationOz.csv',
+      content: `Date,Consommation,Unité(s),Quantité,Volume,Calories,Prix (Euros)\n`,
+    };
     const htmlExport = await API.get({ path: '/consommation/get-all-consos', query: { matomoId } }).then((response) => {
       if (response.ok) {
         consos = response.data;
@@ -136,6 +143,15 @@ const Export = ({ navigation }) => {
             weeklyConsos = [];
           }
         }
+        consos.forEach((conso) => {
+          const drinkFromCatalog = catalog[conso.drinkKey];
+          const displayName = drinkFromCatalog.categoryKey.includes('own')
+            ? drinkFromCatalog.displayFeed + ` (${drinkFromCatalog.alcoolPercentage}%)`
+            : drinkFromCatalog.categoryKey.split(':')[0].replace(',', '.');
+          file.content += `${dayjs(conso.date).format('DD/MM/YYYY')},${displayName},${conso.doses},${conso.quantity},${
+            conso.volume
+          },${Math.round(conso.kcal)},${conso.price} \n`;
+        });
         return formatHtmlTable(consoFilteredByWeek, catalog, firstDay);
       }
       return null;
@@ -145,12 +161,13 @@ const Export = ({ navigation }) => {
       return;
     }
 
+    file.content = Buffer.from(file.content, 'binary').toString('base64');
+
     const res = await sendMail({
       to: email,
       subject: 'Export de données',
       html: htmlExport,
-      consosToExport: consos,
-      catalog: catalog,
+      attachments: [file],
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
