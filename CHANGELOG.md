@@ -1,3 +1,12 @@
+## [1.124.3](https://github.com/SocialGouv/ozensemble/compare/v1.124.2...v1.124.3) (2023-06-14)
+
+
+### Bug Fixes
+
+* bump version to 194 ([#432](https://github.com/SocialGouv/ozensemble/issues/432)) ([ba74455](https://github.com/SocialGouv/ozensemble/commit/ba744556a63ba47050648c6e15a18f54f1aa3bed))
+* categoryKey error while sending mail ([#431](https://github.com/SocialGouv/ozensemble/issues/431)) ([bdb0825](https://github.com/SocialGouv/ozensemble/commit/bdb0825a7d3cc79d70cd647c123fdab14557d33a))
+* use KeyboardAvoidingView for the mail input ([#433](https://github.com/SocialGouv/ozensemble/issues/433)) ([5350139](https://github.com/SocialGouv/ozensemble/commit/53501392c858d8e8e055465a0433af76ab016c58))
+
 ## [1.124.2](https://github.com/SocialGouv/ozensemble/compare/v1.124.1...v1.124.2) (2023-06-14)
 
 
