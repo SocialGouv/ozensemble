@@ -13,7 +13,6 @@ import {
   daysWithGoalNoDrinkState,
   drinksByWeekState,
   maxDrinksPerWeekSelector,
-  totalDrinksByDrinkingDaySelector,
   previousDrinksPerWeekState,
   isOnboardedSelector,
 } from '../../recoil/gains';
@@ -223,6 +222,17 @@ const Goal = ({ navigation }) => {
                 if (dosesPerWeek >= numberDrinkEstimation) {
                   setModalWrongValueVisible(true);
                 } else {
+                  if (dosesPerWeek === 0) {
+                    setDaysWithGoalNoDrink([
+                      'monday',
+                      'tuesday',
+                      'wednesday',
+                      'thursday',
+                      'friday',
+                      'saturday',
+                      'sunday',
+                    ]);
+                  }
                   setModalValidationVisible(true);
                 }
               }}
