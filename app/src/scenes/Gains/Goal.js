@@ -13,7 +13,6 @@ import {
   daysWithGoalNoDrinkState,
   drinksByWeekState,
   maxDrinksPerWeekSelector,
-  totalDrinksByDrinkingDaySelector,
   previousDrinksPerWeekState,
   isOnboardedSelector,
 } from '../../recoil/gains';
@@ -45,7 +44,6 @@ const Goal = ({ navigation }) => {
   }, [previousDrinksPerWeek]);
 
   const [drinksByWeek, setDrinksByWeek] = useRecoilState(drinksByWeekState);
-  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
 
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
 
@@ -53,7 +51,6 @@ const Goal = ({ navigation }) => {
   const [modalWrongValueVisible, setModalWrongValueVisible] = useState(false);
 
   const isOnboarded = useRecoilValue(isOnboardedSelector);
-
   const setDrinkQuantityRequest = (drinkKey, quantity) => {
     const oldDrink = drinksByWeek.find((drink) => drink.drinkKey === drinkKey);
     if (oldDrink) {
@@ -75,7 +72,6 @@ const Goal = ({ navigation }) => {
       ]);
     }
   };
-
   return (
     <>
       <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
@@ -224,10 +220,21 @@ const Goal = ({ navigation }) => {
                 if (dosesPerWeek >= numberDrinkEstimation) {
                   setModalWrongValueVisible(true);
                 } else {
+                  if (dosesPerWeek === 0) {
+                    setDaysWithGoalNoDrink([
+                      'monday',
+                      'tuesday',
+                      'wednesday',
+                      'thursday',
+                      'friday',
+                      'saturday',
+                      'sunday',
+                    ]);
+                  }
                   setModalValidationVisible(true);
                 }
               }}
-              disabled={!dosesByDrinkingDay || daysWithGoalNoDrink.length === 0}
+              disabled={dosesPerWeek >= 1 && daysWithGoalNoDrink.length === 7}
             />
           </CTAButtonContainer>
         </Container>
