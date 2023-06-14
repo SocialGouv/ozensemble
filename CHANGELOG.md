@@ -1,3 +1,10 @@
+# [1.123.0](https://github.com/SocialGouv/ozensemble/compare/v1.122.2...v1.123.0) (2023-06-14)
+
+
+### Features
+
+* less limit at  goal setup ([#427](https://github.com/SocialGouv/ozensemble/issues/427)) ([ead766f](https://github.com/SocialGouv/ozensemble/commit/ead766fbb2fc57582747144208a91b9881831722))
+
 ## [1.122.2](https://github.com/SocialGouv/ozensemble/compare/v1.122.1...v1.122.2) (2023-06-14)
 
 
