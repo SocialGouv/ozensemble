@@ -45,7 +45,6 @@ const Goal = ({ navigation }) => {
   }, [previousDrinksPerWeek]);
 
   const [drinksByWeek, setDrinksByWeek] = useRecoilState(drinksByWeekState);
-  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
 
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
 
