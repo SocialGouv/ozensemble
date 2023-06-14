@@ -121,7 +121,6 @@ export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1)
       return '';
     }
     const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
-    console.log('formatedDisplay', formatedDisplay);
     return formatedDisplay;
   } catch (e) {
     capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayDrinksModalName' } });

@@ -143,9 +143,7 @@ const Export = ({ navigation }) => {
             weeklyConsos = [];
           }
         }
-        console.log(consos);
         consos.forEach((conso) => {
-          console.log('conso', conso);
           const drinkFromCatalog = catalog[conso.drinkKey];
           const displayName = drinkFromCatalog.categoryKey.includes('own')
             ? drinkFromCatalog.displayFeed + ` (${drinkFromCatalog.alcoolPercentage}%)`
