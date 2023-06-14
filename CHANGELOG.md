@@ -1,3 +1,10 @@
+## [1.124.2](https://github.com/SocialGouv/ozensemble/compare/v1.124.1...v1.124.2) (2023-06-14)
+
+
+### Bug Fixes
+
+* opacity crash and ceil error ([#430](https://github.com/SocialGouv/ozensemble/issues/430)) ([00368b4](https://github.com/SocialGouv/ozensemble/commit/00368b4dcb63c1ba537dba4f02509d95281ee743))
+
 ## [1.124.1](https://github.com/SocialGouv/ozensemble/compare/v1.124.0...v1.124.1) (2023-06-14)
 
 
