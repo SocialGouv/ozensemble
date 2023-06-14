@@ -116,11 +116,16 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
 const emailFormat = (email) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(email);
 const Export = ({ navigation }) => {
   const [email, setEmail] = useState('');
+  const [disable, setDisable] = useState(!email);
   const toast = useToast();
   const catalog = useRecoilValue(consolidatedCatalogObjectSelector);
   let consos = [];
   const exportData = async () => {
-    navigation.goBack();
+    if (!emailFormat(email)) {
+      Alert.alert('Adresse email non valide');
+      return;
+    }
+    setDisable(true);
     const matomoId = storage.getString('@UserIdv2');
     const file = {
       contentType: 'text/csv',
@@ -163,10 +168,6 @@ const Export = ({ navigation }) => {
       }
       return null;
     });
-    if (!emailFormat(email)) {
-      Alert.alert('Adresse email non valide');
-      return;
-    }
 
     file.content = Buffer.from(file.content, 'binary').toString('base64');
 
@@ -178,6 +179,7 @@ const Export = ({ navigation }) => {
     }).catch((err) => console.log('sendNPS err', err));
     console.log('email sent', res);
     toast.show(`Email envoyé à ${email}`);
+    navigation.goBack();
   };
 
   return (
@@ -193,7 +195,10 @@ const Export = ({ navigation }) => {
           <EmailInput
             value={email}
             placeholder="Adresse email"
-            onChangeText={setEmail}
+            onChangeText={(value) => {
+              setEmail(value);
+              setDisable(!value);
+            }}
             autoCompleteType="email"
             autoCorrect={false}
             keyboardType="email-address"
@@ -204,14 +209,7 @@ const Export = ({ navigation }) => {
             placeholderTextColor="#c9c9cc"
           />
           <ButtonsContainer>
-            <ButtonPrimary
-              content="Envoyer"
-              disabled={!email}
-              onPress={() => {
-                setEmail('');
-                exportData();
-              }}
-            />
+            <ButtonPrimary content="Envoyer" disabled={disable} onPress={exportData} />
           </ButtonsContainer>
         </SubContainer>
       </KeyboardAvoidingView>
