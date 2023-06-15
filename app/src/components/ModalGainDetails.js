@@ -13,7 +13,7 @@ const ModalGainDetails = ({ content, onClose }) => {
   const eurosTitle = content?.weekExpenses <= content?.estimationExpenses ? 'Euros épargnés' : 'Euros non-épargnés';
   return (
     <Modal visible={!!content} animationType="fade" withBackground hideOnTouch>
-      <View className="bg-white rounded-xl">
+      <View className="bg-white rounded-xl min-w-full">
         <View className="h-5 flex flex-row  justify-end">
           <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
             <Svg fill="none" viewBox="0 0 24 24" className="h-5 w-5">
