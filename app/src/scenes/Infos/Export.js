@@ -43,7 +43,6 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
 `;
   let body = '';
   consoFilteredByWeek.forEach((week, index) => {
-    body += '<table><tbody>';
     const firstDayOfWeek = firstDay.add(index, 'week');
     const lastDay = firstDayOfWeek.endOf('week');
     const displayedDate =
@@ -67,9 +66,12 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
     <th>Unité d'alcool</th>
 </tr>`;
     let dailycontent = '';
-    week.forEach((day) => {
+    week.forEach((day, dailyIndex) => {
       if (day.length === 0) {
-        dailycontent += `<tr><td colspan="3">Pas de consommation enregistrée</td></tr>`;
+        const nothingRegisteredDate =
+          firstDayOfWeek.add(dailyIndex, 'day').format('dddd DD ').capitalize() +
+          firstDayOfWeek.add(dailyIndex, 'day').format('MMMM').capitalize();
+        dailycontent += `<tr><td>${nothingRegisteredDate}</td><td colspan="2">Pas de consommation enregistrée</td></tr>`;
       } else {
         const dayDate =
           dayjs(day[0].date).format('dddd DD ').capitalize() + dayjs(day[0].date).format('MMMM').capitalize();
@@ -107,7 +109,7 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
     const sumWeeklyDosesDisplay = sumWeeklyDoses > 1 ? sumWeeklyDoses + ' unités' : sumWeeklyDoses + ' unité';
 
     const weekClosing = `<tr class="bg-oz"><td colspan="2">Total semaine du ${displayedDate}</td><td style="font-weight: bold;">${sumWeeklyDosesDisplay}</td></tr>`;
-    body += weekHeader + dailycontent + weekClosing + '</tbody></table> <br>';
+    body = '<table><tbody>' + weekHeader + dailycontent + weekClosing + '</tbody></table> <br><br>' + body;
   });
 
   return docHeader + body + docClosing;
@@ -173,7 +175,7 @@ const Export = ({ navigation }) => {
 
     const res = await sendMail({
       to: email,
-      subject: 'Exporter mes consommations',
+      subject: 'Export des consommations',
       html: htmlExport,
       attachments: [file],
     }).catch((err) => console.log('sendNPS err', err));
