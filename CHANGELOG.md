@@ -1,3 +1,10 @@
+## [1.124.7](https://github.com/SocialGouv/ozensemble/compare/v1.124.6...v1.124.7) (2023-06-15)
+
+
+### Bug Fixes
+
+* bump version to 196 ([#440](https://github.com/SocialGouv/ozensemble/issues/440)) ([7f90c0e](https://github.com/SocialGouv/ozensemble/commit/7f90c0e91328e06d4bfb559c813c445d7f12c878))
+
 ## [1.124.6](https://github.com/SocialGouv/ozensemble/compare/v1.124.5...v1.124.6) (2023-06-15)
 
 
