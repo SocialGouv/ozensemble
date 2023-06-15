@@ -1,3 +1,10 @@
+## [1.124.5](https://github.com/SocialGouv/ozensemble/compare/v1.124.4...v1.124.5) (2023-06-15)
+
+
+### Bug Fixes
+
+* maj wording title export ([#436](https://github.com/SocialGouv/ozensemble/issues/436)) ([2b7588b](https://github.com/SocialGouv/ozensemble/commit/2b7588b15e7618121309cb2aa083fa3d72ae1227))
+
 ## [1.124.4](https://github.com/SocialGouv/ozensemble/compare/v1.124.3...v1.124.4) (2023-06-14)
 
 
