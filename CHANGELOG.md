@@ -1,3 +1,10 @@
+## [1.124.9](https://github.com/SocialGouv/ozensemble/compare/v1.124.8...v1.124.9) (2023-06-15)
+
+
+### Bug Fixes
+
+* put 0 unity for no conso in mail ([#443](https://github.com/SocialGouv/ozensemble/issues/443)) ([53c3097](https://github.com/SocialGouv/ozensemble/commit/53c3097fd2afe023b6154b386151d09af8e4e148))
+
 ## [1.124.8](https://github.com/SocialGouv/ozensemble/compare/v1.124.7...v1.124.8) (2023-06-15)
 
 
