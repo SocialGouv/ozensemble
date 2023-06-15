@@ -66,11 +66,11 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
     <th>Unité d'alcool</th>
 </tr>`;
     let dailycontent = '';
-    week.forEach((day, index) => {
+    week.forEach((day, dailyIndex) => {
       if (day.length === 0) {
         const nothingRegisteredDate =
-          firstDayOfWeek.add(index, 'day').format('dddd DD ').capitalize() +
-          firstDayOfWeek.add(index, 'day').format('MMMM').capitalize();
+          firstDayOfWeek.add(dailyIndex, 'day').format('dddd DD ').capitalize() +
+          firstDayOfWeek.add(dailyIndex, 'day').format('MMMM').capitalize();
         dailycontent += `<tr><td>${nothingRegisteredDate}</td><td colspan="2">Pas de consommation enregistrée</td></tr>`;
       } else {
         const dayDate =
