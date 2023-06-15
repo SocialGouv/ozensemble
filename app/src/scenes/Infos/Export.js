@@ -185,7 +185,7 @@ const Export = ({ navigation }) => {
   };
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes données">
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes consommations">
       <KeyboardAvoidingView
         behavior={Platform.select({ ios: 'padding', android: null })}
         keyboardVerticalOffset={Platform.select({ ios: 250, android: 250 })}>
