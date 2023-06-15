@@ -20,7 +20,7 @@ const WeeklyGains = ({ selectedMonth }) => {
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
-    const newSize = 15 * widthBaseScale;
+    const newSize = 14 * widthBaseScale;
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
   }, [SCREEN_WIDTH]);
   const myWeeklyKcalBeforeObjective = useMemo(
@@ -73,17 +73,17 @@ const WeeklyGains = ({ selectedMonth }) => {
           </Text>
         </View>
 
-        <View className=" flex flex-row grow justify-center basis-20">
+        <View className=" flex flex-row grow justify-center basis-16">
           <Text className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             € épargnés
           </Text>
         </View>
-        <View className=" flex flex-row grow justify-center basis-20">
+        <View className=" flex flex-row grow justify-center basis-16">
           <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             KCAL évitées
           </Text>
         </View>
-        <View className=" flex flex-row grow mr-1 justify-center">
+        <View className=" flex flex-row grow mr-1 justify-center basis-16">
           <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             Détails
           </Text>
@@ -99,7 +99,7 @@ const WeeklyGains = ({ selectedMonth }) => {
             </View>
             {week.isWeekCompleted ? (
               <>
-                <View className="flex flex-row grow justify-center items-center basis-20">
+                <View className="flex flex-row grow justify-center items-center basis-16">
                   <View
                     className={[
                       'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow',
@@ -110,7 +110,7 @@ const WeeklyGains = ({ selectedMonth }) => {
                     </Text>
                   </View>
                 </View>
-                <View className="flex flex-row grow justify-center items-center basis-20">
+                <View className="flex flex-row grow justify-center items-center basis-16">
                   <View
                     className={[
                       'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow',
@@ -124,14 +124,14 @@ const WeeklyGains = ({ selectedMonth }) => {
               </>
             ) : (
               <>
-                <View className="flex flex-row grow justify-center items-center basis-20">
+                <View className="flex flex-row grow justify-center items-center basis-16">
                   <View className={'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow bg-[#939EA6]'}>
                     <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                       - €
                     </Text>
                   </View>
                 </View>
-                <View className="flex flex-row grow justify-center items-center basis-20">
+                <View className="flex flex-row grow justify-center items-center basis-16">
                   <View className={'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow bg-[#939EA6]'}>
                     <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                       - KCAL
@@ -141,7 +141,7 @@ const WeeklyGains = ({ selectedMonth }) => {
               </>
             )}
 
-            <View className="flex flex-row grow justify-center items-center">
+            <View className="flex flex-row grow justify-center items-center basis-16">
               <TouchableOpacity
                 className="bg-[#4030A5] rounded-full py-1 px-2"
                 onPress={() => {
