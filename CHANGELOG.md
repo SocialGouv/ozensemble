@@ -1,3 +1,11 @@
+## [1.124.8](https://github.com/SocialGouv/ozensemble/compare/v1.124.7...v1.124.8) (2023-06-15)
+
+
+### Bug Fixes
+
+* bump version to 197 ([#441](https://github.com/SocialGouv/ozensemble/issues/441)) ([69dfc2c](https://github.com/SocialGouv/ozensemble/commit/69dfc2c1e6bfb982290b2951bba121195cbbd419))
+* change wording title export ([#442](https://github.com/SocialGouv/ozensemble/issues/442)) ([6ef56ef](https://github.com/SocialGouv/ozensemble/commit/6ef56effc4e70e9924c77fec546cf3336afed213))
+
 ## [1.124.7](https://github.com/SocialGouv/ozensemble/compare/v1.124.6...v1.124.7) (2023-06-15)
 
 
