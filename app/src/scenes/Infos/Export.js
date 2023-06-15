@@ -173,7 +173,7 @@ const Export = ({ navigation }) => {
 
     const res = await sendMail({
       to: email,
-      subject: 'Export de données',
+      subject: 'Exporter mes consommations',
       html: htmlExport,
       attachments: [file],
     }).catch((err) => console.log('sendNPS err', err));
