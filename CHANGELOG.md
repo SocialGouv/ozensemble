@@ -1,3 +1,12 @@
+## [1.124.6](https://github.com/SocialGouv/ozensemble/compare/v1.124.5...v1.124.6) (2023-06-15)
+
+
+### Bug Fixes
+
+* add reviews for export table ([#437](https://github.com/SocialGouv/ozensemble/issues/437)) ([c9dfbc4](https://github.com/SocialGouv/ozensemble/commit/c9dfbc44ba59214580e75d698973c5919e1a36c9))
+* center titles gains view ([#439](https://github.com/SocialGouv/ozensemble/issues/439)) ([172f85a](https://github.com/SocialGouv/ozensemble/commit/172f85aac109ae3730e1c0c53394b4bea1f6832f))
+* make modal larger ([#438](https://github.com/SocialGouv/ozensemble/issues/438)) ([4d976c3](https://github.com/SocialGouv/ozensemble/commit/4d976c3455cb66a1ec2654390a28b597bfc0afbc))
+
 ## [1.124.5](https://github.com/SocialGouv/ozensemble/compare/v1.124.4...v1.124.5) (2023-06-15)
 
 
