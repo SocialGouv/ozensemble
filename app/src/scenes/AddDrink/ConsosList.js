@@ -125,9 +125,10 @@ const ConsosList = ({ navigation, route }) => {
         } catch (e) {
           capture(e, {
             extra: {
-              '@Drinks': storage.getString('@Drinks'),
-              '@OwnDrinks': storage.getString('@OwnDrinks'),
               Notes: 'Add conso in ConsoList',
+              drinkFromCatalog: drinkFromCatalog,
+              Drink: drink,
+              Catalog: consolidatedCatalogObject,
             },
             user: {
               id: storage.getString('@UserIdv2'),
