@@ -100,29 +100,40 @@ const ConsosList = ({ navigation, route }) => {
           value: Number(drink.quantity),
           dimension6: makeSureTimestamp(addDrinkModalTimestamp),
         });
-        const matomoId = storage.getString('@UserIdv2');
-        console.log('drinkFromCatalog', drinkFromCatalog);
-        console.log('Catalog', consolidatedCatalogObject);
-        const doses = drinkFromCatalog.doses;
-        const kcal = drinkFromCatalog.kcal;
-        const price = drinkFromCatalog.price;
-        const volume = drinkFromCatalog.volume;
-        const response = await API.post({
-          path: '/consommation',
-          body: {
-            matomoId: matomoId,
-            id: drink.id,
-            name: drink.displayDrinkModal,
-            drinkKey: drink.drinkKey,
-            quantity: Number(drink.quantity),
-            date: makeSureTimestamp(addDrinkModalTimestamp),
-            doses: doses,
-            kcal: kcal,
-            price: price,
-            volume: volume,
-          },
-        });
-        if (response?.showNewBadge || response?.showInAppModal) showToast = false;
+        try {
+          const matomoId = storage.getString('@UserIdv2');
+          const doses = drinkFromCatalog.doses;
+          const kcal = drinkFromCatalog.kcal;
+          const price = drinkFromCatalog.price;
+          const volume = drinkFromCatalog.volume;
+          const response = await API.post({
+            path: '/consommation',
+            body: {
+              matomoId: matomoId,
+              id: drink.id,
+              name: drink.displayDrinkModal,
+              drinkKey: drink.drinkKey,
+              quantity: Number(drink.quantity),
+              date: makeSureTimestamp(addDrinkModalTimestamp),
+              doses: doses,
+              kcal: kcal,
+              price: price,
+              volume: volume,
+            },
+          });
+          if (response?.showNewBadge || response?.showInAppModal) showToast = false;
+        } catch (e) {
+          capture(e, {
+            extra: {
+              '@Drinks': storage.getString('@Drinks'),
+              '@OwnDrinks': storage.getString('@OwnDrinks'),
+              Notes: 'Add conso in ConsoList',
+            },
+            user: {
+              id: storage.getString('@UserIdv2'),
+            },
+          });
+        }
       }
       if (showToast) {
         setTimeout(() => {
