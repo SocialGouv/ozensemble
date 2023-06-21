@@ -101,6 +101,7 @@ const ConsosList = ({ navigation, route }) => {
           dimension6: makeSureTimestamp(addDrinkModalTimestamp),
         });
         const matomoId = storage.getString('@UserIdv2');
+        console.log('drinkFromCatalog', drinkFromCatalog, 'Catalog', consolidatedCatalogObject);
         const doses = drinkFromCatalog.doses;
         const kcal = drinkFromCatalog.kcal;
         const price = drinkFromCatalog.price;

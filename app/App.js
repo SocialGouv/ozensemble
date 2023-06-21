@@ -8,7 +8,7 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import weekday from 'dayjs/plugin/weekday';
 import Router from './src/Router';
 import './src/services/polyfills';
-
+import appInfos from './app.json';
 import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
@@ -20,14 +20,15 @@ import {
   hasMigrateFromDailyGoalToWeekly,
   migrateFromDailyGoalToWeekly,
 } from './src/services/storage';
+import { getBundleId } from 'react-native-device-info';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
 dayjs.extend(weekday);
-
 if (!__DEV__) {
   Sentry.init({
     dsn: SENTRY_XXX,
+    release: getBundleId() + '@' + appInfos.version.buildName + '+' + appInfos.version.buildNumber, // ex : com.addicto.v1@1.18.0+198
   });
 }
 
