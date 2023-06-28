@@ -1,3 +1,11 @@
+## [1.124.12](https://github.com/SocialGouv/ozensemble/compare/v1.124.11...v1.124.12) (2023-06-28)
+
+
+### Bug Fixes
+
+* comment for sentry logs ([#447](https://github.com/SocialGouv/ozensemble/issues/447)) ([65326c4](https://github.com/SocialGouv/ozensemble/commit/65326c47b811911dab9e944da9fcf0d7f306abb2))
+* patch version to 1.18.1 ([#446](https://github.com/SocialGouv/ozensemble/issues/446)) ([3a80c68](https://github.com/SocialGouv/ozensemble/commit/3a80c68155881d587d44e490636e48c944147e86))
+
 ## [1.124.11](https://github.com/SocialGouv/ozensemble/compare/v1.124.10...v1.124.11) (2023-06-28)
 
 
