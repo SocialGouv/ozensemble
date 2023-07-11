@@ -1,3 +1,10 @@
+## [1.124.13](https://github.com/SocialGouv/ozensemble/compare/v1.124.12...v1.124.13) (2023-07-11)
+
+
+### Bug Fixes
+
+* forgotten capture import ([#449](https://github.com/SocialGouv/ozensemble/issues/449)) ([b7a247a](https://github.com/SocialGouv/ozensemble/commit/b7a247acb1dd334e65ac6ef5be6eab2614a31bd5))
+
 ## [1.124.12](https://github.com/SocialGouv/ozensemble/compare/v1.124.11...v1.124.12) (2023-06-28)
 
 
