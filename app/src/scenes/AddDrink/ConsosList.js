@@ -21,6 +21,7 @@ import { storage } from '../../services/storage';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
 import AddOwnDrink from './AddOwnDrink';
+import { capture } from '../../services/sentry';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
