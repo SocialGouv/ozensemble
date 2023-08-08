@@ -1,4 +1,9 @@
-jobs:
-  runs:
-    db:
-      use: create-db
+pg:
+  ~chart: pg
+
+app:
+  envFrom:
+    - secretRef:
+        name: "pg-app"
+    - secretRef:
+        name: api

@@ -1,0 +1,10 @@
+projectName: ozensemble
+ciNamespace: ci-ozensemble
+
+dependencies:
+  fabrique:
+    extends:
+      - name: ovh
+        ifEnv: [dev, preprod]
+      - name: buildkit-service
+        ifEnv: [dev, preprod]
