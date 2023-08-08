@@ -7,12 +7,9 @@ RUN chmod 1777 /tmp
 
 USER 1000
 
-COPY package.json .
-COPY yarn.lock .
+COPY . .
 
 RUN yarn --production --frozen-lockfile && yarn cache clean
-
-COPY . .
 
 ENV NODE_ENV=production
 
