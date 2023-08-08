@@ -1,4 +1,4 @@
-FROM node:18-bullseye-slim@sha256:7e264f54d45f6f93b1625a273afec9c389b9cf0e355b08a34d06b94972bef95c
+FROM node:18-bullseye@sha256:f27e3f4c8b5719cb9816084475d687a283c59149f3d11a7aa45b675fea56bed0
 
 WORKDIR /app
 
