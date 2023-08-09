@@ -1,2 +1,10 @@
+pg:
+  ~chart: pg
+
 app:
-  host: api-ozensemble-preprod.dev.fabrique.social.gouv.fr
+  host: api-ozensemble-preprod.ovh.fabrique.social.gouv.fr
+  envFrom:
+    - secretRef:
+        name: "pg-app"
+    - secretRef:
+        name: api

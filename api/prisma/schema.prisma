@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  engineType = "binary" // https://github.com/prisma/prisma/issues/10649
 }
 
 datasource db {
