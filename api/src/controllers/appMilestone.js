@@ -16,7 +16,6 @@ router.post(
       create: {
         matomo_id: matomoId,
         created_from: "AppMilestonePost",
-
       },
       update: {},
     });
@@ -78,6 +77,13 @@ router.post(
         return res.status(200).send({ ok: true });
       }
     } else {
+      // if user is created after today, skip
+      const userCreatedAt = dayjs(user.createdAt);
+      const now = dayjs("2023-08-27");
+      if (userCreatedAt.isAfter(now)) {
+        return res.status(200).send({ ok: true });
+      }
+
       const newCalendarAnnouncementModal = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewCalendarAnnouncement` },
       });
