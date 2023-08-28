@@ -1,0 +1,63 @@
+diff --git a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotification.java b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotification.java
+index d162680..136000b 100644
+--- a/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotification.java
++++ b/node_modules/react-native-push-notification/android/src/main/java/com/dieam/reactnativepushnotification/modules/RNPushNotification.java
+@@ -163,6 +163,20 @@ public class RNPushNotification extends ReactContextBaseJavaModule implements Ac
+         FirebaseMessaging.getInstance().unsubscribeFromTopic(topic);
+     }
+ 
++
++     @ReactMethod
++     public void getFCMToken(final Promise promise) {
++         FirebaseMessaging.getInstance().getToken()
++                 .addOnCompleteListener(task -> {
++                     if (!task.isSuccessful()) {
++                         Log.e(LOG_TAG, "exception", task.getException());
++                         promise.reject(task.getException());
++                     } else {
++                         promise.resolve(task.getResult());
++                     }
++                 });
++     }
++
+     @ReactMethod
+     public void presentLocalNotification(ReadableMap details) {
+         Bundle bundle = Arguments.toBundle(details);
+diff --git a/node_modules/react-native-push-notification/component/index.android.js b/node_modules/react-native-push-notification/component/index.android.js
+index 0a609cb..73d07e1 100644
+--- a/node_modules/react-native-push-notification/component/index.android.js
++++ b/node_modules/react-native-push-notification/component/index.android.js
+@@ -36,6 +36,18 @@ NotificationsComponent.prototype.unsubscribeFromTopic = function(topic) {
+ 	RNPushNotification.unsubscribeFromTopic(topic);
+ };
+ 
++NotificationsComponent.prototype.getFCMToken = function() {
++	return new Promise(function(resolve, reject) {
++		RNPushNotification.getFCMToken()
++			.then(function(token) {
++			resolve(token);
++			})
++			.catch(function(err) {
++			reject(err);
++			});
++		});
++};
++
+ NotificationsComponent.prototype.cancelLocalNotification = function(details) {
+ 	RNPushNotification.cancelLocalNotification(details);
+ };
+diff --git a/node_modules/react-native-push-notification/index.js b/node_modules/react-native-push-notification/index.js
+index 716ea0e..d328fd5 100644
+--- a/node_modules/react-native-push-notification/index.js
++++ b/node_modules/react-native-push-notification/index.js
+@@ -475,6 +475,10 @@ Notifications.unsubscribeFromTopic = function () {
+   return this.callNative('unsubscribeFromTopic', arguments);
+ };
+ 
++Notifications.getFCMToken = function () {
++  return this.callNative('getFCMToken', arguments);
++};
++
+ Notifications.presentLocalNotification = function() {
+   return this.callNative('presentLocalNotification', arguments);
+ };
