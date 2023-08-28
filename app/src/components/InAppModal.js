@@ -100,7 +100,7 @@ const InAppModal = () => {
   };
 
   const getModalNewFeature = async () => {
-    const isModalViewed = storage.getBoolean('@NewCalendarAnnouncement');
+    const isModalViewed = storage.getBoolean('@NewCalendarAnnouncement'); // this hack to show modal at right moment for old users - fucking retro compatibility
     if (!isModalViewed) {
       const matomoId = storage.getString('@UserIdv2');
       await API.post({

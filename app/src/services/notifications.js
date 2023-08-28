@@ -1,7 +1,7 @@
 import PushNotification from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { Platform } from 'react-native';
-import { checkNotifications, RESULTS } from 'react-native-permissions';
+import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
 import API from './api';
@@ -93,10 +93,17 @@ class NotificationService {
 
   checkAndAskForPermission = async () => {
     const { granted, canAsk } = await this.checkPermission();
+    console.log({ granted, canAsk });
+    console.log(Platform);
     if (granted) return true;
     if (!canAsk) return false;
-    const permission = await PushNotification.requestPermissions();
-    return permission;
+    const permission = await requestNotifications(['alert', 'sound', 'providesAppSettings']);
+    if (permission.status === RESULTS.GRANTED) {
+      const token = await PushNotification.getFCMToken();
+      console.log('token', token);
+      this.onRegister({ token });
+    }
+    return permission.status === RESULTS.GRANTED;
   };
 
   checkAndGetPermissionIfAlreadyGiven = async (from) => {

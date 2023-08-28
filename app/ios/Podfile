@@ -20,9 +20,6 @@ end
 target 'oz_ensemble' do
   config = use_native_modules!
   permissions_path = '../node_modules/react-native-permissions/ios'
-  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
-  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
-  pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
   # Flags change depending on the env values.
   flags = get_default_flags()
   use_react_native!(
