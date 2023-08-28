@@ -98,6 +98,11 @@ class NotificationService {
     if (granted) return true;
     if (!canAsk) return false;
     const permission = await requestNotifications(['alert', 'sound', 'providesAppSettings']);
+    if (permission.status === RESULTS.GRANTED) {
+      const token = await PushNotification.getFCMToken();
+      console.log('token', token);
+      this.onRegister({ token });
+    }
     return permission.status === RESULTS.GRANTED;
   };
 
