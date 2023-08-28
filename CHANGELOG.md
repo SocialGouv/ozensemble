@@ -1,3 +1,10 @@
+## [1.125.1](https://github.com/SocialGouv/ozensemble/compare/v1.125.0...v1.125.1) (2023-08-28)
+
+
+### Bug Fixes
+
+* notifications android api 33 ([#451](https://github.com/SocialGouv/ozensemble/issues/451)) ([d1900ce](https://github.com/SocialGouv/ozensemble/commit/d1900ce4b15c1c05a20b5cdd04557b0e8a6665c8))
+
 # [1.125.0](https://github.com/SocialGouv/ozensemble/compare/v1.124.13...v1.125.0) (2023-08-09)
 
 
