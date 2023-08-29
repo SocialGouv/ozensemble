@@ -12,6 +12,13 @@ cron.schedule("* * * * *", async () => {
   launchCronJob("reminder", reminderCronJob);
 });
 
+cron.schedule("* * * * *", async () => {
+  // every minute
+  await launchCronJob("test", async () => {
+    console.log("test cron job " + new Date());
+  });
+});
+
 cron.schedule("0 0 4 * * * *", async () => {
   // every day at 4 am, find users with lastConsoAdded = 4 days ago and create a notification for tomorrow (6th day)
   launchCronJob("schedule notifications 5 days inactivity", scheduleNotificationsInactivity5DaysCronJob);
