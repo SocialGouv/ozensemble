@@ -3,6 +3,7 @@ app:
 
 cronjobs:
   ~chart: daemon
+  ~needs: [build-app]
   imagePackage: app
   replicas: 1
   entrypoint: ["node", "./src/cronjobs.js"]
