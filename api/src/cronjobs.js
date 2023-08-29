@@ -1,6 +1,7 @@
+require("dotenv").config({ path: "./.env" });
+
 const cron = require("node-cron");
 const { capture } = require("./third-parties/sentry");
-const { CRONJOBS_ENABLED } = require("./config");
 
 const { notificationsCronJob, scheduleNotificationsInactivity5DaysCronJob } = require("./notifications");
 const { reminderCronJob } = require("./controllers/reminder");
@@ -17,11 +18,6 @@ cron.schedule("0 0 4 * * * *", async () => {
 });
 
 const launchCronJob = async (name, job) => {
-  if (CRONJOBS_ENABLED === false) {
-    console.log(`should start cronjob ${name} but CRONJOBS_ENABLED=false`);
-    return;
-  }
-
   try {
     job();
   } catch (e) {

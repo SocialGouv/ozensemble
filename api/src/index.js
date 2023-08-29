@@ -90,7 +90,5 @@ app.use("/drinks", require("./controllers/drinks"));
 
 app.use(errors.sendError);
 
-require("./cronjobs");
-
 // Start the server
 app.listen(PORT, () => console.log(`RUN ON PORT ${PORT}`));
