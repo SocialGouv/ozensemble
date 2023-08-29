@@ -1,3 +1,10 @@
+## [1.125.3](https://github.com/SocialGouv/ozensemble/compare/v1.125.2...v1.125.3) (2023-08-29)
+
+
+### Bug Fixes
+
+* typo ([8420437](https://github.com/SocialGouv/ozensemble/commit/842043725c7a752fed53f05c3aa7fb1b37ea28dc))
+
 ## [1.125.2](https://github.com/SocialGouv/ozensemble/compare/v1.125.1...v1.125.2) (2023-08-29)
 
 
