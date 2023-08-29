@@ -1,2 +1,13 @@
 app:
   host: api-ozensemble.fabrique.social.gouv.fr
+
+cronjobs:
+  ~chart: daemon
+  imagePackage: app
+  replicas: 1
+  entryPoint: ["node", "./src/cronjobs.js"]
+  envFrom:
+    - secretRef:
+        name: "pg-user"
+    - secretRef:
+        name: api
