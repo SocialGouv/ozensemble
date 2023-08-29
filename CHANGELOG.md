@@ -1,3 +1,10 @@
+## [1.125.5](https://github.com/SocialGouv/ozensemble/compare/v1.125.4...v1.125.5) (2023-08-29)
+
+
+### Bug Fixes
+
+* cronjob have to wait for build ([191ac55](https://github.com/SocialGouv/ozensemble/commit/191ac559f566d691af2d46ed2f20dad9a70c0c4e))
+
 ## [1.125.4](https://github.com/SocialGouv/ozensemble/compare/v1.125.3...v1.125.4) (2023-08-29)
 
 
