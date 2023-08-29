@@ -4,6 +4,7 @@ app:
 cronjobs:
   ~chart: daemon
   imagePackage: app
+  replicas: 1
   entryPoint: ["node", "./src/cronjobs.js"]
   envFrom:
     - secretRef:
