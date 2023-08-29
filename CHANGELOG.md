@@ -1,3 +1,10 @@
+## [1.125.2](https://github.com/SocialGouv/ozensemble/compare/v1.125.1...v1.125.2) (2023-08-29)
+
+
+### Bug Fixes
+
+* **api:** split cronjobs ([#452](https://github.com/SocialGouv/ozensemble/issues/452)) ([11ea59f](https://github.com/SocialGouv/ozensemble/commit/11ea59f34781d70197bf2335dca757941b0424b4))
+
 ## [1.125.1](https://github.com/SocialGouv/ozensemble/compare/v1.125.0...v1.125.1) (2023-08-28)
 
 
