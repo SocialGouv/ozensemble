@@ -1,3 +1,11 @@
+## [1.125.6](https://github.com/SocialGouv/ozensemble/compare/v1.125.5...v1.125.6) (2023-09-18)
+
+
+### Bug Fixes
+
+* **app:** env file reading ([#454](https://github.com/SocialGouv/ozensemble/issues/454)) ([31cb626](https://github.com/SocialGouv/ozensemble/commit/31cb626410ad3ad0c96595106b56cbff15a8a03d))
+* **app:** typos + orthographe ([#453](https://github.com/SocialGouv/ozensemble/issues/453)) ([0d31e95](https://github.com/SocialGouv/ozensemble/commit/0d31e95a3a525668c1c9c72d57768ed3e08bf571))
+
 ## [1.125.5](https://github.com/SocialGouv/ozensemble/compare/v1.125.4...v1.125.5) (2023-08-29)
 
 
