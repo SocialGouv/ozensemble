@@ -225,6 +225,132 @@ export async function migrateFromDailyGoalToWeekly() {
   }
 }
 
+export const hasMigrateMissingDrinkKey = storage.getBoolean('@hasMigrateMissingDrinkKey');
+export const migrateMissingDrinkKey = () => {
+  // this migration is to fix a few drinks that have bugs-impossible-to-solve
+
+  console.log('ON EST LA PAPA');
+
+  try {
+    if (hasMigrateMissingDrinkKey) return;
+    const matomoId = storage.getString('@UserIdv2');
+    if (!matomoId?.length) {
+      // new user - no drinks to send
+      storage.set('@hasMigrateMissingDrinkKey', true);
+      return;
+    }
+    const catalog = storage.getString('@OwnDrinks');
+    if (!catalog?.length) {
+      storage.set('@hasMigrateMissingDrinkKey', true);
+      return;
+    }
+    const oldDrinkCatalog = JSON.parse(catalog);
+    if (!oldDrinkCatalog?.length) {
+      storage.set('@hasMigrateMissingDrinkKey', true);
+      return;
+    }
+    const drinks = storage.getString('@Drinks');
+    if (!drinks?.length) {
+      storage.set('@hasMigrateMissingDrinkKey', true);
+      return;
+    }
+    const drinksParsed = JSON.parse(drinks);
+    if (!drinksParsed?.length) {
+      storage.set('@hasMigrateMissingDrinkKey', true);
+      return;
+    }
+    const ownDrinksCatalogObject = {};
+    for (const drink of oldDrinkCatalog) {
+      ownDrinksCatalogObject[drink.drinkKey] = drink;
+    }
+    const drinksCatalogObject = {};
+    for (const drink of drinksCatalog) {
+      drinksCatalogObject[drink.drinkKey] = drink;
+    }
+    const allDrinksObject = {
+      ...ownDrinksCatalogObject,
+      ...drinksCatalogObject,
+    };
+    const drinksFixed = [];
+    const drinksWithMistake = [];
+    const newDrinks = drinksParsed.map((drink) => {
+      if (drink.drinkKey === 'no-conso') return drink;
+      if (!!allDrinksObject[drink.drinkKey]) return drink;
+      if (drink.drinkKey === 'Stella-25-5') {
+        console.log('FUCKING DRINK BUT DONE BABY', JSON.stringify(drink, null, 2));
+        drinksFixed.push({
+          ...drink,
+          drinkKey: 'Stella ',
+        });
+        return {
+          ...drink,
+          drinkKey: 'Stella ',
+        };
+      }
+      if (drink.drinkKey === 'Stella -33-5') {
+        console.log('FUCKING DRINK BUT DONE BABY', JSON.stringify(drink, null, 2));
+        drinksFixed.push({
+          ...drink,
+          drinkKey: 'Stella ',
+        });
+        return {
+          ...drink,
+          drinkKey: 'Stella ',
+        };
+      }
+      console.log('FUCKING DRINK MISTAKE BABY', JSON.stringify(drink, null, 2));
+      drinksWithMistake.push(drink);
+      return drink;
+    });
+    if (drinksFixed.length) {
+      for (const conso of drinksFixed) {
+        API.post({
+          path: '/consommation/fix-missing-key',
+          body: {
+            matomoId: matomoId,
+            id: conso.id,
+            drinkKey: conso.drinkKey,
+          },
+        });
+      }
+      console.log('OH YEAH BABY', JSON.stringify(drinksFixed, null, 2));
+      storage.set('@Drinks', JSON.stringify(newDrinks));
+    }
+    if (!drinksWithMistake.length) {
+      storage.set('@hasMigrateMissingDrinkKey', true);
+      return;
+    }
+    // if there is any problem with missing drink key, we'll do a manual migration later on following L276
+    for (const drink of drinksWithMistake) {
+      capture('Problem with missing drink key(s)', {
+        extra: {
+          drinksWithMistake,
+          drink,
+          // allDrinksObject,
+        },
+        tags: {
+          drinkKey: drink.drinkKey,
+        },
+        user: {
+          id: storage.getString('@UserIdv2'),
+        },
+      });
+    }
+  } catch (e) {
+    capture(e, {
+      extra: {
+        migration: 'hasMigrateMissingDrinkKey',
+        '@OwnDrinks': storage.getString('@OwnDrinks'),
+        '@Drinks': storage.getString('@Drinks'),
+        hasMigrateMissingDrinkKey: storage.getBoolean('@hasMigrateMissingDrinkKey'),
+      },
+      user: {
+        id: storage.getString('@UserIdv2'),
+      },
+    });
+  }
+};
+
 const mapIconOfToIconName = (iconOf) => {
   switch (iconOf) {
     case 'beer-pint':
