@@ -43,7 +43,7 @@ const questionsLifeQuality = [
   },
   {
     questionTitle:
-      'Au cours de ces 4 dernières semaines, avez-vous été limité dans vos activités physiques habituelles par votre état physique (tel que monter des escaliers, ou marcher) ?',
+      'Au cours de ces 4 dernières semaines, avez-vous été limité(e) dans vos activités physiques habituelles par votre état physique (tel que monter des escaliers, ou marcher) ?',
     questionKey: '1',
     resultLabel: 'Activité physique',
     answers: [
@@ -243,7 +243,7 @@ const questionsLifeQuality = [
   },
   {
     questionTitle:
-      'Au cours des 4 dernières semaines, à quel point avez-vous été dérangé par votre état émotionnel (tel que vous sentir anxieux, déprimé ou irritable) ?',
+      'Au cours des 4 dernières semaines, à quel point avez-vous été dérangé(e) par votre état émotionnel (tel que vous sentir anxieux, déprimé ou irritable) ?',
     questionKey: '6',
     resultLabel: 'Santé psychique',
     answers: [

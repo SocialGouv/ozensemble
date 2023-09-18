@@ -46,7 +46,7 @@ export const defi1_Data = [
     Description: (
       <>
         <Bold>Apprenez à repérer les symptômes de sevrage</Bold> nécessitants de consulter votre médecin ou un
-        professionel Oz Ensemble.
+        professionnel Oz Ensemble.
       </>
     ),
     DescriptionDone: (

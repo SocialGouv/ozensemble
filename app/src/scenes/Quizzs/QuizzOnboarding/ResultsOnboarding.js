@@ -107,7 +107,7 @@ const ResultRisk = () => {
       <P>Ne vous inquiétez pas car le premier pas vient d'être franchi.</P>
       <Spacer size={20} />
       <P>
-        Vous êtes <Bold>prêt à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie</Bold>, à
+        Vous êtes <Bold>prêt(e) à entamer une démarche de maîtrise de votre consommation d'alcool en autonomie</Bold>, à
         travers une première activité pour faire le point en 7 jours.
       </P>
       <Spacer size={20} />

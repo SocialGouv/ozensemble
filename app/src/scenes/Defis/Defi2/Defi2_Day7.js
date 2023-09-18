@@ -117,7 +117,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
       </BackgroundEFEFEF>
       <P>
         Comme les deux faces d'une même pièce, l'alcool comporte des plaisirs mais aussi des effets négatifs. Alors
-        quand vous choissiez de consommer :
+        quand vous choisissez de consommer :
         <P bold>
           {'\n    • '}identifiez votre état émotionnel avant le premier verre,{'\n    • '} choisissez le type de
           boisson,

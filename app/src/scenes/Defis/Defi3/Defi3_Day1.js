@@ -34,7 +34,7 @@ const Defi3_Day1 = ({ route }) => {
                   </TextSizeStyled>
                   <BulletPoint>
                     <TextSizeStyled>
-                      {'\u2022'} <TextSizeStyled bold>3ème</TextSizeStyled> cause de décès évitable.
+                      {'\u2022'} <TextSizeStyled bold>2ème</TextSizeStyled> cause de décès évitable.
                     </TextSizeStyled>
                   </BulletPoint>
                   <BulletPoint>

@@ -136,7 +136,7 @@ const Defi4_Day4 = ({ route }) => {
                     <P>
                       Exemple : une personne consomme <TextStyled bold>15 verres par semaine</TextStyled> et veut
                       atteindre <TextStyled bold>6 verres par semaine</TextStyled> pour protéger sa santé et rejoindre
-                      les recommandations. Elle doit réduire de <TextStyled bold>15 - 6 = 9 verres</TextStyled>.Elle
+                      les recommandations. Elle doit réduire de <TextStyled bold>15 - 6 = 9 verres</TextStyled>. Elle
                       étale sa réduction sur <TextStyled bold>8 semaines</TextStyled> et doit donc réduire chaque
                       semaine de <TextStyled bold>9/8 = un peu plus d'1 verre</TextStyled>.
                     </P>
