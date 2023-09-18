@@ -49,8 +49,8 @@ target 'oz_ensemble' do
   # you should disable the next line.
   use_flipper!()
   ENVFILES = {
-    'Debug' => '$(PODS_ROOT)/../../.env.local',
-    'Release' => '$(PODS_ROOT)/../../.env',
+    'Debug' => '$(PODS_ROOT)/../.env.local',
+    'Release' => '$(PODS_ROOT)/../.env',
   }
   post_install do |installer|
     react_native_post_install(
