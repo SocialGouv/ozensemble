@@ -1,3 +1,10 @@
+## [1.125.7](https://github.com/SocialGouv/ozensemble/compare/v1.125.6...v1.125.7) (2023-09-18)
+
+
+### Bug Fixes
+
+* **app:** OZENSEMBLE-5W ([#455](https://github.com/SocialGouv/ozensemble/issues/455)) ([25c1886](https://github.com/SocialGouv/ozensemble/commit/25c1886202882dca543dac7cc7302db1ac157b23))
+
 ## [1.125.6](https://github.com/SocialGouv/ozensemble/compare/v1.125.5...v1.125.6) (2023-09-18)
 
 
