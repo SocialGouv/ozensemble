@@ -19,6 +19,8 @@ import {
   cleanConsosAndCatalog,
   hasMigrateFromDailyGoalToWeekly,
   migrateFromDailyGoalToWeekly,
+  hasMigrateMissingDrinkKey,
+  migrateMissingDrinkKey,
 } from './src/services/storage';
 import { getBundleId } from 'react-native-device-info';
 
@@ -29,6 +31,7 @@ if (!__DEV__) {
   Sentry.init({
     dsn: SENTRY_XXX,
     release: getBundleId() + '@' + appInfos.version.buildName + '+' + appInfos.version.buildNumber, // ex : com.addicto.v1@1.18.0+198
+    attachViewHierarchy: true,
   });
 }
 
@@ -39,6 +42,7 @@ const sendDrinksToBd = async () => {
 const App = () => {
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
   const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
     hasMigrateFromDailyGoalToWeekly
   );
@@ -56,11 +60,20 @@ const App = () => {
       migrateFromDailyGoalToWeekly();
       sethasMigrateFromDailyGoalToWeekly(true);
     }
+    if (!_hasMigrateMissingDrinkKey) {
+      migrateMissingDrinkKey();
+      sethasMigrateMissingDrinkKey(true);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!_hasSentPreviousDrinksToDB || !_hasCleanConsoAndCatalog || !_hasMigrateFromDailyGoalToWeekly) {
+  if (
+    !_hasSentPreviousDrinksToDB ||
+    !_hasCleanConsoAndCatalog ||
+    !_hasMigrateFromDailyGoalToWeekly ||
+    !_hasMigrateMissingDrinkKey
+  ) {
     return null;
   }
 

@@ -93,7 +93,6 @@ const ConsosList = ({ navigation, route }) => {
     });
     InteractionManager.runAfterInteractions(async () => {
       for (let drink of drinksWithTimestamps) {
-        const drinkFromCatalog = consolidatedCatalogObject[drink.drinkKey];
         logEvent({
           category: 'CONSO',
           action: 'CONSO_ADD',
@@ -102,34 +101,35 @@ const ConsosList = ({ navigation, route }) => {
           dimension6: makeSureTimestamp(addDrinkModalTimestamp),
         });
         try {
-          const matomoId = storage.getString('@UserIdv2');
-          const doses = drinkFromCatalog.doses;
-          const kcal = drinkFromCatalog.kcal;
-          const price = drinkFromCatalog.price;
-          const volume = drinkFromCatalog.volume;
+          const body = {
+            matomoId: storage.getString('@UserIdv2'),
+            id: drink.id,
+            name: drink.displayDrinkModal,
+            drinkKey: drink.drinkKey,
+            quantity: Number(drink.quantity),
+            date: makeSureTimestamp(addDrinkModalTimestamp),
+          };
+          if (drink.drinkKey !== NO_CONSO) {
+            const drinkFromCatalog = consolidatedCatalogObject[drink.drinkKey];
+            body.doses = drinkFromCatalog.doses;
+            body.kcal = drinkFromCatalog.kcal;
+            body.price = drinkFromCatalog.price;
+            body.volume = drinkFromCatalog.volume;
+          } else {
+            console.log('NO_CONSO', drink);
+            body.quantity = 0;
+          }
           const response = await API.post({
             path: '/consommation',
-            body: {
-              matomoId: matomoId,
-              id: drink.id,
-              name: drink.displayDrinkModal,
-              drinkKey: drink.drinkKey,
-              quantity: Number(drink.quantity),
-              date: makeSureTimestamp(addDrinkModalTimestamp),
-              doses: doses,
-              kcal: kcal,
-              price: price,
-              volume: volume,
-            },
+            body,
           });
           if (response?.showNewBadge || response?.showInAppModal) showToast = false;
         } catch (e) {
           capture(e, {
             extra: {
               Notes: 'Add conso in ConsoList',
-              drinkFromCatalog: drinkFromCatalog,
-              Drink: drink,
-              Catalog: consolidatedCatalogObject,
+              drink,
+              consolidatedCatalogObject,
             },
             user: {
               id: storage.getString('@UserIdv2'),

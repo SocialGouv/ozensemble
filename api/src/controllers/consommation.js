@@ -214,6 +214,25 @@ router.post(
   })
 );
 
+router.post(
+  "/fix-missing-key",
+  catchErrors(async (req, res) => {
+    const matomoId = req.body?.matomoId;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const drinkKey = req.body.drinkKey;
+    const conso_id = req.body.id;
+    // find user with matomoId
+
+    await prisma.consommation.update({
+      where: { id: conso_id },
+      data: {
+        drinkKey: drinkKey,
+      },
+    });
+    return res.status(200).send({ ok: true });
+  })
+);
+
 router.delete(
   "/",
   catchErrors(async (req, res) => {

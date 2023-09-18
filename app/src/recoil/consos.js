@@ -22,6 +22,7 @@ export const drinksState = atom({
       onSet((newValue) => {
         storage.set('@Drinks', JSON.stringify(newValue));
         Sentry.setExtra('drinks', newValue.slice(0, 50));
+        Sentry.setExtra('all-drinks', newValue.map(({ drinkKey }) => `${drinkKey}_${drink.id}`).join('__'));
       }),
   ],
 });
