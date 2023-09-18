@@ -22,8 +22,8 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const dayStyles = {
   goalExistsButNotRespected: {
     borderStyle: 'solid',
-    borderColor: '#FC8383',
-    backgroundColor: '#FC8383',
+    borderColor: '#FF7878',
+    backgroundColor: '#FF7878',
     textColor: '#fff',
     isStar: false,
   },
@@ -43,8 +43,8 @@ const dayStyles = {
   },
   noGoalAndDoses: {
     borderStyle: 'solid',
-    borderColor: '#FC8383',
-    backgroundColor: '#FC8383',
+    borderColor: '#FF7878',
+    backgroundColor: '#FF7878',
     textColor: '#fff',
     isStar: false,
   },

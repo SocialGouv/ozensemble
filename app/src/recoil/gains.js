@@ -69,8 +69,8 @@ export const goalsState = atom({
    */
 });
 
-export const goalsByWeekState = selector({
-  key: 'goalsByWeekState',
+export const goalsByWeekSelector = selector({
+  key: 'goalsByWeekSelector',
   get: ({ get }) => {
     const goals = get(goalsState);
     const goalsByWeek = {};
