@@ -1,3 +1,10 @@
+## [1.125.8](https://github.com/SocialGouv/ozensemble/compare/v1.125.7...v1.125.8) (2023-09-18)
+
+
+### Bug Fixes
+
+* **app:** handle the problem with average doses by drinking day and goal respected ([#456](https://github.com/SocialGouv/ozensemble/issues/456)) ([98d4d0b](https://github.com/SocialGouv/ozensemble/commit/98d4d0b36e098aa70f26ab21ccda50cf5fee0141))
+
 ## [1.125.7](https://github.com/SocialGouv/ozensemble/compare/v1.125.6...v1.125.7) (2023-09-18)
 
 
