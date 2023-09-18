@@ -26,7 +26,7 @@ const Defi5_Day6 = ({ navigation, route }) => {
               Certaines personnes décident et parviennent à arrêter de boire sans l'aide de professionnels.{' '}
               <TextStyled bold>Toutefois, faire appel à une aide extérieure n'est pas un aveu de faiblesse.</TextStyled>
               {'\n\n'}
-              Il est possible d'être accompagné par différents professionnels (médecin, psychologue ou autre
+              Il est possible d'être accompagné(e) par différents professionnels (médecin, psychologue ou autre
               professionnel de la santé). Il existe aussi des équipes spécialisées en alcoologie et en addictologie.
             </>
           }

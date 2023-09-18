@@ -295,7 +295,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: "Vous êtes-vous blessé ou avez-vous blessé quelqu'un parce que vous aviez bu ?",
+    questionTitle: "Vous êtes-vous blessé(e) ou avez-vous blessé quelqu'un parce que vous aviez bu ?",
     questionKey: '8',
     answers: [
       {

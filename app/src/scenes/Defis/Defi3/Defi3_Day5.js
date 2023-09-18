@@ -29,7 +29,7 @@ const Defi3_Day5 = ({ route }) => {
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="Halte aux idées reçues !">
             <TextStyled>
-              Certaines phrases trop prononcées dédramatisent la consommation d'alcool et nécessite d'être expliquée
+              Certaines phrases trop prononcées dédramatisent la consommation d'alcool et nécessitent d'être expliquées
               pour <TextStyled bold>déconstruire certains clichés.</TextStyled>
             </TextStyled>
             <Spacer size={20} />

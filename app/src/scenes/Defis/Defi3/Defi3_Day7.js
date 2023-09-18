@@ -42,8 +42,8 @@ const Defi3_Day7 = ({ navigation, route }) => {
       </BulletPoint>
       <BulletPoint>
         <TextStyled>
-          {'\u2022'} Demandez de l’aide à un proche ou à un professionnel s’il vous est difficile d’atteindre seul votre
-          objectif.
+          {'\u2022'} Demandez de l’aide à un proche ou à un professionnel s’il vous est difficile d’atteindre seul(e)
+          votre objectif.
         </TextStyled>
       </BulletPoint>
       <BulletPoint>

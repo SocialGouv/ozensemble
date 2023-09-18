@@ -87,7 +87,7 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
                   <CircleContainer>
                     <MinusCircleStyled />
                     <TextStyledWidth>
-                      Les sources d'aide et d'inspiration que vous avez trouvé dans votre quotidien (appelés{' '}
+                      Les sources d'aide et d'inspiration que vous avez trouvées dans votre quotidien (appelés{' '}
                       <TextStyled bold italic>
                         facteurs protecteurs
                       </TextStyled>

@@ -26,8 +26,8 @@ const Defi2_Day1 = ({ navigation, route }) => {
       <ElementDayDefi
         content={
           <TextStyled>
-            Mais vous n'êtes <TextStyled bold>pas seul,</TextStyled> et vous pouvez
-            <TextStyled bold> être fier</TextStyled> de suivre ce deuxième défi, car nous avons
+            Mais vous n'êtes <TextStyled bold>pas seul(e),</TextStyled> et vous pouvez
+            <TextStyled bold> être fier(e)</TextStyled> de suivre ce deuxième défi, car nous avons
             <TextStyled bold> tous une bonne raison pour modifier</TextStyled> nos habitudes à consommer de l'alcool.
           </TextStyled>
         }

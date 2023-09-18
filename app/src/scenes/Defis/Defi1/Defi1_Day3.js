@@ -32,7 +32,7 @@ const Defi1_Day3 = ({ navigation, route }) => {
   return (
     <WrapperContainer
       onPressBackButton={navigation.goBack}
-      title="Avez-vous une dépendance physique à l'alcool qui necessite de consulter un professionel de santé ?">
+      title="Avez-vous une dépendance physique à l'alcool qui nécessite de consulter un professionnel de santé ?">
       <ElemContainer>
         <P style={{ flex: 1 }}>
           Le sevrage à l'alcool peut entrainer des complications graves et possiblement mortelles.{'\n\n'}
