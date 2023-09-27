@@ -130,9 +130,7 @@ export const derivedDataFromDrinksState = selector({
     let currentWeek = {};
     let dayWithDosesNotRespectedExists = false;
 
-    let i = 0;
     for (const drink of drinks) {
-      i++;
       const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
       // init startOfWeek
       if (!startOfWeek) {
@@ -228,8 +226,7 @@ export const derivedDataFromDrinksState = selector({
         if (!!dayWithDosesNotRespectedExists) {
           const dosesAreGood = weeklyDoses[startOfWeek] <= goalStartOfWeek.dosesPerWeek;
           if (dosesAreGood) {
-            for (let i = 0; i < 7; i++) {
-              const day = dayjs(startOfWeek).add(i, 'day').format('YYYY-MM-DD');
+            for (const day of Object.keys(currentWeek)) {
               if (calendarDays[day] === 'goalExistsButNotRespected') {
                 calendarDays[day] = 'goalExistsAndDosesWithinGoal';
               }
@@ -250,8 +247,7 @@ export const derivedDataFromDrinksState = selector({
             drinkingDays: daysWithDrinks,
           };
           if (dosesAreGood && !!dayWithDosesNotRespectedExists) {
-            for (let i = 0; i < 7; i++) {
-              const day = dayjs(startOfWeek).add(i, 'day').format('YYYY-MM-DD');
+            for (const day of Object.keys(currentWeek)) {
               if (calendarDays[day] === 'goalExistsButNotRespected') {
                 calendarDays[day] = 'goalExistsAndDosesWithinGoal';
               }
@@ -268,8 +264,7 @@ export const derivedDataFromDrinksState = selector({
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
             drinkingDays: daysWithDrinks,
           };
-          for (let i = 0; i < 7; i++) {
-            const day = dayjs(startOfWeek).add(i, 'day').format('YYYY-MM-DD');
+          for (const day of Object.keys(currentWeek)) {
             if (dailyDoses[day] > goalStartOfWeek.dosesByDrinkingDay) {
               if (calendarDays[day] === 'goalExistsAndDosesWithinGoal') {
                 calendarDays[day] = 'goalExistsButNotRespected';
@@ -292,8 +287,7 @@ export const derivedDataFromDrinksState = selector({
             drinkingDays: daysWithDrinks,
           };
           if (!!dayWithDosesNotRespectedExists) {
-            for (let i = 7; i > 0; i--) {
-              const day = dayjs(startOfWeek).add(i, 'day').format('YYYY-MM-DD');
+            for (const day of Object.keys(currentWeek)) {
               if (calendarDays[day] === 'goalExistsButNotRespected') {
                 calendarDays[day] = 'goalExistsAndDosesWithinGoal';
               }
@@ -310,8 +304,7 @@ export const derivedDataFromDrinksState = selector({
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
             drinkingDays: daysWithDrinks,
           };
-          for (let i = 0; i < 7; i++) {
-            const day = dayjs(startOfWeek).add(i, 'day').format('YYYY-MM-DD');
+          for (const day of Object.keys(currentWeek)) {
             if (dailyDoses[day] > goalStartOfWeek.dosesByDrinkingDay) {
               if (calendarDays[day] === 'goalExistsAndDosesWithinGoal') {
                 calendarDays[day] = 'goalExistsButNotRespected';

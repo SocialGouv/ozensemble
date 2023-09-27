@@ -17,7 +17,7 @@ export const checkNetwork = async (test = false) => {
 };
 
 class ApiService {
-  host = 'localhost:3615';
+  host = API_HOST;
   scheme = SCHEME;
   getUrl = (path, query) => {
     return new URI().host(this.host).scheme(this.scheme).path(path).setSearch(query).toString();
