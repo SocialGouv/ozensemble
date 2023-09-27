@@ -1,3 +1,10 @@
+## [1.125.10](https://github.com/SocialGouv/ozensemble/compare/v1.125.9...v1.125.10) (2023-09-27)
+
+
+### Bug Fixes
+
+* **app:** calendar too much green ([#457](https://github.com/SocialGouv/ozensemble/issues/457)) ([e8c9f7d](https://github.com/SocialGouv/ozensemble/commit/e8c9f7d334f69bba1c3a6e83fe8dd9b31f54f30f))
+
 ## [1.125.9](https://github.com/SocialGouv/ozensemble/compare/v1.125.8...v1.125.9) (2023-09-18)
 
 
