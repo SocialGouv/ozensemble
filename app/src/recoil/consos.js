@@ -128,7 +128,6 @@ export const derivedDataFromDrinksState = selector({
     let startOfWeek = null;
     let goalStartOfWeek = null;
     let currentWeek = {};
-    let dayWithDosesNotRespectedExists = false;
 
     for (const drink of drinks) {
       const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
@@ -150,7 +149,6 @@ export const derivedDataFromDrinksState = selector({
         // update startOfWeek for weekly doses and goals
         startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
         currentWeek = {};
-        dayWithDosesNotRespectedExists = false;
         // update goalStartOfWeek
         const nextGoal = goalsByWeek[startOfWeek];
         if (nextGoal) {
@@ -188,15 +186,16 @@ export const derivedDataFromDrinksState = selector({
       } else {
         if (dailyDoses[day] === 0) {
           calendarDays[day] = 'goalExistsAndNoDoses';
-        } else if (dailyDoses[day] > goalStartOfWeek.dosesByDrinkingDay) {
+        } else {
           // WARNING: the `dosesByDrinkingDay` is just an average of total drinks / authorized days
           // example: 4 units per week that I can drink in 7 days: average of 0.57 units per day
-          // if I drink 2 units on monday and 2 units on tuesday, I will have 2 days `goalExistsButNotRespected`
-          // although I respected my goal of 4 units per week
-          calendarDays[day] = 'goalExistsButNotRespected';
-          dayWithDosesNotRespectedExists = true; // for optimization purpose
-        } else {
-          calendarDays[day] = 'goalExistsAndDosesWithinGoal';
+          // if I drink 1 unit on Monday, I'm already above the average
+          // so we say: the minimum is 1 unit per day
+          if (dailyDoses[day] > Math.max(1, goalStartOfWeek.dosesByDrinkingDay)) {
+            calendarDays[day] = 'goalExistsButNotRespected';
+          } else {
+            calendarDays[day] = 'goalExistsAndDosesWithinGoal';
+          }
         }
       }
 
@@ -223,16 +222,6 @@ export const derivedDataFromDrinksState = selector({
           drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
           drinkingDays: daysWithDrinks,
         };
-        if (!!dayWithDosesNotRespectedExists) {
-          const dosesAreGood = weeklyDoses[startOfWeek] <= goalStartOfWeek.dosesPerWeek;
-          if (dosesAreGood) {
-            for (const day of Object.keys(currentWeek)) {
-              if (calendarDays[day] === 'goalExistsButNotRespected') {
-                calendarDays[day] = 'goalExistsAndDosesWithinGoal';
-              }
-            }
-          }
-        }
       } else {
         const dosesAreGood = weeklyDoses[startOfWeek] <= goalStartOfWeek.dosesPerWeek;
         const drinkDaysAreGood = daysWithNoDrink >= goalStartOfWeek.daysWithGoalNoDrink.length;
@@ -246,13 +235,6 @@ export const derivedDataFromDrinksState = selector({
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
             drinkingDays: daysWithDrinks,
           };
-          if (dosesAreGood && !!dayWithDosesNotRespectedExists) {
-            for (const day of Object.keys(currentWeek)) {
-              if (calendarDays[day] === 'goalExistsButNotRespected') {
-                calendarDays[day] = 'goalExistsAndDosesWithinGoal';
-              }
-            }
-          }
         }
         if (!dosesAreGood && drinkDaysAreGood) {
           calendarGoalsStartOfWeek[startOfWeek] = {
@@ -264,17 +246,6 @@ export const derivedDataFromDrinksState = selector({
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
             drinkingDays: daysWithDrinks,
           };
-          for (const day of Object.keys(currentWeek)) {
-            if (dailyDoses[day] > goalStartOfWeek.dosesByDrinkingDay) {
-              if (calendarDays[day] === 'goalExistsAndDosesWithinGoal') {
-                calendarDays[day] = 'goalExistsButNotRespected';
-              }
-            } else {
-              if (calendarDays[day] === 'goalExistsButNotRespected') {
-                calendarDays[day] = 'goalExistsAndDosesWithinGoal';
-              }
-            }
-          }
         }
         if (dosesAreGood && !drinkDaysAreGood) {
           calendarGoalsStartOfWeek[startOfWeek] = {
@@ -286,13 +257,6 @@ export const derivedDataFromDrinksState = selector({
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
             drinkingDays: daysWithDrinks,
           };
-          if (!!dayWithDosesNotRespectedExists) {
-            for (const day of Object.keys(currentWeek)) {
-              if (calendarDays[day] === 'goalExistsButNotRespected') {
-                calendarDays[day] = 'goalExistsAndDosesWithinGoal';
-              }
-            }
-          }
         }
         if (!dosesAreGood && !drinkDaysAreGood) {
           calendarGoalsStartOfWeek[startOfWeek] = {
@@ -304,17 +268,6 @@ export const derivedDataFromDrinksState = selector({
             drinkingDaysGoal: 7 - goalStartOfWeek.daysWithGoalNoDrink.length,
             drinkingDays: daysWithDrinks,
           };
-          for (const day of Object.keys(currentWeek)) {
-            if (dailyDoses[day] > goalStartOfWeek.dosesByDrinkingDay) {
-              if (calendarDays[day] === 'goalExistsAndDosesWithinGoal') {
-                calendarDays[day] = 'goalExistsButNotRespected';
-              }
-            } else {
-              if (calendarDays[day] === 'goalExistsButNotRespected') {
-                calendarDays[day] = 'goalExistsAndDosesWithinGoal';
-              }
-            }
-          }
         }
       }
 
