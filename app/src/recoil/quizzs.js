@@ -51,6 +51,23 @@ export const autoEvaluationQuizzResultState = atom({
   ],
 });
 
+export const userSurveyQuizzAnswersState = atom({
+  key: 'userSurveyQuizzAnswersState',
+  default: getInitStoredAnswers('@UserSurvey'),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('@UserSurvey', JSON.stringify(newValue)))],
+});
+
+export const userSurveyQuizzResultState = atom({
+  key: 'userSurveyQuizzResultState',
+  default: getInitStoredResult('@UserSurvey_Result'),
+  effects: [
+    ({ onSet }) =>
+      onSet((newValue) => {
+        storage.set('@UserSurvey_Result', JSON.stringify(newValue));
+      }),
+  ],
+});
+
 export const betterEvaluateQuizzAnswersState = atom({
   key: 'betterEvaluateQuizzAnswersState',
   default: getInitStoredAnswers('@QuizzEvaluateConso_answers'),

@@ -12,6 +12,7 @@ import Matomo from '../../services/matomo';
 import BackButton from '../BackButton';
 import CONSTANTS from '../../reference/constants';
 import { storage } from '../../services/storage';
+import QuestionMultipleChoice from './QuestionMultipleChoice';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -85,6 +86,28 @@ const Quizz = ({
     }
   };
 
+  const saveMultipleAnswer = async (questionIndex, questionKey, answerKeys, score) => {
+    if (questionIndex === 0) logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
+    const newAnswers = {
+      ...answers,
+      [questionKey]: answerKeys,
+    };
+
+    setAnswers(newAnswers);
+    setProgress((questionIndex + 1) / questions.length);
+    const endOfQuestions = questionIndex === questions.length - 1;
+
+    // logQuizzAnswer({ questionKey, answerKey, score });
+
+    if (endOfQuestions) {
+      // if (calculateScore) {
+      //   const addictionResult = mapAnswersToResult(questions, newAnswers);
+      //   if (addictionResult) setResultKey(addictionResult);
+      // }
+      // logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
+    }
+  };
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <QuizzAndResultsStack.Navigator
@@ -93,7 +116,15 @@ const Quizz = ({
         initialRouteName={route?.params?.initialRouteName}
         initialParams={route?.params}>
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
-          {() => <QuizzQuestions progress={progress} questions={questions} answers={answers} saveAnswer={saveAnswer} />}
+          {() => (
+            <QuizzQuestions
+              progress={progress}
+              questions={questions}
+              answers={answers}
+              saveAnswer={saveAnswer}
+              saveMultipleAnswer={saveMultipleAnswer}
+            />
+          )}
         </QuizzAndResultsStack.Screen>
         <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params} component={Results} />
         <QuizzAndResultsStack.Screen name="CONTACT" component={ContactForm} />
@@ -103,7 +134,7 @@ const Quizz = ({
   );
 };
 
-const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
+const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultipleAnswer }) => {
   const navigation = useNavigation();
   return (
     <>
@@ -117,14 +148,26 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
           <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>
             {(props) => (
               <>
-                <Question
-                  {...content}
-                  numberOfQuestions={questions.length}
-                  questionIndex={index}
-                  saveAnswer={saveAnswer}
-                  selectedAnswerKey={answers?.[content.questionKey]}
-                  {...props}
-                />
+                {content.multipleChoice ? (
+                  <QuestionMultipleChoice
+                    {...content}
+                    numberOfQuestions={questions.length}
+                    questionIndex={index}
+                    saveAnswer={saveAnswer}
+                    saveMultipleAnswer={saveMultipleAnswer}
+                    selectedAnswerKey={answers?.[content.questionKey]}
+                    {...props}
+                  />
+                ) : (
+                  <Question
+                    {...content}
+                    numberOfQuestions={questions.length}
+                    questionIndex={index}
+                    saveAnswer={saveAnswer}
+                    selectedAnswerKey={answers?.[content.questionKey]}
+                    {...props}
+                  />
+                )}
               </>
             )}
           </QuizzStack.Screen>

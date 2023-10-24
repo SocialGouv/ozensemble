@@ -38,6 +38,7 @@ import Goal from './scenes/Gains/Goal';
 import GainsReminder from './scenes/Gains/GainsReminder';
 import GainsPreviousConsumption from './scenes/Gains/GainsPreviousConsumption';
 import Sevrage from './scenes/Gains/Sevrage';
+import UserSurvey from './scenes/Quizzs/UserSurvey';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -247,6 +248,7 @@ const Router = () => {
               headerShown: false,
             }}
           />
+          <RouterStack.Screen name="USER_SURVEY" component={UserSurvey} />
           <RouterStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
           <RouterStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
           <RouterStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
