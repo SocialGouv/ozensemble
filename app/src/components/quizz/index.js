@@ -123,6 +123,7 @@ const Quizz = ({
               answers={answers}
               saveAnswer={saveAnswer}
               saveMultipleAnswer={saveMultipleAnswer}
+              route={route}
             />
           )}
         </QuizzAndResultsStack.Screen>
@@ -133,9 +134,11 @@ const Quizz = ({
     </Background>
   );
 };
-
-const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultipleAnswer }) => {
+const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultipleAnswer, route }) => {
   const navigation = useNavigation();
+
+  const from = route?.params?.from;
+
   return (
     <>
       <BackButton onPress={navigation.goBack} marginLeft marginTop />
@@ -155,7 +158,8 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultiple
                     questionIndex={index}
                     saveAnswer={saveAnswer}
                     saveMultipleAnswer={saveMultipleAnswer}
-                    selectedAnswerKey={answers?.[content.questionKey]}
+                    selectedAnswerKey={answers?.[content.questionKey] || []}
+                    from={from}
                     {...props}
                   />
                 ) : (
@@ -165,6 +169,7 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultiple
                     questionIndex={index}
                     saveAnswer={saveAnswer}
                     selectedAnswerKey={answers?.[content.questionKey]}
+                    from={from}
                     {...props}
                   />
                 )}

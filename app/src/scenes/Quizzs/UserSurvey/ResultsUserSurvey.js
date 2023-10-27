@@ -51,13 +51,13 @@ const ResultsUserSurvey = ({ navigation, route }) => {
             })
               .then((res) => res.json())
               .catch((err) => console.log('sendMail User Survey err', err));
-            navigation.navigate('APP');
+            navigation.navigate('TABS');
           }}
         />
         <TouchableOpacity
           onPress={() => {
             logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'SKIP_LAST_QUESTION' });
-            navigation.navigate('APP');
+            navigation.navigate('TABS');
           }}>
           <Skip>Passer</Skip>
         </TouchableOpacity>

@@ -5,6 +5,8 @@ import H3 from '../H3';
 import { screenWidth } from '../../styles/theme';
 import WrapperContainer from '../WrapperContainer';
 import ButtonPrimary from '../ButtonPrimary';
+import { showBootSplashState } from '../CustomBootsplash';
+import { useSetRecoilState } from 'recoil';
 
 const QuestionMultipleChoice = ({
   questionIndex,
@@ -16,7 +18,10 @@ const QuestionMultipleChoice = ({
   saveAnswer,
   saveMultipleAnswer,
   navigation,
+  from,
 }) => {
+  const setShowBootsplash = useSetRecoilState(showBootSplashState);
+
   return (
     <WrapperContainer noPaddingTop>
       <QuestionNumber>
@@ -32,32 +37,44 @@ const QuestionMultipleChoice = ({
               saveMultipleAnswer(
                 questionIndex,
                 questionKey,
-                selectedAnswerKey.includes(answerKey)
+                selectedAnswerKey?.includes(answerKey)
                   ? selectedAnswerKey.filter((key) => key !== answerKey)
-                  : [...selectedAnswerKey, answerKey],
+                  : selectedAnswerKey
+                  ? [...selectedAnswerKey, answerKey]
+                  : [answerKey],
                 score
               );
             }}
-            selected={selectedAnswerKey.includes(answerKey)}
+            selected={selectedAnswerKey?.includes(answerKey)}
             last={i === answers.length - 1}>
-            <AnswerContent selected={selectedAnswerKey.includes(answerKey)}>{content}</AnswerContent>
+            <AnswerContent selected={selectedAnswerKey?.includes(answerKey)}>{content}</AnswerContent>
           </AnswerButton>
         ))}
 
         <ButtonPrimary
           onPress={() => {
-            saveAnswer(questionIndex, questionKey, JSON.stringify(selectedAnswerKey), 0);
-            setTimeout(() => {
+            saveAnswer(questionIndex, questionKey, selectedAnswerKey, 0);
+            setTimeout(async () => {
               const endOfQuestions = questionIndex === numberOfQuestions - 1;
               if (!endOfQuestions) {
                 navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
               } else {
+                if (from == 'NEW_USER') {
+                  // TODO: fix user survey still appearing after bootsplash hide
+                  setShowBootsplash(true);
+                  await new Promise((res) => setTimeout(res, 250));
+                  navigation.navigate('TABS');
+                  await new Promise((res) => setTimeout(res, 750));
+                  // RNBootSplash.hide({ fade: true });
+                  setShowBootsplash(false);
+                  return;
+                }
                 navigation.navigate('QUIZZ_RESULTS');
               }
             }, 500);
           }}
           content="Valider"
-          disabled={selectedAnswerKey.length === 0}
+          disabled={!selectedAnswerKey || selectedAnswerKey.length === 0}
         />
       </AnswersContainer>
     </WrapperContainer>
