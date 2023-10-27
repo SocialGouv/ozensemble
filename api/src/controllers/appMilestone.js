@@ -50,6 +50,7 @@ router.post(
       },
       update: {},
     });
+
     // If not up app up to date check for add own drink announcement
     if (req.headers.appversion <= 164) {
       const newBadgeAnnouncementAddOwnDrink = await prisma.appMilestone.findUnique({
@@ -77,6 +78,40 @@ router.post(
         return res.status(200).send({ ok: true });
       }
     } else {
+      // USER SURVEY:
+      if (req.headers.appversion >= 204) {
+        // TODO : update appversion (205?)
+
+        // dont send if new user (created_at < 24h)
+        const userCreatedAt = dayjs(user.createdAt);
+        const now = dayjs("2023-08-27");
+        if (now.diff(userCreatedAt, "hour") > 24) {
+          const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
+            where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
+          });
+          if (!NewUserSurveyAnnouncementModal) {
+            await prisma.appMilestone.create({
+              data: {
+                id: `${user.id}_@NewUserSurveyAnnouncement`,
+                userId: user.id,
+                date: dayjs().format("YYYY-MM-DD"),
+              },
+            });
+            return res.status(200).send({
+              ok: true,
+              showInAppModal: {
+                id: "@NewUserSurveyAnnouncement",
+                title: "1 min pour améliorer Oz\u00A0?",
+                content: "Répondez à 6 questions de manière anonyme pour nous aider à améliorer l’application\u00A0!",
+                CTATitle: "Répondre au sondage",
+                secondaryButtonTitle: "Plus tard",
+                CTANavigation: ["USER_SURVEY"],
+              },
+            });
+          }
+        }
+      }
+
       // if user is created after today, skip
       const userCreatedAt = dayjs(user.createdAt);
       const now = dayjs("2023-08-27");
