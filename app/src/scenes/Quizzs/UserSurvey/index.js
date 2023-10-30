@@ -14,6 +14,7 @@ const UserSurvey = ({ navigation, route }) => (
     recoilResultState={userSurveyQuizzResultState}
     calculateScore={false}
     Results={ResultsUserSurvey}
+    closeButton={true}
   />
 );
 

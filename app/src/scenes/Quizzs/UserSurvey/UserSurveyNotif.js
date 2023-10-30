@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { useSetRecoilState } from 'recoil';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import H2 from '../../../components/H2';
-import { Dimensions, StatusBar, View } from 'react-native';
+import { Dimensions, Platform, StatusBar, Touchable, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import H3 from '../../../components/H3';
 import UserSurveyLogo from '../../../components/illustrations/UserSurveyLogo';
 import Background from '../../../components/Background';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { showBootSplashState } from '../../../components/CustomBootsplash';
 
-// screen displayed after onboarding
+// screen displayed from notification
 
-const UserSurveyStart = ({ navigation, route }) => {
-  const setShowBootsplash = useSetRecoilState(showBootSplashState);
-
+const UserSurveyNotif = ({ navigation, route }) => {
   return (
     <SafeAreaProvider>
       <StatusBar backgroundColor="#39cec0" />
@@ -25,7 +21,7 @@ const UserSurveyStart = ({ navigation, route }) => {
         <Container>
           <MiddleContainer>
             <UserSurveyLogo />
-            <Title>Bienvenue sur Oz !</Title>
+            <Title>1 min pour améliorer Oz ?</Title>
             <Text>
               Répondez à 6 questions pour nous aider à améliorer l’application ensemble !
               <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
@@ -34,22 +30,16 @@ const UserSurveyStart = ({ navigation, route }) => {
 
           <InsideContainer>
             <ButtonPrimaryStyled
-              content={"C'est parti"}
+              content={'Répondre au sondage'}
               onPress={async () => {
-                // send
-                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
+                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF' });
                 navigation.push('USER_SURVEY', { from: route.params?.from });
               }}
             />
             <TouchableOpacity
-              onPress={async () => {
-                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START_SKIP' });
-                // TODO: fix user survey still appearing after bootsplash hide
-                setShowBootsplash(true);
-                await new Promise((res) => setTimeout(res, 250));
+              onPress={() => {
+                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF_SKIP' });
                 navigation.navigate('TABS');
-                await new Promise((res) => setTimeout(res, 750));
-                setShowBootsplash(false);
               }}>
               <Skip>Plus tard</Skip>
             </TouchableOpacity>
@@ -60,7 +50,7 @@ const UserSurveyStart = ({ navigation, route }) => {
   );
 };
 
-export default UserSurveyStart;
+export default UserSurveyNotif;
 
 const Container = styled.View`
   width: ${Dimensions.get('window').width}px;

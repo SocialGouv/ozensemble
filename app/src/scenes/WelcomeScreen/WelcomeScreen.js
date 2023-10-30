@@ -29,13 +29,14 @@ const WelcomeScreen = ({ navigation }) => {
 
   const onStartPress = async () => {
     storage.set('@OnboardingDoneWithCGU', true);
-    // RNBootSplash.show;
-    setShowBootsplash(true);
-    await new Promise((res) => setTimeout(res, 250));
-    navigation.navigate('TABS');
-    await new Promise((res) => setTimeout(res, 750));
-    // RNBootSplash.hide({ fade: true });
-    setShowBootsplash(false);
+    navigation.navigate('USER_SURVEY_START', { from: 'NEW_USER' });
+    // // RNBootSplash.show;
+    // setShowBootsplash(true);
+    // await new Promise((res) => setTimeout(res, 250));
+    // navigation.navigate('TABS');
+    // await new Promise((res) => setTimeout(res, 750));
+    // // RNBootSplash.hide({ fade: true });
+    // setShowBootsplash(false);
   };
 
   const onPressNext = () => swiperRef?.current?.scrollBy(1);

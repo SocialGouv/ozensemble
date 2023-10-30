@@ -16,6 +16,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import { sendMail } from '../../../services/mail';
 import pck from '../../../../package.json';
+import { storage } from '../../../services/storage';
 
 const ResultsUserSurvey = ({ navigation, route }) => {
   const [feedback, setFeedback] = useState('');

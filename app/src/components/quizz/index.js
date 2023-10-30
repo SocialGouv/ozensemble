@@ -13,6 +13,10 @@ import BackButton from '../BackButton';
 import CONSTANTS from '../../reference/constants';
 import { storage } from '../../services/storage';
 import QuestionMultipleChoice from './QuestionMultipleChoice';
+import { TouchableOpacity, View } from 'react-native';
+import CloseButton from '../CloseButton';
+import styled from 'styled-components';
+import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -37,6 +41,7 @@ const Quizz = ({
   Results,
   event = '',
   calculateScore = true,
+  closeButton = false,
 }) => {
   const [progress, setProgress] = useState(0);
   const [answers, setAnswers] = useRecoilState(recoilAnswersState);
@@ -124,6 +129,8 @@ const Quizz = ({
               saveAnswer={saveAnswer}
               saveMultipleAnswer={saveMultipleAnswer}
               route={route}
+              event={event}
+              closeButton={closeButton}
             />
           )}
         </QuizzAndResultsStack.Screen>
@@ -134,14 +141,37 @@ const Quizz = ({
     </Background>
   );
 };
-const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultipleAnswer, route }) => {
+
+const QuizzQuestions = ({
+  progress,
+  questions,
+  answers,
+  saveAnswer,
+  saveMultipleAnswer,
+  route,
+  event,
+  closeButton,
+}) => {
   const navigation = useNavigation();
 
   const from = route?.params?.from;
 
   return (
     <>
-      <BackButton onPress={navigation.goBack} marginLeft marginTop />
+      {closeButton ? (
+        <HeaderContainer>
+          <BackButton onPress={navigation.goBack} marginLeft marginTop />
+          <TouchableOpacity
+            onPress={() => {
+              logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_CLOSE_BUTTON' });
+              navigation.navigate('TABS');
+            }}>
+            <CloseButton />
+          </TouchableOpacity>
+        </HeaderContainer>
+      ) : (
+        <BackButton onPress={navigation.goBack} marginLeft marginTop />
+      )}
       <ProgressBar progress={progress} />
       <QuizzStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
@@ -183,3 +213,10 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer, saveMultiple
 };
 
 export default Quizz;
+
+const HeaderContainer = styled(View)`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-right: ${defaultPaddingFontScale()}px;
+`;
