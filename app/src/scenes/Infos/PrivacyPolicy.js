@@ -4,8 +4,7 @@ import Pdf from 'react-native-pdf';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
-const pdfUrl =
-  'https://ozensemble.fr/files/11042023_oz_ensemble_politique_de_confidentialit%C3%A9_de_l_application_v_3.pdf';
+const pdfUrl = 'https://ozensemble.fr/files/privacy_policy_app.pdf';
 
 const PrivacyPolicy = ({ onClose }) => (
   <View className="flex-1 justify-start items-center mt-6">
