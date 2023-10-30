@@ -70,7 +70,11 @@ const Quizz = ({
   };
 
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
-    if (questionIndex === 0) logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
+    if (questionIndex === 0) {
+      // TODO: check if we need to log a "QUIZZ" event ? should be a `QUIZZ${event}` event ?
+      if (event === 'USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_START' });
+      logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
+    }
     const newAnswers = {
       ...answers,
       [questionKey]: answerKey,
@@ -87,12 +91,15 @@ const Quizz = ({
         const addictionResult = mapAnswersToResult(questions, newAnswers);
         if (addictionResult) setResultKey(addictionResult);
       }
+      if (event === 'USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_FINISH' });
+
+      // TODO: check if we need to log a "QUIZZ" event ? should be a `QUIZZ${event}` event ?
       logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
     }
   };
 
   const saveMultipleAnswer = async (questionIndex, questionKey, answerKeys, score) => {
-    if (questionIndex === 0) logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
+    if (questionIndex === 0) logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_START' });
     const newAnswers = {
       ...answers,
       [questionKey]: answerKeys,
@@ -101,16 +108,6 @@ const Quizz = ({
     setAnswers(newAnswers);
     setProgress((questionIndex + 1) / questions.length);
     const endOfQuestions = questionIndex === questions.length - 1;
-
-    // logQuizzAnswer({ questionKey, answerKey, score });
-
-    if (endOfQuestions) {
-      // if (calculateScore) {
-      //   const addictionResult = mapAnswersToResult(questions, newAnswers);
-      //   if (addictionResult) setResultKey(addictionResult);
-      // }
-      // logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
-    }
   };
 
   return (

@@ -82,10 +82,16 @@ router.post(
       if (req.headers.appversion >= 204) {
         // TODO : update appversion (205?)
 
-        // dont send if new user (created_at < 24h)
-        const userCreatedAt = dayjs(user.createdAt);
-        const now = dayjs("2023-08-27");
-        if (now.diff(userCreatedAt, "hour") > 24) {
+        const userSurveyWasSkipped = await prisma.notification.findFirst({
+          where: {
+            userId: user.id,
+            type: "USER_SURVEY",
+          },
+        });
+        const userSurveyFinishedMilestone = await prisma.appMilestone.findUnique({
+          where: { id: `${matomoId}_@userSurveyFinished` },
+        });
+        if (!userSurveyWasSkipped && !userSurveyFinishedMilestone) {
           const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
             where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
           });
