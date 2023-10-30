@@ -89,7 +89,7 @@ router.post(
           },
         });
         const userSurveyFinishedMilestone = await prisma.appMilestone.findUnique({
-          where: { id: `${matomoId}_@userSurveyFinished` },
+          where: { id: `${user.id}_@userSurveyFinished` },
         });
         if (!userSurveyWasSkipped && !userSurveyFinishedMilestone) {
           const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({

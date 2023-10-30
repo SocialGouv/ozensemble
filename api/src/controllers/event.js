@@ -61,10 +61,18 @@ router.post(
       if (userSurveyFinishedMilestone) {
         capture("userSurveyFinishedMilestone already exists", { extra: { matomoId } });
       } else {
+        const user = await prisma.user.upsert({
+          where: { matomo_id: matomoId },
+          create: {
+            matomo_id: matomoId,
+            created_from: "EventUserSurveyFinished",
+          },
+          update: {},
+        });
         await prisma.appMilestone.create({
           data: {
-            id: `${matomoId}_@userSurveyFinished`,
-            userId: matomoId,
+            id: `${user.id}_@userSurveyFinished`,
+            userId: user.id,
             date: dayjs().format("YYYY-MM-DD"),
           },
         });

@@ -40,7 +40,7 @@ const Question = ({
                     // TODO: fix user survey still appearing after bootsplash hide
                     setShowBootsplash(true);
                     await new Promise((res) => setTimeout(res, 250));
-                    navigation.push('TABS');
+                    navigation.navigate('TABS');
                     await new Promise((res) => setTimeout(res, 750));
                     setShowBootsplash(false);
                     return;
