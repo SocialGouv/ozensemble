@@ -15,38 +15,35 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const UserSurveyNotif = ({ navigation, route }) => {
   return (
-    <SafeAreaProvider>
-      <StatusBar backgroundColor="#39cec0" />
-      <Background color="#39cec0" withSwiperContainer>
-        <Container>
-          <MiddleContainer>
-            <UserSurveyLogo />
-            <Title>1 min pour améliorer Oz ?</Title>
-            <Text>
-              Répondez à 6 questions pour nous aider à améliorer l’application ensemble !
-              <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
-            </Text>
-          </MiddleContainer>
+    <Background color="#39cec0" withSwiperContainer neverBottom>
+      <Container>
+        <MiddleContainer>
+          <UserSurveyLogo />
+          <Title>1 min pour améliorer Oz ?</Title>
+          <Text>
+            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !
+            <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
+          </Text>
+        </MiddleContainer>
 
-          <InsideContainer>
-            <ButtonPrimaryStyled
-              content={'Répondre au sondage'}
-              onPress={async () => {
-                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF' });
-                navigation.push('USER_SURVEY', { from: route.params?.from });
-              }}
-            />
-            <TouchableOpacity
-              onPress={() => {
-                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF_SKIP' });
-                navigation.navigate('TABS');
-              }}>
-              <Skip>Plus tard</Skip>
-            </TouchableOpacity>
-          </InsideContainer>
-        </Container>
-      </Background>
-    </SafeAreaProvider>
+        <InsideContainer>
+          <ButtonPrimaryStyled
+            content={'Répondre au sondage'}
+            onPress={async () => {
+              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF' });
+              navigation.push('USER_SURVEY', { from: route.params?.from });
+            }}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF_SKIP' });
+              navigation.navigate('TABS');
+            }}>
+            <Skip>Plus tard</Skip>
+          </TouchableOpacity>
+        </InsideContainer>
+      </Container>
+    </Background>
   );
 };
 

@@ -72,7 +72,7 @@ const Quizz = ({
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
     if (questionIndex === 0) {
       // TODO: check if we need to log a "QUIZZ" event ? should be a `QUIZZ${event}` event ?
-      if (event === 'USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_START' });
+      if (event === '_USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_START' });
       logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
     }
     const newAnswers = {
@@ -91,7 +91,7 @@ const Quizz = ({
         const addictionResult = mapAnswersToResult(questions, newAnswers);
         if (addictionResult) setResultKey(addictionResult);
       }
-      if (event === 'USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_FINISH' });
+      if (event === '_USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_FINISH' });
 
       // TODO: check if we need to log a "QUIZZ" event ? should be a `QUIZZ${event}` event ?
       logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
@@ -111,7 +111,7 @@ const Quizz = ({
   };
 
   return (
-    <Background color="#39cec0" withSwiperContainer>
+    <Background color="#39cec0" withSwiperContainer neverBottom>
       <QuizzAndResultsStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
         headerMode="none"

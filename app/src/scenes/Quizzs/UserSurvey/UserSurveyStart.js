@@ -10,53 +10,47 @@ import { logEvent } from '../../../services/logEventsWithMatomo';
 import H3 from '../../../components/H3';
 import UserSurveyLogo from '../../../components/illustrations/UserSurveyLogo';
 import Background from '../../../components/Background';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { showBootSplashState } from '../../../components/CustomBootsplash';
-
-// screen displayed after onboarding
 
 const UserSurveyStart = ({ navigation, route }) => {
   const setShowBootsplash = useSetRecoilState(showBootSplashState);
 
   return (
-    <SafeAreaProvider>
-      <StatusBar backgroundColor="#39cec0" />
-      <Background color="#39cec0" withSwiperContainer>
-        <Container>
-          <MiddleContainer>
-            <UserSurveyLogo />
-            <Title>Bienvenue sur Oz !</Title>
-            <Text>
-              Répondez à 6 questions pour nous aider à améliorer l’application ensemble !
-              <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
-            </Text>
-          </MiddleContainer>
+    <Background color="#39cec0" withSwiperContainer neverBottom>
+      <Container>
+        <MiddleContainer>
+          <UserSurveyLogo />
+          <Title>Bienvenue sur Oz !</Title>
+          <Text>
+            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !
+            <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
+          </Text>
+        </MiddleContainer>
 
-          <InsideContainer>
-            <ButtonPrimaryStyled
-              content={"C'est parti"}
-              onPress={async () => {
-                // send
-                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
-                navigation.push('USER_SURVEY', { from: route.params?.from });
-              }}
-            />
-            <TouchableOpacity
-              onPress={async () => {
-                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START_SKIP' });
-                // TODO: fix user survey still appearing after bootsplash hide
-                setShowBootsplash(true);
-                await new Promise((res) => setTimeout(res, 250));
-                navigation.navigate('TABS');
-                await new Promise((res) => setTimeout(res, 750));
-                setShowBootsplash(false);
-              }}>
-              <Skip>Plus tard</Skip>
-            </TouchableOpacity>
-          </InsideContainer>
-        </Container>
-      </Background>
-    </SafeAreaProvider>
+        <InsideContainer>
+          <ButtonPrimaryStyled
+            content={"C'est parti"}
+            onPress={async () => {
+              // send
+              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
+              navigation.push('USER_SURVEY', { from: route.params?.from });
+            }}
+          />
+          <TouchableOpacity
+            onPress={async () => {
+              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START_SKIP' });
+              // TODO: fix user survey still appearing after bootsplash hide
+              setShowBootsplash(true);
+              await new Promise((res) => setTimeout(res, 250));
+              navigation.navigate('TABS');
+              await new Promise((res) => setTimeout(res, 750));
+              setShowBootsplash(false);
+            }}>
+            <Skip>Plus tard</Skip>
+          </TouchableOpacity>
+        </InsideContainer>
+      </Container>
+    </Background>
   );
 };
 

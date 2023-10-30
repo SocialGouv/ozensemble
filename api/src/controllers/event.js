@@ -3,7 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
-const { prisma } = require("@prisma/client");
+const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { capture } = require("../third-parties/sentry");
 
