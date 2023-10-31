@@ -79,9 +79,7 @@ router.post(
       }
     } else {
       // USER SURVEY:
-      if (req.headers.appversion >= 204) {
-        // TODO : update appversion (205?)
-
+      if (req.headers.appversion >= 205) {
         const userSurveyWasSkipped = await prisma.notification.findFirst({
           where: {
             userId: user.id,
