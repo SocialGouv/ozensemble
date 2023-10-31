@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=../../kontinuous/docs/values.schema.json
+
 app:
   containerPort: 3000
   probesPath: /healthz
@@ -6,6 +8,9 @@ app:
         name: "pg-user"
     - secretRef:
         name: api
+
+pg:
+  ~chart: pg
 
 jobs:
   runs:
