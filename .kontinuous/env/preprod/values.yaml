@@ -1,6 +1,3 @@
-pg:
-  ~chart: pg
-
 app:
   host: api-ozensemble-preprod.ovh.fabrique.social.gouv.fr
   envFrom:
