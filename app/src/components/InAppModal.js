@@ -22,6 +22,8 @@ import { shareApp } from '../services/shareApp';
 import { storage } from '../services/storage';
 import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
 import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
+import UserSurveyLogo from './illustrations/UserSurveyLogo';
+import { logEvent } from '../services/logEventsWithMatomo';
 
 /* example
 {
@@ -71,6 +73,10 @@ const InAppModal = () => {
   const onSecondaryPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
+      // if NewUserSurveyAnnouncement logevent
+      if (modalContent.id.includes('NewUserSurveyAnnouncement')) {
+        logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_SKIP' });
+      }
       if (modalContent.secondaryButtonNavigation) {
         navigation.navigate(...modalContent.secondaryButtonNavigation);
       } else if (modalContent.secondaryButtonShare) {
@@ -143,6 +149,11 @@ const InAppModal = () => {
               <View className="mx-2 flex flex-col items-center">
                 <AnnouncementCalendar1 size={screenWidth - 14} />
                 <AnnouncementCalendar2 size={screenWidth} />
+              </View>
+            )}
+            {modalContent?.id.includes('NewUserSurveyAnnouncement') && (
+              <View className="mx-2 flex flex-col items-center">
+                <UserSurveyLogo />
               </View>
             )}
           </View>

@@ -116,6 +116,50 @@ const scheduleDefi1Day1 = async (matomoId) => {
   });
 };
 
+const scheduleUserSurvey = async (matomoId) => {
+  const type = "USER_SURVEY";
+  const user = await prisma.user.upsert({
+    where: { matomo_id: matomoId },
+    create: { matomo_id: matomoId, created_from: "UserSurvey" },
+    update: {},
+  });
+
+  const notif = await prisma.notification.findFirst({
+    where: {
+      userId: user.id,
+      type,
+      status: "NotSent",
+    },
+  });
+  if (notif) return;
+
+  // if 3 notifications where already sent, don't schedule
+  const alreadySentNotifs = await prisma.notification.findMany({
+    where: {
+      userId: user.id,
+      type,
+    },
+  });
+  if (alreadySentNotifs.length >= 3) return;
+
+  const reminder = await prisma.reminder.findUnique({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.utcTimeMinutes) || 0;
+
+  await prisma.notification.create({
+    data: {
+      user: { connect: { id: user.id } },
+      type,
+      date: dayjs().utc().add(7, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
+    },
+  });
+};
+
 const cancelNotif = async (matomoId, type) => {
   const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
   if (!user) return;
@@ -130,6 +174,24 @@ const cancelNotif = async (matomoId, type) => {
       status: "Canceled",
     },
   });
+};
+
+const NOTIFICATIONS_TYPES = {
+  DEFI1_DAY1: {
+    title: "C'est l'heure du 2ème jour !",
+    body: "Evaluez votre niveau de risque alcool de manière plus fine.",
+    link: "oz://DEFI1",
+  },
+  INACTIVITY_5_DAYS: {
+    title: "Vous nous manquez",
+    body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
+    link: "oz://ADD_DRINK",
+  },
+  USER_SURVEY: {
+    title: "1 min pour améliorer Oz ?",
+    body: "Répondez à 6 questions pour nous aider à améliorer l’application ensemble !",
+    link: "oz://USER_SURVEY_NOTIF",
+  },
 };
 
 const notificationsCronJob = async () => {
@@ -174,19 +236,6 @@ const notificationsCronJob = async () => {
   });
 };
 
-const NOTIFICATIONS_TYPES = {
-  DEFI1_DAY1: {
-    title: "C'est l'heure du 2ème jour !",
-    body: "Evaluez votre niveau de risque alcool de manière plus fine.",
-    link: "oz://DEFI1",
-  },
-  INACTIVITY_5_DAYS: {
-    title: "Vous nous manquez",
-    body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
-    link: "oz://ADD_DRINK",
-  },
-};
-
 module.exports = {
   NOTIFICATIONS_TYPES,
   cancelNotif,
@@ -194,4 +243,5 @@ module.exports = {
   scheduleDefi1Day1,
   updateLastConsoAdded,
   scheduleNotificationsInactivity5DaysCronJob,
+  scheduleUserSurvey,
 };

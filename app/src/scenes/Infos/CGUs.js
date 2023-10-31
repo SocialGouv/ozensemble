@@ -4,7 +4,7 @@ import Pdf from 'react-native-pdf';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 
-const pdfUrl = 'https://ozensemble.fr/files/25012023-Oz_Ensemble-CGU_app_V4.pdf';
+const pdfUrl = 'https://ozensemble.fr/files/CGU_app.pdf';
 
 const CGUs = ({ onClose }) => (
   <View className="flex-1 justify-start items-center mt-6">

@@ -3,6 +3,9 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const newFeatures = require("../new-features");
 const notifications = require("../notifications");
+const prisma = require("../prisma");
+const dayjs = require("dayjs");
+const { capture } = require("../third-parties/sentry");
 
 router.post(
   "/",
@@ -38,6 +41,42 @@ router.post(
           { cancelable: true },
         ],
       });
+    }
+
+    // handle User Survey notifications
+    const userSurveySkipped =
+      category === "QUIZZ_USER_SURVEY" &&
+      (action === "USER_SURVEY_START_SKIP" || action === "USER_SURVEY_NOTIF_SKIP" || action === "QUIZZ_CLOSE_BUTTON");
+    if (userSurveySkipped) {
+      notifications.scheduleUserSurvey(matomoId);
+    }
+
+    const userSurveyFinished = category === "QUIZZ_USER_SURVEY" && action === "QUIZZ_FINISH";
+    if (userSurveyFinished) {
+      notifications.cancelNotif(matomoId, "USER_SURVEY");
+
+      const user = await prisma.user.upsert({
+        where: { matomo_id: matomoId },
+        create: {
+          matomo_id: matomoId,
+          created_from: "EventUserSurveyFinished",
+        },
+        update: {},
+      });
+      const userSurveyFinishedMilestone = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@userSurveyFinished` },
+      });
+      if (userSurveyFinishedMilestone) {
+        capture("userSurveyFinishedMilestone already exists", { extra: { matomoId } });
+      } else {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@userSurveyFinished`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+      }
     }
 
     // if (req.headers.appversion < 128) {
