@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import Background from '../Background';
 import Question from './Question';
 import { logEvent } from '../../services/logEventsWithMatomo';
@@ -9,22 +9,11 @@ import QuestionMultipleChoice from './QuestionMultipleChoice';
 const QuizzStack = createStackNavigator();
 const QuizzAndResultsStack = createStackNavigator();
 
-const QuizzUserSurvey = ({
-  questions,
-  recoilAnswersState,
-  recoilResultState,
-  route,
-  mapAnswersToResult,
-  Results,
-  event = '',
-  calculateScore = true,
-  closeButton = false,
-}) => {
+const QuizzUserSurvey = ({ questions, recoilAnswersState, route, Results, event = '' }) => {
   const [progress, setProgress] = useState(0);
   const [answers, setAnswers] = useRecoilState(recoilAnswersState);
-  const setResultKey = useSetRecoilState(recoilResultState);
 
-  const logQuizzAnswer = async ({ questionKey, answerKey, score }) => {
+  const logQuizzAnswer = async ({ questionKey, score }) => {
     const category = `QUIZZ${event}`;
     const action = 'QUIZZ_ANSWER';
     const name = questionKey;
@@ -45,7 +34,7 @@ const QuizzUserSurvey = ({
     setProgress((questionIndex + 1) / questions.length);
     const endOfQuestions = questionIndex === questions.length - 1;
 
-    logQuizzAnswer({ questionKey, answerKey, score });
+    logQuizzAnswer({ questionKey, score });
 
     if (endOfQuestions) {
       logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_FINISH' });
@@ -95,7 +84,6 @@ const QuizzUserSurvey = ({
               logMultipleAnswer={logMultipleAnswer}
               route={route}
               event={event}
-              closeButton={closeButton}
             />
           )}
         </QuizzAndResultsStack.Screen>
@@ -114,7 +102,6 @@ const QuizzQuestions = ({
   logMultipleAnswer,
   route,
   event,
-  closeButton,
 }) => {
   const from = route?.params?.from;
 
@@ -137,7 +124,6 @@ const QuizzQuestions = ({
                     logMultipleAnswer={logMultipleAnswer}
                     selectedAnswerKey={answers?.[content.questionKey] || []}
                     from={from}
-                    closeButton={closeButton}
                     progress={progress}
                     event={event}
                     {...props}
@@ -150,7 +136,6 @@ const QuizzQuestions = ({
                     saveAnswer={saveAnswer}
                     selectedAnswerKey={answers?.[content.questionKey]}
                     from={from}
-                    closeButton={closeButton}
                     progress={progress}
                     event={event}
                     {...props}

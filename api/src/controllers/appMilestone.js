@@ -80,39 +80,28 @@ router.post(
     } else {
       // USER SURVEY:
       if (req.headers.appversion >= 205) {
-        const userSurveyWasSkipped = await prisma.notification.findFirst({
-          where: {
-            userId: user.id,
-            type: "USER_SURVEY",
-          },
+        const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
         });
-        const userSurveyFinishedMilestone = await prisma.appMilestone.findUnique({
-          where: { id: `${user.id}_@userSurveyFinished` },
-        });
-        if (!userSurveyWasSkipped && !userSurveyFinishedMilestone) {
-          const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
-            where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
+        if (!NewUserSurveyAnnouncementModal) {
+          await prisma.appMilestone.create({
+            data: {
+              id: `${user.id}_@NewUserSurveyAnnouncement`,
+              userId: user.id,
+              date: dayjs().format("YYYY-MM-DD"),
+            },
           });
-          if (!NewUserSurveyAnnouncementModal) {
-            await prisma.appMilestone.create({
-              data: {
-                id: `${user.id}_@NewUserSurveyAnnouncement`,
-                userId: user.id,
-                date: dayjs().format("YYYY-MM-DD"),
-              },
-            });
-            return res.status(200).send({
-              ok: true,
-              showInAppModal: {
-                id: "@NewUserSurveyAnnouncement",
-                title: "1 min pour améliorer Oz\u00A0?",
-                content: "Répondez à 6 questions de manière anonyme pour nous aider à améliorer l’application\u00A0!",
-                CTATitle: "Répondre au sondage",
-                secondaryButtonTitle: "Plus tard",
-                CTANavigation: ["USER_SURVEY"],
-              },
-            });
-          }
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@NewUserSurveyAnnouncement",
+              title: "1 min pour améliorer Oz\u00A0?",
+              content: "Répondez à 6 questions de manière anonyme pour nous aider à améliorer l’application\u00A0!",
+              CTATitle: "Répondre au sondage",
+              secondaryButtonTitle: "Plus tard",
+              CTANavigation: ["USER_SURVEY"],
+            },
+          });
         }
       }
 

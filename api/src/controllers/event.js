@@ -43,7 +43,31 @@ router.post(
       });
     }
 
-    // handle User Survey notifications
+    // handle User Survey
+    const userSurveyStarted = category === "QUIZZ_USER_SURVEY" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
+    if (userSurveyStarted) {
+      const user = await prisma.user.upsert({
+        where: { matomo_id: matomoId },
+        create: {
+          matomo_id: matomoId,
+          created_from: "EventUserSurveyStarted",
+        },
+        update: {},
+      });
+      const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
+      });
+      if (!NewUserSurveyAnnouncementModal) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@NewUserSurveyAnnouncement`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+      }
+    }
+
     const userSurveySkipped =
       category === "QUIZZ_USER_SURVEY" &&
       (action === "USER_SURVEY_START_SKIP" || action === "USER_SURVEY_NOTIF_SKIP" || action === "QUIZZ_CLOSE_BUTTON");

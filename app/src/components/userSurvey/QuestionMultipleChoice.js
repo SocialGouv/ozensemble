@@ -24,7 +24,6 @@ const QuestionMultipleChoice = ({
   logMultipleAnswer,
   navigation,
   from,
-  closeButton,
   progress,
   event,
 }) => {
@@ -32,31 +31,47 @@ const QuestionMultipleChoice = ({
 
   return (
     <>
-      <HeaderContainer>
-        <BackButton
-          onPress={() => {
-            navigation.goBack();
-            logEvent({
-              category: `QUIZZ${event}`,
-              action: 'QUIZZ_BACK_BUTTON',
-              name: questionKey,
-            });
-          }}
-          marginLeft
-          marginTop
-        />
-        <TouchableOpacity
-          onPress={() => {
-            logEvent({
-              category: `QUIZZ${event}`,
-              action: 'QUIZZ_CLOSE_BUTTON',
-              name: questionKey,
-            });
-            navigation.navigate('TABS');
-          }}>
-          <CloseButton />
-        </TouchableOpacity>
-      </HeaderContainer>
+      {questionIndex > 0 ? (
+        <HeaderContainer>
+          <BackButton
+            onPress={() => {
+              navigation.goBack();
+              logEvent({
+                category: `QUIZZ${event}`,
+                action: 'QUIZZ_BACK_BUTTON',
+                name: questionKey,
+              });
+            }}
+            marginLeft
+            marginTop
+          />
+          <TouchableOpacity
+            onPress={() => {
+              logEvent({
+                category: `QUIZZ${event}`,
+                action: 'QUIZZ_CLOSE_BUTTON',
+                name: questionKey,
+              });
+              navigation.navigate('TABS');
+            }}>
+            <CloseButton />
+          </TouchableOpacity>
+        </HeaderContainer>
+      ) : (
+        <CloseOnlyContainer>
+          <TouchableOpacity
+            onPress={() => {
+              logEvent({
+                category: `QUIZZ${event}`,
+                action: 'QUIZZ_CLOSE_BUTTON',
+                name: questionKey,
+              });
+              navigation.navigate('TABS');
+            }}>
+            <CloseButton />
+          </TouchableOpacity>
+        </CloseOnlyContainer>
+      )}
       <ProgressBar progress={progress} />
       <WrapperContainer noPaddingTop>
         <QuestionNumber>
@@ -187,5 +202,13 @@ const HeaderContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
+  margin-right: ${defaultPaddingFontScale()}px;
+`;
+
+const CloseOnlyContainer = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-top: 20px;
   margin-right: ${defaultPaddingFontScale()}px;
 `;

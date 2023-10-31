@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { userSurveyQuizzResultState } from '../../../recoil/quizzs';
 import TextStyled from '../../../components/TextStyled';
 import WrapperContainer from '../../../components/WrapperContainer';
-import Element from '../../../components/ElementDayDefi';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import BackButton from '../../../components/BackButton';
 import ProgressBar from '../../../components/ProgressBar';
 import H2 from '../../../components/H2';
 import TextInputStyled from '../../../components/TextInputStyled';
-import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
-import { Platform, Touchable } from 'react-native';
+import { Platform } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import { sendMail } from '../../../services/mail';
