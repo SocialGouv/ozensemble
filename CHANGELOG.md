@@ -1,3 +1,10 @@
+# [1.126.0](https://github.com/SocialGouv/ozensemble/compare/v1.125.10...v1.126.0) (2023-10-31)
+
+
+### Features
+
+* user survey ([#460](https://github.com/SocialGouv/ozensemble/issues/460)) ([0efccc8](https://github.com/SocialGouv/ozensemble/commit/0efccc8b57b75ac56774cf18c401f7a3fb17c954))
+
 ## [1.125.10](https://github.com/SocialGouv/ozensemble/compare/v1.125.9...v1.125.10) (2023-09-27)
 
 
