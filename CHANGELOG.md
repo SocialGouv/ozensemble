@@ -1,3 +1,10 @@
+## [1.126.2](https://github.com/SocialGouv/ozensemble/compare/v1.126.1...v1.126.2) (2023-10-31)
+
+
+### Bug Fixes
+
+* add CNPG prod cluster ([#461](https://github.com/SocialGouv/ozensemble/issues/461)) ([70cd123](https://github.com/SocialGouv/ozensemble/commit/70cd1235349590ff20cae1d54fd822dc5617fb66))
+
 ## [1.126.1](https://github.com/SocialGouv/ozensemble/compare/v1.126.0...v1.126.1) (2023-10-31)
 
 
