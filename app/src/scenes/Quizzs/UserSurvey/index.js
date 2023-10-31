@@ -1,11 +1,11 @@
 import React from 'react';
-import Quizz from '../../../components/quizz';
+import QuizzUserSurvey from '../../../components/userSurvey';
 import { userSurveyQuizzAnswersState, userSurveyQuizzResultState } from '../../../recoil/quizzs';
 import questionsUserSurvey from './questions';
 import ResultsUserSurvey from './ResultsUserSurvey';
 
 const UserSurvey = ({ navigation, route }) => (
-  <Quizz
+  <QuizzUserSurvey
     navigation={navigation}
     route={route}
     event={'_USER_SURVEY'}

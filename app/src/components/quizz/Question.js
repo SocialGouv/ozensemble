@@ -3,8 +3,6 @@ import styled, { css } from 'styled-components';
 import H2 from '../H2';
 import { screenWidth } from '../../styles/theme';
 import WrapperContainer from '../WrapperContainer';
-import { useSetRecoilState } from 'recoil';
-import { showBootSplashState } from '../CustomBootsplash';
 
 const Question = ({
   questionIndex,
@@ -15,10 +13,7 @@ const Question = ({
   answers,
   saveAnswer,
   navigation,
-  from,
 }) => {
-  const setShowBootsplash = useSetRecoilState(showBootSplashState);
-
   return (
     <WrapperContainer noPaddingTop>
       <QuestionNumber>
@@ -29,22 +24,13 @@ const Question = ({
         {answers.map(({ answerKey, content, score }, i) => (
           <AnswerButton
             key={answerKey}
-            onPress={() => {
+            onPress={async () => {
               saveAnswer(questionIndex, questionKey, answerKey, score);
-              setTimeout(async () => {
+              setTimeout(() => {
                 const endOfQuestions = questionIndex === numberOfQuestions - 1;
                 if (!endOfQuestions) {
                   navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
                 } else {
-                  if (from == 'NEW_USER') {
-                    // TODO: fix user survey still appearing after bootsplash hide
-                    setShowBootsplash(true);
-                    await new Promise((res) => setTimeout(res, 250));
-                    navigation.navigate('TABS');
-                    await new Promise((res) => setTimeout(res, 750));
-                    setShowBootsplash(false);
-                    return;
-                  }
                   navigation.navigate('QUIZZ_RESULTS');
                 }
               }, 500);

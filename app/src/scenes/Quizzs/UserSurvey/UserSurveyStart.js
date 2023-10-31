@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { useSetRecoilState } from 'recoil';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import H2 from '../../../components/H2';
-import { Dimensions, StatusBar, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { logEvent } from '../../../services/logEventsWithMatomo';
 import H3 from '../../../components/H3';
@@ -22,7 +22,7 @@ const UserSurveyStart = ({ navigation, route }) => {
           <UserSurveyLogo />
           <Title>Bienvenue sur Oz !</Title>
           <Text>
-            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !
+            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{'\n\n'}
             <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
           </Text>
         </MiddleContainer>
@@ -31,7 +31,6 @@ const UserSurveyStart = ({ navigation, route }) => {
           <ButtonPrimaryStyled
             content={"C'est parti"}
             onPress={async () => {
-              // send
               logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
               navigation.push('USER_SURVEY', { from: route.params?.from });
             }}
@@ -82,12 +81,8 @@ const ButtonPrimaryStyled = styled(ButtonPrimary)`
 `;
 
 const commonCss = css`
-  //   margin-bottom: 15px;
+  margin-bottom: 10px;
   flex-shrink: 0;
-`;
-
-const QuestionNumber = styled(H2)`
-  ${commonCss}
 `;
 
 const Title = styled(H2)`
@@ -99,7 +94,7 @@ const Title = styled(H2)`
 
 const Text = styled(H3)`
   ${commonCss}
-  margin-bottom: 10;
+  margin-bottom: 10px;
   width: 75%;
   text-align: center;
 `;

@@ -117,5 +117,5 @@ const QuestionNumber = styled(H2)`
 const QuestionTitle = styled(H2)`
   color: #4030a5;
   ${commonCss}
-  margin-bottom: 10;
+  margin-bottom: 10px;
 `;

@@ -12,11 +12,6 @@ import Matomo from '../../services/matomo';
 import BackButton from '../BackButton';
 import CONSTANTS from '../../reference/constants';
 import { storage } from '../../services/storage';
-import QuestionMultipleChoice from './QuestionMultipleChoice';
-import { TouchableOpacity, View } from 'react-native';
-import CloseButton from '../CloseButton';
-import styled from 'styled-components';
-import { defaultPaddingFontScale } from '../../styles/theme';
 
 /*
 HOW DOES THE QUESTIONS WORK:
@@ -41,7 +36,6 @@ const Quizz = ({
   Results,
   event = '',
   calculateScore = true,
-  closeButton = false,
 }) => {
   const [progress, setProgress] = useState(0);
   const [answers, setAnswers] = useRecoilState(recoilAnswersState);
@@ -70,11 +64,7 @@ const Quizz = ({
   };
 
   const saveAnswer = async (questionIndex, questionKey, answerKey, score) => {
-    if (questionIndex === 0) {
-      // TODO: check if we need to log a "QUIZZ" event ? should be a `QUIZZ${event}` event ?
-      if (event === '_USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_START' });
-      logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
-    }
+    if (questionIndex === 0) logEvent({ category: 'QUIZZ', action: 'QUIZZ_START' });
     const newAnswers = {
       ...answers,
       [questionKey]: answerKey,
@@ -91,45 +81,19 @@ const Quizz = ({
         const addictionResult = mapAnswersToResult(questions, newAnswers);
         if (addictionResult) setResultKey(addictionResult);
       }
-      if (event === '_USER_SURVEY') logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_FINISH' });
-
-      // TODO: check if we need to log a "QUIZZ" event ? should be a `QUIZZ${event}` event ?
       logEvent({ category: 'QUIZZ', action: 'QUIZZ_FINISH' });
     }
   };
 
-  const saveMultipleAnswer = async (questionIndex, questionKey, answerKeys, score) => {
-    if (questionIndex === 0) logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_START' });
-    const newAnswers = {
-      ...answers,
-      [questionKey]: answerKeys,
-    };
-
-    setAnswers(newAnswers);
-    setProgress((questionIndex + 1) / questions.length);
-    const endOfQuestions = questionIndex === questions.length - 1;
-  };
-
   return (
-    <Background color="#39cec0" withSwiperContainer neverBottom>
+    <Background color="#39cec0" withSwiperContainer>
       <QuizzAndResultsStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
         headerMode="none"
         initialRouteName={route?.params?.initialRouteName}
         initialParams={route?.params}>
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
-          {() => (
-            <QuizzQuestions
-              progress={progress}
-              questions={questions}
-              answers={answers}
-              saveAnswer={saveAnswer}
-              saveMultipleAnswer={saveMultipleAnswer}
-              route={route}
-              event={event}
-              closeButton={closeButton}
-            />
-          )}
+          {() => <QuizzQuestions progress={progress} questions={questions} answers={answers} saveAnswer={saveAnswer} />}
         </QuizzAndResultsStack.Screen>
         <QuizzAndResultsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params} component={Results} />
         <QuizzAndResultsStack.Screen name="CONTACT" component={ContactForm} />
@@ -139,36 +103,11 @@ const Quizz = ({
   );
 };
 
-const QuizzQuestions = ({
-  progress,
-  questions,
-  answers,
-  saveAnswer,
-  saveMultipleAnswer,
-  route,
-  event,
-  closeButton,
-}) => {
+const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
   const navigation = useNavigation();
-
-  const from = route?.params?.from;
-
   return (
     <>
-      {closeButton ? (
-        <HeaderContainer>
-          <BackButton onPress={navigation.goBack} marginLeft marginTop />
-          <TouchableOpacity
-            onPress={() => {
-              logEvent({ category: `QUIZZ${event}`, action: 'QUIZZ_CLOSE_BUTTON' });
-              navigation.navigate('TABS');
-            }}>
-            <CloseButton />
-          </TouchableOpacity>
-        </HeaderContainer>
-      ) : (
-        <BackButton onPress={navigation.goBack} marginLeft marginTop />
-      )}
+      <BackButton onPress={navigation.goBack} marginLeft marginTop />
       <ProgressBar progress={progress} />
       <QuizzStack.Navigator
         screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
@@ -178,28 +117,14 @@ const QuizzQuestions = ({
           <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>
             {(props) => (
               <>
-                {content.multipleChoice ? (
-                  <QuestionMultipleChoice
-                    {...content}
-                    numberOfQuestions={questions.length}
-                    questionIndex={index}
-                    saveAnswer={saveAnswer}
-                    saveMultipleAnswer={saveMultipleAnswer}
-                    selectedAnswerKey={answers?.[content.questionKey] || []}
-                    from={from}
-                    {...props}
-                  />
-                ) : (
-                  <Question
-                    {...content}
-                    numberOfQuestions={questions.length}
-                    questionIndex={index}
-                    saveAnswer={saveAnswer}
-                    selectedAnswerKey={answers?.[content.questionKey]}
-                    from={from}
-                    {...props}
-                  />
-                )}
+                <Question
+                  {...content}
+                  numberOfQuestions={questions.length}
+                  questionIndex={index}
+                  saveAnswer={saveAnswer}
+                  selectedAnswerKey={answers?.[content.questionKey]}
+                  {...props}
+                />
               </>
             )}
           </QuizzStack.Screen>
@@ -210,10 +135,3 @@ const QuizzQuestions = ({
 };
 
 export default Quizz;
-
-const HeaderContainer = styled(View)`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-right: ${defaultPaddingFontScale()}px;
-`;

@@ -55,20 +55,20 @@ router.post(
     if (userSurveyFinished) {
       notifications.cancelNotif(matomoId, "USER_SURVEY");
 
+      const user = await prisma.user.upsert({
+        where: { matomo_id: matomoId },
+        create: {
+          matomo_id: matomoId,
+          created_from: "EventUserSurveyFinished",
+        },
+        update: {},
+      });
       const userSurveyFinishedMilestone = await prisma.appMilestone.findUnique({
-        where: { id: `${matomoId}_@userSurveyFinished` },
+        where: { id: `${user.id}_@userSurveyFinished` },
       });
       if (userSurveyFinishedMilestone) {
         capture("userSurveyFinishedMilestone already exists", { extra: { matomoId } });
       } else {
-        const user = await prisma.user.upsert({
-          where: { matomo_id: matomoId },
-          create: {
-            matomo_id: matomoId,
-            created_from: "EventUserSurveyFinished",
-          },
-          update: {},
-        });
         await prisma.appMilestone.create({
           data: {
             id: `${user.id}_@userSurveyFinished`,
