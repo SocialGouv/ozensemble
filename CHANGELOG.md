@@ -1,3 +1,10 @@
+# [1.127.0](https://github.com/SocialGouv/ozensemble/compare/v1.126.2...v1.127.0) (2023-11-02)
+
+
+### Features
+
+* api db-check endpoint ([e6d39d4](https://github.com/SocialGouv/ozensemble/commit/e6d39d43bbc0940ec7668a2b6d6fcbabfa7a03e9))
+
 ## [1.126.2](https://github.com/SocialGouv/ozensemble/compare/v1.126.1...v1.126.2) (2023-10-31)
 
 
