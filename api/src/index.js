@@ -5,7 +5,6 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const logger = require("morgan");
-const prisma = require("./prisma");
 
 const { PORT, VERSION, MOBILE_VERSION } = require("./config");
 const errors = require("./middlewares/errors");
@@ -67,6 +66,8 @@ app.post("/sentry-check", async (req, res) => {
   capture("sentry-check", { extra: { test: "test" } });
   res.status(200).send({ ok: true, data: `Sentry checked!` });
 });
+
+app.use("/db-check", require("./controllers/test"));
 
 // redirect links qr codes
 app.use("/qr", require("./controllers/qr"));
