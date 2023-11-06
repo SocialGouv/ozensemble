@@ -38,24 +38,24 @@ const CalendarLegend = ({ navigateToFirstStep }) => {
           </View>
           <View className="flex flex-row space-x-1 items-center">
             <LegendStar />
-            <Text className="text-xs">Pas bu</Text>
+            <TextStyled className="text-xs">Pas bu</TextStyled>
           </View>
           {isOnboarded ? (
             <View>
               <View className="flex flex-row items-center">
                 <View className="bg-[#34D39A] w-5 h-5 rounded-md mt-1 mr-1" />
-                <Text className="text-xs mt-1">Dans l'objectif</Text>
+                <TextStyled className="text-xs mt-1">Dans l'objectif</TextStyled>
               </View>
               <View className="flex flex-row items-center">
                 <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1" />
-                <Text className="text-xs mt-1">Au dessus de l'objectif</Text>
+                <TextStyled className="text-xs mt-1">Au dessus de l'objectif</TextStyled>
               </View>
             </View>
           ) : (
             <View>
               <View className="flex flex-row items-center">
                 <View className="bg-[#FF7878] w-5 h-5 rounded-md mt-1 mr-1" />
-                <Text className="text-xs mt-1">Bu</Text>
+                <TextStyled className="text-xs mt-1">Bu</TextStyled>
               </View>
             </View>
           )}
@@ -71,15 +71,15 @@ const CalendarLegend = ({ navigateToFirstStep }) => {
             <View>
               <View className="flex flex-row items-center space-x-2 my-1 ">
                 <CheckDefisValidated />
-                <Text className="text-xs">Réussi</Text>
+                <TextStyled className="text-xs">Réussi</TextStyled>
               </View>
               <View className="flex flex-row items-center space-x-2 mb-1">
                 <CrossDefisFailed />
-                <Text className="text-xs">Dépassé</Text>
+                <TextStyled className="text-xs">Dépassé</TextStyled>
               </View>
               <View className="flex flex-row items-center space-x-2">
                 <OnGoingGoal />
-                <Text className="text-xs">En cours</Text>
+                <TextStyled className="text-xs">En cours</TextStyled>
               </View>
             </View>
           ) : (
@@ -115,41 +115,41 @@ const LegendHelpModal = ({ visible, hide }) => {
             <View className="flex flex-row space-x-2 mt-2">
               <LegendStar />
               <View>
-                <Text className="font-bold">Pas bu</Text>
-                <Text>Vous avez indiqué ne pas avoir bu ce jour.</Text>
+                <TextStyled className="font-bold">Pas bu</TextStyled>
+                <TextStyled>Vous avez indiqué ne pas avoir bu ce jour.</TextStyled>
               </View>
             </View>
             <View className="flex flex-row mt-6">
               <View className="bg-[#34D39A] w-5 h-5 rounded-md mr-2"></View>
               <View>
-                <Text className="font-bold">Dans l'objectif</Text>
+                <TextStyled className="font-bold">Dans l'objectif</TextStyled>
                 <View className="flex flex-row flex-wrap" style={{ paddingRight: defaultPaddingFontScale() }}>
-                  <Text>
+                  <TextStyled>
                     Vos consommations de ce jour sont
-                    <Text className="font-semibold"> inférieures </Text>ou
-                    <Text className="font-semibold"> égales </Text>à l'objectif fixé par jour.
-                  </Text>
+                    <TextStyled className="font-semibold"> inférieures </TextStyled>ou
+                    <TextStyled className="font-semibold"> égales </TextStyled>à l'objectif fixé par jour.
+                  </TextStyled>
                 </View>
               </View>
             </View>
             <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
               <View className="bg-[#FF7878] w-5 h-5 rounded-md mr-2"></View>
               <View>
-                <Text className="font-bold">Au dessus de l'objectif</Text>
+                <TextStyled className="font-bold">Au dessus de l'objectif</TextStyled>
                 <View className="flex flex-row flex-wrap">
-                  <Text>
-                    Vos consommations de ce jour sont<Text className="font-semibold"> supérieures </Text>à l'objectif
-                    fixé par jour.
-                  </Text>
+                  <TextStyled>
+                    Vos consommations de ce jour sont<TextStyled className="font-semibold"> supérieures </TextStyled>à
+                    l'objectif fixé par jour.
+                  </TextStyled>
                 </View>
               </View>
             </View>
             <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
               <View className="w-5 h-5 rounded-md mr-2 border border-dashed border-[#4030A5]"></View>
               <View>
-                <Text className="font-bold">Jour à compléter</Text>
+                <TextStyled className="font-bold">Jour à compléter</TextStyled>
                 <View className="flex flex-row flex-wrap">
-                  <Text>Complétez les consommations de ce jour même si vous n'avez rien bu.</Text>
+                  <TextStyled>Complétez les consommations de ce jour même si vous n'avez rien bu.</TextStyled>
                 </View>
               </View>
             </View>
@@ -163,38 +163,38 @@ const LegendHelpModal = ({ visible, hide }) => {
               <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
                 <CheckDefisValidated size={23} />
                 <View className="ml-2">
-                  <Text className="font-bold">Objectif réussi</Text>
-                  <Text className="flex flex-row flex-wrap">
+                  <TextStyled className="font-bold">Objectif réussi</TextStyled>
+                  <TextStyled className="flex flex-row flex-wrap">
                     Vos consommations de cette semaine sont
-                    <Text className="font-bold"> dans </Text>
-                    <Text>votre objectif fixé et vous avez </Text>
-                    <Text className="font-bold"> respecté </Text>
+                    <TextStyled className="font-bold"> dans </TextStyled>
+                    <TextStyled>votre objectif fixé et vous avez </TextStyled>
+                    <TextStyled className="font-bold"> respecté </TextStyled>
                     le nombre de jours où vous vous autorisiez à boire.
-                  </Text>
+                  </TextStyled>
                 </View>
               </View>
               <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
                 <CrossDefisFailed size={23} />
                 <View className="ml-2">
-                  <Text className="font-bold">Objectif dépassé</Text>
-                  <Text className="flex flex-row flex-wrap">
+                  <TextStyled className="font-bold">Objectif dépassé</TextStyled>
+                  <TextStyled className="flex flex-row flex-wrap">
                     Vos consommations de cette semaine sont
-                    <Text className="font-bold"> supérieures </Text>
-                    <Text>à votre objectif fixé</Text>
-                    <Text className="font-bold"> et/ou </Text>
-                    <Text>vous avez</Text>
-                    <Text className="font-bold"> dépassé </Text>
+                    <TextStyled className="font-bold"> supérieures </TextStyled>
+                    <TextStyled>à votre objectif fixé</TextStyled>
+                    <TextStyled className="font-bold"> et/ou </TextStyled>
+                    <TextStyled>vous avez</TextStyled>
+                    <TextStyled className="font-bold"> dépassé </TextStyled>
                     le nombre de jours où vous vous autorisiez à boire.
-                  </Text>
+                  </TextStyled>
                 </View>
               </View>
               <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
                 <OnGoingGoal size={23} />
                 <View className="ml-2">
-                  <Text className="font-bold">Objectif en cours</Text>
-                  <Text className="flex flex-row flex-wrap">
+                  <TextStyled className="font-bold">Objectif en cours</TextStyled>
+                  <TextStyled className="flex flex-row flex-wrap">
                     Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse.
-                  </Text>
+                  </TextStyled>
                 </View>
               </View>
             </View>

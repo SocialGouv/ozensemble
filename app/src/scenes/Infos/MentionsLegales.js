@@ -44,13 +44,13 @@ const MentionsLegales = ({ onClose }) => (
     <Spacer size={30} />
     <P>
       Pour en savoir plus sur la politique d’accessibilité numérique de l’État{'\u00A0'}:{' '}
-      <Text
+      <TextStyled
         className="text-indigo-700"
         onPress={() => {
           Linking.openURL('https://references.modernisation.gouv.fr/accessibilite-numerique');
         }}>
         https://references.modernisation.gouv.fr/accessibilite-numerique
-      </Text>
+      </TextStyled>
     </P>
     <Spacer size={30} />
     <H2>Signaler un dysfonctionnement</H2>
@@ -58,7 +58,7 @@ const MentionsLegales = ({ onClose }) => (
     <P>
       Si vous rencontrez un défaut d'accessibilité vous empêchant d'accéder à un contenu ou une fonctionnalité du site,
       merci de nous en faire part ici{'\u00A0'}:{' '}
-      <Text className="text-indigo-700">ozensemble@fabrique.social.gouv.fr</Text>
+      <TextStyled className="text-indigo-700">ozensemble@fabrique.social.gouv.fr</TextStyled>
     </P>
     <P>Pour le rejoindre vous pouvez{'\u00A0'}:</P>
     <View className="flex flex-row">
@@ -70,13 +70,13 @@ const MentionsLegales = ({ onClose }) => (
       <View className="flex flex-row basis-11/12">
         <P noMarginBottom>
           Utiliser le formulaire de contact en ligne ici{'\u00A0'}:{' '}
-          <Text
+          <TextStyled
             className="text-indigo-700"
             onPress={() => {
               Linking.openURL('https://references.modernisation.gouv.fr/accessibilite-numerique');
             }}>
             https://formulaire.defenseurdesdroits.fr/code/afficher.php?ETAPE=accueil_2016
-          </Text>
+          </TextStyled>
         </P>
       </View>
     </View>
@@ -89,7 +89,9 @@ const MentionsLegales = ({ onClose }) => (
       <View className="flex flex-row basis-11/12">
         <P noMarginBottom>
           Utiliser le formulaire de contact en ligne ici{'\u00A0'}:{' '}
-          <Text className="text-indigo-700">Composer le 09 69 39 00 00 (du lundi au vendredi de 8h à 20h)</Text>
+          <TextStyled className="text-indigo-700">
+            Composer le 09 69 39 00 00 (du lundi au vendredi de 8h à 20h)
+          </TextStyled>
         </P>
       </View>
     </View>

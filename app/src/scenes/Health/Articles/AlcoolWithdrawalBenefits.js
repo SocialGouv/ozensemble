@@ -8,6 +8,7 @@ import NavigationWrapper from './NavigationWrapper';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import { screenWidth } from '../../../styles/theme';
 import { logEvent } from '../../../services/logEventsWithMatomo';
+import TextStyled from '../../../components/TextStyled';
 
 const AlcoolWithdrawalBenefits = () => {
   const title = 'Les bénéfices au sevrage';
@@ -19,59 +20,59 @@ const AlcoolWithdrawalBenefits = () => {
         <Spacer size={20} />
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">1</Text>
+            <TextStyled className="text-white font-bold text-base">1</TextStyled>
           </View>
-          <Text className="font-semibold">Se fixer un objectif d'arrêt ou de réduction</Text>
+          <TextStyled className="font-semibold">Se fixer un objectif d'arrêt ou de réduction</TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">2</Text>
+            <TextStyled className="text-white font-bold text-base">2</TextStyled>
           </View>
-          <Text className="font-semibold">Ne pas avoir d'alcool disponible à la maison </Text>
+          <TextStyled className="font-semibold">Ne pas avoir d'alcool disponible à la maison </TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">3</Text>
+            <TextStyled className="text-white font-bold text-base">3</TextStyled>
           </View>
-          <Text className="font-semibold">
+          <TextStyled className="font-semibold">
             Ne pas prendre «{'\u00A0'}juste un verre de plus{'\u00A0'}» qui en appelle un autre{' '}
-          </Text>
+          </TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">4</Text>
+            <TextStyled className="text-white font-bold text-base">4</TextStyled>
           </View>
-          <Text className="font-semibold">
+          <TextStyled className="font-semibold">
             Ne pas «{'\u00A0'}compenser{'\u00A0'}» avec du tabac, café, sucre{' '}
-          </Text>
+          </TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">5</Text>
+            <TextStyled className="text-white font-bold text-base">5</TextStyled>
           </View>
-          <Text className="font-semibold">Éviter les consommations déclenchant l'envie</Text>
+          <TextStyled className="font-semibold">Éviter les consommations déclenchant l'envie</TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">6</Text>
+            <TextStyled className="text-white font-bold text-base">6</TextStyled>
           </View>
-          <Text className="font-semibold">S'hydrater régulièrement et en grande quantité</Text>
+          <TextStyled className="font-semibold">S'hydrater régulièrement et en grande quantité</TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">7</Text>
+            <TextStyled className="text-white font-bold text-base">7</TextStyled>
           </View>
-          <Text className="font-semibold">L'envie de consommer dure 15 min{'\u00A0'}: distrayez-vous</Text>
+          <TextStyled className="font-semibold">L'envie de consommer dure 15 min{'\u00A0'}: distrayez-vous</TextStyled>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
-            <Text className="text-white font-bold text-base">8</Text>
+            <TextStyled className="text-white font-bold text-base">8</TextStyled>
           </View>
-          <Text className="font-semibold">Faire de l'exercice physique pour gérer le stress</Text>
+          <TextStyled className="font-semibold">Faire de l'exercice physique pour gérer le stress</TextStyled>
         </View>
         <Spacer size={20} />
         <H2 color={'#4030a5'}>
-          Bénéfices à <Text className="underline">court terme</Text>
+          Bénéfices à <TextStyled className="underline">court terme</TextStyled>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
@@ -180,7 +181,7 @@ const AlcoolWithdrawalBenefits = () => {
         />
         <Spacer size={50} />
         <H2 color={'#4030a5'}>
-          Bénéfices à <Text className="underline">moyen terme</Text>
+          Bénéfices à <TextStyled className="underline">moyen terme</TextStyled>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
@@ -224,7 +225,7 @@ const AlcoolWithdrawalBenefits = () => {
         </ImageContainer>
         <Spacer size={50} />
         <H2 color={'#4030a5'}>
-          Bénéfices à <Text className="underline">long terme</Text>
+          Bénéfices à <TextStyled className="underline">long terme</TextStyled>
         </H2>
         <Spacer size={20} />
         <ImageContainer>

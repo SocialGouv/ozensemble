@@ -16,6 +16,7 @@ import OnGoingGoal from './illustrations/icons/OnGoingGoal';
 import OnBoardingModal from './OnBoardingModal';
 import CalendarLegend from './CalendarLegend';
 import { logEvent } from '../services/logEventsWithMatomo';
+import TextStyled from './TextStyled';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -198,13 +199,13 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
               return (
                 <View key={col} className="flex flex-row grow justify-center basis-4">
                   {isObjectifColonnes ? (
-                    <Text className="text-[#4030A5] font-semibold" style={{ fontSize: fontSize }}>
+                    <TextStyled className="text-[#4030A5] font-semibold" style={{ fontSize: fontSize }}>
                       {col}
-                    </Text>
+                    </TextStyled>
                   ) : (
-                    <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+                    <TextStyled className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
                       {col}
-                    </Text>
+                    </TextStyled>
                   )}
                 </View>
               );
@@ -311,9 +312,9 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
                               visible: true,
                             });
                           }}>
-                          <Text className="font-bold text-white" style={{ fontSize: fontSize * 1.3 }}>
+                          <TextStyled className="font-bold text-white" style={{ fontSize: fontSize * 1.3 }}>
                             ?
-                          </Text>
+                          </TextStyled>
                         </TouchableOpacity>
                       )}
                   </View>
@@ -347,9 +348,9 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
 const CalendarDay = ({ day, isAfterToday, formattedDay, styles, onDayPress }) => {
   return isAfterToday ? (
     <View key={day} className="flex flex-row grow items-center basis-4 justify-center aspect-square m-1">
-      <Text className="text-[#DCE3E9] font-semibold" style={{ fontSize }}>
+      <TextStyled className="text-[#DCE3E9] font-semibold" style={{ fontSize }}>
         {formattedDay}
-      </Text>
+      </TextStyled>
     </View>
   ) : (
     <TouchableOpacity
@@ -370,14 +371,14 @@ const CalendarDay = ({ day, isAfterToday, formattedDay, styles, onDayPress }) =>
         </View>
       )}
 
-      <Text
+      <TextStyled
         className="font-semibold absolute"
         style={{
           fontSize: fontSize,
           color: styles.textColor,
         }}>
         {formattedDay}
-      </Text>
+      </TextStyled>
     </TouchableOpacity>
   );
 };

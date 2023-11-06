@@ -41,7 +41,7 @@ const AddAlcoolQuantity = ({ visible, hide, setQuantitySelected }) => {
                       <TextStyled bold className="">
                         {quantity.name} :{' '}
                       </TextStyled>
-                      <Text>{quantity.volume}</Text>
+                      <TextStyled>{quantity.volume}</TextStyled>
                     </View>
                   </TouchableOpacity>
                 );

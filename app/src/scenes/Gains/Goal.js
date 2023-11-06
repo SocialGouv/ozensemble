@@ -129,19 +129,19 @@ const Goal = ({ navigation }) => {
         Icon={GoalSetup}>
         <Container>
           <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
-            <Text className="mb-4">
-              Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{' '}
-              <Text className="font-bold">nombre de jours sans boire</Text> et en{' '}
-              <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre consommation et de
-              diminuer les risques associés à l'usage répété de l'alcool.
-            </Text>
+            <TextStyled className="mb-4">
+              Maintenant fixez-vous un <TextStyled className="font-bold">objectif réaliste</TextStyled> en{' '}
+              <TextStyled className="font-bold">nombre de jours sans boire</TextStyled> et en{' '}
+              <TextStyled className="font-bold">unités autorisées par semaine</TextStyled> afin de réduire votre
+              consommation et de diminuer les risques associés à l'usage répété de l'alcool.
+            </TextStyled>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
           <Row>
             <CalendarIllus size={24} />
-            <Text className={'font-bold ml-3'}>
-              Jours où je m'engage à ne <Text className="underline">pas</Text> boire d'alcool
-            </Text>
+            <TextStyled className={'font-bold ml-3'}>
+              Jours où je m'engage à ne <TextStyled className="underline">pas</TextStyled> boire d'alcool
+            </TextStyled>
           </Row>
           <DayContainer>
             <DayButton
@@ -184,15 +184,20 @@ const Goal = ({ navigation }) => {
           </DayContainer>
           <Row>
             <CocktailGlassTriangle size={24} />
-            <Text className="font-bold ml-3">
-              Unités <Text className="underline">par semaine</Text> que je m'autorise à boire{' '}
-            </Text>
+            <TextStyled className="font-bold ml-3">
+              Unités <TextStyled className="underline">par semaine</TextStyled> que je m'autorise à boire{' '}
+            </TextStyled>
           </Row>
           <View className="bg-[#F5F6FA] p-2 mb-2">
-            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation initiale par semaine</Text>
+            <TextStyled className="text-center text-[#939EA6] text-xs">
+              Rappel de ma consommation initiale par semaine
+            </TextStyled>
             <View className="flex flex-row justify-center items-center mt-2">
-              <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
-              <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
+              <TextStyled className="text-center font-bold text-xl">{numberDrinkEstimation}</TextStyled>
+              <TextStyled className="text-lg font-bold">
+                {' '}
+                {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}
+              </TextStyled>
             </View>
           </View>
         </Container>
@@ -207,11 +212,11 @@ const Goal = ({ navigation }) => {
         ))}
         <Container>
           <View className=" p-2 mt-4">
-            <Text>
-              Pensez bien à ajouter vos consommations <Text className="font-bold">tous les jours</Text> même quand vous
-              n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre objectif de la
-              semaine !{' '}
-            </Text>
+            <TextStyled>
+              Pensez bien à ajouter vos consommations <TextStyled className="font-bold">tous les jours</TextStyled> même
+              quand vous n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre
+              objectif de la semaine !{' '}
+            </TextStyled>
           </View>
           <CTAButtonContainer>
             <ButtonPrimary

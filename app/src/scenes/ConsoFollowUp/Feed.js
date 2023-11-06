@@ -121,7 +121,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
               }}>
               <ArrowLeft color="#4030A5" size={15} />
             </TouchableOpacity>
-            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+            <TextStyled className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</TextStyled>
             <TouchableOpacity
               hitSlop={hitSlop(15)}
               onPress={() => {
@@ -185,11 +185,12 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
                 }}
                 className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
                 <TargetGoal size={35} />
-                <Text className="mx-6">
+                <TextStyled className="mx-6">
                   Complétez l'
-                  <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
-                  <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
-                </Text>
+                  <TextStyled className="font-bold">estimation de votre consommation initiale </TextStyled>et fixez-vous
+                  un
+                  <TextStyled className="font-bold"> objectif </TextStyled>pour calculer vos gains dans le temps&nbsp;!
+                </TextStyled>
                 <View>
                   <ArrowRight color="#4030a5" size={15} />
                 </View>

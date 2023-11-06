@@ -13,13 +13,13 @@ const OwnDrinkSelector = ({ drink, quantity, setDrinkQuantityRequest, onUpdateDr
           <TouchableOpacity className="mr-2 my-2" onPress={onUpdateDrink}>
             <TextStyled bold>{displayDrinkModal}</TextStyled>
             {categoryKey === 'ownCocktail' ? (
-              <Text className="text-sm">
+              <TextStyled className="text-sm">
                 {doses} {doses <= 1 ? 'unité' : 'unités'}
-              </Text>
+              </TextStyled>
             ) : (
-              <Text className="text-sm">
+              <TextStyled className="text-sm">
                 {volume} - {alcoolPercentage}% - {doses} {doses < 1 ? 'unité' : 'unités'}
-              </Text>
+              </TextStyled>
             )}
           </TouchableOpacity>
           <View className="my-2">

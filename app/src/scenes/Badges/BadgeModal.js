@@ -143,7 +143,7 @@ const BadgeModal = () => {
               {modalContent?.title}
             </H1>
           </View>
-          <Text className="text-base font-medium mb-8 mx-4 text-center">
+          <TextStyled className="text-base font-medium mb-8 mx-4 text-center">
             <TextStyled color={'#3C3C43'}>
               {modalContent?.content?.split('__')?.map((string, index) => {
                 return (
@@ -153,7 +153,7 @@ const BadgeModal = () => {
                 );
               })}
             </TextStyled>
-          </Text>
+          </TextStyled>
           {!!modalContent?.CTATitle && (
             <View className="items-center mb-4">
               <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTATitle} />
@@ -161,9 +161,9 @@ const BadgeModal = () => {
           )}
           {!!modalContent?.secondaryButtonTitle?.length && (
             <TouchableOpacity>
-              <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
+              <TextStyled className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
                 {modalContent?.secondaryButtonTitle}
-              </Text>
+              </TextStyled>
             </TouchableOpacity>
           )}
         </View>

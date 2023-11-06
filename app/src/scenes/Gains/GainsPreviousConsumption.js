@@ -82,17 +82,17 @@ const GainsPreviousConsumption = () => {
         Icon={PreviousConsumption}>
         <Container>
           <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
-            <Text className="mb-4">
-              Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera ensuite comparée à ce
-              que vous consommerez pour calculer vos gains.{' '}
-              <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus de transparence
-              possible.
-            </Text>
+            <TextStyled className="mb-4">
+              Estimez votre <TextStyled className="font-bold">consommation actuelle</TextStyled>, elle sera ensuite
+              comparée à ce que vous consommerez pour calculer vos gains.{' '}
+              <TextStyled className="font-bold">Vos réponses sont anonymes</TextStyled>, répondez avec le plus de
+              transparence possible.
+            </TextStyled>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
-          <Text className="font-bold text-center">
+          <TextStyled className="font-bold text-center">
             Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
-          </Text>
+          </TextStyled>
         </Container>
         <Spacer size={20} />
         <View className="border-2 border-[#EFEFEF]">

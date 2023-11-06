@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Platform } from 'react-native';
+import tw from 'twin.macro';
 
 const TextStyled = styled.Text`
   ${Platform.OS === 'android' && 'font-family: Raleway;'}
@@ -11,8 +12,9 @@ const TextStyled = styled.Text`
   textDecoration: ${({ underline }) => underline && 'underline'};
   ${({ size }) => size && `font-size: ${size}px;`}
   ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}px;`}
-
+  
   text-decoration-color: ${({ color }) => color || '#191919'};
-`;
 
+  ${(props) => props.className && tw`${props.className}`}
+`;
 export default TextStyled;

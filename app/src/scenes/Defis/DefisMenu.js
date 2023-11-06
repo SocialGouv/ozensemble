@@ -163,9 +163,9 @@ const CategorieMenu = ({
             {image === 'Results' && <Results />}
             <View className="px-3 py-1 basis-3/4">
               <TitleDisabledContainer>
-                <Text className="text-[#4030A5] font-bold">{title}</Text>
+                <TextStyled className="text-[#4030A5] font-bold">{title}</TextStyled>
               </TitleDisabledContainer>
-              <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
+              <TextStyled className="text-[#4030A5] text-xs font-semibold">{description}</TextStyled>
               <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full" />
             </View>
           </View>
@@ -180,9 +180,9 @@ const CategorieMenu = ({
             {image === 'Results' && <Results />}
             <View className="px-3 py-1 basis-3/4">
               <TitleContainer>
-                <Text className="text-[#4030A5] font-bold">{title}</Text>
+                <TextStyled className="text-[#4030A5] font-bold">{title}</TextStyled>
               </TitleContainer>
-              <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
+              <TextStyled className="text-[#4030A5] text-xs font-semibold">{description}</TextStyled>
               {title !== 'Mes résultats' && (
                 <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
                   <View

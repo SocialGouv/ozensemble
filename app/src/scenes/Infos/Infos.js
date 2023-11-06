@@ -63,7 +63,7 @@ const InfosMenu = ({ navigation }) => {
   return (
     <WrapperContainer title="Informations">
       <View>
-        <Text className="text-[#4030a5] font-bold mb-4">NOUS AIDER</Text>
+        <TextStyled className="text-[#4030a5] font-bold mb-4">NOUS AIDER</TextStyled>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
             caption={"Partager l'application"}
@@ -104,7 +104,7 @@ const InfosMenu = ({ navigation }) => {
           />
         </View>
 
-        <Text className="text-[#4030a5] font-bold mb-4 mt-8">MES PARAMÈTRES</Text>
+        <TextStyled className="text-[#4030a5] font-bold mb-4 mt-8">MES PARAMÈTRES</TextStyled>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
             caption={'Mon estimation initiale'}
@@ -166,7 +166,7 @@ const InfosMenu = ({ navigation }) => {
             }}
           />
         </View>
-        <Text className="text-[#4030a5] font-bold mb-4 mt-8">INFORMATIONS</Text>
+        <TextStyled className="text-[#4030a5] font-bold mb-4 mt-8">INFORMATIONS</TextStyled>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
             caption={"Conditions générales d'utilisation"}
@@ -202,9 +202,9 @@ const MenuItem = ({ caption, onPress, Icon, disabled }) => {
       <View className="flex flex-row justify-between items-center ">
         <View className="flex flex-row space-x-1 items-center">
           <Icon size={30} />
-          <Text className="text-[#4030a5] font-semibold" style={{ flexBasis: basis }}>
+          <TextStyled className="text-[#4030a5] font-semibold" style={{ flexBasis: basis }}>
             {caption}
-          </Text>
+          </TextStyled>
         </View>
         <View className="flex flex-row justify-end grow">
           <ArrowRight size={15} color="#4030a5" />

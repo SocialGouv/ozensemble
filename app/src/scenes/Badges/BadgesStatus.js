@@ -11,6 +11,7 @@ import { BadgeDefisNoStars } from './Svgs/BadgeDefisNoStars';
 import { BadgeArticlesNoStars } from './Svgs/BadgeArticlesNoStars';
 import H2 from '../../components/H2';
 import BagdesIcon from '../../components/illustrations/icons/BagdesIcon';
+import TextStyled from '../../components/TextStyled';
 
 const BadgesStatus = ({ navigate }) => {
   const [badges, setBadges] = useRecoilState(badgesState);
@@ -47,9 +48,9 @@ const BadgesStatus = ({ navigate }) => {
           return (
             <View key={badgeCategory.category} className="p-2 basis-1/2">
               <View className="bg-[#E8E8F3] rounded-lg border-none flex p-2 w-full justify-center">
-                <Text className="text-[#4030a5] font-bold text-sm text-center mb-4">
+                <TextStyled className="text-[#4030a5] font-bold text-sm text-center mb-4">
                   {badgeCategory.titleForStatus}
-                </Text>
+                </TextStyled>
                 {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
                 {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
                 {badgeCategory.category === 'defis' && <BadgeDefisNoStars />}
@@ -65,9 +66,9 @@ const BadgesStatus = ({ navigate }) => {
                     />
                   )}
                 </View>
-                <Text className="text-center text-[#4030a5] font-bold text-xs my-2">
+                <TextStyled className="text-center text-[#4030a5] font-bold text-xs my-2">
                   {numberOfBadges}/{numberOfAvailableBadges}
-                </Text>
+                </TextStyled>
               </View>
             </View>
           );

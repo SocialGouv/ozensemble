@@ -8,6 +8,7 @@ import SwitchButtons from '../../components/SwitchButtons';
 import DrinkPersonalisation from '../../components/DrinkPersonalisation';
 import CocktailPersonalisation from '../../components/CocktailPersonalisation';
 import { ownDrinksCatalogObjectSelector } from '../../recoil/consos';
+import TextStyled from '../../components/TextStyled';
 
 const AddOwnDrink = ({ visible, hide, updateDrinkKey, setLocalDrinksState }) => {
   const ownDrinksCatalogObject = useRecoilValue(ownDrinksCatalogObjectSelector);
@@ -27,7 +28,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey, setLocalDrinksState }) => 
               <BackButton content="Retour" bold onPress={hide} />
               <H1 className="mt-5 mb-8">{updateDrinkKey ? 'Modifiez votre boisson' : 'Créez une nouvelle boisson'}</H1>
               <View className="mb-8 flex flex-row justify-between items-center">
-                <Text className="font-bold text-lg">{'Est-ce un cocktail\u00A0?'}</Text>
+                <TextStyled className="font-bold text-lg">{'Est-ce un cocktail\u00A0?'}</TextStyled>
                 <SwitchButtons
                   leftContent="oui"
                   rightContent="non"
