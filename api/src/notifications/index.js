@@ -50,7 +50,10 @@ const saveInactivity5Days = async (userId) => {
     },
   });
 
-  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20;
+  const utcHour = dayjs().utc().hour();
+  const hour = dayjs().hour();
+  const timeDifference = hour - utcHour;
+  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20 - timeDifference;
   const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
 
   await prisma.notification.create({
@@ -104,7 +107,10 @@ const scheduleDefi1Day1 = async (matomoId) => {
   });
   if (notif) return;
 
-  const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20;
+  const utcHour = dayjs().utc().hour();
+  const hour = dayjs().hour();
+  const timeDifference = hour - utcHour;
+  const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20 - timeDifference;
   const utcTimeMinutes = (!reminder?.disabled && reminder?.utcTimeMinutes) || 0;
 
   await prisma.notification.create({
@@ -148,7 +154,10 @@ const scheduleUserSurvey = async (matomoId) => {
     },
   });
 
-  const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20;
+  const utcHour = dayjs().utc().hour();
+  const hour = dayjs().hour();
+  const timeDifference = hour - utcHour;
+  const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20 - timeDifference;
   const utcTimeMinutes = (!reminder?.disabled && reminder?.utcTimeMinutes) || 0;
 
   await prisma.notification.create({
