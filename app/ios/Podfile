@@ -47,7 +47,7 @@ target 'oz_ensemble' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  use_flipper!({ 'Flipper' => '0.125.0' })
   ENVFILES = {
     'Debug' => '$(PODS_ROOT)/../.env.local',
     'Release' => '$(PODS_ROOT)/../.env',
