@@ -41,6 +41,7 @@ import Sevrage from './scenes/Gains/Sevrage';
 import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
+import Official from './scenes/Infos/Official';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -250,6 +251,9 @@ const Router = () => {
               headerShown: false,
             }}
           />
+          <RouterStack.Screen name="OFFICIAL">
+            {({ navigation }) => <Official onClose={navigation.goBack} />}
+          </RouterStack.Screen>
           <RouterStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
           <RouterStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
           <RouterStack.Screen name="USER_SURVEY" component={UserSurvey} />

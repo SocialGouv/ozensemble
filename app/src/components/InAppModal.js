@@ -9,6 +9,7 @@ import {
   Platform,
   InteractionManager,
   Dimensions,
+  Image,
 } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
@@ -154,6 +155,11 @@ const InAppModal = () => {
             {modalContent?.id.includes('NewUserSurveyAnnouncement') && (
               <View className="mx-2 flex flex-col items-center">
                 <UserSurveyLogo />
+              </View>
+            )}
+            {modalContent?.id.includes('OfficialAppAnnouncement') && (
+              <View className="mx-2 flex flex-col items-center">
+                <Image className="rounded-full w-[100px] h-[100px]" source={require('../assets/images/Icon.png')} />
               </View>
             )}
           </View>
