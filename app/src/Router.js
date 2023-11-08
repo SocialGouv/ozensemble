@@ -151,12 +151,14 @@ const App = () => {
 
   return (
     <AppStack.Navigator
-      mode="modal"
       screenOptions={{
         headerShown: false,
       }}
       initialRouteName={initialRouteName}>
       <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
+      <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
+      <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
+
       <AppStack.Screen
         name="ADD_DRINK"
         component={AddDrinkNavigator}
@@ -250,7 +252,6 @@ const Router = () => {
               headerShown: false,
             }}
           />
-          <RouterStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
           <RouterStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
           <RouterStack.Screen name="USER_SURVEY" component={UserSurvey} />
           <RouterStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
