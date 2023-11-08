@@ -111,7 +111,7 @@ router.post(
       const OfficialAppAnnouncementModal = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@OfficialAppAnnouncement` },
       });
-      if (!OfficialAppAnnouncementModal && dayjs(userSurveyFinished.updatedAt)?.isBefore(dayjs().subtract(1, "day"))) {
+      if (!OfficialAppAnnouncementModal && !!userSurveyFinished && dayjs(userSurveyFinished?.updatedAt)?.isBefore(dayjs().subtract(1, "day"))) {
         await prisma.appMilestone.create({
           data: {
             id: `${user.id}_@OfficialAppAnnouncement`,
