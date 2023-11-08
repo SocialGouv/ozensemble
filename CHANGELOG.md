@@ -1,3 +1,10 @@
+## [1.127.1](https://github.com/SocialGouv/ozensemble/compare/v1.127.0...v1.127.1) (2023-11-08)
+
+
+### Bug Fixes
+
+* Oz Ensemble avec un E pas un e ([#465](https://github.com/SocialGouv/ozensemble/issues/465)) ([29b9f7c](https://github.com/SocialGouv/ozensemble/commit/29b9f7c99f6cfd8aab04582e45cf4bb9d51c1dda))
+
 # [1.127.0](https://github.com/SocialGouv/ozensemble/compare/v1.126.2...v1.127.0) (2023-11-02)
 
 
