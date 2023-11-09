@@ -1,3 +1,10 @@
+## [1.127.2](https://github.com/SocialGouv/ozensemble/compare/v1.127.1...v1.127.2) (2023-11-09)
+
+
+### Bug Fixes
+
+* transition ([#466](https://github.com/SocialGouv/ozensemble/issues/466)) ([751f91c](https://github.com/SocialGouv/ozensemble/commit/751f91c9066661bb4c39e3d60e88a100c3e91443))
+
 ## [1.127.1](https://github.com/SocialGouv/ozensemble/compare/v1.127.0...v1.127.1) (2023-11-08)
 
 
