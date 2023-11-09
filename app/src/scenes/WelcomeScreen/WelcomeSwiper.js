@@ -54,16 +54,10 @@ const WelcomeSwiper = ({ navigation }) => {
             justifyContent: 'center',
             bottom: 108,
           }}>
-          <Screen1 currentIndex={currentIndex} onStartPress={onStartPress} onPressNext={onPressNext} />
-          <Screen2 currentIndex={currentIndex} onStartPress={onStartPress} onPressNext={onPressNext} />
-          <Screen3 currentIndex={currentIndex} onStartPress={onStartPress} onPressNext={onPressNext} />
-          <Screen4
-            currentIndex={currentIndex}
-            onStartPress={onStartPress}
-            onPressNext={onPressNext}
-            agreed={agreed}
-            setAgreed={setAgreed}
-          />
+          <Screen1 onPressNext={onPressNext} />
+          <Screen2 onPressNext={onPressNext} />
+          <Screen3 onPressNext={onPressNext} />
+          <Screen4 onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
       </View>
     </View>

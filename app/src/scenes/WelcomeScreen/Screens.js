@@ -6,7 +6,7 @@ import { screenWidth } from '../../styles/theme';
 import Wave from '../../components/illustrations/onboarding/Wave';
 import ButtonPrimary from '../../components/ButtonPrimary';
 
-export const Screen1 = ({ currentIndex, onStartPress, onPressNext }) => (
+export const Screen1 = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
@@ -26,16 +26,12 @@ export const Screen1 = ({ currentIndex, onStartPress, onPressNext }) => (
       <View className={`absolute -bottom-0`}>
         <Wave currentIndex={0} size={screenWidth + 4} />
       </View>
-      <ButtonPrimary
-        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
-        AnimationEffect
-        onPress={currentIndex == 3 ? onStartPress : onPressNext}
-      />
+      <ButtonPrimary content={'Suivant'} AnimationEffect onPress={onPressNext} />
     </View>
   </View>
 );
 
-export const Screen2 = ({ currentIndex, onStartPress, onPressNext }) => (
+export const Screen2 = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
@@ -55,16 +51,12 @@ export const Screen2 = ({ currentIndex, onStartPress, onPressNext }) => (
       <View className={`absolute -bottom-0`}>
         <Wave currentIndex={1} size={screenWidth} />
       </View>
-      <ButtonPrimary
-        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
-        AnimationEffect
-        onPress={currentIndex == 3 ? onStartPress : onPressNext}
-      />
+      <ButtonPrimary content={'Suivant'} AnimationEffect onPress={onPressNext} />
     </View>
   </View>
 );
 
-export const Screen3 = ({ currentIndex, onStartPress, onPressNext }) => (
+export const Screen3 = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
@@ -84,16 +76,12 @@ export const Screen3 = ({ currentIndex, onStartPress, onPressNext }) => (
       <View className={`absolute -bottom-0`}>
         <Wave currentIndex={2} size={screenWidth} />
       </View>
-      <ButtonPrimary
-        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
-        AnimationEffect
-        onPress={currentIndex == 3 ? onStartPress : onPressNext}
-      />
+      <ButtonPrimary content={'Suivant'} AnimationEffect onPress={onPressNext} />
     </View>
   </View>
 );
 
-export const Screen4 = ({ currentIndex, onStartPress, onPressNext, agreed, setAgreed }) => (
+export const Screen4 = ({ onStartPress, agreed, setAgreed }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
@@ -114,11 +102,7 @@ export const Screen4 = ({ currentIndex, onStartPress, onPressNext, agreed, setAg
         <Wave currentIndex={3} size={screenWidth} />
       </View>
       <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} className="" />
-      <ButtonPrimary
-        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
-        AnimationEffect
-        onPress={currentIndex == 3 ? onStartPress : onPressNext}
-      />
+      <ButtonPrimary content={"C'est parti"} AnimationEffect onPress={onStartPress} disabled={!agreed} />
     </View>
   </View>
 );
