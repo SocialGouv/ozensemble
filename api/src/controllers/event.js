@@ -54,10 +54,10 @@ router.post(
         },
         update: {},
       });
-      const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
+      const newUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
       });
-      if (!NewUserSurveyAnnouncementModal) {
+      if (!newUserSurveyAnnouncementModal) {
         await prisma.appMilestone.create({
           data: {
             id: `${user.id}_@NewUserSurveyAnnouncement`,
