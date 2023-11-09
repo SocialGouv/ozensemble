@@ -18,7 +18,7 @@ import ConsoFollowupNavigator from './scenes/ConsoFollowUp/ConsoFollowUp';
 import HealthNavigator from './scenes/Health/HealthNavigator';
 import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
-import WelcomeScreen from './scenes/WelcomeScreen/WelcomeScreen';
+import WelcomeScreen from './scenes/WelcomeScreen';
 import useAppState from './services/useAppState';
 import { initMatomo, logEvent } from './services/logEventsWithMatomo';
 import { storage } from './services/storage';

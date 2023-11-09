@@ -1,142 +1,124 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import H1 from '../../components/H1';
-import H2 from '../../components/H2';
-import Screen1Image from '../../components/illustrations/Screen1';
-import Screen2Image from '../../components/illustrations/Screen2';
-import Screen3Image from '../../components/illustrations/Screen3';
 import TextStyled from '../../components/TextStyled';
-import { mediaHeight } from '../../styles/mediaQueries';
-import { screenHeight, screenWidth } from '../../styles/theme';
 import Agreement from './Agreement';
+import { Image, View } from 'react-native';
+import { screenWidth } from '../../styles/theme';
+import Wave from '../../components/illustrations/onboarding/Wave';
+import ButtonPrimary from '../../components/ButtonPrimary';
 
-export const Screen1 = () => (
-  <ScreenBgStyled>
-    <StyledScreen1 />
-    <Title>
-      <TextStyled color="#4030a5">Bravo de vouloir réduire votre consommation</TextStyled>
-    </Title>
-    <SubTitle1>
-      <TextStyled color="#191919">Vous avez entre les mains un outil </TextStyled>
-      <TextStyled color="#4030a5">gratuit </TextStyled>
-      <TextStyled color="#191919">et </TextStyled>
-      <TextStyled color="#4030a5">anonyme </TextStyled>
-      <TextStyled color="#191919">de suivi de consommation d'alcool</TextStyled>
-    </SubTitle1>
-  </ScreenBgStyled>
+export const Screen1 = ({ currentIndex, onStartPress, onPressNext }) => (
+  <View className="h-full">
+    <View className="h-2/3 justify-center">
+      <View className="px-5">
+        <TextStyled className="text-center text-white text-2xl font-bold">
+          Fixez votre objectif et ajoutez vos consommations
+        </TextStyled>
+      </View>
+      <View className="flex-1 items-center">
+        <Image
+          source={require('../../assets/illustrations/screen1.png')}
+          resizeMode="contain"
+          className={`h-full w-full`}
+        />
+      </View>
+    </View>
+    <View className="h-1/3 pb-[48px] justify-end items-center">
+      <View className={`absolute -bottom-0`}>
+        <Wave currentIndex={0} size={screenWidth + 4} />
+      </View>
+      <ButtonPrimary
+        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
+        AnimationEffect
+        onPress={currentIndex == 3 ? onStartPress : onPressNext}
+      />
+    </View>
+  </View>
 );
 
-export const Screen2 = () => (
-  <ScreenBgStyled>
-    <StyledScreen2 />
-    <Title>
-      <TextStyled color="#4030a5">Comment cela marche ?</TextStyled>
-    </Title>
-    <BulletPointView>
-      <TextStyled color="#191919">
-        {'\u2022'} Évaluez votre risque{'\n'}
-      </TextStyled>
-      <TextStyled color="#191919">
-        {'\u2022'} Fixez-vous un objectif{'\n'}
-      </TextStyled>
-      <TextStyled color="#191919">
-        {'\u2022'} Trouvez des conseils{'\n'}
-      </TextStyled>
-    </BulletPointView>
-    <SubTitle2>
-      <TextStyled color="#191919">Rien de plus simple !</TextStyled>
-    </SubTitle2>
-  </ScreenBgStyled>
+export const Screen2 = ({ currentIndex, onStartPress, onPressNext }) => (
+  <View className="h-full">
+    <View className="h-2/3 justify-center">
+      <View className="px-5">
+        <TextStyled className="text-center text-white text-2xl font-bold">
+          Suivez vos consommations dans le temps
+        </TextStyled>
+      </View>
+      <View className="flex-1 items-center">
+        <Image
+          source={require('../../assets/illustrations/screen2.png')}
+          resizeMode="contain"
+          className={`h-full w-full`}
+        />
+      </View>
+    </View>
+    <View className="h-1/3 pb-[48px] justify-end items-center">
+      <View className={`absolute -bottom-0`}>
+        <Wave currentIndex={1} size={screenWidth} />
+      </View>
+      <ButtonPrimary
+        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
+        AnimationEffect
+        onPress={currentIndex == 3 ? onStartPress : onPressNext}
+      />
+    </View>
+  </View>
 );
 
-export const Screen3 = ({ setAgreed, agreed }) => (
-  <ScreenBgStyled>
-    <StyledScreen3 />
-    <Title>
-      <TextStyled color="#4030a5">Mesurez vos gains</TextStyled>
-    </Title>
-    <SubTitle3>
-      <TextStyled color="#191919">
-        Au fil du temps, vous découvrirez vos économies en euros et les calories évitées
-      </TextStyled>
-    </SubTitle3>
-    <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} />
-  </ScreenBgStyled>
+export const Screen3 = ({ currentIndex, onStartPress, onPressNext }) => (
+  <View className="h-full">
+    <View className="h-2/3 justify-center">
+      <View className="px-5">
+        <TextStyled className="text-center text-white text-2xl font-bold">
+          Explorez les activités et les articles santé
+        </TextStyled>
+      </View>
+      <View className="flex-1 items-center">
+        <Image
+          source={require('../../assets/illustrations/screen3.png')}
+          resizeMode="contain"
+          className={`h-full w-full`}
+        />
+      </View>
+    </View>
+    <View className="h-1/3 pb-[48px] justify-end items-center">
+      <View className={`absolute -bottom-0`}>
+        <Wave currentIndex={2} size={screenWidth} />
+      </View>
+      <ButtonPrimary
+        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
+        AnimationEffect
+        onPress={currentIndex == 3 ? onStartPress : onPressNext}
+      />
+    </View>
+  </View>
 );
 
-const ScreenBgStyled = styled.View`
-  background-color: #f9f9f9;
-  justify-content: flex-end;
-  align-items: center;
-  flex-shrink: 1;
-  flex-grow: 1;
-  flex-basis: 100%;
-`;
-
-const Title = styled(H1)`
-  margin-bottom: ${screenHeight * 0.025}px;
-  width: 75%;
-  flex-shrink: 0;
-  text-align: center;
-`;
-
-const BulletPointView = styled(H2)`
-  width: 75%;
-  flex-shrink: 0;
-  text-align: center;
-  margin-bottom: ${screenHeight * 0.025}px;
-`;
-
-const SubTitle1 = styled(H2)`
-  width: 75%;
-  flex-shrink: 0;
-  text-align: center;
-  margin-bottom: ${screenHeight * 0.2}px;
-`;
-
-const SubTitle2 = styled(H2)`
-  width: 75%;
-  flex-shrink: 0;
-  flex-direction: column;
-  text-align: center;
-  margin-bottom: ${screenHeight * 0.15}px;
-`;
-
-const SubTitle3 = styled(H2)`
-  width: 75%;
-  flex-shrink: 0;
-  flex-direction: column;
-  text-align: center;
-  margin-bottom: ${screenHeight * 0.12}px;
-`;
-
-const bigImage = css`
-  height: 200px;
-`;
-const mediumImage = css`
-  height: 150px;
-`;
-const smallImage = css`
-  height: 65px;
-`;
-
-const imageCss = css`
-  margin-bottom: ${screenHeight * 0.05}px;
-  width: ${screenWidth}px;
-  flex-shrink: 0;
-  ${bigImage}
-  ${mediaHeight.medium`${mediumImage}`}
-  ${mediaHeight.small`${smallImage}`}
-`;
-
-const StyledScreen1 = styled(Screen1Image)`
-  ${imageCss}
-`;
-
-const StyledScreen2 = styled(Screen2Image)`
-  ${imageCss}
-`;
-
-const StyledScreen3 = styled(Screen3Image)`
-  ${imageCss}
-`;
+export const Screen4 = ({ currentIndex, onStartPress, onPressNext, agreed, setAgreed }) => (
+  <View className="h-full">
+    <View className="h-2/3 justify-center">
+      <View className="px-5">
+        <TextStyled className="text-center text-white text-2xl font-bold">
+          Recevez des conseils personnalisés
+        </TextStyled>
+      </View>
+      <View className="flex-1 items-center">
+        <Image
+          source={require('../../assets/illustrations/screen4.png')}
+          resizeMode="contain"
+          className={`h-full w-[90%]`}
+        />
+      </View>
+    </View>
+    <View className="h-1/3 pb-[48px] justify-end items-center">
+      <View className={`absolute -bottom-0`}>
+        <Wave currentIndex={3} size={screenWidth} />
+      </View>
+      <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} className="" />
+      <ButtonPrimary
+        content={currentIndex == 3 ? "C'est parti" : 'Suivant'}
+        AnimationEffect
+        onPress={currentIndex == 3 ? onStartPress : onPressNext}
+      />
+    </View>
+  </View>
+);
