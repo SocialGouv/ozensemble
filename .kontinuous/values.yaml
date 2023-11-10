@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=../../kontinuous/docs/values.schema.json
 
 app:
+  ~needs: [build-app, pg]
   containerPort: 3000
   probesPath: /healthz
   envFrom:
