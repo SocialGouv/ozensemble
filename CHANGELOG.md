@@ -1,3 +1,10 @@
+## [1.127.4](https://github.com/SocialGouv/ozensemble/compare/v1.127.3...v1.127.4) (2023-11-10)
+
+
+### Bug Fixes
+
+* add missing kontinuous needs ([0efc2d7](https://github.com/SocialGouv/ozensemble/commit/0efc2d76be32592ca96b5046b0a4dc57ccfe21c7))
+
 ## [1.127.3](https://github.com/SocialGouv/ozensemble/compare/v1.127.2...v1.127.3) (2023-11-10)
 
 
