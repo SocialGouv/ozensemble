@@ -1,3 +1,10 @@
+## [1.127.3](https://github.com/SocialGouv/ozensemble/compare/v1.127.2...v1.127.3) (2023-11-10)
+
+
+### Bug Fixes
+
+* migrate prod to cnpg ([a8a27aa](https://github.com/SocialGouv/ozensemble/commit/a8a27aa753f3088dc139a1578fe10a4d60626733))
+
 ## [1.127.2](https://github.com/SocialGouv/ozensemble/compare/v1.127.1...v1.127.2) (2023-11-09)
 
 
