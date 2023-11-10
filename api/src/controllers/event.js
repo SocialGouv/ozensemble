@@ -44,8 +44,8 @@ router.post(
     }
 
     // handle User Survey
-    const userSurveyStarted = category === "QUIZZ_USER_SURVEY" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
-    if (userSurveyStarted) {
+    const userSurveyAnnounced = category === "NAVIGATION" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
+    if (userSurveyAnnounced) {
       const user = await prisma.user.upsert({
         where: { matomo_id: matomoId },
         create: {
@@ -68,10 +68,11 @@ router.post(
       }
     }
 
+    const userSurveySkippedInAppModal = category === "USER_SURVEY" && action === "USER_SURVEY_IN_APP_SKIP";
     const userSurveySkipped =
       category === "QUIZZ_USER_SURVEY" &&
       (action === "USER_SURVEY_START_SKIP" || action === "USER_SURVEY_NOTIF_SKIP" || action === "QUIZZ_CLOSE_BUTTON");
-    if (userSurveySkipped) {
+    if (userSurveySkipped || userSurveySkippedInAppModal) {
       notifications.scheduleUserSurvey(matomoId);
     }
 
