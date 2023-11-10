@@ -5,7 +5,7 @@ app:
   probesPath: /healthz
   envFrom:
     - secretRef:
-        name: "pg-user"
+        name: "pg-app"
     - secretRef:
         name: api
 

@@ -9,6 +9,6 @@ cronjobs:
   entrypoint: ["node", "./src/cronjobs.js"]
   envFrom:
     - secretRef:
-        name: "pg-user"
+        name: "pg-app"
     - secretRef:
         name: api
