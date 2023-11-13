@@ -2,7 +2,7 @@ const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { sendPushNotification } = require("../services/push-notifications");
 const utc = require("dayjs/plugin/utc");
-const utc = require("dayjs/plugin/timezone");
+const timezone = require("dayjs/plugin/timezone");
 const { capture } = require("../third-parties/sentry");
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -53,7 +53,7 @@ const saveInactivity5Days = async (userId) => {
   });
 
   const utcHour = dayjs().utc().hour();
-  const hourInParis = dayjs().tz("Paris/Europe").hour();
+  const hourInParis = dayjs().tz("Europe/Paris").hour();
   const timeDifference = hourInParis - utcHour;
   const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20 - timeDifference;
   const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
@@ -110,7 +110,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
   if (notif) return;
 
   const utcHour = dayjs().utc().hour();
-  const hourInParis = dayjs().tz("Paris/Europe").hour();
+  const hourInParis = dayjs().tz("Europe/Paris").hour();
   const timeDifference = hourInParis - utcHour;
   const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20 - timeDifference;
   const utcTimeMinutes = (!reminder?.disabled && reminder?.utcTimeMinutes) || 0;
@@ -157,7 +157,7 @@ const scheduleUserSurvey = async (matomoId) => {
   });
 
   const utcHour = dayjs().utc().hour();
-  const hourInParis = dayjs().tz("Paris/Europe").hour();
+  const hourInParis = dayjs().tz("Europe/Paris").hour();
   const timeDifference = hourInParis - utcHour;
   const utcTimeHours = (!reminder?.disabled && reminder?.utcTimeHours) || 20 - timeDifference;
   const utcTimeMinutes = (!reminder?.disabled && reminder?.utcTimeMinutes) || 0;
