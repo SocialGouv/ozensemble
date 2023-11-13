@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import CGUs from '../Infos/CGUs';
 import PrivacyPolicy from '../Infos/PrivacyPolicy';
 import TextStyled from '../../components/TextStyled';
+import { screenWidth } from '../../styles/theme';
 
 const Agreement = ({ onAgree, agreed }) => {
   const [showCGUs, setShowCGUs] = useState(false);
@@ -18,13 +19,13 @@ const Agreement = ({ onAgree, agreed }) => {
           <CheckBoxContainer>
             <CheckBoxStyled
               // ios style
-              onCheckColor="#4030a5"
-              onTintColor="#4030a5"
+              onCheckColor="#fff"
+              onTintColor="#fff"
               animationDuration={0.2}
               boxType="square"
-              lineWidth={1}
+              lineWidth={2}
               //android style
-              tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
+              tintColors={{ true: '#fff', false: '#AAAAAA' }}
               //common props
               value={agreed}
               // android press - compulsory
@@ -57,7 +58,7 @@ const Agreement = ({ onAgree, agreed }) => {
   );
 };
 
-const color = '#222222';
+const color = '#fff';
 
 const Container = styled.View`
   text-align: center;
@@ -66,7 +67,9 @@ const Container = styled.View`
   margin-bottom: 20px;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  position: absolute;
+  bottom: ${(Math.ceil((212 / 375) * screenWidth) / 3) * 2.15}px;
 `;
 
 const CheckBoxContainer = styled.View`
@@ -75,6 +78,7 @@ const CheckBoxContainer = styled.View`
   width: 30px;
   flex-shrink: 0;
   margin-right: 10px;
+  ${Platform.OS === 'android' && 'transform: scale(1.4);'}
 `;
 
 const CheckBoxStyled = styled(CheckBox)`
@@ -95,7 +99,7 @@ const Content = styled(TextStyled)`
 
 const Link = styled(TextStyled)`
   font-size: 12px;
-  text-decoration: underline;
+  text-decoration: underline #fff;
   color: ${color};
 `;
 
