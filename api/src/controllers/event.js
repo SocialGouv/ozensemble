@@ -68,7 +68,8 @@ router.post(
       }
     }
 
-    const userSurveySkippedInAppModal = category === "USER_SURVEY" && action === "USER_SURVEY_IN_APP_SKIP";
+    const userSurveySkippedInAppModal =
+      category === "USER_SURVEY" && (action === "USER_SURVEY_IN_APP_SKIP" || action == "USER_SURVEY_IN_APP_CLOSE_BUTTON");
     const userSurveySkipped =
       category === "QUIZZ_USER_SURVEY" &&
       (action === "USER_SURVEY_START_SKIP" || action === "USER_SURVEY_NOTIF_SKIP" || action === "QUIZZ_CLOSE_BUTTON");
