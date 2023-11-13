@@ -1,3 +1,10 @@
+# [1.129.0](https://github.com/SocialGouv/ozensemble/compare/v1.128.0...v1.129.0) (2023-11-13)
+
+
+### Features
+
+* new onboarding ([#467](https://github.com/SocialGouv/ozensemble/issues/467)) ([17e21b8](https://github.com/SocialGouv/ozensemble/commit/17e21b844df307e47ee791340bb41d716aad8680))
+
 # [1.128.0](https://github.com/SocialGouv/ozensemble/compare/v1.127.5...v1.128.0) (2023-11-13)
 
 
