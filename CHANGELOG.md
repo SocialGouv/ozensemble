@@ -1,3 +1,10 @@
+## [1.129.1](https://github.com/SocialGouv/ozensemble/compare/v1.129.0...v1.129.1) (2023-11-13)
+
+
+### Bug Fixes
+
+* handle Paris DST in default reminder time  ([#462](https://github.com/SocialGouv/ozensemble/issues/462)) ([893b5bf](https://github.com/SocialGouv/ozensemble/commit/893b5bf276ee91f0c75888b6f76499c17f47f561))
+
 # [1.129.0](https://github.com/SocialGouv/ozensemble/compare/v1.128.0...v1.129.0) (2023-11-13)
 
 
