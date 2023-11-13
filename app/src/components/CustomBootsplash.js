@@ -30,7 +30,7 @@ const FullScreen = styled.View`
   right: 0;
   justify-content: center;
   align-items: center;
-  background-color: #4030a5;
+  background-color: #3e309f;
 `;
 
 const StyledImage = styled.Image`

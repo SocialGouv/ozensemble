@@ -80,10 +80,10 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion >= 205) {
-      const NewUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
+      const newUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
       });
-      if (!NewUserSurveyAnnouncementModal) {
+      if (!newUserSurveyAnnouncementModal) {
         await prisma.appMilestone.create({
           data: {
             id: `${user.id}_@NewUserSurveyAnnouncement`,
@@ -103,15 +103,15 @@ router.post(
           },
         });
       }
-
-      // OfficialAppAnnouncement
+      
+      // officialAppAnnouncementModal
       const userSurveyFinished = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@userSurveyFinished` },
       });
-      const OfficialAppAnnouncementModal = await prisma.appMilestone.findUnique({
+      const officialAppAnnouncementModal = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@OfficialAppAnnouncement` },
       });
-      if (!OfficialAppAnnouncementModal && !!userSurveyFinished && dayjs(userSurveyFinished?.updatedAt)?.isBefore(dayjs().subtract(1, "day"))) {
+      if (!officialAppAnnouncementModal && !!userSurveyFinished && dayjs(userSurveyFinished?.updatedAt)?.isBefore(dayjs().subtract(1, "day"))) {
         await prisma.appMilestone.create({
           data: {
             id: `${user.id}_@OfficialAppAnnouncement`,

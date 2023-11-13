@@ -32,7 +32,7 @@ const UserSurveyStart = ({ navigation, route }) => {
             content={"C'est parti"}
             onPress={async () => {
               logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
-              navigation.push('USER_SURVEY', { from: route.params?.from });
+              navigation.push('USER_SURVEY_FROM_ONBOARDING', { from: route.params?.from });
             }}
           />
           <TouchableOpacity

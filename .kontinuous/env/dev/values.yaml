@@ -1,6 +1,0 @@
-app:
-  envFrom:
-    - secretRef:
-        name: "pg-app"
-    - secretRef:
-        name: api
