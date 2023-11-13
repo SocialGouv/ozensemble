@@ -3,12 +3,12 @@ app:
 
 cronjobs:
   ~chart: daemon
-  ~needs: [build-app]
+  ~needs: [build-app, pg]
   imagePackage: app
   replicas: 1
   entrypoint: ["node", "./src/cronjobs.js"]
   envFrom:
     - secretRef:
-        name: "pg-user"
+        name: "pg-app"
     - secretRef:
         name: api

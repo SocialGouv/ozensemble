@@ -7,7 +7,11 @@ router.get(
   "/",
   catchErrors(async (req, res) => {
     // test prisma db connection
-    const conso = await prisma.consommation.findFirst();
+    const conso = await prisma.consommation.findFirst({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
     if (conso) {
       return res.send({ ok: true, data: conso?.id });
     }

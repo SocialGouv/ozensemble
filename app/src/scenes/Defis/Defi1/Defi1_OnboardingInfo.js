@@ -33,7 +33,7 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
       <Paragraph>
         <Elem
           bold
-          content="Oz ensemble a été conçu pour les adultes qui désirent modifier leurs habitudes sans nécessairement viser l'abstinence."
+          content="Oz Ensemble a été conçu pour les adultes qui désirent modifier leurs habitudes sans nécessairement viser l'abstinence."
         />
       </Paragraph>
       <Paragraph>

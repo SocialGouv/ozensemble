@@ -69,7 +69,7 @@ const questions = [
     ],
   },
   {
-    questionTitle: 'Comment avez-vous connu l’application Oz ensemble ?',
+    questionTitle: 'Comment avez-vous connu l’application Oz Ensemble ?',
     questionKey: 'referal',
     multipleChoice: true,
     answers: [
