@@ -25,6 +25,7 @@ import ShareAppIcon from '../../components/illustrations/icons/ShareAppIcon';
 import RateAppIcon from '../../components/illustrations/icons/RateAppIcon';
 import GiveFeedbackIcon from '../../components/illustrations/icons/GiveFeedbackIcon';
 import FilesIcon from '../../components/illustrations/icons/FilesIcon';
+import OfficialIcon from '../../components/illustrations/icons/OfficialIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { isOnboardedSelector } from '../../recoil/gains';
 
@@ -168,6 +169,12 @@ const InfosMenu = ({ navigation }) => {
         </View>
         <Text className="text-[#4030a5] font-bold mb-4 mt-8">INFORMATIONS</Text>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
+          <MenuItem
+            caption={'Application des Ministères Sociaux'}
+            Icon={OfficialIcon}
+            onPress={() => navigation.push('OFFICIAL')}
+          />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
           <MenuItem
             caption={"Conditions générales d'utilisation"}
             Icon={FilesIcon}

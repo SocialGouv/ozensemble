@@ -9,6 +9,7 @@ import {
   Platform,
   InteractionManager,
   Dimensions,
+  Image,
 } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
 import { useNavigation } from '@react-navigation/native';
@@ -74,7 +75,7 @@ const InAppModal = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
       // if NewUserSurveyAnnouncement logevent
-      if (modalContent.id.includes('NewUserSurveyAnnouncement')) {
+      if (modalContent?.id.includes('NewUserSurveyAnnouncement')) {
         logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_SKIP' });
       }
       if (modalContent.secondaryButtonNavigation) {
@@ -133,7 +134,14 @@ const InAppModal = () => {
       className="absolute bottom-0 w-full">
       <SafeAreaView className="bg-white rounded-t-xl mt-auto">
         <View className="p-4">
-          <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
+          <TouchableOpacity
+            onPress={() => {
+              if (modalContent?.id.includes('NewUserSurveyAnnouncement')) {
+                logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_CLOSE_BUTTON' });
+              }
+              onClose();
+            }}
+            hitSlop={hitSlop(15)}>
             <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
               <Path
                 strokeLinecap="round"
@@ -154,6 +162,11 @@ const InAppModal = () => {
             {modalContent?.id.includes('NewUserSurveyAnnouncement') && (
               <View className="mx-2 flex flex-col items-center">
                 <UserSurveyLogo />
+              </View>
+            )}
+            {modalContent?.id.includes('OfficialAppAnnouncement') && (
+              <View className="mx-2 flex flex-col items-center">
+                <Image className="rounded-full w-[100px] h-[100px]" source={require('../assets/images/Icon.png')} />
               </View>
             )}
           </View>
