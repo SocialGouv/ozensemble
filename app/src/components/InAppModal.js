@@ -75,7 +75,7 @@ const InAppModal = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
       // if NewUserSurveyAnnouncement logevent
-      if (modalContent.id.includes('NewUserSurveyAnnouncement')) {
+      if (modalContent?.id.includes('NewUserSurveyAnnouncement')) {
         logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_SKIP' });
       }
       if (modalContent.secondaryButtonNavigation) {
@@ -136,7 +136,7 @@ const InAppModal = () => {
         <View className="p-4">
           <TouchableOpacity
             onPress={() => {
-              if (modalContent.id.includes('NewUserSurveyAnnouncement')) {
+              if (modalContent?.id.includes('NewUserSurveyAnnouncement')) {
                 logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_CLOSE_BUTTON' });
               }
               onClose();
