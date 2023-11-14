@@ -1,3 +1,10 @@
+## [1.129.3](https://github.com/SocialGouv/ozensemble/compare/v1.129.2...v1.129.3) (2023-11-14)
+
+
+### Bug Fixes
+
+* recette 1.21.0 ([36e6316](https://github.com/SocialGouv/ozensemble/commit/36e6316f89736d9f52056934766c569be893fa6f))
+
 ## [1.129.2](https://github.com/SocialGouv/ozensemble/compare/v1.129.1...v1.129.2) (2023-11-14)
 
 
