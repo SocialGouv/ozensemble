@@ -103,33 +103,35 @@ router.post(
           },
         });
       }
-      
+
       // officialAppAnnouncementModal
-      const userSurveyFinished = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@userSurveyFinished` },
-      });
-      const officialAppAnnouncementModal = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@OfficialAppAnnouncement` },
-      });
-      if (!officialAppAnnouncementModal && !!userSurveyFinished && dayjs(userSurveyFinished?.updatedAt)?.isBefore(dayjs().subtract(1, "day"))) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@OfficialAppAnnouncement`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
+      if (req.headers.appversion >= 206) {
+        const userSurveyFinished = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@userSurveyFinished` },
         });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@OfficialAppAnnouncement",
-            title: "Oz Ensemble, l’application des Ministères Sociaux",
-            content:
-              "Nous prenons en compte vos avis et nous avons décidé de vous parler un peu plus de nous, Oz est un service publique numérique anonyme et gratuit, développé par les Ministères Sociaux.",
-            CTATitle: "En savoir plus",
-            CTANavigation: ["OFFICIAL"],
-          },
+        const officialAppAnnouncementModal = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@OfficialAppAnnouncement` },
         });
+        if (!officialAppAnnouncementModal && !!userSurveyFinished && dayjs(userSurveyFinished?.updatedAt)?.isBefore(dayjs().subtract(1, "day"))) {
+          await prisma.appMilestone.create({
+            data: {
+              id: `${user.id}_@OfficialAppAnnouncement`,
+              userId: user.id,
+              date: dayjs().format("YYYY-MM-DD"),
+            },
+          });
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@OfficialAppAnnouncement",
+              title: "Oz Ensemble, l’application des Ministères Sociaux",
+              content:
+                "Nous prenons en compte vos avis et nous avons décidé de vous parler un peu plus de nous, Oz est un service publique numérique anonyme et gratuit, développé par les Ministères Sociaux.",
+              CTATitle: "En savoir plus",
+              CTANavigation: ["OFFICIAL"],
+            },
+          });
+        }
       }
     }
 
