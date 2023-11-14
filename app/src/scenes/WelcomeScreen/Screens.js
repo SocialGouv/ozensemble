@@ -10,8 +10,8 @@ export const Screen1 = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
-        <TextStyled className="text-center text-white text-2xl font-bold">
-          Fixez votre objectif et ajoutez vos consommations
+        <TextStyled className="text-center text-white text-2xl font-bold -bottom-4">
+          Fixez votre objectif et{'\n'}ajoutez vos consommations
         </TextStyled>
       </View>
       <View className="flex-1 items-center">
@@ -35,8 +35,8 @@ export const Screen2 = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
-        <TextStyled className="text-center text-white text-2xl font-bold">
-          Suivez vos consommations dans le temps
+        <TextStyled className="text-center text-white text-2xl font-bold -bottom-4">
+          Suivez vos consommations{'\n'}dans le temps
         </TextStyled>
       </View>
       <View className="flex-1 items-center">
@@ -60,8 +60,8 @@ export const Screen3 = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
-        <TextStyled className="text-center text-white text-2xl font-bold">
-          Explorez les activités et les articles santé
+        <TextStyled className="text-center text-white text-2xl font-bold -bottom-4">
+          Explorez les activités et{'\n'}les articles santé
         </TextStyled>
       </View>
       <View className="flex-1 items-center">
@@ -85,7 +85,7 @@ export const Screen4 = ({ onStartPress, agreed, setAgreed }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
-        <TextStyled className="text-center text-white text-2xl font-bold">
+        <TextStyled className="text-center text-white text-2xl font-bold -bottom-4">
           Recevez des conseils personnalisés
         </TextStyled>
       </View>
@@ -93,7 +93,7 @@ export const Screen4 = ({ onStartPress, agreed, setAgreed }) => (
         <Image
           source={require('../../assets/illustrations/screen4.png')}
           resizeMode="contain"
-          className={`h-full w-[90%]`}
+          className={`h-full w-[80%]`}
         />
       </View>
     </View>

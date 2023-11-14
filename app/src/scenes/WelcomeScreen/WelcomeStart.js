@@ -21,8 +21,8 @@ const WelcomeStart = ({ navigation }) => {
           <Image source={require('../../assets/images/Icon.png')} resizeMode="contain" className="h-full w-full" />
         </View>
         <View>
-          <TextStyled className="text-center text-white text-xl font-bold">
-            L’application des Ministères Sociaux
+          <TextStyled className="text-center text-white text-xl font-bold mb-1">
+            L’application des{'\n'}Ministères Sociaux
           </TextStyled>
         </View>
       </View>

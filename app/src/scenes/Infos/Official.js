@@ -7,7 +7,7 @@ import H1 from '../../components/H1';
 import Background from '../../components/Background';
 
 const Official = ({ onClose }) => (
-  <Background color="#39cec0" withSwiperContainer>
+  <Background color="#39cec0" withSwiperContainer neverBottom>
     <WrapperContainer onPressBackButton={onClose}>
       <View className="items-center">
         <Image className="rounded-full w-[100px] h-[100px]" source={require('../../assets/images/Icon.png')} />
