@@ -1,3 +1,10 @@
+## [1.129.2](https://github.com/SocialGouv/ozensemble/compare/v1.129.1...v1.129.2) (2023-11-14)
+
+
+### Bug Fixes
+
+* v206 official app ([26949db](https://github.com/SocialGouv/ozensemble/commit/26949db76da1525ee91d675afd1ab54644fba061))
+
 ## [1.129.1](https://github.com/SocialGouv/ozensemble/compare/v1.129.0...v1.129.1) (2023-11-13)
 
 
