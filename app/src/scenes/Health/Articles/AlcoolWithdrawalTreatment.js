@@ -4,6 +4,7 @@ import { View, Text } from 'react-native';
 import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
+import TextStyled from '../../../components/TextStyled';
 
 const AlcoolWithdrawalTreatment = () => {
   const title = 'Traitement médicamenteux du sevrage';
@@ -48,9 +49,9 @@ const AlcoolWithdrawalTreatment = () => {
             <P noMarginBottom>
               <Bold>les symptômes de sevrage sévère</Bold> tel que les crises convulsives de sevrage (qui s'apparente à
               une crise convulsive de l'épilepsie) ou d'autres manifestations décrites dans l'article dédié (
-              <Text className="underline" onPress={() => navigation.navigate('ALCOHOL_AND_DEPENDENCY')}>
+              <TextStyled className="underline" onPress={() => navigation.navigate('ALCOHOL_AND_DEPENDENCY')}>
                 article dépendance physique à l'alcool
-              </Text>
+              </TextStyled>
               )
             </P>
           </View>

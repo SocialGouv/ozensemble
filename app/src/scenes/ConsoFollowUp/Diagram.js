@@ -262,9 +262,9 @@ export default function Diagram({ inModalHelp = false }) {
       </LegendsContainer>
       {!inModalHelp && (
         <TouchableOpacity className="mb-6">
-          <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
+          <TextStyled className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
             Comprendre le graphique et les unités d'alcool
-          </Text>
+          </TextStyled>
         </TouchableOpacity>
       )}
 

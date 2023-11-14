@@ -39,40 +39,44 @@ const ModalGoal = ({ content, onClose }) => {
         </View>
 
         <View className="mb-4 p-2">
-          <Text color="#000" className="text-center mb-1 text-xl font-extrabold">
+          <TextStyled color="#000" className="text-center mb-1 text-xl font-extrabold">
             {content?.title}
-          </Text>
-          <Text className="text-xs text-[#939EA6] text-center">
+          </TextStyled>
+          <TextStyled className="text-xs text-[#939EA6] text-center">
             semaine du {firstDayDisplay} au {content?.lastDay}
-          </Text>
+          </TextStyled>
           <View className="flex flex-row justify-around mt-8">
             <View>
-              <Text className="text-[#4030A5] font-semibold text-center text-xs">Consos semaine</Text>
+              <TextStyled className="text-[#4030A5] font-semibold text-center text-xs">Consos semaine</TextStyled>
               <View className={'flex flex-row justify-center'}>
-                <Text className="text-center font-bold mt-1 text-xl">{Math.round(content?.consosWeek)}</Text>
-                <Text className="text-center font-bold mt-1 text-lg">
+                <TextStyled className="text-center font-bold mt-1 text-xl">
+                  {Math.round(content?.consosWeek)}
+                </TextStyled>
+                <TextStyled className="text-center font-bold mt-1 text-lg">
                   {' '}
                   {Math.round(content?.consosWeek) > 1 ? 'unités' : 'unité'}
-                </Text>
+                </TextStyled>
               </View>
             </View>
             <View>
-              <Text className="text-[#4030A5] font-semibold text-center text-xs">Objectif max</Text>
+              <TextStyled className="text-[#4030A5] font-semibold text-center text-xs">Objectif max</TextStyled>
               {content?.consosWeekGoal >= 0 ? (
                 <View className={'flex flex-row justify-center'}>
-                  <Text className="text-center font-bold mt-1 text-xl">{Math.round(content?.consosWeekGoal)}</Text>
-                  <Text className="text-center font-bold mt-1 text-lg">
+                  <TextStyled className="text-center font-bold mt-1 text-xl">
+                    {Math.round(content?.consosWeekGoal)}
+                  </TextStyled>
+                  <TextStyled className="text-center font-bold mt-1 text-lg">
                     {' '}
                     {Math.round(content?.consosWeekGoal) > 1 ? 'unités' : 'unité'}
-                  </Text>
+                  </TextStyled>
                 </View>
               ) : (
-                <Text className="text-center font-bold mt-1 text-xl">?</Text>
+                <TextStyled className="text-center font-bold mt-1 text-xl">?</TextStyled>
               )}
             </View>
           </View>
           {content?.consommationContent && (
-            <Text className="text-center mt-4">
+            <TextStyled className="text-center mt-4">
               {content?.consommationContent?.split('__')?.map((string, index) => {
                 return (
                   <React.Fragment key={string}>
@@ -80,7 +84,7 @@ const ModalGoal = ({ content, onClose }) => {
                   </React.Fragment>
                 );
               })}
-            </Text>
+            </TextStyled>
           )}
 
           {content?.consosWeekGoal >= 0 && (
@@ -91,27 +95,27 @@ const ModalGoal = ({ content, onClose }) => {
 
               <View className="flex flex-row justify-around">
                 <View>
-                  <Text className="text-[#4030A5] text-center font-semibold text-xs">Jours où j'ai bu</Text>
+                  <TextStyled className="text-[#4030A5] text-center font-semibold text-xs">Jours où j'ai bu</TextStyled>
                   <View className={'flex flex-row justify-center'}>
-                    <Text className="text-center font-bold mt-1 text-xl ">{content?.drinkingDays}</Text>
-                    <Text className="text-center font-bold mt-1 text-lg">
+                    <TextStyled className="text-center font-bold mt-1 text-xl ">{content?.drinkingDays}</TextStyled>
+                    <TextStyled className="text-center font-bold mt-1 text-lg">
                       {' '}
                       {content?.drinkingDays > 1 ? 'jours' : 'jour'}
-                    </Text>
+                    </TextStyled>
                   </View>
                 </View>
                 <View>
-                  <Text className="text-[#4030A5] text-center font-semibold text-xs">Objectif max</Text>
+                  <TextStyled className="text-[#4030A5] text-center font-semibold text-xs">Objectif max</TextStyled>
                   <View className={'flex flex-row justify-center'}>
-                    <Text className="text-center font-bold mt-1 text-xl">{content?.drinkingDaysGoal}</Text>
-                    <Text className="text-center font-bold mt-1 text-lg">
+                    <TextStyled className="text-center font-bold mt-1 text-xl">{content?.drinkingDaysGoal}</TextStyled>
+                    <TextStyled className="text-center font-bold mt-1 text-lg">
                       {' '}
                       {content?.drinkingDaysGoal > 1 ? 'jours' : 'jour'}
-                    </Text>
+                    </TextStyled>
                   </View>
                 </View>
               </View>
-              <Text className="text-center mt-4">
+              <TextStyled className="text-center mt-4">
                 {content?.drinkingDaysContent?.split('__')?.map((string, index) => {
                   return (
                     <React.Fragment key={string}>
@@ -119,7 +123,7 @@ const ModalGoal = ({ content, onClose }) => {
                     </React.Fragment>
                   );
                 })}
-              </Text>
+              </TextStyled>
             </View>
           )}
         </View>

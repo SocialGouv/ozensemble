@@ -9,6 +9,7 @@ import { LockedBadge } from './Svgs/LockedBadge';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import API from '../../services/api';
 import { BadgeDefis } from './Svgs/BadgeDefis';
+import TextStyled from '../../components/TextStyled';
 
 const BadgesList = ({ navigation }) => {
   const userBadges = useRecoilValue(badgesState);
@@ -21,8 +22,8 @@ const BadgesList = ({ navigation }) => {
         return (
           <React.Fragment key={badgeCategory.category}>
             <View>
-              <Text className="text-lg text-[#4030a5] font-extrabold">{badgeCategory.titleForList}</Text>
-              <Text className="text-sm my-4">{badgeCategory.description}</Text>
+              <TextStyled className="text-lg text-[#4030a5] font-extrabold">{badgeCategory.titleForList}</TextStyled>
+              <TextStyled className="text-sm my-4">{badgeCategory.description}</TextStyled>
             </View>
             <View className="flex flex-row flex-wrap gap-3 mb-16">
               {badgeCategory.badges.map((badge) => {
@@ -52,7 +53,9 @@ const BadgesList = ({ navigation }) => {
                         )}
                       </View>
                       <View className="mt-auto">
-                        <Text className="text-center text-[#4030a5] text-xs">{badge.reduced_title || badge.title}</Text>
+                        <TextStyled className="text-center text-[#4030a5] text-xs">
+                          {badge.reduced_title || badge.title}
+                        </TextStyled>
                       </View>
                     </TouchableOpacity>
                   );
@@ -71,7 +74,9 @@ const BadgesList = ({ navigation }) => {
                         <LockedBadge size={Dimensions.get('window').width / 4 - 2 * 20} />
                       </View>
                       <View className="mt-auto">
-                        <Text className="text-center text-[#4030a5] text-xs">{badge.reduced_title || badge.title}</Text>
+                        <TextStyled className="text-center text-[#4030a5] text-xs">
+                          {badge.reduced_title || badge.title}
+                        </TextStyled>
                       </View>
                     </TouchableOpacity>
                   );

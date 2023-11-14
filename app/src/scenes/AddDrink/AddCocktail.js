@@ -67,7 +67,7 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
                       <TextStyled bold className="">
                         {cocktail.displaySelection} :{' '}
                       </TextStyled>
-                      <Text>{cocktail.volume}</Text>
+                      <TextStyled>{cocktail.volume}</TextStyled>
                     </View>
                   </TouchableOpacity>
                 );

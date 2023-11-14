@@ -6,6 +6,7 @@ import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState } from '.
 import { previousDrinksPerWeekState } from '../recoil/gains';
 import { defaultPaddingFontScale } from '../styles/theme';
 import ModalGainDetails from './ModalGainDetails';
+import TextStyled from './TextStyled';
 
 const WeeklyGains = ({ selectedMonth }) => {
   const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -68,34 +69,34 @@ const WeeklyGains = ({ selectedMonth }) => {
     <View style={{ paddingHorizontal: defaultPaddingFontScale() }} className="py-5">
       <View className="flex flex-row mt-3 mb-2">
         <View className="flex flex-row grow justify-center basis-14">
-          <Text className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+          <TextStyled className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             Semaine
-          </Text>
+          </TextStyled>
         </View>
 
         <View className=" flex flex-row grow justify-center basis-16">
-          <Text className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+          <TextStyled className=" text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             € épargnés
-          </Text>
+          </TextStyled>
         </View>
         <View className=" flex flex-row grow justify-center basis-16">
-          <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+          <TextStyled className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             KCAL évitées
-          </Text>
+          </TextStyled>
         </View>
         <View className=" flex flex-row grow mr-1 justify-center basis-16">
-          <Text className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
+          <TextStyled className="text-[#B6C1CD]" style={{ fontSize: fontSize }}>
             Détails
-          </Text>
+          </TextStyled>
         </View>
       </View>
       {weekInfos.map((week) => {
         return (
           <View className="flex flex-row mb-2 bg-[#F5F6FA] rounded-lg py-1" key={week.startDay}>
             <View className="flex flex-row grow items-center justify-center basis-14">
-              <Text className=" text-[#939EA6] font-semibold" style={{ fontSize: fontSize }}>
+              <TextStyled className=" text-[#939EA6] font-semibold" style={{ fontSize: fontSize }}>
                 {week.startDay.format('DD')} au {week.endDay.format('DD')}
-              </Text>
+              </TextStyled>
             </View>
             {week.isWeekCompleted ? (
               <>
@@ -105,9 +106,9 @@ const WeeklyGains = ({ selectedMonth }) => {
                       'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow',
                       week.euros > myWeeklyExpensesBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                     ].join(' ')}>
-                    <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
+                    <TextStyled className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                       {Math.round(Math.abs(week.euros - myWeeklyExpensesBeforeObjective) * 10) / 10}€
-                    </Text>
+                    </TextStyled>
                   </View>
                 </View>
                 <View className="flex flex-row grow justify-center items-center basis-16">
@@ -116,9 +117,9 @@ const WeeklyGains = ({ selectedMonth }) => {
                       'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow',
                       week.kcals > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                     ].join(' ')}>
-                    <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
+                    <TextStyled className="text-white font-semibold" style={{ fontSize: fontSize }}>
                       {Math.round(Math.abs(week.kcals - myWeeklyKcalBeforeObjective))} KCAL
-                    </Text>
+                    </TextStyled>
                   </View>
                 </View>
               </>
@@ -126,16 +127,16 @@ const WeeklyGains = ({ selectedMonth }) => {
               <>
                 <View className="flex flex-row grow justify-center items-center basis-16">
                   <View className={'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow bg-[#939EA6]'}>
-                    <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
+                    <TextStyled className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                       - €
-                    </Text>
+                    </TextStyled>
                   </View>
                 </View>
                 <View className="flex flex-row grow justify-center items-center basis-16">
                   <View className={'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow bg-[#939EA6]'}>
-                    <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
+                    <TextStyled className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                       - KCAL
-                    </Text>
+                    </TextStyled>
                   </View>
                 </View>
               </>
@@ -155,9 +156,9 @@ const WeeklyGains = ({ selectedMonth }) => {
                     isWeekCompleted: week.isWeekCompleted,
                   });
                 }}>
-                <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
+                <TextStyled className="text-white font-semibold" style={{ fontSize: fontSize }}>
                   Détails
-                </Text>
+                </TextStyled>
               </TouchableOpacity>
             </View>
           </View>

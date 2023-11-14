@@ -21,10 +21,10 @@ const UserSurveyStart = ({ navigation, route }) => {
         <MiddleContainer>
           <UserSurveyLogo />
           <Title>Bienvenue sur Oz !</Title>
-          <Text>
+          <TextStyled>
             Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{'\n\n'}
             <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
-          </Text>
+          </TextStyled>
         </MiddleContainer>
 
         <InsideContainer>

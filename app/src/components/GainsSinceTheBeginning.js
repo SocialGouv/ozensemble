@@ -81,12 +81,14 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
             </View>
             <Spacer size={5} />
             {isOnboarded ? (
-              <Text className="font-bold text-2xl">{mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€</Text>
+              <TextStyled className="font-bold text-2xl">
+                {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€
+              </TextStyled>
             ) : (
-              <Text className="font-bold text-2xl">-€</Text>
+              <TextStyled className="font-bold text-2xl">-€</TextStyled>
             )}
 
-            <Text className="text-xs text-[#939EA6]">Euros épargnés</Text>
+            <TextStyled className="text-xs text-[#939EA6]">Euros épargnés</TextStyled>
           </View>
           <Spacer size={20} />
           <View className="flex flex-1 rounded-md items-center justify-center bg-[#FAFAFA] p-3">
@@ -96,17 +98,17 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
             <Spacer size={5} />
             {isOnboarded ? (
               <View className="flex flex-row justify-center items-baseline">
-                <Text className="font-bold text-2xl">
+                <TextStyled className="font-bold text-2xl">
                   {myKcalSavingsSinceBeginning > 0 ? myKcalSavingsSinceBeginning : 0}
-                </Text>
-                <Text className="font-bold text-lg "> KCAL</Text>
+                </TextStyled>
+                <TextStyled className="font-bold text-lg "> KCAL</TextStyled>
               </View>
             ) : (
               <>
-                <Text className="text-lg font-bold">- KCAL</Text>
+                <TextStyled className="text-lg font-bold">- KCAL</TextStyled>
               </>
             )}
-            <Text className="text-xs text-[#939EA6]">KCalories évitées</Text>
+            <TextStyled className="text-xs text-[#939EA6]">KCalories évitées</TextStyled>
           </View>
         </View>
       </View>

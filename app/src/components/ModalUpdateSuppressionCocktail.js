@@ -5,6 +5,7 @@ import H2 from './H2';
 import Modal from './Modal';
 import { hitSlop } from '../styles/theme';
 import ButtonPrimary from './ButtonPrimary';
+import TextStyled from './TextStyled';
 
 const ModalUpdateSuppressionCocktail = ({ isUpdate, visible, onClose, onUpdate, onDelete }) => {
   return (
@@ -28,15 +29,15 @@ const ModalUpdateSuppressionCocktail = ({ isUpdate, visible, onClose, onUpdate, 
             <H2 color="#000">Voulez-vous supprimer votre cocktail{'\u00A0'}?</H2>
           )}
           {isUpdate ? (
-            <Text className="text-base mt-4">
+            <TextStyled className="text-base mt-4">
               Vous êtes sur le point de mettre à jour toutes les consommations ajoutées avec ce cocktail, êtes-vous sûr
               de vouloir le mettre à jour{'\u00A0'}?
-            </Text>
+            </TextStyled>
           ) : (
-            <Text className="text-base mt-4">
+            <TextStyled className="text-base mt-4">
               Vous êtes sur le point de supprimer un cocktail que vous avez créé, êtes-vous sûr de vouloir le supprimer
               {'\u00A0'}?
-            </Text>
+            </TextStyled>
           )}
 
           <View className=" justify-around mt-6 space-y-4">
@@ -46,7 +47,7 @@ const ModalUpdateSuppressionCocktail = ({ isUpdate, visible, onClose, onUpdate, 
               <ButtonPrimary content="Oui supprimer" onPress={onDelete} />
             )}
             <TouchableOpacity onPress={onClose} content={'Oui supprimer'} color={'#4030A5'}>
-              <Text className="text-[#4030A5] text-center underline text-base">Non</Text>
+              <TextStyled className="text-[#4030A5] text-center underline text-base">Non</TextStyled>
             </TouchableOpacity>
           </View>
         </View>

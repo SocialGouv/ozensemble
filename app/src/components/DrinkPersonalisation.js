@@ -185,7 +185,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           value={drinkName}
           onChangeText={(value) => setDrinkName(value)}
         />
-        <Text className="text-xs">(23 caractères max)</Text>
+        <TextStyled className="text-xs">(23 caractères max)</TextStyled>
       </View>
       <View className="mb-4">
         <TextStyled bold>Quantité d'alcool servie (cl)</TextStyled>
@@ -193,14 +193,14 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => setShowQuantityModal(true)}>
-            <Text className="text-[#CACACD] flex">Sélectionnez une quantité</Text>
+            <TextStyled className="text-[#CACACD] flex">Sélectionnez une quantité</TextStyled>
             <ArrowDown color="#000000" size={30} strokeWidth={2} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
             onPress={() => setShowQuantityModal(true)}>
-            <Text className="text-[#4030A5] flex">{volumeNumber}</Text>
+            <TextStyled className="text-[#4030A5] flex">{volumeNumber}</TextStyled>
           </TouchableOpacity>
         )}
       </View>
@@ -260,7 +260,9 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
                 setIsUpdateWanted(false);
                 setShowModalUpdate(true);
               }}>
-              <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer ma boisson</Text>
+              <TextStyled className="text-[#4030A5] text-center underline text-base mt-4">
+                Supprimer ma boisson
+              </TextStyled>
             </TouchableOpacity>
           </View>
         )}

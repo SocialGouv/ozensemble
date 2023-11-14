@@ -89,10 +89,10 @@ const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, v
       </TopContainer>
       <BottomContainer>
         <DisplayName>{name}</DisplayName>
-        <Text>
+        <TextStyled>
           {' - '}
           {volume}
-        </Text>
+        </TextStyled>
       </BottomContainer>
       <BottomContainer>
         <Doses>

@@ -5,6 +5,7 @@ import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
 import H2 from '../../../components/H2';
 import NavigationWrapper from './NavigationWrapper';
 import CravingSchema from '../../../components/illustrations/articles/CravingSchema';
+import TextStyled from '../../../components/TextStyled';
 
 const CravingsTreatment = () => {
   const title = "Traitement médicamenteux du craving (l'envie)";
@@ -119,9 +120,9 @@ const CravingsTreatment = () => {
           <View className="flex flex-row basis-11/12">
             <P noMarginBottom>
               il ne s'agit pas des mêmes médicaments que ceux qui traitent le <Bold>syndrôme</Bold> de sevrage&nbsp;! (
-              <Text className="underline" onPress={() => navigation.navigate('ALCOOL_WITHDRAWAL_TREATMENT')}>
+              <TextStyled className="underline" onPress={() => navigation.navigate('ALCOOL_WITHDRAWAL_TREATMENT')}>
                 article Traitement médicamenteux du sevrage
-              </Text>
+              </TextStyled>
               )
             </P>
           </View>

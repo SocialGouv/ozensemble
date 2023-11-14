@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Text } from 'react-native';
 import Modal from './Modal';
 import { hitSlop } from '../styles/theme';
 import Confetti from './Confettis';
+import TextStyled from './TextStyled';
 
 const ModalGainDetails = ({ content, onClose }) => {
   const firstDayMonth = content?.firstDay?.split(' ')[1];
@@ -29,44 +30,44 @@ const ModalGainDetails = ({ content, onClose }) => {
         </View>
 
         <View className=" p-2">
-          <Text color="#000" className="text-center mb-1 text-xl font-extrabold">
+          <TextStyled color="#000" className="text-center mb-1 text-xl font-extrabold">
             Résultats semaine
-          </Text>
-          <Text className="text-xs text-[#939EA6] text-center">
+          </TextStyled>
+          <TextStyled className="text-xs text-[#939EA6] text-center">
             semaine du {firstDayDisplay} au {content?.lastDay}
-          </Text>
+          </TextStyled>
           {content?.isWeekCompleted ? (
             <>
               <View className="flex flex-row mt-8 space-x-3">
                 <View className="py-2 px-1 bg-[#F5F6FA] rounded-md grow basis-28">
-                  <Text className="text-[#939EA6] text-center text-xs">Estimation initiale</Text>
+                  <TextStyled className="text-[#939EA6] text-center text-xs">Estimation initiale</TextStyled>
                   <View className="flex flex-row grow justify-center">
-                    <Text className="text-center font-bold mt-1 text-xl">
+                    <TextStyled className="text-center font-bold mt-1 text-xl">
                       {Math.round(content?.estimationExpenses * 10) / 10}
-                    </Text>
-                    <Text className="text-center font-bold mt-1 text-lg">€</Text>
+                    </TextStyled>
+                    <TextStyled className="text-center font-bold mt-1 text-lg">€</TextStyled>
                   </View>
                 </View>
                 <View className="py-2 px-1 bg-[#F5F6FA] rounded-md grow basis-28">
-                  <Text className="text-[#939EA6] text-center text-xs">Consommation</Text>
+                  <TextStyled className="text-[#939EA6] text-center text-xs">Consommation</TextStyled>
                   <View className="flex flex-row justify-center">
-                    <Text className="text-center font-bold mt-1 text-xl">
+                    <TextStyled className="text-center font-bold mt-1 text-xl">
                       {Math.round(content?.weekExpenses * 10) / 10}
-                    </Text>
-                    <Text className="text-center font-bold mt-1 text-lg">€</Text>
+                    </TextStyled>
+                    <TextStyled className="text-center font-bold mt-1 text-lg">€</TextStyled>
                   </View>
                 </View>
               </View>
               <View className="py-2 mt-3 bg-[#F5F6FA] rounded-md">
-                <Text className="text-center text-[#939EA6] text-xs">{eurosTitle}</Text>
+                <TextStyled className="text-center text-[#939EA6] text-xs">{eurosTitle}</TextStyled>
                 <View
                   className={[
                     'mx-auto px-2 py-1 rounded-md mt-2',
                     eurosTitle === 'Euros non-épargnés' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                   ].join(' ')}>
-                  <Text className="text-center text-white font-bold text-xl">
+                  <TextStyled className="text-center text-white font-bold text-xl">
                     {Math.round(Math.abs(content?.weekExpenses - content?.estimationExpenses) * 10) / 10}€
-                  </Text>
+                  </TextStyled>
                 </View>
               </View>
               <View className="flex flex-row justify-center">
@@ -74,44 +75,44 @@ const ModalGainDetails = ({ content, onClose }) => {
               </View>
               <View className="flex flex-row space-x-3">
                 <View className="py-2 bg-[#F5F6FA] rounded-md grow basis-24">
-                  <Text className="text-[#939EA6] text-center text-xs">Estimation initiale</Text>
+                  <TextStyled className="text-[#939EA6] text-center text-xs">Estimation initiale</TextStyled>
                   <View className="flex flex-row justify-center items-baseline">
-                    <Text className="text-center font-bold mt-1 text-xl ">
+                    <TextStyled className="text-center font-bold mt-1 text-xl ">
                       {Math.round(content?.estimationKcal * 10) / 10}
-                    </Text>
-                    <Text className="text-center font-bold mt-1 text-base"> KCAL</Text>
+                    </TextStyled>
+                    <TextStyled className="text-center font-bold mt-1 text-base"> KCAL</TextStyled>
                   </View>
                 </View>
                 <View className="py-2 bg-[#F5F6FA] rounded-md grow basis-24">
-                  <Text className="text-[#939EA6] text-center text-xs">Consommation</Text>
+                  <TextStyled className="text-[#939EA6] text-center text-xs">Consommation</TextStyled>
                   <View className="flex flex-row justify-center items-baseline">
-                    <Text className="text-center font-bold mt-1 text-xl">
+                    <TextStyled className="text-center font-bold mt-1 text-xl">
                       {Math.round(content?.weekKcal * 10) / 10}
-                    </Text>
-                    <Text className="text-center font-bold mt-1 text-base"> KCAL</Text>
+                    </TextStyled>
+                    <TextStyled className="text-center font-bold mt-1 text-base"> KCAL</TextStyled>
                   </View>
                 </View>
               </View>
               <View className="py-2 bg-[#F5F6FA] rounded-md mt-3">
-                <Text className="text-center text-[#939EA6] text-xs">{caloriesTitle}</Text>
+                <TextStyled className="text-center text-[#939EA6] text-xs">{caloriesTitle}</TextStyled>
                 <View
                   className={[
                     'flex flex-row justify-center mx-auto px-2 py-1 rounded-md mt-2 items-baseline',
                     caloriesTitle === 'KCalories en plus' ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
                   ].join(' ')}>
-                  <Text className="text-center font-bold text-xl text-white">
+                  <TextStyled className="text-center font-bold text-xl text-white">
                     {Math.round(Math.abs(content?.weekKcal - content?.estimationKcal) * 10) / 10}
-                  </Text>
-                  <Text className="text-center font-bold text-base text-white"> KCAL</Text>
+                  </TextStyled>
+                  <TextStyled className="text-center font-bold text-base text-white"> KCAL</TextStyled>
                 </View>
               </View>
             </>
           ) : (
             <View>
-              <Text className="text-center text-base mt-8 mb-4">
+              <TextStyled className="text-center text-base mt-8 mb-4">
                 Ajoutez vos consommations tous les jours de cette semaine pour accéder aux euros épargnés et aux
                 KCalories évitées.
-              </Text>
+              </TextStyled>
             </View>
           )}
         </View>

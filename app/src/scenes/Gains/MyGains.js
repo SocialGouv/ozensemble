@@ -17,6 +17,7 @@ import FollowUpConsos from '../../components/illustrations/icons/FollowUpConsos'
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ArrowRight from '../../components/ArrowRight';
 import IconAdd from '../../components/illustrations/IconAdd';
+import TextStyled from '../../components/TextStyled';
 
 dayjs.extend(isBetween);
 
@@ -80,10 +81,10 @@ const MyGains = () => {
               }}
               className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg px-4 py-2 border border-[#4030a5]">
               <IconAdd size={35} color={'#4030a5'} />
-              <Text className="mx-6">
-                Estimez votre consommation <Text className="font-bold">actuelle</Text> et fixez-vous un{' '}
-                <Text className="font-bold">objectif</Text> pour calculer vos gains dans le temps&nbsp;!
-              </Text>
+              <TextStyled className="mx-6">
+                Estimez votre consommation <TextStyled className="font-bold">actuelle</TextStyled> et fixez-vous un{' '}
+                <TextStyled className="font-bold">objectif</TextStyled> pour calculer vos gains dans le temps&nbsp;!
+              </TextStyled>
               <View>
                 <ArrowRight color="#4030a5" size={15} />
               </View>
