@@ -1,3 +1,10 @@
+# [1.130.0](https://github.com/SocialGouv/ozensemble/compare/v1.129.3...v1.130.0) (2023-11-15)
+
+
+### Features
+
+* add logEvent IN_APP_MODAL ([bac09e5](https://github.com/SocialGouv/ozensemble/commit/bac09e5c1666ee5e8966e521ab868fb4cfc89940))
+
 ## [1.129.3](https://github.com/SocialGouv/ozensemble/compare/v1.129.2...v1.129.3) (2023-11-14)
 
 
