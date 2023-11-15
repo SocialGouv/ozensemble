@@ -104,6 +104,7 @@ const InAppModal = () => {
     if (!inAppModalContent) return;
     if (inAppModalContent) setModalContent(inAppModalContent);
     setShowModal(true);
+    logEvent({ category: 'IN_APP_MODAL', action: inAppModalContent?.id });
   };
 
   const getModalNewFeature = async () => {
