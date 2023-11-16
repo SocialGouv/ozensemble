@@ -26,13 +26,6 @@ const MyGains = () => {
   const badges = useRecoilValue(badgesState);
   const [selectedBar, setSelectedBar] = useState({});
 
-  useEffect(() => {
-    logEvent({
-      category: 'APP',
-      action: 'APP_OPEN_IN_GAIN_VIEW',
-    });
-  }, []);
-
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToFirstStep = () => {
     logEvent({
