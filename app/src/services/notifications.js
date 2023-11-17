@@ -44,7 +44,7 @@ class NotificationService {
 
   onRegister = (tokenPayload) => {
     console.log('NotificationService onRegister:', tokenPayload);
-    storage.set('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN', tokenPayload.token);
+    storage.set('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN', tokenPayload.token ?? '');
     logEvent({
       category: 'PUSH_NOTIFICATION_TOKEN_REGISTER',
       action: 'SUCCESS',
