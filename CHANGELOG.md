@@ -1,6 +1,18 @@
 # [1.131.0](https://github.com/SocialGouv/ozensemble/compare/v1.130.0...v1.131.0) (2023-11-17)
 
 
+### Bug Fixes
+
+* OZENSEMBLE-8K Second argument ('value') has to be of type bool, number or string ([160e022](https://github.com/SocialGouv/ozensemble/commit/160e022ab1e54d444f042d9a585c68f774b265ab))
+
+
+### Features
+
+* v207 ([f33a08d](https://github.com/SocialGouv/ozensemble/commit/f33a08d7409f1262421c42fa05788b26982f40a8))
+
+# [1.131.0](https://github.com/SocialGouv/ozensemble/compare/v1.130.0...v1.131.0) (2023-11-17)
+
+
 ### Features
 
 * v207 ([f33a08d](https://github.com/SocialGouv/ozensemble/commit/f33a08d7409f1262421c42fa05788b26982f40a8))
