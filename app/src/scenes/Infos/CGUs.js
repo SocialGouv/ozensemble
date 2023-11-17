@@ -6,7 +6,7 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import styled from 'styled-components';
 import WebView from 'react-native-webview';
 
-const htmlUrl = 'https://ozensemble.fabique.social.gouv.fr/files/CGU_app.html';
+const htmlUrl = 'https://ozensemble.fabrique.social.gouv.fr/files/CGU_app.html';
 
 const CGUs = ({ onClose }) => (
   <View className="flex-1 justify-start items-center mt-6">

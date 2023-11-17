@@ -6,7 +6,7 @@ import { defaultPaddingFontScale } from '../../styles/theme';
 import { WebView } from 'react-native-webview';
 import styled from 'styled-components';
 
-const htmlUrl = 'https://ozensemble.fabique.social.gouv.fr/files/privacy_policy_app.html';
+const htmlUrl = 'https://ozensemble.fabrique.social.gouv.fr/files/privacy_policy_app.html';
 
 const PrivacyPolicy = ({ onClose }) => (
   <View className="flex-1 justify-start items-center mt-6">
