@@ -22,4 +22,3 @@ https://www.ozensemble.fr/
 .env.local
 google-services.json
 `sentry.properties` dans `/app/ios` et `/app/android`
-
