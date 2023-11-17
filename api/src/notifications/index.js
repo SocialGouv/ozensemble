@@ -4,12 +4,13 @@ const { sendPushNotification } = require("../services/push-notifications");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 const { capture } = require("../third-parties/sentry");
+const { upsertUserWithLock } = require("../utils");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 const updateLastConsoAdded = async (matomoId) => {
   try {
-    const user = await prisma.user.upsert({
+    const user = await upsertUserWithLock({
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
@@ -88,7 +89,7 @@ const scheduleNotificationsInactivity5DaysCronJob = async () => {
 
 const scheduleDefi1Day1 = async (matomoId) => {
   const type = "DEFI1_DAY1";
-  const user = await prisma.user.upsert({
+  const user = await upsertUserWithLock({
     where: { matomo_id: matomoId },
     create: { matomo_id: matomoId, created_from: "SheduleDefiDay1" },
     update: {},
@@ -126,7 +127,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
 
 const scheduleUserSurvey = async (matomoId) => {
   const type = "USER_SURVEY";
-  const user = await prisma.user.upsert({
+  const user = await upsertUserWithLock({
     where: { matomo_id: matomoId },
     create: { matomo_id: matomoId, created_from: "UserSurvey" },
     update: {},

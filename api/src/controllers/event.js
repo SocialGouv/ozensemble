@@ -6,6 +6,7 @@ const notifications = require("../notifications");
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { capture } = require("../third-parties/sentry");
+const { upsertUserWithLock } = require("../utils");
 
 router.post(
   "/",
@@ -46,7 +47,7 @@ router.post(
     // handle User Survey
     const userSurveyAnnounced = category === "NAVIGATION" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
     if (userSurveyAnnounced) {
-      const user = await prisma.user.upsert({
+      const user = await upsertUserWithLock({
         where: { matomo_id: matomoId },
         create: {
           matomo_id: matomoId,
@@ -81,7 +82,7 @@ router.post(
     if (userSurveyFinished) {
       notifications.cancelNotif(matomoId, "USER_SURVEY");
 
-      const user = await prisma.user.upsert({
+      const user = await upsertUserWithLock({
         where: { matomo_id: matomoId },
         create: {
           matomo_id: matomoId,

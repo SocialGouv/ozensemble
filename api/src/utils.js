@@ -1,22 +1,30 @@
-const passwordValidator = require("password-validator");
 const bcrypt = require("bcryptjs");
-// const mongoose = require("mongoose");
+const prisma = require("./prisma");
+const { capture } = require("./third-parties/sentry");
 
-function validatePassword(password) {
-  const schema = new passwordValidator();
-  schema
-    .is()
-    .min(6) // Minimum length 6
-    .is()
-    .max(32) // Maximum length 32
-    .has()
-    .letters() // Must have letters
-    .has()
-    .digits() // Must have digits
-    .has()
-    .symbols(); // Must have symbols
+async function upsertUserWithLock(upsertObj) {
+  try {
+    const matomoId = upsertObj?.where?.matomo_id;
 
-  return schema.validate(password);
+    if (!/^[0-9a-fA-F]{16}$/.test(matomoId)) {
+      throw new Error(`Invalid matomo_id: ${matomoId}`);
+    }
+    return await prisma.$transaction(async (tx) => {
+      // Lock the row for the given matomo_id using $executeRaw -> variable is escaped
+      const select = await tx.$executeRaw`SELECT * FROM "User" WHERE "matomo_id" = ${matomoId} FOR UPDATE`;
+
+      // Perform the upsert operation
+      const result = await tx.user.upsert(upsertObj);
+
+      if (!result) {
+        throw new Error(`Upsert failed for matomo_id: ${matomoId}`);
+      }
+
+      return result;
+    });
+  } catch (error) {
+    capture(error);
+  }
 }
 
 async function comparePassword(password, expected) {
@@ -33,7 +41,7 @@ const cryptoHexRegex = /^[A-Fa-f0-9]{16,128}$/;
 const positiveIntegerRegex = /^\d+$/;
 
 module.exports = {
-  validatePassword,
+  upsertUserWithLock,
   comparePassword,
   hashPassword,
   looseUuidRegex,
