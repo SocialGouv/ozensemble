@@ -1,3 +1,10 @@
+## [1.131.2](https://github.com/SocialGouv/ozensemble/compare/v1.131.1...v1.131.2) (2023-11-17)
+
+
+### Bug Fixes
+
+* release ([8f07a50](https://github.com/SocialGouv/ozensemble/commit/8f07a506c533bfcc89da54c4666fce5e0431fe68))
+
 # [1.131.0](https://github.com/SocialGouv/ozensemble/compare/v1.130.0...v1.131.0) (2023-11-16)
 
 
