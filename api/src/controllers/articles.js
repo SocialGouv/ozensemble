@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+const { upsertUserWithLock } = require("../utils");
 
 router.post(
   "/",
@@ -11,7 +12,7 @@ router.post(
 
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
-    const user = await prisma.user.upsert({
+    const user = await upsertUserWithLock({
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,

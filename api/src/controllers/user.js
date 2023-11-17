@@ -2,6 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
+const { upsertUserWithLock } = require("../utils");
 
 router.put(
   "/",
@@ -18,9 +19,7 @@ router.put(
       created_from = "User-PushNotif";
     }
 
-    // TODO: fix concurrency issue Unique constraint failed on the fields: (`matomo_id`)
-    // using a "version" field ? https://www.prisma.io/docs/guides/performance-and-optimization/prisma-client-transactions-guide#optimistic-concurrency-control
-    await prisma.user.upsert({
+    await upsertUserWithLock({
       where: { matomo_id: matomoId },
       update: updateObj,
       create: {

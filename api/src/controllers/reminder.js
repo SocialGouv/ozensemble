@@ -8,6 +8,7 @@ const { sendPushNotification } = require("../services/push-notifications");
 const router = express.Router();
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
+const { upsertUserWithLock } = require("../utils");
 dayjs.extend(utc);
 
 const DAYS_OF_WEEK = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
@@ -92,7 +93,7 @@ router.put(
 
     const { utcTimeHours, utcTimeMinutes, utcDaysOfWeek } = toUtcData({ timeHours, timeMinutes, daysOfWeek, timezone });
 
-    const user = await prisma.user.upsert({
+    const user = await upsertUserWithLock({
       where: { matomo_id: matomoId },
       update: {
         push_notif_token: pushNotifToken,

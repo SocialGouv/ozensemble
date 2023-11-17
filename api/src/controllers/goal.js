@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const dayjs = require("dayjs");
 const prisma = require("../prisma");
 const { grabBadgeFromCatalog, badgesCatalog } = require("../badges");
+const { upsertUserWithLock } = require("../utils");
 const router = express.Router();
 
 router.post(
@@ -11,7 +12,7 @@ router.post(
     const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, calculateBadges, forceDate } = req.body || {};
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
-    let user = await prisma.user.upsert({
+    let user = await upsertUserWithLock({
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
@@ -77,7 +78,7 @@ router.get(
   "/list",
   catchErrors(async (req, res) => {
     const { matomoId } = req.query;
-    const user = await prisma.user.upsert({
+    const user = await upsertUserWithLock({
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
