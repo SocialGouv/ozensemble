@@ -92,9 +92,7 @@ router.post(
       const userSurveyFinishedMilestone = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@userSurveyFinished` },
       });
-      if (userSurveyFinishedMilestone) {
-        capture("userSurveyFinishedMilestone already exists", { extra: { matomoId } });
-      } else {
+      if (!userSurveyFinishedMilestone) {
         await prisma.appMilestone.create({
           data: {
             id: `${user.id}_@userSurveyFinished`,
