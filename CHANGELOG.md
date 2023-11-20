@@ -1,3 +1,10 @@
+## [1.131.3](https://github.com/SocialGouv/ozensemble/compare/v1.131.2...v1.131.3) (2023-11-20)
+
+
+### Bug Fixes
+
+* APP_OPEN_IN_GAIN_VIEW event ([#468](https://github.com/SocialGouv/ozensemble/issues/468)) ([713d3fc](https://github.com/SocialGouv/ozensemble/commit/713d3fc7904b77b7472e2dda93c7f1c37fa1e28d))
+
 ## [1.131.2](https://github.com/SocialGouv/ozensemble/compare/v1.131.1...v1.131.2) (2023-11-17)
 
 
