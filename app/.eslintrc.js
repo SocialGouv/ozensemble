@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['@react-native-community', 'prettier', 'plugin:import/recommended', 'plugin:react/jsx-runtime'],
+  extends: ['@react-native', 'prettier', 'plugin:import/recommended', 'plugin:react/jsx-runtime'],
   plugins: ['react', 'react-native'],
   globals: {
     fetch: false,
