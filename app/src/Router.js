@@ -238,7 +238,7 @@ const Router = () => {
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}>
-        <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
+        {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
         <RouterStack.Navigator
           mode="modal"
           screenOptions={{
@@ -271,7 +271,7 @@ const Router = () => {
         </RouterStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
-      <CustomBootsplash />
+      {/* <CustomBootsplash /> */}
     </>
   );
 };

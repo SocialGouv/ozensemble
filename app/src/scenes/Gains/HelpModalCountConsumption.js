@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from 'react-native';
 import styled from 'styled-components';
-import SafeAreaView from 'react-native-safe-area-view';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import H1 from '../../components/H1';
 import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
 import TextStyled from '../../components/TextStyled';
