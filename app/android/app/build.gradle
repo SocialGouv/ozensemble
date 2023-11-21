@@ -2,7 +2,6 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 apply plugin: 'com.google.gms.google-services'
 
-import com.android.build.OutputFile
 
 project.ext.envConfigFiles = [
     debug: ".env.local",
@@ -63,14 +62,6 @@ react {
 }
 
 /**
- * Set this to true to create four separate APKs instead of one,
- * one for each native architecture. This is useful if you don't
- * use App Bundles (https://developer.android.com/guide/app-bundle/)
- * and want to have separate APKs to upload to the Play Store.
- */
-def enableSeparateBuildPerCPUArchitecture = false
-
-/**
  * Set this to true to Run Proguard on Release builds to minify the Java bytecode.
  */
 def enableProguardInReleaseBuilds = false
@@ -87,16 +78,6 @@ def enableProguardInReleaseBuilds = false
  * this variant is about 6MiB larger per architecture than default.
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
-
-/**
- * Private function to get the list of Native Architectures you want to build.
- * This reads the value from reactNativeArchitectures in your gradle.properties
- * file and works together with the --active-arch-only flag of react-native run-android.
- */
-def reactNativeArchitectures() {
-    def value = project.getProperties().get("reactNativeArchitectures")
-    return value ? value.split(",") : ["armeabi-v7a", "x86", "x86_64", "arm64-v8a"]
-}
 
 android {
     packagingOptions {
@@ -122,14 +103,6 @@ android {
         versionName "1.21.2"
     }
 
-    splits {
-        abi {
-            reset()
-            enable enableSeparateBuildPerCPUArchitecture
-            universalApk false  // If true, also generate a universal APK
-            include (*reactNativeArchitectures())
-        }
-    }
      signingConfigs {
         debug {
             storeFile file(project.env.get('MYAPP_UPLOAD_STORE_FILE'))
@@ -157,28 +130,11 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-
-    // applicationVariants are e.g. debug, release
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            // For each separate APK per architecture, set a unique version code as described here:
-            // https://developer.android.com/studio/build/configure-apk-splits.html
-            // Example: versionCode 1 will generate 1001 for armeabi-v7a, 1002 for x86, etc.
-            def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
-            def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
-                        defaultConfig.versionCode * 1000 + versionCodes.get(abi)
-            }
-
-        }
-    }
 }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
     implementation ('com.google.firebase:firebase-core:9.6.1')
     implementation ('com.google.firebase:firebase-analytics:17.3.0')
 
