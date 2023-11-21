@@ -1,3 +1,10 @@
+## [1.131.4](https://github.com/SocialGouv/ozensemble/compare/v1.131.3...v1.131.4) (2023-11-21)
+
+
+### Bug Fixes
+
+* no more error but safe area broken ([b8a6c84](https://github.com/SocialGouv/ozensemble/commit/b8a6c848a3cb5c8684a81787a1e58120f31db9c8))
+
 ## [1.131.3](https://github.com/SocialGouv/ozensemble/compare/v1.131.2...v1.131.3) (2023-11-20)
 
 
