@@ -100,6 +100,20 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
           quantity: Number(noConso.quantity),
           date: noConso.timestamp,
         },
+      }).then((response) => {
+        if (response.ok) {
+          setGlobalDrinksState((state) => {
+            return state.map((drink) => {
+              if (drink.id === noConso.id) {
+                return {
+                  ...drink,
+                  isSyncedWithDB: true,
+                };
+              }
+              return drink;
+            });
+          });
+        }
       });
     }
     setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));

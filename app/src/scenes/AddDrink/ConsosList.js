@@ -92,37 +92,49 @@ const ConsosList = ({ navigation, route }) => {
       return nextState;
     });
     InteractionManager.runAfterInteractions(async () => {
-      for (let drink of drinksWithTimestamps) {
+      for (let newDrink of drinksWithTimestamps) {
         logEvent({
           category: 'CONSO',
           action: 'CONSO_ADD',
-          name: drink.drinkKey,
-          value: Number(drink.quantity),
+          name: newDrink.drinkKey,
+          value: Number(newDrink.quantity),
           dimension6: makeSureTimestamp(addDrinkModalTimestamp),
         });
         try {
           const body = {
             matomoId: storage.getString('@UserIdv2'),
-            id: drink.id,
-            name: drink.displayDrinkModal,
-            drinkKey: drink.drinkKey,
-            quantity: Number(drink.quantity),
+            id: newDrink.id,
+            name: newDrink.displayDrinkModal,
+            drinkKey: newDrink.drinkKey,
+            quantity: Number(newDrink.quantity),
             date: makeSureTimestamp(addDrinkModalTimestamp),
           };
-          if (drink.drinkKey !== NO_CONSO) {
-            const drinkFromCatalog = consolidatedCatalogObject[drink.drinkKey];
+          if (newDrink.drinkKey !== NO_CONSO) {
+            const drinkFromCatalog = consolidatedCatalogObject[newDrink.drinkKey];
             body.doses = drinkFromCatalog.doses;
             body.kcal = drinkFromCatalog.kcal;
             body.price = drinkFromCatalog.price;
             body.volume = drinkFromCatalog.volume;
           } else {
-            console.log('NO_CONSO', drink);
+            console.log('NO_CONSO', newDrink);
             body.quantity = 0;
           }
           const response = await API.post({
             path: '/consommation',
             body,
           });
+          if (response.ok) {
+            setGlobalDrinksState((oldState) => {
+              const newState = oldState.map((savedDrink) => {
+                if (savedDrink.id !== newDrink.id) return savedDrink;
+                return {
+                  ...newDrink,
+                  isSyncedWithDB: true,
+                };
+              });
+              return newState;
+            });
+          }
           if (response?.showNewBadge || response?.showInAppModal) showToast = false;
         } catch (e) {
           capture(e, {
@@ -208,6 +220,20 @@ const ConsosList = ({ navigation, route }) => {
                   quantity: Number(noConso.quantity),
                   date: noConso.timestamp,
                 },
+              }).then((response) => {
+                if (response.ok) {
+                  setGlobalDrinksState((state) => {
+                    return state.map((drink) => {
+                      if (drink.id === noConso.id) {
+                        return {
+                          ...drink,
+                          isSyncedWithDB: true,
+                        };
+                      }
+                      return drink;
+                    });
+                  });
+                }
               });
             }}
             content={

@@ -21,6 +21,7 @@ import {
   migrateFromDailyGoalToWeekly,
   hasMigrateMissingDrinkKey,
   migrateMissingDrinkKey,
+  reconciliateDrinksToDB,
 } from './src/services/storage';
 import { getBundleId } from 'react-native-device-info';
 
@@ -40,6 +41,10 @@ const sendDrinksToBd = async () => {
 };
 
 const App = () => {
+  // sync everytime we open the app
+  const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
+
+  // migrate only once if not yet done
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
   const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
@@ -48,6 +53,10 @@ const App = () => {
   );
 
   useEffect(() => {
+    if (!reconciliatedDrinksToDB) {
+      reconciliateDrinksToDB();
+      setReconciliatedDrinksToDB(true);
+    }
     if (!_hasCleanConsoAndCatalog) {
       cleanConsosAndCatalog();
       setHasCleanConsoAndCatalog(true);
@@ -69,6 +78,7 @@ const App = () => {
   }, []);
 
   if (
+    !reconciliatedDrinksToDB ||
     !_hasSentPreviousDrinksToDB ||
     !_hasCleanConsoAndCatalog ||
     !_hasMigrateFromDailyGoalToWeekly ||

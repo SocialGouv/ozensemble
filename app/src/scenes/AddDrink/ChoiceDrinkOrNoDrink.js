@@ -62,6 +62,20 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
                 quantity: Number(noConso.quantity),
                 date: noConso.timestamp,
               },
+            }).then((response) => {
+              if (response.ok) {
+                setGlobalDrinksState((state) => {
+                  return state.map((drink) => {
+                    if (drink.id === noConso.id) {
+                      return {
+                        ...drink,
+                        isSyncedWithDB: true,
+                      };
+                    }
+                    return drink;
+                  });
+                });
+              }
             });
             navigation.goBack();
           }}
