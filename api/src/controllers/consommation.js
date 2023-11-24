@@ -92,9 +92,7 @@ router.post(
     // if badge 3 day is not present
     // handle 3 days
     if (!drinksBadges.find((badge) => badge.stars === 2)) {
-      console.log("GIVE ME MY BADGE 3 JOURS");
       const enoughConsecutiveDays = checksConsecutiveDays(3, allDrinks);
-      console.log({ enoughConsecutiveDays });
       if (enoughConsecutiveDays) {
         await prisma.badge.create({
           data: {

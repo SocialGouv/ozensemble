@@ -229,8 +229,6 @@ export const hasMigrateMissingDrinkKey = storage.getBoolean('@hasMigrateMissingD
 export const migrateMissingDrinkKey = () => {
   // this migration is to fix a few drinks that have bugs-impossible-to-solve
 
-  console.log('ON EST LA PAPA');
-
   try {
     if (hasMigrateMissingDrinkKey) return;
     const matomoId = storage.getString('@UserIdv2');
@@ -277,7 +275,6 @@ export const migrateMissingDrinkKey = () => {
       if (drink.drinkKey === 'no-conso') return drink;
       if (!!allDrinksObject[drink.drinkKey]) return drink;
       if (drink.drinkKey === 'Stella-25-5') {
-        console.log('FUCKING DRINK BUT DONE BABY', JSON.stringify(drink, null, 2));
         drinksFixed.push({
           ...drink,
           drinkKey: 'Stella ',
@@ -288,7 +285,6 @@ export const migrateMissingDrinkKey = () => {
         };
       }
       if (drink.drinkKey === 'Stella -33-5') {
-        console.log('FUCKING DRINK BUT DONE BABY', JSON.stringify(drink, null, 2));
         drinksFixed.push({
           ...drink,
           drinkKey: 'Stella ',
@@ -298,7 +294,6 @@ export const migrateMissingDrinkKey = () => {
           drinkKey: 'Stella ',
         };
       }
-      console.log('FUCKING DRINK MISTAKE BABY', JSON.stringify(drink, null, 2));
       drinksWithMistake.push(drink);
       return drink;
     });
@@ -313,7 +308,6 @@ export const migrateMissingDrinkKey = () => {
           },
         });
       }
-      console.log('OH YEAH BABY', JSON.stringify(drinksFixed, null, 2));
       storage.set('@Drinks', JSON.stringify(newDrinks));
     }
     if (!drinksWithMistake.length) {
@@ -394,7 +388,6 @@ export async function reconciliateDrinksToDB() {
     const unsyncedDrinks = drinks.filter((drink) => !drink.isSyncedWithDB);
 
     if (unsyncedDrinks.length) {
-      console.log('unsyncedDrinks', unsyncedDrinks);
       await API.post({
         path: '/consommation/sync',
         body: {

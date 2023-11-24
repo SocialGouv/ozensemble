@@ -344,7 +344,6 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
     <View className="flex flex-row shrink grow-0" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <TouchableWithoutFeedback
         onPress={() => {
-          console.log('ON PRESS');
           setTimestampSelected(null);
         }}>
         <>

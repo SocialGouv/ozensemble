@@ -191,10 +191,14 @@ export const derivedDataFromDrinksState = selector({
           // example: 4 units per week that I can drink in 7 days: average of 0.57 units per day
           // if I drink 1 unit on Monday, I'm already above the average
           // so we say: the minimum is 1 unit per day
-          if (dailyDoses[day] > Math.max(1, goalStartOfWeek.dosesByDrinkingDay)) {
+          if (dailyDoses[day] > Math.ceil(goalStartOfWeek.dosesByDrinkingDay)) {
             calendarDays[day] = 'goalExistsButNotRespected';
           } else {
             calendarDays[day] = 'goalExistsAndDosesWithinGoal';
+            // if (weeklyDoses[startOfWeek] > goalStartOfWeek.dosesPerWeek) {
+            //   calendarDays[day] = 'goalExistsButNotRespected';
+            // } else {
+            // }
           }
         }
       }

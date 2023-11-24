@@ -117,12 +117,10 @@ const Reminder = ({
   };
 
   const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = 'day', weekDay = 0) => {
-    console.log('SCHEDULE MAN');
     NotificationService.cancelAll();
 
     const weekDayName = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'][weekDay];
 
-    console.log('WITH TOKEN MAN ?', storage.getString('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN'));
     if (!storage.getString('STORAGE_KEY_PUSH_NOTIFICATION_TOKEN')) return;
 
     const existingId = storage.getString(STORAGE_KEY_REMINDER_ID);
@@ -130,7 +128,6 @@ const Reminder = ({
 
     const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
     if (!isConnected) return setReminderErrorAlertVisible(true);
-    console.log('SAVE NOTIFICATION');
     const res = await API.put({
       path: '/reminder',
       body: {

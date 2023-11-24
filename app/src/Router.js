@@ -271,7 +271,7 @@ const Router = () => {
         </RouterStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
-      {/* <CustomBootsplash /> */}
+      <CustomBootsplash />
     </>
   );
 };

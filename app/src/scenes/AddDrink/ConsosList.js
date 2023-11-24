@@ -116,7 +116,6 @@ const ConsosList = ({ navigation, route }) => {
             body.price = drinkFromCatalog.price;
             body.volume = drinkFromCatalog.volume;
           } else {
-            console.log('NO_CONSO', newDrink);
             body.quantity = 0;
           }
           const response = await API.post({
