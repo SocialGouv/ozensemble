@@ -10,7 +10,7 @@ export const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
   if (!isConnected || test) {
     await new Promise((res) => setTimeout(res, 1500));
-    Alert.alert('Pas de réseau', 'Veuillez vérifier votre connexion');
+    // Alert.alert('Pas de réseau', 'Veuillez vérifier votre connexion');
     return false;
   }
   return true;
