@@ -1,3 +1,12 @@
+## [1.131.5](https://github.com/SocialGouv/ozensemble/compare/v1.131.4...v1.131.5) (2023-11-24)
+
+
+### Bug Fixes
+
+* confettis ([6f3051d](https://github.com/SocialGouv/ozensemble/commit/6f3051d7147fed49e9bbf285fad371991209b788))
+* no network alert ([3d80de3](https://github.com/SocialGouv/ozensemble/commit/3d80de3ee87c35d818b14c667f0d418733385153))
+* safe area view ([5a5f2db](https://github.com/SocialGouv/ozensemble/commit/5a5f2db0c50f1e68388c94e7946e07a68f089eb1))
+
 ## [1.131.4](https://github.com/SocialGouv/ozensemble/compare/v1.131.3...v1.131.4) (2023-11-21)
 
 
