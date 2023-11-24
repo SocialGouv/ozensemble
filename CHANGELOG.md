@@ -1,3 +1,10 @@
+## [1.132.3](https://github.com/SocialGouv/ozensemble/compare/v1.132.2...v1.132.3) (2023-11-24)
+
+
+### Bug Fixes
+
+* patch version ([72b11e3](https://github.com/SocialGouv/ozensemble/commit/72b11e39d445e702c0479045a7d87df575a936d7))
+
 ## [1.132.2](https://github.com/SocialGouv/ozensemble/compare/v1.132.1...v1.132.2) (2023-11-24)
 
 
