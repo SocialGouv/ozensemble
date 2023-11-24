@@ -1,3 +1,10 @@
+## [1.132.2](https://github.com/SocialGouv/ozensemble/compare/v1.132.1...v1.132.2) (2023-11-24)
+
+
+### Bug Fixes
+
+* must save new gains ([6fe3188](https://github.com/SocialGouv/ozensemble/commit/6fe31880793459b99a8e04bea87718dfedc8e809))
+
 ## [1.132.1](https://github.com/SocialGouv/ozensemble/compare/v1.132.0...v1.132.1) (2023-11-24)
 
 
