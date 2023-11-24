@@ -1,3 +1,10 @@
+## [1.132.1](https://github.com/SocialGouv/ozensemble/compare/v1.132.0...v1.132.1) (2023-11-24)
+
+
+### Bug Fixes
+
+* if less than one conso average per day, use Math.ceil ([6bbe32f](https://github.com/SocialGouv/ozensemble/commit/6bbe32fbf58cfe4cd75270993107127147077f67))
+
 # [1.132.0](https://github.com/SocialGouv/ozensemble/compare/v1.131.5...v1.132.0) (2023-11-24)
 
 
