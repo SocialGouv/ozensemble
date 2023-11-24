@@ -1,3 +1,10 @@
+# [1.132.0](https://github.com/SocialGouv/ozensemble/compare/v1.131.5...v1.132.0) (2023-11-24)
+
+
+### Features
+
+* sync drinks with db on app launch ([462a294](https://github.com/SocialGouv/ozensemble/commit/462a2941cecee82d8e60aa9ff186bdcb7754cc58))
+
 ## [1.131.5](https://github.com/SocialGouv/ozensemble/compare/v1.131.4...v1.131.5) (2023-11-24)
 
 
