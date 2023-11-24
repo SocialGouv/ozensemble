@@ -1,107 +1,93 @@
-import React, { useEffect, useMemo } from 'react';
-import Animated from 'react-native-reanimated';
+import React, { useEffect } from 'react';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import ConfettiImage from '../assets/images/confetti.png';
 
 const NUM_CONFETTI = 100;
-const COLORS = ['#107ed5', '#DE285E', '#39CEC1', '#09aec5'];
+const COLORS = ['#107ed5', '#DE285E', '#39CEC1', '#09aec5', '#FCBC49'];
 const CONFETTI_SIZE = 16;
 
-const createConfetti = () => {
-  const { width: screenWidth } = Dimensions.get('screen');
+const Confettis = () => {
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+  const confettiProps = Array.from({ length: NUM_CONFETTI }, (_, i) => ({
+    initialX: Math.random() * screenWidth,
+    initialY: -screenHeight - 100, // Start off-screen
+    xVel: Math.random() * 400 - 200,
+    yVel: Math.random() * 150 + 400,
+    angleVel: (Math.random() * 3 - 1.5) * Math.PI,
+    delay: Math.floor(i / 15) * 0.3,
+    elasticity: Math.random() * 0.3 + 0.1,
+    color: COLORS[i % COLORS.length],
+  }));
 
-  return [...new Array(NUM_CONFETTI)].map((_, i) => {
-    const clock = new Animated.Clock();
-
-    return {
-      key: i,
-      // Spawn confetti from two different sources, a quarter
-      // from the left and a quarter from the right edge of the screen.
-      x: new Animated.Value(screenWidth * (i % 2 ? 0.25 : 0.75) - CONFETTI_SIZE / 2),
-      y: new Animated.Value(-screenWidth - 100),
-      angle: new Animated.Value(0),
-      xVel: new Animated.Value(Math.random() * 400 - 200),
-      yVel: new Animated.Value(Math.random() * 150 + 400),
-      angleVel: new Animated.Value((Math.random() * 3 - 1.5) * Math.PI),
-      delay: new Animated.Value(Math.floor(i / 15) * 0.3),
-      elasticity: Math.random() * 0.3 + 0.1,
-      color: COLORS[i % COLORS.length],
-      clock,
-    };
-  });
-};
-
-const Confetti = () => {
-  const confetti = useMemo(createConfetti, []);
-  // cleanup function to stop all clocks when the component is unmounted
-  useEffect(() => {
-    return () => {
-      confetti.forEach(({ clock }) => {
-        Animated.stopClock(clock);
-      });
-    };
-  }, [confetti]);
   return (
     <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-      {confetti.map(({ key, x, y, angle, xVel, yVel, angleVel, color, elasticity, delay, clock }) => {
-        return (
-          <React.Fragment key={key}>
-            <Animated.Code>
-              {() => {
-                const { startClock, set, add, sub, divide, diff, multiply, cond, clockRunning, greaterThan, lessThan } =
-                  Animated;
-                const { width: screenWidth } = Dimensions.get('window');
-
-                const timeDiff = diff(clock);
-                const dt = divide(timeDiff, 1000);
-                const dy = multiply(dt, yVel);
-                const dx = multiply(dt, xVel);
-                const dAngle = multiply(dt, angleVel);
-
-                return cond(
-                  clockRunning(clock),
-                  [
-                    cond(
-                      greaterThan(delay, 0),
-                      [set(delay, sub(delay, dt))],
-                      [set(y, add(y, dy)), set(x, add(x, dx)), set(angle, add(angle, dAngle))]
-                    ),
-                    cond(greaterThan(x, screenWidth - CONFETTI_SIZE), [
-                      set(x, screenWidth - CONFETTI_SIZE),
-                      set(xVel, multiply(xVel, -elasticity)),
-                    ]),
-                    cond(lessThan(x, 0), [set(x, 0), set(xVel, multiply(xVel, -elasticity))]),
-                  ],
-                  [startClock(clock), timeDiff]
-                );
-              }}
-            </Animated.Code>
-            <Animated.View
-              style={[
-                styles.confettiContainer,
-                {
-                  transform: [
-                    { translateX: x },
-                    { translateY: y },
-                    { rotate: angle },
-                    { rotateX: angle },
-                    { rotateY: angle },
-                  ],
-                },
-              ]}>
-              <FastImage tintColor={color} source={ConfettiImage} style={styles.confetti} />
-            </Animated.View>
-          </React.Fragment>
-        );
-      })}
+      {confettiProps.map((props, index) => (
+        <Confetti key={index} {...props} />
+      ))}
     </View>
+  );
+};
+const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity, color }) => {
+  const { width: screenWidth } = Dimensions.get('screen');
+  const x = useSharedValue(initialX);
+  const y = useSharedValue(initialY);
+  const angle = useSharedValue(0); // Assuming initial angle is 0
+
+  useEffect(() => {
+    let frameId;
+
+    const animate = () => {
+      'worklet';
+      if (delay > 0) {
+        delay -= 1 / 60; // Assuming 60 FPS
+      } else {
+        x.value += xVel / 60;
+        y.value += yVel / 60;
+        angle.value += angleVel / 60;
+
+        // Check and handle left and right boundaries
+        if (x.value > screenWidth - CONFETTI_SIZE) {
+          x.value = screenWidth - CONFETTI_SIZE; // Adjust position
+          xVel *= -elasticity; // Reverse velocity
+        } else if (x.value < 0) {
+          x.value = 0; // Adjust position
+          xVel *= -elasticity; // Reverse velocity
+        }
+      }
+
+      frameId = requestAnimationFrame(animate);
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+    };
+  }, []);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [{ translateX: x.value }, { translateY: y.value }, { rotate: `${angle.value}rad` }],
+      backgroundColor: color,
+    };
+  });
+
+  return (
+    <Animated.View style={[styles.confettiContainer, animatedStyles]}>
+      <FastImage source={ConfettiImage} style={styles.confetti} />
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   confettiContainer: {
     position: 'absolute',
+    width: CONFETTI_SIZE,
+    height: CONFETTI_SIZE,
     top: 0,
     left: 0,
   },
@@ -111,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Confetti;
+export default Confettis;
