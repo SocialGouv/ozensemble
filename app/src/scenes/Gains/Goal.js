@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import CalendarIllus from '../../components/illustrations/CalendarIllus';
@@ -27,7 +28,7 @@ import ModalWrongValue from '../../components/ModalWrongValue';
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
-
+  const previousDaysWithGoalNoDrink = useRef(daysWithGoalNoDrink);
   const toggleDayWithGoalNoDrink = (day) => {
     const newState = daysWithGoalNoDrink.includes(day)
       ? daysWithGoalNoDrink.filter((d) => d !== day)
@@ -44,6 +45,7 @@ const Goal = ({ navigation }) => {
   }, [previousDrinksPerWeek]);
 
   const [drinksByWeek, setDrinksByWeek] = useRecoilState(drinksByWeekState);
+  const previousDrinksByWeek = useRef(drinksByWeek);
 
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
 
@@ -72,6 +74,27 @@ const Goal = ({ navigation }) => {
       ]);
     }
   };
+
+  const hasUnsavedChanges =
+    JSON.stringify(previousDaysWithGoalNoDrink.current) !== JSON.stringify(daysWithGoalNoDrink) ||
+    JSON.stringify(previousDrinksByWeek.current) !== JSON.stringify(drinksByWeek);
+  React.useEffect(
+    () =>
+      navigation.addListener('beforeRemove', (e) => {
+        if (!hasUnsavedChanges) {
+          // If we don't have unsaved changes, then we don't need to do anything
+          return;
+        }
+
+        // Prevent default behavior of leaving the screen
+        e.preventDefault();
+
+        // Prompt the user before leaving the screen
+        setModalValidationVisible(true);
+      }),
+    [navigation, hasUnsavedChanges]
+  );
+
   return (
     <>
       <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
