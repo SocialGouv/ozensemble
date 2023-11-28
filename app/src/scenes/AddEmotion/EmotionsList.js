@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager } from 'react-native';
+import { BackHandler, Platform, View, Text, TouchableOpacity, TextInput, InteractionManager } from 'react-native';
 import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -13,14 +13,14 @@ import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
 import { consolidatedCatalogObjectSelector, drinksState, ownDrinksCatalogState } from '../../recoil/consos';
 import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
-import DateAndTimePickers from './DateAndTimePickers';
+import DateAndTimePickers from '../AddDrink/DateAndTimePickers';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import dayjs from 'dayjs';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
 import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
-import AddOwnDrink from './AddOwnDrink';
+import AddOwnDrink from '../AddDrink/AddOwnDrink';
 import { capture } from '../../services/sentry';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
@@ -38,7 +38,12 @@ const drinksPerCurrenTimestampSelector = selectorFamily({
     },
 });
 
-const ConsosList = ({ navigation, route }) => {
+const EmotionsList = ({ navigation, route }) => {
+  const peopleCategories = {};
+  const placesCategories = {};
+  const eventsCategories = {};
+  const needsCategories = {};
+  const [dayNote, setDayNote] = useState("");
   const timestamp = route?.params?.timestamp || new Date();
   const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => timestamp);
   const drinksPerCurrentaTimestamp = useRecoilValue(
@@ -77,8 +82,7 @@ const ConsosList = ({ navigation, route }) => {
     }
   };
   const onValidateConsos = async () => {
-    console.log("bah je suis là");
-    navigation.replace('EMOTIONS_LIST', { timestamp: addDrinkModalTimestamp });
+    onClose();
     await new Promise((resolve) => setTimeout(resolve, 100));
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
@@ -140,7 +144,7 @@ const ConsosList = ({ navigation, route }) => {
           capture(e, {
             extra: {
               Notes: 'Add conso in ConsoList',
-              newDrink,
+              drink,
               consolidatedCatalogObject,
             },
             user: {
@@ -192,6 +196,38 @@ const ConsosList = ({ navigation, route }) => {
             addDrinkModalTimestamp={addDrinkModalTimestamp}
             setDrinkModalTimestamp={setDrinkModalTimestamp}
           />
+          <View className="mb-5">
+        <TextStyled bold>Comment s'est passée votre journée ?</TextStyled>
+        <TextInput
+          className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
+          placeholder="Noter les événements qui sont arrivés ce jour vous aidera par la suite à mieux identifier les situations à risque pour votre consommation"
+          keyboardType="decimal-pad"
+          value={String(dayNote)}
+          onChangeText={(value) => setDayNote(value)}
+        />
+      </View>
+          <View className="mb-5">
+        <TextStyled bold>Note du jour</TextStyled>
+        <TextInput
+          className="bg-[#F3F3F6] h-14 rounded-lg border border-[#DBDBE9] text-[#4030A5] px-4 my-2"
+          placeholder="Noter les événements qui sont arrivés ce jour vous aidera par la suite à mieux identifier les situations à risque pour votre consommation"
+          keyboardType="decimal-pad"
+          value={String(dayNote)}
+          onChangeText={(value) => setDayNote(value)}
+        />
+      </View>
+      <View className="mb-5">
+        <TextStyled bold>Contexte de vos consommations</TextStyled>
+        <TouchableOpacity
+                  onPress={() => {
+                    setOwnDrinksModalVisible(true);
+                    setUpdateOwnDrinkKey(null);
+                  }}>
+                  <Text className="text-[#4030A5] text-center underline text-base mt-2">
+                    Seul
+                  </Text>
+                </TouchableOpacity>
+      </View>
           <ButtonPrimary
             className="mt-5 mb-7 self-center"
             small
@@ -370,4 +406,4 @@ const MarginBottom = styled.View`
   flex-shrink: 0;
 `;
 
-export default ConsosList;
+export default EmotionsList;

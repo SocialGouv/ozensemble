@@ -42,6 +42,7 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import Official from './scenes/Infos/Official';
+import EmotionsList from './scenes/AddEmotion/EmotionsList';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -156,7 +157,7 @@ const App = () => {
       <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
       <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
       <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
-
+      <AppStack.Screen name="EMOTIONS_LIST" component={EmotionsList} />
       <AppStack.Screen
         name="ADD_DRINK"
         component={AddDrinkNavigator}
