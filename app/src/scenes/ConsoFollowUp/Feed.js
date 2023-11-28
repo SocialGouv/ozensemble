@@ -102,7 +102,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
         },
       }).then((response) => {
         if (response.ok) {
-          setGlobalDrinksState((state) => {
+          setDrinks((state) => {
             return state.map((drink) => {
               if (drink.id === noConso.id) {
                 return {
