@@ -139,7 +139,7 @@ const ConsosList = ({ navigation, route }) => {
           capture(e, {
             extra: {
               Notes: 'Add conso in ConsoList',
-              drink,
+              newDrink,
               consolidatedCatalogObject,
             },
             user: {
