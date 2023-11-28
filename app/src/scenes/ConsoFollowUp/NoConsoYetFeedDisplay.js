@@ -49,7 +49,7 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
             date: noConso.timestamp,
           },
         }).then((response) => {
-          if (response.ok) {
+          if (response && response.ok) {
             setGlobalDrinksState((state) => {
               return state.map((drink) => {
                 if (drink.id === noConso.id) {
@@ -61,6 +61,9 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
                 return drink;
               });
             });
+          }
+          else{
+            console.error("did not get a proper response");
           }
         });
       }}
