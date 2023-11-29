@@ -1,3 +1,10 @@
+## [1.132.4](https://github.com/SocialGouv/ozensemble/compare/v1.132.3...v1.132.4) (2023-11-29)
+
+
+### Bug Fixes
+
+* change drink to newDrink ([#478](https://github.com/SocialGouv/ozensemble/issues/478)) ([db3b737](https://github.com/SocialGouv/ozensemble/commit/db3b737eaa1233c62f3bbdd38cf35e7e1c2e28c5))
+
 ## [1.132.3](https://github.com/SocialGouv/ozensemble/compare/v1.132.2...v1.132.3) (2023-11-24)
 
 
