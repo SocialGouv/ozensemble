@@ -1,3 +1,10 @@
+## [1.132.6](https://github.com/SocialGouv/ozensemble/compare/v1.132.5...v1.132.6) (2023-11-29)
+
+
+### Bug Fixes
+
+* setGlobalDrinksState to setDrinks ([#476](https://github.com/SocialGouv/ozensemble/issues/476)) ([7f4ed9d](https://github.com/SocialGouv/ozensemble/commit/7f4ed9dacc155cfe7a8fc22795429c17fd07f861))
+
 ## [1.132.5](https://github.com/SocialGouv/ozensemble/compare/v1.132.4...v1.132.5) (2023-11-29)
 
 
