@@ -166,10 +166,10 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-husky@^8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.1.tgz#511cb3e57de3e3190514ae49ed50f6bc3f50b3e9"
-  integrity sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==
+husky@^8.0.3:
+  version "8.0.3"
+  resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.3.tgz#4936d7212e46d1dea28fef29bb3a108872cd9184"
+  integrity sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==
 
 is-ci@^3.0.1:
   version "3.0.1"
@@ -235,10 +235,10 @@ mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-node-talisman@^1.29.3:
-  version "1.29.3"
-  resolved "https://registry.yarnpkg.com/node-talisman/-/node-talisman-1.29.3.tgz#9d275df5199de4dac5c4ebae076ebba11d413c45"
-  integrity sha512-B0l8TJVUf9ND72CbpVKlf9SFTmOpONXm2ckSopJ4vaFtuZRJmH4dnLPo2pk63ABG0TiA6x4huqLCy9r1wOtPbQ==
+node-talisman@^1.29.10:
+  version "1.29.10"
+  resolved "https://registry.yarnpkg.com/node-talisman/-/node-talisman-1.29.10.tgz#353ff5ab06a3ce9de7143ddf6d66bb76e391d090"
+  integrity sha512-voHG7oGtaQkj0I5okVY/VPTb+gqENvnlba4jSysaYuxGTqZTZiBJoW6TkS4a2xXAt6kcxbDOQTqIMPSSHel3cw==
   dependencies:
     clogy "^1.3.3"
     exec-sh "^0.3.4"
