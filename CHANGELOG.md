@@ -1,3 +1,10 @@
+## [1.132.5](https://github.com/SocialGouv/ozensemble/compare/v1.132.4...v1.132.5) (2023-11-29)
+
+
+### Bug Fixes
+
+* `NoConsoYetFeedDisplay` ok undefined ([#477](https://github.com/SocialGouv/ozensemble/issues/477)) ([2ed5adf](https://github.com/SocialGouv/ozensemble/commit/2ed5adff4ef356b345c2f7b136d3b3d69d89c781))
+
 ## [1.132.4](https://github.com/SocialGouv/ozensemble/compare/v1.132.3...v1.132.4) (2023-11-29)
 
 
