@@ -5,7 +5,7 @@ import ConsosList from './ConsosList';
 const AddDrinkStack = createStackNavigator();
 const AddDrinkNavigator = ({ route }) => {
   return (
-    <AddDrinkStack.Navigator screenOptions={{ headerShown: false }} mode="modal" initialRouteName="CONSOS_LIST">
+    <AddDrinkStack.Navigator screenOptions={{ headerShown: false }} presentation="modal" initialRouteName="CONSOS_LIST">
       <AddDrinkStack.Screen
         initialParams={{ timestamp: route?.params?.timestamp, parent: route?.params?.parent }}
         name="CONSOS_LIST">

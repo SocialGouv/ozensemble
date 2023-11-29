@@ -237,7 +237,7 @@ const Router = () => {
         linking={deepLinkingConfig}>
         {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
         <RouterStack.Navigator
-          mode="modal"
+          presentation="modal"
           screenOptions={{
             headerShown: false,
           }}>
