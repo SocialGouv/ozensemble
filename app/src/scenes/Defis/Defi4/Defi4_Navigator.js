@@ -19,7 +19,7 @@ const Defi4_Stack = createStackNavigator();
 const Defi4_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <Defi4_Stack.Navigator headerMode="none" initialRouteName={'DEFI4_MENU'}>
+      <Defi4_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI4_MENU'}>
         <Defi4_Stack.Screen name="DEFI4_MENU" component={Defi4_Menu} />
         <Defi4_Stack.Screen
           name="DEFI4_DAY_1"

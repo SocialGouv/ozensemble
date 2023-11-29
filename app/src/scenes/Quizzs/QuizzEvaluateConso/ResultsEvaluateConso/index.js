@@ -36,7 +36,7 @@ const ResultsEvaluateConsoNavigator = ({ route }) => {
 
   if (!resultKey) return null;
   return (
-    <QuizzEvaluateResultStack.Navigator headerMode="none">
+    <QuizzEvaluateResultStack.Navigator screenOptions={{ headerShown: false }}>
       <QuizzEvaluateResultStack.Screen
         name="RESULT"
         initialParams={{

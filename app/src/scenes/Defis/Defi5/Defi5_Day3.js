@@ -24,7 +24,7 @@ const Defi5_Day3_Stack = createStackNavigator();
 
 const Defi5_Day3 = ({ route }) => {
   return (
-    <Defi5_Day3_Stack.Navigator headerMode="none" initialRouteName="DEFI5_DAY3_ONBAORDING">
+    <Defi5_Day3_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="DEFI5_DAY3_ONBAORDING">
       <Defi5_Day3_Stack.Screen
         name="DEFI5_DAY3_ONBAORDING"
         component={Defi5_Day3_Onboarding}

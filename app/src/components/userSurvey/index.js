@@ -69,8 +69,7 @@ const QuizzUserSurvey = ({ questions, recoilAnswersState, route, Results, event 
   return (
     <Background color="#39cec0" withSwiperContainer neverBottom>
       <QuizzAndResultsStack.Navigator
-        screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-        headerMode="none"
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f9f9f9' } }}
         initialRouteName={route?.params?.initialRouteName}
         initialParams={route?.params}>
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
@@ -108,8 +107,7 @@ const QuizzQuestions = ({
   return (
     <>
       <QuizzStack.Navigator
-        screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-        headerMode="none"
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f9f9f9' } }}
         initialRouteName="QUIZZ_QUESTION_1">
         {questions.map((content, index) => (
           <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>

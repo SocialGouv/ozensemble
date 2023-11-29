@@ -20,7 +20,7 @@ const DefisNavigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <DefisStack.Navigator headerMode="none" initialRouteName="DEFIS_MENU">
+      <DefisStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="DEFIS_MENU">
         <DefisStack.Screen
           name="ONBOARDING_QUIZZ"
           component={QuizzOnboarding}

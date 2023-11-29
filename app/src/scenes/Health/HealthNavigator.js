@@ -26,7 +26,7 @@ const HealthNavigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <HealthStack.Navigator headerMode="none" initialRouteName="HEALTH">
+      <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH">
         <HealthStack.Screen
           name="ONBOARDING_QUIZZ"
           component={QuizzOnboarding}

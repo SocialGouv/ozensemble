@@ -44,7 +44,11 @@ const QuizzRiskSituations = ({ navigation, route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <QuizzRiskSituationsStack.Navigator headerMode="none" screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}>
+    <QuizzRiskSituationsStack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}>
       <QuizzRiskSituationsStack.Screen name="QUIZZ_ONBOARDING">
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="Identifier mes situations à risques">

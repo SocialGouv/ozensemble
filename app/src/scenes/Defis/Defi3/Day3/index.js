@@ -52,8 +52,10 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
 
   return (
     <QuestionnaireDefi3Day3Stack.Navigator
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-      headerMode="none"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuestionnaireDefi3Day3Stack.Screen name="EXPLICATIONS">
         {({ navigation }) => (

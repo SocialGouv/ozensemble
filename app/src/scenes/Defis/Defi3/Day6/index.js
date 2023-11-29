@@ -26,8 +26,10 @@ const Defi3_Day6 = ({ route }) => {
 
   return (
     <Day6Stack.Navigator
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-      headerMode="none"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}
       initialRouteName={route?.params?.initialRouteName}>
       <Day6Stack.Screen name="EXPLICATIONS">
         {({ navigation }) => (

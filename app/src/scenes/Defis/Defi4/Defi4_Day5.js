@@ -58,8 +58,10 @@ const Defi4_Day5 = ({ navigation, route }) => {
 
   return (
     <QuestionnaireDefi4Day5Stack.Navigator
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-      headerMode="none"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuestionnaireDefi4Day5Stack.Screen name="EXPLICATIONS">
         {({ navigation }) => (

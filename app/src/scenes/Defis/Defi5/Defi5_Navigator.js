@@ -26,7 +26,7 @@ const Defi5_Stack = createStackNavigator();
 const Defi5_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <Defi5_Stack.Navigator headerMode="none" initialRouteName={'DEFI5_MENU'}>
+      <Defi5_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI5_MENU'}>
         <Defi5_Stack.Screen name="DEFI5_MENU" component={Defi5_Menu} />
         <Defi5_Stack.Screen
           name="DEFI5_DAY_1"

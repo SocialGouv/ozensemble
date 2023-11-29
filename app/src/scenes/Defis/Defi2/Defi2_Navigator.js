@@ -20,7 +20,7 @@ const Defi2_Stack = createStackNavigator();
 const Defi2_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <Defi2_Stack.Navigator headerMode="none" initialRouteName={'DEFI2_MENU'}>
+      <Defi2_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI2_MENU'}>
         <Defi2_Stack.Screen name="DEFI2_MENU" component={Defi2_Menu} />
         <Defi2_Stack.Screen name="TO_SAY_NO" component={ToSayNo} />
         <Defi2_Stack.Screen name="ALCOHOL_AND_NORMS" component={AlcoholAndNorms} />

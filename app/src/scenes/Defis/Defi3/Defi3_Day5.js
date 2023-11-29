@@ -22,8 +22,10 @@ const Defi3_Day5 = ({ route }) => {
 
   return (
     <QuizzStack.Navigator
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-      headerMode="none"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuizzStack.Screen name="EXPLICATIONS">
         {({ navigation }) => (

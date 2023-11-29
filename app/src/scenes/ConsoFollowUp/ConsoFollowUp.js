@@ -20,7 +20,7 @@ const ConsoFollowUpNavigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <ConsoFollowUpStack.Navigator headerMode="none" initialRouteName="CONSO_FOLLOW_UP">
+      <ConsoFollowUpStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CONSO_FOLLOW_UP">
         <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={Feed} />
         <ConsoFollowUpStack.Screen
           name="ONBOARDING_QUIZZ"
