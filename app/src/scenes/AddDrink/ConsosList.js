@@ -77,7 +77,6 @@ const ConsosList = ({ navigation, route }) => {
     }
   };
   const onValidateConsos = async () => {
-    console.log("bah je suis là");
     navigation.replace('EMOTIONS_LIST', { timestamp: addDrinkModalTimestamp });
     await new Promise((resolve) => setTimeout(resolve, 100));
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
