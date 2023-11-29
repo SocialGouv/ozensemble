@@ -1,4 +1,5 @@
 import { capture } from '../../services/sentry';
+
 // categories
 export const PEOPLE = 'people';
 export const PLACES = 'places';
@@ -94,3 +95,4 @@ for (const categoryKey of contextsCategories) {
     .filter((context) => context.categoryKey === categoryKey)
     .map(({ contextKey }) => contextKey);
 }
+export const peopleContextsKeys = contextKeysByCategory[PEOPLE];
