@@ -1,3 +1,10 @@
+# [1.133.0](https://github.com/SocialGouv/ozensemble/compare/v1.132.6...v1.133.0) (2023-11-30)
+
+
+### Features
+
+* react navigation 6 ([#479](https://github.com/SocialGouv/ozensemble/issues/479)) ([c95bdaa](https://github.com/SocialGouv/ozensemble/commit/c95bdaa52e3c0a91756e8f325db450f82ad6bf4e))
+
 ## [1.132.6](https://github.com/SocialGouv/ozensemble/compare/v1.132.5...v1.132.6) (2023-11-29)
 
 
