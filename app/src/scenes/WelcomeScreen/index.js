@@ -7,7 +7,7 @@ const WelcomeStack = createStackNavigator();
 
 const WelcomeScreen = () => {
   return (
-    <WelcomeStack.Navigator initialRouteName="WELCOME_START" headerMode="none">
+    <WelcomeStack.Navigator initialRouteName="WELCOME_START" screenOptions={{ headerShown: false }}>
       <WelcomeStack.Screen name="WELCOME_START" component={WelcomeStart} />
       <WelcomeStack.Screen name="WELCOME_SWIPER" component={WelcomeSwiper} />
     </WelcomeStack.Navigator>

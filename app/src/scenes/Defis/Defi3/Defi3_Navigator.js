@@ -20,7 +20,7 @@ const Defi3_Stack = createStackNavigator();
 const Defi3_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <Defi3_Stack.Navigator headerMode="none" initialRouteName={'DEFI3_MENU'}>
+      <Defi3_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI3_MENU'}>
         <Defi3_Stack.Screen name="DEFI3_MENU" component={Defi3_Menu} />
         <Defi3_Stack.Screen
           name="DEFI3_DAY_1"

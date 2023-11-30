@@ -33,7 +33,7 @@ const Defi4_Day4 = ({ route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <Defi4_Day4_Stack.Navigator headerMode="none" initialRouteName={'DAY4_MAIN'}>
+    <Defi4_Day4_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DAY4_MAIN'}>
       <Defi4_Day4_Stack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
       <Defi4_Day4_Stack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
       <Defi4_Day4_Stack.Screen name="GAINS_REMINDER" component={GainsReminder} />

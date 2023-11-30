@@ -36,7 +36,7 @@ const Infos = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <InfosStack.Navigator initialRouteName="INFOS_MENU" headerMode="none">
+      <InfosStack.Navigator initialRouteName="INFOS_MENU" screenOptions={{ headerShown: false }}>
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
         <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="MENTIONS_LEGALES">

@@ -27,8 +27,10 @@ const QuizzMotivations = ({ route }) => {
 
   return (
     <QuizzMotivationsStack.Navigator
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-      headerMode="none"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuizzMotivationsStack.Screen name="QUIZZ_QUESTIONS">
         {({ navigation }) => (

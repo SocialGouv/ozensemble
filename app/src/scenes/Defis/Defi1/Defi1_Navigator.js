@@ -22,7 +22,7 @@ const Defi1_Stack = createStackNavigator();
 const Defi1_Navigator = () => {
   return (
     <Defi1_Stack.Navigator
-      headerMode="none"
+      screenOptions={{ headerShown: false }}
       initialRouteName={storage.getString('@Defi1_StartedAt') ? 'DEFI1_MENU' : 'DEFI1_ONBOARDING'}>
       <Defi1_Stack.Screen name="DEFI1_ONBOARDING" component={Defi1_Onboarding} />
       <Defi1_Stack.Screen name="DEFI1_REMINDER" component={Defi1_Reminder} />

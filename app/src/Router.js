@@ -78,6 +78,7 @@ const TabsNavigator = ({ navigation }) => {
       <Tabs.Navigator
         initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
         lazy={false}
+        screenOptions={{ headerShown: false }}
         tabBarOptions={{
           activeTintColor: '#4030A5',
           inactiveTintColor: '#767676',
@@ -151,11 +152,7 @@ const App = () => {
   }, []);
 
   return (
-    <AppStack.Navigator
-      screenOptions={{
-        headerShown: false,
-      }}
-      initialRouteName={initialRouteName}>
+    <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
       <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
       <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
       <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
@@ -240,7 +237,7 @@ const Router = () => {
         linking={deepLinkingConfig}>
         {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
         <RouterStack.Navigator
-          mode="modal"
+          presentation="modal"
           screenOptions={{
             headerShown: false,
           }}>

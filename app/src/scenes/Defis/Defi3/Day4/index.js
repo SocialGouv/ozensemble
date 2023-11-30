@@ -17,8 +17,10 @@ const Defi3_Day4 = ({ route }) => {
 
   return (
     <Explicationstack.Navigator
-      screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-      headerMode="none"
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: '#f9f9f9' },
+      }}
       initialRouteName={route?.params?.initialRouteName}>
       <Explicationstack.Screen name="SCREEN1">
         {({ navigation }) => <Screen1 navigation={navigation} />}

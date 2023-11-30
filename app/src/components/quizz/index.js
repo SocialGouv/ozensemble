@@ -88,8 +88,7 @@ const Quizz = ({
   return (
     <Background color="#39cec0" withSwiperContainer>
       <QuizzAndResultsStack.Navigator
-        screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-        headerMode="none"
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f9f9f9' } }}
         initialRouteName={route?.params?.initialRouteName}
         initialParams={route?.params}>
         <QuizzAndResultsStack.Screen name="QUIZZ_QUESTIONS">
@@ -110,8 +109,7 @@ const QuizzQuestions = ({ progress, questions, answers, saveAnswer }) => {
       <BackButton onPress={navigation.goBack} marginLeft marginTop />
       <ProgressBar progress={progress} />
       <QuizzStack.Navigator
-        screenOptions={{ cardStyle: { backgroundColor: '#f9f9f9' } }}
-        headerMode="none"
+        screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f9f9f9' } }}
         initialRouteName="QUIZZ_QUESTION_1">
         {questions.map((content, index) => (
           <QuizzStack.Screen key={index} name={`QUIZZ_QUESTION_${index + 1}`}>

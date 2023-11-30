@@ -49,7 +49,7 @@ import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 const QuizzsStack = createStackNavigator();
 
 const QuizzsNavigator = () => (
-  <QuizzsStack.Navigator headerMode="none">
+  <QuizzsStack.Navigator screenOptions={{ headerShown: false }}>
     <QuizzsStack.Screen name="QUIZZ_MENU" component={QuizzMenu} />
     <QuizzsStack.Screen name="ONBOARDING_QUIZZ" component={QuizzOnboarding} />
     <QuizzsStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />

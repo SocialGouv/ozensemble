@@ -15,7 +15,7 @@ const Defi2_Day5_Navigator = ({ route }) => {
   }, [route?.params, isFocused]);
 
   return (
-    <Defi2Day5Stack.Navigator headerMode="none" initialRouteName={'DEFI2_DAY5_ONBOARDING'}>
+    <Defi2Day5Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI2_DAY5_ONBOARDING'}>
       <Defi2Day5Stack.Screen
         name="DEFI2_DAY5_ONBOARDING"
         component={Defi2_Day5_OnBoarding}
