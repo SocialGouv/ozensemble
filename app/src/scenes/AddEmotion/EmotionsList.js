@@ -74,22 +74,11 @@ const EmotionsList = ({ navigation, route }) => {
         return null; // Return null for cases where there's no specific icon
     }
   };
-  const onCancelEmotions = useCallback(() => {
-    navigation.replace('CONSOS_LIST');
-  }, [navigation]);
+
   return (
     <>
       <Container>
         <ModalContent style={{ backgroundColor: '#F3F3F6' }} ref={scrollRef} disableHorizontal>
-          <SafeAreaView>
-            <Container
-              className="py-6 px-6"
-              style={{ borderRadius: 0, backgroundColor: '#F3F3F6', flexDirection: 'row' }}>
-              <View style={{ borderRadius: 10, flex: 1, height: 10, backgroundColor: '#4030A5', marginRight: 5 }} />
-              <View style={{ borderRadius: 10, flex: 1, height: 10, backgroundColor: '#4030A5', marginRight: 5 }} />
-            </Container>
-          </SafeAreaView>
-
           <SubContainer>
             <TextStyled color="#4030A5" center bold>
               Comment s'est passée votre journée ?
@@ -282,7 +271,7 @@ const EmotionsList = ({ navigation, route }) => {
         </ModalContent>
         <ButtonsContainerSafe>
           <ButtonsContainer>
-            <BackButton content="Retour" bold onPress={onCancelEmotions} />
+            <BackButton content="Retour" bold onPress={navigation.goBack} />
             <ButtonPrimary content="Valider" onPress={onValidateEmotions} />
           </ButtonsContainer>
         </ButtonsContainerSafe>
