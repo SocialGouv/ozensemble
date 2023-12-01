@@ -1,16 +1,29 @@
 import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import Svg, { Rect,  Path } from 'react-native-svg';
 
-const StyledSvg = styled(Svg)``;
 
-const PleasureSmiley = ({ color = '#000', size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 52 52" {...props}>
+const PleasureSmiley = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={47}
+    height={47}
+    fill="none"
+    {...props}
+  >
+    <Rect width={47} height={47} fill="#39CEC1" rx={23.5} />
     <Path
-      d="M26 0a26 26 0 1 0 26 26A26.03 26.03 0 0 0 26 0Zm0 48.75a22.75 22.75 0 1 1 0-45.501 22.75 22.75 0 0 1 0 45.5ZM39.205 30.95A1.625 1.625 0 0 1 39 33.242a19.976 19.976 0 0 1-13 4.675 19.977 19.977 0 0 1-13-4.675 1.626 1.626 0 0 1 2.113-2.47A16.725 16.725 0 0 0 26 34.667a16.725 16.725 0 0 0 10.914-3.895 1.625 1.625 0 0 1 2.29.179h.001Zm-8.179-8.829a.813.813 0 1 1 1.132-1.165 3.495 3.495 0 0 0 4.875 0 .813.813 0 0 1 1.132 1.165 5.119 5.119 0 0 1-7.128 0h-.01Zm-17.17 0a.814.814 0 0 1 .548-1.413c.22 0 .43.09.584.248a3.494 3.494 0 0 0 4.875 0 .811.811 0 1 1 1.131 1.165 5.12 5.12 0 0 1-7.128 0h-.01Z"
-      fill={color}
+      stroke="#272727"
+      strokeLinecap="round"
+      strokeWidth={4}
+      d="M17 20c.008.06.082.123.116.174M31 20c.008.06.082.123.116.174"
     />
-  </StyledSvg>
-);
+    <Path
+      stroke="#272727"
+      strokeLinecap="round"
+      strokeWidth={3}
+      d="M18.292 29c.031.527.747 1.022 1.117 1.295.581.428 1.177.78 1.84 1.07 1.283.562 2.603.914 4.01.638 1.077-.21 1.985-.933 2.91-1.498.341-.208.708-.405.993-.69.118-.119.247-.318.338-.46.04-.063.27-.238.148-.178"
+    />
+  </Svg>
+)
 
 export default PleasureSmiley;

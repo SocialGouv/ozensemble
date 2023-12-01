@@ -7,9 +7,17 @@ export const EVENTS = 'events';
 export const NEEDS = 'needs';
 
 // context
-export const NO_CONSO = 'no-conso';
 export const ALONE = 'alone';
+export const WITHCLOSEONES = 'withcloseones';
+export const WITHCOLLEGUES = 'withcollegues';
+export const WITHDRINKINGBUDY = 'withdrinkingbudy';
+export const OTHER = 'other';
 export const HOME = 'home';
+export const BAR = 'bar';
+export const WORK = 'WORK';
+export const OUT = 'out';
+export const ATFRIENDS = 'atfriends';
+export const ATFAMILYS = 'atfamilys';
 export const PARTY = 'party';
 export const TASTE = 'taste';
 
@@ -43,7 +51,6 @@ export const getStyle = (contextKey, catalogObject) => {
   }
 };
 
-
 export const formatNewcontext = (name, contextKey) => ({
   categoryKey: `${name}`,
   contextKey: `${contextKey}`,
@@ -52,7 +59,6 @@ export const formatNewcontext = (name, contextKey) => ({
   active: true,
 });
 
-
 export const contextsCatalog = [
   {
     categoryKey: PEOPLE,
@@ -60,22 +66,69 @@ export const contextsCatalog = [
     displayFeed: 'seul',
   },
   {
+    categoryKey: PEOPLE,
+    contextKey: WITHCLOSEONES,
+    displayFeed: 'avec des proches',
+  },
+  {
+    categoryKey: PEOPLE,
+    contextKey: WITHCOLLEGUES,
+    displayFeed: 'avec des collègues',
+  },
+  {
+    categoryKey: PEOPLE,
+    contextKey: WITHDRINKINGBUDY,
+    displayFeed: 'avec des personnes avec qui je bois',
+  },
+  {
+    categoryKey: PEOPLE,
+    contextKey: OTHER,
+    displayFeed: 'autre',
+  },
+  {
     categoryKey: PLACES,
     contextKey: HOME,
     displayFeed: 'à la maison',
-
+  },
+  {
+    categoryKey: PLACES,
+    contextKey: BAR,
+    displayFeed: 'au bar',
+  },
+  {
+    categoryKey: PLACES,
+    contextKey: WORK,
+    displayFeed: 'au travail',
+  },
+  {
+    categoryKey: PLACES,
+    contextKey: OUT,
+    displayFeed: 'en extérieur',
+  },
+  {
+    categoryKey: PLACES,
+    contextKey: ATFRIENDS,
+    displayFeed: 'chez des amis',
+  },
+  {
+    categoryKey: PLACES,
+    contextKey: ATFAMILYS,
+    displayFeed: 'chez de la famille',
+  },
+  {
+    categoryKey: PLACES,
+    contextKey: OTHER,
+    displayFeed: 'autre',
   },
   {
     categoryKey: EVENTS,
     contextKey: PARTY,
     displayFeed: 'fête',
-
   },
   {
     categoryKey: NEEDS,
     contextKey: TASTE,
     displayFeed: 'le plaisir du goût',
-
   },
 ];
 
@@ -95,4 +148,3 @@ for (const categoryKey of contextsCategories) {
     .filter((context) => context.categoryKey === categoryKey)
     .map(({ contextKey }) => contextKey);
 }
-export const peopleContextsKeys = contextKeysByCategory[PEOPLE];
