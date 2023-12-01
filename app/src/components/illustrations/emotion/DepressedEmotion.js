@@ -1,16 +1,28 @@
 import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import Svg, { Rect,  Path } from 'react-native-svg';
 
-const StyledSvg = styled(Svg)``;
 
-const AngrySmiley = ({ color = '#000', size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 52 52" {...props}>
+ const DepressedEmotion = (props) => (
+  <Svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={47}
+    height={47}
+    fill="none"
+    {...props}
+  >
+    <Rect width={47} height={47} fill="#FC8383" rx={23.5} />
     <Path
-      d="M26 0a26 26 0 1 0 26 26A26.03 26.03 0 0 0 26 0Zm0 48.75a22.75 22.75 0 1 1 0-45.501 22.75 22.75 0 0 1 0 45.5Zm3.564-12.702a.813.813 0 0 1-1.132 1.165 3.494 3.494 0 0 0-4.875 0 .813.813 0 0 1-1.132-1.165 5.12 5.12 0 0 1 7.128 0h.011Zm6.262-14.382a.812.812 0 0 1 0 1.149l-1.468 1.468a2.443 2.443 0 1 1-2.941.633.804.804 0 0 1 .065-.102l.092-.093 3.092-3.055a.814.814 0 0 1 1.16 0ZM20.66 25.057a2.438 2.438 0 1 1-3.018-.78l-1.446-1.479a.812.812 0 1 1 1.138-1.132l3.19 3.19a.783.783 0 0 1 .141.18l-.005.021Z"
-      fill={color}
+      stroke="#272727"
+      strokeLinecap="round"
+      strokeWidth={4}
+      d="M17.17 19.032c-.013.06-.356.88-.342.94M30.829 19.027c.028.054.292.903.342.94"
     />
-  </StyledSvg>
-);
+    <Path
+      fill="#272727"
+      stroke="#272727"
+      d="M34.175 29c-8.008-6.934-20.55-2.913-21 0-.45 2.911 0 4 1 4s19.204.29 20 0c.795-.292.843-2.434 0-4Z"
+    />
+  </Svg>
+)
 
-export default AngrySmiley;
+export default DepressedEmotion;

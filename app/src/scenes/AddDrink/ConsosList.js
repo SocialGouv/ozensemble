@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager } from 'react-native';
+import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager, SafeAreaView } from 'react-native';
 import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -186,6 +186,12 @@ const ConsosList = ({ navigation, route }) => {
     <>
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
+          <SafeAreaView>
+            <SubContainer style={{ borderRadius: 0, backgroundColor: '#F3F3F6', flexDirection: 'row' }}>
+              <View style={{ borderRadius: 10, flex: 1, height: 10, backgroundColor: '#4030A5', marginRight: 5 }} />
+              <View style={{ borderRadius: 10, flex: 1, height: 10, backgroundColor: 'grey', marginRight: 5 }} />
+            </SubContainer>
+          </SafeAreaView>
           <Title>Sélectionnez vos consommations</Title>
           <DateAndTimePickers
             addDrinkModalTimestamp={addDrinkModalTimestamp}
@@ -321,6 +327,15 @@ const ConsosList = ({ navigation, route }) => {
   );
 };
 
+const SubContainer = styled.View`
+  border: #5150a215;
+  padding: 10px 5px;
+  margin-horizontal: ${defaultPaddingFontScale()}px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  elevation: 5;
+  background-color: #f9f9f9;
+`;
 const BackButton = styled(GoBackButtonText)`
   margin-right: 0;
 `;
