@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Activities from './components/illustrations/Activities';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
 import GuidanceIcon from './components/illustrations/GuidanceIcon';
@@ -157,16 +157,14 @@ const App = () => {
       <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
       <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
       <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
-      <AppStack.Screen name="EMOTIONS_LIST" component={EmotionsList} />
       <AppStack.Screen
         name="ADD_DRINK"
         component={AddDrinkNavigator}
         options={{
-          stackPresentation: 'fullScreenModal',
+          presentation: 'modal',
           headerShown: false,
         }}
       />
-
       <AppStack.Screen name="TABS" component={TabsNavigator} />
     </AppStack.Navigator>
   );
