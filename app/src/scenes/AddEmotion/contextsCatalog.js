@@ -1,26 +1,5 @@
 import { capture } from '../../services/sentry';
 
-// categories
-export const PEOPLE = 'people';
-export const PLACES = 'places';
-export const EVENTS = 'events';
-export const NEEDS = 'needs';
-
-// context
-export const ALONE = 'alone';
-export const WITHCLOSEONES = 'withcloseones';
-export const WITHCOLLEGUES = 'withcollegues';
-export const WITHDRINKINGBUDY = 'withdrinkingbudy';
-export const OTHER = 'other';
-export const HOME = 'home';
-export const BAR = 'bar';
-export const WORK = 'WORK';
-export const OUT = 'out';
-export const ATFRIENDS = 'atfriends';
-export const ATFAMILYS = 'atfamilys';
-export const PARTY = 'party';
-export const TASTE = 'taste';
-
 export const getDisplayName = (contextKey, catalogObject) => {
   try {
     const context = catalogObject[contextKey];
@@ -60,91 +39,211 @@ export const formatNewcontext = (name, contextKey) => ({
 });
 
 export const contextsCatalog = [
+  // People
   {
-    categoryKey: PEOPLE,
-    contextKey: ALONE,
+    categoryKey: 'people',
+    contextKey: 'alone',
     displayFeed: 'seul',
   },
   {
-    categoryKey: PEOPLE,
-    contextKey: WITHCLOSEONES,
+    categoryKey: 'people',
+    contextKey: 'withcloseones',
     displayFeed: 'avec des proches',
   },
   {
-    categoryKey: PEOPLE,
-    contextKey: WITHCOLLEGUES,
+    categoryKey: 'people',
+    contextKey: 'withcolleagues',
     displayFeed: 'avec des collègues',
   },
   {
-    categoryKey: PEOPLE,
-    contextKey: WITHDRINKINGBUDY,
+    categoryKey: 'people',
+    contextKey: 'withdrinkingbuddy',
     displayFeed: 'avec des personnes avec qui je bois',
   },
   {
-    categoryKey: PEOPLE,
-    contextKey: OTHER,
+    categoryKey: 'people',
+    contextKey: 'other',
     displayFeed: 'autre',
   },
+
+  // Places
   {
-    categoryKey: PLACES,
-    contextKey: HOME,
+    categoryKey: 'places',
+    contextKey: 'home',
     displayFeed: 'à la maison',
   },
   {
-    categoryKey: PLACES,
-    contextKey: BAR,
+    categoryKey: 'places',
+    contextKey: 'bar',
     displayFeed: 'au bar',
   },
   {
-    categoryKey: PLACES,
-    contextKey: WORK,
+    categoryKey: 'places',
+    contextKey: 'work',
     displayFeed: 'au travail',
   },
   {
-    categoryKey: PLACES,
-    contextKey: OUT,
+    categoryKey: 'places',
+    contextKey: 'out',
     displayFeed: 'en extérieur',
   },
   {
-    categoryKey: PLACES,
-    contextKey: ATFRIENDS,
+    categoryKey: 'places',
+    contextKey: 'atfriends',
     displayFeed: 'chez des amis',
   },
   {
-    categoryKey: PLACES,
-    contextKey: ATFAMILYS,
+    categoryKey: 'places',
+    contextKey: 'atfamily',
     displayFeed: 'chez de la famille',
   },
   {
-    categoryKey: PLACES,
-    contextKey: OTHER,
+    categoryKey: 'places',
+    contextKey: 'other',
     displayFeed: 'autre',
   },
+
+  // Events
   {
-    categoryKey: EVENTS,
-    contextKey: PARTY,
+    categoryKey: 'events',
+    contextKey: 'casualevent',
+    displayFeed: 'évènement occasionnel',
+  },
+  {
+    categoryKey: 'events',
+    contextKey: 'communevent',
+    displayFeed: 'évènement habituel',
+  },
+  {
+    categoryKey: 'events',
+    contextKey: 'inthemorning',
+    displayFeed: 'dès le matin',
+  },
+  {
+    categoryKey: 'events',
+    contextKey: 'duringmeal',
+    displayFeed: 'pendant les repas',
+  },
+  {
+    categoryKey: 'events',
+    contextKey: 'afterwork',
+    displayFeed: 'après le travail',
+  },
+  {
+    categoryKey: 'events',
+    contextKey: 'aperitif',
+    displayFeed: 'apéritif',
+  },
+  {
+    categoryKey: 'events',
+    contextKey: 'party',
     displayFeed: 'fête',
   },
   {
-    categoryKey: NEEDS,
-    contextKey: TASTE,
+    categoryKey: 'events',
+    contextKey: 'other',
+    displayFeed: 'autre',
+  },
+
+  // Needs
+  {
+    categoryKey: 'needs',
+    contextKey: 'torelax',
+    displayFeed: 'me détendre',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'toforget',
+    displayFeed: 'oublier mes soucis',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'toreassure',
+    displayFeed: 'me rassurer',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'antidepressant',
+    displayFeed: 'antidépresseur',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'anxiolytic',
+    displayFeed: 'anxiolytique',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'tofeelbetter',
+    displayFeed: 'aller moins mal',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'toreducepain',
+    displayFeed: 'avoir moins mal',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'forfun',
+    displayFeed: "m'amuser",
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'reward',
+    displayFeed: 'me récompenser',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'confidence',
+    displayFeed: "m'affirmer",
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'disinhibit',
+    displayFeed: 'me désinhiber',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'losecontrol',
+    displayFeed: 'perdre le contrôle',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'sociabilise',
+    displayFeed: 'sociabiliser',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'passtime',
+    displayFeed: 'passer le temps',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'sleep',
+    displayFeed: 'dormir',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'taste',
     displayFeed: 'le plaisir du goût',
+  },
+  {
+    categoryKey: 'needs',
+    contextKey: 'other',
+    displayFeed: 'autre',
   },
 ];
 
-export const contextsCatalogObject = {};
-for (const context of contextsCatalog) {
-  contextsCatalogObject[context.contextKey] = context;
-}
+export const contextsCatalogObject = contextsCatalog.reduce((acc, context) => {
+  acc[context.contextKey] = context;
+  return acc;
+}, {});
 
-// [BEER, CIDER, WINE, CHAMPAGNE, APERITIVE, SPIRITS]
-export const contextsCategories = contextsCatalog
-  .map(({ categoryKey }) => categoryKey)
-  .filter((categoryKey, index, categories) => categories.indexOf(categoryKey) === index);
+// [PEOPLE, PLACES ...]
+export const contextsCategories = [...new Set(contextsCatalog.map(({ categoryKey }) => categoryKey))];
 
-export const contextKeysByCategory = {};
-for (const categoryKey of contextsCategories) {
-  contextKeysByCategory[categoryKey] = contextsCatalog
+export const contextKeysByCategory = contextsCategories.reduce((acc, categoryKey) => {
+  acc[categoryKey] = contextsCatalog
     .filter((context) => context.categoryKey === categoryKey)
     .map(({ contextKey }) => contextKey);
-}
+  return acc;
+}, {});
