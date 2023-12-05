@@ -32,7 +32,7 @@ export const deepLinkingConfig = {
               },
               HEALTH: {
                 screens: {
-                  HEALTH: 'HEALTH',
+                  HEALTH_ARTICLE: 'HEALTH_ARTICLE',
                   CONTACT: 'CONTACT',
                   DOCTOLIB: 'DOCTOLIB',
                   TO_SAY_NO: 'TO_SAY_NO',

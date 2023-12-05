@@ -12,7 +12,7 @@ import {
   SafeAreaView,
   ViewBase,
 } from 'react-native';
-import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
+import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
@@ -37,74 +37,80 @@ import PeopleIcon from '../../components/illustrations/icons/PeopleIcon';
 import Clock from '../../components/illustrations/icons/Clock';
 import Location from '../../components/illustrations/icons/Location';
 import Research from '../../components/illustrations/icons/Research';
+import { drinksContextsState } from '../../recoil/contexts';
 
-const emotions = ['Depressed', 'Sad', 'Neutral', 'Fine', 'Ecstatic'];
+const emotionIcon = {
+  depressed: <DepressedEmotion />,
+  ecstatic: <EcstaticEmotion />,
+  fine: <FineEmotion />,
+  neutral: <NeutralEmotion />,
+  sad: <SadEmotion />,
+};
 
 const EmotionsList = ({ navigation, route }) => {
-  const timestamp = route?.params?.timestamp || new Date();
-  const [addEmotionModalTimestamp, setEmotionModalTimestamp] = useState(() => timestamp);
-  const [dayNote, setDayNote] = useState('');
-  const [context, setContext] = useState([]);
-  const [emotion, setEmotion] = useState('');
+  const date = route?.params?.timestamp ? dayjs(timestamp).format('YYYY-MM-DD') : route?.params?.date;
+  if (!date) {
+    throw new Error('date is required');
+  }
+  const isOpenedFromFeed = route?.params?.isOpenedFromFeed;
+  const [drinksContexts, setDrinksContexts] = useRecoilState(drinksContextsState);
+  const drinksContext = drinksContexts[date] ?? {};
+  const [note, setNote] = useState(drinksContext.note ?? '');
+  const [context, setContext] = useState(drinksContext.context ?? []);
+  const [selectedEmotion, setSelectedEmotion] = useState(drinksContext.emotion ?? '');
 
   const toast = useToast();
   const scrollRef = useRef(null);
-  const isFocused = useIsFocused();
-  const onValidateEmotions = useCallback(() => {
-    navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR');
+  const onValidateEmotions = () => {
+    const newContextToSave = {
+      note: note,
+      context,
+      emotion: selectedEmotion,
+    };
+    const contextChanged = JSON.stringify(drinksContext) !== JSON.stringify(newContextToSave);
+    if (!contextChanged) {
+      navigation.navigate('TABS');
+      return;
+    }
+    const newDrinksContexts = { ...drinksContexts };
+    newDrinksContexts[date] = newContextToSave;
+    setDrinksContexts(newDrinksContexts);
+    navigation.navigate('TABS');
     logEvent({
       category: 'CONSO_FOLLOW_UP_NAVIGATOR',
       action: 'CONSO_FOLLOW_UP_NAVIGATOR',
     });
-    return true;
-  }, [navigation]);
-
-  const renderEmotionIcon = (emotion) => {
-    switch (emotion) {
-      case 'Depressed':
-        return <DepressedEmotion />;
-      case 'Sad':
-        return <SadEmotion />;
-      case 'Neutral':
-        return <NeutralEmotion />;
-      case 'Fine':
-        return <FineEmotion />;
-      case 'Ecstatic':
-        return <EcstaticEmotion />;
-
-      // Add more cases for different emotions and their respective icons
-      default:
-        return null; // Return null for cases where there's no specific icon
-    }
+    toast.show('Contexte de consommation enregistré');
   };
 
   return (
     <>
       <Container>
         <ModalContent className="bg-[#EFEFEF]" ref={scrollRef} disableHorizontal>
-          <View className="h-2.5 flex-row w-full px-10 mb-6 ">
-            <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-4" />
-            <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-2" />
-          </View>
+          {!isOpenedFromFeed && (
+            <View className="h-2.5 flex-row w-full px-10 mb-6 ">
+              <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-4" />
+              <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-2" />
+            </View>
+          )}
           <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
             <Text className="text-[#4030A5] self-center font-bold mt-2">Comment s'est passée votre journée ?</Text>
             <Container className="flex flex-row mb-2 ml-2 mr-0 px-1">
-              {emotions.map((selectedEmotion, index) => (
+              {Object.keys(emotionIcon).map((emotion) => (
                 <TouchableOpacity
                   className={[
                     'bg-white border border-[#E4E4E4] flex-1 rounded-lg px-1 py-1 mr-3 ',
-                    emotion.includes(selectedEmotion) ? 'bg-[#4030A5]' : 'bg-white',
+                    selectedEmotion === emotion ? 'bg-[#4030A5]' : 'bg-white',
                   ].join(' ')}
-                  key={index.toString()}
+                  key={emotion}
                   onPress={() => {
-                    if (selectedEmotion === emotion) {
-                      setEmotion('');
+                    if (emotion === selectedEmotion) {
+                      setSelectedEmotion('');
                     } else {
-                      setEmotion(selectedEmotion);
+                      setSelectedEmotion(emotion);
                     }
-                    console.log(emotion);
                   }}>
-                  {renderEmotionIcon(selectedEmotion)}
+                  {emotionIcon[emotion]}
                 </TouchableOpacity>
               ))}
             </Container>
@@ -117,8 +123,8 @@ const EmotionsList = ({ navigation, route }) => {
               placeholder="Noter les événements qui sont arrivés ce jour vous aidera par la suite à mieux identifier les situations à risque pour votre consommation"
               multiline={true}
               keyboardType="decimal-pad"
-              value={String(dayNote)}
-              onChangeText={(value) => setDayNote(value)}
+              value={String(note)}
+              onChangeText={(value) => setNote(value)}
             />
           </View>
 
@@ -135,31 +141,9 @@ const EmotionsList = ({ navigation, route }) => {
                 <Text className="text-white font-bold">Avec qui ?</Text>
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                {contextKeysByCategory['people'].map((name, index) => (
-                  <TouchableOpacity
-                    className={[
-                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
-                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
-                    ].join(' ')}
-                    key={index.toString()}
-                    onPress={() => {
-                      setContext((prevContext) => {
-                        const newContext = [...prevContext];
-                        const index = newContext.indexOf(name);
-                        if (index !== -1) {
-                          newContext.splice(index, 1);
-                        } else {
-                          newContext.splice(0, 0, name);
-                        }
-                        console.log('après click', newContext);
-                        return newContext;
-                      });
-                    }}>
-                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
-                      {getDisplayName(name, contextsCatalogObject)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {contextKeysByCategory['people'].map((name) => {
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                })}
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -168,31 +152,9 @@ const EmotionsList = ({ navigation, route }) => {
                 <Text className="text-white font-bold">Où ?</Text>
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                {contextKeysByCategory['places'].map((name, index) => (
-                  <TouchableOpacity
-                    className={[
-                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
-                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
-                    ].join(' ')}
-                    key={index.toString()}
-                    onPress={() => {
-                      setContext((prevContext) => {
-                        const newContext = [...prevContext];
-                        const index = newContext.indexOf(name);
-                        if (index !== -1) {
-                          newContext.splice(index, 1);
-                        } else {
-                          newContext.splice(0, 0, name);
-                        }
-                        console.log('après click', newContext);
-                        return newContext;
-                      });
-                    }}>
-                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
-                      {getDisplayName(name, contextsCatalogObject)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {contextKeysByCategory['places'].map((name) => {
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                })}
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -201,31 +163,9 @@ const EmotionsList = ({ navigation, route }) => {
                 <Text className="text-white font-bold">Quand ?</Text>
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                {contextKeysByCategory['events'].map((name, index) => (
-                  <TouchableOpacity
-                    className={[
-                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
-                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
-                    ].join(' ')}
-                    key={index.toString()}
-                    onPress={() => {
-                      setContext((prevContext) => {
-                        const newContext = [...prevContext];
-                        const index = newContext.indexOf(name);
-                        if (index !== -1) {
-                          newContext.splice(index, 1);
-                        } else {
-                          newContext.splice(0, 0, name);
-                        }
-                        console.log('après click', newContext);
-                        return newContext;
-                      });
-                    }}>
-                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
-                      {getDisplayName(name, contextsCatalogObject)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {contextKeysByCategory['events'].map((name) => {
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                })}
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -234,31 +174,9 @@ const EmotionsList = ({ navigation, route }) => {
                 <Text className="text-white font-bold">Quel(s) besoin(s) a comblé l'alcool ?</Text>
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                {contextKeysByCategory['needs'].map((name, index) => (
-                  <TouchableOpacity
-                    className={[
-                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
-                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
-                    ].join(' ')}
-                    key={index.toString()}
-                    onPress={() => {
-                      setContext((prevContext) => {
-                        const newContext = [...prevContext];
-                        const index = newContext.indexOf(name);
-                        if (index !== -1) {
-                          newContext.splice(index, 1);
-                        } else {
-                          newContext.splice(0, 0, name);
-                        }
-                        console.log('après click', newContext);
-                        return newContext;
-                      });
-                    }}>
-                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
-                      {getDisplayName(name, contextsCatalogObject)}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {contextKeysByCategory['needs'].map((name) => {
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                })}
               </View>
             </View>
           </View>
@@ -273,6 +191,32 @@ const EmotionsList = ({ navigation, route }) => {
         </ButtonsContainerSafe>
       </Container>
     </>
+  );
+};
+
+const ContextButton = ({ name, context, setContext }) => {
+  return (
+    <TouchableOpacity
+      className={[
+        'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
+        context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
+      ].join(' ')}
+      onPress={() => {
+        setContext((prevContext) => {
+          const newContext = [...prevContext];
+          const index = newContext.indexOf(name);
+          if (index !== -1) {
+            newContext.splice(index, 1);
+          } else {
+            newContext.splice(0, 0, name);
+          }
+          return newContext;
+        });
+      }}>
+      <Text className={['', context.includes(name) ? 'color-white' : 'color-black'].join(' ')}>
+        {getDisplayName(name, contextsCatalogObject)}
+      </Text>
+    </TouchableOpacity>
   );
 };
 
