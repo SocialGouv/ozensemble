@@ -16,15 +16,7 @@ import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
-import {
-  contextKeysByCategory,
-  contextsCatalogObject,
-  getDisplayName,
-  PEOPLE,
-  PLACES,
-  EVENTS,
-  NEEDS,
-} from './contextsCatalog';
+import { contextKeysByCategory, contextsCatalogObject, getDisplayName } from './contextsCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
@@ -42,33 +34,44 @@ import FineEmotion from '../../components/illustrations/emotion/FineEmotion';
 import NeutralEmotion from '../../components/illustrations/emotion/NeutralEmotion';
 import SadEmotion from '../../components/illustrations/emotion/SadEmotion';
 import PeopleIcon from '../../components/illustrations/icons/PeopleIcon';
+import Clock from '../../components/illustrations/icons/Clock';
+import Location from '../../components/illustrations/icons/Location';
+import Research from '../../components/illustrations/icons/Research';
+
+const emotions = ['Depressed', 'Sad', 'Neutral', 'Fine', 'Ecstatic'];
 
 const EmotionsList = ({ navigation, route }) => {
+  const timestamp = route?.params?.timestamp || new Date();
   const [addEmotionModalTimestamp, setEmotionModalTimestamp] = useState(() => timestamp);
   const [dayNote, setDayNote] = useState('');
-  const [context, setContext] = useState([PEOPLE, PLACES, EVENTS, NEEDS]);
+  const [context, setContext] = useState([]);
   const [emotion, setEmotion] = useState('');
-  const emotions = ['Ecstatic', 'Fine', 'Neutral', 'Sad', 'Depressed'];
-  const timestamp = route?.params?.timestamp || new Date();
+
   const toast = useToast();
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
-  const onValidateEmotions = async () => {
-    navigation.goBack();
-  };
+  const onValidateEmotions = useCallback(() => {
+    navigation.navigate('CONSO_FOLLOW_UP_NAVIGATOR');
+    logEvent({
+      category: 'CONSO_FOLLOW_UP_NAVIGATOR',
+      action: 'CONSO_FOLLOW_UP_NAVIGATOR',
+    });
+    return true;
+  }, [navigation]);
 
   const renderEmotionIcon = (emotion) => {
     switch (emotion) {
-      case 'Ecstatic':
-        return <EcstaticEmotion />;
-      case 'Fine':
-        return <FineEmotion />;
-      case 'Neutral':
-        return <NeutralEmotion />;
-      case 'Sad':
-        return <SadEmotion />;
       case 'Depressed':
         return <DepressedEmotion />;
+      case 'Sad':
+        return <SadEmotion />;
+      case 'Neutral':
+        return <NeutralEmotion />;
+      case 'Fine':
+        return <FineEmotion />;
+      case 'Ecstatic':
+        return <EcstaticEmotion />;
+
       // Add more cases for different emotions and their respective icons
       default:
         return null; // Return null for cases where there's no specific icon
@@ -78,78 +81,66 @@ const EmotionsList = ({ navigation, route }) => {
   return (
     <>
       <Container>
-        <ModalContent style={{ backgroundColor: '#F3F3F6' }} ref={scrollRef} disableHorizontal>
-          <SubContainer>
-            <TextStyled color="#4030A5" center bold>
-              Comment s'est passée votre journée ?
-            </TextStyled>
-            <Container className="flex flex-row">
-              {emotions.map((String, index) => (
+        <ModalContent className="bg-[#EFEFEF]" ref={scrollRef} disableHorizontal>
+          <View className="h-2.5 flex-row w-full px-10 mb-6 ">
+            <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-4" />
+            <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-2" />
+          </View>
+          <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
+            <Text className="text-[#4030A5] self-center font-bold mt-2">Comment s'est passée votre journée ?</Text>
+            <Container className="flex flex-row mb-2 ml-2 mr-0 px-1">
+              {emotions.map((selectedEmotion, index) => (
                 <TouchableOpacity
+                  className={[
+                    'bg-white border border-[#E4E4E4] flex-1 rounded-lg px-1 py-1 mr-3 ',
+                    emotion.includes(selectedEmotion) ? 'bg-[#4030A5]' : 'bg-white',
+                  ].join(' ')}
                   key={index.toString()}
                   onPress={() => {
-                    if (String === emotion) {
+                    if (selectedEmotion === emotion) {
                       setEmotion('');
                     } else {
-                      setEmotion(String);
+                      setEmotion(selectedEmotion);
                     }
                     console.log(emotion);
-                  }}
-                  style={{
-                    backgroundColor: emotion === String ? '#4030A5' : 'white',
-                    borderRadius: 8,
-                    borderColor: 'lightgrey',
-                    borderWidth: 1,
-                    padding: 8,
-                    marginVertical: 4,
-                    marginHorizontal: 3,
                   }}>
-                  {renderEmotionIcon(String)}
+                  {renderEmotionIcon(selectedEmotion)}
                 </TouchableOpacity>
               ))}
             </Container>
-          </SubContainer>
-          <SubContainer>
-            <TextStyled color="#4030A5" center bold>
-              Note du jour
-            </TextStyled>
+          </View>
+          <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
+            <Text className="text-[#4030A5] self-center font-bold mt-2">Note du jour</Text>
+
             <TextInput
-              style={{
-                backgroundColor: '#F3F3F6',
-                height: 100,
-                borderRadius: 8,
-                borderWidth: 1,
-                borderColor: '#DBDBE9',
-                color: 'black',
-                paddingHorizontal: 16,
-                marginTop: 8,
-              }}
+              className="bg-white h-40 rounded-lg border border-[#E4E4E4] mr-2 mt-2 mb-2 ml-2 py-4 px-3"
               placeholder="Noter les événements qui sont arrivés ce jour vous aidera par la suite à mieux identifier les situations à risque pour votre consommation"
               multiline={true}
               keyboardType="decimal-pad"
               value={String(dayNote)}
               onChangeText={(value) => setDayNote(value)}
             />
-          </SubContainer>
+          </View>
 
-          <SubContainer>
-            <View className="items-center w-full mb-2">
-              <TextStyled color="#4030A5" bold>
-                Contexte de vos consommations
-              </TextStyled>
-              <Text className="color-[#ADADAE]">plusieurs choix autorisés</Text>
+          <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
+            <View className="items-center w-full mb-6">
+              <Text className="text-[#4030A5] mt-2 font-bold">Contexte de vos consommations</Text>
+              <Text className="color-[#ADADAE] mt-1 ">plusieurs choix autorisés</Text>
             </View>
             <View className="py-2 flex flex-col items-start">
-              <View className="flex flex-row bg-[#DE285E] rounded-md items-center py-1 px-2">
-                <View className="mr-2">
+              <View className="flex flex-row bg-[#DE285E] rounded-lg items-center ml-2 py-1 px-2 mb-1">
+                <View className="mr-1">
                   <PeopleIcon />
                 </View>
                 <Text className="text-white font-bold">Avec qui ?</Text>
               </View>
-              <View className="flex flex-row flex-wrap rounded-md items-center py-1 px-2">
-                {contextKeysByCategory[PEOPLE].map((name, index) => (
+              <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
+                {contextKeysByCategory['people'].map((name, index) => (
                   <TouchableOpacity
-                    className="bg-[#FFFFFF] rounded-md py-2 px-2 mr-2 mb-2"
+                    className={[
+                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
+                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
+                    ].join(' ')}
                     key={index.toString()}
                     onPress={() => {
                       setContext((prevContext) => {
@@ -163,24 +154,26 @@ const EmotionsList = ({ navigation, route }) => {
                         console.log('après click', newContext);
                         return newContext;
                       });
-                    }}
-                    style={{ backgroundColor: context.includes(name) ? '#4030A5' : 'white' }}>
-                    <Text style={{ color: context.includes(name) ? 'white' : 'black' }} className="color-[#000000]">
+                    }}>
+                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
                       {getDisplayName(name, contextsCatalogObject)}
                     </Text>
                   </TouchableOpacity>
                 ))}
               </View>
-              <View className="flex flex-row bg-[#DE285E] rounded-md items-center py-1 px-2">
-                <View className="mr-2">
-                  <PeopleIcon />
+              <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
+                <View className="mr-1">
+                  <Location />
                 </View>
                 <Text className="text-white font-bold">Où ?</Text>
               </View>
-              <View className="flex flex-row flex-wrap rounded-md items-center py-1 px-2">
-                {contextKeysByCategory[PLACES].map((name, index) => (
+              <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
+                {contextKeysByCategory['places'].map((name, index) => (
                   <TouchableOpacity
-                    className="bg-[#FFFFFF] rounded-md py-2 px-2 mr-2 mb-2"
+                    className={[
+                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
+                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
+                    ].join(' ')}
                     key={index.toString()}
                     onPress={() => {
                       setContext((prevContext) => {
@@ -194,24 +187,26 @@ const EmotionsList = ({ navigation, route }) => {
                         console.log('après click', newContext);
                         return newContext;
                       });
-                    }}
-                    style={{ backgroundColor: context.includes(name) ? '#4030A5' : 'white' }}>
-                    <Text style={{ color: context.includes(name) ? 'white' : 'black' }} className="color-[#000000]">
+                    }}>
+                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
                       {getDisplayName(name, contextsCatalogObject)}
                     </Text>
                   </TouchableOpacity>
                 ))}
               </View>
-              <View className="flex flex-row bg-[#DE285E] rounded-md items-center py-1 px-2">
-                <View className="mr-2">
-                  <PeopleIcon />
+              <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
+                <View className="mr-1">
+                  <Clock />
                 </View>
                 <Text className="text-white font-bold">Quand ?</Text>
               </View>
-              <View className="flex flex-row flex-wrap rounded-md items-center py-1 px-2">
-                {contextKeysByCategory[EVENTS].map((name, index) => (
+              <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
+                {contextKeysByCategory['events'].map((name, index) => (
                   <TouchableOpacity
-                    className="bg-[#FFFFFF] rounded-md py-2 px-2 mr-2 mb-2"
+                    className={[
+                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
+                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
+                    ].join(' ')}
                     key={index.toString()}
                     onPress={() => {
                       setContext((prevContext) => {
@@ -225,24 +220,26 @@ const EmotionsList = ({ navigation, route }) => {
                         console.log('après click', newContext);
                         return newContext;
                       });
-                    }}
-                    style={{ backgroundColor: context.includes(name) ? '#4030A5' : 'white' }}>
-                    <Text style={{ color: context.includes(name) ? 'white' : 'black' }} className="color-[#000000]">
+                    }}>
+                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
                       {getDisplayName(name, contextsCatalogObject)}
                     </Text>
                   </TouchableOpacity>
                 ))}
               </View>
-              <View className="flex flex-row bg-[#DE285E] rounded-md items-center py-1 px-2">
-                <View className="mr-2">
-                  <PeopleIcon />
+              <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
+                <View className="mr-1">
+                  <Research />
                 </View>
                 <Text className="text-white font-bold">Quel(s) besoin(s) a comblé l'alcool ?</Text>
               </View>
-              <View className="flex flex-row flex-wrap rounded-md items-center py-1 px-2">
-                {contextKeysByCategory[NEEDS].map((name, index) => (
+              <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
+                {contextKeysByCategory['needs'].map((name, index) => (
                   <TouchableOpacity
-                    className="bg-[#FFFFFF] rounded-md py-2 px-2 mr-2 mb-2"
+                    className={[
+                      'bg-[#FFFFFF] border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2',
+                      context.includes(name) ? 'bg-[#4030A5]' : 'bg-white',
+                    ].join(' ')}
                     key={index.toString()}
                     onPress={() => {
                       setContext((prevContext) => {
@@ -256,16 +253,15 @@ const EmotionsList = ({ navigation, route }) => {
                         console.log('après click', newContext);
                         return newContext;
                       });
-                    }}
-                    style={{ backgroundColor: context.includes(name) ? '#4030A5' : 'white' }}>
-                    <Text style={{ color: context.includes(name) ? 'white' : 'black' }} className="color-[#000000]">
+                    }}>
+                    <Text className={['', context.includes(name) ? 'color-white font-bold' : 'color-black'].join(' ')}>
                       {getDisplayName(name, contextsCatalogObject)}
                     </Text>
                   </TouchableOpacity>
                 ))}
               </View>
             </View>
-          </SubContainer>
+          </View>
 
           <MarginBottom />
         </ModalContent>
@@ -285,7 +281,6 @@ const BackButton = styled(GoBackButtonText)`
 `;
 
 const Container = styled.View`
-  background-color: #f9f9f9;
   flex: 1;
   padding-top: 20px;
 `;
@@ -313,26 +308,7 @@ const ButtonsContainerSafe = styled.SafeAreaView`
   border-top-color: #eee;
   border-top-width: 1px;
 `;
-const SubSubContainer = styled.View`
-  margin-bottom: 10px;
-  elevation: 5;
-  shadow-offset: 0px 5px;
-  shadow-color: #efefef;
-  shadow-opacity: 0.3;
-  shadow-radius: 3.84px;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: row;
-`;
-const SubContainer = styled.View`
-  border: #5150a215;
-  padding: 10px 5px;
-  margin-horizontal: ${defaultPaddingFontScale()}px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  elevation: 5;
-  background-color: #f9f9f9;
-`;
+
 const ButtonsContainer = styled.View`
   flex-direction: row;
   justify-content: ${(props) => (props.flexStart ? 'flex-start' : 'space-around')};

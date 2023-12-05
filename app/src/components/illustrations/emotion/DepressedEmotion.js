@@ -1,15 +1,8 @@
 import React from 'react';
-import Svg, { Rect,  Path } from 'react-native-svg';
+import Svg, { Rect, Path } from 'react-native-svg';
 
-
- const DepressedEmotion = (props) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={47}
-    height={47}
-    fill="none"
-    {...props}
-  >
+const DepressedEmotion = (props) => (
+  <Svg xmlns="http://www.w3.org/2000/svg" width={47} height={47} fill="none" {...props}>
     <Rect width={47} height={47} fill="#FC8383" rx={23.5} />
     <Path
       stroke="#272727"
@@ -23,6 +16,6 @@ import Svg, { Rect,  Path } from 'react-native-svg';
       d="M34.175 29c-8.008-6.934-20.55-2.913-21 0-.45 2.911 0 4 1 4s19.204.29 20 0c.795-.292.843-2.434 0-4Z"
     />
   </Svg>
-)
+);
 
 export default DepressedEmotion;

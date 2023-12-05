@@ -186,6 +186,10 @@ const ConsosList = ({ navigation, route }) => {
     <>
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
+          <View className="h-2.5 flex-row w-full px-10">
+            <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-4" />
+            <View className="bg-[#DBDBE8] h-full flex-1 rounded-full mr-2" />
+          </View>
           <Title>Sélectionnez vos consommations</Title>
           <DateAndTimePickers
             addDrinkModalTimestamp={addDrinkModalTimestamp}
