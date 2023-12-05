@@ -11,15 +11,7 @@ const AddDrinkNavigator = ({ route }) => {
   const [currentScreen, setCurrentScreen] = React.useState('CONSOS_LIST');
 
   return (
-    <AddDrinkStack.Navigator
-      screenListeners={{
-        state: (e) => {
-          // Do something with the state
-          console.log('state changed', JSON.stringify(e.data, null, 2));
-        },
-      }}
-      screenOptions={{ headerShown: false }}
-      initialRouteName="CONSOS_LIST">
+    <AddDrinkStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CONSOS_LIST">
       <AddDrinkStack.Screen
         initialParams={{ timestamp: route?.params?.timestamp, parent: route?.params?.parent }}
         name="CONSOS_LIST">

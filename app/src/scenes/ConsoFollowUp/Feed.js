@@ -35,6 +35,7 @@ import CalendarSwitch from '../../components/CalendarSwitch';
 import ArrowLeft from '../../components/ArrowLeft';
 import ArrowRight from '../../components/ArrowRight';
 import TargetGoal from '../../components/illustrations/icons/TargetGoal';
+import { drinksContextsState } from '../../recoil/contexts';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -153,12 +154,12 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
             <LastDrink>
               <LastDrinkText>
                 <Pint size={30} color="#4030A5" />
-                <MessageContainer>
+                <View className="w-[88%]">
                   <TextStyled>
                     Vous n'avez pas saisi de consommations depuis le{' '}
                     <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
                   </TextStyled>
-                </MessageContainer>
+                </View>
               </LastDrinkText>
               <LastDrinkButtons>
                 <ButtonPrimary
@@ -250,6 +251,19 @@ const Feed = () => {
     [navigation]
   );
 
+  const updateEmotionRequest = useCallback(
+    (date, fromButton) => {
+      // date is YYYY-MM-DD
+      navigation.push('ADD_DRINK', { screen: 'EMOTIONS_LIST', params: { date, isOpenedFromFeed: true } });
+      logEvent({
+        category: 'CONSO',
+        action: 'CONSO_OPEN_EMOTION_UPDATE',
+        name: fromButton,
+      });
+    },
+    [navigation]
+  );
+
   const deleteDrinkRequest = useCallback(
     (timestamp) => {
       setDrinks((state) => state.filter((drink) => drink.timestamp !== timestamp));
@@ -271,7 +285,7 @@ const Feed = () => {
   );
   const ListFooterComponent = useMemo(
     () => (
-      <ButtonContainer>
+      <View className="mt-7 items-center justify-center pb-36">
         <ButtonPrimary
           small
           content="Contribuer à Oz Ensemble"
@@ -279,7 +293,7 @@ const Feed = () => {
           color="#4030A5"
           onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
         />
-      </ButtonContainer>
+      </View>
     ),
     [navigation]
   );
@@ -300,6 +314,7 @@ const Feed = () => {
                 index={index}
                 deleteDrinkRequest={deleteDrinkRequest}
                 addDrinksRequest={addDrinksRequest}
+                updateEmotionRequest={updateEmotionRequest}
               />
             </View>
           );
@@ -310,8 +325,9 @@ const Feed = () => {
   );
 };
 
-const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
+const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, updateEmotionRequest }) => {
   const days = useRecoilValue(feedDaysSelector);
+  const drinksContexts = useRecoilValue(drinksContextsState);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
 
   const isFirst = index === 0;
@@ -348,7 +364,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
         }}>
         <>
           <Timeline first={isFirst} last={isLast} />
-          <FeedDayContent>
+          <View className="flex-grow ml-2.5 my-2.5">
             <DateDisplay day={item} />
             {!!isFirst && <ThoughtOfTheDay day={item} selected={timestampSelected === null} />}
             {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={item} />}
@@ -400,6 +416,17 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
                 );
               })
             )}
+            {drinksContexts[item] ? (
+              <View className="flex flex-row justify-between items-center">
+                <Text className="text-lg font-bold text-[#4030A5] mt-5">Contexte</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    updateEmotionRequest(item);
+                  }}>
+                  <Text className="text-lg font-bold text-[#4030A5] mt-5">Modifier</Text>
+                </TouchableOpacity>
+              </View>
+            ) : null}
             {!isToday(item) && (
               <FeedBottomButton
                 color="#4030a5"
@@ -423,19 +450,12 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest }) => {
               />
             )}
             {isLast && <ResultsFeedDisplay selected={timestampSelected === null} />}
-          </FeedDayContent>
+          </View>
         </>
       </TouchableWithoutFeedback>
     </View>
   );
 };
-
-const ButtonContainer = styled.View`
-  margin-top: 28px;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 150px;
-`;
 
 const LastDrink = styled.View`
   border: #5150a215;
@@ -468,35 +488,9 @@ const AddDrinkText = styled(TextStyled)`
   text-decoration-line: underline;
 `;
 
-const MessageContainer = styled.View`
-  width: 88%;
-`;
-const FeedContainer = styled.View`
-  height: ${Dimensions.get('window').height}px;
-  background-color: #fff;
-`;
-
-const FeedDay = styled.View`
-  flex-direction: row;
-  flex-shrink: 1;
-  flex-grow: 0;
-  padding-horizontal: ${defaultPaddingFontScale()}px;
-`;
-
-const FeedDayContent = styled.View`
-  flex-grow: 1;
-  margin-left: 10px;
-  margin-vertical: 10px;
-`;
-
 const FeedBottomButton = styled(UnderlinedButton)`
   align-items: center;
   margin-bottom: 15px;
-`;
-
-const Spacer = styled.View`
-  height: ${({ size }) => size || 20}px;
-  width: ${({ size }) => size || 20}px;
 `;
 
 export default Feed;

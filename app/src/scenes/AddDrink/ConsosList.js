@@ -85,8 +85,8 @@ const ConsosList = ({ navigation, route }) => {
     }));
     let showToast = true;
     const newDrinksIds = drinksWithTimestamps.map((drink) => drink.id);
-    setGlobalDrinksState((state) => {
-      const nextState = [...state.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
+    setGlobalDrinksState((prevState) => {
+      const nextState = [...prevState.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
         .filter((d) => d.quantity > 0)
         .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
       return nextState;
@@ -149,9 +149,7 @@ const ConsosList = ({ navigation, route }) => {
         }
       }
       if (showToast) {
-        setTimeout(() => {
-          toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
-        }, 250);
+        toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
       }
     });
   };

@@ -78,12 +78,12 @@ const TabsNavigator = ({ navigation }) => {
     <>
       <Tabs.Navigator
         initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
-        lazy={false}
-        screenOptions={{ headerShown: false }}
-        tabBarOptions={{
-          activeTintColor: '#4030A5',
-          inactiveTintColor: '#767676',
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: '#4030A5',
+          tabBarInactiveTintColor: '#767676',
           keyboardHidesTabBar: true,
+          lazy: false,
         }}>
         <Tabs.Screen
           name="GAINS_NAVIGATOR"

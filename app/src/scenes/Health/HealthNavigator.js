@@ -26,7 +26,7 @@ const HealthNavigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH">
+      <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_ARTICLE">
         <HealthStack.Screen
           name="ONBOARDING_QUIZZ"
           component={QuizzOnboarding}
@@ -34,7 +34,7 @@ const HealthNavigator = () => {
             rootRoute: 'HEALTH',
           }}
         />
-        <HealthStack.Screen name="HEALTH" component={Conseils} />
+        <HealthStack.Screen name="HEALTH_ARTICLE" component={Conseils} />
         <HealthStack.Screen name="CONTACT" component={ContactForm} />
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
         <HealthStack.Screen name="ALCOOL_WITHDRAWAL_TREATMENT" component={AlcoolWithdrawalTreatment} />
