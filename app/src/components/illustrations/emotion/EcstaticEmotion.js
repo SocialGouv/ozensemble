@@ -1,15 +1,8 @@
 import React from 'react';
-import Svg, { Rect,  Path } from 'react-native-svg';
+import Svg, { Rect, Path } from 'react-native-svg';
 
 const EcstaticEmotion = (props) => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={47}
-    height={47}
-    viewBox='0 0 47 47'
-    fill="none"
-    {...props}
-  >
+  <Svg xmlns="http://www.w3.org/2000/svg" width={47} height={47} viewBox="0 0 47 47" fill="none" {...props}>
     <Rect width={47} height={47} fill="#34D39A" rx={23.5} />
     <Path
       fill="#272727"
@@ -23,5 +16,5 @@ const EcstaticEmotion = (props) => (
       d="M17 19c.008.06.082.123.116.174M31 19c.008.06.082.123.116.174"
     />
   </Svg>
-)
+);
 export default EcstaticEmotion;

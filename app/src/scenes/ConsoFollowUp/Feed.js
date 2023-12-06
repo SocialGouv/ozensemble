@@ -36,6 +36,8 @@ import ArrowLeft from '../../components/ArrowLeft';
 import ArrowRight from '../../components/ArrowRight';
 import TargetGoal from '../../components/illustrations/icons/TargetGoal';
 import { drinksContextsState } from '../../recoil/contexts';
+import { emotionIcon, contextsCatalog } from '../AddEmotion/contextsCatalog';
+import ModifyIcon from '../../components/illustrations/icons/ModifyIcon';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -255,11 +257,6 @@ const Feed = () => {
     (date, fromButton) => {
       // date is YYYY-MM-DD
       navigation.push('ADD_DRINK', { screen: 'EMOTIONS_LIST', params: { date, isOpenedFromFeed: true } });
-      logEvent({
-        category: 'CONSO',
-        action: 'CONSO_OPEN_EMOTION_UPDATE',
-        name: fromButton,
-      });
     },
     [navigation]
   );
@@ -334,6 +331,9 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
   const isLast = index === days.length - 1;
   const drinksOfTheDay = drinksByDay[item] || [];
   const noDrinksYet = !drinksOfTheDay.length;
+  const isContext =
+    drinksContexts[item] &&
+    (drinksContexts[item].note || drinksContexts[item].emotion || drinksContexts[item].context.length > 0);
   const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
 
   const [timestampSelected, setTimestampSelected] = useState(null);
@@ -356,15 +356,19 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
+  const Emotion = emotionIcon[drinksContexts[item]?.emotion];
+
   return (
-    <View className="flex flex-row shrink grow-0" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+    <View
+      className="flex flex-row shrink grow-0 overflow-hidden"
+      style={{ paddingHorizontal: defaultPaddingFontScale() }}>
       <TouchableWithoutFeedback
         onPress={() => {
           setTimestampSelected(null);
         }}>
         <>
           <Timeline first={isFirst} last={isLast} />
-          <View className="flex-grow ml-2.5 my-2.5">
+          <View className="flex-grow ml-2.5 my-2.5 flex-shrink">
             <DateDisplay day={item} />
             {!!isFirst && <ThoughtOfTheDay day={item} selected={timestampSelected === null} />}
             {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={item} />}
@@ -416,15 +420,45 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
                 );
               })
             )}
-            {drinksContexts[item] ? (
-              <View className="flex flex-row justify-between items-center">
-                <Text className="text-lg font-bold text-[#4030A5] mt-5">Contexte</Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    updateEmotionRequest(item);
-                  }}>
-                  <Text className="text-lg font-bold text-[#4030A5] mt-5">Modifier</Text>
-                </TouchableOpacity>
+            {isContext ? (
+              <View className="flex mb-4 rounded-md border-[#DFDFEB] bg-[#F9F9F9] sm:px-2 md:px-4 lg:px-20 xl:px-30 border">
+                <View className="flex-row justify-between w-full px-2 py-2 ">
+                  {drinksContexts[item].emotion ? (
+                    <View>
+                      <Emotion width={30} height={30} />
+                    </View>
+                  ) : (
+                    <View className="w-7 h-7"></View>
+                  )}
+                  <Text className="font-bold text-[#4030A5] pl-1 mt-2 mr-auto">Note et contexte</Text>
+                  <View className="py-1">
+                    <TouchableOpacity
+                      onPress={() => {
+                        updateEmotionRequest(item);
+                        logEvent({
+                          category: 'CONTEXT',
+                          action: 'USED_MODIFY_CONTEXT',
+                        });
+                      }}>
+                      <ModifyIcon />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                {drinksContexts[item].note && (
+                  <Text className="text-start ml-10 mr-3 mb-3">{drinksContexts[item].note}</Text>
+                )}
+                {drinksContexts[item].context && (
+                  <View className="flex flex-row flex-wrap ml-10 mb-3">
+                    {drinksContexts[item].context.map((name) => {
+                      const contextName = contextsCatalog.find((context) => name === context.contextKey).displayFeed;
+                      return (
+                        <View className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
+                          <Text className="color-white font-bold">{contextName}</Text>
+                        </View>
+                      );
+                    })}
+                  </View>
+                )}
               </View>
             ) : null}
             {!isToday(item) && (
@@ -446,6 +480,20 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
                     selectedTimestamp = makeSureTimestamp(tempDate);
                   }
                   addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
+                }}
+              />
+            )}
+            {!isContext && !noDrinksYet && (
+              <FeedBottomButton
+                color="#4030a5"
+                content="Ajouter une note et un context"
+                withoutPadding
+                onPress={() => {
+                  updateEmotionRequest(item);
+                  logEvent({
+                    category: 'CONTEXT',
+                    action: 'OPEN_CONTEXT_ADDSCREEN_UNDERLINE_TEXT',
+                  });
                 }}
               />
             )}
