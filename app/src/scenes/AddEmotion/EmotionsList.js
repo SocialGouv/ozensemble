@@ -16,7 +16,7 @@ import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } fro
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
-import { contextKeysByCategory, contextsCatalogObject, getDisplayName } from './contextsCatalog';
+import { emotionIcon, contextKeysByCategory, contextsCatalogObject, getDisplayName } from './contextsCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
 import H2 from '../../components/H2';
@@ -28,27 +28,14 @@ import API from '../../services/api';
 import { storage } from '../../services/storage';
 import TextStyled from '../../components/TextStyled';
 import { capture } from '../../services/sentry';
-import DepressedEmotion from '../../components/illustrations/emotion/DepressedEmotion';
-import EcstaticEmotion from '../../components/illustrations/emotion/EcstaticEmotion';
-import FineEmotion from '../../components/illustrations/emotion/FineEmotion';
-import NeutralEmotion from '../../components/illustrations/emotion/NeutralEmotion';
-import SadEmotion from '../../components/illustrations/emotion/SadEmotion';
 import PeopleIcon from '../../components/illustrations/icons/PeopleIcon';
 import Clock from '../../components/illustrations/icons/Clock';
 import Location from '../../components/illustrations/icons/Location';
 import Research from '../../components/illustrations/icons/Research';
 import { drinksContextsState } from '../../recoil/contexts';
 
-const emotionIcon = {
-  depressed: <DepressedEmotion />,
-  ecstatic: <EcstaticEmotion />,
-  fine: <FineEmotion />,
-  neutral: <NeutralEmotion />,
-  sad: <SadEmotion />,
-};
-
-const EmotionsList = ({ navigation, route }) => {
-  const date = route?.params?.timestamp ? dayjs(timestamp).format('YYYY-MM-DD') : route?.params?.date;
+const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
+  const date = addDrinkModalTimestamp ? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') : route?.params?.date;
   if (!date) {
     throw new Error('date is required');
   }
@@ -77,8 +64,10 @@ const EmotionsList = ({ navigation, route }) => {
     setDrinksContexts(newDrinksContexts);
     navigation.navigate('TABS');
     logEvent({
-      category: 'CONSO_FOLLOW_UP_NAVIGATOR',
-      action: 'CONSO_FOLLOW_UP_NAVIGATOR',
+      category: 'CONTEXT',
+      action: 'VALIDATE_CONTEXT',
+      name: newDrinksContexts[date],
+      value: newDrinksContexts[date],
     });
     toast.show('Contexte de consommation enregistré');
   };
@@ -96,23 +85,26 @@ const EmotionsList = ({ navigation, route }) => {
           <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
             <Text className="text-[#4030A5] self-center font-bold mt-2">Comment s'est passée votre journée ?</Text>
             <Container className="flex flex-row mb-2 ml-2 mr-0 px-1">
-              {Object.keys(emotionIcon).map((emotion) => (
-                <TouchableOpacity
-                  className={[
-                    'bg-white border border-[#E4E4E4] flex-1 rounded-lg px-1 py-1 mr-3 ',
-                    selectedEmotion === emotion ? 'bg-[#4030A5]' : 'bg-white',
-                  ].join(' ')}
-                  key={emotion}
-                  onPress={() => {
-                    if (emotion === selectedEmotion) {
-                      setSelectedEmotion('');
-                    } else {
-                      setSelectedEmotion(emotion);
-                    }
-                  }}>
-                  {emotionIcon[emotion]}
-                </TouchableOpacity>
-              ))}
+              {Object.keys(emotionIcon).map((emotion) => {
+                const Emoji = emotionIcon[emotion];
+                return (
+                  <TouchableOpacity
+                    className={[
+                      'bg-white border border-[#E4E4E4] flex-1 rounded-lg px-1 py-1 mr-3 ',
+                      selectedEmotion === emotion ? 'bg-[#4030A5]' : 'bg-white',
+                    ].join(' ')}
+                    key={emotion}
+                    onPress={() => {
+                      if (emotion === selectedEmotion) {
+                        setSelectedEmotion('');
+                      } else {
+                        setSelectedEmotion(emotion);
+                      }
+                    }}>
+                    <Emoji />
+                  </TouchableOpacity>
+                );
+              })}
             </Container>
           </View>
           <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
@@ -144,6 +136,7 @@ const EmotionsList = ({ navigation, route }) => {
                 {contextKeysByCategory['people'].map((name) => {
                   return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
+                <OtherButton key={'otherpeople'} name={'autre'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -155,6 +148,7 @@ const EmotionsList = ({ navigation, route }) => {
                 {contextKeysByCategory['places'].map((name) => {
                   return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
+                <OtherButton key={'otherpeople'} name={'autre'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -166,6 +160,7 @@ const EmotionsList = ({ navigation, route }) => {
                 {contextKeysByCategory['events'].map((name) => {
                   return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
+                <OtherButton key={'otherpeople'} name={'autre'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -177,6 +172,7 @@ const EmotionsList = ({ navigation, route }) => {
                 {contextKeysByCategory['needs'].map((name) => {
                   return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
+                <OtherButton key={'otherpeople'} name={'autre'} />
               </View>
             </View>
           </View>
@@ -216,6 +212,25 @@ const ContextButton = ({ name, context, setContext }) => {
       <Text className={['', context.includes(name) ? 'color-white' : 'color-black'].join(' ')}>
         {getDisplayName(name, contextsCatalogObject)}
       </Text>
+    </TouchableOpacity>
+  );
+};
+const OtherButton = ({ key, name }) => {
+  return (
+    <TouchableOpacity
+      className={'bg-[#FFFFFF] border flex-row border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2'}
+      onPress={() => {
+        logEvent({
+          category: 'CONTEXT',
+          action: 'CLICK_OTHER',
+          name: key,
+          value: name,
+        });
+      }}>
+      <View className="bg-gray-200 rounded-2xl items-center">
+        <Text className="color-white"> + </Text>
+      </View>
+      <Text>autre</Text>
     </TouchableOpacity>
   );
 };

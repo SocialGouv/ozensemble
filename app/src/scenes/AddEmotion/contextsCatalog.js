@@ -1,5 +1,17 @@
 import { capture } from '../../services/sentry';
+import DepressedEmotion from '../../components/illustrations/emotion/DepressedEmotion';
+import EcstaticEmotion from '../../components/illustrations/emotion/EcstaticEmotion';
+import FineEmotion from '../../components/illustrations/emotion/FineEmotion';
+import NeutralEmotion from '../../components/illustrations/emotion/NeutralEmotion';
+import SadEmotion from '../../components/illustrations/emotion/SadEmotion';
 
+export const emotionIcon = {
+  ecstatic: EcstaticEmotion,
+  fine: FineEmotion,
+  neutral: NeutralEmotion,
+  sad: SadEmotion,
+  depressed: DepressedEmotion,
+};
 export const getDisplayName = (contextKey, catalogObject) => {
   try {
     const context = catalogObject[contextKey];
@@ -60,11 +72,6 @@ export const contextsCatalog = [
     contextKey: 'withdrinkingbuddy',
     displayFeed: 'avec des personnes avec qui je bois',
   },
-  {
-    categoryKey: 'people',
-    contextKey: 'other',
-    displayFeed: 'autre',
-  },
 
   // Places
   {
@@ -96,11 +103,6 @@ export const contextsCatalog = [
     categoryKey: 'places',
     contextKey: 'atfamily',
     displayFeed: 'chez de la famille',
-  },
-  {
-    categoryKey: 'places',
-    contextKey: 'other',
-    displayFeed: 'autre',
   },
 
   // Events
@@ -138,11 +140,6 @@ export const contextsCatalog = [
     categoryKey: 'events',
     contextKey: 'party',
     displayFeed: 'fête',
-  },
-  {
-    categoryKey: 'events',
-    contextKey: 'other',
-    displayFeed: 'autre',
   },
 
   // Needs
@@ -225,11 +222,6 @@ export const contextsCatalog = [
     categoryKey: 'needs',
     contextKey: 'taste',
     displayFeed: 'le plaisir du goût',
-  },
-  {
-    categoryKey: 'needs',
-    contextKey: 'other',
-    displayFeed: 'autre',
   },
 ];
 
