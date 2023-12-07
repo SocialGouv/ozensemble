@@ -41,6 +41,7 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
   }
   const isOpenedFromFeed = route?.params?.isOpenedFromFeed;
   const [drinksContexts, setDrinksContexts] = useRecoilState(drinksContextsState);
+  const [ownContextModalVisible, setOwnContextModalVisible] = useState(false);
   const drinksContext = drinksContexts[date] ?? {};
   const [note, setNote] = useState(drinksContext.note ?? '');
   const [context, setContext] = useState(drinksContext.context ?? []);
@@ -134,9 +135,30 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['people'].map((name) => {
-                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                  return (
+                    <ContextButton
+                      navigation={navigation}
+                      key={name}
+                      name={name}
+                      context={context}
+                      setContext={setContext}
+                    />
+                  );
                 })}
-                <OtherButton key={'otherpeople'} name={'autre'} />
+                <OtherButton
+                  navigation={navigation}
+                  key={'otherpeople'}
+                  name={'autre'}
+                  onPress={() => {
+                    setOwnContextModalVisible(true);
+                    logEvent({
+                      category: 'CONTEXT',
+                      action: 'CLICK_OTHER',
+                      name: key,
+                      value: name,
+                    });
+                  }}
+                />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -146,9 +168,17 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['places'].map((name) => {
-                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                  return (
+                    <ContextButton
+                      navigation={navigation}
+                      key={name}
+                      name={name}
+                      context={context}
+                      setContext={setContext}
+                    />
+                  );
                 })}
-                <OtherButton key={'otherpeople'} name={'autre'} />
+                <OtherButton navigation={navigation} key={'otherpeople'} name={'autre'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -158,9 +188,17 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['events'].map((name) => {
-                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                  return (
+                    <ContextButton
+                      navigation={navigation}
+                      key={name}
+                      name={name}
+                      context={context}
+                      setContext={setContext}
+                    />
+                  );
                 })}
-                <OtherButton key={'otherpeople'} name={'autre'} />
+                <OtherButton navigation={navigation} key={'otherpeople'} name={'autre'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -170,9 +208,17 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['needs'].map((name) => {
-                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                  return (
+                    <ContextButton
+                      navigation={navigation}
+                      key={name}
+                      name={name}
+                      context={context}
+                      setContext={setContext}
+                    />
+                  );
                 })}
-                <OtherButton key={'otherpeople'} name={'autre'} />
+                <OtherButton navigation={navigation} key={'otherpeople'} name={'autre'} />
               </View>
             </View>
           </View>
@@ -186,6 +232,7 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
           </ButtonsContainer>
         </ButtonsContainerSafe>
       </Container>
+      <View></View>
     </>
   );
 };
@@ -215,19 +262,12 @@ const ContextButton = ({ name, context, setContext }) => {
     </TouchableOpacity>
   );
 };
-const OtherButton = ({ key, name }) => {
+const OtherButton = ({ navigation }) => {
   return (
     <TouchableOpacity
-      className={'bg-[#FFFFFF] border flex-row border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2'}
-      onPress={() => {
-        logEvent({
-          category: 'CONTEXT',
-          action: 'CLICK_OTHER',
-          name: key,
-          value: name,
-        });
-      }}>
-      <View className="bg-gray-200 rounded-2xl items-center">
+      className={'bg-[#FFFFFF] border flex-row border-dashed border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2'}
+      onPress={() => navigation.navigate('CONTEXT_SUGGESTION_SCREEN', { triggeredFrom: 'Other button' })}>
+      <View className="bg-gray-200 rounded-2xl items-center mr-1">
         <Text className="color-white"> + </Text>
       </View>
       <Text>autre</Text>

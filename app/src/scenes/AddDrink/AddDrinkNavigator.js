@@ -4,6 +4,7 @@ import ConsosList from './ConsosList';
 import EmotionsList from '../AddEmotion/EmotionsList';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View } from 'react-native';
+import ContextSuggestion from '../AddEmotion/ContextSuggestion';
 
 const AddDrinkStack = createStackNavigator();
 
@@ -25,6 +26,10 @@ const AddDrinkNavigator = ({ route }) => {
         {(props) => (
           <EmotionsList {...props} addDrinkModalTimestamp={addDrinkModalTimestamp} key={addDrinkModalTimestamp} />
         )}
+      </AddDrinkStack.Screen>
+
+      <AddDrinkStack.Screen initialParams={{ parent: route?.params?.parent }} name="CONTEXT_SUGGESTION_SCREEN">
+        {(props) => <ContextSuggestion {...props} />}
       </AddDrinkStack.Screen>
     </AddDrinkStack.Navigator>
   );
