@@ -16,6 +16,7 @@ import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } fro
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
+import Modal from '../../components/Modal';
 import { emotionIcon, contextKeysByCategory, contextsCatalogObject, getDisplayName } from './contextsCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
@@ -135,30 +136,9 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['people'].map((name) => {
-                  return (
-                    <ContextButton
-                      navigation={navigation}
-                      key={name}
-                      name={name}
-                      context={context}
-                      setContext={setContext}
-                    />
-                  );
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
-                <OtherButton
-                  navigation={navigation}
-                  key={'otherpeople'}
-                  name={'autre'}
-                  onPress={() => {
-                    setOwnContextModalVisible(true);
-                    logEvent({
-                      category: 'CONTEXT',
-                      action: 'CLICK_OTHER',
-                      name: key,
-                      value: name,
-                    });
-                  }}
-                />
+                <OtherButton category={'otherpeople'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -168,17 +148,9 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['places'].map((name) => {
-                  return (
-                    <ContextButton
-                      navigation={navigation}
-                      key={name}
-                      name={name}
-                      context={context}
-                      setContext={setContext}
-                    />
-                  );
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
-                <OtherButton navigation={navigation} key={'otherpeople'} name={'autre'} />
+                <OtherButton category={'otherpeople'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -188,17 +160,9 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['events'].map((name) => {
-                  return (
-                    <ContextButton
-                      navigation={navigation}
-                      key={name}
-                      name={name}
-                      context={context}
-                      setContext={setContext}
-                    />
-                  );
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
-                <OtherButton navigation={navigation} key={'otherpeople'} name={'autre'} />
+                <OtherButton category={'otherpeople'} />
               </View>
               <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                 <View className="mr-1">
@@ -208,17 +172,9 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
               <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                 {contextKeysByCategory['needs'].map((name) => {
-                  return (
-                    <ContextButton
-                      navigation={navigation}
-                      key={name}
-                      name={name}
-                      context={context}
-                      setContext={setContext}
-                    />
-                  );
+                  return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                 })}
-                <OtherButton navigation={navigation} key={'otherpeople'} name={'autre'} />
+                <OtherButton category={'otherpeople'} />
               </View>
             </View>
           </View>
@@ -262,16 +218,45 @@ const ContextButton = ({ name, context, setContext }) => {
     </TouchableOpacity>
   );
 };
-const OtherButton = ({ navigation }) => {
+
+const OtherButton = ({ category }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const onValidate = () => {
+    logEvent();
+    // send this like NPS
+    // category, new value
+  };
+
   return (
-    <TouchableOpacity
-      className={'bg-[#FFFFFF] border flex-row border-dashed border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2'}
-      onPress={() => navigation.navigate('CONTEXT_SUGGESTION_SCREEN', { triggeredFrom: 'Other button' })}>
-      <View className="bg-gray-200 rounded-2xl items-center mr-1">
-        <Text className="color-white"> + </Text>
-      </View>
-      <Text>autre</Text>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        className={'bg-[#FFFFFF] border flex-row border-dashed border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2'}
+        onPress={() => setModalVisible(true)}>
+        <View className="bg-gray-200 rounded-2xl items-center mr-1">
+          <Text className="color-white"> + </Text>
+        </View>
+        <Text>autre</Text>
+      </TouchableOpacity>
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        animationType="fade"
+        withBackground
+        hideOnTouch
+        className="border">
+        <View className="bg-white rounded-xl">
+          <View className="mb-4 p-2">
+            <Text color="#000" className="text-center mb-1 text-xl font-extrabold">
+              Nouvelle catégorie ?
+            </Text>
+            <View className="space-y-2 bg-[#F5F6FA] rounded-lg p-2 mt-4">
+              <ButtonPrimary content={'Valider et continuer'} onPress={onValidate} />
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </>
   );
 };
 
@@ -287,12 +272,6 @@ const Container = styled.View`
 const ModalContent = styled.ScrollView`
   width: 100%;
   background-color: #f9f9f9;
-`;
-
-const Title = styled(H2)`
-  font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
-  color: #4030a5;
-  margin: 50px ${defaultPaddingFontScale()}px 15px;
 `;
 
 const buttonsPadding = 10;
