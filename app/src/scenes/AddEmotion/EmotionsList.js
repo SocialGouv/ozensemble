@@ -52,6 +52,8 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
   const scrollRef = useRef(null);
   const onValidateEmotions = () => {
     const newContextToSave = {
+      id: uuidv4(),
+      ...drinksContext,
       note: note,
       context,
       emotion: selectedEmotion,
@@ -64,6 +66,14 @@ const EmotionsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     const newDrinksContexts = { ...drinksContexts };
     newDrinksContexts[date] = newContextToSave;
     setDrinksContexts(newDrinksContexts);
+    API.post({
+      path: '/drinks-context',
+      body: {
+        date,
+        matomoId: storage.getString('@UserIdv2'),
+        ...newContextToSave,
+      },
+    });
     navigation.navigate('TABS');
     logEvent({
       category: 'CONTEXT',
