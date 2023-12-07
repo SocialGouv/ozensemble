@@ -303,11 +303,11 @@ const Feed = () => {
         keyExtractor={(item) => item}
         estimatedItemSize={190} // height of one item with one drink
         extraData={tab}
-        renderItem={({ item, index }) => {
+        renderItem={({ item: date, index }) => {
           return (
             <View style={{ opacity: Number(tab === 'calendar') }}>
               <FeedDayItem
-                item={item}
+                date={date}
                 index={index}
                 deleteDrinkRequest={deleteDrinkRequest}
                 addDrinksRequest={addDrinksRequest}
@@ -322,18 +322,18 @@ const Feed = () => {
   );
 };
 
-const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, updateEmotionRequest }) => {
+const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, updateEmotionRequest }) => {
   const days = useRecoilValue(feedDaysSelector);
   const drinksContexts = useRecoilValue(drinksContextsState);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
 
   const isFirst = index === 0;
   const isLast = index === days.length - 1;
-  const drinksOfTheDay = drinksByDay[item] || [];
+  const drinksOfTheDay = drinksByDay[date] || [];
   const noDrinksYet = !drinksOfTheDay.length;
   const isContext =
-    drinksContexts[item] &&
-    (drinksContexts[item].note || drinksContexts[item].emotion || drinksContexts[item].context.length > 0);
+    drinksContexts[date] &&
+    (drinksContexts[date].note || drinksContexts[date].emotion || drinksContexts[date].context.length > 0);
   const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
 
   const [timestampSelected, setTimestampSelected] = useState(null);
@@ -356,7 +356,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
-  const Emotion = emotionIcon[drinksContexts[item]?.emotion];
+  const Emotion = emotionIcon[drinksContexts[date]?.emotion];
 
   return (
     <View
@@ -369,9 +369,9 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
         <>
           <Timeline first={isFirst} last={isLast} />
           <View className="flex-grow ml-2.5 my-2.5 flex-shrink">
-            <DateDisplay day={item} />
-            {!!isFirst && <ThoughtOfTheDay day={item} selected={timestampSelected === null} />}
-            {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={item} />}
+            <DateDisplay day={date} />
+            {!!isFirst && <ThoughtOfTheDay day={date} selected={timestampSelected === null} />}
+            {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={date} />}
             {noDrinksConfirmed ? (
               <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
             ) : (
@@ -423,7 +423,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
             {isContext ? (
               <View className="flex mb-4 rounded-md border-[#DFDFEB] bg-[#F9F9F9] sm:px-2 md:px-4 lg:px-20 xl:px-30 border">
                 <View className="flex-row justify-between w-full px-2 py-2 ">
-                  {drinksContexts[item].emotion ? (
+                  {drinksContexts[date].emotion ? (
                     <View>
                       <Emotion width={30} height={30} />
                     </View>
@@ -434,7 +434,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
                   <View className="py-1">
                     <TouchableOpacity
                       onPress={() => {
-                        updateEmotionRequest(item);
+                        updateEmotionRequest(date);
                         logEvent({
                           category: 'CONTEXT',
                           action: 'USED_MODIFY_CONTEXT',
@@ -444,15 +444,15 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
                     </TouchableOpacity>
                   </View>
                 </View>
-                {drinksContexts[item].note && (
-                  <Text className="text-start ml-10 mr-3 mb-3">{drinksContexts[item].note}</Text>
+                {drinksContexts[date].note && (
+                  <Text className="text-start ml-10 mr-3 mb-3">{drinksContexts[date].note}</Text>
                 )}
-                {drinksContexts[item].context && (
+                {drinksContexts[date].context && (
                   <View className="flex flex-row flex-wrap ml-10 mb-3">
-                    {drinksContexts[item].context.map((name) => {
+                    {drinksContexts[date].context.map((name) => {
                       const contextName = contextsCatalog.find((context) => name === context.contextKey).displayFeed;
                       return (
-                        <View className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
+                        <View key={contextName} className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
                           <Text className="color-white font-bold">{contextName}</Text>
                         </View>
                       );
@@ -461,19 +461,19 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
                 )}
               </View>
             ) : null}
-            {!isToday(item) && (
+            {!isToday(date) && (
               <FeedBottomButton
                 color="#4030a5"
                 content="Ajouter une consommation"
                 withoutPadding
                 onPress={async () => {
-                  let selectedTimestamp = Date.parse(item);
-                  if (Date.parse(item)) {
+                  let selectedTimestamp = Date.parse(date);
+                  if (Date.parse(date)) {
                     // if a bar is selected, we use it, and we set the hours and minutes to present
                     const now = new Date();
                     const h = now.getHours();
                     const m = now.getMinutes();
-                    const timestamp = makeSureTimestamp(Date.parse(item));
+                    const timestamp = makeSureTimestamp(Date.parse(date));
                     const tempDate = new Date(timestamp);
                     tempDate.setHours(h);
                     tempDate.setMinutes(m);
@@ -489,7 +489,7 @@ const FeedDayItem = ({ item, index, addDrinksRequest, deleteDrinkRequest, update
                 content="Ajouter une note et un context"
                 withoutPadding
                 onPress={() => {
-                  updateEmotionRequest(item);
+                  updateEmotionRequest(date);
                   logEvent({
                     category: 'CONTEXT',
                     action: 'OPEN_CONTEXT_ADDSCREEN_UNDERLINE_TEXT',

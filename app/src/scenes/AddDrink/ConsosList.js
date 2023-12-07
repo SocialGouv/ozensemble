@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager } from 'react-native';
+import { BackHandler, Platform, StatusBar, View, Text, TouchableOpacity, InteractionManager } from 'react-native';
 import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -180,6 +180,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
 
   return (
     <>
+      {/* <StatusBar barStyle="dark-content" /> */}
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
           <View className="h-2.5 flex-row w-full px-10">
