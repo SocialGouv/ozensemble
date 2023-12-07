@@ -87,7 +87,8 @@ app.use("/goal", require("./controllers/goal"));
 app.use("/appMilestone", require("./controllers/appMilestone"));
 app.use("/articles", require("./controllers/articles"));
 app.use("/defis", require("./controllers/defis"));
-app.use("/drinks", require("./controllers/drinks"));
+app.use("/drinks", require("./controllers/drinksCatalog"));
+app.use("/drinks-context", require("./controllers/drinksContext"));
 
 app.use(errors.sendError);
 
