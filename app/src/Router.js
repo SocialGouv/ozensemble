@@ -42,7 +42,6 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import Official from './scenes/Infos/Official';
-import EmotionsList from './scenes/AddEmotion/EmotionsList';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
