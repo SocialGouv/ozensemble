@@ -156,7 +156,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
     if (route?.params?.parent === 'Defi1_Day1') {
       // navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
     } else {
-      navigation.push('EMOTIONS_LIST', { timestamp: makeSureTimestamp(addDrinkModalTimestamp) });
+      navigation.push('DRINKS_CONTEXTS_LIST', { timestamp: makeSureTimestamp(addDrinkModalTimestamp) });
     }
   }, [navigation, route?.params?.parent]);
 

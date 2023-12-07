@@ -253,10 +253,10 @@ const Feed = () => {
     [navigation]
   );
 
-  const updateEmotionRequest = useCallback(
+  const updateDrinksContextsRequest = useCallback(
     (date, fromButton) => {
       // date is YYYY-MM-DD
-      navigation.push('ADD_DRINK', { screen: 'EMOTIONS_LIST', params: { date, isOpenedFromFeed: true } });
+      navigation.push('ADD_DRINK', { screen: 'DRINKS_CONTEXTS_LIST', params: { date, isOpenedFromFeed: true } });
     },
     [navigation]
   );
@@ -311,7 +311,7 @@ const Feed = () => {
                 index={index}
                 deleteDrinkRequest={deleteDrinkRequest}
                 addDrinksRequest={addDrinksRequest}
-                updateEmotionRequest={updateEmotionRequest}
+                updateDrinksContextsRequest={updateDrinksContextsRequest}
               />
             </View>
           );
@@ -322,7 +322,7 @@ const Feed = () => {
   );
 };
 
-const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, updateEmotionRequest }) => {
+const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, updateDrinksContextsRequest }) => {
   const days = useRecoilValue(feedDaysSelector);
   const drinksContexts = useRecoilValue(drinksContextsState);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
@@ -434,7 +434,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                   <View className="py-1">
                     <TouchableOpacity
                       onPress={() => {
-                        updateEmotionRequest(date);
+                        updateDrinksContextsRequest(date);
                         logEvent({
                           category: 'CONTEXT',
                           action: 'USED_MODIFY_CONTEXT',
@@ -489,7 +489,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 content="Ajouter une note et un context"
                 withoutPadding
                 onPress={() => {
-                  updateEmotionRequest(date);
+                  updateDrinksContextsRequest(date);
                   logEvent({
                     category: 'CONTEXT',
                     action: 'OPEN_CONTEXT_ADDSCREEN_UNDERLINE_TEXT',

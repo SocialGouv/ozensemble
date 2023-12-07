@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ConsosList from './ConsosList';
-import EmotionsList from '../AddEmotion/EmotionsList';
+import DrinksContextsList from '../AddEmotion/DrinksContextsList';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, StatusBar } from 'react-native';
-import ContextSuggestion from '../AddEmotion/ContextSuggestion';
 
 const AddDrinkStack = createStackNavigator();
 
@@ -24,9 +23,13 @@ const AddDrinkNavigator = ({ route }) => {
             />
           )}
         </AddDrinkStack.Screen>
-        <AddDrinkStack.Screen initialParams={{ parent: route?.params?.parent }} name="EMOTIONS_LIST">
+        <AddDrinkStack.Screen initialParams={{ parent: route?.params?.parent }} name="DRINKS_CONTEXTS_LIST">
           {(props) => (
-            <EmotionsList {...props} addDrinkModalTimestamp={addDrinkModalTimestamp} key={addDrinkModalTimestamp} />
+            <DrinksContextsList
+              {...props}
+              addDrinkModalTimestamp={addDrinkModalTimestamp}
+              key={addDrinkModalTimestamp}
+            />
           )}
         </AddDrinkStack.Screen>
       </AddDrinkStack.Navigator>
