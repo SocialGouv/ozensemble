@@ -44,9 +44,7 @@ const ResultsUserSurvey = ({ navigation, route }) => {
             await sendMail({
               subject: 'User Survey',
               text: formatText(feedback, userId),
-            })
-              .then((res) => res.json())
-              .catch((err) => console.log('sendMail User Survey err', err));
+            }).catch((err) => console.log('sendMail User Survey err', err));
             navigation.navigate('TABS');
           }}
         />

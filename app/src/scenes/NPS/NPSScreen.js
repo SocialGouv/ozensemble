@@ -169,9 +169,7 @@ const NPSScreen = ({ navigation, route }) => {
     await sendMail({
       subject: forDefi ? `NPS Addicto Défi ${forDefi}` : 'NPS Addicto',
       text: formatText(useful, feedback, contact, userId, forDefi, triggeredFrom),
-    })
-      .then((res) => res.json())
-      .catch((err) => console.log('sendNPS err', err));
+    }).catch((err) => console.log('sendNPS err', err));
 
     npsSent.current = true;
     // StatusBar.setHidden(false, 'none');
