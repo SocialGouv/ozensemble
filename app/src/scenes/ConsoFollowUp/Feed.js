@@ -420,7 +420,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 );
               })
             )}
-            {isContext ? (
+            {isContext && !noDrinksYet ? (
               <View className="flex mb-4 rounded-md border-[#DFDFEB] bg-[#F9F9F9] sm:px-2 md:px-4 lg:px-20 xl:px-30 border">
                 <View className="flex-row justify-between w-full px-2 py-2 ">
                   {drinksContexts[date].emotion ? (
