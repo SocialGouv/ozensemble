@@ -2,12 +2,12 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Alert, Linking, StatusBar } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Activities from './components/illustrations/Activities';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
 import GuidanceIcon from './components/illustrations/GuidanceIcon';
@@ -61,7 +61,7 @@ const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
-  const showBootSplash = useRecoilValue(showBootSplashState);
+  const [showBootSplash, setShowBootsplash] = useRecoilState(showBootSplashState);
   const resetOnTapListener = ({ navigation, rootName }) => {
     return {
       blur: () => {
@@ -77,12 +77,12 @@ const TabsNavigator = ({ navigation }) => {
     <>
       <Tabs.Navigator
         initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
-        lazy={false}
-        screenOptions={{ headerShown: false }}
-        tabBarOptions={{
-          activeTintColor: '#4030A5',
-          inactiveTintColor: '#767676',
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: '#4030A5',
+          tabBarInactiveTintColor: '#767676',
           keyboardHidesTabBar: true,
+          lazy: false,
         }}>
         <Tabs.Screen
           name="GAINS_NAVIGATOR"
@@ -143,7 +143,7 @@ const TabsNavigator = ({ navigation }) => {
   );
 };
 
-const AppStack = createStackNavigator();
+const AppStack = createNativeStackNavigator();
 const App = () => {
   const initialRouteName = useMemo(() => {
     const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
@@ -152,22 +152,22 @@ const App = () => {
   }, []);
 
   return (
-    <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
-      <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
-      <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
-      <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
-
-      <AppStack.Screen
-        name="ADD_DRINK"
-        component={AddDrinkNavigator}
-        options={{
-          stackPresentation: 'fullScreenModal',
-          headerShown: false,
-        }}
-      />
-
-      <AppStack.Screen name="TABS" component={TabsNavigator} />
-    </AppStack.Navigator>
+    <>
+      <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
+        <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
+        <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
+        <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
+        <AppStack.Screen
+          name="ADD_DRINK"
+          component={AddDrinkNavigator}
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <AppStack.Screen name="TABS" component={TabsNavigator} />
+      </AppStack.Navigator>
+    </>
   );
 };
 
@@ -235,7 +235,6 @@ const Router = () => {
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}>
-        {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
         <RouterStack.Navigator
           presentation="modal"
           screenOptions={{
@@ -246,7 +245,7 @@ const Router = () => {
             name="NPS_SCREEN"
             component={NPSScreen}
             options={{
-              stackPresentation: 'fullScreenModal',
+              presentation: 'modal',
               headerShown: false,
             }}
           />
@@ -268,7 +267,6 @@ const Router = () => {
         </RouterStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
-      <CustomBootsplash />
     </>
   );
 };

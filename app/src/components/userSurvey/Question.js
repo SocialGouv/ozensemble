@@ -91,8 +91,6 @@ const Question = ({
                       setShowBootsplash(true);
                       await new Promise((res) => setTimeout(res, 250));
                       navigation.navigate('TABS');
-                      await new Promise((res) => setTimeout(res, 750));
-                      setShowBootsplash(false);
                       return;
                     }
                     navigation.navigate('QUIZZ_RESULTS');

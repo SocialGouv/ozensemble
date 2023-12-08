@@ -1,15 +1,40 @@
 import React from 'react';
 import { View, SafeAreaView } from 'react-native';
+import { SafeAreaView as Safe2 } from 'react-native-safe-area-context';
 
 const Background = ({ neverBottom, children, color, withSwiperContainer, debug }) => {
   const Container = withSwiperContainer ? SwiperContainer : React.Fragment;
   const safeAreaProps = neverBottom ? { forceInset: { bottom: 'never' } } : {};
   return (
-    <View className={['w-full h-full'].join(' ')} style={{ background: color, borderWidth: debug ? 3 : 0 }}>
-      <SafeAreaView {...safeAreaProps}>
-        <Container>{children}</Container>
+    <>
+      <SafeAreaView
+        className="h-full"
+        style={{
+          backgroundColor: color,
+          // borderWidth: debug ? 3 : 0,
+          // borderWidth: 3,
+          // borderColor: 'red',
+        }}>
+        <View
+          className={['w-full h-full'].join(' ')}
+          style={{
+            background: color,
+            // borderWidth: debug ? 3 : 0,
+            // borderWidth: 3,
+            // borderColor: 'blue',
+          }}>
+          <SafeAreaView
+            {...safeAreaProps}
+            style={{
+              backgroundColor: color,
+              // borderWidth: 3,
+              // borderColor: 'green',
+            }}>
+            <Container>{children}</Container>
+          </SafeAreaView>
+        </View>
       </SafeAreaView>
-    </View>
+    </>
   );
 };
 

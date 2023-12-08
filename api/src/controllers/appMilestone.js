@@ -53,7 +53,31 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-
+    if (req.headers.appversion >= 211) {
+      const newUserContextFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@NewUserContextFeature` },
+      });
+      if (!newUserContextFeature) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@NewUserContextFeature`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@NewUserContextFeature",
+            title: "Nouveau : ajoutez une note et un contexte à vos consos",
+            content: "Noter les évènements du jour vous aidera à mieux identifier les situations à risque ! Retrouvez-les dans le fil d'actualité.",
+            CTATitle: "Ajouter une consommation",
+            secondaryButtonTitle: "Plus tard",
+            CTANavigation: ["ADD_DRINK"],
+          },
+        });
+      }
+    }
     const newUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
     });

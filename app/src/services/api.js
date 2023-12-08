@@ -17,8 +17,8 @@ export const checkNetwork = async (test = false) => {
 };
 
 class ApiService {
-  host = API_HOST;
-  scheme = SCHEME;
+  host = 'API_HOST';
+  scheme = 'SCHEME';
   getUrl = (path, query) => {
     return new URI().host(this.host).scheme(this.scheme).path(path).setSearch(query).toString();
   };
@@ -44,7 +44,7 @@ class ApiService {
       const url = this.getUrl(path, query);
       // console.log('url: ', url);
       const canFetch = await checkNetwork();
-      if (!canFetch) return {ok: false,};
+      if (!canFetch) return { ok: false };
 
       const response = await fetch(url, config);
 

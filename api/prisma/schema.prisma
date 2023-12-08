@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
   engineType = "binary" // https://github.com/prisma/prisma/issues/10649
 }
 
@@ -12,20 +12,21 @@ datasource db {
 }
 
 model User {
-  id                String         @id @default(uuid())
-  matomo_id         String         @unique
-  push_notif_token  String         @default("")
+  id                String          @id @default(uuid())
+  matomo_id         String          @unique
+  push_notif_token  String          @default("")
   reminder          Reminder?
   notifications     Notification[]
   badges            Badge[]
   consommations     Consommation[]
+  drinksContext     DrinksContext[]
   goals             Goal[]
   appUserMilestones AppMilestone[]
   articles          Article[]
   lastConsoAdded    DateTime?
-  created_from      String         @default("")
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @default(now()) @updatedAt
+  created_from      String          @default("")
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @default(now()) @updatedAt
 
   @@index([push_notif_token], type: Hash)
 }
@@ -120,6 +121,20 @@ model Consommation {
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId], type: Hash)
+}
+
+model DrinksContext {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  date      DateTime @default(now())
+  note      String   @default("")
+  context   String[] @default([])
+  emotion   String   @default("")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

@@ -170,6 +170,19 @@ const InAppModal = () => {
                 <Image className="rounded-full w-[100px] h-[100px]" source={require('../assets/images/Icon.png')} />
               </View>
             )}
+            {modalContent?.id.includes('NewUserContextFeature') && (
+              <View className="flex-row">
+                <View className="border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2 bg-[#4030A5]">
+                  <Text className="color-white">à la maison</Text>
+                </View>
+                <View className="border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2 bg-[#4030A5]">
+                  <Text className="color-white">seul</Text>
+                </View>
+                <View className="border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2 bg-[#4030A5]">
+                  <Text className="color-white">me détendre</Text>
+                </View>
+              </View>
+            )}
           </View>
 
           <View className="mb-8 mx-4">

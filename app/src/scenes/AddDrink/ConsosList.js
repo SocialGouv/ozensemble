@@ -38,9 +38,7 @@ const drinksPerCurrenTimestampSelector = selectorFamily({
     },
 });
 
-const ConsosList = ({ navigation, route }) => {
-  const timestamp = route?.params?.timestamp || new Date();
-  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => timestamp);
+const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTimestamp }) => {
   const drinksPerCurrentaTimestamp = useRecoilValue(
     drinksPerCurrenTimestampSelector({ modalTimestamp: addDrinkModalTimestamp })
   );
@@ -77,7 +75,7 @@ const ConsosList = ({ navigation, route }) => {
     }
   };
   const onValidateConsos = async () => {
-    onClose();
+    onNext();
     await new Promise((resolve) => setTimeout(resolve, 100));
     const drinksWithTimestamps = localDrinksState.map((drink) => ({
       ...drink,
@@ -85,8 +83,8 @@ const ConsosList = ({ navigation, route }) => {
     }));
     let showToast = true;
     const newDrinksIds = drinksWithTimestamps.map((drink) => drink.id);
-    setGlobalDrinksState((state) => {
-      const nextState = [...state.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
+    setGlobalDrinksState((prevState) => {
+      const nextState = [...prevState.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
         .filter((d) => d.quantity > 0)
         .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
       return nextState;
@@ -149,18 +147,16 @@ const ConsosList = ({ navigation, route }) => {
         }
       }
       if (showToast) {
-        setTimeout(() => {
-          toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
-        }, 250);
+        toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
       }
     });
   };
 
-  const onClose = useCallback(() => {
+  const onNext = useCallback(() => {
     if (route?.params?.parent === 'Defi1_Day1') {
-      navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+      // navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
     } else {
-      navigation.goBack();
+      navigation.push('DRINKS_CONTEXTS_LIST', { timestamp: makeSureTimestamp(addDrinkModalTimestamp) });
     }
   }, [navigation, route?.params?.parent]);
 
@@ -186,6 +182,10 @@ const ConsosList = ({ navigation, route }) => {
     <>
       <Container>
         <ModalContent ref={scrollRef} disableHorizontal>
+          <View className="h-2.5 flex-row w-full px-10">
+            <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-4" />
+            <View className="bg-[#DBDBE8] h-full flex-1 rounded-full mr-2" />
+          </View>
           <Title>Sélectionnez vos consommations</Title>
           <DateAndTimePickers
             addDrinkModalTimestamp={addDrinkModalTimestamp}
@@ -195,7 +195,7 @@ const ConsosList = ({ navigation, route }) => {
             className="mt-5 mb-7 self-center"
             small
             onPress={() => {
-              onClose();
+              onNext();
               const noConso = {
                 drinkKey: NO_CONSO,
                 quantity: 1,

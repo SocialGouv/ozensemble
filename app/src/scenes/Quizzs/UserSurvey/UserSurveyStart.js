@@ -9,46 +9,48 @@ import { logEvent } from '../../../services/logEventsWithMatomo';
 import H3 from '../../../components/H3';
 import UserSurveyLogo from '../../../components/illustrations/UserSurveyLogo';
 import Background from '../../../components/Background';
-import { showBootSplashState } from '../../../components/CustomBootsplash';
+import CustomBootsplash, { showBootSplashState } from '../../../components/CustomBootsplash';
 
 const UserSurveyStart = ({ navigation, route }) => {
   const setShowBootsplash = useSetRecoilState(showBootSplashState);
 
   return (
-    <Background color="#39cec0" withSwiperContainer neverBottom>
-      <Container>
-        <MiddleContainer>
-          <UserSurveyLogo />
-          <Title>Bienvenue sur Oz !</Title>
-          <Text>
-            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{'\n\n'}
-            <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
-          </Text>
-        </MiddleContainer>
+    <>
+      <Background color="#fff" withSwiperContainer neverBottom>
+        <Container>
+          <MiddleContainer>
+            <UserSurveyLogo />
+            <Title>Bienvenue sur Oz !</Title>
+            <Text>
+              Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{'\n\n'}
+              <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
+            </Text>
+          </MiddleContainer>
 
-        <InsideContainer>
-          <ButtonPrimaryStyled
-            content={"C'est parti"}
-            onPress={async () => {
-              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
-              navigation.push('USER_SURVEY_FROM_ONBOARDING', { from: route.params?.from });
-            }}
-          />
-          <TouchableOpacity
-            onPress={async () => {
-              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START_SKIP' });
-              // TODO: fix user survey still appearing after bootsplash hide
-              setShowBootsplash(true);
-              await new Promise((res) => setTimeout(res, 250));
-              navigation.navigate('TABS');
-              await new Promise((res) => setTimeout(res, 750));
-              setShowBootsplash(false);
-            }}>
-            <Skip>Plus tard</Skip>
-          </TouchableOpacity>
-        </InsideContainer>
-      </Container>
-    </Background>
+          <InsideContainer>
+            <ButtonPrimaryStyled
+              content={"C'est parti"}
+              onPress={async () => {
+                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
+                navigation.push('USER_SURVEY_FROM_ONBOARDING', { from: route.params?.from });
+              }}
+            />
+            <TouchableOpacity
+              onPress={async () => {
+                logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START_SKIP' });
+                // TODO: fix user survey still appearing after bootsplash hide
+                console.log('START 1');
+                setShowBootsplash(true);
+                await new Promise((res) => setTimeout(res, 250));
+                navigation.navigate('TABS');
+              }}>
+              <Skip>Plus tard</Skip>
+            </TouchableOpacity>
+          </InsideContainer>
+        </Container>
+      </Background>
+      <CustomBootsplash />
+    </>
   );
 };
 
