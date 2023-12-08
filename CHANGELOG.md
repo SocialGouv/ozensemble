@@ -1,3 +1,10 @@
+## [1.133.1](https://github.com/SocialGouv/ozensemble/compare/v1.133.0...v1.133.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* clean in app modal annoucnements ([178e93e](https://github.com/SocialGouv/ozensemble/commit/178e93e7634ad9329c1804e4a50c547b11b19461))
+
 # [1.133.0](https://github.com/SocialGouv/ozensemble/compare/v1.132.6...v1.133.0) (2023-11-30)
 
 
