@@ -67,7 +67,7 @@ const QuizzUserSurvey = ({ questions, recoilAnswersState, route, Results, event 
   };
 
   return (
-    <Background color="#39cec0" withSwiperContainer neverBottom>
+    <Background color="#f9f9f9" withSwiperContainer neverBottom>
       <QuizzAndResultsStack.Navigator
         screenOptions={{ headerShown: false, cardStyle: { backgroundColor: '#f9f9f9' } }}
         initialRouteName={route?.params?.initialRouteName}

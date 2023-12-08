@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions, Platform, StatusBar } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
@@ -124,10 +124,10 @@ const NPSScreen = ({ navigation, route }) => {
     });
     const matomoId = storage.getString('@UserIdv2');
     API.post({
-      path: '/appUserMilestone',
+      path: '/appMilestone',
       body: {
         matomoId,
-        appUserMilestone: '@NPSDone',
+        appMilestone: '@NPSDone',
       },
     });
     storage.set('@NPSDone', 'true');
@@ -174,13 +174,13 @@ const NPSScreen = ({ navigation, route }) => {
       .catch((err) => console.log('sendNPS err', err));
 
     npsSent.current = true;
-    StatusBar.setHidden(false, 'none');
+    // StatusBar.setHidden(false, 'none');
     navigation.goBack();
   };
 
   return (
     <SafeAreaProvider>
-      <StatusBar backgroundColor="#39cec0" barStyle="light-content" />
+      {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
       <Background color="#f9f9f9">
         <Container>
           <KeyboardAvoidingViewStyled
@@ -238,7 +238,7 @@ const NPSScreen = ({ navigation, route }) => {
                 textContentType="emailAddress"
                 onSubmitEditing={sendNPS}
                 placeholderTextColor="#c9c9cc"
-                onBlur={() => StatusBar.setHidden(false, 'none')}
+                // onBlur={() => StatusBar.setHidden(false, 'none')}
               />
               <ButtonContainer>
                 <ButtonPrimary content={sendButton} disabled={!useful} onPress={sendNPS} />
