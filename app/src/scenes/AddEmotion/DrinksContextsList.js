@@ -249,9 +249,7 @@ const OtherButton = ({ category }) => {
     await sendMail({
       subject: 'Context suggestion',
       text: formatText(category, contextSuggestion, userId, triggeredFrom),
-    })
-      .then((res) => res.json())
-      .catch((err) => console.log('onValidate sendMail error', err));
+    }).catch((err) => console.log('onValidate sendMail error', err));
     setModalVisible(false);
     setContextSuggestion('');
     setSendButton('Envoyer');
