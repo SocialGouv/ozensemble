@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ConsosList from './ConsosList';
 import DrinksContextsList from '../AddEmotion/DrinksContextsList';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, StatusBar } from 'react-native';
+import { View } from 'react-native';
 
 const AddDrinkStack = createStackNavigator();
 
@@ -12,7 +12,6 @@ const AddDrinkNavigator = ({ route }) => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" />
       <AddDrinkStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CONSOS_LIST">
         <AddDrinkStack.Screen initialParams={{ parent: route?.params?.parent }} name="CONSOS_LIST">
           {(props) => (

@@ -143,7 +143,7 @@ const TabsNavigator = ({ navigation }) => {
   );
 };
 
-const AppStack = createStackNavigator();
+const AppStack = createNativeStackNavigator();
 const App = () => {
   const initialRouteName = useMemo(() => {
     const onBoardingDone = storage.getBoolean('@OnboardingDoneWithCGU');
