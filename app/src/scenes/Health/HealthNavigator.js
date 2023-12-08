@@ -19,13 +19,13 @@ import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
 import CravingsTreatment from './Articles/CravingsTreatment';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
   useToggleCTA({ navigator: 'Health' });
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_ARTICLE">
         <HealthStack.Screen
           name="ONBOARDING_QUIZZ"

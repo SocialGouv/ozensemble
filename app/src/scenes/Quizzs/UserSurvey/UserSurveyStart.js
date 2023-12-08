@@ -15,7 +15,7 @@ const UserSurveyStart = ({ navigation, route }) => {
   const setShowBootsplash = useSetRecoilState(showBootSplashState);
 
   return (
-    <Background color="#39cec0" withSwiperContainer neverBottom>
+    <Background color="#fff" withSwiperContainer neverBottom>
       <Container>
         <MiddleContainer>
           <UserSurveyLogo />

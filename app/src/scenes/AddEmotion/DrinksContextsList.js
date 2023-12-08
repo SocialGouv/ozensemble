@@ -1,18 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { useIsFocused } from '@react-navigation/native';
-import {
-  BackHandler,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  InteractionManager,
-  SafeAreaView,
-  ViewBase,
-} from 'react-native';
-import { selectorFamily, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+
+import { Platform, View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GoBackButtonText from '../../components/GoBackButtonText';
@@ -20,14 +10,10 @@ import Modal from '../../components/Modal';
 import { emotionIcon, contextKeysByCategory, contextsCatalogObject, getDisplayName } from './contextsCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
-import H2 from '../../components/H2';
-import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
-import DateAndTimePickers from '../AddDrink/DateAndTimePickers';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
+import { buttonHeight } from '../../styles/theme';
 import dayjs from 'dayjs';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
-import TextStyled from '../../components/TextStyled';
 import { capture } from '../../services/sentry';
 import PeopleIcon from '../../components/illustrations/icons/PeopleIcon';
 import Clock from '../../components/illustrations/icons/Clock';
@@ -38,14 +24,14 @@ import { drinksContextsState } from '../../recoil/contexts';
 import { sendMail } from '../../services/mail';
 import pck from '../../../package.json';
 
-// const formatText = (category, context, userId, triggeredFrom) =>
-//   `
-// userId: ${userId}
-// Version: ${pck.version}
-// OS: ${Platform.OS}
-// Appelé depuis: ${triggeredFrom}
-// Demandez à ce qu'il soit ajouté à la liste ${category}: ${context}
-// `;
+const formatText = (category, context, userId, triggeredFrom) =>
+  `
+userId: ${userId}
+Version: ${pck.version}
+OS: ${Platform.OS}
+Appelé depuis: ${triggeredFrom}
+Demandez à ce qu'il soit ajouté à la liste ${category}: ${context}
+`;
 
 const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
   const date = addDrinkModalTimestamp ? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') : route?.params?.date;
@@ -54,7 +40,6 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
   }
   const isOpenedFromFeed = route?.params?.isOpenedFromFeed;
   const [drinksContexts, setDrinksContexts] = useRecoilState(drinksContextsState);
-  const [ownContextModalVisible, setOwnContextModalVisible] = useState(false);
 
   const drinksContext = drinksContexts[date] ?? {};
   const [note, setNote] = useState(drinksContext.note ?? '');
@@ -80,13 +65,21 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     newDrinksContexts[date] = newContextToSave;
     setDrinksContexts(newDrinksContexts);
     API.post({
-      path: '/drinks-context',
+      path: '/drinks-Context',
       body: {
         date,
         matomoId: storage.getString('@UserIdv2'),
         ...newContextToSave,
       },
-    });
+    })
+      .then((response) => {
+        // Handle successful response
+        console.log('Success:', response);
+      })
+      .catch((error) => {
+        // Handle error
+        console.error('Error:', error);
+      });
     navigation.navigate('TABS');
     logEvent({
       category: 'CONTEXT',
@@ -252,11 +245,10 @@ const OtherButton = ({ category }) => {
     logEvent();
     // send this like NPS
     // category, new value
-
     setSendButton('Merci !');
     await sendMail({
-      subject: 'Contexte suggestion',
-      text: 'en attendant',
+      subject: 'Context suggestion',
+      text: formatText(category, contextSuggestion, userId, triggeredFrom),
     })
       .then((res) => res.json())
       .catch((err) => console.log('onValidate sendMail error', err));
@@ -283,27 +275,34 @@ const OtherButton = ({ category }) => {
         hideOnTouch
         className="border">
         <View className="bg-white rounded-xl">
-          <View className=" flex w-full justify-between mb-4 p-2 ">
-            <TouchableOpacity className="" onPress={() => setModalVisible(false)}>
-              <CrossOutAddContext />
-            </TouchableOpacity>
-            <Text className=" text-[#4030A5] text-center mb-1 text-xl font-extrabold">
+          <View className=" flex w-full mb-2 px-2">
+            <View className="px-2 pt-2">
+              <TouchableOpacity className="-right-full" onPress={() => setModalVisible(false)}>
+                <CrossOutAddContext />
+              </TouchableOpacity>
+            </View>
+
+            <Text className=" text-[#4030A5] text-center mb-1 text-xl px-2 font-bold">
               Vous pensez à un autre contexte de consommation ?
             </Text>
+            <Text className=" font-light italic color-black ml-2 mr-2 mt-2">
+              Demandez à ce qu'il soit ajouté à la liste.
+            </Text>
             <TextInput
-              className="bg-white rounded-lg border border-[#E4E4E4] mr-2 mt-2 mb-2 ml-2 py-4 px-3"
+              className="bg-gray-50 rounded-md border border-[#E4E4E4] mr-2 mt-4 mb-2 ml-2 py-4 px-3"
               placeholder="Contexte de consommation"
               keyboardType="decimal-pad"
               value={contextSuggestion}
               onChangeText={setContextSuggestion}
             />
-            <View className="space-y-2 bg-[#F5F6FA] rounded-lg p-2 mt-4">
-              <ButtonPrimary
-                content={sendButton}
+            <View className="p-2 mt-2">
+              <TouchableOpacity
+                className="bg-[#de285e] justify-center  items-center rounded-3xl h-10 w-24"
                 onPress={() => {
                   onValidateContextSuggestion();
-                }}
-              />
+                }}>
+                <Text className="color-white font-extrabold">{sendButton}</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

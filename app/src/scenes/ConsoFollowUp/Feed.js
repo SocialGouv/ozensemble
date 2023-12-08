@@ -124,7 +124,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
   }, [dateLastEntered, setDrinks]);
   return (
     <>
-      <View className="flex flex-row shrink-0 mb-4" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      <View className="flex flex-row shrink-0 mb-4 pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
@@ -295,7 +295,7 @@ const Feed = () => {
     [navigation]
   );
   return (
-    <View className="h-full bg-white pt-5">
+    <View className="h-full bg-white">
       <FlashList
         ref={flashListRef}
         data={days}
