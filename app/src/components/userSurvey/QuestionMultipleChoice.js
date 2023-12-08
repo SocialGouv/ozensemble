@@ -114,9 +114,6 @@ const QuestionMultipleChoice = ({
                     setShowBootsplash(true);
                     await new Promise((res) => setTimeout(res, 250));
                     navigation.navigate('TABS');
-                    await new Promise((res) => setTimeout(res, 750));
-                    // RNBootSplash.hide({ fade: true });
-                    setShowBootsplash(false);
                     return;
                   }
                   navigation.navigate('QUIZZ_RESULTS');

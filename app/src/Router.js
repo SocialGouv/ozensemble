@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Alert, Linking, StatusBar } from 'react-native';
+import { Alert, Linking } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,7 +61,7 @@ const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
-  const showBootSplash = useRecoilValue(showBootSplashState);
+  const [showBootSplash, setShowBootsplash] = useRecoilState(showBootSplashState);
   const resetOnTapListener = ({ navigation, rootName }) => {
     return {
       blur: () => {
@@ -152,20 +152,22 @@ const App = () => {
   }, []);
 
   return (
-    <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
-      <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
-      <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
-      <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
-      <AppStack.Screen
-        name="ADD_DRINK"
-        component={AddDrinkNavigator}
-        options={{
-          presentation: 'modal',
-          headerShown: false,
-        }}
-      />
-      <AppStack.Screen name="TABS" component={TabsNavigator} />
-    </AppStack.Navigator>
+    <>
+      <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
+        <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
+        <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
+        <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
+        <AppStack.Screen
+          name="ADD_DRINK"
+          component={AddDrinkNavigator}
+          options={{
+            presentation: 'modal',
+            headerShown: false,
+          }}
+        />
+        <AppStack.Screen name="TABS" component={TabsNavigator} />
+      </AppStack.Navigator>
+    </>
   );
 };
 
@@ -233,7 +235,6 @@ const Router = () => {
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}>
-        {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
         <RouterStack.Navigator
           presentation="modal"
           screenOptions={{
@@ -244,7 +245,7 @@ const Router = () => {
             name="NPS_SCREEN"
             component={NPSScreen}
             options={{
-              stackPresentation: 'fullScreenModal',
+              presentation: 'modal',
               headerShown: false,
             }}
           />
@@ -266,7 +267,6 @@ const Router = () => {
         </RouterStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
-      <CustomBootsplash />
     </>
   );
 };

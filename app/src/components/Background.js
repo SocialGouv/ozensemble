@@ -7,13 +7,33 @@ const Background = ({ neverBottom, children, color, withSwiperContainer, debug }
   const safeAreaProps = neverBottom ? { forceInset: { bottom: 'never' } } : {};
   return (
     <>
-      <Safe2 edges={['bottom']} className="bg-white h-full">
-        <View className={['w-full h-full'].join(' ')} style={{ background: color, borderWidth: debug ? 3 : 0 }}>
-          <SafeAreaView {...safeAreaProps} style={{ backgroundColor: color }}>
+      <SafeAreaView
+        className="h-full"
+        style={{
+          backgroundColor: color,
+          // borderWidth: debug ? 3 : 0,
+          // borderWidth: 3,
+          // borderColor: 'red',
+        }}>
+        <View
+          className={['w-full h-full'].join(' ')}
+          style={{
+            background: color,
+            // borderWidth: debug ? 3 : 0,
+            // borderWidth: 3,
+            // borderColor: 'blue',
+          }}>
+          <SafeAreaView
+            {...safeAreaProps}
+            style={{
+              backgroundColor: color,
+              // borderWidth: 3,
+              // borderColor: 'green',
+            }}>
             <Container>{children}</Container>
           </SafeAreaView>
         </View>
-      </Safe2>
+      </SafeAreaView>
     </>
   );
 };
