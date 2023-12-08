@@ -119,7 +119,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                         setSelectedEmotion(emotion);
                       }
                     }}>
-                    <Emoji />
+                    <Emoji className="w-full" style={{ aspectRatio: 1 }} />
                   </TouchableOpacity>
                 );
               })}
