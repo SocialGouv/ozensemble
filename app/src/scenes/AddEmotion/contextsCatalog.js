@@ -26,30 +26,6 @@ export const getDisplayName = (contextKey, catalogObject) => {
   }
 };
 
-export const getStyle = (contextKey, catalogObject) => {
-  try {
-    const context = catalogObject[contextKey];
-    if (!context) {
-      capture(new Error('context not found'), {
-        extra: { contextKey, catalogObject, function: 'getStyle' },
-      });
-      return {};
-    }
-    return context.style || {};
-  } catch (e) {
-    capture(e, { extra: { contextKey, catalogObject, function: 'getStyle' } });
-    return {};
-  }
-};
-
-export const formatNewcontext = (name, contextKey) => ({
-  categoryKey: `${name}`,
-  contextKey: `${contextKey}`,
-  displayFeed: name,
-  custom: true,
-  active: true,
-});
-
 export const contextsCatalog = [
   // People
   {

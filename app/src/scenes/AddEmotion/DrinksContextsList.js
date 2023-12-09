@@ -71,28 +71,35 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
         matomoId: storage.getString('@UserIdv2'),
         ...newContextToSave,
       },
-    })
-      .then((response) => {
-        // Handle successful response
-        console.log('Success:', response);
-      })
-      .catch((error) => {
-        // Handle error
-        console.error('Error:', error);
-      });
+    });
     navigation.navigate('TABS');
+
     logEvent({
       category: 'CONTEXT',
       action: 'VALIDATE_CONTEXT',
-      name: newDrinksContexts[date],
-      value: newDrinksContexts[date],
+      name: 'validate note',
+      value: Boolean(newDrinksContexts[date].note),
+    });
+    logEvent({
+      category: 'CONTEXT',
+      action: 'VALIDATE_CONTEXT',
+      name: 'validate emotion',
+      value: newDrinksContexts[date].emotion,
+    });
+    newDrinksContexts[date].context.map((context) => {
+      logEvent({
+        category: 'CONTEXT',
+        action: 'VALIDATE_CONTEXT',
+        name: 'validate context',
+        value: context,
+      });
     });
     toast.show('Contexte de consommation enregistré');
   };
 
   return (
     <>
-      <Container>
+      <View className="flex-1 pt-5">
         <ModalContent className="bg-[#EFEFEF]" ref={scrollRef} disableHorizontal>
           {!isOpenedFromFeed && (
             <View className="h-2.5 flex-row w-full px-10 mb-6 ">
@@ -102,7 +109,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
           )}
           <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
             <Text className="text-[#4030A5] self-center font-bold mt-2">Comment s'est passée votre journée ?</Text>
-            <Container className="flex flex-row mb-2 ml-2 mr-0 px-1">
+            <View className="flex flex-1 flex-row mb-2 ml-2 mr-0 pt-5 px-1">
               {Object.keys(emotionIcon).map((emotion) => {
                 const Emoji = emotionIcon[emotion];
                 return (
@@ -119,11 +126,11 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                         setSelectedEmotion(emotion);
                       }
                     }}>
-                    <Emoji className="w-full" style={{ aspectRatio: 1 }} />
+                    <Emoji className="w-full aspect-square" />
                   </TouchableOpacity>
                 );
               })}
-            </Container>
+            </View>
           </View>
           <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
             <Text className="text-[#4030A5] self-center font-bold mt-2">Note du jour</Text>
@@ -203,8 +210,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
             <ButtonPrimary content="Valider" onPress={onValidateDrinksContexts} />
           </ButtonsContainer>
         </ButtonsContainerSafe>
-      </Container>
-      <View></View>
+      </View>
     </>
   );
 };
@@ -242,9 +248,12 @@ const OtherButton = ({ category }) => {
   const triggeredFrom = 'OTHER_BUTTON';
   const onValidateContextSuggestion = async () => {
     const userId = storage.getString('@UserIdv2');
-    logEvent();
-    // send this like NPS
-    // category, new value
+    logEvent({
+      category: 'CONTEXT_SUGGESTION',
+      action: 'VALIDATE_CONTEXT_SUGGESTION',
+      name: 'contextSuggestion',
+      value: contextSuggestion,
+    });
     setSendButton('Merci !');
     await sendMail({
       subject: 'Context suggestion',
@@ -275,7 +284,15 @@ const OtherButton = ({ category }) => {
         <View className="bg-white rounded-xl">
           <View className=" flex w-full mb-2 px-2">
             <View className="px-2 pt-2">
-              <TouchableOpacity className="-right-full" onPress={() => setModalVisible(false)}>
+              <TouchableOpacity
+                className="-right-full"
+                onPress={() => {
+                  setModalVisible(false);
+                  logEvent({
+                    category: 'CONTEXT_SUGGESTION',
+                    action: 'OTHER_BUTTON_CLICKED',
+                  });
+                }}>
                 <CrossOutAddContext />
               </TouchableOpacity>
             </View>
@@ -311,11 +328,6 @@ const OtherButton = ({ category }) => {
 
 const BackButton = styled(GoBackButtonText)`
   margin-right: 0;
-`;
-
-const Container = styled.View`
-  flex: 1;
-  padding-top: 20px;
 `;
 
 const ModalContent = styled.ScrollView`

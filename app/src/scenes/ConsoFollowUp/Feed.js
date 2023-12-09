@@ -425,7 +425,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 <View className="flex-row justify-between w-full px-2 py-2 ">
                   {drinksContexts[date].emotion ? (
                     <View>
-                      <Emotion className="w-7" style={{ aspectRatio: 1 }} />
+                      <Emotion className="w-7 aspect-square" />
                     </View>
                   ) : (
                     <View className="w-7 h-7"></View>
