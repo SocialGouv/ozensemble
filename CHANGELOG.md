@@ -1,3 +1,10 @@
+## [1.133.2](https://github.com/SocialGouv/ozensemble/compare/v1.133.1...v1.133.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* good api emotion fixed ([#482](https://github.com/SocialGouv/ozensemble/issues/482)) ([0499d3a](https://github.com/SocialGouv/ozensemble/commit/0499d3a81d328b8aa3b8149aa373e6597d551d89))
+
 ## [1.133.1](https://github.com/SocialGouv/ozensemble/compare/v1.133.0...v1.133.1) (2023-12-08)
 
 
