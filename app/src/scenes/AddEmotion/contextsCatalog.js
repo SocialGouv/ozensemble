@@ -6,11 +6,11 @@ import NeutralEmotion from '../../components/illustrations/emotion/NeutralEmotio
 import SadEmotion from '../../components/illustrations/emotion/SadEmotion';
 
 export const emotionIcon = {
-  ecstatic: EcstaticEmotion,
-  fine: FineEmotion,
-  neutral: NeutralEmotion,
-  sad: SadEmotion,
   depressed: DepressedEmotion,
+  sad: SadEmotion,
+  neutral: NeutralEmotion,
+  fine: FineEmotion,
+  ecstatic: EcstaticEmotion,
 };
 export const getDisplayName = (contextKey, catalogObject) => {
   try {
@@ -25,30 +25,6 @@ export const getDisplayName = (contextKey, catalogObject) => {
     return '';
   }
 };
-
-export const getStyle = (contextKey, catalogObject) => {
-  try {
-    const context = catalogObject[contextKey];
-    if (!context) {
-      capture(new Error('context not found'), {
-        extra: { contextKey, catalogObject, function: 'getStyle' },
-      });
-      return {};
-    }
-    return context.style || {};
-  } catch (e) {
-    capture(e, { extra: { contextKey, catalogObject, function: 'getStyle' } });
-    return {};
-  }
-};
-
-export const formatNewcontext = (name, contextKey) => ({
-  categoryKey: `${name}`,
-  contextKey: `${contextKey}`,
-  displayFeed: name,
-  custom: true,
-  active: true,
-});
 
 export const contextsCatalog = [
   // People
@@ -225,9 +201,9 @@ export const contextsCatalog = [
   },
 ];
 
-export const contextsCatalogObject = contextsCatalog.reduce((acc, context) => {
-  acc[context.contextKey] = context;
-  return acc;
+export const contextsCatalogObject = contextsCatalog.reduce((_contextsCatalogObject, context) => {
+  _contextsCatalogObject[context.contextKey] = context;
+  return _contextsCatalogObject;
 }, {});
 
 // [PEOPLE, PLACES ...]

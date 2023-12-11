@@ -36,7 +36,7 @@ import ArrowLeft from '../../components/ArrowLeft';
 import ArrowRight from '../../components/ArrowRight';
 import TargetGoal from '../../components/illustrations/icons/TargetGoal';
 import { drinksContextsState } from '../../recoil/contexts';
-import { emotionIcon, contextsCatalog } from '../AddEmotion/contextsCatalog';
+import { emotionIcon, contextsCatalogObject } from '../AddEmotion/contextsCatalog';
 import ModifyIcon from '../../components/illustrations/icons/ModifyIcon';
 
 const computePosition = (drinksOfTheDay, drink) => {
@@ -425,7 +425,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 <View className="flex-row justify-between w-full px-2 py-2 ">
                   {drinksContexts[date].emotion ? (
                     <View>
-                      <Emotion width={30} height={30} />
+                      <Emotion className="w-7 aspect-square" />
                     </View>
                   ) : (
                     <View className="w-7 h-7"></View>
@@ -449,8 +449,9 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 )}
                 {drinksContexts[date].context && (
                   <View className="flex flex-row flex-wrap ml-10 mb-3">
-                    {drinksContexts[date].context.map((name) => {
-                      const contextName = contextsCatalog.find((context) => name === context.contextKey).displayFeed;
+                    {drinksContexts[date].context.map((_drinksContext) => {
+                      const contextName = contextsCatalogObject[_drinksContext]?.displayFeed;
+
                       return (
                         <View key={contextName} className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
                           <Text className="color-white font-bold">{contextName}</Text>
@@ -486,7 +487,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
             {!isContext && !noDrinksYet && (
               <FeedBottomButton
                 color="#4030a5"
-                content="Ajouter une note et un context"
+                content="Ajouter une note et un contexte"
                 withoutPadding
                 onPress={() => {
                   updateDrinksContextsRequest(date);

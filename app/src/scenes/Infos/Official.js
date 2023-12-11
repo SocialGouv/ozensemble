@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, View, Linking, Text } from 'react-native';
 import styled from 'styled-components';
 import WrapperContainer from '../../components/WrapperContainer';
 import TextStyled from '../../components/TextStyled';
@@ -15,12 +15,25 @@ const Official = ({ onClose }) => (
       <Spacer size={30} />
       <H1>Oz Ensemble, l’application des Ministères Sociaux</H1>
       <Spacer size={30} />
+
       <P>
         Oz est un service publique numérique anonyme et gratuit développé par la Fabrique Numérique, incubateur des
         Ministères Sociaux et financé par l’Agence Régionale de Santé d’Ile de France et de la MILDECA (Mission
         Interministérielle de Lutte Contre les Drogues et les Conduites Addictives)
       </P>
-      <P>Le créateur du service est le Docteur Géraldine Talbot, médecin addictologue de l’association CaPASSCité.</P>
+      <View className="flex flex-row basis-11/12">
+        <P noMarginBottom>
+          Le créateur du service est le{' '}
+          <Text
+            className="text-indigo-700"
+            onPress={() => {
+              Linking.openURL('https://www.linkedin.com/in/geraldine-talbot-13989b263');
+            }}>
+            Docteur Géraldine Talbot
+          </Text>
+          , médecin addictologue de l’association CaPASSCité.
+        </P>
+      </View>
 
       {/*  */}
       <View className="flex-row items-center justify-between">

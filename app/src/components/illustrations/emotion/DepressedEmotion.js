@@ -2,7 +2,7 @@ import React from 'react';
 import Svg, { Rect, Path } from 'react-native-svg';
 
 const DepressedEmotion = (props) => (
-  <Svg xmlns="http://www.w3.org/2000/svg" width={47} height={47} viewBox="0 0 47 47" fill="none" {...props}>
+  <Svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47 47" fill="none" {...props}>
     <Rect width={47} height={47} fill="#FC8383" rx={23.5} />
     <Path
       stroke="#272727"
