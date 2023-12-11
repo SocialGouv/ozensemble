@@ -6,11 +6,11 @@ import NeutralEmotion from '../../components/illustrations/emotion/NeutralEmotio
 import SadEmotion from '../../components/illustrations/emotion/SadEmotion';
 
 export const emotionIcon = {
-  ecstatic: EcstaticEmotion,
-  fine: FineEmotion,
-  neutral: NeutralEmotion,
-  sad: SadEmotion,
   depressed: DepressedEmotion,
+  sad: SadEmotion,
+  neutral: NeutralEmotion,
+  fine: FineEmotion,
+  ecstatic: EcstaticEmotion,
 };
 export const getDisplayName = (contextKey, catalogObject) => {
   try {
@@ -201,9 +201,9 @@ export const contextsCatalog = [
   },
 ];
 
-export const contextsCatalogObject = contextsCatalog.reduce((acc, context) => {
-  acc[context.contextKey] = context;
-  return acc;
+export const contextsCatalogObject = contextsCatalog.reduce((_contextsCatalogObject, context) => {
+  _contextsCatalogObject[context.contextKey] = context;
+  return _contextsCatalogObject;
 }, {});
 
 // [PEOPLE, PLACES ...]
