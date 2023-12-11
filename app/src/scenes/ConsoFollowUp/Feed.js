@@ -450,8 +450,10 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 {drinksContexts[date].context && (
                   <View className="flex flex-row flex-wrap ml-10 mb-3">
                     {drinksContexts[date].context.map((_drinksContext) => {
-                      const contextName = contextsCatalogObject[_drinksContext]?.displayFeed;
+                      const contextName = contextsCatalogObject[_drinksContext].displayFeed;
 
+                  
+                
                       return (
                         <View key={contextName} className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
                           <Text className="color-white font-bold">{contextName}</Text>
