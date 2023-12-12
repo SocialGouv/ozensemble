@@ -1,3 +1,10 @@
+## [1.133.5](https://github.com/SocialGouv/ozensemble/compare/v1.133.4...v1.133.5) (2023-12-12)
+
+
+### Bug Fixes
+
+* add conso date ([#485](https://github.com/SocialGouv/ozensemble/issues/485)) ([76c35e0](https://github.com/SocialGouv/ozensemble/commit/76c35e026d11abf7504f787128932029f121c071))
+
 ## [1.133.4](https://github.com/SocialGouv/ozensemble/compare/v1.133.3...v1.133.4) (2023-12-12)
 
 
