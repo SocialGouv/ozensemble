@@ -274,7 +274,6 @@ const ContextButton = ({ name, context, setContext }) => {
 const OtherButton = ({ category }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [contextSuggestion, setContextSuggestion] = useState('');
-  const [sendButtonAvailable, setSendButtonAvailable] = useState(false);
   const triggeredFrom = 'OTHER_BUTTON';
   const toast = useToast();
 
@@ -313,7 +312,7 @@ const OtherButton = ({ category }) => {
         withBackground
         hideOnTouch
         className="border">
-        <View className="bg-white rounded-xl">
+        <View className="bg-white rounded-xl pb-7">
           <View className=" flex w-full mb-2 px-2">
             <View className="px-2 pt-2">
               <TouchableOpacity
@@ -346,7 +345,7 @@ const OtherButton = ({ category }) => {
               <TouchableOpacity
                 className={[
                   'justify-center  items-center rounded-3xl h-10 w-24',
-                  contextSuggestion === '' ? 'bg-gray-300' : 'bg-[#de285e]',
+                  contextSuggestion === '' ? 'bg-[#DF94AA]' : 'bg-[#de285e]',
                 ].join(' ')}
                 onPress={() => {
                   onValidateContextSuggestion();

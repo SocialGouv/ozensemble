@@ -8,7 +8,7 @@ import { View } from 'react-native';
 const AddDrinkStack = createStackNavigator();
 
 const AddDrinkNavigator = ({ route }) => {
-  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => route?.params?.timestamp);
+  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => route?.params?.timestamp ?? Date.now());
 
   return (
     <>
