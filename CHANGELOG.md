@@ -1,3 +1,10 @@
+## [1.133.4](https://github.com/SocialGouv/ozensemble/compare/v1.133.3...v1.133.4) (2023-12-12)
+
+
+### Bug Fixes
+
+* oups modal ([40a2e14](https://github.com/SocialGouv/ozensemble/commit/40a2e14f0912027a83c7a146d3a39f96f8222e1e))
+
 ## [1.133.3](https://github.com/SocialGouv/ozensemble/compare/v1.133.2...v1.133.3) (2023-12-11)
 
 
