@@ -165,7 +165,8 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               <Text className="text-[#4030A5] self-center text-base font-extrabold mt-3">Note du jour</Text>
 
               <TextInput
-                className="bg-white h-40 rounded-lg border border-[#E4E4E4] mr-2 mt-2 mb-2 ml-2 py-4 px-3"
+                textAlignVertical="top"
+                className="bg-white h-40 rounded-lg border border-[#E4E4E4] text-black mr-2 mb-2 ml-2 py-4 px-3"
                 placeholder="Noter les événements qui sont arrivés ce jour vous aidera par la suite à mieux identifier les situations à risque pour votre consommation"
                 multiline={true}
                 keyboardType="default"
@@ -339,7 +340,7 @@ const OtherButton = ({ category }) => {
               Demandez à ce qu'il soit ajouté à la liste.
             </Text>
             <TextInput
-              className="bg-gray-50 rounded-md border border-[#E4E4E4] mr-2 mt-4 mb-2 ml-2 py-4 px-3"
+              className="bg-gray-50 rounded-md border text-black border-[#E4E4E4] mr-2 mt-4 mb-2 ml-2 py-4 px-3"
               placeholder="Contexte de consommation"
               keyboardType="default"
               value={contextSuggestion}
