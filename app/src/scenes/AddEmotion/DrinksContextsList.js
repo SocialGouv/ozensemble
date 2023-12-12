@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Platform, View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView } from 'react-native';
+import { Platform, View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -123,7 +123,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       <View className="flex-1 pt-5">
         <KeyboardAvoidingView enabled behavior={Platform.select({ ios: 'padding', android: null })}>
           <ModalContent
-            keyboardShouldPersistTaps="handled"
+            keyboardShouldPersistTaps="never"
             keyboardDismissMode="none"
             className="bg-[#EFEFEF]"
             ref={scrollRef}
@@ -305,14 +305,18 @@ const OtherButton = ({ category }) => {
         </View>
         <Text>autre</Text>
       </TouchableOpacity>
+
       <Modal
         transparent={true}
         visible={modalVisible}
         animationType="fade"
         withBackground
         hideOnTouch
-        className="border">
-        <View className="bg-white rounded-xl pb-7">
+        style={{
+          justifyContent: 'start',
+          marginTop: Dimensions.get('window').height * 0.1,
+        }}>
+        <View className="bg-white rounded-xl">
           <View className=" flex w-full mb-2 px-2">
             <View className="px-2 pt-2">
               <TouchableOpacity
