@@ -251,7 +251,7 @@ const ContextButton = ({ name, context, setContext }) => {
     <TouchableOpacity
       className={[
         'bg-[#FFFFFF]  rounded-lg py-2 px-2 mr-2 mb-2',
-        context.includes(name) ? 'bg-[#4030A5] border border-[bg-[#4030A5]]' : 'border border-[#E4E4E4] bg-white',
+        context.includes(name) ? 'bg-[#4030A5] border border-[#4030A5]' : 'border border-[#E4E4E4] bg-white',
       ].join(' ')}
       onPress={() => {
         setContext((prevContext) => {
@@ -299,7 +299,8 @@ const OtherButton = ({ category }) => {
   return (
     <>
       <TouchableOpacity
-        className={'bg-[#FFFFFF] border flex-row border-dashed border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2'}
+        style={{ borderStyle: 'dashed', borderWidth: 1, borderColor: '#E4E4E4' }}
+        className={'bg-[#FFFFFF] border-[#E4E4E4] flex-row  rounded-lg py-2 px-2 mr-2 mb-2'}
         onPress={() => setModalVisible(true)}>
         <View className="bg-gray-200 rounded-2xl items-center mr-1">
           <Text className="color-white"> + </Text>
