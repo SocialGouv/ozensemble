@@ -1,3 +1,10 @@
+## [1.133.7](https://github.com/SocialGouv/ozensemble/compare/v1.133.6...v1.133.7) (2023-12-13)
+
+
+### Bug Fixes
+
+* fucking bug ([f84e44e](https://github.com/SocialGouv/ozensemble/commit/f84e44e1f0a9069ec801eade4758847b11bdb759))
+
 ## [1.133.6](https://github.com/SocialGouv/ozensemble/compare/v1.133.5...v1.133.6) (2023-12-12)
 
 
