@@ -1,3 +1,10 @@
+## [1.133.8](https://github.com/SocialGouv/ozensemble/compare/v1.133.7...v1.133.8) (2023-12-13)
+
+
+### Bug Fixes
+
+* remove note from server ([b46ceeb](https://github.com/SocialGouv/ozensemble/commit/b46ceebb453321c354f746afa73162ab53e6c956))
+
 ## [1.133.7](https://github.com/SocialGouv/ozensemble/compare/v1.133.6...v1.133.7) (2023-12-13)
 
 
