@@ -132,7 +132,6 @@ model DrinksContext {
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   date      DateTime @default(now())
-  note      String   @default("")
   context   String[] @default([])
   emotion   String   @default("")
   createdAt DateTime @default(now())

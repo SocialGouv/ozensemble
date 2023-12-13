@@ -78,9 +78,12 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     API.post({
       path: '/drinks-Context',
       body: {
-        date,
         matomoId: storage.getString('@UserIdv2'),
-        ...newContextToSave,
+        date,
+        id: newContextToSave.id,
+        context: newContextToSave.orderedContext,
+        emotion: newContextToSave.selectedEmotion,
+        // we don't send note to the server for confidentiality reasons
       },
     });
     navigation.navigate('TABS');
