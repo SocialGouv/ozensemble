@@ -1,3 +1,10 @@
+## [1.133.9](https://github.com/SocialGouv/ozensemble/compare/v1.133.8...v1.133.9) (2023-12-13)
+
+
+### Bug Fixes
+
+* typo ([c4b07ab](https://github.com/SocialGouv/ozensemble/commit/c4b07abcc21bfc11f5a0933cbcc257d7df4deffe))
+
 ## [1.133.8](https://github.com/SocialGouv/ozensemble/compare/v1.133.7...v1.133.8) (2023-12-13)
 
 
