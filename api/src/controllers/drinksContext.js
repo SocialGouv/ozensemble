@@ -16,7 +16,7 @@ router.post(
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
     //check if it should be deleted
-    await prisma.DrinksContext.upsert({
+    await prisma.drinksContext.upsert({
       where: { id: id },
       update: {
         context: context,
