@@ -4,6 +4,7 @@ import { useRecoilState } from 'recoil';
 import { useFocusEffect } from '@react-navigation/native';
 import { BagdeDrinksNoStars } from './Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from './Svgs/BadgeGoalsNoStars';
+import { BadgeShareNoStars } from './Svgs/BadgeShareNoStars';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
@@ -51,6 +52,7 @@ const BadgesStatus = ({ navigate }) => {
                   {badgeCategory.titleForStatus}
                 </Text>
                 {badgeCategory.category === 'drinks' && <BagdeDrinksNoStars />}
+                {badgeCategory.category === 'share' && <BadgeShareNoStars />}
                 {badgeCategory.category === 'goals' && <BadgeGoalsNoStars />}
                 {badgeCategory.category === 'defis' && <BadgeDefisNoStars />}
                 {badgeCategory.category === 'articles' && <BadgeArticlesNoStars />}

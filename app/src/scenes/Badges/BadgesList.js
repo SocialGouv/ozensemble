@@ -5,6 +5,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
+import { BadgeShare } from './Svgs/BadgeShare';
 import { LockedBadge } from './Svgs/LockedBadge';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import API from '../../services/api';
@@ -40,6 +41,9 @@ const BadgesList = ({ navigation }) => {
                       <View className="mb-4">
                         {badgeCategory.category === 'drinks' && (
                           <BadgeDrinks stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
+                        )}
+                        {badgeCategory.category === 'share' && (
+                          <BadgeShare stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />
                         )}
                         {badgeCategory.category === 'goals' && (
                           <BadgeGoals stars={badge.stars} size={Dimensions.get('window').width / 4 - 2 * 20} />

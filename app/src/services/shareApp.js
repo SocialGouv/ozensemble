@@ -1,6 +1,8 @@
 import { Share, Platform } from 'react-native';
 import { logEvent } from './logEventsWithMatomo';
 import { capture } from './sentry';
+import API from './api';
+import { storage } from './storage';
 
 export const shareApp = async () => {
   const url = 'https://ozensemble.fr/';
@@ -9,7 +11,6 @@ export const shareApp = async () => {
       category: 'SHARE_APP',
       action: 'PRESSED',
     });
-
     const result = await Share.share({
       message:
         "Bonjour, je te recommande l'application gratuite et totalement anonyme Oz Ensemble qui aide à maitriser sa consommation d'alcool. Bonne découverte !" +
@@ -17,6 +18,12 @@ export const shareApp = async () => {
       url: Platform.OS === 'ios' && url,
     });
     if (result?.action === Share.sharedAction) {
+      API.post({
+        path: '/badge/shares',
+        body: {
+          matomoId: storage.getString('@UserIdv2'),
+        },
+      });
       if (result?.activityType) {
         logEvent({
           category: 'SHARE_APP',

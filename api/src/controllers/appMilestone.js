@@ -53,6 +53,37 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    if (req.headers.appversion >= 218) {
+      const newUserShareFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@NewUserShareFeature` },
+      });
+      if (!newUserShareFeature) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@NewUserShareFeature`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@NewUserShareFeature",
+            title: "Nouveau : les badges partages arrivent dans l'application !",
+            content:
+              "Gagnez ces badges en partageant l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation d'alcool.",
+            CTATitle: "Partager à un proche",
+            secondaryButtonTitle: "Non merci",
+            CTAEvent: {
+              category: "SHARE_APP",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+            CTAShare: true,
+          },
+        });
+      }
+    }
     if (req.headers.appversion >= 214) {
       const newUserContextFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewUserContextFeature` },
