@@ -1,3 +1,10 @@
+## [1.134.1](https://github.com/SocialGouv/ozensemble/compare/v1.134.0...v1.134.1) (2023-12-14)
+
+
+### Bug Fixes
+
+* share early ([#491](https://github.com/SocialGouv/ozensemble/issues/491)) ([a135fa2](https://github.com/SocialGouv/ozensemble/commit/a135fa26474665fa2b626b5df225b79f5087eed5))
+
 # [1.134.0](https://github.com/SocialGouv/ozensemble/compare/v1.133.9...v1.134.0) (2023-12-14)
 
 
