@@ -25,6 +25,7 @@ import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
 import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
 import UserSurveyLogo from './illustrations/UserSurveyLogo';
 import { logEvent } from '../services/logEventsWithMatomo';
+import { BadgeShareNoStars } from '../scenes/Badges/Svgs/BadgeShareNoStars';
 
 /* example
 {
@@ -168,6 +169,11 @@ const InAppModal = () => {
             {modalContent?.id.includes('OfficialAppAnnouncement') && (
               <View className="mx-2 flex flex-col items-center">
                 <Image className="rounded-full w-[100px] h-[100px]" source={require('../assets/images/Icon.png')} />
+              </View>
+            )}
+            {modalContent?.id.includes('NewUserShareFeature') && (
+              <View>
+                <BadgeShareNoStars />
               </View>
             )}
             {modalContent?.id.includes('NewUserContextFeature') && (

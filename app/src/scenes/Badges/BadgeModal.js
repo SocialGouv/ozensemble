@@ -16,6 +16,7 @@ import { LockedBadge } from './Svgs/LockedBadge';
 import { badgesCatalogState, badgesState } from '../../recoil/badges';
 import { BadgeArticles } from './Svgs/BadgeArticles';
 import { BadgeDefis } from './Svgs/BadgeDefis';
+import { BadgeShare } from './Svgs/BadgeShare';
 import { shareApp } from '../../services/shareApp';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import Confetti from '../../components/Confettis';
@@ -133,6 +134,7 @@ const BadgeModal = () => {
           </TouchableOpacity>
           <View className="mb-8 mt-4">
             {modalContent?.category === 'drinks' && <BadgeDrinks stars={modalContent?.stars} />}
+            {modalContent?.category === 'share' && <BadgeShare stars={modalContent?.stars} />}
             {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
             {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
             {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}

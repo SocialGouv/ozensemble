@@ -86,6 +86,7 @@ app.use("/consommation", require("./controllers/consommation"));
 app.use("/goal", require("./controllers/goal"));
 app.use("/appMilestone", require("./controllers/appMilestone"));
 app.use("/articles", require("./controllers/articles"));
+app.use("/shares", require("./controllers/shares"));
 app.use("/defis", require("./controllers/defis"));
 app.use("/drinks", require("./controllers/drinksCatalog"));
 app.use("/drinks-context", require("./controllers/drinksContext"));
