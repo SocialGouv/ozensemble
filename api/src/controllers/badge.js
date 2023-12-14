@@ -49,41 +49,41 @@ router.get(
     });
   })
 );
-router.post(
-  "/shares",
-  catchErrors(async (req, res) => {
-    const { matomoId } = req.body || {};
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "GetBadges",
-      },
-      update: {},
-    });
-    const share_badges = await prisma.badge.findMany({
-      where: { userId: user.id, category: "share" },
-    });
-    const shares = share_badges.length + 1;
-    const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-    if (shares <= 5) {
-      await prisma.badge.create({
-        data: {
-          user: {
-            connect: { id: user.id },
-          },
-          category: "share",
-          stars: shares,
-          shown: false,
-        },
-      });
+// router.post(
+//   "/shares",
+//   catchErrors(async (req, res) => {
+//     const { matomoId } = req.body || {};
+//     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+//     const user = await prisma.user.upsert({
+//       where: { matomo_id: matomoId },
+//       create: {
+//         matomo_id: matomoId,
+//         created_from: "GetBadges",
+//       },
+//       update: {},
+//     });
+//     const share_badges = await prisma.badge.findMany({
+//       where: { userId: user.id, category: "share" },
+//     });
+//     const shares = share_badges.length + 1;
+//     const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+//     if (shares <= 5) {
+//       await prisma.badge.create({
+//         data: {
+//           user: {
+//             connect: { id: user.id },
+//           },
+//           category: "share",
+//           stars: shares,
+//           shown: false,
+//         },
+//       });
 
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog } });
-    }
+//       return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog } });
+//     }
 
-    return res.status(200).send({ ok: true });
-  })
-);
+//     return res.status(200).send({ ok: true });
+//   })
+// );
 
 module.exports = router;
