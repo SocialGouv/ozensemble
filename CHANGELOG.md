@@ -1,3 +1,10 @@
+# [1.134.0](https://github.com/SocialGouv/ozensemble/compare/v1.133.9...v1.134.0) (2023-12-14)
+
+
+### Features
+
+* share badge ([#490](https://github.com/SocialGouv/ozensemble/issues/490)) ([66e86f7](https://github.com/SocialGouv/ozensemble/commit/66e86f708b3b360e3e189501fe58066feca78cb5))
+
 ## [1.133.9](https://github.com/SocialGouv/ozensemble/compare/v1.133.8...v1.133.9) (2023-12-13)
 
 
