@@ -19,7 +19,7 @@ export const shareApp = async () => {
     });
     if (result?.action === Share.sharedAction) {
       API.post({
-        path: '/shares',
+        path: '/badge/shares',
         body: {
           matomoId: storage.getString('@UserIdv2'),
         },
