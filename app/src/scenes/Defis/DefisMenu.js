@@ -158,7 +158,8 @@ const DefisMenu = ({ navigation }) => {
           }}
           boutonTitle={'Continuer activité'}
           onPress={() => {
-            navigation.navigate(`DEFI${currentDefi}`), setShowOnboardingModal(false);
+            navigation.navigate(`DEFI${currentDefi}`);
+            setShowOnboardingModal(false);
           }}
         />
       ) : lastfinishedDefi && !nextDefiIsUnlocked ? (
@@ -180,7 +181,8 @@ const DefisMenu = ({ navigation }) => {
           }}
           boutonTitle={'Commencer activité'}
           onPress={() => {
-            navigation.navigate(`DEFI${lastfinishedDefi + 1}`), setShowOnboardingModal(false);
+            navigation.navigate(`DEFI${lastfinishedDefi + 1}`);
+            setShowOnboardingModal(false);
           }}
         />
       ) : (
@@ -193,7 +195,8 @@ const DefisMenu = ({ navigation }) => {
           }}
           boutonTitle={"S'auto-évaluer"}
           onPress={() => {
-            navigation.navigate(`ONBOARDING_QUIZZ`), setShowOnboardingModal(false);
+            navigation.navigate(`ONBOARDING_QUIZZ`);
+            setShowOnboardingModal(false);
           }}
         />
       )}
