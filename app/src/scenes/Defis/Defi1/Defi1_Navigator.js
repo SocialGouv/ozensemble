@@ -131,10 +131,10 @@ const Defi1_Menu = ({ navigation }) => {
       setValidatedDays(5, '@Defi1');
     }
   }, [validatedDays]);
-
-  const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
+  const nextDayIsUnlocked = true;
+  // good way to lock day defi
+  // const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
   const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
-
   return (
     <Defi
       navigation={navigation}

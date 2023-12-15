@@ -28,9 +28,17 @@ const DefisMenu = ({ navigation }) => {
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
   const [defi4Day, setDefi4Day] = useState(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
   const [defi5Day, setDefi5Day] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
-
+  const [lastUpdateDefi1, setLastUpdateDefi1] = useState(storage.getString('@Defi1_LastUpdate') || '');
+  const [lastUpdateDefi2, setLastUpdateDefi2] = useState(storage.getString('@Defi2_LastUpdate') || '');
+  const [lastUpdateDefi3, setLastUpdateDefi3] = useState(storage.getString('@Defi3_LastUpdate') || '');
+  const [lastUpdateDefi4, setLastUpdateDefi4] = useState(storage.getString('@Defi4_LastUpdate') || '');
+  const [lastUpdateDefi5, setLastUpdateDefi5] = useState(storage.getString('@Defi5_LastUpdate') || '');
+  const [currentDefi, setCurrentDefi] = useState(null);
+  const [lastfinishedDefi, setLastfinishedDefi] = useState(null);
+  const [nextDefiIsUnlocked, setNextDefiIsUnlocked] = useState(false);
   const isFocused = useIsFocused();
-
+  const defiLastUpdates = [lastUpdateDefi1, lastUpdateDefi2, lastUpdateDefi3, lastUpdateDefi4, lastUpdateDefi5];
+  console.log('defilastupdates', defiLastUpdates);
   useEffect(() => {
     if (isFocused) setDefi1Day(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
     if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
@@ -38,6 +46,24 @@ const DefisMenu = ({ navigation }) => {
     if (isFocused) setDefi4Day(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
     if (isFocused) setDefi5Day(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   }, [isFocused]);
+  useEffect(() => {
+    if (isFocused) {
+      const defiDays = [defi1Day, defi2Day, defi3Day, defi4Day, defi5Day];
+      const lastfinishedDefiIndex = defiDays.findLastIndex((days) => days === 7);
+      const unfinishedDefiIndex = defiDays.findIndex((days) => days > 0 && days < 7);
+
+      setLastfinishedDefi(lastfinishedDefiIndex !== -1 ? lastfinishedDefiIndex + 1 : null);
+      setCurrentDefi(unfinishedDefiIndex !== -1 ? unfinishedDefiIndex + 1 : null);
+      setNextDefiIsUnlocked(
+        lastfinishedDefiIndex
+          ? defiLastUpdates[lastfinishedDefiIndex] !== new Date().toISOString().split('T')[0]
+          : false
+      );
+      console.log('defidays', defiDays);
+      console.log('oro', lastfinishedDefiIndex);
+      console.log('ara', defiLastUpdates[lastfinishedDefiIndex]);
+    }
+  }, [isFocused, defi1Day, defi2Day, defi3Day, defi4Day, defi5Day]);
 
   return (
     <WrapperContainer title={'Mes activités'}>
@@ -123,14 +149,55 @@ const DefisMenu = ({ navigation }) => {
         disabledContainer={!autoEvaluationDone}
         onBoardingPress={() => setShowOnboardingModal(true)}
       />
-      <OnBoardingModal
-        title="Activité non disponible"
-        description="Vous êtes déjà dans une activité, terminez la avant de pouvoir commencer celle-ci :)"
-        visible={showOnboardingModal}
-        hide={() => {
-          setShowOnboardingModal(false);
-        }}
-      />
+      {currentDefi ? (
+        <OnBoardingModal
+          title="Activité en cours"
+          description="Vous avez déjà une activité en cours, terminez la avant de pouvoir en commencer une nouvelle."
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+          boutonTitle={'Continuer activité'}
+          onPress={() => {
+            navigation.navigate(`DEFI${currentDefi}`), setShowOnboardingModal(false);
+          }}
+        />
+      ) : lastfinishedDefi && !nextDefiIsUnlocked ? (
+        <OnBoardingModal
+          title="Activité non disponible"
+          description="Vous venez de terminer une activité, revenez demain pour pouvoir commencer la prochaine!"
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+        />
+      ) : lastfinishedDefi ? (
+        <OnBoardingModal
+          title="Auto-évaluation non effectuée"
+          description="Vous devez la réaliser pour pouvoir commencer une activité."
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+          boutonTitle={"S'auto-évaluer"}
+          onPress={() => {
+            navigation.navigate(`ONBOARDING_QUIZZ`), setShowOnboardingModal(false);
+          }}
+        />
+      ) : (
+        <OnBoardingModal
+          title="Auto-évaluation non effectuée"
+          description="Vous devez la réaliser pour pouvoir commencer une activité."
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+          boutonTitle={"S'auto-évaluer"}
+          onPress={() => {
+            navigation.navigate(`ONBOARDING_QUIZZ`), setShowOnboardingModal(false);
+          }}
+        />
+      )}
     </WrapperContainer>
   );
 };
