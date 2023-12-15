@@ -29,10 +29,10 @@ const DefisMenu = ({ navigation }) => {
   const [defi4Day, setDefi4Day] = useState(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
   const [defi5Day, setDefi5Day] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   const [lastUpdateDefi1] = useState(storage.getString('@Defi1_LastUpdate') || '');
-  const [lastUpdateDefi2, setLastUpdateDefi2] = useState(storage.getString('@Defi2_LastUpdate') || '');
-  const [lastUpdateDefi3, setLastUpdateDefi3] = useState(storage.getString('@Defi3_LastUpdate') || '');
-  const [lastUpdateDefi4, setLastUpdateDefi4] = useState(storage.getString('@Defi4_LastUpdate') || '');
-  const [lastUpdateDefi5, setLastUpdateDefi5] = useState(storage.getString('@Defi5_LastUpdate') || '');
+  const [lastUpdateDefi2] = useState(storage.getString('@Defi2_LastUpdate') || '');
+  const [lastUpdateDefi3] = useState(storage.getString('@Defi3_LastUpdate') || '');
+  const [lastUpdateDefi4] = useState(storage.getString('@Defi4_LastUpdate') || '');
+  const [lastUpdateDefi5] = useState(storage.getString('@Defi5_LastUpdate') || '');
   const [currentDefi, setCurrentDefi] = useState(null);
   const [lastfinishedDefi, setLastfinishedDefi] = useState(0);
   const [nextDefiIsUnlocked, setNextDefiIsUnlocked] = useState(false);
