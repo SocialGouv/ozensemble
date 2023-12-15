@@ -1,3 +1,10 @@
+## [1.135.6](https://github.com/SocialGouv/ozensemble/compare/v1.135.5...v1.135.6) (2023-12-15)
+
+
+### Bug Fixes
+
+* activity date ([#499](https://github.com/SocialGouv/ozensemble/issues/499)) ([18d33f7](https://github.com/SocialGouv/ozensemble/commit/18d33f752feff3f09156f3f3b50dc2c0e02d4e9e))
+
 ## [1.135.5](https://github.com/SocialGouv/ozensemble/compare/v1.135.4...v1.135.5) (2023-12-15)
 
 
