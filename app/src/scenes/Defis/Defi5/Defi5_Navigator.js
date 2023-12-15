@@ -126,7 +126,9 @@ const Defi5_Menu = ({ navigation }) => {
     getValidatedDays();
   });
 
-  const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
+  const nextDayIsUnlocked = true;
+  // good way to lock day defi
+  // const nextDayIsUnlocked = lastUpdate !== new Date().toISOString().split('T')[0];
   const activeDayIndex = validatedDays - (nextDayIsUnlocked ? 0 : 1);
   return (
     <Defi

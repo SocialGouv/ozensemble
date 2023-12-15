@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
@@ -48,7 +48,7 @@ const Defi = ({
         defiStorageKey={defiStorageKey}
       />
       <FeedCTAContainer zIndex={10}>
-        {!activeDayIsDone && !!data[activeDay]?.screenCTA ? (
+        {!activeDayIsDone && !!data[activeDay]?.screenCTA && (
           <FeedCTAButton
             content={data[activeDay]?.textCTA}
             color="#4030a5"
@@ -56,24 +56,24 @@ const Defi = ({
               navigation.push(data[activeDay]?.screenCTA);
             }}
           />
-        ) : !!activeDayIsDone && activeDay >= 6 ? (
-          <FeedCTAButton
-            content={`Donner mon avis sur l'activité ${defiNumber}`}
-            color="#4030a5"
-            onPress={() => navigation.navigate('NPS_SCREEN', { forDefi: defiNumber, triggeredFrom: 'Top CTA défi' })}
-          />
-        ) : (
-          <FeedCTAButton
-            content="Ajouter une consommation"
-            onPress={() => {
-              navigation.push('ADD_DRINK', { timestamp: Date.now() });
-              logEvent({
-                category: 'CONSO',
-                action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-                name: `FROM_DEFI_${defiNumber}`,
-              });
-            }}
-          />
+          // ) : !!activeDayIsDone && activeDay >= 6 ? (
+          //   <FeedCTAButton
+          //     content={`Donner mon avis sur l'activité ${defiNumber}`}
+          //     color="#4030a5"
+          //     onPress={() => navigation.navigate('NPS_SCREEN', { forDefi: defiNumber, triggeredFrom: 'Top CTA défi' })}
+          //   />
+          // ) : (
+          //   <FeedCTAButton
+          //     content="Ajouter une consommation"
+          //     onPress={() => {
+          //       navigation.push('ADD_DRINK', { timestamp: Date.now() });
+          //       logEvent({
+          //         category: 'CONSO',
+          //         action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+          //         name: `FROM_DEFI_${defiNumber}`,
+          //       });
+          //     }}
+          //   />
         )}
       </FeedCTAContainer>
       <FeedContainer>

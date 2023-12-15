@@ -28,9 +28,16 @@ const DefisMenu = ({ navigation }) => {
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
   const [defi4Day, setDefi4Day] = useState(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
   const [defi5Day, setDefi5Day] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
-
+  const [lastUpdateDefi1] = useState(storage.getString('@Defi1_LastUpdate') || '');
+  const [lastUpdateDefi2] = useState(storage.getString('@Defi2_LastUpdate') || '');
+  const [lastUpdateDefi3] = useState(storage.getString('@Defi3_LastUpdate') || '');
+  const [lastUpdateDefi4] = useState(storage.getString('@Defi4_LastUpdate') || '');
+  const [lastUpdateDefi5] = useState(storage.getString('@Defi5_LastUpdate') || '');
+  const [currentDefi, setCurrentDefi] = useState(null);
+  const [lastfinishedDefi, setLastfinishedDefi] = useState(0);
+  const [nextDefiIsUnlocked, setNextDefiIsUnlocked] = useState(false);
   const isFocused = useIsFocused();
-
+  const defiLastUpdates = [lastUpdateDefi1, lastUpdateDefi2, lastUpdateDefi3, lastUpdateDefi4, lastUpdateDefi5];
   useEffect(() => {
     if (isFocused) setDefi1Day(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
     if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
@@ -38,6 +45,20 @@ const DefisMenu = ({ navigation }) => {
     if (isFocused) setDefi4Day(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
     if (isFocused) setDefi5Day(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
   }, [isFocused]);
+  useEffect(() => {
+    if (isFocused) {
+      const defiDays = [defi1Day, defi2Day, defi3Day, defi4Day, defi5Day];
+      const lastfinishedDefiIndex =
+        defiDays.findLastIndex((days) => days === 7) !== -1 ? defiDays.findLastIndex((days) => days === 7) : 0;
+      const unfinishedDefiIndex = defiDays.findIndex((days) => days > 0 && days < 7);
+
+      setLastfinishedDefi(autoEvaluationDone ? lastfinishedDefiIndex + 1 : 0);
+      setCurrentDefi(unfinishedDefiIndex !== -1 ? unfinishedDefiIndex + 1 : null);
+      setNextDefiIsUnlocked(
+        defiLastUpdates[lastfinishedDefiIndex] === new Date().toISOString().split('T')[0] ? false : true
+      );
+    }
+  }, [isFocused, defi1Day, defi2Day, defi3Day, defi4Day, defi5Day]);
 
   return (
     <WrapperContainer title={'Mes activités'}>
@@ -77,6 +98,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity2"
         disabled={!autoEvaluationDone || defi1Day < 7}
+        lockedDay={lastfinishedDefi == 1 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi2Day}
       />
@@ -88,6 +110,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity3"
         disabled={!autoEvaluationDone || defi2Day < 7}
+        lockedDay={lastfinishedDefi == 2 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi3Day}
       />
@@ -100,6 +123,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity4"
         disabled={!autoEvaluationDone || defi3Day < 7}
+        lockedDay={lastfinishedDefi == 3 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi4Day}
       />
@@ -111,6 +135,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity5"
         disabled={!autoEvaluationDone || defi4Day < 7}
+        lockedDay={lastfinishedDefi == 4 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi5Day}
       />
@@ -123,14 +148,58 @@ const DefisMenu = ({ navigation }) => {
         disabledContainer={!autoEvaluationDone}
         onBoardingPress={() => setShowOnboardingModal(true)}
       />
-      <OnBoardingModal
-        title="Activité non disponible"
-        description="Vous êtes déjà dans une activité, terminez la avant de pouvoir commencer celle-ci :)"
-        visible={showOnboardingModal}
-        hide={() => {
-          setShowOnboardingModal(false);
-        }}
-      />
+      {currentDefi ? (
+        <OnBoardingModal
+          title="Activité en cours"
+          description="Vous avez déjà une activité en cours, terminez la avant de pouvoir en commencer une nouvelle."
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+          boutonTitle={'Continuer activité'}
+          onPress={() => {
+            navigation.navigate(`DEFI${currentDefi}`);
+            setShowOnboardingModal(false);
+          }}
+        />
+      ) : lastfinishedDefi && !nextDefiIsUnlocked ? (
+        <OnBoardingModal
+          title="Activité non disponible"
+          description="Vous venez de terminer une activité, revenez demain pour pouvoir commencer la prochaine!"
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+        />
+      ) : lastfinishedDefi >= 1 ? (
+        <OnBoardingModal
+          title="Activité non débloquée"
+          description="Vous devez terminer les activités précédentes pour la débloquer."
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+          boutonTitle={'Commencer activité'}
+          onPress={() => {
+            navigation.navigate(`DEFI${lastfinishedDefi + 1}`);
+            setShowOnboardingModal(false);
+          }}
+        />
+      ) : (
+        <OnBoardingModal
+          title="Auto-évaluation non effectuée"
+          description="Vous devez la réaliser pour pouvoir commencer une activité."
+          visible={showOnboardingModal}
+          hide={() => {
+            setShowOnboardingModal(false);
+          }}
+          boutonTitle={"S'auto-évaluer"}
+          onPress={() => {
+            navigation.navigate(`ONBOARDING_QUIZZ`);
+            setShowOnboardingModal(false);
+          }}
+        />
+      )}
     </WrapperContainer>
   );
 };
@@ -142,6 +211,7 @@ const CategorieMenu = ({
   onPress,
   image,
   disabled,
+  lockedDay,
   disabledContainer,
   nbStepsCompleted,
 }) => {
@@ -150,7 +220,7 @@ const CategorieMenu = ({
     <>
       <TouchableOpacity
         disabled={disabledContainer}
-        onPress={disabled ? onBoardingPress : onPress}
+        onPress={disabled || lockedDay ? onBoardingPress : onPress}
         className="border border-[#E8E8EA] rounded-xl flex flex-row my-1.5 p-2 items-center justify-around">
         {disabled ? (
           <View className=" flex flex-row items-center opacity-50">
@@ -167,6 +237,33 @@ const CategorieMenu = ({
               </TitleDisabledContainer>
               <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
               <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full" />
+            </View>
+          </View>
+        ) : lockedDay ? (
+          <View className=" flex flex-row items-center">
+            {image === 'autoEvaluation' && <AutoEvaluation />}
+            {image === 'Activity1' && <Activity1 />}
+            {image === 'Activity2' && <Activity2 />}
+            {image === 'Activity3' && <Activity3 />}
+            {image === 'Activity4' && <Activity4 />}
+            {image === 'Activity5' && <Activity5 />}
+            {image === 'Results' && <Results />}
+            <View className="px-3 py-1 basis-3/4">
+              <TitleDisabledContainer>
+                <Text className="text-[#4030A5] font-bold">{title}</Text>
+              </TitleDisabledContainer>
+              <Text className="text-[#4030A5] text-xs font-semibold">{description}</Text>
+              {title !== 'Mes résultats' && (
+                <View className="rounded-xl bg-[#E8E8EA] h-1.5 flex  mt-3 w-full">
+                  <View
+                    className="rounded-xl h-1.5"
+                    style={{
+                      backgroundColor: '#39CEC1',
+                      width: (nbStepsCompleted / 7) * 100 + '%',
+                    }}
+                  />
+                </View>
+              )}
             </View>
           </View>
         ) : (
@@ -198,7 +295,9 @@ const CategorieMenu = ({
           </View>
         )}
 
-        <View>{disabled ? <Lock color={'#959595'} size={20} /> : <ArrowRight color={'#4030A5'} size={15} />}</View>
+        <View>
+          {disabled || lockedDay ? <Lock color={'#959595'} size={20} /> : <ArrowRight color={'#4030A5'} size={15} />}
+        </View>
       </TouchableOpacity>
     </>
   );
