@@ -1,3 +1,10 @@
+# [1.135.0](https://github.com/SocialGouv/ozensemble/compare/v1.134.2...v1.135.0) (2023-12-15)
+
+
+### Features
+
+* activity lastUpdate ([#493](https://github.com/SocialGouv/ozensemble/issues/493)) ([e43612e](https://github.com/SocialGouv/ozensemble/commit/e43612e14b0addb7d7215e66220fb234b8e57023))
+
 ## [1.134.2](https://github.com/SocialGouv/ozensemble/compare/v1.134.1...v1.134.2) (2023-12-15)
 
 
