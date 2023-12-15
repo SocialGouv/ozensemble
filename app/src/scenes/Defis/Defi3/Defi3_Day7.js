@@ -8,12 +8,14 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import Element from '../../../components/ElementDayDefi';
 import WrapperContainer from '../../../components/WrapperContainer';
 import H2 from '../../../components/H2';
+import { storage } from '../../../services/storage';
 
 const Defi3_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
+    storage.set('@Defi3_Finished_Date', new Date().toISOString().split('T')[0]);
   }, [route?.params, isFocused]);
 
   return (

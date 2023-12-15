@@ -17,6 +17,7 @@ import { Bold, P } from '../../../components/Articles';
 import TextStyled from '../../../components/TextStyled';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import WrapperContainer from '../../../components/WrapperContainer';
+import { storage } from '../../../services/storage';
 
 const Defi2_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -28,6 +29,7 @@ const Defi2_Day7 = ({ navigation, route }) => {
     if (route?.params?.inDefi2) {
       setValidatedDays(route?.params?.day, '@Defi2');
     }
+    storage.set('@Defi2_Finished_Date', new Date().toISOString().split('T')[0]);
   }, [route?.params, isFocused]);
 
   return (

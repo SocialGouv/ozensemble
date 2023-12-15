@@ -28,16 +28,10 @@ const DefisMenu = ({ navigation }) => {
   const [defi3Day, setDefi3Day] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
   const [defi4Day, setDefi4Day] = useState(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
   const [defi5Day, setDefi5Day] = useState(Number(storage.getNumber('@Defi5_ValidatedDays') || 0));
-  const [lastUpdateDefi1] = useState(storage.getString('@Defi1_LastUpdate') || '');
-  const [lastUpdateDefi2] = useState(storage.getString('@Defi2_LastUpdate') || '');
-  const [lastUpdateDefi3] = useState(storage.getString('@Defi3_LastUpdate') || '');
-  const [lastUpdateDefi4] = useState(storage.getString('@Defi4_LastUpdate') || '');
-  const [lastUpdateDefi5] = useState(storage.getString('@Defi5_LastUpdate') || '');
   const [currentDefi, setCurrentDefi] = useState(null);
   const [lastfinishedDefi, setLastfinishedDefi] = useState(0);
   const [nextDefiIsUnlocked, setNextDefiIsUnlocked] = useState(false);
   const isFocused = useIsFocused();
-  const defiLastUpdates = [lastUpdateDefi1, lastUpdateDefi2, lastUpdateDefi3, lastUpdateDefi4, lastUpdateDefi5];
   useEffect(() => {
     if (isFocused) setDefi1Day(Number(storage.getNumber('@Defi1_ValidatedDays') || 0));
     if (isFocused) setDefi2Day(Number(storage.getNumber('@Defi2_ValidatedDays') || 0));
@@ -48,10 +42,16 @@ const DefisMenu = ({ navigation }) => {
   useEffect(() => {
     if (isFocused) {
       const defiDays = [defi1Day, defi2Day, defi3Day, defi4Day, defi5Day];
+      const defiLastUpdates = [
+        storage.getString('@Defi1_Finished_Date') || '',
+        storage.getString('@Defi2_Finished_Date') || '',
+        storage.getString('@Defi3_Finished_Date') || '',
+        storage.getString('@Defi4_Finished_Date') || '',
+        storage.getString('@Defi5_Finished_Date') || '',
+      ];
       const lastfinishedDefiIndex =
         defiDays.findLastIndex((days) => days === 7) !== -1 ? defiDays.findLastIndex((days) => days === 7) : 0;
       const unfinishedDefiIndex = defiDays.findIndex((days) => days > 0 && days < 7);
-
       setLastfinishedDefi(autoEvaluationDone ? lastfinishedDefiIndex + 1 : 0);
       setCurrentDefi(unfinishedDefiIndex !== -1 ? unfinishedDefiIndex + 1 : null);
       setNextDefiIsUnlocked(
