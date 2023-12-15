@@ -1,3 +1,10 @@
+## [1.134.2](https://github.com/SocialGouv/ozensemble/compare/v1.134.1...v1.134.2) (2023-12-15)
+
+
+### Bug Fixes
+
+* badges retrocompat ([#492](https://github.com/SocialGouv/ozensemble/issues/492)) ([c550baf](https://github.com/SocialGouv/ozensemble/commit/c550baf1b41e28e7936846ecefc5aaab061e5c2b))
+
 ## [1.134.1](https://github.com/SocialGouv/ozensemble/compare/v1.134.0...v1.134.1) (2023-12-14)
 
 
