@@ -99,8 +99,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
-        versionCode 219
-        versionName "1.22.0"
+        versionCode 220
+        versionName "1.22.1"
     }
 
      signingConfigs {
