@@ -1,4 +1,4 @@
-const badgesCatalog = [
+export const defaultBackupBadgeCatalog = [
   {
     category: 'drinks',
     titleForList: 'Badges jours',
