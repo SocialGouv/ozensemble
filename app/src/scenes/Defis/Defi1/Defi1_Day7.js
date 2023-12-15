@@ -15,6 +15,7 @@ const Defi1_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    storage.set('@Defi1_Finished_Date', new Date().toISOString().split('T')[0]);
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
     const matomoId = storage.getString('@UserIdv2');
     if (!isFocused) {

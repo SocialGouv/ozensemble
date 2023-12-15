@@ -9,12 +9,14 @@ import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
 import { ReevaluateConsoResult } from './Defi5_Day1';
 import H2 from '../../../components/H2';
 import { ResultsReLifeQuality } from './Defi5_Day3';
+import { storage } from '../../../services/storage';
 
 const Defi5_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
     if (route?.params?.inDefi5) setValidatedDays(route?.params?.day, '@Defi5');
+    storage.set('@Defi5_Finished_Date', new Date().toISOString().split('T')[0]);
   }, [route?.params, isFocused]);
 
   return (

@@ -16,6 +16,7 @@ import { daysWithGoalNoDrinkState, isOnboardedSelector, maxDrinksPerWeekSelector
 import Done from '../../../components/illustrations/Done';
 import { defi4_Day5_Answers_State } from '../../../recoil/quizzs';
 import { answersDefi4Day5 } from './Defi4_Day5';
+import { storage } from '../../../services/storage';
 
 const Defi4_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -28,6 +29,7 @@ const Defi4_Day7 = ({ navigation, route }) => {
     if (route?.params?.inDefi4) {
       setValidatedDays(route?.params?.day, '@Defi4');
     }
+    storage.set('@Defi4_Finished_Date', new Date().toISOString().split('T')[0]);
   }, [route?.params, isFocused]);
 
   return (
