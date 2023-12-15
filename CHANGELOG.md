@@ -1,3 +1,10 @@
+## [1.135.1](https://github.com/SocialGouv/ozensemble/compare/v1.135.0...v1.135.1) (2023-12-15)
+
+
+### Bug Fixes
+
+* useless comments ([#494](https://github.com/SocialGouv/ozensemble/issues/494)) ([bf8fffd](https://github.com/SocialGouv/ozensemble/commit/bf8fffde2c7833f4c372a3faaf90de649c74df21))
+
 # [1.135.0](https://github.com/SocialGouv/ozensemble/compare/v1.134.2...v1.135.0) (2023-12-15)
 
 
