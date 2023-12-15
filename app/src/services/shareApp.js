@@ -18,12 +18,12 @@ export const shareApp = async () => {
       url: Platform.OS === 'ios' && url,
     });
     if (result?.action === Share.sharedAction) {
-      // API.post({
-      //   path: '/badge/shares',
-      //   body: {
-      //     matomoId: storage.getString('@UserIdv2'),
-      //   },
-      // });
+      API.post({
+        path: '/badge/shares',
+        body: {
+          matomoId: storage.getString('@UserIdv2'),
+        },
+      });
       if (result?.activityType) {
         logEvent({
           category: 'SHARE_APP',
