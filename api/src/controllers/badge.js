@@ -18,10 +18,10 @@ router.get(
   "/:matomoId",
   catchErrors(async (req, res) => {
     const { matomoId } = req.params;
-    // If app version is not up to date, don't show defis and articles badges
+    // Don't show badges that are not available in the app version
     let catalog = badgesCatalog;
-    if (req.headers.appversion < 151) {
-      catalog = badgesCatalog.filter((badge) => !["defis", "articles"].includes(badge.category));
+    if (req.headers.appversion < 217) {
+      catalog = badgesCatalog.filter((badge) => !["share"].includes(badge.category));
     }
     if (!matomoId) return res.status(200).send({ ok: true, data: [] });
 
@@ -44,6 +44,14 @@ router.get(
       ok: true,
       data: {
         badges,
+        // Dear lead dev who is watching this code,
+        // maybe you wonder why we send back the catalog from the backend ?
+        // this comes from my will to have as much control as possible from the backend
+        // - advantages when we designed the system: full control (CRUD) of badges from the backend
+        // - advantages in reality: we can only remove/edit badges from the backend
+        // - sadness: but we can't add one because of the svg's that we don't send back
+        // - cons: technical debt, double maintenance
+        // Conclusion: not a big deal to remove it, not a big deal to keep it - your choice
         badgesCatalog,
       },
     });
