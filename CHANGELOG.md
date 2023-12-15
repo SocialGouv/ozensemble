@@ -1,3 +1,10 @@
+## [1.135.5](https://github.com/SocialGouv/ozensemble/compare/v1.135.4...v1.135.5) (2023-12-15)
+
+
+### Bug Fixes
+
+* defaultBackupBadgeCatalog ([ac286b4](https://github.com/SocialGouv/ozensemble/commit/ac286b4874e3f98afba29b1082c551e7728c97f2))
+
 ## [1.135.4](https://github.com/SocialGouv/ozensemble/compare/v1.135.3...v1.135.4) (2023-12-15)
 
 
