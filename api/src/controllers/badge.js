@@ -57,6 +57,7 @@ router.get(
     });
   })
 );
+
 router.post(
   "/shares",
   catchErrors(async (req, res) => {
@@ -74,7 +75,6 @@ router.post(
       where: { userId: user.id, category: "share" },
     });
     const shares = share_badges.length + 1;
-    const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
     if (shares <= 5) {
       await prisma.badge.create({
         data: {
@@ -86,7 +86,7 @@ router.post(
           shown: false,
         },
       });
-
+      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
       return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog } });
     }
 
