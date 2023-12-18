@@ -38,9 +38,11 @@ const BadgeModal = () => {
   const navigation = useNavigation();
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
   const onClose = () => {
+    setIsModalOpen(false);
     setShowModal(false);
     setModalContent(null);
   };
@@ -103,6 +105,12 @@ const BadgeModal = () => {
     //   setModalContent(newBadge);
     //   setShowModal(true);
     // });
+    console.log('isModalOpen', isModalOpen);
+    if (isModalOpen) {
+      onClose();
+      return;
+    }
+    setIsModalOpen(true);
     if (newBadge) setModalContent(newBadge);
     if (allBadges) setBadges(allBadges);
     if (badgesCatalog) setBadgesCatalog(badgesCatalog);

@@ -1,5 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Platform } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled, { css } from 'styled-components';
@@ -19,7 +19,17 @@ import { storage } from '../../../services/storage';
 const Defi1_Day1 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-
+  const addDrinksRequest = useCallback(
+    (timestamp, fromButton) => {
+      navigation.push('ADD_DRINK', { timestamp });
+      logEvent({
+        category: 'CONSO',
+        action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+        name: fromButton,
+      });
+    },
+    [navigation]
+  );
   useEffect(() => {
     if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
     const matomoId = storage.getString('@UserIdv2');
@@ -89,13 +99,8 @@ const Defi1_Day1 = ({ navigation, route }) => {
       />
       <AddConsoCTAContainer>
         <ButtonPrimary
-          onPress={() => {
-            navigation.push('ADD_DRINK', { timestamp: Date.now(), parent: 'Defi1_Day1' });
-            logEvent({
-              category: 'CONSO',
-              action: 'CONSO_OPEN_CONSO_ADDSCREEN',
-              name: 'FROM_DEFI_1_DAY_1',
-            });
+          onPress={async () => {
+            addDrinksRequest(Date.now(), 'FROM_DEFI1_DAY1');
           }}
           content="Ajouter une consommation"
         />
