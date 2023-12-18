@@ -11,9 +11,9 @@ create materialized view matomo_actives as with activés as (
     WHERE ("public"."matomo"."action_eventaction" = 'CONTACT_RDV') or ((("public"."matomo"."action_eventcategory" = 'DEFI'
     OR "public"."matomo"."action_eventcategory" = 'DEFI_7_DAYS' or "public"."matomo"."action_eventcategory" = 'DEFI1')
    AND ("public"."matomo"."action_eventaction" = 'DEFI_7_DAYS_VALIDATE_DAY' or "public"."matomo"."action_eventaction" = 'DEFI1_VALIDATE_DAY') AND "public"."matomo"."action_eventvalue" = 1))
-   or ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+   or ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
    or (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
    or ("public"."matomo"."action_eventaction" = 'GOAL_ESTIMATION_DRINK')
    or ("public"."matomo"."action_eventcategory" = 'NAVIGATION'
    AND "public"."matomo"."action_eventaction" = 'HEALTH') group by "userid", "dimension1", "Action"
@@ -32,7 +32,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_conso as (
     select "userid", "time", "dimension1", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_conso"."rn"
@@ -43,7 +43,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
 ), total_conso as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_conso" 
+    from "different_days_conso"
 ), conso as (
     select *, 'CONSO' as "action" from "total_conso"
     where "total_conso"."number"=3
@@ -52,7 +52,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
     where (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_objectif as (
     select "userid", "time", "dimension1", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_objectif"."rn"
@@ -63,7 +63,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
 ), total_objectif as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_objectif" 
+    from "different_days_objectif"
 ), objectif as (
     select *, 'OBJECTIF' as "action" from "total_objectif"
     where "total_objectif"."number"=1
@@ -89,15 +89,15 @@ create materialized view matomo_petit_engages as with ranked_defi as (
 ), total_gain as (
     select "userid",
     row_number() over (partition by "userid") as "number", "time" as "timestamp", "dimension1"
-    from "different_days_gain" 
+    from "different_days_gain"
 ), gain as (
-    select *, 'GAIN' as "action" from "total_gain" 
+    select *, 'GAIN' as "action" from "total_gain"
     where "total_gain"."number" = 3
 ), saisies_santé as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time","dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE'
+    where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE' and "public"."matomo"."action_eventcategory" = 'HEALTH'
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), santé as (
     select "userid", date_trunc('day', "time") as "timestamp", 'SANTE' as "action", "dimension1"
@@ -137,7 +137,7 @@ create materialized view matomo_engages as with ranked_defi as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_conso as (
     select "userid", "time", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_conso"."rn", "dimension1"
@@ -148,7 +148,7 @@ create materialized view matomo_engages as with ranked_defi as (
 ), total_conso as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_conso" 
+    from "different_days_conso"
 ), conso as (
     select *, 'CONSO' as "action" from "total_conso"
     where "total_conso"."number"=7
@@ -157,7 +157,7 @@ create materialized view matomo_engages as with ranked_defi as (
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
     where (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_objectif as (
     select "userid", "time", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_objectif"."rn", "dimension1"
@@ -168,7 +168,7 @@ create materialized view matomo_engages as with ranked_defi as (
 ), total_objectif as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_objectif" 
+    from "different_days_objectif"
 ), objectif as (
     select *, 'OBJECTIF' as "action" from "total_objectif"
     where "total_objectif"."number"=1
@@ -194,9 +194,9 @@ create materialized view matomo_engages as with ranked_defi as (
 ), total_gain as (
     select "userid", "dimension1",
     row_number() over (partition by "userid") as "number", "time" as "timestamp"
-    from "different_days_gain" 
+    from "different_days_gain"
 ), gain as (
-    select *, 'GAIN' as "action" from "total_gain" 
+    select *, 'GAIN' as "action" from "total_gain"
     where "total_gain"."number" = 7
 ), saisies_santé as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
@@ -233,9 +233,9 @@ create materialized view matomo_actives as with activés as (
     WHERE ("public"."matomo"."action_eventaction" = 'CONTACT_RDV') or ((("public"."matomo"."action_eventcategory" = 'DEFI'
     OR "public"."matomo"."action_eventcategory" = 'DEFI_7_DAYS' or "public"."matomo"."action_eventcategory" = 'DEFI1')
    AND ("public"."matomo"."action_eventaction" = 'DEFI_7_DAYS_VALIDATE_DAY' or "public"."matomo"."action_eventaction" = 'DEFI1_VALIDATE_DAY') AND "public"."matomo"."action_eventvalue" = 1))
-   or ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+   or ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
    or (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
    or ("public"."matomo"."action_eventaction" = 'GOAL_ESTIMATION_DRINK')
    or ("public"."matomo"."action_eventcategory" = 'NAVIGATION'
    AND "public"."matomo"."action_eventaction" = 'HEALTH') group by "userid", "dimension1", "Action"
@@ -254,7 +254,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_conso as (
     select "userid", "time", "dimension1", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_conso"."rn"
@@ -265,7 +265,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
 ), total_conso as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_conso" 
+    from "different_days_conso"
 ), conso as (
     select *, 'CONSO' as "action" from "total_conso"
     where "total_conso"."number"=3
@@ -274,7 +274,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
     where (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_objectif as (
     select "userid", "time", "dimension1", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_objectif"."rn"
@@ -285,7 +285,7 @@ create materialized view matomo_petit_engages as with ranked_defi as (
 ), total_objectif as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_objectif" 
+    from "different_days_objectif"
 ), objectif as (
     select *, 'OBJECTIF' as "action" from "total_objectif"
     where "total_objectif"."number"=1
@@ -311,15 +311,15 @@ create materialized view matomo_petit_engages as with ranked_defi as (
 ), total_gain as (
     select "userid",
     row_number() over (partition by "userid") as "number", "time" as "timestamp", "dimension1"
-    from "different_days_gain" 
+    from "different_days_gain"
 ), gain as (
-    select *, 'GAIN' as "action" from "total_gain" 
+    select *, 'GAIN' as "action" from "total_gain"
     where "total_gain"."number" = 3
 ), saisies_santé as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time","dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE'
+    where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE' and "public"."matomo"."action_eventcategory" = 'HEALTH'
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), santé as (
     select "userid", date_trunc('day', "time") as "timestamp", 'SANTE' as "action", "dimension1"
@@ -359,7 +359,7 @@ create materialized view matomo_engages as with ranked_defi as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_conso as (
     select "userid", "time", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_conso"."rn", "dimension1"
@@ -370,7 +370,7 @@ create materialized view matomo_engages as with ranked_defi as (
 ), total_conso as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_conso" 
+    from "different_days_conso"
 ), conso as (
     select *, 'CONSO' as "action" from "total_conso"
     where "total_conso"."number"=7
@@ -379,7 +379,7 @@ create materialized view matomo_engages as with ranked_defi as (
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
     where (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_objectif as (
     select "userid", "time", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_objectif"."rn", "dimension1"
@@ -390,7 +390,7 @@ create materialized view matomo_engages as with ranked_defi as (
 ), total_objectif as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_objectif" 
+    from "different_days_objectif"
 ), objectif as (
     select *, 'OBJECTIF' as "action" from "total_objectif"
     where "total_objectif"."number"=1
@@ -416,9 +416,9 @@ create materialized view matomo_engages as with ranked_defi as (
 ), total_gain as (
     select "userid", "dimension1",
     row_number() over (partition by "userid") as "number", "time" as "timestamp"
-    from "different_days_gain" 
+    from "different_days_gain"
 ), gain as (
-    select *, 'GAIN' as "action" from "total_gain" 
+    select *, 'GAIN' as "action" from "total_gain"
     where "total_gain"."number" = 7
 ), saisies_santé as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
@@ -454,7 +454,7 @@ create materialized view matomo_petit_engages_par_action as with ranked_defi as 
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_conso as (
     select "userid", "time", "dimension1", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_conso"."rn"
@@ -465,7 +465,7 @@ create materialized view matomo_petit_engages_par_action as with ranked_defi as 
 ), total_conso as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_conso" 
+    from "different_days_conso"
 ), conso as (
     select *, 'CONSO' as "action" from "total_conso"
     where "total_conso"."number"=3
@@ -474,7 +474,7 @@ create materialized view matomo_petit_engages_par_action as with ranked_defi as 
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
     where (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_objectif as (
     select "userid", "time", "dimension1", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_objectif"."rn"
@@ -485,7 +485,7 @@ create materialized view matomo_petit_engages_par_action as with ranked_defi as 
 ), total_objectif as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_objectif" 
+    from "different_days_objectif"
 ), objectif as (
     select *, 'OBJECTIF' as "action" from "total_objectif"
     where "total_objectif"."number"=1
@@ -511,15 +511,15 @@ create materialized view matomo_petit_engages_par_action as with ranked_defi as 
 ), total_gain as (
     select "userid",
     row_number() over (partition by "userid") as "number", "time" as "timestamp", "dimension1"
-    from "different_days_gain" 
+    from "different_days_gain"
 ), gain as (
-    select *, 'GAIN' as "action" from "total_gain" 
+    select *, 'GAIN' as "action" from "total_gain"
     where "total_gain"."number" = 3
 ), saisies_santé as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time","dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE'
+    where "public"."matomo"."action_eventaction" = 'HEALTH_ARTICLE' and "public"."matomo"."action_eventcategory" = 'HEALTH'
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), santé as (
     select "userid", date_trunc('day', "time") as "timestamp", 'SANTE' as "action", "dimension1"
@@ -549,7 +549,7 @@ create materialized view matomo_engages_par_action as with ranked_defi as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
-    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD') 
+    WHERE ("public"."matomo"."action_eventaction" = 'CONSO_DRINK' or "public"."matomo"."action_eventaction" = 'CONSO_DRINKLESS' or "public"."matomo"."action_eventaction" = 'CONSO_ADD')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_conso as (
     select "userid", "time", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_conso"."rn", "dimension1"
@@ -560,7 +560,7 @@ create materialized view matomo_engages_par_action as with ranked_defi as (
 ), total_conso as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_conso" 
+    from "different_days_conso"
 ), conso as (
     select *, 'CONSO' as "action" from "total_conso"
     where "total_conso"."number"=7
@@ -569,7 +569,7 @@ create materialized view matomo_engages_par_action as with ranked_defi as (
     row_number() over (partition by "public"."matomo"."userid" order by "public"."matomo"."action_timestamp") AS "rn"
     from "public"."matomo"
     where (("public"."matomo"."action_eventcategory" = 'GOAL' or "public"."matomo"."action_eventcategory" = 'GAINS')
-   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK') 
+   AND "public"."matomo"."action_eventaction" = 'GOAL_DRINKWEEK')
     group by "action_timestamp", "public"."matomo"."userid", "dimension1" order by "public"."matomo"."userid", date_trunc('day', "public"."matomo"."action_timestamp")
 ), dates_objectif as (
     select "userid", "time", date_trunc('day', "time") - date_trunc('day', lag("time", 1) over (partition by "userid" order by "time")) as "difference_last_saisie", "saisies_objectif"."rn", "dimension1"
@@ -580,7 +580,7 @@ create materialized view matomo_engages_par_action as with ranked_defi as (
 ), total_objectif as (
     select "userid", "time" as "timestamp", "dimension1",
     row_number() over (partition by "userid") as "number"
-    from "different_days_objectif" 
+    from "different_days_objectif"
 ), objectif as (
     select *, 'OBJECTIF' as "action" from "total_objectif"
     where "total_objectif"."number"=1
@@ -606,9 +606,9 @@ create materialized view matomo_engages_par_action as with ranked_defi as (
 ), total_gain as (
     select "userid", "dimension1",
     row_number() over (partition by "userid") as "number", "time" as "timestamp"
-    from "different_days_gain" 
+    from "different_days_gain"
 ), gain as (
-    select *, 'GAIN' as "action" from "total_gain" 
+    select *, 'GAIN' as "action" from "total_gain"
     where "total_gain"."number" = 7
 ), saisies_santé as (
     select "public"."matomo"."userid" as "userid", date_trunc('day', "public"."matomo"."action_timestamp") as "time", "dimension1",
