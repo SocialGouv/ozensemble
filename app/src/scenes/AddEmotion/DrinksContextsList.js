@@ -13,6 +13,7 @@ import {
   contextsCatalog,
   contextsCatalogObject,
   getDisplayName,
+  contextsCategories,
 } from './contextsCatalog';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useToast } from '../../services/toast';
@@ -88,12 +89,18 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     });
     navigation.navigate('TABS');
 
-    logEvent({
+    const logEventNote = {
       category: 'CONTEXT',
       action: 'VALIDATE_CONTEXT',
       name: 'validate note',
-      value: newDrinksContexts[date].note ? 1 : 0,
-    });
+    };
+    // we don't want to send a value if there is no note
+    if (newDrinksContexts[date].note) {
+      logEventNote.value = 1;
+    }
+
+    logEvent(logEventNote);
+
     let logIndex = 0;
     Object.keys(emotionIcon).forEach((emotion) => {
       newDrinksContexts[date].emotion === emotion
@@ -105,18 +112,22 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
           })
         : logIndex++;
     });
-    logIndex = 0;
+    let categoryIndex = 0;
+    contextsCategories.forEach((_category) => {
+      categoryIndex++;
+      let contextIndex = 1;
 
-    contextsCatalog.forEach((_context) => {
-      if (context.includes(_context.contextKey)) {
-        logEvent({
-          category: 'CONTEXT',
-          action: 'VALIDATE_CONTEXT',
-          name: 'validate context',
-          value: logIndex,
-        });
-      }
-      logIndex++;
+      contextKeysByCategory[_category].forEach((_context) => {
+        if (newDrinksContexts[date].context.includes(_context)) {
+          logEvent({
+            category: 'CONTEXT',
+            action: 'VALIDATE_CONTEXT',
+            name: 'validate context',
+            value: categoryIndex + '.' + contextIndex,
+          });
+        }
+        contextIndex++;
+      });
     });
     toast.show('Contexte de consommation enregistré');
   };
