@@ -1,3 +1,10 @@
+## [1.135.7](https://github.com/SocialGouv/ozensemble/compare/v1.135.6...v1.135.7) (2023-12-18)
+
+
+### Bug Fixes
+
+* health article event sorry baby ([#501](https://github.com/SocialGouv/ozensemble/issues/501)) ([dc19e50](https://github.com/SocialGouv/ozensemble/commit/dc19e5051fa9fd934e00c989778b23432bd4db75))
+
 ## [1.135.6](https://github.com/SocialGouv/ozensemble/compare/v1.135.5...v1.135.6) (2023-12-15)
 
 
