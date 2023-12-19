@@ -41,6 +41,7 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import Official from './scenes/Infos/Official';
+import BadgesList from './scenes/Badges/BadgesList';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -289,6 +290,14 @@ const Router = () => {
           <ModalsStack.Screen
             name="NPS_SCREEN"
             component={NPSScreen}
+            options={{
+              presentation: 'modal',
+              headerShown: false,
+            }}
+          />
+          <ModalsStack.Screen
+            name="BADGES_LIST"
+            component={BadgesList}
             options={{
               presentation: 'modal',
               headerShown: false,
