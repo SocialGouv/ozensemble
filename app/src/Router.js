@@ -176,7 +176,7 @@ const Root = () => {
         name="GAINS_SEVRAGE"
         component={Sevrage}
         initialParams={{
-          rootRoute: 'GAINS_MAIN_VIEW',
+          rootRoute: 'CONSO_FOLLOW_UP_NAVIGATOR',
         }}
       />
     </RootStack.Navigator>
