@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { Alert, Linking } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -61,7 +60,7 @@ const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
-  const [showBootSplash, setShowBootsplash] = useRecoilState(showBootSplashState);
+  const showBootSplash = useRecoilValue(showBootSplashState);
 
   useEffect(() => {
     // show new feature modal if any
@@ -80,7 +79,7 @@ const TabsNavigator = ({ navigation }) => {
           tabBarActiveTintColor: '#4030A5',
           tabBarInactiveTintColor: '#767676',
           keyboardHidesTabBar: true,
-          lazy: false,
+          lazy: true,
         }}>
         <Tabs.Screen
           name="GAINS_NAVIGATOR"
@@ -167,9 +166,6 @@ const Root = () => {
       }}
       initialRouteName="APP">
       <RootStack.Screen name="APP" component={App} />
-      <RootStack.Screen name="OFFICIAL">
-        {({ navigation }) => <Official onClose={navigation.goBack} />}
-      </RootStack.Screen>
       <RootStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
       <RootStack.Screen name="USER_SURVEY" component={UserSurvey} />
       <RootStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
@@ -186,6 +182,7 @@ const Root = () => {
   );
 };
 
+// storage.clearAll();
 enableScreens();
 const ModalsStack = createNativeStackNavigator();
 const Router = () => {
@@ -300,6 +297,7 @@ const Router = () => {
         </ModalsStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
+      <CustomBootsplash />
     </>
   );
 };

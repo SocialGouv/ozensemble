@@ -88,9 +88,8 @@ const Question = ({
                   } else {
                     if (from == 'NEW_USER') {
                       // TODO: fix user survey still appearing after bootsplash hide
-                      setShowBootsplash(true);
-                      await new Promise((res) => setTimeout(res, 250));
                       navigation.navigate('TABS');
+                      setShowBootsplash(true);
                       return;
                     }
                     navigation.navigate('QUIZZ_RESULTS');
