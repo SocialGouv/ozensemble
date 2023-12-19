@@ -126,8 +126,6 @@ const TabsNavigator = ({ navigation }) => {
         }}
       />
       <NewFeaturePopupDisplay canShow={!showBootSplash} />
-      <InAppModal />
-      {/* <BadgeModal /> */}
     </>
   );
 };
@@ -197,6 +195,15 @@ const Router = () => {
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
     RNBootSplash.hide({ fade: true });
+
+    // show new feature modal if any
+    const matomoId = storage.getString('@UserIdv2');
+    await API.post({
+      path: '/appMilestone/init',
+      body: {
+        matomoId,
+      },
+    });
   };
 
   const navigationRef = useRef(null);
@@ -268,6 +275,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="MODAL_BADGE"
             component={BadgeModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="IN_APP_MODAL"
+            component={InAppModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
