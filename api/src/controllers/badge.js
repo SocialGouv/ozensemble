@@ -84,7 +84,12 @@ router.post(
         },
       });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-      return res.status(200).send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog } });
+      return res
+        .status(200)
+        .send({
+          ok: true,
+          showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
     }
 
     return res.status(200).send({ ok: true });
