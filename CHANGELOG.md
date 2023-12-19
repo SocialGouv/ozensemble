@@ -1,3 +1,13 @@
+## [1.135.13](https://github.com/SocialGouv/ozensemble/compare/v1.135.12...v1.135.13) (2023-12-19)
+
+
+### Bug Fixes
+
+* can return and not lose consos ([88bc301](https://github.com/SocialGouv/ozensemble/commit/88bc301a6284762a06321ddaeb8262477b30b91a))
+* color bar share progression defi new day ([#506](https://github.com/SocialGouv/ozensemble/issues/506)) ([bf616d2](https://github.com/SocialGouv/ozensemble/commit/bf616d234d45c5e7fcbd44b4ac0259bcf06f3349))
+* context changes to have better tracking ([1f4d622](https://github.com/SocialGouv/ozensemble/commit/1f4d622b8921caf0e26a02c676d40e6e49378284))
+* materialized views ([57c824b](https://github.com/SocialGouv/ozensemble/commit/57c824b720630401ea525e34bfcff2bc67d53165))
+
 ## [1.135.12](https://github.com/SocialGouv/ozensemble/compare/v1.135.11...v1.135.12) (2023-12-19)
 
 
