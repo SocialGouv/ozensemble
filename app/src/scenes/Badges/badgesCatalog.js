@@ -177,8 +177,8 @@ export const defaultBackupBadgeCatalog = [
     titleForList: 'Badges partages',
     titleForStatus: 'Partages effectués',
     description:
-      "Gagnez ces badges en partageant l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation\u00A0!",
-    bgColor: '#FBD361',
+      "Gagnez ces badges en partageant l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation d'alcool\u00A0!",
+    bgColor: '#CFD5F6',
     badges: [
       {
         category: 'share',
