@@ -41,7 +41,7 @@ Demandez à ce qu'il soit ajouté à la liste ${category}: ${context}
 `;
 
 const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
-  const date = addDrinkModalTimestamp ? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') : route?.params?.date;
+  const date = route?.params?.date ?? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD');
   if (!date) {
     throw new Error('date is required');
   }
