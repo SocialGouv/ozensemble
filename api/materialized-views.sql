@@ -631,4 +631,3 @@ create materialized view matomo_engages_par_action as with ranked_defi as (
 ), engagés as (
    select "userid", "action_timestamp", "dimension1", "action" FROM engagés_ranked
 ) select * from engagés;
-
