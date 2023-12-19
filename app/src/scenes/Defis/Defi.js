@@ -120,10 +120,14 @@ const Defi = ({
         </ButtonContainer>
       </FeedContainer>
       <OnBoardingModal
-        title="Jour disponible demain "
-        description="L’activité dure 7 jours, revenez demain pour pouvoir faire le jour suivant :)"
+        title="Jour en cours"
+        description="Vous avez déjà un jour en cours, terminez le avant de pouvoir en commencer un nouveau."
         visible={showNotAvailableModal}
         hide={() => {
+          setShowNotAvailableModal(false);
+        }}
+        boutonTitle="Continuez jour en cours"
+        onPress={() => {
           setShowNotAvailableModal(false);
         }}
       />
