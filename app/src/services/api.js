@@ -52,11 +52,7 @@ class ApiService {
       if (response.json) {
         try {
           const readableRes = await response.json();
-          if (readableRes.sendInApp) {
-            console.log('SEND IN APP');
-            const pushAction = StackActions.push('IN_APP_MODAL', readableRes.sendInApp);
-            this.navigation.dispatch(pushAction);
-          }
+          if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
           if (readableRes.showNewBadge) {
             const pushAction = StackActions.push('MODAL_BADGE', readableRes.showNewBadge);
             this.navigation.dispatch(pushAction);
