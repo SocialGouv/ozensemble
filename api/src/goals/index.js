@@ -9,7 +9,7 @@ dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
-const checkIfLastWeekGoalAchieved = async (matomoId) => {
+const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
   try {
     if (!matomoId) return null;
     const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
@@ -80,7 +80,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
         },
       });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-      return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) };
+      return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(appversion) };
     }
   } catch (error) {
     capture(error, { user: { matomoId } });
