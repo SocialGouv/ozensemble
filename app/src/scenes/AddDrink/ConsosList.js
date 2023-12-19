@@ -172,11 +172,10 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
 
   useEffect(() => {
     if (isFocused) {
-      setLocalDrinksState(drinksPerCurrentaTimestamp);
       BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
     }
     return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
-  }, [isFocused, onCancelConsos, drinksPerCurrentaTimestamp]);
+  }, [isFocused, onCancelConsos]);
 
   return (
     <>
