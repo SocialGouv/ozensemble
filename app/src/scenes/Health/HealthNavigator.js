@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View } from 'react-native';
 import ContactForm from './ContactForm';
 import Doctolib from './Doctolib';
 import Conseils from './Conseils';
@@ -12,7 +11,6 @@ import AlcoholAndNorms from './Articles/AlcoholAndNorms';
 import AlcoholAddiction from './Articles/AlcoholAddiction';
 import AlcoholAndCalories from './Articles/AlcoholAndCalories';
 import Background from '../../components/Background';
-import HeaderBackground from '../../components/HeaderBackground';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndMotivation from './Articles/AlcoholAndMotivation';
 import AlcoholAndHealthRisks from './Articles/AlcoholAndHealthRisks';
@@ -20,7 +18,6 @@ import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
 import CravingsTreatment from './Articles/CravingsTreatment';
-import WrapperContainer from '../../components/WrapperContainer';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
