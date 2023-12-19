@@ -2,7 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
+const { getBadgeCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
 
 router.get(
   "/test",
@@ -19,10 +19,7 @@ router.get(
   catchErrors(async (req, res) => {
     const { matomoId } = req.params;
     // Don't show badges that are not available in the app version
-    let catalog = badgesCatalog;
-    if (req.headers.appversion < 217) {
-      catalog = badgesCatalog.filter((badge) => !["share"].includes(badge.category));
-    }
+
     if (!matomoId) return res.status(200).send({ ok: true, data: [] });
 
     // find badges of matomoId
@@ -52,7 +49,7 @@ router.get(
         // - sadness: but we can't add one because of the svg's that we don't send back
         // - cons: technical debt, double maintenance
         // Conclusion: not a big deal to remove it, not a big deal to keep it - your choice
-        badgesCatalog,
+        badgesCatalog: getBadgeCatalog(req.headers.appversion),
       },
     });
   })
