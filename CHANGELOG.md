@@ -1,3 +1,10 @@
+## [1.135.9](https://github.com/SocialGouv/ozensemble/compare/v1.135.8...v1.135.9) (2023-12-19)
+
+
+### Bug Fixes
+
+* badges version ([#504](https://github.com/SocialGouv/ozensemble/issues/504)) ([a12f6bf](https://github.com/SocialGouv/ozensemble/commit/a12f6bf090ea2d71e2a935f2d815be482ec202b1))
+
 ## [1.135.8](https://github.com/SocialGouv/ozensemble/compare/v1.135.7...v1.135.8) (2023-12-19)
 
 
