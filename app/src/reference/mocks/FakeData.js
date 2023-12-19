@@ -242,6 +242,12 @@ const FakeData = () => {
         <MenuItem caption="Tout le défi 4" onPress={() => deleteStorageValues(fakeDefi4)} />
         <MenuItem caption="Tout le défi 5" onPress={() => deleteStorageValues(fakeDefi5)} />
         <MenuItem
+          caption="Toutes les popups de nouvelles fonctionnalités"
+          onPress={() => {
+            deleteStorageValues(['@NewFeaturesPopupIdsShown', 'NewFeaturesLastShownId']);
+          }}
+        />
+        <MenuItem
           caption="Toutes mes consos"
           onPress={() => {
             setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));

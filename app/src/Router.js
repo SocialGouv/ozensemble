@@ -63,6 +63,14 @@ const TabsNavigator = ({ navigation }) => {
   useCheckNeedNPS();
   const [showBootSplash, setShowBootsplash] = useRecoilState(showBootSplashState);
 
+  useEffect(() => {
+    // show new feature modal if any
+    API.post({
+      path: '/appMilestone/init',
+      body: { matomoId: storage.getString('@UserIdv2') },
+    });
+  }, []);
+
   return (
     <>
       <Tabs.Navigator
@@ -195,15 +203,6 @@ const Router = () => {
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
     RNBootSplash.hide({ fade: true });
-
-    // show new feature modal if any
-    const matomoId = storage.getString('@UserIdv2');
-    await API.post({
-      path: '/appMilestone/init',
-      body: {
-        matomoId,
-      },
-    });
   };
 
   const navigationRef = useRef(null);
