@@ -1,3 +1,13 @@
+## [1.135.12](https://github.com/SocialGouv/ozensemble/compare/v1.135.11...v1.135.12) (2023-12-19)
+
+
+### Bug Fixes
+
+* app version ([4a58055](https://github.com/SocialGouv/ozensemble/commit/4a58055ed110767bb9e22c092ec38513451e1b7a))
+* badges list ([43855e1](https://github.com/SocialGouv/ozensemble/commit/43855e14192470e9bf5e1b8bb89a1fa41469398a))
+* bug date context ([aa93f66](https://github.com/SocialGouv/ozensemble/commit/aa93f66fdbd4f6b9f38bb7e10bf7437e9b24d308))
+* end of sevrage ([5e5402d](https://github.com/SocialGouv/ozensemble/commit/5e5402df7224a093c7ed722b3f20ba25e3065777))
+
 ## [1.135.11](https://github.com/SocialGouv/ozensemble/compare/v1.135.10...v1.135.11) (2023-12-19)
 
 
