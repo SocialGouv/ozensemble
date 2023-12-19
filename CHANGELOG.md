@@ -1,3 +1,10 @@
+## [1.135.10](https://github.com/SocialGouv/ozensemble/compare/v1.135.9...v1.135.10) (2023-12-19)
+
+
+### Bug Fixes
+
+* badgesCatalog not defined ([0250d1b](https://github.com/SocialGouv/ozensemble/commit/0250d1be680b93e5663fa9ee3e8dd5353c34107b))
+
 ## [1.135.9](https://github.com/SocialGouv/ozensemble/compare/v1.135.8...v1.135.9) (2023-12-19)
 
 
