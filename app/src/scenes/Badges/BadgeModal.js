@@ -105,7 +105,6 @@ const BadgeModal = () => {
     //   setModalContent(newBadge);
     //   setShowModal(true);
     // });
-    console.log('isModalOpen', isModalOpen);
     if (isModalOpen) {
       onClose();
       return;
