@@ -2,6 +2,7 @@ import URI from 'urijs';
 import { Alert, Platform } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import deviceInfoModule from 'react-native-device-info';
+import { StackActions } from '@react-navigation/native';
 
 import { SCHEME, API_HOST } from '../config';
 import { NewFeaturePop } from './NewFeaturePopup';
@@ -52,7 +53,10 @@ class ApiService {
         try {
           const readableRes = await response.json();
           if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
-          if (readableRes.showNewBadge) this?.handleShowBadge(readableRes.showNewBadge);
+          if (readableRes.showNewBadge) {
+            const pushAction = StackActions.push('MODAL_BADGE', readableRes.showNewBadge);
+            this.navigation.dispatch(pushAction);
+          }
           if (readableRes.showInAppModal) this?.handleShowInAppModal(readableRes.showInAppModal);
           if (readableRes.newFeatures) {
             NewFeaturePop.handleShowNewFeaturePopup(readableRes.newFeatures);

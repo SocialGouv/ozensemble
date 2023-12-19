@@ -138,7 +138,7 @@ const TabsNavigator = ({ navigation }) => {
       />
       <NewFeaturePopupDisplay canShow={!showBootSplash} />
       <InAppModal />
-      <BadgeModal />
+      {/* <BadgeModal /> */}
     </>
   );
 };
@@ -257,6 +257,14 @@ const Router = () => {
           <RouterStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
           <RouterStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
           <RouterStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
+          <RouterStack.Screen
+            name="MODAL_BADGE"
+            component={BadgeModal}
+            options={{
+              presentation: 'transparentModal',
+              headerShown: false,
+            }}
+          />
           <RouterStack.Screen
             name="GAINS_SEVRAGE"
             component={Sevrage}

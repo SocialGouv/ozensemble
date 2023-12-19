@@ -42,6 +42,14 @@ const FakeData = () => {
     <WrapperContainer title="Charger des fausses données">
       <Container>
         <MenuItem
+          caption="Reset consos et défi 1"
+          onPress={() => {
+            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            storage.delete('nps-asked-after-more-than-3-consos');
+            deleteStorageValues(fakeDefi1);
+          }}
+        />
+        <MenuItem
           caption="Tous les défis, tout l'objectif, 14 jours de conso complets"
           onPress={() => {
             replaceStorageValues(fakeDefi1);
