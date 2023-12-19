@@ -60,6 +60,15 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     const orderedContext = contextsCatalog
       .filter((_context) => context.includes(_context.contextKey))
       .map((_context) => _context.contextKey);
+    const contextChanged =
+      note !== drinksContext.note ||
+      selectedEmotion !== drinksContext.emotion ||
+      JSON.stringify(orderedContext) !== JSON.stringify(drinksContext.context);
+    if (!contextChanged) {
+      console.log('PAS DE CHANGEMENT');
+      navigation.navigate('TABS');
+      return;
+    }
     const newContextToSave = {
       id: uuidv4(),
       ...drinksContext,
@@ -67,11 +76,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       context: orderedContext,
       emotion: selectedEmotion,
     };
-    const contextChanged = JSON.stringify(drinksContext) !== JSON.stringify(newContextToSave);
-    if (!contextChanged) {
-      navigation.navigate('TABS');
-      return;
-    }
+    console.log('CHANGEMEEEEEEEEENT');
     const newDrinksContexts = { ...drinksContexts };
     newDrinksContexts[date] = newContextToSave;
     setDrinksContexts(newDrinksContexts);
