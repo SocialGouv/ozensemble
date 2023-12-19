@@ -62,16 +62,6 @@ const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
   const [showBootSplash, setShowBootsplash] = useRecoilState(showBootSplashState);
-  const resetOnTapListener = ({ navigation, rootName }) => {
-    return {
-      blur: () => {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: rootName }],
-        });
-      },
-    };
-  };
 
   return (
     <>
@@ -123,7 +113,6 @@ const TabsNavigator = ({ navigation }) => {
             tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
           }}
           component={Infos}
-          listeners={(props) => resetOnTapListener({ ...props, rootName: 'INFOS_MENU' })}
         />
       </Tabs.Navigator>
       <AddDrinkCTAButton
@@ -171,8 +160,36 @@ const App = () => {
   );
 };
 
+const RootStack = createNativeStackNavigator();
+const Root = () => {
+  return (
+    <RootStack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="APP">
+      <RootStack.Screen name="APP" component={App} />
+      <RootStack.Screen name="OFFICIAL">
+        {({ navigation }) => <Official onClose={navigation.goBack} />}
+      </RootStack.Screen>
+      <RootStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
+      <RootStack.Screen name="USER_SURVEY" component={UserSurvey} />
+      <RootStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
+      <RootStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
+      <RootStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
+      <RootStack.Screen
+        name="GAINS_SEVRAGE"
+        component={Sevrage}
+        initialParams={{
+          rootRoute: 'GAINS_MAIN_VIEW',
+        }}
+      />
+    </RootStack.Navigator>
+  );
+};
+
 enableScreens();
-const RouterStack = createNativeStackNavigator();
+const ModalsStack = createNativeStackNavigator();
 const Router = () => {
   useAppState({
     isActive: () => logEvent({ category: 'APP', action: 'APP_OPEN' }),
@@ -235,13 +252,29 @@ const Router = () => {
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}>
-        <RouterStack.Navigator
-          presentation="modal"
+        <ModalsStack.Navigator
+          initialRouteName="ROUTER"
           screenOptions={{
             headerShown: false,
+            presentation: 'transparentModal',
           }}>
-          <RouterStack.Screen name="APP" component={App} />
-          <RouterStack.Screen
+          <ModalsStack.Screen
+            name="ROUTER"
+            component={Root}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <ModalsStack.Screen
+            name="MODAL_BADGE"
+            component={BadgeModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
             name="NPS_SCREEN"
             component={NPSScreen}
             options={{
@@ -249,30 +282,7 @@ const Router = () => {
               headerShown: false,
             }}
           />
-          <RouterStack.Screen name="OFFICIAL">
-            {({ navigation }) => <Official onClose={navigation.goBack} />}
-          </RouterStack.Screen>
-          <RouterStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
-          <RouterStack.Screen name="USER_SURVEY" component={UserSurvey} />
-          <RouterStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
-          <RouterStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
-          <RouterStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
-          <RouterStack.Screen
-            name="MODAL_BADGE"
-            component={BadgeModal}
-            options={{
-              presentation: 'transparentModal',
-              headerShown: false,
-            }}
-          />
-          <RouterStack.Screen
-            name="GAINS_SEVRAGE"
-            component={Sevrage}
-            initialParams={{
-              rootRoute: 'GAINS_MAIN_VIEW',
-            }}
-          />
-        </RouterStack.Navigator>
+        </ModalsStack.Navigator>
         <EnvironmentIndicator />
       </NavigationContainer>
     </>

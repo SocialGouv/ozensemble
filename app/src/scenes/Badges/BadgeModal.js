@@ -103,7 +103,7 @@ const BadgeModal = ({ navigation, route }) => {
 
   return (
     <SafeAreaView className="bg-white rounded-t-xl mt-auto">
-      <View className="p-4">
+      <View className="p-4 ">
         <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
           <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
             <Path
