@@ -837,6 +837,13 @@ const badgesCatalog = [
   },
 ];
 
+const getBadgeCatalog = (appversion) => {
+  if (appversion < 217) {
+    return badgesCatalog.filter((badge) => !["share"].includes(badge.category));
+  }
+  return badgesCatalog;
+};
+
 const missedGoal = {
   title: "Objectif dépassé cette semaine",
   content: `Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien\u00A0!
@@ -859,6 +866,7 @@ const grabBadgeFromCatalog = (category, stars) => {
 
 module.exports = {
   badgesCatalog,
+  getBadgeCatalog,
   grabBadgeFromCatalog,
   missedGoal,
 };

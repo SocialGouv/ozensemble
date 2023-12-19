@@ -3,7 +3,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+const { getBadgeCatalog, grabBadgeFromCatalog } = require("../badges");
 const { checkIfLastWeekGoalAchieved } = require("../goals");
 
 router.post(
@@ -246,7 +246,7 @@ router.post(
           showNewBadge: {
             newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 2),
             allBadges,
-            badgesCatalog,
+            badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
         });
       }
@@ -277,7 +277,7 @@ router.post(
           showNewBadge: {
             newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 3),
             allBadges,
-            badgesCatalog,
+            badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
         });
       }
@@ -308,7 +308,7 @@ router.post(
           showNewBadge: {
             newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 4),
             allBadges,
-            badgesCatalog,
+            badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
         });
       }
@@ -338,7 +338,7 @@ router.post(
           showNewBadge: {
             newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 5),
             allBadges,
-            badgesCatalog,
+            badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
         });
       }

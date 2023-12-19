@@ -2,7 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { badgesCatalog, grabBadgeFromCatalog } = require("../badges");
+const { getBadgeCatalog, grabBadgeFromCatalog } = require("../badges");
 
 router.post(
   "/",
@@ -84,9 +84,14 @@ router.post(
         where: { id: badge_articles_to_show.id },
         data: { shown: true },
       });
-      return res
-        .status(200)
-        .send({ ok: true, showNewBadge: { newBadge: grabBadgeFromCatalog("articles", badge_articles_to_show.stars), allBadges, badgesCatalog } });
+      return res.status(200).send({
+        ok: true,
+        showNewBadge: {
+          newBadge: grabBadgeFromCatalog("articles", badge_articles_to_show.stars),
+          allBadges,
+          badgesCatalog: getBadgeCatalog(req.headers.appversion),
+        },
+      });
     }
     return res.status(200).send({ ok: true });
   })

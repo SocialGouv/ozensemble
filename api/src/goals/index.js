@@ -4,7 +4,7 @@ require("dayjs/locale/fr");
 const isBetween = require("dayjs/plugin/isBetween");
 const weekday = require("dayjs/plugin/weekday");
 const dayjs = require("dayjs");
-const { badgesCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
+const { grabBadgeFromCatalog, missedGoal, getBadgeCatalog } = require("../badges");
 dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
@@ -80,7 +80,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId) => {
         },
       });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-      return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog };
+      return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) };
     }
   } catch (error) {
     capture(error, { user: { matomoId } });
