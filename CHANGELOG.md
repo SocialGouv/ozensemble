@@ -1,3 +1,10 @@
+## [1.135.11](https://github.com/SocialGouv/ozensemble/compare/v1.135.10...v1.135.11) (2023-12-19)
+
+
+### Bug Fixes
+
+* badge mnodal navigator ([#505](https://github.com/SocialGouv/ozensemble/issues/505)) ([1923d95](https://github.com/SocialGouv/ozensemble/commit/1923d9577710a353ce080c2f3923d4199538a048))
+
 ## [1.135.10](https://github.com/SocialGouv/ozensemble/compare/v1.135.9...v1.135.10) (2023-12-19)
 
 
