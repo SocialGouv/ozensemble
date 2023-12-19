@@ -65,8 +65,11 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       selectedEmotion !== drinksContext.emotion ||
       JSON.stringify(orderedContext) !== JSON.stringify(drinksContext.context);
     if (!contextChanged) {
-      console.log('PAS DE CHANGEMENT');
-      navigation.navigate('TABS');
+      if (route?.params?.parent === 'Defi1_Day1') {
+        navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+      } else {
+        navigation.navigate('TABS');
+      }
       return;
     }
     const newContextToSave = {
@@ -76,7 +79,6 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       context: orderedContext,
       emotion: selectedEmotion,
     };
-    console.log('CHANGEMEEEEEEEEENT');
     const newDrinksContexts = { ...drinksContexts };
     newDrinksContexts[date] = newContextToSave;
     setDrinksContexts(newDrinksContexts);
@@ -91,7 +93,11 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
         // we don't send note to the server for confidentiality reasons
       },
     });
-    navigation.navigate('TABS');
+    if (route?.params?.parent === 'Defi1_Day1') {
+      navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+    } else {
+      navigation.navigate('TABS');
+    }
 
     logEvent({
       category: 'CONTEXT',

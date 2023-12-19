@@ -34,7 +34,6 @@ import Confetti from '../../components/Confettis';
 const BadgeModal = ({ navigation, route }) => {
   const { params } = route;
   const badge = params?.newBadge;
-  console.log('ON EST ICI POPOPOPOPOPO', badge);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
   useEffect(() => {
