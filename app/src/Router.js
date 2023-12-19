@@ -146,14 +146,6 @@ const App = () => {
         <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
-        <AppStack.Screen
-          name="ADD_DRINK"
-          component={AddDrinkNavigator}
-          options={{
-            presentation: 'modal',
-            headerShown: false,
-          }}
-        />
         <AppStack.Screen name="TABS" component={TabsNavigator} />
       </AppStack.Navigator>
     </>
@@ -262,6 +254,14 @@ const Router = () => {
             name="ROUTER"
             component={Root}
             options={{
+              headerShown: false,
+            }}
+          />
+          <ModalsStack.Screen
+            name="ADD_DRINK"
+            component={AddDrinkNavigator}
+            options={{
+              presentation: 'modal',
               headerShown: false,
             }}
           />
