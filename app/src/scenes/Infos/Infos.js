@@ -28,6 +28,7 @@ import FilesIcon from '../../components/illustrations/icons/FilesIcon';
 import OfficialIcon from '../../components/illustrations/icons/OfficialIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { isOnboardedSelector } from '../../recoil/gains';
+import Official from './Official';
 
 const InfosStack = createStackNavigator();
 
@@ -44,6 +45,9 @@ const Infos = () => {
         </InfosStack.Screen>
         <InfosStack.Screen name="PRIVACY_POLICY">
           {({ navigation }) => <PrivacyPolicy onClose={navigation.goBack} />}
+        </InfosStack.Screen>
+        <InfosStack.Screen name="OFFICIAL">
+          {({ navigation }) => <Official onClose={navigation.goBack} />}
         </InfosStack.Screen>
         <InfosStack.Screen name="EXPORT" component={Export} />
         <InfosStack.Screen name="FAKE_DATA" component={FakeData} />

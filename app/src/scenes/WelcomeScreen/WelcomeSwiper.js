@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Swiper from 'react-native-swiper';
-import { useSetRecoilState } from 'recoil';
 import { storage } from '../../services/storage';
-import { showBootSplashState } from '../../components/CustomBootsplash';
 import { Screen1, Screen2, Screen3, Screen4 } from './Screens';
 import Dot from '../../components/SwiperDot';
 import { View } from 'react-native';
@@ -12,15 +10,9 @@ const WelcomeSwiper = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   // const [pagination, setPagination] = useState(true);
   const swiperRef = useRef();
-  const setShowBootsplash = useSetRecoilState(showBootSplashState);
 
   const indexChanged = (index) => {
     setCurrentIndex(index);
-    // if (index === 3) {
-    //   setPagination(false);
-    // } else {
-    //   setPagination(true);
-    // }
   };
 
   const onStartPress = async () => {

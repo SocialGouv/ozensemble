@@ -19,30 +19,6 @@ router.post(
     const value = body.event?.value;
     const matomoId = body.userId;
 
-    // handle mail for old versions
-    const sendNPSEvent = category === "NPS";
-    const exportDataEvent = action === "EXPORT";
-    if (req.headers.appversion < 99 && (exportDataEvent || sendNPSEvent)) {
-      return res.status(200).send({
-        ok: true,
-        sendInApp: [
-          "L'envoi d'email n'est plus disponible sur cette version d'application",
-          "Mettez à jour votre application !",
-          [
-            {
-              text: "Mettre à jour",
-              link:
-                req.headers.appdevice === "ios"
-                  ? "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1"
-                  : "https://play.google.com/store/apps/details?id=com.addicto",
-            },
-            { text: "Plus tard", style: "cancel" },
-          ],
-          { cancelable: true },
-        ],
-      });
-    }
-
     // handle User Survey
     const userSurveyAnnounced = category === "NAVIGATION" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
     if (userSurveyAnnounced) {

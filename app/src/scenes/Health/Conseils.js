@@ -12,10 +12,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
   return (
-    <WrapperContainer>
-      <H1 className=" mb-6" color="#4030a5">
-        Santé
-      </H1>
+    <WrapperContainer title="Santé">
       <H2 color="#4030a5" className="mb-2">
         Parler avec un professionnel
       </H2>

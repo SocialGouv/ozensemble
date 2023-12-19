@@ -11,7 +11,6 @@ import AlcoholAndNorms from './Articles/AlcoholAndNorms';
 import AlcoholAddiction from './Articles/AlcoholAddiction';
 import AlcoholAndCalories from './Articles/AlcoholAndCalories';
 import Background from '../../components/Background';
-import HeaderBackground from '../../components/HeaderBackground';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndMotivation from './Articles/AlcoholAndMotivation';
 import AlcoholAndHealthRisks from './Articles/AlcoholAndHealthRisks';
@@ -19,7 +18,6 @@ import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
 import CravingsTreatment from './Articles/CravingsTreatment';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
@@ -27,13 +25,6 @@ const HealthNavigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_ARTICLE">
-        <HealthStack.Screen
-          name="ONBOARDING_QUIZZ"
-          component={QuizzOnboarding}
-          initialParams={{
-            rootRoute: 'HEALTH',
-          }}
-        />
         <HealthStack.Screen name="HEALTH_ARTICLE" component={Conseils} />
         <HealthStack.Screen name="CONTACT" component={ContactForm} />
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
@@ -49,6 +40,13 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="ALCOHOL_AND_MOTIVATION" component={AlcoholAndMotivation} />
         <HealthStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
         <HealthStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
+        <HealthStack.Screen
+          name="ONBOARDING_QUIZZ"
+          component={QuizzOnboarding}
+          initialParams={{
+            rootRoute: 'HEALTH',
+          }}
+        />
       </HealthStack.Navigator>
     </Background>
   );

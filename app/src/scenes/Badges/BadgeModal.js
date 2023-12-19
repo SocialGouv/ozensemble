@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
 import { useSetRecoilState } from 'recoil';
 import InAppReview from 'react-native-in-app-review';
-import { useNavigation } from '@react-navigation/native';
 import { hitSlop } from '../../styles/theme';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import H1 from '../../components/H1';
-import Modal from '../../components/Modal';
 import TextStyled from '../../components/TextStyled';
-import API from '../../services/api';
 import { BadgeDrinks } from './Svgs/BadgeDrinks';
 import { BadgeGoals } from './Svgs/BadgeGoals';
 import { LockedBadge } from './Svgs/LockedBadge';
@@ -34,28 +31,32 @@ import Confetti from '../../components/Confettis';
     secondaryButtonLink: null,
 }
 */
-const BadgeModal = () => {
-  const navigation = useNavigation();
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
+const BadgeModal = ({ navigation, route }) => {
+  const { params } = route;
+  const badge = params?.newBadge;
+  console.log('ON EST ICI POPOPOPOPOPO', badge);
   const setBadges = useSetRecoilState(badgesState);
   const setBadgesCatalog = useSetRecoilState(badgesCatalogState);
+  useEffect(() => {
+    if (params.allBadges) setBadges(params.allBadges);
+    if (params.badgesCatalog) setBadgesCatalog(params.badgesCatalog);
+  }, []);
+
   const onClose = () => {
-    setShowModal(false);
-    setModalContent(null);
+    navigation.goBack();
   };
   const onCTAPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
-      if (modalContent.CTAEvent) {
-        logEvent(modalContent.CTAEvent);
+      if (badge.CTAEvent) {
+        logEvent(badge.CTAEvent);
       }
-      if (modalContent.CTANavigation) {
-        navigation.navigate(...modalContent.CTANavigation);
-      } else if (modalContent.CTAShare) {
+      if (badge.CTANavigation) {
+        navigation.navigate(...badge.CTANavigation);
+      } else if (badge.CTAShare) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         shareApp();
-      } else if (modalContent.CTARate) {
+      } else if (badge.CTARate) {
         if (InAppReview.isAvailable()) {
           InAppReview.RequestInAppReview();
         } else {
@@ -66,23 +67,23 @@ const BadgeModal = () => {
             })
           );
         }
-      } else if (modalContent.CTALink) {
-        Linking.openURL(modalContent.CTALink);
+      } else if (badge.CTALink) {
+        Linking.openURL(badge.CTALink);
       }
     });
   };
   const onSecondaryPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
-      if (modalContent.secondaryButtonEvent) {
-        logEvent(modalContent.secondaryButtonEvent);
+      if (badge.secondaryButtonEvent) {
+        logEvent(badge.secondaryButtonEvent);
       }
-      if (modalContent.secondaryButtonNavigation) {
-        navigation.navigate(...modalContent.secondaryButtonNavigation);
-      } else if (modalContent.secondaryButtonShare) {
+      if (badge.secondaryButtonNavigation) {
+        navigation.navigate(...badge.secondaryButtonNavigation);
+      } else if (badge.secondaryButtonShare) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         shareApp();
-      } else if (modalContent.secondaryButtonRate) {
+      } else if (badge.secondaryButtonRate) {
         if (InAppReview.isAvailable()) {
           InAppReview.RequestInAppReview();
         } else {
@@ -93,85 +94,66 @@ const BadgeModal = () => {
             })
           );
         }
-      } else if (modalContent.secondaryButtonLink) {
-        Linking.openURL(modalContent.secondaryButtonLink);
+      } else if (badge.secondaryButtonLink) {
+        Linking.openURL(badge.secondaryButtonLink);
       }
     });
   };
-  const handleShowBadge = async ({ newBadge, allBadges, badgesCatalog }) => {
-    // InteractionManager.runAfterInteractions(() => {
-    //   setModalContent(newBadge);
-    //   setShowModal(true);
-    // });
-    if (newBadge) setModalContent(newBadge);
-    if (allBadges) setBadges(allBadges);
-    if (badgesCatalog) setBadgesCatalog(badgesCatalog);
-    setShowModal(true);
-  };
-  useEffect(() => {
-    API.handleShowBadge = handleShowBadge;
-  });
+  //
+
   return (
-    <Modal
-      safeAreaView={false}
-      visible={showModal}
-      animationType="fade"
-      withBackground
-      hideOnTouch
-      className="absolute bottom-0 w-full">
-      <SafeAreaView className="bg-white rounded-t-xl mt-auto">
-        <View className="p-4">
-          <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
-            <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
-              <Path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={3}
-                stroke="black"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </Svg>
-          </TouchableOpacity>
-          <View className="mb-8 mt-4">
-            {modalContent?.category === 'drinks' && <BadgeDrinks stars={modalContent?.stars} />}
-            {modalContent?.category === 'share' && <BadgeShare stars={modalContent?.stars} />}
-            {modalContent?.category === 'goals' && <BadgeGoals stars={modalContent?.stars} />}
-            {modalContent?.category === 'articles' && <BadgeArticles stars={modalContent?.stars} />}
-            {modalContent?.category === 'defis' && <BadgeDefis stars={modalContent?.stars} />}
-            {modalContent?.category?.includes('locked_') && <LockedBadge />}
-          </View>
-          <View className="mb-8">
-            <H1 className="text-center" color={'black'}>
-              {modalContent?.title}
-            </H1>
-          </View>
-          <Text className="text-base font-medium mb-8 mx-4 text-center">
-            <TextStyled color={'#3C3C43'}>
-              {modalContent?.content?.split('__')?.map((string, index) => {
-                return (
-                  <React.Fragment key={string}>
-                    <TextStyled bold={index % 2}>{string}</TextStyled>
-                  </React.Fragment>
-                );
-              })}
-            </TextStyled>
-          </Text>
-          {!!modalContent?.CTATitle && (
-            <View className="items-center mb-4">
-              <ButtonPrimary onPress={onCTAPress} content={modalContent?.CTATitle} />
-            </View>
-          )}
-          {!!modalContent?.secondaryButtonTitle?.length && (
-            <TouchableOpacity>
-              <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
-                {modalContent?.secondaryButtonTitle}
-              </Text>
-            </TouchableOpacity>
-          )}
+    <SafeAreaView className="bg-white rounded-t-xl mt-auto">
+      <View className="p-4 ">
+        <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
+          <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
+            <Path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={3}
+              stroke="black"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </Svg>
+        </TouchableOpacity>
+        <View className="mb-8 mt-4">
+          {badge?.category === 'drinks' && <BadgeDrinks stars={badge?.stars} />}
+          {badge?.category === 'share' && <BadgeShare stars={badge?.stars} />}
+          {badge?.category === 'goals' && <BadgeGoals stars={badge?.stars} />}
+          {badge?.category === 'articles' && <BadgeArticles stars={badge?.stars} />}
+          {badge?.category === 'defis' && <BadgeDefis stars={badge?.stars} />}
+          {badge?.category?.includes('locked_') && <LockedBadge />}
         </View>
-        {modalContent?.showConfettis && <Confetti run={true} />}
-      </SafeAreaView>
-    </Modal>
+        <View className="mb-8">
+          <H1 className="text-center" color={'black'}>
+            {badge?.title}
+          </H1>
+        </View>
+        <Text className="text-base font-medium mb-8 mx-4 text-center">
+          <TextStyled color={'#3C3C43'}>
+            {badge?.content?.split('__')?.map((string, index) => {
+              return (
+                <React.Fragment key={string}>
+                  <TextStyled bold={index % 2}>{string}</TextStyled>
+                </React.Fragment>
+              );
+            })}
+          </TextStyled>
+        </Text>
+        {!!badge?.CTATitle && (
+          <View className="items-center mb-4">
+            <ButtonPrimary onPress={onCTAPress} content={badge?.CTATitle} />
+          </View>
+        )}
+        {!!badge?.secondaryButtonTitle?.length && (
+          <TouchableOpacity>
+            <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
+              {badge?.secondaryButtonTitle}
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+      {badge?.showConfettis && <Confetti run={true} />}
+    </SafeAreaView>
   );
 };
 export default BadgeModal;

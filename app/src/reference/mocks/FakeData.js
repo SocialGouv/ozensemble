@@ -42,6 +42,14 @@ const FakeData = () => {
     <WrapperContainer title="Charger des fausses données">
       <Container>
         <MenuItem
+          caption="Reset consos et défi 1"
+          onPress={() => {
+            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            storage.delete('nps-asked-after-more-than-3-consos');
+            deleteStorageValues(fakeDefi1);
+          }}
+        />
+        <MenuItem
           caption="Tous les défis, tout l'objectif, 14 jours de conso complets"
           onPress={() => {
             replaceStorageValues(fakeDefi1);
@@ -233,6 +241,12 @@ const FakeData = () => {
         <MenuItem caption="Tout le défi 3" onPress={() => deleteStorageValues(fakeDefi3)} />
         <MenuItem caption="Tout le défi 4" onPress={() => deleteStorageValues(fakeDefi4)} />
         <MenuItem caption="Tout le défi 5" onPress={() => deleteStorageValues(fakeDefi5)} />
+        <MenuItem
+          caption="Toutes les popups de nouvelles fonctionnalités"
+          onPress={() => {
+            deleteStorageValues(['@NewFeaturesPopupIdsShown', 'NewFeaturesLastShownId']);
+          }}
+        />
         <MenuItem
           caption="Toutes mes consos"
           onPress={() => {

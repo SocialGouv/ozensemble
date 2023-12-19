@@ -8,7 +8,7 @@ import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import Feed from './Feed';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useSetRecoilState } from 'recoil';
-import CustomBootsplash, { showBootSplashState } from '../../components/CustomBootsplash';
+import { showBootSplashState } from '../../components/CustomBootsplash';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -27,20 +27,17 @@ const ConsoFollowUpNavigator = () => {
     });
   }, []);
   return (
-    <>
-      <Background color="#39cec0" withSwiperContainer>
-        <ConsoFollowUpStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CONSO_FOLLOW_UP">
-          <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={Feed} />
-          <ConsoFollowUpStack.Screen
-            name="ONBOARDING_QUIZZ"
-            component={QuizzOnboarding}
-            initialParams={{ root: 'CONSO_FOLLOW_UP' }}
-          />
-          <ConsoFollowUpStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
-        </ConsoFollowUpStack.Navigator>
-      </Background>
-      <CustomBootsplash />
-    </>
+    <Background color="#39cec0" withSwiperContainer>
+      <ConsoFollowUpStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CONSO_FOLLOW_UP">
+        <ConsoFollowUpStack.Screen name="CONSO_FOLLOW_UP" component={Feed} />
+        <ConsoFollowUpStack.Screen
+          name="ONBOARDING_QUIZZ"
+          component={QuizzOnboarding}
+          initialParams={{ root: 'CONSO_FOLLOW_UP' }}
+        />
+        <ConsoFollowUpStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
+      </ConsoFollowUpStack.Navigator>
+    </Background>
   );
 };
 
