@@ -4,12 +4,40 @@ const { TIPIMAIL_API_USER, TIPIMAIL_API_KEY, TIPIMAIL_EMAIL_TO, TIPIMAIL_EMAIL_F
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const { capture } = require("../third-parties/sentry");
+const prisma = require("../prisma");
 
 router.post(
   "/",
   catchErrors(async (req, res) => {
-    let { to, replyTo, replyToName, subject, text, html, attachments } = req.body || {};
+    let { matomoId, to, replyTo, replyToName, subject, text, html, attachments } = req.body || {};
+    if (!matomoId && req.headers.appversion > 225) {
+      return res.status(200).json({ ok: true });
+    }
     if (!subject || (!text && !html)) return res.status(400).json({ ok: false, error: "wrong parameters" });
+
+    if (subject === "Context suggestion") {
+      // why this piece of shitty code is located here and not in its controller ?
+      // because of retro-compatibility with old app versions
+      // can be removed when min app version is > 226
+      const textAndValues = text
+        .split("\n")
+        .filter(Boolean)
+        .map((line) => line.split(":"));
+      const matomoId = textAndValues[0][1].trim();
+      const requestContext = textAndValues[4][1].trim().toLowerCase();
+      const requestCategory = textAndValues[4][0].split(" ").at(-1).replace(":", "").trim();
+      const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+      if (!user) return res.status(400).json({ ok: false, error: "no matomo id" });
+      await prisma.drinksContextRequest.create({
+        data: {
+          userId: user.id,
+          matomo_id: matomoId,
+          context: requestContext,
+          category: requestCategory,
+        },
+      });
+      return res.status(200).json({ ok: true });
+    }
 
     if (!to) {
       to = TIPIMAIL_EMAIL_TO;

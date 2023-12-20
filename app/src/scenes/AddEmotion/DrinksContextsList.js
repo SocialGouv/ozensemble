@@ -29,7 +29,6 @@ import Research from '../../components/illustrations/icons/Research';
 import { drinksContextsState } from '../../recoil/contexts';
 import { sendMail } from '../../services/mail';
 import pck from '../../../package.json';
-import { isAnimationTerminatingCalculation } from 'react-native-reanimated/lib/typescript/reanimated2/animation/springUtils';
 
 const formatText = (category, context, userId, triggeredFrom) =>
   `
@@ -293,17 +292,20 @@ const OtherButton = ({ category }) => {
   const toast = useToast();
 
   const onValidateContextSuggestion = async () => {
-    const userId = storage.getString('@UserIdv2');
     logEvent({
       category: 'CONTEXT_SUGGESTION',
       action: 'VALIDATE_CONTEXT_SUGGESTION',
       name: 'contextSuggestion',
       value: contextSuggestion,
     });
-    await sendMail({
-      subject: 'Context suggestion',
-      text: formatText(category, contextSuggestion, userId, triggeredFrom),
-    }).catch((err) => console.log('onValidate sendMail error', err));
+    await API.post({
+      path: '/drinks-context/request',
+      body: {
+        matomoId: storage.getString('@UserIdv2'),
+        context: contextSuggestion,
+        category: category,
+      },
+    });
 
     setModalVisible(false);
     toast.show('Merci, contexte envoyé');
