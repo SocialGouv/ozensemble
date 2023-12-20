@@ -1,3 +1,10 @@
+## [1.135.15](https://github.com/SocialGouv/ozensemble/compare/v1.135.14...v1.135.15) (2023-12-20)
+
+
+### Bug Fixes
+
+* navigate through screens of add consos ([#507](https://github.com/SocialGouv/ozensemble/issues/507)) ([73cd7db](https://github.com/SocialGouv/ozensemble/commit/73cd7dbddac67139341c22d2d9baaeb31c8ff989))
+
 ## [1.135.14](https://github.com/SocialGouv/ozensemble/compare/v1.135.13...v1.135.14) (2023-12-20)
 
 
