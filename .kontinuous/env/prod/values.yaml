@@ -12,3 +12,26 @@ cronjobs:
         name: "pg-app"
     - secretRef:
         name: api
+
+pg:
+  ~chart: pg
+  backup:
+    name: prod-ovh # backup on a new folder
+  cnpg-cluster:
+    recovery:
+      enabled: true
+      ~tpl~database: "{{ .Values.global.pgDatabase }}"
+      ~tpl~owner: "{{ .Values.global.pgUser }}"
+      secretName: "pg-db"
+      barmanObjectStore:
+        ~tpl~destinationPath: "s3://ozensemble-prod-backups/ozensemble"
+        s3Credentials:
+          accessKeyId:
+            ~tpl~name: "ozensemble-prod-backups-access-key"
+            key: bucket_access_key
+          secretAccessKey:
+            ~tpl~name: "ozensemble-prod-backups-access-key"
+            key: bucket_secret_key
+          region:
+            ~tpl~name: "ozensemble-prod-backups-access-key"
+            key: bucket_region
