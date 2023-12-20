@@ -12,21 +12,22 @@ datasource db {
 }
 
 model User {
-  id                String          @id @default(uuid())
-  matomo_id         String          @unique
-  push_notif_token  String          @default("")
-  reminder          Reminder?
-  notifications     Notification[]
-  badges            Badge[]
-  consommations     Consommation[]
-  drinksContext     DrinksContext[]
-  goals             Goal[]
-  appUserMilestones AppMilestone[]
-  articles          Article[]
-  lastConsoAdded    DateTime?
-  created_from      String          @default("")
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @default(now()) @updatedAt
+  id                    String                 @id @default(uuid())
+  matomo_id             String                 @unique
+  push_notif_token      String                 @default("")
+  reminder              Reminder?
+  notifications         Notification[]
+  badges                Badge[]
+  consommations         Consommation[]
+  drinksContext         DrinksContext[]
+  goals                 Goal[]
+  appUserMilestones     AppMilestone[]
+  articles              Article[]
+  lastConsoAdded        DateTime?
+  created_from          String                 @default("")
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @default(now()) @updatedAt
+  drinksContextRequests DrinksContextRequest[]
 
   @@index([push_notif_token], type: Hash)
 }
@@ -182,4 +183,18 @@ model Article {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, title])
+}
+
+model DrinksContextRequest {
+  id        String   @id @default(uuid())
+  matomo_id String
+  userId    String
+  category  String
+  context   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([category], type: Hash)
+  @@index([context], type: Hash)
 }

@@ -5,6 +5,29 @@ const router = express.Router();
 const prisma = require("../prisma");
 
 router.post(
+  "/request",
+  catchErrors(async (req, res) => {
+    const matomoId = req.body?.matomoId;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const context = req.body.context;
+    const category = req.body.category;
+    // find user with matomoId
+    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    //check if it should be deleted
+    if (!user) return res.status(400).json({ ok: false, error: "no matomo id" });
+    await prisma.drinksContextRequest.create({
+      data: {
+        userId: user.id,
+        matomo_id: matomoId,
+        context: context,
+        category: category?.toLowerCase(),
+      },
+    });
+    return res.status(200).send({ ok: true });
+  })
+);
+
+router.post(
   "/",
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
