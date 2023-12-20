@@ -20,6 +20,7 @@ import ArrowRight from '../../components/ArrowRight';
 import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ReminderIcon from '../../components/illustrations/icons/ReminderIcon';
+import AbstinenceIcon from '../../components/illustrations/icons/AbstinenceIcon';
 import ExportDataIcon from '../../components/illustrations/icons/ExportDataIcon';
 import ShareAppIcon from '../../components/illustrations/icons/ShareAppIcon';
 import RateAppIcon from '../../components/illustrations/icons/RateAppIcon';
@@ -156,6 +157,19 @@ const InfosMenu = ({ navigation }) => {
                 });
                 navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
               }
+            }}
+          />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+          <MenuItem
+            caption={"Compteur d'abstinence"}
+            Icon={AbstinenceIcon}
+            onPress={() => {
+              logEvent({
+                category: 'ABSTINENCE',
+                action: 'ABSTINENCE_OPEN',
+                name: 'INFOS',
+              });
+              navigation.navigate('ABSTINENCE_SELECTION');
             }}
           />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />

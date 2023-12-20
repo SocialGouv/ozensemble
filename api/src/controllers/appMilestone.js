@@ -53,6 +53,31 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    if (req.headers.appversion >= 225) {
+      const newUserAbstinenceFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@NewUserAbstinenceFeature` },
+      });
+      if (!newUserAbstinenceFeature) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@NewUserAbstinenceFeature`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@NewUserAbstinenceFeature",
+            title: "Nouveau : le compteur d'abstinence est arrivé !",
+            content:
+              "Si vous avez choisi d'être abstinent, vous pouvez désormais voir votre nombre de jours consécutifs sans avoir consommé d'alcool. Rendez-vous dans l'onglet calendrier !",
+            CTATitle: "Découvrir",
+            CTANavigation: ["ABSTINENCE_SELECTION"],
+          },
+        });
+      }
+    }
     if (req.headers.appversion >= 218) {
       const newUserShareFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewUserShareFeature` },

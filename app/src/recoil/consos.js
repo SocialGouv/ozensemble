@@ -123,14 +123,17 @@ export const derivedDataFromDrinksState = selector({
     const calendarGoalsStartOfWeek = {};
     const weeklyKcals = {};
     const weeklyExpenses = {};
+    let abstinenceDays = 0;
+    let abstinenceSerieBroken = false;
+    let doneDay = null;
 
     // temp variables
     let startOfWeek = null;
     let goalStartOfWeek = null;
     let currentWeek = {};
-
     for (const drink of drinks) {
       const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
+      const isDryJanuary = day >= '2023-12-01';
       // init startOfWeek
       if (!startOfWeek) {
         startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
@@ -168,6 +171,16 @@ export const derivedDataFromDrinksState = selector({
         dailyDoses[day] = 0;
       }
       dailyDoses[day] = dailyDoses[day] + dose;
+      // abstinence days
+      if (!abstinenceSerieBroken && doneDay != day) {
+        if (dose === 0 && (doneDay == null || doneDay == dayjs(day).add(1, 'day').format('YYYY-MM-DD'))) {
+          abstinenceDays++;
+        } else {
+          abstinenceSerieBroken = true;
+        }
+      }
+      doneDay = day;
+
       // weekly doses
       if (!weeklyDoses[startOfWeek]) {
         weeklyDoses[startOfWeek] = 0;
@@ -295,6 +308,7 @@ export const derivedDataFromDrinksState = selector({
       calendarGoalsStartOfWeek,
       weeklyKcals,
       weeklyExpenses,
+      abstinenceDays,
     };
   },
 });

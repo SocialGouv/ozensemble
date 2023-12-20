@@ -26,7 +26,7 @@ import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
 import UserSurveyLogo from './illustrations/UserSurveyLogo';
 import { logEvent } from '../services/logEventsWithMatomo';
 import { BadgeShareNoStars } from '../scenes/Badges/Svgs/BadgeShareNoStars';
-
+import StarAbstinenceFeature from './illustrations/icons/StarsAbstinenceFeature';
 /* example
 {
     title: '1er jour complété',
@@ -52,6 +52,7 @@ const InAppModal = ({ navigation, route }) => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
       if (inAppModal.CTANavigation) {
+        console.log('inAppModal.CTANavigation: ', inAppModal.CTANavigation);
         navigation.navigate(...inAppModal.CTANavigation);
       } else if (inAppModal.CTAShare) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -108,25 +109,35 @@ const InAppModal = ({ navigation, route }) => {
   return (
     <SafeAreaView className="bg-white rounded-t-xl mt-auto">
       <View className="p-4">
-        <TouchableOpacity
-          onPress={() => {
-            if (inAppModal?.id.includes('NewUserSurveyAnnouncement')) {
-              logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_CLOSE_BUTTON' });
-            }
-            onClose();
-          }}
-          hitSlop={hitSlop(15)}>
-          <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
-            <Path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={3}
-              stroke="black"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </Svg>
-        </TouchableOpacity>
+        {!inAppModal?.id.includes('NewUserAbstinenceFeature') && (
+          <TouchableOpacity
+            onPress={() => {
+              if (inAppModal?.id.includes('NewUserSurveyAnnouncement')) {
+                logEvent({ category: 'USER_SURVEY', action: 'USER_SURVEY_IN_APP_CLOSE_BUTTON' });
+              }
+              onClose();
+            }}
+            hitSlop={hitSlop(15)}>
+            <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
+              <Path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={3}
+                stroke="black"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </Svg>
+          </TouchableOpacity>
+        )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('NewUserAbstinenceFeature') && (
+            <View className="mx-2 flex flex-col items-center">
+              <StarAbstinenceFeature />
+              <Text className="text-4xl text-[#4030A5] font-black">4</Text>
+              <Text className="font-extrabold text-[#4030A5] text-xl">jours d'affilée</Text>
+              <Text className="text-light text-[#4030A5]">sans consommation d'alcool</Text>
+            </View>
+          )}
           {inAppModal?.id.includes('NewCalendarAnnouncement') && (
             <View className="mx-2 flex flex-col items-center">
               <AnnouncementCalendar1 size={screenWidth - 14} />

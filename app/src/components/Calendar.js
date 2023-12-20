@@ -1,6 +1,6 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { derivedDataFromDrinksState } from '../recoil/consos';
@@ -75,14 +75,14 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
   const lastDayOfMonth = selectedMonth.endOf('month');
   const firstDayOfCalendar = firstDayOfMonth.startOf('week').format('YYYY-MM-DD');
   const today = dayjs().startOf('day');
-  const { dailyDoses, weeklyDoses, calendarDays, calendarGoalsStartOfWeek } =
+  const { dailyDoses, weeklyDoses, calendarDays, calendarGoalsStartOfWeek, abstinenceDays } =
     useRecoilValue(derivedDataFromDrinksState);
   const isOnboarded = useRecoilValue(isOnboardedSelector);
   const [modalContent, setModalContent] = useState(null);
   const nbDays = dayjs(firstDayOfCalendar).add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
   const [goals, setGoals] = useRecoilState(goalsState);
   const navigation = useNavigation();
-
+  const [isAbstinent, setIsAbstinent] = useState(false);
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
   const navigateToFirstStep = useCallback(() => {
     logEvent({
@@ -93,6 +93,10 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
     setShowOnboardingGainModal(false);
   }, [navigation]);
 
+  useFocusEffect(() => {
+    setIsAbstinent(storage.getBoolean('@isAbstinent'));
+    console.log('isAbstinent', isAbstinent);
+  });
   useFocusEffect(
     useCallback(() => {
       API.get({
@@ -164,7 +168,6 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
     }
     return daysByWeek;
   }, [firstDayOfCalendar, nbDays, calendarDays, calendarGoalsStartOfWeek, today, weeklyDoses, goals.length]);
-
   const handleDayPress = useCallback(
     (dateString) => {
       if (!isOnboarded) return setShowOnboardingGainModal(true);
@@ -323,6 +326,18 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
           </View>
         </View>
       </View>
+      {isAbstinent && (
+        <View className="flex flex-row justify-start bg-[#FEF0D6] py-3 mx-8 rounded-lg">
+          <View className="ml-2">
+            <LegendStar size={fontSize * 1.5} />
+          </View>
+          <Text className="text-[#4030A5] font-semibold ml-2 mt-1">
+            {`Abstinent depuis ${abstinenceDays} jour${abstinenceDays > 1 ? 's' : ''} ${
+              abstinenceDays > 1 ? 'consécutifs' : ''
+            }`}
+          </Text>
+        </View>
+      )}
       <CalendarLegend navigateToFirstStep={navigateToFirstStep} />
       <ModalGoal
         content={modalContent}

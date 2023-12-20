@@ -35,6 +35,7 @@ import BadgeModal from './scenes/Badges/BadgeModal';
 import InAppModal from './components/InAppModal';
 import Goal from './scenes/Gains/Goal';
 import GainsReminder from './scenes/Gains/GainsReminder';
+import AbstinenceSelection from './scenes/Gains/AbstinenceSelection';
 import GainsPreviousConsumption from './scenes/Gains/GainsPreviousConsumption';
 import Sevrage from './scenes/Gains/Sevrage';
 import UserSurvey from './scenes/Quizzs/UserSurvey';
@@ -281,6 +282,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="IN_APP_MODAL"
             component={InAppModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="ABSTINENCE_SELECTION"
+            component={AbstinenceSelection}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
