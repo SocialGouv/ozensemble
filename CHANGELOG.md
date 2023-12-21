@@ -1,3 +1,10 @@
+## [1.137.2](https://github.com/SocialGouv/ozensemble/compare/v1.137.1...v1.137.2) (2023-12-21)
+
+
+### Bug Fixes
+
+* abstinence route ([#512](https://github.com/SocialGouv/ozensemble/issues/512)) ([add43f2](https://github.com/SocialGouv/ozensemble/commit/add43f253a7eb9769943aa34873748d14841a74a))
+
 ## [1.137.1](https://github.com/SocialGouv/ozensemble/compare/v1.137.0...v1.137.1) (2023-12-21)
 
 
