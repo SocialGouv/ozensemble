@@ -53,7 +53,7 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-    if (req.headers.appversion >= 225) {
+    if (req.headers.appversion >= 226) {
       const newUserAbstinenceFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewUserAbstinenceFeature` },
       });
