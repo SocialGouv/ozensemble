@@ -19,7 +19,7 @@ const AbstinenceSelection = ({ navigation }) => {
           <Text className="text-center mb-3 text-xl mt-8 px-2 font-extrabold">Compteur d'abstinence</Text>
           <Text className="line text-lg text-justify  color-black mb-5 mx-6 mt-2">
             Il sera affiché sous votre calendrier et vous permettra de suivre vos jours consécutifs sans consommation
-            d'alcool si vous avez le choix d'être abstinent.
+            d'alcool si vous avez fait le choix d'être abstinent.
           </Text>
           <Text className=" text-center mb-1 text-xl px-2 font-bold">
             Voulez-vous activer le compteur d'abstinence ?
