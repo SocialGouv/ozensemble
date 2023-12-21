@@ -326,7 +326,7 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
         </View>
       </View>
       {isAbstinent && (
-        <View className="flex flex-row justify-start bg-[#FEF0D6] py-3 mx-8 rounded-lg">
+        <View className="flex flex-row justify-start bg-[#FEF0D6] py-2 mx-8 rounded-lg">
           <View className="ml-2">
             <LegendStar size={fontSize * 1.5} />
           </View>
