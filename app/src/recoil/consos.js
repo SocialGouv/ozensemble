@@ -133,7 +133,6 @@ export const derivedDataFromDrinksState = selector({
     let currentWeek = {};
     for (const drink of drinks) {
       const day = dayjs(drink.timestamp).format('YYYY-MM-DD');
-      const isDryJanuary = day >= '2023-12-01';
       // init startOfWeek
       if (!startOfWeek) {
         startOfWeek = dayjs(day).startOf('week').format('YYYY-MM-DD');
@@ -172,8 +171,8 @@ export const derivedDataFromDrinksState = selector({
       }
       dailyDoses[day] = dailyDoses[day] + dose;
       // abstinence days
-      if (!abstinenceSerieBroken && doneDay != day) {
-        if (dose === 0 && (doneDay == null || doneDay == dayjs(day).add(1, 'day').format('YYYY-MM-DD'))) {
+      if (!abstinenceSerieBroken && doneDay !== day) {
+        if (dose === 0 && (!doneDay || doneDay === dayjs(day).add(1, 'day').format('YYYY-MM-DD'))) {
           abstinenceDays++;
         } else {
           abstinenceSerieBroken = true;
