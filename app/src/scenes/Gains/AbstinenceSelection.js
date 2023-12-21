@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, Dimensions } from 'react-native';
-
+import { logEvent } from '../../services/logEventsWithMatomo';
 import { storage } from '../../services/storage';
 
 const AbstinenceSelection = ({ navigation, route }) => {
@@ -39,6 +39,10 @@ const AbstinenceSelection = ({ navigation, route }) => {
               onPress={() => {
                 onClose();
                 storage.set('@isAbstinent', true);
+                logEvent({
+                  category: 'ABSTINENCE_SELECTION',
+                  action: 'ABSTINENCE_SELECTION_YES',
+                });
               }}>
               <Text className="text-xl color-white font-extrabold">Oui</Text>
             </TouchableOpacity>
@@ -47,6 +51,10 @@ const AbstinenceSelection = ({ navigation, route }) => {
               onPress={() => {
                 onClose();
                 storage.set('@isAbstinent', false);
+                logEvent({
+                  category: 'ABSTINENCE_SELECTION',
+                  action: 'ABSTINENCE_SELECTION_NO',
+                });
               }}>
               <Text className="text-xl color-white font-extrabold">Non</Text>
             </TouchableOpacity>
