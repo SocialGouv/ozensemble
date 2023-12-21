@@ -74,6 +74,11 @@ router.post(
               "Si vous avez choisi d'être abstinent, vous pouvez désormais voir votre nombre de jours consécutifs sans avoir consommé d'alcool. Rendez-vous dans l'onglet calendrier !",
             CTATitle: "Découvrir",
             CTANavigation: ["ABSTINENCE_SELECTION"],
+            CTAEvent: {
+              category: "ABSTINENCE_SELECTION",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
           },
         });
       }
