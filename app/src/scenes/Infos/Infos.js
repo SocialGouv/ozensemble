@@ -169,7 +169,7 @@ const InfosMenu = ({ navigation }) => {
                 action: 'ABSTINENCE_OPEN',
                 name: 'INFOS',
               });
-              navigation.navigate('ABSTINENCE_SELECTION');
+              navigation.navigate('ABSTINENCE_SELECTION', { parent: 'Infos' });
             }}
           />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
