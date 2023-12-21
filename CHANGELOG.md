@@ -1,3 +1,10 @@
+# [1.137.0](https://github.com/SocialGouv/ozensemble/compare/v1.136.0...v1.137.0) (2023-12-21)
+
+
+### Features
+
+* abstinence ([#508](https://github.com/SocialGouv/ozensemble/issues/508)) ([84752db](https://github.com/SocialGouv/ozensemble/commit/84752db82953699a67d4fda17ca5c53cdd6a0ce7))
+
 # [1.136.0](https://github.com/SocialGouv/ozensemble/compare/v1.135.15...v1.136.0) (2023-12-20)
 
 
