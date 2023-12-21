@@ -100,7 +100,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
         versionCode 227
-        versionName "1.22.2"
+
+        versionName "1.23.0"
     }
 
      signingConfigs {

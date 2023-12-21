@@ -88,8 +88,8 @@ const Question = ({
                   } else {
                     if (from == 'NEW_USER') {
                       navigation.navigate('TABS');
+                      await new Promise((res) => setTimeout(res));
                       setShowBootsplash(true);
-                      await new Promise((res) => setTimeout(res, 250));
                       return;
                     }
                     navigation.navigate('QUIZZ_RESULTS');
