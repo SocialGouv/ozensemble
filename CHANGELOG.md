@@ -1,3 +1,10 @@
+## [1.137.1](https://github.com/SocialGouv/ozensemble/compare/v1.137.0...v1.137.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* not centered buttons ([#510](https://github.com/SocialGouv/ozensemble/issues/510)) ([86cb740](https://github.com/SocialGouv/ozensemble/commit/86cb7401784719c1b4b34b145efe66e4a6dbc083))
+
 # [1.137.0](https://github.com/SocialGouv/ozensemble/compare/v1.136.0...v1.137.0) (2023-12-21)
 
 
