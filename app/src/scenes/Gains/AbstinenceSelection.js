@@ -26,7 +26,7 @@ const AbstinenceSelection = ({ navigation }) => {
           </Text>
           <View className="flex flex-row justify-center p-2 mb-6 mt-2">
             <TouchableOpacity
-              className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#DE285E] mr-6"
+              className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#DE285E] "
               onPress={() => {
                 onClose();
                 storage.set('@isAbstinent', true);
@@ -34,7 +34,7 @@ const AbstinenceSelection = ({ navigation }) => {
               <Text className="text-xl color-white font-extrabold">Oui</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#4030A5] mr-6"
+              className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#4030A5] ml-7"
               onPress={() => {
                 onClose();
                 storage.set('@isAbstinent', false);
