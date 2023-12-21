@@ -52,7 +52,6 @@ const InAppModal = ({ navigation, route }) => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
       if (inAppModal.CTANavigation) {
-        console.log('inAppModal.CTANavigation: ', inAppModal.CTANavigation);
         navigation.navigate(...inAppModal.CTANavigation);
       } else if (inAppModal.CTAShare) {
         await new Promise((resolve) => setTimeout(resolve, 1000));

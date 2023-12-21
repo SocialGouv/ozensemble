@@ -95,7 +95,6 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
 
   useFocusEffect(() => {
     setIsAbstinent(storage.getBoolean('@isAbstinent'));
-    console.log('isAbstinent', isAbstinent);
   });
   useFocusEffect(
     useCallback(() => {
