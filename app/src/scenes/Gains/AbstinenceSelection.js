@@ -4,7 +4,7 @@ import { logEvent } from '../../services/logEventsWithMatomo';
 import { storage } from '../../services/storage';
 
 const AbstinenceSelection = ({ navigation, route }) => {
-  const isFromInfo = route?.name.includes('ABSTINENCE_SELECTION');
+  const isFromInfo = route?.params?.parent === 'Infos';
   const onClose = () => {
     navigation.goBack();
   };
