@@ -1,3 +1,10 @@
+## [1.137.8](https://github.com/SocialGouv/ozensemble/compare/v1.137.7...v1.137.8) (2023-12-22)
+
+
+### Bug Fixes
+
+* modale ([196dfa2](https://github.com/SocialGouv/ozensemble/commit/196dfa2d054fd88c0ea0666abe47f3c80dd587d4))
+
 ## [1.137.7](https://github.com/SocialGouv/ozensemble/compare/v1.137.6...v1.137.7) (2023-12-22)
 
 
