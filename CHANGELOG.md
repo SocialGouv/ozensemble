@@ -1,3 +1,10 @@
+## [1.137.6](https://github.com/SocialGouv/ozensemble/compare/v1.137.5...v1.137.6) (2023-12-22)
+
+
+### Bug Fixes
+
+* version 232 ([11437d7](https://github.com/SocialGouv/ozensemble/commit/11437d7b4f743b826db0e99b45121604a21d7641))
+
 ## [1.137.5](https://github.com/SocialGouv/ozensemble/compare/v1.137.4...v1.137.5) (2023-12-22)
 
 
