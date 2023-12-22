@@ -9,13 +9,8 @@ const AbstinenceSelection = ({ navigation, route }) => {
     navigation.goBack();
   };
   return (
-    <SafeAreaView
-      style={{
-        justifyContent: 'start',
-        marginTop: Dimensions.get('window').height * 0.3,
-      }}
-      className=" rounded-t-xl">
-      <View className="bg-white rounded-xl mx-5">
+    <SafeAreaView className="flex flex-grow justify-center items-center">
+      <View className="bg-white rounded-xl max-w-[90%]">
         <View className=" flex w-full mb-2 px-2">
           <Text className="text-center mb-3 text-xl mt-8 px-2 font-extrabold">Compteur d'abstinence</Text>
           {!!isFromInfo && (
