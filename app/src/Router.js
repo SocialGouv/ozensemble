@@ -41,7 +41,6 @@ import Sevrage from './scenes/Gains/Sevrage';
 import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
-import Official from './scenes/Infos/Official';
 import BadgesList from './scenes/Badges/BadgesList';
 
 const Label = ({ children, focused, color }) => (
@@ -63,14 +62,6 @@ const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
   const showBootSplash = useRecoilValue(showBootSplashState);
-
-  useEffect(() => {
-    // show new feature modal if any
-    API.post({
-      path: '/appMilestone/init',
-      body: { matomoId: storage.getString('@UserIdv2') },
-    });
-  }, []);
 
   return (
     <>

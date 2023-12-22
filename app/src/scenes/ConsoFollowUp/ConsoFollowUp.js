@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
-import HeaderBackground from '../../components/HeaderBackground';
 import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
@@ -9,6 +8,8 @@ import Feed from './Feed';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useSetRecoilState } from 'recoil';
 import { showBootSplashState } from '../../components/CustomBootsplash';
+import API from '../../services/api';
+import { storage } from '../../services/storage';
 
 const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
@@ -16,6 +17,10 @@ const ConsoFollowUpNavigator = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowBootsplash(false);
+      API.post({
+        path: '/appMilestone/init',
+        body: { matomoId: storage.getString('@UserIdv2') },
+      });
     }, 2000);
   }, []);
 
