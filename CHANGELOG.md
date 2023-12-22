@@ -1,3 +1,10 @@
+## [1.137.5](https://github.com/SocialGouv/ozensemble/compare/v1.137.4...v1.137.5) (2023-12-22)
+
+
+### Bug Fixes
+
+* onboarding sequence ([8033fbd](https://github.com/SocialGouv/ozensemble/commit/8033fbd30a5ceab0b82d512ea4119586ebec628f))
+
 ## [1.137.4](https://github.com/SocialGouv/ozensemble/compare/v1.137.3...v1.137.4) (2023-12-22)
 
 
