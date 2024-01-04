@@ -70,9 +70,7 @@ const GainsPreviousConsumption = () => {
       ]);
     }
   };
-  const setEstimationAbstinence = () => {
-    setEstimationDrinksPerWeek([]);
-  };
+
   return (
     <>
       <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
@@ -100,7 +98,7 @@ const GainsPreviousConsumption = () => {
                   category: 'GAINS',
                   action: 'GOALS_ESTIMATION_ABSTINENCE',
                 });
-                setEstimationAbstinence();
+                setEstimationDrinksPerWeek([]);
                 setModalValidationVisible(true);
               }}>
               <Text className="color-white font-extrabold mx-4 my-3">Je suis déjà abstinent</Text>

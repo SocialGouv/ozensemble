@@ -74,10 +74,6 @@ const Goal = ({ navigation }) => {
       ]);
     }
   };
-  const setAbstinence = () => {
-    setDrinksByWeek([]);
-    setDaysWithGoalNoDrink(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
-  };
 
   const hasUnsavedChanges =
     JSON.stringify(previousDaysWithGoalNoDrink.current) !== JSON.stringify(daysWithGoalNoDrink) ||
@@ -168,7 +164,8 @@ const Goal = ({ navigation }) => {
             <TouchableOpacity
               className="justify-center  items-center rounded-3xl bg-[#4030A5] mb-8"
               onPress={() => {
-                setAbstinence();
+                setDrinksByWeek([]);
+                setDaysWithGoalNoDrink(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
                 logEvent({
                   category: 'GAINS',
                   action: 'GOAL_DRINKWEEK_ABSTINENCE',
