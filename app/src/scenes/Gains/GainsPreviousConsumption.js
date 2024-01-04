@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import TextStyled from '../../components/TextStyled';
@@ -70,7 +70,9 @@ const GainsPreviousConsumption = () => {
       ]);
     }
   };
-
+  const setEstimationAbstinence = () => {
+    setEstimationDrinksPerWeek([]);
+  };
   return (
     <>
       <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
@@ -90,7 +92,26 @@ const GainsPreviousConsumption = () => {
             </Text>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
-          <Text className="font-bold text-center">
+          <View className="items-center">
+            <TouchableOpacity
+              className="justify-center  items-center rounded-3xl bg-[#4030A5] mb-8"
+              onPress={() => {
+                logEvent({
+                  category: 'GAINS',
+                  action: 'GOALS_ESTIMATION_ABSTINENCE',
+                });
+                setEstimationAbstinence();
+                setModalValidationVisible(true);
+              }}>
+              <Text className="color-white font-extrabold mx-4 my-3">Je suis déjà abstinent</Text>
+            </TouchableOpacity>
+          </View>
+          <View className="flex-row w-full mb-8">
+            <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-4" />
+            <Text className="font-extrabold text-center mr-4">OU</Text>
+            <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-2" />
+          </View>
+          <Text className="font-extrabold text-center">
             Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
           </Text>
         </Container>
@@ -133,9 +154,7 @@ const GainsPreviousConsumption = () => {
             action: 'GOAL_ESTIMATION_DRINK',
             value: numberDrinkEstimation,
           });
-          isOnboarded
-            ? navigation.navigate('GAINS_MAIN_VIEW')
-            : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
+          isOnboarded ? navigation.goBack() : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
         }}
         visible={modalValidationVisible}
       />
