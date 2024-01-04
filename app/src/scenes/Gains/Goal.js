@@ -172,7 +172,9 @@ const Goal = ({ navigation }) => {
                 });
                 setModalValidationVisible(true);
               }}>
-              <Text className="color-white font-extrabold mx-4 my-3">Je vise l'abstinence soit 0 consommation</Text>
+              <Text className="color-white text-center font-extrabold mx-4 my-3">
+                Je vise l'abstinence soit 0 consommation
+              </Text>
             </TouchableOpacity>
           </View>
           <View className="flex-row w-full mb-8">
