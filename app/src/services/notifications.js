@@ -94,7 +94,7 @@ class NotificationService {
 
   checkAndAskForAlarmPermission = async () => {
     const settings = await notifee.getNotificationSettings();
-    if (settings.android.alarm === 1) return true;
+    if (settings.android.alarm) return true;
     return false;
   };
   checkAndAskForPermission = async () => {
