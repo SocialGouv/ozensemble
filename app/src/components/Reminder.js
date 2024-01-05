@@ -304,7 +304,7 @@ const Reminder = ({
         return;
       }
     }
-    navigation.navigate(...route.params.onPressContinueNavigation);
+    navigation.navigate('INFOS');
   };
 
   return (
