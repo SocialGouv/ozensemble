@@ -288,7 +288,7 @@ const Reminder = ({
 
   const continueButton = route?.params?.enableContinueButton && route?.params?.onPressContinueNavigation?.length > 0;
   const continueButtonOnPress = async () => {
-    if (!reminder) return navigation.navigate(...route.params.onPressContinueNavigation);
+    if (!reminder) return navigation.navigate('INFOS');
     setReminderHasBeenSet(true);
     const isRegistered = await NotificationService.checkAndAskForPermission();
     if (!isRegistered) {
