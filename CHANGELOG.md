@@ -1,3 +1,10 @@
+## [1.137.9](https://github.com/SocialGouv/ozensemble/compare/v1.137.8...v1.137.9) (2024-01-05)
+
+
+### Bug Fixes
+
+* alarm permission android 14 ([#516](https://github.com/SocialGouv/ozensemble/issues/516)) ([caf6096](https://github.com/SocialGouv/ozensemble/commit/caf60963241b0f52fe109df1bf82cf98a0346605))
+
 ## [1.137.8](https://github.com/SocialGouv/ozensemble/compare/v1.137.7...v1.137.8) (2023-12-22)
 
 
