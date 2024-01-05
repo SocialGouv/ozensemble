@@ -1,6 +1,6 @@
 {
   "name": "oz_ensemble",
-  "version": "1.23.0",
+  "version": "1.23.1",
   "private": true,
   "scripts": {
     "get-ip": "./get-ip.sh && echo \"this script updates the API IP to your own IP, because that's what Android Emulator needs to work. It's based on your wifi IP, if you need ethernet it won't work (needs en1 instead of en0)\"",
@@ -18,6 +18,7 @@
     "update-mobile-app-version": "node ./update-mobile-app-version.js"
   },
   "dependencies": {
+    "@notifee/react-native": "^7.8.2",
     "@react-native-community/checkbox": "^0.5.8",
     "@react-native-community/datetimepicker": "^6.1.3",
     "@react-native-community/masked-view": "^0.1.11",
