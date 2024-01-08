@@ -1,3 +1,10 @@
+# [1.138.0](https://github.com/SocialGouv/ozensemble/compare/v1.137.11...v1.138.0) (2024-01-08)
+
+
+### Features
+
+* abstinence v2 estimation ([#517](https://github.com/SocialGouv/ozensemble/issues/517)) ([34e60d0](https://github.com/SocialGouv/ozensemble/commit/34e60d0e8d1d1815c11cb88e9f130395f901b2d7))
+
 ## [1.137.11](https://github.com/SocialGouv/ozensemble/compare/v1.137.10...v1.137.11) (2024-01-08)
 
 
