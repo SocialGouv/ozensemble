@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
-import notifee from '@notifee/react-native';
 import API from './api';
 
 class NotificationService {
@@ -92,11 +91,6 @@ class NotificationService {
     return permission;
   };
 
-  checkAndAskForAlarmPermission = async () => {
-    const settings = await notifee.getNotificationSettings();
-    if (settings.android.alarm) return true;
-    return false;
-  };
   checkAndAskForPermission = async () => {
     const { granted, canAsk } = await this.checkPermission();
     if (granted) return true;
