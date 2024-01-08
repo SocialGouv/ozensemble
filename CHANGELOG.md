@@ -1,3 +1,10 @@
+## [1.137.11](https://github.com/SocialGouv/ozensemble/compare/v1.137.10...v1.137.11) (2024-01-08)
+
+
+### Bug Fixes
+
+* remove schedule notifications for android ([#518](https://github.com/SocialGouv/ozensemble/issues/518)) ([264228e](https://github.com/SocialGouv/ozensemble/commit/264228ea14fab5f1e1df86485511217b43e6be37))
+
 ## [1.137.10](https://github.com/SocialGouv/ozensemble/compare/v1.137.9...v1.137.10) (2024-01-05)
 
 
