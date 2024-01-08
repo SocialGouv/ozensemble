@@ -22,7 +22,6 @@ import WrapperContainer from './WrapperContainer';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import { capture } from '../services/sentry';
-import notifee from '@notifee/react-native';
 
 const STORAGE_KEY_REMINDER_ID = 'STORAGE_KEY_REMINDER_ID';
 
@@ -202,13 +201,6 @@ const Reminder = ({
       showPermissionsAlert();
       return;
     }
-    if (Platform.OS === 'android' && Platform.Version >= 34) {
-      const alarmPermissionGranted = await NotificationService.checkAndAskForAlarmPermission();
-      if (!alarmPermissionGranted) {
-        showAlarmPermissionsAlert();
-        return;
-      }
-    }
     setReminderSetupVisible(true);
   };
 
@@ -220,25 +212,6 @@ const Reminder = ({
         {
           text: 'Réglages',
           onPress: openSettings,
-        },
-        {
-          text: 'Annuler',
-          onPress: deleteReminder,
-          style: 'cancel',
-        },
-      ],
-      { cancelable: true }
-    );
-  };
-
-  const showAlarmPermissionsAlert = () => {
-    Alert.alert(
-      'Vous devez autoriser les alarmes et les rappels pour accéder à ce service',
-      'En cliquant sur Réglages, vous pourrez accéder aux paramètres de votre téléphone pour activer les alarmes et les rappels',
-      [
-        {
-          text: 'Réglages',
-          onPress: openAlarmPermissionSettings,
         },
         {
           text: 'Annuler',
@@ -262,9 +235,6 @@ const Reminder = ({
     setReminderHasBeenSet(true);
   };
 
-  const openAlarmPermissionSettings = async () => {
-    await notifee.openAlarmPermissionSettings();
-  };
   const deleteReminder = async () => {
     NotificationService.cancelAll();
     setReminder('');
@@ -288,23 +258,14 @@ const Reminder = ({
 
   const continueButton = route?.params?.enableContinueButton && route?.params?.onPressContinueNavigation?.length > 0;
   const continueButtonOnPress = async () => {
-    if (!reminder) return navigation.navigate('INFOS');
+    if (!reminder) return navigation.navigate(...route.params.onPressContinueNavigation);
     setReminderHasBeenSet(true);
     const isRegistered = await NotificationService.checkAndAskForPermission();
     if (!isRegistered) {
       showPermissionsAlert();
       return;
     }
-    if (Platform.OS === 'android' && Platform.Version >= 34) {
-      const alarmPermissionGranted = await NotificationService.checkAndAskForAlarmPermission();
-      console.log('alarmPermissionGranted', alarmPermissionGranted);
-      if (!alarmPermissionGranted) {
-        console.log('showAlarmPermissionsAlert');
-        showAlarmPermissionsAlert();
-        return;
-      }
-    }
-    navigation.navigate('INFOS');
+    navigation.navigate(...route.params.onPressContinueNavigation);
   };
 
   return (

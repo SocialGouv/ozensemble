@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 import { checkNotifications, requestNotifications, RESULTS } from 'react-native-permissions';
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
-import notifee from '@notifee/react-native';
 import API from './api';
 
 class NotificationService {
@@ -92,11 +91,6 @@ class NotificationService {
     return permission;
   };
 
-  checkAndAskForAlarmPermission = async () => {
-    const settings = await notifee.getNotificationSettings();
-    if (settings.android.alarm) return true;
-    return false;
-  };
   checkAndAskForPermission = async () => {
     const { granted, canAsk } = await this.checkPermission();
     console.log({ granted, canAsk });
@@ -143,10 +137,10 @@ class NotificationService {
     );
   };
 
-  // LOCAL NOTIFICATIONS
+  // LOCAL NOTIFICATIONS / LOCAL ALARM
 
   //Appears after a specified time. App does not have to be open.
-  // scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
+  // scheduleLocalAlarm({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
   //   PushNotification.localNotificationSchedule({
   //     date,
   //     title,
@@ -159,7 +153,7 @@ class NotificationService {
   // }
 
   //Appears after a specified time. App does not have to be open.
-  scheduleNotification({ date, title, message, playSound = true, soundName = 'default' } = {}) {
+  scheduleLocalAlarm({ date, title, message, playSound = true, soundName = 'default' } = {}) {
     if (Platform.OS === 'ios') {
       PushNotificationIOS.addNotificationRequest({
         id: `${date}-${message}-${title}`,
@@ -169,14 +163,17 @@ class NotificationService {
         sound: soundName,
       });
     } else {
-      PushNotification.localNotificationSchedule({
-        date,
-        title,
-        message,
-        playSound,
-        soundName,
-        channelId: this.channelId,
-      });
+      // NOT WORKING ON ANDROID > 14:
+      // > Caller com.addicto needs to hold android.permission.SCHEDULE_EXACT_ALARM or android.permission.USE_EXACT_ALARM to set exact alarms.
+      // TODO: move that whole NPS trigger in the backend ?
+      // PushNotification.localNotificationSchedule({
+      //   date,
+      //   title,
+      //   message,
+      //   playSound,
+      //   soundName,
+      //   channelId: this.channelId,
+      // });
     }
   }
 

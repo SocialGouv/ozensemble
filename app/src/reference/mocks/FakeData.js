@@ -90,7 +90,7 @@ const FakeData = () => {
           onPress={() => {
             storage.delete('@NPSDone');
             const NPSNotificationDate = new Date(Date.now() + 10000);
-            NotificationService.scheduleNotification({
+            NotificationService.scheduleLocalAlarm({
               date: NPSNotificationDate,
               title: 'Vos retours sont importants pour nous',
               message: 'Avez-vous quelques secondes pour donner votre avis ?',
