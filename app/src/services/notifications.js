@@ -99,8 +99,6 @@ class NotificationService {
   };
   checkAndAskForPermission = async () => {
     const { granted, canAsk } = await this.checkPermission();
-    console.log({ granted, canAsk });
-    console.log(Platform);
     if (granted) return true;
     if (!canAsk) return false;
     const permission = await requestNotifications(['alert', 'sound', 'providesAppSettings']);
@@ -144,52 +142,6 @@ class NotificationService {
   };
 
   // LOCAL NOTIFICATIONS
-
-  //Appears after a specified time. App does not have to be open.
-  // scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
-  //   PushNotification.localNotificationSchedule({
-  //     date,
-  //     title,
-  //     message,
-  //     playSound,
-  //     soundName,
-  //     channelId: this.channelId,
-  //     repeatType,
-  //   });
-  // }
-
-  //Appears after a specified time. App does not have to be open.
-  scheduleNotification({ date, title, message, playSound = true, soundName = 'default' } = {}) {
-    if (Platform.OS === 'ios') {
-      PushNotificationIOS.addNotificationRequest({
-        id: `${date}-${message}-${title}`,
-        fireDate: date,
-        body: message,
-        title: title,
-        sound: soundName,
-      });
-    } else {
-      PushNotification.localNotificationSchedule({
-        date,
-        title,
-        message,
-        playSound,
-        soundName,
-        channelId: this.channelId,
-      });
-    }
-  }
-
-  localNotification({ title, message, playSound = true, soundName = 'default' } = {}) {
-    PushNotification.localNotification({
-      title,
-      message,
-      playSound,
-      soundName,
-      channelId: this.channelId,
-    });
-  }
-
   cancelAll() {
     PushNotification.cancelAllLocalNotifications();
     // the line below is because when we clear all local notifications we also clear NPSInitialOpening

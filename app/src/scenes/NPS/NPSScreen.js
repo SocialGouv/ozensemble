@@ -54,19 +54,13 @@ export const useCheckNeedNPS = (
     const appFirstOpening = storage.getString('@NPSInitialOpening');
     if (!appFirstOpening) {
       storage.set('@NPSInitialOpening', new Date().toISOString());
-      const NPSNotificationDate = new Date(Date.now() + NPSTimeoutMS);
-      NotificationService.scheduleNotification({
-        date: NPSNotificationDate,
-        title: notifTitle,
-        message: notifMessage,
-      });
-      storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
       return false;
     }
     const opening = storage.getString('@NPSInitialOpening');
     const timeForNPS = Date.now() - Date.parse(new Date(opening)) > NPSTimeoutMS;
-    if (!timeForNPS) return;
+    if (!timeForNPS) return false;
     navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Automatic after 7 days' });
+    return true;
   };
 
   useAppState({
