@@ -160,6 +160,28 @@ const Goal = ({ navigation }) => {
             </Text>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
+          <View className="items-center">
+            <TouchableOpacity
+              className="justify-center  items-center rounded-3xl bg-[#4030A5] mb-8"
+              onPress={() => {
+                setDrinksByWeek([]);
+                setDaysWithGoalNoDrink(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+                logEvent({
+                  category: 'GAINS',
+                  action: 'GOAL_DRINKWEEK_ABSTINENCE',
+                });
+                setModalValidationVisible(true);
+              }}>
+              <Text className="color-white text-center font-extrabold mx-4 my-3">
+                Je vise l'abstinence soit 0 consommation
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View className="flex-row w-full mb-8">
+            <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-4" />
+            <Text className="font-extrabold text-center mr-4">OU</Text>
+            <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-2" />
+          </View>
           <Row>
             <CalendarIllus size={24} />
             <Text className={'font-bold ml-3'}>
