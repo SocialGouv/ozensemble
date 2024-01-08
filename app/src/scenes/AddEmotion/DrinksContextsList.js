@@ -30,15 +30,6 @@ import { drinksContextsState } from '../../recoil/contexts';
 import { sendMail } from '../../services/mail';
 import pck from '../../../package.json';
 
-const formatText = (category, context, userId, triggeredFrom) =>
-  `
-userId: ${userId}
-Version: ${pck.version}
-OS: ${Platform.OS}
-Appelé depuis: ${triggeredFrom}
-Demandez à ce qu'il soit ajouté à la liste ${category}: ${context}
-`;
-
 const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
   const date = route?.params?.date ?? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD');
   if (!date) {
@@ -288,7 +279,6 @@ const ContextButton = ({ name, context, setContext }) => {
 const OtherButton = ({ category }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [contextSuggestion, setContextSuggestion] = useState('');
-  const triggeredFrom = 'OTHER_BUTTON';
   const toast = useToast();
 
   const onValidateContextSuggestion = async () => {
