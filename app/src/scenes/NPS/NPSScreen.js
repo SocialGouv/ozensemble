@@ -35,7 +35,7 @@ Pour améliorer notre application, avez-vous quelques recommandations à nous fa
 Contact: ${contact}
 `;
 
-const NPSTimeoutMS = 1000 * 60 * 60 * 24 * 7;
+const NPSTimeoutMS = 1000 * 60 * 60 * 24 * 7; // 7 days
 
 export const useCheckNeedNPS = (
   notifTitle = 'Vos retours sont importants pour nous',
@@ -51,11 +51,11 @@ export const useCheckNeedNPS = (
       return false;
     }
 
-    const appFirstOpening = storage.getString('@NPSInitialOpening');
-    if (!appFirstOpening) {
+    const appHasAlreadyOpenedOnce = storage.getString('@NPSInitialOpening');
+    if (!appHasAlreadyOpenedOnce) {
       storage.set('@NPSInitialOpening', new Date().toISOString());
       const NPSNotificationDate = new Date(Date.now() + NPSTimeoutMS);
-      NotificationService.scheduleNotification({
+      NotificationService.scheduleLocalAlarm({
         date: NPSNotificationDate,
         title: notifTitle,
         message: notifMessage,

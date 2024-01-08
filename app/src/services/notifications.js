@@ -137,10 +137,10 @@ class NotificationService {
     );
   };
 
-  // LOCAL NOTIFICATIONS
+  // LOCAL NOTIFICATIONS / LOCAL ALARM
 
   //Appears after a specified time. App does not have to be open.
-  // scheduleNotification({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
+  // scheduleLocalAlarm({ date, title, message, playSound = true, soundName = 'default', repeatType = 'day' } = {}) {
   //   PushNotification.localNotificationSchedule({
   //     date,
   //     title,
@@ -153,7 +153,7 @@ class NotificationService {
   // }
 
   //Appears after a specified time. App does not have to be open.
-  scheduleNotification({ date, title, message, playSound = true, soundName = 'default' } = {}) {
+  scheduleLocalAlarm({ date, title, message, playSound = true, soundName = 'default' } = {}) {
     if (Platform.OS === 'ios') {
       PushNotificationIOS.addNotificationRequest({
         id: `${date}-${message}-${title}`,
