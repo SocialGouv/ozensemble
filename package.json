@@ -6,5 +6,6 @@
   },
   "scripts": {
     "postinstall": "is-ci || husky install"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
