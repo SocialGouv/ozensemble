@@ -1,3 +1,10 @@
+## [1.138.2](https://github.com/SocialGouv/ozensemble/compare/v1.138.1...v1.138.2) (2024-01-09)
+
+
+### Bug Fixes
+
+* calendar need objective ([#520](https://github.com/SocialGouv/ozensemble/issues/520)) ([20c26b8](https://github.com/SocialGouv/ozensemble/commit/20c26b8327aafe8e4b296508d753f99f666558c8))
+
 ## [1.138.1](https://github.com/SocialGouv/ozensemble/compare/v1.138.0...v1.138.1) (2024-01-08)
 
 
