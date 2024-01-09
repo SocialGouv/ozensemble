@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { derivedDataFromDrinksState } from '../recoil/consos';
-import { goalsState, isOnboardedSelector } from '../recoil/gains';
+import { goalsState } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import { defaultPaddingFontScale } from '../styles/theme';
