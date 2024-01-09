@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Text, View, TouchableOpacity, Dimensions, PixelRatio } from 'react-native';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { derivedDataFromDrinksState } from '../recoil/consos';
-import { goalsState, isOnboardedSelector } from '../recoil/gains';
+import { goalsState } from '../recoil/gains';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import { defaultPaddingFontScale } from '../styles/theme';
@@ -77,7 +77,6 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
   const today = dayjs().startOf('day');
   const { dailyDoses, weeklyDoses, calendarDays, calendarGoalsStartOfWeek, abstinenceDays } =
     useRecoilValue(derivedDataFromDrinksState);
-  const isOnboarded = useRecoilValue(isOnboardedSelector);
   const [modalContent, setModalContent] = useState(null);
   const nbDays = dayjs(firstDayOfCalendar).add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42;
   const [goals, setGoals] = useRecoilState(goalsState);
@@ -169,7 +168,6 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
   }, [firstDayOfCalendar, nbDays, calendarDays, calendarGoalsStartOfWeek, today, weeklyDoses, goals.length]);
   const handleDayPress = useCallback(
     (dateString) => {
-      if (!isOnboarded) return setShowOnboardingGainModal(true);
       if (dailyDoses[dateString] > 0) {
         onScrollToDate(dateString);
       } else {
@@ -187,7 +185,7 @@ const Calendar = ({ onScrollToDate, selectedMonth }) => {
         });
       }
     },
-    [dailyDoses, onScrollToDate, isOnboarded, navigation]
+    [dailyDoses, onScrollToDate, navigation]
   );
 
   return (
