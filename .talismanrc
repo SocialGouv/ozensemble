@@ -1,6 +1,8 @@
 fileignoreconfig:
 - filename: .yarnrc.yml
   checksum: 4f246e3a4b1db48afb7cc789f364a6df53d7a2fb6b51aea1fc7ee6beac5f8ef8
+- filename: api/.yarnrc.yml
+  checksum: 6bc0d60663fba9813033c7e35cbddb0d9a3513d18133cbdc261f3bd222d28657
 - filename: api/Dockerfile
   checksum: b59ea4dc68c9d19651cc876b9b0cb8a12d6855ba468e3fcd0c2106af7e421a30
 scopeconfig:
