@@ -8,10 +8,10 @@ USER 1000
 
 FROM node AS builder
 COPY yarn.lock .yarnrc.yml ./
-COPY .yarn .yarn
+COPY --chown=1000:1000 .yarn .yarn
 RUN yarn fetch --immutable
 
-COPY . .
+COPY --chown=1000:1000 . .
 RUN yarn build
 RUN yarn workspaces focus --production && yarn cache clean
 
