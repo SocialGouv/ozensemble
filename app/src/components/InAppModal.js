@@ -27,6 +27,7 @@ import UserSurveyLogo from './illustrations/UserSurveyLogo';
 import { logEvent } from '../services/logEventsWithMatomo';
 import { BadgeShareNoStars } from '../scenes/Badges/Svgs/BadgeShareNoStars';
 import StarAbstinenceFeature from './illustrations/icons/StarsAbstinenceFeature';
+import SuperUserHeart from './illustrations/icons/SuperUserHeart';
 /* example
 {
     title: '1er jour complété',
@@ -129,6 +130,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('SuperUserFeature') && (
+            <View className="mx-2 flex flex-col items-center">
+              <SuperUserHeart />
+            </View>
+          )}
           {inAppModal?.id.includes('NewUserAbstinenceFeature') && (
             <View className="mx-2 flex flex-col items-center">
               <StarAbstinenceFeature />
