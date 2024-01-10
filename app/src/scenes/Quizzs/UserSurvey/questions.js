@@ -99,9 +99,14 @@ const questions = [
         score: 4,
       },
       {
-        content: 'Via une publicité',
-        answerKey: 'ads',
-        score: 5,
+        content: 'Via une affiche ou un dépliant',
+        answerKey: 'flyer',
+        score: 6,
+      },
+      {
+        content: 'Via la presse',
+        answerKey: 'press',
+        score: 7,
       },
     ],
   },
