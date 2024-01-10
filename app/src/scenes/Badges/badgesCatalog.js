@@ -427,7 +427,7 @@ export const defaultBackupBadgeCatalog = [
         stars: 4,
         category: 'goals',
         CTATitle: 'Donner mon avis',
-        CTANavigation: ['NPS_SCREEN', { triggeredFrom: 'After 7 days conso badge' }],
+        CTANavigation: ['NPS_SCREEN', { triggeredFrom: 'After 3 weeks goal badge' }],
         CTAEvent: {
           category: 'NPS',
           action: 'NPS_OPEN_FROM_MODAL',
@@ -736,7 +736,7 @@ export const defaultBackupBadgeCatalog = [
         stars: 2,
         category: 'articles',
         CTATitle: 'Donner mon avis',
-        CTANavigation: ['NPS_SCREEN', { triggeredFrom: 'After 7 days conso badge' }],
+        CTANavigation: ['NPS_SCREEN', { triggeredFrom: 'After 2 articles badge' }],
         CTAEvent: {
           category: 'NPS',
           action: 'NPS_OPEN_FROM_MODAL',
