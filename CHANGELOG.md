@@ -1,3 +1,10 @@
+## [1.138.3](https://github.com/SocialGouv/ozensemble/compare/v1.138.2...v1.138.3) (2024-01-10)
+
+
+### Bug Fixes
+
+* nps triggered from ([#521](https://github.com/SocialGouv/ozensemble/issues/521)) ([0787d78](https://github.com/SocialGouv/ozensemble/commit/0787d789ea9c7565de7a39d0e47c9eb97bb55113))
+
 ## [1.138.2](https://github.com/SocialGouv/ozensemble/compare/v1.138.1...v1.138.2) (2024-01-09)
 
 
