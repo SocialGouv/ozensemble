@@ -147,7 +147,7 @@ const InfosMenu = ({ navigation }) => {
               if (isOnboarded) {
                 navigation.navigate('GAINS_REMINDER', {
                   enableContinueButton: true,
-                  onPressContinueNavigation: ['GAINS_MAIN_VIEW'],
+                  onPressContinueNavigation: ['GAINS_NAVIGATOR', { screen: 'GAINS_MAIN_VIEW' }],
                 });
               } else {
                 logEvent({
