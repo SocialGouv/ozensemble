@@ -29,8 +29,8 @@ const Super_NPSScreen = ({ navigation }) => {
 
   useEffect(() => {
     logEvent({
-      category: 'NPS',
-      action: 'NPS_OPEN',
+      category: 'Super_NPS',
+      action: 'Super_NPS_OPEN',
     });
   }, []);
 
