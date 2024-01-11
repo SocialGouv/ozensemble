@@ -171,6 +171,12 @@ const NPSScreen = ({ navigation, route }) => {
       action: 'NPS_SEND_TRIGGERED_FROM',
       name: triggeredFrom,
     });
+    if (feedback) {
+      logEvent({
+        category: 'NPS',
+        action: 'NPS_SEND_FEEDBACK',
+      });
+    }
     await sendMail({
       subject: forDefi ? `NPS Addicto Défi ${forDefi}` : 'NPS Addicto',
       text: formatText(useful, feedback, contact, userId, forDefi, triggeredFrom),

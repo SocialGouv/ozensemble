@@ -62,10 +62,15 @@ const Super_NPSScreen = ({ navigation }) => {
     setSendButton('Merci !');
     logEvent({
       category: 'SUPER_NPS',
-      action: 'SUPER_NPS_SEND',
-      name: 'notes-useful',
+      action: 'SUPER_NPS_SEND_USEFUL',
       value: useful,
     });
+    if (feedback) {
+      logEvent({
+        category: 'SUPER_NPS',
+        action: 'SUPER_NPS_SEND_FEEDBACK',
+      });
+    }
     await sendMail({
       subject: 'Super User NPS Addicto',
       text: formatText(useful, feedback, contact, userId),
