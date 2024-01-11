@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Platform, Text, View, KeyboardAvoidingView, TextInput } from 'react-native';
+import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
@@ -7,7 +7,6 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import Mark from './Mark';
 import { storage } from '../../services/storage';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
 import BackButton from '../../components/BackButton';
 import { sendMail } from '../../services/mail';
 
@@ -29,8 +28,8 @@ const Super_NPSScreen = ({ navigation }) => {
 
   useEffect(() => {
     logEvent({
-      category: 'Super_NPS',
-      action: 'Super_NPS_OPEN',
+      category: 'SUPER_NPS',
+      action: 'SUPER_NPS_OPEN',
     });
   }, []);
 
@@ -62,8 +61,8 @@ const Super_NPSScreen = ({ navigation }) => {
     const userId = storage.getString('@UserIdv2');
     setSendButton('Merci !');
     logEvent({
-      category: 'Super_NPS',
-      action: 'Super_NPS_SEND',
+      category: 'SUPER_NPS',
+      action: 'SUPER_NPS_SEND',
       name: 'notes-useful',
       value: useful,
     });
@@ -84,10 +83,14 @@ const Super_NPSScreen = ({ navigation }) => {
             className="flex-1"
             behavior={Platform.select({ ios: 'padding', android: null })}
             keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
-            <ScreenBgStyled defaultPadding>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              className="flex-shrink flex-grow mx-6 mt-3"
+              keyboardShouldPersistTaps="never"
+              keyboardDismissMode="none">
               <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
               <View className="mt-2">
-                <Text className="text-[#4030A5] text-base font-extrabold mt-3">
+                <Text className="text-[#4030A5] text-xl font-bold mt-3">
                   Merci pour vos retours !{'\n'}
                   Nous lisons tous vos messages
                 </Text>
@@ -136,7 +139,7 @@ const Super_NPSScreen = ({ navigation }) => {
               <View className="my-5 justify-center flex-row mb-36">
                 <ButtonPrimary content={sendButton} disabled={!useful} onPress={sendNPS} />
               </View>
-            </ScreenBgStyled>
+            </ScrollView>
           </KeyboardAvoidingView>
         </View>
       </Background>

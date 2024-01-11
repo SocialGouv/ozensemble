@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions, Platform, View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
@@ -185,36 +185,42 @@ const NPSScreen = ({ navigation, route }) => {
     <SafeAreaProvider>
       {/* <StatusBar backgroundColor="#39cec0" barStyle="light-content" /> */}
       <Background color="#f9f9f9">
-        <Container>
-          <KeyboardAvoidingViewStyled
+        <View className="h-full w-screen">
+          <KeyboardAvoidingView
+            className="flex-1"
             behavior={Platform.select({ ios: 'padding', android: null })}
             keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
-            <ScreenBgStyled defaultPadding>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              className="flex-shrink flex-grow mx-6 mt-3"
+              keyboardShouldPersistTaps="never"
+              keyboardDismissMode="none">
               <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
-              <TopTitle>
-                <TextStyled color="#4030a5">
+              <View className="mt-2">
+                <Text className="text-[#4030A5] text-xl font-bold mt-3">
                   Contribuer à Oz Ensemble{'\n'}
                   {forDefi
                     ? "Vos retours sur cette activité nous permettront d'améliorer l'application\u00A0!"
                     : 'Nous lisons tous vos messages'}
-                </TextStyled>
-              </TopTitle>
-              <TopSubTitle>
-                <TextStyled color="#191919">
+                </Text>
+              </View>
+              <View className="mt-8">
+                <Text className="text-[#191919] text-base">
                   {forDefi ? 'Cette activité vous a-t-elle été utile' : 'Ce service vous a-t-il été utile'}
                   {'\u00A0'}?
-                </TextStyled>
-              </TopSubTitle>
+                </Text>
+              </View>
               <Mark selected={useful} onPress={setUseful} bad="Pas utile du tout" good="Extrêmement utile" />
-              <TopSubTitle>
-                <TextStyled color="#191919">
+              <View className="mt-8">
+                <Text className="text-[#191919] text-base">
                   {forDefi
                     ? 'Comment pouvons-nous améliorer cette activité'
                     : 'Pour améliorer notre application, avez-vous quelques recommandations à nous faire'}
                   {'\u00A0'}?
-                </TextStyled>
-              </TopSubTitle>
-              <FeedBackStyled
+                </Text>
+              </View>
+              <TextInput
+                className="bg-[#f3f3f6] rounded-lg border h-24 border-[#dbdbe9] text-black mt-3 py-4 px-3"
                 onChangeText={setFeedback}
                 placeholder="Idées d'améliorations (facultatif)"
                 value={feedback}
@@ -223,13 +229,14 @@ const NPSScreen = ({ navigation, route }) => {
                 returnKeyType="next"
                 placeholderTextColor="#c9c9cc"
               />
-              <TopSubTitle>
-                <TextStyled color="#191919">
+              <View className="mt-8">
+                <Text className="text-[#191919] text-base">
                   Échanger avec vous serait précieux pour améliorer notre service, laissez-nous votre numéro de
                   téléphone ou votre mail si vous le souhaitez.
-                </TextStyled>
-              </TopSubTitle>
-              <ContactTextInput
+                </Text>
+              </View>
+              <TextInput
+                className="bg-[#f3f3f6] rounded-lg border border-[#dbdbe9] text-black mb-8 mt-3 py-4 px-3"
                 value={contact}
                 placeholder="Numéro de téléphone ou adresse mail (facultatif)"
                 onChangeText={setContact}
@@ -243,12 +250,12 @@ const NPSScreen = ({ navigation, route }) => {
                 placeholderTextColor="#c9c9cc"
                 // onBlur={() => StatusBar.setHidden(false, 'none')}
               />
-              <ButtonContainer>
+              <View className="my-5 justify-center flex-row mb-36">
                 <ButtonPrimary content={sendButton} disabled={!useful} onPress={sendNPS} />
-              </ButtonContainer>
-            </ScreenBgStyled>
-          </KeyboardAvoidingViewStyled>
-        </Container>
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+        </View>
       </Background>
     </SafeAreaProvider>
   );
