@@ -1,3 +1,15 @@
+# [1.140.0](https://github.com/SocialGouv/ozensemble/compare/v1.139.0...v1.140.0) (2024-01-15)
+
+
+### Bug Fixes
+
+* navigation reminder ([#524](https://github.com/SocialGouv/ozensemble/issues/524)) ([2a80ae9](https://github.com/SocialGouv/ozensemble/commit/2a80ae9382191ae1612ec7faa51f24c38ae7a293))
+
+
+### Features
+
+* super user nps ([#523](https://github.com/SocialGouv/ozensemble/issues/523)) ([b1bdb5d](https://github.com/SocialGouv/ozensemble/commit/b1bdb5d4ff926a307667da3768e227cc1deb025c))
+
 # [1.139.0](https://github.com/SocialGouv/ozensemble/compare/v1.138.3...v1.139.0) (2024-01-11)
 
 
