@@ -53,6 +53,37 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    if (req.headers.appversion >= 238 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
+      const superUserFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@SuperUserFeature` },
+      });
+      if (!superUserFeature) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@SuperUserFeature`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@SuperUserFeature",
+            title: "Merci d'être avec nous",
+            content:
+              "Bravo, vous ête sur Oz depuis quelques mois et votre expérience nous est précieuse. Nous serions ravis de recueillir vos recommandations pour continuer à améliorer l'application :)",
+            CTATitle: "Donner mon avis",
+            CTANavigation: ["SUPER_NPS_SCREEN"],
+            secondaryButtonTitle: "Plus tard",
+            CTAEvent: {
+              category: "NPS",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+          },
+        });
+      }
+    }
     if (req.headers.appversion >= 230) {
       const newUserAbstinenceFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewUserAbstinenceFeature` },

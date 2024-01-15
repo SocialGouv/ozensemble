@@ -30,6 +30,7 @@ import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 import { deepLinkingConfig } from './services/deepLink';
 import EnvironmentIndicator from './components/EnvironmentIndicator';
 import NPSScreen, { useCheckNeedNPS, useNPSNotif } from './scenes/NPS/NPSScreen';
+import Super_NPSScreen from './scenes/NPS/Super_NPSScreen';
 import NotificationService from './services/notifications';
 import BadgeModal from './scenes/Badges/BadgeModal';
 import InAppModal from './components/InAppModal';
@@ -291,6 +292,14 @@ const Router = () => {
           <ModalsStack.Screen
             name="NPS_SCREEN"
             component={NPSScreen}
+            options={{
+              presentation: 'modal',
+              headerShown: false,
+            }}
+          />
+          <ModalsStack.Screen
+            name="SUPER_NPS_SCREEN"
+            component={Super_NPSScreen}
             options={{
               presentation: 'modal',
               headerShown: false,
