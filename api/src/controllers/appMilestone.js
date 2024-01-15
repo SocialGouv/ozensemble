@@ -53,7 +53,7 @@ router.post(
 
     // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-    if (req.headers.appversion >= 236 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
+    if (req.headers.appversion >= 238 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
       const superUserFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@SuperUserFeature` },
       });
