@@ -132,12 +132,12 @@ const InAppModal = ({ navigation, route }) => {
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
           {inAppModal?.id.includes('Super30UserFeature') && (
             <View className="mx-2 flex flex-col items-center">
-              <SuperUserHeart fill={'#DE285E'} />
+              <SuperUserHeart fill="#DE285E" />
             </View>
           )}
           {inAppModal?.id.includes('Super90UserFeature') && (
             <View className="mx-2 flex flex-col items-center">
-              <SuperUserHeart fill={'#4030A5'} />
+              <SuperUserHeart fill="#4030A5" />
             </View>
           )}
           {inAppModal?.id.includes('NewUserAbstinenceFeature') && (

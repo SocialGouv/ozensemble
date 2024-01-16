@@ -21,7 +21,7 @@ Contact: ${contact}
 `;
 
 const Super_NPSScreen = ({ navigation, route }) => {
-  const days = route.params?.days || 90;
+  const days = route.params?.days || '90';
   const [useful, setUseful] = useState(null);
   const [feedback, setFeedback] = useState('');
   const [contact, setContact] = useState('');

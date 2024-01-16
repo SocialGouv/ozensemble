@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-function SuperUserHeart(fill) {
+function SuperUserHeart({ fill }) {
   return (
     <Svg width={75} height={90} fill="none" xmlns="http://www.w3.org/2000/svg">
       <Path
