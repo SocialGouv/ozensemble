@@ -20,7 +20,8 @@ Pour améliorer notre application, avez-vous quelques recommandations à nous fa
 Contact: ${contact}
 `;
 
-const Super_NPSScreen = ({ navigation }) => {
+const Super_NPSScreen = ({ navigation, days }) => {
+  console.log('Super_NPSScreen', days);
   const [useful, setUseful] = useState(null);
   const [feedback, setFeedback] = useState('');
   const [contact, setContact] = useState('');
@@ -28,11 +29,11 @@ const Super_NPSScreen = ({ navigation }) => {
 
   useEffect(() => {
     logEvent({
-      category: 'SUPER_NPS',
-      action: 'SUPER_NPS_OPEN',
+      category: 'SUPER_' + days + '_NPS',
+      action: 'SUPER_' + days + '_NPS_OPEN',
     });
   }, []);
-
+  console.log('SUPER_' + days + '_NPS');
   const onGoBackRequested = async () => {
     backRequestHandledRef.current = true;
     if (npsSent.current) return navigation.goBack();
@@ -61,18 +62,18 @@ const Super_NPSScreen = ({ navigation }) => {
     const userId = storage.getString('@UserIdv2');
     setSendButton('Merci !');
     logEvent({
-      category: 'SUPER_NPS',
-      action: 'SUPER_NPS_SEND_USEFUL',
+      category: 'SUPER_' + days + '_NPS',
+      action: 'SUPER_' + days + '_NPS_SEND_USEFUL',
       value: useful,
     });
     if (feedback) {
       logEvent({
-        category: 'SUPER_NPS',
-        action: 'SUPER_NPS_SEND_FEEDBACK',
+        category: 'SUPER_' + days + '_NPS',
+        action: 'SUPER_' + days + '_NPS_SEND_FEEDBACK',
       });
     }
     await sendMail({
-      subject: 'Super User NPS Addicto',
+      subject: 'Super User NPS ' + days + ' Addicto',
       text: formatText(useful, feedback, contact, userId),
     }).catch((err) => console.log('sendNPS err', err));
 
