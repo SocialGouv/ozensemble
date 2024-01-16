@@ -20,8 +20,8 @@ Pour améliorer notre application, avez-vous quelques recommandations à nous fa
 Contact: ${contact}
 `;
 
-const Super_NPSScreen = ({ navigation, days }) => {
-  console.log('Super_NPSScreen', days);
+const Super_NPSScreen = ({ navigation, route }) => {
+  const days = route.params?.days || 90;
   const [useful, setUseful] = useState(null);
   const [feedback, setFeedback] = useState('');
   const [contact, setContact] = useState('');
