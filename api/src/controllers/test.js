@@ -25,7 +25,6 @@ router.get(
   catchErrors(async (req, res) => {
     console.log("init");
     const modale = req.query?.modale;
-    // USER SURVEY:
     if (modale === "super90") {
       console.log("ici");
       return res.status(200).send({
@@ -34,7 +33,6 @@ router.get(
       });
     }
     if (modale === "super30") {
-      // if the user skipped the 30 days, he will have got the 90 days - if he got the 90 days, we don't show him the 30 days
       return res.status(200).send({
         ok: true,
         showInAppModal: superUser30DaysInAppModal,

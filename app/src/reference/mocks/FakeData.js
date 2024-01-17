@@ -27,14 +27,6 @@ const replaceStorageValues = (values) => {
   }
 };
 
-const showSuperModale = () => {
-  API.post({
-    path: '/test/init',
-    body: {
-      modale: 'super90',
-    },
-  });
-};
 const deleteStorageValues = (values) => {
   for (const key of Object.keys(values)) {
     storage.delete(key);
