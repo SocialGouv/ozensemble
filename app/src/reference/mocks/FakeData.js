@@ -100,6 +100,7 @@ const FakeData = () => {
         />
         <H1Wrapper>Modale Super User</H1Wrapper>
         <MenuItem
+          noAlert
           caption="Montrer la modale super User 30"
           onPress={() => {
             API.get({
@@ -111,6 +112,7 @@ const FakeData = () => {
           }}
         />
         <MenuItem
+          noAlert
           caption="Montrer la modale super User 90"
           onPress={() => {
             API.get({
