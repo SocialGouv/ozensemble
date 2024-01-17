@@ -1,3 +1,10 @@
+# [1.141.0](https://github.com/SocialGouv/ozensemble/compare/v1.140.0...v1.141.0) (2024-01-17)
+
+
+### Features
+
+* 30 days users ([#525](https://github.com/SocialGouv/ozensemble/issues/525)) ([28d1fd5](https://github.com/SocialGouv/ozensemble/commit/28d1fd5ecfd85925825eef13734269e5c4ac8607))
+
 # [1.140.0](https://github.com/SocialGouv/ozensemble/compare/v1.139.0...v1.140.0) (2024-01-15)
 
 
