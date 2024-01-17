@@ -1,3 +1,10 @@
+## [1.141.2](https://github.com/SocialGouv/ozensemble/compare/v1.141.1...v1.141.2) (2024-01-17)
+
+
+### Bug Fixes
+
+* super user ([#527](https://github.com/SocialGouv/ozensemble/issues/527)) ([dfe3d26](https://github.com/SocialGouv/ozensemble/commit/dfe3d26bd9929177471a6195d27c6e465e2e5000))
+
 ## [1.141.1](https://github.com/SocialGouv/ozensemble/compare/v1.141.0...v1.141.1) (2024-01-17)
 
 
