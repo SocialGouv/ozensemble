@@ -27,6 +27,14 @@ const replaceStorageValues = (values) => {
   }
 };
 
+const showSuperModale = () => {
+  API.post({
+    path: '/test/init',
+    body: {
+      modale: 'super90',
+    },
+  });
+};
 const deleteStorageValues = (values) => {
   for (const key of Object.keys(values)) {
     storage.delete(key);
@@ -96,6 +104,12 @@ const FakeData = () => {
               message: 'Avez-vous quelques secondes pour donner votre avis ?',
             });
             storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
+          }}
+        />
+        <MenuItem
+          caption="Montrer la modale super User"
+          onPress={() => {
+            showSuperModale();
           }}
         />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>

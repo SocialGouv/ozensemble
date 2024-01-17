@@ -85,6 +85,7 @@ router.post(
       }
     }
     if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(30, "day"))) {
+      // if the user skipped the 30 days, he will have got the 90 days - if he got the 90 days, we don't show him the 30 days
       const super90UserFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@Super90UserFeature` },
       });
@@ -263,4 +264,5 @@ router.post(
     return res.status(200).send({ ok: true });
   })
 );
+
 module.exports = router;
