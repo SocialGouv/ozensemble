@@ -3,7 +3,7 @@ require("dotenv").config({ path: "./.env" });
 const cron = require("node-cron");
 const { capture } = require("./third-parties/sentry");
 
-const { notificationsCronJob, scheduleNotificationsInactivity5DaysCronJob } = require("./notifications");
+const { notificationsCronJob, scheduleNotificationsInactivity5DaysCronJob } = require("./utils/notifications");
 const { reminderCronJob } = require("./controllers/reminder");
 
 cron.schedule("* * * * *", async () => {

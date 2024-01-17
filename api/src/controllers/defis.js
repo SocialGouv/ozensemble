@@ -2,7 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { getBadgeCatalog, grabBadgeFromCatalog } = require("../badges");
+const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
 
 router.post(
   "/init",

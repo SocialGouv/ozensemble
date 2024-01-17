@@ -3,8 +3,8 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { getBadgeCatalog, grabBadgeFromCatalog } = require("../badges");
-const { checkIfLastWeekGoalAchieved } = require("../goals");
+const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
+const { checkIfLastWeekGoalAchieved } = require("../utils/goals");
 
 router.post(
   "/init",

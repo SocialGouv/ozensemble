@@ -4,7 +4,7 @@ require("dayjs/locale/fr");
 const isBetween = require("dayjs/plugin/isBetween");
 const weekday = require("dayjs/plugin/weekday");
 const dayjs = require("dayjs");
-const { grabBadgeFromCatalog, missedGoal, getBadgeCatalog } = require("../badges");
+const { grabBadgeFromCatalog, missedGoal, getBadgeCatalog } = require("../utils/badges");
 dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);

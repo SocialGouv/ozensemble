@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
+const { superUser30DaysInAppModal, superUser90DaysInAppModal } = require("../utils/super-user-modals");
 
 router.post(
   "/",
@@ -51,8 +52,9 @@ router.post(
       update: {},
     });
 
-    // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+
+    // USER SURVEY:
     if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
       const super90UserFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@Super90UserFeature` },
@@ -67,20 +69,7 @@ router.post(
         });
         return res.status(200).send({
           ok: true,
-          showInAppModal: {
-            id: "@Super90UserFeature",
-            title: "Merci d'être avec nous",
-            content:
-              "Bravo, vous ête sur Oz depuis quelques mois et votre expérience nous est précieuse. Nous serions ravis de recueillir vos recommandations pour continuer à améliorer l'application :)",
-            CTATitle: "Donner mon avis",
-            CTANavigation: ["SUPER_NPS_SCREEN", { days: "90" }],
-            secondaryButtonTitle: "Plus tard",
-            CTAEvent: {
-              category: "SUPER_90_NPS",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
-            },
-          },
+          showInAppModal: superUser90DaysInAppModal,
         });
       }
     }
@@ -103,20 +92,7 @@ router.post(
           });
           return res.status(200).send({
             ok: true,
-            showInAppModal: {
-              id: "@Super30UserFeature",
-              title: "Merci d'être avec nous",
-              content:
-                "Bravo, vous ête sur Oz depuis plus d'un mois et votre expérience nous est précieuse. Nous serions ravis de recueillir vos recommandations pour continuer à améliorer l'application :)",
-              CTATitle: "Donner mon avis",
-              CTANavigation: ["SUPER_NPS_SCREEN", { days: "30" }],
-              secondaryButtonTitle: "Plus tard",
-              CTAEvent: {
-                category: "SUPER_30_NPS",
-                action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-                name: "FROM_NEW_FEATURE",
-              },
-            },
+            showInAppModal: superUser30DaysInAppModal,
           });
         }
       }
