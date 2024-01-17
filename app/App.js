@@ -24,6 +24,7 @@ import {
   reconciliateDrinksToDB,
 } from './src/services/storage';
 import { getBundleId } from 'react-native-device-info';
+import { initMatomo } from './src/services/logEventsWithMatomo';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
@@ -36,6 +37,8 @@ if (!__DEV__) {
     attachViewHierarchy: true,
   });
 }
+
+initMatomo();
 
 const sendDrinksToBd = async () => {
   await sendPreviousDrinksToDB();

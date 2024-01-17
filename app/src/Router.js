@@ -19,7 +19,7 @@ import GainsNavigator from './scenes/Gains/GainsNavigator';
 import Infos from './scenes/Infos/Infos';
 import WelcomeScreen from './scenes/WelcomeScreen';
 import useAppState from './services/useAppState';
-import { initMatomo, logEvent } from './services/logEventsWithMatomo';
+import { logEvent } from './services/logEventsWithMatomo';
 import { storage } from './services/storage';
 import TextStyled from './components/TextStyled';
 import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
@@ -186,7 +186,6 @@ const Router = () => {
   });
 
   const initApp = async () => {
-    await initMatomo();
     NotificationService.init();
     await logEvent({ category: 'APP', action: 'APP_OPEN' });
     // storage.clearAll();
