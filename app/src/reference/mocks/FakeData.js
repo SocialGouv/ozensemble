@@ -98,6 +98,29 @@ const FakeData = () => {
             storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
           }}
         />
+        <H1Wrapper>Modale Super User</H1Wrapper>
+        <MenuItem
+          caption="Montrer la modale super User 30"
+          onPress={() => {
+            API.get({
+              path: '/test/super-user-in-app-modal',
+              query: {
+                modale: 'super30',
+              },
+            });
+          }}
+        />
+        <MenuItem
+          caption="Montrer la modale super User 90"
+          onPress={() => {
+            API.get({
+              path: '/test/super-user-in-app-modal',
+              query: {
+                modale: 'super90',
+              },
+            });
+          }}
+        />
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
         <MenuItem caption="Sans risque" onPress={() => replaceStorageValues(fakeOnboardingQuizz.good)} />
         <MenuItem caption="Risquée" onPress={() => replaceStorageValues(fakeOnboardingQuizz.risk)} />

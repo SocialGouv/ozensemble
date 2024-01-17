@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
+const { superUser30DaysInAppModal, superUser90DaysInAppModal } = require("../utils/super-user-modals");
 
 router.post(
   "/",
@@ -51,37 +52,49 @@ router.post(
       update: {},
     });
 
-    // USER SURVEY:
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-    if (req.headers.appversion >= 238 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
-      const superUserFeature = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@SuperUserFeature` },
+
+    // USER SURVEY:
+    if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
+      const super90UserFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@Super90UserFeature` },
       });
-      if (!superUserFeature) {
+      if (!super90UserFeature) {
         await prisma.appMilestone.create({
           data: {
-            id: `${user.id}_@SuperUserFeature`,
+            id: `${user.id}_@Super90UserFeature`,
             userId: user.id,
             date: dayjs().format("YYYY-MM-DD"),
           },
         });
         return res.status(200).send({
           ok: true,
-          showInAppModal: {
-            id: "@SuperUserFeature",
-            title: "Merci d'être avec nous",
-            content:
-              "Bravo, vous ête sur Oz depuis quelques mois et votre expérience nous est précieuse. Nous serions ravis de recueillir vos recommandations pour continuer à améliorer l'application :)",
-            CTATitle: "Donner mon avis",
-            CTANavigation: ["SUPER_NPS_SCREEN"],
-            secondaryButtonTitle: "Plus tard",
-            CTAEvent: {
-              category: "NPS",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
-            },
-          },
+          showInAppModal: superUser90DaysInAppModal,
         });
+      }
+    }
+    if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(30, "day"))) {
+      // if the user skipped the 30 days, he will have got the 90 days - if he got the 90 days, we don't show him the 30 days
+      const super90UserFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@Super90UserFeature` },
+      });
+      if (!super90UserFeature) {
+        const super30UserFeature = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@Super30UserFeature` },
+        });
+        if (!super30UserFeature) {
+          await prisma.appMilestone.create({
+            data: {
+              id: `${user.id}_@Super30UserFeature`,
+              userId: user.id,
+              date: dayjs().format("YYYY-MM-DD"),
+            },
+          });
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: superUser30DaysInAppModal,
+          });
+        }
       }
     }
     if (req.headers.appversion >= 230) {
@@ -227,4 +240,5 @@ router.post(
     return res.status(200).send({ ok: true });
   })
 );
+
 module.exports = router;

@@ -1,8 +1,8 @@
 const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
-const newFeatures = require("../new-features");
-const notifications = require("../notifications");
+const newFeatures = require("../utils/new-features-popups");
+const notifications = require("../utils/notifications");
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { capture } = require("../third-parties/sentry");

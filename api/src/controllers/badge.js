@@ -2,7 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const { getBadgeCatalog, grabBadgeFromCatalog, missedGoal } = require("../badges");
+const { getBadgeCatalog, grabBadgeFromCatalog, missedGoal } = require("../utils/badges");
 
 router.get(
   "/test",
@@ -84,12 +84,10 @@ router.post(
         },
       });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
-      return res
-        .status(200)
-        .send({
-          ok: true,
-          showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
-        });
+      return res.status(200).send({
+        ok: true,
+        showNewBadge: { newBadge: grabBadgeFromCatalog("share", shares), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+      });
     }
 
     return res.status(200).send({ ok: true });
