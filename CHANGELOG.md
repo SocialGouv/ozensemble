@@ -1,3 +1,10 @@
+## [1.141.3](https://github.com/SocialGouv/ozensemble/compare/v1.141.2...v1.141.3) (2024-01-22)
+
+
+### Bug Fixes
+
+* yarn berry + yarn fetch + docker opti ([#519](https://github.com/SocialGouv/ozensemble/issues/519)) ([e8d5ec7](https://github.com/SocialGouv/ozensemble/commit/e8d5ec73bde2a41a43ecc4e088d14e4f0ae449aa))
+
 ## [1.141.2](https://github.com/SocialGouv/ozensemble/compare/v1.141.1...v1.141.2) (2024-01-17)
 
 
