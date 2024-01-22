@@ -1,0 +1,7 @@
+.dockerignore
+Dockerfile
+.socialgouv.yaml
+.releaserc.yml
+*.md
+LICENSE
+node_modules

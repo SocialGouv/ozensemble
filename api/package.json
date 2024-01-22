@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx prisma db push && nodemon ./src/index.js",
     "create-migration": "cross-env NODE_ENV=development npx prisma migrate dev --name",
-    "start": "NODE_ENV=production npx prisma migrate deploy && NODE_ENV=production node ./src/index.js"
+    "start": "NODE_ENV=production npx prisma migrate deploy && NODE_ENV=production node ./src/index.js",
+    "postinstall": "prisma generate"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -41,5 +42,6 @@
     "npm": "please-use-yarn",
     "yarn": "< 2",
     "node": ">= 14"
-  }
+  },
+  "packageManager": "yarn@4.0.2"
 }
