@@ -144,19 +144,10 @@ const InfosMenu = ({ navigation }) => {
                 action: 'REMINDER_OPEN',
                 name: 'INFOS',
               });
-              if (isOnboarded) {
-                navigation.navigate('GAINS_REMINDER', {
-                  enableContinueButton: true,
-                  onPressContinueNavigation: ['GAINS_NAVIGATOR', { screen: 'GAINS_MAIN_VIEW' }],
-                });
-              } else {
-                logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_OPEN',
-                  name: 'INFOS',
-                });
-                navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
-              }
+              navigation.navigate('GAINS_REMINDER', {
+                enableContinueButton: true,
+                onPressContinueNavigation: ['GAINS_NAVIGATOR', { screen: 'GAINS_MAIN_VIEW' }],
+              });
             }}
           />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
