@@ -1,3 +1,10 @@
+## [1.141.4](https://github.com/SocialGouv/ozensemble/compare/v1.141.3...v1.141.4) (2024-01-23)
+
+
+### Bug Fixes
+
+* abstinenece ([#528](https://github.com/SocialGouv/ozensemble/issues/528)) ([00e57b3](https://github.com/SocialGouv/ozensemble/commit/00e57b3164e0ee9c8f9074efd7a224301a4071bc))
+
 ## [1.141.3](https://github.com/SocialGouv/ozensemble/compare/v1.141.2...v1.141.3) (2024-01-22)
 
 
