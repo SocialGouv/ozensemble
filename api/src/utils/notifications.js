@@ -51,6 +51,7 @@ const saveInactivity5Days = async (userId) => {
       userId,
     },
   });
+  if (reminder?.type === "Weekdays") return;
 
   const utcHour = dayjs().utc().hour();
   const hourInParis = dayjs().tz("Europe/Paris").hour();
