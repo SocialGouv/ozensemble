@@ -1,3 +1,11 @@
+## [1.141.5](https://github.com/SocialGouv/ozensemble/compare/v1.141.4...v1.141.5) (2024-01-23)
+
+
+### Bug Fixes
+
+* notif inactivity 5 days with weekays reminder ([#530](https://github.com/SocialGouv/ozensemble/issues/530)) ([03a9d04](https://github.com/SocialGouv/ozensemble/commit/03a9d04c0bce1beb99ef8d9255ad8120cb7deb9c))
+* reminder condition onBoarded ([#529](https://github.com/SocialGouv/ozensemble/issues/529)) ([fb9c03f](https://github.com/SocialGouv/ozensemble/commit/fb9c03fa4c381519e7993c45317c35b52b4964b4))
+
 ## [1.141.4](https://github.com/SocialGouv/ozensemble/compare/v1.141.3...v1.141.4) (2024-01-23)
 
 
