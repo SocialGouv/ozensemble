@@ -124,9 +124,9 @@ export const derivedDataFromDrinksState = selector({
     const weeklyKcals = {};
     const weeklyExpenses = {};
     let abstinenceDays = 0;
-    let abstinenceSerieBroken = false;
     let doneDay = null;
-
+    let firstFilledDay = null;
+    let breakDay = null;
     // temp variables
     let startOfWeek = null;
     let goalStartOfWeek = null;
@@ -171,15 +171,24 @@ export const derivedDataFromDrinksState = selector({
       }
       dailyDoses[day] = dailyDoses[day] + dose;
       // abstinence days
-      if (!abstinenceSerieBroken && doneDay !== day) {
-        if (dose === 0 && (!doneDay || doneDay === dayjs(day).add(1, 'day').format('YYYY-MM-DD'))) {
-          abstinenceDays++;
-        } else {
-          abstinenceSerieBroken = true;
-        }
+      if (!doneDay) {
+        doneDay = dayjs(day).add(1, 'day').format('YYYY-MM-DD');
+      }
+      if (!firstFilledDay) {
+        firstFilledDay = day;
+      }
+      if (!breakDay && differenceOfDays(day, doneDay) > 1) {
+        breakDay = dayjs(doneDay).add(-1, 'day').format('YYYY-MM-DD');
+      }
+      if (!breakDay && dose > 0) {
+        breakDay = day;
+      }
+      if (firstFilledDay && breakDay) {
+        abstinenceDays = differenceOfDays(firstFilledDay, breakDay);
+      } else if (firstFilledDay && !breakDay) {
+        abstinenceDays = differenceOfDays(firstFilledDay, doneDay) + 1;
       }
       doneDay = day;
-
       // weekly doses
       if (!weeklyDoses[startOfWeek]) {
         weeklyDoses[startOfWeek] = 0;
