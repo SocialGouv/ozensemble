@@ -43,6 +43,7 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import BadgesList from './scenes/Badges/BadgesList';
+import Inactivity_NPSScreen from './scenes/NPS/Inactivity_NPSScreen';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -299,6 +300,14 @@ const Router = () => {
           <ModalsStack.Screen
             name="SUPER_NPS_SCREEN"
             component={Super_NPSScreen}
+            options={{
+              presentation: 'modal',
+              headerShown: false,
+            }}
+          />
+          <ModalsStack.Screen
+            name="INACTIVITY_NPS_SCREEN"
+            component={Inactivity_NPSScreen}
             options={{
               presentation: 'modal',
               headerShown: false,
