@@ -31,6 +31,7 @@ import { deepLinkingConfig } from './services/deepLink';
 import EnvironmentIndicator from './components/EnvironmentIndicator';
 import NPSScreen, { useCheckNeedNPS, useNPSNotif } from './scenes/NPS/NPSScreen';
 import Super_NPSScreen from './scenes/NPS/Super_NPSScreen';
+import Inactivity_NPSScreen from './scenes/NPS/Inactivity_NPSScreen';
 import NotificationService from './services/notifications';
 import BadgeModal from './scenes/Badges/BadgeModal';
 import InAppModal from './components/InAppModal';
@@ -43,7 +44,6 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import BadgesList from './scenes/Badges/BadgesList';
-import Inactivity_NPSScreen from './scenes/NPS/Inactivity_NPSScreen';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
