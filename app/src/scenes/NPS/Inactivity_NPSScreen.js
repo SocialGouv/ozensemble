@@ -1,36 +1,32 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView } from 'react-native';
+import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import Mark from './Mark';
 import { storage } from '../../services/storage';
 import BackButton from '../../components/BackButton';
 import { sendMail } from '../../services/mail';
-import { AnswersContainer, AnswerButton, AnswerContent } from '../../components/quizz/Question';
 
-const formatText = (useful, feedback, contact, userId) =>
+const formatText = (answer, feedback, userId) =>
   `
 userId: ${userId}
 Version: ${pck.version}
 OS: ${Platform.OS}
-Ce service vous a-t-il aidé à réduire votre consommation d'alcool : ${useful}
-Pour améliorer notre application, avez-vous quelques recommandations à nous faire ? : ${feedback}
-Contact: ${contact}
+Pourquoi n'utilisez-vous plus Oz ? : ${answer}
+Qu'est-ce qui vous aurait fait-rester ? : ${feedback}
 `;
 
 const Inactivity_NPSScreen = ({ navigation }) => {
-  const [useful, setUseful] = useState(null);
+  const [selectedAnswerKey, setSelectedAnswerKey] = useState(null);
   const [feedback, setFeedback] = useState('');
-  const [contact, setContact] = useState('');
   const [sendButton, setSendButton] = useState('Envoyer');
   const answers = [
     { answerKey: 'OZ_HELPED', content: "Oz m'a aidé mais je n'en ai plus besoin", score: 0 },
     { answerKey: 'LAKE_FEATURES', content: 'Il manque des fonctionnalités', score: 1 },
     { answerKey: 'USING_OTHER_APP', content: 'Je préfère une autre application', score: 2 },
-    { answerKey: 'OTHER', content: "Oz ne m'a pas aidé", score: 3 },
+    { answerKey: 'OTHER', content: 'Autre', score: 3 },
   ];
 
   useEffect(() => {
@@ -39,11 +35,10 @@ const Inactivity_NPSScreen = ({ navigation }) => {
       action: 'INACTIVITY_NPS_OPEN',
     });
   }, []);
-  console.log('INACTIVITY_NPS');
   const onGoBackRequested = async () => {
     backRequestHandledRef.current = true;
     if (npsSent.current) return navigation.goBack();
-    if (useful !== null) await sendNPS();
+    if (selectedAnswerKey !== null) await sendNPS();
     navigation.goBack();
   };
 
@@ -69,8 +64,8 @@ const Inactivity_NPSScreen = ({ navigation }) => {
     setSendButton('Merci !');
     logEvent({
       category: 'INACTIVITY_NPS',
-      action: 'INACTIVITY_NPS_SEND_USEFUL',
-      value: useful,
+      action: 'INACTIVITY_NPS_SEND_ANSWER',
+      value: answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.score,
     });
     if (feedback) {
       logEvent({
@@ -80,7 +75,7 @@ const Inactivity_NPSScreen = ({ navigation }) => {
     }
     await sendMail({
       subject: 'Inactivity 10 days NPS Addicto',
-      text: formatText(useful, feedback, contact, userId),
+      text: formatText(answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content, feedback, userId),
     }).catch((err) => console.log('sendNPS err', err));
 
     npsSent.current = true;
@@ -97,7 +92,7 @@ const Inactivity_NPSScreen = ({ navigation }) => {
             keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
             <ScrollView
               showsVerticalScrollIndicator={false}
-              className="flex-shrink flex-grow mx-6 mt-3"
+              className="flex-shrink flex-grow mx-8 mt-3"
               keyboardShouldPersistTaps="never"
               keyboardDismissMode="none">
               <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
@@ -106,24 +101,37 @@ const Inactivity_NPSScreen = ({ navigation }) => {
                   Dites nous pourquoi vous êtes partis, ça nous aidera à améliorer l’application
                 </Text>
               </View>
-              <View className="mt-8">
-                <Text className="text-[#191919] text-base">Pourquoi n'utilisez-vous plus Oz ?</Text>
+              <View className="mt-8 mb-3">
+                <Text className="text-[#4030A5] font-bold text-base">Pourquoi n'utilisez-vous plus Oz ?</Text>
               </View>
-              <AnswersContainer>
+              <View className="bg-[#f9f9f9] flex-shrink grow-0 pr-2 border-transparent border-solid">
                 {answers.map(({ answerKey, content }, i) => (
-                  <AnswerButton
+                  <TouchableOpacity
+                    className={[
+                      'w-full py-3 rounded-md pl-4 justify-center my-1',
+                      answerKey === selectedAnswerKey
+                        ? 'bg-[#5352a3] border-[#4030a5] '
+                        : 'border border-[#E4E4E4] bg-gray-100',
+                    ].join(' ')}
                     key={answerKey}
-                    selected={answerKey === selectedAnswerKey}
-                    last={i === answers.length - 1}>
-                    <AnswerContent selected={answerKey === selectedAnswerKey}>{content}</AnswerContent>
-                  </AnswerButton>
+                    last={i === answers.length - 1}
+                    onPress={() => {
+                      setSelectedAnswerKey(answerKey);
+                    }}>
+                    <Text
+                      className={['font-medium', answerKey === selectedAnswerKey ? 'text-white' : 'text-black'].join(
+                        ' '
+                      )}>
+                      {content}
+                    </Text>
+                  </TouchableOpacity>
                 ))}
-              </AnswersContainer>
+              </View>
               <View className="mt-8">
-                <Text className="text-[#191919] text-base">Qu'est-ce qui vous aurait fait-rester ? ?</Text>
+                <Text className="text-[#4030A5] font-bold text-base">Qu'est-ce qui vous aurait fait-rester ?</Text>
               </View>
               <TextInput
-                className="bg-[#f3f3f6] rounded-lg border h-24 border-[#dbdbe9] text-black mt-3 py-4 px-3"
+                className="bg-[#f3f3f6] rounded-lg border h-32 border-[#dbdbe9] text-black mt-3 py-4 px-4"
                 onChangeText={setFeedback}
                 placeholder="Idées d'améliorations (facultatif)"
                 value={feedback}
