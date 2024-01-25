@@ -2,6 +2,7 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
+const dayjs = require("dayjs");
 const { superUser90DaysInAppModal, superUser30DaysInAppModal } = require("../utils/super-user-modals");
 
 router.get(
@@ -41,4 +42,46 @@ router.get(
     return res.status(200).send({ ok: true });
   })
 );
+
+router.post(
+  "/test-notif",
+  catchErrors(async (req, res) => {
+    console.log("req.body", req.body);
+    const { matomoId, type, date } = req.body || {};
+    if (!matomoId) {
+      return res.status(400).json({ ok: false, error: "no matomo id" });
+    }
+    try {
+      // Assuming userId should be retrieved from the 'users' variable
+      let user = await prisma.user.upsert({
+        where: { matomo_id: matomoId },
+        create: {
+          matomo_id: matomoId,
+          created_from: "test",
+        },
+        update: {},
+      });
+
+      if (!user) {
+        return res.status(404).json({ ok: false, error: "user not found" });
+      }
+
+      const userId = user.id;
+
+      const notif = await prisma.notification.create({
+        data: {
+          user: { connect: { id: userId } },
+          type: type ? type : "DEFI1_DAY1",
+          date: date ? dayjs(date).toDate() : dayjs().toDate(),
+        },
+      });
+
+      return res.status(200).json({ ok: true });
+    } catch (error) {
+      console.error("Error in /test-notif route:", error);
+      return res.status(500).json({ ok: false, error: "internal server error" });
+    }
+  })
+);
+
 module.exports = router;

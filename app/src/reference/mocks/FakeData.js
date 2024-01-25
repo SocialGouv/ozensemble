@@ -98,6 +98,34 @@ const FakeData = () => {
             storage.set('@NPSNotificationDate', Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
           }}
         />
+        <MenuItem
+          caption="Envoyer une notification not filled week dans 10 secondes"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: '/test/test-notif',
+              body: {
+                matomoId: storage.getString('@UserIdv2'),
+                type: 'NOT_FILLED_WEEK',
+                date: new Date(Date.now() + 10000),
+              },
+            });
+          }}
+        />
+        <MenuItem
+          caption="Envoyer une notification 5 days inactivity dans 10 secondes"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: '/test/test-notif',
+              body: {
+                matomoId: storage.getString('@UserIdv2'),
+                type: 'INACTIVITY_5_DAYS',
+                date: new Date(Date.now() + 10000),
+              },
+            });
+          }}
+        />
         <H1Wrapper>Modale Super User</H1Wrapper>
         <MenuItem
           noAlert
