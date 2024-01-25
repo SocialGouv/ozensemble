@@ -9,10 +9,10 @@ import { Bold } from '../../components/Articles';
 const MentionsLegales = ({ onClose }) => (
   <WrapperContainer title="Mentions Légales - Application Oz Ensemble" onPressBackButton={onClose}>
     <Spacer size={20} />
-    <H2>Editeur de l'application</H2>
+    <H2>Édtieur de l'application</H2>
     <Spacer size={30} />
     <P>
-      L'application est éditée par l’Agence régionale de santé Île-de-France située{'\u00A0'}: {'\n\n'}
+      L'application est éditée par l’Agence régionale de santé (ARS) Île-de-France située{'\u00A0'}: {'\n\n'}
       Immeuble Le Curve{'\n'}
       13 Rue du Landy{'\n'}
       93200 Saint-Denis{'\n'}
@@ -21,15 +21,14 @@ const MentionsLegales = ({ onClose }) => (
     <Spacer size={30} />
     <H2>Directrice de l’application</H2>
     <Spacer size={30} />
-    <P>Madame Amélie Verdier, Directrice générale de l’Agence régionale de santé (ARS) Île-de-France.</P>
+    <P>Madame Amélie Verdier, Directrice générale de l’Agence régionale de santé Île-de-France.</P>
     <Spacer size={30} />
     <H2>Hébergement de l’application</H2>
     <Spacer size={30} />
-    <P>Cette application est hébergée par{'\u00A0'}:</P>
+    <P>L'pplication est hébergée par{'\u00A0'}:</P>
     <P>
-      Microsoft Azure France{'\n'}
-      37 Quai du Président Roosevelt{'\n'}
-      92130 Issy-les-Moulineaux{'\n'}
+      OVH SAS{'\n'}2 rue Kellermann{'\n'}
+      59100 Roubaix{'\n'}
       France
     </P>
     <Spacer size={30} />
