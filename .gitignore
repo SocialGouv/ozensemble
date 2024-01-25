@@ -10,5 +10,3 @@ bfg.jar
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-app/yarn.lock
-app/.yarn/install-state.gz
