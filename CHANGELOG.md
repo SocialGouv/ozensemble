@@ -1,3 +1,10 @@
+## [1.143.2](https://github.com/SocialGouv/ozensemble/compare/v1.143.1...v1.143.2) (2024-01-26)
+
+
+### Bug Fixes
+
+* sandbox to no ([5d6500c](https://github.com/SocialGouv/ozensemble/commit/5d6500cb78e5ea444dd219b3044c2c17414a2bc4))
+
 ## [1.143.1](https://github.com/SocialGouv/ozensemble/compare/v1.143.0...v1.143.1) (2024-01-26)
 
 
