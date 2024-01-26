@@ -101,7 +101,7 @@ const FakeData = () => {
           }}
         />
         <MenuItem
-          caption="Envoyer une notification not filled week dans 10 secondes"
+          caption="Envoyer une notification not filled week dans une minute et 10 secondes"
           //async function creating a notification
           onPress={async () => {
             API.post({
@@ -109,7 +109,21 @@ const FakeData = () => {
               body: {
                 matomoId: storage.getString('@UserIdv2'),
                 type: 'NOT_FILLED_WEEK',
-                date: new Date(Date.now() + 10000),
+                date: new Date(Date.now() + 70000),
+              },
+            });
+          }}
+        />
+        <MenuItem
+          caption="Envoyer une notification 10 days inactivity dans une minute et 10 secondes"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: '/test/test-notif',
+              body: {
+                matomoId: storage.getString('@UserIdv2'),
+                type: 'INACTIVITY_10_DAYS',
+                date: new Date(Date.now() + 70000),
               },
             });
           }}
