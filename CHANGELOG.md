@@ -1,3 +1,10 @@
+# [1.143.0](https://github.com/SocialGouv/ozensemble/compare/v1.142.0...v1.143.0) (2024-01-26)
+
+
+### Features
+
+* changed some text ([#532](https://github.com/SocialGouv/ozensemble/issues/532)) ([13e160d](https://github.com/SocialGouv/ozensemble/commit/13e160d5657f12e3f5c2f01cc7722a5b09a2ce7d))
+
 # [1.142.0](https://github.com/SocialGouv/ozensemble/compare/v1.141.6...v1.142.0) (2024-01-26)
 
 
