@@ -115,17 +115,6 @@ const FakeData = () => {
           }}
         />
         <MenuItem
-          caption="Envoyer une notification 5 days inactivity dans 10 secondes"
-          //async function creating a notification
-          onPress={async () => {
-            API.post({
-              path: '/test/test-notif',
-              body: {
-                matomoId: storage.getString('@UserIdv2'),
-                type: 'INACTIVITY_5_DAYS',
-                date: new Date(Date.now() + 10000),
-              },
-            });
           noAlert
           caption="Visualiser l'écran 10 jours d'inactivité"
           onPress={() => {
