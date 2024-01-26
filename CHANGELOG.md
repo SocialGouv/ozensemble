@@ -1,3 +1,10 @@
+## [1.141.6](https://github.com/SocialGouv/ozensemble/compare/v1.141.5...v1.141.6) (2024-01-26)
+
+
+### Bug Fixes
+
+* update gitignore in app ([#534](https://github.com/SocialGouv/ozensemble/issues/534)) ([37fd5a6](https://github.com/SocialGouv/ozensemble/commit/37fd5a6ff0ea31e6f71a7f7f70a9c96017e030fe))
+
 ## [1.141.5](https://github.com/SocialGouv/ozensemble/compare/v1.141.4...v1.141.5) (2024-01-23)
 
 
