@@ -6,6 +6,7 @@ const { capture } = require("./third-parties/sentry");
 const {
   notificationsCronJob,
   scheduleNotificationsInactivity5DaysCronJob,
+  scheduleNotificationsNotFilledWeekCronJob,
   scheduleNotificationsInactivity10DaysCronJob,
 } = require("./utils/notifications");
 const { reminderCronJob } = require("./controllers/reminder");
@@ -30,6 +31,11 @@ cron.schedule("0 0 4 * * * *", async () => {
 cron.schedule("0 0 4 * * * *", async () => {
   // every day at 4 am, find users with lastConsoAdded = 9 days ago and create a notification for tomorrow (11th day)
   launchCronJob("schedule notifications 10 days inactivity", scheduleNotificationsInactivity10DaysCronJob);
+});
+
+cron.schedule("0 0 4 * * 1 *", async () => {
+  // every monday at 4 am, find users with lastConsoAdded = 7 days ago and create a notification the same day at 6 pm
+  launchCronJob("schedule notifications not filled week", scheduleNotificationsNotFilledWeekCronJob);
 });
 
 const launchCronJob = async (name, job) => {

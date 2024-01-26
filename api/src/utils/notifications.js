@@ -86,6 +86,58 @@ const scheduleNotificationsInactivity5DaysCronJob = async () => {
     capture(e, { level: "error" });
   }
 };
+const saveNotFilledWeek = async (userId) => {
+  const type = "NOT_FILLED_WEEK";
+
+  const notif = await prisma.notification.findFirst({
+    where: {
+      userId,
+      type,
+      status: "NotSent",
+    },
+  });
+  if (notif) return;
+
+  const reminder = await prisma.reminder.findUnique({
+    where: {
+      userId,
+    },
+  });
+  if (reminder?.type === "Daily") return;
+
+  const utcHour = dayjs().utc().hour();
+  const hourInParis = dayjs().tz("Europe/Paris").hour();
+  const timeDifference = hourInParis - utcHour;
+  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 18 - timeDifference;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
+
+  await prisma.notification.create({
+    data: {
+      user: { connect: { id: userId } },
+      type,
+      date: dayjs().utc().add(14, "hour").startOf("minute").toDate(),
+    },
+  });
+};
+
+const scheduleNotificationsNotFilledWeekCronJob = async () => {
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        lastConsoAdded: {
+          gte: dayjs().utc().subtract(7, "day").startOf("day").toDate(),
+          lte: dayjs().utc().subtract(7, "day").endOf("day").toDate(),
+        },
+      },
+    });
+
+    for (const { id } of users) {
+      saveNotFilledWeek(id);
+    }
+  } catch (e) {
+    capture(e, { level: "error" });
+  }
+};
 
 const saveInactivity10Days = async (userId) => {
   const type = "INACTIVITY_10_DAYS";
@@ -260,6 +312,11 @@ const NOTIFICATIONS_TYPES = {
     body: "Répondez à 6 questions pour nous aider à améliorer l’application ensemble !",
     link: "oz://USER_SURVEY_NOTIF",
   },
+  NOT_FILLED_WEEK: {
+    title: "Semaine dernière à compléter",
+    body: "N'oubliez pas de remplir tous vos jours pour pouvoir suivre votre objectif hebdo",
+    link: "oz://GAINS_MAIN_VIEW",
+  },
 };
 
 const notificationsCronJob = async () => {
@@ -313,4 +370,5 @@ module.exports = {
   scheduleNotificationsInactivity5DaysCronJob,
   scheduleNotificationsInactivity10DaysCronJob,
   scheduleUserSurvey,
+  scheduleNotificationsNotFilledWeekCronJob,
 };

@@ -15,7 +15,7 @@ userId: ${userId}
 Version: ${pck.version}
 OS: ${Platform.OS}
 Pourquoi n'utilisez-vous plus Oz ? : ${answer}
-Qu'est-ce qui vous aurait fait-rester ? : ${feedback}
+Qu'est-ce qui vous aurait fait rester ? : ${feedback}
 `;
 
 const Inactivity_NPSScreen = ({ navigation }) => {
@@ -128,7 +128,7 @@ const Inactivity_NPSScreen = ({ navigation }) => {
                 ))}
               </View>
               <View className="mt-8">
-                <Text className="text-[#4030A5] font-bold text-base">Qu'est-ce qui vous aurait fait-rester ?</Text>
+                <Text className="text-[#4030A5] font-bold text-base">Qu'est-ce qui vous aurait fait rester ?</Text>
               </View>
               <TextInput
                 className="bg-[#f3f3f6] rounded-lg border h-32 border-[#dbdbe9] text-black mt-3 py-4 px-4"

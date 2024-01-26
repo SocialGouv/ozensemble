@@ -101,6 +101,20 @@ const FakeData = () => {
           }}
         />
         <MenuItem
+          caption="Envoyer une notification not filled week dans 10 secondes"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: '/test/test-notif',
+              body: {
+                matomoId: storage.getString('@UserIdv2'),
+                type: 'NOT_FILLED_WEEK',
+                date: new Date(Date.now() + 10000),
+              },
+            });
+          }}
+        />
+        <MenuItem
           noAlert
           caption="Visualiser l'écran 10 jours d'inactivité"
           onPress={() => {
