@@ -1,3 +1,10 @@
+# [1.142.0](https://github.com/SocialGouv/ozensemble/compare/v1.141.6...v1.142.0) (2024-01-26)
+
+
+### Features
+
+* notif last week not filled ([#533](https://github.com/SocialGouv/ozensemble/issues/533)) ([02413c7](https://github.com/SocialGouv/ozensemble/commit/02413c7bfd1d31a853e5a798c4fef671ba322c7e))
+
 ## [1.141.6](https://github.com/SocialGouv/ozensemble/compare/v1.141.5...v1.141.6) (2024-01-26)
 
 
