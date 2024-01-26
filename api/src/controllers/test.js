@@ -46,7 +46,6 @@ router.get(
 router.post(
   "/test-notif",
   catchErrors(async (req, res) => {
-    console.log("req.body", req.body);
     const { matomoId, type, date } = req.body || {};
     if (!matomoId) {
       return res.status(400).json({ ok: false, error: "no matomo id" });
