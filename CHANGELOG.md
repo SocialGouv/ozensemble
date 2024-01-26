@@ -1,3 +1,10 @@
+## [1.143.1](https://github.com/SocialGouv/ozensemble/compare/v1.143.0...v1.143.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* xcode files ([#535](https://github.com/SocialGouv/ozensemble/issues/535)) ([ee84608](https://github.com/SocialGouv/ozensemble/commit/ee84608f6c11236ab3ab64b1fbce759ef024a63a))
+
 # [1.143.0](https://github.com/SocialGouv/ozensemble/compare/v1.142.0...v1.143.0) (2024-01-26)
 
 
