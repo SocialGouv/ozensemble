@@ -1,3 +1,10 @@
+## [1.143.3](https://github.com/SocialGouv/ozensemble/compare/v1.143.2...v1.143.3) (2024-01-26)
+
+
+### Bug Fixes
+
+* notif time tests ([#536](https://github.com/SocialGouv/ozensemble/issues/536)) ([760f622](https://github.com/SocialGouv/ozensemble/commit/760f6226bd40265c66f080bb36ddcb022a5ba521))
+
 ## [1.143.2](https://github.com/SocialGouv/ozensemble/compare/v1.143.1...v1.143.2) (2024-01-26)
 
 
