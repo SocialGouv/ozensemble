@@ -139,6 +139,57 @@ const scheduleNotificationsNotFilledWeekCronJob = async () => {
   }
 };
 
+const saveInactivity10Days = async (userId) => {
+  const type = "INACTIVITY_10_DAYS";
+
+  const notif = await prisma.notification.findFirst({
+    where: {
+      userId,
+      type,
+      status: "NotSent",
+    },
+  });
+  if (notif) return;
+
+  const reminder = await prisma.reminder.findUnique({
+    where: {
+      userId,
+    },
+  });
+
+  const utcHour = dayjs().utc().hour();
+  const hourInParis = dayjs().tz("Europe/Paris").hour();
+  const timeDifference = hourInParis - utcHour;
+  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20 - timeDifference;
+  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
+
+  await prisma.notification.create({
+    data: {
+      user: { connect: { id: userId } },
+      type,
+      date: dayjs().utc().add(1, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
+    },
+  });
+};
+const scheduleNotificationsInactivity10DaysCronJob = async () => {
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        lastConsoAdded: {
+          gte: dayjs().utc().subtract(9, "day").startOf("day").toDate(),
+          lte: dayjs().utc().subtract(9, "day").endOf("day").toDate(),
+        },
+      },
+    });
+
+    for (const { id } of users) {
+      saveInactivity10Days(id);
+    }
+  } catch (e) {
+    capture(e, { level: "error" });
+  }
+};
+
 const scheduleDefi1Day1 = async (matomoId) => {
   const type = "DEFI1_DAY1";
   const user = await prisma.user.upsert({
@@ -251,6 +302,11 @@ const NOTIFICATIONS_TYPES = {
     body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
     link: "oz://ADD_DRINK",
   },
+  INACTIVITY_10_DAYS: {
+    title: "5 sec pour un dernier retour ?",
+    body: "Dites nous pourquoi vous ëtes partis, ça nous aidera à améliorer l’application",
+    link: "oz://INACTIVITY_NPS_SCREEN",
+  },
   USER_SURVEY: {
     title: "1 min pour améliorer Oz ?",
     body: "Répondez à 6 questions pour nous aider à améliorer l’application ensemble !",
@@ -312,6 +368,7 @@ module.exports = {
   scheduleDefi1Day1,
   updateLastConsoAdded,
   scheduleNotificationsInactivity5DaysCronJob,
+  scheduleNotificationsInactivity10DaysCronJob,
   scheduleUserSurvey,
   scheduleNotificationsNotFilledWeekCronJob,
 };

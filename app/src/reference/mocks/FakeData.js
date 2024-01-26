@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import * as Sentry from '@sentry/react-native';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -38,6 +39,7 @@ const FakeData = () => {
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
   const setDrinksByWeek = useSetRecoilState(drinksByWeekState);
+  const navigation = useNavigation();
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
@@ -124,6 +126,10 @@ const FakeData = () => {
                 date: new Date(Date.now() + 10000),
               },
             });
+          noAlert
+          caption="Visualiser l'écran 10 jours d'inactivité"
+          onPress={() => {
+            navigation.navigate('INACTIVITY_NPS_SCREEN');
           }}
         />
         <H1Wrapper>Modale Super User</H1Wrapper>

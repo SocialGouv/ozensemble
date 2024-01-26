@@ -7,6 +7,7 @@ const {
   notificationsCronJob,
   scheduleNotificationsInactivity5DaysCronJob,
   scheduleNotificationsNotFilledWeekCronJob,
+  scheduleNotificationsInactivity10DaysCronJob,
 } = require("./utils/notifications");
 const { reminderCronJob } = require("./controllers/reminder");
 
@@ -26,6 +27,10 @@ cron.schedule("* * * * *", async () => {
 cron.schedule("0 0 4 * * * *", async () => {
   // every day at 4 am, find users with lastConsoAdded = 4 days ago and create a notification for tomorrow (6th day)
   launchCronJob("schedule notifications 5 days inactivity", scheduleNotificationsInactivity5DaysCronJob);
+});
+cron.schedule("0 0 4 * * * *", async () => {
+  // every day at 4 am, find users with lastConsoAdded = 9 days ago and create a notification for tomorrow (11th day)
+  launchCronJob("schedule notifications 10 days inactivity", scheduleNotificationsInactivity10DaysCronJob);
 });
 
 cron.schedule("0 0 4 * * 1 *", async () => {
