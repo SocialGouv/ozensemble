@@ -121,7 +121,6 @@ const CocktailPersonalisation = ({
           oldDrinkKey: oldDrink.drinkKey,
           drinkKey: drinkName,
           volume: drinkVolume,
-          doses: drinkDoses,
           price: Number(formatedPrice),
           kcal: drinkKcal,
         },
@@ -134,7 +133,6 @@ const CocktailPersonalisation = ({
           quantity: Number(quantity),
           id: drinkId,
           isOwnDrink: true,
-          doses: drinkDoses,
           timestamp,
         },
       ]);

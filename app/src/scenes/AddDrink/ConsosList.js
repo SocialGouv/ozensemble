@@ -262,10 +262,6 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                   onPress={() => {
                     setOwnDrinksModalVisible(true);
                     setUpdateOwnDrinkKey(null);
-                    logEvent({
-                      category: 'OWN_CONSO',
-                      action: 'OWN_CONSO_OPEN',
-                    });
                   }}>
                   <Text className="text-[#4030A5] text-center underline text-base mt-2">
                     Créer une nouvelle boisson
@@ -283,6 +279,10 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                 onPress={() => {
                   setUpdateOwnDrinkKey(null);
                   setOwnDrinksModalVisible(true);
+                  logEvent({
+                    category: 'OWN_CONSO',
+                    action: 'OWN_CONSO_OPEN',
+                  });
                 }}>
                 <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
               </TouchableOpacity>
