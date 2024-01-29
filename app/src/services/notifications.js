@@ -211,6 +211,7 @@ class NotificationService {
     logEvent({
       category: 'PUSH_NOTIFICATION_RECEIVE',
       action: 'CLICKED',
+      name: notification?.data?.type,
     });
 
     /* ANDROID FOREGROUND */
