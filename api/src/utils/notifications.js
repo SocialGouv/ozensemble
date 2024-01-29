@@ -153,12 +153,12 @@ const scheduleNotificationsInactivity10DaysCronJob = async () => {
       },
     });
 
-    for (const { id } of users) {
+    for (const user of users) {
       const type = "INACTIVITY_10_DAYS";
 
       const notif = await prisma.notification.findFirst({
         where: {
-          userId,
+          userId: user.id,
           type,
           status: "NotSent",
         },
@@ -167,7 +167,7 @@ const scheduleNotificationsInactivity10DaysCronJob = async () => {
 
       const reminder = await prisma.reminder.findUnique({
         where: {
-          userId: id,
+          userId: user.id,
         },
       });
 
@@ -179,7 +179,7 @@ const scheduleNotificationsInactivity10DaysCronJob = async () => {
 
       await prisma.notification.create({
         data: {
-          user: { connect: { id } },
+          user: { connect: { id: user.id } },
           type,
           date: dayjs().utc().add(1, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
         },
