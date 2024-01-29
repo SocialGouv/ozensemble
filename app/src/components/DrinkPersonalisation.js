@@ -95,6 +95,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
             : oldStateDrink
         );
       });
+
       setGlobalDrinksState((oldState) => {
         return oldState.map((oldStateDrink) =>
           oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
@@ -110,6 +111,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           oldDrinkKey: oldDrink.drinkKey,
           drinkKey: drinkName,
           volume: volumeNumber + ' cl',
+          doses: doses,
           price: Number(formatedPrice),
           kcal: kCal,
         },
