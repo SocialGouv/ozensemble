@@ -1,3 +1,10 @@
+# [1.144.0](https://github.com/SocialGouv/ozensemble/compare/v1.143.4...v1.144.0) (2024-01-29)
+
+
+### Features
+
+* event push notifs ([#537](https://github.com/SocialGouv/ozensemble/issues/537)) ([ec1eee5](https://github.com/SocialGouv/ozensemble/commit/ec1eee59a942aab0ed0a0cb0ef3fc5ea64cbddb2))
+
 ## [1.143.4](https://github.com/SocialGouv/ozensemble/compare/v1.143.3...v1.143.4) (2024-01-28)
 
 
