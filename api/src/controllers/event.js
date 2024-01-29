@@ -19,6 +19,15 @@ router.post(
     const value = body.event?.value;
     const matomoId = body.userId;
 
+    if (action === "APP_OPEN") {
+      const appversion = req.headers.appversion;
+      prisma.user.update({
+        where: { matomo_id: matomoId },
+        data: {
+          appversion,
+        },
+      });
+    }
     // handle User Survey
     const userSurveyAnnounced = category === "NAVIGATION" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
     if (userSurveyAnnounced) {

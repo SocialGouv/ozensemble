@@ -5,7 +5,6 @@ import { checkNotifications, requestNotifications, RESULTS } from 'react-native-
 import { logEvent } from './logEventsWithMatomo';
 import { storage } from './storage';
 import API from './api';
-import DeviceInfo from 'react-native-device-info';
 
 class NotificationService {
   listeners = {};
@@ -56,7 +55,6 @@ class NotificationService {
       body: {
         pushNotifToken: tokenPayload.token,
         matomoId,
-        appVersion: DeviceInfo.getBuildNumber(),
       },
     });
   };
