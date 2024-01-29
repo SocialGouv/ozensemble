@@ -134,6 +134,7 @@ const CocktailPersonalisation = ({
           quantity: Number(quantity),
           id: drinkId,
           isOwnDrink: true,
+          doses: drinkDoses,
           timestamp,
         },
       ]);
@@ -166,6 +167,7 @@ const CocktailPersonalisation = ({
           quantity: Number(quantity),
           id: drinkId,
           isOwnDrink: true,
+          doses: drinkDoses,
           timestamp,
         },
       ]);

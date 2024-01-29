@@ -12,6 +12,7 @@ import ModalUpdateSuppressionDrink from './ModalUpdateSuppressionDrink';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import AddAlcoolQuantity from '../scenes/AddDrink/AddAlcoolQuantity';
+import { logEvent } from '../services/logEventsWithMatomo';
 
 const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected, setLocalDrinksState }) => {
   const route = useRoute();
@@ -55,6 +56,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
+    logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_CONSO', value: doses });
     if (oldDrink) {
       if (!isUpdateWanted) {
         const keepGoing = await new Promise((resolve) => {
@@ -93,7 +95,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
             : oldStateDrink
         );
       });
-
       setGlobalDrinksState((oldState) => {
         return oldState.map((oldStateDrink) =>
           oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
@@ -122,6 +123,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
           quantity: Number(quantity),
           id: drinkId,
           isOwnDrink: true,
+          doses: doses,
           timestamp,
         },
       ]);
@@ -159,6 +161,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
             quantity: Number(quantity),
             id: drinkId,
             isOwnDrink: true,
+            doses: doses,
             timestamp,
           },
         ].filter((d) => d.quantity > 0)
