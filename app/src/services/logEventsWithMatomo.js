@@ -29,6 +29,7 @@ export const initMatomo = async () => {
       path: '/user',
       body: {
         matomoId: userId,
+        appVersion: DeviceInfo.getBuildNumber(),
       },
     });
   }
