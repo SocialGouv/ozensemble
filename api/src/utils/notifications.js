@@ -139,38 +139,6 @@ const scheduleNotificationsNotFilledWeekCronJob = async () => {
   }
 };
 
-const saveInactivity10Days = async (userId) => {
-  const type = "INACTIVITY_10_DAYS";
-
-  const notif = await prisma.notification.findFirst({
-    where: {
-      userId,
-      type,
-      status: "NotSent",
-    },
-  });
-  if (notif) return;
-
-  const reminder = await prisma.reminder.findUnique({
-    where: {
-      userId,
-    },
-  });
-
-  const utcHour = dayjs().utc().hour();
-  const hourInParis = dayjs().tz("Europe/Paris").hour();
-  const timeDifference = hourInParis - utcHour;
-  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20 - timeDifference;
-  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
-
-  await prisma.notification.create({
-    data: {
-      user: { connect: { id: userId } },
-      type,
-      date: dayjs().utc().add(1, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
-    },
-  });
-};
 const scheduleNotificationsInactivity10DaysCronJob = async () => {
   try {
     const users = await prisma.user.findMany({
@@ -179,11 +147,43 @@ const scheduleNotificationsInactivity10DaysCronJob = async () => {
           gte: dayjs().utc().subtract(9, "day").startOf("day").toDate(),
           lte: dayjs().utc().subtract(9, "day").endOf("day").toDate(),
         },
+        appversion: {
+          gte: 241,
+        },
       },
     });
 
     for (const { id } of users) {
-      saveInactivity10Days(id);
+      const type = "INACTIVITY_10_DAYS";
+
+      const notif = await prisma.notification.findFirst({
+        where: {
+          userId,
+          type,
+          status: "NotSent",
+        },
+      });
+      if (notif) return;
+
+      const reminder = await prisma.reminder.findUnique({
+        where: {
+          userId: id,
+        },
+      });
+
+      const utcHour = dayjs().utc().hour();
+      const hourInParis = dayjs().tz("Europe/Paris").hour();
+      const timeDifference = hourInParis - utcHour;
+      const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 20 - timeDifference;
+      const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
+
+      await prisma.notification.create({
+        data: {
+          user: { connect: { id } },
+          type,
+          date: dayjs().utc().add(1, "day").set("hour", utcTimeHours).set("minute", utcTimeMinutes).startOf("minute").toDate(),
+        },
+      });
     }
   } catch (e) {
     capture(e, { level: "error" });
