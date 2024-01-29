@@ -293,29 +293,34 @@ const cancelNotif = async (matomoId, type) => {
 
 const NOTIFICATIONS_TYPES = {
   DEFI1_DAY1: {
+    type: "DEFI1_DAY1",
     title: "C'est l'heure du 2ème jour !",
     body: "Evaluez votre niveau de risque alcool de manière plus fine.",
-    link: "oz://DEFI1",
+    link: "oz://APP/TABS/DEFI/DEFI1",
   },
   INACTIVITY_5_DAYS: {
+    type: "INACTIVITY_5_DAYS",
     title: "Vous nous manquez",
     body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
-    link: "oz://ADD_DRINK",
+    link: "oz://APP/ADD_DRINK",
   },
   INACTIVITY_10_DAYS: {
+    type: "INACTIVITY_10_DAYS",
     title: "5 sec pour un dernier retour ?",
-    body: "Dites nous pourquoi vous ëtes partis, ça nous aidera à améliorer l’application",
+    body: "Dites nous pourquoi vous êtes partis, ça nous aidera à améliorer l’application",
     link: "oz://INACTIVITY_NPS_SCREEN",
   },
   USER_SURVEY: {
+    type: "USER_SURVEY",
     title: "1 min pour améliorer Oz ?",
     body: "Répondez à 6 questions pour nous aider à améliorer l’application ensemble !",
     link: "oz://USER_SURVEY_NOTIF",
   },
   NOT_FILLED_WEEK: {
+    type: "NOT_FILLED_WEEK",
     title: "Semaine dernière à compléter",
     body: "N'oubliez pas de remplir tous vos jours pour pouvoir suivre votre objectif hebdo",
-    link: "oz://GAINS_MAIN_VIEW",
+    link: "oz://APP/TABS/GAINS_NAVIGATOR/GAINS_MAIN_VIEW",
   },
 };
 

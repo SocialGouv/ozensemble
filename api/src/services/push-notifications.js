@@ -18,7 +18,7 @@ const config = {
 
 const NotificationService = new PushNotifications(config);
 
-const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, link, channelId }) => {
+const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, link, channelId, type }) => {
   const data = {
     title,
     body,
@@ -26,6 +26,7 @@ const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, lin
     android_channel_id: channelId,
     custom: {
       link,
+      type,
     },
   };
   await matomo.logEvent({
