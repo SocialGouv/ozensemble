@@ -147,8 +147,8 @@ const scheduleNotificationsInactivity10DaysCronJob = async () => {
           gte: dayjs().utc().subtract(9, "day").startOf("day").toDate(),
           lte: dayjs().utc().subtract(9, "day").endOf("day").toDate(),
         },
-        appversion: {
-          gte: 241,
+        appVersion: {
+          gte: "241",
         },
       },
     });
