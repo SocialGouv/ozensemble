@@ -1,3 +1,10 @@
+## [1.145.1](https://github.com/SocialGouv/ozensemble/compare/v1.145.0...v1.145.1) (2024-01-30)
+
+
+### Bug Fixes
+
+* migration ([e8d8b55](https://github.com/SocialGouv/ozensemble/commit/e8d8b5567fd9ddadb37feb340c6c935d62eafc2d))
+
 # [1.145.0](https://github.com/SocialGouv/ozensemble/compare/v1.144.0...v1.145.0) (2024-01-30)
 
 
