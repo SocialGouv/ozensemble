@@ -17,9 +17,6 @@ router.put(
       updateObj.push_notif_token = req.body.pushNotifToken;
       created_from = "User-PushNotif";
     }
-    if (req.body.hasOwnProperty("appVersion")) {
-      updateObj.appVersion = req.body.appVersion;
-    }
 
     // TODO: fix concurrency issue Unique constraint failed on the fields: (`matomo_id`)
     // using a "version" field ? https://www.prisma.io/docs/guides/performance-and-optimization/prisma-client-transactions-guide#optimistic-concurrency-control
