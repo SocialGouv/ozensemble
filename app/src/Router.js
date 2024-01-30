@@ -202,8 +202,8 @@ const Router = () => {
     if (!navigationRef.current) return;
     const route = navigationRef.current.getCurrentRoute();
     if (route.name === prevCurrentRouteName.current) return;
+    logEvent({ category: 'NAVIGATION', action: route.name, name: prevCurrentRouteName.current });
     prevCurrentRouteName.current = route.name;
-    logEvent({ category: 'NAVIGATION', action: route.name });
   };
 
   const handleInAppMessage = (inAppMessage) => {
