@@ -1,3 +1,10 @@
+# [1.145.0](https://github.com/SocialGouv/ozensemble/compare/v1.144.0...v1.145.0) (2024-01-30)
+
+
+### Features
+
+* app version db ([#538](https://github.com/SocialGouv/ozensemble/issues/538)) ([4b87f33](https://github.com/SocialGouv/ozensemble/commit/4b87f33b2f54bc17b4e547cda9190c2d5437924d))
+
 # [1.144.0](https://github.com/SocialGouv/ozensemble/compare/v1.143.4...v1.144.0) (2024-01-29)
 
 
