@@ -21,15 +21,10 @@ router.post(
 
     if (action === "APP_OPEN") {
       const appVersion = req.headers.appversion;
-      await prisma.user.upsert({
+      await prisma.user.update({
         where: { matomo_id: matomoId },
-        create: {
-          matomo_id: matomoId,
-          created_from: "EventAppOpen",
-          appVersion,
-        },
-        update: {
-          appVersion,
+        data: {
+          appVersion: appVersion,
         },
       });
     }
