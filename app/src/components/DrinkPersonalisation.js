@@ -161,7 +161,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
             quantity: Number(quantity),
             id: drinkId,
             isOwnDrink: true,
-            doses: doses,
             timestamp,
           },
         ].filter((d) => d.quantity > 0)

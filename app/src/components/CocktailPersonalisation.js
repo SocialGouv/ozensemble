@@ -147,9 +147,9 @@ const CocktailPersonalisation = ({
           displayFeed: drinkName,
           displayDrinkModal: drinkName,
           volume: drinkVolume,
-          doses: drinkDoses,
           icon: 'CocktailGlass',
           price: Number(drinkPrice),
+          doses: drinkDoses,
           kcal: drinkKcal,
           custom: true,
           isDeleted: false,
@@ -166,6 +166,7 @@ const CocktailPersonalisation = ({
           quantity: Number(quantity),
           id: drinkId,
           isOwnDrink: true,
+          doses: drinkDoses,
           timestamp,
         },
       ]);
