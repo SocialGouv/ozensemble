@@ -112,7 +112,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
           logEvent({
             category: 'CONSO',
             action: 'CONSO_ADD',
-            name: newDrink.isOwnDrink ? body.doses : newDrink.drinkKey,
+            name: newDrink.drinkKey,
             value: Number(newDrink.quantity),
             dimension6: makeSureTimestamp(addDrinkModalTimestamp),
           });
@@ -262,6 +262,10 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                   onPress={() => {
                     setOwnDrinksModalVisible(true);
                     setUpdateOwnDrinkKey(null);
+                    logEvent({
+                      category: 'OWN_CONSO',
+                      action: 'OWN_CONSO_OPEN',
+                    });
                   }}>
                   <Text className="text-[#4030A5] text-center underline text-base mt-2">
                     Créer une nouvelle boisson
