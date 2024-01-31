@@ -139,7 +139,7 @@ const CocktailPersonalisation = ({
       ]);
       return;
     }
-    logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_COKTAIL', name: drinkName, value: drinkDoses });
+    logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_COCKTAIL', name: drinkName, value: drinkDoses });
     setOwnDrinksCatalog((oldState) => {
       return [
         {
