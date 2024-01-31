@@ -28,7 +28,7 @@ const ConsoFollowUpNavigator = () => {
   useEffect(() => {
     logEvent({
       category: 'APP',
-      action: 'APP_OPEN_IN_GAIN_VIEW',
+      action: 'APP_OPEN_IN_CONSO_FOLLOW_UP',
     });
   }, []);
   return (
