@@ -1,3 +1,10 @@
+## [1.145.3](https://github.com/SocialGouv/ozensemble/compare/v1.145.2...v1.145.3) (2024-01-31)
+
+
+### Bug Fixes
+
+* app version ([1a6f07e](https://github.com/SocialGouv/ozensemble/commit/1a6f07edb97fe491cffec9a7a98fedf1fb42e85f))
+
 ## [1.145.2](https://github.com/SocialGouv/ozensemble/compare/v1.145.1...v1.145.2) (2024-01-31)
 
 
