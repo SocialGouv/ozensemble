@@ -12,6 +12,7 @@ import ModalUpdateSuppressionCocktail from './ModalUpdateSuppressionCocktail';
 import { storage } from '../services/storage';
 import API from '../services/api';
 import AddCocktail from '../scenes/AddDrink/AddCocktail';
+import { logEvent } from '../services/logEventsWithMatomo';
 
 const CocktailPersonalisation = ({
   updateDrinkKey,
@@ -112,7 +113,6 @@ const CocktailPersonalisation = ({
           oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
         );
       });
-
       const matomoId = storage.getString('@UserIdv2');
       await API.post({
         path: '/consommation/update-own-conso',
@@ -121,8 +121,8 @@ const CocktailPersonalisation = ({
           oldDrinkKey: oldDrink.drinkKey,
           drinkKey: drinkName,
           volume: drinkVolume,
-          doses: drinkDoses,
           price: Number(formatedPrice),
+          doses: drinkDoses,
           kcal: drinkKcal,
         },
       });
@@ -139,6 +139,7 @@ const CocktailPersonalisation = ({
       ]);
       return;
     }
+    logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_COCKTAIL', name: drinkName, value: drinkDoses });
     setOwnDrinksCatalog((oldState) => {
       return [
         {

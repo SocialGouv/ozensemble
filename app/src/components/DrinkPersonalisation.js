@@ -12,6 +12,7 @@ import ModalUpdateSuppressionDrink from './ModalUpdateSuppressionDrink';
 import API from '../services/api';
 import { storage } from '../services/storage';
 import AddAlcoolQuantity from '../scenes/AddDrink/AddAlcoolQuantity';
+import { logEvent } from '../services/logEventsWithMatomo';
 
 const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected, setLocalDrinksState }) => {
   const route = useRoute();
@@ -55,6 +56,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
+    logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_DRINK', name: drinkName, value: doses });
     if (oldDrink) {
       if (!isUpdateWanted) {
         const keepGoing = await new Promise((resolve) => {
