@@ -1,3 +1,11 @@
+## [1.145.2](https://github.com/SocialGouv/ozensemble/compare/v1.145.1...v1.145.2) (2024-01-31)
+
+
+### Bug Fixes
+
+* event navigation ([#540](https://github.com/SocialGouv/ozensemble/issues/540)) ([05a7110](https://github.com/SocialGouv/ozensemble/commit/05a71101411342c5ef95fbda7bcce9dda5bb0f10))
+* event own conso ([#539](https://github.com/SocialGouv/ozensemble/issues/539)) ([e59fa6c](https://github.com/SocialGouv/ozensemble/commit/e59fa6ceba379799aa88f8738118b1653cfee953))
+
 ## [1.145.1](https://github.com/SocialGouv/ozensemble/compare/v1.145.0...v1.145.1) (2024-01-30)
 
 
