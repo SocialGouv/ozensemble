@@ -170,23 +170,25 @@ export const derivedDataFromDrinksState = selector({
         dailyDoses[day] = 0;
       }
       dailyDoses[day] = dailyDoses[day] + dose;
+
       // abstinence days
-      if (!doneDay) {
-        doneDay = dayjs(day).add(1, 'day').format('YYYY-MM-DD');
-      }
       if (!firstFilledDay) {
         firstFilledDay = day;
       }
-      if (!breakDay && differenceOfDays(day, doneDay) > 1) {
+      // check if there is a hole between the last day and the current day
+      if (!breakDay && doneDay && differenceOfDays(day, doneDay) > 1) {
         breakDay = dayjs(doneDay).add(-1, 'day').format('YYYY-MM-DD');
       }
+      // check if there is drink consumption
       if (!breakDay && dose > 0) {
         breakDay = day;
       }
-      if (firstFilledDay && breakDay) {
+      if (breakDay) {
         abstinenceDays = differenceOfDays(firstFilledDay, breakDay);
-      } else if (firstFilledDay && !breakDay) {
-        abstinenceDays = differenceOfDays(firstFilledDay, doneDay) + 1;
+      } else if (doneDay) {
+        abstinenceDays = differenceOfDays(firstFilledDay, day) + 1;
+      } else {
+        abstinenceDays = firstFilledDay ? 1 : 0;
       }
       doneDay = day;
       // weekly doses
