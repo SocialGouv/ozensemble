@@ -108,7 +108,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
   }
 };
 
-const checksConsecutiveDays = (consos, consecutiveDaysGoal = 5) => {
+const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
   if (!consos.length) return false;
   let consecutiveDays = 1;
   let currentConsoDate = dayjs(consos[0].date).startOf("day");
