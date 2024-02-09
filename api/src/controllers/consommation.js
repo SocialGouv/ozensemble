@@ -247,7 +247,7 @@ router.post(
         return res.status(200).send({
           ok: true,
           showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 2),
+            newBadge: grabBadgeFromCatalog("drinks", 2),
             allBadges,
             badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
@@ -278,7 +278,7 @@ router.post(
         return res.status(200).send({
           ok: true,
           showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 3),
+            newBadge: grabBadgeFromCatalog("drinks", 3),
             allBadges,
             badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
@@ -309,7 +309,7 @@ router.post(
         return res.status(200).send({
           ok: true,
           showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 4),
+            newBadge: grabBadgeFromCatalog("drinks", 4),
             allBadges,
             badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },
@@ -339,7 +339,7 @@ router.post(
         return res.status(200).send({
           ok: true,
           showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 5),
+            newBadge: grabBadgeFromCatalog("drinks", 5),
             allBadges,
             badgesCatalog: getBadgeCatalog(req.headers.appversion),
           },

@@ -9,7 +9,7 @@ dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
-const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
+const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
   try {
     if (!matomoId) return null;
     const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
@@ -19,19 +19,19 @@ const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
     if (!!goalBadges.length) {
       const lastBadge = goalBadges[0];
       if (lastBadge && lastBadge.stars === 5) return null;
-      if (dayjs(lastBadge.date).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
+      if (!lastBadge.stars === 1 && dayjs(lastBadge.date).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
         return null;
       }
     }
 
-    const lastGoal = await prisma.goal.findFirst({
-      where: { userId: user.id, status: "InProgress", date: { lt: dayjs().startOf("week").format("YYYY-MM-DD") } },
+    const thisGoal = await prisma.goal.findFirst({
+      where: { userId: user.id, status: "InProgress" },
     });
-    if (!lastGoal) return null;
-    const lastMonday = dayjs().add(-1, "week").startOf("week").toDate();
-    const lastSunday = dayjs().add(-1, "week").endOf("week").toDate();
+    if (!thisGoal) return null;
+    const thisMonday = dayjs().startOf("week").toDate();
+    const thisSunday = dayjs().endOf("week").toDate();
     const weekConsos = await prisma.consommation.findMany({
-      where: { userId: user.id, date: { gte: lastMonday, lte: lastSunday } },
+      where: { userId: user.id, date: { gte: thisMonday, lte: thisSunday } },
       orderBy: { date: "desc" },
     });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
@@ -42,18 +42,18 @@ const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
         return total + drink.doses * drink.quantity;
       }, 0);
     const totalDaysWithNoDrink = weekConsos.filter((drink) => drink.drinkKey === "no-conso").length;
-    const goalAchieved = totalDoses <= lastGoal.dosesPerWeek && totalDaysWithNoDrink >= lastGoal.daysWithGoalNoDrink.length;
+    const goalAchieved = totalDoses <= thisGoal.dosesPerWeek && totalDaysWithNoDrink >= thisGoal.daysWithGoalNoDrink.length;
 
-    const nextGoalStartDate = dayjs().startOf("week").format("YYYY-MM-DD");
+    const nextGoalStartDate = dayjs().add(1, "week").startOf("week").format("YYYY-MM-DD");
     await prisma.goal.upsert({
       where: { id: `${user.id}_${nextGoalStartDate}` },
       create: {
         id: `${user.id}_${nextGoalStartDate}`,
         userId: user.id,
         date: nextGoalStartDate,
-        daysWithGoalNoDrink: lastGoal.daysWithGoalNoDrink,
-        dosesByDrinkingDay: lastGoal.dosesByDrinkingDay,
-        dosesPerWeek: lastGoal.dosesPerWeek,
+        daysWithGoalNoDrink: thisGoal.daysWithGoalNoDrink,
+        dosesByDrinkingDay: thisGoal.dosesByDrinkingDay,
+        dosesPerWeek: thisGoal.dosesPerWeek,
         status: "InProgress",
       },
       update: {},
@@ -61,14 +61,14 @@ const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
 
     if (!goalAchieved) {
       await prisma.goal.update({
-        where: { id: lastGoal.id },
+        where: { id: thisGoal.id },
         data: { status: "Failure" },
       });
       return { newBadge: missedGoal };
     }
     if (goalAchieved) {
       await prisma.goal.update({
-        where: { id: lastGoal.id },
+        where: { id: thisGoal.id },
         data: { status: "Success" },
       });
       const lastBadge = goalBadges[0];
@@ -76,6 +76,7 @@ const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
         data: {
           userId: user.id,
           category: "goals",
+          date: dayjs().format("YYYY-MM-DD"),
           stars: lastBadge ? lastBadge.stars + 1 : 1,
         },
       });
@@ -114,5 +115,5 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
 };
 
 module.exports = {
-  checkIfLastWeekGoalAchieved,
+  checkIfThisWeekGoalAchieved,
 };
