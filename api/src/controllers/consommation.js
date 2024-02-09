@@ -4,7 +4,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
-const { checkIfLastWeekGoalAchieved } = require("../utils/goals");
+const { checkIfThisWeekGoalAchieved } = require("../utils/goals");
 
 router.post(
   "/init",
@@ -204,8 +204,10 @@ router.post(
       });
     }
 
-    const showGoalNewBadge = await checkIfLastWeekGoalAchieved(matomoId, req.headers.appversion);
-
+    const showGoalNewBadge = await checkIfThisWeekGoalAchieved(matomoId, req.headers.appversion);
+    if (showGoalNewBadge?.newBadge) {
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+    }
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
 
     if (!drinksBadges.find((badge) => badge.stars === 1)) {
@@ -347,10 +349,6 @@ router.post(
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
-    }
-
-    if (showGoalNewBadge?.newBadge) {
-      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
     }
     return res.status(200).send({ ok: true });
   })
