@@ -11,9 +11,25 @@ dayjs.locale("fr");
 dayjs.extend(weekday);
 
 const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
-  /* this algo is not the easiest
-  what we try to do here is: give the goal objective at the right time
-  the right time is: Sunday
+  /*
+  HOW IT WORKS RIGHT NOW
+  1. we need to be able to change the goal without changing the previous goals
+      example: my goal was 10 beers a week, but now I'm very strong I drink only 5 beers a week
+      so I want to change my goal to 5 beers a week, but I want that my previous goals are still Success
+  2. we need to give Badges when objective is Success -
+      we decided that the backend was the brain to DISTRIBUTE THE BADGE based on goal's success - or not
+      whereas we decided that the frontend was the brain to DISPLAY THE SUCCESS of the goal
+      => we have two brains in the app, which is dangerous: if one braine is misfunctioning, the user is lost
+      example: the frontend shows a goal SUCCESS but the user didn't receive a badge
+
+  TODO:
+  a. move the brain in the frontend only ? it means the frontend decides also to distribute the badge
+    POTENTIAL PROBLEM: all the other badges are controlled from the backend, will it clash ? probably
+  b. move the brain in the backend only ? it means we remove the "feature" of the app being able to work offline
+    BUT
+    if offline, badges doesn't exist
+    when online, all consos are sync with the backend, so if we missed someting regarding the goal, we can catch up
+
 
 
    */
@@ -70,6 +86,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
         update: {},
       });
     }
+
     const currentGoalWasTwoWeeksAgo = dayjs() > dayjs(currentGoalInProgress.date).add(1, "week").endOf("week");
     if (!allDaysFilled && currentGoalWasTwoWeeksAgo) {
       await prisma.$transaction([
