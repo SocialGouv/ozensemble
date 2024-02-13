@@ -71,19 +71,21 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
     });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
     const nextWeekGoalStartDate = dayjs().add(1, "week").startOf("week").format("YYYY-MM-DD");
-    const createNextWeekGoal = prisma.goal.upsert({
-      where: { id: `${user.id}_${nextWeekGoalStartDate}` },
-      create: {
-        id: `${user.id}_${nextWeekGoalStartDate}`,
-        userId: user.id,
-        date: nextWeekGoalStartDate,
-        daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
-        dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
-        dosesPerWeek: currentGoalInProgress.dosesPerWeek,
-        status: GoalStatus.InProgress,
-      },
-      update: {},
-    });
+    async function createNextWeekGoal() {
+      return prisma.goal.upsert({
+        where: { id: `${user.id}_${nextWeekGoalStartDate}` },
+        create: {
+          id: `${user.id}_${nextWeekGoalStartDate}`,
+          userId: user.id,
+          date: nextWeekGoalStartDate,
+          daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
+          dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
+          dosesPerWeek: currentGoalInProgress.dosesPerWeek,
+          status: GoalStatus.InProgress,
+        },
+        update: {},
+      });
+    }
     const currentGoalWasTwoWeeksAgo = dayjs() > dayjs(currentGoalInProgress.date).add(1, "week").endOf("week"); // we check if the user took too much time to fill up the goal. If so, we consider it as a failure
     if (!allDaysFilled && currentGoalWasTwoWeeksAgo) {
       await prisma.$transaction([
@@ -91,7 +93,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
           where: { id: currentGoalInProgress.id },
           data: { status: GoalStatus.Failure },
         }),
-        createNextWeekGoal,
+        createNextWeekGoal(),
       ]);
       return { newBadge: missedGoal };
     }
@@ -114,7 +116,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
           where: { id: currentGoalInProgress.id },
           data: { status: GoalStatus.Failure },
         }),
-        createNextWeekGoal,
+        createNextWeekGoal(),
       ]);
       return { newBadge: missedGoal };
     }
@@ -134,7 +136,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
           where: { id: currentGoalInProgress.id },
           data: { status: GoalStatus.Success },
         }),
-        createNextWeekGoal,
+        createNextWeekGoal(),
       ]);
 
       return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(appversion) };
