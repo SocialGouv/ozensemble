@@ -205,9 +205,7 @@ router.post(
     }
 
     const showGoalNewBadge = await checkIfThisWeekGoalAchieved(matomoId, req.headers.appversion);
-    if (showGoalNewBadge?.newBadge) {
-      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
-    }
+
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
 
     if (!drinksBadges.find((badge) => badge.stars === 1)) {
@@ -223,7 +221,9 @@ router.post(
 
       return res.status(200).send({
         ok: true,
-        showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        showNewBadge: showGoalNewBadge
+          ? showGoalNewBadge
+          : { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
       });
     }
 
@@ -248,11 +248,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: grabBadgeFromCatalog("drinks", 2),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 2), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
@@ -279,11 +277,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: grabBadgeFromCatalog("drinks", 3),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 3), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
@@ -310,11 +306,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: grabBadgeFromCatalog("drinks", 4),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 4), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
@@ -340,11 +334,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: grabBadgeFromCatalog("drinks", 5),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 5), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
