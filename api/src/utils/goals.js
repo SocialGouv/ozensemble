@@ -71,7 +71,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
     });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
     const nextWeekGoalStartDate = dayjs().add(1, "week").startOf("week").format("YYYY-MM-DD");
-    async function createNextWeekGoal() {
+    function createNextWeekGoal() {
       return prisma.goal.upsert({
         where: { id: `${user.id}_${nextWeekGoalStartDate}` },
         create: {
@@ -83,7 +83,15 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
           dosesPerWeek: currentGoalInProgress.dosesPerWeek,
           status: GoalStatus.InProgress,
         },
-        update: {},
+        update: {
+          id: `${user.id}_${nextWeekGoalStartDate}`,
+          userId: user.id,
+          date: nextWeekGoalStartDate,
+          daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
+          dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
+          dosesPerWeek: currentGoalInProgress.dosesPerWeek,
+          status: GoalStatus.InProgress,
+        },
       });
     }
     const currentGoalWasTwoWeeksAgo = dayjs() > dayjs(currentGoalInProgress.date).add(1, "week").endOf("week"); // we check if the user took too much time to fill up the goal. If so, we consider it as a failure
