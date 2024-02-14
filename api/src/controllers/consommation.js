@@ -254,7 +254,7 @@ router.post(
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
-      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge, showInAppModal: inAppModal });
     }
 
     // if badge 7 day is not present
@@ -283,7 +283,7 @@ router.post(
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
-      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge, showInAppModal: inAppModal });
     }
     // if badge 14 day is not present
     // handle 14 days
@@ -312,7 +312,7 @@ router.post(
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
-      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge, showInAppModal: inAppModal });
     }
     // if badge 28 day is not present
     // handle 28 days
@@ -340,7 +340,7 @@ router.post(
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
-      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge, showInAppModal: inAppModal });
     }
     return res.status(200).send({ ok: true });
   })
