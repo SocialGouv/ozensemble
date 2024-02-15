@@ -5,6 +5,7 @@ import { Image, View } from 'react-native';
 import { screenWidth } from '../../styles/theme';
 import Wave from '../../components/illustrations/onboarding/Wave';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import NotificationService from '../../services/notifications';
 
 export const Screen1 = ({ onPressNext }) => (
   <View className="h-full">
@@ -26,7 +27,14 @@ export const Screen1 = ({ onPressNext }) => (
       <View className={`absolute -bottom-0`}>
         <Wave currentIndex={0} size={screenWidth + 4} />
       </View>
-      <ButtonPrimary content={'Suivant'} AnimationEffect onPress={onPressNext} />
+      <ButtonPrimary
+        content={'Suivant'}
+        AnimationEffect
+        onPress={async () => {
+          await NotificationService.checkAndAskForPermission();
+          onPressNext();
+        }}
+      />
     </View>
   </View>
 );

@@ -41,7 +41,7 @@ router.post(
 router.post(
   "/init",
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
+    const { matomoId, isRegistered } = req.body || {};
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     const user = await prisma.user.upsert({
       where: { matomo_id: matomoId },
@@ -53,7 +53,72 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    const allowNotification = await prisma.appMilestone.findUnique({
+      where: { id: `${user.id}_@AllowNotification` },
+    });
+    console.log("allowNotification", allowNotification);
+    if (!allowNotification && req.headers.appversion >= 242 && !isRegistered && user.lastConsoAdded) {
+      await prisma.appMilestone.create({
+        data: {
+          id: `${user.id}_@AllowNotification`,
+          userId: user.id,
+          date: dayjs().format("YYYY-MM-DD"),
+        },
+      });
 
+      return res.status(200).send({
+        ok: true,
+        showInAppModal: {
+          id: "@AllowNotification",
+          title: "Activer les notifications ?",
+          content: "Activez les notifications vous aidera à vous rappeler d’ajouter vos consommations tous les jours ou chaque semaine",
+          CTATitle: "Aller dans les réglages",
+          secondaryButtonTitle: "non merci",
+          CTAEvent: {
+            category: "ALLOW_NOTIFICATION",
+            action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+            name: "FROM_NEW_FEATURE",
+          },
+          CTAOnPress: "openSettings",
+        },
+      });
+    }
+    if (
+      allowNotification &&
+      req.headers.appversion >= 242 &&
+      !isRegistered &&
+      dayjs(allowNotification.createdAt).isBefore(dayjs().subtract(7, "day"))
+    ) {
+      const allowSecondTimeNotification = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@AllowSecondTimeNotification` },
+      });
+      if (!allowSecondTimeNotification) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@AllowSecondTimeNotification`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@AllowNotification",
+            title: "Activer les notifications ?",
+            content: "Activez les notifications vous aidera à vous rappeler d’ajouter vos consommations tous les jours ou chaque semaine",
+            CTATitle: "Aller dans les réglages",
+
+            secondaryButtonTitle: "non merci",
+            CTAEvent: {
+              category: "ALLOW_NOTIFICATION_SECOND_TIME",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+            CTAOnPress: "openSettings",
+          },
+        });
+      }
+    }
     // USER SURVEY:
     if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
       const super90UserFeature = await prisma.appMilestone.findUnique({
@@ -126,85 +191,6 @@ router.post(
           },
         });
       }
-    }
-    if (req.headers.appversion >= 218) {
-      const newUserShareFeature = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@NewUserShareFeature` },
-      });
-      if (!newUserShareFeature) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@NewUserShareFeature`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
-        });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@NewUserShareFeature",
-            title: "Nouveau : les badges partages arrivent dans l'application !",
-            content:
-              "Gagnez ces badges en partageant l'application Oz Ensemble à vos proches qui voudraient aussi réduire leur consommation d'alcool.",
-            CTATitle: "Partager à un proche",
-            secondaryButtonTitle: "Non merci",
-            CTAEvent: {
-              category: "SHARE_APP",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
-            },
-            CTAShare: true,
-          },
-        });
-      }
-    }
-    if (req.headers.appversion >= 214) {
-      const newUserContextFeature = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@NewUserContextFeature` },
-      });
-      if (!newUserContextFeature) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@NewUserContextFeature`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
-        });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@NewUserContextFeature",
-            title: "Nouveau : ajoutez une note et un contexte à vos consos",
-            content: "Noter les évènements du jour vous aidera à mieux identifier les situations à risque ! Retrouvez-les dans le fil d'actualité.",
-            CTATitle: "Ajouter une consommation",
-            secondaryButtonTitle: "Plus tard",
-            CTANavigation: ["ADD_DRINK"],
-          },
-        });
-      }
-    }
-    const newUserSurveyAnnouncementModal = await prisma.appMilestone.findUnique({
-      where: { id: `${user.id}_@NewUserSurveyAnnouncement` },
-    });
-    if (!newUserSurveyAnnouncementModal) {
-      await prisma.appMilestone.create({
-        data: {
-          id: `${user.id}_@NewUserSurveyAnnouncement`,
-          userId: user.id,
-          date: dayjs().format("YYYY-MM-DD"),
-        },
-      });
-      return res.status(200).send({
-        ok: true,
-        showInAppModal: {
-          id: "@NewUserSurveyAnnouncement",
-          title: "1 min pour améliorer Oz\u00A0?",
-          content: "Répondez à 6 questions de manière anonyme pour nous aider à améliorer l’application\u00A0!",
-          CTATitle: "Répondre au sondage",
-          secondaryButtonTitle: "Plus tard",
-          CTANavigation: ["USER_SURVEY"],
-        },
-      });
     }
 
     // officialAppAnnouncementModal

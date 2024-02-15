@@ -10,16 +10,23 @@ import { useSetRecoilState } from 'recoil';
 import { showBootSplashState } from '../../components/CustomBootsplash';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
+import NotificationService from '../../services/notifications';
 
 const ConsoFollowUpStack = createStackNavigator();
+
 const ConsoFollowUpNavigator = () => {
   const setShowBootsplash = useSetRecoilState(showBootSplashState);
   useEffect(() => {
+    let isRegistered = false;
+    (async () => {
+      isRegistered = await NotificationService.checkAndAskForPermission();
+    })();
     setTimeout(() => {
       setShowBootsplash(false);
+      console.log(isRegistered);
       API.post({
         path: '/appMilestone/init',
-        body: { matomoId: storage.getString('@UserIdv2') },
+        body: { matomoId: storage.getString('@UserIdv2'), isRegistered: isRegistered },
       });
     }, 2000);
   }, []);
