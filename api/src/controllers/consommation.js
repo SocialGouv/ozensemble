@@ -4,7 +4,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
-const { checkIfLastWeekGoalAchieved } = require("../utils/goals");
+const { checkIfThisWeekGoalAchieved } = require("../utils/goals");
 
 router.post(
   "/init",
@@ -204,7 +204,7 @@ router.post(
       });
     }
 
-    const showGoalNewBadge = await checkIfLastWeekGoalAchieved(matomoId, req.headers.appversion);
+    const showGoalNewBadge = await checkIfThisWeekGoalAchieved(matomoId, req.headers.appversion);
 
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
 
@@ -221,7 +221,9 @@ router.post(
 
       return res.status(200).send({
         ok: true,
-        showNewBadge: { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        showNewBadge: showGoalNewBadge
+          ? showGoalNewBadge
+          : { newBadge: grabBadgeFromCatalog("drinks", 1), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
       });
     }
 
@@ -246,11 +248,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 2),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 2), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
@@ -277,11 +277,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 3),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 3), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
@@ -308,11 +306,9 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 4),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 4), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
@@ -338,19 +334,13 @@ router.post(
 
         return res.status(200).send({
           ok: true,
-          showNewBadge: {
-            newBadge: showGoalNewBadge?.newBadge || grabBadgeFromCatalog("drinks", 5),
-            allBadges,
-            badgesCatalog: getBadgeCatalog(req.headers.appversion),
-          },
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 5), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
-    }
-
-    if (showGoalNewBadge?.newBadge) {
-      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
     }
     return res.status(200).send({ ok: true });
   })

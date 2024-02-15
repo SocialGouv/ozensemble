@@ -20,10 +20,11 @@ router.post(
       update: {},
     });
     let date;
-    if (forceDate) {
-      date = forceDate;
-      const inprogressGoal = await prisma.goal.findFirst({ where: { userId: user.id, status: "InProgress" } });
-      if (inprogressGoal) {
+    const inprogressGoal = await prisma.goal.findFirst({ where: { userId: user.id, status: "InProgress" } });
+    if (inprogressGoal) {
+      date = inprogressGoal.date;
+      if (forceDate) {
+        date = forceDate;
         await prisma.goal.update({ where: { id: inprogressGoal.id }, data: { status: "Failure" } });
       }
     } else {

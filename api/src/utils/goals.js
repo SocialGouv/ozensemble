@@ -5,11 +5,34 @@ const isBetween = require("dayjs/plugin/isBetween");
 const weekday = require("dayjs/plugin/weekday");
 const dayjs = require("dayjs");
 const { grabBadgeFromCatalog, missedGoal, getBadgeCatalog } = require("../utils/badges");
+const { GoalStatus } = require("@prisma/client");
 dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
-const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
+const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
+  /*
+  HOW IT WORKS RIGHT NOW
+  1. we need to be able to change the goal without changing the previous goals
+      example: my goal was 10 beers a week, but now I'm very strong I drink only 5 beers a week
+      so I want to change my goal to 5 beers a week, but I want that my previous goals are still Success
+  2. we need to give Badges when objective is Success -
+      we decided that the backend was the brain to DISTRIBUTE THE BADGE based on goal's success - or not
+      whereas we decided that the frontend was the brain to DISPLAY THE SUCCESS of the goal
+      => we have two brains in the app, which is dangerous: if one braine is misfunctioning, the user is lost
+      example: the frontend shows a goal SUCCESS but the user didn't receive a badge
+
+  TODO:
+  a. move the brain in the frontend only ? it means the frontend decides also to distribute the badge
+    POTENTIAL PROBLEM: all the other badges are controlled from the backend, will it clash ? probably
+  b. move the brain in the backend only ? it means we remove the "feature" of the app being able to work offline
+    BUT
+    if offline, badges doesn't exist
+    when online, all consos are sync with the backend, so if we missed someting regarding the goal, we can catch up
+
+
+
+   */
   try {
     if (!matomoId) return null;
     const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
@@ -18,68 +41,112 @@ const checkIfLastWeekGoalAchieved = async (matomoId, appversion) => {
     // check if goal is achieved
     if (!!goalBadges.length) {
       const lastBadge = goalBadges[0];
-      if (lastBadge && lastBadge.stars === 5) return null;
-      if (dayjs(lastBadge.date).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]")) {
-        return null;
+      if (lastBadge) {
+        const allBadgesAreGivenAlready = lastBadge.stars === 5;
+        if (allBadgesAreGivenAlready) {
+          // the user has all the badges already, nothing to do
+          return null;
+        }
+        const goalIsSetupAlready = lastBadge.stars > 1;
+        const badgeOfCurrentWeekAlreadyGiven = dayjs(lastBadge.date).isBetween(dayjs().startOf("week"), dayjs().endOf("week"), "day", "[]");
+        if (goalIsSetupAlready && badgeOfCurrentWeekAlreadyGiven) {
+          return null;
+        }
       }
     }
 
-    const lastGoal = await prisma.goal.findFirst({
-      where: { userId: user.id, status: "InProgress", date: { lt: dayjs().startOf("week").format("YYYY-MM-DD") } },
+    const currentGoalInProgress = await prisma.goal.findFirst({
+      where: { userId: user.id, status: GoalStatus.InProgress },
     });
-    if (!lastGoal) return null;
-    const lastMonday = dayjs().add(-1, "week").startOf("week").toDate();
-    const lastSunday = dayjs().add(-1, "week").endOf("week").toDate();
+    if (!currentGoalInProgress) return null;
     const weekConsos = await prisma.consommation.findMany({
-      where: { userId: user.id, date: { gte: lastMonday, lte: lastSunday } },
+      where: {
+        userId: user.id,
+        date: {
+          gte: dayjs(currentGoalInProgress.date).startOf("week").toDate(), // monday
+          lte: dayjs(currentGoalInProgress.date).endOf("week").toDate(), // sunday
+        },
+      },
       orderBy: { date: "desc" },
     });
     const allDaysFilled = checksConsecutiveDays(weekConsos);
-    if (!allDaysFilled) return null;
+    const nextWeekGoalStartDate = dayjs().add(1, "week").startOf("week").format("YYYY-MM-DD");
+    function createNextWeekGoal() {
+      return prisma.goal.upsert({
+        where: { id: `${user.id}_${nextWeekGoalStartDate}` },
+        create: {
+          id: `${user.id}_${nextWeekGoalStartDate}`,
+          userId: user.id,
+          date: nextWeekGoalStartDate,
+          daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
+          dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
+          dosesPerWeek: currentGoalInProgress.dosesPerWeek,
+          status: GoalStatus.InProgress,
+        },
+        update: {
+          id: `${user.id}_${nextWeekGoalStartDate}`,
+          userId: user.id,
+          date: nextWeekGoalStartDate,
+          daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
+          dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
+          dosesPerWeek: currentGoalInProgress.dosesPerWeek,
+          status: GoalStatus.InProgress,
+        },
+      });
+    }
+    const currentGoalWasTwoWeeksAgo = dayjs() > dayjs(currentGoalInProgress.date).add(1, "week").endOf("week"); // we check if the user took too much time to fill up the goal. If so, we consider it as a failure
+    if (!allDaysFilled && currentGoalWasTwoWeeksAgo) {
+      await prisma.$transaction([
+        prisma.goal.update({
+          where: { id: currentGoalInProgress.id },
+          data: { status: GoalStatus.Failure },
+        }),
+        createNextWeekGoal(),
+      ]);
+      return { newBadge: missedGoal };
+    }
+    if (!allDaysFilled) {
+      // nothing to do when consos are not all filled - we wait for the user to fill up everything
+      return null;
+    }
+    //  it's time to check if the goal is a success or not - so the `InProgress` wil change to either `Failure`or `Success`
     const totalDoses = weekConsos
       .filter((drink) => drink.drinkKey !== "no-conso")
       .reduce((total, drink) => {
         return total + drink.doses * drink.quantity;
       }, 0);
     const totalDaysWithNoDrink = weekConsos.filter((drink) => drink.drinkKey === "no-conso").length;
-    const goalAchieved = totalDoses <= lastGoal.dosesPerWeek && totalDaysWithNoDrink >= lastGoal.daysWithGoalNoDrink.length;
-
-    const nextGoalStartDate = dayjs().startOf("week").format("YYYY-MM-DD");
-    await prisma.goal.upsert({
-      where: { id: `${user.id}_${nextGoalStartDate}` },
-      create: {
-        id: `${user.id}_${nextGoalStartDate}`,
-        userId: user.id,
-        date: nextGoalStartDate,
-        daysWithGoalNoDrink: lastGoal.daysWithGoalNoDrink,
-        dosesByDrinkingDay: lastGoal.dosesByDrinkingDay,
-        dosesPerWeek: lastGoal.dosesPerWeek,
-        status: "InProgress",
-      },
-      update: {},
-    });
+    const goalAchieved = totalDoses <= currentGoalInProgress.dosesPerWeek && totalDaysWithNoDrink >= currentGoalInProgress.daysWithGoalNoDrink.length;
 
     if (!goalAchieved) {
-      await prisma.goal.update({
-        where: { id: lastGoal.id },
-        data: { status: "Failure" },
-      });
+      await prisma.$transaction([
+        prisma.goal.update({
+          where: { id: currentGoalInProgress.id },
+          data: { status: GoalStatus.Failure },
+        }),
+        createNextWeekGoal(),
+      ]);
       return { newBadge: missedGoal };
     }
     if (goalAchieved) {
-      await prisma.goal.update({
-        where: { id: lastGoal.id },
-        data: { status: "Success" },
-      });
       const lastBadge = goalBadges[0];
-      const newBadge = await prisma.badge.create({
-        data: {
-          userId: user.id,
-          category: "goals",
-          stars: lastBadge ? lastBadge.stars + 1 : 1,
-        },
-      });
-      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+      const [newBadge, allBadges] = await prisma.$transaction([
+        prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "goals",
+            date: dayjs().format("YYYY-MM-DD"),
+            stars: lastBadge ? lastBadge.stars + 1 : 1,
+          },
+        }),
+        prisma.badge.findMany({ where: { userId: user.id } }),
+        prisma.goal.update({
+          where: { id: currentGoalInProgress.id },
+          data: { status: GoalStatus.Success },
+        }),
+        createNextWeekGoal(),
+      ]);
+
       return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(appversion) };
     }
   } catch (error) {
@@ -114,5 +181,5 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
 };
 
 module.exports = {
-  checkIfLastWeekGoalAchieved,
+  checkIfThisWeekGoalAchieved,
 };
