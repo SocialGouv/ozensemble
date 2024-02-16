@@ -65,7 +65,6 @@ const InAppModal = ({ navigation, route }) => {
       } else if (inAppModal.CTALink) {
         Linking.openURL(inAppModal.CTALink);
       } else if (inAppModal.CTAOnPress) {
-        console.log('here we are');
         openSettings();
       }
     });

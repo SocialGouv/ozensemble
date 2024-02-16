@@ -23,7 +23,6 @@ const ConsoFollowUpNavigator = () => {
     })();
     setTimeout(() => {
       setShowBootsplash(false);
-      console.log(isRegistered);
       API.post({
         path: '/appMilestone/init',
         body: { matomoId: storage.getString('@UserIdv2'), isRegistered: isRegistered },

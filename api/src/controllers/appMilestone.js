@@ -56,7 +56,6 @@ router.post(
     const allowNotification = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@AllowNotification` },
     });
-    console.log("allowNotification", allowNotification);
     if (!allowNotification && req.headers.appversion >= 242 && !isRegistered && user.lastConsoAdded) {
       await prisma.appMilestone.create({
         data: {
