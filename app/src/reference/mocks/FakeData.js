@@ -86,7 +86,7 @@ const FakeData = () => {
               </React.Fragment>
             );
           })}
-        <H1Wrapper>Mon NPS</H1Wrapper>
+        <H1Wrapper>Notifications</H1Wrapper>
         <MenuItem
           caption="Envoyer une notification NPS dans 10 secondes"
           onPress={() => {
@@ -133,6 +133,15 @@ const FakeData = () => {
           caption="Visualiser l'écran 10 jours d'inactivité"
           onPress={() => {
             navigation.navigate('INACTIVITY_NPS_SCREEN');
+          }}
+        />
+        <MenuItem
+          noAlert
+          caption="Lancer le notification plan"
+          onPress={() => {
+            API.get({
+              path: '/test/launch-notification-plan',
+            });
           }}
         />
         <H1Wrapper>Modale Super User</H1Wrapper>

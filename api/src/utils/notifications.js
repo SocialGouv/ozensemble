@@ -33,6 +33,11 @@ const updateLastConsoAdded = async (matomoId) => {
     capture(e, { level: "error" });
   }
 };
+const getConsecutiveDaysConso = (conso) => {
+  const days = conso.map((c) => dayjs(c.date).format("YYYY-MM-DD"));
+  const daysSet = new Set(days);
+  return daysSet.size;
+};
 
 const saveInactivity5Days = async (userId) => {
   const type = "INACTIVITY_5_DAYS";
@@ -155,8 +160,8 @@ const scheduleNotificationPlan = async () => {
       where: {
         userId: user.id,
         date: {
-          gte: createdAt.toDate(),
-          lte: createdAt.endOf("day").toDate(),
+          gte: createdAt.startOf("day").toDate(),
+          lte: dayjs().endOf("day").toDate(),
         },
       },
     });
@@ -164,30 +169,30 @@ const scheduleNotificationPlan = async () => {
     const day = dayjs().utc();
     switch (day.diff(createdAt, "day")) {
       case 0:
-        type = lastConsoAdded ? "FIRST_DAY_COMPLETED" : "FIRST_DAY_NOT_COMPLETED_YET";
+        type = consos.length ? "FIRST_DAY_COMPLETED" : "FIRST_DAY_NOT_COMPLETED_YET";
         break;
       case 1:
-        if (lastConsoAdded && !day.diff(lastConsoAdded, "day")) {
+        if (consos.length && !day.diff(lastConsoAdded, "day")) {
           let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
           type = itIsACatchUp ? "CATCH_UP" : null;
         } else {
-          type = lastConsoAdded ? "SECOND_DAY_NOT_COMPLETED_IN_A_ROW" : "SECOND_DAY_NOT_COMPLETED_YET";
+          type = consos.length ? "SECOND_DAY_NOT_COMPLETED_YET" : "SECOND_DAY_NOT_COMPLETED_IN_A_ROW";
         }
         break;
       case 2:
-        if (lastConsoAdded && !day.diff(lastConsoAdded, "day")) {
+        if (consos.length && !day.diff(lastConsoAdded, "day")) {
           let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
           type = itIsACatchUp ? "CATCH_UP" : null;
-        } else if (lastConsoAdded && day.diff(lastConsoAdded, "day")) {
+        } else if (consos.length && day.diff(lastConsoAdded, "day") === 1) {
           type = "THIRD_DAY_NOT_COMPLETED_YET";
-        } else if (lastConsoAdded) {
+        } else if (consos.length) {
           type = "NOT_COMPLETED_DAY";
         } else {
           type = "THIRD_DAY_NOT_COMPLETED_IN_A_ROW";
         }
         break;
       case 3:
-        if (lastConsoAdded && !day.diff(lastConsoAdded, "day")) {
+        if (consos.length && !day.diff(lastConsoAdded, "day")) {
           let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
           type = itIsACatchUp ? "CATCH_UP" : null;
         } else {
@@ -195,12 +200,8 @@ const scheduleNotificationPlan = async () => {
         }
         break;
       case 6:
-        const weekCompleted = await prisma.consommation.checksConsecutiveDays(7, consos);
-        if (!weekCompleted) {
-          const weekAlmostCompleted = await prisma.consommation.checksConsecutiveDays(6, consos);
-          if (weekAlmostCompleted) {
-            type = "ONE_DAY_LEFT";
-          }
+        if (getConsecutiveDaysConso(consos) === 6) {
+          type = "ONE_DAY_LEFT";
         }
         break;
     }
@@ -223,7 +224,7 @@ const scheduleNotificationPlan = async () => {
         data: {
           user: { connect: { id: user.id } },
           type,
-          date: dayjs().utc().add(1, "minute").toDate(),
+          date: dayjs().utc().add(2, "minute").startOf("minute").toDate(),
         },
       });
     }
@@ -487,7 +488,6 @@ const notificationsCronJob = async () => {
   const sentNotifications = [];
   for (const notif of notifs) {
     if (!notif?.user?.push_notif_token) continue;
-
     sendPushNotification({
       matomoId: notif.user.matomo_id,
       pushNotifToken: notif.user.push_notif_token,

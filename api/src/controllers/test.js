@@ -4,6 +4,7 @@ const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { superUser90DaysInAppModal, superUser30DaysInAppModal } = require("../utils/super-user-modals");
+const { scheduleNotificationPlan, notificationsCronJob } = require("../utils/notifications");
 
 router.get(
   "/",
@@ -80,6 +81,14 @@ router.post(
       console.error("Error in /test-notif route:", error);
       return res.status(500).json({ ok: false, error: "internal server error" });
     }
+  })
+);
+router.get(
+  "/launch-notification-plan",
+  catchErrors(async (req, res) => {
+    scheduleNotificationPlan();
+    notificationsCronJob();
+    return res.status(200).json({ ok: true });
   })
 );
 
