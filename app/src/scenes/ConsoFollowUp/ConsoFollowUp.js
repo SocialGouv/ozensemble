@@ -17,12 +17,12 @@ const ConsoFollowUpStack = createStackNavigator();
 const ConsoFollowUpNavigator = () => {
   const setShowBootsplash = useSetRecoilState(showBootSplashState);
   useEffect(() => {
-    let isRegistered = false;
-    (async () => {
-      isRegistered = await NotificationService.checkAndAskForPermission();
-    })();
     setTimeout(() => {
       setShowBootsplash(false);
+      let isRegistered = false;
+      (async () => {
+        isRegistered = await NotificationService.checkAndAskForPermission();
+      })();
       API.post({
         path: '/appMilestone/init',
         body: { matomoId: storage.getString('@UserIdv2'), isRegistered: isRegistered },
