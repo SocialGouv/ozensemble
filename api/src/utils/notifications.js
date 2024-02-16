@@ -153,21 +153,20 @@ const scheduleNotificationPlan = async () => {
     },
   });
   for (const user of users) {
-    // switch user.createdAt today then yesterday then the day before, until a whole week is covered
-    const createdAt = dayjs(user.createdAt).utc();
+    const userCreatedAt = dayjs(user.createdAt).utc();
     const lastConsoAdded = dayjs(user.lastConsoAdded).utc();
     const consos = await prisma.consommation.findMany({
       where: {
         userId: user.id,
         date: {
-          gte: createdAt.startOf("day").toDate(),
+          gte: userCreatedAt.startOf("day").toDate(),
           lte: dayjs().endOf("day").toDate(),
         },
       },
     });
     let type = null;
     const day = dayjs().utc();
-    switch (day.diff(createdAt, "day")) {
+    switch (day.diff(userCreatedAt, "day")) {
       case 0:
         type = consos.length ? "FIRST_DAY_COMPLETED" : "FIRST_DAY_NOT_COMPLETED_YET";
         break;
