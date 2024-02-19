@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx prisma db push && nodemon ./src/index.js ",
-    "dev-cron": "cross-env NODE_ENV=development npx prisma db push && nodemon ./src/index.js && nodemon ./src/cronjobs.js ",
+    "dev-cron": "nodemon ./src/cronjobs.js ",
     "create-migration": "cross-env NODE_ENV=development npx prisma migrate dev --name",
     "start": "NODE_ENV=production npx prisma migrate deploy && NODE_ENV=production node ./src/index.js",
     "postinstall": "prisma generate"
