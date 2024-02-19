@@ -177,38 +177,66 @@ const scheduleNotificationPlan = async (matomo_id = null) => {
         type = consos.length ? "FIRST_DAY_COMPLETED" : "FIRST_DAY_NOT_COMPLETED_YET";
         break;
       case 1:
-        if (consos.length && !day.diff(lastConsoAdded, "day")) {
-          let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
-          type = itIsACatchUp ? "CATCH_UP" : null;
+        if (!consos.length) {
+          type = "SECOND_DAY_NOT_COMPLETED_IN_A_ROW";
+        } else if (day.diff(lastConsoAdded, "day")) {
+          type = consos.find((conso) => day.endOf("day").diff(dayjs(conso.date), "day")) ? "SECOND_DAY_NOT_COMPLETED_YET" : null;
         } else {
-          type = consos.length ? "SECOND_DAY_NOT_COMPLETED_YET" : "SECOND_DAY_NOT_COMPLETED_IN_A_ROW";
+          type = consos.every((conso) => day.endOf("day").diff(dayjs(conso.date), "day")) ? "CATCH_UP" : null;
         }
         break;
       case 2:
-        if (consos.length && !day.diff(lastConsoAdded, "day")) {
-          let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
-          type = itIsACatchUp ? "CATCH_UP" : null;
-        } else if (consos.length && day.diff(lastConsoAdded, "day") === 1) {
-          type = "THIRD_DAY_NOT_COMPLETED_YET";
-        } else if (consos.length) {
-          type = "NOT_COMPLETED_DAY";
-        } else {
+        if (!consos.length) {
           type = "THIRD_DAY_NOT_COMPLETED_IN_A_ROW";
+        } else if (day.diff(lastConsoAdded, "day")) {
+          type =
+            consos.find((conso) => day.endOf("day").diff(dayjs(conso.date), "day") && !dayjs(conso.createdAt).diff(dayjs(conso.date), "day")) &&
+            consos.find(
+              (conso) => day.endOf("day").add(-1, "day").diff(dayjs(conso.date), "day") && !dayjs(conso.createdAt).diff(dayjs(conso.date), "day")
+            )
+              ? "THIRD_DAY_NOT_COMPLETED_YET"
+              : "NOT_COMPLETED_DAY";
+        } else {
+          type = consos.every((conso) => day.endOf("day").diff(dayjs(conso.date), "day") && day.add(-2, "day").diff(dayjs(conso.date, "day")))
+            ? "CATCH_UP"
+            : null;
         }
         break;
       case 3:
         if (consos.length && !day.diff(lastConsoAdded, "day")) {
-          let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
-          type = itIsACatchUp ? "CATCH_UP" : null;
+          type = null;
+        } else if (consos.length && day.diff(lastConsoAdded, "day")) {
+          type = consos.every(
+            (conso) =>
+              day.endOf("day").diff(dayjs(conso.date), "day") &&
+              day.add(-2, "day").diff(dayjs(conso.date, "day") && day.add(-3, "day").diff(dayjs(conso.date, "day")))
+          )
+            ? "CATCH_UP"
+            : null;
         } else {
+          type = "NOT_COMPLETED_DAY";
+        }
+        break;
+      case 4:
+        if (day.diff(lastConsoAdded, "day")) {
+          type = "NOT_COMPLETED_DAY";
+        }
+        break;
+      case 5:
+        if (day.diff(lastConsoAdded, "day")) {
           type = "NOT_COMPLETED_DAY";
         }
         break;
       case 6:
         if (getConsecutiveDaysConso(consos) === 6) {
           type = "ONE_DAY_LEFT";
+        } else if (day.diff(lastConsoAdded, "day")) {
+          type = "NOT_COMPLETED_DAY";
         }
         break;
+    }
+    if (day.diff(userCreatedAt, "day") > 6 && day.diff(lastConsoAdded, "day") && day.diff(userCreatedAt, "day") <= 14) {
+      type = "NOT_COMPLETED_DAY";
     }
     if (type) {
       const notif = await prisma.notification.findFirst({

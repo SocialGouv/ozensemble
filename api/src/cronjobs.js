@@ -40,9 +40,9 @@ cron.schedule("0 0 4 * * 1 *", async () => {
 });
 
 //every day at 19H59  launch the notification plan
-// cron.schedule("59 19 * * *", async () => {
-//   launchCronJob("schedule notification plan", scheduleNotificationPlan);
-// });
+cron.schedule("59 19 * * *", async () => {
+  launchCronJob("schedule notification plan", scheduleNotificationPlan);
+});
 
 const launchCronJob = async (name, job) => {
   try {
