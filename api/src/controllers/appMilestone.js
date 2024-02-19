@@ -58,10 +58,13 @@ router.post(
     });
 
     if (
-      (!allowNotification && req.headers.appversion >= 243 && !isRegistered && user.lastConsoAdded) ||
-      (allowNotification && req.headers.appversion >= 243 && !isRegistered && dayjs(allowNotification.createdAt).isBefore(dayjs().subtract(7, "day")))
+      (!allowNotification && req.headers.appversion >= 243 && !isRegistered.granted && user.lastConsoAdded) ||
+      (allowNotification &&
+        req.headers.appversion >= 243 &&
+        !isRegistered.granted &&
+        dayjs(allowNotification.createdAt).isBefore(dayjs().subtract(7, "day")))
     ) {
-      const milestoneId = allowNotification ? "@AllowSecondTimeNotification" : "@AllowNotification";
+      const milestoneId = allowNotification ? "@AllowNotificationSecondTime" : "@AllowNotification";
       const title = "Activer les notifications ?";
       const onPress = isRegistered.canAsk ? "allowNotification" : "openSettings";
 

@@ -4,7 +4,7 @@ const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { superUser90DaysInAppModal, superUser30DaysInAppModal } = require("../utils/super-user-modals");
-const { scheduleNotificationPlan, notificationsCronJob } = require("../utils/notifications");
+const { scheduleNotificationPlan } = require("../utils/notifications");
 
 router.get(
   "/",
