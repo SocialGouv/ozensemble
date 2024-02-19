@@ -1,3 +1,10 @@
+## [1.145.5](https://github.com/SocialGouv/ozensemble/compare/v1.145.4...v1.145.5) (2024-02-19)
+
+
+### Bug Fixes
+
+* notificationPlan cron activated ([4df51e2](https://github.com/SocialGouv/ozensemble/commit/4df51e26783a02678988681195599bfae48c2aa1))
+
 ## [1.145.4](https://github.com/SocialGouv/ozensemble/compare/v1.145.3...v1.145.4) (2024-02-19)
 
 
