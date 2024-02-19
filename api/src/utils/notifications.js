@@ -144,15 +144,20 @@ const scheduleNotificationsNotFilledWeekCronJob = async () => {
     capture(e, { level: "error" });
   }
 };
-const scheduleNotificationPlan = async () => {
-  const users = await prisma.user.findMany({
-    where: {
-      createdAt: {
-        gte: dayjs().utc().subtract(1, "week").startOf("day").toDate(),
-        lte: dayjs().utc().toDate(),
+const scheduleNotificationPlan = async (matomo_id = null) => {
+  let users;
+  if (matomo_id) {
+    users = await prisma.user.findUnique({ where: { matomo_id } });
+  } else {
+    users = await prisma.user.findMany({
+      where: {
+        createdAt: {
+          gte: dayjs().utc().subtract(1, "week").startOf("day").toDate(),
+          lte: dayjs().utc().toDate(),
+        },
       },
-    },
-  });
+    });
+  }
   for (const user of users) {
     const userCreatedAt = dayjs(user.createdAt).utc();
     const lastConsoAdded = dayjs(user.lastConsoAdded).utc();

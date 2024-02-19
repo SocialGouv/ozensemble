@@ -56,10 +56,18 @@ router.post(
     const allowNotification = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@AllowNotification` },
     });
-    if (!allowNotification && req.headers.appversion >= 242 && !isRegistered && user.lastConsoAdded) {
+
+    if (
+      (!allowNotification && req.headers.appversion >= 242 && !isRegistered && user.lastConsoAdded) ||
+      (allowNotification && req.headers.appversion >= 242 && !isRegistered && dayjs(allowNotification.createdAt).isBefore(dayjs().subtract(7, "day")))
+    ) {
+      const milestoneId = allowNotification ? "@AllowSecondTimeNotification" : "@AllowNotification";
+      const title = "Activer les notifications ?";
+      const onPress = isRegistered.canAsk ? "allowNotification" : "openSettings";
+
       await prisma.appMilestone.create({
         data: {
-          id: `${user.id}_@AllowNotification`,
+          id: `${user.id}_${milestoneId}`,
           userId: user.id,
           date: dayjs().format("YYYY-MM-DD"),
         },
@@ -68,55 +76,19 @@ router.post(
       return res.status(200).send({
         ok: true,
         showInAppModal: {
-          id: "@AllowNotification",
-          title: "Activer les notifications ?",
+          id: milestoneId,
+          title: title,
           content: "Activez les notifications vous aidera à vous rappeler d’ajouter vos consommations tous les jours ou chaque semaine",
-          CTATitle: "Aller dans les réglages",
+          CTATitle: isRegistered.canAsk ? "Activer les notifications ?" : "Aller dans les réglages",
           secondaryButtonTitle: "non merci",
           CTAEvent: {
-            category: "ALLOW_NOTIFICATION",
+            category: "ALLOW_NOTIFICATION" + (allowNotification ? "_SECOND_TIME" : ""),
             action: "PRESSED_FROM_NEW_FEATURE_MODAL",
             name: "FROM_NEW_FEATURE",
           },
-          CTAOnPress: "openSettings",
+          CTAOnPress: onPress,
         },
       });
-    }
-    if (
-      allowNotification &&
-      req.headers.appversion >= 242 &&
-      !isRegistered &&
-      dayjs(allowNotification.createdAt).isBefore(dayjs().subtract(7, "day"))
-    ) {
-      const allowSecondTimeNotification = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@AllowSecondTimeNotification` },
-      });
-      if (!allowSecondTimeNotification) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@AllowSecondTimeNotification`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
-        });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@AllowNotification",
-            title: "Activer les notifications ?",
-            content: "Activez les notifications vous aidera à vous rappeler d’ajouter vos consommations tous les jours ou chaque semaine",
-            CTATitle: "Aller dans les réglages",
-
-            secondaryButtonTitle: "non merci",
-            CTAEvent: {
-              category: "ALLOW_NOTIFICATION_SECOND_TIME",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
-            },
-            CTAOnPress: "openSettings",
-          },
-        });
-      }
     }
     // USER SURVEY:
     if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {

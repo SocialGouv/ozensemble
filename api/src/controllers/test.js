@@ -86,8 +86,11 @@ router.post(
 router.get(
   "/launch-notification-plan",
   catchErrors(async (req, res) => {
-    scheduleNotificationPlan();
-    notificationsCronJob();
+    const { matomoId } = req.body || {};
+    if (!matomoId) {
+      return res.status(400).json({ ok: false, error: "no matomo id" });
+    }
+    scheduleNotificationPlan(matomoId);
     return res.status(200).json({ ok: true });
   })
 );

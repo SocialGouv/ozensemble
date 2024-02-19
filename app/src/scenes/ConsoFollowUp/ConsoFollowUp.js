@@ -21,7 +21,7 @@ const ConsoFollowUpNavigator = () => {
       setShowBootsplash(false);
       let isRegistered = false;
       (async () => {
-        isRegistered = await NotificationService.checkAndAskForPermission();
+        isRegistered = await NotificationService.checkPermission();
       })();
       API.post({
         path: '/appMilestone/init',
