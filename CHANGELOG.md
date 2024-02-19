@@ -1,3 +1,10 @@
+## [1.145.4](https://github.com/SocialGouv/ozensemble/compare/v1.145.3...v1.145.4) (2024-02-19)
+
+
+### Bug Fixes
+
+* case not considered before ([#541](https://github.com/SocialGouv/ozensemble/issues/541)) ([202d90b](https://github.com/SocialGouv/ozensemble/commit/202d90b071963e14424517003eda34497f6703e4))
+
 ## [1.145.3](https://github.com/SocialGouv/ozensemble/compare/v1.145.2...v1.145.3) (2024-01-31)
 
 
