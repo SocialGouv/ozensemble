@@ -147,7 +147,7 @@ const scheduleNotificationsNotFilledWeekCronJob = async () => {
 const scheduleNotificationPlan = async (matomo_id = null) => {
   let users;
   if (matomo_id) {
-    users = await prisma.user.findUnique({ where: { matomo_id } });
+    users = [await prisma.user.findUnique({ where: { matomo_id } })];
   } else {
     users = await prisma.user.findMany({
       where: {

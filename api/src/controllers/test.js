@@ -83,7 +83,7 @@ router.post(
     }
   })
 );
-router.get(
+router.post(
   "/launch-notification-plan",
   catchErrors(async (req, res) => {
     const { matomoId } = req.body || {};

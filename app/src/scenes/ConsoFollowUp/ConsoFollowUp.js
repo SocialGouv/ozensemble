@@ -19,15 +19,14 @@ const ConsoFollowUpNavigator = () => {
   useEffect(() => {
     setTimeout(() => {
       setShowBootsplash(false);
-      let isRegistered = false;
-      (async () => {
-        isRegistered = await NotificationService.checkPermission();
-      })();
+    }, 2000);
+    (async () => {
+      const isRegistered = await NotificationService.checkPermission();
       API.post({
         path: '/appMilestone/init',
         body: { matomoId: storage.getString('@UserIdv2'), isRegistered: isRegistered },
       });
-    }, 2000);
+    })();
   }, []);
 
   useToggleCTA({ navigator: 'Consos' });

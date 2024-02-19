@@ -22,6 +22,8 @@ import StarAbstinenceFeature from './illustrations/icons/StarsAbstinenceFeature'
 import SuperUserHeart from './illustrations/icons/SuperUserHeart';
 import ChatBubble from './illustrations/icons/ChatBubble';
 import { openSettings } from 'react-native-permissions';
+import NotificationService from '../services/notifications';
+
 /* example
 {
     title: '1er jour complété',
@@ -65,7 +67,10 @@ const InAppModal = ({ navigation, route }) => {
       } else if (inAppModal.CTALink) {
         Linking.openURL(inAppModal.CTALink);
       } else if (inAppModal.CTAOnPress) {
-        openSettings();
+        if (inAppModal.CTAOnPress === 'openSettings') openSettings();
+        else {
+          await NotificationService.checkAndAskForPermission();
+        }
       }
     });
   };

@@ -139,8 +139,11 @@ const FakeData = () => {
           noAlert
           caption="Lancer le notification plan"
           onPress={() => {
-            API.get({
+            API.post({
               path: '/test/launch-notification-plan',
+              body: {
+                matomoId: storage.getString('@UserIdv2'),
+              },
             });
           }}
         />
