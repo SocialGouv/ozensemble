@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Swiper from 'react-native-swiper';
 import { storage } from '../../services/storage';
 import { Screen1, Screen2, Screen3, Screen4 } from './Screens';

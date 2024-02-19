@@ -4,6 +4,7 @@ const { sendPushNotification } = require("../services/push-notifications");
 const utc = require("dayjs/plugin/utc");
 const timezone = require("dayjs/plugin/timezone");
 const { capture } = require("../third-parties/sentry");
+const { NOTIFICATIONS_TYPES } = require("./notifications-catalog");
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -32,6 +33,11 @@ const updateLastConsoAdded = async (matomoId) => {
   } catch (e) {
     capture(e, { level: "error" });
   }
+};
+const getConsecutiveDaysConso = (conso) => {
+  const days = conso.map((c) => dayjs(c.date).format("YYYY-MM-DD"));
+  const daysSet = new Set(days);
+  return daysSet.size;
 };
 
 const saveInactivity5Days = async (userId) => {
@@ -138,7 +144,97 @@ const scheduleNotificationsNotFilledWeekCronJob = async () => {
     capture(e, { level: "error" });
   }
 };
-
+const scheduleNotificationPlan = async (matomo_id = null) => {
+  let users;
+  if (matomo_id) {
+    users = [await prisma.user.findUnique({ where: { matomo_id } })];
+  } else {
+    users = await prisma.user.findMany({
+      where: {
+        createdAt: {
+          gte: dayjs().utc().subtract(1, "week").startOf("day").toDate(),
+          lte: dayjs().utc().toDate(),
+        },
+      },
+    });
+  }
+  for (const user of users) {
+    const userCreatedAt = dayjs(user.createdAt).utc();
+    const lastConsoAdded = dayjs(user.lastConsoAdded).utc();
+    const consos = await prisma.consommation.findMany({
+      where: {
+        userId: user.id,
+        date: {
+          gte: userCreatedAt.startOf("day").toDate(),
+          lte: dayjs().endOf("day").toDate(),
+        },
+      },
+    });
+    let type = null;
+    const day = dayjs().utc();
+    switch (day.diff(userCreatedAt, "day")) {
+      case 0:
+        type = consos.length ? "FIRST_DAY_COMPLETED" : "FIRST_DAY_NOT_COMPLETED_YET";
+        break;
+      case 1:
+        if (consos.length && !day.diff(lastConsoAdded, "day")) {
+          let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
+          type = itIsACatchUp ? "CATCH_UP" : null;
+        } else {
+          type = consos.length ? "SECOND_DAY_NOT_COMPLETED_YET" : "SECOND_DAY_NOT_COMPLETED_IN_A_ROW";
+        }
+        break;
+      case 2:
+        if (consos.length && !day.diff(lastConsoAdded, "day")) {
+          let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
+          type = itIsACatchUp ? "CATCH_UP" : null;
+        } else if (consos.length && day.diff(lastConsoAdded, "day") === 1) {
+          type = "THIRD_DAY_NOT_COMPLETED_YET";
+        } else if (consos.length) {
+          type = "NOT_COMPLETED_DAY";
+        } else {
+          type = "THIRD_DAY_NOT_COMPLETED_IN_A_ROW";
+        }
+        break;
+      case 3:
+        if (consos.length && !day.diff(lastConsoAdded, "day")) {
+          let itIsACatchUp = consos.every((conso) => day.diff(dayjs(conso.createdAt), "day") === 0);
+          type = itIsACatchUp ? "CATCH_UP" : null;
+        } else {
+          type = "NOT_COMPLETED_DAY";
+        }
+        break;
+      case 6:
+        if (getConsecutiveDaysConso(consos) === 6) {
+          type = "ONE_DAY_LEFT";
+        }
+        break;
+    }
+    if (type) {
+      const notif = await prisma.notification.findFirst({
+        where: {
+          userId: user.id,
+          type,
+          status: "NotSent",
+        },
+      });
+      if (notif) return;
+      const reminder = await prisma.reminder.findUnique({
+        where: {
+          userId: user.id,
+        },
+      });
+      if (reminder) return;
+      await prisma.notification.create({
+        data: {
+          user: { connect: { id: user.id } },
+          type,
+          date: dayjs().utc().add(2, "minute").startOf("minute").toDate(),
+        },
+      });
+    }
+  }
+};
 const scheduleNotificationsInactivity10DaysCronJob = async () => {
   try {
     const users = await prisma.user.findMany({
@@ -291,39 +387,6 @@ const cancelNotif = async (matomoId, type) => {
   });
 };
 
-const NOTIFICATIONS_TYPES = {
-  DEFI1_DAY1: {
-    type: "DEFI1_DAY1",
-    title: "C'est l'heure du 2ème jour !",
-    body: "Evaluez votre niveau de risque alcool de manière plus fine.",
-    link: "oz://APP/TABS/DEFI/DEFI1",
-  },
-  INACTIVITY_5_DAYS: {
-    type: "INACTIVITY_5_DAYS",
-    title: "Vous nous manquez",
-    body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
-    link: "oz://APP/ADD_DRINK",
-  },
-  INACTIVITY_10_DAYS: {
-    type: "INACTIVITY_10_DAYS",
-    title: "5 sec pour un dernier retour ?",
-    body: "Dites nous pourquoi vous êtes partis, ça nous aidera à améliorer l’application",
-    link: "oz://INACTIVITY_NPS_SCREEN",
-  },
-  USER_SURVEY: {
-    type: "USER_SURVEY",
-    title: "1 min pour améliorer Oz ?",
-    body: "Répondez à 6 questions pour nous aider à améliorer l’application ensemble !",
-    link: "oz://USER_SURVEY_NOTIF",
-  },
-  NOT_FILLED_WEEK: {
-    type: "NOT_FILLED_WEEK",
-    title: "Semaine dernière à compléter",
-    body: "N'oubliez pas de remplir tous vos jours pour pouvoir suivre votre objectif hebdo",
-    link: "oz://APP/TABS/GAINS_NAVIGATOR/GAINS_MAIN_VIEW",
-  },
-};
-
 const notificationsCronJob = async () => {
   const now = dayjs().utc();
 
@@ -343,7 +406,6 @@ const notificationsCronJob = async () => {
   const sentNotifications = [];
   for (const notif of notifs) {
     if (!notif?.user?.push_notif_token) continue;
-
     sendPushNotification({
       matomoId: notif.user.matomo_id,
       pushNotifToken: notif.user.push_notif_token,
@@ -367,7 +429,6 @@ const notificationsCronJob = async () => {
 };
 
 module.exports = {
-  NOTIFICATIONS_TYPES,
   cancelNotif,
   notificationsCronJob,
   scheduleDefi1Day1,
@@ -376,4 +437,5 @@ module.exports = {
   scheduleNotificationsInactivity10DaysCronJob,
   scheduleUserSurvey,
   scheduleNotificationsNotFilledWeekCronJob,
+  scheduleNotificationPlan,
 };

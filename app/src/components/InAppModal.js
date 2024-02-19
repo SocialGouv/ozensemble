@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Svg, { Path } from 'react-native-svg';
 import {
   Text,
@@ -12,22 +12,18 @@ import {
   Image,
 } from 'react-native';
 import InAppReview from 'react-native-in-app-review';
-import { useNavigation } from '@react-navigation/native';
 import { hitSlop } from '../styles/theme';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
-import Modal from './Modal';
 import TextStyled from './TextStyled';
-import API from '../services/api';
 import { shareApp } from '../services/shareApp';
-import { storage } from '../services/storage';
-import AnnouncementCalendar1 from './illustrations/AnnouncementCalendar1';
-import AnnouncementCalendar2 from './illustrations/AnnouncementCalendar2';
-import UserSurveyLogo from './illustrations/UserSurveyLogo';
 import { logEvent } from '../services/logEventsWithMatomo';
-import { BadgeShareNoStars } from '../scenes/Badges/Svgs/BadgeShareNoStars';
 import StarAbstinenceFeature from './illustrations/icons/StarsAbstinenceFeature';
 import SuperUserHeart from './illustrations/icons/SuperUserHeart';
+import ChatBubble from './illustrations/icons/ChatBubble';
+import { openSettings } from 'react-native-permissions';
+import NotificationService from '../services/notifications';
+
 /* example
 {
     title: '1er jour complété',
@@ -70,6 +66,11 @@ const InAppModal = ({ navigation, route }) => {
         }
       } else if (inAppModal.CTALink) {
         Linking.openURL(inAppModal.CTALink);
+      } else if (inAppModal.CTAOnPress) {
+        if (inAppModal.CTAOnPress === 'openSettings') openSettings();
+        else {
+          await NotificationService.checkAndAskForPermission();
+        }
       }
     });
   };
@@ -130,6 +131,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('AllowNotification') && (
+            <View className="mx-2 flex flex-col items-center">
+              <ChatBubble fill="#4030A5" />
+            </View>
+          )}
           {inAppModal?.id.includes('Super30UserFeature') && (
             <View className="mx-2 flex flex-col items-center">
               <SuperUserHeart fill="#DE285E" />
@@ -148,38 +154,9 @@ const InAppModal = ({ navigation, route }) => {
               <Text className="text-light text-[#4030A5]">sans consommation d'alcool</Text>
             </View>
           )}
-          {inAppModal?.id.includes('NewCalendarAnnouncement') && (
-            <View className="mx-2 flex flex-col items-center">
-              <AnnouncementCalendar1 size={screenWidth - 14} />
-              <AnnouncementCalendar2 size={screenWidth} />
-            </View>
-          )}
-          {inAppModal?.id.includes('NewUserSurveyAnnouncement') && (
-            <View className="mx-2 flex flex-col items-center">
-              <UserSurveyLogo />
-            </View>
-          )}
           {inAppModal?.id.includes('OfficialAppAnnouncement') && (
             <View className="mx-2 flex flex-col items-center">
               <Image className="rounded-full w-[100px] h-[100px]" source={require('../assets/images/Icon.png')} />
-            </View>
-          )}
-          {inAppModal?.id.includes('NewUserShareFeature') && (
-            <View>
-              <BadgeShareNoStars />
-            </View>
-          )}
-          {inAppModal?.id.includes('NewUserContextFeature') && (
-            <View className="flex-row">
-              <View className="border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2 bg-[#4030A5]">
-                <Text className="color-white">à la maison</Text>
-              </View>
-              <View className="border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2 bg-[#4030A5]">
-                <Text className="color-white">seul</Text>
-              </View>
-              <View className="border border-[#E4E4E4] rounded-lg py-2 px-2 mr-2 mb-2 bg-[#4030A5]">
-                <Text className="color-white">me détendre</Text>
-              </View>
             </View>
           )}
         </View>
