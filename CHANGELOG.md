@@ -1,3 +1,10 @@
+## [1.145.6](https://github.com/SocialGouv/ozensemble/compare/v1.145.5...v1.145.6) (2024-03-01)
+
+
+### Bug Fixes
+
+* unique milestone ([36e712c](https://github.com/SocialGouv/ozensemble/commit/36e712c23c12ad9e915814000d83eb8ba6e993fa))
+
 ## [1.145.5](https://github.com/SocialGouv/ozensemble/compare/v1.145.4...v1.145.5) (2024-02-19)
 
 
