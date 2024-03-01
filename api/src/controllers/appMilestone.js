@@ -67,31 +67,35 @@ router.post(
       const milestoneId = allowNotification ? "@AllowNotificationSecondTime" : "@AllowNotification";
       const title = "Activer les notifications ?";
       const onPress = isRegistered.canAsk ? "allowNotification" : "openSettings";
-
-      await prisma.appMilestone.create({
-        data: {
-          id: `${user.id}_${milestoneId}`,
-          userId: user.id,
-          date: dayjs().format("YYYY-MM-DD"),
-        },
+      const allowNotificationSecondTime = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@AllowNotificationSecondTime` },
       });
-
-      return res.status(200).send({
-        ok: true,
-        showInAppModal: {
-          id: milestoneId,
-          title: title,
-          content: "Activez les notifications vous aidera à vous rappeler d’ajouter vos consommations tous les jours ou chaque semaine",
-          CTATitle: isRegistered.canAsk ? "Activer les notifications ?" : "Aller dans les réglages",
-          secondaryButtonTitle: "non merci",
-          CTAEvent: {
-            category: "ALLOW_NOTIFICATION" + (allowNotification ? "_SECOND_TIME" : ""),
-            action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-            name: "FROM_NEW_FEATURE",
+      if (!allowNotificationSecondTime) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_${milestoneId}`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
           },
-          CTAOnPress: onPress,
-        },
-      });
+        });
+
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: milestoneId,
+            title: title,
+            content: "Activez les notifications vous aidera à vous rappeler d’ajouter vos consommations tous les jours ou chaque semaine",
+            CTATitle: isRegistered.canAsk ? "Activer les notifications ?" : "Aller dans les réglages",
+            secondaryButtonTitle: "non merci",
+            CTAEvent: {
+              category: "ALLOW_NOTIFICATION" + (allowNotification ? "_SECOND_TIME" : ""),
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+            CTAOnPress: onPress,
+          },
+        });
+      }
     }
     // USER SURVEY:
     if (req.headers.appversion >= 239 && user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(90, "day"))) {
