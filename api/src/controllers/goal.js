@@ -19,17 +19,18 @@ router.post(
       },
       update: {},
     });
-    let date;
-    const inprogressGoal = await prisma.goal.findFirst({ where: { userId: user.id, status: "InProgress" } });
-    if (inprogressGoal) {
-      date = inprogressGoal.date;
-      if (forceDate) {
-        date = forceDate;
-        await prisma.goal.update({ where: { id: inprogressGoal.id }, data: { status: "Failure" } });
-      }
-    } else {
-      date = dayjs().startOf("week").format("YYYY-MM-DD");
+    let date = dayjs().startOf("week").format("YYYY-MM-DD");
+    const thisWeekGoal = await prisma.goal.findFirst({
+      where: { userId: user.id, date },
+    });
+    if (forceDate) {
+      date = forceDate;
+      await prisma.goal.update({ where: { id: thisWeekGoal.id }, data: { status: "Failure" } });
     }
+
+    // we want to know if the goal of this week is already prosseded. If it is, we want to create/modify the one for next week
+    // if it is not, we want to update the current one with the new values
+    if (thisWeekGoal?.status !== "InProgress") date = dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD");
 
     await prisma.goal.upsert({
       where: { id: `${user.id}_${date}` },

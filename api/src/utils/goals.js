@@ -10,6 +10,71 @@ dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
+const checkGoalState = async (matomoId, date) => {
+  if (!matomoId) return null;
+  const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+  if (!user) return null;
+  const consoGoal = await prisma.goal.findFirst({
+    where: { userId: user.id, status: GoalStatus.InProgress, date: dayjs(date).startOf("week").add(1, "hour").format("YYYY-MM-DD") },
+  });
+  if (!consoGoal) return null;
+  const weekConsos = await prisma.consommation.findMany({
+    where: {
+      userId: user.id,
+      date: {
+        gte: dayjs(consoGoal.date).startOf("week").toDate(), // monday
+        lte: dayjs(consoGoal.date).endOf("week").toDate(), // sunday
+      },
+    },
+    orderBy: { date: "desc" },
+  });
+  const allDaysFilled = checksConsecutiveDays(weekConsos);
+  const nextWeekGoalStartDate = dayjs(consoGoal.date).add(1, "week").startOf("week").format("YYYY-MM-DD");
+  if (!allDaysFilled) {
+    // nothing to do when consos are not all filled - we wait for the user to fill up everything
+    return null;
+  }
+  const nextWeekGoalInProgress = await prisma.goal.findFirst({
+    where: { userId: user.id, status: GoalStatus.InProgress, date: nextWeekGoalStartDate },
+  });
+  if (!nextWeekGoalInProgress) {
+    prisma.goal.create({
+      where: { id: `${user.id}_${nextWeekGoalStartDate}` },
+      data: {
+        id: `${user.id}_${nextWeekGoalStartDate}`,
+        userId: user.id,
+        date: nextWeekGoalStartDate,
+        daysWithGoalNoDrink: consoGoal.daysWithGoalNoDrink,
+        dosesByDrinkingDay: consoGoal.dosesByDrinkingDay,
+        dosesPerWeek: consoGoal.dosesPerWeek,
+        status: GoalStatus.InProgress,
+      },
+    });
+  }
+
+  //  it's time to check if the goal is a success or not - so the `InProgress` wil change to either `Failure`or `Success`
+  const totalDoses = weekConsos
+    .filter((drink) => drink.drinkKey !== "no-conso")
+    .reduce((total, drink) => {
+      return total + drink.doses * drink.quantity;
+    }, 0);
+  const totalDaysWithNoDrink = weekConsos.filter((drink) => drink.drinkKey === "no-conso").length;
+  const goalAchieved = totalDoses <= consoGoal.dosesPerWeek && totalDaysWithNoDrink >= consoGoal.daysWithGoalNoDrink.length;
+
+  if (!goalAchieved) {
+    await prisma.goal.update({
+      where: { id: consoGoal.id },
+      data: { status: GoalStatus.Failure },
+    });
+    return { newBadge: missedGoal };
+  }
+  if (goalAchieved) {
+    await prisma.goal.update({
+      where: { id: consoGoal.id },
+      data: { status: GoalStatus.Success },
+    });
+  }
+};
 const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
   /*
   HOW IT WORKS RIGHT NOW
@@ -55,100 +120,24 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
       }
     }
 
-    const currentGoalInProgress = await prisma.goal.findFirst({
-      where: { userId: user.id, status: GoalStatus.InProgress },
+    const thisWeekGoalSuccess = await prisma.goal.findFirst({
+      where: { userId: user.id, status: GoalStatus.Success, date: dayjs().startOf("week").format("YYYY-MM-DD") },
     });
-    if (!currentGoalInProgress) return null;
-    const weekConsos = await prisma.consommation.findMany({
-      where: {
-        userId: user.id,
-        date: {
-          gte: dayjs(currentGoalInProgress.date).startOf("week").toDate(), // monday
-          lte: dayjs(currentGoalInProgress.date).endOf("week").toDate(), // sunday
-        },
-      },
-      orderBy: { date: "desc" },
-    });
-    const allDaysFilled = checksConsecutiveDays(weekConsos);
-    const nextWeekGoalStartDate = dayjs().add(1, "week").startOf("week").format("YYYY-MM-DD");
-    function createNextWeekGoal() {
-      return prisma.goal.upsert({
-        where: { id: `${user.id}_${nextWeekGoalStartDate}` },
-        create: {
-          id: `${user.id}_${nextWeekGoalStartDate}`,
+    if (!thisWeekGoalSuccess) return null;
+    const lastBadge = goalBadges[0];
+    const [newBadge, allBadges] = await prisma.$transaction([
+      prisma.badge.create({
+        data: {
           userId: user.id,
-          date: nextWeekGoalStartDate,
-          daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
-          dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
-          dosesPerWeek: currentGoalInProgress.dosesPerWeek,
-          status: GoalStatus.InProgress,
+          category: "goals",
+          date: dayjs().format("YYYY-MM-DD"),
+          stars: lastBadge ? lastBadge.stars + 1 : 1,
         },
-        update: {
-          id: `${user.id}_${nextWeekGoalStartDate}`,
-          userId: user.id,
-          date: nextWeekGoalStartDate,
-          daysWithGoalNoDrink: currentGoalInProgress.daysWithGoalNoDrink,
-          dosesByDrinkingDay: currentGoalInProgress.dosesByDrinkingDay,
-          dosesPerWeek: currentGoalInProgress.dosesPerWeek,
-          status: GoalStatus.InProgress,
-        },
-      });
-    }
-    const currentGoalWasTwoWeeksAgo = dayjs() > dayjs(currentGoalInProgress.date).add(1, "week").endOf("week"); // we check if the user took too much time to fill up the goal. If so, we consider it as a failure
-    if (!allDaysFilled && currentGoalWasTwoWeeksAgo) {
-      await prisma.$transaction([
-        prisma.goal.update({
-          where: { id: currentGoalInProgress.id },
-          data: { status: GoalStatus.Failure },
-        }),
-        createNextWeekGoal(),
-      ]);
-      return { newBadge: missedGoal };
-    }
-    if (!allDaysFilled) {
-      // nothing to do when consos are not all filled - we wait for the user to fill up everything
-      return null;
-    }
-    //  it's time to check if the goal is a success or not - so the `InProgress` wil change to either `Failure`or `Success`
-    const totalDoses = weekConsos
-      .filter((drink) => drink.drinkKey !== "no-conso")
-      .reduce((total, drink) => {
-        return total + drink.doses * drink.quantity;
-      }, 0);
-    const totalDaysWithNoDrink = weekConsos.filter((drink) => drink.drinkKey === "no-conso").length;
-    const goalAchieved = totalDoses <= currentGoalInProgress.dosesPerWeek && totalDaysWithNoDrink >= currentGoalInProgress.daysWithGoalNoDrink.length;
+      }),
+      prisma.badge.findMany({ where: { userId: user.id } }),
+    ]);
 
-    if (!goalAchieved) {
-      await prisma.$transaction([
-        prisma.goal.update({
-          where: { id: currentGoalInProgress.id },
-          data: { status: GoalStatus.Failure },
-        }),
-        createNextWeekGoal(),
-      ]);
-      return { newBadge: missedGoal };
-    }
-    if (goalAchieved) {
-      const lastBadge = goalBadges[0];
-      const [newBadge, allBadges] = await prisma.$transaction([
-        prisma.badge.create({
-          data: {
-            userId: user.id,
-            category: "goals",
-            date: dayjs().format("YYYY-MM-DD"),
-            stars: lastBadge ? lastBadge.stars + 1 : 1,
-          },
-        }),
-        prisma.badge.findMany({ where: { userId: user.id } }),
-        prisma.goal.update({
-          where: { id: currentGoalInProgress.id },
-          data: { status: GoalStatus.Success },
-        }),
-        createNextWeekGoal(),
-      ]);
-
-      return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(appversion) };
-    }
+    return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(appversion) };
   } catch (error) {
     capture(error, { user: { matomoId } });
   }
@@ -182,4 +171,5 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
 
 module.exports = {
   checkIfThisWeekGoalAchieved,
+  checkGoalState,
 };
