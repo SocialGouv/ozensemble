@@ -53,6 +53,35 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    if (req.headers.appversion >= 245) {
+      const NewLongTermBadgesFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@NewLongTermBadgesFeature` },
+      });
+      if (!NewLongTermBadgesFeature) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@NewLongTermBadgesFeature`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@NewLongTermBadgesFeature",
+            title: "De nouveaux badges sont arrivés !",
+            content: "Gagnez de nouveaux badges jours et objectifs en ajoutant vos consommations ou en atteignant votre objectif de la semaine !",
+            CTATitle: "Voir mes badges",
+            CTANavigation: ["BADGES_LIST"],
+            CTAEvent: {
+              category: "BADGES",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+          },
+        });
+      }
+    }
     const allowNotification = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@AllowNotification` },
     });
