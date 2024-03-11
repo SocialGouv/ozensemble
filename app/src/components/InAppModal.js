@@ -23,6 +23,8 @@ import SuperUserHeart from './illustrations/icons/SuperUserHeart';
 import ChatBubble from './illustrations/icons/ChatBubble';
 import { openSettings } from 'react-native-permissions';
 import NotificationService from '../services/notifications';
+import { BagdeDrinksNoStars } from '../scenes//Badges/Svgs/BadgeDrinksNoStars';
+import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 
 /* example
 {
@@ -131,6 +133,13 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('NewLongTermBadgesFeature') && (
+            <View className="mx-2 flex flex-row items-center">
+              <BagdeDrinksNoStars />
+              <View className="p-2" />
+              <BadgeGoalsNoStars />
+            </View>
+          )}
           {inAppModal?.id.includes('AllowNotification') && (
             <View className="mx-2 flex flex-col items-center">
               <ChatBubble fill="#4030A5" />
