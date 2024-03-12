@@ -7,6 +7,8 @@ fileignoreconfig:
   checksum: e738e4f869ffdb4d49246783f929f3267700a838d5aef0ab734f94ca80864f19
 - filename: api/prisma/migrations/20240130140207_app_version/migration.sql
   checksum: 752b31bb67a2d79bb86d6f44813a51f1df42b54c923c45a746ce6dcdfcbabc37
+- filename: app/src/scenes/ConsoFollowUp/drinksCatalog.js
+  checksum: 12f91171745347486c179e437424ccf55b2024063e907fab67f7686d4416a0fb
 scopeconfig:
 - scope: node
 version: "1.0"
