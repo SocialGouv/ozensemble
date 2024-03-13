@@ -28,7 +28,7 @@ router.post(
       await prisma.goal.update({ where: { id: thisWeekGoal.id }, data: { status: "Failure" } });
     }
 
-    // we want to know if the goal of this week is already prosseded. If it is, we want to create/modify the one for next week
+    // we want to know if the goal of this week is already proceded. If it is, we want to create/modify the one for next week
     // if it is not, we want to update the current one with the new values
     if (thisWeekGoal?.status !== "InProgress") date = dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD");
 
