@@ -1,3 +1,10 @@
+## [1.146.2](https://github.com/SocialGouv/ozensemble/compare/v1.146.1...v1.146.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* divided in two functions and check if inprogress goal is this or… ([#545](https://github.com/SocialGouv/ozensemble/issues/545)) ([16855e6](https://github.com/SocialGouv/ozensemble/commit/16855e6522d35fd2b44741f2d61376ca9a52b170))
+
 ## [1.146.1](https://github.com/SocialGouv/ozensemble/compare/v1.146.0...v1.146.1) (2024-03-12)
 
 
