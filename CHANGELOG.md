@@ -1,3 +1,10 @@
+## [1.146.3](https://github.com/SocialGouv/ozensemble/compare/v1.146.2...v1.146.3) (2024-03-15)
+
+
+### Bug Fixes
+
+* was always true ([1689a94](https://github.com/SocialGouv/ozensemble/commit/1689a94a8cd7b47a39b70cb10a0467e8d22f8bfc))
+
 ## [1.146.2](https://github.com/SocialGouv/ozensemble/compare/v1.146.1...v1.146.2) (2024-03-13)
 
 
