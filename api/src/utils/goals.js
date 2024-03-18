@@ -107,7 +107,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
     if (!!goalBadges.length) {
       const lastBadge = goalBadges[0];
       if (lastBadge) {
-        const allBadgesAreGivenAlready = lastBadge.stars === 5;
+        const allBadgesAreGivenAlready = lastBadge.stars === 8;
         if (allBadgesAreGivenAlready) {
           // the user has all the badges already, nothing to do
           return null;

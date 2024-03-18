@@ -343,6 +343,84 @@ router.post(
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
+    if (!drinksBadges.find((badge) => badge.stars === 6)) {
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(60, allConsos);
+      if (enoughConsecutiveDays) {
+        await prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "drinks",
+            stars: 6,
+          },
+        });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 6), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
+      }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
+    if (!drinksBadges.find((badge) => badge.stars === 7)) {
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(90, allConsos);
+      if (enoughConsecutiveDays) {
+        await prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "drinks",
+            stars: 7,
+          },
+        });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 7), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
+      }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
+    if (!drinksBadges.find((badge) => badge.stars === 8)) {
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(180, allConsos);
+      if (enoughConsecutiveDays) {
+        await prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "drinks",
+            stars: 8,
+          },
+        });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 8), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
+      }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
     return res.status(200).send({ ok: true });
   })
 );
