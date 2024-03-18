@@ -1,62 +1,90 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import H2 from '../../components/H2';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
+import NetInfo from '@react-native-community/netinfo';
 import H1 from '../../components/H1';
+import { storage } from '../../services/storage';
+import API from '../../services/api';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
+  const [isWellLocated, setIsWellLocated] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      let location = storage.getString('isWellLocated');
+      if (location === undefined) {
+        const matomoId = storage.getString('@UserIdv2');
+        const ip = await NetInfo.fetch().then((state) => state.details.ipAddress);
+        const response = await API.get({ path: '/user/location', query: { matomoId, ip } });
+
+        if (response && response.isWellLocated) {
+          location = true;
+          storage.set('isWellLocated', true);
+        }
+      }
+      setIsWellLocated(location);
+    };
+
+    fetchData();
+  }, []);
   return (
     <WrapperContainer title="Santé">
-      <H2 color="#4030a5" className="mb-2">
-        Parler avec un professionnel
-      </H2>
-      <H2 color="#000000" className="mb-2">
-        Gratuitement et anonymement
-      </H2>
-      <CategorieContainer
-        onPress={() => {
-          logEvent({
-            category: 'CONTACT',
-            action: 'CONTACT_OPEN',
-            name: 'HEALTH',
-          });
-          navigation.navigate('CONTACT');
-        }}>
-        <IconContainer>
-          <AppointmentHeart size={40} />
-        </IconContainer>
-        <TextContainer>
-          <TextStyled> Prendre un RDV</TextStyled>
-          <TextStyled> avec Doctolib</TextStyled>
-        </TextContainer>
-      </CategorieContainer>
-      <H2 color="#4030a5">Mes articles conseils</H2>
-      <ViewConseilsContainer>
-        {listConseils.map((conseil, index) => (
-          <ConseilContainer
-            onPress={() => {
-              logEvent({
-                category: 'HEALTH',
-                action: 'HEALTH_ARTICLE',
-                name: conseil.title,
-              });
-              navigation.navigate(conseil.link);
-            }}
-            key={index}>
-            <ImageStyled source={conseil.img} />
-            <TitleConseilContainer>
-              <TextStyled> {conseil.title}</TextStyled>
-            </TitleConseilContainer>
-          </ConseilContainer>
-        ))}
-        <Space />
-      </ViewConseilsContainer>
+      <>
+        {isWellLocated && (
+          <>
+            <H2 color="#4030a5" className="mb-2">
+              Parler avec un professionnel
+            </H2>
+            <H2 color="#000000" className="mb-2">
+              Gratuitement et anonymement
+            </H2>
+            <CategorieContainer
+              onPress={() => {
+                logEvent({
+                  category: 'CONTACT',
+                  action: 'CONTACT_OPEN',
+                  name: 'HEALTH',
+                });
+                navigation.navigate('CONTACT');
+              }}>
+              <IconContainer>
+                <AppointmentHeart size={40} />
+              </IconContainer>
+              <TextContainer>
+                <TextStyled> Prendre un RDV</TextStyled>
+                <TextStyled> avec Doctolib</TextStyled>
+              </TextContainer>
+            </CategorieContainer>
+          </>
+        )}
+        <H2 color="#4030a5">Mes articles conseils</H2>
+        <ViewConseilsContainer>
+          {listConseils.map((conseil, index) => (
+            <ConseilContainer
+              onPress={() => {
+                logEvent({
+                  category: 'HEALTH',
+                  action: 'HEALTH_ARTICLE',
+                  name: conseil.title,
+                });
+                navigation.navigate(conseil.link);
+              }}
+              key={index}>
+              <ImageStyled source={conseil.img} />
+              <TitleConseilContainer>
+                <TextStyled> {conseil.title}</TextStyled>
+              </TitleConseilContainer>
+            </ConseilContainer>
+          ))}
+          <Space />
+        </ViewConseilsContainer>
+      </>
     </WrapperContainer>
   );
 };
