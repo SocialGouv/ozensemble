@@ -1,3 +1,10 @@
+## [1.146.4](https://github.com/SocialGouv/ozensemble/compare/v1.146.3...v1.146.4) (2024-03-18)
+
+
+### Bug Fixes
+
+* change limit goal ([f63ad38](https://github.com/SocialGouv/ozensemble/commit/f63ad389df1a8d13ff5d7c7de9ebee141c0ff080))
+
 ## [1.146.3](https://github.com/SocialGouv/ozensemble/compare/v1.146.2...v1.146.3) (2024-03-15)
 
 
