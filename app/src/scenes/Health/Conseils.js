@@ -5,7 +5,9 @@ import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
+import ChatBubbles from '../../components/illustrations/Chatbubbles';
 import H1 from '../../components/H1';
+import { View, TouchableOpacity, Text } from 'react-native';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -36,6 +38,19 @@ const Conseils = ({ navigation }) => {
           <TextStyled> avec Doctolib</TextStyled>
         </TextContainer>
       </CategorieContainer>
+      <H2 color="#4030a5" className="mb-2">
+        Témoignages
+      </H2>
+      <View className="border border-[#4030A5] bg-white rounded-md shadow-md my-4 py-4 px-3">
+        <TouchableOpacity
+          className="flex-row"
+          onPress={() => {
+            navigation.navigate('TESTIMONIES');
+          }}>
+          <ChatBubbles size={40} className="ml-6" />
+          <Text className="ml-8">Consulter des{'\n'} témoignages</Text>
+        </TouchableOpacity>
+      </View>
       <H2 color="#4030a5">Mes articles conseils</H2>
       <ViewConseilsContainer>
         {listConseils.map((conseil, index) => (
