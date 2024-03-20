@@ -1,3 +1,10 @@
+## [1.146.5](https://github.com/SocialGouv/ozensemble/compare/v1.146.4...v1.146.5) (2024-03-20)
+
+
+### Bug Fixes
+
+* mentions légales ([c0c203e](https://github.com/SocialGouv/ozensemble/commit/c0c203ea67af4e40547c3949f9f62c6dbe1fa87c))
+
 ## [1.146.4](https://github.com/SocialGouv/ozensemble/compare/v1.146.3...v1.146.4) (2024-03-18)
 
 
