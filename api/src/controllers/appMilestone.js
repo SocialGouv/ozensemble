@@ -71,7 +71,7 @@ router.post(
             id: "@TestimoniesFeature",
             title: "Découvrez notre page de témoignages !",
             content:
-              "Consultez dès maintenant les premiers témoignages sur Oz ! \n Et vous aussi, participez à faire grandir la communauté en nous envoyant dès maintenant vos témoignages que nous publieront anonyment sur l’application.",
+              "Consultez dès maintenant les premiers témoignages sur Oz ! \n Et vous aussi, participez à faire grandir la communauté en nous envoyant dès maintenant vos témoignages que nous publieront anonymement sur l’application.",
             CTATitle: "Voir les témoignages",
             CTANavigation: ["HEALTH", { screen: "TESTIMONIES" }],
             CTAEvent: {
