@@ -23,7 +23,7 @@ import CravingsTreatment from './Articles/CravingsTreatment';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
-  useToggleCTA({ navigator: 'Health' });
+  useToggleCTA({ routesToHideCTA: ['OWN_TESTIMONY'], navigator: 'Health' });
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_ARTICLE">

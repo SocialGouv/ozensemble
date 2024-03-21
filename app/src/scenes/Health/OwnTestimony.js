@@ -29,7 +29,7 @@ const OwnTestimony = ({ navigation }) => {
     const userId = storage.getString('@UserIdv2');
     setSendButton('Merci !');
     logEvent({
-      category: 'TESTIMONY',
+      category: 'TESTIMONIES',
       action: 'TESTIMONY_SEND',
     });
     await sendMail({

@@ -53,7 +53,7 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-    if (req.headers.appversion >= 246) {
+    if (req.headers.appversion >= 247) {
       const TestimoniesFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@TestimoniesFeature` },
       });

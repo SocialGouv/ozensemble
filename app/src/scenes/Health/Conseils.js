@@ -41,7 +41,7 @@ const Conseils = ({ navigation }) => {
       <H2 color="#4030a5" className="mb-2">
         Témoignages
       </H2>
-      <View className="border border-[#4030A5] bg-white rounded-md shadow-md my-4 py-4 px-3">
+      <View className="border border-[#4030A5] bg-white rounded-md shadow-md my-4 py-4 px-3 mb-8">
         <TouchableOpacity
           className="flex-row"
           onPress={() => {

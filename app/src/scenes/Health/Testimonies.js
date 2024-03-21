@@ -89,7 +89,7 @@ const Testimonies = ({ navigation }) => {
           </View>
         </View>
 
-        <View className="items-center border-[#DBDBE8] bg-[#EFEFEF] rounded-lg border-1 mb-10 p-5">
+        <View className="items-center border-[#DBDBE8] bg-[#EFEFEF] rounded-lg border mb-10 p-4">
           <Text className="font-bold mb-6">
             Vous aussi partagez votre témoignage anonymement, et donnez du courage à ceux qui en ont besoin.{' '}
           </Text>
