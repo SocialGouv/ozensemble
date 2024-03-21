@@ -53,14 +53,14 @@ const OwnTestimony = ({ navigation }) => {
               className="flex-shrink flex-grow mx-6 mt-3"
               keyboardShouldPersistTaps="never"
               keyboardDismissMode="none">
-              <BackButton content="< Retour" bold onPress={() => navigation.goBack()} marginTop />
+              <BackButton content="< Retour" bold onPress={() => navigation.navigate('HEALTH_ARTICLE')} marginTop />
               <View className="mt-2">
                 <Text className="text-[#4030A5] text-xl font-bold mt-3">Témoigner sur Oz Ensemble{'\n'}</Text>
               </View>
               <View className="mt-2">
                 <Text className="text-[#191919] text-base">
                   Vous souhaitez partager votre histoire et vos motivations avec les autres utilisateurs de Oz Ensemble
-                  ?{'\n'} Rédigez votre témoignage, et nous le partagerons anonymement sur l’application.
+                  ?{'\n'}Rédigez votre témoignage, et nous le partagerons anonymement sur l’application.
                 </Text>
               </View>
               <TextInput

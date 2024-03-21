@@ -53,7 +53,7 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-    if (req.headers.appversion >= 247) {
+    if (req.headers.appversion >= 248) {
       const TestimoniesFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@TestimoniesFeature` },
       });
@@ -71,7 +71,7 @@ router.post(
             id: "@TestimoniesFeature",
             title: "Découvrez notre page de témoignages !",
             content:
-              "Consultez dès maintenant les premiers témoignages sur Oz ! \n Et vous aussi, participez à faire grandir la communauté en nous envoyant dès maintenant vos témoignages que nous publieront anonymement sur l’application.",
+              "Consultez les premiers témoignages sur Oz ! \n Et vous aussi, faites grandir la communauté en nous envoyant dès maintenant vos témoignages que nous publieront anonymement sur l’application.",
             CTATitle: "Voir les témoignages",
             CTANavigation: ["HEALTH", { screen: "TESTIMONIES" }],
             CTAEvent: {
