@@ -1,43 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import H2 from '../../components/H2';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
-import ChatBubbles from '../../components/illustrations/Chatbubbles';
+import NetInfo from '@react-native-community/netinfo';
 import H1 from '../../components/H1';
+import { storage } from '../../services/storage';
+import API from '../../services/api';
+import ChatBubbles from '../../components/illustrations/Chatbubbles';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
+  const [isWellLocated, setIsWellLocated] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      let location = storage.getString('isWellLocated');
+      if (location === undefined) {
+        const matomoId = storage.getString('@UserIdv2');
+        const ip = await NetInfo.fetch().then((state) => state.details.ipAddress);
+        const response = await API.get({ path: '/user/location', query: { matomoId, ip } });
+        if (response && response.isWellLocated) {
+          location = true;
+        } else {
+          location = false;
+        }
+      }
+      storage.set('isWellLocated', location);
+      setIsWellLocated(location);
+    };
+
+    fetchData();
+  }, []);
   return (
     <WrapperContainer title="Santé">
-      <H2 color="#4030a5" className="mb-2">
-        Parler avec un professionnel
-      </H2>
-      <H2 color="#000000" className="mb-2">
-        Gratuitement et anonymement
-      </H2>
-      <CategorieContainer
-        onPress={() => {
-          logEvent({
-            category: 'CONTACT',
-            action: 'CONTACT_OPEN',
-            name: 'HEALTH',
-          });
-          navigation.navigate('CONTACT');
-        }}>
-        <IconContainer>
-          <AppointmentHeart size={40} />
-        </IconContainer>
-        <TextContainer>
-          <TextStyled> Prendre un RDV</TextStyled>
-          <TextStyled> avec Doctolib</TextStyled>
-        </TextContainer>
-      </CategorieContainer>
+      {isWellLocated && (
+        <>
+          <H2 color="#4030a5" className="mb-2">
+            Parler avec un professionnel
+          </H2>
+          <H2 color="#000000" className="mb-2">
+            Gratuitement et anonymement
+          </H2>
+          <CategorieContainer
+            onPress={() => {
+              logEvent({
+                category: 'CONTACT',
+                action: 'CONTACT_OPEN',
+                name: 'HEALTH',
+              });
+              navigation.navigate('CONTACT');
+            }}>
+            <IconContainer>
+              <AppointmentHeart size={40} />
+            </IconContainer>
+            <TextContainer>
+              <TextStyled> Prendre un RDV</TextStyled>
+              <TextStyled> avec Doctolib</TextStyled>
+            </TextContainer>
+          </CategorieContainer>
+        </>
+      )}
+
       <H2 color="#4030a5" className="mb-2">
         Témoignages
       </H2>

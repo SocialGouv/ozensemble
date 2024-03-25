@@ -328,6 +328,12 @@ const FakeData = () => {
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
+        <MenuItem
+          caption="Ma localisation"
+          onPress={() => {
+            storage.delete('isWellLocated');
+          }}
+        />
         <MenuItem caption="Tout" onPress={() => storage.clearAll()} />
       </Container>
     </WrapperContainer>
