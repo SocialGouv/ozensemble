@@ -5,6 +5,8 @@ fileignoreconfig:
   checksum: 6bc0d60663fba9813033c7e35cbddb0d9a3513d18133cbdc261f3bd222d28657
 - filename: api/Dockerfile
   checksum: e738e4f869ffdb4d49246783f929f3267700a838d5aef0ab734f94ca80864f19
+- filename: api/materialized-views.sql
+  checksum: 0d99d1b7c61c4e3ef36a965220cbd6add6ad8803b70e5a8f4f26a4ed98400439
 - filename: api/prisma/migrations/20240130140207_app_version/migration.sql
   checksum: 752b31bb67a2d79bb86d6f44813a51f1df42b54c923c45a746ce6dcdfcbabc37
 - filename: app/src/scenes/ConsoFollowUp/drinksCatalog.js
