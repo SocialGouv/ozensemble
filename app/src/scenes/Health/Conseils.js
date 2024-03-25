@@ -22,12 +22,13 @@ const Conseils = ({ navigation }) => {
         const matomoId = storage.getString('@UserIdv2');
         const ip = await NetInfo.fetch().then((state) => state.details.ipAddress);
         const response = await API.get({ path: '/user/location', query: { matomoId, ip } });
-
         if (response && response.isWellLocated) {
           location = true;
-          storage.set('isWellLocated', true);
+        } else {
+          location = false;
         }
       }
+      storage.set('isWellLocated', location);
       setIsWellLocated(location);
     };
 
