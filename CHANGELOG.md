@@ -1,3 +1,24 @@
+## [1.146.6](https://github.com/SocialGouv/ozensemble/compare/v1.146.5...v1.146.6) (2024-03-21)
+
+
+### Bug Fixes
+
+* recette ([702de05](https://github.com/SocialGouv/ozensemble/commit/702de05e464b137337aa0c339915dc9ffaf0b5d3))
+
+## [1.146.5](https://github.com/SocialGouv/ozensemble/compare/v1.146.4...v1.146.5) (2024-03-20)
+
+
+### Bug Fixes
+
+* mentions légales ([c0c203e](https://github.com/SocialGouv/ozensemble/commit/c0c203ea67af4e40547c3949f9f62c6dbe1fa87c))
+
+## [1.146.4](https://github.com/SocialGouv/ozensemble/compare/v1.146.3...v1.146.4) (2024-03-18)
+
+
+### Bug Fixes
+
+* change limit goal ([f63ad38](https://github.com/SocialGouv/ozensemble/commit/f63ad389df1a8d13ff5d7c7de9ebee141c0ff080))
+
 ## [1.146.3](https://github.com/SocialGouv/ozensemble/compare/v1.146.2...v1.146.3) (2024-03-15)
 
 

@@ -9,6 +9,8 @@ import NetInfo from '@react-native-community/netinfo';
 import H1 from '../../components/H1';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+import ChatBubbles from '../../components/illustrations/Chatbubbles';
+import { View, TouchableOpacity, Text } from 'react-native';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
@@ -86,6 +88,40 @@ const Conseils = ({ navigation }) => {
           <Space />
         </ViewConseilsContainer>
       </>
+      <H2 color="#4030a5" className="mb-2">
+        Témoignages
+      </H2>
+      <View className="border border-[#4030A5] bg-white rounded-md shadow-md my-4 py-4 px-3 mb-8">
+        <TouchableOpacity
+          className="flex-row"
+          onPress={() => {
+            navigation.navigate('TESTIMONIES');
+          }}>
+          <ChatBubbles size={40} className="ml-6" />
+          <Text className="ml-8">Consulter des{'\n'} témoignages</Text>
+        </TouchableOpacity>
+      </View>
+      <H2 color="#4030a5">Mes articles conseils</H2>
+      <ViewConseilsContainer>
+        {listConseils.map((conseil, index) => (
+          <ConseilContainer
+            onPress={() => {
+              logEvent({
+                category: 'HEALTH',
+                action: 'HEALTH_ARTICLE',
+                name: conseil.title,
+              });
+              navigation.navigate(conseil.link);
+            }}
+            key={index}>
+            <ImageStyled source={conseil.img} />
+            <TitleConseilContainer>
+              <TextStyled> {conseil.title}</TextStyled>
+            </TitleConseilContainer>
+          </ConseilContainer>
+        ))}
+        <Space />
+      </ViewConseilsContainer>
     </WrapperContainer>
   );
 };

@@ -3,6 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ContactForm from './ContactForm';
 import Doctolib from './Doctolib';
 import Conseils from './Conseils';
+import Testimonies from './Testimonies';
+import OwnTestimony from './OwnTestimony';
 import ToSayNo from './Articles/ToSayNo';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import ToHelpMeReduce from './Articles/ToHelpMeReduce';
@@ -21,12 +23,14 @@ import CravingsTreatment from './Articles/CravingsTreatment';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
-  useToggleCTA({ navigator: 'Health' });
+  useToggleCTA({ routesToHideCTA: ['OWN_TESTIMONY'], navigator: 'Health' });
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_ARTICLE">
         <HealthStack.Screen name="HEALTH_ARTICLE" component={Conseils} />
         <HealthStack.Screen name="CONTACT" component={ContactForm} />
+        <HealthStack.Screen name="TESTIMONIES" component={Testimonies} />
+        <HealthStack.Screen name="OWN_TESTIMONY" component={OwnTestimony} />
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
         <HealthStack.Screen name="ALCOOL_WITHDRAWAL_TREATMENT" component={AlcoolWithdrawalTreatment} />
         <HealthStack.Screen name="TO_SAY_NO" component={ToSayNo} />

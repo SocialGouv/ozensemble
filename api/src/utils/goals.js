@@ -15,21 +15,21 @@ const checkGoalState = async (matomoId, date) => {
   const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
   if (!user) return null;
   const consoGoal = await prisma.goal.findFirst({
-    where: { userId: user.id, status: GoalStatus.InProgress, date: dayjs(date).startOf("week").add(1, "hour").format("YYYY-MM-DD") },
+    where: { userId: user.id, status: GoalStatus.InProgress, date: dayjs(date).startOf("week").format("YYYY-MM-DD") },
   });
   if (!consoGoal) return null;
   const weekConsos = await prisma.consommation.findMany({
     where: {
       userId: user.id,
       date: {
-        gte: dayjs(consoGoal.date).startOf("week").toDate(), // monday
-        lte: dayjs(consoGoal.date).endOf("week").toDate(), // sunday
+        gte: dayjs(date).utc().startOf("week").toDate(), // monday
+        lte: dayjs(date).utc().endOf("week").toDate(), // sunday
       },
     },
     orderBy: { date: "desc" },
   });
   const allDaysFilled = checksConsecutiveDays(weekConsos);
-  const nextWeekGoalStartDate = dayjs(consoGoal.date).add(1, "week").startOf("week").format("YYYY-MM-DD");
+  const nextWeekGoalStartDate = dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD");
   if (!allDaysFilled) {
     // nothing to do when consos are not all filled - we wait for the user to fill up everything
     return null;
@@ -107,7 +107,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
     if (!!goalBadges.length) {
       const lastBadge = goalBadges[0];
       if (lastBadge) {
-        const allBadgesAreGivenAlready = lastBadge.stars === 5;
+        const allBadgesAreGivenAlready = lastBadge.stars === 8;
         if (allBadgesAreGivenAlready) {
           // the user has all the badges already, nothing to do
           return null;
