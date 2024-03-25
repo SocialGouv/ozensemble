@@ -53,7 +53,7 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
-    if (req.headers.appversion >= 245) {
+    if (req.headers.appversion >= 246) {
       const NewLongTermBadgesFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewLongTermBadgesFeature` },
       });
