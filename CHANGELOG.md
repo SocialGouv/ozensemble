@@ -1,3 +1,10 @@
+## [1.147.1](https://github.com/SocialGouv/ozensemble/compare/v1.147.0...v1.147.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* nav ([#550](https://github.com/SocialGouv/ozensemble/issues/550)) ([4304bd4](https://github.com/SocialGouv/ozensemble/commit/4304bd41afd2740fa8e2008633c6dfd874892ecf))
+
 # [1.147.0](https://github.com/SocialGouv/ozensemble/compare/v1.146.6...v1.147.0) (2024-03-25)
 
 
