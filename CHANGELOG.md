@@ -1,3 +1,10 @@
+## [1.147.2](https://github.com/SocialGouv/ozensemble/compare/v1.147.1...v1.147.2) (2024-03-28)
+
+
+### Bug Fixes
+
+* day3 activity3 mixed buttons ([33656f7](https://github.com/SocialGouv/ozensemble/commit/33656f7741f652221d25669c2af8effcfd825dcd))
+
 ## [1.147.1](https://github.com/SocialGouv/ozensemble/compare/v1.147.0...v1.147.1) (2024-03-27)
 
 
