@@ -76,7 +76,7 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
                 <>
                   <TextStyled>Procédons en deux étapes en identifiant : {'\n\n'}</TextStyled>
                   <CircleContainer>
-                    <AddCircleStyled />
+                    <MinusCircleStyled />
                     <TextStyledWidth>
                       Les éléments ayant rendu votre réduction difficile à maintenir dans le temps malgré votre objectif
                       (appelés{' '}
@@ -87,7 +87,7 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
                     </TextStyledWidth>
                   </CircleContainer>
                   <CircleContainer>
-                    <MinusCircleStyled />
+                    <AddCircleStyled />
                     <TextStyledWidth>
                       Les sources d'aide et d'inspiration que vous avez trouvées dans votre quotidien (appelés{' '}
                       <TextStyled bold italic>
