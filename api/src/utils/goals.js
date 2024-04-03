@@ -38,18 +38,22 @@ const checkGoalState = async (matomoId, date) => {
     where: { userId: user.id, status: GoalStatus.InProgress, date: nextWeekGoalStartDate },
   });
   if (!nextWeekGoalInProgress) {
-    prisma.goal.create({
-      where: { id: `${user.id}_${nextWeekGoalStartDate}` },
-      data: {
-        id: `${user.id}_${nextWeekGoalStartDate}`,
-        userId: user.id,
-        date: nextWeekGoalStartDate,
-        daysWithGoalNoDrink: consoGoal.daysWithGoalNoDrink,
-        dosesByDrinkingDay: consoGoal.dosesByDrinkingDay,
-        dosesPerWeek: consoGoal.dosesPerWeek,
-        status: GoalStatus.InProgress,
-      },
-    });
+    try {
+      await prisma.goal.create({
+        data: {
+          id: `${user.id}_${nextWeekGoalStartDate}`,
+          userId: user.id,
+          date: nextWeekGoalStartDate,
+          daysWithGoalNoDrink: consoGoal.daysWithGoalNoDrink,
+          dosesByDrinkingDay: consoGoal.dosesByDrinkingDay,
+          dosesPerWeek: consoGoal.dosesPerWeek,
+          status: GoalStatus.InProgress,
+        },
+      });
+      console.log("Goal created successfully");
+    } catch (error) {
+      console.error("Error creating goal:", error);
+    }
   }
 
   //  it's time to check if the goal is a success or not - so the `InProgress` wil change to either `Failure`or `Success`
@@ -125,17 +129,63 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
     });
     if (!thisWeekGoalSuccess) return null;
     const lastBadge = goalBadges[0];
-    const [newBadge, allBadges] = await prisma.$transaction([
-      prisma.badge.create({
-        data: {
-          userId: user.id,
-          category: "goals",
-          date: dayjs().format("YYYY-MM-DD"),
-          stars: lastBadge ? lastBadge.stars + 1 : 1,
-        },
-      }),
-      prisma.badge.findMany({ where: { userId: user.id } }),
-    ]);
+    goalSuccessList = await prisma.goal.findMany({
+      where: { userId: user.id, status: GoalStatus.Success },
+      orderBy: { date: "desc" },
+    });
+    let newBadge;
+    let allBadges;
+    if (lastBadge?.stars < 5) {
+      [newBadge, allBadges] = await prisma.$transaction([
+        prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "goals",
+            date: dayjs().format("YYYY-MM-DD"),
+            stars: lastBadge ? lastBadge.stars + 1 : 1,
+          },
+        }),
+        prisma.badge.findMany({ where: { userId: user.id } }),
+      ]);
+    } else if (goalSuccessList.length >= 6 && lastBadge?.stars === 5) {
+      [newBadge, allBadges] = await prisma.$transaction([
+        prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "goals",
+            date: dayjs().format("YYYY-MM-DD"),
+            stars: lastBadge ? lastBadge.stars + 1 : 1,
+          },
+        }),
+        prisma.badge.findMany({ where: { userId: user.id } }),
+      ]);
+    } else if (goalSuccessList.length >= 10 && lastBadge?.stars === 6) {
+      [newBadge, allBadges] = await prisma.$transaction([
+        prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "goals",
+            date: dayjs().format("YYYY-MM-DD"),
+            stars: lastBadge ? lastBadge.stars + 1 : 1,
+          },
+        }),
+        prisma.badge.findMany({ where: { userId: user.id } }),
+      ]);
+    } else if (goalSuccessList.length >= 20 && lastBadge?.stars === 7) {
+      [newBadge, allBadges] = await prisma.$transaction([
+        prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "goals",
+            date: dayjs().format("YYYY-MM-DD"),
+            stars: lastBadge ? lastBadge.stars + 1 : 1,
+          },
+        }),
+        prisma.badge.findMany({ where: { userId: user.id } }),
+      ]);
+    } else {
+      return null;
+    }
 
     return { newBadge: grabBadgeFromCatalog("goals", newBadge.stars), allBadges, badgesCatalog: getBadgeCatalog(appversion) };
   } catch (error) {
