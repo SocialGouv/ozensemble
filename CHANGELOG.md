@@ -1,3 +1,10 @@
+## [1.147.3](https://github.com/SocialGouv/ozensemble/compare/v1.147.2...v1.147.3) (2024-04-03)
+
+
+### Bug Fixes
+
+* goals will show badge and handle number of success goals ([#551](https://github.com/SocialGouv/ozensemble/issues/551)) ([93aac27](https://github.com/SocialGouv/ozensemble/commit/93aac278e72ad60426f887e9c872a264d145c4a0))
+
 ## [1.147.2](https://github.com/SocialGouv/ozensemble/compare/v1.147.1...v1.147.2) (2024-03-28)
 
 
