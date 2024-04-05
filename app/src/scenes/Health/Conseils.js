@@ -5,13 +5,10 @@ import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
-import NetInfo from '@react-native-community/netinfo';
-import H1 from '../../components/H1';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
 import ChatBubbles from '../../components/illustrations/Chatbubbles';
 import { View, TouchableOpacity, Text } from 'react-native';
-
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 
@@ -22,8 +19,8 @@ const Conseils = ({ navigation }) => {
       let location = storage.getString('isWellLocated');
       if (location === undefined) {
         const matomoId = storage.getString('@UserIdv2');
-        const ip = await NetInfo.fetch().then((state) => state.details.ipAddress);
-        const response = await API.get({ path: '/user/location', query: { matomoId, ip } });
+
+        const response = await API.get({ path: '/user/location', query: { matomoId } });
         if (response && response.isWellLocated) {
           location = true;
         } else {

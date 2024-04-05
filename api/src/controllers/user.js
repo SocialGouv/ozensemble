@@ -38,7 +38,8 @@ router.put(
 router.get(
   "/location",
   catchErrors(async (req, res) => {
-    const { matomoId, ip } = req.query || {};
+    const { matomoId } = req.query || {};
+    const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     let isWellLocated = false;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     var geo = geoip.lookup(ip);
