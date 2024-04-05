@@ -1,3 +1,10 @@
+## [1.147.6](https://github.com/SocialGouv/ozensemble/compare/v1.147.5...v1.147.6) (2024-04-05)
+
+
+### Bug Fixes
+
+* no average and shown even for no full weeks ([#553](https://github.com/SocialGouv/ozensemble/issues/553)) ([cafcc76](https://github.com/SocialGouv/ozensemble/commit/cafcc76da95902ae759992b7faa118ef1b33a053))
+
 ## [1.147.5](https://github.com/SocialGouv/ozensemble/compare/v1.147.4...v1.147.5) (2024-04-05)
 
 
