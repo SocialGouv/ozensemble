@@ -1,3 +1,10 @@
+## [1.147.5](https://github.com/SocialGouv/ozensemble/compare/v1.147.4...v1.147.5) (2024-04-05)
+
+
+### Bug Fixes
+
+* simpler way to locate ([5007769](https://github.com/SocialGouv/ozensemble/commit/5007769fa34d463e4132d7a127ad6d06afcb6196))
+
 ## [1.147.4](https://github.com/SocialGouv/ozensemble/compare/v1.147.3...v1.147.4) (2024-04-05)
 
 
