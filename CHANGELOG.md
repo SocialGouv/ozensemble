@@ -1,3 +1,10 @@
+## [1.147.4](https://github.com/SocialGouv/ozensemble/compare/v1.147.3...v1.147.4) (2024-04-05)
+
+
+### Bug Fixes
+
+* ip from next not netinfo ([#554](https://github.com/SocialGouv/ozensemble/issues/554)) ([0efccff](https://github.com/SocialGouv/ozensemble/commit/0efccff2f121aa679c384444496a52e93261c162))
+
 ## [1.147.3](https://github.com/SocialGouv/ozensemble/compare/v1.147.2...v1.147.3) (2024-04-03)
 
 
