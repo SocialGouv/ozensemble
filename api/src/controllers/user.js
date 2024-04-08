@@ -38,12 +38,7 @@ router.put(
 router.get(
   "/location",
   catchErrors(async (req, res) => {
-    const { matomoId } = req.query || {};
-    const ip = req.ip;
-    let isWellLocated = false;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    var geo = geoip.lookup(ip);
-    if (geo?.region === "IDF") isWellLocated = true;
+    isWellLocated = true;
     return res.status(200).send({ ok: true, isWellLocated });
   })
 );
