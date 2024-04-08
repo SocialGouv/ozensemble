@@ -2,7 +2,6 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
-const geoip = require("geoip-lite");
 
 router.put(
   "/",
@@ -37,13 +36,8 @@ router.put(
 
 router.get(
   "/location",
-  catchErrors(async (req, res) => {
-    const { matomoId } = req.query || {};
-    const ip = req.ip;
-    let isWellLocated = false;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    var geo = geoip.lookup(ip);
-    if (geo?.region === "IDF") isWellLocated = true;
+  catchErrors(async (res) => {
+    const isWellLocated = true;
     return res.status(200).send({ ok: true, isWellLocated });
   })
 );
