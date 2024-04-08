@@ -1,3 +1,10 @@
+## [1.147.8](https://github.com/SocialGouv/ozensemble/compare/v1.147.7...v1.147.8) (2024-04-08)
+
+
+### Bug Fixes
+
+* req ([171d329](https://github.com/SocialGouv/ozensemble/commit/171d329d4b4fc3ba907ca451068f28f120754784))
+
 ## [1.147.7](https://github.com/SocialGouv/ozensemble/compare/v1.147.6...v1.147.7) (2024-04-08)
 
 
