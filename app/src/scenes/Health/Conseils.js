@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import H2 from '../../components/H2';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
 import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
-import { storage } from '../../services/storage';
-import API from '../../services/api';
 import ChatBubbles from '../../components/illustrations/Chatbubbles';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
