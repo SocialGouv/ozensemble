@@ -36,9 +36,8 @@ router.put(
 
 router.get(
   "/location",
-  catchErrors(async (req, res) => {
+  catchErrors(async (_req, res) => {
     const isWellLocated = false;
-    if (req) isWellLocated = true;
     return res.status(200).send({ ok: true, isWellLocated });
   })
 );
