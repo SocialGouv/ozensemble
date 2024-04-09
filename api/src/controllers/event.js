@@ -18,15 +18,17 @@ router.post(
     const name = body.event?.name;
     const value = body.event?.value;
     const matomoId = body.userId;
-    const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-    if (user && action === "APP_OPEN") {
-      const appVersion = req.headers.appversion;
-      await prisma.user.update({
-        where: { matomo_id: matomoId },
-        data: {
-          appVersion: appVersion,
-        },
-      });
+    if (action === "APP_OPEN") {
+      const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+      if (user) {
+        const appVersion = req.headers.appversion;
+        await prisma.user.update({
+          where: { matomo_id: matomoId },
+          data: {
+            appVersion: appVersion,
+          },
+        });
+      }
     }
     // handle User Survey
     const userSurveyAnnounced = category === "NAVIGATION" && (action === "USER_SURVEY_START" || action === "USER_SURVEY_NOTIF");
