@@ -1,3 +1,10 @@
+# [1.148.0](https://github.com/SocialGouv/ozensemble/compare/v1.147.9...v1.148.0) (2024-04-09)
+
+
+### Features
+
+* new materialized view v2 ([#549](https://github.com/SocialGouv/ozensemble/issues/549)) ([4100e87](https://github.com/SocialGouv/ozensemble/commit/4100e87cc82856e1311b58181a3fd10f397b8f6b))
+
 ## [1.147.9](https://github.com/SocialGouv/ozensemble/compare/v1.147.8...v1.147.9) (2024-04-08)
 
 
