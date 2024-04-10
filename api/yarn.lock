@@ -14,6 +14,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@data-forge/serialization@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "@data-forge/serialization@npm:1.0.1"
+  checksum: c1a00ee76fef2b91fa3740d5d3f983aa74356331359efdfead6a8b7b622d8c96f254e20ae652913931e4198882f9741352b546b8bfc9470f818f8d5c057528a0
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -318,6 +325,7 @@ __metadata:
     bcryptjs: "npm:^2.4.3"
     cors: "npm:^2.8.5"
     cross-env: "npm:^7.0.3"
+    data-forge: "npm:^1.10.2"
     date-fns: "npm:^2.30.0"
     date-fns-tz: "npm:^1.3.7"
     dayjs: "npm:^1.11.9"
@@ -603,6 +611,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"clone@npm:^1.0.2":
+  version: 1.0.4
+  resolution: "clone@npm:1.0.4"
+  checksum: 2176952b3649293473999a95d7bebfc9dc96410f6cbd3d2595cf12fd401f63a4bf41a7adbfd3ab2ff09ed60cb9870c58c6acdd18b87767366fabfc163700f13b
+  languageName: node
+  linkType: hard
+
 "color-convert@npm:^2.0.1":
   version: 2.0.1
   resolution: "color-convert@npm:2.0.1"
@@ -721,6 +736,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"data-forge@npm:^1.10.2":
+  version: 1.10.2
+  resolution: "data-forge@npm:1.10.2"
+  dependencies:
+    "@data-forge/serialization": "npm:^1.0.0"
+    dayjs: "npm:^1.8.12"
+    easy-table: "npm:1.1.0"
+    json5: "npm:^2.1.0"
+    numeral: "npm:^2.0.6"
+    papaparse: "npm:5.2.0"
+    typy: "npm:^3.0.1"
+  checksum: 6a846cb9b554971d162ba7e7ddd617af0615425ba50e5794172fd4aa195713a5b57a5bf934e6eef8a9e9b5fa1852feb27e1c1b225abd66baf0b7c86bf23a7965
+  languageName: node
+  linkType: hard
+
 "date-fns-tz@npm:^1.3.7":
   version: 1.3.7
   resolution: "date-fns-tz@npm:1.3.7"
@@ -743,6 +773,13 @@ __metadata:
   version: 1.11.9
   resolution: "dayjs@npm:1.11.9"
   checksum: 1697892de0f4107083ec72451ba86c947df61d9a67f8c52da991c5f8e347781baccec5c4c42e81a99e63cf603389ed324723cd77ad1b6fbd04f0f34433334979
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.8.12":
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: 4de9af50639d47df87f2e15fa36bb07e0f9ed1e9c52c6caa1482788ee9a384d668f1dbd00c54f82aaab163db07d61d2899384b8254da3a9184fc6deca080e2fe
   languageName: node
   linkType: hard
 
@@ -788,6 +825,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"defaults@npm:^1.0.3":
+  version: 1.0.4
+  resolution: "defaults@npm:1.0.4"
+  dependencies:
+    clone: "npm:^1.0.2"
+  checksum: 9cfbe498f5c8ed733775db62dfd585780387d93c17477949e1670bfcfb9346e0281ce8c4bf9f4ac1fc0f9b851113bd6dc9e41182ea1644ccd97de639fa13c35a
+  languageName: node
+  linkType: hard
+
 "delayed-stream@npm:~1.0.0":
   version: 1.0.0
   resolution: "delayed-stream@npm:1.0.0"
@@ -820,6 +866,18 @@ __metadata:
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
   checksum: 26f364ebcdb6395f95124fda411f63137a4bfb5d3a06453f7f23dfe52502905bd84e0488172e0f9ec295fdc45f05c23d5d91baf16bd26f0fe9acd777a188dc39
+  languageName: node
+  linkType: hard
+
+"easy-table@npm:1.1.0":
+  version: 1.1.0
+  resolution: "easy-table@npm:1.1.0"
+  dependencies:
+    wcwidth: "npm:>=1.0.1"
+  dependenciesMeta:
+    wcwidth:
+      optional: true
+  checksum: 0b7b03723e450c8286bd375bbe7d23247456dbb8f79df055adcfd745bfb91f7604c4e78204ff75d65d5229bec8867cbefca51c57938004f487ff800b587540bb
   languageName: node
   linkType: hard
 
@@ -1531,6 +1589,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json5@npm:^2.1.0":
+  version: 2.2.3
+  resolution: "json5@npm:2.2.3"
+  bin:
+    json5: lib/cli.js
+  checksum: 5a04eed94810fa55c5ea138b2f7a5c12b97c3750bc63d11e511dcecbfef758003861522a070c2272764ee0f4e3e323862f386945aeb5b85b87ee43f084ba586c
+  languageName: node
+  linkType: hard
+
 "jsonwebtoken@npm:8.5.1":
   version: 8.5.1
   resolution: "jsonwebtoken@npm:8.5.1"
@@ -2051,6 +2118,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"numeral@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "numeral@npm:2.0.6"
+  checksum: 5ed008d3fae05cfa4986b77a85ca10bff29ae6e1fa41a04cce05ea21f08a8a104226f88868930e2a94e3239708d6985d111b5d1291e8b9a3049ffc5365c332d4
+  languageName: node
+  linkType: hard
+
 "oauth-sign@npm:~0.9.0":
   version: 0.9.0
   resolution: "oauth-sign@npm:0.9.0"
@@ -2112,6 +2186,13 @@ __metadata:
   dependencies:
     aggregate-error: "npm:^3.0.0"
   checksum: 592c05bd6262c466ce269ff172bb8de7c6975afca9b50c975135b974e9bdaafbfe80e61aaaf5be6d1200ba08b30ead04b88cfa7e25ff1e3b93ab28c9f62a2c75
+  languageName: node
+  linkType: hard
+
+"papaparse@npm:5.2.0":
+  version: 5.2.0
+  resolution: "papaparse@npm:5.2.0"
+  checksum: e10eb1635abbd14d53401553f7477083ab98e1c4330cd7bdbde34889e0afefdb63ae45b73a52f298026da748b095df798d8be17d1e00eb4dfd935f3a3316a75a
   languageName: node
   linkType: hard
 
@@ -2692,6 +2773,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typy@npm:^3.0.1":
+  version: 3.3.0
+  resolution: "typy@npm:3.3.0"
+  checksum: a102fa5fc579f3fe71aa9a28b88dc968ef97027baa85d9e39506751899be0506e087345d7be76bfdcab4ee0e7a58de42a08443fdb3f3d1cef84f3db659b6d8f5
+  languageName: node
+  linkType: hard
+
 "undefsafe@npm:^2.0.5":
   version: 2.0.5
   resolution: "undefsafe@npm:2.0.5"
@@ -2791,6 +2879,15 @@ __metadata:
     core-util-is: "npm:1.0.2"
     extsprintf: "npm:^1.2.0"
   checksum: 293fb060a4c9b07965569a0c3e45efa954127818707995a8a4311f691b5d6687be99f972c759838ba6eecae717f9af28e3c49d2afc7bbdf5f0b675238f1426e8
+  languageName: node
+  linkType: hard
+
+"wcwidth@npm:>=1.0.1":
+  version: 1.0.1
+  resolution: "wcwidth@npm:1.0.1"
+  dependencies:
+    defaults: "npm:^1.0.3"
+  checksum: 5b61ca583a95e2dd85d7078400190efd452e05751a64accb8c06ce4db65d7e0b0cde9917d705e826a2e05cc2548f61efde115ffa374c3e436d04be45c889e5b4
   languageName: node
   linkType: hard
 
