@@ -1,3 +1,10 @@
+## [1.149.2](https://github.com/SocialGouv/ozensemble/compare/v1.149.1...v1.149.2) (2024-04-11)
+
+
+### Reverts
+
+* Revert "fix: no cors yet" ([1f4df5c](https://github.com/SocialGouv/ozensemble/commit/1f4df5c8c27324c1310718fcc6e5d14e67a996d8))
+
 ## [1.149.1](https://github.com/SocialGouv/ozensemble/compare/v1.149.0...v1.149.1) (2024-04-11)
 
 
