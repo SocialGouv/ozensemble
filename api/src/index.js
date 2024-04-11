@@ -10,7 +10,6 @@ const { PORT, VERSION, MOBILE_VERSION } = require("./config");
 const errors = require("./middlewares/errors");
 const versionCheck = require("./middlewares/versionCheck");
 const { capture } = require("./third-parties/sentry");
-const { head } = require("./controllers/user");
 
 // Put together a schema
 const app = express();
