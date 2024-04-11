@@ -1,3 +1,10 @@
+## [1.149.1](https://github.com/SocialGouv/ozensemble/compare/v1.149.0...v1.149.1) (2024-04-11)
+
+
+### Bug Fixes
+
+* no cors yet ([1182d25](https://github.com/SocialGouv/ozensemble/commit/1182d25bdc9f66cdba95a42fb1a83bbaf660de82))
+
 # [1.149.0](https://github.com/SocialGouv/ozensemble/compare/v1.148.0...v1.149.0) (2024-04-11)
 
 
