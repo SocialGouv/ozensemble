@@ -1,3 +1,10 @@
+# [1.149.0](https://github.com/SocialGouv/ozensemble/compare/v1.148.0...v1.149.0) (2024-04-11)
+
+
+### Features
+
+* first stat public draft ([#558](https://github.com/SocialGouv/ozensemble/issues/558)) ([0e4af7d](https://github.com/SocialGouv/ozensemble/commit/0e4af7d090fac85e2ac6f97c49902f572580434c))
+
 # [1.148.0](https://github.com/SocialGouv/ozensemble/compare/v1.147.9...v1.148.0) (2024-04-09)
 
 
