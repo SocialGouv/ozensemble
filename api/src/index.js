@@ -19,8 +19,11 @@ app.use(logger("dev"));
 
 app.use(Sentry.Handlers.requestHandler());
 
-app.use(cors());
-
+if (process.env.NODE_ENV === "production") {
+  app.use(cors({ credentials: true, origin: /fabrique\.social\.gouv\.fr$/ }));
+} else {
+  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+}
 // kube probe
 app.get("/healthz", async (req, res) => {
   res.send(`Hello World`);
@@ -90,6 +93,7 @@ app.use("/articles", require("./controllers/articles"));
 app.use("/defis", require("./controllers/defis"));
 app.use("/drinks", require("./controllers/drinksCatalog"));
 app.use("/drinks-context", require("./controllers/drinksContext"));
+app.use("/public", require("./controllers/public"));
 
 app.use(errors.sendError);
 
