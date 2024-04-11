@@ -19,11 +19,11 @@ app.use(logger("dev"));
 
 app.use(Sentry.Handlers.requestHandler());
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(cors({ credentials: true, origin: /fabrique\.social\.gouv\.fr$/ }));
-// } else {
-//   app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(cors({ credentials: true, origin: /fabrique\.social\.gouv\.fr$/ }));
+} else {
+  app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+}
 // kube probe
 app.get("/healthz", async (req, res) => {
   res.send(`Hello World`);
