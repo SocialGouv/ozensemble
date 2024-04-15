@@ -1,3 +1,10 @@
+## [1.149.3](https://github.com/SocialGouv/ozensemble/compare/v1.149.2...v1.149.3) (2024-04-15)
+
+
+### Bug Fixes
+
+* somme des gains etc. ([#557](https://github.com/SocialGouv/ozensemble/issues/557)) ([a2198f4](https://github.com/SocialGouv/ozensemble/commit/a2198f4e021aba0069f0f7660161604a6d83296b))
+
 ## [1.149.2](https://github.com/SocialGouv/ozensemble/compare/v1.149.1...v1.149.2) (2024-04-11)
 
 
