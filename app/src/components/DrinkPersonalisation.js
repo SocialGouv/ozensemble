@@ -55,6 +55,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
+    console.log('kCal', kCal);
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
     logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_DRINK', name: drinkName, value: doses });
     if (oldDrink) {

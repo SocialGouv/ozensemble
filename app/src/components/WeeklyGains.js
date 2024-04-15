@@ -23,7 +23,7 @@ const WeeklyGains = ({ selectedMonth }) => {
     const newSize = 14 * widthBaseScale;
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
   }, [SCREEN_WIDTH]);
-  const myWeeklyKcalBeforeObjective = useMemo(
+  const myWeeklyInitialKCal = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
@@ -31,7 +31,7 @@ const WeeklyGains = ({ selectedMonth }) => {
       ),
     [previousDrinksPerWeek]
   );
-  const myWeeklyExpensesBeforeObjective = useMemo(
+  const myWeeklyInitialExpenses = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
@@ -54,23 +54,20 @@ const WeeklyGains = ({ selectedMonth }) => {
         }
       }
       const savedExpenses = hasEnteredDrinks
-        ? Math.round(
-            Math.abs(weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyExpensesBeforeObjective) * 10
-          ) / 10
+        ? Math.round(Math.abs(weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyInitialExpenses) * 10) / 10
         : 0;
       const eurosColor =
-        weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyExpensesBeforeObjective
+        weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyInitialExpenses
           ? 'bg-[#FF7979]'
           : hasEnteredDrinks
           ? 'bg-[#3AD39D]'
           : 'bg-[#939EA6]';
 
       const savedKcals = hasEnteredDrinks
-        ? Math.round(Math.abs(weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyKcalBeforeObjective) * 10) /
-          10
+        ? Math.round(Math.abs(weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyInitialKCal))
         : 0;
       const kcalsColor =
-        weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyKcalBeforeObjective
+        weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyInitialKCal
           ? 'bg-[#FF7979]'
           : hasEnteredDrinks
           ? 'bg-[#3AD39D]'
@@ -146,10 +143,10 @@ const WeeklyGains = ({ selectedMonth }) => {
                   setModalContent({
                     savedKcal: week.savedKcals,
                     weekKcal: week.weekKcal,
-                    estimationKcal: myWeeklyKcalBeforeObjective,
+                    estimationKcal: myWeeklyInitialKCal,
                     savedExpenses: week.savedExpenses,
                     weekExpenses: week.weekExpenses,
-                    estimationExpenses: myWeeklyExpensesBeforeObjective,
+                    estimationExpenses: myWeeklyInitialExpenses,
                     firstDay: week.startDay.format('DD MMMM'),
                     lastDay: week.endDay.format('DD MMMM'),
                     hasEnteredDrinks: week.hasEnteredDrinks,
