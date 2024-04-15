@@ -7,14 +7,19 @@ import { Spacer } from './Articles';
 import H2 from './H2';
 import EuroIcon from './illustrations/icons/EuroIcon';
 import KcalIcon from './illustrations/icons/KcalIcon';
-import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
-import { drinksState, feedDaysSelector, derivedDataFromDrinksState } from '../recoil/consos';
+import {
+  drinksState,
+  feedDaysSelector,
+  derivedDataFromDrinksState,
+  consolidatedCatalogObjectSelector,
+} from '../recoil/consos';
 import dayjs from 'dayjs';
 
 const GainSinceTheBeginning = ({ isOnboarded }) => {
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
+  const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
     return dayjs(days[days.length - 1]);
@@ -42,9 +47,7 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
   const myWeeklyExpensesBeforeObjective = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
-        (sum, drink) =>
-          sum +
-          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
+        (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -53,9 +56,7 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
   const myWeeklyKcalBeforeObjective = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
-        (sum, drink) =>
-          sum +
-          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
+        (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -63,9 +64,7 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
   const mySavingsSinceBeginning = useMemo(() => {
     if (!days.length) return null;
     const myExpensesSinceBegnining = drinks.reduce(
-      (sum, drink) =>
-        sum +
-        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
+      (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
       0
     );
     return myWeeklyExpensesBeforeObjective * weeksWithDrinks - myExpensesSinceBegnining;
@@ -74,9 +73,7 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
   const myKcalSavingsSinceBeginning = useMemo(() => {
     if (!days.length) return null;
     const myKcalSinceBegnining = drinks.reduce(
-      (sum, drink) =>
-        sum +
-        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
+      (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
       0
     );
     return myWeeklyKcalBeforeObjective * weeksWithDrinks - myKcalSinceBegnining;
