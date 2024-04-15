@@ -7,37 +7,56 @@ import { Spacer } from './Articles';
 import H2 from './H2';
 import EuroIcon from './illustrations/icons/EuroIcon';
 import KcalIcon from './illustrations/icons/KcalIcon';
-import { drinksCatalog } from '../scenes/ConsoFollowUp/drinksCatalog';
-import { drinksState, feedDaysSelector } from '../recoil/consos';
+import {
+  drinksState,
+  feedDaysSelector,
+  derivedDataFromDrinksState,
+  consolidatedCatalogObjectSelector,
+} from '../recoil/consos';
 import dayjs from 'dayjs';
 
 const GainSinceTheBeginning = ({ isOnboarded }) => {
   const drinks = useRecoilValue(drinksState);
   const days = useRecoilValue(feedDaysSelector);
+  const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
+  const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const beginDateOfOz = useMemo(() => {
     if (!days.length) return null;
     return dayjs(days[days.length - 1]);
   }, [days]);
 
+  const numberOfWeeksSinceBeginning = Math.abs(dayjs(beginDateOfOz).startOf('week').diff(dayjs(), 'weeks')) + 1;
+  let weeksWithDrinks = 0;
+  for (let i = 0; i < numberOfWeeksSinceBeginning; i++) {
+    const startDay = dayjs(beginDateOfOz)
+      .add(i * 7, 'days')
+      .startOf('week');
+    let hasEnteredDrinks;
+    for (let j = 0; j < 7; j++) {
+      if (drinksByDay[dayjs(startDay).add(j, 'days').format('YYYY-MM-DD')]) {
+        hasEnteredDrinks = true;
+        break;
+      }
+    }
+    if (hasEnteredDrinks) {
+      weeksWithDrinks++;
+    }
+  }
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
 
-  const myWeeklyExpensesBeforeObjective = useMemo(
+  const myWeeklyInitialExpenses = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
-        (sum, drink) =>
-          sum +
-          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
+        (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
         0
       ),
     [previousDrinksPerWeek]
   );
 
-  const myWeeklyKcalBeforeObjective = useMemo(
+  const myWeeklyInitialKCal = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
-        (sum, drink) =>
-          sum +
-          drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
+        (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
         0
       ),
     [previousDrinksPerWeek]
@@ -45,30 +64,22 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
   const mySavingsSinceBeginning = useMemo(() => {
     if (!days.length) return null;
     const myExpensesSinceBegnining = drinks.reduce(
-      (sum, drink) =>
-        sum +
-        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.price || 0),
+      (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
       0
     );
-    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
-    const averageDailyExpenses = myExpensesSinceBegnining / numberOfDaysSinceBeginning;
-    const averageDailyExpensesBeforeObjective = myWeeklyExpensesBeforeObjective / 7;
-    return Math.ceil(averageDailyExpensesBeforeObjective - averageDailyExpenses) * numberOfDaysSinceBeginning;
-  }, [drinks, days, myWeeklyExpensesBeforeObjective, beginDateOfOz]);
+    const result = myWeeklyInitialExpenses * weeksWithDrinks - myExpensesSinceBegnining;
+    return Math.round(result * 10) / 10;
+  }, [drinks, days, myWeeklyInitialExpenses, beginDateOfOz]);
 
   const myKcalSavingsSinceBeginning = useMemo(() => {
     if (!days.length) return null;
     const myKcalSinceBegnining = drinks.reduce(
-      (sum, drink) =>
-        sum +
-        drink.quantity * (drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey)?.kcal || 0),
+      (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
       0
     );
-    const numberOfDaysSinceBeginning = Math.abs(dayjs(beginDateOfOz).diff(dayjs(), 'days'));
-    const averageDailyKcal = myKcalSinceBegnining / numberOfDaysSinceBeginning;
-    const averageDailyKcalBeforeObjective = myWeeklyKcalBeforeObjective / 7;
-    return Math.ceil(averageDailyKcalBeforeObjective - averageDailyKcal) * numberOfDaysSinceBeginning;
-  }, [drinks, days, myWeeklyKcalBeforeObjective, beginDateOfOz]);
+    const result = myWeeklyInitialKCal * weeksWithDrinks - myKcalSinceBegnining;
+    return Math.round(result * 10) / 10;
+  }, [drinks, days, myWeeklyInitialKCal, beginDateOfOz]);
 
   return (
     <>

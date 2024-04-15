@@ -16,14 +16,14 @@ const WeeklyGains = ({ selectedMonth }) => {
   const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
-  const { dailyDoses, weeklyExpenses, weeklyKcals } = useRecoilValue(derivedDataFromDrinksState);
+  const { weeklyExpenses, weeklyKcals, drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
   // arbitrary choice of a medium screen size for 414. If smaller screen -> smaller font size else bigger font size
   const widthBaseScale = SCREEN_WIDTH / 414;
   const fontSize = useMemo(() => {
     const newSize = 14 * widthBaseScale;
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
   }, [SCREEN_WIDTH]);
-  const myWeeklyKcalBeforeObjective = useMemo(
+  const myWeeklyInitialKCal = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
@@ -31,7 +31,7 @@ const WeeklyGains = ({ selectedMonth }) => {
       ),
     [previousDrinksPerWeek]
   );
-  const myWeeklyExpensesBeforeObjective = useMemo(
+  const myWeeklyInitialExpenses = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
@@ -39,26 +39,50 @@ const WeeklyGains = ({ selectedMonth }) => {
       ),
     [previousDrinksPerWeek]
   );
+
   const weekInfos = useMemo(() => {
     const _weekInfos = [];
     const nbWeeks = nbDays / 7;
     for (let i = 0; i < nbWeeks; i++) {
       const startDay = firstDayOfCalendar.add(i * 7, 'days');
       const endDay = firstDayOfCalendar.add(i * 7 + 6, 'days');
-      let daysWithConsos = 0;
-      let day = startDay;
+      let hasEnteredDrinks;
       for (let j = 0; j < 7; j++) {
-        if (dailyDoses[day.format('YYYY-MM-DD')] >= 0) {
-          daysWithConsos++;
+        if (drinksByDay[dayjs(startDay).add(j, 'days').format('YYYY-MM-DD')]) {
+          hasEnteredDrinks = true;
+          break;
         }
-        day = day.add(1, 'day');
       }
+      const savedExpenses = hasEnteredDrinks
+        ? Math.round(Math.abs(weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyInitialExpenses) * 10) / 10
+        : 0;
+      const eurosColor =
+        weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyInitialExpenses
+          ? 'bg-[#FF7979]'
+          : hasEnteredDrinks
+          ? 'bg-[#3AD39D]'
+          : 'bg-[#939EA6]';
+
+      const savedKcals = hasEnteredDrinks
+        ? Math.round(Math.abs(weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyInitialKCal))
+        : 0;
+      const kcalsColor =
+        weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyInitialKCal
+          ? 'bg-[#FF7979]'
+          : hasEnteredDrinks
+          ? 'bg-[#3AD39D]'
+          : 'bg-[#939EA6]';
+
       _weekInfos[i] = {
         startDay: startDay,
         endDay: endDay,
-        isWeekCompleted: daysWithConsos === 7,
-        kcals: weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')],
-        euros: weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')],
+        savedKcals: savedKcals,
+        savedExpenses: savedExpenses,
+        kcalsColor: kcalsColor,
+        eurosColor: eurosColor,
+        hasEnteredDrinks: hasEnteredDrinks,
+        weekKcal: weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')],
+        weekExpenses: weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')],
       };
     }
     return _weekInfos;
@@ -97,62 +121,37 @@ const WeeklyGains = ({ selectedMonth }) => {
                 {week.startDay.format('DD')} au {week.endDay.format('DD')}
               </Text>
             </View>
-            {week.isWeekCompleted ? (
-              <>
-                <View className="flex flex-row grow justify-center items-center basis-16">
-                  <View
-                    className={[
-                      'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow',
-                      week.euros > myWeeklyExpensesBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
-                    ].join(' ')}>
-                    <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
-                      {Math.round(Math.abs(week.euros - myWeeklyExpensesBeforeObjective) * 10) / 10}€
-                    </Text>
-                  </View>
-                </View>
-                <View className="flex flex-row grow justify-center items-center basis-16">
-                  <View
-                    className={[
-                      'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow',
-                      week.kcals > myWeeklyKcalBeforeObjective ? 'bg-[#FF7979]' : 'bg-[#3AD39D] ',
-                    ].join(' ')}>
-                    <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
-                      {Math.round(Math.abs(week.kcals - myWeeklyKcalBeforeObjective))} KCAL
-                    </Text>
-                  </View>
-                </View>
-              </>
-            ) : (
-              <>
-                <View className="flex flex-row grow justify-center items-center basis-16">
-                  <View className={'justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow bg-[#939EA6]'}>
-                    <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
-                      - €
-                    </Text>
-                  </View>
-                </View>
-                <View className="flex flex-row grow justify-center items-center basis-16">
-                  <View className={'justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow bg-[#939EA6]'}>
-                    <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
-                      - KCAL
-                    </Text>
-                  </View>
-                </View>
-              </>
-            )}
+            <View className="flex flex-row grow justify-center items-center basis-16">
+              <View className={`justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow ${week.eurosColor}`}>
+                <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
+                  {week.savedExpenses}€
+                </Text>
+              </View>
+            </View>
+            <View className="flex flex-row grow justify-center items-center basis-16">
+              <View className={`justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow ${week.kcalsColor}`}>
+                <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
+                  {week.savedKcals} KCAL
+                </Text>
+              </View>
+            </View>
 
             <View className="flex flex-row grow justify-center items-center basis-16">
               <TouchableOpacity
                 className="bg-[#4030A5] rounded-full py-1 px-2"
                 onPress={() => {
                   setModalContent({
-                    weekKcal: week.kcals,
-                    estimationKcal: myWeeklyKcalBeforeObjective,
-                    weekExpenses: week.euros,
-                    estimationExpenses: myWeeklyExpensesBeforeObjective,
+                    savedKcal: week.savedKcals,
+                    weekKcal: week.weekKcal,
+                    estimationKcal: myWeeklyInitialKCal,
+                    savedExpenses: week.savedExpenses,
+                    weekExpenses: week.weekExpenses,
+                    estimationExpenses: myWeeklyInitialExpenses,
                     firstDay: week.startDay.format('DD MMMM'),
                     lastDay: week.endDay.format('DD MMMM'),
-                    isWeekCompleted: week.isWeekCompleted,
+                    hasEnteredDrinks: week.hasEnteredDrinks,
+                    eurosColor: week.eurosColor,
+                    kcalsColor: week.kcalsColor,
                   });
                 }}>
                 <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
