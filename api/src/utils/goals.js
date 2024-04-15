@@ -79,7 +79,7 @@ const checkGoalState = async (matomoId, date) => {
     });
   }
 };
-const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
+const checkAchievedGoals = async (matomoId, appversion) => {
   /*
   HOW IT WORKS RIGHT NOW
   1. we need to be able to change the goal without changing the previous goals
@@ -124,10 +124,6 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
       }
     }
 
-    const thisWeekGoalSuccess = await prisma.goal.findFirst({
-      where: { userId: user.id, status: GoalStatus.Success, date: dayjs().startOf("week").format("YYYY-MM-DD") },
-    });
-    if (!thisWeekGoalSuccess) return null;
     const lastBadge = goalBadges[0];
     goalSuccessList = await prisma.goal.findMany({
       where: { userId: user.id, status: GoalStatus.Success },
@@ -135,7 +131,7 @@ const checkIfThisWeekGoalAchieved = async (matomoId, appversion) => {
     });
     let newBadge;
     let allBadges;
-    if (lastBadge?.stars < 5) {
+    if (lastBadge?.stars <= goalSuccessList.length && lastBadge?.stars < 5) {
       [newBadge, allBadges] = await prisma.$transaction([
         prisma.badge.create({
           data: {
@@ -220,6 +216,6 @@ const checksConsecutiveDays = (consos, consecutiveDaysGoal = 7) => {
 };
 
 module.exports = {
-  checkIfThisWeekGoalAchieved,
+  checkAchievedGoals,
   checkGoalState,
 };

@@ -4,7 +4,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
-const { checkIfThisWeekGoalAchieved, checkGoalState } = require("../utils/goals");
+const { checkAchievedGoals, checkGoalState } = require("../utils/goals");
 
 router.post(
   "/init",
@@ -205,7 +205,7 @@ router.post(
     }
 
     await checkGoalState(matomoId, date);
-    const showGoalNewBadge = await checkIfThisWeekGoalAchieved(matomoId, req.headers.appversion);
+    const showGoalNewBadge = await checkAchievedGoals(matomoId, req.headers.appversion);
 
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
 
