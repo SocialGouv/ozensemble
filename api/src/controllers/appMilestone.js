@@ -53,6 +53,35 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    if (req.headers.appversion >= 252) {
+      const featureOwnCl = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@FeatureOwnCl` },
+      });
+      if (!featureOwnCl) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@FeatureOwnCl`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@FeatureOwnCl",
+            title: "Ajoutez une quantité sur mesure à vos boissons personnalisées !",
+            content:
+              "Vous ne trouvez pas de quantité adaptée à votre boisson personnalisée ? Aucun problème, vous pouvez désormais ajouter votre propre quantité en cl quand vous créez une nouvelle boisson.",
+            CTATitle: "J'ai compris",
+            CTAEvent: {
+              category: "FEATURE_OWN_CL",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+          },
+        });
+      }
+    }
     if (req.headers.appversion >= 248) {
       const TestimoniesFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@TestimoniesFeature` },
