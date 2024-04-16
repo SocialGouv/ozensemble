@@ -82,6 +82,36 @@ router.post(
         });
       }
     }
+    if (req.headers.appversion >= 248) {
+      const TestimoniesFeature = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@TestimoniesFeature` },
+      });
+      if (!TestimoniesFeature) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@TestimoniesFeature`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@TestimoniesFeature",
+            title: "Découvrez notre page de témoignages !",
+            content:
+              "Consultez les premiers témoignages sur Oz ! \n Et vous aussi, faites grandir la communauté en nous envoyant dès maintenant vos témoignages que nous publieront anonymement sur l’application.",
+            CTATitle: "Voir les témoignages",
+            CTANavigation: ["HEALTH", { screen: "TESTIMONIES" }],
+            CTAEvent: {
+              category: "TESTIMONIES",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+          },
+        });
+      }
+    }
     if (req.headers.appversion >= 245) {
       const NewLongTermBadgesFeature = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@NewLongTermBadgesFeature` },

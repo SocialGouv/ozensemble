@@ -26,6 +26,7 @@ import NotificationService from '../services/notifications';
 import { BagdeDrinksNoStars } from '../scenes//Badges/Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 import OwnClIcon from './illustrations/icons/OwnClIcon';
+import ChatBubbles from './illustrations/Chatbubbles';
 
 /* example
 {
@@ -137,6 +138,11 @@ const InAppModal = ({ navigation, route }) => {
           {inAppModal?.id.includes('FeatureOwnCl') && (
             <View className="mx-2 flex flex-col items-center">
               <OwnClIcon />
+            </View>
+          )}
+          {inAppModal?.id.includes('TestimoniesFeature') && (
+            <View className="mx-2 flex flex-col items-center">
+              <ChatBubbles size={60} />
             </View>
           )}
           {inAppModal?.id.includes('NewLongTermBadgesFeature') && (
