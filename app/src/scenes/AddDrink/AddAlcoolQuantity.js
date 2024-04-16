@@ -33,13 +33,13 @@ const AddAlcoolQuantity = ({ visible, hide, setQuantitySelected }) => {
                   value={value}
                   onChangeText={(value) => {
                     setValue(value);
-                    setQuantitySelected({ volume: value, name: 'Autre', icon: 'CocktailGlass' });
+                    setQuantitySelected({ volume: value, name: 'Boisson personnalisée', icon: 'OwnClGlass' });
                   }}></TextInput>
                 <TouchableOpacity
                   className=""
                   onPress={() => {
                     hide();
-                    setQuantitySelected({ volume: value, name: 'Autre', icon: 'CocktailGlass' });
+                    setQuantitySelected({ volume: value, name: 'Boisson personnalisée', icon: 'OwnClGlass' });
                   }}>
                   <CheckDefisValidated size={30} fill={'#DE285E'} />
                 </TouchableOpacity>
