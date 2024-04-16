@@ -25,6 +25,7 @@ import { openSettings } from 'react-native-permissions';
 import NotificationService from '../services/notifications';
 import { BagdeDrinksNoStars } from '../scenes//Badges/Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
+import OwnClIcon from './illustrations/icons/OwnClIcon';
 
 /* example
 {
@@ -133,6 +134,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('FeatureOwnCl') && (
+            <View className="mx-2 flex flex-col items-center">
+              <OwnClIcon />
+            </View>
+          )}
           {inAppModal?.id.includes('NewLongTermBadgesFeature') && (
             <View className="mx-2 flex flex-row items-center">
               <BagdeDrinksNoStars />
