@@ -19,7 +19,7 @@ import { fakeConsoData } from './fakeConsoData';
 import NotificationService from '../../services/notifications';
 import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
-import { daysWithGoalNoDrinkState, drinksByWeekState } from '../../recoil/gains';
+import { daysWithGoalNoDrinkState, drinksByWeekState, goalsState } from '../../recoil/gains';
 import { capture } from '../../services/sentry';
 
 const replaceStorageValues = (values) => {
@@ -39,6 +39,8 @@ const FakeData = () => {
   const badgesCatalog = useRecoilValue(badgesCatalogState);
   const setDaysWithGoalNoDrink = useSetRecoilState(daysWithGoalNoDrinkState);
   const setDrinksByWeek = useSetRecoilState(drinksByWeekState);
+  const setGoals = useSetRecoilState(goalsState);
+
   const navigation = useNavigation();
   return (
     <WrapperContainer title="Charger des fausses données">
@@ -193,6 +195,10 @@ const FakeData = () => {
                 dosesPerWeek: 35,
                 forceDate: dayjs().startOf('week').subtract(7, 'day').format('YYYY-MM-DD'),
               },
+            }).then((res) => {
+              if (res.ok) {
+                setGoals(res.data);
+              }
             });
           }}
         />
