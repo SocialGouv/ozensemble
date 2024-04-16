@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text, TouchableOpacity, ScrollView, Modal, Touchable } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Modal } from 'react-native';
 import BackButton from '../../components/BackButton';
 import { defaultPaddingFontScale } from '../../styles/theme';
 import TextStyled from '../../components/TextStyled';
@@ -12,7 +12,6 @@ import CheckDefisValidated from '../../components/illustrations/icons/CheckDefis
 
 const AddAlcoolQuantity = ({ visible, hide, setQuantitySelected }) => {
   const [value, setValue] = useState('');
-  const [selected, setSelected] = useState(false);
   return (
     <Modal visible={visible} hide={hide} animationType="sheet" presentationStyle="formSheet">
       <View className="h-full w-full bg-white">
@@ -33,7 +32,8 @@ const AddAlcoolQuantity = ({ visible, hide, setQuantitySelected }) => {
                   keyboardType="numeric"
                   value={value}
                   onChangeText={(value) => {
-                    setValue(value), setQuantitySelected({ volume: value, name: 'Autre', icon: 'CocktailGlass' });
+                    setValue(value);
+                    setQuantitySelected({ volume: value, name: 'Autre', icon: 'CocktailGlass' });
                   }}></TextInput>
                 <TouchableOpacity
                   className=""
