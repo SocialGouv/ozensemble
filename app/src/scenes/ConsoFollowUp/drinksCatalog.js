@@ -16,6 +16,7 @@ import SmallCan from '../../components/illustrations/drinksAndFood/SmallCan';
 import Mojito from '../../components/illustrations/drinksAndFood/Mojito';
 import DigestiveDrink from '../../components/illustrations/drinksAndFood/DigestiveDrink';
 import SpiritsBottle from '../../components/illustrations/drinksAndFood/SpiritsBottle';
+import OwnClGlass from '../../components/illustrations/drinksAndFood/OwnClGlass';
 import { capture } from '../../services/sentry';
 // categories
 export const BEER = 'Bière (5%)';
@@ -255,6 +256,7 @@ export const mapIconNameToIcon = {
   Mojito: Mojito,
   DigestiveDrink: DigestiveDrink,
   SpiritsBottle: SpiritsBottle,
+  OwnClGlass: OwnClGlass,
 };
 
 export const drinksCatalog = [
