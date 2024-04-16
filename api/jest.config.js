@@ -1,6 +1,6 @@
 module.exports = {
-  clearMocks: true,
-  testEnvironment: "node",
+  // clearMocks: true,
+  // testEnvironment: "node",
   rootDir: "__tests__",
-  reporters: [["github-actions", { silent: false }], "summary"],
+  // reporters: [["github-actions", { silent: false }], "summary"],
 };

@@ -4,6 +4,7 @@ const isBetween = require("dayjs/plugin/isBetween");
 const weekday = require("dayjs/plugin/weekday");
 const prisma = require("../prisma");
 const { grabBadgeFromCatalog } = require("../utils/badges");
+const { capture } = require("../third-parties/sentry");
 dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
@@ -104,6 +105,13 @@ function countConsecutiveDays(allConsos) {
   for (const conso of allConsos) {
     consoDate = dayjs(conso.date).startOf("day");
     differenceDate = currentConsoDate.diff(consoDate, "day");
+    if (differenceDate < 0) {
+      capture(new Error("Conso dates are not ordered"), {
+        extra: {
+          allConsos,
+        },
+      });
+    }
     if (differenceDate === 0) {
       continue;
     }
@@ -127,6 +135,13 @@ function checksConsecutiveDays(consecutiveDaysGoal, allConsos) {
   for (const conso of allConsos) {
     consoDate = dayjs(conso.date).startOf("day");
     differenceDate = currentConsoDate.diff(consoDate, "day");
+    if (differenceDate < 0) {
+      capture(new Error("Conso dates are not ordered"), {
+        extra: {
+          allConsos,
+        },
+      });
+    }
     if (differenceDate === 0) {
       continue;
     }
@@ -146,8 +161,8 @@ function checksConsecutiveDays(consecutiveDaysGoal, allConsos) {
 }
 
 module.exports = {
+  syncBadgesWithConsos,
   getBadgeCorrespondingToConsecutiveDays,
   countConsecutiveDays,
   checksConsecutiveDays,
-  syncBadgesWithConsos,
 };
