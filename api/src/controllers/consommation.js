@@ -4,7 +4,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
-const { checkIfThisWeekGoalAchieved } = require("../utils/goals");
+const { checkIfThisWeekGoalAchieved, checkGoalState } = require("../utils/goals");
 
 router.post(
   "/init",
@@ -204,6 +204,7 @@ router.post(
       });
     }
 
+    await checkGoalState(matomoId, date);
     const showGoalNewBadge = await checkIfThisWeekGoalAchieved(matomoId, req.headers.appversion);
 
     const drinksBadges = await prisma.badge.findMany({ where: { userId: user.id, category: "drinks" } });
@@ -253,6 +254,9 @@ router.post(
             : { newBadge: grabBadgeFromCatalog("drinks", 2), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+      }
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
@@ -281,6 +285,9 @@ router.post(
             ? showGoalNewBadge
             : { newBadge: grabBadgeFromCatalog("drinks", 3), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
+      }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
       }
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
@@ -311,6 +318,9 @@ router.post(
             : { newBadge: grabBadgeFromCatalog("drinks", 4), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+      }
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
     }
@@ -339,8 +349,101 @@ router.post(
             : { newBadge: grabBadgeFromCatalog("drinks", 5), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
         });
       }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+      }
       const inAppModal = await checkNPSAvailability(user, allConsos);
       return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
+    if (!drinksBadges.find((badge) => badge.stars === 6)) {
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(60, allConsos);
+      if (enoughConsecutiveDays) {
+        await prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "drinks",
+            stars: 6,
+          },
+        });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 6), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
+      }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+      }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
+    if (!drinksBadges.find((badge) => badge.stars === 7)) {
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(90, allConsos);
+      if (enoughConsecutiveDays) {
+        await prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "drinks",
+            stars: 7,
+          },
+        });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 7), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
+      }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+      }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
+    if (!drinksBadges.find((badge) => badge.stars === 8)) {
+      const allConsos = await prisma.consommation.findMany({
+        where: { userId: user.id },
+        orderBy: { date: "desc" },
+      });
+      const enoughConsecutiveDays = checksConsecutiveDays(180, allConsos);
+      if (enoughConsecutiveDays) {
+        await prisma.badge.create({
+          data: {
+            userId: user.id,
+            category: "drinks",
+            stars: 8,
+          },
+        });
+        const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+
+        return res.status(200).send({
+          ok: true,
+          showNewBadge: showGoalNewBadge
+            ? showGoalNewBadge
+            : { newBadge: grabBadgeFromCatalog("drinks", 8), allBadges, badgesCatalog: getBadgeCatalog(req.headers.appversion) },
+        });
+      }
+      if (showGoalNewBadge) {
+        return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
+      }
+      const inAppModal = await checkNPSAvailability(user, allConsos);
+      return res.status(200).send({ ok: true, showInAppModal: inAppModal });
+    }
+    if (showGoalNewBadge) {
+      return res.status(200).send({ ok: true, showNewBadge: showGoalNewBadge });
     }
     return res.status(200).send({ ok: true });
   })

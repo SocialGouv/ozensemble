@@ -71,7 +71,10 @@ export const mapDrinkToDose = ({ drinkKey, quantity }, catalogObject) => {
     // When a user update is own conso this will generate a sentry log because we update first the catalog which
     // make this function run before we update the consos so there is a mismatch
     // but when the consos are updated everything is back fine and is smooth for the user
-    capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'mapDrinkToDose' } });
+    capture(new Error('drink not found'), {
+      extra: { drinkKey, catalogObject, function: 'mapDrinkToDose' },
+      tags: { drinkKey },
+    });
     return 0;
   }
   if (drink) return drink.doses * quantity;
@@ -85,7 +88,10 @@ export const mapDrinkToKcals = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'mapDrinkToKcals' } });
+    capture(new Error('drink not found'), {
+      extra: { drinkKey, catalogObject, function: 'mapDrinkToKcals' },
+      tags: { drinkKey },
+    });
     return 0;
   }
   if (drink) return drink.kcal * quantity;
@@ -99,7 +105,10 @@ export const mapDrinkToPrice = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'mapDrinkToPrice' } });
+    capture(new Error('drink not found'), {
+      extra: { drinkKey, catalogObject, function: 'mapDrinkToPrice' },
+      tags: { drinkKey },
+    });
     return 0;
   }
   if (drink) return drink.price * quantity;
@@ -110,12 +119,18 @@ export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   try {
     const drink = catalogObject[drinkKey];
     if (!drink) {
-      capture(new Error('drink not found'), { extra: { drinkKey, catalogObject, function: 'getDisplayName' } });
+      capture(new Error('drink not found'), {
+        extra: { drinkKey, catalogObject, function: 'getDisplayName' },
+        tags: { drinkKey },
+      });
       return '';
     }
     return drink.custom ? drink.displayFeed : drink.displayFeed?.(quantity);
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayName' } });
+    capture(e, {
+      extra: { drinkKey, quantity, catalogObject, function: 'getDisplayName' },
+      tags: { drinkKey },
+    });
     return '';
   }
 };
@@ -126,13 +141,17 @@ export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1)
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getDisplayDrinksModalName' },
+        tags: { drinkKey },
       });
       return '';
     }
     const formatedDisplay = quantity > 1 ? drink.displayDrinkModal + 's' : drink.displayDrinkModal;
     return formatedDisplay;
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDisplayDrinksModalName' } });
+    capture(e, {
+      extra: { drinkKey, quantity, catalogObject, function: 'getDisplayDrinksModalName' },
+      tags: { drinkKey },
+    });
     return '';
   }
 };
@@ -143,6 +162,7 @@ export const getVolume = (drinkKey, catalogObject) => {
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getVolume' },
+        tags: { drinkKey },
       });
       return '0 cl';
     }
@@ -159,12 +179,16 @@ export const getDoses = (drinkKey, catalogObject) => {
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getDoses' },
+        tags: { drinkKey },
       });
       return 0;
     }
     return drink.doses;
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getDoses' } });
+    capture(e, {
+      extra: { drinkKey, quantity, catalogObject, function: 'getDoses' },
+      tags: { drinkKey },
+    });
     return 0;
   }
 };
@@ -175,12 +199,16 @@ export const getStyle = (drinkKey, catalogObject) => {
     if (!drink) {
       capture(new Error('drink not found'), {
         extra: { drinkKey, catalogObject, function: 'getStyle' },
+        tags: { drinkKey },
       });
       return {};
     }
     return drink.style || {};
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getStyle' } });
+    capture(e, {
+      extra: { drinkKey, quantity, catalogObject, function: 'getStyle' },
+      tags: { drinkKey },
+    });
     return {};
   }
 };

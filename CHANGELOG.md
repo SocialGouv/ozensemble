@@ -1,3 +1,143 @@
+# [1.150.0](https://github.com/SocialGouv/ozensemble/compare/v1.149.3...v1.150.0) (2024-04-16)
+
+
+### Features
+
+* added new cocktail ([#564](https://github.com/SocialGouv/ozensemble/issues/564)) ([ec69323](https://github.com/SocialGouv/ozensemble/commit/ec6932361c7cc9a0cca8d5497fb87e46fc9c1a84))
+
+## [1.149.3](https://github.com/SocialGouv/ozensemble/compare/v1.149.2...v1.149.3) (2024-04-15)
+
+
+### Bug Fixes
+
+* somme des gains etc. ([#557](https://github.com/SocialGouv/ozensemble/issues/557)) ([a2198f4](https://github.com/SocialGouv/ozensemble/commit/a2198f4e021aba0069f0f7660161604a6d83296b))
+
+## [1.149.2](https://github.com/SocialGouv/ozensemble/compare/v1.149.1...v1.149.2) (2024-04-11)
+
+
+### Reverts
+
+* Revert "fix: no cors yet" ([1f4df5c](https://github.com/SocialGouv/ozensemble/commit/1f4df5c8c27324c1310718fcc6e5d14e67a996d8))
+
+## [1.149.1](https://github.com/SocialGouv/ozensemble/compare/v1.149.0...v1.149.1) (2024-04-11)
+
+
+### Bug Fixes
+
+* no cors yet ([1182d25](https://github.com/SocialGouv/ozensemble/commit/1182d25bdc9f66cdba95a42fb1a83bbaf660de82))
+
+# [1.149.0](https://github.com/SocialGouv/ozensemble/compare/v1.148.0...v1.149.0) (2024-04-11)
+
+
+### Features
+
+* first stat public draft ([#558](https://github.com/SocialGouv/ozensemble/issues/558)) ([0e4af7d](https://github.com/SocialGouv/ozensemble/commit/0e4af7d090fac85e2ac6f97c49902f572580434c))
+
+# [1.148.0](https://github.com/SocialGouv/ozensemble/compare/v1.147.9...v1.148.0) (2024-04-09)
+
+
+### Features
+
+* new materialized view v2 ([#549](https://github.com/SocialGouv/ozensemble/issues/549)) ([4100e87](https://github.com/SocialGouv/ozensemble/commit/4100e87cc82856e1311b58181a3fd10f397b8f6b))
+
+## [1.147.9](https://github.com/SocialGouv/ozensemble/compare/v1.147.8...v1.147.9) (2024-04-08)
+
+
+### Bug Fixes
+
+* unused req ([#556](https://github.com/SocialGouv/ozensemble/issues/556)) ([b172b97](https://github.com/SocialGouv/ozensemble/commit/b172b97b19b80dbac33971d61a9e9227a7b09011))
+
+## [1.147.8](https://github.com/SocialGouv/ozensemble/compare/v1.147.7...v1.147.8) (2024-04-08)
+
+
+### Bug Fixes
+
+* req ([171d329](https://github.com/SocialGouv/ozensemble/commit/171d329d4b4fc3ba907ca451068f28f120754784))
+
+## [1.147.7](https://github.com/SocialGouv/ozensemble/compare/v1.147.6...v1.147.7) (2024-04-08)
+
+
+### Bug Fixes
+
+* location ([#555](https://github.com/SocialGouv/ozensemble/issues/555)) ([4f92f78](https://github.com/SocialGouv/ozensemble/commit/4f92f7879f60ccb160fd6cbdce0562d954f9e6a0))
+
+## [1.147.4](https://github.com/SocialGouv/ozensemble/compare/v1.147.3...v1.147.4) (2024-04-05)
+
+
+### Bug Fixes
+
+* ip from next not netinfo ([#554](https://github.com/SocialGouv/ozensemble/issues/554)) ([0efccff](https://github.com/SocialGouv/ozensemble/commit/0efccff2f121aa679c384444496a52e93261c162))
+
+## [1.147.3](https://github.com/SocialGouv/ozensemble/compare/v1.147.2...v1.147.3) (2024-04-03)
+
+
+### Bug Fixes
+
+* goals will show badge and handle number of success goals ([#551](https://github.com/SocialGouv/ozensemble/issues/551)) ([93aac27](https://github.com/SocialGouv/ozensemble/commit/93aac278e72ad60426f887e9c872a264d145c4a0))
+
+## [1.147.2](https://github.com/SocialGouv/ozensemble/compare/v1.147.1...v1.147.2) (2024-03-28)
+
+
+### Bug Fixes
+
+* day3 activity3 mixed buttons ([33656f7](https://github.com/SocialGouv/ozensemble/commit/33656f7741f652221d25669c2af8effcfd825dcd))
+
+## [1.147.1](https://github.com/SocialGouv/ozensemble/compare/v1.147.0...v1.147.1) (2024-03-27)
+
+
+### Bug Fixes
+
+* nav ([#550](https://github.com/SocialGouv/ozensemble/issues/550)) ([4304bd4](https://github.com/SocialGouv/ozensemble/commit/4304bd41afd2740fa8e2008633c6dfd874892ecf))
+
+# [1.147.0](https://github.com/SocialGouv/ozensemble/compare/v1.146.6...v1.147.0) (2024-03-25)
+
+
+### Features
+
+* ip button first draft ([#547](https://github.com/SocialGouv/ozensemble/issues/547)) ([b34a7bb](https://github.com/SocialGouv/ozensemble/commit/b34a7bb126c98cf11b42e685cc4626b7b1e54f8e))
+
+## [1.146.6](https://github.com/SocialGouv/ozensemble/compare/v1.146.5...v1.146.6) (2024-03-21)
+
+
+### Bug Fixes
+
+* recette ([702de05](https://github.com/SocialGouv/ozensemble/commit/702de05e464b137337aa0c339915dc9ffaf0b5d3))
+
+## [1.146.5](https://github.com/SocialGouv/ozensemble/compare/v1.146.4...v1.146.5) (2024-03-20)
+
+
+### Bug Fixes
+
+* mentions légales ([c0c203e](https://github.com/SocialGouv/ozensemble/commit/c0c203ea67af4e40547c3949f9f62c6dbe1fa87c))
+
+## [1.146.4](https://github.com/SocialGouv/ozensemble/compare/v1.146.3...v1.146.4) (2024-03-18)
+
+
+### Bug Fixes
+
+* change limit goal ([f63ad38](https://github.com/SocialGouv/ozensemble/commit/f63ad389df1a8d13ff5d7c7de9ebee141c0ff080))
+
+## [1.146.3](https://github.com/SocialGouv/ozensemble/compare/v1.146.2...v1.146.3) (2024-03-15)
+
+
+### Bug Fixes
+
+* was always true ([1689a94](https://github.com/SocialGouv/ozensemble/commit/1689a94a8cd7b47a39b70cb10a0467e8d22f8bfc))
+
+## [1.146.2](https://github.com/SocialGouv/ozensemble/compare/v1.146.1...v1.146.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* divided in two functions and check if inprogress goal is this or… ([#545](https://github.com/SocialGouv/ozensemble/issues/545)) ([16855e6](https://github.com/SocialGouv/ozensemble/commit/16855e6522d35fd2b44741f2d61376ca9a52b170))
+
+## [1.146.1](https://github.com/SocialGouv/ozensemble/compare/v1.146.0...v1.146.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* drink not found ([#544](https://github.com/SocialGouv/ozensemble/issues/544)) ([f3df4ac](https://github.com/SocialGouv/ozensemble/commit/f3df4acc660e9954f1e468995db9b3f90bc69029))
+
 # [1.146.0](https://github.com/SocialGouv/ozensemble/compare/v1.145.6...v1.146.0) (2024-03-11)
 
 

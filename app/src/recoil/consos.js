@@ -183,10 +183,11 @@ export const derivedDataFromDrinksState = selector({
       if (!breakDay && dose > 0) {
         breakDay = day;
       }
+      // math round was added because of the hour change
       if (breakDay) {
-        abstinenceDays = differenceOfDays(firstFilledDay, breakDay);
+        abstinenceDays = Math.round(differenceOfDays(firstFilledDay, breakDay));
       } else if (doneDay) {
-        abstinenceDays = differenceOfDays(firstFilledDay, day) + 1;
+        abstinenceDays = Math.round(differenceOfDays(firstFilledDay, day) + 1);
       } else {
         abstinenceDays = firstFilledDay ? 1 : 0;
       }

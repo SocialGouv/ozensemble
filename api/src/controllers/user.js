@@ -34,4 +34,12 @@ router.put(
   })
 );
 
+router.get(
+  "/location",
+  catchErrors(async (_req, res) => {
+    const isWellLocated = false;
+    return res.status(200).send({ ok: true, isWellLocated });
+  })
+);
+
 module.exports = router;
