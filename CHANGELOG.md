@@ -1,3 +1,10 @@
+# [1.151.0](https://github.com/SocialGouv/ozensemble/compare/v1.150.0...v1.151.0) (2024-04-16)
+
+
+### Features
+
+* own cl clean ([#565](https://github.com/SocialGouv/ozensemble/issues/565)) ([86180cc](https://github.com/SocialGouv/ozensemble/commit/86180cc5d2874e15eab1c0834a8090c1c4ecc0aa))
+
 # [1.150.0](https://github.com/SocialGouv/ozensemble/compare/v1.149.3...v1.150.0) (2024-04-16)
 
 
