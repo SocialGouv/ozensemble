@@ -1,3 +1,10 @@
+# [1.150.0](https://github.com/SocialGouv/ozensemble/compare/v1.149.3...v1.150.0) (2024-04-16)
+
+
+### Features
+
+* added new cocktail ([#564](https://github.com/SocialGouv/ozensemble/issues/564)) ([ec69323](https://github.com/SocialGouv/ozensemble/commit/ec6932361c7cc9a0cca8d5497fb87e46fc9c1a84))
+
 ## [1.149.3](https://github.com/SocialGouv/ozensemble/compare/v1.149.2...v1.149.3) (2024-04-15)
 
 
