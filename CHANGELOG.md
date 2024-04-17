@@ -1,3 +1,10 @@
+## [1.151.3](https://github.com/SocialGouv/ozensemble/compare/v1.151.2...v1.151.3) (2024-04-17)
+
+
+### Bug Fixes
+
+* align size icon ([4818a57](https://github.com/SocialGouv/ozensemble/commit/4818a572237029879916457b9dca7ff2264ef913))
+
 ## [1.151.2](https://github.com/SocialGouv/ozensemble/compare/v1.151.1...v1.151.2) (2024-04-17)
 
 
