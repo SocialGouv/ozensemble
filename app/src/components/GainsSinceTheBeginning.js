@@ -7,23 +7,17 @@ import { Spacer } from './Articles';
 import H2 from './H2';
 import EuroIcon from './illustrations/icons/EuroIcon';
 import KcalIcon from './illustrations/icons/KcalIcon';
-import {
-  drinksState,
-  feedDaysSelector,
-  derivedDataFromDrinksState,
-  consolidatedCatalogObjectSelector,
-} from '../recoil/consos';
+import { drinksState, derivedDataFromDrinksState, consolidatedCatalogObjectSelector } from '../recoil/consos';
 import dayjs from 'dayjs';
 
 const GainSinceTheBeginning = ({ isOnboarded }) => {
   const drinks = useRecoilValue(drinksState);
-  const days = useRecoilValue(feedDaysSelector);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
   const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const beginDateOfOz = useMemo(() => {
-    if (!days.length) return null;
-    return dayjs(days[days.length - 1]);
-  }, [days]);
+    if (!drinks.length) return null;
+    return dayjs(drinks[drinks.length - 1].timestamp);
+  }, [drinks]);
 
   const numberOfWeeksSinceBeginning = Math.abs(dayjs(beginDateOfOz).startOf('week').diff(dayjs(), 'weeks')) + 1;
   let weeksWithDrinks = 0;
@@ -62,24 +56,24 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
     [previousDrinksPerWeek]
   );
   const mySavingsSinceBeginning = useMemo(() => {
-    if (!days.length) return null;
+    if (!drinks.length) return null;
     const myExpensesSinceBegnining = drinks.reduce(
       (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
       0
     );
     const result = myWeeklyInitialExpenses * weeksWithDrinks - myExpensesSinceBegnining;
     return Math.round(result * 10) / 10;
-  }, [drinks, days, myWeeklyInitialExpenses, beginDateOfOz]);
+  }, [drinks, myWeeklyInitialExpenses, beginDateOfOz]);
 
   const myKcalSavingsSinceBeginning = useMemo(() => {
-    if (!days.length) return null;
+    if (!drinks.length) return null;
     const myKcalSinceBegnining = drinks.reduce(
       (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
       0
     );
     const result = myWeeklyInitialKCal * weeksWithDrinks - myKcalSinceBegnining;
     return Math.round(result * 10) / 10;
-  }, [drinks, days, myWeeklyInitialKCal, beginDateOfOz]);
+  }, [drinks, myWeeklyInitialKCal, beginDateOfOz]);
 
   return (
     <>
