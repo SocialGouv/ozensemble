@@ -42,10 +42,10 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
   const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(' ')[0];
-
   const saveDrink = async () => {
     const formatedPrice = drinkPrice.replace(',', '.');
     const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(',', '.');
+    const formatedVolume = volumeNumber.replace(',', '.');
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
@@ -54,8 +54,9 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       ownDrinksCatalog.find(
         (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
       );
-    const kCal = ((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) * 7;
-    const doses = Math.round((formatedAlcoolPercentage * 0.8 * volumeNumber) / 10) / 10;
+    const kCal = ((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) * 7;
+    const doses = Math.round((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) / 10;
+    console.log(doses);
     logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_DRINK', name: drinkName, value: doses });
     if (oldDrink) {
       if (!isUpdateWanted) {
