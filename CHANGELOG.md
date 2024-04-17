@@ -1,3 +1,10 @@
+## [1.151.2](https://github.com/SocialGouv/ozensemble/compare/v1.151.1...v1.151.2) (2024-04-17)
+
+
+### Bug Fixes
+
+* gains test before five month ([e70a685](https://github.com/SocialGouv/ozensemble/commit/e70a68523f68959674bb9171c6e596a1c8edc90e))
+
 ## [1.151.1](https://github.com/SocialGouv/ozensemble/compare/v1.151.0...v1.151.1) (2024-04-17)
 
 
