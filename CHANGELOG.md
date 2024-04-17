@@ -1,3 +1,10 @@
+## [1.151.1](https://github.com/SocialGouv/ozensemble/compare/v1.151.0...v1.151.1) (2024-04-17)
+
+
+### Bug Fixes
+
+* cl with coma ([f78cf26](https://github.com/SocialGouv/ozensemble/commit/f78cf261078d44f0666a55cfe0a5b184e31b8cfe))
+
 # [1.151.0](https://github.com/SocialGouv/ozensemble/compare/v1.150.0...v1.151.0) (2024-04-16)
 
 
