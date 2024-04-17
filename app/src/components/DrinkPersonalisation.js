@@ -56,7 +56,6 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) * 7;
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) / 10;
-    console.log(doses);
     logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_DRINK', name: drinkName, value: doses });
     if (oldDrink) {
       if (!isUpdateWanted) {
