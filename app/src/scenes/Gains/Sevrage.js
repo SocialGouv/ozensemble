@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SafeAreaView } from 'react-native';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
@@ -8,6 +8,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 import TextStyled from '../../components/TextStyled';
 import {
   daysWithGoalNoDrinkState,
+  goalsState,
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
 } from '../../recoil/gains';
@@ -18,6 +19,7 @@ const Sevrage = ({ navigation, route }) => {
   const daysWithGoalNoDrink = useRecoilValue(daysWithGoalNoDrinkState);
   const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
+  const setGoals = useSetRecoilState(goalsState);
 
   return (
     <>
@@ -65,6 +67,10 @@ const Sevrage = ({ navigation, route }) => {
                   dosesByDrinkingDay,
                   dosesPerWeek,
                 },
+              }).then((res) => {
+                if (res.ok) {
+                  setGoals(res.data);
+                }
               });
               logEvent({
                 category: 'GAINS',

@@ -6,7 +6,7 @@ const cors = require("cors");
 const helmet = require("helmet");
 const logger = require("morgan");
 
-const { PORT, VERSION, MOBILE_VERSION } = require("./config");
+const { VERSION, MOBILE_VERSION } = require("./config");
 const errors = require("./middlewares/errors");
 const versionCheck = require("./middlewares/versionCheck");
 const { capture } = require("./third-parties/sentry");
@@ -97,5 +97,4 @@ app.use("/public", require("./controllers/public"));
 
 app.use(errors.sendError);
 
-// Start the server
-app.listen(PORT, () => console.log(`RUN ON PORT ${PORT}`));
+module.exports = app;
