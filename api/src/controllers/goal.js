@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const dayjs = require("dayjs");
 const prisma = require("../prisma");
 const { grabBadgeFromCatalog, getBadgeCatalog } = require("../utils/badges");
+const { GoalStatus } = require("@prisma/client");
 const router = express.Router();
 
 router.post(
@@ -52,6 +53,18 @@ router.post(
           daysWithGoalNoDrink,
           dosesByDrinkingDay,
           dosesPerWeek,
+        },
+      });
+    } else {
+      await prisma.goal.create({
+        data: {
+          id: `${user.id}_${dayjs(date).startOf("week").format("YYYY-MM-DD")}`,
+          userId: user.id,
+          date: dayjs(date).startOf("week").format("YYYY-MM-DD"),
+          daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
+          dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
+          dosesPerWeek: user.goal_dosesPerWeek,
+          status: GoalStatus.InProgress,
         },
       });
     }
