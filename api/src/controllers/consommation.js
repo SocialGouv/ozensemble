@@ -90,7 +90,6 @@ router.post(
       name: req.body.name,
       drinkKey: req.body.drinkKey,
       quantity: req.body.quantity,
-      date: req.body.date,
       doses: req.body.doses,
       kcal: req.body.kcal,
       price: req.body.price,
