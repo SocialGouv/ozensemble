@@ -1,3 +1,10 @@
+## [1.151.5](https://github.com/SocialGouv/ozensemble/compare/v1.151.4...v1.151.5) (2024-04-18)
+
+
+### Bug Fixes
+
+* goals refacto ([#560](https://github.com/SocialGouv/ozensemble/issues/560)) ([a7e70a7](https://github.com/SocialGouv/ozensemble/commit/a7e70a768f96e3ec71f7cccab6eda7323e4729cb))
+
 ## [1.151.4](https://github.com/SocialGouv/ozensemble/compare/v1.151.3...v1.151.4) (2024-04-17)
 
 
