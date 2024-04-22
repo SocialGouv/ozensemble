@@ -58,9 +58,9 @@ router.post(
     } else {
       await prisma.goal.create({
         data: {
-          id: `${user.id}_${dayjs(date).startOf("week").format("YYYY-MM-DD")}`,
+          id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}`,
           userId: user.id,
-          date: dayjs(date).startOf("week").format("YYYY-MM-DD"),
+          date: dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD"),
           daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
           dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
           dosesPerWeek: user.goal_dosesPerWeek,
