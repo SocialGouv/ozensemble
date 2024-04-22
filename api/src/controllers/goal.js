@@ -55,12 +55,24 @@ router.post(
           dosesPerWeek,
         },
       });
-    } else {
+    } else if (thisWeekGoal) {
       await prisma.goal.create({
         data: {
           id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}`,
           userId: user.id,
           date: dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD"),
+          daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
+          dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
+          dosesPerWeek: user.goal_dosesPerWeek,
+          status: GoalStatus.InProgress,
+        },
+      });
+    } else {
+      await prisma.goal.create({
+        data: {
+          id: `${user.id}_${date}`,
+          userId: user.id,
+          date,
           daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
           dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
           dosesPerWeek: user.goal_dosesPerWeek,
