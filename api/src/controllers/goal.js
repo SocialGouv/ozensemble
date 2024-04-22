@@ -44,8 +44,7 @@ router.post(
       await prisma.goal.update({ where: { id: thisWeekGoal.id }, data: { status: "Failure" } });
     }
 
-    // we want to know if the goal of this week is already proceded. If it is, we want to create/modify the one for next week
-    // if it is not, we want to update the current one with the new values
+    // we want to know if the goal of this week is already proceded. If it is not we update it
     if (thisWeekGoal && thisWeekGoal.status === "InProgress") {
       await prisma.goal.update({
         where: { id: thisWeekGoal.id },
@@ -55,6 +54,7 @@ router.post(
           dosesPerWeek,
         },
       });
+      //if the goal is procedeed, we create a new one for the next week. If the one for next week already exists, we update it
     } else if (thisWeekGoal) {
       await prisma.goal.upsert({
         where: { id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}` },
@@ -73,7 +73,8 @@ router.post(
           status: GoalStatus.InProgress,
         },
       });
-    } else {
+    } //if there is no goal for this week, we create it
+    else {
       await prisma.goal.create({
         data: {
           id: `${user.id}_${date}`,
