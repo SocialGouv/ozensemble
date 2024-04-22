@@ -45,36 +45,19 @@ router.post(
     }
 
     // we want to know if the goal of this week is already proceded. If it is not we update it
-    if (thisWeekGoal && thisWeekGoal.status === "InProgress") {
-      await prisma.goal.update({
-        where: { id: thisWeekGoal.id },
-        data: {
-          daysWithGoalNoDrink,
-          dosesByDrinkingDay,
-          dosesPerWeek,
-        },
-      });
-      //if the goal is procedeed, we create a new one for the next week. If the one for next week already exists, we update it
-    } else if (thisWeekGoal) {
-      await prisma.goal.upsert({
-        where: { id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}` },
-        update: {
-          daysWithGoalNoDrink,
-          dosesByDrinkingDay,
-          dosesPerWeek,
-        },
-        create: {
-          id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}`,
-          userId: user.id,
-          date: dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD"),
-          daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
-          dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
-          dosesPerWeek: user.goal_dosesPerWeek,
-          status: GoalStatus.InProgress,
-        },
-      });
-    } //if there is no goal for this week, we create it
-    else {
+    if (thisWeekGoal) {
+      if (thisWeekGoal.status === "InProgress") {
+        // it means we are from Monday to Saturday
+        await prisma.goal.update({
+          where: { id: thisWeekGoal.id },
+          data: {
+            daysWithGoalNoDrink,
+            dosesByDrinkingDay,
+            dosesPerWeek,
+          },
+        });
+      }
+    } else {
       await prisma.goal.create({
         data: {
           id: `${user.id}_${date}`,
@@ -132,6 +115,26 @@ router.get(
       },
       update: {},
     });
+
+    if (user.goal_isSetup) {
+      // if pas de goal pour cette semaine, on le crée
+      const thisWeekGoal = await prisma.goal.findFirst({
+        where: { userId: user.id, date: dayjs().startOf("week").format("YYYY-MM-DD") },
+      });
+      if (!thisWeekGoal) {
+        await prisma.goal.create({
+          data: {
+            id: `${user.id}_${dayjs().startOf("week").format("YYYY-MM-DD")}`,
+            userId: user.id,
+            date: dayjs().startOf("week").format("YYYY-MM-DD"),
+            daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
+            dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
+            dosesPerWeek: user.goal_dosesPerWeek,
+            status: GoalStatus.InProgress,
+          },
+        });
+      }
+    }
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
       orderBy: { date: "desc" },
