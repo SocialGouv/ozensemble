@@ -56,8 +56,14 @@ router.post(
         },
       });
     } else if (thisWeekGoal) {
-      await prisma.goal.create({
-        data: {
+      await prisma.goal.upsert({
+        where: { id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}` },
+        update: {
+          daysWithGoalNoDrink,
+          dosesByDrinkingDay,
+          dosesPerWeek,
+        },
+        create: {
           id: `${user.id}_${dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD")}`,
           userId: user.id,
           date: dayjs(date).add(1, "week").startOf("week").format("YYYY-MM-DD"),
