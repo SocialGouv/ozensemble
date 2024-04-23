@@ -139,6 +139,26 @@ router.get(
       where: { userId: user.id },
       orderBy: { date: "desc" },
     });
+    const goalBadgeToShow = await prisma.badge.findFirst({
+      where: {
+        userId: user.id,
+        category: "goals",
+        shown: false,
+      },
+    });
+
+    if (goalBadgeToShow) {
+      const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
+      return res.status(200).send({
+        ok: true,
+        data: goals,
+        showNewBadge: {
+          newBadge: goalBadgeToShow,
+          allBadges,
+          badgesCatalog: getBadgeCatalog(req.headers.appversion),
+        },
+      });
+    }
     return res.status(200).send({ ok: true, data: goals });
   })
 );
