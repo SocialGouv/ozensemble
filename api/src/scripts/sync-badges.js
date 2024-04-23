@@ -1,4 +1,5 @@
 require("dotenv").config({ path: "./.env" });
+const fs = require("fs");
 
 const dayjs = require("dayjs");
 const prisma = require("../prisma");
@@ -24,6 +25,10 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
   });
   console.log("USERS", users.length);
   let usersWithBadgeBiggerThan6ThatDontHaveTheBadge = 0;
+  let usersWithFuckedUpGoals = {};
+  let fuckedUpGoals = 0;
+  let usersWithMoreOrLessSuccessThanExpected = {};
+  let usersWithNoObjectives = {};
   for (const [index, user] of Object.entries(users)) {
     // log every 100 users
     if (index % 100 === 0) console.log("user", index);
@@ -52,6 +57,11 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
         }
       }
     }
+
+    if (!user.goal_isSetup) {
+      usersWithNoObjectives[user.matomo_id] = true;
+      continue;
+    }
     if (user.goal_isSetup) {
       // 2. check if goals are existing
       const startOfWeeksForDrinks = {};
@@ -79,6 +89,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
           latestGoal = goal;
         }
       }
+      usersWithMoreOrLessSuccessThanExpected[user.matomo_id] = 0;
       for (const [startOfWeek, weekConsos] of Object.entries(startOfWeeksForDrinks)) {
         if (debug) console.log("CHECKING GOAL", user.id, startOfWeek, oldestGoalDate);
         if (oldestGoalDate && startOfWeek < oldestGoalDate) {
@@ -128,9 +139,13 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
           if (debug) console.log("GOAL SUCCESS", user.id, startOfWeek);
           continue;
         }
+        usersWithFuckedUpGoals[user.matomo_id] = true;
+        fuckedUpGoals++;
         if (goalIsNew) {
           if (debug) console.log("GOAL NEW", user.id, startOfWeek);
           goal.status = goalCheck.status ?? "InProgress";
+          if (goal.status === "Success") usersWithMoreOrLessSuccessThanExpected[user.matomo_id]++;
+          if (goal.status === "Failure") usersWithMoreOrLessSuccessThanExpected[user.matomo_id]++;
           if (fixGoals) {
             await prisma.goal.create({
               data: goal,
@@ -145,6 +160,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
         // because of that, the goal is considered to be failed whereas it should stay in progress
         if (goalCheck.status === null && !goalCheck.weekIsFilledWithConsos && goal.status === "Failure") {
           if (debug) console.log("GOAL FAILURE MISMATCH TO FIX IN PROGRESS", user.id, startOfWeek);
+          usersWithMoreOrLessSuccessThanExpected[user.matomo_id]--;
           if (fixGoals) {
             await prisma.goal.update({
               where: { id: goal.id },
@@ -156,6 +172,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
         // because of that, the goal is considered to be in progress whereas it should be failed/success
         if (goalCheck.status === "Failure" && goal.status === "InProgress") {
           if (debug) console.log("GOAL IN PROGRESS MISMATCH TO FIX FAILURE", user.id, startOfWeek);
+          usersWithMoreOrLessSuccessThanExpected[user.matomo_id]--;
           if (fixGoals) {
             await prisma.goal.update({
               where: { id: goal.id },
@@ -166,6 +183,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
         }
         if (goalCheck.status === "Success" && goal.status === "InProgress") {
           if (debug) console.log("GOAL IN PROGRESS MISMATCH TO FIX SUCCESS", user.id, startOfWeek);
+          usersWithMoreOrLessSuccessThanExpected[user.matomo_id]++;
           if (fixGoals) {
             await prisma.goal.update({
               where: { id: goal.id },
@@ -176,6 +194,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
         }
         // case 2: because there was a bug somehow, sometimes the goal has a wrong status
         if (goalCheck.status === "Failure" && goal.status === "Success") {
+          usersWithMoreOrLessSuccessThanExpected[user.matomo_id]--;
           if (debug) console.log("GOAL IN PROGRESS MISMATCH TO FIX FAILURE", user.id, startOfWeek);
           if (fixGoals) {
             await prisma.goal.update({
@@ -186,6 +205,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
           continue;
         }
         if (goalCheck.status === "Success" && goal.status === "Failure") {
+          usersWithMoreOrLessSuccessThanExpected[user.matomo_id]++;
           if (debug) console.log("GOAL IN PROGRESS MISMATCH TO FIX SUCCESS", user.id, startOfWeek);
           if (fixGoals) {
             await prisma.goal.update({
@@ -196,6 +216,7 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
           continue;
         }
         if (goalCheck.status === null && goal.status === "Success") {
+          usersWithMoreOrLessSuccessThanExpected[user.matomo_id]--;
           if (debug) console.log("GOAL SUCCESS MISMATCH TO FIX IN PROGRESS", user.id, startOfWeek);
           if (fixGoals) {
             await prisma.goal.update({
@@ -222,9 +243,41 @@ async function syncBadges(fixBadges = false, fixGoals = false, debug = false) {
   }
 
   console.log("DONE");
+  // fs.writeFileSync(
+  //   "./users-who-should-have-had-more-success.csv",
+  //   Object.entries(usersWithMoreOrLessSuccessThanExpected)
+  //     .filter(([matomoId, number]) => number > 0)
+  //     .map(([matomoId]) => matomoId)
+  //     .join(";\n")
+  // );
+  // fs.writeFileSync(
+  //   "./users-who-should-have-had-more-failures.csv",
+  //   Object.entries(usersWithMoreOrLessSuccessThanExpected)
+  //     .filter(([matomoId, number]) => number < 0)
+  //     .map(([matomoId]) => matomoId)
+  //     .join(";\n")
+  // );
+  // fs.writeFileSync(
+  //   "./users-with-objectives-but-not-impacted-with-the-bug.csv",
+  //   Object.entries(usersWithMoreOrLessSuccessThanExpected)
+  //     .filter(([matomoId, number]) => number === 0)
+  //     .map(([matomoId]) => matomoId)
+  //     .join(";\n")
+  // );
+  // fs.writeFileSync(
+  //   "./users-with-no-objectives.csv",
+  //   Object.entries(usersWithNoObjectives)
+  //     .map(([matomoId]) => matomoId)
+  //     .join(";\n")
+  // );
   console.log({
     usersWithBadgeBiggerThan6ThatDontHaveTheBadge,
+    usersWithFuckedUpGoals: Object.keys(usersWithFuckedUpGoals).length,
+    usersWithMoreSuccessThanExpected: Object.entries(usersWithMoreOrLessSuccessThanExpected).filter(([userId, number]) => number > 0).length,
+    usersWithMoreFailureThanExpected: Object.entries(usersWithMoreOrLessSuccessThanExpected).filter(([userId, number]) => number < 0).length,
+    usersWithSameShitThanExpected: Object.entries(usersWithMoreOrLessSuccessThanExpected).filter(([userId, number]) => number === 0).length,
+    fuckedUpGoals,
   });
 }
 
-syncBadges(false, true);
+syncBadges(false, false, false);
