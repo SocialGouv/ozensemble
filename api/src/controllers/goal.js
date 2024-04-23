@@ -148,6 +148,7 @@ router.get(
     });
 
     if (goalBadgeToShow) {
+      await prisma.badge.update({ where: { id: goalBadgeToShow.id }, data: { shown: true } });
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
       return res.status(200).send({
         ok: true,
