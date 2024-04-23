@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import H3 from '../../components/H3';
@@ -11,6 +11,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import { FeedButtonStyled } from '../../components/FeedButtonStyled';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+import { goalsState } from '../../recoil/gains';
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   return (
@@ -25,6 +26,7 @@ const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
 
 export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, disabled }) => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
+  const [goals, setGoals] = useRecoilState(goalsState);
   return (
     <FeedNoDrinkTodayTopButton
       content={content}
@@ -48,21 +50,38 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
             quantity: Number(noConso.quantity),
             date: noConso.timestamp,
           },
-        }).then((response) => {
-          if (response.ok) {
-            setGlobalDrinksState((state) => {
-              return state.map((drink) => {
-                if (drink.id === noConso.id) {
-                  return {
-                    ...drink,
-                    isSyncedWithDB: true,
-                  };
-                }
-                return drink;
+        })
+          .then((response) => {
+            if (response.ok) {
+              setGlobalDrinksState((state) => {
+                return state.map((drink) => {
+                  if (drink.id === noConso.id) {
+                    return {
+                      ...drink,
+                      isSyncedWithDB: true,
+                    };
+                  }
+                  return drink;
+                });
               });
-            });
-          }
-        });
+            }
+          })
+          .then(() => {
+            API.get({
+              path: '/goal/list',
+              query: {
+                matomoId: matomoId,
+              },
+            })
+              .then((res) => {
+                if (res.ok) {
+                  if (JSON.stringify(res.data) !== JSON.stringify(goals)) {
+                    setGoals(res.data);
+                  }
+                }
+              })
+              .catch((err) => console.log('Get goals err', err));
+          });
       }}
     />
   );

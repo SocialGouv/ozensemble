@@ -154,7 +154,7 @@ router.get(
         ok: true,
         data: goals,
         showNewBadge: {
-          newBadge: goalBadgeToShow,
+          newBadge: grabBadgeFromCatalog("goals", goalBadgeToShow.stars),
           allBadges,
           badgesCatalog: getBadgeCatalog(req.headers.appversion),
         },
