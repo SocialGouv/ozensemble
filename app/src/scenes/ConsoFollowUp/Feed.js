@@ -1,11 +1,11 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Dimensions, TouchableWithoutFeedback, View, Text, TouchableOpacity } from 'react-native';
+import { TouchableWithoutFeedback, View, Text, TouchableOpacity } from 'react-native';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuidv4 } from 'uuid';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { isOnboardedSelector } from '../../recoil/gains';
+import { goalsState, isOnboardedSelector } from '../../recoil/gains';
 
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
@@ -60,6 +60,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
   const navigation = useNavigation();
   const isOnboarded = useRecoilValue(isOnboardedSelector);
   const [drinks, setDrinks] = useRecoilState(drinksState);
+  const [goals, setGoals] = useRecoilState(goalsState);
   const [noConsoLoading, setNoConsoLoading] = useState(false);
   const dateLastEntered = useMemo(() => {
     return drinks[0]?.timestamp || null;
@@ -121,6 +122,20 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
     }
     setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
     setNoConsoLoading(false);
+    API.get({
+      path: '/goal/list',
+      query: {
+        matomoId: matomoId,
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          if (JSON.stringify(res.data) !== JSON.stringify(goals)) {
+            setGoals(res.data);
+          }
+        }
+      })
+      .catch((err) => console.log('Get goals err', err));
   }, [dateLastEntered, setDrinks]);
   return (
     <>
