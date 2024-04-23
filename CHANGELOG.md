@@ -1,3 +1,10 @@
+## [1.151.6](https://github.com/SocialGouv/ozensemble/compare/v1.151.5...v1.151.6) (2024-04-23)
+
+
+### Bug Fixes
+
+* add one week to modified goal ([#566](https://github.com/SocialGouv/ozensemble/issues/566)) ([40bc95a](https://github.com/SocialGouv/ozensemble/commit/40bc95ab0665ed6a22ed4a9ec171b42f25a6f02f))
+
 ## [1.151.5](https://github.com/SocialGouv/ozensemble/compare/v1.151.4...v1.151.5) (2024-04-18)
 
 
