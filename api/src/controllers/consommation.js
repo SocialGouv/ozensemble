@@ -115,16 +115,16 @@ router.post(
 
     // note: the `date` can be ANY date, not just today,
     // because the user can update a conso from any date
-    const goalBadgeToShow = await syncBadgesWithGoals(matomoId, date);
+    await syncBadgesWithGoals(matomoId, date);
 
     const drinksBadgeToShow = await syncBadgesWithConsos(matomoId);
 
-    if (drinksBadgeToShow || goalBadgeToShow) {
+    if (drinksBadgeToShow) {
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });
       return res.status(200).send({
         ok: true,
         showNewBadge: {
-          newBadge: drinksBadgeToShow || goalBadgeToShow,
+          newBadge: drinksBadgeToShow,
           allBadges,
           badgesCatalog: getBadgeCatalog(req.headers.appversion),
         },

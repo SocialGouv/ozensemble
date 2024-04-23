@@ -28,7 +28,7 @@ const BadgesStatus = ({ navigate }) => {
             setBadgesCatalog(res.data.badgesCatalog);
           }
         })
-        .catch((err) => console.log('Get goals err', err));
+        .catch((err) => console.log('Get badges err', err));
     }, [setBadges, setBadgesCatalog])
   );
 

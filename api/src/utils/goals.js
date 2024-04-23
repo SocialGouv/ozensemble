@@ -89,6 +89,7 @@ const syncBadgesWithGoals = async (matomoId, date) => {
         category: "goals",
         date: dayjs().format("YYYY-MM-DD"),
         stars: badgeToShow.stars,
+        shown: false,
       },
     });
   }
