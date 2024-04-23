@@ -1,3 +1,10 @@
+# [1.152.0](https://github.com/SocialGouv/ozensemble/compare/v1.151.6...v1.152.0) (2024-04-23)
+
+
+### Features
+
+* show goal badge on back to calendar ([#567](https://github.com/SocialGouv/ozensemble/issues/567)) ([f367c6c](https://github.com/SocialGouv/ozensemble/commit/f367c6c8271814d6d85a3f064aef62919799733a))
+
 ## [1.151.6](https://github.com/SocialGouv/ozensemble/compare/v1.151.5...v1.151.6) (2024-04-23)
 
 
