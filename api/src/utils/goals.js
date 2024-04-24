@@ -170,8 +170,21 @@ const getBadgeCorrespondingToGoalsSuccess = async (latestGoalBadge, goalsSuccess
   return null;
 };
 
+function getStarsCorrespondingToGoalsSuccess(goalsSuccessCount) {
+  if (!goalsSuccessCount) return null;
+  if (goalsSuccessCount >= 20) return 8;
+  if (goalsSuccessCount >= 10) return 7;
+  if (goalsSuccessCount >= 6) return 6;
+  if (goalsSuccessCount >= 4) return 5;
+  if (goalsSuccessCount >= 3) return 4;
+  if (goalsSuccessCount >= 2) return 3;
+  if (goalsSuccessCount >= 1) return 2;
+  return 1;
+}
+
 module.exports = {
   syncBadgesWithGoals,
   checkCurrentWeekGoal,
   getBadgeCorrespondingToGoalsSuccess,
+  getStarsCorrespondingToGoalsSuccess,
 };
