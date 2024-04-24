@@ -20,7 +20,8 @@ async function syncBadges(fixGoals = false, debug = false) {
         orderBy: { date: "desc" },
       },
     },
-    // take: 1000,
+    take: 1000,
+    skip: 1100,
   });
   console.log("USERS", users.length);
   let usersWithFuckedUpGoals = {};
@@ -29,7 +30,8 @@ async function syncBadges(fixGoals = false, debug = false) {
   let usersWithNoObjectives = {};
   for (const [index, user] of Object.entries(users)) {
     // log every 100 users
-    if (index % 100 === 0) console.log("user", index);
+    console.log("---------------------------------------------------------------------------------------------------------------");
+    console.log("user", index);
     // if (debug) console.log(JSON.stringify(user, null, 2));
     if (!user.goal_isSetup) {
       usersWithNoObjectives[user.matomo_id] = true;
@@ -239,4 +241,4 @@ async function syncBadges(fixGoals = false, debug = false) {
   });
 }
 
-syncBadges(true, false);
+syncBadges(true, true);

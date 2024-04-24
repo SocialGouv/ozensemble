@@ -19,7 +19,11 @@ async function syncBadges(fixBadges = false) {
         },
       },
     },
-    // take: 1000,
+    orderBy: {
+      matomo_id: "asc",
+    },
+    take: 50,
+    skip: 0,
   });
   console.log("USERS", users.length);
   let usersThatDontHaveTheBadge = 0;

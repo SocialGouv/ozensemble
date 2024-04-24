@@ -6,9 +6,9 @@
   "main": "server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development npx prisma db push && nodemon ./src/server.js ",
-    "sync-goals-badges": "cross-env NODE_ENV=development && nodemon ./src/scripts/sync-goal-badges.js ",
-    "sync-goals-drinks": "cross-env NODE_ENV=development && nodemon ./src/scripts/sync-drinks-badges.js ",
-    "sync-goals": "cross-env NODE_ENV=development && nodemon ./src/scripts/sync-goals.js ",
+    "sync-goals-badges": "cross-env NODE_ENV=development && node ./src/scripts/sync-goal-badges.js ",
+    "sync-goals-drinks": "cross-env NODE_ENV=development && node ./src/scripts/sync-drinks-badges.js ",
+    "sync-goals": "cross-env NODE_ENV=development && node ./src/scripts/sync-goals.js ",
     "dev-cron": "nodemon ./src/cronjobs.js ",
     "create-migration": "cross-env NODE_ENV=development npx prisma migrate dev --name",
     "start": "NODE_ENV=production npx prisma migrate deploy && NODE_ENV=production node ./src/server.js",
