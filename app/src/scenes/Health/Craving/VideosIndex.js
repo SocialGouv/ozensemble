@@ -3,6 +3,10 @@ import WrapperContainer from '../../../components/WrapperContainer';
 import AdvicesIcon from '../../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../../components/illustrations/BreathingIcon';
 import VideosIcon from '../../../components/illustrations/VideosIcon';
+import ExercicesVideos from '../../../components/illustrations/ExercicesVideos';
+import EntertainmentVideos from '../../../components/illustrations/EntertainmentVideos';
+import ThinkVideos from '../../../components/illustrations/ThinkVideos';
+import AdviceVideos from '../../../components/illustrations/AdviceVideos';
 
 const VideosIndex = ({ navigation }) => {
   return (
@@ -18,7 +22,7 @@ const VideosIndex = ({ navigation }) => {
             onPress={() => {
               navigation.navigate('POSITIVE_VIDEOS');
             }}>
-            <AdvicesIcon size={80} className="" />
+            <ThinkVideos size={100} className="" />
             <Text className="text-center text-2xl font-bold text-white">Pensées</Text>
           </TouchableOpacity>
         </View>
@@ -28,7 +32,7 @@ const VideosIndex = ({ navigation }) => {
             onPress={() => {
               navigation.navigate('ADVISE_VIDEOS');
             }}>
-            <BreathingIcon size={80} className="" />
+            <AdviceVideos size={100} className="" />
             <View className="items-center">
               <Text className="text-center text-2xl font-bold text-white ">Conseils</Text>
             </View>
@@ -38,12 +42,12 @@ const VideosIndex = ({ navigation }) => {
       <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
         <View className="w-1/2  rounded-md shadow-md bg-[#C79CFF]">
           <TouchableOpacity
-            className="flex items-center gap-6 p-8"
+            className="flex items-center gap-2 p-8"
             onPress={() => {
               navigation.navigate('ENTERTAINMENT_VIDEOS_INDEX');
             }}>
-            <VideosIcon size={80} className="" />
-            <Text className="text-center text-2xl font-bold text-white">Se divertir</Text>
+            <EntertainmentVideos size={100} className="" />
+            <Text className="text-center text-2xl font-bold text-white">Divertissement</Text>
           </TouchableOpacity>
         </View>
         <View className="w-1/2  rounded-md shadow-md bg-[#ED9A4B]">
@@ -52,7 +56,7 @@ const VideosIndex = ({ navigation }) => {
             onPress={() => {
               navigation.navigate('EXERCISES_VIDEOS_INDEX');
             }}>
-            <VideosIcon size={80} className="" />
+            <ExercicesVideos size={100} className="" />
             <Text className="text-center text-2xl font-bold text-white">Exercices</Text>
           </TouchableOpacity>
         </View>

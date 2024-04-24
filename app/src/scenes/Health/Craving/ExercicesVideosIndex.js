@@ -4,6 +4,8 @@ import Background from '../../../components/Background';
 import BackButton from '../../../components/BackButton';
 import { useNavigation } from '@react-navigation/native';
 import MeditationIcon from '../../../components/illustrations/MeditationIcon';
+import TTCIcon from '../../../components/illustrations/TTCIcon';
+import SophrologyIcon from '../../../components/illustrations/SophrologyIcon';
 
 const ExercicesVideosIndex = () => {
   const navigation = useNavigation();
@@ -19,30 +21,42 @@ const ExercicesVideosIndex = () => {
           <BackButton content="< Retour" bold onPress={onGoBackRequested} />
 
           <Text className="text-[#4030A5] text-3xl font-bold mt-3">Exercices</Text>
-          <View className="">
+          <View className="h-full w-full flex flex-col gap-10 mb-4 pt-2 p-4">
             <TouchableOpacity
-              className=""
+              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-8 pb-2 px-2 shadow-md"
               onPress={() => {
-                navigation.navigate('CRAVING_ADVICES');
+                navigation.navigate('THERAPY_VIDEOS');
               }}>
-              <MeditationIcon size={80} className="" />
-              <Text className="text-center text-2xl font-bold text-white">Conseils</Text>
+              <View className="w-full flex-row flex gap-10">
+                <View className="w-2/3 flex flex-row items-end pb-2">
+                  <Text className="text-lg font-semibold text-white ">Thérapie Comportementale et Cognitive</Text>
+                </View>
+                <TTCIcon size={70} className="" />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              className="flex items-center gap-6 p-8"
+              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-8 pb-2 px-2 shadow-md"
               onPress={() => {
-                navigation.navigate('CRAVING_ADVICES');
+                navigation.navigate('MEDITATION_VIDEOS');
               }}>
-              <MeditationIcon size={80} className="" />
-              <Text className="text-center text-2xl font-bold text-white">Conseils</Text>
+              <View className="w-full flex-row flex gap-10">
+                <View className="w-2/3 flex flex-row items-end pb-2">
+                  <Text className="text-lg font-semibold text-white ">Méditation</Text>
+                </View>
+                <MeditationIcon size={70} className="" />
+              </View>
             </TouchableOpacity>
             <TouchableOpacity
-              className="flex items-center gap-6 p-8"
+              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-8 pb-2 px-2 shadow-md"
               onPress={() => {
-                navigation.navigate('CRAVING_ADVICES');
+                navigation.navigate('SOPHROLOGY_VIDEOS');
               }}>
-              <MeditationIcon size={80} className="" />
-              <Text className="text-center text-2xl font-bold text-white">Conseils</Text>
+              <View className="w-full flex-row flex gap-10">
+                <View className="w-2/3 flex flex-row items-end pb-2">
+                  <Text className="text-lg font-semibold text-white ">Sophrologie</Text>
+                </View>
+                <SophrologyIcon size={70} className="" />
+              </View>
             </TouchableOpacity>
           </View>
         </View>

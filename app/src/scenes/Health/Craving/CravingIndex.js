@@ -17,7 +17,7 @@ const CravingIndex = ({ navigation }) => {
             <TouchableOpacity
               className="flex items-center gap-6 p-8"
               onPress={() => {
-                navigation.navigate('CRAVING_ADVICES');
+                navigation.navigate('HYDRATATION_ADVICE');
               }}>
               <AdvicesIcon size={80} className="" />
               <Text className="text-center text-2xl font-bold text-white">Conseils</Text>

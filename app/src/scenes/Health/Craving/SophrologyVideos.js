@@ -20,7 +20,7 @@ const SophrologyVideos = () => {
           <ScrollView showsVerticalScrollIndicator={false} className="mx-4 mt-3 flex ">
             <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop marginBottom />
 
-            <Text className="text-[#4030A5] text-3xl font-bold mt-3">Vidéos de pensées positives</Text>
+            <Text className="text-[#4030A5] text-3xl font-bold mt-3">Vidéos de sophrologie</Text>
             <View className=" justify-between gap-2 items-center mt-8">
               <YoutubePlayer height={200} width={300} videoId="AsJMwhKnL74" />
               <YoutubePlayer height={200} width={300} videoId="iyH2hydCqNE" />
