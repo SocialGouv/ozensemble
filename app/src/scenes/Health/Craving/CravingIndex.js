@@ -1,10 +1,15 @@
 import { ImageBackground, View, TouchableOpacity, Text } from 'react-native';
+import { useState } from 'react';
 import WrapperContainer from '../../../components/WrapperContainer';
 import AdvicesIcon from '../../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../../components/illustrations/BreathingIcon';
 import VideosIcon from '../../../components/illustrations/VideosIcon';
+import ModalCraving from '../../../components/ModalCraving';
+import { storage } from '../../../services/storage';
 
 const CravingIndex = ({ navigation }) => {
+  const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
+
   return (
     <WrapperContainer
       title="Craving"
@@ -51,6 +56,13 @@ const CravingIndex = ({ navigation }) => {
           </TouchableOpacity>
         </ImageBackground>
       </View>
+      <ModalCraving
+        firstTimeOnCraving={firstTimeOnCraving}
+        onClose={() => {
+          storage.set('firstTimeOnCraving', false);
+          setfirstTimeOnCraving(false);
+        }}
+      />
     </WrapperContainer>
   );
 };
