@@ -1,3 +1,10 @@
+## [1.152.1](https://github.com/SocialGouv/ozensemble/compare/v1.152.0...v1.152.1) (2024-04-24)
+
+
+### Bug Fixes
+
+* goals compared to drinks ([#568](https://github.com/SocialGouv/ozensemble/issues/568)) ([bedeb19](https://github.com/SocialGouv/ozensemble/commit/bedeb1915c39d11b817381091f8294e7c6c0cffe))
+
 # [1.152.0](https://github.com/SocialGouv/ozensemble/compare/v1.151.6...v1.152.0) (2024-04-23)
 
 
