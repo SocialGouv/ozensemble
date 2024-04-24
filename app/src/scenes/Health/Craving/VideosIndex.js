@@ -1,8 +1,5 @@
 import { View, TouchableOpacity, Text } from 'react-native';
 import WrapperContainer from '../../../components/WrapperContainer';
-import AdvicesIcon from '../../../components/illustrations/AdvicesICon';
-import BreathingIcon from '../../../components/illustrations/BreathingIcon';
-import VideosIcon from '../../../components/illustrations/VideosIcon';
 import ExercicesVideos from '../../../components/illustrations/ExercicesVideos';
 import EntertainmentVideos from '../../../components/illustrations/EntertainmentVideos';
 import ThinkVideos from '../../../components/illustrations/ThinkVideos';

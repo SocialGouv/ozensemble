@@ -7,14 +7,9 @@ import { useRef } from 'react';
 const CravingBreath = () => {
   const navigation = useNavigation();
 
-  const onGoBackRequested = () => {
-    navigation.goBack();
-  };
-
   const dimensions = Dimensions.get('window');
   const cirleWidth = dimensions.width;
   const cirleHeight = dimensions.height;
-  console.log('cirleWidth', cirleWidth, 'cirleHeight', cirleHeight);
   const move = useRef(new Animated.Value(0)).current;
   const textOpacity = useRef(new Animated.Value(1)).current;
   Animated.loop(
@@ -58,7 +53,7 @@ const CravingBreath = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <View className="h-full w-screen bg-[#fff]">
-        <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop marginLeft />
+        <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop marginLeft />
         <View className="h-full w-screen justify-center items-center">
           <Animated.View className="justify-center items-center" style={{ opacity: textOpacity }}>
             <Text className="text-[#4030A5] text-3xl font-bold absolute">Inspirez</Text>

@@ -9,16 +9,12 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 const MeditationVideos = () => {
   const navigation = useNavigation();
 
-  const onGoBackRequested = () => {
-    navigation.goBack();
-  };
-
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
         <View className="h-full w-screen">
           <ScrollView showsVerticalScrollIndicator={false} className="mx-4 mt-3 flex ">
-            <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop marginBottom />
+            <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop marginBottom />
 
             <Text className="text-[#4030A5] text-3xl font-bold mt-3">Vidéos de méditation</Text>
             <View className=" justify-between gap-2 items-center mt-8">

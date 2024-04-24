@@ -10,15 +10,11 @@ import SensationIcon from '../../../components/illustrations/SensationIcon';
 const EntertainmentVideosIndex = () => {
   const navigation = useNavigation();
 
-  const onGoBackRequested = () => {
-    navigation.goBack();
-  };
-
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
         <View className="h-full w-screen p-4">
-          <BackButton content="< Retour" bold onPress={onGoBackRequested} />
+          <BackButton content="< Retour" bold onPress={navigation.goBack} />
 
           <Text className="text-[#4030A5] text-3xl font-bold mt-3">Divertissement</Text>
           <View className="h-full w-full flex flex-col gap-10 mb-4 pt-2 p-4">
