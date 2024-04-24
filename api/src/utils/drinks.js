@@ -2,10 +2,12 @@ const dayjs = require("dayjs");
 require("dayjs/locale/fr");
 const isBetween = require("dayjs/plugin/isBetween");
 const weekday = require("dayjs/plugin/weekday");
+const utc = require("dayjs/plugin/utc");
 const prisma = require("../prisma");
 const { grabBadgeFromCatalog } = require("../utils/badges");
 const { capture } = require("../third-parties/sentry");
 dayjs.extend(isBetween);
+dayjs.extend(utc);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
@@ -21,7 +23,7 @@ async function syncBadgesWithConsos(matomoId) {
     },
     orderBy: { stars: "desc" },
   });
-  if (latestDrinksBadge && latestDrinksBadge.stars === 8) {
+  if (latestDrinksBadge && latestDrinksBadge?.stars === 8) {
     return null;
   }
 
@@ -54,37 +56,37 @@ async function syncBadgesWithConsos(matomoId) {
 async function getBadgeCorrespondingToConsecutiveDays(latestDrinksBadge, drinksConsecutiveDays) {
   if (!drinksConsecutiveDays) return null;
   if (drinksConsecutiveDays >= 180) {
-    if (latestDrinksBadge.stars === 7) {
+    if (latestDrinksBadge?.stars === 7) {
       return grabBadgeFromCatalog("drinks", 8);
     }
   }
   if (drinksConsecutiveDays >= 90) {
-    if (latestDrinksBadge.stars === 6) {
+    if (latestDrinksBadge?.stars === 6) {
       return grabBadgeFromCatalog("drinks", 7);
     }
   }
   if (drinksConsecutiveDays >= 60) {
-    if (latestDrinksBadge.stars === 5) {
+    if (latestDrinksBadge?.stars === 5) {
       return grabBadgeFromCatalog("drinks", 6);
     }
   }
   if (drinksConsecutiveDays >= 28) {
-    if (latestDrinksBadge.stars === 4) {
+    if (latestDrinksBadge?.stars === 4) {
       return grabBadgeFromCatalog("drinks", 5);
     }
   }
   if (drinksConsecutiveDays >= 14) {
-    if (latestDrinksBadge.stars === 3) {
+    if (latestDrinksBadge?.stars === 3) {
       return grabBadgeFromCatalog("drinks", 4);
     }
   }
   if (drinksConsecutiveDays >= 7) {
-    if (latestDrinksBadge.stars === 2) {
+    if (latestDrinksBadge?.stars === 2) {
       return grabBadgeFromCatalog("drinks", 3);
     }
   }
   if (drinksConsecutiveDays >= 3) {
-    if (latestDrinksBadge.stars === 1) {
+    if (latestDrinksBadge?.stars === 1) {
       return grabBadgeFromCatalog("drinks", 2);
     }
   }
@@ -96,15 +98,30 @@ async function getBadgeCorrespondingToConsecutiveDays(latestDrinksBadge, drinksC
   return null;
 }
 
+function getStarsCorrespondingToConsecutiveDays(drinksConsecutiveDays) {
+  if (!drinksConsecutiveDays) return null;
+  if (drinksConsecutiveDays >= 180) return 8;
+  if (drinksConsecutiveDays >= 90) return 7;
+  if (drinksConsecutiveDays >= 60) return 6;
+  if (drinksConsecutiveDays >= 28) return 5;
+  if (drinksConsecutiveDays >= 14) return 4;
+  if (drinksConsecutiveDays >= 7) return 3;
+  if (drinksConsecutiveDays >= 3) return 2;
+  if (drinksConsecutiveDays >= 1) return 1;
+  return null;
+}
+
 function countConsecutiveDays(allConsos) {
   if (!allConsos.length) return 0;
   let consecutiveDays = 1;
-  let currentConsoDate = dayjs(allConsos[0].date).startOf("day");
+  // date is 2023-10-10 00:00:00 and is at time of the device
+  // we just take the date without the time
+  let currentConsoDate = dayjs(allConsos[0].date).toISOString().split("T")[0];
   let differenceDate;
   let consoDate;
   for (const conso of allConsos) {
-    consoDate = dayjs(conso.date).startOf("day");
-    differenceDate = currentConsoDate.diff(consoDate, "day");
+    consoDate = dayjs(conso.date).toISOString().split("T")[0];
+    differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
     if (differenceDate < 0) {
       capture(new Error("Conso dates are not ordered"), {
         extra: {
@@ -112,6 +129,7 @@ function countConsecutiveDays(allConsos) {
         },
       });
     }
+
     if (differenceDate === 0) {
       continue;
     }
@@ -129,12 +147,68 @@ function countConsecutiveDays(allConsos) {
 function checksConsecutiveDays(consecutiveDaysGoal, allConsos) {
   if (!allConsos.length) return false;
   let consecutiveDays = 1;
-  let currentConsoDate = dayjs(allConsos[0].date).startOf("day");
+  // date is 2023-10-10 00:00:00 and is at time of the device
+  // we just take the date without the time
+  let currentConsoDate = dayjs(allConsos[0].date).toISOString().split("T")[0];
   let differenceDate;
   let consoDate;
   for (const conso of allConsos) {
-    consoDate = dayjs(conso.date).startOf("day");
-    differenceDate = currentConsoDate.diff(consoDate, "day");
+    consoDate = dayjs(conso.date).toISOString().split("T")[0];
+    differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
+    // if (debug) {
+    //   console.log("------------------------------------------------------------");
+    //   console.log("allConsos[0].date", allConsos[0].date);
+    //   console.log("currentConsoDate", currentConsoDate);
+    //   console.log("conso.date", conso.date);
+    //   console.log("consoDate", consoDate);
+    //   console.log("differenceDate", differenceDate);
+    // }
+    if (differenceDate < 0) {
+      capture(new Error("Conso dates are not ordered"), {
+        extra: {
+          allConsos,
+        },
+      });
+    }
+    // if (conso.userId === "000b83f0-6c52-4dce-999c-e22bf7800c3e") {
+    //   console.log("------------------------------------------------------------");
+    //   console.log("currentConsoDate", currentConsoDate.format("YYYY-MM-DD"));
+    //   console.log("consoDate", consoDate.format("YYYY-MM-DD"));
+    //   console.log("differenceDate", differenceDate);
+    // }
+    if (differenceDate === 0) {
+      continue;
+    }
+    if (differenceDate > 1) {
+      consecutiveDays = 1;
+    }
+    if (differenceDate === 1) {
+      consecutiveDays++;
+    }
+    // if (debug) {
+    //   console.log("consecutiveDays", consecutiveDays);
+    // }
+    // differenceDate === 1;
+    if (consecutiveDays >= consecutiveDaysGoal) {
+      return true;
+    }
+    currentConsoDate = consoDate;
+  }
+  return false;
+}
+
+function countMaxConsecutiveDays(allConsos) {
+  if (!allConsos.length) return 0;
+  let consecutiveDays = 1;
+  // date is 2023-10-10 00:00:00 and is at time of the device
+  // we just take the date without the time
+  let currentConsoDate = dayjs(allConsos[0].date).toISOString().split("T")[0];
+  let differenceDate;
+  let consoDate;
+  let maxConsecutiveDays = 1;
+  for (const conso of allConsos) {
+    consoDate = dayjs(conso.date).toISOString().split("T")[0];
+    differenceDate = dayjs(currentConsoDate).diff(dayjs(consoDate), "day");
     if (differenceDate < 0) {
       capture(new Error("Conso dates are not ordered"), {
         extra: {
@@ -151,18 +225,19 @@ function checksConsecutiveDays(consecutiveDaysGoal, allConsos) {
     if (differenceDate === 1) {
       consecutiveDays++;
     }
-    // differenceDate === 1;
-    if (consecutiveDays >= consecutiveDaysGoal) {
-      return true;
+    if (consecutiveDays > maxConsecutiveDays) {
+      maxConsecutiveDays = consecutiveDays;
     }
     currentConsoDate = consoDate;
   }
-  return false;
+  return maxConsecutiveDays;
 }
 
 module.exports = {
   syncBadgesWithConsos,
   getBadgeCorrespondingToConsecutiveDays,
+  getStarsCorrespondingToConsecutiveDays,
   countConsecutiveDays,
   checksConsecutiveDays,
+  countMaxConsecutiveDays,
 };
