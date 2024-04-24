@@ -1,57 +1,17 @@
 import styled from 'styled-components';
-import H2 from '../../components/H2';
 import TextStyled from '../../components/TextStyled';
 import { listConseils } from './ListConseil';
 import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
-import AppointmentHeart from '../../components/illustrations/AppointmentHeart';
-import ChatBubbles from '../../components/illustrations/Chatbubbles';
-import { View, TouchableOpacity, Text } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 
 const Conseils = ({ navigation }) => {
   return (
-    <WrapperContainer title="Santé">
-      <>
-        <H2 color="#4030a5" className="mb-2">
-          Parler avec un professionnel
-        </H2>
-        <H2 color="#000000" className="mb-2">
-          Gratuitement et anonymement
-        </H2>
-        <CategorieContainer
-          onPress={() => {
-            logEvent({
-              category: 'CONTACT',
-              action: 'CONTACT_OPEN',
-              name: 'HEALTH',
-            });
-            navigation.navigate('CONTACT');
-          }}>
-          <IconContainer>
-            <AppointmentHeart size={40} />
-          </IconContainer>
-          <TextContainer>
-            <TextStyled> Prendre un RDV</TextStyled>
-            <TextStyled> avec Doctolib</TextStyled>
-          </TextContainer>
-        </CategorieContainer>
-      </>
-
-      <H2 color="#4030a5" className="mb-2">
-        Témoignages
-      </H2>
-      <View className="border border-[#4030A5] bg-white rounded-md shadow-md my-4 py-4 px-3 mb-8">
-        <TouchableOpacity
-          className="flex-row"
-          onPress={() => {
-            navigation.navigate('TESTIMONIES');
-          }}>
-          <ChatBubbles size={40} className="ml-6" />
-          <Text className="ml-8">Consulter des{'\n'} témoignages</Text>
-        </TouchableOpacity>
-      </View>
-      <H2 color="#4030a5">Mes articles conseils</H2>
+    <WrapperContainer
+      title="Mes articles conseils"
+      onPressBackButton={() => {
+        navigation.goBack();
+      }}>
       <ViewConseilsContainer>
         {listConseils.map((conseil, index) => (
           <ConseilContainer
@@ -103,30 +63,6 @@ const TitleConseilContainer = styled(TextStyled)`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
-
-const CategorieContainer = styled.TouchableOpacity`
-  margin-top: 10px;
-  margin-bottom: 40px;
-  border: 1px solid #4030a5;
-  border-radius: 5px;
-  flex-direction: row;
-  align-items: center;
-  background-color: #ffffff;
-  shadow-color: #4030a5;
-  shadow-offset: 0px 5px;
-  shadow-opacity: 0.09;
-  shadow-radius: 2px;
-`;
-
-const IconContainer = styled.View`
-  width: 30%;
-  align-items: center;
-`;
-
-const TextContainer = styled.View`
-  margin: 20px 0px 20px;
-`;
-
 const ImageStyled = styled.Image`
   width: ${screenWidth * 0.4}px;
   height: ${screenHeight * 0.15}px;

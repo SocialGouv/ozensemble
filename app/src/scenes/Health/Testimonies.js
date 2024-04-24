@@ -10,7 +10,7 @@ const Testimonies = ({ navigation }) => {
     <WrapperContainer
       title={'Témoignages'}
       onPressBackButton={() => {
-        navigation.navigate('HEALTH_ARTICLE');
+        navigation.goBack();
       }}>
       <View className="mt-8 flex justify-start">
         <View className="flex flex-row gap-4 mb-10">
@@ -131,7 +131,7 @@ const Testimonies = ({ navigation }) => {
           content="< Retour"
           bold
           onPress={() => {
-            navigation.navigate('HEALTH_ARTICLE');
+            navigation.goBack();
           }}
           bottom
         />
