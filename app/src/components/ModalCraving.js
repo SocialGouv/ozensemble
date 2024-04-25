@@ -24,18 +24,18 @@ const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
           </TouchableOpacity>
         </View>
 
-        <View className="mb-4 p-2">
-          <CravingIcon size={80} className="m-auto mb-4 " />
+        <View className="mb-4">
+          <CravingIcon size={70} className="m-auto mb-4 " />
           <Text color="#000" className="text-start text-xl font-extrabold text-[#DE285E] mb-4">
             M'aider avec mon craving
           </Text>
-          <Text className="text-start text-black text-lg">
+          <Text className="text-start text-black text-base">
             Vous êtes dans un moment de craving, et nous sommes là pour vous aider !{'\n'}
           </Text>
-          <Text className="text-start text-[#4030A5] font-bold text-lg">
+          <Text className="text-start text-[#4030A5] font-bold text-base">
             Sachez qu’un moment de craving n’est pas eternel, et dure généralement entre 5 et 20 minutes.{'\n'}
           </Text>
-          <Text className="text-start text-black text-lg">
+          <Text className="text-start text-black text-base">
             Le craving peut être intense et difficile à gérer, mais il existe des moyens de le surmonter.
             {'\n'}
             {'\n'} Oz vous propose divers conseils et activités afin de vous accompagner dans ces moments délicats.
