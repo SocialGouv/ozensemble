@@ -7,7 +7,9 @@ const { grabBadgeFromCatalog } = require("../utils/badges");
 const { countMaxConsecutiveDays, getStarsCorrespondingToConsecutiveDays } = require("../utils/drinks");
 const { checkCurrentWeekGoal } = require("../utils/goals");
 
-async function syncBadges(fixGoals = false, debug = false) {
+async function syncBadges(fixGoals = false, debug = false, skip, take) {
+  console.log("--------------------------------------------------------------------------------------------------------------------");
+  console.log("SKIP", skip, "TAKE", take);
   const users = await prisma.user.findMany({
     where: {
       goal_isSetup: true,
@@ -20,8 +22,8 @@ async function syncBadges(fixGoals = false, debug = false) {
         orderBy: { date: "desc" },
       },
     },
-    take: 1000,
-    skip: 1100,
+    take,
+    skip,
   });
   console.log("USERS", users.length);
   let usersWithFuckedUpGoals = {};
@@ -30,8 +32,8 @@ async function syncBadges(fixGoals = false, debug = false) {
   let usersWithNoObjectives = {};
   for (const [index, user] of Object.entries(users)) {
     // log every 100 users
-    console.log("---------------------------------------------------------------------------------------------------------------");
-    console.log("user", index);
+    // console.log("---------------------------------------------------------------------------------------------------------------");
+    // console.log("user", index);
     // if (debug) console.log(JSON.stringify(user, null, 2));
     if (!user.goal_isSetup) {
       usersWithNoObjectives[user.matomo_id] = true;
@@ -241,4 +243,33 @@ async function syncBadges(fixGoals = false, debug = false) {
   });
 }
 
-syncBadges(true, true);
+const skipTakes = [
+  [0, 1000],
+  [1000, 1000],
+  [2000, 1000],
+  [3000, 1000],
+  [4000, 1000],
+  [5000, 1000],
+  [6000, 1000],
+  [7000, 1000],
+  [8000, 1000],
+  [9000, 1000],
+  [10000, 1000],
+  [11000, 1000],
+  [12000, 1000],
+  [13000, 1000],
+  [14000, 1000],
+  [15000, 1000],
+  [16000, 1000],
+  [17000, 1000],
+  [18000, 1000],
+  [19000, 1000],
+  [20000, 1000],
+  [21000, 1000],
+  [22000, 1000],
+];
+(async () => {
+  for (const [skip, take] of skipTakes) {
+    await syncBadges(true, false, skip, take);
+  }
+})();
