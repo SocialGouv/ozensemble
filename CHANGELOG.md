@@ -1,3 +1,10 @@
+# [1.153.0](https://github.com/SocialGouv/ozensemble/compare/v1.152.1...v1.153.0) (2024-04-25)
+
+
+### Features
+
+* craving ([#569](https://github.com/SocialGouv/ozensemble/issues/569)) ([154d158](https://github.com/SocialGouv/ozensemble/commit/154d158bcc703bfd1eb0440f2e0ecf7beca46c6f))
+
 ## [1.152.1](https://github.com/SocialGouv/ozensemble/compare/v1.152.0...v1.152.1) (2024-04-24)
 
 
