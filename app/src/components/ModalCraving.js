@@ -25,7 +25,7 @@ const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
         </View>
 
         <View className="mb-4 p-2">
-          <CravingIcon size={80} className="m-auto mb-8" />
+          <CravingIcon size={80} className="m-auto mb-4 " />
           <Text color="#000" className="text-start text-xl font-extrabold text-[#DE285E] mb-4">
             M'aider avec mon craving
           </Text>

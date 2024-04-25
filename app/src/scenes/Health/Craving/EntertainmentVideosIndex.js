@@ -16,39 +16,39 @@ const EntertainmentVideosIndex = () => {
         <View className="h-full w-screen p-4">
           <BackButton content="< Retour" bold onPress={navigation.goBack} />
 
-          <Text className="text-[#4030A5] text-3xl font-bold mt-3">Divertissement</Text>
-          <View className="h-full w-full flex flex-col gap-10 mb-4 pt-2 p-4">
+          <Text className="text-[#4030A5] text-3xl font-bold my-4">Divertissement</Text>
+          <View className="h-full w-full flex flex-col gap-10 mb-4 p-4">
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-8 pb-2 px-2 shadow-md"
+              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md  pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('FUNNY_VIDEOS');
               }}>
-              <View className="w-full flex-row flex gap-10">
-                <View className="w-2/3 flex flex-row items-end pb-2">
+              <View className="w-full flex-row flex justify-between ">
+                <View className="w-2/3 flex flex-row items-end">
                   <Text className="text-lg font-semibold text-black ">Drôle</Text>
                 </View>
                 <FunIcon size={60} className="" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-8 pb-2 px-2 shadow-md"
+              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md  pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('CHILL_VIDEOS');
               }}>
-              <View className="w-full flex-row flex gap-10">
-                <View className="w-2/3 flex flex-row items-end pb-2">
+              <View className="w-full flex-row flex justify-between ">
+                <View className="w-2/3 flex flex-row items-end">
                   <Text className="text-lg font-semibold text-black ">Détente</Text>
                 </View>
                 <ChillIcon size={60} className="" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-8 pb-2 px-2 shadow-md"
+              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md  pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('SENSATION_VIDEOS');
               }}>
-              <View className="w-full flex-row flex gap-10">
-                <View className="w-2/3 flex flex-row items-end pb-2">
+              <View className="w-full flex-row flex justify-between ">
+                <View className="w-2/3 flex flex-row items-end ">
                   <Text className="text-lg font-semibold text-black ">Sensation</Text>
                 </View>
                 <SensationIcon size={60} className="" />

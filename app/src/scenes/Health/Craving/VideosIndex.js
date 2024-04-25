@@ -13,50 +13,50 @@ const VideosIndex = ({ navigation }) => {
         navigation.goBack();
       }}>
       <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
-        <View className="w-1/2  rounded-md shadow-md bg-[#5150A2]">
-          <TouchableOpacity
-            className="flex items-center gap-6 p-8"
-            onPress={() => {
-              navigation.navigate('POSITIVE_VIDEOS');
-            }}>
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md bg-[#5150A2]"
+          onPress={() => {
+            navigation.navigate('POSITIVE_VIDEOS');
+          }}>
+          <View className="flex items-center gap-4 pt-8">
             <ThinkVideos size={100} className="" />
-            <Text className="text-center text-2xl font-bold text-white">Pensées</Text>
-          </TouchableOpacity>
-        </View>
-        <View className="w-1/2  rounded-md shadow-md bg-[#3E5DE6]">
-          <TouchableOpacity
-            className="flex items-center gap-6 p-8"
-            onPress={() => {
-              navigation.navigate('ADVISE_VIDEOS');
-            }}>
+            <Text className="text-center text-xl   font-bold text-white">Pensées</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md bg-[#3E5DE6]"
+          onPress={() => {
+            navigation.navigate('ADVISE_VIDEOS');
+          }}>
+          <View className="flex items-center gap-4 pt-8">
             <AdviceVideos size={100} className="" />
             <View className="items-center">
-              <Text className="text-center text-2xl font-bold text-white ">Conseils</Text>
+              <Text className="text-center text-xl   font-bold text-white ">Conseils</Text>
             </View>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </TouchableOpacity>
       </View>
       <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
-        <View className="w-1/2  rounded-md shadow-md bg-[#C79CFF]">
-          <TouchableOpacity
-            className="flex items-center gap-2 p-8"
-            onPress={() => {
-              navigation.navigate('ENTERTAINMENT_VIDEOS_INDEX');
-            }}>
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md bg-[#C79CFF]"
+          onPress={() => {
+            navigation.navigate('ENTERTAINMENT_VIDEOS_INDEX');
+          }}>
+          <View className="flex items-center gap-4 pt-8">
             <EntertainmentVideos size={100} className="" />
-            <Text className="text-center text-2xl font-bold text-white">Divertissement</Text>
-          </TouchableOpacity>
-        </View>
-        <View className="w-1/2  rounded-md shadow-md bg-[#ED9A4B]">
-          <TouchableOpacity
-            className="flex items-center gap-6 p-8"
-            onPress={() => {
-              navigation.navigate('EXERCISES_VIDEOS_INDEX');
-            }}>
+            <Text className="text-center text-lg   font-bold text-white">Divertissement</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md bg-[#ED9A4B]"
+          onPress={() => {
+            navigation.navigate('EXERCISES_VIDEOS_INDEX');
+          }}>
+          <View className="flex items-center gap-4 pt-8">
             <ExercicesVideos size={100} className="" />
-            <Text className="text-center text-2xl font-bold text-white">Exercices</Text>
-          </TouchableOpacity>
-        </View>
+            <Text className="text-center text-xl   font-bold text-white">Exercices</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </WrapperContainer>
   );

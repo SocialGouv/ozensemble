@@ -8,35 +8,38 @@ import ArrowAdvice from '../../../components/illustrations/ArrowAdvice';
 const MusicAdvice = ({ navigation }) => {
   return (
     <SafeAreaProvider>
-      <Background color="#f9f9f9">
-        <View className="h-full w-screen p-4">
-          <View className="h-full w-full flex flex-col gap-10 mb-4 pt-2 p-4 justify-center items-center">
-            <BackButton
-              content="< Retour"
-              bold
-              onPress={() => {
-                navigation.navigate('CRAVING_INDEX');
-              }}
-              marginTop
-              marginLeft
-            />
-            <Image source={require('../../../assets/images/MusicAdvice.png')} />
-            <Text className="text-[#4030A5] text-3xl font-extrabold mt-3">Ecoutez de la musique</Text>
-            <Text className="text-black text-center font-semibold text-lg">
-              Lancez vos musiques les plus entrainantes ou apaisantes. Profitez-en pour écouter le dernier album de
-              votre artiste préféré !
-            </Text>
-            <TouchableOpacity
-              className="flex flex-row gap-2"
-              onPress={() => {
-                navigation.navigate('READING_ADVICE');
-              }}>
-              <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
-              <ArrowAdvice size={20} className="" />
-            </TouchableOpacity>
-          </View>
+      <View className="h-full w-full">
+        <View className="w-full h-20">
+          <BackButton
+            content="< Retour"
+            bold
+            onPress={() => {
+              navigation.navigate('CRAVING_INDEX');
+            }}
+            marginTop
+            marginLeft
+            marginBottom
+          />
         </View>
-      </Background>
+        <View className="  flex flex-col gap-6 items-center">
+          <View className="align-center items-center w-full">
+            <Image source={require('../../../assets/images/MusicAdvice.png')} />
+          </View>
+          <Text className="text-[#4030A5] text-3xl font-extrabold">Ecoutez de la musique</Text>
+          <Text className="text-black text-center font-semibold text-lg">
+            Lancez vos musiques les plus entrainantes ou apaisantes. Profitez-en pour écouter le dernier album de votre
+            artiste préféré !
+          </Text>
+          <TouchableOpacity
+            className="flex flex-row gap-2"
+            onPress={() => {
+              navigation.navigate('READING_ADVICE');
+            }}>
+            <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
+            <ArrowAdvice size={20} className="" />
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaProvider>
   );
 };

@@ -27,6 +27,7 @@ import { BagdeDrinksNoStars } from '../scenes//Badges/Svgs/BadgeDrinksNoStars';
 import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 import ChatBubbles from './illustrations/Chatbubbles';
 import OwnClIcon from './illustrations/icons/OwnClIcon';
+import CravingIcon from './illustrations/CravingIcon';
 
 /* example
 {
@@ -135,6 +136,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('FeatureCraving') && (
+            <View className="mx-2 flex flex-col items-center">
+              <CravingIcon size={60} />
+            </View>
+          )}
           {inAppModal?.id.includes('FeatureOwnCl') && (
             <View className="mx-2 flex flex-col items-center">
               <OwnClIcon />

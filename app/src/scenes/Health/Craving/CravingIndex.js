@@ -17,45 +17,46 @@ const CravingIndex = ({ navigation }) => {
         navigation.goBack();
       }}>
       <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
-        <View className="w-1/2 overflow-hidden rounded-md shadow-md">
-          <ImageBackground source={require('../../../assets/images/BackGroundAdvices.png')}>
-            <TouchableOpacity
-              className="flex items-center gap-6 p-8"
-              onPress={() => {
-                navigation.navigate('HYDRATATION_ADVICE');
-              }}>
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md overflow-hidden"
+          onPress={() => {
+            navigation.navigate('HYDRATATION_ADVICE');
+          }}>
+          <ImageBackground className="w-full h-full" source={require('../../../assets/images/BackGroundAdvices.png')}>
+            <View className="flex items-center gap-6 pt-8">
               <AdvicesIcon size={80} className="" />
-              <Text className="text-center text-2xl font-bold text-white">Conseils</Text>
-            </TouchableOpacity>
+              <Text className="text-center text-xl  font-bold text-white">Conseils</Text>
+            </View>
           </ImageBackground>
-        </View>
-        <View className="w-1/2 overflow-hidden rounded-md shadow-md">
-          <ImageBackground source={require('../../../assets/images/BackGroundBreathing.png')}>
-            <TouchableOpacity
-              className="flex items-center gap-6 p-8"
-              onPress={() => {
-                navigation.navigate('CRAVING_BREATH');
-              }}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md overflow-hidden"
+          onPress={() => {
+            navigation.navigate('CRAVING_BREATH');
+          }}>
+          <ImageBackground className="w-full h-full" source={require('../../../assets/images/BackGroundBreathing.png')}>
+            <View className="flex items-center gap-6 pt-8">
               <BreathingIcon size={80} className="" />
-              <View className="items-center">
-                <Text className="text-center text-2xl font-bold text-white ">Respirer</Text>
-              </View>
-            </TouchableOpacity>
+              <Text className="text-center text-xl  font-bold text-white">Respiration</Text>
+            </View>
           </ImageBackground>
-        </View>
+        </TouchableOpacity>
       </View>
-      <View className="w-1/2 overflow-hidden rounded-md shadow-md">
-        <ImageBackground source={require('../../../assets/images/BackGroundVideos.png')}>
-          <TouchableOpacity
-            className="flex items-center gap-6 p-8"
-            onPress={() => {
-              navigation.navigate('CRAVING_VIDEOS');
-            }}>
-            <VideosIcon size={80} className="" />
-            <Text className="text-center text-2xl font-bold text-white">Videos</Text>
-          </TouchableOpacity>
-        </ImageBackground>
+      <View className="h-56 w-full flex flex-row gap-4 justify-between  pr-4 ">
+        <TouchableOpacity
+          className="w-1/2  rounded-md shadow-md overflow-hidden"
+          onPress={() => {
+            navigation.navigate('CRAVING_VIDEOS');
+          }}>
+          <ImageBackground className="w-full h-full" source={require('../../../assets/images/BackGroundVideos.png')}>
+            <View className="flex items-center gap-6 pt-8">
+              <VideosIcon size={80} className="" />
+              <Text className="text-center text-xl  font-bold text-white">Videos</Text>
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
       </View>
+
       <ModalCraving
         firstTimeOnCraving={firstTimeOnCraving}
         onClose={() => {

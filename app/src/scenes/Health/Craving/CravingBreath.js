@@ -8,8 +8,7 @@ const CravingBreath = () => {
   const navigation = useNavigation();
 
   const dimensions = Dimensions.get('window');
-  const cirleWidth = dimensions.width;
-  const cirleHeight = dimensions.height;
+  const cirleWidth = dimensions.width / 2;
   const move = useRef(new Animated.Value(0)).current;
   const textOpacity = useRef(new Animated.Value(1)).current;
   Animated.loop(
@@ -70,10 +69,12 @@ const CravingBreath = () => {
               return (
                 <Animated.View
                   key={index}
-                  className={`bg-purple-800  w-1/2 rounded-full h-1/4 absolute`}
+                  className={`bg-purple-800 rounded-full absolute`}
                   style={{
                     opacity: 0.1,
                     transform: [{ rotateZ: rotation }, { translateX: translate }, { translateY: translate }],
+                    width: cirleWidth,
+                    height: cirleWidth,
                   }}
                 />
               );

@@ -16,39 +16,39 @@ const ExercicesVideosIndex = () => {
         <View className="h-full w-screen p-4">
           <BackButton content="< Retour" bold onPress={navigation.goBack} />
 
-          <Text className="text-[#4030A5] text-3xl font-bold mt-3">Exercices</Text>
-          <View className="h-full w-full flex flex-col gap-10 mb-4 pt-2 p-4">
+          <Text className="text-[#4030A5] text-3xl font-bold my-4">Exercices</Text>
+          <View className="h-full w-full flex flex-col gap-10 mb-4 p-4">
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-8 pb-2 px-2 shadow-md"
+              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('THERAPY_VIDEOS');
               }}>
-              <View className="w-full flex-row flex gap-10">
-                <View className="w-2/3 flex flex-row items-end pb-2">
+              <View className="w-full flex-row flex justify-between">
+                <View className="w-2/3 flex flex-row items-end">
                   <Text className="text-lg font-semibold text-white ">Thérapie Comportementale et Cognitive</Text>
                 </View>
                 <TTCIcon size={70} className="" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-8 pb-2 px-2 shadow-md"
+              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('MEDITATION_VIDEOS');
               }}>
-              <View className="w-full flex-row flex gap-10">
-                <View className="w-2/3 flex flex-row items-end pb-2">
+              <View className="w-full flex-row flex justify-between">
+                <View className="w-2/3 flex flex-row items-end">
                   <Text className="text-lg font-semibold text-white ">Méditation</Text>
                 </View>
                 <MeditationIcon size={70} className="" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-8 pb-2 px-2 shadow-md"
+              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('SOPHROLOGY_VIDEOS');
               }}>
-              <View className="w-full flex-row flex gap-10">
-                <View className="w-2/3 flex flex-row items-end pb-2">
+              <View className="w-full flex-row flex justify-between">
+                <View className="w-2/3 flex flex-row items-end">
                   <Text className="text-lg font-semibold text-white ">Sophrologie</Text>
                 </View>
                 <SophrologyIcon size={70} className="" />
