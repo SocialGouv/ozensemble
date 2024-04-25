@@ -53,6 +53,37 @@ router.post(
     });
 
     if (req.headers.appversion < 205) return res.status(200).send({ ok: true });
+    if (req.headers.appversion >= 258) {
+      const featureCraving = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@FeatureCraving` },
+      });
+      if (!featureCraving) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@FeatureCraving`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@FeatureCraving",
+            title: "Nouveau: Oz vous aide à surmonter chaque craving",
+            content:
+              "Oz vous propose des conseils et activités afin de vous accompagner face à un craving (une envie irrépressible de consommer). \n Nous vous proposons des conseils, des exercices de respiration ou encore une sélection de vidéos afin de surmonter ces moments difficiles à gérer.",
+            CTATitle: "Découvrir",
+            CTANavigation: ["HEALTH", { screen: "CRAVING_INDEX" }],
+            CTAEvent: {
+              category: "CRAVING",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+          },
+        });
+      }
+    }
+
     if (req.headers.appversion >= 255) {
       const featureOwnCl = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@FeatureOwnCl` },

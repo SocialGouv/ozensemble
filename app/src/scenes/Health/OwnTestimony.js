@@ -53,7 +53,7 @@ const OwnTestimony = ({ navigation }) => {
               className="flex-shrink flex-grow mx-6 mt-3"
               keyboardShouldPersistTaps="never"
               keyboardDismissMode="none">
-              <BackButton content="< Retour" bold onPress={() => navigation.navigate('HEALTH_ARTICLE')} marginTop />
+              <BackButton content="< Retour" bold onPress={() => navigation.navigate('HEALTH_INDEX')} marginTop />
               <View className="mt-2">
                 <Text className="text-[#4030A5] text-xl font-bold mt-3">Témoigner sur Oz Ensemble{'\n'}</Text>
               </View>

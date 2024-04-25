@@ -20,13 +20,33 @@ import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
 import CravingsTreatment from './Articles/CravingsTreatment';
+import CravingBreath from './Craving/CravingBreath';
+import CravingIndex from './Craving/CravingIndex';
+import HealthIndex from './HealthIndex';
+import CravingAdvice from './Craving/CravingAdvice';
+import VideosIndex from './Craving/VideosIndex';
+import PositiveVideos from './Craving/PositiveVideos';
+import ExercicesVideosIndex from './Craving/ExercicesVideosIndex';
+import EntertainmentVideosIndex from './Craving/EntertainmentVideosIndex';
+import AdviseVideos from './Craving/AdviseVideos';
+import MeditationVideos from './Craving/MeditationVideos';
+import TherapyVideos from './Craving/TherapyVideos';
+import SophrologyVideos from './Craving/SophrologyVideos';
+import HydratationAdvice from './Craving/HydratationAdvice';
+import MusicAdvice from './Craving/MusicAdvice';
+import ShowerAdvice from './Craving/ShowerAdvice';
+import WalkAdvice from './Craving/WalkAdvice';
+import ReadingAdvice from './Craving/ReadingAdvice';
+import FunnyVideos from './Craving/FunnyVideos';
+import SensationVideos from './Craving/SensationVideos';
+import ChillVideos from './Craving/ChillVideos';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
   useToggleCTA({ routesToHideCTA: ['OWN_TESTIMONY'], navigator: 'Health' });
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_ARTICLE">
+      <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_INDEX">
         <HealthStack.Screen name="HEALTH_ARTICLE" component={Conseils} />
         <HealthStack.Screen name="CONTACT" component={ContactForm} />
         <HealthStack.Screen name="TESTIMONIES" component={Testimonies} />
@@ -44,6 +64,27 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="ALCOHOL_AND_MOTIVATION" component={AlcoholAndMotivation} />
         <HealthStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
         <HealthStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
+        <HealthStack.Screen name="CRAVING_VIDEOS" component={VideosIndex} />
+        <HealthStack.Screen name="CRAVING_BREATH" component={CravingBreath} />
+        <HealthStack.Screen name="CRAVING_INDEX" component={CravingIndex} />
+        <HealthStack.Screen name="HEALTH_INDEX" component={HealthIndex} />
+        <HealthStack.Screen name="CRAVING_ADVISE" component={CravingAdvice} />
+        <HealthStack.Screen name="POSITIVE_VIDEOS" component={PositiveVideos} />
+        <HealthStack.Screen name="ADVISE_VIDEOS" component={AdviseVideos} />
+        <HealthStack.Screen name="EXERCISES_VIDEOS_INDEX" component={ExercicesVideosIndex} />
+        <HealthStack.Screen name="ENTERTAINMENT_VIDEOS_INDEX" component={EntertainmentVideosIndex} />
+        <HealthStack.Screen name="MEDITATION_VIDEOS" component={MeditationVideos} />
+        <HealthStack.Screen name="THERAPY_VIDEOS" component={TherapyVideos} />
+        <HealthStack.Screen name="SOPHROLOGY_VIDEOS" component={SophrologyVideos} />
+        <HealthStack.Screen name="FUNNY_VIDEOS" component={FunnyVideos} />
+        <HealthStack.Screen name="SENSATION_VIDEOS" component={SensationVideos} />
+        <HealthStack.Screen name="CHILL_VIDEOS" component={ChillVideos} />
+        <HealthStack.Screen name="HYDRATATION_ADVICE" component={HydratationAdvice} />
+        <HealthStack.Screen name="MUSIC_ADVICE" component={MusicAdvice} />
+        <HealthStack.Screen name="READING_ADVICE" component={ReadingAdvice} />
+        <HealthStack.Screen name="SHOWER_ADVICE" component={ShowerAdvice} />
+        <HealthStack.Screen name="WALK_ADVICE" component={WalkAdvice} />
+
         <HealthStack.Screen
           name="ONBOARDING_QUIZZ"
           component={QuizzOnboarding}
