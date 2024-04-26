@@ -23,7 +23,6 @@ import CravingsTreatment from './Articles/CravingsTreatment';
 import CravingBreath from './Craving/CravingBreath';
 import CravingIndex from './Craving/CravingIndex';
 import HealthIndex from './HealthIndex';
-import CravingAdvice from './Craving/CravingAdvice';
 import VideosIndex from './Craving/VideosIndex';
 import PositiveVideos from './Craving/PositiveVideos';
 import ExercicesVideosIndex from './Craving/ExercicesVideosIndex';
@@ -68,7 +67,6 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="CRAVING_BREATH" component={CravingBreath} />
         <HealthStack.Screen name="CRAVING_INDEX" component={CravingIndex} />
         <HealthStack.Screen name="HEALTH_INDEX" component={HealthIndex} />
-        <HealthStack.Screen name="CRAVING_ADVISE" component={CravingAdvice} />
         <HealthStack.Screen name="POSITIVE_VIDEOS" component={PositiveVideos} />
         <HealthStack.Screen name="ADVISE_VIDEOS" component={AdviseVideos} />
         <HealthStack.Screen name="EXERCISES_VIDEOS_INDEX" component={ExercicesVideosIndex} />
