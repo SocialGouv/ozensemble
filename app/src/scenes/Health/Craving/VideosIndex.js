@@ -4,6 +4,7 @@ import ExercicesVideos from '../../../components/illustrations/ExercicesVideos';
 import EntertainmentVideos from '../../../components/illustrations/EntertainmentVideos';
 import ThinkVideos from '../../../components/illustrations/ThinkVideos';
 import AdviceVideos from '../../../components/illustrations/AdviceVideos';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 
 const VideosIndex = ({ navigation }) => {
   return (
@@ -16,7 +17,16 @@ const VideosIndex = ({ navigation }) => {
         <TouchableOpacity
           className="w-1/2  rounded-md shadow-md bg-[#5150A2]"
           onPress={() => {
-            navigation.navigate('POSITIVE_VIDEOS');
+            navigation.navigate('VIDEO_PLAYER', {
+              videoIds: ['AsJMwhKnL74', 'iyH2hy', 'pKu6S9uOgnU', 'Ukupnbt3RJs', 'E8mX3Sb019Q', 'HJqrj2t5TVU'],
+              category: 'POSITIVITY',
+              title: 'Vidéos de pensées positives',
+            });
+            logEvent({
+              category: 'NAVIGATION',
+              action: 'POSITIVE_VIDEOS',
+              name: 'VIDEOS_INDEX',
+            });
           }}>
           <View className="flex items-center gap-4 pt-8">
             <ThinkVideos size={100} className="" />
@@ -24,9 +34,26 @@ const VideosIndex = ({ navigation }) => {
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          className="w-1/2  rounded-md shadow-md bg-[#3E5DE6]"
+          className="w-1/2  rounded-md shadow-md bg-[#5150A2]"
           onPress={() => {
-            navigation.navigate('ADVISE_VIDEOS');
+            navigation.navigate('VIDEO_PLAYER', {
+              videoIds: [
+                'CSjV8znEdTw',
+                'uXFdywSflfA',
+                'kKrLWfOHNo4',
+                'HVUF8boilNo',
+                'kQJ1b9gpDdE',
+                'E935CvhxCH8',
+                'VXUriULDUoU',
+              ],
+              category: 'ADVICE',
+              title: 'Vidéos de conseils',
+            });
+            logEvent({
+              category: 'NAVIGATION',
+              action: 'ADVISE_VIDEOS',
+              name: 'VIDEOS_INDEX',
+            });
           }}>
           <View className="flex items-center gap-4 pt-8">
             <AdviceVideos size={100} className="" />
