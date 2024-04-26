@@ -1,3 +1,9 @@
+## [1.153.1](https://github.com/SocialGouv/ozensemble/compare/v1.153.0...v1.153.1) (2024-04-26)
+
+
+### Bug Fixes
+
+* event create conso ([b7e8576](https://github.com/SocialGouv/ozensemble/commit/b7e8576e44f8c3f81d7703604c680994a4866f08))
 
 # [1.153.0](https://github.com/SocialGouv/ozensemble/compare/v1.152.1...v1.153.0) (2024-04-25)
 
