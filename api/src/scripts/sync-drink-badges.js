@@ -4,7 +4,6 @@ const dayjs = require("dayjs");
 const prisma = require("../prisma");
 const { countMaxConsecutiveDays, getStarsCorrespondingToConsecutiveDays } = require("../utils/drinks");
 
-
 async function syncBadges(fixBadges = false, skip, take) {
   const users = await prisma.user.findMany({
     where: {},
