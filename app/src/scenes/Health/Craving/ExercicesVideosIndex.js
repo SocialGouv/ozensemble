@@ -2,14 +2,12 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../../components/Background';
 import BackButton from '../../../components/BackButton';
-import { useNavigation } from '@react-navigation/native';
 import MeditationIcon from '../../../components/illustrations/MeditationIcon';
 import TTCIcon from '../../../components/illustrations/TTCIcon';
 import SophrologyIcon from '../../../components/illustrations/SophrologyIcon';
+import { logEvent } from '../../../services/logEventsWithMatomo';
 
-const ExercicesVideosIndex = () => {
-  const navigation = useNavigation();
-
+const ExercicesVideosIndex = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
@@ -21,7 +19,16 @@ const ExercicesVideosIndex = () => {
             <TouchableOpacity
               className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
-                navigation.navigate('THERAPY_VIDEOS');
+                navigation.navigate('VIDEO_PLAYER', {
+                  videoIds: ['aFEkeYEb4SY', 'bmgbJ0WIV2k', 'XNbim0qOtMw', 'yUzzYkFT33k', 'y92jlo50EBw', 'ZMDIJC3ZMm8'],
+                  category: 'TCC',
+                  title: 'Vidéos de TCC',
+                });
+                logEvent({
+                  category: 'NAVIGATION',
+                  action: 'TCC_VIDEOS',
+                  name: 'EXERCIICES_VIDEOS_INDEX',
+                });
               }}>
               <View className="w-full flex-row flex justify-between">
                 <View className="w-2/3 flex flex-row items-end">
@@ -33,7 +40,24 @@ const ExercicesVideosIndex = () => {
             <TouchableOpacity
               className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
-                navigation.navigate('MEDITATION_VIDEOS');
+                navigation.navigate('VIDEO_PLAYER', {
+                  videoIds: [
+                    '3-x_zwtQrr4',
+                    '3nyQpBu2BSc',
+                    'nmCnKWMedAM',
+                    'l4fQ0GA1oOI',
+                    'p06FEzE9LOg',
+                    'PTsk8VHCZjM',
+                    'Rhse5arV-FQ',
+                  ],
+                  category: 'MEDITATION',
+                  title: 'Vidéos de méditation',
+                });
+                logEvent({
+                  category: 'NAVIGATION',
+                  action: 'MEDITATION_VIDEOS',
+                  name: 'EXERCIICES_VIDEOS_INDEX',
+                });
               }}>
               <View className="w-full flex-row flex justify-between">
                 <View className="w-2/3 flex flex-row items-end">
@@ -45,7 +69,16 @@ const ExercicesVideosIndex = () => {
             <TouchableOpacity
               className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
-                navigation.navigate('SOPHROLOGY_VIDEOS');
+                navigation.navigate('VIDEO_PLAYER', {
+                  videoIds: ['l68RrTZQdlk', 'EBPv7L2a5Y4', 'EkrK9LcrT6o', 'DfJtdQ4FCaw', 'lmy-hpAVrAQ'],
+                  category: 'SOPHROLOGY',
+                  title: 'Vidéos de sophrology',
+                });
+                logEvent({
+                  category: 'NAVIGATION',
+                  action: 'SOPHROLOGY_VIDEOS',
+                  name: 'EXERCIICES_VIDEOS_INDEX',
+                });
               }}>
               <View className="w-full flex-row flex justify-between">
                 <View className="w-2/3 flex flex-row items-end">
