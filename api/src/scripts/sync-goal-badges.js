@@ -22,8 +22,8 @@ async function syncBadges(fixBadges = false, skip, take) {
     orderBy: {
       matomo_id: "asc",
     },
-    take: 50,
-    skip: 0,
+    skip,
+    take,
   });
   console.log("USERS", users.length);
   let usersThatDontHaveTheBadge = 0;
