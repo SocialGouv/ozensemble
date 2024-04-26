@@ -5,8 +5,8 @@ import styled from 'styled-components';
 const StyledSvg = styled(Svg)``;
 
 const VideosIcon = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 80 80" {...props}>
-    <Circle cx="40" cy="40" r="38.5" stroke="white" stroke-width="5" fill="none" />
+  <StyledSvg width={size} height={size} viewBox="0 0 85 85" {...props}>
+    <Circle cx="40" cy="40" r="38.5" stroke="white" strokeWidth={'3'} fill="none" />
     <Path
       d="M35 49C34.3125 49 33.75 48.4375 33.75 47.75V32.75C33.75 31.7875 34.8 31.175 35.6375 31.675L48.1375 39.175C48.95 39.6625 48.95 40.8375 48.1375 41.3125C34.4875 49.5 35.4875 48.9875 35 48.9875V49ZM36.25 34.9625V45.55L45.075 40.2625L36.25 34.975V34.9625Z"
       fill="white"

@@ -23,8 +23,8 @@ const CravingIndex = ({ navigation }) => {
             navigation.navigate('HYDRATATION_ADVICE');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../../assets/images/BackGroundAdvices.png')}>
-            <View className="flex items-center gap-6 pt-8">
-              <AdvicesIcon size={80} className="" />
+            <View className="flex items-center h-full justify-between p-6">
+              <AdvicesIcon size={90} className="" />
               <Text className="text-center text-xl  font-bold text-white">Conseils</Text>
             </View>
           </ImageBackground>
@@ -35,8 +35,8 @@ const CravingIndex = ({ navigation }) => {
             navigation.navigate('CRAVING_BREATH');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../../assets/images/BackGroundBreathing.png')}>
-            <View className="flex items-center gap-6 pt-8">
-              <BreathingIcon size={80} className="" />
+            <View className="flex items-center h-full justify-between p-6">
+              <BreathingIcon size={90} className="" />
               <Text className="text-center text-xl  font-bold text-white">Respiration</Text>
             </View>
           </ImageBackground>
@@ -49,8 +49,8 @@ const CravingIndex = ({ navigation }) => {
             navigation.navigate('CRAVING_VIDEOS');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../../assets/images/BackGroundVideos.png')}>
-            <View className="flex items-center gap-6 pt-8">
-              <VideosIcon size={80} className="" />
+            <View className="flex items-center h-full justify-between p-6">
+              <VideosIcon size={90} className="" />
               <Text className="text-center text-xl  font-bold text-white">Videos</Text>
             </View>
           </ImageBackground>

@@ -11,13 +11,13 @@ const ExercicesVideosIndex = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <View className="h-full w-screen p-4">
+        <View className="h-full w-screen p-6">
           <BackButton content="< Retour" bold onPress={navigation.goBack} />
 
-          <Text className="text-[#4030A5] text-3xl font-bold my-4">Exercices</Text>
+          <Text className="text-[#4030A5] text-2xl font-extrabold my-2">Exercices</Text>
           <View className="h-full w-full flex flex-col gap-10 mb-4 p-4">
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
+              className="w-full h-28 flex flex-row justify-between bg-[#3E5DE6] rounded-md px-3 pt-4 pb-3"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
                   videoIds: ['aFEkeYEb4SY', 'bmgbJ0WIV2k', 'XNbim0qOtMw', 'yUzzYkFT33k', 'y92jlo50EBw', 'ZMDIJC3ZMm8'],
@@ -30,11 +30,11 @@ const ExercicesVideosIndex = ({ navigation }) => {
                   name: 'EXERCIICES_VIDEOS_INDEX',
                 });
               }}>
-              <View className="w-full flex-row flex justify-between">
-                <View className="w-2/3 flex flex-row items-end">
-                  <Text className="text-lg font-semibold text-white ">Thérapie Comportementale et Cognitive</Text>
+              <View className="w-full h-full flex-row flex justify-between ">
+                <View className="flex flex-row items-end ">
+                  <Text className="text-lg font-semibold text-white">Thérapie Comportementale et Cognitive</Text>
                 </View>
-                <TTCIcon size={70} className="" />
+                <TTCIcon size={60} className=" mt-2" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity

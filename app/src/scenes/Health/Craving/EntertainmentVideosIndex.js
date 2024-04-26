@@ -14,11 +14,11 @@ const EntertainmentVideosIndex = () => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <View className="h-full w-screen p-4">
+        <View className="h-full w-screen p-6">
           <BackButton content="< Retour" bold onPress={navigation.goBack} />
 
-          <Text className="text-[#4030A5] text-3xl font-bold my-4">Divertissement</Text>
-          <View className="h-full w-full flex flex-col gap-10 mb-4 p-4">
+          <Text className="text-[#4030A5] text-2xl font-extrabold my-2">Divertissement</Text>
+          <View className="h-full w-full flex flex-col gap-10 mb-4 p-4 ">
             <TouchableOpacity
               className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
