@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const StyledSvg = styled(Svg)``;
 
-const VideosIcon = ({ size, ...props }) => (
+const AdviceVideos = ({ size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 66 99" {...props}>
     <G clip-Path="url(#clip0_987_2857)">
       <Path
@@ -64,4 +64,4 @@ const VideosIcon = ({ size, ...props }) => (
   </StyledSvg>
 );
 
-export default VideosIcon;
+export default AdviceVideos;

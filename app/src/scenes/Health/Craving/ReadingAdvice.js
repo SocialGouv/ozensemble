@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../../components/Background';
 import BackButton from '../../../components/BackButton';
