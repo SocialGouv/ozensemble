@@ -1,3 +1,10 @@
+## [1.153.2](https://github.com/SocialGouv/ozensemble/compare/v1.153.1...v1.153.2) (2024-04-29)
+
+
+### Bug Fixes
+
+* log event in app modales ([f2bfcf3](https://github.com/SocialGouv/ozensemble/commit/f2bfcf3c32051218eb376f335fd84c1b647bc675))
+
 ## [1.153.1](https://github.com/SocialGouv/ozensemble/compare/v1.153.0...v1.153.1) (2024-04-26)
 
 
