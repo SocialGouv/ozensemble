@@ -53,6 +53,7 @@ const InAppModal = ({ navigation, route }) => {
   const onCTAPress = () => {
     onClose();
     InteractionManager.runAfterInteractions(async () => {
+      if (inAppModal.CTAEvent) logEvent(inAppModal.CTAEvent);
       if (inAppModal.CTANavigation) {
         navigation.navigate(...inAppModal.CTANavigation);
       } else if (inAppModal.CTAShare) {
