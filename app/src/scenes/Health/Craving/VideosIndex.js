@@ -69,7 +69,7 @@ const VideosIndex = ({ navigation }) => {
           onPress={() => {
             navigation.navigate('ENTERTAINMENT_VIDEOS_INDEX');
           }}>
-          <View className="flex items-center h-full justify-between  pt-6 px-5 pb-5">
+          <View className="flex items-center h-full justify-between  pt-6 px-2 pb-5">
             <EntertainmentVideos size={130} className="" />
             <Text className="text-center text-lg   font-bold text-white">Divertissement</Text>
           </View>

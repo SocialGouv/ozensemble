@@ -67,7 +67,7 @@ const CravingBreath = () => {
   });
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <View className="h-full w-screen bg-[#fff]">
+      <View className="h-full w-full bg-[#fff] ">
         <BackButton
           content="< Retour"
           bold
@@ -111,7 +111,7 @@ const CravingBreath = () => {
               );
             }
           })}
-          <View className=" absolute bottom-14 flex-row justify-between w-full p-2">
+          <View className=" absolute bottom-14 flex-row justify-between w-full px-2">
             <View className="flex-row bg-purple-800 rounded-lg items-center ">
               <TouchableOpacity
                 className="  p-2"
@@ -120,7 +120,7 @@ const CravingBreath = () => {
                 }}>
                 <Text className="text-white font-semibold">+</Text>
               </TouchableOpacity>
-              <Text className="text-white font-semibold ">Temps de respiration: {breathTime}s</Text>
+              <Text className="text-white font-semibold ">respiration: {breathTime}s</Text>
               <TouchableOpacity
                 disabled={breathTime === 0}
                 className=" p-2"
@@ -139,7 +139,7 @@ const CravingBreath = () => {
                 <Text className="text-white  font-semibold">+</Text>
               </TouchableOpacity>
 
-              <Text className="text-white font-semibold ">Temps de pause: {pause}s</Text>
+              <Text className="text-white font-semibold ">pause: {pause}s</Text>
               <TouchableOpacity
                 disabled={pause === 0}
                 className="  p-2"
