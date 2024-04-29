@@ -35,7 +35,24 @@ import VideoPlayer from '../../components/VideoPlayer';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
-  useToggleCTA({ routesToHideCTA: ['OWN_TESTIMONY'], navigator: 'Health' });
+  useToggleCTA({
+    routesToHideCTA: [
+      'OWN_TESTIMONY',
+      'CRAVING_INDEX',
+      'CRAVING_BREATH',
+      'CRAVING_VIDEOS',
+      'VIDEO_PLAYER',
+      'WALK_ADVICE',
+      'SHOWER_ADVICE',
+      'HYDRATATION_ADVICE',
+      'READING_ADVICE',
+      'MUSIC_ADVICE',
+      'HYDRATION_ADVICE',
+      'EXERCISES_VIDEOS_INDEX',
+      'ENTERTAINMENT_VIDEOS_INDEX',
+    ],
+    navigator: 'Health',
+  });
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_INDEX">

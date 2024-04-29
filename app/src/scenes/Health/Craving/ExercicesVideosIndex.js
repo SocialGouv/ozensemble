@@ -32,9 +32,9 @@ const ExercicesVideosIndex = ({ navigation }) => {
               }}>
               <View className="w-full h-full flex-row flex justify-between ">
                 <View className="flex flex-row items-end ">
-                  <Text className="text-lg font-semibold text-white">Thérapie Comportementale et Cognitive</Text>
+                  <Text className="text-lg font-semibold text-white w-3/4">Thérapie Comportementale et Cognitive</Text>
                 </View>
-                <TTCIcon size={60} className=" mt-2" />
+                <TTCIcon size={70} className=" mt-2 " />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -60,10 +60,10 @@ const ExercicesVideosIndex = ({ navigation }) => {
                 });
               }}>
               <View className="w-full flex-row flex justify-between">
-                <View className="w-2/3 flex flex-row items-end">
-                  <Text className="text-lg font-semibold text-white ">Méditation</Text>
+                <View className="flex flex-row items-end">
+                  <Text className="text-lg font-semibold text-white w-3/4">Méditation</Text>
                 </View>
-                <MeditationIcon size={70} className="" />
+                <MeditationIcon size={70} className="mx-2" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -81,10 +81,10 @@ const ExercicesVideosIndex = ({ navigation }) => {
                 });
               }}>
               <View className="w-full flex-row flex justify-between">
-                <View className="w-2/3 flex flex-row items-end">
-                  <Text className="text-lg font-semibold text-white ">Sophrologie</Text>
+                <View className="flex flex-row items-end">
+                  <Text className="text-lg font-semibold text-white w-3/4">Sophrologie</Text>
                 </View>
-                <SophrologyIcon size={70} className="" />
+                <SophrologyIcon size={70} className="mx-2 mb-1" />
               </View>
             </TouchableOpacity>
           </View>

@@ -73,7 +73,7 @@ router.post(
             content:
               "Oz vous propose des conseils et activités afin de vous accompagner face à un craving (une envie irrépressible de consommer). \n Nous vous proposons des conseils, des exercices de respiration ou encore une sélection de vidéos afin de surmonter ces moments difficiles à gérer.",
             CTATitle: "Découvrir",
-            CTANavigation: ["HEALTH", { screen: "CRAVING_INDEX" }],
+            CTANavigation: ["HEALTH", { screen: "HEALTH_INDEX" }],
             CTAEvent: {
               category: "CRAVING",
               action: "PRESSED_FROM_NEW_FEATURE_MODAL",
