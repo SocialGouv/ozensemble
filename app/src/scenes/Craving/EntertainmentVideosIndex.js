@@ -14,13 +14,12 @@ const EntertainmentVideosIndex = () => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <View className="h-full w-screen p-6">
-          <BackButton content="< Retour" bold onPress={navigation.goBack} />
-
-          <Text className="text-[#4030A5] text-2xl font-extrabold my-2">Divertissement</Text>
-          <View className="h-full w-full flex flex-col gap-10 mb-4 p-4 ">
+        <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop marginLeft />
+        <View className="h-full w-screen px-6">
+          <Text className="text-[#4030A5] text-xl font-extrabold mb-8 mt-2 ">Divertissement</Text>
+          <View className="h-full w-full flex flex-col gap-8 ">
             <TouchableOpacity
-              className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-5 px-3 pb-3 shadow-md"
+              className="w-full flex flex-row justify-between bg-[#C79CFF] rounded-md px-3 pt-4 pb-3"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
                   videoIds: ['mgfGrak7-Xs', 'gRvEAeHmkXI', 'Tcl77wCujQ4', 'JxS5E-kZc2s', 'ynBinxdfra0', 'H7zm-8X8n-c'],
@@ -33,8 +32,8 @@ const EntertainmentVideosIndex = () => {
                   name: 'ENTERTAINMENT_VIDEOS_INDEX',
                 });
               }}>
-              <View className="w-full flex-row flex justify-between ">
-                <View className="w-2/3 flex flex-row items-end">
+              <View className="w-full h-full flex-row flex justify-between ">
+                <View className="flex flex-row items-end ">
                   <Text className="text-lg font-semibold text-black ">Drôle</Text>
                 </View>
                 <FunIcon size={60} className="" />
