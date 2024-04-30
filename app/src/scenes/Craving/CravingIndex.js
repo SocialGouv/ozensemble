@@ -12,41 +12,41 @@ const CravingIndex = ({ navigation }) => {
 
   return (
     <WrapperContainer title="Craving">
-      <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
+      <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-4 pt-2 ">
         <TouchableOpacity
-          className="w-1/2  rounded-md shadow-md overflow-hidden"
+          className="flex-1  rounded-md shadow-md overflow-hidden"
           onPress={() => {
             navigation.navigate('CRAVING_ADVICE');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundAdvices.png')}>
-            <View className="flex items-center h-full justify-between p-6">
-              <AdvicesIcon size={90} className="" />
-              <Text className="text-center text-xl  font-bold text-white">Conseils</Text>
+            <View className="flex items-center h-full justify-between py-6 ">
+              <AdvicesIcon size={100} className="" />
+              <Text className=" text-xl  font-bold text-white">Conseils</Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
         <TouchableOpacity
-          className="w-1/2  rounded-md shadow-md overflow-hidden"
+          className="flex-1 rounded-md shadow-md overflow-hidden"
           onPress={() => {
             navigation.navigate('CRAVING_BREATH');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundBreathing.png')}>
-            <View className="flex items-center h-full justify-between p-6">
-              <BreathingIcon size={90} className="" />
+            <View className="flex items-center h-full justify-between py-6 ">
+              <BreathingIcon size={100} className="" />
               <Text className="text-center text-xl  font-bold text-white">Respiration</Text>
             </View>
           </ImageBackground>
         </TouchableOpacity>
       </View>
-      <View className="h-56 w-full flex flex-row gap-4 justify-between  pr-4 ">
+      <View className="h-52 w-1/2 flex flex-row justify-between mb-4 pt-2 pr-2">
         <TouchableOpacity
-          className="w-1/2  rounded-md shadow-md overflow-hidden"
+          className="w-full rounded-md shadow-md overflow-hidden"
           onPress={() => {
             navigation.navigate('CRAVING_VIDEOS');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundVideos.png')}>
-            <View className="flex items-center h-full justify-between p-6">
-              <VideosIcon size={90} className="" />
+            <View className="flex items-center h-full justify-between py-6 ">
+              <VideosIcon size={100} className="" />
               <Text className="text-center text-xl  font-bold text-white">Videos</Text>
             </View>
           </ImageBackground>

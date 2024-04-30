@@ -61,7 +61,7 @@ const Advice = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <View className="h-full w-full">
+        <View className="h-full w-full flex flex-col items-center justify-between p-4 ">
           <BackButton
             content="< Retour"
             bold
@@ -69,27 +69,25 @@ const Advice = ({ navigation }) => {
               navigation.navigate('CRAVING_INDEX');
             }}
             marginTop
-            marginLeft
             marginBottom
+            marginLeft
           />
-          <View className="flex  flex-col items-center h-5/6 justify-between p-8">
-            <currentAdvice.icon className="" size={300} />
-            <Text className="text-[#4030A5] text-3xl font-extrabold">{currentAdvice.title}</Text>
-            <Text className="text-black text-center font-semibold text-lg h-1/4">{currentAdvice.description}</Text>
-            <TouchableOpacity
-              className="flex flex-row gap-2"
-              onPress={() => {
-                setCurrentAdviceIndex((currentAdviceIndex + 1) % advice.length);
-                logEvent({
-                  category: 'NAVIGATION',
-                  action: currentAdvice.currentAdvice,
-                  name: currentAdvice.nextAdvice,
-                });
-              }}>
-              <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
-              <ArrowAdvice size={20} className="" />
-            </TouchableOpacity>
-          </View>
+          <currentAdvice.icon className="" size={300} />
+          <Text className="text-[#4030A5] text-3xl font-extrabold">{currentAdvice.title}</Text>
+          <Text className="text-black text-center font-semibold text-lg ">{currentAdvice.description}</Text>
+          <TouchableOpacity
+            className="flex flex-row gap-2"
+            onPress={() => {
+              setCurrentAdviceIndex((currentAdviceIndex + 1) % advice.length);
+              logEvent({
+                category: 'NAVIGATION',
+                action: currentAdvice.currentAdvice,
+                name: currentAdvice.nextAdvice,
+              });
+            }}>
+            <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
+            <ArrowAdvice size={20} className="" />
+          </TouchableOpacity>
         </View>
       </Background>
     </SafeAreaProvider>
