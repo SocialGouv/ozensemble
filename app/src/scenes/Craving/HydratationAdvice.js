@@ -1,16 +1,16 @@
 import { View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Background from '../../../components/Background';
-import BackButton from '../../../components/BackButton';
+import Background from '../../components/Background';
+import BackButton from '../../components/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ArrowAdvice from '../../../components/illustrations/ArrowAdvice';
-import MusicIcon from '../../../components/illustrations/MusicIcon';
+import ArrowAdvice from '../../components/illustrations/ArrowAdvice';
+import HydrationIcon from '../../components/illustrations/HydrationIcon';
 
-const MusicAdvice = ({ navigation }) => {
+const HydratationAdvice = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <View className="h-full w-full">
+        <View className="w-full h-full">
           <BackButton
             content="< Retour"
             bold
@@ -22,16 +22,16 @@ const MusicAdvice = ({ navigation }) => {
             marginBottom
           />
           <View className="flex  flex-col items-center h-5/6 justify-between p-8">
-            <MusicIcon className="" size={300} />
-            <Text className="text-[#4030A5] text-3xl font-extrabold">Ecoutez de la musique</Text>
+            <HydrationIcon className="" size={300} />
+            <Text className="text-[#4030A5] text-3xl font-extrabold">Hydratez-vous</Text>
             <Text className="text-black text-center font-semibold text-lg">
-              Lancez vos musiques les plus entrainantes ou apaisantes. Profitez-en pour écouter le dernier album de
-              votre artiste préféré !
+              Optez pour des boissons non alcoolisées et savoureuses (eau pétillante, jus de fruits, tisane). Ajoutez-y
+              une rondelle de citron ou de concombre.{' '}
             </Text>
             <TouchableOpacity
               className="flex flex-row gap-2"
               onPress={() => {
-                navigation.navigate('READING_ADVICE');
+                navigation.navigate('WALK_ADVICE');
               }}>
               <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
               <ArrowAdvice size={20} className="" />
@@ -43,4 +43,4 @@ const MusicAdvice = ({ navigation }) => {
   );
 };
 
-export default MusicAdvice;
+export default HydratationAdvice;

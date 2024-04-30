@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Background from '../../../components/Background';
-import BackButton from '../../../components/BackButton';
+import Background from '../../components/Background';
+import BackButton from '../../components/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ArrowAdvice from '../../../components/illustrations/ArrowAdvice';
-import WalkIcon from '../../../components/illustrations/WalkIcon';
+import ArrowAdvice from '../../components/illustrations/ArrowAdvice';
+import WalkIcon from '../../components/illustrations/WalkIcon';
 
 const WalkAdvice = ({ navigation }) => {
   return (

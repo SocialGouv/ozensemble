@@ -7,7 +7,6 @@ import { useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Activities from './components/illustrations/Activities';
 import FollowUpIcon from './components/illustrations/FollowUpIcon';
 import GuidanceIcon from './components/illustrations/GuidanceIcon';
 import InfosIcon from './components/illustrations/Infos';
@@ -25,7 +24,7 @@ import TextStyled from './components/TextStyled';
 import CustomBootsplash, { showBootSplashState } from './components/CustomBootsplash';
 import CalendarIcon from './components/illustrations/CalendarIcon';
 import API from './services/api';
-import DefisNavigator from './scenes/Defis/DefisNavigator';
+import CravingNavigator from './scenes/Craving/CravingNavigator';
 import NewFeaturePopupDisplay from './services/NewFeaturePopup';
 import { deepLinkingConfig } from './services/deepLink';
 import EnvironmentIndicator from './components/EnvironmentIndicator';
@@ -44,6 +43,8 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import BadgesList from './scenes/Badges/BadgesList';
+import DefisNavigator from './scenes/Defis/DefisNavigator';
+import CravingIcon from './components/illustrations/CravingIcon';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -85,12 +86,12 @@ const TabsNavigator = ({ navigation }) => {
           component={GainsNavigator}
         />
         <Tabs.Screen
-          name="DEFI"
+          name="CRAVING"
           options={{
-            tabBarLabel: (props) => <Label {...props}>Activités</Label>,
-            tabBarIcon: ({ size, color }) => <Activities size={size} color={color} />,
+            tabBarLabel: (props) => <Label {...props}>Craving</Label>,
+            tabBarIcon: ({ size, color }) => <CravingIcon size={size} color={color} />,
           }}
-          component={DefisNavigator}
+          component={CravingNavigator}
         />
         <Tabs.Screen
           name="CONSO_FOLLOW_UP_NAVIGATOR"
@@ -147,6 +148,7 @@ const App = () => {
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
         <AppStack.Screen name="TABS" component={TabsNavigator} />
+        <AppStack.Screen name="DEFI" component={DefisNavigator} />
       </AppStack.Navigator>
     </>
   );
@@ -166,6 +168,7 @@ const Root = () => {
       <RootStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
       <RootStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
       <RootStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
+
       <RootStack.Screen
         name="GAINS_SEVRAGE"
         component={Sevrage}

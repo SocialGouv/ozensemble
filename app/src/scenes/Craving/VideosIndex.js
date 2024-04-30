@@ -1,10 +1,10 @@
 import { View, TouchableOpacity, Text } from 'react-native';
-import WrapperContainer from '../../../components/WrapperContainer';
-import ExercicesVideos from '../../../components/illustrations/ExercicesVideos';
-import EntertainmentVideos from '../../../components/illustrations/EntertainmentVideos';
-import ThinkVideos from '../../../components/illustrations/ThinkVideos';
-import AdviceVideos from '../../../components/illustrations/AdviceVideos';
-import { logEvent } from '../../../services/logEventsWithMatomo';
+import WrapperContainer from '../../components/WrapperContainer';
+import ExercicesVideos from '../../components/illustrations/ExercicesVideos';
+import EntertainmentVideos from '../../components/illustrations/EntertainmentVideos';
+import ThinkVideos from '../../components/illustrations/ThinkVideos';
+import AdviceVideos from '../../components/illustrations/AdviceVideos';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 const VideosIndex = ({ navigation }) => {
   return (

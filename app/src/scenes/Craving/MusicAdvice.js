@@ -1,16 +1,16 @@
 import { View, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Background from '../../../components/Background';
-import BackButton from '../../../components/BackButton';
+import Background from '../../components/Background';
+import BackButton from '../../components/BackButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ArrowAdvice from '../../../components/illustrations/ArrowAdvice';
-import HydrationIcon from '../../../components/illustrations/HydrationIcon';
+import ArrowAdvice from '../../components/illustrations/ArrowAdvice';
+import MusicIcon from '../../components/illustrations/MusicIcon';
 
-const HydratationAdvice = ({ navigation }) => {
+const MusicAdvice = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <View className="w-full h-full">
+        <View className="h-full w-full">
           <BackButton
             content="< Retour"
             bold
@@ -22,16 +22,16 @@ const HydratationAdvice = ({ navigation }) => {
             marginBottom
           />
           <View className="flex  flex-col items-center h-5/6 justify-between p-8">
-            <HydrationIcon className="" size={300} />
-            <Text className="text-[#4030A5] text-3xl font-extrabold">Hydratez-vous</Text>
+            <MusicIcon className="" size={300} />
+            <Text className="text-[#4030A5] text-3xl font-extrabold">Ecoutez de la musique</Text>
             <Text className="text-black text-center font-semibold text-lg">
-              Optez pour des boissons non alcoolisées et savoureuses (eau pétillante, jus de fruits, tisane). Ajoutez-y
-              une rondelle de citron ou de concombre.{' '}
+              Lancez vos musiques les plus entrainantes ou apaisantes. Profitez-en pour écouter le dernier album de
+              votre artiste préféré !
             </Text>
             <TouchableOpacity
               className="flex flex-row gap-2"
               onPress={() => {
-                navigation.navigate('WALK_ADVICE');
+                navigation.navigate('READING_ADVICE');
               }}>
               <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
               <ArrowAdvice size={20} className="" />
@@ -43,4 +43,4 @@ const HydratationAdvice = ({ navigation }) => {
   );
 };
 
-export default HydratationAdvice;
+export default MusicAdvice;

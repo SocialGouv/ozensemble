@@ -61,7 +61,11 @@ const DefisMenu = ({ navigation }) => {
   }, [isFocused, defi1Day, defi2Day, defi3Day, defi4Day, defi5Day]);
 
   return (
-    <WrapperContainer title={'Mes activités'}>
+    <WrapperContainer
+      onPressBackButton={() => {
+        navigation.goBack();
+      }}
+      title={'Mon parcours de soin'}>
       <View className="mb-4">
         <TextStyled lineHeight={18}>
           Chaque activité dure 7 jours et est composée de tests, de quiz et de lectures qui vous aideront à diminuer
@@ -80,7 +84,6 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => navigation.navigate('ONBOARDING_QUIZZ')}
         nbStepsCompleted={autoEvaluationToCompletedDays}
       />
-
       <CategorieMenu
         title={'Activité 1'}
         description={'Diminuer ma consommation d’alcool'}
@@ -114,7 +117,6 @@ const DefisMenu = ({ navigation }) => {
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi3Day}
       />
-
       <CategorieMenu
         title={'Activité 4'}
         description={'Me fixer un objectif de consommation'}

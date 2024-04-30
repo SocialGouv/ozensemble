@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Background from '../../../components/Background';
-import BackButton from '../../../components/BackButton';
-import MeditationIcon from '../../../components/illustrations/MeditationIcon';
-import TTCIcon from '../../../components/illustrations/TTCIcon';
-import SophrologyIcon from '../../../components/illustrations/SophrologyIcon';
-import { logEvent } from '../../../services/logEventsWithMatomo';
+import Background from '../../components/Background';
+import BackButton from '../../components/BackButton';
+import MeditationIcon from '../../components/illustrations/MeditationIcon';
+import TTCIcon from '../../components/illustrations/TTCIcon';
+import SophrologyIcon from '../../components/illustrations/SophrologyIcon';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 const ExercicesVideosIndex = ({ navigation }) => {
   return (

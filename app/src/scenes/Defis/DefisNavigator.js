@@ -2,7 +2,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import DefisMenu from './DefisMenu';
 import Background from '../../components/Background';
-import HeaderBackground from '../../components/HeaderBackground';
 import QuizzOnboarding from '../Quizzs/QuizzOnboarding';
 import Defi1_Navigator from './Defi1/Defi1_Navigator';
 import Defi2_Navigator from './Defi2/Defi2_Navigator';
@@ -19,7 +18,6 @@ const DefisNavigator = () => {
   useToggleCTA({ hideCTA: true, navigator: 'Défis' });
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <HeaderBackground />
       <DefisStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="DEFIS_MENU">
         <DefisStack.Screen
           name="ONBOARDING_QUIZZ"
