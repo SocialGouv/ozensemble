@@ -12,7 +12,7 @@ const CravingIndex = ({ navigation }) => {
 
   return (
     <WrapperContainer title="Craving">
-      <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-4 pt-2 ">
+      <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-2 pt-2 ">
         <TouchableOpacity
           className="flex-1  rounded-md shadow-md overflow-hidden"
           onPress={() => {
