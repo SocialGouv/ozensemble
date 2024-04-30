@@ -7,12 +7,8 @@ import CravingIndex from './CravingIndex';
 import VideosIndex from './VideosIndex';
 import ExercicesVideosIndex from './ExercicesVideosIndex';
 import EntertainmentVideosIndex from './EntertainmentVideosIndex';
-import HydratationAdvice from './HydratationAdvice';
-import MusicAdvice from './MusicAdvice';
-import ShowerAdvice from './ShowerAdvice';
-import WalkAdvice from './WalkAdvice';
-import ReadingAdvice from './ReadingAdvice';
 import VideoPlayer from '../../components/VideoPlayer';
+import Advice from './Advice';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {
@@ -28,12 +24,8 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="CRAVING_INDEX" component={CravingIndex} />
         <CravingStack.Screen name="EXERCISES_VIDEOS_INDEX" component={ExercicesVideosIndex} />
         <CravingStack.Screen name="ENTERTAINMENT_VIDEOS_INDEX" component={EntertainmentVideosIndex} />
-        <CravingStack.Screen name="HYDRATATION_ADVICE" component={HydratationAdvice} />
-        <CravingStack.Screen name="MUSIC_ADVICE" component={MusicAdvice} />
-        <CravingStack.Screen name="READING_ADVICE" component={ReadingAdvice} />
-        <CravingStack.Screen name="SHOWER_ADVICE" component={ShowerAdvice} />
-        <CravingStack.Screen name="WALK_ADVICE" component={WalkAdvice} />
         <CravingStack.Screen name="VIDEO_PLAYER" component={VideoPlayer} />
+        <CravingStack.Screen name="CRAVING_ADVICE" component={Advice} />
       </CravingStack.Navigator>
     </Background>
   );

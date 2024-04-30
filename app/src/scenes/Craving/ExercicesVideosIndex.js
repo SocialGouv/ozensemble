@@ -32,7 +32,7 @@ const ExercicesVideosIndex = ({ navigation }) => {
               }}>
               <View className="w-full h-full flex-row flex justify-between ">
                 <View className="flex flex-row items-end ">
-                  <Text className="text-lg font-semibold text-white w-3/4">Thérapie Comportementale et Cognitive</Text>
+                  <Text className="text-lg font-semibold text-white w-3/4">Ressenti</Text>
                 </View>
                 <TTCIcon size={70} className=" mt-2 " />
               </View>
@@ -72,7 +72,7 @@ const ExercicesVideosIndex = ({ navigation }) => {
                 navigation.navigate('VIDEO_PLAYER', {
                   videoIds: ['l68RrTZQdlk', 'EBPv7L2a5Y4', 'EkrK9LcrT6o', 'DfJtdQ4FCaw', 'lmy-hpAVrAQ'],
                   category: 'SOPHROLOGY',
-                  title: 'Vidéos de sophrology',
+                  title: 'Vidéos de sophrologie',
                 });
                 logEvent({
                   category: 'NAVIGATION',
