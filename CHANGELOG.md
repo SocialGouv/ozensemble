@@ -1,3 +1,10 @@
+## [1.153.3](https://github.com/SocialGouv/ozensemble/compare/v1.153.2...v1.153.3) (2024-05-01)
+
+
+### Bug Fixes
+
+* craving recette ([#572](https://github.com/SocialGouv/ozensemble/issues/572)) ([5c83482](https://github.com/SocialGouv/ozensemble/commit/5c83482e230123b3d222e990f84b3136e855291a))
+
 ## [1.153.2](https://github.com/SocialGouv/ozensemble/compare/v1.153.1...v1.153.2) (2024-04-29)
 
 
