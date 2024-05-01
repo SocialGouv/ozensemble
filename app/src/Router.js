@@ -43,7 +43,6 @@ import UserSurvey from './scenes/Quizzs/UserSurvey';
 import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import BadgesList from './scenes/Badges/BadgesList';
-import DefisNavigator from './scenes/Defis/DefisNavigator';
 import CravingIcon from './components/illustrations/CravingIcon';
 
 const Label = ({ children, focused, color }) => (
