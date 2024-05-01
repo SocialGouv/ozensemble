@@ -28,9 +28,9 @@ const VideoPlayer = ({ route, navigation }) => {
     <SafeAreaProvider>
       <Background color="#f9f9f9">
         <View className="h-full w-screen">
-          <ScrollView showsVerticalScrollIndicator={false} className="mx-4 mt-3 flex ">
-            <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop marginBottom />
-            <Text className="text-[#4030A5] text-3xl font-bold mt-3">{title}</Text>
+          <ScrollView showsVerticalScrollIndicator={false} className="mx-4  flex ">
+            <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop />
+            <Text className="text-[#4030A5] text-2xl font-extrabold mt-3">{title}</Text>
             <View className=" justify-between gap-2 items-center mt-8">
               {videoIds.map((videoId, index) => (
                 <YoutubePlayer

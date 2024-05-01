@@ -20,22 +20,15 @@ import AlcoholAndDependency from './Articles/AlcoholAndDependency';
 import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
 import CravingsTreatment from './Articles/CravingsTreatment';
-import CravingBreath from './Craving/CravingBreath';
-import CravingIndex from './Craving/CravingIndex';
 import HealthIndex from './HealthIndex';
-import VideosIndex from './Craving/VideosIndex';
-import ExercicesVideosIndex from './Craving/ExercicesVideosIndex';
-import EntertainmentVideosIndex from './Craving/EntertainmentVideosIndex';
-import HydratationAdvice from './Craving/HydratationAdvice';
-import MusicAdvice from './Craving/MusicAdvice';
-import ShowerAdvice from './Craving/ShowerAdvice';
-import WalkAdvice from './Craving/WalkAdvice';
-import ReadingAdvice from './Craving/ReadingAdvice';
-import VideoPlayer from '../../components/VideoPlayer';
+import DefisNavigator from '../Defis/DefisNavigator';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
-  useToggleCTA({ routesToHideCTA: ['OWN_TESTIMONY'], navigator: 'Health' });
+  useToggleCTA({
+    routesToHideCTA: ['OWN_TESTIMONY', 'DEFI'],
+    navigator: 'Health',
+  });
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HealthStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="HEALTH_INDEX">
@@ -56,18 +49,8 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="ALCOHOL_AND_MOTIVATION" component={AlcoholAndMotivation} />
         <HealthStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
         <HealthStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
-        <HealthStack.Screen name="CRAVING_VIDEOS" component={VideosIndex} />
-        <HealthStack.Screen name="CRAVING_BREATH" component={CravingBreath} />
-        <HealthStack.Screen name="CRAVING_INDEX" component={CravingIndex} />
         <HealthStack.Screen name="HEALTH_INDEX" component={HealthIndex} />
-        <HealthStack.Screen name="EXERCISES_VIDEOS_INDEX" component={ExercicesVideosIndex} />
-        <HealthStack.Screen name="ENTERTAINMENT_VIDEOS_INDEX" component={EntertainmentVideosIndex} />
-        <HealthStack.Screen name="HYDRATATION_ADVICE" component={HydratationAdvice} />
-        <HealthStack.Screen name="MUSIC_ADVICE" component={MusicAdvice} />
-        <HealthStack.Screen name="READING_ADVICE" component={ReadingAdvice} />
-        <HealthStack.Screen name="SHOWER_ADVICE" component={ShowerAdvice} />
-        <HealthStack.Screen name="WALK_ADVICE" component={WalkAdvice} />
-        <HealthStack.Screen name="VIDEO_PLAYER" component={VideoPlayer} />
+        <HealthStack.Screen name="DEFI" component={DefisNavigator} />
 
         <HealthStack.Screen
           name="ONBOARDING_QUIZZ"

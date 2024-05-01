@@ -1,10 +1,10 @@
 import { View, TouchableOpacity, Text } from 'react-native';
-import WrapperContainer from '../../../components/WrapperContainer';
-import ExercicesVideos from '../../../components/illustrations/ExercicesVideos';
-import EntertainmentVideos from '../../../components/illustrations/EntertainmentVideos';
-import ThinkVideos from '../../../components/illustrations/ThinkVideos';
-import AdviceVideos from '../../../components/illustrations/AdviceVideos';
-import { logEvent } from '../../../services/logEventsWithMatomo';
+import WrapperContainer from '../../components/WrapperContainer';
+import ExercicesVideos from '../../components/illustrations/ExercicesVideos';
+import EntertainmentVideos from '../../components/illustrations/EntertainmentVideos';
+import ThinkVideos from '../../components/illustrations/ThinkVideos';
+import AdviceVideos from '../../components/illustrations/AdviceVideos';
+import { logEvent } from '../../services/logEventsWithMatomo';
 
 const VideosIndex = ({ navigation }) => {
   return (
@@ -13,7 +13,7 @@ const VideosIndex = ({ navigation }) => {
       onPressBackButton={() => {
         navigation.goBack();
       }}>
-      <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
+      <View className="h-64 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
         <TouchableOpacity
           className="w-1/2  rounded-md shadow-md bg-[#5150A2]"
           onPress={() => {
@@ -28,13 +28,13 @@ const VideosIndex = ({ navigation }) => {
               name: 'VIDEOS_INDEX',
             });
           }}>
-          <View className="flex items-center gap-4 pt-8">
-            <ThinkVideos size={100} className="" />
-            <Text className="text-center text-xl   font-bold text-white">Pensées</Text>
+          <View className="flex items-center h-full justify-between pt-6 px-5 pb-5">
+            <ThinkVideos size={130} className="" />
+            <Text className="text-center text-lg   font-bold text-white">Pensées</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
-          className="w-1/2  rounded-md shadow-md bg-[#5150A2]"
+          className="w-1/2  rounded-md shadow-md bg-[#3E5DE6]"
           onPress={() => {
             navigation.navigate('VIDEO_PLAYER', {
               videoIds: [
@@ -55,22 +55,22 @@ const VideosIndex = ({ navigation }) => {
               name: 'VIDEOS_INDEX',
             });
           }}>
-          <View className="flex items-center gap-4 pt-8">
-            <AdviceVideos size={100} className="" />
+          <View className="flex items-center h-full justify-between  pt-6 px-5 pb-5">
+            <AdviceVideos size={130} className="" />
             <View className="items-center">
-              <Text className="text-center text-xl   font-bold text-white ">Conseils</Text>
+              <Text className="text-center text-lg   font-bold text-white">Conseils</Text>
             </View>
           </View>
         </TouchableOpacity>
       </View>
-      <View className="h-56 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
+      <View className="h-64 w-full flex flex-row gap-4 justify-between mb-4 pt-2 pr-4 ">
         <TouchableOpacity
           className="w-1/2  rounded-md shadow-md bg-[#C79CFF]"
           onPress={() => {
             navigation.navigate('ENTERTAINMENT_VIDEOS_INDEX');
           }}>
-          <View className="flex items-center gap-4 pt-8">
-            <EntertainmentVideos size={100} className="" />
+          <View className="flex items-center h-full justify-between  pt-6 px-2 pb-5">
+            <EntertainmentVideos size={130} className="" />
             <Text className="text-center text-lg   font-bold text-white">Divertissement</Text>
           </View>
         </TouchableOpacity>
@@ -79,9 +79,9 @@ const VideosIndex = ({ navigation }) => {
           onPress={() => {
             navigation.navigate('EXERCISES_VIDEOS_INDEX');
           }}>
-          <View className="flex items-center gap-4 pt-8">
-            <ExercicesVideos size={100} className="" />
-            <Text className="text-center text-xl   font-bold text-white">Exercices</Text>
+          <View className="flex items-center h-full justify-between  pt-6 px-5 pb-5">
+            <ExercicesVideos size={130} className="" />
+            <Text className="text-center text-lg   font-bold text-white">Exercices</Text>
           </View>
         </TouchableOpacity>
       </View>

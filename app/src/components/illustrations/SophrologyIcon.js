@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const StyledSvg = styled(Svg)``;
 
 const SophrologyIcon = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 50 50" {...props}>
+  <StyledSvg width={size} height={size} viewBox="0 0 45 50" {...props}>
     <Path
       d="M44.089 25.6785H38.1663C37.6627 25.6785 37.2552 25.2705 37.2552 24.7675C37.2552 24.2645 37.6633 23.8564 38.1663 23.8564H44.089C44.5926 23.8564 45 24.2645 45 24.7675C45 25.2705 44.5926 25.6785 44.089 25.6785Z"
       fill="white"
