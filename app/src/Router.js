@@ -148,7 +148,6 @@ const App = () => {
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
         <AppStack.Screen name="TABS" component={TabsNavigator} />
-        <AppStack.Screen name="DEFI" component={DefisNavigator} />
       </AppStack.Navigator>
     </>
   );

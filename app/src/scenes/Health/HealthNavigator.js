@@ -21,11 +21,12 @@ import AlcoolWithdrawalBenefits from './Articles/AlcoolWithdrawalBenefits';
 import AlcoolWithdrawalTreatment from './Articles/AlcoolWithdrawalTreatment';
 import CravingsTreatment from './Articles/CravingsTreatment';
 import HealthIndex from './HealthIndex';
+import DefisNavigator from '../Defis/DefisNavigator';
 
 const HealthStack = createStackNavigator();
 const HealthNavigator = () => {
   useToggleCTA({
-    routesToHideCTA: ['OWN_TESTIMONY'],
+    routesToHideCTA: ['OWN_TESTIMONY', 'DEFI'],
     navigator: 'Health',
   });
   return (
@@ -49,6 +50,8 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
         <HealthStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
         <HealthStack.Screen name="HEALTH_INDEX" component={HealthIndex} />
+        <HealthStack.Screen name="DEFI" component={DefisNavigator} />
+
         <HealthStack.Screen
           name="ONBOARDING_QUIZZ"
           component={QuizzOnboarding}

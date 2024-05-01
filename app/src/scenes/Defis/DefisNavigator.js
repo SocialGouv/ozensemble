@@ -10,12 +10,10 @@ import Defi4_Navigator from './Defi4/Defi4_Navigator';
 import Defi5_Navigator from './Defi5/Defi5_Navigator';
 import QuizzsNavigator from '../Quizzs/QuizzsNavigator';
 import ContactForm from '../Health/ContactForm';
-import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 
 const DefisStack = createStackNavigator();
 const DefisNavigator = () => {
-  useToggleCTA({ hideCTA: true, navigator: 'Défis' });
   return (
     <Background color="#39cec0" withSwiperContainer>
       <DefisStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="DEFIS_MENU">
