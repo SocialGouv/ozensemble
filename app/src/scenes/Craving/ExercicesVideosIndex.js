@@ -20,13 +20,13 @@ const ExercicesVideosIndex = ({ navigation }) => {
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
                   videoIds: ['aFEkeYEb4SY', 'bmgbJ0WIV2k', 'XNbim0qOtMw', 'yUzzYkFT33k', 'y92jlo50EBw', 'ZMDIJC3ZMm8'],
-                  category: 'TCC',
-                  title: 'Vidéos de TCC',
+                  category: 'RESSENTI',
+                  title: 'Vidéos de ressenti',
                 });
                 logEvent({
                   category: 'NAVIGATION',
-                  action: 'TCC_VIDEOS',
-                  name: 'EXERCIICES_VIDEOS_INDEX',
+                  action: 'RESSENTI_VIDEOS',
+                  name: 'EXERCICES_VIDEOS_INDEX',
                 });
               }}>
               <View className="w-full h-full flex-row flex justify-between ">
@@ -55,7 +55,7 @@ const ExercicesVideosIndex = ({ navigation }) => {
                 logEvent({
                   category: 'NAVIGATION',
                   action: 'MEDITATION_VIDEOS',
-                  name: 'EXERCIICES_VIDEOS_INDEX',
+                  name: 'EXERCICES_VIDEOS_INDEX',
                 });
               }}>
               <View className="w-full h-full flex-row flex justify-between ">
@@ -76,7 +76,7 @@ const ExercicesVideosIndex = ({ navigation }) => {
                 logEvent({
                   category: 'NAVIGATION',
                   action: 'SOPHROLOGY_VIDEOS',
-                  name: 'EXERCIICES_VIDEOS_INDEX',
+                  name: 'EXERCICES_VIDEOS_INDEX',
                 });
               }}>
               <View className="w-full flex-row flex justify-between">

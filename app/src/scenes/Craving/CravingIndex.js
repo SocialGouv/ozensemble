@@ -16,7 +16,7 @@ const CravingIndex = ({ navigation }) => {
         <TouchableOpacity
           className="flex-1  rounded-md shadow-md overflow-hidden"
           onPress={() => {
-            navigation.navigate('CRAVING_ADVICE');
+            navigation.navigate('HYDRATION_ADVICE');
           }}>
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundAdvices.png')}>
             <View className="flex items-center h-full justify-between py-6 ">

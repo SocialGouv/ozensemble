@@ -13,7 +13,7 @@ const VideoPlayer = ({ route, navigation }) => {
       logEvent({
         category: 'VIDEOS',
         action: 'VIDEO_ENDED',
-        name: category + videoId,
+        name: category + ' ' + videoId,
       });
     } else if (state === 'unstarted') {
       logEvent({

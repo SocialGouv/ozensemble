@@ -23,12 +23,17 @@ const CravingBreath = () => {
       setTimeOnComponent((prevTime) => prevTime + 1);
       if (timeOnComponent >= 90) {
         navigation.goBack();
+        logEvent({
+          category: 'CRAVING',
+          action: 'BREATH_LEAVE',
+          value: timeOnComponent,
+        });
       }
     }, 1000);
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [timeOnComponent]);
 
   useEffect(() => {
     Animated.loop(
@@ -103,7 +108,6 @@ const CravingBreath = () => {
               category: 'CRAVING',
               action: 'BREATH_LEAVE',
               value: timeOnComponent,
-              name: 'CRAVING_BREATH',
             });
             navigation.goBack();
           }}
