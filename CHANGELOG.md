@@ -1,3 +1,10 @@
+## [1.153.5](https://github.com/SocialGouv/ozensemble/compare/v1.153.4...v1.153.5) (2024-05-01)
+
+
+### Bug Fixes
+
+* logevents + typo ([d7149c1](https://github.com/SocialGouv/ozensemble/commit/d7149c1995230becb9569dc9e8e63b4cfa180996))
+
 ## [1.153.4](https://github.com/SocialGouv/ozensemble/compare/v1.153.3...v1.153.4) (2024-05-01)
 
 
