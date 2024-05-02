@@ -114,43 +114,46 @@ const CravingBreath = () => {
           marginTop
           marginLeft
         />
-        <View className="h-full w-screen justify-center items-center flex flex-col">
-          <Animated.View className="justify-center items-center" style={{ opacity: inhaleOpacity }}>
-            <Text className="text-[#4030A5] text-3xl font-bold absolute">Inspirez</Text>
-          </Animated.View>
-          <Animated.View className="justify-center items-center" style={{ opacity: exhaleOpacity }}>
-            <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">Expirez</Text>
-          </Animated.View>
-          <Animated.View className="justify-center items-center" style={{ opacity: holdOpacity }}>
-            <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">Maintenez</Text>
-          </Animated.View>
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => {
-            {
-              const rotation = move.interpolate({
-                inputRange: [0, 1],
-                outputRange: [`${index * 45}deg`, `${index * 45 + 180}deg`],
-              });
-              return (
-                <Animated.View
-                  key={index}
-                  className={`bg-purple-800 rounded-full absolute`}
-                  style={{
-                    opacity: 0.1,
-                    transform: [{ rotateZ: rotation }, { translateX: translate }, { translateY: translate }],
-                    width: cirleWidth,
-                    height: cirleWidth,
-                  }}
-                />
-              );
-            }
-          })}
+        <View className="h-full w-screen items-center flex flex-col">
+          <Text className="text-[#4030A5] text-3xl font-bold absolute top-10 pr-2">{timeOnComponent}</Text>
+          <View className="h-full w-screen items-center flex flex-col justify-center">
+            <Animated.View className="justify-center items-center" style={{ opacity: inhaleOpacity }}>
+              <Text className="text-[#4030A5] text-3xl font-bold absolute">Inspirez</Text>
+            </Animated.View>
+            <Animated.View className="justify-center items-center" style={{ opacity: exhaleOpacity }}>
+              <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">Expirez</Text>
+            </Animated.View>
+            <Animated.View className="justify-center items-center" style={{ opacity: holdOpacity }}>
+              <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">Maintenez</Text>
+            </Animated.View>
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => {
+              {
+                const rotation = move.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [`${index * 45}deg`, `${index * 45 + 180}deg`],
+                });
+                return (
+                  <Animated.View
+                    key={index}
+                    className={`bg-purple-800 rounded-full absolute`}
+                    style={{
+                      opacity: 0.1,
+                      transform: [{ rotateZ: rotation }, { translateX: translate }, { translateY: translate }],
+                      width: cirleWidth,
+                      height: cirleWidth,
+                    }}
+                  />
+                );
+              }
+            })}
+          </View>
           <View className=" absolute bottom-16 flex-row justify-between w-full px-4">
             <View className="flex-row bg-purple-800 rounded-lg items-center ">
               <TouchableOpacity
                 disabled={breathTime === 0}
                 className=" p-2"
                 onPress={() => {
-                  setBreathTime(parseFloat((breathTime - 0.1).toFixed(1)));
+                  setBreathTime(parseFloat((breathTime - 1).toFixed(1)));
                 }}>
                 <Text className="text-white font-semibold ">-</Text>
               </TouchableOpacity>
@@ -158,7 +161,7 @@ const CravingBreath = () => {
               <TouchableOpacity
                 className="  p-2"
                 onPress={() => {
-                  setBreathTime(parseFloat((breathTime + 0.1).toFixed(1)));
+                  setBreathTime(parseFloat((breathTime + 1).toFixed(1)));
                 }}>
                 <Text className="text-white font-semibold">+</Text>
               </TouchableOpacity>
@@ -168,7 +171,7 @@ const CravingBreath = () => {
                 disabled={pause === 0}
                 className="  p-2"
                 onPress={() => {
-                  setPause(parseFloat((pause - 0.1).toFixed(1)));
+                  setPause(parseFloat((pause - 1).toFixed(1)));
                 }}>
                 <Text className="text-white font-semibold">-</Text>
               </TouchableOpacity>
@@ -176,7 +179,7 @@ const CravingBreath = () => {
               <TouchableOpacity
                 className="  p-2"
                 onPress={() => {
-                  setPause(parseFloat((pause + 0.1).toFixed(1)));
+                  setPause(parseFloat((pause + 1).toFixed(1)));
                 }}>
                 <Text className="text-white  font-semibold">+</Text>
               </TouchableOpacity>

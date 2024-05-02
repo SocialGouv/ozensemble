@@ -3,7 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
-const { superUser90DaysInAppModal, superUser30DaysInAppModal } = require("../utils/super-user-modals");
+const { superUser90DaysInAppModal, superUser30DaysInAppModal, cravingInAppModal } = require("../utils/inAppModals");
 const { scheduleNotificationPlan } = require("../utils/notifications");
 
 router.get(
@@ -23,7 +23,7 @@ router.get(
 );
 
 router.get(
-  "/super-user-in-app-modal",
+  "/in-app-modal",
   catchErrors(async (req, res) => {
     console.log("init");
     const modale = req.query?.modale;
@@ -38,6 +38,12 @@ router.get(
       return res.status(200).send({
         ok: true,
         showInAppModal: superUser30DaysInAppModal,
+      });
+    }
+    if (modale === "craving") {
+      return res.status(200).send({
+        ok: true,
+        showInAppModal: cravingInAppModal,
       });
     }
     return res.status(200).send({ ok: true });

@@ -174,6 +174,26 @@ const FakeData = () => {
             });
           }}
         />
+        <H1Wrapper>Afficher les modales Craving</H1Wrapper>
+        <MenuItem
+          caption="Montrer la modale Craving in app Modale"
+          noAlert
+          onPress={() => {
+            API.get({
+              path: '/test/in-app-modal',
+              query: {
+                modale: 'craving',
+              },
+            });
+          }}
+        />
+        <MenuItem
+          caption="Réinitialiser pour la modale Craving"
+          onPress={() => {
+            storage.set('firstTimeOnCraving', true);
+          }}
+        />
+
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
         <MenuItem caption="Sans risque" onPress={() => replaceStorageValues(fakeOnboardingQuizz.good)} />
         <MenuItem caption="Risquée" onPress={() => replaceStorageValues(fakeOnboardingQuizz.risk)} />

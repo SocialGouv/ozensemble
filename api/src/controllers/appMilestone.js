@@ -3,7 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
-const { superUser30DaysInAppModal, superUser90DaysInAppModal } = require("../utils/super-user-modals");
+const { superUser30DaysInAppModal, superUser90DaysInAppModal } = require("../utils/inAppModals");
 
 router.post(
   "/",
