@@ -1,3 +1,10 @@
+## [1.153.12](https://github.com/SocialGouv/ozensemble/compare/v1.153.11...v1.153.12) (2024-05-02)
+
+
+### Bug Fixes
+
+* useless condition on color ([6eb529c](https://github.com/SocialGouv/ozensemble/commit/6eb529c40e790ee759b12e360f6a60d1733c8a89))
+
 ## [1.153.11](https://github.com/SocialGouv/ozensemble/compare/v1.153.10...v1.153.11) (2024-05-02)
 
 
