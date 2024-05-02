@@ -2,15 +2,12 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
-import { useNavigation } from '@react-navigation/native';
 import ChillIcon from '../../components/illustrations/ChillIcon';
 import FunIcon from '../../components/illustrations/FunIcon';
 import SensationIcon from '../../components/illustrations/SensationIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
-const EntertainmentVideosIndex = () => {
-  const navigation = useNavigation();
-
+const EntertainmentVideosIndex = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">

@@ -1,12 +1,10 @@
 import { View, Text, Dimensions, Animated, TouchableOpacity } from 'react-native';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
-import { useNavigation } from '@react-navigation/native';
 import { useEffect, useRef, useState } from 'react';
 import { logEvent } from '../../services/logEventsWithMatomo';
 
-const CravingBreath = () => {
-  const navigation = useNavigation();
+const CravingBreath = ({ navigation }) => {
   const [breathTime, setBreathTime] = useState(4);
   const [pause, setPause] = useState(1);
 

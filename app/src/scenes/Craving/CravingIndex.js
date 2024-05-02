@@ -14,7 +14,7 @@ const CravingIndex = ({ navigation }) => {
     <WrapperContainer title="Craving">
       <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-2 pt-2 ">
         <TouchableOpacity
-          className="flex-1  rounded-md shadow-md overflow-hidden"
+          className="flex-1  rounded-md overflow-hidden"
           onPress={() => {
             navigation.navigate('HYDRATION_ADVICE');
           }}>
@@ -26,7 +26,7 @@ const CravingIndex = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
         <TouchableOpacity
-          className="flex-1 rounded-md shadow-md overflow-hidden"
+          className="flex-1 rounded-md overflow-hidden"
           onPress={() => {
             navigation.navigate('CRAVING_BREATH');
           }}>
@@ -40,7 +40,7 @@ const CravingIndex = ({ navigation }) => {
       </View>
       <View className="h-52 w-1/2 flex flex-row justify-between mb-4 pt-2 pr-2">
         <TouchableOpacity
-          className="w-full rounded-md shadow-md overflow-hidden"
+          className="w-full rounded-md overflow-hidden"
           onPress={() => {
             navigation.navigate('CRAVING_VIDEOS');
           }}>
