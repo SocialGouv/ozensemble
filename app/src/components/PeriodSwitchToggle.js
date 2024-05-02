@@ -8,28 +8,12 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
   const [animatedXValue] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    runAnimation(renderValue(period));
-  }, [period]);
-
-  const renderValue = () => {
-    switch (period) {
-      case 'monthly':
-        return 2;
-      case 'weekly':
-        return 1;
-      case 'daily':
-      default:
-        return 0;
-    }
-  };
-
-  const runAnimation = (toValue) => {
     Animated.timing(animatedXValue, {
-      toValue,
+      toValue: period === 'daily' ? 0 : period === 'weekly' ? 1 : 2,
       duration: 200,
       useNativeDriver: false,
     }).start();
-  };
+  }, [period]);
 
   return (
     <Container onLayout={(e) => setComponentWidth(e.nativeEvent.layout.width)}>
