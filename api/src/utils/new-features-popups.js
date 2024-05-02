@@ -51,7 +51,7 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Nouveau : plus d'articles pour vous aider dans vos démarches",
+    description: "Faites nos défis 7 jours dans le parcours de soins pour vous aider à réduire votre consommation",
     okButton: "FERMER",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
@@ -91,7 +91,7 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Faites nos défis 7 jours pour vous aider à réduire votre consommation",
+    description: "Accédez à un espace avec des conseils et activités pour surmonter un Craving",
     okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
@@ -131,7 +131,7 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Des articles pour vous aider dans vos démarches",
+    description: "Faites nos défis 7 jours dans le parcours de soins pour vous aider à réduire votre consommation",
     okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }

@@ -16,7 +16,7 @@ const HealthIndex = ({ navigation }) => {
               navigation.navigate('DEFI', { screen: 'DEFIS_MENU' });
             }}>
             <HealthPlan size={80} className="" />
-            <Text className="text-center">Parcours de soin</Text>
+            <Text className="text-center">Parcours de soins</Text>
           </TouchableOpacity>
         </View>
         <View className="border border-[#4030A5] bg-white  w-1/2 rounded-md shadow-md">
