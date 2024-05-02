@@ -8,20 +8,13 @@ const CalendarSwitch = ({ tab, setTab }) => {
   const [animatedXValue] = useState(new Animated.Value(0));
 
   useEffect(() => {
-    runAnimation(renderValue(tab));
-  }, [tab]);
-
-  const renderValue = () => {
-    return Number(tab === 'gains');
-  };
-
-  const runAnimation = (toValue) => {
     Animated.timing(animatedXValue, {
-      toValue,
+      delay: 1,
+      toValue: tab === 'calendar' ? 0 : 1,
       duration: 200,
       useNativeDriver: false,
     }).start();
-  };
+  }, [tab]);
 
   return (
     <Container onLayout={(e) => setComponentWidth(e.nativeEvent.layout.width)}>
