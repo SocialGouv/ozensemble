@@ -73,7 +73,7 @@ const AnswerContainer = styled.View`
     shadow-opacity: 1;
     shadow-radius: 3.84px;
   `};
-  background-color: ${({ isActive }) => (isActive ? '#FFFFFF' : '#FFFFFF')};
+  background-color: '#FFFFFF';
 `;
 
 const AnswerText = styled.View`
