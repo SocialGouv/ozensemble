@@ -21,7 +21,7 @@ const CravingBreath = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeOnComponent((prevTime) => prevTime + 1);
-      if (timeOnComponent >= 90) {
+      if (timeOnComponent >= 89) {
         navigation.goBack();
         logEvent({
           category: 'CRAVING',
@@ -115,7 +115,10 @@ const CravingBreath = () => {
           marginLeft
         />
         <View className="h-full w-screen items-center flex flex-col">
-          <Text className="text-[#4030A5] text-3xl font-bold absolute top-10 pr-2">{timeOnComponent}</Text>
+          <Text className="text-[#4030A5] text-3xl font-bold absolute top-10 pr-2">
+            {Math.floor((90 - timeOnComponent) / 60)}:{(90 - timeOnComponent) % 60 < 10 ? '0' : ''}
+            {(90 - timeOnComponent) % 60}
+          </Text>
           <View className="h-full w-screen items-center flex flex-col justify-center">
             <Animated.View className="justify-center items-center" style={{ opacity: inhaleOpacity }}>
               <Text className="text-[#4030A5] text-3xl font-bold absolute">Inspirez</Text>
