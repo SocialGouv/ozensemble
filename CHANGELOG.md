@@ -1,3 +1,10 @@
+## [1.153.10](https://github.com/SocialGouv/ozensemble/compare/v1.153.9...v1.153.10) (2024-05-02)
+
+
+### Bug Fixes
+
+* unused svg and useless brassets ([#575](https://github.com/SocialGouv/ozensemble/issues/575)) ([9eaf4d5](https://github.com/SocialGouv/ozensemble/commit/9eaf4d5dbb3ebbe81075dd059b1b5d023a92476e))
+
 ## [1.153.9](https://github.com/SocialGouv/ozensemble/compare/v1.153.8...v1.153.9) (2024-05-02)
 
 
