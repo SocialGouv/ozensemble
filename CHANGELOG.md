@@ -1,3 +1,10 @@
+## [1.153.16](https://github.com/SocialGouv/ozensemble/compare/v1.153.15...v1.153.16) (2024-05-02)
+
+
+### Bug Fixes
+
+* navigation prop craving and shadow ([baf0f36](https://github.com/SocialGouv/ozensemble/commit/baf0f364d0b79f632d5dcbe5a5de57b749c6ba80))
+
 ## [1.153.15](https://github.com/SocialGouv/ozensemble/compare/v1.153.14...v1.153.15) (2024-05-02)
 
 
