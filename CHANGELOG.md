@@ -1,3 +1,10 @@
+## [1.153.6](https://github.com/SocialGouv/ozensemble/compare/v1.153.5...v1.153.6) (2024-05-02)
+
+
+### Bug Fixes
+
+* fake data modals craving renamed inappmodal utils ([a94bbeb](https://github.com/SocialGouv/ozensemble/commit/a94bbeb22af99e3dcd49c88723d250d79b636643))
+
 ## [1.153.5](https://github.com/SocialGouv/ozensemble/compare/v1.153.4...v1.153.5) (2024-05-01)
 
 
