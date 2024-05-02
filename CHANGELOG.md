@@ -1,3 +1,10 @@
+## [1.153.7](https://github.com/SocialGouv/ozensemble/compare/v1.153.6...v1.153.7) (2024-05-02)
+
+
+### Bug Fixes
+
+* version plus tab craving icon ([0f4809f](https://github.com/SocialGouv/ozensemble/commit/0f4809f1444c36135ed02d69e275c25f09116d2c))
+
 ## [1.153.6](https://github.com/SocialGouv/ozensemble/compare/v1.153.5...v1.153.6) (2024-05-02)
 
 
