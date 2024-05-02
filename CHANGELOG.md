@@ -1,3 +1,10 @@
+## [1.153.8](https://github.com/SocialGouv/ozensemble/compare/v1.153.7...v1.153.8) (2024-05-02)
+
+
+### Bug Fixes
+
+* relaibility ([#574](https://github.com/SocialGouv/ozensemble/issues/574)) ([67d5c77](https://github.com/SocialGouv/ozensemble/commit/67d5c778d2229ee27e31edaed44d0f2a9ee38d6e))
+
 ## [1.153.7](https://github.com/SocialGouv/ozensemble/compare/v1.153.6...v1.153.7) (2024-05-02)
 
 
