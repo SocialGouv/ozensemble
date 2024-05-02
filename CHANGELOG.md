@@ -1,3 +1,10 @@
+## [1.153.11](https://github.com/SocialGouv/ozensemble/compare/v1.153.10...v1.153.11) (2024-05-02)
+
+
+### Bug Fixes
+
+* version ([b26496d](https://github.com/SocialGouv/ozensemble/commit/b26496d511bc55e454c1d8ab7335cb93a1c41908))
+
 ## [1.153.10](https://github.com/SocialGouv/ozensemble/compare/v1.153.9...v1.153.10) (2024-05-02)
 
 
