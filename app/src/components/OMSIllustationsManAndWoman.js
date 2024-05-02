@@ -4,7 +4,7 @@ import { screenWidth } from '../styles/theme';
 import TextStyled from './TextStyled';
 import ManAndWoman from '../components/illustrations/ManAndWoman';
 
-const OMSIllustationsManAndWoman = ({}) => {
+const OMSIllustationsManAndWoman = () => {
   return (
     <OMSContainer>
       <ManAndWoman size={120} />
