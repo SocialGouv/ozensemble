@@ -1,3 +1,10 @@
+## [1.153.15](https://github.com/SocialGouv/ozensemble/compare/v1.153.14...v1.153.15) (2024-05-02)
+
+
+### Bug Fixes
+
+* modal ([e9583aa](https://github.com/SocialGouv/ozensemble/commit/e9583aa28503e17702676cd2f64fcd19b29eedae))
+
 ## [1.153.14](https://github.com/SocialGouv/ozensemble/compare/v1.153.13...v1.153.14) (2024-05-02)
 
 
