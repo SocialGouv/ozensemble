@@ -1,3 +1,10 @@
+## [1.153.17](https://github.com/SocialGouv/ozensemble/compare/v1.153.16...v1.153.17) (2024-05-06)
+
+
+### Bug Fixes
+
+* changed videos links ([e90345c](https://github.com/SocialGouv/ozensemble/commit/e90345cef8c42daad8bac06e6ac7a18e357f2cb0))
+
 ## [1.153.16](https://github.com/SocialGouv/ozensemble/compare/v1.153.15...v1.153.16) (2024-05-02)
 
 
