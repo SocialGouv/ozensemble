@@ -1,3 +1,11 @@
+## [1.153.20](https://github.com/SocialGouv/ozensemble/compare/v1.153.19...v1.153.20) (2024-05-06)
+
+
+### Bug Fixes
+
+* android margin ([aafe9cf](https://github.com/SocialGouv/ozensemble/commit/aafe9cff8aa28872d849e230dbf74c61acffcd2d))
+* margin ([fe7db25](https://github.com/SocialGouv/ozensemble/commit/fe7db25fd50276b00c156f0ff8638d985b239395))
+
 ## [1.153.19](https://github.com/SocialGouv/ozensemble/compare/v1.153.18...v1.153.19) (2024-05-06)
 
 
