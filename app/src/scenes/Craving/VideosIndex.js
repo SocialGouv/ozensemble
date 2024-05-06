@@ -18,7 +18,7 @@ const VideosIndex = ({ navigation }) => {
           className="w-1/2  rounded-md shadow-md bg-[#5150A2]"
           onPress={() => {
             navigation.navigate('VIDEO_PLAYER', {
-              videoIds: ['AsJMwhKnL74', 'iyH2hy', 'pKu6S9uOgnU', 'Ukupnbt3RJs', 'E8mX3Sb019Q', 'HJqrj2t5TVU'],
+              videoIds: ['AsJMwhKnL74', 'iyH2hydCqNE', 'pKu6S9uOgnU', 'Ukupnbt3RJs', 'E8mX3Sb019Q'],
               category: 'POSITIVITY',
               title: 'Vidéos de pensées positives',
             });
@@ -37,15 +37,7 @@ const VideosIndex = ({ navigation }) => {
           className="w-1/2  rounded-md shadow-md bg-[#3E5DE6]"
           onPress={() => {
             navigation.navigate('VIDEO_PLAYER', {
-              videoIds: [
-                'CSjV8znEdTw',
-                'uXFdywSflfA',
-                'kKrLWfOHNo4',
-                'HVUF8boilNo',
-                'kQJ1b9gpDdE',
-                'E935CvhxCH8',
-                'VXUriULDUoU',
-              ],
+              videoIds: ['CSjV8znEdTw', 'uXFdywSflfA', 'kQJ1b9gpDdE', 'VXUriULDUoU', 'TpgB42QZxwk'],
               category: 'ADVICE',
               title: 'Vidéos de conseils',
             });

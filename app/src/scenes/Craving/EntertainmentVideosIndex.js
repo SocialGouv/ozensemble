@@ -70,7 +70,7 @@ const EntertainmentVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: ['EzGPmg4fFL8', 'eUpwDAnkgSM', 'NtZVFUvn3_U', 'ctEksNz7tqg', 'w9o0q4ZaSFw'],
+                  videoIds: ['EzGPmg4fFL8', 'eUpwDAnkgSM', 'NtZVFUvn3_U', 'ctEksNz7tqg', 'ma67yOdMQfs', 'EZVy-Wrncyg','QGVIWsw-TYQ'],
                   category: 'SENSATION',
                   title: 'Vidéos de sensations',
                 });
