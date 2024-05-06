@@ -63,7 +63,7 @@ const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
               Cliquez sur “Commencer” pour accéder dès maintenant aux activités !
             </Text>
 
-            <View className="flex flex-row justify-center mt-4">
+            <View className="flex flex-row justify-center mt-4 mb-2">
               <ButtonPrimary
                 content="Commencer"
                 onPress={() => {
