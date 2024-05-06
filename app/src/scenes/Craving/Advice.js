@@ -43,7 +43,7 @@ const Advice = ({ navigation }) => {
     {
       title: 'Faites une balade',
       description:
-        'Sortez prendre l’air, marchez quelques minutes. Vous pouvez aussi en profiter pour aller faire quelques courses.\n',
+        'Profitez-en pour aller prendre l’air. Faites une marche de 15 minutes, allez découvrir un endroit que vous ne connaissez pas.\n',
       nextAdvice: 'MUSIC_ADVICE',
       currentAdvice: 'WALK_ADVICE',
       icon: WalkIcon,
@@ -51,7 +51,7 @@ const Advice = ({ navigation }) => {
     {
       title: 'Prenez une douche',
       description:
-        'Prenez une douche chaude ou froide, selon vos préférences. Vous pouvez aussi prendre un bain relaxant.\n',
+        'Détentez-vous en prenant une douche chaude ou froide. Cela vous permettra de vous décontracter et de vous distraire.\n',
       nextAdvice: 'READING_ADVICE',
       currentAdvice: 'SHOWER_ADVICE',
       icon: ShowerIcon,
