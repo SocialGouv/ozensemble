@@ -1,3 +1,10 @@
+## [1.153.19](https://github.com/SocialGouv/ozensemble/compare/v1.153.18...v1.153.19) (2024-05-06)
+
+
+### Bug Fixes
+
+* wrong texts plus version ([13a4fb8](https://github.com/SocialGouv/ozensemble/commit/13a4fb865fa9a1643373e58ea5eb24666e3816f3))
+
 ## [1.153.18](https://github.com/SocialGouv/ozensemble/compare/v1.153.17...v1.153.18) (2024-05-06)
 
 
