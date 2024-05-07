@@ -4,7 +4,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog } = require("../utils/badges");
-const { syncGoalsWithConsos } = require("../utils/goals");
+const { syncGoalsWithConsos, syncAllGoalsWithConsos } = require("../utils/goals");
 const { checksConsecutiveDays, syncDrinkBadgesWithConsos } = require("../utils/drinks");
 
 router.post(
@@ -23,7 +23,15 @@ router.post(
 
     const { drinks, drinksCatalog } = req.body;
 
-    if (!drinks.length) return res.status(200).json({ ok: true });
+    if (!drinks.length) {
+      await syncDrinkBadgesWithConsos(matomoId);
+
+      await syncAllGoalsWithConsos(matomoId, true);
+
+      // TODO: uncomment this line when the notifications for goals sync is sent
+      // await syncBadgesWithGoals(matomoId, true);
+      return res.status(200).json({ ok: true });
+    }
 
     const user = await prisma.user.upsert({
       where: { matomo_id: matomoId },
@@ -69,6 +77,11 @@ router.post(
     });
 
     await syncDrinkBadgesWithConsos(matomoId);
+
+    await syncAllGoalsWithConsos(matomoId, true);
+
+    // TODO: uncomment this line when the notifications for goals sync is sent
+    // await syncBadgesWithGoals(matomoId, true);
 
     return res.status(200).send({ ok: true });
   })

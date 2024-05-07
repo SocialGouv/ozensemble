@@ -4,7 +4,6 @@ const dayjs = require("dayjs");
 const prisma = require("../prisma");
 const { grabBadgeFromCatalog, getBadgeCatalog } = require("../utils/badges");
 const { GoalStatus } = require("@prisma/client");
-const { syncAllGoalsWithConsos, syncBadgesWithGoals } = require("../utils/goals");
 const router = express.Router();
 
 router.post(
@@ -139,11 +138,6 @@ router.get(
         });
       }
     }
-
-    await syncAllGoalsWithConsos(matomoId, true);
-
-    // TODO: uncomment this line when the notifications for goals sync is sent
-    // await syncBadgesWithGoals(matomoId, true);
 
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
