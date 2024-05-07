@@ -121,7 +121,7 @@ const questions = [
         score: 0,
       },
       {
-        content: 'Réaliser une évaluation de ma conso',
+        content: 'Evaluer ma consommation',
         answerKey: 'evaluate',
         score: 1,
       },
