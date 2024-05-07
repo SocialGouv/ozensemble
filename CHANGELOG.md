@@ -1,3 +1,10 @@
+## [1.154.3](https://github.com/SocialGouv/ozensemble/compare/v1.154.2...v1.154.3) (2024-05-07)
+
+
+### Bug Fixes
+
+* sync goals on sync consos + fix upsert ([#577](https://github.com/SocialGouv/ozensemble/issues/577)) ([59ea520](https://github.com/SocialGouv/ozensemble/commit/59ea520026e06200823e288b8e3d1ab592ecb120))
+
 ## [1.154.2](https://github.com/SocialGouv/ozensemble/compare/v1.154.1...v1.154.2) (2024-05-07)
 
 
