@@ -7,7 +7,7 @@ const { grabBadgeFromCatalog } = require("../utils/badges");
 const { countMaxConsecutiveDays, getStarsCorrespondingToConsecutiveDays } = require("../utils/drinks");
 const { checkCurrentWeekGoal } = require("../utils/goals");
 
-async function syncBadges(fixGoals = false, debug = false) {
+async function syncGoals(fixGoals = false, debug = false) {
   const users = await prisma.user.findMany({
     where: {
       goal_isSetup: true,
@@ -20,7 +20,7 @@ async function syncBadges(fixGoals = false, debug = false) {
         orderBy: { date: "desc" },
       },
     },
-    take: 100,
+    // take: 100,
     // skip: 1100,
   });
   console.log("USERS", users.length);
@@ -241,4 +241,4 @@ async function syncBadges(fixGoals = false, debug = false) {
   });
 }
 
-syncBadges(false, true);
+syncGoals(false, false);
