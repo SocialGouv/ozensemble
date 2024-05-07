@@ -1,3 +1,10 @@
+## [1.154.1](https://github.com/SocialGouv/ozensemble/compare/v1.154.0...v1.154.1) (2024-05-07)
+
+
+### Bug Fixes
+
+* wrong testimony and android ([f7a7b4f](https://github.com/SocialGouv/ozensemble/commit/f7a7b4f9608449697cafa85331a92f8ef0ab9d55))
+
 # [1.154.0](https://github.com/SocialGouv/ozensemble/compare/v1.153.20...v1.154.0) (2024-05-07)
 
 
