@@ -12,8 +12,6 @@ import {
   maxDrinksPerWeekSelector,
   totalDrinksByDrinkingDaySelector,
 } from '../../recoil/gains';
-import { storage } from '../../services/storage';
-import API from '../../services/api';
 
 const Sevrage = ({ navigation, route }) => {
   const daysWithGoalNoDrink = useRecoilValue(daysWithGoalNoDrinkState);
@@ -58,20 +56,6 @@ const Sevrage = ({ navigation, route }) => {
           <ButtonPrimary
             content="J'ai compris et je commence "
             onPress={() => {
-              const matomoId = storage.getString('@UserIdv2');
-              API.post({
-                path: '/goal',
-                body: {
-                  matomoId: matomoId,
-                  daysWithGoalNoDrink,
-                  dosesByDrinkingDay,
-                  dosesPerWeek,
-                },
-              }).then((res) => {
-                if (res.ok) {
-                  setGoals(res.data);
-                }
-              });
               logEvent({
                 category: 'GAINS',
                 action: 'GOAL_FINISH',

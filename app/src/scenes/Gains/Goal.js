@@ -25,6 +25,8 @@ import WrapperContainer from '../../components/WrapperContainer';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
 import ModalWrongValue from '../../components/ModalWrongValue';
+import API from '../../services/api';
+import { storage } from '../../services/storage';
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -118,6 +120,20 @@ const Goal = ({ navigation }) => {
             category: 'GAINS',
             action: 'GOAL_DRINKWEEK',
             value: dosesPerWeek,
+          });
+          const matomoId = storage.getString('@UserIdv2');
+          API.post({
+            path: '/goal',
+            body: {
+              matomoId: matomoId,
+              daysWithGoalNoDrink,
+              dosesByDrinkingDay,
+              dosesPerWeek,
+            },
+          }).then((res) => {
+            if (res.ok) {
+              setGoals(res.data);
+            }
           });
           if (isOnboarded) {
             navigation.navigate('GAINS_SEVRAGE');

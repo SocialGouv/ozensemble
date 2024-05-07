@@ -387,20 +387,18 @@ export async function reconciliateDrinksToDB() {
 
     const unsyncedDrinks = drinks.filter((drink) => !drink.isSyncedWithDB);
 
-    if (unsyncedDrinks.length) {
-      await API.post({
-        path: '/consommation/sync',
-        body: {
-          matomoId,
-          drinks: unsyncedDrinks,
-          drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
-        },
-      }).then((response) => {
-        if (response?.ok) {
-          storage.set('@Drinks', JSON.stringify(drinks.map((drink) => ({ ...drink, isSyncedWithDB: true }))));
-        }
-      });
-    }
+    await API.post({
+      path: '/consommation/sync',
+      body: {
+        matomoId,
+        drinks: unsyncedDrinks,
+        drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
+      },
+    }).then((response) => {
+      if (response?.ok) {
+        storage.set('@Drinks', JSON.stringify(drinks.map((drink) => ({ ...drink, isSyncedWithDB: true }))));
+      }
+    });
   } catch (e) {
     capture(e, {
       extra: {
