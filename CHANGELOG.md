@@ -1,3 +1,10 @@
+## [1.154.2](https://github.com/SocialGouv/ozensemble/compare/v1.154.1...v1.154.2) (2024-05-07)
+
+
+### Bug Fixes
+
+* apple store review ([686e74f](https://github.com/SocialGouv/ozensemble/commit/686e74f99d1d8b541d52fd37f04353f643e22c39))
+
 ## [1.154.1](https://github.com/SocialGouv/ozensemble/compare/v1.154.0...v1.154.1) (2024-05-07)
 
 
