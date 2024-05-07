@@ -32,10 +32,6 @@ const testimonies = [
     text: 'L’alcool m’aidait à m’autoriser à être triste et du coup à appeler à l’aide mes amis.\n\nSans alcool ma vie physique et mentale se sont améliorées et je m’autorise à être triste quand je le suis et mes idées sont plus claires.',
   },
   {
-    pseudo: 'olga 45730',
-    text: "Je commence et je sais d avance que cela va être difficile. J avais arrêté 12 mois. Il y a 10 ans et j'ai renoué avec mes vieux amis champagne.vin blanc. Rhum. Je bois seule à la maison ou avec des amis mais bien souvent seule. Je n arrive pas à faire mon deuil depuis 19 ans  je suis bien seule. Je vais essayer de suivre vos conseils",
-  },
-  {
     pseudo: 'Olga',
     text: "Moi je me suis mise sur OZ et pour l instant je suis satisfaite de l application et je pense que c est une bonne solution pour la faire connaître autour de nous. Je ne culpabilise pas quand je bois, je ne tremble pas, je ne suis pas méchante, je n ai jamais provoqué d accident mais il est temps que j'arrête de boire. Je n'ai pas encore fait le deuil de mon mari depuis 19 ans mais boire ne le fera pas revenir. Pour l instant ça fonctionne  bonne chance à tous.",
   },

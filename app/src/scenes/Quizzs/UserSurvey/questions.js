@@ -84,7 +84,7 @@ const questions = [
         score: 1,
       },
       {
-        content: 'Via l’AppStore ou Android',
+        content: 'Via les stores',
         answerKey: 'store',
         score: 2,
       },
