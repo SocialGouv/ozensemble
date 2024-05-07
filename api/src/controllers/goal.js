@@ -4,6 +4,7 @@ const dayjs = require("dayjs");
 const prisma = require("../prisma");
 const { grabBadgeFromCatalog, getBadgeCatalog } = require("../utils/badges");
 const { GoalStatus } = require("@prisma/client");
+const { syncAllGoalsWithConsos, syncBadgesWithGoals } = require("../utils/goals");
 const router = express.Router();
 
 router.post(
@@ -117,24 +118,33 @@ router.get(
     });
 
     if (user.goal_isSetup) {
+      let currentGoal = {
+        id: `${user.id}_${dayjs().startOf("week").format("YYYY-MM-DD")}`,
+        userId: user.id,
+        date: dayjs().startOf("week").format("YYYY-MM-DD"),
+        daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
+        dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
+        dosesPerWeek: user.goal_dosesPerWeek,
+        status: GoalStatus.InProgress,
+      };
       // if pas de goal pour cette semaine, on le crée
-      const thisWeekGoal = await prisma.goal.findFirst({
-        where: { userId: user.id, date: dayjs().startOf("week").format("YYYY-MM-DD") },
+      let thisWeekGoal = await prisma.goal.findFirst({
+        where: { id: currentGoal.id },
       });
       if (!thisWeekGoal) {
-        await prisma.goal.create({
-          data: {
-            id: `${user.id}_${dayjs().startOf("week").format("YYYY-MM-DD")}`,
-            userId: user.id,
-            date: dayjs().startOf("week").format("YYYY-MM-DD"),
-            daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
-            dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
-            dosesPerWeek: user.goal_dosesPerWeek,
-            status: GoalStatus.InProgress,
-          },
+        thisWeekGoal = await prisma.goal.upsert({
+          where: { id: currentGoal.id },
+          create: currentGoal,
+          data: currentGoal,
         });
       }
     }
+
+    await syncAllGoalsWithConsos(matomoId, true);
+
+    // TODO: uncomment this line when the notifications for goals sync is sent
+    // await syncBadgesWithGoals(matomoId, true);
+
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
       orderBy: { date: "desc" },

@@ -4,8 +4,8 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog } = require("../utils/badges");
-const { syncBadgesWithGoals } = require("../utils/goals");
-const { checksConsecutiveDays, syncBadgesWithConsos } = require("../utils/drinks");
+const { syncGoalsWithConsos } = require("../utils/goals");
+const { checksConsecutiveDays, syncDrinkBadgesWithConsos } = require("../utils/drinks");
 
 router.post(
   "/init",
@@ -68,7 +68,7 @@ router.post(
       skipDuplicates: true,
     });
 
-    await syncBadgesWithConsos(matomoId);
+    await syncDrinkBadgesWithConsos(matomoId);
 
     return res.status(200).send({ ok: true });
   })
@@ -104,20 +104,21 @@ router.post(
         await prisma.consommation.delete({ where: { id: conso_id } });
       }
     } else {
-      await prisma.consommation.upsert({
+      const consoDB = await prisma.consommation.upsert({
         where: { id: conso_id },
         update: conso,
         create: { ...conso, id: conso_id },
       });
+      console.log("conso upserted", consoDB._id);
     }
 
     /* 2. SIDE EFFECTS */
 
     // note: the `date` can be ANY date, not just today,
     // because the user can update a conso from any date
-    await syncBadgesWithGoals(matomoId, date);
+    await syncGoalsWithConsos(matomoId, date);
 
-    const drinksBadgeToShow = await syncBadgesWithConsos(matomoId);
+    const drinksBadgeToShow = await syncDrinkBadgesWithConsos(matomoId);
 
     if (drinksBadgeToShow) {
       const allBadges = await prisma.badge.findMany({ where: { userId: user.id } });

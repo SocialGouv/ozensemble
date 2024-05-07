@@ -20,8 +20,8 @@ async function syncBadges(fixGoals = false, debug = false) {
         orderBy: { date: "desc" },
       },
     },
-    take: 1000,
-    skip: 1100,
+    take: 100,
+    // skip: 1100,
   });
   console.log("USERS", users.length);
   let usersWithFuckedUpGoals = {};
@@ -65,7 +65,7 @@ async function syncBadges(fixGoals = false, debug = false) {
     }
     usersWithMoreOrLessSuccessThanExpected[user.matomo_id] = 0;
     for (const [startOfWeek, weekConsos] of Object.entries(startOfWeeksForDrinks)) {
-      if (debug) console.log("CHECKING GOAL", user.id, startOfWeek, oldestGoalDate);
+      // if (debug) console.log("CHECKING GOAL", user.id, startOfWeek, oldestGoalDate);
       if (oldestGoalDate && startOfWeek < oldestGoalDate) {
         continue;
       }
@@ -102,15 +102,15 @@ async function syncBadges(fixGoals = false, debug = false) {
       const goalCheck = await checkCurrentWeekGoal(goal, weekConsos);
 
       if (goal.status === "InProgress" && goalCheck.status === null && !goalCheck.weekIsFilledWithConsos) {
-        if (debug) console.log("GOAL IN PROGRESS", user.id, startOfWeek);
+        // if (debug) console.log("GOAL IN PROGRESS", user.id, startOfWeek);
         continue;
       }
       if (goal.status === "Failure" && goalCheck.status === "Failure") {
-        if (debug) console.log("GOAL FAILURE", user.id, startOfWeek);
+        // if (debug) console.log("GOAL FAILURE", user.id, startOfWeek);
         continue;
       }
       if (goal.status === "Success" && goalCheck.status === "Success") {
-        if (debug) console.log("GOAL SUCCESS", user.id, startOfWeek);
+        // if (debug) console.log("GOAL SUCCESS", user.id, startOfWeek);
         continue;
       }
       usersWithFuckedUpGoals[user.matomo_id] = true;
@@ -241,4 +241,4 @@ async function syncBadges(fixGoals = false, debug = false) {
   });
 }
 
-syncBadges(true, true);
+syncBadges(false, true);
