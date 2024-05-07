@@ -131,11 +131,15 @@ router.get(
         where: { id: currentGoal.id },
       });
       if (!thisWeekGoal) {
-        thisWeekGoal = await prisma.goal.upsert({
-          where: { id: currentGoal.id },
-          create: currentGoal,
-          data: currentGoal,
-        });
+        try {
+          thisWeekGoal = await prisma.goal.upsert({
+            where: { id: currentGoal.id },
+            create: currentGoal,
+            data: currentGoal,
+          });
+        } catch (e) {
+          console.error("error while creating goal because created somewhere else", e);
+        }
       }
     }
 

@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -31,6 +31,9 @@ import { storage } from '../../services/storage';
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
   const previousDaysWithGoalNoDrink = useRef(daysWithGoalNoDrink);
+  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const setGoals = useSetRecoilState(goalsState);
+
   const toggleDayWithGoalNoDrink = (day) => {
     const newState = daysWithGoalNoDrink.includes(day)
       ? daysWithGoalNoDrink.filter((d) => d !== day)
