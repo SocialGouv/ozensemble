@@ -16,6 +16,8 @@ import {
   maxDrinksPerWeekSelector,
   previousDrinksPerWeekState,
   isOnboardedSelector,
+  totalDrinksByDrinkingDaySelector,
+  goalsState,
 } from '../../recoil/gains';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { drinksCatalogObject, drinksCategories, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';

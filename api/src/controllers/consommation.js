@@ -122,7 +122,7 @@ router.post(
         update: conso,
         create: { ...conso, id: conso_id },
       });
-      console.log("conso upserted", consoDB._id);
+      console.log("conso upserted", consoDB.id);
     }
 
     /* 2. SIDE EFFECTS */
