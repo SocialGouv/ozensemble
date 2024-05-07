@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useIsFocused } from '@react-navigation/native';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +16,8 @@ import {
   maxDrinksPerWeekSelector,
   previousDrinksPerWeekState,
   isOnboardedSelector,
+  totalDrinksByDrinkingDaySelector,
+  goalsState,
 } from '../../recoil/gains';
 import HelpModalCountConsumption from './HelpModalCountConsumption';
 import { drinksCatalogObject, drinksCategories, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
@@ -25,10 +27,15 @@ import WrapperContainer from '../../components/WrapperContainer';
 import GoalSetup from '../../components/illustrations/icons/GoalSetup';
 import ModalGoalValidation from '../../components/ModalGoalValidation';
 import ModalWrongValue from '../../components/ModalWrongValue';
+import API from '../../services/api';
+import { storage } from '../../services/storage';
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
   const previousDaysWithGoalNoDrink = useRef(daysWithGoalNoDrink);
+  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
+  const setGoals = useSetRecoilState(goalsState);
+
   const toggleDayWithGoalNoDrink = (day) => {
     const newState = daysWithGoalNoDrink.includes(day)
       ? daysWithGoalNoDrink.filter((d) => d !== day)
@@ -118,6 +125,20 @@ const Goal = ({ navigation }) => {
             category: 'GAINS',
             action: 'GOAL_DRINKWEEK',
             value: dosesPerWeek,
+          });
+          const matomoId = storage.getString('@UserIdv2');
+          API.post({
+            path: '/goal',
+            body: {
+              matomoId: matomoId,
+              daysWithGoalNoDrink,
+              dosesByDrinkingDay,
+              dosesPerWeek,
+            },
+          }).then((res) => {
+            if (res.ok) {
+              setGoals(res.data);
+            }
           });
           if (isOnboarded) {
             navigation.navigate('GAINS_SEVRAGE');

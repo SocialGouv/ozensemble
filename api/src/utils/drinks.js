@@ -11,7 +11,7 @@ dayjs.extend(utc);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
-async function syncBadgesWithConsos(matomoId) {
+async function syncDrinkBadgesWithConsos(matomoId) {
   if (!matomoId) return null;
   const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
   if (!user) return null;
@@ -234,7 +234,7 @@ function countMaxConsecutiveDays(allConsos) {
 }
 
 module.exports = {
-  syncBadgesWithConsos,
+  syncDrinkBadgesWithConsos,
   getBadgeCorrespondingToConsecutiveDays,
   getStarsCorrespondingToConsecutiveDays,
   countConsecutiveDays,

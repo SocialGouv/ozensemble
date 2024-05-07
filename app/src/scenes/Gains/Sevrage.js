@@ -1,26 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { SafeAreaView } from 'react-native';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import WrapperContainer from '../../components/WrapperContainer';
 import TextStyled from '../../components/TextStyled';
-import {
-  daysWithGoalNoDrinkState,
-  goalsState,
-  maxDrinksPerWeekSelector,
-  totalDrinksByDrinkingDaySelector,
-} from '../../recoil/gains';
-import { storage } from '../../services/storage';
-import API from '../../services/api';
 
 const Sevrage = ({ navigation, route }) => {
-  const daysWithGoalNoDrink = useRecoilValue(daysWithGoalNoDrinkState);
-  const dosesByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
-  const dosesPerWeek = useRecoilValue(maxDrinksPerWeekSelector);
-  const setGoals = useSetRecoilState(goalsState);
-
   return (
     <>
       <SafeAreaView className="bg-[#39CEC0]" />
@@ -58,20 +44,6 @@ const Sevrage = ({ navigation, route }) => {
           <ButtonPrimary
             content="J'ai compris et je commence "
             onPress={() => {
-              const matomoId = storage.getString('@UserIdv2');
-              API.post({
-                path: '/goal',
-                body: {
-                  matomoId: matomoId,
-                  daysWithGoalNoDrink,
-                  dosesByDrinkingDay,
-                  dosesPerWeek,
-                },
-              }).then((res) => {
-                if (res.ok) {
-                  setGoals(res.data);
-                }
-              });
               logEvent({
                 category: 'GAINS',
                 action: 'GOAL_FINISH',

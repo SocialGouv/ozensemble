@@ -117,24 +117,32 @@ router.get(
     });
 
     if (user.goal_isSetup) {
+      let currentGoal = {
+        id: `${user.id}_${dayjs().startOf("week").format("YYYY-MM-DD")}`,
+        userId: user.id,
+        date: dayjs().startOf("week").format("YYYY-MM-DD"),
+        daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
+        dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
+        dosesPerWeek: user.goal_dosesPerWeek,
+        status: GoalStatus.InProgress,
+      };
       // if pas de goal pour cette semaine, on le crée
-      const thisWeekGoal = await prisma.goal.findFirst({
-        where: { userId: user.id, date: dayjs().startOf("week").format("YYYY-MM-DD") },
+      let thisWeekGoal = await prisma.goal.findFirst({
+        where: { id: currentGoal.id },
       });
       if (!thisWeekGoal) {
-        await prisma.goal.create({
-          data: {
-            id: `${user.id}_${dayjs().startOf("week").format("YYYY-MM-DD")}`,
-            userId: user.id,
-            date: dayjs().startOf("week").format("YYYY-MM-DD"),
-            daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
-            dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
-            dosesPerWeek: user.goal_dosesPerWeek,
-            status: GoalStatus.InProgress,
-          },
-        });
+        try {
+          thisWeekGoal = await prisma.goal.upsert({
+            where: { id: currentGoal.id },
+            create: currentGoal,
+            data: currentGoal,
+          });
+        } catch (e) {
+          console.error("error while creating goal because created somewhere else", e);
+        }
       }
     }
+
     const goals = await prisma.goal.findMany({
       where: { userId: user.id },
       orderBy: { date: "desc" },
