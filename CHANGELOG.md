@@ -1,3 +1,10 @@
+# [1.154.0](https://github.com/SocialGouv/ozensemble/compare/v1.153.20...v1.154.0) (2024-05-07)
+
+
+### Features
+
+* new testimonies and testimonies list ([#576](https://github.com/SocialGouv/ozensemble/issues/576)) ([78b9e91](https://github.com/SocialGouv/ozensemble/commit/78b9e9191a138c0a3686d6b5014cf271be769792))
+
 ## [1.153.20](https://github.com/SocialGouv/ozensemble/compare/v1.153.19...v1.153.20) (2024-05-06)
 
 
