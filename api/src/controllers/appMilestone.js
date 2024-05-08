@@ -83,6 +83,29 @@ router.post(
         });
       }
     }
+    if (req.headers.appversion >= 272) {
+      const featureStarColor = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@FeatureStarColor` },
+      });
+      if (!featureStarColor) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@FeatureStarColor`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@FeatureStarColor",
+            title: "Les étoiles d’abstinence changent de couleur",
+            content: "Retrouvez de nouvelles couleurs dans votre calendrier. Les étoiles d’abstinence apparaissent désormais de couleur bleue.",
+            CTATitle: "Découvrir",
+          },
+        });
+      }
+    }
 
     if (req.headers.appversion >= 255) {
       const featureOwnCl = await prisma.appMilestone.findUnique({
