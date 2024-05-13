@@ -17,6 +17,10 @@ const CravingIndex = ({ navigation }) => {
           className="flex-1  rounded-md overflow-hidden"
           onPress={() => {
             navigation.navigate('HYDRATION_ADVICE');
+            logEvent({
+              category: 'CRAVING_ADVICE',
+              action: 'HYDRATION_ADVICE',
+            });
           }}>
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundAdvices.png')}>
             <View className="flex items-center h-full justify-between py-6 ">

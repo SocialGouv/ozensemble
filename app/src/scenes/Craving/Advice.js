@@ -17,43 +17,38 @@ const Advice = ({ navigation }) => {
 
   const advice = [
     {
+      title: 'Hydratez-vous',
+      description:
+        'Optez pour des boissons non alcoolisées et savoureuses (eau pétillante, jus de fruits, tisane). Ajoutez-y une rondelle de citron ou de concombre.',
+      currentAdvice: 'READING_ADVICE',
+      icon: HydrationIcon,
+    },
+    {
       title: 'Lisez une revue',
       description:
         'Profitez de ce moment pour démarrer un livre que vous souhaitiez lire, ou pour lire une revue ou un article.\n',
-      nextAdvice: 'HYDRATATION_ADVICE',
-      currentAdvice: 'READING_ADVICE',
+      currentAdvice: 'MUSIC_ADVICE',
       icon: ReadingIcon,
     },
     {
       title: 'Ecoutez de la musique',
       description:
         'Lancez vos musiques les plus entrainantes ou apaisantes. Profitez-en pour écouter le dernier album de votre artiste préféré !\n',
-      nextAdvice: 'READING_ADVICE',
-      currentAdvice: 'MUSIC_ADVICE',
+      currentAdvice: 'WALK_ADVICE',
       icon: MusicIcon,
-    },
-    {
-      title: 'Hydratez-vous',
-      description:
-        'Optez pour des boissons non alcoolisées et savoureuses (eau pétillante, jus de fruits, tisane). Ajoutez-y une rondelle de citron ou de concombre.',
-      nextAdvice: 'WALK_ADVICE',
-      currentAdvice: 'HYDRATATION_ADVICE',
-      icon: HydrationIcon,
     },
     {
       title: 'Faites une balade',
       description:
         'Profitez-en pour aller prendre l’air. Faites une marche de 15 minutes, allez découvrir un endroit que vous ne connaissez pas.\n',
-      nextAdvice: 'MUSIC_ADVICE',
-      currentAdvice: 'WALK_ADVICE',
+      currentAdvice: 'SHOWER_ADVICE',
       icon: WalkIcon,
     },
     {
       title: 'Prenez une douche',
       description:
         'Détentez-vous en prenant une douche chaude ou froide. Cela vous permettra de vous décontracter et de vous distraire.\n',
-      nextAdvice: 'READING_ADVICE',
-      currentAdvice: 'SHOWER_ADVICE',
+      currentAdvice: 'HYDRATATION_ADVICE',
       icon: ShowerIcon,
     },
   ];
@@ -81,9 +76,8 @@ const Advice = ({ navigation }) => {
               onPress={() => {
                 setCurrentAdviceIndex((currentAdviceIndex + 1) % advice.length);
                 logEvent({
-                  category: 'NAVIGATION',
+                  category: 'CRAVING_ADVICE',
                   action: currentAdvice.currentAdvice,
-                  name: currentAdvice.nextAdvice,
                 });
               }}>
               <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>
