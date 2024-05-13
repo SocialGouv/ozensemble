@@ -6,12 +6,22 @@ import BreathingIcon from '../../components/illustrations/BreathingIcon';
 import VideosIcon from '../../components/illustrations/VideosIcon';
 import ModalCraving from '../../components/ModalCraving';
 import { storage } from '../../services/storage';
+import StrategyIcon from '../../components/illustrations/StrategyIcon';
 
 const CravingIndex = ({ navigation }) => {
   const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
 
   return (
     <WrapperContainer title="Craving">
+      <TouchableOpacity
+        className="w-full  bg-[#4030A5] rounded-xl flex flex-row items-end justify-between px-4 py-2 mb-10"
+        onPress={() => {
+          navigation.navigate('CRAVING_STRATEGIES');
+        }}>
+        <Text className=" text-2xl  font-semibold text-white pb-2 pl-2">Ma stratégie</Text>
+        <StrategyIcon size={90} />
+      </TouchableOpacity>
+      <Text className="text-xl font-bold mb-4">Mes activités</Text>
       <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-2 pt-2 ">
         <TouchableOpacity
           className="flex-1  rounded-md overflow-hidden"

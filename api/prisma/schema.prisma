@@ -33,6 +33,7 @@ model User {
   updatedAt                DateTime               @default(now()) @updatedAt
   drinksContextRequests    DrinksContextRequest[]
   appVersion               String?
+  strategies               Strategy[]
 
   @@index([push_notif_token], type: Hash)
 }
@@ -202,4 +203,15 @@ model DrinksContextRequest {
 
   @@index([category], type: Hash)
   @@index([context], type: Hash)
+}
+
+model Strategy {
+  id          String   @id
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  index       Float
+  feelings    String[] @default([])
+  trigger     String[] @default([])
+  intensity   Float    @default(0)
+  actionPlan  String[] @default([])
 }

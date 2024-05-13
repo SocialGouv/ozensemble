@@ -9,6 +9,8 @@ import ExercicesVideosIndex from './ExercicesVideosIndex';
 import EntertainmentVideosIndex from './EntertainmentVideosIndex';
 import VideoPlayer from '../../components/VideoPlayer';
 import Advice from './Advice';
+import CravingStrategies from './CravingStrategies';
+import DefineStrategy from './DefineStrategy';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {
@@ -26,6 +28,8 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="ENTERTAINMENT_VIDEOS_INDEX" component={EntertainmentVideosIndex} />
         <CravingStack.Screen name="VIDEO_PLAYER" component={VideoPlayer} />
         <CravingStack.Screen name="HYDRATION_ADVICE" component={Advice} />
+        <CravingStack.Screen name="CRAVING_STRATEGIES" component={CravingStrategies} />
+        <CravingStack.Screen name="DEFINE_STRATEGY" component={DefineStrategy} />
       </CravingStack.Navigator>
     </Background>
   );
