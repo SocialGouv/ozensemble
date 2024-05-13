@@ -21,6 +21,14 @@ const CravingIndex = ({ navigation }) => {
         <Text className=" text-2xl  font-semibold text-white pb-2 pl-2">Ma stratégie</Text>
         <StrategyIcon size={90} />
       </TouchableOpacity>
+      <TouchableOpacity
+        className="w-full  bg-[#4030A5] rounded-xl flex flex-row items-end justify-between px-4 py-2 mb-10"
+        onPress={() => {
+          navigation.navigate('LEAVING_CRAVING_MODAL');
+        }}>
+        <Text className=" text-2xl  font-semibold text-white pb-2 pl-2">Ma stratégie</Text>
+        <StrategyIcon size={90} />
+      </TouchableOpacity>
       <Text className="text-xl font-bold mb-4">Mes activités</Text>
       <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-2 pt-2 ">
         <TouchableOpacity

@@ -11,6 +11,7 @@ import VideoPlayer from '../../components/VideoPlayer';
 import Advice from './Advice';
 import CravingStrategies from './CravingStrategies';
 import DefineStrategy from './DefineStrategy';
+import LeaveCravingModal from './LeaveCravingModal';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {
@@ -30,6 +31,7 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="HYDRATION_ADVICE" component={Advice} />
         <CravingStack.Screen name="CRAVING_STRATEGIES" component={CravingStrategies} />
         <CravingStack.Screen name="DEFINE_STRATEGY" component={DefineStrategy} />
+        <CravingStack.Screen name="LEAVING_CRAVING_MODAL" component={LeaveCravingModal} />
       </CravingStack.Navigator>
     </Background>
   );
