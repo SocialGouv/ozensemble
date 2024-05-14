@@ -417,6 +417,7 @@ const cancelNotif = async (matomoId, type) => {
 
 const notificationsCronJob = async () => {
   const now = dayjs().utc();
+  console.log("notificationsCronJob", now.format("YYYY-MM-DD HH:mm"));
 
   const notifs = await prisma.notification.findMany({
     where: {
