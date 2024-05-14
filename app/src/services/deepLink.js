@@ -12,6 +12,7 @@ export const deepLinkingConfig = {
       APP: {
         screens: {
           ADD_DRINK: 'ADD_DRINK',
+          BADGES_LIST: 'BADGES_LIST',
           TABS: {
             screens: {
               CONSO_FOLLOW_UP_NAVIGATOR: 'CONSO_FOLLOW_UP_NAVIGATOR',

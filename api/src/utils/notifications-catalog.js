@@ -83,6 +83,12 @@ const NOTIFICATIONS_TYPES = {
     body: "Gardez le rythme et ajoutez vos consommations d’aujourd’hui",
     link: "oz://APP/ADD_DRINK",
   },
+  UNLOCKED_BADGES: {
+    type: "UNLOCKED_BADGES",
+    title: "Vous avez gagné de nouveux badges",
+    body: "Découvrez dès maintenant les nouveaux badges que vous avez débloqué sur Oz !",
+    link: "oz://APP/BADGES_LIST",
+  },
 };
 
 module.exports = {

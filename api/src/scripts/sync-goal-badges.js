@@ -4,7 +4,7 @@ const dayjs = require("dayjs");
 const prisma = require("../prisma");
 const { getStarsCorrespondingToGoalsSuccess } = require("../utils/goals");
 
-async function syncBadges(fixBadges = false, skip, take) {
+async function syncBadges({ fixBadges = false, skip, take }) {
   const users = await prisma.user.findMany({
     where: {
       goal_isSetup: true,
@@ -25,6 +25,7 @@ async function syncBadges(fixBadges = false, skip, take) {
     skip,
     take,
   });
+  if (users.length === 0) return;
   console.log("USERS", users.length);
   let usersThatDontHaveTheBadge = 0;
   for (const [index, user] of Object.entries(users)) {
@@ -47,6 +48,21 @@ async function syncBadges(fixBadges = false, skip, take) {
               date: dayjs().format("YYYY-MM-DD"),
               stars: i,
               shown: true,
+            },
+          });
+        }
+        const unlockedBadgesNotification = await prisma.notification.findFirst({
+          where: {
+            userId: user.id,
+            type: "UNLOCKED_BADGES",
+          },
+        });
+        if (!unlockedBadgesNotification) {
+          await prisma.notification.create({
+            data: {
+              user: { connect: { id: user.id } },
+              type: "UNLOCKED_BADGES",
+              date: dayjs().utc().add(1, "minute").startOf("minute").toDate(),
             },
           });
         }
@@ -105,6 +121,6 @@ const skipTakes = [
 ];
 (async () => {
   for (const [skip, take] of skipTakes) {
-    await syncBadges(true, skip, take);
+    await syncBadges({ fixBadges: true, skip, take });
   }
 })();

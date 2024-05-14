@@ -7,7 +7,7 @@ const { grabBadgeFromCatalog } = require("../utils/badges");
 const { countMaxConsecutiveDays, getStarsCorrespondingToConsecutiveDays } = require("../utils/drinks");
 const { checkCurrentWeekGoal } = require("../utils/goals");
 
-async function syncBadges(fixGoals = false, debug = false, skip, take) {
+async function syncBadges({ fixGoals = false, debug = false, skip, take }) {
   console.log("--------------------------------------------------------------------------------------------------------------------");
   console.log("SKIP", skip, "TAKE", take);
   const users = await prisma.user.findMany({
@@ -270,6 +270,6 @@ const skipTakes = [
 ];
 (async () => {
   for (const [skip, take] of skipTakes) {
-    await syncBadges(true, false, skip, take);
+    await syncBadges({ fixGoals: true, debug: true, skip, take });
   }
 })();
