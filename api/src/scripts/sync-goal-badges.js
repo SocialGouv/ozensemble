@@ -5,6 +5,8 @@ const prisma = require("../prisma");
 const { getStarsCorrespondingToGoalsSuccess } = require("../utils/goals");
 
 async function syncBadges({ fixBadges = false, skip, take }) {
+  console.log("--------------------------------------------------------------------------------------------------------------------");
+  console.log("SKIP", skip, "TAKE", take);
   const users = await prisma.user.findMany({
     where: {
       goal_isSetup: true,
@@ -62,7 +64,7 @@ async function syncBadges({ fixBadges = false, skip, take }) {
             data: {
               user: { connect: { id: user.id } },
               type: "UNLOCKED_BADGES",
-              date: dayjs().utc().add(1, "minute").startOf("minute").toDate(),
+              date: dayjs().utc().add(1, "minute").endOf("hour").toDate(),
             },
           });
         }

@@ -5,6 +5,8 @@ const prisma = require("../prisma");
 const { countMaxConsecutiveDays, getStarsCorrespondingToConsecutiveDays } = require("../utils/drinks");
 
 async function syncBadges({ fixBadges = false, skip, take }) {
+  console.log("--------------------------------------------------------------------------------------------------------------------");
+  console.log("SKIP", skip, "TAKE", take);
   const users = await prisma.user.findMany({
     where: {},
     include: {
@@ -21,6 +23,7 @@ async function syncBadges({ fixBadges = false, skip, take }) {
   if (users.length === 0) return;
   console.log("USERS", users.length);
   let usersWithBadgeBiggerThan6ThatDontHaveTheBadge = 0;
+  let usersThatDontHaveTheBadge = 0;
   for (const [index, user] of Object.entries(users)) {
     // log every 100 users
     if (index % 100 === 0) console.log("user", index);
@@ -30,6 +33,7 @@ async function syncBadges({ fixBadges = false, skip, take }) {
     const numberOfStarsForThoseDays = getStarsCorrespondingToConsecutiveDays(maxConsecutiveDays);
     const biggestDrinksBadge = user.badges.find((b) => b.category === "drinks")?.stars;
     if (numberOfStarsForThoseDays > biggestDrinksBadge) {
+      usersThatDontHaveTheBadge++;
       // if (debug) console.log("NO GOOD DRINKS STARS", user.id, maxConsecutiveDays, biggestDrinksBadge, numberOfStarsForThoseDays);
       if (numberOfStarsForThoseDays >= 6) {
         usersWithBadgeBiggerThan6ThatDontHaveTheBadge++;
@@ -57,7 +61,7 @@ async function syncBadges({ fixBadges = false, skip, take }) {
             data: {
               user: { connect: { id: user.id } },
               type: "UNLOCKED_BADGES",
-              date: dayjs().utc().add(1, "minute").startOf("minute").toDate(),
+              date: dayjs().utc().add(1, "minute").endOf("hour").toDate(),
             },
           });
         }
@@ -67,6 +71,7 @@ async function syncBadges({ fixBadges = false, skip, take }) {
 
   console.log("DONE");
   console.log({
+    usersThatDontHaveTheBadge,
     usersWithBadgeBiggerThan6ThatDontHaveTheBadge,
   });
 }
