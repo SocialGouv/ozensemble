@@ -36,7 +36,6 @@ async function syncBadges({ fixBadges = false, skip, take }) {
 
     const numberOfStarsForThoseGoals = getStarsCorrespondingToGoalsSuccess(user.goals.length);
     const biggestDrinksBadge = user.badges.find((b) => b.category === "goals")?.stars;
-    console.log({ biggestDrinksBadge, numberOfStarsForThoseGoals });
     if (numberOfStarsForThoseGoals > biggestDrinksBadge) {
       // if (debug) console.log("NO GOOD DRINKS STARS", user.id, maxConsecutiveDays, biggestDrinksBadge, numberOfStarsForThoseGoals);
       usersThatDontHaveTheBadge++;

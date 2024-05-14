@@ -116,6 +116,6 @@ const skipTakes = [
 ];
 (async () => {
   for (const [skip, take] of skipTakes) {
-    await syncBadges({ fixBadges: false, skip, take });
+    await syncBadges({ fixBadges: true, skip, take });
   }
 })();
