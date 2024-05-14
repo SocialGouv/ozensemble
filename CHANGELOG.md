@@ -1,3 +1,10 @@
+# [1.155.0](https://github.com/SocialGouv/ozensemble/compare/v1.154.3...v1.155.0) (2024-05-14)
+
+
+### Features
+
+* new type ([#573](https://github.com/SocialGouv/ozensemble/issues/573)) ([fd5c581](https://github.com/SocialGouv/ozensemble/commit/fd5c581ed6276cb5f0e55edb7fa41040066c3226))
+
 ## [1.154.3](https://github.com/SocialGouv/ozensemble/compare/v1.154.2...v1.154.3) (2024-05-07)
 
 
