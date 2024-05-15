@@ -208,10 +208,14 @@ model DrinksContextRequest {
 model Strategy {
   id          String   @id
   user        User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   userId      String
   index       Float
   feelings    String[] @default([])
   trigger     String[] @default([])
   intensity   Float    @default(0)
   actionPlan  String[] @default([])
+
+    @@index([userId], type: Hash)
 }

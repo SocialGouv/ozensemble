@@ -1,5 +1,5 @@
 import { ImageBackground, View, TouchableOpacity, Text } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import WrapperContainer from '../../components/WrapperContainer';
 import AdvicesIcon from '../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../components/illustrations/BreathingIcon';
@@ -7,16 +7,50 @@ import VideosIcon from '../../components/illustrations/VideosIcon';
 import ModalCraving from '../../components/ModalCraving';
 import { storage } from '../../services/storage';
 import StrategyIcon from '../../components/illustrations/StrategyIcon';
+import API from '../../services/api';
 
 const CravingIndex = ({ navigation }) => {
   const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
+
+  const [strategies, setStrategies] = useState([]);
+  useEffect(() => {
+    API.get({
+      path: '/strategies/list',
+      query: {
+        matomoId: storage.getString('@UserIdv2'),
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          if (res.strategies.length === 0) {
+            navigation.navigate('DEFINE_STRATEGY', {
+              toModifyStrategy: {
+                index: 0,
+                feelings: [],
+                trigger: [],
+                intensity: 0,
+                actionPlan: [],
+              },
+            });
+          }
+          if (JSON.stringify(res.strategies) !== JSON.stringify(strategies)) {
+            setStrategies(res.strategies);
+          }
+        }
+      })
+      .catch((err) => console.log('Get strats err', err));
+  }, []);
 
   return (
     <WrapperContainer title="Craving">
       <TouchableOpacity
         className="w-full  bg-[#4030A5] rounded-xl flex flex-row items-end justify-between px-4 py-2 mb-10"
         onPress={() => {
-          navigation.navigate('CRAVING_STRATEGIES');
+          if (strategies.length === 0) {
+            navigation.navigate('NO_STRATEGY');
+          } else {
+            navigation.navigate('CRAVING_STRATEGIES');
+          }
         }}>
         <Text className=" text-2xl  font-semibold text-white pb-2 pl-2">Ma stratégie</Text>
         <StrategyIcon size={90} />

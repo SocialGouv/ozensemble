@@ -13,8 +13,7 @@ import {
   pageContent,
   intensityLevels,
 } from '../../reference/StrategyCatalog';
-import { defineStrategyState } from '../../recoil/strategies';
-import { useRecoilState } from 'recoil';
+
 import { useToast } from '../../services/toast';
 import { v4 as uuidv4 } from 'uuid';
 import API from '../../services/api';
@@ -24,9 +23,10 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 import { Slider } from 'react-native-awesome-slider';
 
-const DefineStrategy = ({ navigation, strategyIndex = 0 }) => {
-  const [strategies, setStrategies] = useRecoilState(defineStrategyState);
-  const strategy = strategies[strategyIndex] ?? {};
+const DefineStrategy = ({ navigation, route }) => {
+  console.log(route.params);
+  const { toModifyStrategy } = route.params;
+  const strategy = toModifyStrategy;
   const [feelings, setFeelings] = useState(strategy.feelings ?? []);
   const [actionPlan, setActionPlan] = useState(strategy.actionPlan ?? []);
   const [trigger, setTrigger] = useState(strategy.trigger ?? []);
@@ -45,13 +45,15 @@ const DefineStrategy = ({ navigation, strategyIndex = 0 }) => {
       path: '/strategies',
       body: {
         matomoId: storage.getString('@UserIdv2'),
-        strategyIndex: strategyIndex,
+        strategyIndex: strategy.index ?? 0,
         feelings: feelings,
         trigger: trigger,
         intensity: selectedIntensity,
         actionPlan: actionPlan,
       },
     });
+    toast.show('Stratégie enregistrée');
+    navigation.navigate('CRAVING_STRATEGIES');
   };
 
   // const onValidateStrategyStape = () => {

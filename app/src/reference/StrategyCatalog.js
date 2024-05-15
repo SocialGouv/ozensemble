@@ -247,7 +247,7 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'breathingexercises',
     displayFeed: 'Faire des exercices de respiration',
-    redirection: 'notdefined',
+    redirection: 'CRAVING_BREATH',
   },
   {
     categoryKey: 'actionPlan',
@@ -259,7 +259,7 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'watchvideos',
     displayFeed: 'Regarder des vidéos',
-    redirection: 'notdefined',
+    redirection: 'CRAVING_VIDEOS',
   },
   {
     categoryKey: 'actionPlan',

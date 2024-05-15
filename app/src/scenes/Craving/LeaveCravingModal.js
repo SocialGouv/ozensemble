@@ -11,7 +11,7 @@ const LeaveCravingModal = ({ navigation }) => {
             Vous quittez votre espace d'aide au craving
           </Text>
 
-          <Text className=" text-center   px-2 font-semibold">Vous allez être redirigé vers la page demandée.</Text>
+          <Text className=" text-center px-2 font-semibold">Vous allez être redirigé vers la page demandée.</Text>
           <Text className=" text-center text-lg px-2 font-extrabold mx-5">
             Est-ce que les activités et conseils proposés vous ont aidés à surmonter votre craving ?
           </Text>
