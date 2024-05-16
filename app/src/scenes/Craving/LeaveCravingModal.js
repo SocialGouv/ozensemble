@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import Modal from '../../components/Modal';
 
-const LeaveCravingModal = ({ navigation }) => {
+const LeaveCravingModal = ({ navigation, showModal, setShowModal }) => {
   return (
     <Modal className="flex flex-grow justify-center items-center" animationType="fade" withBackground>
       <View className="bg-white rounded-xl max-w-[90%]">
@@ -20,7 +20,7 @@ const LeaveCravingModal = ({ navigation }) => {
             <TouchableOpacity
               className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#4030A5] "
               onPress={() => {
-                navigation.goBack();
+                setShowModal(false);
                 logEvent({
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_VOTE_YES',
@@ -31,7 +31,7 @@ const LeaveCravingModal = ({ navigation }) => {
             <TouchableOpacity
               className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#DE285E] ml-7"
               onPress={() => {
-                navigation.goBack();
+                setShowModal(false);
                 logEvent({
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_VOTE_NO',

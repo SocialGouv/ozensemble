@@ -53,7 +53,7 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="NO_STRATEGY" component={NoStrategy} />
         <CravingStack.Screen name="LEAVING_CRAVING_MODAL" component={LeaveCravingModal} />
       </CravingStack.Navigator>
-      {showModal && <LeaveCravingModal />}
+      {showModal && <LeaveCravingModal showmodal={showModal} setShowModal={setShowModal} />}
     </Background>
   );
 };
