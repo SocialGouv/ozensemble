@@ -13,13 +13,31 @@ import CravingStrategies from './CravingStrategies';
 import DefineStrategy from './DefineStrategy';
 import LeaveCravingModal from './LeaveCravingModal';
 import NoStrategy from './NoStrategy';
+import { useEffect, useState, useCallback } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {
+  const navigation = useNavigation();
   useToggleCTA({
     hideCTA: true,
     navigator: 'Craving',
   });
+  const [showModal, setShowModal] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+      });
+
+      return () => {
+        unsubscribe();
+        setShowModal(true);
+      };
+    }, [])
+  );
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <CravingStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CRAVING_INDEX">
@@ -35,6 +53,7 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="NO_STRATEGY" component={NoStrategy} />
         <CravingStack.Screen name="LEAVING_CRAVING_MODAL" component={LeaveCravingModal} />
       </CravingStack.Navigator>
+      {showModal && <LeaveCravingModal />}
     </Background>
   );
 };

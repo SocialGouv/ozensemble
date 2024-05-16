@@ -1,5 +1,6 @@
 import { ImageBackground, View, TouchableOpacity, Text } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import WrapperContainer from '../../components/WrapperContainer';
 import AdvicesIcon from '../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../components/illustrations/BreathingIcon';
@@ -13,33 +14,27 @@ const CravingIndex = ({ navigation }) => {
   const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
 
   const [strategies, setStrategies] = useState([]);
-  useEffect(() => {
-    API.get({
-      path: '/strategies/list',
-      query: {
-        matomoId: storage.getString('@UserIdv2'),
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          if (res.strategies.length === 0) {
-            navigation.navigate('DEFINE_STRATEGY', {
-              toModifyStrategy: {
-                index: 0,
-                feelings: [],
-                trigger: [],
-                intensity: 0,
-                actionPlan: [],
-              },
-            });
-          }
-          if (JSON.stringify(res.strategies) !== JSON.stringify(strategies)) {
+  useFocusEffect(
+    useCallback(() => {
+      const fetchStrategies = async () => {
+        try {
+          const res = await API.get({
+            path: '/strategies/list',
+            query: {
+              matomoId: storage.getString('@UserIdv2'),
+            },
+          });
+          if (res.ok) {
             setStrategies(res.strategies);
           }
+        } catch (err) {
+          console.log('Get strats err', err);
         }
-      })
-      .catch((err) => console.log('Get strats err', err));
-  }, []);
+      };
+
+      fetchStrategies();
+    }, [])
+  );
 
   return (
     <WrapperContainer title="Craving">

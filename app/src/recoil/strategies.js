@@ -4,7 +4,7 @@ import { getInitValueFromStorage } from './utils';
 
 export const defineStrategyState = atom({
   key: 'defineStrategyState',
-  default: getInitValueFromStorage('@define-strategy', {}),
+  default: getInitValueFromStorage('@define-strategy', []),
   effects: [
     ({ onSet }) =>
       onSet((newValue) => {

@@ -40,6 +40,7 @@ router.post(
         intensity: intensity,
         actionPlan: actionPlan,
         userId: user.id,
+        updatedAt: dayjs().toDate(),
       },
       create: {
         id: `${user.id}_${strategyIndex}`,

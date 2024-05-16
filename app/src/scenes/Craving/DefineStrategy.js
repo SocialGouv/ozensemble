@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, Button } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
-import SensationIcon from '../../components/illustrations/SensationIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import {
   strategyCatalog,
@@ -24,7 +23,6 @@ import { useSharedValue } from 'react-native-reanimated';
 import { Slider } from 'react-native-awesome-slider';
 
 const DefineStrategy = ({ navigation, route }) => {
-  console.log(route.params);
   const { toModifyStrategy } = route.params;
   const strategy = toModifyStrategy;
   const [feelings, setFeelings] = useState(strategy.feelings ?? []);
@@ -33,12 +31,13 @@ const DefineStrategy = ({ navigation, route }) => {
   const [tab, setTab] = useState(0);
   const toast = useToast();
   const categories = ['feeling', 'trigger', 'intensity', 'actionPlan'];
-  const currentStrategyElements = tab === 0 ? feelings : tab === 1 ? trigger : actionPlan;
-  const currentStrategySetter = tab === 0 ? setFeelings : tab === 1 ? setTrigger : setActionPlan;
   const intensity = useSharedValue(0);
+  const currentStrategySetter = tab === 0 ? setFeelings : tab === 1 ? setTrigger : setActionPlan;
+  const currentStrategyElements = tab === 0 ? feelings : tab === 1 ? trigger : tab === 2 ? intensity : actionPlan;
   const [selectedIntensity, setSelectedIntensity] = useState(0);
   const maxIntensity = useSharedValue(10);
   const minIntensity = useSharedValue(0);
+  console.log(strategy.index);
 
   const ValidateStrategy = () => {
     API.post({
@@ -106,6 +105,7 @@ const DefineStrategy = ({ navigation, route }) => {
                     name={name}
                     strategyElements={currentStrategyElements}
                     setStrategyElement={currentStrategySetter}
+                    multipleChoice={tab !== 1}
                   />
                 );
               })}
@@ -188,17 +188,25 @@ const DefineStrategy = ({ navigation, route }) => {
                 </TouchableOpacity>
               </View>
             ) : (
-              <TouchableOpacity className="bg-[#DE285E] rounded-3xl  w-36" onPress={() => setTab(tab + 1)}>
+              <TouchableOpacity
+                disabled={currentStrategyElements.length === 0}
+                className={`rounded-3xl w-36 ${currentStrategyElements.length === 0 ? 'bg-[#DF94AA]' : 'bg-[#DE285E]'}`}
+                onPress={() => setTab(tab + 1)}>
                 <Text className="text-white text-xl font-bold py-3 px-6 ">Continuer</Text>
               </TouchableOpacity>
             )}
           </View>
+          <TouchableOpacity
+            className=" items-center mt-6"
+            onPress={() => (tab ? setTab(tab - 1) : navigation.goBack())}>
+            <Text className="text-[#4030A5] font-semibold underline">Annuler</Text>
+          </TouchableOpacity>
         </ScrollView>
       </Background>
     </SafeAreaProvider>
   );
 };
-const StrategyButton = ({ name, strategyElements, setStrategyElement }) => {
+const StrategyButton = ({ name, strategyElements, setStrategyElement, multipleChoice }) => {
   return (
     <TouchableOpacity
       className={[
@@ -206,17 +214,25 @@ const StrategyButton = ({ name, strategyElements, setStrategyElement }) => {
         strategyElements.includes(name) ? 'bg-[#4030A5] border border-[#4030A5]' : 'border border-[#4030A5] bg-white',
       ].join(' ')}
       onPress={() => {
-        setStrategyElement((prevStrategyElements) => {
-          const newStrategyElements = [...prevStrategyElements];
-          const index = newStrategyElements.indexOf(name);
-          if (index !== -1) {
-            newStrategyElements.splice(index, 1);
-          } else {
-            newStrategyElements.splice(0, 0, name);
-          }
-          console.log(newStrategyElements);
-          return newStrategyElements;
-        });
+        if (!multipleChoice) {
+          setStrategyElement((prevStrategyElements) => {
+            if (prevStrategyElements.includes(name)) {
+              return [];
+            }
+            return [name];
+          });
+        } else {
+          setStrategyElement((prevStrategyElements) => {
+            const newStrategyElements = [...prevStrategyElements];
+            const index = newStrategyElements.indexOf(name);
+            if (index !== -1) {
+              newStrategyElements.splice(index, 1);
+            } else {
+              newStrategyElements.push(name);
+            }
+            return newStrategyElements;
+          });
+        }
       }}>
       <Text
         className={['font-extrabold', strategyElements.includes(name) ? 'color-white' : 'text-[#4030A5]'].join(' ')}>

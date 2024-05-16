@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import Modal from '../../components/Modal';
 
 const LeaveCravingModal = ({ navigation }) => {
   return (
-    <SafeAreaView className="flex flex-grow justify-center items-center">
+    <Modal className="flex flex-grow justify-center items-center" animationType="fade" withBackground>
       <View className="bg-white rounded-xl max-w-[90%]">
         <View className=" flex w-full px-2 space-y-8 my-8">
           <Text className="text-start  text-xl px-2 font-extrabold text-[#4030A5]">
@@ -41,7 +42,7 @@ const LeaveCravingModal = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </Modal>
   );
 };
 

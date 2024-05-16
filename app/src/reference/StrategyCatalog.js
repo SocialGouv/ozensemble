@@ -1,4 +1,4 @@
-import { capture } from '@sentry/browser';
+import { capture } from '../services/sentry';
 
 export const strategyCatalog = [
   // Feelings
@@ -235,7 +235,8 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'staydistracted',
     displayFeed: 'Rester distrait et occupé',
-    redirection: 'notdefined',
+    redirection: 'RANDOM',
+    navigator: 'RANDOM',
   },
   {
     categoryKey: 'actionPlan',
@@ -265,13 +266,13 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'exercising',
     displayFeed: 'Faire des exercices',
-    redirection: 'notdefined',
+    redirection: 'EXERCISES_VIDEOS_INDEX',
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'quicktips',
     displayFeed: 'Suivre des conseils rapides',
-    redirection: 'notdefined',
+    redirection: 'HYDRATION_ADVICE',
   },
   {
     categoryKey: 'actionPlan',
@@ -283,7 +284,8 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'readarticles',
     displayFeed: 'Lire des articles',
-    redirection: 'notdefined',
+    redirection: 'HEALTH_ARTICLE',
+    navigator: 'HEALTH',
   },
   {
     categoryKey: 'actionPlan',
@@ -295,7 +297,8 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'readtestimonials',
     displayFeed: 'Lire des témoignages',
-    redirection: 'notdefined',
+    redirection: 'TESTIMONIES',
+    navigator: 'HEALTH',
   },
 ];
 
