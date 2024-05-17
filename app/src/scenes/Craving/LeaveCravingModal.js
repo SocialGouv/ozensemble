@@ -1,9 +1,18 @@
-import React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import Modal from '../../components/Modal';
+import { storage } from '../../services/storage';
+import dayjs from 'dayjs';
 
-const LeaveCravingModal = ({ navigation, showModal, setShowModal }) => {
+const LeaveCravingModal = ({ navigation }) => {
+  const daySeenCravingModalNPS = storage.getString('@daySeenCravingModalNPS');
+  let needToNPS = false;
+  if (!daySeenCravingModalNPS || dayjs(daySeenCravingModalNPS).isBefore(dayjs().subtract(7, 'day'))) {
+    needToNPS = true;
+    storage.set('@daySeenCravingModalNPS', dayjs().format('YYYY-MM-DD'));
+  }
+
   return (
     <Modal className="flex flex-grow justify-center items-center" animationType="fade" withBackground>
       <View className="bg-white rounded-xl max-w-[90%]">
@@ -20,22 +29,24 @@ const LeaveCravingModal = ({ navigation, showModal, setShowModal }) => {
             <TouchableOpacity
               className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#4030A5] "
               onPress={() => {
-                setShowModal(false);
                 logEvent({
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_VOTE_YES',
                 });
+                navigation.goBack();
+                if (needToNPS) navigation.navigate('STRATEGY_MODAL_TO_NPS');
               }}>
               <Text className="text-xl color-white font-extrabold">Oui</Text>
             </TouchableOpacity>
             <TouchableOpacity
               className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#DE285E] ml-7"
               onPress={() => {
-                setShowModal(false);
                 logEvent({
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_VOTE_NO',
                 });
+                navigation.goBack();
+                if (needToNPS) navigation.navigate('STRATEGY_MODAL_TO_NPS');
               }}>
               <Text className="text-xl color-white font-extrabold">Non</Text>
             </TouchableOpacity>

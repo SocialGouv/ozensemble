@@ -44,6 +44,8 @@ import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import BadgesList from './scenes/Badges/BadgesList';
 import CravingIcon from './components/illustrations/CravingIcon';
+import LeaveCravingModal from './scenes/Craving/LeaveCravingModal';
+import StrategyModalNPS from './components/StrategyModalNPS';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -63,6 +65,12 @@ const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
+  const showLeaveCravingModal = storage.getBoolean('@leftCraving');
+  if (showLeaveCravingModal) {
+    navigation.navigate('LEAVING_CRAVING_MODAL');
+    storage.set('@leftCraving', false);
+  }
+
   const showBootSplash = useRecoilValue(showBootSplashState);
 
   return (
@@ -285,9 +293,28 @@ const Router = () => {
               animation: 'fade',
             }}
           />
+
           <ModalsStack.Screen
             name="ABSTINENCE_SELECTION"
             component={AbstinenceSelection}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="STRATEGY_MODAL_TO_NPS"
+            component={StrategyModalNPS}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="LEAVING_CRAVING_MODAL"
+            component={LeaveCravingModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },

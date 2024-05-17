@@ -29,6 +29,8 @@ router.post(
     const trigger = req.body.trigger;
     const intensity = req.body.intensity;
     const actionPlan = req.body.actionPlan;
+    const createdAt = req.body.createdAt;
+    const updatedAt = req.body.updatedAt;
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
     //check if it should be deleted
@@ -40,7 +42,7 @@ router.post(
         intensity: intensity,
         actionPlan: actionPlan,
         userId: user.id,
-        updatedAt: dayjs().toDate(),
+        updatedAt: updatedAt,
       },
       create: {
         id: `${user.id}_${strategyIndex}`,
@@ -50,6 +52,7 @@ router.post(
         intensity: intensity,
         actionPlan: actionPlan,
         userId: user.id,
+        createdAt: createdAt,
       },
     });
     return res.status(200).send({ ok: true });

@@ -11,6 +11,7 @@ import { storage } from '../../services/storage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import TipIcon from '../../components/illustrations/TipIcon';
 import NoStrategyIcon from '../../components/illustrations/NoStrategyIcon';
+import { strategy } from '../../../../api/src/prisma';
 
 const NoStrategy = ({ navigation }) => {
   return (
@@ -53,13 +54,7 @@ const NoStrategy = ({ navigation }) => {
                 className="bg-[#DE285E] rounded-3xl "
                 onPress={() =>
                   navigation.navigate('DEFINE_STRATEGY', {
-                    toModifyStrategy: {
-                      index: 0,
-                      feelings: [],
-                      trigger: [],
-                      intensity: 0,
-                      actionPlan: [],
-                    },
+                    strategyIndex: 0,
                   })
                 }>
                 <Text className="text-white text-xl font-bold py-3 px-7 ">Commencer</Text>

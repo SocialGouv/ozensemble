@@ -1,12 +1,10 @@
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import {
-  strategyCatalog,
   strategyCatalogObject,
-  strategyCategories,
   strategyKeysByCategory,
   getDisplayName,
   pageContent,
@@ -21,10 +19,13 @@ import { useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSharedValue } from 'react-native-reanimated';
 import { Slider } from 'react-native-awesome-slider';
+import { useRecoilState } from 'recoil';
+import { defineStrategyState } from '../../recoil/strategies';
 
 const DefineStrategy = ({ navigation, route }) => {
-  const { toModifyStrategy } = route.params;
-  const strategy = toModifyStrategy;
+  const { strategyIndex } = route.params;
+  const [strategies, setStrategies] = useRecoilState(defineStrategyState);
+  const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? { index: strategyIndex };
   const [feelings, setFeelings] = useState(strategy.feelings ?? []);
   const [actionPlan, setActionPlan] = useState(strategy.actionPlan ?? []);
   const [trigger, setTrigger] = useState(strategy.trigger ?? []);
@@ -37,9 +38,39 @@ const DefineStrategy = ({ navigation, route }) => {
   const [selectedIntensity, setSelectedIntensity] = useState(0);
   const maxIntensity = useSharedValue(10);
   const minIntensity = useSharedValue(0);
-  console.log(strategy.index);
 
   const ValidateStrategy = () => {
+    let createdAt = new Date();
+    if (strategyIndex === strategies.length) {
+      const newStrategyToSave = {
+        id: uuidv4(),
+        index: strategy.index ?? 0,
+        feelings: feelings,
+        trigger: trigger,
+        intensity: selectedIntensity,
+        actionPlan: actionPlan,
+        createdAt: createdAt,
+      };
+
+      setStrategies([...strategies, newStrategyToSave]);
+    } else {
+      const modifiedStrategyToSave = {
+        id: uuidv4(),
+        index: strategyIndex,
+        feelings: feelings,
+        trigger: trigger,
+        intensity: selectedIntensity,
+        actionPlan: actionPlan,
+        updatedAt: new Date(),
+      };
+      const modifiedStrategies = strategies.map((strat) => {
+        if (strat.index === strategyIndex) {
+          return modifiedStrategyToSave;
+        }
+        return strat;
+      });
+      setStrategies(modifiedStrategies);
+    }
     API.post({
       path: '/strategies',
       body: {
@@ -50,47 +81,19 @@ const DefineStrategy = ({ navigation, route }) => {
         intensity: selectedIntensity,
         actionPlan: actionPlan,
       },
+    }).then((res) => {
+      if (res.ok) {
+        toast.show('Stratégie enregistrée');
+      }
     });
-    toast.show('Stratégie enregistrée');
     navigation.navigate('CRAVING_STRATEGIES');
   };
-
-  // const onValidateStrategyStape = () => {
-  //   const elements = tab === 0 ? feelings : tab === 1 ? trigger : actionPlan;
-  //   const actualStrategy = tab === 0 ? strategy.feelings : tab === 1 ? strategy.trigger : strategy.actionPlan;
-  //   const thisStapeOrderedElements = strategyCatalog
-  //     .filter((_strategy) => elements.includes(_strategy.strategyKey))
-  //     .map((_strategy) => _strategy.strategyKey);
-  //   const strategyChanged = actualStrategy !== thisStapeOrderedElements;
-
-  //   JSON.stringify(thisStapeOrderedElements) !== JSON.stringify(actualStrategy);
-
-  //   if (!strategyChanged) {
-  //     toast.show('Aucune modification');
-  //     return;
-  //   }
-  //   const newStrategyToSave = {
-  //     id: uuidv4(),
-  //     ...strategy,
-  //     feelings: feelings,
-  //   };
-  //   const newStrategy = { ...strategy };
-  //   newStrategy[strategyIndex] = newStrategyToSave;
-  //   setStrategies(newStrategy);
-  //   storage.set('@strategies', JSON.stringify(newStrategy));
-  // };
 
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
         <ScrollView className="h-full w-screen pl-6">
-          <BackButton
-            content="< Retour"
-            bold
-            onPress={() => (tab ? setTab(tab - 1) : navigation.goBack())}
-            marginTop
-            marginLeft
-          />
+          <BackButton content="< Retour" bold onPress={() => (tab ? setTab(tab - 1) : navigation.goBack())} marginTop />
           <Text className="text-[#4030A5] text-2xl font-extrabold mb-8 mt-3 ">Définir ma stratégie</Text>
           <Text className="text-lg font-extrabold">{pageContent[tab].question}</Text>
           {pageContent[tab].multipleChoice && (

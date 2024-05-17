@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
@@ -11,32 +11,30 @@ import VideoPlayer from '../../components/VideoPlayer';
 import Advice from './Advice';
 import CravingStrategies from './CravingStrategies';
 import DefineStrategy from './DefineStrategy';
-import LeaveCravingModal from './LeaveCravingModal';
 import NoStrategy from './NoStrategy';
-import { useEffect, useState, useCallback } from 'react';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
+import { storage } from '../../services/storage';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {
-  const navigation = useNavigation();
+  const isFocused = useIsFocused();
   useToggleCTA({
     hideCTA: true,
     navigator: 'Craving',
   });
-  const [showModal, setShowModal] = useState(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
-      });
+  useEffect(() => {
+    checkLeftCraving();
 
-      return () => {
-        unsubscribe();
-        setShowModal(true);
-      };
-    }, [])
-  );
+    function checkLeftCraving() {
+      if (!isFocused) {
+        storage.set('@leftCraving', true);
+      }
+      if (isFocused) {
+        storage.set('@leftCraving', false);
+      }
+    }
+  }, [isFocused]);
 
   return (
     <Background color="#39cec0" withSwiperContainer>
@@ -51,9 +49,7 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="CRAVING_STRATEGIES" component={CravingStrategies} />
         <CravingStack.Screen name="DEFINE_STRATEGY" component={DefineStrategy} />
         <CravingStack.Screen name="NO_STRATEGY" component={NoStrategy} />
-        <CravingStack.Screen name="LEAVING_CRAVING_MODAL" component={LeaveCravingModal} />
       </CravingStack.Navigator>
-      {showModal && <LeaveCravingModal showmodal={showModal} setShowModal={setShowModal} />}
     </Background>
   );
 };

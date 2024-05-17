@@ -3,53 +3,44 @@ import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { defineStrategyState } from '../../recoil/strategies';
-import { useState, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { storage } from '../../services/storage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import {
-  strategyCatalog,
-  strategyCatalogObject,
-  strategyCategories,
-  strategyKeysByCategory,
-  getDisplayName,
-  pageContent,
-  intensityLevels,
-} from '../../reference/StrategyCatalog';
-import { useFocusEffect } from '@react-navigation/native';
+import { strategyCatalogObject, getDisplayName } from '../../reference/StrategyCatalog';
 
 import API from '../../services/api';
 import TargetStrategy from '../../components/illustrations/icons/TargetStrategy';
 import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy';
 import LeftArrowStrategy from '../../components/illustrations/icons/leftArrowStrategy';
 import RigthArrowStrategy from '../../components/illustrations/icons/rigthArrowStrategy';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const CravingStrategies = ({ navigation }) => {
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
   const [pageIndex, setIndex] = useState(0);
-  useFocusEffect(
-    useCallback(() => {
-      const fetchStrategies = async () => {
-        try {
-          const res = await API.get({
-            path: '/strategies/list',
-            query: {
-              matomoId: storage.getString('@UserIdv2'),
-            },
-          });
-          if (res.ok) {
-            setStrategies(res.strategies);
-          }
-        } catch (err) {
-          console.log('Get strats err', err);
-        }
-      };
-
-      fetchStrategies();
-    }, [])
-  );
-
+  const [actionPlanRedictor, setActionPlanRedictor] = useState([]);
+  const [actionPlanNotRedictor, setActionPlanNotRedictor] = useState([]);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
+
+  useEffect(() => {
+    if (filteredStrategy) {
+      const newActionPlanRedictor = [];
+      const newActionPlanNotRedictor = [];
+
+      filteredStrategy.actionPlan
+        .map((actionPlanKey) => strategyCatalogObject[actionPlanKey])
+        .forEach((actionPlan) => {
+          if (actionPlan.redirection !== 'notdefined') {
+            newActionPlanRedictor.push(actionPlan);
+          } else {
+            newActionPlanNotRedictor.push(actionPlan);
+          }
+        });
+
+      setActionPlanRedictor(newActionPlanRedictor);
+      setActionPlanNotRedictor(newActionPlanNotRedictor);
+    }
+  }, [strategies, pageIndex]);
 
   return (
     <SafeAreaProvider>
@@ -64,7 +55,7 @@ const CravingStrategies = ({ navigation }) => {
                   <View className="flex flex-row items-center space-x-4">
                     <TargetStrategy size={50} />
                     <View className="flex flex-col">
-                      <Text className="text-xl font-extrabold text-[#4030A5]">Strategy n°{pageIndex + 1}</Text>
+                      <Text className="text-xl font-extrabold text-[#4030A5]">Strategie n°{pageIndex + 1}</Text>
                       <Text className=" text-[#4030A5]">
                         {new Date(filteredStrategy.createdAt).toLocaleDateString('fr-FR')}
                       </Text>
@@ -72,7 +63,7 @@ const CravingStrategies = ({ navigation }) => {
                   </View>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate('DEFINE_STRATEGY', { toModifyStrategy: filteredStrategy });
+                      navigation.navigate('DEFINE_STRATEGY', { strategyIndex: filteredStrategy.index });
                     }}>
                     <ModifyStrategy />
                   </TouchableOpacity>
@@ -91,44 +82,47 @@ const CravingStrategies = ({ navigation }) => {
                   </View>
                 </View>
                 <Text className="text-lg font-bold text-black ">Mon plan d'action</Text>
-                <Text className="italic font-bold text-[#455A64] mb-3 ">
-                  <Text className="font-extrabold">disponible sur Oz :</Text> cliquez sur une activité pour y accéder
-                </Text>
+                {actionPlanRedictor.length && (
+                  <>
+                    <Text className="italic font-bold text-[#455A64] mb-3 ">
+                      <Text className="font-extrabold">disponible sur Oz :</Text> cliquez sur une activité pour y
+                      accéder
+                    </Text>
 
-                <View className="flex flex-row flex-wrap items-center space-y-2">
-                  {filteredStrategy.actionPlan
-                    .map((actionPlanKey) => strategyCatalogObject[actionPlanKey])
-                    .filter((actionPlan) => actionPlan.redirection !== 'notdefined')
-                    .map((actionPlan, elementIndex) => {
-                      return (
-                        <TouchableOpacity
-                          onPress={() => {
-                            actionPlan.navigator === 'notdefined'
-                              ? navigation.navigate(actionPlan.navigator, { screen: actionPlan.redirection })
-                              : navigation.navigate(actionPlan.redirection);
-                          }}
-                          key={elementIndex}
-                          className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#4030A5] border border-[#4030A5]">
-                          <Text className="font-extrabold color-white">{actionPlan.displayFeed}</Text>
-                        </TouchableOpacity>
-                      );
-                    })}
-                </View>
-                <Text className="italic font-bold text-[#455A64] ">autres actions</Text>
-                <View className="flex flex-row flex-wrap items-center space-y-2">
-                  {filteredStrategy.actionPlan
-                    .map((actionPlanKey) => strategyCatalogObject[actionPlanKey])
-                    .filter((actionPlan) => actionPlan.redirection === 'notdefined')
-                    .map((actionPlan, elementIndex) => {
-                      return (
-                        <View
-                          key={elementIndex}
-                          className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#263238] border border-[#263238]">
-                          <Text className="font-extrabold color-white">{actionPlan.displayFeed}</Text>
-                        </View>
-                      );
-                    })}
-                </View>
+                    <View className="flex flex-row flex-wrap items-center space-y-2">
+                      {actionPlanRedictor.map((actionPlan, elementIndex) => {
+                        return (
+                          <TouchableOpacity
+                            onPress={() => {
+                              actionPlan.navigator
+                                ? navigation.navigate(actionPlan.navigator, { screen: actionPlan.redirection })
+                                : navigation.navigate(actionPlan.redirection);
+                            }}
+                            key={elementIndex}
+                            className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#4030A5] border border-[#4030A5]">
+                            <Text className="font-extrabold color-white">{actionPlan.displayFeed}</Text>
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </View>
+                  </>
+                )}
+                {actionPlanNotRedictor.length && (
+                  <>
+                    <Text className="italic font-bold text-[#455A64] mb-2">autres actions</Text>
+                    <View className="flex flex-row flex-wrap items-center space-y-2">
+                      {actionPlanNotRedictor.map((actionPlan, elementIndex) => {
+                        return (
+                          <View
+                            key={elementIndex}
+                            className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#263238] border border-[#263238]">
+                            <Text className="font-extrabold color-white">{actionPlan.displayFeed}</Text>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  </>
+                )}
               </View>
             )}
           </View>
@@ -160,15 +154,8 @@ const CravingStrategies = ({ navigation }) => {
               <TouchableOpacity
                 className="bg-[#DE285E] rounded-3xl "
                 onPress={() => {
-                  console.log(strategies.length);
                   navigation.navigate('DEFINE_STRATEGY', {
-                    toModifyStrategy: {
-                      index: strategies.length,
-                      feelings: [],
-                      trigger: [],
-                      intensity: 0,
-                      actionPlan: [],
-                    },
+                    strategyIndex: strategies.length,
                   });
                 }}>
                 <Text className="text-white text-xl font-bold py-3 px-7 ">Ajouter une stratégie</Text>
