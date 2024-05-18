@@ -10,9 +10,11 @@ CREATE TABLE "Strategy" (
     "intensity" DOUBLE PRECISION NOT NULL DEFAULT 0,
     "actionPlan" TEXT[] DEFAULT ARRAY[]::TEXT[],
 
+    CONSTRAINT "Strategy_pkey" PRIMARY KEY ("id")
+);
 
-CONSTRAINT "Strategy_pkey" PRIMARY KEY ("id") );
+-- CreateIndex
+CREATE INDEX "Strategy_userId_idx" ON "Strategy" USING HASH ("userId");
 
 -- AddForeignKey
-ALTER TABLE "Strategy"
-ADD CONSTRAINT "Strategy_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Strategy" ADD CONSTRAINT "Strategy_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
