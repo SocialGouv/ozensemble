@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { Text, View, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import { hitSlop } from '../styles/theme';
 import ButtonPrimary from './ButtonPrimary';
 import H1 from './H1';
 import TextStyled from './TextStyled';
-import { logEvent } from '../services/logEventsWithMatomo';
-import { storage } from '../services/storage';
-import dayjs from 'dayjs';
 
 const StrategyModalNPS = ({ navigation }) => {
   return (

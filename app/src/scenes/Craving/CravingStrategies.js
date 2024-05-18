@@ -4,11 +4,9 @@ import BackButton from '../../components/BackButton';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { defineStrategyState } from '../../recoil/strategies';
 import { useState, useEffect } from 'react';
-import { storage } from '../../services/storage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { strategyCatalogObject, getDisplayName } from '../../reference/StrategyCatalog';
 
-import API from '../../services/api';
 import TargetStrategy from '../../components/illustrations/icons/TargetStrategy';
 import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy';
 import LeftArrowStrategy from '../../components/illustrations/icons/leftArrowStrategy';
@@ -64,6 +62,11 @@ const CravingStrategies = ({ navigation }) => {
                   <TouchableOpacity
                     onPress={() => {
                       navigation.navigate('DEFINE_STRATEGY', { strategyIndex: filteredStrategy.index });
+                      logEvent({
+                        category: 'STRATEGY',
+                        action: 'CLICK_MODIFY_STRAT',
+                        name: filteredStrategy.index,
+                      });
                     }}>
                     <ModifyStrategy />
                   </TouchableOpacity>
@@ -156,6 +159,11 @@ const CravingStrategies = ({ navigation }) => {
                 onPress={() => {
                   navigation.navigate('DEFINE_STRATEGY', {
                     strategyIndex: strategies.length,
+                  });
+                  logEvent({
+                    category: 'STRATEGY',
+                    action: 'CLICK_ADD_NEW_STRAT',
+                    name: strategies.length,
                   });
                 }}>
                 <Text className="text-white text-xl font-bold py-3 px-7 ">Ajouter une stratégie</Text>
