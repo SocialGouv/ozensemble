@@ -28,6 +28,8 @@ import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 import ChatBubbles from './illustrations/Chatbubbles';
 import OwnClIcon from './illustrations/icons/OwnClIcon';
 import CravingIcon from './illustrations/CravingIcon';
+import SimpleArrow from './illustrations/icons/SimpleArrow';
+import LegendStar from './illustrations/icons/LegendStar';
 
 /* example
 {
@@ -136,7 +138,16 @@ const InAppModal = ({ navigation, route }) => {
             </Svg>
           </TouchableOpacity>
         )}
-        <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+        <View className="mb-6 mt-6 items-center">
+          {inAppModal?.id.includes('FeatureStarColor') && (
+            <View className=" flex flex-row items-center">
+              <LegendStar fill={'#FCBC49'} size={50} />
+              <View className="p-1" />
+              <SimpleArrow />
+              <View className="p-1" />
+              <LegendStar fill={'#3E5DE6'} size={50} />
+            </View>
+          )}
           {inAppModal?.id.includes('FeatureCraving') && (
             <View className="mx-2 flex flex-col items-center">
               <CravingIcon size={60} />
