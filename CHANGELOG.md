@@ -1,3 +1,10 @@
+## [1.155.1](https://github.com/SocialGouv/ozensemble/compare/v1.155.0...v1.155.1) (2024-05-23)
+
+
+### Bug Fixes
+
+* no more userSurveyFinishedMilestone already exists ([d9d71c3](https://github.com/SocialGouv/ozensemble/commit/d9d71c3199976a365bbac618ef42c48e4893b99a))
+
 # [1.155.0](https://github.com/SocialGouv/ozensemble/compare/v1.154.3...v1.155.0) (2024-05-14)
 
 
