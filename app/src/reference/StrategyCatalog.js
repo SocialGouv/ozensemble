@@ -236,7 +236,6 @@ export const strategyCatalog = [
     strategyKey: 'staydistracted',
     displayFeed: 'Rester distrait et occupé',
     redirection: 'RANDOM',
-    navigator: 'RANDOM',
   },
   {
     categoryKey: 'actionPlan',
@@ -285,7 +284,6 @@ export const strategyCatalog = [
     strategyKey: 'readarticles',
     displayFeed: 'Lire des articles',
     redirection: 'HEALTH_ARTICLE',
-    navigator: 'HEALTH',
   },
   {
     categoryKey: 'actionPlan',
@@ -298,7 +296,6 @@ export const strategyCatalog = [
     strategyKey: 'readtestimonials',
     displayFeed: 'Lire des témoignages',
     redirection: 'TESTIMONIES',
-    navigator: 'HEALTH',
   },
 ];
 

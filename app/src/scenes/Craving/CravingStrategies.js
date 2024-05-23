@@ -104,9 +104,7 @@ const CravingStrategies = ({ navigation }) => {
                                 );
                                 _actionPlan = actionPlanRedictorNotRandom[randomActionPlanIndex];
                               }
-                              _actionPlan.navigator
-                                ? navigation.navigate(_actionPlan.navigator, { screen: _actionPlan.redirection })
-                                : navigation.navigate(_actionPlan.redirection);
+                              navigation.navigate(_actionPlan.redirection);
                             }}
                             key={elementIndex}
                             className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#4030A5] border border-[#4030A5]">

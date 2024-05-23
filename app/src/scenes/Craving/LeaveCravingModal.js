@@ -1,20 +1,10 @@
-import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import Modal from '../../components/Modal';
-import { storage } from '../../services/storage';
-import dayjs from 'dayjs';
 
 const LeaveCravingModal = ({ navigation }) => {
-  const daySeenCravingModalNPS = storage.getString('@daySeenCravingModalNPS');
-  let needToNPS = false;
-  if (!daySeenCravingModalNPS || dayjs(daySeenCravingModalNPS).isBefore(dayjs().subtract(7, 'day'))) {
-    needToNPS = true;
-    storage.set('@daySeenCravingModalNPS', dayjs().format('YYYY-MM-DD'));
-  }
-
   return (
-    <Modal className="flex flex-grow justify-center items-center" animationType="fade" withBackground>
+    <SafeAreaView className="flex flex-grow justify-center items-center">
       <View className="bg-white rounded-xl max-w-[90%]">
         <View className=" flex w-full px-2 space-y-8 my-8">
           <Text className="text-start  text-xl px-2 font-extrabold text-[#4030A5]">
@@ -34,7 +24,6 @@ const LeaveCravingModal = ({ navigation }) => {
                   action: 'CRAVING_VOTE_YES',
                 });
                 navigation.goBack();
-                if (needToNPS) navigation.navigate('STRATEGY_MODAL_TO_NPS');
               }}>
               <Text className="text-xl color-white font-extrabold">Oui</Text>
             </TouchableOpacity>
@@ -46,14 +35,13 @@ const LeaveCravingModal = ({ navigation }) => {
                   action: 'CRAVING_VOTE_NO',
                 });
                 navigation.goBack();
-                if (needToNPS) navigation.navigate('STRATEGY_MODAL_TO_NPS');
               }}>
               <Text className="text-xl color-white font-extrabold">Non</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    </Modal>
+    </SafeAreaView>
   );
 };
 

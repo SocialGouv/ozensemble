@@ -37,6 +37,17 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="TESTIMONIES" component={Testimonies} />
         <HealthStack.Screen name="OWN_TESTIMONY" component={OwnTestimony} />
         <HealthStack.Screen name="DOCTOLIB" component={Doctolib} />
+        <HealthStack.Screen name="HEALTH_INDEX" component={HealthIndex} />
+        <HealthStack.Screen name="DEFI" component={DefisNavigator} />
+        <HealthStack.Screen
+          name="ONBOARDING_QUIZZ"
+          component={QuizzOnboarding}
+          initialParams={{
+            rootRoute: 'HEALTH',
+          }}
+        />
+
+        {/* Articles */}
         <HealthStack.Screen name="ALCOOL_WITHDRAWAL_TREATMENT" component={AlcoolWithdrawalTreatment} />
         <HealthStack.Screen name="TO_SAY_NO" component={ToSayNo} />
         <HealthStack.Screen name="CRAVING_TREATMENT" component={CravingsTreatment} />
@@ -49,16 +60,6 @@ const HealthNavigator = () => {
         <HealthStack.Screen name="ALCOHOL_AND_MOTIVATION" component={AlcoholAndMotivation} />
         <HealthStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
         <HealthStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
-        <HealthStack.Screen name="HEALTH_INDEX" component={HealthIndex} />
-        <HealthStack.Screen name="DEFI" component={DefisNavigator} />
-
-        <HealthStack.Screen
-          name="ONBOARDING_QUIZZ"
-          component={QuizzOnboarding}
-          initialParams={{
-            rootRoute: 'HEALTH',
-          }}
-        />
       </HealthStack.Navigator>
     </Background>
   );
