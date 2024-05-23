@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
-import BackButton from '../../components/BackButton';
+import WrapperContainer from '../../components/WrapperContainer';
 import ChillIcon from '../../components/illustrations/ChillIcon';
 import FunIcon from '../../components/illustrations/FunIcon';
 import SensationIcon from '../../components/illustrations/SensationIcon';
@@ -11,9 +11,7 @@ const EntertainmentVideosIndex = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop marginLeft />
-        <View className="h-full w-screen px-6">
-          <Text className="text-[#4030A5] text-xl font-extrabold mb-8 mt-2 ">Divertissement</Text>
+        <WrapperContainer title="Divertissement" onPressBackButton={navigation.goBack}>
           <View className="h-full w-full flex flex-col gap-8 ">
             <TouchableOpacity
               className="w-full flex flex-row justify-between bg-[#C79CFF] rounded-md px-3 pt-4 pb-3"
@@ -70,7 +68,15 @@ const EntertainmentVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: ['EzGPmg4fFL8', 'eUpwDAnkgSM', 'NtZVFUvn3_U', 'ctEksNz7tqg', 'ma67yOdMQfs', 'EZVy-Wrncyg','QGVIWsw-TYQ'],
+                  videoIds: [
+                    'EzGPmg4fFL8',
+                    'eUpwDAnkgSM',
+                    'NtZVFUvn3_U',
+                    'ctEksNz7tqg',
+                    'ma67yOdMQfs',
+                    'EZVy-Wrncyg',
+                    'QGVIWsw-TYQ',
+                  ],
                   category: 'SENSATION',
                   title: 'Vidéos de sensations',
                 });
@@ -88,7 +94,7 @@ const EntertainmentVideosIndex = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           </View>
-        </View>
+        </WrapperContainer>
       </Background>
     </SafeAreaProvider>
   );

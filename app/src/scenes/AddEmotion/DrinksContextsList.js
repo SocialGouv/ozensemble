@@ -20,15 +20,12 @@ import { buttonHeight } from '../../styles/theme';
 import dayjs from 'dayjs';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
-import { capture } from '../../services/sentry';
 import PeopleIcon from '../../components/illustrations/icons/PeopleIcon';
 import Clock from '../../components/illustrations/icons/Clock';
 import CrossOutAddContext from '../../components/illustrations/icons/CroosOutAddContext';
 import Location from '../../components/illustrations/icons/Location';
 import Research from '../../components/illustrations/icons/Research';
 import { drinksContextsState } from '../../recoil/contexts';
-import { sendMail } from '../../services/mail';
-import pck from '../../../package.json';
 
 const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
   const date = route?.params?.date ?? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD');

@@ -1,11 +1,11 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Background from '../../components/Background';
-import BackButton from '../../components/BackButton';
+import WrapperContainer from '../../components/WrapperContainer';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { defineStrategyState } from '../../recoil/strategies';
 import { useState, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { strategyCatalogObject, getDisplayName } from '../../reference/StrategyCatalog';
+import { strategyCatalogObject, getDisplayName } from '../../reference/strategyCatalog';
 
 import TargetStrategy from '../../components/illustrations/icons/TargetStrategy';
 import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy';
@@ -43,9 +43,7 @@ const CravingStrategies = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <ScrollView className="h-full w-screen px-6 mt-3">
-          <BackButton content="< Retour" bold onPress={() => navigation.navigate('CRAVING_INDEX')} marginTop />
-          <Text className="text-[#4030A5] text-2xl font-extrabold mb-8 mt-3 ">Ma stratégie</Text>
+        <WrapperContainer title="Ma stratégie" onPressBackButton={() => navigation.navigate('CRAVING_INDEX')}>
           <View className="border-[#4030A5] border p-5 rounded-lg">
             {filteredStrategy && (
               <View className="flex  flex-col space-y-3">
@@ -53,7 +51,7 @@ const CravingStrategies = ({ navigation }) => {
                   <View className="flex flex-row items-center space-x-4">
                     <TargetStrategy size={50} />
                     <View className="flex flex-col">
-                      <Text className="text-xl font-extrabold text-[#4030A5]">Strategie n°{pageIndex + 1}</Text>
+                      <Text className="text-xl font-extrabold text-[#4030A5]">Stratégie n°{pageIndex + 1}</Text>
                       <Text className=" text-[#4030A5]">
                         {new Date(filteredStrategy.createdAt).toLocaleDateString('fr-FR')}
                       </Text>
@@ -87,9 +85,8 @@ const CravingStrategies = ({ navigation }) => {
                 <Text className="text-lg font-bold text-black ">Mon plan d'action</Text>
                 {actionPlanRedictor.length && (
                   <>
-                    <Text className="italic font-bold text-[#455A64] mb-3 ">
-                      <Text className="font-extrabold">disponible sur Oz :</Text> cliquez sur une activité pour y
-                      accéder
+                    <Text className="italic text-[#455A64] mb-3 mt-1">
+                      <Text className="font-semibold">disponible sur Oz :</Text> cliquez sur une activité pour y accéder
                     </Text>
 
                     <View className="flex flex-row flex-wrap items-center space-y-2">
@@ -97,9 +94,19 @@ const CravingStrategies = ({ navigation }) => {
                         return (
                           <TouchableOpacity
                             onPress={() => {
-                              actionPlan.navigator
-                                ? navigation.navigate(actionPlan.navigator, { screen: actionPlan.redirection })
-                                : navigation.navigate(actionPlan.redirection);
+                              let _actionPlan = actionPlan;
+                              if (actionPlan.redirection === 'RANDOM') {
+                                let actionPlanRedictorNotRandom = actionPlanRedictor.filter(
+                                  (actionPlan) => actionPlan.redirection !== 'RANDOM'
+                                );
+                                let randomActionPlanIndex = Math.floor(
+                                  Math.random() * actionPlanRedictorNotRandom.length
+                                );
+                                _actionPlan = actionPlanRedictorNotRandom[randomActionPlanIndex];
+                              }
+                              _actionPlan.navigator
+                                ? navigation.navigate(_actionPlan.navigator, { screen: _actionPlan.redirection })
+                                : navigation.navigate(_actionPlan.redirection);
                             }}
                             key={elementIndex}
                             className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#4030A5] border border-[#4030A5]">
@@ -112,7 +119,7 @@ const CravingStrategies = ({ navigation }) => {
                 )}
                 {actionPlanNotRedictor.length && (
                   <>
-                    <Text className="italic font-bold text-[#455A64] mb-2">autres actions</Text>
+                    <Text className="italic text-[#455A64] my-2">autres actions</Text>
                     <View className="flex flex-row flex-wrap items-center space-y-2">
                       {actionPlanNotRedictor.map((actionPlan, elementIndex) => {
                         return (
@@ -170,7 +177,7 @@ const CravingStrategies = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
+        </WrapperContainer>
       </Background>
     </SafeAreaProvider>
   );

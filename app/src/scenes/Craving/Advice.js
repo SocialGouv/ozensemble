@@ -1,8 +1,8 @@
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import H1 from '../../components/H1';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import ArrowAdvice from '../../components/illustrations/ArrowAdvice';
 import MusicIcon from '../../components/illustrations/MusicIcon';
 import HydrationIcon from '../../components/illustrations/HydrationIcon';
@@ -67,14 +67,14 @@ const Advice = ({ navigation }) => {
               content="< Retour"
               bold
               onPress={() => {
-                navigation.navigate('CRAVING_INDEX');
+                navigation.goBack();
               }}
               marginTop
               marginBottom
               marginLeft
             />
             <currentAdvice.icon className="" size={300} />
-            <Text className="text-[#4030A5] text-3xl font-extrabold">{currentAdvice.title}</Text>
+            <H1>{currentAdvice.title}</H1>
             <Text className=" text-black text-center font-semibold text-lg">{currentAdvice.description}</Text>
             <TouchableOpacity
               className="flex flex-row gap-2"

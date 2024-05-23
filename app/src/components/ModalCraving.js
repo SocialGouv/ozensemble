@@ -1,12 +1,11 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
 import Modal from './Modal';
 import { hitSlop } from '../styles/theme';
 import CravingIcon from './illustrations/CravingIcon';
 import ButtonPrimary from './ButtonPrimary';
 import TipIcon from './illustrations/TipIcon';
-import { ScrollView } from 'react-native-gesture-handler';
 
 const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
   return (

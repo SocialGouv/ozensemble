@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Platform, View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import pck from '../../../package.json';
+import H1 from '../../components/H1';
 import Background from '../../components/Background';
 import ButtonPrimary from '../../components/ButtonPrimary';
 
@@ -55,7 +56,7 @@ const OwnTestimony = ({ navigation }) => {
               keyboardDismissMode="none">
               <BackButton content="< Retour" bold onPress={() => navigation.navigate('HEALTH_INDEX')} marginTop />
               <View className="mt-2">
-                <Text className="text-[#4030A5] text-xl font-bold mt-3">Témoigner sur Oz Ensemble{'\n'}</Text>
+                <H1>Témoigner sur Oz Ensemble{'\n'}</H1>
               </View>
               <View className="mt-2">
                 <Text className="text-[#191919] text-base">

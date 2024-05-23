@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import WrapperContainer from '../../components/WrapperContainer';
 import AdvicesIcon from '../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../components/illustrations/BreathingIcon';
+import H1 from '../../components/H1';
+import H2 from '../../components/H2';
 import VideosIcon from '../../components/illustrations/VideosIcon';
 import ModalCraving from '../../components/ModalCraving';
 import { storage } from '../../services/storage';
@@ -42,7 +44,7 @@ const CravingIndex = ({ navigation }) => {
             navigation.navigate('CRAVING_STRATEGIES');
           }
         }}>
-        <Text className=" text-2xl  font-semibold text-white pb-2 pl-2">Ma stratégie</Text>
+        <H1 color="#fff">Ma stratégie</H1>
         <StrategyIcon size={90} />
       </TouchableOpacity>
 
@@ -56,7 +58,7 @@ const CravingIndex = ({ navigation }) => {
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundAdvices.png')}>
             <View className="flex items-center h-full justify-between py-6 ">
               <AdvicesIcon size={100} className="" />
-              <Text className=" text-xl  font-bold text-white">Conseils</Text>
+              <H2 color="#fff">Conseils</H2>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -68,7 +70,7 @@ const CravingIndex = ({ navigation }) => {
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundBreathing.png')}>
             <View className="flex items-center h-full justify-between py-6 ">
               <BreathingIcon size={100} className="" />
-              <Text className="text-center text-xl  font-bold text-white">Respiration</Text>
+              <H2 color="#fff">Respiration</H2>
             </View>
           </ImageBackground>
         </TouchableOpacity>
@@ -82,7 +84,7 @@ const CravingIndex = ({ navigation }) => {
           <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundVideos.png')}>
             <View className="flex items-center h-full justify-between py-6 ">
               <VideosIcon size={100} className="" />
-              <Text className="text-center text-xl  font-bold text-white">Videos</Text>
+              <H2 color="#fff">Videos</H2>
             </View>
           </ImageBackground>
         </TouchableOpacity>

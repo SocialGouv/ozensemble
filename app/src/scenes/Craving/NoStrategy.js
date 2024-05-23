@@ -1,25 +1,15 @@
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Background from '../../components/Background';
-import BackButton from '../../components/BackButton';
-import ChillIcon from '../../components/illustrations/ChillIcon';
-import FunIcon from '../../components/illustrations/FunIcon';
-import SensationIcon from '../../components/illustrations/SensationIcon';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { defineStrategyState } from '../../recoil/strategies';
-import { useEffect, useState } from 'react';
-import { storage } from '../../services/storage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import WrapperContainer from '../../components/WrapperContainer';
 import TipIcon from '../../components/illustrations/TipIcon';
 import NoStrategyIcon from '../../components/illustrations/NoStrategyIcon';
-import { strategy } from '../../../../api/src/prisma';
 
 const NoStrategy = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <ScrollView className="h-full w-screen px-6 mt-3 space-y-4">
-          <BackButton content="< Retour" bold onPress={() => navigation.navigate('CRAVING_INDEX')} marginTop />
-          <Text className="text-[#4030A5] text-2xl font-extrabold mb-4 mt-3 ">Définir ma stratégie</Text>
+        <WrapperContainer title="Définir ma stratégie" onPressBackButton={() => navigation.navigate('CRAVING_INDEX')}>
           <View className="flex flex-row ">
             <TipIcon size={20} className="mt-1 -mr-4 " />
             <Text className="text-start text-black text-base font-semibold">
@@ -61,7 +51,7 @@ const NoStrategy = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
+        </WrapperContainer>
       </Background>
     </SafeAreaProvider>
   );
