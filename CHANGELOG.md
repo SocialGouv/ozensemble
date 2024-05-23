@@ -1,3 +1,10 @@
+## [1.155.2](https://github.com/SocialGouv/ozensemble/compare/v1.155.1...v1.155.2) (2024-05-23)
+
+
+### Bug Fixes
+
+* clean in app modals at start ([e42204c](https://github.com/SocialGouv/ozensemble/commit/e42204c50b373b90f60a6b42c2a22f3975bf4102))
+
 ## [1.155.1](https://github.com/SocialGouv/ozensemble/compare/v1.155.0...v1.155.1) (2024-05-23)
 
 
