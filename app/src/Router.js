@@ -65,11 +65,11 @@ const Tabs = createBottomTabNavigator();
 const TabsNavigator = ({ navigation }) => {
   useNPSNotif();
   useCheckNeedNPS();
-  const showLeaveCravingModal = storage.getBoolean('@leftCraving');
-  if (showLeaveCravingModal) {
-    navigation.navigate('LEAVING_CRAVING_MODAL');
-    storage.set('@leftCraving', false);
-  }
+  // const showLeaveCravingModal = storage.getBoolean('@leftCraving');
+  // if (showLeaveCravingModal) {
+  //   navigation.navigate('LEAVING_CRAVING_MODAL');
+  //   storage.set('@leftCraving', false);
+  // }
 
   const showBootSplash = useRecoilValue(showBootSplashState);
 
@@ -312,7 +312,7 @@ const Router = () => {
               animation: 'fade',
             }}
           />
-          <ModalsStack.Screen
+          {/* <ModalsStack.Screen
             name="LEAVING_CRAVING_MODAL"
             component={LeaveCravingModal}
             options={{
@@ -320,7 +320,7 @@ const Router = () => {
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
               animation: 'fade',
             }}
-          />
+          /> */}
           <ModalsStack.Screen
             name="NPS_SCREEN"
             component={NPSScreen}
