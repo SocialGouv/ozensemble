@@ -1,6 +1,6 @@
 {
   "name": "oz_ensemble",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "private": true,
   "scripts": {
     "get-ip": "./get-ip.sh && echo \"this script updates the API IP to your own IP, because that's what Android Emulator needs to work. It's based on your wifi IP, if you need ethernet it won't work (needs en1 instead of en0)\"",
@@ -36,6 +36,7 @@
     "prop-types": "^15.7.2",
     "react": "18.2.0",
     "react-native": "0.72.7",
+    "react-native-awesome-slider": "1",
     "react-native-bootsplash": "^4.5.3",
     "react-native-calendars": "^1.1284.0",
     "react-native-camera": "^3.30.0",

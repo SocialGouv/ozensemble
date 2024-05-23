@@ -8677,6 +8677,7 @@ __metadata:
     prop-types: "npm:^15.7.2"
     react: "npm:18.2.0"
     react-native: "npm:0.72.7"
+    react-native-awesome-slider: "npm:1"
     react-native-bootsplash: "npm:^4.5.3"
     react-native-calendars: "npm:^1.1284.0"
     react-native-camera: "npm:^3.30.0"
@@ -9323,6 +9324,18 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 2bdb6b93fbb1820b024b496042cce405c57e2f85e777c9aabd55f9b26d145408f9f74f5934676ffdc46f3dcff656d78413a6e43968e7b3f92eea35b3052e9053
+  languageName: node
+  linkType: hard
+
+"react-native-awesome-slider@npm:1":
+  version: 1.4.0
+  resolution: "react-native-awesome-slider@npm:1.4.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+    react-native-gesture-handler: "*"
+    react-native-reanimated: ">=2.0.0"
+  checksum: 69800218023d2d5271a80cb8bc3619ddc691d7c6d29954ca38e5361ea7dc68b2eb757a6b0c26f99c65b45e97a542346aad916c2568ab83690e1a46d92d8d60e6
   languageName: node
   linkType: hard
 

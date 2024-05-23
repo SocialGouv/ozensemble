@@ -8,15 +8,11 @@ import testimonies from '../../reference/TestimoniesList';
 
 const Testimonies = ({ navigation }) => {
   return (
-    <WrapperContainer
-      title={'Témoignages'}
-      onPressBackButton={() => {
-        navigation.goBack();
-      }}>
+    <WrapperContainer title="Témoignages" onPressBackButton={navigation.goBack}>
       <View className="mt-8 flex justify-start">
         {testimonies.map((testimony, index) => {
           return (
-            <>
+            <React.Fragment key={index}>
               <View key={index} className="flex flex-row gap-4 mb-10">
                 <ProfilIcon size={40} />
                 <View>
@@ -40,18 +36,11 @@ const Testimonies = ({ navigation }) => {
               ) : (
                 <View className="left-1/4 w-1/2 h-O border rounded-xl mb-10 -ml-4 border-[#4030A5]"></View>
               )}
-            </>
+            </React.Fragment>
           );
         })}
 
-        <BackButton
-          content="< Retour"
-          bold
-          onPress={() => {
-            navigation.goBack();
-          }}
-          bottom
-        />
+        <BackButton content="< Retour" bold onPress={navigation.goBack} bottom />
       </View>
     </WrapperContainer>
   );

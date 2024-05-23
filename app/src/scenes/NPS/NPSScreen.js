@@ -12,6 +12,7 @@ import Mark from './Mark';
 import { storage } from '../../services/storage';
 
 import BackButton from '../../components/BackButton';
+import H1 from '../../components/H1';
 import { sendMail } from '../../services/mail';
 import useAppState from '../../services/useAppState';
 import API from '../../services/api';
@@ -198,12 +199,12 @@ const NPSScreen = ({ navigation, route }) => {
               keyboardDismissMode="none">
               <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
               <View className="mt-2">
-                <Text className="text-[#4030A5] text-xl font-bold mt-3">
+                <H1>
                   Contribuer à Oz Ensemble{'\n'}
                   {forDefi
                     ? "Vos retours sur cette activité nous permettront d'améliorer l'application\u00A0!"
                     : 'Nous lisons tous vos messages'}
-                </Text>
+                </H1>
               </View>
               <View className="mt-8">
                 <Text className="text-[#191919] text-base">

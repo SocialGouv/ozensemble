@@ -13,8 +13,8 @@ router.post(
     const category = req.body.category;
     // find user with matomoId
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-    //check if it should be deleted
-    if (!user) return res.status(400).json({ ok: false, error: "no matomo id" });
+
+    if (!user) return res.status(400).json({ ok: false, error: "no user" });
     await prisma.drinksContextRequest.create({
       data: {
         userId: user.id,
@@ -36,9 +36,9 @@ router.post(
     const context = req.body.context;
     const date = req.body.date;
     const emotion = req.body.emotion;
-    // find user with matomoId
+
     let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
-    //check if it should be deleted
+
     await prisma.drinksContext.upsert({
       where: { id: id },
       update: {

@@ -94,6 +94,7 @@ app.use("/defis", require("./controllers/defis"));
 app.use("/drinks", require("./controllers/drinksCatalog"));
 app.use("/drinks-context", require("./controllers/drinksContext"));
 app.use("/public", require("./controllers/public"));
+app.use("/strategies", require("./controllers/strategies"));
 
 app.use(errors.sendError);
 

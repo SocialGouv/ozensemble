@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
-import BackButton from '../../components/BackButton';
+import WrapperContainer from '../../components/WrapperContainer';
 import MeditationIcon from '../../components/illustrations/MeditationIcon';
 import TTCIcon from '../../components/illustrations/TTCIcon';
 import SophrologyIcon from '../../components/illustrations/SophrologyIcon';
@@ -11,9 +11,7 @@ const ExercicesVideosIndex = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <BackButton content="< Retour" bold onPress={navigation.goBack} marginTop marginLeft />
-        <View className="h-full w-screen px-6">
-          <Text className="text-[#4030A5] text-xl font-extrabold mb-8 mt-2 ">Exercices</Text>
+        <WrapperContainer title="Exercices" onPressBackButton={navigation.goBack}>
           <View className="h-full w-full flex flex-col gap-8 ">
             <TouchableOpacity
               className="w-full flex flex-row justify-between bg-[#3E5DE6] rounded-md px-3 pt-4 pb-3"
@@ -100,7 +98,7 @@ const ExercicesVideosIndex = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           </View>
-        </View>
+        </WrapperContainer>
       </Background>
     </SafeAreaProvider>
   );
