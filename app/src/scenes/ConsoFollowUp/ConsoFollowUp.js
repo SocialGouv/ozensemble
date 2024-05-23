@@ -20,8 +20,8 @@ const ConsoFollowUpNavigator = () => {
     setTimeout(() => {
       setShowBootsplash(false);
       (async () => {
-        const isRegistered = await NotificationService.checkPermission();
-        console.log('isRegistered', isRegistered);
+        let isRegistered = await NotificationService.checkPermission();
+        // if (__DEV__) isRegistered = { granted: false };
         API.post({
           path: '/appMilestone/init',
           body: { matomoId: storage.getString('@UserIdv2'), isRegistered: isRegistered },
