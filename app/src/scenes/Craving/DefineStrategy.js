@@ -28,11 +28,14 @@ const DefineStrategyNavigator = createStackNavigator();
 const DefineStrategy = ({ navigation, route }) => {
   const { strategyIndex } = route.params;
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
-  const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? { index: strategyIndex };
+  const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? {
+    index: strategyIndex,
+    intensity: null,
+  };
   const [feelings, setFeelings] = useState(strategy.feelings ?? []);
   const [actionPlan, setActionPlan] = useState(strategy.actionPlan ?? []);
   const [trigger, setTrigger] = useState(strategy.trigger ?? []);
-  const [selectedIntensity, setSelectedIntensity] = useState(strategy.intensity ?? 0);
+  const [selectedIntensity, setSelectedIntensity] = useState(strategy.intensity);
   const toast = useToast();
 
   const validateStrategy = () => {
@@ -256,10 +259,25 @@ const DefineStrategyTrigger = ({ trigger, setTrigger, onNext }) => {
   );
 };
 
+const colorSteps = {
+  0: '#7fb896',
+  1: '#80b281',
+  2: '#86ab6b',
+  3: '#90a356',
+  4: '#9c9843',
+  5: '#aa8c35',
+  6: '#b87e2e',
+  7: '#c56e30',
+  8: '#d15a3a',
+  9: '#d9434a',
+  10: '#dd275e',
+};
+
 const DefineStrategyIntensity = ({ selectedIntensity, setSelectedIntensity, onNext }) => {
   const intensity = useSharedValue(selectedIntensity);
   const maxIntensity = useSharedValue(10);
   const minIntensity = useSharedValue(0);
+
   return (
     <DefineStrategyWrapper>
       <Text className="text-lg font-extrabold">Quelle est l'intensité de votre envie de consommer ?</Text>
@@ -272,17 +290,21 @@ const DefineStrategyIntensity = ({ selectedIntensity, setSelectedIntensity, onNe
           maximumValue={maxIntensity}
           step={10}
           theme={{
-            maximumTrackTintColor: '#4030A5',
-            minimumTrackTintColor: '#DE285E',
+            maximumTrackTintColor: '#4030A533',
+            minimumTrackTintColor: colorSteps[selectedIntensity],
             thumbTintColor: '#FFFFFF',
           }}
           onValueChange={(value) => {
             setSelectedIntensity(value);
           }}
         />
-        <View className="border px-7 py-2 rounded-lg w-64 items-center">
-          <Text className="text-lg font-bold text-[#FF4501]">
-            {selectedIntensity} - {intensityLevels[selectedIntensity].displayFeed}
+        <View
+          className="border px-7 py-2 rounded-lg w-64 items-center"
+          style={{
+            opacity: selectedIntensity != null ? 1 : 0,
+          }}>
+          <Text className="text-lg font-bold" style={{ color: colorSteps[selectedIntensity] }}>
+            {selectedIntensity} - {intensityLevels[selectedIntensity]?.displayFeed}
           </Text>
         </View>
       </View>
@@ -357,7 +379,7 @@ const DefineStrategyValidate = ({ actionPlan, selectedIntensity, feelings, trigg
         <View className="flex flex-row flex-wrap">
           <View className=" border px-2 py-2 rounded-lg items-center ">
             <Text className="text-lg font-bold text-[#FF4501]">
-              {selectedIntensity} - {intensityLevels[selectedIntensity].displayFeed}
+              {selectedIntensity} - {intensityLevels[selectedIntensity]?.displayFeed}
             </Text>
           </View>
         </View>
