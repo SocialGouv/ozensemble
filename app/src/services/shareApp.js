@@ -5,7 +5,7 @@ import API from './api';
 import { storage } from './storage';
 
 export const shareApp = async () => {
-  const url = 'https://ozensemble.fr/';
+  const url = 'https://ozensemble.fabrique.social.gouv.fr/';
   try {
     logEvent({
       category: 'SHARE_APP',

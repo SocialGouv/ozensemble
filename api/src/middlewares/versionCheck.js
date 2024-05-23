@@ -10,7 +10,7 @@ module.exports = ({ headers: { appversion, appdevice } }, res, next) => {
       sendInApp: [
         "Votre application n'est pas à jour !",
         "Vous pouvez la mettre à jour en cliquant sur le lien ci-dessous",
-        [{ text: "Mettre à jour", link: "https://www.ozensemble.fr" }],
+        [{ text: "Mettre à jour", link: "https://ozensemble.fabrique.social.gouv.fr" }],
         { cancelable: true },
       ],
     });
