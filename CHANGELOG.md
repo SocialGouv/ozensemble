@@ -1,3 +1,10 @@
+## [1.156.1](https://github.com/SocialGouv/ozensemble/compare/v1.156.0...v1.156.1) (2024-05-24)
+
+
+### Bug Fixes
+
+* cravings states ([8014881](https://github.com/SocialGouv/ozensemble/commit/80148816fa8e36d9ae7daaf5acaa374a82d836e2))
+
 # [1.156.0](https://github.com/SocialGouv/ozensemble/compare/v1.155.2...v1.156.0) (2024-05-23)
 
 
