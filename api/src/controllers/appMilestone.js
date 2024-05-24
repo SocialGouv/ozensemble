@@ -54,14 +54,14 @@ router.post(
 
     if (req.headers.appversion < 243) return res.status(200).send({ ok: true });
 
-    if (req.headers.appversion >= 258) {
+    if (req.headers.appversion >= 272) {
       const featureCraving = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@FeatureCraving` },
+        where: { id: `${user.id}_@CravingStrategy` },
       });
       if (!featureCraving) {
         await prisma.appMilestone.create({
           data: {
-            id: `${user.id}_@FeatureCraving`,
+            id: `${user.id}_@CravingStrategy`,
             userId: user.id,
             date: dayjs().format("YYYY-MM-DD"),
           },
@@ -69,16 +69,16 @@ router.post(
         return res.status(200).send({
           ok: true,
           showInAppModal: {
-            id: "@FeatureCraving",
-            title: "Nouveau: Oz vous aide à surmonter chaque craving",
+            id: "@CravingStrategy",
+            title: "Craving: définissez une stratégie pour surmonter chaque craving",
             content:
-              "Oz vous propose des conseils et activités afin de vous accompagner face à un craving (une envie irrépressible de consommer). \n Nous vous proposons des conseils, des exercices de respiration ou encore une sélection de vidéos afin de surmonter ces moments difficiles à gérer.",
+              "Pour chaque stratégie, définissez votre ressenti, l’elément déclencheur de votre craving, son intensité et le plan d’action que vous souhaitez mettre en place.\n\nRetrouvez toutes vos stratégies dans une page dédiée.",
             CTATitle: "Découvrir",
             CTANavigation: ["CRAVING"],
             CTAEvent: {
               category: "CRAVING",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
+              action: "PRESSED_FROM_NEW_FEATURE_STRATEGY_MODAL",
+              name: "FROM_NEW_FEATURE_STRATEGY",
             },
           },
         });

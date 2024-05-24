@@ -28,6 +28,7 @@ import { BadgeGoalsNoStars } from '../scenes/Badges/Svgs/BadgeGoalsNoStars';
 import ChatBubbles from './illustrations/Chatbubbles';
 import OwnClIcon from './illustrations/icons/OwnClIcon';
 import CravingIcon from './illustrations/CravingIcon';
+import StrategyIcon from './illustrations/StrategyIcon';
 
 /* example
 {
@@ -137,6 +138,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('CravingStrategy') && (
+            <View className="mx-2 flex flex-col items-center">
+              <StrategyIcon size={60} />
+            </View>
+          )}
           {inAppModal?.id.includes('FeatureCraving') && (
             <View className="mx-2 flex flex-col items-center">
               <CravingIcon size={60} />
@@ -152,6 +158,7 @@ const InAppModal = ({ navigation, route }) => {
               <ChatBubbles size={60} />
             </View>
           )}
+
           {inAppModal?.id.includes('NewLongTermBadgesFeature') && (
             <View className="mx-2 flex flex-row items-center">
               <BagdeDrinksNoStars />
