@@ -17,7 +17,6 @@ const ExercicesVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between bg-[#3E5DE6] rounded-md px-3 pt-4 pb-3"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: ['aFEkeYEb4SY', 'bmgbJ0WIV2k', 'yUzzYkFT33k', 'y92jlo50EBw'],
                   category: 'RESSENTI',
                   title: 'Vidéos de ressenti',
                 });
@@ -38,17 +37,6 @@ const ExercicesVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between bg-[#3E5DE6] rounded-md px-3 pt-4 pb-3"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: [
-                    '3-x_zwtQrr4',
-                    '3nyQpBu2BSc',
-                    'nmCnKWMedAM',
-                    'l4fQ0GA1oOI',
-                    'p06FEzE9LOg',
-                    'PTsk8VHCZjM',
-                    'Rhse5arV-FQ',
-                    'PIQQugUFFeQ',
-                    'ZnAAJ0W3JwA',
-                  ],
                   category: 'MEDITATION',
                   title: 'Vidéos de méditation',
                 });
@@ -69,18 +57,6 @@ const ExercicesVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between items-end bg-[#3E5DE6] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: [
-                    'l68RrTZQdlk',
-                    'EBPv7L2a5Y4',
-                    'EkrK9LcrT6o',
-                    'DfJtdQ4FCaw',
-                    'lmy-hpAVrAQ',
-                    '6WvmN8xFvjI',
-                    'UoeOFc_jVi4',
-                    'pg7wdc2cHn4',
-                    'fcsJAIURwrg',
-                    'g-T87W3dqj4',
-                  ],
                   category: 'SOPHROLOGY',
                   title: 'Vidéos de sophrologie',
                 });

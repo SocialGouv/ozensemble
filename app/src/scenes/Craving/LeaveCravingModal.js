@@ -1,8 +1,13 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { isInCravingKeyState, leavingCravingNextTabState } from '../../recoil/craving';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 const LeaveCravingModal = ({ navigation }) => {
+  const leavingCravingNextTab = useRecoilValue(leavingCravingNextTabState);
+  const setIsInCraving = useSetRecoilState(isInCravingKeyState);
+
   return (
     <SafeAreaView className="flex flex-grow justify-center items-center">
       <View className="bg-white rounded-xl max-w-[90%]">
@@ -15,28 +20,45 @@ const LeaveCravingModal = ({ navigation }) => {
           <Text className=" text-center text-lg px-2 font-extrabold mx-5">
             Est-ce que les activités et conseils proposés vous ont aidés à surmonter votre craving ?
           </Text>
-          <View className="flex flex-row justify-center p-2 ">
+          <View className="flex flex-row justify-evenly p-2">
             <TouchableOpacity
-              className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#4030A5] "
+              className="justify-center items-center rounded-3xl px-8 py-2 bg-[#4030A5] "
               onPress={() => {
                 logEvent({
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_VOTE_YES',
                 });
+                setIsInCraving(false);
                 navigation.goBack();
+                navigation.navigate('TABS', { screen: leavingCravingNextTab });
               }}>
-              <Text className="text-xl color-white font-extrabold">Oui</Text>
+              <Text className="text-xl text-white font-extrabold">Oui</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="justify-center  items-center rounded-3xl h-12 w-24 bg-[#DE285E] ml-7"
+              className="justify-center items-center rounded-3xl  px-8 py-2 bg-[#DE285E]"
               onPress={() => {
                 logEvent({
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_VOTE_NO',
                 });
+                setIsInCraving(false);
+                navigation.goBack();
+                navigation.navigate('TABS', { screen: leavingCravingNextTab });
+              }}>
+              <Text className="text-xl text-white font-extrabold">Non</Text>
+            </TouchableOpacity>
+          </View>
+          <View className="flex flex-row justify-center">
+            <TouchableOpacity
+              className="justify-center items-center rounded-3xl"
+              onPress={() => {
+                logEvent({
+                  category: 'CRAVING_VOTE',
+                  action: 'CRAVING_CANCEL',
+                });
                 navigation.goBack();
               }}>
-              <Text className="text-xl color-white font-extrabold">Non</Text>
+              <Text>Annuler</Text>
             </TouchableOpacity>
           </View>
         </View>

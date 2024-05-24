@@ -6,11 +6,12 @@ import WrapperContainer from '../../components/WrapperContainer';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
 import {
-  strategyCatalogObject,
   strategyKeysByCategory,
   getDisplayName,
   intensityLevels,
-} from '../../reference/strategyCatalog';
+  strategyCatalogObject,
+  strategyCategories,
+} from './strategies';
 
 import { useToast } from '../../services/toast';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,8 +20,8 @@ import { storage } from '../../services/storage';
 import { useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 import { Slider } from 'react-native-awesome-slider';
-import { useRecoilState } from 'recoil';
-import { defineStrategyState } from '../../recoil/strategies';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { currentStrategyState, defineStrategyState } from '../../recoil/craving';
 import { useNavigation } from '@react-navigation/native';
 
 const DefineStrategyNavigator = createStackNavigator();
@@ -28,9 +29,10 @@ const DefineStrategyNavigator = createStackNavigator();
 const DefineStrategy = ({ navigation, route }) => {
   const { strategyIndex } = route.params;
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
+  const setCurrentStrategyIndex = useSetRecoilState(currentStrategyState);
   const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? {
     index: strategyIndex,
-    intensity: null,
+    intensity: 5,
   };
   const [feelings, setFeelings] = useState(strategy.feelings ?? []);
   const [actionPlan, setActionPlan] = useState(strategy.actionPlan ?? []);
@@ -70,6 +72,7 @@ const DefineStrategy = ({ navigation, route }) => {
       });
       setStrategies(modifiedStrategies);
     }
+    setCurrentStrategyIndex(strategyIndex);
     for (let [index, feeling] of Object.entries(strategyKeysByCategory.feeling)) {
       if (feelings.includes(feeling)) {
         logEvent({
@@ -234,6 +237,7 @@ const DefineStrategyTrigger = ({ trigger, setTrigger, onNext }) => {
   return (
     <DefineStrategyWrapper>
       <Text className="text-lg font-extrabold">Quel est le déclencheur de ce craving ?</Text>
+      <Text className="text-sm text-[#455A64]  italic mb-4">un seul choix possible</Text>
       <View className="flex flex-row flex-wrap rounded-lg items-center ">
         {strategyKeysByCategory.trigger.map((name, index) => {
           return (
@@ -281,18 +285,19 @@ const DefineStrategyIntensity = ({ selectedIntensity, setSelectedIntensity, onNe
   return (
     <DefineStrategyWrapper>
       <Text className="text-lg font-extrabold">Quelle est l'intensité de votre envie de consommer ?</Text>
+      <Text className="text-sm text-[#455A64]  italic mb-4">sélectionnez une note sur le curseur ci-dessous</Text>
       <View className="mt-10 flex items-center space-y-10">
         <Slider
           className="w-5/6"
           progress={intensity}
-          cache={intensity}
+          cache={0}
           minimumValue={minIntensity}
           maximumValue={maxIntensity}
           step={10}
           theme={{
             maximumTrackTintColor: '#4030A533',
             minimumTrackTintColor: colorSteps[selectedIntensity],
-            thumbTintColor: '#FFFFFF',
+            thumbTintColor: '#ffffff',
           }}
           onValueChange={(value) => {
             setSelectedIntensity(value);
@@ -394,7 +399,7 @@ const DefineStrategyValidate = ({ actionPlan, selectedIntensity, feelings, trigg
             ))}
         </View>
         <Text className=" text-black font-semibold">
-          Cliquez sur "Valider ma stratégie" pour accéder à vos stratégies
+          Cliquez sur "Valider ma stratégie" pour accéder à votre stratégie et aux activités du plan d'action
         </Text>
       </View>
       <View className=" items-center mt-8">

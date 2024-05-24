@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Alert, Linking } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -46,6 +46,9 @@ import BadgesList from './scenes/Badges/BadgesList';
 import CravingIcon from './components/illustrations/CravingIcon';
 import LeaveCravingModal from './scenes/Craving/LeaveCravingModal';
 import StrategyModalNPS from './components/StrategyModalNPS';
+import { isInCravingKeyState, leavingCravingNextTabState } from './recoil/craving';
+import { dayjsInstance } from './services/dates';
+import { capture } from './services/sentry';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -67,11 +70,49 @@ const TabsNavigator = ({ navigation }) => {
   useCheckNeedNPS();
 
   const showBootSplash = useRecoilValue(showBootSplashState);
+  const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
+  const setLeavingCravingNextTab = useSetRecoilState(leavingCravingNextTabState);
 
   return (
     <>
       <Tabs.Navigator
         initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
+        screenListeners={({ navigation }) => ({
+          tabPress: (e) => {
+            if (e.target.startsWith('CRAVING')) {
+              setIsInCraving(true);
+              navigation.popToTop(); // reset craving stack navigator
+              return;
+            }
+            if (!isInCraving) return;
+            // now, the user WAS in craving and pressed on another tab
+            // so the user wants to LEAVE the craving
+            // -> we ask him if it was useful or not
+            // 2 options:
+            // 1. one modal LEAVING_CRAVING_MODAL that we show EVERYTIME the users leaves EXCEPT
+            // 2. the second modal STRATEGY_MODAL_TO_NPS that triggers the user to go to the NPS screen
+            // if we show STRATEGY_MODAL_TO_NPS, we don't show LEAVING_CRAVING_MODAL
+            const firstTimeCraving = storage.getString('@firstTimeCraving');
+            const isTimeToAskNPS = dayjsInstance().diff(firstTimeCraving, 'day') >= 7;
+            const fromCravingToNPSModal = storage.getString('@fromCravingToNPSModal');
+            if (isTimeToAskNPS && fromCravingToNPSModal !== 'true') {
+              storage.set('@fromCravingToNPSModal', 'true');
+              navigation.navigate('STRATEGY_MODAL_TO_NPS');
+            } else {
+              try {
+                // now we show the LEAVING_CRAVING_MODAL
+                // we can offer the possibility to stay on the craving
+                // so we prevent the default action
+                setLeavingCravingNextTab(e.target.split('-')[0]);
+                e.preventDefault();
+                navigation.navigate('LEAVING_CRAVING_MODAL');
+              } catch (err) {
+                capture(err);
+                setIsInCraving(false);
+              }
+            }
+          },
+        })}
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: '#4030A5',

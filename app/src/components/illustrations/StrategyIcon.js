@@ -2,7 +2,9 @@ import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import styled from 'styled-components';
 
-const StyledSvg = styled(Svg)``;
+const StyledSvg = styled(Svg)`
+  margin-bottom: -3px;
+`;
 
 const StrategyIcon = ({ size }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">

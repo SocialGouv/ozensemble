@@ -1,4 +1,4 @@
-import { capture } from '../services/sentry';
+import { capture } from '../../services/sentry';
 
 export const strategyCatalog = [
   // Feelings
@@ -241,61 +241,67 @@ export const strategyCatalog = [
     categoryKey: 'actionPlan',
     strategyKey: 'meditate',
     displayFeed: 'Pratiquer la méditation',
-    redirection: 'notdefined',
+    redirection: [
+      'VIDEO_PLAYER',
+      {
+        category: 'MEDITATION',
+        title: 'Vidéos de méditation',
+      },
+    ],
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'breathingexercises',
     displayFeed: 'Faire des exercices de respiration',
-    redirection: 'CRAVING_BREATH',
+    redirection: ['CRAVING_BREATH'],
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'journaling',
     displayFeed: 'Tenir un journal de bord',
-    redirection: 'notdefined',
+    redirection: null,
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'watchvideos',
     displayFeed: 'Regarder des vidéos',
-    redirection: 'CRAVING_VIDEOS',
+    redirection: ['CRAVING_VIDEOS'],
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'exercising',
     displayFeed: 'Faire des exercices',
-    redirection: 'EXERCISES_VIDEOS_INDEX',
+    redirection: ['EXERCISES_VIDEOS_INDEX'],
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'quicktips',
     displayFeed: 'Suivre des conseils rapides',
-    redirection: 'HYDRATION_ADVICE',
+    redirection: ['HYDRATION_ADVICE'],
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'listenmusic',
     displayFeed: 'Ecouter de la musique',
-    redirection: 'notdefined',
+    redirection: null,
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'readarticles',
     displayFeed: 'Lire des articles',
-    redirection: 'HEALTH_ARTICLE',
+    redirection: ['HEALTH_ARTICLE'],
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'talktofriend',
     displayFeed: 'Parler à un ami de confiance',
-    redirection: 'notdefined',
+    redirection: null,
   },
   {
     categoryKey: 'actionPlan',
     strategyKey: 'readtestimonials',
     displayFeed: 'Lire des témoignages',
-    redirection: 'TESTIMONIES',
+    redirection: ['TESTIMONIES'],
   },
 ];
 

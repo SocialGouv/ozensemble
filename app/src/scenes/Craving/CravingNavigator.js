@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../components/Background';
-import { atom, useRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import CravingBreath from './CravingBreath';
 import CravingIndex from './CravingIndex';
@@ -31,17 +31,10 @@ import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import AlcoholAndDependency from '../Health/Articles/AlcoholAndDependency';
 import OwnTestimony from '../Health/OwnTestimony';
 import { dayjsInstance } from '../../services/dates';
-
-export const leftCravingKeyState = atom({
-  key: 'leftCravingKeyState',
-  default: storage.getNumber('@leftCraving') || 0,
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@leftCraving', newValue))],
-});
+import { leavingCravingKeyState } from '../../recoil/craving';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = ({ navigation }) => {
-  const isFocused = useIsFocused();
-  const [leftCravingKey, setLeftCravingKeyState] = useRecoilState(leftCravingKeyState);
   useToggleCTA({
     hideCTA: true,
     navigator: 'Craving',
@@ -52,26 +45,6 @@ const CravingNavigator = ({ navigation }) => {
       storage.set('@firstTimeCraving', dayjsInstance().format('YYYY-MM-DD'));
     }
   }, []);
-  useEffect(() => {
-    if (!isFocused) {
-      setLeftCravingKeyState((k) => k + 1);
-      const firstTimeCraving = storage.getString('@firstTimeCraving');
-      const isTimeToAskNPS = dayjsInstance().diff(firstTimeCraving, 'day') >= 7;
-      const fromCravingToNPSModal = storage.getString('@fromCravingToNPSModal');
-      if (isTimeToAskNPS && fromCravingToNPSModal !== 'true') {
-        storage.set('@fromCravingToNPSModal', 'true');
-        navigation.navigate('STRATEGY_MODAL_TO_NPS');
-      } else {
-        navigation.navigate('LEAVING_CRAVING_MODAL');
-      }
-    }
-  }, [isFocused]);
-  useEffect(() => {
-    if (leftCravingKey === 1) {
-      // navigation.navigate('LEAVING_CRAVING_MODAL');
-    }
-  }, [leftCravingKey]);
-
   return (
     <Background color="#39cec0" withSwiperContainer>
       <CravingStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CRAVING_INDEX">

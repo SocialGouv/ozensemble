@@ -1,24 +1,30 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useState, useEffect, useRef } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Background from '../../components/Background';
 import WrapperContainer from '../../components/WrapperContainer';
 import { logEvent } from '../../services/logEventsWithMatomo';
-import { defineStrategyState } from '../../recoil/strategies';
-import { useState, useEffect } from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { strategyCatalogObject, getDisplayName } from '../../reference/strategyCatalog';
+import { currentStrategyState, defineStrategyState } from '../../recoil/craving';
+import { strategyCatalogObject, getDisplayName } from './strategies';
 
 import TargetStrategy from '../../components/illustrations/icons/TargetStrategy';
 import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy';
 import LeftArrowStrategy from '../../components/illustrations/icons/leftArrowStrategy';
 import RigthArrowStrategy from '../../components/illustrations/icons/rigthArrowStrategy';
-import { useRecoilState } from 'recoil';
+import { dayjsInstance } from '../../services/dates';
 
 const CravingStrategies = ({ navigation }) => {
-  const [strategies, setStrategies] = useRecoilState(defineStrategyState);
-  const [pageIndex, setIndex] = useState(0);
+  const strategies = useRecoilValue(defineStrategyState);
+  const [pageIndex, setIndex] = useRecoilState(currentStrategyState);
   const [actionPlanRedictor, setActionPlanRedictor] = useState([]);
   const [actionPlanNotRedictor, setActionPlanNotRedictor] = useState([]);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    scrollRef?.current?.scrollTo({ x: 0, y: 0, animated: true });
+  }, [pageIndex]);
 
   useEffect(() => {
     if (filteredStrategy) {
@@ -28,7 +34,7 @@ const CravingStrategies = ({ navigation }) => {
       filteredStrategy.actionPlan
         .map((actionPlanKey) => strategyCatalogObject[actionPlanKey])
         .forEach((actionPlan) => {
-          if (actionPlan.redirection !== 'notdefined') {
+          if (actionPlan.redirection) {
             newActionPlanRedictor.push(actionPlan);
           } else {
             newActionPlanNotRedictor.push(actionPlan);
@@ -43,7 +49,10 @@ const CravingStrategies = ({ navigation }) => {
   return (
     <SafeAreaProvider>
       <Background color="#f9f9f9">
-        <WrapperContainer title="Ma stratégie" onPressBackButton={() => navigation.navigate('CRAVING_INDEX')}>
+        <WrapperContainer
+          title="Ma stratégie"
+          onPressBackButton={() => navigation.navigate('CRAVING_INDEX')}
+          ref={scrollRef}>
           <View className="border-[#4030A5] border p-5 rounded-lg">
             {filteredStrategy && (
               <View className="flex  flex-col space-y-3">
@@ -53,7 +62,7 @@ const CravingStrategies = ({ navigation }) => {
                     <View className="flex flex-col">
                       <Text className="text-xl font-extrabold text-[#4030A5]">Stratégie n°{pageIndex + 1}</Text>
                       <Text className=" text-[#4030A5]">
-                        {new Date(filteredStrategy.createdAt).toLocaleDateString('fr-FR')}
+                        {dayjsInstance(filteredStrategy.createdAt).format('DD/MM/YYYY à HH:mm')}
                       </Text>
                     </View>
                   </View>
@@ -104,7 +113,7 @@ const CravingStrategies = ({ navigation }) => {
                                 );
                                 _actionPlan = actionPlanRedictorNotRandom[randomActionPlanIndex];
                               }
-                              navigation.navigate(_actionPlan.redirection);
+                              navigation.navigate(..._actionPlan.redirection);
                             }}
                             key={elementIndex}
                             className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#4030A5] border border-[#4030A5]">

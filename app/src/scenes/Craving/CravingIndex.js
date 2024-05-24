@@ -11,7 +11,7 @@ import { storage } from '../../services/storage';
 import StrategyIcon from '../../components/illustrations/StrategyIcon';
 import API from '../../services/api';
 import { useRecoilState } from 'recoil';
-import { defineStrategyState } from '../../recoil/strategies';
+import { defineStrategyState } from '../../recoil/craving';
 
 const CravingIndex = ({ navigation }) => {
   const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
@@ -44,7 +44,9 @@ const CravingIndex = ({ navigation }) => {
             navigation.navigate('CRAVING_STRATEGIES');
           }
         }}>
-        <H1 color="#fff">Ma stratégie</H1>
+        <H1 className="font-semibold" color="#fff">
+          Ma stratégie
+        </H1>
         <StrategyIcon size={90} />
       </TouchableOpacity>
 

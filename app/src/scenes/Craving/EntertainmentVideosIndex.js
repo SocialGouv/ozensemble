@@ -17,7 +17,6 @@ const EntertainmentVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between bg-[#C79CFF] rounded-md px-3 pt-4 pb-3"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: ['mgfGrak7-Xs', 'gRvEAeHmkXI', 'Tcl77wCujQ4', 'JxS5E-kZc2s', 'ynBinxdfra0', 'H7zm-8X8n-c'],
                   category: 'FUNNY',
                   title: 'Vidéos drôles',
                 });
@@ -38,16 +37,6 @@ const EntertainmentVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: [
-                    'z5fu7ibDrOo',
-                    'FCPdIvXo2rU',
-                    'tVyX2RueYAc',
-                    'izA3I5hT_T4',
-                    'CHSnz0bCaUk',
-                    'i810CxN5Q6Q',
-                    'LWfgLE8ZPtg',
-                    'hVvEISFw9w0',
-                  ],
                   category: 'CHILL',
                   title: 'Vidéos de détente',
                 });
@@ -68,15 +57,6 @@ const EntertainmentVideosIndex = ({ navigation }) => {
               className="w-full flex flex-row justify-between items-end bg-[#C79CFF] rounded-md pt-5 px-3 pb-3 shadow-md"
               onPress={() => {
                 navigation.navigate('VIDEO_PLAYER', {
-                  videoIds: [
-                    'EzGPmg4fFL8',
-                    'eUpwDAnkgSM',
-                    'NtZVFUvn3_U',
-                    'ctEksNz7tqg',
-                    'ma67yOdMQfs',
-                    'EZVy-Wrncyg',
-                    'QGVIWsw-TYQ',
-                  ],
                   category: 'SENSATION',
                   title: 'Vidéos de sensations',
                 });
