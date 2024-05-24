@@ -1,3 +1,10 @@
+## [1.156.2](https://github.com/SocialGouv/ozensemble/compare/v1.156.1...v1.156.2) (2024-05-24)
+
+
+### Bug Fixes
+
+* new feature strategy ([7f093c9](https://github.com/SocialGouv/ozensemble/commit/7f093c9d4394921816fd1ca2863d801da2d8547b))
+
 ## [1.156.1](https://github.com/SocialGouv/ozensemble/compare/v1.156.0...v1.156.1) (2024-05-24)
 
 
