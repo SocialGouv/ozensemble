@@ -197,6 +197,7 @@ async function syncAllGoalsWithConsos(matomoId, fixGoals = false, debug = false)
     },
   });
 
+  if (!user) return;
   if (!user.goal_isSetup) return;
   // 2. check if goals are existing
   const startOfWeeksForDrinks = {};
