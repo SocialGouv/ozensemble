@@ -6,7 +6,11 @@ import Background from '../../components/Background';
 import WrapperContainer from '../../components/WrapperContainer';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { currentStrategyState, defineStrategyState } from '../../recoil/craving';
-import { strategyCatalogObject, getDisplayName } from './strategies';
+import { strategyCatalogObject, getDisplayName, strategyCatalog } from './strategies';
+const allActionsPlans = strategyCatalog.filter((strategy) => strategy.categoryKey === 'actionPlan');
+const randomPossibleActionPlan = allActionsPlans.filter(
+  (actionPlan) => !!actionPlan.redirection && actionPlan.redirection !== 'RANDOM'
+);
 
 import TargetStrategy from '../../components/illustrations/icons/TargetStrategy';
 import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy';
@@ -17,34 +21,17 @@ import { dayjsInstance } from '../../services/dates';
 const CravingStrategies = ({ navigation }) => {
   const strategies = useRecoilValue(defineStrategyState);
   const [pageIndex, setIndex] = useRecoilState(currentStrategyState);
-  const [actionPlanRedictor, setActionPlanRedictor] = useState([]);
-  const [actionPlanNotRedictor, setActionPlanNotRedictor] = useState([]);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
+
+  const actionPlans = filteredStrategy?.actionPlan?.map((actionPlanKey) => strategyCatalogObject[actionPlanKey]) || [];
+  const actionPlanRedictor = actionPlans.filter((actionPlan) => actionPlan.redirection);
+  const actionPlanNotRedictor = actionPlans.filter((actionPlan) => !actionPlan.redirection);
+
   const scrollRef = useRef();
 
   useEffect(() => {
     scrollRef?.current?.scrollTo({ x: 0, y: 0, animated: true });
   }, [pageIndex]);
-
-  useEffect(() => {
-    if (filteredStrategy) {
-      const newActionPlanRedictor = [];
-      const newActionPlanNotRedictor = [];
-
-      filteredStrategy.actionPlan
-        .map((actionPlanKey) => strategyCatalogObject[actionPlanKey])
-        .forEach((actionPlan) => {
-          if (actionPlan.redirection) {
-            newActionPlanRedictor.push(actionPlan);
-          } else {
-            newActionPlanNotRedictor.push(actionPlan);
-          }
-        });
-
-      setActionPlanRedictor(newActionPlanRedictor);
-      setActionPlanNotRedictor(newActionPlanNotRedictor);
-    }
-  }, [strategies, pageIndex]);
 
   return (
     <SafeAreaProvider>
@@ -105,13 +92,8 @@ const CravingStrategies = ({ navigation }) => {
                             onPress={() => {
                               let _actionPlan = actionPlan;
                               if (actionPlan.redirection === 'RANDOM') {
-                                let actionPlanRedictorNotRandom = actionPlanRedictor.filter(
-                                  (actionPlan) => actionPlan.redirection !== 'RANDOM'
-                                );
-                                let randomActionPlanIndex = Math.floor(
-                                  Math.random() * actionPlanRedictorNotRandom.length
-                                );
-                                _actionPlan = actionPlanRedictorNotRandom[randomActionPlanIndex];
+                                let randomActionPlanIndex = Math.floor(Math.random() * randomPossibleActionPlan.length);
+                                _actionPlan = randomPossibleActionPlan[randomActionPlanIndex];
                               }
                               navigation.navigate(..._actionPlan.redirection);
                             }}

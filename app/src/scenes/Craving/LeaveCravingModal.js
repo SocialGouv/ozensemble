@@ -58,7 +58,7 @@ const LeaveCravingModal = ({ navigation }) => {
                 });
                 navigation.goBack();
               }}>
-              <Text>Annuler</Text>
+              <Text className="text-[#4030A5] font-semibold underline">Annuler</Text>
             </TouchableOpacity>
           </View>
         </View>
