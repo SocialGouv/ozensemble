@@ -1,3 +1,10 @@
+# [1.157.0](https://github.com/SocialGouv/ozensemble/compare/v1.156.4...v1.157.0) (2024-05-28)
+
+
+### Features
+
+* force latest version ([732aa9b](https://github.com/SocialGouv/ozensemble/commit/732aa9bf5a1f8efb71befc5ab2d78cd38a48a28d))
+
 ## [1.156.4](https://github.com/SocialGouv/ozensemble/compare/v1.156.3...v1.156.4) (2024-05-27)
 
 
