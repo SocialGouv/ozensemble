@@ -234,4 +234,13 @@ export const fakeConsoData = {
       },
     ],
   },
+  noConso: {
+    startDate: Date.parse(dateWithoutTime(new Date(), -35)),
+    drinks: Array.from({ length: 35 }, (_, i) => ({
+      timestamp: Date.parse(dateWithoutTime(new Date(), -i)),
+      drinkKey: 'no-conso',
+      quantity: 1,
+      id: uuid(),
+    })),
+  },
 };

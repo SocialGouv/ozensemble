@@ -269,6 +269,13 @@ const FakeData = () => {
           }}
         />
         <MenuItem
+          caption="30 jours de non conso"
+          onPress={() => {
+            setGlobalDrinksState(fakeConsoData.noConso.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            storage.delete('nps-asked-after-more-than-3-consos');
+          }}
+        />
+        <MenuItem
           caption="+/-5 verres de vin par jour pendant 2 ans"
           onPress={() => {
             const startDate = dayjs().subtract(2, 'year').startOf('day');
