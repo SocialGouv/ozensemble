@@ -1,3 +1,10 @@
+## [1.157.2](https://github.com/SocialGouv/ozensemble/compare/v1.157.1...v1.157.2) (2024-05-30)
+
+
+### Bug Fixes
+
+* android link ([8b14d08](https://github.com/SocialGouv/ozensemble/commit/8b14d08df945af096034bc6784710e33c7a89b6b))
+
 ## [1.157.1](https://github.com/SocialGouv/ozensemble/compare/v1.157.0...v1.157.1) (2024-05-30)
 
 
