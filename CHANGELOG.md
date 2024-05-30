@@ -1,3 +1,10 @@
+## [1.157.1](https://github.com/SocialGouv/ozensemble/compare/v1.157.0...v1.157.1) (2024-05-30)
+
+
+### Bug Fixes
+
+* https://play.google.com/store/apps/details?id=com.addicto ([4223010](https://github.com/SocialGouv/ozensemble/commit/42230103a2f2eb5d28e2383ef01a5805cc7154c9))
+
 # [1.157.0](https://github.com/SocialGouv/ozensemble/compare/v1.156.4...v1.157.0) (2024-05-28)
 
 
