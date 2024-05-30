@@ -10,7 +10,7 @@ module.exports = ({ headers: { appversion, appdevice } }, res, next) => {
       ok: false,
       sendInApp: [
         "Votre application n'est pas à jour !",
-        `Vous pouvez la mettre à jour en cliquant sur le lien ci-dessous ou en vous rendant sur ${}`,
+        `Vous pouvez la mettre à jour en cliquant sur le lien ci-dessous ou en vous rendant sur ${appdevice === "ios" ? iosLink : androidLink}`,
         [{ text: "Mettre à jour", link: appdevice === "ios" ? iosLink : androidLink }],
         { cancelable: true },
       ],
