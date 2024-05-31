@@ -1,4 +1,6 @@
 app:
+  autoscale:
+    enabled: true
   host: api-ozensemble.fabrique.social.gouv.fr
 
 cronjobs:
