@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../components/Background';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';

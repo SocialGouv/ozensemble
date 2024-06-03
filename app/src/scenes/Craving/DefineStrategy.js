@@ -137,9 +137,8 @@ const DefineStrategy = ({ navigation, route }) => {
         toast.show('Stratégie enregistrée');
       }
     });
-    storage.set('@successStrategy', true);
     navigation.popToTop();
-    navigation.navigate('CRAVING_STRATEGIES');
+    navigation.navigate('SUCCESS_STRATEGY_MODAL', { actionPlan: actionPlan });
   };
 
   return (

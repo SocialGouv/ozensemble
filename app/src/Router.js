@@ -51,6 +51,7 @@ import { dayjsInstance } from './services/dates';
 import { capture } from './services/sentry';
 import EnterCravingModal from './scenes/Craving/EnterCravingModal';
 import ModalCraving from './components/ModalCraving';
+import SuccessStrategyModal from './scenes/Craving/SuccessStrategyModal';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -378,6 +379,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="CRAVING_MODAL"
             component={ModalCraving}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="SUCCESS_STRATEGY_MODAL"
+            component={SuccessStrategyModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
