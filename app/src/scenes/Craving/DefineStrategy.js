@@ -40,18 +40,12 @@ const DefineStrategy = ({ navigation, route }) => {
     trigger: [],
   };
 
-  useEffect(() => {
-    const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? defaultStrategy;
-    setFeelings(strategy.feelings);
-    setActionPlan(strategy.actionPlan);
-    setTrigger(strategy.trigger);
-    setSelectedIntensity(strategy.intensity);
-  }, [strategyIndex]);
+  const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? defaultStrategy;
 
-  const [feelings, setFeelings] = useState(defaultStrategy.feelings);
-  const [actionPlan, setActionPlan] = useState(defaultStrategy.actionPlan);
-  const [trigger, setTrigger] = useState(defaultStrategy.trigger);
-  const [selectedIntensity, setSelectedIntensity] = useState(defaultStrategy.intensity);
+  const [feelings, setFeelings] = useState(strategy.feelings);
+  const [actionPlan, setActionPlan] = useState(strategy.actionPlan);
+  const [trigger, setTrigger] = useState(strategy.trigger);
+  const [selectedIntensity, setSelectedIntensity] = useState(strategy.intensity);
 
   const validateStrategy = () => {
     let createdAt = new Date();
@@ -137,8 +131,10 @@ const DefineStrategy = ({ navigation, route }) => {
         toast.show('Stratégie enregistrée');
       }
     });
-    navigation.popToTop();
-    navigation.navigate('CRAVING_STRATEGIES');
+    navigation.reset({
+      index: 1,
+      routes: [{ name: 'CRAVING_INDEX' }, { name: 'CRAVING_STRATEGIES' }],
+    });
     navigation.navigate('SUCCESS_STRATEGY_MODAL', { actionPlan: actionPlan });
   };
 

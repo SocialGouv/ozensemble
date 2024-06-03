@@ -45,6 +45,44 @@ const FakeData = () => {
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
+        <H1Wrapper delete>Effacer des données</H1Wrapper>
+        <MenuItem caption="Mon NPS" onPress={() => storage.delete('@NPSDone')} />
+        <MenuItem caption="Ma consommation d'alcool" onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)} />
+        <MenuItem
+          caption="Tous les défis"
+          onPress={() => {
+            deleteStorageValues(fakeDefi1);
+            deleteStorageValues(fakeDefi2);
+            deleteStorageValues(fakeDefi3);
+            deleteStorageValues(fakeDefi4);
+            deleteStorageValues(fakeDefi5);
+          }}
+        />
+        <MenuItem caption="Tout le défi 1" onPress={() => deleteStorageValues(fakeDefi1)} />
+        <MenuItem caption="Tout le défi 2" onPress={() => deleteStorageValues(fakeDefi2)} />
+        <MenuItem caption="Tout le défi 3" onPress={() => deleteStorageValues(fakeDefi3)} />
+        <MenuItem caption="Tout le défi 4" onPress={() => deleteStorageValues(fakeDefi4)} />
+        <MenuItem caption="Tout le défi 5" onPress={() => deleteStorageValues(fakeDefi5)} />
+        <MenuItem
+          caption="Toutes les popups de nouvelles fonctionnalités"
+          onPress={() => {
+            deleteStorageValues(['@NewFeaturesPopupIdsShown', 'NewFeaturesLastShownId']);
+          }}
+        />
+        <MenuItem
+          caption="Toutes mes consos"
+          onPress={() => {
+            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            storage.delete('nps-asked-after-more-than-3-consos');
+          }}
+        />
+        <MenuItem
+          caption="Ma localisation"
+          onPress={() => {
+            storage.delete('isWellLocated');
+          }}
+        />
+        <MenuItem caption="Tout" onPress={() => storage.clearAll()} />
         <MenuItem
           caption="Reset consos et défi 1"
           onPress={() => {
