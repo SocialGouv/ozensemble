@@ -79,9 +79,13 @@ const TabsNavigator = ({ navigation }) => {
         initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
         screenListeners={({ navigation }) => ({
           tabPress: (e) => {
+            const firstTimeCraving = storage.getString('@firstTimeCraving');
             if (e.target.startsWith('CRAVING')) {
+              if (!isInCraving && firstTimeCraving) {
+                storage.set('@showEnterModal', true);
+              }
               setIsInCraving(true);
-              navigation.popToTop(); // reset craving stack navigator
+              navigation.navigate('CRAVING_INDEX');
               return;
             }
             if (!isInCraving) return;
@@ -92,7 +96,6 @@ const TabsNavigator = ({ navigation }) => {
             // 1. one modal LEAVING_CRAVING_MODAL that we show EVERYTIME the users leaves EXCEPT
             // 2. the second modal STRATEGY_MODAL_TO_NPS that triggers the user to go to the NPS screen
             // if we show STRATEGY_MODAL_TO_NPS, we don't show LEAVING_CRAVING_MODAL
-            const firstTimeCraving = storage.getString('@firstTimeCraving');
             const isTimeToAskNPS = dayjsInstance().diff(firstTimeCraving, 'day') >= 7;
             const fromCravingToNPSModal = storage.getString('@fromCravingToNPSModal');
             if (isTimeToAskNPS && fromCravingToNPSModal !== 'true') {

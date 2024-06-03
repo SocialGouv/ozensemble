@@ -17,7 +17,7 @@ import { useToast } from '../../services/toast';
 import { v4 as uuidv4 } from 'uuid';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 import { Slider } from 'react-native-awesome-slider';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -30,22 +30,35 @@ const DefineStrategy = ({ navigation, route }) => {
   const { strategyIndex } = route.params;
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
   const setCurrentStrategyIndex = useSetRecoilState(currentStrategyState);
-  const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? {
+  const toast = useToast();
+
+  const defaultStrategy = {
     index: strategyIndex,
     intensity: 5,
+    feelings: [],
+    actionPlan: [],
+    trigger: [],
   };
-  const [feelings, setFeelings] = useState(strategy.feelings ?? []);
-  const [actionPlan, setActionPlan] = useState(strategy.actionPlan ?? []);
-  const [trigger, setTrigger] = useState(strategy.trigger ?? []);
-  const [selectedIntensity, setSelectedIntensity] = useState(strategy.intensity);
-  const toast = useToast();
+
+  useEffect(() => {
+    const strategy = strategies.find((strategy) => strategy.index === strategyIndex) ?? defaultStrategy;
+    setFeelings(strategy.feelings);
+    setActionPlan(strategy.actionPlan);
+    setTrigger(strategy.trigger);
+    setSelectedIntensity(strategy.intensity);
+  }, [strategyIndex]);
+
+  const [feelings, setFeelings] = useState(defaultStrategy.feelings);
+  const [actionPlan, setActionPlan] = useState(defaultStrategy.actionPlan);
+  const [trigger, setTrigger] = useState(defaultStrategy.trigger);
+  const [selectedIntensity, setSelectedIntensity] = useState(defaultStrategy.intensity);
 
   const validateStrategy = () => {
     let createdAt = new Date();
     if (strategyIndex === strategies.length) {
       const newStrategyToSave = {
         id: uuidv4(),
-        index: strategy.index ?? 0,
+        index: strategyIndex,
         feelings: feelings,
         trigger: trigger,
         intensity: selectedIntensity,
@@ -113,7 +126,7 @@ const DefineStrategy = ({ navigation, route }) => {
       path: '/strategies',
       body: {
         matomoId: storage.getString('@UserIdv2'),
-        strategyIndex: strategy.index ?? 0,
+        strategyIndex: strategyIndex,
         feelings: feelings,
         trigger: trigger,
         intensity: selectedIntensity,
@@ -124,6 +137,8 @@ const DefineStrategy = ({ navigation, route }) => {
         toast.show('Stratégie enregistrée');
       }
     });
+    storage.set('@successStrategy', true);
+    navigation.popToTop();
     navigation.navigate('CRAVING_STRATEGIES');
   };
 

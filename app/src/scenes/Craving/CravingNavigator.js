@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Background from '../../components/Background';
-import { useRecoilState } from 'recoil';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import CravingBreath from './CravingBreath';
 import CravingIndex from './CravingIndex';
@@ -13,7 +12,6 @@ import Advice from './Advice';
 import CravingStrategies from './CravingStrategies';
 import DefineStrategy from './DefineStrategy';
 import NoStrategy from './NoStrategy';
-import { useIsFocused } from '@react-navigation/native';
 import { storage } from '../../services/storage';
 import Conseils from '../Health/Conseils';
 import Testimonies from '../Health/Testimonies';
@@ -31,7 +29,6 @@ import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import AlcoholAndDependency from '../Health/Articles/AlcoholAndDependency';
 import OwnTestimony from '../Health/OwnTestimony';
 import { dayjsInstance } from '../../services/dates';
-import { leavingCravingKeyState } from '../../recoil/craving';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = ({ navigation }) => {

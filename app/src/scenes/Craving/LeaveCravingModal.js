@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { isInCravingKeyState, leavingCravingNextTabState } from '../../recoil/craving';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { storage } from '../../services/storage';
 
 const LeaveCravingModal = ({ navigation }) => {
   const leavingCravingNextTab = useRecoilValue(leavingCravingNextTabState);
@@ -56,6 +57,7 @@ const LeaveCravingModal = ({ navigation }) => {
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_CANCEL',
                 });
+                storage.set('@showEnterModal', false);
                 navigation.goBack();
               }}>
               <Text className="text-[#4030A5] font-semibold underline">Annuler</Text>

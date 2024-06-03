@@ -3,8 +3,10 @@ import { useState, useEffect, useRef } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Background from '../../components/Background';
+import SuccessStrategyModal from './SuccessStrategyModal';
 import WrapperContainer from '../../components/WrapperContainer';
 import { logEvent } from '../../services/logEventsWithMatomo';
+import { useIsFocused } from '@react-navigation/native';
 import { currentStrategyState, defineStrategyState } from '../../recoil/craving';
 import { strategyCatalogObject, getDisplayName, strategyCatalog } from './strategies';
 const allActionsPlans = strategyCatalog.filter((strategy) => strategy.categoryKey === 'actionPlan');
@@ -17,17 +19,30 @@ import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy'
 import LeftArrowStrategy from '../../components/illustrations/icons/leftArrowStrategy';
 import RigthArrowStrategy from '../../components/illustrations/icons/rigthArrowStrategy';
 import { dayjsInstance } from '../../services/dates';
+import { storage } from '../../services/storage';
 
 const CravingStrategies = ({ navigation }) => {
   const strategies = useRecoilValue(defineStrategyState);
   const [pageIndex, setIndex] = useRecoilState(currentStrategyState);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const actionPlans = filteredStrategy?.actionPlan?.map((actionPlanKey) => strategyCatalogObject[actionPlanKey]) || [];
   const actionPlanRedictor = actionPlans.filter((actionPlan) => actionPlan.redirection);
   const actionPlanNotRedictor = actionPlans.filter((actionPlan) => !actionPlan.redirection);
+  const isFocused = useIsFocused();
 
   const scrollRef = useRef();
+
+  useEffect(() => {
+    if (isFocused) {
+      const showSuccessModal = storage.getBoolean('@successStrategy');
+      if (showSuccessModal) {
+        setShowSuccessModal(true);
+        storage.set('@successStrategy', false);
+      }
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     scrollRef?.current?.scrollTo({ x: 0, y: 0, animated: true });
@@ -43,6 +58,12 @@ const CravingStrategies = ({ navigation }) => {
           <View className="border-[#4030A5] border p-5 rounded-lg">
             {filteredStrategy && (
               <View className="flex  flex-col space-y-3">
+                <SuccessStrategyModal
+                  navigation={navigation}
+                  actionPlanRedictor={actionPlanRedictor}
+                  visible={showSuccessModal}
+                  onClose={() => setShowSuccessModal(false)}
+                />
                 <View className="flex flex-row justify-between">
                   <View className="flex flex-row items-center space-x-4">
                     <TargetStrategy size={50} />
