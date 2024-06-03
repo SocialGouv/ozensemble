@@ -138,6 +138,7 @@ const DefineStrategy = ({ navigation, route }) => {
       }
     });
     navigation.popToTop();
+    navigation.navigate('CRAVING_STRATEGIES');
     navigation.navigate('SUCCESS_STRATEGY_MODAL', { actionPlan: actionPlan });
   };
 
