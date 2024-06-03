@@ -49,6 +49,9 @@ import StrategyModalNPS from './components/StrategyModalNPS';
 import { isInCravingKeyState, leavingCravingNextTabState } from './recoil/craving';
 import { dayjsInstance } from './services/dates';
 import { capture } from './services/sentry';
+import EnterCravingModal from './scenes/Craving/EnterCravingModal';
+import ModalCraving from './components/ModalCraving';
+import SuccessStrategyModal from './scenes/Craving/SuccessStrategyModal';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -79,9 +82,17 @@ const TabsNavigator = ({ navigation }) => {
         initialRouteName={'CONSO_FOLLOW_UP_NAVIGATOR'}
         screenListeners={({ navigation }) => ({
           tabPress: (e) => {
+            const firstTimeCraving = storage.getString('@firstTimeCraving');
             if (e.target.startsWith('CRAVING')) {
+              if (!firstTimeCraving) {
+                e.preventDefault();
+                navigation.navigate('CRAVING_MODAL');
+              } else if (!isInCraving) {
+                // if we are in craving, we don't show the modal
+                e.preventDefault();
+                navigation.navigate('ENTER_CRAVING_MODAL');
+              }
               setIsInCraving(true);
-              navigation.popToTop(); // reset craving stack navigator
               return;
             }
             if (!isInCraving) return;
@@ -92,7 +103,6 @@ const TabsNavigator = ({ navigation }) => {
             // 1. one modal LEAVING_CRAVING_MODAL that we show EVERYTIME the users leaves EXCEPT
             // 2. the second modal STRATEGY_MODAL_TO_NPS that triggers the user to go to the NPS screen
             // if we show STRATEGY_MODAL_TO_NPS, we don't show LEAVING_CRAVING_MODAL
-            const firstTimeCraving = storage.getString('@firstTimeCraving');
             const isTimeToAskNPS = dayjsInstance().diff(firstTimeCraving, 'day') >= 7;
             const fromCravingToNPSModal = storage.getString('@fromCravingToNPSModal');
             if (isTimeToAskNPS && fromCravingToNPSModal !== 'true') {
@@ -351,6 +361,33 @@ const Router = () => {
           <ModalsStack.Screen
             name="LEAVING_CRAVING_MODAL"
             component={LeaveCravingModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="ENTER_CRAVING_MODAL"
+            component={EnterCravingModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="CRAVING_MODAL"
+            component={ModalCraving}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="SUCCESS_STRATEGY_MODAL"
+            component={SuccessStrategyModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },

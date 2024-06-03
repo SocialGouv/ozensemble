@@ -22,7 +22,6 @@ const CravingStrategies = ({ navigation }) => {
   const strategies = useRecoilValue(defineStrategyState);
   const [pageIndex, setIndex] = useRecoilState(currentStrategyState);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
-
   const actionPlans = filteredStrategy?.actionPlan?.map((actionPlanKey) => strategyCatalogObject[actionPlanKey]) || [];
   const actionPlanRedictor = actionPlans.filter((actionPlan) => actionPlan.redirection);
   const actionPlanNotRedictor = actionPlans.filter((actionPlan) => !actionPlan.redirection);

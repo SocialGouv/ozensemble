@@ -1,20 +1,26 @@
 import React from 'react';
 import Svg, { Path } from 'react-native-svg';
 import { View, TouchableOpacity, Text, ScrollView } from 'react-native';
-import Modal from './Modal';
 import { hitSlop } from '../styles/theme';
 import CravingIcon from './illustrations/CravingIcon';
 import ButtonPrimary from './ButtonPrimary';
 import TipIcon from './illustrations/TipIcon';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { storage } from '../services/storage';
 
-const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
+const ModalCraving = ({ navigation }) => {
   return (
-    <Modal visible={firstTimeOnCraving} animationType="fade" withBackground hideOnTouch>
-      <View className="bg-white rounded-xl">
-        <View className="flex flex-row justify-center mt-4 mb-2">
+    <SafeAreaView className="flex flex-grow justify-center items-center">
+      <View className="bg-white rounded-xl max-w-[90%]">
+        <View className="flex flex-row justify-center mt-4 mb-2 mx-4">
           <ScrollView className="p-2 space-y-4">
             <View className="h-5 flex flex-row  justify-end ">
-              <TouchableOpacity onPress={onClose} hitSlop={hitSlop(15)}>
+              <TouchableOpacity
+                onPress={() => {
+                  storage.set('firstTimeOnCraving', false);
+                  navigation.navigate('CRAVING', { screen: 'CRAVING_INDEX' });
+                }}
+                hitSlop={hitSlop(15)}>
                 <Svg fill="none" viewBox="0 0 24 24" className="h-5 w-5">
                   <Path
                     strokeLinecap="round"
@@ -68,7 +74,8 @@ const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
               <ButtonPrimary
                 content="Commencer"
                 onPress={() => {
-                  onClose();
+                  storage.set('firstTimeOnCraving', false);
+                  navigation.navigate('CRAVING', { screen: 'CRAVING_INDEX' });
                 }}
                 className=""
               />
@@ -76,7 +83,7 @@ const ModalCraving = ({ firstTimeOnCraving, onClose }) => {
           </ScrollView>
         </View>
       </View>
-    </Modal>
+    </SafeAreaView>
   );
 };
 

@@ -1,12 +1,11 @@
 import { ImageBackground, View, TouchableOpacity, Text } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WrapperContainer from '../../components/WrapperContainer';
 import AdvicesIcon from '../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../components/illustrations/BreathingIcon';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import VideosIcon from '../../components/illustrations/VideosIcon';
-import ModalCraving from '../../components/ModalCraving';
 import { storage } from '../../services/storage';
 import StrategyIcon from '../../components/illustrations/StrategyIcon';
 import API from '../../services/api';
@@ -14,9 +13,7 @@ import { useRecoilState } from 'recoil';
 import { defineStrategyState } from '../../recoil/craving';
 
 const CravingIndex = ({ navigation }) => {
-  const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
-
   useEffect(() => {
     const fetchStrategies = async () => {
       const res = await API.get({
@@ -91,14 +88,6 @@ const CravingIndex = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
-
-      <ModalCraving
-        firstTimeOnCraving={firstTimeOnCraving}
-        onClose={() => {
-          storage.set('firstTimeOnCraving', false);
-          setfirstTimeOnCraving(false);
-        }}
-      />
     </WrapperContainer>
   );
 };
