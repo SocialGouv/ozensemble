@@ -17,7 +17,7 @@ const advices = [
     title: 'Lisez une revue',
     description:
       'Profitez de ce moment pour démarrer un livre que vous souhaitiez lire, ou pour lire une revue ou un article.\n',
-    nextAdvice: 'HYDRATATION_ADVICE',
+    nextAdvice: 'HYDRATION_ADVICE',
     currentAdvice: 'READING_ADVICE',
     icon: ReadingIcon,
   },
@@ -34,7 +34,7 @@ const advices = [
     description:
       'Optez pour des boissons non alcoolisées et savoureuses (eau pétillante, jus de fruits, tisane). Ajoutez-y une rondelle de citron ou de concombre.',
     nextAdvice: 'WALK_ADVICE',
-    currentAdvice: 'HYDRATATION_ADVICE',
+    currentAdvice: 'HYDRATION_ADVICE',
     icon: HydrationIcon,
   },
   {
