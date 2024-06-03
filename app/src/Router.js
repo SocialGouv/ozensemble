@@ -49,6 +49,8 @@ import StrategyModalNPS from './components/StrategyModalNPS';
 import { isInCravingKeyState, leavingCravingNextTabState } from './recoil/craving';
 import { dayjsInstance } from './services/dates';
 import { capture } from './services/sentry';
+import EnterCravingModal from './scenes/Craving/EnterCravingModal';
+import ModalCraving from './components/ModalCraving';
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -81,11 +83,15 @@ const TabsNavigator = ({ navigation }) => {
           tabPress: (e) => {
             const firstTimeCraving = storage.getString('@firstTimeCraving');
             if (e.target.startsWith('CRAVING')) {
-              if (!isInCraving && firstTimeCraving) {
-                storage.set('@showEnterModal', true);
+              if (!firstTimeCraving) {
+                e.preventDefault();
+                navigation.navigate('CRAVING_MODAL');
+              } else if (!isInCraving) {
+                // if we are in craving, we don't show the modal
+                e.preventDefault();
+                navigation.navigate('ENTER_CRAVING_MODAL');
               }
               setIsInCraving(true);
-              navigation.navigate('CRAVING_INDEX');
               return;
             }
             if (!isInCraving) return;
@@ -354,6 +360,24 @@ const Router = () => {
           <ModalsStack.Screen
             name="LEAVING_CRAVING_MODAL"
             component={LeaveCravingModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="ENTER_CRAVING_MODAL"
+            component={EnterCravingModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
+              animation: 'fade',
+            }}
+          />
+          <ModalsStack.Screen
+            name="CRAVING_MODAL"
+            component={ModalCraving}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },

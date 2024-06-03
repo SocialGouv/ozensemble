@@ -31,7 +31,7 @@ import OwnTestimony from '../Health/OwnTestimony';
 import { dayjsInstance } from '../../services/dates';
 
 const CravingStack = createStackNavigator();
-const CravingNavigator = ({ navigation }) => {
+const CravingNavigator = ({}) => {
   useToggleCTA({
     hideCTA: true,
     navigator: 'Craving',
@@ -42,6 +42,7 @@ const CravingNavigator = ({ navigation }) => {
       storage.set('@firstTimeCraving', dayjsInstance().format('YYYY-MM-DD'));
     }
   }, []);
+
   return (
     <Background color="#39cec0" withSwiperContainer>
       <CravingStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="CRAVING_INDEX">

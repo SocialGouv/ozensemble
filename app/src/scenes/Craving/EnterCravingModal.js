@@ -1,19 +1,19 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import Modal from '../../components/Modal';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import CravingIcon from '../../components/illustrations/CravingIcon';
 import { useRecoilState } from 'recoil';
 import { isInCravingKeyState } from '../../recoil/craving';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const EnterCravingModal = ({ enterCraving, setEnterCraving, onNo }) => {
+const EnterCravingModal = ({ navigation }) => {
   const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
   return (
-    <Modal visible={enterCraving} animationType="fade" withBackground hideOnTouch>
+    <SafeAreaView className="flex flex-grow justify-center items-center">
       <View className="bg-white rounded-xl max-w-[90%]">
         <View className=" flex w-full px-2 space-y-8 my-8">
           <View className="items-center">
-            <CravingIcon size={70} className="-mt-10" />
+            <CravingIcon size={70} className="" />
           </View>
           <Text className="text-start  text-xl px-2 font-extrabold text-[#4030A5]">
             Vous entrez dans votre espace d'aide au craving
@@ -29,7 +29,7 @@ const EnterCravingModal = ({ enterCraving, setEnterCraving, onNo }) => {
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_ENTER_YES',
                 });
-                setEnterCraving(false);
+                navigation.navigate('CRAVING', { screen: 'CRAVING_INDEX' });
               }}>
               <Text className="text-xl text-white font-extrabold">Oui</Text>
             </TouchableOpacity>
@@ -40,16 +40,15 @@ const EnterCravingModal = ({ enterCraving, setEnterCraving, onNo }) => {
                   category: 'CRAVING_VOTE',
                   action: 'CRAVING_ENTER_NO',
                 });
-                setEnterCraving(false);
                 setIsInCraving(false);
-                onNo();
+                navigation.goBack();
               }}>
               <Text className="text-xl text-white font-extrabold">Non</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-    </Modal>
+    </SafeAreaView>
   );
 };
 

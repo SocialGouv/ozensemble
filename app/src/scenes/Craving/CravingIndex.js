@@ -1,25 +1,19 @@
 import { ImageBackground, View, TouchableOpacity, Text } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import WrapperContainer from '../../components/WrapperContainer';
 import AdvicesIcon from '../../components/illustrations/AdvicesICon';
 import BreathingIcon from '../../components/illustrations/BreathingIcon';
 import H1 from '../../components/H1';
 import H2 from '../../components/H2';
 import VideosIcon from '../../components/illustrations/VideosIcon';
-import ModalCraving from '../../components/ModalCraving';
-import EnterCravingModal from './EnterCravingModal';
 import { storage } from '../../services/storage';
 import StrategyIcon from '../../components/illustrations/StrategyIcon';
 import API from '../../services/api';
 import { useRecoilState } from 'recoil';
 import { defineStrategyState } from '../../recoil/craving';
-import { useIsFocused } from '@react-navigation/native';
 
 const CravingIndex = ({ navigation }) => {
-  const [firstTimeOnCraving, setfirstTimeOnCraving] = useState(storage.getBoolean('firstTimeOnCraving'));
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
-  const [enterCraving, setEnterCraving] = useState(false);
-  const isFocused = useIsFocused();
   useEffect(() => {
     const fetchStrategies = async () => {
       const res = await API.get({
@@ -36,15 +30,6 @@ const CravingIndex = ({ navigation }) => {
     fetchStrategies();
   }, []);
 
-  useEffect(() => {
-    if (isFocused) {
-      const showEnterModal = storage.getBoolean('@showEnterModal');
-      if (showEnterModal) {
-        setEnterCraving(true);
-        storage.set('@showEnterModal', false);
-      }
-    }
-  }, [isFocused]);
   return (
     <WrapperContainer title="Craving">
       <TouchableOpacity
@@ -103,20 +88,6 @@ const CravingIndex = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
-      <ModalCraving
-        firstTimeOnCraving={firstTimeOnCraving}
-        onClose={() => {
-          storage.set('firstTimeOnCraving', false);
-          setfirstTimeOnCraving(false);
-        }}
-      />
-      <EnterCravingModal
-        enterCraving={enterCraving}
-        setEnterCraving={setEnterCraving}
-        onNo={() => {
-          navigation.goBack();
-        }}
-      />
     </WrapperContainer>
   );
 };
