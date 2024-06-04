@@ -5,19 +5,13 @@ import Background from '../../components/Background';
 import WrapperContainer from '../../components/WrapperContainer';
 
 import { logEvent } from '../../services/logEventsWithMatomo';
-import {
-  strategyKeysByCategory,
-  getDisplayName,
-  intensityLevels,
-  strategyCatalogObject,
-  strategyCategories,
-} from './strategies';
+import { strategyKeysByCategory, getDisplayName, intensityLevels, strategyCatalogObject } from './strategies';
 
 import { useToast } from '../../services/toast';
 import { v4 as uuidv4 } from 'uuid';
 import API from '../../services/api';
 import { storage } from '../../services/storage';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 import { Slider } from 'react-native-awesome-slider';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -130,10 +124,10 @@ const DefineStrategy = ({ navigation, route }) => {
       if (res.ok) {
         toast.show('Stratégie enregistrée');
       }
-    });
-    navigation.reset({
-      index: 1,
-      routes: [{ name: 'CRAVING_INDEX' }, { name: 'CRAVING_STRATEGIES' }],
+      navigation.reset({
+        index: 1,
+        routes: [{ name: 'CRAVING_INDEX' }, { name: 'CRAVING_STRATEGIES' }],
+      });
     });
     navigation.navigate('SUCCESS_STRATEGY_MODAL', { actionPlan: actionPlan });
   };

@@ -29,7 +29,6 @@ import AlcoholAndHealthRisks from '../Health/Articles/AlcoholAndHealthRisks';
 import AlcoholAndDependency from '../Health/Articles/AlcoholAndDependency';
 import OwnTestimony from '../Health/OwnTestimony';
 import { dayjsInstance } from '../../services/dates';
-import SuccessStrategyModal from './SuccessStrategyModal';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {

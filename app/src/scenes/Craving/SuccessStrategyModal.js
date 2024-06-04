@@ -53,8 +53,10 @@ const SuccessStrategyModal = ({ navigation, route }) => {
                             let randomActionPlanIndex = Math.floor(Math.random() * randomPossibleActionPlan.length);
                             _actionPlan = randomPossibleActionPlan[randomActionPlanIndex];
                           }
-
-                          navigation.navigate(..._actionPlan.redirection);
+                          navigation.navigate('CRAVING', {
+                            screen: _actionPlan.redirection[0],
+                            params: _actionPlan?.redirection[1],
+                          });
                         }}
                         key={elementIndex}
                         className="rounded-3xl px-3.5 py-3 m-1.5 bg-[#4030A5] border border-[#4030A5]">

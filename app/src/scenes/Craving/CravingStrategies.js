@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from 'react-native';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Background from '../../components/Background';
