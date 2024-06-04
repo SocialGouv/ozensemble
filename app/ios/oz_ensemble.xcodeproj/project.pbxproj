@@ -558,7 +558,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.addicto.v1;
 				PRODUCT_NAME = oz_ensemble;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Arnaud Provisioning Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Oz ensemble Yoan Distribution";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
