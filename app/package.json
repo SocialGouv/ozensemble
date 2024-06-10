@@ -6,6 +6,7 @@
     "get-ip": "./get-ip.sh && echo \"this script updates the API IP to your own IP, because that's what Android Emulator needs to work. It's based on your wifi IP, if you need ethernet it won't work (needs en1 instead of en0)\"",
     "android": "react-native run-android",
     "ios": "ENVFILE=.env.local react-native run-ios  --simulator=\"iPhone 15 Pro Max\"",
+    "small-ios": "ENVFILE=.env.local react-native run-ios  --simulator=\"iPhone SE (3rd generation)\"",
     "postinstall": "npx patch-package && react-native setup-ios-permissions && pod install --project-directory=ios/ --repo-update  && jetify",
     "start": "react-native start --reset-cache",
     "build:ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios",
