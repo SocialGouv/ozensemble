@@ -11,6 +11,7 @@ import StrategyIcon from '../../components/illustrations/StrategyIcon';
 import API from '../../services/api';
 import { useRecoilState } from 'recoil';
 import { defineStrategyState } from '../../recoil/craving';
+import MotivationIcon from '../../components/illustrations/MotivationIcon';
 
 const CravingIndex = ({ navigation }) => {
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
@@ -74,9 +75,9 @@ const CravingIndex = ({ navigation }) => {
           </ImageBackground>
         </TouchableOpacity>
       </View>
-      <View className="h-52 w-1/2 flex flex-row justify-between mb-4 pt-2 pr-2">
+      <View className="h-52 w-full flex flex-row space-x-4 justify-between mb-2 pt-2 ">
         <TouchableOpacity
-          className="w-full rounded-md overflow-hidden"
+          className="flex-1  rounded-md overflow-hidden"
           onPress={() => {
             navigation.navigate('CRAVING_VIDEOS');
           }}>
@@ -84,6 +85,20 @@ const CravingIndex = ({ navigation }) => {
             <View className="flex items-center h-full justify-between py-6 ">
               <VideosIcon size={100} className="" />
               <H2 color="#fff">Videos</H2>
+            </View>
+          </ImageBackground>
+        </TouchableOpacity>
+        <TouchableOpacity
+          className="flex-1 rounded-md overflow-hidden"
+          onPress={() => {
+            navigation.navigate('CRAVING_MOTIVATION');
+          }}>
+          <ImageBackground className="w-full h-full" source={require('../../assets/images/BackGroundMotivation.png')}>
+            <View className="flex items-center h-full justify-between py-6 ">
+              <MotivationIcon size={100} className="" />
+              <H2 color="#fff" className="text-center ">
+                Pensées motivantes
+              </H2>
             </View>
           </ImageBackground>
         </TouchableOpacity>

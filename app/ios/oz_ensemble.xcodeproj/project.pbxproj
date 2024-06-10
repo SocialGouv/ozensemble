@@ -14,6 +14,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-oz_ensemble-oz_ensembleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-oz_ensemble-oz_ensembleTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		D45C64E6688148C08638CB6C /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE9D6153D994445CB435A82A /* Raleway-Regular.ttf */; };
+		9E59772C07B0473091EF135F /* Raleway-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9FD61C0B944B4904B6C59842 /* Raleway-SemiBold.ttf */; };
+		9587991B2B8A48EE88E13A78 /* Sedan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7B60F0C2937447A793EDFADC /* Sedan-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +48,9 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-oz_ensemble-oz_ensembleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; path = "Target Support Files/Pods-oz_ensemble-oz_ensembleTests/Pods-oz_ensemble-oz_ensembleTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F7947A312832452A0086E246 /* oz_ensemble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = oz_ensemble.entitlements; path = oz_ensemble/oz_ensemble.entitlements; sourceTree = "<group>"; };
+		EE9D6153D994445CB435A82A /* Raleway-Regular.ttf */ = {isa = PBXFileReference; name = "Raleway-Regular.ttf"; path = "../src/assets/fonts/Raleway-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9FD61C0B944B4904B6C59842 /* Raleway-SemiBold.ttf */ = {isa = PBXFileReference; name = "Raleway-SemiBold.ttf"; path = "../src/assets/fonts/Raleway-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7B60F0C2937447A793EDFADC /* Sedan-Regular.ttf */ = {isa = PBXFileReference; name = "Sedan-Regular.ttf"; path = "../src/assets/fonts/Sedan-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +130,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				916B6FC334E0480CBA89BBD9 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +156,17 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		916B6FC334E0480CBA89BBD9 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				EE9D6153D994445CB435A82A /* Raleway-Regular.ttf */,
+				9FD61C0B944B4904B6C59842 /* Raleway-SemiBold.ttf */,
+				7B60F0C2937447A793EDFADC /* Sedan-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -248,6 +266,9 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				D45C64E6688148C08638CB6C /* Raleway-Regular.ttf in Resources */,
+				9E59772C07B0473091EF135F /* Raleway-SemiBold.ttf in Resources */,
+				9587991B2B8A48EE88E13A78 /* Sedan-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,7 +527,7 @@
 				CODE_SIGN_ENTITLEMENTS = oz_ensemble/oz_ensemble.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 276;
+				CURRENT_PROJECT_VERSION = 277;
 				DEVELOPMENT_TEAM = 76GBKHVK25;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
@@ -515,7 +536,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.25.2;
+				MARKETING_VERSION = 1.25.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -540,7 +561,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 276;
+				CURRENT_PROJECT_VERSION = 277;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 76GBKHVK25;
 				INFOPLIST_FILE = oz_ensemble/Info.plist;
@@ -549,7 +570,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.25.2;
+				MARKETING_VERSION = 1.25.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

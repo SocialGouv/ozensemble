@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Raleway-Regular.ttf",
+      "sha1": "1e8694a5ea1ff0e0f8800e5c23470c5132ec9123"
+    },
+    {
+      "path": "src/assets/fonts/Raleway-SemiBold.ttf",
+      "sha1": "d9eeb3f776f8ad1ae98361df8f377b4809d4ae52"
+    },
+    {
+      "path": "src/assets/fonts/Sedan-Regular.ttf",
+      "sha1": "ffacac43c83bc95dbf654637ae4f543c17310765"
+    }
+  ]
+}
