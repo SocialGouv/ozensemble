@@ -87,7 +87,7 @@ export const ScreenStats = ({ onPressNext }) => (
         />
       </View>
     </View>
-    <View className="h-1/3 pb-[48px] justify-end items-center">
+    <View className="h-1/3 pb-[48px] just ify-end items-center">
       <View className={`absolute -bottom-0`}>
         <Wave currentIndex={2} size={screenWidth} />
       </View>
