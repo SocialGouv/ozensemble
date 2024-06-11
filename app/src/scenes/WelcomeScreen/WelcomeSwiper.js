@@ -27,7 +27,7 @@ const WelcomeSwiper = ({ navigation }) => {
       <View className="h-[10%]" />
       <View className="h-[90%]">
         <Swiper
-          className={`h-full`}
+          className="h-full"
           onIndexChanged={indexChanged}
           ref={swiperRef}
           loop={false}
