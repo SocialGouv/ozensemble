@@ -54,14 +54,14 @@ function Wave({ currentIndex, size }) {
       );
     case 2:
       width = size;
-      height = Math.ceil((261 / 375) * size);
+      height = Math.ceil((270 / 375) * size);
       return (
         <View style={{ width, height, overflow: 'hidden' }}>
           <Svg
             className="overflow-hidden"
             width={size}
             height={height}
-            viewBox="0 0 375 262"
+            viewBox="0 0 375 270"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <Path
@@ -77,14 +77,14 @@ function Wave({ currentIndex, size }) {
       );
     case 3:
       width = size;
-      height = Math.ceil((262 / 375) * size);
+      height = Math.ceil((321 / 375) * size);
       return (
         <View style={{ width, height, overflow: 'hidden' }}>
           <Svg
             className="overflow-hidden"
             width={size}
             height={height}
-            viewBox="0 0 375 262"
+            viewBox="0 0 375 321"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <Path
@@ -100,14 +100,14 @@ function Wave({ currentIndex, size }) {
       );
     case 4:
       width = size;
-      height = Math.ceil((262 / 375) * size);
+      height = Math.ceil((321 / 375) * size);
       return (
         <View style={{ width, height, overflow: 'hidden' }}>
           <Svg
             className="overflow-hidden"
             width={size}
             height={height}
-            viewBox="0 0 375 262"
+            viewBox="0 0 375 321"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <Path
@@ -123,14 +123,14 @@ function Wave({ currentIndex, size }) {
       );
     case 5:
       width = size;
-      height = Math.ceil((262 / 375) * size);
+      height = Math.ceil((369 / 375) * size);
       return (
         <View style={{ width, height, overflow: 'hidden' }}>
           <Svg
             className="overflow-hidden"
             width={size}
             height={height}
-            viewBox="0 0 375 262"
+            viewBox="0 0 375 369"
             fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <Path
