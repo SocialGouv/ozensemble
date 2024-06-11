@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Swiper from 'react-native-swiper';
 import { storage } from '../../services/storage';
-import { Screen1, Screen2, Screen3, Screen4 } from './Screens';
+import { ScreenRate, ScreenCalendar, ScreenStats, ScreenDefi, ScreenCraving, ScreenAdvice } from './Screens';
 import Dot from '../../components/SwiperDot';
 import { View } from 'react-native';
 
@@ -27,7 +27,7 @@ const WelcomeSwiper = ({ navigation }) => {
       <View className="h-[10%]" />
       <View className="h-[90%]">
         <Swiper
-          className={`h-full`}
+          className="h-full"
           onIndexChanged={indexChanged}
           ref={swiperRef}
           loop={false}
@@ -39,10 +39,12 @@ const WelcomeSwiper = ({ navigation }) => {
             justifyContent: 'center',
             bottom: 108,
           }}>
-          <Screen1 onPressNext={onPressNext} />
-          <Screen2 onPressNext={onPressNext} />
-          <Screen3 onPressNext={onPressNext} />
-          <Screen4 onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
+          <ScreenRate onPressNext={onPressNext} />
+          <ScreenCalendar onPressNext={onPressNext} />
+          <ScreenStats onPressNext={onPressNext} />
+          <ScreenDefi onPressNext={onPressNext} />
+          <ScreenCraving onPressNext={onPressNext} />
+          <ScreenAdvice onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
       </View>
     </View>
