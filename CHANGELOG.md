@@ -1,3 +1,10 @@
+## [1.159.1](https://github.com/SocialGouv/ozensemble/compare/v1.159.0...v1.159.1) (2024-06-11)
+
+
+### Bug Fixes
+
+* splash screens lack waves ([#584](https://github.com/SocialGouv/ozensemble/issues/584)) ([c440fd5](https://github.com/SocialGouv/ozensemble/commit/c440fd5f8f8936e6b68cab684a24b3b65aa72bf6))
+
 # [1.159.0](https://github.com/SocialGouv/ozensemble/compare/v1.158.1...v1.159.0) (2024-06-10)
 
 
