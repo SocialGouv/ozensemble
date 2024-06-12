@@ -29,6 +29,7 @@ import ChatBubbles from './illustrations/Chatbubbles';
 import OwnClIcon from './illustrations/icons/OwnClIcon';
 import CravingIcon from './illustrations/CravingIcon';
 import StrategyIcon from './illustrations/StrategyIcon';
+import MotivationIconInAppModal from './illustrations/MotivationIconInAppModal';
 
 /* example
 {
@@ -117,6 +118,11 @@ const InAppModal = ({ navigation, route }) => {
   return (
     <SafeAreaView className="bg-white rounded-t-xl mt-auto">
       <View className="p-4">
+        {inAppModal?.id.includes('Motivation') && (
+          <View className="flex flex-col items-center">
+            <MotivationIconInAppModal size={80} />
+          </View>
+        )}
         {!inAppModal?.id.includes('NewUserAbstinenceFeature') && (
           <TouchableOpacity
             onPress={() => {

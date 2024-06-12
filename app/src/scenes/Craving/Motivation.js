@@ -1,10 +1,7 @@
-import { View, Text, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import H1 from '../../components/H1';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { useRef, useState } from 'react';
 import BackGroundTopMotivation from '../../components/BackGroundTopMotivation';
 import BackGroundBotMotivation from '../../components/BackGroundBopMotivation';
 import { StyleSheet } from 'react-native';
@@ -12,7 +9,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   customText: {
     fontFamily: 'Sedan-Regular', // Use the actual font family name
-    fontSize: 16, // Adjust the font size as needed
+    fontSize: 22, // Adjust the font size as needed
   },
 });
 
@@ -49,7 +46,7 @@ const Motivation = ({ navigation }) => {
           />
           <View className="items-center justify-evenly space-y-4">
             <BackGroundTopMotivation size={Dimensions.get('window').height / 4} />
-            <Text style={styles.customText} className=" text-black text-center font-semibold text-lg px-8">
+            <Text style={styles.customText} className=" text-black text-center font-semibold text-2xl px-8">
               {currentMotivation}
             </Text>
             <BackGroundBotMotivation size={Dimensions.get('window').height / 4} />
