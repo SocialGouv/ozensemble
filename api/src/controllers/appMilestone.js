@@ -54,6 +54,37 @@ router.post(
 
     if (req.headers.appversion < 243) return res.status(200).send({ ok: true });
 
+    if (req.headers.appversion >= 277) {
+      const featureMotivation = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@Motivation` },
+      });
+      if (!featureMotivation) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@Motivation`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@Motivation",
+            title: "Craving: consultez des pensées motivantes",
+            content:
+              "Accédez à une page de pensées motivantes depuis votre espace “Craving”.\n\n Un moyen supplémentaire pour vous accompagner lors d’un moment de craving",
+            CTATitle: "Découvrir",
+            CTAEvent: {
+              category: "MOTIVATION",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+            CTANavigation: ["CRAVING", { screen: "CRAVING_MOTIVATION" }],
+          },
+        });
+      }
+    }
+
     if (req.headers.appversion >= 272) {
       const featureCraving = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@CravingStrategy` },

@@ -104,9 +104,10 @@ const TabsNavigator = ({ navigation }) => {
             // 2. the second modal STRATEGY_MODAL_TO_NPS that triggers the user to go to the NPS screen
             // if we show STRATEGY_MODAL_TO_NPS, we don't show LEAVING_CRAVING_MODAL
             const isTimeToAskNPS = dayjsInstance().diff(firstTimeCraving, 'day') >= 7;
-            const fromCravingToNPSModal = storage.getString('@fromCravingToNPSModal');
-            if (isTimeToAskNPS && fromCravingToNPSModal !== 'true') {
-              storage.set('@fromCravingToNPSModal', 'true');
+            const CravingToNPSModal = storage.getBoolean('@CravingToNPSModal');
+            if (isTimeToAskNPS && !CravingToNPSModal) {
+              storage.set('@CravingToNPSModal', true);
+              e.preventDefault();
               navigation.navigate('STRATEGY_MODAL_TO_NPS');
             } else {
               try {
