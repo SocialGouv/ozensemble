@@ -30,6 +30,8 @@ import OwnClIcon from './illustrations/icons/OwnClIcon';
 import CravingIcon from './illustrations/CravingIcon';
 import StrategyIcon from './illustrations/StrategyIcon';
 import MotivationIconInAppModal from './illustrations/MotivationIconInAppModal';
+import { useRecoilState } from 'recoil';
+import { isInCravingKeyState } from '../recoil/craving';
 
 /* example
 {
@@ -47,6 +49,7 @@ import MotivationIconInAppModal from './illustrations/MotivationIconInAppModal';
 const screenWidth = Number(Dimensions.get('window').width - 50);
 
 const InAppModal = ({ navigation, route }) => {
+  const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
   const inAppModal = route.params;
 
   const onClose = () => {
@@ -74,9 +77,12 @@ const InAppModal = ({ navigation, route }) => {
         }
       } else if (inAppModal.CTALink) {
         Linking.openURL(inAppModal.CTALink);
-      } else if (inAppModal.CTAOnPress) {
+      }
+      if (inAppModal.CTAOnPress) {
         if (inAppModal.CTAOnPress === 'openSettings') openSettings();
-        else {
+        else if (inAppModal.CTAOnPress === 'goToCraving') {
+          setIsInCraving(true);
+        } else {
           await NotificationService.checkAndAskForPermission();
         }
       }
