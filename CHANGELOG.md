@@ -1,3 +1,10 @@
+## [1.159.4](https://github.com/SocialGouv/ozensemble/compare/v1.159.3...v1.159.4) (2024-06-13)
+
+
+### Bug Fixes
+
+* v3 craving ([8e60750](https://github.com/SocialGouv/ozensemble/commit/8e607507c3748973ae30317333f0963f05c997fb))
+
 ## [1.159.3](https://github.com/SocialGouv/ozensemble/compare/v1.159.2...v1.159.3) (2024-06-13)
 
 
