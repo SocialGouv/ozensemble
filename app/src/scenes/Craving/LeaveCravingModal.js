@@ -58,7 +58,7 @@ const LeaveCravingModal = ({ navigation }) => {
                 });
                 setIsInCraving(false);
                 navigation.goBack();
-                navigation.navigation.navigate('TABS', { screen: leavingCravingNextTab });
+                navigation.navigate('TABS', { screen: leavingCravingNextTab });
               }}>
               <Text className="text-[#4030A5] font-semibold underline">Ne pas répondre</Text>
             </TouchableOpacity>
