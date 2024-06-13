@@ -54,7 +54,7 @@ router.post(
 
     if (req.headers.appversion < 243) return res.status(200).send({ ok: true });
 
-    if (req.headers.appversion >= 277) {
+    if (req.headers.appversion >= 280) {
       const featureMotivation = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@Motivation` },
       });
@@ -80,7 +80,7 @@ router.post(
               name: "FROM_NEW_FEATURE",
             },
             CTAOnPress: "goToCraving",
-            CTANavigation: ["CRAVING", { screen: "CRAVING_MOTIVATION" }],
+            CTANavigation: ["CRAVING"],
           },
         });
       }

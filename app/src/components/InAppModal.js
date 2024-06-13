@@ -124,11 +124,6 @@ const InAppModal = ({ navigation, route }) => {
   return (
     <SafeAreaView className="bg-white rounded-t-xl mt-auto">
       <View className="p-4">
-        {inAppModal?.id.includes('Motivation') && (
-          <View className="flex flex-col items-center">
-            <MotivationIconInAppModal size={80} />
-          </View>
-        )}
         {!inAppModal?.id.includes('NewUserAbstinenceFeature') && (
           <TouchableOpacity
             onPress={() => {
@@ -150,6 +145,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes('Motivation') && (
+            <View className="flex flex-col items-center">
+              <MotivationIconInAppModal size={80} />
+            </View>
+          )}
           {inAppModal?.id.includes('CravingStrategy') && (
             <View className="mx-2 flex flex-col items-center">
               <StrategyIcon size={60} />

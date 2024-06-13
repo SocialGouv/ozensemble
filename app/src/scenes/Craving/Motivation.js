@@ -38,7 +38,7 @@ const Motivation = ({ navigation }) => {
             content="< Retour"
             bold
             onPress={() => {
-              navigation.navigate('CRAVING_INDEX');
+              navigation.goBack();
             }}
             marginBottom
             marginLeft
