@@ -44,12 +44,12 @@ const Motivation = ({ navigation }) => {
             marginLeft
             marginTop
           />
-          <View className="items-center justify-evenly space-y-4">
-            <BackGroundTopMotivation size={Dimensions.get('window').height / 4} />
+          <View className="items-center h-full justify-center -mt-8">
+            <BackGroundTopMotivation size={Dimensions.get('window').height / 4} className="absolute top-0 " />
             <Text style={styles.customText} className=" text-black text-center font-semibold text-2xl px-8">
               {currentMotivation}
             </Text>
-            <BackGroundBotMotivation size={Dimensions.get('window').height / 4} />
+            <BackGroundBotMotivation size={Dimensions.get('window').height / 4} className="absolute bottom-4 " />
           </View>
         </View>
       </Background>
