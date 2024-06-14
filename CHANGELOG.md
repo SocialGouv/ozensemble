@@ -1,3 +1,10 @@
+## [1.159.6](https://github.com/SocialGouv/ozensemble/compare/v1.159.5...v1.159.6) (2024-06-14)
+
+
+### Bug Fixes
+
+* untouchable back button ([9210a2c](https://github.com/SocialGouv/ozensemble/commit/9210a2c47511944e3a25c55f62c8e39248717e7b))
+
 ## [1.159.5](https://github.com/SocialGouv/ozensemble/compare/v1.159.4...v1.159.5) (2024-06-13)
 
 
