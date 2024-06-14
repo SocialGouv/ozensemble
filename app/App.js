@@ -25,6 +25,7 @@ import {
 } from './src/services/storage';
 import { getBundleId } from 'react-native-device-info';
 import { initMatomo } from './src/services/logEventsWithMatomo';
+import { Adjust, AdjustEvent, AdjustConfig } from 'react-native-adjust';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);

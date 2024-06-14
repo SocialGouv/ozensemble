@@ -8677,6 +8677,7 @@ __metadata:
     prop-types: "npm:^15.7.2"
     react: "npm:18.2.0"
     react-native: "npm:0.72.7"
+    react-native-adjust: "npm:^4.38.1"
     react-native-awesome-slider: "npm:1"
     react-native-bootsplash: "npm:^4.5.3"
     react-native-calendars: "npm:^1.1284.0"
@@ -9324,6 +9325,13 @@ __metadata:
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
   checksum: 2bdb6b93fbb1820b024b496042cce405c57e2f85e777c9aabd55f9b26d145408f9f74f5934676ffdc46f3dcff656d78413a6e43968e7b3f92eea35b3052e9053
+  languageName: node
+  linkType: hard
+
+"react-native-adjust@npm:^4.38.1":
+  version: 4.38.1
+  resolution: "react-native-adjust@npm:4.38.1"
+  checksum: aef328a7e72faf92f6494054ec1f75484c6efdc226c0d3e4ed87058748553fe34012bf425b14e9ccf8d7958af99d10181b2e8f78430907f3ec7dafb87ff25c9c
   languageName: node
   linkType: hard
 
