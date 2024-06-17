@@ -9,6 +9,12 @@ import HydrationIcon from '../../components/illustrations/HydrationIcon';
 import ReadingIcon from '../../components/illustrations/ReadingIcon';
 import WalkIcon from '../../components/illustrations/WalkIcon';
 import ShowerIcon from '../../components/illustrations/ShowerIcon';
+import CallIcon from '../../components/illustrations/CallIcon';
+import GameIcon from '../../components/illustrations/GameIcon';
+import TriIcon from '../../components/illustrations/TriIcon';
+import ReorderIcon from '../../components/illustrations/ReorderIcon';
+import CreativityIcon from '../../components/illustrations/CreativityIcon';
+import SportIcon from '../../components/illustrations/SportIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { useRef, useState } from 'react';
 
@@ -17,7 +23,6 @@ const advices = [
     title: 'Lisez une revue',
     description:
       'Profitez de ce moment pour démarrer un livre que vous souhaitiez lire, ou pour lire une revue ou un article.\n',
-    nextAdvice: 'HYDRATION_ADVICE',
     currentAdvice: 'READING_ADVICE',
     icon: ReadingIcon,
   },
@@ -25,7 +30,6 @@ const advices = [
     title: 'Ecoutez de la musique',
     description:
       'Lancez vos musiques les plus entrainantes ou apaisantes. Profitez-en pour écouter le dernier album de votre artiste préféré !\n',
-    nextAdvice: 'READING_ADVICE',
     currentAdvice: 'MUSIC_ADVICE',
     icon: MusicIcon,
   },
@@ -33,7 +37,6 @@ const advices = [
     title: 'Hydratez-vous',
     description:
       'Optez pour des boissons non alcoolisées et savoureuses (eau pétillante, jus de fruits, tisane). Ajoutez-y une rondelle de citron ou de concombre.',
-    nextAdvice: 'WALK_ADVICE',
     currentAdvice: 'HYDRATION_ADVICE',
     icon: HydrationIcon,
   },
@@ -41,7 +44,6 @@ const advices = [
     title: 'Faites une balade',
     description:
       'Profitez-en pour aller prendre l’air. Faites une marche de 15 minutes, allez découvrir un endroit que vous ne connaissez pas.\n',
-    nextAdvice: 'MUSIC_ADVICE',
     currentAdvice: 'WALK_ADVICE',
     icon: WalkIcon,
   },
@@ -49,9 +51,50 @@ const advices = [
     title: 'Prenez une douche',
     description:
       'Détentez-vous en prenant une douche chaude ou froide. Cela vous permettra de vous décontracter et de vous distraire.\n',
-    nextAdvice: 'READING_ADVICE',
     currentAdvice: 'SHOWER_ADVICE',
     icon: ShowerIcon,
+  },
+  {
+    title: 'Appelez un proche',
+    description:
+      'Contactez une personne de confiance. Que ce soit un ami ou quelqu’un de votre famille, ce sentir soutenu est important.',
+    currentAdvice: 'CALL_ADVICE',
+    icon: CallIcon,
+  },
+  {
+    title: 'Jouez à un jeu',
+    description:
+      'Lancez votre jeu préféré sur votre smartphone ou votre console, et libérez-vous l’esprit en tentant de battre votre meilleur score ! ',
+    currentAdvice: 'GAME_ADVICE',
+    icon: GameIcon,
+  },
+  {
+    title: 'Faites du tri',
+    description:
+      'Profitez de ce moment pour ranger votre penderie ou votre logement. Ne gardez que les pièces que vous aimez et revendez ou donnez le reste.',
+    currentAdvice: 'TRI_ADVICE',
+    icon: TriIcon,
+  },
+  {
+    title: 'Aménagez autrement',
+    description:
+      'Modifiez l’aménagement de votre lieu de vie, en déplaçant quelques meubles. Cela permettra de casser l’espace dans lequel vous avez l’habitude de consommer.',
+    currentAdvice: 'REORDER_ADVICE',
+    icon: ReorderIcon,
+  },
+  {
+    title: 'Libérez votre créativité',
+    description:
+      'En dessinant, peignant, ou en ecrivant un poème ou une histoire. Cet instant vous permettra de faire de nouvelles choses et de sortir de vos vieilles habitudes.',
+    currentAdvice: 'CREATIVITY_ADVICE',
+    icon: CreativityIcon,
+  },
+  {
+    title: 'Faites du sport',
+    description:
+      'Mettez vos chaussures de sport et allez sur le terrain de jeux à côté de chez vous, ou dans votre jardin. Le sport réduira votre stress et agira comme un antidépresseur.',
+    currentAdvice: 'SPORT_ADVICE',
+    icon: SportIcon,
   },
 ];
 
@@ -104,9 +147,8 @@ const Advice = ({ navigation }) => {
               onPress={() => {
                 setCurrentAdviceIndex((currentAdviceIndex + 1) % shuffledAdvices.current.length);
                 logEvent({
-                  category: 'NAVIGATION',
-                  action: currentAdvice.currentAdvice,
-                  name: currentAdvice.nextAdvice,
+                  category: 'CRAVING_ADVICE',
+                  action: 'PRESS_NEW_ADVICE',
                 });
               }}>
               <Text className="text-[#4030A5] underline font-semibold">Avoir un autre conseil</Text>

@@ -53,7 +53,7 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="EXERCISES_VIDEOS_INDEX" component={ExercicesVideosIndex} />
         <CravingStack.Screen name="ENTERTAINMENT_VIDEOS_INDEX" component={EntertainmentVideosIndex} />
         <CravingStack.Screen name="VIDEO_PLAYER" component={VideoPlayer} />
-        <CravingStack.Screen name="HYDRATION_ADVICE" component={Advice} />
+        <CravingStack.Screen name="CRAVING_ADVICE" component={Advice} />
         <CravingStack.Screen name="CRAVING_STRATEGIES" component={CravingStrategies} />
         <CravingStack.Screen name="DEFINE_STRATEGY" component={DefineStrategy} />
         <CravingStack.Screen name="NO_STRATEGY" component={NoStrategy} />
