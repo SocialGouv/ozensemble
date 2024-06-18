@@ -117,6 +117,8 @@ Nous n'avons pas encore fait de réconciliation de ces données avec le backend,
 
 Les rappels sont des notifications push envoyées à l'utilisateur pour lui rappeler de rentrer ses consos.
 Historiquement, c'était une notification locale, gérée localement, mais suite à des bugs sur certains modèles de téléphones, on a décidé de les gérer en backend.
+Pour le moment, on a décidé de ne pas permettre à l'utilisateur de mettre en place un rappel sans connexion à internet. En effet, il aura *de toutes façons* besoin d'une connexion pour recevoir la notification push. Donc ça pourrait l'induire en erreur que de lui faire croire qu'il peut jouir de cette fonctionnalité sans connexion.
+
 Ainsi,
 - un utilisateur choisit l'heure de son rappel, et le jour de la semaine qu'il préfère
 - via un cronjob qui tourne chaque minute, le backend envoie une notification push de rappel à l'heure et au jour choisis

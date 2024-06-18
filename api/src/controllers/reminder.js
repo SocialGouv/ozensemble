@@ -57,7 +57,7 @@ const toUtcData = ({ timeHours, timeMinutes, daysOfWeek, timezone }) => {
 };
 
 router.put(
-  "/",
+  ["/", "/sync"],
   catchErrors(async (req, res) => {
     const { matomoId, pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
 
