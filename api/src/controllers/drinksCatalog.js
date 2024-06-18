@@ -8,6 +8,7 @@ const fetch = require("node-fetch");
 router.get(
   "/cocktails",
   catchErrors(async (req, res) => {
+    // TODO: delete this route for build number > 284
     return res.status(200).send({ ok: true, data: cocktailsCatalog });
   })
 );

@@ -25,7 +25,7 @@ import {
   migrateMissingDrinkKey,
   sendPreviousDrinksToDB,
 } from './src/migrations';
-import { reconciliateDrinksToDB } from './src/reconciliations';
+import { reconciliateDrinksToDB, reconciliateGoalToDB } from './src/reconciliations';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
@@ -44,6 +44,7 @@ initMatomo();
 const App = () => {
   // sync everytime we open the app
   const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
+  const [reconciliatedGoalsToDB, setReconciliatedGoalsToDB] = useState(false);
 
   // migrate only once if not yet done
   // TODO: clean migrations when it's time
@@ -59,6 +60,10 @@ const App = () => {
       if (!reconciliatedDrinksToDB) {
         await reconciliateDrinksToDB();
         setReconciliatedDrinksToDB(true);
+      }
+      if (!reconciliatedGoalsToDB) {
+        await reconciliateGoalToDB();
+        setReconciliatedGoalsToDB(true);
       }
       if (!_hasCleanConsoAndCatalog) {
         await cleanConsosAndCatalog();
@@ -83,6 +88,7 @@ const App = () => {
 
   if (
     !reconciliatedDrinksToDB ||
+    !reconciliatedGoalsToDB ||
     !_hasSentPreviousDrinksToDB ||
     !_hasCleanConsoAndCatalog ||
     !_hasMigrateFromDailyGoalToWeekly ||
