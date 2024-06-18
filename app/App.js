@@ -12,19 +12,20 @@ import appInfos from './app.json';
 import { SENTRY_XXX } from './src/config';
 import ToastProvider from './src/services/toast';
 import './src/styles/theme';
-import {
-  hasCleanConsoAndCatalog,
-  sendPreviousDrinksToDB,
-  hasSentPreviousDrinksToDB,
-  cleanConsosAndCatalog,
-  hasMigrateFromDailyGoalToWeekly,
-  migrateFromDailyGoalToWeekly,
-  hasMigrateMissingDrinkKey,
-  migrateMissingDrinkKey,
-  reconciliateDrinksToDB,
-} from './src/services/storage';
+
 import { getBundleId } from 'react-native-device-info';
 import { initMatomo } from './src/services/logEventsWithMatomo';
+import {
+  cleanConsosAndCatalog,
+  hasCleanConsoAndCatalog,
+  hasMigrateFromDailyGoalToWeekly,
+  hasMigrateMissingDrinkKey,
+  hasSentPreviousDrinksToDB,
+  migrateFromDailyGoalToWeekly,
+  migrateMissingDrinkKey,
+  sendPreviousDrinksToDB,
+} from './src/migrations';
+import { reconciliateDrinksToDB } from './src/reconciliations';
 
 dayjs.locale('fr');
 dayjs.extend(isSameOrAfter);
@@ -40,15 +41,12 @@ if (!__DEV__) {
 
 initMatomo();
 
-const sendDrinksToBd = async () => {
-  await sendPreviousDrinksToDB();
-};
-
 const App = () => {
   // sync everytime we open the app
   const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
 
   // migrate only once if not yet done
+  // TODO: clean migrations when it's time
   const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
   const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
   const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
@@ -57,26 +55,28 @@ const App = () => {
   );
 
   useEffect(() => {
-    if (!reconciliatedDrinksToDB) {
-      reconciliateDrinksToDB();
-      setReconciliatedDrinksToDB(true);
-    }
-    if (!_hasCleanConsoAndCatalog) {
-      cleanConsosAndCatalog();
-      setHasCleanConsoAndCatalog(true);
-    }
-    if (!_hasSentPreviousDrinksToDB) {
-      sendDrinksToBd();
-      setHasSentPreviousDrinksToDB(true);
-    }
-    if (!_hasMigrateFromDailyGoalToWeekly) {
-      migrateFromDailyGoalToWeekly();
-      sethasMigrateFromDailyGoalToWeekly(true);
-    }
-    if (!_hasMigrateMissingDrinkKey) {
-      migrateMissingDrinkKey();
-      sethasMigrateMissingDrinkKey(true);
-    }
+    (async () => {
+      if (!reconciliatedDrinksToDB) {
+        await reconciliateDrinksToDB();
+        setReconciliatedDrinksToDB(true);
+      }
+      if (!_hasCleanConsoAndCatalog) {
+        await cleanConsosAndCatalog();
+        setHasCleanConsoAndCatalog(true);
+      }
+      if (!_hasSentPreviousDrinksToDB) {
+        await sendPreviousDrinksToDB();
+        setHasSentPreviousDrinksToDB(true);
+      }
+      if (!_hasMigrateFromDailyGoalToWeekly) {
+        await migrateFromDailyGoalToWeekly();
+        sethasMigrateFromDailyGoalToWeekly(true);
+      }
+      if (!_hasMigrateMissingDrinkKey) {
+        migrateMissingDrinkKey();
+        sethasMigrateMissingDrinkKey(true);
+      }
+    })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
