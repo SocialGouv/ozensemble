@@ -1,4 +1,4 @@
-const testimonies = [
+const testimonials = [
   {
     pseudo: 'lolo',
     text: "Après 20 ans passé a l armée ou l'alcool était plutôt festif cependant très présent ( mais beaucoup de sport) le retour a la vie civile a été compliqué. J ai fait un boulot pendant 8 ans qui ne me plaisait pas. Je rentrais le soir buvais entre 70 et 100 cl de Ricard tout en ayant un traitement d anxiolytique mélange détonnant. Je vais avoir 50 ans cette année j ai changé de boulot fin décembre je suis sobre depuis 110 jours j ai fait mon sevrage chez moi avec l aide de mon amie et d un médecin généraliste génial. Le plus dur a été le cap des 2 mois fatigué mal partout moral dans les chaussettes crise d angoisse . Je commence a me sentir mieux prise de vitamine changement d anxiolytique boulot plus sympa , là je vais m engager chez les pompiers volontaires j ai retrouvé la motivation de faire quelque chose de ma vie . Fini le suicide a p'tit feu comme j appelais mon alcoolisme. Avec beaucoup de volonté on peut y arriver pas facile mais faisable et surtout rester vigilant courage a tous et tenez bon.",
@@ -53,4 +53,4 @@ const testimonies = [
   },
 ];
 
-export default testimonies;
+export default testimonials;

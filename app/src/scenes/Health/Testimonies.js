@@ -4,13 +4,13 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import WrapperContainer from '../../components/WrapperContainer';
 import BackButton from '../../components/BackButton';
 import ProfilIcon from '../../components/illustrations/ProfilIcon';
-import testimonies from '../../reference/TestimoniesList';
+import testimonials from '../../reference/testimonials';
 
 const Testimonies = ({ navigation }) => {
   return (
     <WrapperContainer title="Témoignages" onPressBackButton={navigation.goBack}>
       <View className="mt-8 flex justify-start">
-        {testimonies.map((testimony, index) => {
+        {testimonials.map((testimony, index) => {
           return (
             <React.Fragment key={index}>
               <View key={index} className="flex flex-row gap-4 mb-10">
