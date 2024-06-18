@@ -60,12 +60,13 @@ export async function reconciliateGoalToDB() {
     const totalDrinksByDrinkingDay = getTotalDrinksByDrinkingDay(maxDrinksPerWeek, daysWithGoalNoDrink);
 
     await API.post({
-      path: '/goal/sync',
+      path: '/goal',
       body: {
         matomoId,
         daysWithGoalNoDrink,
         dosesByDrinkingDay: totalDrinksByDrinkingDay,
         dosesPerWeek: maxDrinksPerWeek,
+        noDisplayBadge: true,
       },
     }).then((response) => {
       if (response?.ok && response.data) {
