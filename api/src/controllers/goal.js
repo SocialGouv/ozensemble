@@ -7,7 +7,7 @@ const { GoalStatus } = require("@prisma/client");
 const router = express.Router();
 
 router.post(
-  "/",
+  ["/", "/sync"],
   catchErrors(async (req, res) => {
     const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, forceDate } = req.body || {};
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
