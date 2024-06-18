@@ -1,3 +1,10 @@
+## [1.160.1](https://github.com/SocialGouv/ozensemble/compare/v1.160.0...v1.160.1) (2024-06-18)
+
+
+### Bug Fixes
+
+* migrations and sync ([#588](https://github.com/SocialGouv/ozensemble/issues/588)) ([7b91ea9](https://github.com/SocialGouv/ozensemble/commit/7b91ea924e18a887b0a62a2ea7ba3598b54c7ae3))
+
 # [1.160.0](https://github.com/SocialGouv/ozensemble/compare/v1.159.6...v1.160.0) (2024-06-17)
 
 
