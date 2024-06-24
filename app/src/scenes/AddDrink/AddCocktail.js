@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import {
   ScrollView,
@@ -18,21 +18,11 @@ import CocktailGlass from '../../components/illustrations/drinksAndFood/Cocktail
 import H3 from '../../components/H3';
 import H2 from '../../components/H2';
 import API from '../../services/api';
+import { cocktailsCatalog } from '../../reference/cocktailsCatalog';
 
 const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
-  const [cocktailsCatalog, setCocktailsCatalog] = useState([]);
-  const getCocktailsCatalog = async () => {
-    const res = await API.get({ path: '/drinks/cocktails' });
-    if (res.ok) setCocktailsCatalog(res.data);
-  };
-
   const [newCocktailName, setNewCocktailName] = useState('');
 
-  useEffect(() => {
-    if (cocktailsCatalog.length === 0) {
-      getCocktailsCatalog();
-    }
-  }, [cocktailsCatalog]);
   return (
     <Modal visible={visible} hide={hide} animationType="sheet" presentationStyle="formSheet">
       <KeyboardAvoidingView enabled behavior={Platform.select({ ios: 'padding', android: null })}>

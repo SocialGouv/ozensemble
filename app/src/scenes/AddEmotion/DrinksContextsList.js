@@ -70,7 +70,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     newDrinksContexts[date] = newContextToSave;
     setDrinksContexts(newDrinksContexts);
     API.post({
-      path: '/drinks-Context',
+      path: '/drinks-context',
       body: {
         matomoId: storage.getString('@UserIdv2'),
         date,
@@ -189,7 +189,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                   <Text className="text-white font-bold">Avec qui ?</Text>
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                  {contextKeysByCategory['people'].map((name) => {
+                  {contextKeysByCategory.people.map((name) => {
                     return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={'people'} />
@@ -201,7 +201,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                   <Text className="text-white font-bold">Où ?</Text>
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                  {contextKeysByCategory['places'].map((name) => {
+                  {contextKeysByCategory.places.map((name) => {
                     return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={'places'} />
@@ -213,7 +213,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                   <Text className="text-white font-bold">Quand ?</Text>
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                  {contextKeysByCategory['events'].map((name) => {
+                  {contextKeysByCategory.events.map((name) => {
                     return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={'events'} />
@@ -225,7 +225,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                   <Text className="text-white font-bold">Quel(s) besoin(s) a comblé l'alcool ?</Text>
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
-                  {contextKeysByCategory['needs'].map((name) => {
+                  {contextKeysByCategory.needs.map((name) => {
                     return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={'needs'} />
