@@ -2,6 +2,9 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
+const geoip = require("geoip-lite");
+const { capture } = require("../third-parties/sentry");
+const fetch = require("node-fetch");
 
 router.put(
   "/",
@@ -36,8 +39,17 @@ router.put(
 
 router.get(
   "/location",
-  catchErrors(async (_req, res) => {
-    const isWellLocated = false;
+  catchErrors(async (req, res) => {
+    const { matomoId } = req.query || {};
+    let isWellLocated = false;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const ip = req.connection.remoteAddress; // private ip when dev mode, should be public ip in prod (https://stackoverflow.com/a/58441273/5225096)
+    const geo = geoip.lookup(ip);
+    const response = await fetch(`http://ip-api.com/json/${ip}`);
+    const data = await response.json();
+    console.log({ data });
+    capture("test location", { extra: { geo, data } });
+    if (geo?.region === "IDF") isWellLocated = true;
     return res.status(200).send({ ok: true, isWellLocated });
   })
 );

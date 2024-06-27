@@ -45,6 +45,20 @@ const FakeData = () => {
   return (
     <WrapperContainer title="Charger des fausses données">
       <Container>
+        <MenuItem
+          caption="Apparition du bouton pour prendre RDV"
+          noAlert
+          onPress={() => {
+            API.get({
+              path: '/user/location',
+              query: {
+                matomoId: storage.getString('@UserIdv2'),
+              },
+            }).then((response) => {
+              if (response.ok) Alert.alert('Suis-je bien localisé ?', response.isWellLocated ? 'Oui' : 'Non');
+            });
+          }}
+        />
         <H1Wrapper delete>Effacer des données</H1Wrapper>
         <MenuItem caption="Mon NPS" onPress={() => storage.delete('@NPSDone')} />
         <MenuItem caption="Ma consommation d'alcool" onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)} />
