@@ -6,7 +6,7 @@ const StyledSvg = styled(Svg)`
   margin-right: 5px;
 `;
 
-const BackGroundBotMotivation = ({ size, fill = '#39cec0', ...props }) => (
+const BackGroundBotMotivation = ({ size, ...props }) => (
   <StyledSvg width={2 * size} height={size} viewBox="0 0 263 147" fill="none" {...props}>
     <Path
       d="M26.945 43.9402C22.195 39.5402 16.515 43.3202 14.425 48.3502C10.045 45.1202 3.23495 44.8102 1.42495 51.0402C-1.57505 61.5302 12.075 66.6702 18.345 68.4202C19.065 68.6302 19.655 68.8002 20.135 68.9202C20.485 68.5602 20.905 68.1202 21.415 67.5702C25.885 62.8302 34.945 51.3702 26.945 43.9402Z"

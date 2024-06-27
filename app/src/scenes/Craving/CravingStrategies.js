@@ -7,6 +7,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { currentStrategyState, defineStrategyState } from '../../recoil/craving';
 import { strategyCatalogObject, getDisplayName, strategyCatalog } from './strategies';
+
 const allActionsPlans = strategyCatalog.filter((strategy) => strategy.categoryKey === 'actionPlan');
 const randomPossibleActionPlan = allActionsPlans.filter(
   (actionPlan) => !!actionPlan.redirection && actionPlan.redirection !== 'RANDOM'

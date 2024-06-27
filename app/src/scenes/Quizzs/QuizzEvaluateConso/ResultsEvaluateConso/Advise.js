@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styled from 'styled-components';

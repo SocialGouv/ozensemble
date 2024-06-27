@@ -26,7 +26,8 @@ const AddAlcoolQuantity = ({ visible, hide, setQuantitySelected }) => {
                 onChangeText={(value) => {
                   setValue(value);
                   setQuantitySelected({ volume: value, name: 'Boisson personnalisée', icon: 'OwnClGlass' });
-                }}></TextInput>
+                }}
+              />
               <TouchableOpacity
                 className=""
                 onPress={() => {

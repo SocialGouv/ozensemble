@@ -86,7 +86,7 @@ const ModalGoal = ({ content, onClose }) => {
           {content?.consosWeekGoal >= 0 && (
             <View>
               <View className="flex flex-row justify-center">
-                <View className="w-3/4 border border-[#DDDDDD] my-8"></View>
+                <View className="w-3/4 border border-[#DDDDDD] my-8" />
               </View>
 
               <View className="flex flex-row justify-around">

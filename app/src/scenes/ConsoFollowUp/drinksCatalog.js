@@ -169,7 +169,7 @@ export const getVolume = (drinkKey, catalogObject) => {
     }
     return drink.volume;
   } catch (e) {
-    capture(e, { extra: { drinkKey, quantity, catalogObject, function: 'getVolume' } });
+    capture(e, { extra: { drinkKey, catalogObject, function: 'getVolume' } });
     return '0 cl';
   }
 };
@@ -187,7 +187,7 @@ export const getDoses = (drinkKey, catalogObject) => {
     return drink.doses;
   } catch (e) {
     capture(e, {
-      extra: { drinkKey, quantity, catalogObject, function: 'getDoses' },
+      extra: { drinkKey, catalogObject, function: 'getDoses' },
       tags: { drinkKey },
     });
     return 0;
@@ -207,7 +207,7 @@ export const getStyle = (drinkKey, catalogObject) => {
     return drink.style || {};
   } catch (e) {
     capture(e, {
-      extra: { drinkKey, quantity, catalogObject, function: 'getStyle' },
+      extra: { drinkKey, catalogObject, function: 'getStyle' },
       tags: { drinkKey },
     });
     return {};

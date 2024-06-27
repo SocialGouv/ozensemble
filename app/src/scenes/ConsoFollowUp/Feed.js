@@ -443,7 +443,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                       <Emotion className="w-7 aspect-square" />
                     </View>
                   ) : (
-                    <View className="w-7 h-7"></View>
+                    <View className="w-7 h-7" />
                   )}
                   <Text className="font-bold text-[#4030A5] pl-1 mt-2 mr-auto">Note et contexte</Text>
                   <View className="py-1">

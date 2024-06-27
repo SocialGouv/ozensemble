@@ -136,7 +136,7 @@ const CravingBreath = ({ navigation }) => {
                 return (
                   <Animated.View
                     key={index}
-                    className={`bg-purple-800 rounded-full absolute`}
+                    className={'bg-purple-800 rounded-full absolute'}
                     style={{
                       opacity: 0.1,
                       transform: [{ rotateZ: rotation }, { translateX: translate }, { translateY: translate }],

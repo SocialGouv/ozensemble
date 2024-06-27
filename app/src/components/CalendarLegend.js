@@ -120,7 +120,7 @@ const LegendHelpModal = ({ visible, hide }) => {
               </View>
             </View>
             <View className="flex flex-row mt-6">
-              <View className="bg-[#34D39A] w-5 h-5 rounded-md mr-2"></View>
+              <View className="bg-[#34D39A] w-5 h-5 rounded-md mr-2" />
               <View>
                 <Text className="font-bold">Dans l'objectif</Text>
                 <View className="flex flex-row flex-wrap" style={{ paddingRight: defaultPaddingFontScale() }}>
@@ -133,7 +133,7 @@ const LegendHelpModal = ({ visible, hide }) => {
               </View>
             </View>
             <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
-              <View className="bg-[#FF7878] w-5 h-5 rounded-md mr-2"></View>
+              <View className="bg-[#FF7878] w-5 h-5 rounded-md mr-2" />
               <View>
                 <Text className="font-bold">Au dessus de l'objectif</Text>
                 <View className="flex flex-row flex-wrap">
@@ -145,7 +145,7 @@ const LegendHelpModal = ({ visible, hide }) => {
               </View>
             </View>
             <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
-              <View className="w-5 h-5 rounded-md mr-2 border border-dashed border-[#4030A5]"></View>
+              <View className="w-5 h-5 rounded-md mr-2 border border-dashed border-[#4030A5]" />
               <View>
                 <Text className="font-bold">Jour à compléter</Text>
                 <View className="flex flex-row flex-wrap">

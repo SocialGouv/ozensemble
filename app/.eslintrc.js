@@ -36,11 +36,12 @@ module.exports = {
     'import/no-duplicates': 'error',
     'no-shadow': 'off',
     'no-unused-vars': [
-      'error',
+      'off',
       {
         varsIgnorePattern: 'React',
       },
     ],
+    'react/no-unstable-nested-components': 'off',
     'react/no-did-update-set-state': 'off',
     'object-curly-spacing': ['error', 'always'],
     quotes: ['error', 'single', { avoidEscape: true }],

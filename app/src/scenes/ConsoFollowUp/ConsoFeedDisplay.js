@@ -37,7 +37,7 @@ const ConsoFeedDisplay = ({
       <TouchableWithoutFeedback onPress={() => onPress(timestamp)}>
         <FeedButton positionInFeed={position} showAsSelected={selected || nothingSelected}>
           <Content>
-            {!!drink ? (
+            {drink ? (
               <>
                 <Icon size={25} />
                 <Drink>

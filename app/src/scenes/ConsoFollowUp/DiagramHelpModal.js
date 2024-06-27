@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Modal } from 'react-native';
 import styled from 'styled-components';

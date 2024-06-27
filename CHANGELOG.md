@@ -1,3 +1,24 @@
+## [1.160.5](https://github.com/SocialGouv/ozensemble/compare/v1.160.4...v1.160.5) (2024-06-27)
+
+
+### Bug Fixes
+
+* add `from` location to better debug ([0ef719b](https://github.com/SocialGouv/ozensemble/commit/0ef719bb046c1ddc478e2b615aad566aa33e86ae))
+
+## [1.160.4](https://github.com/SocialGouv/ozensemble/compare/v1.160.3...v1.160.4) (2024-06-27)
+
+
+### Bug Fixes
+
+* test several ips fetcher ([eb5103d](https://github.com/SocialGouv/ozensemble/commit/eb5103d173bae5e30d5b05b7ebe6bcac2c328811))
+
+## [1.160.3](https://github.com/SocialGouv/ozensemble/compare/v1.160.2...v1.160.3) (2024-06-27)
+
+
+### Bug Fixes
+
+* test location ([#592](https://github.com/SocialGouv/ozensemble/issues/592)) ([d3f9088](https://github.com/SocialGouv/ozensemble/commit/d3f9088cdc853ce258ef13bf4a997191016be8c6))
+
 ## [1.160.2](https://github.com/SocialGouv/ozensemble/compare/v1.160.1...v1.160.2) (2024-06-24)
 
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, KeyboardAvoidingView } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
@@ -14,7 +14,9 @@ import { sendMail } from '../../services/mail';
 import { P } from '../../components/Articles';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+
 const Buffer = require('buffer').Buffer;
+
 const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
   const docHeader = `
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -59,7 +61,7 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
           lastDay.format('MMMM ').capitalize() +
           lastDay.format('YYYY');
     let sumWeeklyDoses = 0;
-    const weekHeader = ` <tr class="bg-oz"><td colspan="3">Semaine du ${displayedDate}</td></tr> 
+    const weekHeader = ` <tr class="bg-oz"><td colspan="3">Semaine du ${displayedDate}</td></tr>
 <tr class="bg-oz">
     <th>Date</th>
     <th>Boisson</th>
@@ -87,15 +89,15 @@ const formatHtmlTable = (consoFilteredByWeek, catalog, firstDay) => {
             const displayName = ['beer-half', 'cider-half', 'beer-pint', 'cider-pint'].includes(conso.drinkKey)
               ? getDisplayDrinksModalName(conso.drinkKey, catalog, conso.quantity).toLowerCase() +
                 ' de ' +
-                getDisplayName(conso.drinkKey, (quantity = 1), catalog)
-              : getDisplayName(conso.drinkKey, (quantity = 1), catalog);
+                getDisplayName(conso.drinkKey, 1, catalog)
+              : getDisplayName(conso.drinkKey, 1, catalog);
             consosInfos += conso.quantity + ' ' + displayName;
             const numberVolume = Number(conso.volume.split(' ')[0]);
             const alcoolPercentage = Math.round((conso.doses * 100) / numberVolume / 0.8);
             consosInfos += ` (${alcoolPercentage}%)`;
             if (index + 1 !== day.length) {
               // is conso not last of the day the day add <br>
-              consosInfos += `<br>`;
+              consosInfos += '<br>';
             }
             sumDayDoses += conso.doses * conso.quantity;
           }
@@ -132,7 +134,7 @@ const Export = ({ navigation }) => {
     const file = {
       contentType: 'text/csv',
       filename: 'MesConsommationOz.csv',
-      content: `Date,Consommation,Unité(s),Quantité,Volume,Calories,Prix (Euros)\n`,
+      content: 'Date,Consommation,Unité(s),Quantité,Volume,Calories,Prix (Euros)\n',
     };
     const htmlExport = await API.get({ path: '/consommation/get-all-consos', query: { matomoId } }).then((response) => {
       if (response.ok) {
