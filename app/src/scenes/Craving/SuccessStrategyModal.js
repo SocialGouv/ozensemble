@@ -5,6 +5,7 @@ import { hitSlop } from '../../styles/theme';
 import StratPlusIcon from '../../components/illustrations/StratPlusIcon';
 import { strategyCatalog, strategyCatalogObject } from './strategies';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 const allActionsPlans = strategyCatalog.filter((strategy) => strategy.categoryKey === 'actionPlan');
 const randomPossibleActionPlan = allActionsPlans.filter(
   (actionPlan) => !!actionPlan.redirection && actionPlan.redirection !== 'RANDOM'

@@ -197,7 +197,7 @@ const DefisMenu = ({ navigation }) => {
           }}
           boutonTitle={"S'auto-évaluer"}
           onPress={() => {
-            navigation.navigate(`ONBOARDING_QUIZZ`);
+            navigation.navigate('ONBOARDING_QUIZZ');
             setShowOnboardingModal(false);
           }}
         />

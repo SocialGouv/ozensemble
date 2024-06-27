@@ -34,7 +34,7 @@ const Testimonies = ({ navigation }) => {
                   />
                 </View>
               ) : (
-                <View className="left-1/4 w-1/2 h-O border rounded-xl mb-10 -ml-4 border-[#4030A5]"></View>
+                <View className="left-1/4 w-1/2 h-O border rounded-xl mb-10 -ml-4 border-[#4030A5]" />
               )}
             </React.Fragment>
           );

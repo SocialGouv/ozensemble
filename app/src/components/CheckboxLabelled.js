@@ -64,7 +64,7 @@ const CheckBoxContainer = styled.View`
   width: 20px;
   flex-shrink: 0;
   margin-left: ${Platform.select({ ios: 0, android: -10 })}px;
-  margin-right: ${Platform.select({ ios: 10, android: 20 })}px; ;
+  margin-right: ${Platform.select({ ios: 10, android: 20 })}px;
 `;
 
 const CheckBoxStyled = styled(CheckBox)`

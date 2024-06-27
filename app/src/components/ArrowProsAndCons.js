@@ -17,7 +17,7 @@ function SvgComponent(props) {
           fill="#28A745"
         />
       </G>
-      <Defs></Defs>
+      <Defs />
     </Svg>
   );
 }

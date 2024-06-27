@@ -1,10 +1,9 @@
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
 import BackGroundTopMotivation from '../../components/BackGroundTopMotivation';
 import BackGroundBotMotivation from '../../components/BackGroundBopMotivation';
-import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   customText: {

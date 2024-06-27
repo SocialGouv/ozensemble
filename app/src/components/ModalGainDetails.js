@@ -64,7 +64,7 @@ const ModalGainDetails = ({ content, onClose }) => {
                 </View>
               </View>
               <View className="flex flex-row justify-center">
-                <View className="w-3/4 border border-[#DDDDDD] my-8"></View>
+                <View className="w-3/4 border border-[#DDDDDD] my-8" />
               </View>
               <View className="flex flex-row space-x-3">
                 <View className="py-2 bg-[#F5F6FA] rounded-md grow basis-24">

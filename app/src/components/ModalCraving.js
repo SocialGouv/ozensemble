@@ -56,13 +56,13 @@ const ModalCraving = ({ navigation }) => {
                 Oz vous accompagne dans ces moments délicats, avec :{' '}
               </Text>
               <Text className="text-start text-black text-base">
-                {`\u2022`} un espace “<Text className="font-bold">Ma stratégie</Text>" vous permettant de définir une
+                {'\u2022'} un espace “<Text className="font-bold">Ma stratégie</Text>" vous permettant de définir une
                 stratégie et un plan d’action à chaque craving,
-                {`\n`} {`\u2022`} des <Text className="font-bold">conseils</Text> rapides, à appliquer immédiatement,
-                {`\n`} {`\u2022`} des <Text className="font-bold">exercices de respiration</Text>, à adapter selon vos
+                {'\n'} {'\u2022'} des <Text className="font-bold">conseils</Text> rapides, à appliquer immédiatement,
+                {'\n'} {'\u2022'} des <Text className="font-bold">exercices de respiration</Text>, à adapter selon vos
                 besoins,
-                {`\n`}
-                {`\u2022`} un catalogue varié de <Text className="font-bold">vidéos</Text>, avec plusieurs catégories.
+                {'\n'}
+                {'\u2022'} un catalogue varié de <Text className="font-bold">vidéos</Text>, avec plusieurs catégories.
               </Text>
             </View>
 

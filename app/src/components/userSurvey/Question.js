@@ -86,7 +86,7 @@ const Question = ({
                   if (!endOfQuestions) {
                     navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
                   } else {
-                    if (from == 'NEW_USER') {
+                    if (from === 'NEW_USER') {
                       navigation.navigate('TABS');
                       await new Promise((res) => setTimeout(res));
                       setShowBootsplash(true);

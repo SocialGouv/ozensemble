@@ -270,7 +270,7 @@ const Reminder = ({
 
   return (
     <>
-      <SafeAreaView className="bg-[#39CEC0]"></SafeAreaView>
+      <SafeAreaView className="bg-[#39CEC0]" />
       <WrapperContainer onPressBackButton={navigation.goBack} title={wrapperTitle}>
         <Container>
           <ReminderIcon size={80} color="#4030a5" selected={false} />
