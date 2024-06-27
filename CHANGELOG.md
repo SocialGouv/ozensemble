@@ -1,3 +1,10 @@
+## [1.160.4](https://github.com/SocialGouv/ozensemble/compare/v1.160.3...v1.160.4) (2024-06-27)
+
+
+### Bug Fixes
+
+* test several ips fetcher ([eb5103d](https://github.com/SocialGouv/ozensemble/commit/eb5103d173bae5e30d5b05b7ebe6bcac2c328811))
+
 ## [1.160.3](https://github.com/SocialGouv/ozensemble/compare/v1.160.2...v1.160.3) (2024-06-27)
 
 
