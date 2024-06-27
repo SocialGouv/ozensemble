@@ -3,6 +3,8 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const geoip = require("geoip-lite");
+const { capture } = require("../third-parties/sentry");
+const fetch = require("node-fetch");
 
 router.put(
   "/",
