@@ -30,6 +30,7 @@ import AlcoholAndDependency from '../Health/Articles/AlcoholAndDependency';
 import OwnTestimony from '../Health/OwnTestimony';
 import { dayjsInstance } from '../../services/dates';
 import Motivation from './Motivation';
+import MyMotivations from './MyMotivations';
 
 const CravingStack = createStackNavigator();
 const CravingNavigator = () => {
@@ -73,6 +74,7 @@ const CravingNavigator = () => {
         <CravingStack.Screen name="ALCOHOL_AND_HEALTH_RISKS" component={AlcoholAndHealthRisks} />
         <CravingStack.Screen name="ALCOHOL_AND_DEPENDENCY" component={AlcoholAndDependency} />
         <CravingStack.Screen name="CRAVING_MOTIVATION" component={Motivation} />
+        <CravingStack.Screen name="MY_MOTIVATIONS" component={MyMotivations} />
       </CravingStack.Navigator>
     </Background>
   );
