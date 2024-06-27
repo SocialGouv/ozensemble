@@ -37,20 +37,45 @@ router.put(
   })
 );
 
+async function getLocationFromIp(ip) {
+  const fromgeoip = geoip.lookup(ip);
+  const ipapi = ip
+    ? await fetch(`http://ip-api.com/json/${ip}`)
+        .then((res) => res.json())
+        .catch(console.error)
+    : null;
+  return { ip, fromgeoip, ipapi };
+}
+
 router.get(
   "/location",
   catchErrors(async (req, res) => {
     const { matomoId } = req.query || {};
     let isWellLocated = false;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    const ip = req.connection.remoteAddress; // private ip when dev mode, should be public ip in prod (https://stackoverflow.com/a/58441273/5225096)
-    const geo = geoip.lookup(ip);
-    const response = await fetch(`http://ip-api.com/json/${ip}`);
-    const data = await response.json();
-    console.log({ data });
-    capture("test location", { extra: { geo, data } });
-    if (geo?.region === "IDF") isWellLocated = true;
-    return res.status(200).send({ ok: true, isWellLocated });
+
+    const user = await prisma.user.findUnique({
+      where: { matomo_id: matomoId },
+    });
+    if (!user) return res.status(404).json({ ok: false, error: "user not found" });
+
+    const xforwarded = await getLocationFromIp(req.headers["x-forwarded-for"]);
+    const remote = await getLocationFromIp(req.connection?.remoteAddress);
+    const socket = await getLocationFromIp(req.socket?.remoteAddress);
+    const connectionSocket = await getLocationFromIp(req.connection.socket?.remoteAddress);
+    const ip = await getLocationFromIp(req.ip);
+
+    const ips = {
+      xforwarded,
+      remote,
+      socket,
+      connectionSocket,
+      ip,
+    };
+
+    capture("test several ips fetcher", { extra: { ips } });
+
+    return res.status(200).send({ ok: true, isWellLocated, ips });
   })
 );
 
