@@ -1,3 +1,10 @@
+## [1.160.5](https://github.com/SocialGouv/ozensemble/compare/v1.160.4...v1.160.5) (2024-06-27)
+
+
+### Bug Fixes
+
+* add `from` location to better debug ([0ef719b](https://github.com/SocialGouv/ozensemble/commit/0ef719bb046c1ddc478e2b615aad566aa33e86ae))
+
 ## [1.160.4](https://github.com/SocialGouv/ozensemble/compare/v1.160.3...v1.160.4) (2024-06-27)
 
 
