@@ -360,6 +360,12 @@ const FakeData = () => {
             storage.delete('isWellLocated');
           }}
         />
+        <MenuItem
+          caption="Ma localisation"
+          onPress={() => {
+            storage.delete('isWellLocated');
+          }}
+        />
         <MenuItem caption="Tout" onPress={() => storage.clearAll()} />
       </Container>
     </WrapperContainer>
