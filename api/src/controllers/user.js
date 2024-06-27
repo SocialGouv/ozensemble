@@ -50,7 +50,7 @@ async function getLocationFromIp(ip) {
 router.get(
   "/location",
   catchErrors(async (req, res) => {
-    const { matomoId } = req.query || {};
+    const { matomoId, from } = req.query || {};
     let isWellLocated = false;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
@@ -73,7 +73,7 @@ router.get(
       ip,
     };
 
-    capture("test several ips fetcher", { extra: { ips } });
+    capture("test several ips fetcher", { extra: { ips, from }, tags: { from } });
 
     return res.status(200).send({ ok: true, isWellLocated, ips });
   })
