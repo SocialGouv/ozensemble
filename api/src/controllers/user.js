@@ -44,7 +44,7 @@ router.get(
     let isWellLocated = false;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     const ip = req.connection.remoteAddress; // private ip when dev mode, should be public ip in prod (https://stackoverflow.com/a/58441273/5225096)
-    var geo = geoip.lookup(ip);
+    const geo = geoip.lookup(ip);
     const response = await fetch(`http://ip-api.com/json/${ip}`);
     const data = await response.json();
     console.log({ data });
