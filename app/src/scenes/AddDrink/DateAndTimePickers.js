@@ -5,6 +5,7 @@ import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
 import DatePicker from '../../components/DatePicker';
 import { makeSureTimestamp } from '../../helpers/dateHelpers';
 import { drinksState } from '../../recoil/consos';
+import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
 
 const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -13,8 +14,8 @@ const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) 
   const updateModalTimestamp = (newTimestamp) => {
     const oldTimestamp = addDrinkModalTimestamp;
     setDrinksState((drinks) =>
-      drinks
-        .map((drink) => {
+      sortConsosByTimestamp(
+        drinks.map((drink) => {
           if (drink.timestamp === oldTimestamp) {
             return {
               ...drink,
@@ -23,7 +24,7 @@ const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) 
           }
           return drink;
         })
-        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1))
+      )
     );
     setDrinkModalTimestamp(newTimestamp);
   };

@@ -437,3 +437,21 @@ for (const categoryKey of drinksCategories) {
     .filter((drink) => drink.categoryKey === categoryKey)
     .map(({ drinkKey }) => drinkKey);
 }
+
+export const allowedDrinkKeys = {
+  NO_CONSO,
+  BEER_HALF,
+  BEER_PINT,
+  CIDER_HALF,
+  CIDER_PINT,
+  WINE_GLASS,
+  WINE_BOTTLE,
+  CHAMPAGNE_GLASS,
+  CHAMPAGNE_BOTTLE,
+  HARD_COCKTAIL,
+  HARD_BOTTLE,
+  HARD_SHOT,
+  HARD_FLASQUE,
+  APERITIVE_GLASS,
+  APERITIVE_BOTTLE,
+};

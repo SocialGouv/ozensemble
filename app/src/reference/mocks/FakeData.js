@@ -21,6 +21,7 @@ import API from '../../services/api';
 import { badgesCatalogState } from '../../recoil/badges';
 import { daysWithGoalNoDrinkState, drinksByWeekState, goalsState } from '../../recoil/gains';
 import { capture } from '../../services/sentry';
+import { sortConsosByTimestamp } from '../../helpers/consosHelpers.js';
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -86,7 +87,7 @@ const FakeData = () => {
         <MenuItem
           caption="Toutes mes consos"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.empty.drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
@@ -100,7 +101,7 @@ const FakeData = () => {
         <MenuItem
           caption="Reset consos et défi 1"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.empty.drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
             deleteStorageValues(fakeDefi1);
           }}
@@ -115,7 +116,7 @@ const FakeData = () => {
             replaceStorageValues(fakeDefi5);
             replaceStorageValues(fakeOnboardingQuizz.risk);
             replaceStorageValues(fakeGain);
-            setGlobalDrinksState(fakeConsoData.full.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.full.drinks));
           }}
         />
         <H1Wrapper>Simuler un badge</H1Wrapper>
@@ -295,28 +296,28 @@ const FakeData = () => {
         <MenuItem
           caption="2 mois avec une boisson par jour"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.long(700).drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.long(700).drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="14 jours de conso complets"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.full.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.full.drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="14 jours de conso partiels"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.partial.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.partial.drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
         <MenuItem
           caption="10 jours de conso pas trop chargés"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.onlyBelow.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.onlyBelow.drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
@@ -333,7 +334,7 @@ const FakeData = () => {
                 id: uuid(),
               });
             }
-            setGlobalDrinksState(drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />
@@ -402,7 +403,7 @@ const FakeData = () => {
         <MenuItem
           caption="Toutes mes consos"
           onPress={() => {
-            setGlobalDrinksState(fakeConsoData.empty.drinks.sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.empty.drinks));
             storage.delete('nps-asked-after-more-than-3-consos');
           }}
         />

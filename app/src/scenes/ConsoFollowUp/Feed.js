@@ -38,6 +38,7 @@ import TargetGoal from '../../components/illustrations/icons/TargetGoal';
 import { drinksContextsState } from '../../recoil/contexts';
 import { emotionIcon, contextsCatalogObject } from '../AddEmotion/contextsCatalog';
 import ModifyIcon from '../../components/illustrations/icons/ModifyIcon';
+import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
@@ -77,7 +78,6 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
 
   const setNoConsos = useCallback(async () => {
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
-    const newNoDrink = [];
     const matomoId = storage.getString('@UserIdv2');
     setNoConsoLoading(true);
     for (let i = 1; i <= differenceDay; i++) {
@@ -93,7 +93,6 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
         action: 'NO_CONSO',
         dimension6: noConso.timestamp,
       });
-      newNoDrink.push(noConso);
       await API.post({
         path: '/consommation',
         body: {
@@ -120,7 +119,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
         }
       });
     }
-    setDrinks((state) => [...state, ...newNoDrink].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+    setDrinks((state) => sortConsosByTimestamp(state));
     setNoConsoLoading(false);
     API.get({
       path: '/goal/list',
@@ -136,7 +135,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
         }
       })
       .catch((err) => console.log('Get goals err', err));
-  }, [dateLastEntered, setDrinks]);
+  }, [dateLastEntered, setDrinks, goals, setGoals]);
   return (
     <>
       <View className="flex flex-row shrink-0 mb-4 pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
