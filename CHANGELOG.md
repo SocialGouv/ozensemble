@@ -1,3 +1,10 @@
+## [1.160.6](https://github.com/SocialGouv/ozensemble/compare/v1.160.5...v1.160.6) (2024-06-28)
+
+
+### Bug Fixes
+
+* loc with xforwarded ([#594](https://github.com/SocialGouv/ozensemble/issues/594)) ([b1426e4](https://github.com/SocialGouv/ozensemble/commit/b1426e41c1d1cfb178a07e0750df0b34033ff102))
+
 ## [1.160.5](https://github.com/SocialGouv/ozensemble/compare/v1.160.4...v1.160.5) (2024-06-27)
 
 
