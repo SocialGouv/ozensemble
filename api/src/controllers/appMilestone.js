@@ -79,7 +79,7 @@ router.post(
               action: "PRESSED_FROM_NEW_FEATURE_MODAL",
               name: "FROM_NEW_FEATURE",
             },
-            CTANavigation: ["GAINS_NAVIGATOR", { screen: "MY_MOTIVATIONS" }],
+            CTANavigation: ["GAINS_NAVIGATOR"],
           },
         });
       }
