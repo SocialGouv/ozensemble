@@ -18,8 +18,12 @@ import ModifyStrategy from '../../components/illustrations/icons/ModifyStrategy'
 import LeftArrowStrategy from '../../components/illustrations/icons/leftArrowStrategy';
 import RigthArrowStrategy from '../../components/illustrations/icons/rigthArrowStrategy';
 import { dayjsInstance } from '../../services/dates';
+import CupMotivation from '../../components/illustrations/icons/CupMotivation';
+import { myMotivationState } from '../../recoil/gains';
+import ArrowRight from '../../components/ArrowRight';
 
 const CravingStrategies = ({ navigation }) => {
+  const motivation = useRecoilValue(myMotivationState);
   const strategies = useRecoilValue(defineStrategyState);
   const [pageIndex, setIndex] = useRecoilState(currentStrategyState);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
@@ -40,6 +44,45 @@ const CravingStrategies = ({ navigation }) => {
           title="Ma stratégie"
           onPressBackButton={() => navigation.navigate('CRAVING_INDEX')}
           ref={scrollRef}>
+          <View className="mb-8">
+            <Text className="text-gray-500 text-base italic mb-4">
+              Définissez des motivations pour vous aider à maitriser votre consommation
+            </Text>
+            <View className=" justify-center">
+              {motivation.length ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('MY_MOTIVATIONS');
+                  }}
+                  className=" justify-between items-center rounded-md bg-[#E0E0E0] flex flex-row p-4">
+                  <View className="flex flex-row justify-start items-center space-x-4">
+                    <CupMotivation />
+                    <View className="flex flex-col space-y-2">
+                      {motivation.map((m, index) =>
+                        m ? (
+                          <Text key={index} className="text-black font-semibold">
+                            {'\u2022 '}
+                            {m}
+                          </Text>
+                        ) : null
+                      )}
+                    </View>
+                  </View>
+                  <ArrowRight color="#4030a5" size={18} />
+                </TouchableOpacity>
+              ) : (
+                <View className="flex flex-row justify-center">
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate('MY_MOTIVATIONS');
+                    }}
+                    className="justify-center items-center rounded-3xl py-3 px-6 bg-[#4030A5]">
+                    <Text className="font-extrabold color-white text-center ">Ajouter des motivations</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </View>
           <View className="border-[#4030A5] border p-5 rounded-lg">
             {filteredStrategy && (
               <View className="flex  flex-col space-y-3">

@@ -6,6 +6,7 @@ import MyGains from './MyGains';
 import { useToggleCTA } from '../AddDrink/AddDrinkCTAButton';
 import GainsFromStartModale from './GainsFromStartModale';
 import BadgesList from '../Badges/BadgesList';
+import MyMotivations from './MyMotivations';
 
 const GainsStack = createStackNavigator();
 
@@ -22,6 +23,7 @@ const GainsNavigator = () => {
         <GainsStack.Screen name="GAINS_MAIN_VIEW" component={MyGains} />
         <GainsStack.Screen name="BADGES_LIST" component={BadgesList} />
         <GainsStack.Screen name="GAINS_FROM_START_MODALE" component={GainsFromStartModale} />
+        <GainsStack.Screen name="MY_MOTIVATIONS" component={MyMotivations} />
       </GainsStack.Navigator>
     </Background>
   );

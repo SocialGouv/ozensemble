@@ -81,4 +81,10 @@ export const goalsByWeekSelector = selector({
   },
 });
 
+export const myMotivationState = atom({
+  key: 'myMotivationState',
+  default: getInitValueFromStorage('myMotivationState', []),
+  effects: [({ onSet }) => onSet((newValue) => storage.set('myMotivationState', JSON.stringify(newValue)))],
+});
+
 // export const goalSuccessSelector = selectorFamily({

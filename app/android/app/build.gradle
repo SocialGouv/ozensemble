@@ -100,7 +100,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
         versionCode 285
-        versionName "1.25.4"
+        versionName "1.25.5"
     }
 
      signingConfigs {
