@@ -32,6 +32,7 @@ import StrategyIcon from './illustrations/StrategyIcon';
 import MotivationIconInAppModal from './illustrations/MotivationIconInAppModal';
 import { useRecoilState } from 'recoil';
 import { isInCravingKeyState } from '../recoil/craving';
+import CupMotivation from './illustrations/icons/CupMotivation';
 
 /* example
 {
@@ -145,7 +146,12 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
-          {inAppModal?.id.includes('Motivation') && (
+          {inAppModal?.id.includes('MyMotivations') && (
+            <View className="flex flex-col items-center">
+              <CupMotivation size={60} />
+            </View>
+          )}
+          {inAppModal?.id.includes('@Motivation') && (
             <View className="flex flex-col items-center">
               <MotivationIconInAppModal size={80} />
             </View>

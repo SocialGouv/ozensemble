@@ -22,7 +22,7 @@ const MyMotivations = ({ navigation }) => {
     if (JSON.stringify(motivation) !== JSON.stringify(initialMotivation)) {
       const filteredMotivation = motivation.filter((m) => m.trim() !== '');
       logEvent({
-        category: 'GAINS',
+        category: 'CRAVING',
         action: 'CHANGED_MY_MOTIVATIONS',
         name: filteredMotivation.length,
       });

@@ -54,6 +54,37 @@ router.post(
 
     if (req.headers.appversion < 243) return res.status(200).send({ ok: true });
 
+    if (req.headers.appversion >= 285) {
+      const featureMyMotivations = await prisma.appMilestone.findUnique({
+        where: { id: `${user.id}_@MyMotivations` },
+      });
+      if (!featureMyMotivations) {
+        await prisma.appMilestone.create({
+          data: {
+            id: `${user.id}_@MyMotivations`,
+            userId: user.id,
+            date: dayjs().format("YYYY-MM-DD"),
+          },
+        });
+        return res.status(200).send({
+          ok: true,
+          showInAppModal: {
+            id: "@MyMotivations",
+            title: "Ajoutez vos motivations",
+            content:
+              "Définissez vos propres motivations et visualisez-les d’un coup d’œil sur l’application.\n\n Les motivations sont affichées sur la page “Suivi”, ainsi que sur la page “Ma Stratégie” accessible dans votre espace Craving.",
+            CTATitle: "Découvrir",
+            CTAEvent: {
+              category: "MY_MOTIVATIONS",
+              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+              name: "FROM_NEW_FEATURE",
+            },
+            CTANavigation: ["GAINS_NAVIGATOR", { screen: "MY_MOTIVATIONS" }],
+          },
+        });
+      }
+    }
+
     if (req.headers.appversion >= 280) {
       const featureMotivation = await prisma.appMilestone.findUnique({
         where: { id: `${user.id}_@Motivation` },

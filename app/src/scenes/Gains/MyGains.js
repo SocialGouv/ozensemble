@@ -19,7 +19,6 @@ import ArrowRight from '../../components/ArrowRight';
 import IconAdd from '../../components/illustrations/IconAdd';
 import CupMotivation from '../../components/illustrations/icons/CupMotivation';
 import { myMotivationState } from '../../recoil/gains';
-import { useRecoilState } from 'recoil';
 
 dayjs.extend(isBetween);
 
@@ -31,7 +30,7 @@ const MyGains = () => {
 
   const [showOnboardingGainModal, setShowOnboardingGainModal] = useState(false);
 
-  const [motivation] = useRecoilState(myMotivationState);
+  const motivation = useRecoilValue(myMotivationState);
   const navigateToFirstStep = () => {
     logEvent({
       category: 'GAINS',
@@ -65,7 +64,7 @@ const MyGains = () => {
         <>
           <View className="mb-8">
             <Text className="text-gray-500 text-base italic mb-4">
-              définissez des motivations pour vous aider à maitriser votre consommation
+              Définissez des motivations pour vous aider à maitriser votre consommation
             </Text>
             <View className="justify-center">
               {motivation.length ? (

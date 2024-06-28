@@ -23,7 +23,7 @@ import { myMotivationState } from '../../recoil/gains';
 import ArrowRight from '../../components/ArrowRight';
 
 const CravingStrategies = ({ navigation }) => {
-  const [motivation] = useRecoilState(myMotivationState);
+  const motivation = useRecoilValue(myMotivationState);
   const strategies = useRecoilValue(defineStrategyState);
   const [pageIndex, setIndex] = useRecoilState(currentStrategyState);
   const filteredStrategy = strategies.find((strategy) => strategy.index === pageIndex);
@@ -46,7 +46,7 @@ const CravingStrategies = ({ navigation }) => {
           ref={scrollRef}>
           <View className="mb-8">
             <Text className="text-gray-500 text-base italic mb-4">
-              définissez des motivations pour vous aider à maitriser votre consommation
+              Définissez des motivations pour vous aider à maitriser votre consommation
             </Text>
             <View className=" justify-center">
               {motivation.length ? (
