@@ -1,3 +1,10 @@
+# [1.161.0](https://github.com/SocialGouv/ozensemble/compare/v1.160.6...v1.161.0) (2024-06-28)
+
+
+### Features
+
+* myMotivations ([#593](https://github.com/SocialGouv/ozensemble/issues/593)) ([efa8a10](https://github.com/SocialGouv/ozensemble/commit/efa8a10c838d26bf2a220a1235592f7738ac9eea))
+
 ## [1.160.6](https://github.com/SocialGouv/ozensemble/compare/v1.160.5...v1.160.6) (2024-06-28)
 
 
