@@ -49,13 +49,12 @@ router.get(
     });
     if (!user) return res.status(404).json({ ok: false, error: "user not found" });
 
-    const xforwarded = geoip.lookup(req.headers["x-forwarded-for"]);
-    if (xforwarded) {
-      const { region } = xforwarded;
+    const xforwarded = req.headers["x-forwarded-for"];
+    const location = geoip.lookup(xforwarded);
+    if (location) {
+      const { region } = location;
       isWellLocated = region === "IDF";
     }
-
-    capture("user loc", { extra: { xforwarded }, isWellLocated });
 
     return res.status(200).send({ ok: true, isWellLocated });
   })
