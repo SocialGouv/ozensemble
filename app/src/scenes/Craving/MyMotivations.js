@@ -56,7 +56,7 @@ const MyMotivations = ({ navigation }) => {
               <View className="mt-8">
                 <Text className="text-[#191919] text-lg font-bold">Quelles sont vos motivations ?</Text>
                 <Text className="text-gray-500 text-base italic mb-4">
-                  Décrire vos motivations à surmonter un craving
+                  Décrire vos motivations à maîtriser votre consommation
                 </Text>
               </View>
               {['1ère motivation', '2ème motivation', '3ème motivation'].map((title, index) => (

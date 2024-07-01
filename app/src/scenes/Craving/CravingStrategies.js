@@ -46,11 +46,8 @@ const CravingStrategies = ({ navigation }) => {
           onPressBackButton={() => navigation.navigate('CRAVING_INDEX')}
           ref={scrollRef}>
           <View className="mb-8">
-            <Text className="text-gray-500 text-base italic mb-4">
-              Définissez des motivations pour vous aider à maitriser votre consommation
-            </Text>
-            <View className="justify-center">
-              {motivation.length ? (
+            {motivation.length ? (
+              <View className="justify-center">
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('MY_MOTIVATIONS');
@@ -71,18 +68,25 @@ const CravingStrategies = ({ navigation }) => {
                   </View>
                   <ArrowRight color="#4030a5" size={18} />
                 </TouchableOpacity>
-              ) : (
-                <View className="flex flex-row justify-center">
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate('MY_MOTIVATIONS');
-                    }}
-                    className="justify-center items-center rounded-3xl py-3 px-6 bg-[#4030A5]">
-                    <Text className="font-extrabold color-white text-center ">Ajouter des motivations</Text>
-                  </TouchableOpacity>
+              </View>
+            ) : (
+              <>
+                <Text className="text-gray-500 text-base italic mb-4">
+                  Définissez des motivations pour vous aider à maitriser votre consommation
+                </Text>
+                <View className="justify-center">
+                  <View className="flex flex-row justify-center">
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('MY_MOTIVATIONS');
+                      }}
+                      className="justify-center items-center rounded-3xl py-3 px-6 bg-[#4030A5]">
+                      <Text className="font-extrabold color-white text-center ">Ajouter des motivations</Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
-              )}
-            </View>
+              </>
+            )}
           </View>
           <View className="border-[#4030A5] border p-5 rounded-lg">
             {filteredStrategy && (
