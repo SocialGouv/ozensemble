@@ -1,3 +1,10 @@
+## [1.161.1](https://github.com/SocialGouv/ozensemble/compare/v1.161.0...v1.161.1) (2024-07-01)
+
+
+### Bug Fixes
+
+* recette ([728ddcf](https://github.com/SocialGouv/ozensemble/commit/728ddcf64640f0a98fddde30a0eb1cdf9caa8877))
+
 # [1.161.0](https://github.com/SocialGouv/ozensemble/compare/v1.160.6...v1.161.0) (2024-06-28)
 
 
