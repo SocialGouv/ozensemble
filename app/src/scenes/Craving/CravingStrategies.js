@@ -7,6 +7,7 @@ import WrapperContainer from '../../components/WrapperContainer';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { currentStrategyState, defineStrategyState } from '../../recoil/craving';
 import { strategyCatalogObject, getDisplayName, strategyCatalog } from './strategies';
+import { screenWidth } from '../../styles/theme';
 
 const allActionsPlans = strategyCatalog.filter((strategy) => strategy.categoryKey === 'actionPlan');
 const randomPossibleActionPlan = allActionsPlans.filter(
@@ -48,16 +49,16 @@ const CravingStrategies = ({ navigation }) => {
             <Text className="text-gray-500 text-base italic mb-4">
               Définissez des motivations pour vous aider à maitriser votre consommation
             </Text>
-            <View className=" justify-center">
+            <View className="justify-center">
               {motivation.length ? (
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate('MY_MOTIVATIONS');
                   }}
                   className=" justify-between items-center rounded-md bg-[#E0E0E0] flex flex-row p-4">
-                  <View className="flex flex-row justify-start items-center space-x-4">
+                  <View className="flex flex-row justify-start items-center space-x-4 -mr-2">
                     <CupMotivation />
-                    <View className="flex flex-col space-y-2">
+                    <View className="flex flex-col space-y-2" style={{ width: (screenWidth * 2) / 3 }}>
                       {motivation.map((m, index) =>
                         m ? (
                           <Text key={index} className="text-black font-semibold">

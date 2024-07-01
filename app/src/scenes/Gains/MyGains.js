@@ -19,6 +19,7 @@ import ArrowRight from '../../components/ArrowRight';
 import IconAdd from '../../components/illustrations/IconAdd';
 import CupMotivation from '../../components/illustrations/icons/CupMotivation';
 import { myMotivationState } from '../../recoil/gains';
+import { screenWidth } from '../../styles/theme';
 
 dayjs.extend(isBetween);
 
@@ -73,9 +74,9 @@ const MyGains = () => {
                     navigation.navigate('MY_MOTIVATIONS');
                   }}
                   className=" justify-between items-center rounded-md bg-[#E0E0E0] flex flex-row p-4">
-                  <View className="flex flex-row justify-start items-center space-x-4">
+                  <View className="flex flex-row justify-start items-center space-x-4 -mr-2">
                     <CupMotivation />
-                    <View className="flex flex-col space-y-2">
+                    <View className="flex flex-col space-y-2" style={{ width: (screenWidth * 2) / 3 }}>
                       {motivation.map((m, index) =>
                         m ? (
                           <Text key={index} className="text-black font-semibold">
