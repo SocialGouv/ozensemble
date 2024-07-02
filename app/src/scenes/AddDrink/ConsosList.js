@@ -22,6 +22,7 @@ import TextStyled from '../../components/TextStyled';
 import OwnDrinkSelector from '../../components/OwnDrinkSelector';
 import AddOwnDrink from './AddOwnDrink';
 import { capture } from '../../services/sentry';
+import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
@@ -84,10 +85,11 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
     let showToast = true;
     const newDrinksIds = drinksWithTimestamps.map((drink) => drink.id);
     setGlobalDrinksState((prevState) => {
-      const nextState = [...prevState.filter((_drink) => !newDrinksIds.includes(_drink.id)), ...drinksWithTimestamps]
-        .filter((d) => d.quantity > 0)
-        .sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1));
-      return nextState;
+      const nextState = [
+        ...prevState.filter((_drink) => !newDrinksIds.includes(_drink.id)),
+        ...drinksWithTimestamps,
+      ].filter((d) => d.quantity > 0);
+      return sortConsosByTimestamp(nextState);
     });
     InteractionManager.runAfterInteractions(async () => {
       for (let newDrink of drinksWithTimestamps) {
@@ -154,7 +156,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
 
   const onNext = useCallback(() => {
     navigation.push('DRINKS_CONTEXTS_LIST', { timestamp: makeSureTimestamp(addDrinkModalTimestamp) });
-  }, [navigation, route?.params?.parent]);
+  }, [navigation, addDrinkModalTimestamp]);
 
   const onCancelConsos = useCallback(() => {
     navigation.goBack();
@@ -202,7 +204,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                 action: 'NO_CONSO',
                 dimension6: noConso.timestamp,
               });
-              setGlobalDrinksState((state) => [...state, noConso].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+              setGlobalDrinksState((state) => sortConsosByTimestamp([...state, noConso]));
               const matomoId = storage.getString('@UserIdv2');
               API.post({
                 path: '/consommation',

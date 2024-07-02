@@ -15,6 +15,7 @@ import DateAndTimePickers from './DateAndTimePickers';
 import WrapperContainer from '../../components/WrapperContainer';
 import { storage } from '../../services/storage';
 import API from '../../services/api';
+import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
 
 const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
@@ -50,7 +51,7 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
               action: 'NO_CONSO',
               dimension6: noConso.timestamp,
             });
-            setGlobalDrinksState((state) => [...state, noConso].sort((a, b) => (a.timestamp > b.timestamp ? -1 : 1)));
+            setGlobalDrinksState((state) => sortConsosByTimestamp([...state, noConso]));
             const matomoId = storage.getString('@UserIdv2');
             API.post({
               path: '/consommation',
