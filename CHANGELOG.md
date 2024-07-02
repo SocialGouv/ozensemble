@@ -1,3 +1,10 @@
+## [1.161.3](https://github.com/SocialGouv/ozensemble/compare/v1.161.2...v1.161.3) (2024-07-02)
+
+
+### Bug Fixes
+
+* start test for getDerivedDataFromDrinks ([#595](https://github.com/SocialGouv/ozensemble/issues/595)) ([4dbd073](https://github.com/SocialGouv/ozensemble/commit/4dbd0734b452ff66ceed93ca988585953a9d35f8))
+
 ## [1.161.2](https://github.com/SocialGouv/ozensemble/compare/v1.161.1...v1.161.2) (2024-07-01)
 
 
