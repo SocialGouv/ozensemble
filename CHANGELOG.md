@@ -1,3 +1,10 @@
+## [1.161.4](https://github.com/SocialGouv/ozensemble/compare/v1.161.3...v1.161.4) (2024-07-03)
+
+
+### Bug Fixes
+
+* activation mistakes ([#596](https://github.com/SocialGouv/ozensemble/issues/596)) ([88e2d66](https://github.com/SocialGouv/ozensemble/commit/88e2d660a2c2a1c293b6173c04caf6656df8af86))
+
 ## [1.161.3](https://github.com/SocialGouv/ozensemble/compare/v1.161.2...v1.161.3) (2024-07-02)
 
 
