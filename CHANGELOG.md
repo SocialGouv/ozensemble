@@ -1,3 +1,10 @@
+## [1.161.8](https://github.com/SocialGouv/ozensemble/compare/v1.161.7...v1.161.8) (2024-07-03)
+
+
+### Bug Fixes
+
+* strat motivation display ([cdd5ea2](https://github.com/SocialGouv/ozensemble/commit/cdd5ea25be512db86bd04ea7869e2d7553b68794))
+
 ## [1.161.7](https://github.com/SocialGouv/ozensemble/compare/v1.161.6...v1.161.7) (2024-07-03)
 
 
