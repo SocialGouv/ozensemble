@@ -1,3 +1,10 @@
+## [1.161.9](https://github.com/SocialGouv/ozensemble/compare/v1.161.8...v1.161.9) (2024-07-03)
+
+
+### Bug Fixes
+
+* fatal error screens ([ad48e58](https://github.com/SocialGouv/ozensemble/commit/ad48e5832533126e85440ba3f7a230bf5daf3f62))
+
 ## [1.161.8](https://github.com/SocialGouv/ozensemble/compare/v1.161.7...v1.161.8) (2024-07-03)
 
 
