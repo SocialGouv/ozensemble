@@ -1,3 +1,10 @@
+## [1.161.7](https://github.com/SocialGouv/ozensemble/compare/v1.161.6...v1.161.7) (2024-07-03)
+
+
+### Bug Fixes
+
+* recette mymotivations ([6d18f17](https://github.com/SocialGouv/ozensemble/commit/6d18f17012a628a727d37d5eddf72bc2267bff34))
+
 ## [1.161.6](https://github.com/SocialGouv/ozensemble/compare/v1.161.5...v1.161.6) (2024-07-03)
 
 
