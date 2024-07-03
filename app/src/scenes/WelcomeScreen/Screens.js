@@ -22,7 +22,7 @@ export const ScreenCalendar = ({ onPressNext }) => (
           className="h-full w-full"
         />
       </View>
-      <View className="flex flex-row justify-between px-1">
+      <View className="flex flex-row justify-between">
         <Image source={require('../../assets/illustrations/laurier-gauche.png')} resizeMode="contain" className={''} />
         <TextStyled className="text-center text-xl text-white font-bold pt-4">
           Notée 4.8 sur les stores {'\n'}avec + de 1000 avis
@@ -71,17 +71,17 @@ export const ScreenStats = ({ onPressNext }) => (
   </View>
 );
 
-export const ScreenCraving = ({ onPressNext }) => (
+export const ScreenDefi = ({ onPressNext }) => (
   <View className="h-full">
     <View className="h-2/3 justify-center">
       <View className="px-5">
         <TextStyled className="text-center text-white text-2xl font-bold -bottom-4">
-          Surmontez un craving avec{'\n'}des activités et conseils
+          Explorez les activités et{'\n'}les articles santé
         </TextStyled>
       </View>
       <View className="flex-1 items-center">
         <Image
-          source={require('../../assets/illustrations/screen_craving.png')}
+          source={require('../../assets/illustrations/screen_defi.png')}
           resizeMode="contain"
           className="h-full w-full"
         />

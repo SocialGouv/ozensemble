@@ -26,7 +26,7 @@ module.exports = {
     // },
     // title: 'Regardez ça !',
     description: "Accédez à des activités, des témoignages et des articles de santé",
-    okButton: "FERMER",
+    okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_HEALTH_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
   },
