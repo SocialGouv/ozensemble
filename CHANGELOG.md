@@ -1,3 +1,10 @@
+## [1.161.5](https://github.com/SocialGouv/ozensemble/compare/v1.161.4...v1.161.5) (2024-07-03)
+
+
+### Bug Fixes
+
+*  typo small screen overlap craving poptotop ([d50971d](https://github.com/SocialGouv/ozensemble/commit/d50971de0cbf3d2687ef896fce0b36ecffc9e093))
+
 ## [1.161.4](https://github.com/SocialGouv/ozensemble/compare/v1.161.3...v1.161.4) (2024-07-03)
 
 
