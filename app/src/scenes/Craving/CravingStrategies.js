@@ -47,28 +47,24 @@ const CravingStrategies = ({ navigation }) => {
           ref={scrollRef}>
           <View className="mb-8">
             {motivation.length ? (
-              <View className="justify-center">
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('MY_MOTIVATIONS');
-                  }}
-                  className=" justify-between items-center rounded-md bg-[#E0E0E0] flex flex-row p-4">
-                  <View className="flex flex-row justify-start items-center space-x-4 -mr-2">
-                    <CupMotivation />
-                    <View className="flex flex-col space-y-2" style={{ width: (screenWidth * 2) / 3 }}>
-                      {motivation.map((m, index) =>
-                        m ? (
-                          <Text key={index} className="text-black font-semibold">
-                            {'\u2022 '}
-                            {m}
-                          </Text>
-                        ) : null
-                      )}
-                    </View>
-                  </View>
-                  <ArrowRight color="#4030a5" size={18} />
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('MY_MOTIVATIONS');
+                }}
+                className="flex flex-row items-center justify-around bg-[#E0E0E0] rounded-md px-4 py-2">
+                <CupMotivation />
+                <View className="flex flex-col space-y-2 mx-6" style={{ width: (screenWidth * 2) / 3 }}>
+                  {motivation.map((m, index) =>
+                    m ? (
+                      <Text key={index} className="text-black font-semibold">
+                        {'\u2022 '}
+                        {m}
+                      </Text>
+                    ) : null
+                  )}
+                </View>
+                <ArrowRight color="#4030a5" size={18} />
+              </TouchableOpacity>
             ) : (
               <>
                 <Text className="text-gray-500 text-base italic mb-4">
