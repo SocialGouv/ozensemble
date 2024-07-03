@@ -29,9 +29,6 @@ import ChatBubbles from './illustrations/Chatbubbles';
 import OwnClIcon from './illustrations/icons/OwnClIcon';
 import CravingIcon from './illustrations/CravingIcon';
 import StrategyIcon from './illustrations/StrategyIcon';
-import MotivationIconInAppModal from './illustrations/MotivationIconInAppModal';
-import { useRecoilState } from 'recoil';
-import { isInCravingKeyState } from '../recoil/craving';
 import CupMotivation from './illustrations/icons/CupMotivation';
 
 /* example
@@ -50,7 +47,6 @@ import CupMotivation from './illustrations/icons/CupMotivation';
 const screenWidth = Number(Dimensions.get('window').width - 50);
 
 const InAppModal = ({ navigation, route }) => {
-  const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
   const inAppModal = route.params;
 
   const onClose = () => {
@@ -81,9 +77,7 @@ const InAppModal = ({ navigation, route }) => {
       }
       if (inAppModal.CTAOnPress) {
         if (inAppModal.CTAOnPress === 'openSettings') openSettings();
-        else if (inAppModal.CTAOnPress === 'goToCraving') {
-          setIsInCraving(true);
-        } else {
+        else {
           await NotificationService.checkAndAskForPermission();
         }
       }
@@ -149,11 +143,6 @@ const InAppModal = ({ navigation, route }) => {
           {inAppModal?.id.includes('MyMotivations') && (
             <View className="flex flex-col items-center">
               <CupMotivation size={60} />
-            </View>
-          )}
-          {inAppModal?.id.includes('@Motivation') && (
-            <View className="flex flex-col items-center">
-              <MotivationIconInAppModal size={80} />
             </View>
           )}
           {inAppModal?.id.includes('CravingStrategy') && (

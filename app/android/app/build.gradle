@@ -99,8 +99,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         multiDexEnabled true
-        versionCode 287
-        versionName "1.25.5"
+        versionCode 288
+        versionName "1.25.6"
     }
 
      signingConfigs {

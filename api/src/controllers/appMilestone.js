@@ -52,103 +52,6 @@ router.post(
       update: {},
     });
 
-    if (req.headers.appversion < 243) return res.status(200).send({ ok: true });
-
-    if (req.headers.appversion >= 285) {
-      const featureMyMotivations = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@MyMotivations` },
-      });
-      if (!featureMyMotivations) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@MyMotivations`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
-        });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@MyMotivations",
-            title: "Ajoutez vos motivations",
-            content:
-              "Définissez vos propres motivations et visualisez-les d’un coup d’œil sur l’application.\n\n Les motivations sont affichées sur la page “Suivi”, ainsi que sur la page “Ma Stratégie” accessible dans votre espace Craving.",
-            CTATitle: "Découvrir",
-            CTAEvent: {
-              category: "MY_MOTIVATIONS",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
-            },
-            CTANavigation: ["GAINS_NAVIGATOR"],
-          },
-        });
-      }
-    }
-
-    if (req.headers.appversion >= 280) {
-      const featureMotivation = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@Motivation` },
-      });
-      if (!featureMotivation) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@Motivation`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
-        });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@Motivation",
-            title: "Craving: consultez des pensées motivantes",
-            content:
-              "Accédez à une page de pensées motivantes depuis votre espace “Craving”.\n\n Un moyen supplémentaire pour vous accompagner lors d’un moment de craving",
-            CTATitle: "Découvrir",
-            CTAEvent: {
-              category: "MOTIVATION",
-              action: "PRESSED_FROM_NEW_FEATURE_MODAL",
-              name: "FROM_NEW_FEATURE",
-            },
-            CTAOnPress: "goToCraving",
-            CTANavigation: ["CRAVING"],
-          },
-        });
-      }
-    }
-
-    if (req.headers.appversion >= 272) {
-      const featureCraving = await prisma.appMilestone.findUnique({
-        where: { id: `${user.id}_@CravingStrategy` },
-      });
-      if (!featureCraving) {
-        await prisma.appMilestone.create({
-          data: {
-            id: `${user.id}_@CravingStrategy`,
-            userId: user.id,
-            date: dayjs().format("YYYY-MM-DD"),
-          },
-        });
-        return res.status(200).send({
-          ok: true,
-          showInAppModal: {
-            id: "@CravingStrategy",
-            title: "Craving: définissez une stratégie pour surmonter chaque craving",
-            content:
-              "Pour chaque stratégie, définissez votre ressenti, l’elément déclencheur de votre craving, son intensité et le plan d’action que vous souhaitez mettre en place.\n\nRetrouvez toutes vos stratégies dans une page dédiée.",
-            CTATitle: "Découvrir",
-            CTANavigation: ["CRAVING"],
-            CTAOnPress: "goToCraving",
-            CTAEvent: {
-              category: "CRAVING",
-              action: "PRESSED_FROM_NEW_FEATURE_STRATEGY_MODAL",
-              name: "FROM_NEW_FEATURE_STRATEGY",
-            },
-          },
-        });
-      }
-    }
-
     const allowNotification = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@AllowNotification` },
     });
@@ -189,6 +92,70 @@ router.post(
             CTAOnPress: onPress,
           },
         });
+      }
+    }
+
+    if (user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(3, "day"))) {
+      if (req.headers.appversion >= 285) {
+        const featureMyMotivations = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@MyMotivations` },
+        });
+        if (!featureMyMotivations) {
+          await prisma.appMilestone.create({
+            data: {
+              id: `${user.id}_@MyMotivations`,
+              userId: user.id,
+              date: dayjs().format("YYYY-MM-DD"),
+            },
+          });
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@MyMotivations",
+              title: "Ajoutez vos motivations",
+              content:
+                "Définissez vos propres motivations et visualisez-les d’un coup d’œil sur l’application.\n\n Les motivations sont affichées sur la page “Suivi”, ainsi que sur la page “Ma Stratégie” accessible dans votre espace Craving.",
+              CTATitle: "Découvrir",
+              CTAEvent: {
+                category: "MY_MOTIVATIONS",
+                action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+                name: "FROM_NEW_FEATURE",
+              },
+              CTANavigation: ["GAINS_NAVIGATOR"],
+            },
+          });
+        }
+      }
+
+      if (req.headers.appversion >= 272) {
+        const featureCraving = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@CravingStrategy` },
+        });
+        if (!featureCraving) {
+          await prisma.appMilestone.create({
+            data: {
+              id: `${user.id}_@CravingStrategy`,
+              userId: user.id,
+              date: dayjs().format("YYYY-MM-DD"),
+            },
+          });
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@CravingStrategy",
+              title: "Craving: définissez une stratégie pour surmonter chaque craving",
+              content:
+                "Pour chaque stratégie, définissez votre ressenti, l’elément déclencheur de votre craving, son intensité et le plan d’action que vous souhaitez mettre en place.\n\nRetrouvez toutes vos stratégies dans une page dédiée.",
+              CTATitle: "Découvrir",
+              CTANavigation: ["CRAVING"],
+              CTAEvent: {
+                category: "CRAVING",
+                action: "PRESSED_FROM_NEW_FEATURE_STRATEGY_MODAL",
+                name: "FROM_NEW_FEATURE_STRATEGY",
+              },
+            },
+          });
+        }
       }
     }
 

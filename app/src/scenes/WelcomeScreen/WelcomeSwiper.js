@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import Swiper from 'react-native-swiper';
 import { storage } from '../../services/storage';
-import { ScreenRate, ScreenCalendar, ScreenStats, ScreenDefi, ScreenCraving, ScreenAdvice } from './Screens';
+import { ScreenCalendar, ScreenStats, ScreenCraving, ScreenAdvice } from './Screens';
 import Dot from '../../components/SwiperDot';
 import { View } from 'react-native';
 
@@ -39,10 +39,8 @@ const WelcomeSwiper = ({ navigation }) => {
             justifyContent: 'center',
             bottom: 108,
           }}>
-          <ScreenRate onPressNext={onPressNext} />
           <ScreenCalendar onPressNext={onPressNext} />
           <ScreenStats onPressNext={onPressNext} />
-          <ScreenDefi onPressNext={onPressNext} />
           <ScreenCraving onPressNext={onPressNext} />
           <ScreenAdvice onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
