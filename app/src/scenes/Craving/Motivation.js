@@ -4,6 +4,7 @@ import Background from '../../components/Background';
 import BackButton from '../../components/BackButton';
 import BackGroundTopMotivation from '../../components/BackGroundTopMotivation';
 import BackGroundBotMotivation from '../../components/BackGroundBopMotivation';
+import H1 from '../../components/H1';
 
 const styles = StyleSheet.create({
   customText: {
@@ -45,9 +46,9 @@ const Motivation = ({ navigation }) => {
           />
           <View className="items-center h-full justify-between">
             <BackGroundTopMotivation size={Dimensions.get('window').height / 4} className=" " />
-            <Text style={styles.customText} className="mb-10  text-black text-center font-semibold text-2xl px-8">
+            <H1 style={styles.customText} className="mb-10  text-black text-center font-semibold text-2xl px-8">
               {currentMotivation}
-            </Text>
+            </H1>
             <BackGroundBotMotivation size={Dimensions.get('window').height / 4} className="" />
           </View>
         </View>
