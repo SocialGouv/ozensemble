@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import Swiper from 'react-native-swiper';
 import { storage } from '../../services/storage';
-import { ScreenCalendar, ScreenStats, ScreenCraving, ScreenAdvice } from './Screens';
+import { ScreenCalendar, ScreenStats, ScreenDefi, ScreenAdvice } from './Screens';
 import Dot from '../../components/SwiperDot';
 import { View } from 'react-native';
 
@@ -41,7 +41,7 @@ const WelcomeSwiper = ({ navigation }) => {
           }}>
           <ScreenCalendar onPressNext={onPressNext} />
           <ScreenStats onPressNext={onPressNext} />
-          <ScreenCraving onPressNext={onPressNext} />
+          <ScreenDefi onPressNext={onPressNext} />
           <ScreenAdvice onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
       </View>
