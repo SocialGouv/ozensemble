@@ -22,7 +22,7 @@ export const ScreenCalendar = ({ onPressNext }) => (
           className="h-full w-full"
         />
       </View>
-      <View className="flex flex-row space-x-4 justify-center">
+      <View className="flex flex-row space-x-2 justify-center">
         <Image source={require('../../assets/illustrations/laurier-gauche.png')} resizeMode="contain" className={''} />
         <TextStyled className="text-center text-xl text-white font-bold pt-4">
           Notée 4.8 sur les stores {'\n'}avec + de 1000 avis

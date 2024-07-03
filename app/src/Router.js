@@ -84,6 +84,7 @@ const TabsNavigator = ({ navigation }) => {
                 navigation.navigate('CRAVING_MODAL');
               }
               setIsInCraving(true);
+              navigation.navigate('CRAVING_INDEX');
               return;
             }
             if (!isInCraving) return;
