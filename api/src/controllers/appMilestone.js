@@ -148,7 +148,6 @@ router.post(
                 "Pour chaque stratégie, définissez votre ressenti, l’elément déclencheur de votre craving, son intensité et le plan d’action que vous souhaitez mettre en place.\n\nRetrouvez toutes vos stratégies dans une page dédiée.",
               CTATitle: "Découvrir",
               CTANavigation: ["CRAVING"],
-              CTAOnPress: "goToCraving",
               CTAEvent: {
                 category: "CRAVING",
                 action: "PRESSED_FROM_NEW_FEATURE_STRATEGY_MODAL",
