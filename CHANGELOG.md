@@ -1,3 +1,10 @@
+## [1.161.6](https://github.com/SocialGouv/ozensemble/compare/v1.161.5...v1.161.6) (2024-07-03)
+
+
+### Bug Fixes
+
+* better motivations display ([24185f0](https://github.com/SocialGouv/ozensemble/commit/24185f03fc97af904970d0e2fb5677df48a82f37))
+
 ## [1.161.5](https://github.com/SocialGouv/ozensemble/compare/v1.161.4...v1.161.5) (2024-07-03)
 
 
