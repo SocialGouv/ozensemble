@@ -5,7 +5,6 @@ const newFeatures = require("../utils/new-features-popups");
 const notifications = require("../utils/notifications");
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
-const { capture } = require("../third-parties/sentry");
 
 router.post(
   "/",
@@ -108,11 +107,13 @@ router.post(
     }
 
     // handle newFeatures
-    if (category === "NAVIGATION" && action === "GAINS_MAIN_VIEW") return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
-    if (category === "APP" && action === "APP_OPEN_IN_GAIN_VIEW") return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
-    if (category === "NAVIGATION" && action === "DEFIS_MENU") return res.status(200).send({ ok: true, newFeatures: [newFeatures.defis] });
-    if (category === "NAVIGATION" && action === "CONSO_FOLLOW_UP") return res.status(200).send({ ok: true, newFeatures: [newFeatures.suivi] });
-    if (category === "NAVIGATION" && action === "HEALTH") return res.status(200).send({ ok: true, newFeatures: [newFeatures.articles] });
+    if (category === "NAVIGATION" && action === "CONSO_FOLLOW_UP") return res.status(200).send({ ok: true, newFeatures: [newFeatures.calendar] });
+    if ((category === "NEW_FEATURE_POPOP" && action === "NEW_CALENDAR_OK_PRESS") || (category === "NAVIGATION" && action === "GAINS_MAIN_VIEW"))
+      return res.status(200).send({ ok: true, newFeatures: [newFeatures.gains] });
+    if ((category === "NEW_FEATURE_POPOP" && action === "NEW_GAINS_OK_PRESS") || (category === "NAVIGATION" && action === "CRAVING_INDEX"))
+      return res.status(200).send({ ok: true, newFeatures: [newFeatures.craving] });
+    if ((category === "NEW_FEATURE_POPOP" && action === "NEW_CRAVING_OK_PRESS") || (category === "NAVIGATION" && action === "HEALTH_INDEX"))
+      return res.status(200).send({ ok: true, newFeatures: [newFeatures.health] });
 
     return res.status(200).send({ ok: true });
   })

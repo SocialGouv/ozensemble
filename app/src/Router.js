@@ -44,12 +44,9 @@ import UserSurveyStart from './scenes/Quizzs/UserSurvey/UserSurveyStart';
 import UserSurveyNotif from './scenes/Quizzs/UserSurvey/UserSurveyNotif';
 import BadgesList from './scenes/Badges/BadgesList';
 import CravingIcon from './components/illustrations/CravingIcon';
-import LeaveCravingModal from './scenes/Craving/LeaveCravingModal';
 import StrategyModalNPS from './components/StrategyModalNPS';
-import { isInCravingKeyState, leavingCravingNextTabState } from './recoil/craving';
+import { isInCravingKeyState } from './recoil/craving';
 import { dayjsInstance } from './services/dates';
-import { capture } from './services/sentry';
-import EnterCravingModal from './scenes/Craving/EnterCravingModal';
 import ModalCraving from './components/ModalCraving';
 import SuccessStrategyModal from './scenes/Craving/SuccessStrategyModal';
 
@@ -74,7 +71,6 @@ const TabsNavigator = ({ navigation }) => {
 
   const showBootSplash = useRecoilValue(showBootSplashState);
   const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
-  const setLeavingCravingNextTab = useSetRecoilState(leavingCravingNextTabState);
 
   return (
     <>
@@ -87,10 +83,6 @@ const TabsNavigator = ({ navigation }) => {
               if (!firstTimeCraving) {
                 e.preventDefault();
                 navigation.navigate('CRAVING_MODAL');
-              } else if (!isInCraving) {
-                // if we are in craving, we don't show the modal
-                e.preventDefault();
-                navigation.navigate('ENTER_CRAVING_MODAL');
               }
               setIsInCraving(true);
               return;
@@ -109,18 +101,6 @@ const TabsNavigator = ({ navigation }) => {
               storage.set('@CravingToNPSModal', true);
               e.preventDefault();
               navigation.navigate('STRATEGY_MODAL_TO_NPS');
-            } else {
-              try {
-                // now we show the LEAVING_CRAVING_MODAL
-                // we can offer the possibility to stay on the craving
-                // so we prevent the default action
-                setLeavingCravingNextTab(e.target.split('-')[0]);
-                e.preventDefault();
-                navigation.navigate('LEAVING_CRAVING_MODAL');
-              } catch (err) {
-                capture(err);
-                setIsInCraving(false);
-              }
             }
           },
         })}
@@ -359,24 +339,7 @@ const Router = () => {
               animation: 'fade',
             }}
           />
-          <ModalsStack.Screen
-            name="LEAVING_CRAVING_MODAL"
-            component={LeaveCravingModal}
-            options={{
-              headerShown: false,
-              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
-              animation: 'fade',
-            }}
-          />
-          <ModalsStack.Screen
-            name="ENTER_CRAVING_MODAL"
-            component={EnterCravingModal}
-            options={{
-              headerShown: false,
-              contentStyle: { backgroundColor: 'rgba(0,0,0,0.3)' },
-              animation: 'fade',
-            }}
-          />
+
           <ModalsStack.Screen
             name="CRAVING_MODAL"
             component={ModalCraving}

@@ -4,34 +4,8 @@ const pointerHorizontalPositions = ["6%", "27%", "47%", "67%", "94%"];
 
 // "new-[stuff]" : removed in build >=124
 module.exports = {
-  "new-defis": {
-    id: "new-defis-show-again-again",
-    position: {
-      // top: 0,
-      bottom: 0,
-      left: 0,
-      // right: 0,
-    },
-    pointerPosition: {
-      // top: 0,
-      // top: -18,
-      bottom: -18,
-      left: pointerHorizontalPositions[1],
-      // right: 0,
-    },
-    // styles: {
-    //   pointer: {
-    //     transform: [{ rotate: '180deg' }],
-    //   },
-    // },
-    // title: 'Regardez ça !',
-    description: "Nouveau : faites nos défis pour vous aider à réduire votre consommation",
-    okButton: "SUIVANT",
-    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
-    // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
-  },
-  "new-articles": {
-    id: "new-defis-show-again-and-again",
+  health: {
+    id: "new-health",
     position: {
       // top: 0,
       bottom: 0,
@@ -51,9 +25,9 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Faites nos défis 7 jours dans le parcours de soins pour vous aider à réduire votre consommation",
+    description: "Accédez à des activités, des témoignages et des articles de santé",
     okButton: "FERMER",
-    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_HEALTH_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
   },
   gains: {
@@ -70,8 +44,8 @@ module.exports = {
     okButton: "OK",
     onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_GAINS_OK_PRESS" },
   },
-  defis: {
-    id: "new-defis-show-again-again",
+  craving: {
+    id: "new-craving",
     position: {
       // top: 0,
       bottom: 0,
@@ -91,13 +65,13 @@ module.exports = {
     //   },
     // },
     // title: 'Regardez ça !',
-    description: "Accédez à un espace avec des conseils et activités pour surmonter un Craving",
+    description: "Surmontez une envie intense de consommer grâce à des conseils et activités",
     okButton: "OK",
-    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_DEFIS_OK_PRESS" },
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_CRAVING_OK_PRESS" },
     // "onDismissEvent": { "category": "NEW_OPUP", "action": "EVENT_ON_OK_PRESS" }
   },
-  suivi: {
-    id: "new-suivi",
+  calendar: {
+    id: "new-calendar",
     position: {
       bottom: 0,
       left: 0,
@@ -108,32 +82,6 @@ module.exports = {
     },
     description: "Remplissez votre calendrier tous les jours pour analyser vos consommations dans le temps",
     okButton: "OK",
-    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_SUIVI_OK_PRESS" },
-  },
-  articles: {
-    id: "new-defis-show-again-and-again",
-    position: {
-      // top: 0,
-      bottom: 0,
-      // left: 0,
-      right: 0,
-    },
-    pointerPosition: {
-      // top: 0,
-      // top: -18,
-      bottom: -18,
-      left: pointerHorizontalPositions[3],
-      // right: 0,
-    },
-    // styles: {
-    //   pointer: {
-    //     transform: [{ rotate: '180deg' }],
-    //   },
-    // },
-    // title: 'Regardez ça !',
-    description: "Faites nos défis 7 jours dans le parcours de soins pour vous aider à réduire votre consommation",
-    okButton: "OK",
-    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_ARTICLES_OK_PRESS" },
-    // "onDismissEvent": { "category": "NEW_FEATURE_POPOP", "action": "EVENT_ON_OK_PRESS" }
+    onOkEvent: { category: "NEW_FEATURE_POPOP", action: "NEW_CALENDAR_OK_PRESS" },
   },
 };
