@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { Alert, Linking } from 'react-native';
 import styled from 'styled-components';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import RNBootSplash from 'react-native-bootsplash';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -71,7 +71,6 @@ const TabsNavigator = ({ navigation }) => {
 
   const showBootSplash = useRecoilValue(showBootSplashState);
   const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
-
   return (
     <>
       <Tabs.Navigator
