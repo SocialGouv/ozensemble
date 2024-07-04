@@ -21,6 +21,7 @@ cronjobs:
         name: api
 
 pg:
+  ~chart: pg
   cnpg-cluster:
     resources:
       requests:
