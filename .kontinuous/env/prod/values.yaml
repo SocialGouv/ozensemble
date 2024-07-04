@@ -28,9 +28,6 @@ pg:
       limits:
         cpu: "1"
         memory: 1Gi
-  backup:
-    name: prod-ovh # backup on a new folder
-  cnpg-cluster:
     recovery:
       enabled: true
       ~tpl~database: "{{ .Values.global.pgDatabase }}"
@@ -48,3 +45,5 @@ pg:
           region:
             ~tpl~name: "ozensemble-prod-backups-access-key"
             key: bucket_region
+  backup:
+    name: prod-ovh # backup on a new folder
