@@ -1,6 +1,13 @@
 app:
   host: api-ozensemble.fabrique.social.gouv.fr
-
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
+    limits:
+      cpu: 300m
+      memory: 2Gi
+  
 cronjobs:
   ~chart: daemon
   ~needs: [build-app, pg]
@@ -14,7 +21,13 @@ cronjobs:
         name: api
 
 pg:
-  ~chart: pg
+  cnpg-cluster:
+    resources:
+      requests:
+        memory: 1Gi
+      limits:
+        cpu: "1"
+        memory: 1Gi
   backup:
     name: prod-ovh # backup on a new folder
   cnpg-cluster:
