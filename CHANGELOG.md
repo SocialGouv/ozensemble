@@ -1,3 +1,10 @@
+## [1.161.12](https://github.com/SocialGouv/ozensemble/compare/v1.161.11...v1.161.12) (2024-07-04)
+
+
+### Bug Fixes
+
+* chartpg ([#599](https://github.com/SocialGouv/ozensemble/issues/599)) ([b0275b7](https://github.com/SocialGouv/ozensemble/commit/b0275b79e32ab891c30211c8aff335596efb7cf5))
+
 ## [1.161.11](https://github.com/SocialGouv/ozensemble/compare/v1.161.10...v1.161.11) (2024-07-04)
 
 
