@@ -1,3 +1,10 @@
+## [1.161.11](https://github.com/SocialGouv/ozensemble/compare/v1.161.10...v1.161.11) (2024-07-04)
+
+
+### Bug Fixes
+
+* cnpg backup ([#598](https://github.com/SocialGouv/ozensemble/issues/598)) ([256b1d1](https://github.com/SocialGouv/ozensemble/commit/256b1d12d2c0c22f5f6894d9bd79046d6b132a7b))
+
 ## [1.161.10](https://github.com/SocialGouv/ozensemble/compare/v1.161.9...v1.161.10) (2024-07-04)
 
 
