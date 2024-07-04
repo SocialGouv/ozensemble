@@ -7,8 +7,6 @@ app:
     limits:
       cpu: 300m
       memory: 2Gi
-  autoscale:
-    enabled: true
   
 cronjobs:
   ~chart: daemon
@@ -23,7 +21,7 @@ cronjobs:
         name: api
 
 pg:
-cnpg-cluster:
+  cnpg-cluster:
     resources:
       requests:
         memory: 1Gi
