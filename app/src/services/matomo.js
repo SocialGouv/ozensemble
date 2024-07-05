@@ -1,4 +1,5 @@
 // https://developer.matomo.org/api-reference/tracking-api
+import { v4 as uuid } from 'uuid';
 
 class _Matomo {
   init({ baseUrl, idsite, userId, _idvc }) {
@@ -14,14 +15,8 @@ class _Matomo {
     this.idsite2 = idsite;
   }
 
-  makeid(length = 16) {
-    var result = '';
-    var characters = '01234567890abcdefABCDEF';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
+  makeid() {
+    return uuid();
   }
 
   setCustomDimensions(newDimensions) {

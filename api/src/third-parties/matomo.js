@@ -1,6 +1,7 @@
 // https://developer.matomo.org/api-reference/tracking-api
 const fetch = require("node-fetch");
 const { MATOMO_URL, MATOMO_IDSITE_1 } = require("../config");
+const { v4: uuid } = require("uuid");
 const { capture } = require("./sentry");
 
 const __DEV__ = process.env.NODE_ENV === "development";
@@ -13,14 +14,8 @@ class _MatomoBackend {
     this.initDone = true;
   }
 
-  makeid(length = 16) {
-    var result = "";
-    var characters = "01234567890abcdefABCDEF";
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
+  makeid() {
+    return uuid();
   }
 
   setCustomDimensions(newDimensions) {
