@@ -206,14 +206,17 @@ export function getDerivedDataFromDrinksState(consolidatedCatalogObject, drinks,
   }
 
   return {
+    //  TO TEST FOR CALENDAR
     drinksByDay,
+    calendarDays,
+    calendarGoalsStartOfWeek,
+    abstinenceDays,
+    // TO TEST FOR GAINS
+    weeklyKcals,
+    weeklyExpenses,
+    // TO TEST FOR FOLLOWUP
     dailyDoses,
     weeklyDoses,
     monthlyDoses,
-    calendarDays,
-    calendarGoalsStartOfWeek,
-    weeklyKcals,
-    weeklyExpenses,
-    abstinenceDays,
   };
 }
