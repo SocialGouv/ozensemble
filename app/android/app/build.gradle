@@ -8,8 +8,6 @@ project.ext.envConfigFiles = [
     release: ".env",
 ]
 
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
-
 apply from: "../../node_modules/@sentry/react-native/sentry.gradle"
 
 /**
