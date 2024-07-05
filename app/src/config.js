@@ -9,19 +9,6 @@ const SCHEME = process.env.EXPO_PUBLIC_SCHEME;
 const API_HOST = process.env.EXPO_PUBLIC_API_HOST;
 const APP_ENV = process.env.EXPO_PUBLIC_APP_ENV;
 
-console.log({
-  MATOMO_URL,
-  MATOMO_IDSITE_1,
-  MATOMO_URL_2,
-  MATOMO_IDSITE_2,
-  SENTRY_XXX,
-  OPEN_FOOD_FACT_PASSWORD,
-  OPEN_FOOD_FACT_USER_ID,
-  SCHEME,
-  API_HOST,
-  APP_ENV,
-});
-
 export {
   MATOMO_URL,
   MATOMO_IDSITE_1,
