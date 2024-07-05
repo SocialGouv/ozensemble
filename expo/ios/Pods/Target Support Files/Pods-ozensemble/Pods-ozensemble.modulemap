@@ -1,0 +1,6 @@
+module Pods_ozensemble {
+  umbrella header "Pods-ozensemble-umbrella.h"
+
+  export *
+  module * { export * }
+}

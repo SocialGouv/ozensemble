@@ -1,0 +1,6 @@
+module RNFlashList {
+  umbrella header "RNFlashList-umbrella.h"
+
+  export *
+  module * { export * }
+}

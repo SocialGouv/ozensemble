@@ -1,0 +1,31 @@
+{
+  "name": "react-native-in-app-review",
+  "version": "4.3.3",
+  "summary": "Rating App in App Store for react native apps",
+  "homepage": "https://github.com/MinaSamir11/react-native-in-app-review",
+  "license": "MIT",
+  "authors": {
+    "Mina Samir": "menasamer11@gmail.com"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "https://github.com/MinaSamir11/react-native-in-app-review.git",
+    "tag": "v4.3.3"
+  },
+  "source_files": "ios/*.{h,m,swift}",
+  "swift_versions": "5.0",
+  "preserve_paths": [
+    "README.md",
+    "package.json",
+    "index.js"
+  ],
+  "requires_arc": true,
+  "dependencies": {
+    "React-Core": [
+
+    ]
+  },
+  "swift_version": "5.0"
+}
