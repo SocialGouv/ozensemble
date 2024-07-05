@@ -1,3 +1,10 @@
+## [1.161.13](https://github.com/SocialGouv/ozensemble/compare/v1.161.12...v1.161.13) (2024-07-05)
+
+
+### Bug Fixes
+
+* uuid for matomo uid ([#600](https://github.com/SocialGouv/ozensemble/issues/600)) ([ea2cc70](https://github.com/SocialGouv/ozensemble/commit/ea2cc707bfe24d067e07d9deba8c9803066f5042))
+
 ## [1.161.12](https://github.com/SocialGouv/ozensemble/compare/v1.161.11...v1.161.12) (2024-07-04)
 
 
