@@ -34,14 +34,7 @@ export const ScreenCalendar = ({ onPressNext }) => (
       <View className="absolute -bottom-0">
         <Wave currentIndex={0} size={screenWidth + 4} />
       </View>
-      <ButtonPrimary
-        content="Suivant"
-        AnimationEffect
-        onPress={async () => {
-          await NotificationService.checkAndAskForPermission();
-          onPressNext();
-        }}
-      />
+      <ButtonPrimary content="Suivant" AnimationEffect onPress={onPressNext} />
     </View>
   </View>
 );
