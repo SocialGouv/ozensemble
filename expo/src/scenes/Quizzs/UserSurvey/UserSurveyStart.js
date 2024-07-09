@@ -1,15 +1,15 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import { useSetRecoilState } from 'recoil';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import H2 from '../../../components/H2';
-import { Dimensions, View, TouchableOpacity } from 'react-native';
-import { logEvent } from '../../../services/logEventsWithMatomo';
-import H3 from '../../../components/H3';
-import UserSurveyLogo from '../../../components/illustrations/UserSurveyLogo';
-import Background from '../../../components/Background';
-import { showBootSplashState } from '../../../components/CustomBootsplash';
+import React from "react";
+import styled, { css } from "styled-components/native";
+import { useSetRecoilState } from "recoil";
+import TextStyled from "../../../components/TextStyled";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import H2 from "../../../components/H2";
+import { Dimensions, View, TouchableOpacity } from "react-native";
+import { logEvent } from "../../../services/logEventsWithMatomo";
+import H3 from "../../../components/H3";
+import UserSurveyLogo from "../../../components/illustrations/UserSurveyLogo";
+import Background from "../../../components/Background";
+import { showBootSplashState } from "../../../components/CustomBootsplash";
 
 const UserSurveyStart = ({ navigation, route }) => {
   const setShowBootsplash = useSetRecoilState(showBootSplashState);
@@ -21,7 +21,7 @@ const UserSurveyStart = ({ navigation, route }) => {
           <UserSurveyLogo />
           <Title>Bienvenue sur Oz !</Title>
           <Text>
-            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{'\n\n'}
+            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{"\n\n"}
             <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
           </Text>
         </MiddleContainer>
@@ -30,15 +30,15 @@ const UserSurveyStart = ({ navigation, route }) => {
           <ButtonPrimaryStyled
             content={"C'est parti"}
             onPress={async () => {
-              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START' });
-              navigation.push('USER_SURVEY_FROM_ONBOARDING', { from: route.params?.from });
+              logEvent({ category: "QUIZZ_USER_SURVEY", action: "USER_SURVEY_START" });
+              navigation.push("USER_SURVEY_FROM_ONBOARDING", { from: route.params?.from });
             }}
           />
           <TouchableOpacity
             onPress={async () => {
-              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_START_SKIP' });
+              logEvent({ category: "QUIZZ_USER_SURVEY", action: "USER_SURVEY_START_SKIP" });
               // TODO: fix user survey still appearing after bootsplash hide
-              navigation.navigate('TABS');
+              navigation.navigate("TABS");
               await new Promise((res) => setTimeout(res));
               setShowBootsplash(true);
             }}>
@@ -53,7 +53,7 @@ const UserSurveyStart = ({ navigation, route }) => {
 export default UserSurveyStart;
 
 const Container = styled.View`
-  width: ${Dimensions.get('window').width}px;
+  width: ${Dimensions.get("window").width}px;
   height: 100%;
   flex: 1;
   flex-direction: column;

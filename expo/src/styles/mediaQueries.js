@@ -1,5 +1,5 @@
-import { css } from 'styled-components';
-import { Dimensions } from 'react-native';
+import { css } from "styled-components/native";
+import { Dimensions } from "react-native";
 
 const heights = {
   small: 600,
@@ -8,6 +8,7 @@ const heights = {
 };
 
 export const mediaHeight = Object.keys(heights).reduce((acc, label) => {
-  acc[label] = (...args) => (Dimensions.get('window').height > heights[label] ? css`` : css`${css(...args)};}`);
+  acc[label] = (...args) =>
+    Dimensions.get("window").height > heights[label] ? css`` : css`${css(...args)};}`;
   return acc;
 }, {});

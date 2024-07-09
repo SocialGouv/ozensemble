@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components';
-import GoBackButton from './GoBackButton';
-import { P } from './Articles';
-import { defaultPaddingFontScale } from '../styles/theme';
+import React, { useState } from "react";
+import { TouchableOpacity, View } from "react-native";
+import styled from "styled-components/native";
+import GoBackButton from "./GoBackButton";
+import { P } from "./Articles";
+import { defaultPaddingFontScale } from "../styles/theme";
 
 const ToggleContent = ({ children, title, paddingHorizontal }) => {
   const [visible, setVisible] = useState(false);
@@ -27,7 +27,7 @@ const TouchableOpacityContent = ({ visible, title, setVisible }) => (
       <P noMarginBottom color="#4030a5" bold>
         {title}
       </P>
-      <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
+      <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? "90" : "-90"} />
     </TitleStyled>
   </TouchableOpacity>
 );

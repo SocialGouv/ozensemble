@@ -1,12 +1,12 @@
-import React from 'react';
-import Svg, { Path, Circle } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path, Circle } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
 const AdvicesIcon = ({ size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 85 85" {...props}>
-    <Circle cx="40" cy="40" r="38.5" stroke="white" strokeWidth={'3'} fill="none" />
+    <Circle cx="40" cy="40" r="38.5" stroke="white" strokeWidth={"3"} fill="none" />
     <Path
       d="M40 26.25C39.3125 26.25 38.75 25.6875 38.75 25V21.25C38.75 20.5625 39.3125 20 40 20C40.6875 20 41.25 20.5625 41.25 21.25V25C41.25 25.6875 40.6875 26.25 40 26.25Z"
       fill="white"

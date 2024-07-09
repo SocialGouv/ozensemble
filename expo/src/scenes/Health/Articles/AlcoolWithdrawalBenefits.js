@@ -1,21 +1,21 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components';
-import { View, Text } from 'react-native';
-import { Spacer, P, TopContainer, Bold } from '../../../components/Articles';
-import H2 from '../../../components/H2';
-import NavigationWrapper from './NavigationWrapper';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import { screenWidth } from '../../../styles/theme';
-import { logEvent } from '../../../services/logEventsWithMatomo';
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import styled from "styled-components/native";
+import { View, Text } from "react-native";
+import { Spacer, P, TopContainer, Bold } from "../../../components/Articles";
+import H2 from "../../../components/H2";
+import NavigationWrapper from "./NavigationWrapper";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import { screenWidth } from "../../../styles/theme";
+import { logEvent } from "../../../services/logEventsWithMatomo";
 
 const AlcoolWithdrawalBenefits = () => {
-  const title = 'Les bénéfices au sevrage';
+  const title = "Les bénéfices au sevrage";
   const navigation = useNavigation();
   return (
     <NavigationWrapper title={title} timeReading={4}>
       <TopContainer>
-        <H2 color={'#4030a5'}>8 clés pour maitriser sa consommation</H2>
+        <H2 color={"#4030a5"}>8 clés pour maitriser sa consommation</H2>
         <Spacer size={20} />
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
@@ -34,7 +34,7 @@ const AlcoolWithdrawalBenefits = () => {
             <Text className="text-white font-bold text-base">3</Text>
           </View>
           <Text className="font-semibold">
-            Ne pas prendre «{'\u00A0'}juste un verre de plus{'\u00A0'}» qui en appelle un autre{' '}
+            Ne pas prendre «{"\u00A0"}juste un verre de plus{"\u00A0"}» qui en appelle un autre{" "}
           </Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
@@ -42,7 +42,7 @@ const AlcoolWithdrawalBenefits = () => {
             <Text className="text-white font-bold text-base">4</Text>
           </View>
           <Text className="font-semibold">
-            Ne pas «{'\u00A0'}compenser{'\u00A0'}» avec du tabac, café, sucre{' '}
+            Ne pas «{"\u00A0"}compenser{"\u00A0"}» avec du tabac, café, sucre{" "}
           </Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
@@ -61,7 +61,9 @@ const AlcoolWithdrawalBenefits = () => {
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
             <Text className="text-white font-bold text-base">7</Text>
           </View>
-          <Text className="font-semibold">L'envie de consommer dure 15 min{'\u00A0'}: distrayez-vous</Text>
+          <Text className="font-semibold">
+            L'envie de consommer dure 15 min{"\u00A0"}: distrayez-vous
+          </Text>
         </View>
         <View className="flex flex-row space-x-1 items-center mb-4">
           <View className="rounded-full w-7 aspect-square bg-[#4030A5] flex flex-row justify-center items-center">
@@ -70,181 +72,242 @@ const AlcoolWithdrawalBenefits = () => {
           <Text className="font-semibold">Faire de l'exercice physique pour gérer le stress</Text>
         </View>
         <Spacer size={20} />
-        <H2 color={'#4030a5'}>
+        <H2 color={"#4030a5"}>
           Bénéfices à <Text className="underline">court terme</Text>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits1.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits1.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits2.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits2.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits3.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits3.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits4.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits4.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits5.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits5.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits6.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits6.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits7.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits7.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits8.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits8.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits9.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits9.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits10.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits10.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits11.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits11.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits12.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits12.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits13.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits13.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits14.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits14.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/Benefits15.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/Benefits15.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <P>
-          Selon le degré initial d'habitation au corps à l'alcool, il peut y avoir des <Bold>symptômes de sevrage</Bold>{' '}
-          lors de l'arrêt des consommations, les plus connus sont{'\u00A0'}:
+          Selon le degré initial d'habitation au corps à l'alcool, il peut y avoir des{" "}
+          <Bold>symptômes de sevrage</Bold> lors de l'arrêt des consommations, les plus connus sont
+          {"\u00A0"}:
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>transpiration,
+          <Bold>{"   •  "}</Bold>transpiration,
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>anxiété et nervosité,
+          <Bold>{"   •  "}</Bold>anxiété et nervosité,
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>agitation,
+          <Bold>{"   •  "}</Bold>agitation,
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>sentiment de «&nbsp;malaise&nbsp;»,
+          <Bold>{"   •  "}</Bold>sentiment de «&nbsp;malaise&nbsp;»,
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>insomnie,
+          <Bold>{"   •  "}</Bold>insomnie,
         </P>
         <P noMarginBottom>
-          <Bold>{'   •  '}</Bold>nausées,
+          <Bold>{"   •  "}</Bold>nausées,
         </P>
         <P>
-          Ces symptômes s'ils restent légers ne sont pas dangereux en soi et disparaissent habituellement au bout de 7 à
-          10 jours d'abstinence.
+          Ces symptômes s'ils restent légers ne sont pas dangereux en soi et disparaissent
+          habituellement au bout de 7 à 10 jours d'abstinence.
         </P>
         <P>
-          Mais si vous présentez des symptômes importants, qui vous inquiètent comme des tremblements, n'hésitez pas à
-          en parler à un médecin ou un professionnel Oz.
+          Mais si vous présentez des symptômes importants, qui vous inquiètent comme des
+          tremblements, n'hésitez pas à en parler à un médecin ou un professionnel Oz.
         </P>
         <Spacer size={20} />
         <ButtonPrimary
-          content={'Contacter un addictologue'}
+          content={"Contacter un addictologue"}
           onPress={() => {
             logEvent({
-              category: 'CONTACT',
-              action: 'CONTACT_OPEN',
-              name: 'HEALTH',
+              category: "CONTACT",
+              action: "CONTACT_OPEN",
+              name: "HEALTH",
             });
-            navigation.navigate('CONTACT');
+            navigation.navigate("CONTACT");
           }}
           widthSmall
           small
         />
         <Spacer size={50} />
-        <H2 color={'#4030a5'}>
+        <H2 color={"#4030a5"}>
           Bénéfices à <Text className="underline">moyen terme</Text>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_1.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_1.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_2.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_2.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_3.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_3.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_4.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_4.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_5.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_5.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_6.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_6.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_7.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_7.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_8.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_8.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_9.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_9.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP2_10.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP2_10.png")}
+          />
         </ImageContainer>
         <Spacer size={50} />
-        <H2 color={'#4030a5'}>
+        <H2 color={"#4030a5"}>
           Bénéfices à <Text className="underline">long terme</Text>
         </H2>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP3.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3_2.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP3_2.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3_3.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP3_3.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3_4.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP3_4.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
         <ImageContainer>
-          <ImageStyled source={require('../../../assets/images/withdrawalBenefits/BenefitsP3_5.png')} />
+          <ImageStyled
+            source={require("../../../assets/images/withdrawalBenefits/BenefitsP3_5.png")}
+          />
         </ImageContainer>
         <Spacer size={20} />
       </TopContainer>

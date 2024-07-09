@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import React from "react";
+import styled from "styled-components/native";
+import TextStyled from "../../components/TextStyled";
 
 const Sources = ({ children }) => {
   return (

@@ -1,9 +1,9 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import styled from 'styled-components';
-import { isToday, makeSureDate } from '../helpers/dateHelpers';
-import ValidateIcon from './ValidateIcon';
-import TextStyled from './TextStyled';
+import React from "react";
+import { TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
+import { isToday, makeSureDate } from "../helpers/dateHelpers";
+import ValidateIcon from "./ValidateIcon";
+import TextStyled from "./TextStyled";
 
 const DateOrTimeDisplay = ({ date, onPress, mode }) => {
   if (!date) return null;
@@ -13,10 +13,12 @@ const DateOrTimeDisplay = ({ date, onPress, mode }) => {
         <TouchableOpacity onPress={() => onPress(mode)}>
           <CurrentDateContainer>
             <ValidateIcon size={15} />
-            {mode === 'date' && (
-              <CurrentDate>{isToday(date) ? "Aujourd'hui" : makeSureDate(date).getLocaleDate('fr')}</CurrentDate>
+            {mode === "date" && (
+              <CurrentDate>
+                {isToday(date) ? "Aujourd'hui" : makeSureDate(date).getLocaleDate("fr")}
+              </CurrentDate>
             )}
-            {mode === 'time' && <CurrentDate>{makeSureDate(date).getLocaleTime('fr')}</CurrentDate>}
+            {mode === "time" && <CurrentDate>{makeSureDate(date).getLocaleTime("fr")}</CurrentDate>}
           </CurrentDateContainer>
         </TouchableOpacity>
       )}

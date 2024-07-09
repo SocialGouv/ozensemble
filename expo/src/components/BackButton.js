@@ -1,21 +1,25 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import styled, { css } from 'styled-components';
-import { mediaHeight } from '../styles/mediaQueries';
-import { defaultPaddingFontScale } from '../styles/theme';
-import TextStyled from './TextStyled';
+import React from "react";
+import { Platform } from "react-native";
+import styled, { css } from "styled-components/native";
+import { mediaHeight } from "../styles/mediaQueries";
+import { defaultPaddingFontScale } from "../styles/theme";
+import TextStyled from "./TextStyled";
 
 export const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
-  <Container onPress={onPress} marginBottom={marginBottom} marginLeft={marginLeft} marginTop={marginTop}>
-    <ReturnButton bold>{'< Retour'}</ReturnButton>
+  <Container
+    onPress={onPress}
+    marginBottom={marginBottom}
+    marginLeft={marginLeft}
+    marginTop={marginTop}>
+    <ReturnButton bold>{"< Retour"}</ReturnButton>
   </Container>
 );
 
 const Container = styled.TouchableOpacity`
   margin-right: auto;
   ${({ marginLeft }) => marginLeft && `margin-left: ${defaultPaddingFontScale()}px`};
-  ${({ marginBottom }) => marginBottom && 'margin-bottom: 20px'};
-  ${({ marginTop }) => !!marginTop && 'margin-top: 20px'};
+  ${({ marginBottom }) => marginBottom && "margin-bottom: 20px"};
+  ${({ marginTop }) => !!marginTop && "margin-top: 20px"};
 `;
 
 const bigContent = css`
@@ -32,7 +36,7 @@ const smallContent = css`
 
 const ReturnButton = styled(TextStyled)`
   color: #191919;
-  font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
+  font-weight: ${({ bold }) => (bold ? (Platform.OS === "android" ? "bold" : "800") : "normal")};
   flex-shrink: 0;
   ${bigContent}
   ${mediaHeight.medium`${mediumContent}`}

@@ -1,59 +1,59 @@
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { TouchableWithoutFeedback, View, Text, TouchableOpacity } from 'react-native';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
-import dayjs from 'dayjs';
-import styled from 'styled-components';
-import { goalsState, isOnboardedSelector } from '../../recoil/gains';
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { TouchableWithoutFeedback, View, Text, TouchableOpacity } from "react-native";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { v4 as uuidv4 } from "uuid";
+import dayjs from "dayjs";
+import styled from "styled-components/native";
+import { goalsState, isOnboardedSelector } from "../../recoil/gains";
 
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { derivedDataFromDrinksState, drinksState, feedDaysSelector } from '../../recoil/consos';
-import { isToday } from '../../services/dates';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import ConsoFeedDisplay from './ConsoFeedDisplay';
-import DateDisplay from './DateDisplay';
-import { NO_CONSO } from './drinksCatalog';
-import NoConsoConfirmedFeedDisplay from './NoConsoConfirmedFeedDisplay';
-import NoConsoYetFeedDisplay from './NoConsoYetFeedDisplay';
-import ResultsFeedDisplay from './ResultsFeedDisplay';
-import ThoughtOfTheDay from './ThoughtOfTheDay';
-import Timeline from './Timeline';
-import Pint from '../../components/illustrations/drinksAndFood/Pint';
-import TextStyled from '../../components/TextStyled';
-import UnderlinedButton from '../../components/UnderlinedButton';
-import { storage } from '../../services/storage';
-import API from '../../services/api';
-import { FlashList } from '@shopify/flash-list';
-import Calendar from '../../components/Calendar';
-import { defaultPaddingFontScale, hitSlop } from '../../styles/theme';
-import WeeklyGains from '../../components/WeeklyGains';
-import GainSinceTheBeginning from '../../components/GainsSinceTheBeginning';
-import H1 from '../../components/H1';
-import CalendarSwitch from '../../components/CalendarSwitch';
-import ArrowLeft from '../../components/ArrowLeft';
-import ArrowRight from '../../components/ArrowRight';
-import TargetGoal from '../../components/illustrations/icons/TargetGoal';
-import { drinksContextsState } from '../../recoil/contexts';
-import { emotionIcon, contextsCatalogObject } from '../AddEmotion/contextsCatalog';
-import ModifyIcon from '../../components/illustrations/icons/ModifyIcon';
-import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
+import ButtonPrimary from "../../components/ButtonPrimary";
+import { makeSureTimestamp } from "../../helpers/dateHelpers";
+import { derivedDataFromDrinksState, drinksState, feedDaysSelector } from "../../recoil/consos";
+import { isToday } from "../../services/dates";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import ConsoFeedDisplay from "./ConsoFeedDisplay";
+import DateDisplay from "./DateDisplay";
+import { NO_CONSO } from "./drinksCatalog";
+import NoConsoConfirmedFeedDisplay from "./NoConsoConfirmedFeedDisplay";
+import NoConsoYetFeedDisplay from "./NoConsoYetFeedDisplay";
+import ResultsFeedDisplay from "./ResultsFeedDisplay";
+import ThoughtOfTheDay from "./ThoughtOfTheDay";
+import Timeline from "./Timeline";
+import Pint from "../../components/illustrations/drinksAndFood/Pint";
+import TextStyled from "../../components/TextStyled";
+import UnderlinedButton from "../../components/UnderlinedButton";
+import { storage } from "../../services/storage";
+import API from "../../services/api";
+import { FlashList } from "@shopify/flash-list";
+import Calendar from "../../components/Calendar";
+import { defaultPaddingFontScale, hitSlop } from "../../styles/theme";
+import WeeklyGains from "../../components/WeeklyGains";
+import GainSinceTheBeginning from "../../components/GainsSinceTheBeginning";
+import H1 from "../../components/H1";
+import CalendarSwitch from "../../components/CalendarSwitch";
+import ArrowLeft from "../../components/ArrowLeft";
+import ArrowRight from "../../components/ArrowRight";
+import TargetGoal from "../../components/illustrations/icons/TargetGoal";
+import { drinksContextsState } from "../../recoil/contexts";
+import { emotionIcon, contextsCatalogObject } from "../AddEmotion/contextsCatalog";
+import ModifyIcon from "../../components/illustrations/icons/ModifyIcon";
+import { sortConsosByTimestamp } from "../../helpers/consosHelpers";
 
 const computePosition = (drinksOfTheDay, drink) => {
   const sameTimeStamp = drinksOfTheDay
     .filter((d) => d.timestamp === drink.timestamp)
     .filter((d) => d.drinkKey !== NO_CONSO);
-  if (sameTimeStamp.length === 1) return 'alone';
+  if (sameTimeStamp.length === 1) return "alone";
   const position = sameTimeStamp.findIndex((d) => d.id === drink.id);
-  if (position === 0) return 'first';
-  if (position === sameTimeStamp.length - 1) return 'last';
-  return 'middle';
+  if (position === 0) return "first";
+  if (position === sameTimeStamp.length - 1) return "last";
+  return "middle";
 };
 
 const computeShowButtons = (selected, position) => {
   if (!selected) return false;
-  if (position === 'alone' || position === 'last') return true;
+  if (position === "alone" || position === "last") return true;
   return false;
 };
 
@@ -70,18 +70,19 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
   const showNoConsoSinceLongTime = useMemo(
     // the last day entered is before today
     () => {
-      const date = dayjs(dateLastEntered).format('YYYY-MM-DD') < dayjs().add(-1, 'day').format('YYYY-MM-DD');
+      const date =
+        dayjs(dateLastEntered).format("YYYY-MM-DD") < dayjs().add(-1, "day").format("YYYY-MM-DD");
       return date;
     },
     [dateLastEntered]
   );
 
   const setNoConsos = useCallback(async () => {
-    const differenceDay = dayjs().diff(dayjs(dateLastEntered), 'd');
-    const matomoId = storage.getString('@UserIdv2');
+    const differenceDay = dayjs().diff(dayjs(dateLastEntered), "d");
+    const matomoId = storage.getString("@UserIdv2");
     setNoConsoLoading(true);
     for (let i = 1; i <= differenceDay; i++) {
-      const currentDate = dayjs(dateLastEntered).add(i, 'd');
+      const currentDate = dayjs(dateLastEntered).add(i, "d");
       const noConso = {
         drinkKey: NO_CONSO,
         quantity: 1,
@@ -89,12 +90,12 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
         id: uuidv4(),
       };
       logEvent({
-        category: 'CONSO',
-        action: 'NO_CONSO',
+        category: "CONSO",
+        action: "NO_CONSO",
         dimension6: noConso.timestamp,
       });
       await API.post({
-        path: '/consommation',
+        path: "/consommation",
         body: {
           matomoId: matomoId,
           id: noConso.id,
@@ -122,7 +123,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
     setDrinks((state) => sortConsosByTimestamp(state));
     setNoConsoLoading(false);
     API.get({
-      path: '/goal/list',
+      path: "/goal/list",
       query: {
         matomoId: matomoId,
       },
@@ -134,36 +135,40 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
           }
         }
       })
-      .catch((err) => console.log('Get goals err', err));
+      .catch((err) => console.log("Get goals err", err));
   }, [dateLastEntered, setDrinks, goals, setGoals]);
   return (
     <>
-      <View className="flex flex-row shrink-0 mb-4 pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      <View
+        className="flex flex-row shrink-0 mb-4 pt-5"
+        style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <CalendarSwitch tab={tab} setTab={setTab} />
-        {(isOnboarded || tab === 'calendar') && (
+        {(isOnboarded || tab === "calendar") && (
           <View className="flex flex-row w-gfain justify-between px-5 items-center">
             <TouchableOpacity
               hitSlop={hitSlop(15)}
               onPress={() => {
-                setSelectedMonth(selectedMonth.subtract(1, 'month'));
+                setSelectedMonth(selectedMonth.subtract(1, "month"));
               }}>
               <ArrowLeft color="#4030A5" size={15} />
             </TouchableOpacity>
-            <Text className="text-lg font-semibold">{selectedMonth.format('MMMM YYYY').capitalize()}</Text>
+            <Text className="text-lg font-semibold">
+              {selectedMonth.format("MMMM YYYY").capitalize()}
+            </Text>
             <TouchableOpacity
               hitSlop={hitSlop(15)}
               onPress={() => {
-                setSelectedMonth(selectedMonth.add(1, 'month'));
+                setSelectedMonth(selectedMonth.add(1, "month"));
               }}>
               <ArrowRight color="#4030A5" size={15} />
             </TouchableOpacity>
           </View>
         )}
       </View>
-      {tab === 'calendar' ? (
+      {tab === "calendar" ? (
         <>
           <Calendar onScrollToDate={onScrollToDate} selectedMonth={selectedMonth} />
           {!!showNoConsoSinceLongTime && (
@@ -172,8 +177,8 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
                 <Pint size={30} color="#4030A5" />
                 <View className="w-[88%]">
                   <TextStyled>
-                    Vous n'avez pas saisi de consommations depuis le{' '}
-                    <TextStyled bold>{dayjs(dateLastEntered).format('dddd D MMMM')}</TextStyled>
+                    Vous n'avez pas saisi de consommations depuis le{" "}
+                    <TextStyled bold>{dayjs(dateLastEntered).format("dddd D MMMM")}</TextStyled>
                   </TextStyled>
                 </View>
               </LastDrinkText>
@@ -188,10 +193,10 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
                 />
                 <AddDrinkButton
                   onPress={() => {
-                    navigation.push('ADD_DRINK', { timestamp: Date.now() });
+                    navigation.push("ADD_DRINK", { timestamp: Date.now() });
                     logEvent({
-                      category: 'CONSO',
-                      action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+                      category: "CONSO",
+                      action: "CONSO_OPEN_CONSO_ADDSCREEN",
                     });
                   }}>
                   <AddDrinkText>
@@ -209,17 +214,19 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
               <TouchableOpacity
                 onPress={() => {
                   logEvent({
-                    category: 'GAINS',
-                    action: 'TOOLTIP_GOAL',
+                    category: "GAINS",
+                    action: "TOOLTIP_GOAL",
                   });
-                  navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+                  navigation.navigate("GAINS_ESTIMATE_PREVIOUS_CONSUMPTION");
                 }}
                 className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
                 <TargetGoal size={35} />
                 <Text className="mx-6">
                   Complétez l'
-                  <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
-                  <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
+                  <Text className="font-bold">estimation de votre consommation initiale </Text>et
+                  fixez-vous un
+                  <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le
+                  temps&nbsp;!
                 </Text>
                 <View>
                   <ArrowRight color="#4030a5" size={15} />
@@ -237,7 +244,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
 };
 
 const Feed = () => {
-  const [tab, setTab] = useState('calendar');
+  const [tab, setTab] = useState("calendar");
   const [selectedMonth, setSelectedMonth] = useState(dayjs());
   const days = useRecoilValue(feedDaysSelector);
   const setDrinks = useSetRecoilState(drinksState);
@@ -257,10 +264,10 @@ const Feed = () => {
 
   const addDrinksRequest = useCallback(
     (timestamp, fromButton) => {
-      navigation.push('ADD_DRINK', { timestamp });
+      navigation.push("ADD_DRINK", { timestamp });
       logEvent({
-        category: 'CONSO',
-        action: 'CONSO_OPEN_CONSO_ADDSCREEN',
+        category: "CONSO",
+        action: "CONSO_OPEN_CONSO_ADDSCREEN",
         name: fromButton,
       });
     },
@@ -270,7 +277,10 @@ const Feed = () => {
   const updateDrinksContextsRequest = useCallback(
     (date, fromButton) => {
       // date is YYYY-MM-DD
-      navigation.push('ADD_DRINK', { screen: 'DRINKS_CONTEXTS_LIST', params: { date, isOpenedFromFeed: true } });
+      navigation.push("ADD_DRINK", {
+        screen: "DRINKS_CONTEXTS_LIST",
+        params: { date, isOpenedFromFeed: true },
+      });
     },
     [navigation]
   );
@@ -302,7 +312,7 @@ const Feed = () => {
           content="Contribuer à Oz Ensemble"
           shadowColor="#201569"
           color="#4030A5"
-          onPress={() => navigation.navigate('NPS_SCREEN', { triggeredFrom: 'Feed bottom button' })}
+          onPress={() => navigation.navigate("NPS_SCREEN", { triggeredFrom: "Feed bottom button" })}
         />
       </View>
     ),
@@ -319,7 +329,7 @@ const Feed = () => {
         extraData={tab}
         renderItem={({ item: date, index }) => {
           return (
-            <View style={{ opacity: Number(tab === 'calendar') }}>
+            <View style={{ opacity: Number(tab === "calendar") }}>
               <FeedDayItem
                 date={date}
                 index={index}
@@ -336,7 +346,13 @@ const Feed = () => {
   );
 };
 
-const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, updateDrinksContextsRequest }) => {
+const FeedDayItem = ({
+  date,
+  index,
+  addDrinksRequest,
+  deleteDrinkRequest,
+  updateDrinksContextsRequest,
+}) => {
   const days = useRecoilValue(feedDaysSelector);
   const drinksContexts = useRecoilValue(drinksContextsState);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
@@ -347,7 +363,9 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
   const noDrinksYet = !drinksOfTheDay.length;
   const isContext =
     drinksContexts[date] &&
-    (drinksContexts[date].note || drinksContexts[date].emotion || drinksContexts[date].context.length > 0);
+    (drinksContexts[date].note ||
+      drinksContexts[date].emotion ||
+      drinksContexts[date].context.length > 0);
   const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
 
   const [timestampSelected, setTimestampSelected] = useState(null);
@@ -385,7 +403,9 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
           <View className="flex-grow ml-2.5 my-2.5 flex-shrink">
             <DateDisplay day={date} />
             {!!isFirst && <ThoughtOfTheDay day={date} selected={timestampSelected === null} />}
-            {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={date} />}
+            {!!noDrinksYet && (
+              <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={date} />
+            )}
             {noDrinksConfirmed ? (
               <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
             ) : (
@@ -409,21 +429,21 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                     position={position}
                     updateDrinkRequest={async () => {
                       logEvent({
-                        category: 'CONSO',
-                        action: 'CONSO_UPDATE',
+                        category: "CONSO",
+                        action: "CONSO_UPDATE",
                       });
-                      addDrinksRequest(drink.timestamp, 'FROM_CONSO_UPDATE');
+                      addDrinksRequest(drink.timestamp, "FROM_CONSO_UPDATE");
                     }}
                     deleteDrinkRequest={async () => {
                       setTimestampSelected(null);
                       logEvent({
-                        category: 'CONSO',
-                        action: 'CONSO_DELETE',
+                        category: "CONSO",
+                        action: "CONSO_DELETE",
                       });
                       deleteDrinkRequest(drink.timestamp);
-                      const matomoId = storage.getString('@UserIdv2');
+                      const matomoId = storage.getString("@UserIdv2");
                       API.delete({
-                        path: '/consommation',
+                        path: "/consommation",
                         body: {
                           matomoId: matomoId,
                           id: drink.id,
@@ -444,14 +464,16 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                   ) : (
                     <View className="w-7 h-7" />
                   )}
-                  <Text className="font-bold text-[#4030A5] pl-1 mt-2 mr-auto">Note et contexte</Text>
+                  <Text className="font-bold text-[#4030A5] pl-1 mt-2 mr-auto">
+                    Note et contexte
+                  </Text>
                   <View className="py-1">
                     <TouchableOpacity
                       onPress={() => {
                         updateDrinksContextsRequest(date);
                         logEvent({
-                          category: 'CONTEXT',
-                          action: 'USED_MODIFY_CONTEXT',
+                          category: "CONTEXT",
+                          action: "USED_MODIFY_CONTEXT",
                         });
                       }}>
                       <ModifyIcon />
@@ -467,7 +489,9 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                       const contextName = contextsCatalogObject[_drinksContext].displayFeed;
 
                       return (
-                        <View key={contextName} className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
+                        <View
+                          key={contextName}
+                          className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
                           <Text className="color-white font-bold">{contextName}</Text>
                         </View>
                       );
@@ -494,7 +518,7 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                     tempDate.setMinutes(m);
                     selectedTimestamp = makeSureTimestamp(tempDate);
                   }
-                  addDrinksRequest(selectedTimestamp, 'FROM_CONSO_FOLLOWUP');
+                  addDrinksRequest(selectedTimestamp, "FROM_CONSO_FOLLOWUP");
                 }}
               />
             )}
@@ -506,8 +530,8 @@ const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, update
                 onPress={() => {
                   updateDrinksContextsRequest(date);
                   logEvent({
-                    category: 'CONTEXT',
-                    action: 'OPEN_CONTEXT_ADDSCREEN_UNDERLINE_TEXT',
+                    category: "CONTEXT",
+                    action: "OPEN_CONTEXT_ADDSCREEN_UNDERLINE_TEXT",
                   });
                 }}
               />

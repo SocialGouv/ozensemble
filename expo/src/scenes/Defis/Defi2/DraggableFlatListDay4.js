@@ -1,12 +1,15 @@
-import React from 'react';
-import DraggableFlatList from 'react-native-draggable-flatlist';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
-import { P } from '../../../components/Articles';
-import DraggableClick from '../../../components/illustrations/DraggableClick';
-import QButton from '../../../components/QButton';
-import { riskSituationsAnswersKeysSelector, riskSituationsQuizzAnswersState } from '../../../recoil/quizzs';
-import { screenWidth } from '../../../styles/theme';
+import React from "react";
+import DraggableFlatList from "react-native-draggable-flatlist";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components/native";
+import { P } from "../../../components/Articles";
+import DraggableClick from "../../../components/illustrations/DraggableClick";
+import QButton from "../../../components/QButton";
+import {
+  riskSituationsAnswersKeysSelector,
+  riskSituationsQuizzAnswersState,
+} from "../../../recoil/quizzs";
+import { screenWidth } from "../../../styles/theme";
 
 export default function App() {
   const setAnswersRiskSituations = useSetRecoilState(riskSituationsQuizzAnswersState);
@@ -15,13 +18,19 @@ export default function App() {
   const renderItem = ({ item, index, drag, isActive }) => {
     return (
       <DraggableContainer onPress={drag} onLongPress={drag} disabled={isActive}>
-        <QButton content={index + 1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+        <QButton
+          content={index + 1}
+          disabled
+          colorText="#ffffff"
+          colorBorder="#4030A5"
+          colorBackground=" #4030A5"
+        />
         <AnswerContainer isActive={isActive}>
           <AnswerText>
             <P noMarginBottom>{item.content}</P>
           </AnswerText>
           <DraggableClickContainer>
-            <DraggableClick size={20} color={isActive ? '#4030A5CC' : '#4030A5'} />
+            <DraggableClick size={20} color={isActive ? "#4030A5CC" : "#4030A5"} />
           </DraggableClickContainer>
         </AnswerContainer>
       </DraggableContainer>
@@ -73,7 +82,7 @@ const AnswerContainer = styled.View`
     shadow-opacity: 1;
     shadow-radius: 3.84px;
   `};
-  background-color: '#FFFFFF';
+  background-color: "#FFFFFF";
 `;
 
 const AnswerText = styled.View`

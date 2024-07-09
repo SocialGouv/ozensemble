@@ -1,10 +1,10 @@
-import React from 'react';
-import Svg, { G, Path } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { G, Path } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
-const InfosIcon = ({ color = '#000000', size, ...props }) => (
+const InfosIcon = ({ color = "#000000", size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 24 24" {...props}>
     <G id="Infos" fillRule="evenodd" clip-rule="evenodd">
       <Path

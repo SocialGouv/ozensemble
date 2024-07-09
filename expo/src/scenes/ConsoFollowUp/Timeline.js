@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import ArrowDown from '../../components/ArrowUp';
+import React from "react";
+import styled from "styled-components/native";
+import ArrowDown from "../../components/ArrowUp";
 
 const Timeline = ({ first, last }) => (
   <TimelineContainer>
@@ -22,7 +22,7 @@ const TimelineContainer = styled.View`
 const Line = styled.View`
   width: 2px;
   margin-left: -0.5px;
-  background: ${({ first }) => (first ? 'transparent' : '#39cec0')};
+  background: ${({ first }) => (first ? "transparent" : "#39cec0")};
   flex-shrink: ${({ shrink }) => (shrink ? 1 : 0)};
   flex-grow: ${({ grow }) => (grow ? 1 : 0)};
   height: 20px;

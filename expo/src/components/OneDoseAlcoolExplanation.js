@@ -1,21 +1,24 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components/native";
 
-import CocktailGlass from './illustrations/drinksAndFood/CocktailGlass';
-import Dose from './illustrations/Dose';
-import HalfBeer from './illustrations/drinksAndFood/HalfBeer';
-import WineGlass from './illustrations/drinksAndFood/WineGlass';
-import TextStyled from './TextStyled';
+import CocktailGlass from "./illustrations/drinksAndFood/CocktailGlass";
+import Dose from "./illustrations/Dose";
+import HalfBeer from "./illustrations/drinksAndFood/HalfBeer";
+import WineGlass from "./illustrations/drinksAndFood/WineGlass";
+import TextStyled from "./TextStyled";
 
 const doses = [
-  { Icon: HalfBeer, name: 'bière', volume: 25, degrees: 5 },
-  { Icon: WineGlass, name: 'vin', volume: 10, degrees: 12 },
-  { Icon: CocktailGlass, name: 'spiritueux', volume: 3, degrees: 40 },
+  { Icon: HalfBeer, name: "bière", volume: 25, degrees: 5 },
+  { Icon: WineGlass, name: "vin", volume: 10, degrees: 12 },
+  { Icon: CocktailGlass, name: "spiritueux", volume: 3, degrees: 40 },
 ];
 
 const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0, noMinHeight }) => {
   return (
-    <ContainerOneDoseAlcool backgroundColor={backgroundColor} marginOffset={marginOffset} noMinHeight={noMinHeight}>
+    <ContainerOneDoseAlcool
+      backgroundColor={backgroundColor}
+      marginOffset={marginOffset}
+      noMinHeight={noMinHeight}>
       <IconsContainer>
         {doses.map(({ Icon, volume, name, degrees }, i) => (
           <React.Fragment key={i}>
@@ -47,11 +50,11 @@ const OneDoseAlcoolExplanation = ({ backgroundColor, marginOffset = 0, noMinHeig
 };
 
 const ContainerOneDoseAlcool = styled.View`
-  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : '#f9f9f9')};
+  background-color: ${({ backgroundColor }) => (backgroundColor ? backgroundColor : "#f9f9f9")};
   flex-shrink: 1;
   flex-grow: 1;
   flex-basis: 100%;
-  ${({ noMinHeight }) => !noMinHeight && 'min-height: 100%'}
+  ${({ noMinHeight }) => !noMinHeight && "min-height: 100%"}
   ${({ marginOffset }) => !!marginOffset && `margin-horizontal: -${marginOffset}px;`}
 `;
 const IconsContainer = styled.View`

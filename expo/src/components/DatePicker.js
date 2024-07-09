@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Platform } from 'react-native';
-import styled from 'styled-components';
-import { today } from '../helpers/dateHelpers';
-import ButtonPrimary from './ButtonPrimary';
-import GoBackButtonText from './GoBackButtonText';
+import React, { useState } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { Platform } from "react-native";
+import styled from "styled-components/native";
+import { today } from "../helpers/dateHelpers";
+import ButtonPrimary from "./ButtonPrimary";
+import GoBackButtonText from "./GoBackButtonText";
 
 /*
   onChange:
@@ -17,7 +17,7 @@ import GoBackButtonText from './GoBackButtonText';
 const minimumDate = new Date(2022, 0, 1);
 const DatePicker = ({ visible, selectDate, initDate, mode }) => {
   const [date, setDate] = useState(new Date(initDate));
-  if (Platform.OS === 'ios') {
+  if (Platform.OS === "ios") {
     return (
       <Modal visible={visible} animationType="fade" transparent={true}>
         <ModalBackdropContent>

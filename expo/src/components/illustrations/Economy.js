@@ -1,10 +1,10 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
-const Economy = ({ size, color = '#000', ...props }) => (
+const Economy = ({ size, color = "#000", ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 24 24" {...props}>
     <Path
       fillRule="evenodd"

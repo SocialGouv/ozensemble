@@ -1,11 +1,11 @@
-import CheckBox from '@react-native-community/checkbox';
-import React, { useState } from 'react';
-import { Modal, Platform, TouchableWithoutFeedback } from 'react-native';
-import styled from 'styled-components';
-import CGUs from '../Infos/CGUs';
-import PrivacyPolicy from '../Infos/PrivacyPolicy';
-import TextStyled from '../../components/TextStyled';
-import { screenWidth } from '../../styles/theme';
+import CheckBox from "@react-native-community/checkbox";
+import React, { useState } from "react";
+import { Modal, Platform, TouchableWithoutFeedback } from "react-native";
+import styled from "styled-components/native";
+import CGUs from "../Infos/CGUs";
+import PrivacyPolicy from "../Infos/PrivacyPolicy";
+import TextStyled from "../../components/TextStyled";
+import { screenWidth } from "../../styles/theme";
 
 const Agreement = ({ onAgree, agreed }) => {
   const [showCGUs, setShowCGUs] = useState(false);
@@ -25,7 +25,7 @@ const Agreement = ({ onAgree, agreed }) => {
               boxType="square"
               lineWidth={2}
               //android style
-              tintColors={{ true: '#fff', false: '#AAAAAA' }}
+              tintColors={{ true: "#fff", false: "#AAAAAA" }}
               //common props
               value={agreed}
               // android press - compulsory
@@ -58,7 +58,7 @@ const Agreement = ({ onAgree, agreed }) => {
   );
 };
 
-const color = '#fff';
+const color = "#fff";
 
 const Container = styled.View`
   text-align: center;
@@ -78,7 +78,7 @@ const CheckBoxContainer = styled.View`
   width: 30px;
   flex-shrink: 0;
   margin-right: 10px;
-  ${Platform.OS === 'android' && 'transform: scale(1.4);'}
+  ${Platform.OS === "android" && "transform: scale(1.4);"}
 `;
 
 const CheckBoxStyled = styled(CheckBox)`

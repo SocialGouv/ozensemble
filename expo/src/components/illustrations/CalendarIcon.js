@@ -1,10 +1,10 @@
-import React from 'react';
-import Svg, { ClipPath, Defs, G, Path, Rect } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
-const CalendarIcon = ({ color = '#5150A2', size, ...props }) => (
+const CalendarIcon = ({ color = "#5150A2", size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 21 21" {...props}>
     <G id="CalendarIcon" fill={color} fillRule="evenodd">
       <Path

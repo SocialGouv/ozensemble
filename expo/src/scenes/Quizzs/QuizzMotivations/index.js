@@ -1,26 +1,29 @@
-import React from 'react';
-import styled from 'styled-components';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import TextStyled from '../../../components/TextStyled';
-import ResultsMotivations from './ResultsMotivations';
-import Section from './Section';
-import sections from './sections';
-import { motivationsQuizzAnswersState, motivationsQuizzResultState } from '../../../recoil/quizzs';
-import { setValidatedDays } from '../../Defis/utils';
-import WrapperContainer from '../../../components/WrapperContainer';
+import React from "react";
+import styled from "styled-components/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import TextStyled from "../../../components/TextStyled";
+import ResultsMotivations from "./ResultsMotivations";
+import Section from "./Section";
+import sections from "./sections";
+import { motivationsQuizzAnswersState, motivationsQuizzResultState } from "../../../recoil/quizzs";
+import { setValidatedDays } from "../../Defis/utils";
+import WrapperContainer from "../../../components/WrapperContainer";
 
 const QuizzMotivationsStack = createStackNavigator();
 
 const QuizzMotivations = ({ route }) => {
-  const [motivationsQuizzAnswers, setMotivationsQuizzAnswers] = useRecoilState(motivationsQuizzAnswersState);
+  const [motivationsQuizzAnswers, setMotivationsQuizzAnswers] = useRecoilState(
+    motivationsQuizzAnswersState
+  );
   const setMotivationsQuizzResult = useSetRecoilState(motivationsQuizzResultState);
 
   const toggleAnswer = async (answerKey, checked) => {
     setMotivationsQuizzAnswers((prevAnswers = []) => {
       if (checked && !prevAnswers.includes(answerKey)) return [...prevAnswers, answerKey];
-      if (!checked && prevAnswers.includes(answerKey)) return prevAnswers.filter((key) => key !== answerKey);
+      if (!checked && prevAnswers.includes(answerKey))
+        return prevAnswers.filter((key) => key !== answerKey);
       return prevAnswers;
     });
   };
@@ -29,7 +32,7 @@ const QuizzMotivations = ({ route }) => {
     <QuizzMotivationsStack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: '#f9f9f9' },
+        cardStyle: { backgroundColor: "#f9f9f9" },
       }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuizzMotivationsStack.Screen name="QUIZZ_QUESTIONS">
@@ -38,17 +41,24 @@ const QuizzMotivations = ({ route }) => {
             onPressBackButton={navigation.goBack}
             title="Quelles raisons vous motivent à changer votre consommation ?">
             <Paragraph>
-              <TextStyled>Sélectionnez vos principales raisons pour changer votre consommation d'alcool</TextStyled>
+              <TextStyled>
+                Sélectionnez vos principales raisons pour changer votre consommation d'alcool
+              </TextStyled>
             </Paragraph>
             {sections.map((section, id) => (
-              <Section key={id} section={section} onToggle={toggleAnswer} answers={motivationsQuizzAnswers} />
+              <Section
+                key={id}
+                section={section}
+                onToggle={toggleAnswer}
+                answers={motivationsQuizzAnswers}
+              />
             ))}
             <ButtonsContainer>
               <ButtonPrimary
                 onPress={async () => {
                   setMotivationsQuizzResult(true);
-                  setValidatedDays(route?.params?.day, '@Defi1');
-                  navigation.push('QUIZZ_RESULTS');
+                  setValidatedDays(route?.params?.day, "@Defi1");
+                  navigation.push("QUIZZ_RESULTS");
                 }}
                 content="Je valide"
               />
@@ -56,7 +66,11 @@ const QuizzMotivations = ({ route }) => {
           </WrapperContainer>
         )}
       </QuizzMotivationsStack.Screen>
-      <QuizzMotivationsStack.Screen name="QUIZZ_RESULTS" initialParams={route?.params} component={ResultsMotivations} />
+      <QuizzMotivationsStack.Screen
+        name="QUIZZ_RESULTS"
+        initialParams={route?.params}
+        component={ResultsMotivations}
+      />
     </QuizzMotivationsStack.Navigator>
   );
 };

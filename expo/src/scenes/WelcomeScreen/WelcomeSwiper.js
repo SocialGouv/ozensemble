@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
-import Swiper from 'react-native-swiper';
-import { storage } from '../../services/storage';
-import { ScreenCalendar, ScreenStats, ScreenDefi, ScreenAdvice } from './Screens';
-import Dot from '../../components/SwiperDot';
-import { View } from 'react-native';
+import React, { useRef, useState } from "react";
+import Swiper from "react-native-swiper";
+import { storage } from "../../services/storage";
+import { ScreenCalendar, ScreenStats, ScreenDefi, ScreenAdvice } from "./Screens";
+import Dot from "../../components/SwiperDot";
+import { View } from "react-native";
 
 const WelcomeSwiper = ({ navigation }) => {
   const [agreed, setAgreed] = useState(false);
@@ -16,8 +16,8 @@ const WelcomeSwiper = ({ navigation }) => {
   };
 
   const onStartPress = async () => {
-    storage.set('@OnboardingDoneWithCGU', true);
-    navigation.navigate('USER_SURVEY_START', { from: 'NEW_USER' });
+    storage.set("@OnboardingDoneWithCGU", true);
+    navigation.navigate("USER_SURVEY_START", { from: "NEW_USER" });
   };
 
   const onPressNext = () => swiperRef?.current?.scrollBy(1);
@@ -36,7 +36,7 @@ const WelcomeSwiper = ({ navigation }) => {
           dot={<Dot />}
           activeDot={<Dot active />}
           paginationStyle={{
-            justifyContent: 'center',
+            justifyContent: "center",
             bottom: 108,
           }}>
           <ScreenCalendar onPressNext={onPressNext} />

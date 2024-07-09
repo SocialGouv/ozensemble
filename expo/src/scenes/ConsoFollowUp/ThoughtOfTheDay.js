@@ -1,11 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import H3 from '../../components/H3';
-import Screen2 from '../../components/illustrations/Screen2';
-import { FeedButtonStyled } from '../../components/FeedButtonStyled';
-import TextStyled from '../../components/TextStyled';
+import React from "react";
+import styled from "styled-components/native";
+import H3 from "../../components/H3";
+import Screen2 from "../../components/illustrations/Screen2";
+import { FeedButtonStyled } from "../../components/FeedButtonStyled";
+import TextStyled from "../../components/TextStyled";
 
-const numberOfDaysSinceBeginningOfTimes = (day) => Math.round(Date.parse(day) / 1000 / 60 / 60 / 24);
+const numberOfDaysSinceBeginningOfTimes = (day) =>
+  Math.round(Date.parse(day) / 1000 / 60 / 60 / 24);
 
 const ThoughtOfTheDay = ({ day, selected }) => {
   return (
@@ -51,16 +52,16 @@ export default ThoughtOfTheDay;
 const thoughts = [
   "Buvez de l'eau si vous avez soif. L'alcool ne permet pas de calmer la soif. C'est même le contraire.",
   "Avant de boire de l'alcool, mangez quelque chose si vous avez faim.",
-  'Buvez de préférence dans un verre et non à la bouteille. En effet, vous boirez probablement plus à la bouteille. Car vous en verrez moins vite le fond... ',
-  'Si vous buvez, alternez avec des boissons non alcoolisées.',
-  'Donnez-vous un maximum de verres à ne pas dépasser. Ou bien, fixez-vous une heure à laquelle vous arrêterez de boire.',
-  'Ne mélangez pas plusieurs sortes de boissons alcoolisées. ',
+  "Buvez de préférence dans un verre et non à la bouteille. En effet, vous boirez probablement plus à la bouteille. Car vous en verrez moins vite le fond... ",
+  "Si vous buvez, alternez avec des boissons non alcoolisées.",
+  "Donnez-vous un maximum de verres à ne pas dépasser. Ou bien, fixez-vous une heure à laquelle vous arrêterez de boire.",
+  "Ne mélangez pas plusieurs sortes de boissons alcoolisées. ",
   "Ne buvez pas systématiquement de l'alcool si vous êtes fatigué, stressé ou préoccupé.\nLors d'une sortie au restaurant, commandez aussi de l'eau si vous aimez bien accompagner votre plat d'un verre de vin.",
   "Vous voulez réduire votre consommation d'alcool ? Changez également vos habitudes liées à cette consommation.",
-  'Si vous buvez toujours un verre après le travail, ajoutez à cela une autre habitude plaisante au moins deux jours par semaine. Par exemple, vous pouvez vous accorder un plaisir culinaire, faire une promenade, prendre une bonne douche, etc.',
+  "Si vous buvez toujours un verre après le travail, ajoutez à cela une autre habitude plaisante au moins deux jours par semaine. Par exemple, vous pouvez vous accorder un plaisir culinaire, faire une promenade, prendre une bonne douche, etc.",
   "Demandez-vous ce que vous feriez s'il n'y avait pas d'alcool vendu près de chez vous ?",
   "Si vous buvez principalement à domicile, ne faites plus de grande réserve d'alcool et/ou faites en sorte de ne pas en avoir du tout chez vous à intervalles réguliers.",
-  'Notez votre consommation. Tenez un journal de bord de votre consommation journalière sur plusieurs semaines. En effet, il est plus difficile de nier sa consommation quand celle-ci apparaît «noir sur blanc».',
+  "Notez votre consommation. Tenez un journal de bord de votre consommation journalière sur plusieurs semaines. En effet, il est plus difficile de nier sa consommation quand celle-ci apparaît «noir sur blanc».",
   "Ne buvez pas seul, il est trop facile de commencer à boire en quantité excessive.\nImposez-vous cette règle : ne boire qu'entre amis, pour le plaisir.",
   "«\u00A0Après le boulot, je bois toujours un verre de vin blanc\u00A0»… ces routines de consommation d'alcool sont de véritables pièges. Essayez de les reconnaître et de trouver une alternative. Il peut s'agir d'un thé, d'un smoothie, ou d'une simple promenade.",
   "N'utilisez pas l'alcool pour étancher votre soif, mais uniquement pour le plaisir.",

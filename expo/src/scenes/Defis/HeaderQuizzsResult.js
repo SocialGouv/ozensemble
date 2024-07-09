@@ -1,13 +1,21 @@
-import React from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
-import { P, Spacer } from '../../components/Articles';
-import WrapperContainer from '../../components/WrapperContainer';
-import { defaultPaddingFontScale } from '../../styles/theme';
-import ButtonPrimary from '../../components/ButtonPrimary';
+import React from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import styled from "styled-components/native";
+import TextStyled from "../../components/TextStyled";
+import { P, Spacer } from "../../components/Articles";
+import WrapperContainer from "../../components/WrapperContainer";
+import { defaultPaddingFontScale } from "../../styles/theme";
+import ButtonPrimary from "../../components/ButtonPrimary";
 
-const HeaderQuizzsResult = ({ title, description, inMyTests, children, buttonCTA, onPressCTA, noMarginBottom }) => {
+const HeaderQuizzsResult = ({
+  title,
+  description,
+  inMyTests,
+  children,
+  buttonCTA,
+  onPressCTA,
+  noMarginBottom,
+}) => {
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -15,7 +23,9 @@ const HeaderQuizzsResult = ({ title, description, inMyTests, children, buttonCTA
     <WrapperContainer
       title={title ? title : route?.params?.title}
       onPressBackButton={() =>
-        route?.params?.rootRoute ? navigation.navigate(route?.params?.rootRoute) : navigation.goBack()
+        route?.params?.rootRoute
+          ? navigation.navigate(route?.params?.rootRoute)
+          : navigation.goBack()
       }
       noPaddingHorizontal
       noMarginBottom={noMarginBottom}>
@@ -23,18 +33,22 @@ const HeaderQuizzsResult = ({ title, description, inMyTests, children, buttonCTA
         <SectionTitle color="#de285e" noMarginBottom>
           C'est déjà terminé !
         </SectionTitle>
-        <TextParagraph>{description ? description : "Merci d'avoir répondu au questionnaire !"}</TextParagraph>
+        <TextParagraph>
+          {description ? description : "Merci d'avoir répondu au questionnaire !"}
+        </TextParagraph>
       </Content>
       {children}
       <Content>
         {!inMyTests && (
           <TextParagraph>
-            Vos réponses seront intégrées à votre <TextStyled bold>bilan de fin de semaine.</TextStyled>
+            Vos réponses seront intégrées à votre{" "}
+            <TextStyled bold>bilan de fin de semaine.</TextStyled>
           </TextParagraph>
         )}
         {!inMyTests && (
           <TextParagraph>
-            Vous pourrez retrouver ce questionnaire dans la rubrique <TextStyled bold>Mes tests</TextStyled> dans
+            Vous pourrez retrouver ce questionnaire dans la rubrique{" "}
+            <TextStyled bold>Mes tests</TextStyled> dans
             <TextStyled bold> Activités</TextStyled>.
           </TextParagraph>
         )}

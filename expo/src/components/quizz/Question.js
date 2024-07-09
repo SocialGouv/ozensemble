@@ -1,8 +1,8 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import H2 from '../H2';
-import { screenWidth } from '../../styles/theme';
-import WrapperContainer from '../WrapperContainer';
+import React from "react";
+import styled, { css } from "styled-components/native";
+import H2 from "../H2";
+import { screenWidth } from "../../styles/theme";
+import WrapperContainer from "../WrapperContainer";
 
 const Question = ({
   questionIndex,
@@ -31,7 +31,7 @@ const Question = ({
                 if (!endOfQuestions) {
                   navigation.push(`QUIZZ_QUESTION_${questionIndex + 1 + 1}`);
                 } else {
-                  navigation.navigate('QUIZZ_RESULTS');
+                  navigation.navigate("QUIZZ_RESULTS");
                 }
               }, 500);
             }}
@@ -57,8 +57,8 @@ const AnswerButton = styled.TouchableOpacity`
   width: 100%;
   /* min-height: 50px; */
   padding-vertical: 8px;
-  background-color: ${({ selected }) => (selected ? '#5352a3' : '#f3f3f6')};
-  border-color: ${({ selected }) => (selected ? '#4030a5' : '#dbdbe9')};
+  background-color: ${({ selected }) => (selected ? "#5352a3" : "#f3f3f6")};
+  border-color: ${({ selected }) => (selected ? "#4030a5" : "#dbdbe9")};
   border-width: 1px;
   border-radius: 7px;
   padding-left: 15px;
@@ -68,7 +68,7 @@ const AnswerButton = styled.TouchableOpacity`
 
 const AnswerContent = styled(H2)`
   font-weight: 500;
-  color: ${({ selected }) => (selected ? '#f9f9f9' : '#191919')};
+  color: ${({ selected }) => (selected ? "#f9f9f9" : "#191919")};
 `;
 
 /*

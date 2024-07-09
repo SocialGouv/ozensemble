@@ -1,15 +1,15 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { View, Linking } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { setValidatedDays } from '../utils';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import ElementDayDefi from '../../../components/ElementDayDefi';
-import WrapperContainer from '../../../components/WrapperContainer';
-import QuizzDefi3Day5 from '../../Quizzs/QuizzDefi3Day5';
-import { Spacer } from '../../../components/Articles';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import styled from "styled-components/native";
+import { View, Linking } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { setValidatedDays } from "../utils";
+import TextStyled from "../../../components/TextStyled";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import ElementDayDefi from "../../../components/ElementDayDefi";
+import WrapperContainer from "../../../components/WrapperContainer";
+import QuizzDefi3Day5 from "../../Quizzs/QuizzDefi3Day5";
+import { Spacer } from "../../../components/Articles";
 
 const QuizzStack = createStackNavigator();
 
@@ -17,22 +17,23 @@ const Defi3_Day5 = ({ route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
+    if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, "@Defi3");
   }, [route?.params, isFocused]);
 
   return (
     <QuizzStack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: '#f9f9f9' },
+        cardStyle: { backgroundColor: "#f9f9f9" },
       }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuizzStack.Screen name="EXPLICATIONS">
         {({ navigation }) => (
           <WrapperContainer onPressBackButton={navigation.goBack} title="Halte aux idées reçues !">
             <TextStyled>
-              Certaines phrases trop prononcées dédramatisent la consommation d'alcool et nécessitent d'être expliquées
-              pour <TextStyled bold>déconstruire certains clichés.</TextStyled>
+              Certaines phrases trop prononcées dédramatisent la consommation d'alcool et
+              nécessitent d'être expliquées pour{" "}
+              <TextStyled bold>déconstruire certains clichés.</TextStyled>
             </TextStyled>
             <Spacer size={20} />
             <ElementDayDefi
@@ -40,7 +41,11 @@ const Defi3_Day5 = ({ route }) => {
                 <>
                   <View>
                     <TextStyled bold>
-                      "<TextStyled italic>Oh ça va, un verre d'alcool n'a jamais tué personne</TextStyled>"
+                      "
+                      <TextStyled italic>
+                        Oh ça va, un verre d'alcool n'a jamais tué personne
+                      </TextStyled>
+                      "
                     </TextStyled>
                     <Spacer size={20} />
                     <TextStyled bold color="#DE285E">
@@ -50,20 +55,23 @@ const Defi3_Day5 = ({ route }) => {
                   </View>
                   <BulletPoint>
                     <TextStyled>
-                      {'\u2022'} L'alcool, {' '}
-                      <TextStyled bold>même consommé en petite quantité est mauvais pour la santé</TextStyled>.
+                      {"\u2022"} L'alcool, {" "}
+                      <TextStyled bold>
+                        même consommé en petite quantité est mauvais pour la santé
+                      </TextStyled>
+                      .
                     </TextStyled>
                   </BulletPoint>
                   <BulletPoint>
                     <TextStyled>
-                      {'\u2022'} L’alcool est responsable de 30% des accidents mortels sur la route.
+                      {"\u2022"} L’alcool est responsable de 30% des accidents mortels sur la route.
                     </TextStyled>
                   </BulletPoint>
                   <BulletPoint>
                     <TextStyled>
-                      {'\u2022'} "<TextStyled italic>Une cuite de temps en temps</TextStyled>" peut poser problème. Pas
-                      forcément en terme de dépendance, mais simplement d'effets secondaires en désinhibant, en rendant
-                      vulnérable ou malade.
+                      {"\u2022"} "<TextStyled italic>Une cuite de temps en temps</TextStyled>" peut
+                      poser problème. Pas forcément en terme de dépendance, mais simplement d'effets
+                      secondaires en désinhibant, en rendant vulnérable ou malade.
                     </TextStyled>
                   </BulletPoint>
                 </>
@@ -85,13 +93,14 @@ const Defi3_Day5 = ({ route }) => {
                   </View>
                   <BulletPoint>
                     <TextStyled>
-                      {'\u2022'} Un verre de vin n'est pas meilleur pour la santé qu'un verre de whisky.
+                      {"\u2022"} Un verre de vin n'est pas meilleur pour la santé qu'un verre de
+                      whisky.
                     </TextStyled>
                   </BulletPoint>
                   <BulletPoint>
                     <TextStyled>
-                      {'\u2022'} Le vin (comme tous les alcools) est calorique et a tendance à entraîner un stockage des
-                      graisses. Le ventre à bière n'est pas un mythe.
+                      {"\u2022"} Le vin (comme tous les alcools) est calorique et a tendance à
+                      entraîner un stockage des graisses. Le ventre à bière n'est pas un mythe.
                     </TextStyled>
                   </BulletPoint>
                 </>
@@ -101,10 +110,10 @@ const Defi3_Day5 = ({ route }) => {
               contentView={
                 <>
                   <TextStyled>
-                    Aujourd’hui, nous vous proposons de{' '}
+                    Aujourd’hui, nous vous proposons de{" "}
                     <TextStyled bold>
                       tester vos connaissances sur les mythes qui circulent autour de l’alcool
-                    </TextStyled>{' '}
+                    </TextStyled>{" "}
                     avec un quizz de 3 questions.
                   </TextStyled>
                 </>
@@ -113,17 +122,19 @@ const Defi3_Day5 = ({ route }) => {
             <ButtonPrimaryStyled
               content="Je fais le quizz"
               widthSmall
-              onPress={() => navigation.navigate('QUIZZ_DEFI3_DAY5')}
+              onPress={() => navigation.navigate("QUIZZ_DEFI3_DAY5")}
             />
             <SmallTextStyled>
               <SmallTextStyled italic>Source :</SmallTextStyled>
-              {'\n\n'}
+              {"\n\n"}
               <SmallTextStyled>
-                {'\u2022'} Les dangers de la route - Alcool et conduite :{' '}
+                {"\u2022"} Les dangers de la route - Alcool et conduite :{" "}
                 <TextStyled
                   underline
                   onPress={() => {
-                    Linking.openURL('https://www.securite-routiere.gouv.fr/dangers-de-la-route/lalcool-et-la-conduite');
+                    Linking.openURL(
+                      "https://www.securite-routiere.gouv.fr/dangers-de-la-route/lalcool-et-la-conduite"
+                    );
                   }}>
                   https://www.securite-routiere.gouv.fr/dangers-de-la-route/lalcool-et-la-conduite
                 </TextStyled>
@@ -132,7 +143,11 @@ const Defi3_Day5 = ({ route }) => {
           </WrapperContainer>
         )}
       </QuizzStack.Screen>
-      <QuizzStack.Screen initialParams={route.params} name="QUIZZ_DEFI3_DAY5" component={QuizzDefi3Day5} />
+      <QuizzStack.Screen
+        initialParams={route.params}
+        name="QUIZZ_DEFI3_DAY5"
+        component={QuizzDefi3Day5}
+      />
     </QuizzStack.Navigator>
   );
 };

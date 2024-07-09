@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
-import styled from 'styled-components';
-import Lock from '../../components/illustrations/Lock';
-import StarButton from '../../components/illustrations/StarButton';
-import { storage } from '../../services/storage';
-import { defaultPaddingFontScale } from '../../styles/theme';
-import TextStyled from '../../components/TextStyled';
+import React, { useEffect, useState } from "react";
+import { TouchableWithoutFeedback } from "react-native";
+import styled from "styled-components/native";
+import Lock from "../../components/illustrations/Lock";
+import StarButton from "../../components/illustrations/StarButton";
+import { storage } from "../../services/storage";
+import { defaultPaddingFontScale } from "../../styles/theme";
+import TextStyled from "../../components/TextStyled";
 
 const TopTimeline = ({ nbdays, validatedDays, activeDay, hackAndUnlockDay, defiStorageKey }) => {
   return (
@@ -40,15 +40,15 @@ const DayIcon = ({ locked, done, index, unLock, defiStorageKey }) => {
   };
 
   const getTextColor = () => {
-    if (locked) return '#5150A260';
-    if (done) return '#4030a5';
-    return '#de285e';
+    if (locked) return "#5150A260";
+    if (done) return "#4030a5";
+    return "#de285e";
   };
 
   const unLockLevel = async () => {
     setPressed(0);
     await unLock(index);
-    storage.set(`${defiStorageKey}_LastUpdate`, 'UNLOCK');
+    storage.set(`${defiStorageKey}_LastUpdate`, "UNLOCK");
   };
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const DayContainer = styled.View`
 `;
 const DayNumber = styled(TextStyled)`
   margin-top: 4px;
-  color: ${({ color }) => color || '#C4C4C4'};
+  color: ${({ color }) => color || "#C4C4C4"};
 `;
 /*
 const NewDayStar = styled(StarButton)`

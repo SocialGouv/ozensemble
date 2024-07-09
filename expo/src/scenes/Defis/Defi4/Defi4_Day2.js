@@ -1,21 +1,21 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { setValidatedDays } from '../utils';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import Element from '../../../components/ElementDayDefi';
-import WrapperContainer from '../../../components/WrapperContainer';
-import ToggleContent from '../../../components/ToggleContent';
-import Danger from '../../../components/illustrations/icons/Danger';
-import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
-import ArrowProsAndCons from '../../../components/ArrowProsAndCons';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import styled from "styled-components/native";
+import { setValidatedDays } from "../utils";
+import TextStyled from "../../../components/TextStyled";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import Element from "../../../components/ElementDayDefi";
+import WrapperContainer from "../../../components/WrapperContainer";
+import ToggleContent from "../../../components/ToggleContent";
+import Danger from "../../../components/illustrations/icons/Danger";
+import { defaultPaddingFontScale, screenWidth } from "../../../styles/theme";
+import ArrowProsAndCons from "../../../components/ArrowProsAndCons";
 
 const Defi4_Day2 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, '@Defi4');
+    if (route?.params?.inDefi4) setValidatedDays(route?.params?.day, "@Defi4");
   }, [route?.params, isFocused]);
 
   return (
@@ -27,9 +27,10 @@ const Defi4_Day2 = ({ navigation, route }) => {
         <Element
           content={
             <>
-              En <TextStyled bold>l’absence de dépendance physique</TextStyled> à l’alcool, les gens qui consomment plus
-              qu’ils ne le désirent ont le <TextStyled bold>choix entre l’abstinence et la modération</TextStyled>. Pour
-              eux, aucune des deux options n’est supérieure à l'autre.
+              En <TextStyled bold>l’absence de dépendance physique</TextStyled> à l’alcool, les gens
+              qui consomment plus qu’ils ne le désirent ont le{" "}
+              <TextStyled bold>choix entre l’abstinence et la modération</TextStyled>. Pour eux,
+              aucune des deux options n’est supérieure à l'autre.
             </>
           }
         />
@@ -38,16 +39,19 @@ const Defi4_Day2 = ({ navigation, route }) => {
           Illustration={<Danger />}
           content={
             <>
-              Pour en savoir plus, consultez{' '}
-              <TextStyled underline color="#4030A5" onPress={() => navigation.navigate('ALCOHOL_AND_DEPENDENCY')}>
+              Pour en savoir plus, consultez{" "}
+              <TextStyled
+                underline
+                color="#4030A5"
+                onPress={() => navigation.navigate("ALCOHOL_AND_DEPENDENCY")}>
                 l’article sur la dépendance physique à l’alcool
               </TextStyled>
-              . En cas de{' '}
+              . En cas de{" "}
               <TextStyled bold color="#DE285E">
                 dépendance physique à l’alcool
               </TextStyled>
-              , il est conseillé de <TextStyled bold>consulter sans délai</TextStyled> un{' '}
-              <TextStyled color="#4030A5" underline onPress={() => navigation.navigate('CONTACT')}>
+              , il est conseillé de <TextStyled bold>consulter sans délai</TextStyled> un{" "}
+              <TextStyled color="#4030A5" underline onPress={() => navigation.navigate("CONTACT")}>
                 professionnel de santé
               </TextStyled>
               .
@@ -58,9 +62,9 @@ const Defi4_Day2 = ({ navigation, route }) => {
         <Element
           content={
             <>
-              Si vous êtes indécis(e), nous avons dressé une liste des principaux{' '}
-              <TextStyled bold>avantages et inconvénients</TextStyled> associés à chaque option. Vous pourrez bien sûr
-              en trouver d’autres !
+              Si vous êtes indécis(e), nous avons dressé une liste des principaux{" "}
+              <TextStyled bold>avantages et inconvénients</TextStyled> associés à chaque option.
+              Vous pourrez bien sûr en trouver d’autres !
             </>
           }
         />
@@ -72,29 +76,35 @@ const Defi4_Day2 = ({ navigation, route }) => {
             Pros={
               <>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Permet de continuer à prendre un verre</TextStyled>
+                  <TextStyled>{"\u2022"} Permet de continuer à prendre un verre</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Exclut moins des moments conviviaux</TextStyled>
+                  <TextStyled>{"\u2022"} Exclut moins des moments conviviaux</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Peut être un objectif plus réaliste à court terme</TextStyled>
+                  <TextStyled>
+                    {"\u2022"} Peut être un objectif plus réaliste à court terme
+                  </TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Permet de continuer d’appécier le goût</TextStyled>
+                  <TextStyled>{"\u2022"} Permet de continuer d’appécier le goût</TextStyled>
                 </BulletPoint>
               </>
             }
             Cons={
               <>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Besoin d’être vigilant (planifier, mesurer, contrôler)</TextStyled>
+                  <TextStyled>
+                    {"\u2022"} Besoin d’être vigilant (planifier, mesurer, contrôler)
+                  </TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} L’entourage peut craindre un retour aux anciennes habitudes</TextStyled>
+                  <TextStyled>
+                    {"\u2022"} L’entourage peut craindre un retour aux anciennes habitudes
+                  </TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Pourrait déclencher une forte envie de boire</TextStyled>
+                  <TextStyled>{"\u2022"} Pourrait déclencher une forte envie de boire</TextStyled>
                 </BulletPoint>
               </>
             }
@@ -105,29 +115,35 @@ const Defi4_Day2 = ({ navigation, route }) => {
             Pros={
               <>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Pas de risque pour la santé</TextStyled>
+                  <TextStyled>{"\u2022"} Pas de risque pour la santé</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Rassure l’entourage</TextStyled>
+                  <TextStyled>{"\u2022"} Rassure l’entourage</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Peut être plus facile que de contrôler sa consommation</TextStyled>
+                  <TextStyled>
+                    {"\u2022"} Peut être plus facile que de contrôler sa consommation
+                  </TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Pas besoin de planifier des stratégies pour gérer sa consommation</TextStyled>
+                  <TextStyled>
+                    {"\u2022"} Pas besoin de planifier des stratégies pour gérer sa consommation
+                  </TextStyled>
                 </BulletPoint>
               </>
             }
             Cons={
               <>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Perte du plaisir associé à l’alcool</TextStyled>
+                  <TextStyled>{"\u2022"} Perte du plaisir associé à l’alcool</TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Peut être stigmatisant vis-à-vis du cercle amical</TextStyled>
+                  <TextStyled>
+                    {"\u2022"} Peut être stigmatisant vis-à-vis du cercle amical
+                  </TextStyled>
                 </BulletPoint>
                 <BulletPoint>
-                  <TextStyled>{'\u2022'} Devoir résister à la pression sociale de boire</TextStyled>
+                  <TextStyled>{"\u2022"} Devoir résister à la pression sociale de boire</TextStyled>
                 </BulletPoint>
               </>
             }
@@ -139,17 +155,22 @@ const Defi4_Day2 = ({ navigation, route }) => {
         <Element
           content={
             <>
-              Quel que soit votre objectif,{' '}
-              <TextStyled bold>changer ses habitudes de consommation n’est pas facile</TextStyled>.{'\n'}
-              Les conséquences agréables de l’alcool sont immédiates alors que les conséquences désagréables sont plus
-              éloignées dans le temps. Par exemple, l’acool me relaxe immédiatement mais j’ai mal à la tête le lendemain
-              matin. Et généralement, les <TextStyled bold>conséquences immédiates</TextStyled> ont plus d’influence sur
-              notre comportement que les <TextStyled bold>conséquences à long terme</TextStyled>.
+              Quel que soit votre objectif,{" "}
+              <TextStyled bold>changer ses habitudes de consommation n’est pas facile</TextStyled>.
+              {"\n"}
+              Les conséquences agréables de l’alcool sont immédiates alors que les conséquences
+              désagréables sont plus éloignées dans le temps. Par exemple, l’acool me relaxe
+              immédiatement mais j’ai mal à la tête le lendemain matin. Et généralement, les{" "}
+              <TextStyled bold>conséquences immédiates</TextStyled> ont plus d’influence sur notre
+              comportement que les <TextStyled bold>conséquences à long terme</TextStyled>.
             </>
           }
         />
 
-        <ButtonPrimaryStyled content="J’ai compris" onPress={() => navigation.navigate('DEFI4_MENU')} />
+        <ButtonPrimaryStyled
+          content="J’ai compris"
+          onPress={() => navigation.navigate("DEFI4_MENU")}
+        />
       </PaddingContainer>
     </WrapperContainer>
   );
@@ -225,7 +246,7 @@ const HalfScreenBackground = styled.View`
   padding-right: 5px;
   padding-bottom: 15px;
   width: 50%;
-  background-color: ${({ color }) => color || '#FFF'};
+  background-color: ${({ color }) => color || "#FFF"};
 `;
 
 const ButtonPrimaryStyled = styled(ButtonPrimary)`

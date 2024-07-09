@@ -1,18 +1,18 @@
-import React from 'react';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
-import H3 from '../../components/H3';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState } from '../../recoil/consos';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { NO_CONSO } from './drinksCatalog';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { FeedButtonStyled } from '../../components/FeedButtonStyled';
-import { storage } from '../../services/storage';
-import API from '../../services/api';
-import { goalsState } from '../../recoil/gains';
-import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
+import React from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import styled from "styled-components/native";
+import { v4 as uuidv4 } from "uuid";
+import H3 from "../../components/H3";
+import { makeSureTimestamp } from "../../helpers/dateHelpers";
+import { drinksState } from "../../recoil/consos";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { NO_CONSO } from "./drinksCatalog";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import { FeedButtonStyled } from "../../components/FeedButtonStyled";
+import { storage } from "../../services/storage";
+import API from "../../services/api";
+import { goalsState } from "../../recoil/gains";
+import { sortConsosByTimestamp } from "../../helpers/consosHelpers";
 
 const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   return (
@@ -34,15 +34,20 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
       disabled={disabled}
       onPress={() => {
         logEvent({
-          category: 'CONSO',
-          action: 'NO_CONSO',
+          category: "CONSO",
+          action: "NO_CONSO",
           dimension6: makeSureTimestamp(timestamp),
         });
-        const noConso = { drinkKey: NO_CONSO, quantity: 1, timestamp: makeSureTimestamp(timestamp), id: uuidv4() };
+        const noConso = {
+          drinkKey: NO_CONSO,
+          quantity: 1,
+          timestamp: makeSureTimestamp(timestamp),
+          id: uuidv4(),
+        };
         setGlobalDrinksState((state) => sortConsosByTimestamp([...state, noConso]));
-        const matomoId = storage.getString('@UserIdv2');
+        const matomoId = storage.getString("@UserIdv2");
         API.post({
-          path: '/consommation',
+          path: "/consommation",
           body: {
             matomoId: matomoId,
             id: noConso.id,
@@ -69,7 +74,7 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
           })
           .then(() => {
             API.get({
-              path: '/goal/list',
+              path: "/goal/list",
               query: {
                 matomoId: matomoId,
               },
@@ -81,7 +86,7 @@ export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, d
                   }
                 }
               })
-              .catch((err) => console.log('Get goals err', err));
+              .catch((err) => console.log("Get goals err", err));
           });
       }}
     />

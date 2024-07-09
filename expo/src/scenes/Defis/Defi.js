@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
-import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import ArrowRight from '../../components/ArrowRight';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import TextStyled from '../../components/TextStyled';
-import DayModule from './DayModule';
-import Timeline from './Timeline';
-import TopTimeline from './TopTimeline';
-import OnBoardingModal from '../../components/OnBoardingModal';
+import React, { useState, useEffect } from "react";
+import { View } from "react-native";
+import styled from "styled-components/native";
+import { useRecoilState } from "recoil";
+import ArrowRight from "../../components/ArrowRight";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import TextStyled from "../../components/TextStyled";
+import DayModule from "./DayModule";
+import Timeline from "./Timeline";
+import TopTimeline from "./TopTimeline";
+import OnBoardingModal from "../../components/OnBoardingModal";
 import {
   defi2OnBoardingDoneState,
   defi3OnBoardingDoneState,
   defi4OnBoardingDoneState,
   defi5OnBoardingDoneState,
-} from '../../recoil/defis';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import WrapperContainer from '../../components/WrapperContainer';
-import { defaultPaddingFontScale } from '../../styles/theme';
+} from "../../recoil/defis";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import WrapperContainer from "../../components/WrapperContainer";
+import { defaultPaddingFontScale } from "../../styles/theme";
 
 const Defi = ({
   navigation,
@@ -38,7 +38,11 @@ const Defi = ({
   const activeDayIsDone = activeDay <= validatedDays - 1;
   const [showNotAvailableModal, setShowNotAvailableModal] = useState(false);
   return (
-    <WrapperContainer title={title} onPressBackButton={navigation.goBack} noPaddingHorizontal noMarginBottom>
+    <WrapperContainer
+      title={title}
+      onPressBackButton={navigation.goBack}
+      noPaddingHorizontal
+      noMarginBottom>
       <TopTimeline
         nbdays={nbdays}
         validatedDays={validatedDays}
@@ -78,7 +82,7 @@ const Defi = ({
                     setShowNotAvailableModal(true);
                   }}>
                   <View style={{ flex: 1 }}>
-                    <TitleDay color={'#c4c4c4'}>
+                    <TitleDay color={"#c4c4c4"}>
                       {dayData?.title} : {dayData?.tagLine}
                     </TitleDay>
                   </View>
@@ -92,12 +96,12 @@ const Defi = ({
                     navigation.push(dayData?.screenCTA);
                   }}>
                   <View style={{ flex: 1 }}>
-                    <TitleDay color={'#4030a5'}>
+                    <TitleDay color={"#4030a5"}>
                       {dayData?.title} : {dayData?.tagLine}
                     </TitleDay>
                   </View>
                   {activeDay === dayIndex ? (
-                    <ArrowRight size={10} color={'#de285e'} />
+                    <ArrowRight size={10} color={"#de285e"} />
                   ) : (
                     <ArrowRight size={10} color="#c4c4c4" />
                   )}
@@ -113,7 +117,10 @@ const Defi = ({
             shadowColor="#201569"
             color="#4030A5"
             onPress={() =>
-              navigation.navigate('NPS_SCREEN', { forDefi: defiNumber, triggeredFrom: 'Bottom button défi' })
+              navigation.navigate("NPS_SCREEN", {
+                forDefi: defiNumber,
+                triggeredFrom: "Bottom button défi",
+              })
             }
           />
         </ButtonContainer>
@@ -134,16 +141,17 @@ const Defi = ({
         title="Poursuivez votre parcours"
         description={
           <TextStyled>
-            Cette semaine, nous vous proposons de <TextStyled bold>pousser plus loin la réflexion</TextStyled> sur les
-            <TextStyled bold> situations qui vous portent à boire</TextStyled>.{'\n'}À la fin, vous aurez l'occasion de
-            faire quelques exercices.
+            Cette semaine, nous vous proposons de{" "}
+            <TextStyled bold>pousser plus loin la réflexion</TextStyled> sur les
+            <TextStyled bold> situations qui vous portent à boire</TextStyled>.{"\n"}À la fin, vous
+            aurez l'occasion de faire quelques exercices.
           </TextStyled>
         }
         boutonTitle="Je commence"
         onPress={() => {
           setOnBoardingDefi2Done(true);
         }}
-        visible={!onBoardingDefi2Done && defiStorageKey === '@Defi2'}
+        visible={!onBoardingDefi2Done && defiStorageKey === "@Defi2"}
         hide={() => {
           setOnBoardingDefi2Done(true);
         }}
@@ -155,7 +163,7 @@ const Defi = ({
         onPress={() => {
           setOnBoardingDefi3Done(true);
         }}
-        visible={!onBoardingDefi3Done && defiStorageKey === '@Defi3'}
+        visible={!onBoardingDefi3Done && defiStorageKey === "@Defi3"}
         hide={() => {
           setOnBoardingDefi3Done(true);
         }}
@@ -167,7 +175,7 @@ const Defi = ({
         onPress={() => {
           setOnBoardingDefi4Done(true);
         }}
-        visible={!onBoardingDefi4Done && defiStorageKey === '@Defi4'}
+        visible={!onBoardingDefi4Done && defiStorageKey === "@Defi4"}
         hide={() => {
           setOnBoardingDefi4Done(true);
         }}
@@ -179,7 +187,7 @@ const Defi = ({
         onPress={() => {
           setOnBoardingDefi5Done(true);
         }}
-        visible={!onBoardingDefi5Done && defiStorageKey === '@Defi5'}
+        visible={!onBoardingDefi5Done && defiStorageKey === "@Defi5"}
         hide={() => {
           setOnBoardingDefi5Done(true);
         }}
@@ -191,7 +199,7 @@ const Defi = ({
 const TitleDay = styled(TextStyled)`
   font-size: 12px;
   font-weight: bold;
-  color: ${({ color }) => color || '#c4c4c4'};
+  color: ${({ color }) => color || "#c4c4c4"};
 `;
 
 const Separator = styled.View`
@@ -226,7 +234,7 @@ const FeedDayContent = styled.TouchableOpacity`
   flex-grow: 1;
   padding-vertical: 10px;
   margin-left: ${defaultPaddingFontScale()}px;
-  ${(props) => props.last && 'margin-top: -10px;'}
+  ${(props) => props.last && "margin-top: -10px;"}
 `;
 
 const FeedCTAContainer = styled.View`

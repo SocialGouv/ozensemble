@@ -1,6 +1,6 @@
-import * as React from 'react';
-import Svg, { G, Path, Defs, ClipPath } from 'react-native-svg';
-import styled from 'styled-components';
+import * as React from "react";
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
+import styled from "styled-components/native";
 
 const Clap = () => (
   <Wrapper>

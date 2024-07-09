@@ -1,8 +1,8 @@
-import React from 'react';
-import { Platform } from 'react-native';
-import styled, { css } from 'styled-components';
-import { mediaHeight } from '../styles/mediaQueries';
-import TextStyled from './TextStyled';
+import React from "react";
+import { Platform } from "react-native";
+import styled, { css } from "styled-components/native";
+import { mediaHeight } from "../styles/mediaQueries";
+import TextStyled from "./TextStyled";
 
 const GoBackButtonText = ({ content, onPress, color, withoutPadding, bold, ...props }) => (
   <GoBackButtonTextStyled withoutPadding={withoutPadding} onPress={onPress} {...props}>
@@ -13,7 +13,7 @@ const GoBackButtonText = ({ content, onPress, color, withoutPadding, bold, ...pr
 );
 
 const GoBackButtonTextStyled = styled.TouchableOpacity`
-  ${({ withoutPadding }) => !withoutPadding && 'padding: 10px 20px;'}
+  ${({ withoutPadding }) => !withoutPadding && "padding: 10px 20px;"}
   justify-content: center;
   align-items: center;
   margin-right: auto;
@@ -32,8 +32,8 @@ const smallContent = css`
 `;
 
 const TextContent = styled(TextStyled)`
-  color: ${({ color }) => color || '#191919'};
-  font-weight: ${({ bold }) => (bold ? (Platform.OS === 'android' ? 'bold' : '800') : 'normal')};
+  color: ${({ color }) => color || "#191919"};
+  font-weight: ${({ bold }) => (bold ? (Platform.OS === "android" ? "bold" : "800") : "normal")};
   flex-shrink: 0;
   ${bigContent}
   ${mediaHeight.medium`${mediumContent}`}

@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Modal } from 'react-native';
-import styled from 'styled-components';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import H1 from '../../components/H1';
-import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
-import TextStyled from '../../components/TextStyled';
-import { screenHeight } from '../../styles/theme';
-import GoBackButtonText from '../../components/GoBackButtonText';
-import { ScreenBgStyled } from '../../components/ScreenBgStyled';
-import InfoObjectif from '../../components/illustrations/InfoObjectif';
-import { logEvent } from '../../services/logEventsWithMatomo';
+import React, { useState } from "react";
+import { Modal } from "react-native";
+import styled from "styled-components/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import H1 from "../../components/H1";
+import OneDoseAlcoolExplanation from "../../components/OneDoseAlcoolExplanation";
+import TextStyled from "../../components/TextStyled";
+import { screenHeight } from "../../styles/theme";
+import GoBackButtonText from "../../components/GoBackButtonText";
+import { ScreenBgStyled } from "../../components/ScreenBgStyled";
+import InfoObjectif from "../../components/illustrations/InfoObjectif";
+import { logEvent } from "../../services/logEventsWithMatomo";
 
 const HelpModalCountConsumption = ({ event, children }) => {
   const [helpVisible, setHelpVisible] = useState(false);
@@ -21,8 +21,8 @@ const HelpModalCountConsumption = ({ event, children }) => {
       <HelpCount
         onPress={() => {
           logEvent({
-            category: 'GAINS',
-            action: 'GOAL_DRINK_HELP',
+            category: "GAINS",
+            action: "GOAL_DRINK_HELP",
             name: event,
           });
           setHelpVisible(true);
@@ -33,11 +33,15 @@ const HelpModalCountConsumption = ({ event, children }) => {
         ) : (
           <>
             <HelpCountCaption>Comment compter un verre sans me tromper ?</HelpCountCaption>
-            <InfoObjectif size={15} color={'#000000'} />
+            <InfoObjectif size={15} color={"#000000"} />
           </>
         )}
       </HelpCount>
-      <Modal visible={helpVisible} animationType="slide" presentationStyle="formSheet" onRequestClose={onClose}>
+      <Modal
+        visible={helpVisible}
+        animationType="slide"
+        presentationStyle="formSheet"
+        onRequestClose={onClose}>
         <SafeAreaViewStyled>
           <ScreenBgStyled backgroundColor="#ececec">
             <TextBackground>
@@ -45,8 +49,10 @@ const HelpModalCountConsumption = ({ event, children }) => {
               <HowCountContainer>
                 <H1>Comment compter sa consommation d'alcool ?</H1>
                 <Description>
-                  <TextStyled>Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement</TextStyled>
-                  <TextStyled bold>comptabilisée en unité d'alcool.{'\n'}</TextStyled>
+                  <TextStyled>
+                    Quand vous saisissez une consommation d'alcool, celle-ci est automatiquement
+                  </TextStyled>
+                  <TextStyled bold>comptabilisée en unité d'alcool.{"\n"}</TextStyled>
                   <TextStyled>
                     À titre indicatif chaque consommation ci-dessous compte pour une unité d'alcool.
                   </TextStyled>
@@ -54,7 +60,7 @@ const HelpModalCountConsumption = ({ event, children }) => {
               </HowCountContainer>
             </TextBackground>
             <DoseContainer>
-              <OneDoseAlcoolExplanation backgroundColor={'#ECECEC'} />
+              <OneDoseAlcoolExplanation backgroundColor={"#ECECEC"} />
             </DoseContainer>
           </ScreenBgStyled>
         </SafeAreaViewStyled>

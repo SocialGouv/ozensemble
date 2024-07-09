@@ -1,6 +1,7 @@
 // Without dotenv, you can access .env
 // import "dotenv/config";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
+import version from "./app.versions.json";
 
 // https://docs.expo.dev/workflow/configuration/#dynamic-configuration
 
@@ -8,11 +9,13 @@ import { type ExpoConfig, type ConfigContext } from "expo/config";
 // Running `npx expo config` will display the final configuration that will be used in Expo CLI after resolution has occurred.
 // or the sscript `yarn expo-config` in package.json
 
+const buildNumber = 292;
+
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "oz-ensemble", // repeat here because TS is yelling if not
-  slug: "oz-ensemble", // repeat here because TS is yelling if not
-  version: "1.0.0",
+  name: "Oz Ensemble",
+  slug: "oz-ensemble",
+  version: version.buildName,
   orientation: "portrait",
   icon: "./assets/images/icon.png",
   scheme: "oz",
@@ -25,6 +28,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.addicto.v1",
+    buildNumber: String(version.buildNumber),
   },
   android: {
     adaptiveIcon: {
@@ -32,6 +36,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: "#ffffff",
     },
     package: "com.addicto",
+    versionCode: version.buildNumber,
   },
   web: {
     bundler: "metro",

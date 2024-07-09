@@ -1,29 +1,29 @@
-import styled from 'styled-components';
-import TextStyled from './TextStyled';
+import styled from "styled-components/native";
+import TextStyled from "./TextStyled";
 
 export const TopContainer = styled.View`
   margin-top: 20px;
 `;
 
 export const P = styled(TextStyled)`
-  color: ${({ color }) => color || '#000'};
-  ${({ noMarginBottom }) => !noMarginBottom && 'margin-bottom: 15px'};
-  ${({ bold }) => bold && 'font-weight: bold'};
+  color: ${({ color }) => color || "#000"};
+  ${({ noMarginBottom }) => !noMarginBottom && "margin-bottom: 15px"};
+  ${({ bold }) => bold && "font-weight: bold"};
   font-size: 16px;
   line-height: 24px;
   align-items: center;
   ${({ underlined, color }) =>
     underlined &&
     `text-decoration: underline;
-    text-decoration-color: ${color || '#000'}`};
-  ${({ textCenter }) => textCenter && 'text-align:center'}
+    text-decoration-color: ${color || "#000"}`};
+  ${({ textCenter }) => textCenter && "text-align:center"}
 `;
 
 export const Bold = styled(TextStyled)`
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
-  color: ${(props) => (props.color ? props.color : '#000')};
+  color: ${(props) => (props.color ? props.color : "#000")};
 `;
 
 export const Spacer = styled.View`
@@ -33,11 +33,11 @@ export const Spacer = styled.View`
 `;
 
 export const Underlined = styled(TextStyled)`
-  color: ${(props) => (props.color ? props.color : '#000')};
+  color: ${(props) => (props.color ? props.color : "#000")};
   font-size: 16px;
   line-height: 24px;
   text-decoration: underline;
   flex: 1;
   max-width: 100%;
-  text-decoration-color: ${(props) => (props.color ? props.color : '#000')};
+  text-decoration-color: ${(props) => (props.color ? props.color : "#000")};
 `;

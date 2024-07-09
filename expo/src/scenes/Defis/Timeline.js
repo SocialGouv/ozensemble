@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import ArrowUp from '../../components/ArrowUp';
-import Lock from '../../components/illustrations/Lock';
-import StarButton from '../../components/illustrations/StarButton';
+import React from "react";
+import styled from "styled-components/native";
+import ArrowUp from "../../components/ArrowUp";
+import Lock from "../../components/illustrations/Lock";
+import StarButton from "../../components/illustrations/StarButton";
 
 const Timeline = ({ first, last, done = false, locked = true, active = false }) => {
   const renderIcon = () => {
@@ -38,7 +38,7 @@ const TimelineContainer = styled.View`
 const Line = styled.View`
   width: 2px;
   margin-left: -0.5px;
-  background: ${({ first }) => (first ? 'transparent' : '#C4C4C4')};
+  background: ${({ first }) => (first ? "transparent" : "#C4C4C4")};
   flex-shrink: ${({ shrink }) => (shrink ? 1 : 0)};
   flex-grow: ${({ grow }) => (grow ? 1 : 0)};
   height: 20px;
@@ -51,7 +51,7 @@ export const Dot = styled.View`
   height: ${dotSize}px;
   margin-vertical: 3px;
   border-radius: ${dotSize}px;
-  background: ${({ active }) => (active ? '#de285e' : '#C4C4C4')};
+  background: ${({ active }) => (active ? "#de285e" : "#C4C4C4")};
 `;
 
 const ArrowDownStyled = styled(ArrowUp)`

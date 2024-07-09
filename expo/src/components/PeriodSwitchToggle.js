@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Animated } from 'react-native';
-import styled from 'styled-components';
-import AnimatedTextStyled from './AnimatedTextStyled';
+import React, { useEffect, useState } from "react";
+import { Animated } from "react-native";
+import styled from "styled-components/native";
+import AnimatedTextStyled from "./AnimatedTextStyled";
 
 const PeriodSwitchToggle = ({ period, setPeriod }) => {
   const [componentWidth, setComponentWidth] = useState(0);
@@ -9,7 +9,7 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
 
   useEffect(() => {
     Animated.timing(animatedXValue, {
-      toValue: period === 'daily' ? 0 : period === 'weekly' ? 1 : 2,
+      toValue: period === "daily" ? 0 : period === "weekly" ? 1 : 2,
       duration: 200,
       useNativeDriver: false,
     }).start();
@@ -38,13 +38,13 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
       <Cells>
         <CellContainerTouchable
           onPress={() => {
-            setPeriod('daily');
+            setPeriod("daily");
           }}>
           <CellText
             style={{
               color: animatedXValue.interpolate({
                 inputRange: [0, 1, 2],
-                outputRange: ['#4030A5', '#767676', '#767676'],
+                outputRange: ["#4030A5", "#767676", "#767676"],
               }),
             }}>
             Jour
@@ -52,13 +52,13 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
         </CellContainerTouchable>
         <CellContainerTouchable
           onPress={() => {
-            setPeriod('weekly');
+            setPeriod("weekly");
           }}>
           <CellText
             style={{
               color: animatedXValue.interpolate({
                 inputRange: [0, 1, 2],
-                outputRange: ['#767676', '#4030A5', '#767676'],
+                outputRange: ["#767676", "#4030A5", "#767676"],
               }),
             }}>
             Semaine
@@ -66,13 +66,13 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
         </CellContainerTouchable>
         <CellContainerTouchable
           onPress={() => {
-            setPeriod('monthly');
+            setPeriod("monthly");
           }}>
           <CellText
             style={{
               color: animatedXValue.interpolate({
                 inputRange: [0, 1, 2],
-                outputRange: ['#767676', '#767676', '#4030A5'],
+                outputRange: ["#767676", "#767676", "#4030A5"],
               }),
             }}>
             Mois
@@ -117,7 +117,7 @@ const CellContainer = styled.View`
   width: ${100 / 3}%;
   height: 70%;
   border: 0px solid #c4c4c4;
-  ${({ borderRight }) => borderRight && 'border-right-width: 1px;'}
+  ${({ borderRight }) => borderRight && "border-right-width: 1px;"}
   align-items: center;
   justify-content: center;
 `;

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import { hitSlop } from '../styles/theme';
-import TextStyled from './TextStyled';
+import React from "react";
+import styled from "styled-components/native";
+import { hitSlop } from "../styles/theme";
+import TextStyled from "./TextStyled";
 
 const QButton = ({
   small,
   content,
   onPress,
   disabled,
-  colorText = '#4030a5',
-  colorBorder = '#dbdbe9',
-  colorBackground = ' #eaeaed',
+  colorText = "#4030a5",
+  colorBorder = "#dbdbe9",
+  colorBackground = " #eaeaed",
 }) => (
   <QButtonStyled onPress={onPress} disabled={disabled}>
     <QButtonContentContainer

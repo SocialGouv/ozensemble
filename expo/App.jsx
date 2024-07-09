@@ -1,14 +1,15 @@
+import "react-native-get-random-values";
 import React, { useEffect, useState } from "react";
 import * as Sentry from "@sentry/react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecoilRoot } from "recoil";
 import dayjs from "dayjs";
+import * as Application from "expo-application";
 import "dayjs/locale/fr";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import weekday from "dayjs/plugin/weekday";
 import Router from "./src/Router";
 import "./src/services/polyfills";
-import appInfos from "./app.config";
 import ToastProvider from "./src/services/toast";
 import "./src/styles/theme";
 
@@ -31,9 +32,7 @@ dayjs.extend(isSameOrAfter);
 dayjs.extend(weekday);
 
 const release =
-  getBundleId() + "@" + appInfos.version.buildName + "+" + appInfos.version.buildNumber; // ex : com.addicto.v1@1.18.0+198
-
-console.log("BE CAREFUL: release is", release);
+  getBundleId() + "@" + Application.nativeApplicationVersion + "+" + Application.nativeBuildVersion; // ex : com.addicto.v1@1.18.0+198
 
 if (!__DEV__) {
   Sentry.init({

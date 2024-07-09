@@ -1,12 +1,12 @@
-import React from 'react';
-import Svg, { Path, Circle } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path, Circle } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
 const MotivationIcon = ({ size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 85 85" {...props}>
-    <Circle cx="40" cy="40" r="38.5" stroke="white" strokeWidth={'3'} fill="none" />
+    <Circle cx="40" cy="40" r="38.5" stroke="white" strokeWidth={"3"} fill="none" />
     <Path
       d="M59.9645 58.1751L57.4056 46.9282C58.3971 44.5547 58.8999 42.038 58.8999 39.4514C58.8999 28.7302 50.1784 20 39.4485 20C28.7215 20 20 28.7244 20 39.4514C20 50.1813 28.7215 58.9028 39.4514 58.9028C42.7293 58.9028 45.9595 58.077 48.8136 56.5012L58.0744 59.8522C58.2317 59.9084 58.3974 59.9393 58.5632 59.9393C58.9086 59.9393 59.2457 59.8157 59.5125 59.5798C59.9086 59.2258 60.0796 58.6863 59.9645 58.1751ZM49.1641 53.5686C49.0068 53.5124 48.8411 53.4816 48.6754 53.4816C48.417 53.4816 48.1642 53.5546 47.9339 53.6838C45.375 55.2146 42.4398 56.0207 39.4425 56.0207C30.3025 56.0207 22.8673 48.5856 22.8673 39.4456C22.8673 30.3056 30.3025 22.8705 39.4425 22.8705C48.5825 22.8705 56.0176 30.3056 56.0176 39.4456C56.0176 41.791 55.5345 44.0634 54.5795 46.198C54.4503 46.4845 54.4222 46.8019 54.4924 47.1053L56.5709 56.2453L49.1641 53.5686Z"
       fill="white"

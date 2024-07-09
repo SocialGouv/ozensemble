@@ -1,13 +1,13 @@
-import dayjs from 'dayjs';
-import React from 'react';
-import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import dayjs from "dayjs";
+import React from "react";
+import styled from "styled-components/native";
+import TextStyled from "../../components/TextStyled";
 
 const DateDisplay = ({ day }) => (
   <>
-    <WeekDay color="#4030a5">{dayjs(day).format('dddd').capitalize()}</WeekDay>
+    <WeekDay color="#4030a5">{dayjs(day).format("dddd").capitalize()}</WeekDay>
     <DayAndMonth>
-      {dayjs(day).format('D')} {dayjs(day).format('MMM')}
+      {dayjs(day).format("D")} {dayjs(day).format("MMM")}
     </DayAndMonth>
   </>
 );

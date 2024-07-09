@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import TextStyled from '../../../components/TextStyled';
-import WrapperContainer from '../../../components/WrapperContainer';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import BackButton from '../../../components/BackButton';
-import ProgressBar from '../../../components/ProgressBar';
-import H2 from '../../../components/H2';
-import TextInputStyled from '../../../components/TextInputStyled';
-import { Platform, TouchableOpacity } from 'react-native';
-import { logEvent } from '../../../services/logEventsWithMatomo';
-import { sendMail } from '../../../services/mail';
-import pck from '../../../../package.json';
-import { storage } from '../../../services/storage';
+import React, { useState } from "react";
+import styled, { css } from "styled-components/native";
+import TextStyled from "../../../components/TextStyled";
+import WrapperContainer from "../../../components/WrapperContainer";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import BackButton from "../../../components/BackButton";
+import ProgressBar from "../../../components/ProgressBar";
+import H2 from "../../../components/H2";
+import TextInputStyled from "../../../components/TextInputStyled";
+import { Platform, TouchableOpacity } from "react-native";
+import { logEvent } from "../../../services/logEventsWithMatomo";
+import { sendMail } from "../../../services/mail";
+import pck from "../../../../package.json";
+import { storage } from "../../../services/storage";
 
 const ResultsUserSurvey = ({ navigation, route }) => {
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
 
   return (
     <>
@@ -22,7 +22,9 @@ const ResultsUserSurvey = ({ navigation, route }) => {
       <ProgressBar progress={1} />
       <WrapperContainer noPaddingTop>
         <QuestionNumber>Question facultative</QuestionNumber>
-        <QuestionTitle>Pour améliorer l’application, avez-vous des recommandations à nous faire ?</QuestionTitle>
+        <QuestionTitle>
+          Pour améliorer l’application, avez-vous des recommandations à nous faire ?
+        </QuestionTitle>
 
         <FeedBackStyled
           onChangeText={setFeedback}
@@ -35,23 +37,23 @@ const ResultsUserSurvey = ({ navigation, route }) => {
         />
 
         <ButtonPrimaryStyled
-          content={'Envoyer'}
+          content={"Envoyer"}
           disabled={feedback.length === 0}
           onPress={async () => {
             // send
-            logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'SEND_LAST_QUESTION' });
-            const userId = storage.getString('@UserIdv2');
+            logEvent({ category: "QUIZZ_USER_SURVEY", action: "SEND_LAST_QUESTION" });
+            const userId = storage.getString("@UserIdv2");
             await sendMail({
-              subject: 'User Survey',
+              subject: "User Survey",
               text: formatText(feedback, userId),
-            }).catch((err) => console.log('sendMail User Survey err', err));
-            navigation.navigate('TABS');
+            }).catch((err) => console.log("sendMail User Survey err", err));
+            navigation.navigate("TABS");
           }}
         />
         <TouchableOpacity
           onPress={() => {
-            logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'SKIP_LAST_QUESTION' });
-            navigation.navigate('TABS');
+            logEvent({ category: "QUIZZ_USER_SURVEY", action: "SKIP_LAST_QUESTION" });
+            navigation.navigate("TABS");
           }}>
           <Skip>Passer</Skip>
         </TouchableOpacity>

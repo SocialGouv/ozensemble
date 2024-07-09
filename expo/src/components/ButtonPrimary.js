@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import { mediaHeight } from '../styles/mediaQueries';
-import TextStyled from './TextStyled';
+import React from "react";
+import styled, { css } from "styled-components/native";
+import { mediaHeight } from "../styles/mediaQueries";
+import TextStyled from "./TextStyled";
 
 const ButtonPrimary = ({ content, onPress, small, color, shadowColor, ...props }) => (
   <ButtonPrimaryStyled
@@ -18,8 +18,8 @@ const ButtonPrimary = ({ content, onPress, small, color, shadowColor, ...props }
 );
 
 const ButtonPrimaryStyled = styled.TouchableOpacity`
-  ${({ disabled }) => disabled && 'opacity: 0.5;'} /* SHADOW NOT WORKING IN ANDROID */
-  ${({ widthSmall }) => widthSmall && 'align-items: center'}
+  ${({ disabled }) => disabled && "opacity: 0.5;"} /* SHADOW NOT WORKING IN ANDROID */
+  ${({ widthSmall }) => widthSmall && "align-items: center"}
 `;
 
 const bigPadding = css`
@@ -35,7 +35,7 @@ const smallPadding = css`
 `;
 
 const ButtonContainer = styled.View`
-  background-color: ${({ color }) => color || '#de285e'};
+  background-color: ${({ color }) => color || "#de285e"};
   justify-content: center;
   align-items: center;
   border-radius: 100px;

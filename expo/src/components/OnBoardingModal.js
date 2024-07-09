@@ -1,12 +1,12 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
-import { defaultPaddingFontScale, hitSlop } from '../styles/theme';
-import ButtonPrimary from './ButtonPrimary';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import styled from "styled-components/native";
+import { defaultPaddingFontScale, hitSlop } from "../styles/theme";
+import ButtonPrimary from "./ButtonPrimary";
 
-import H1 from './H1';
-import Modal from './Modal';
-import TextStyled from './TextStyled';
+import H1 from "./H1";
+import Modal from "./Modal";
+import TextStyled from "./TextStyled";
 
 const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTitle }) => {
   return (
@@ -29,9 +29,11 @@ const OnBoardingModal = ({ onPress, visible, hide, title, description, boutonTit
           </Title>
         </TitleContainer>
         <SubTitle>
-          <TextStyled color={'#3C3C43'}>{description}</TextStyled>
+          <TextStyled color={"#3C3C43"}>{description}</TextStyled>
         </SubTitle>
-        <Continue>{boutonTitle ? <ButtonPrimary onPress={onPress} content={boutonTitle} /> : null}</Continue>
+        <Continue>
+          {boutonTitle ? <ButtonPrimary onPress={onPress} content={boutonTitle} /> : null}
+        </Continue>
       </Container>
     </Modal>
   );

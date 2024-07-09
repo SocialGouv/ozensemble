@@ -1,10 +1,10 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
-const CiderBottle = ({ color = '#DE285E', size, ...props }) => (
+const CiderBottle = ({ color = "#DE285E", size, ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 32 48" {...props}>
     <Path
       d="M11.635 11.985V.774a.8.8 0 0 0-.213-.548.706.706 0 0 0-.514-.227H5.09c-.401 0-.727.347-.727.774v11.21C1.62 14.087-.005 17.468 0 21.067v26.16a.8.8 0 0 0 .213.547.706.706 0 0 0 .514.227h14.544a.706.706 0 0 0 .515-.227.8.8 0 0 0 .213-.547v-26.16c.005-3.599-1.62-6.98-4.364-9.081ZM10.181 1.548v3.097H5.818V1.548h4.363ZM5.49 13.03a.788.788 0 0 0 .327-.642V6.193h4.363v6.194c.001.259.124.5.327.642 2.049 1.457 3.45 3.742 3.876 6.326H1.614c.427-2.584 1.827-4.869 3.876-6.326Zm9.053 8.036v20.74H1.454V20.904h13.09v.162ZM1.454 46.451v-3.097h13.09v3.097H1.454Z"

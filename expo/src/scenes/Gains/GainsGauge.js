@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
+import React from "react";
+import styled from "styled-components/native";
+import TextStyled from "../../components/TextStyled";
 
 const GainsGauge = ({ title, value, goal }) => (
   <>
@@ -34,7 +34,7 @@ const GaugeInside = styled.View`
   width: ${(props) => (props.value / props.goal > 1 ? 100 : (props.value / props.goal) * 100)}%}};
   height: 100%;
   border-radius: 5px;
-  background-color: ${(props) => (props.value / props.goal > 1 ? '#DE285E' : '#39cec1')};
+  background-color: ${(props) => (props.value / props.goal > 1 ? "#DE285E" : "#39cec1")};
   justify-content: center;
 `;
 

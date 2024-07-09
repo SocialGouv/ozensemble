@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import React from 'react';
-import TextStyled from '../../components/TextStyled';
+import styled from "styled-components/native";
+import React from "react";
+import TextStyled from "../../components/TextStyled";
 
 const DayModule = ({ dayData, activeDayIsDone }) => {
   return (
@@ -10,7 +10,9 @@ const DayModule = ({ dayData, activeDayIsDone }) => {
       </TitleDay>
       <DescriptionContainer>
         <TextStyled>
-          {activeDayIsDone ? dayData?.DescriptionDone || dayData?.Description : dayData?.Description}
+          {activeDayIsDone
+            ? dayData?.DescriptionDone || dayData?.Description
+            : dayData?.Description}
         </TextStyled>
       </DescriptionContainer>
     </FeedDayContent>

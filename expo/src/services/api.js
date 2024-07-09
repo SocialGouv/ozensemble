@@ -1,11 +1,11 @@
-import URI from 'urijs';
-import { Alert, Platform } from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
-import deviceInfoModule from 'react-native-device-info';
-import { StackActions } from '@react-navigation/native';
+import URI from "urijs";
+import { Alert, Platform } from "react-native";
+import NetInfo from "@react-native-community/netinfo";
+import deviceInfoModule from "react-native-device-info";
+import { StackActions } from "@react-navigation/native";
 
-import { SCHEME, API_HOST } from '../config';
-import { NewFeaturePop } from './NewFeaturePopup';
+import { SCHEME, API_HOST } from "../config";
+import { NewFeaturePop } from "./NewFeaturePopup";
 
 export const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
@@ -23,17 +23,17 @@ class ApiService {
   getUrl = (path, query) => {
     return new URI().host(this.host).scheme(this.scheme).path(path).setSearch(query).toString();
   };
-  execute = async ({ method = 'GET', path = '', query = {}, headers = {}, body = null }) => {
+  execute = async ({ method = "GET", path = "", query = {}, headers = {}, body = null }) => {
     try {
-      if (path === '/event' && body) {
+      if (path === "/event" && body) {
         body.newFeaturesLastShownId = NewFeaturePop.lastShownId;
       }
 
       const config = {
         method,
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
           appversion: deviceInfoModule.getBuildNumber(),
           appdevice: Platform.OS,
           currentroute: this.navigation?.getCurrentRoute?.()?.name,
@@ -52,13 +52,13 @@ class ApiService {
       if (response.json) {
         try {
           const readableRes = await response.json();
-          if (readableRes.sendInApp) this?.handleInAppMessage(readableRes.sendInApp);
+          if (readableRes.sendInApp) this?.handleInAppMessage?.(readableRes.sendInApp);
           if (readableRes.showNewBadge) {
-            const pushAction = StackActions.push('MODAL_BADGE', readableRes.showNewBadge);
+            const pushAction = StackActions.push("MODAL_BADGE", readableRes.showNewBadge);
             this.navigation.dispatch(pushAction);
           }
           if (readableRes.showInAppModal) {
-            const pushAction = StackActions.push('IN_APP_MODAL', readableRes.showInAppModal);
+            const pushAction = StackActions.push("IN_APP_MODAL", readableRes.showInAppModal);
             this.navigation.dispatch(pushAction);
           }
           if (readableRes.newFeatures) {
@@ -66,14 +66,14 @@ class ApiService {
           }
           return readableRes;
         } catch (e) {
-          console.log('ERROR IN RESPONSE JSON', response);
+          console.log("ERROR IN RESPONSE JSON", response);
           console.log(e);
         }
       }
 
       return response;
     } catch (e) {
-      console.log(' error in api');
+      console.log(" error in api");
       console.log(e);
       return {
         ok: false,
@@ -83,10 +83,10 @@ class ApiService {
     }
   };
 
-  get = async (args) => this.execute({ method: 'GET', ...args });
-  post = async (args) => this.execute({ method: 'POST', ...args });
-  put = async (args) => this.execute({ method: 'PUT', ...args });
-  delete = async (args) => this.execute({ method: 'DELETE', ...args });
+  get = async (args) => this.execute({ method: "GET", ...args });
+  post = async (args) => this.execute({ method: "POST", ...args });
+  put = async (args) => this.execute({ method: "PUT", ...args });
+  delete = async (args) => this.execute({ method: "DELETE", ...args });
 }
 
 const API = new ApiService();

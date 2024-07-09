@@ -1,19 +1,19 @@
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import styled from 'styled-components';
-import H2 from '../../../../components/H2';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
-import UnderlinedButton from '../../../../components/UnderlinedButton';
-import ArrowUsage from './ArrowUsage';
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import styled from "styled-components/native";
+import H2 from "../../../../components/H2";
+import ButtonPrimary from "../../../../components/ButtonPrimary";
+import UnderlinedButton from "../../../../components/UnderlinedButton";
+import ArrowUsage from "./ArrowUsage";
 
 const ResultPopulation = ({ value, hideButtons }) => {
   const navigation = useNavigation();
   const renderFooter = () =>
-    ['RESULT_ARROW_ADDICTED', 'RESULT_ARROW_HARMFUL_USAGE'].includes(value) ? (
+    ["RESULT_ARROW_ADDICTED", "RESULT_ARROW_HARMFUL_USAGE"].includes(value) ? (
       <ButtonsContainer>
         <ButtonPrimary
           content="Conseils de réduction"
-          onPress={() => navigation.navigate('ADVISE')}
+          onPress={() => navigation.navigate("ADVISE")}
           style={{ marginTop: 30 }}
         />
         <ButtonPrimary
@@ -21,12 +21,12 @@ const ResultPopulation = ({ value, hideButtons }) => {
           content="Échanger avec un conseiller"
           shadowColor="#201569"
           color="#4030A5"
-          onPress={() => navigation.navigate('CONTACT')}
+          onPress={() => navigation.navigate("CONTACT")}
           style={{ marginTop: 30 }}
         />
         <UnderlinedButton
           content="Retour à l'activité"
-          onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+          onPress={() => navigation.navigate("DEFI1", { screen: "DEFI1_MENU" })}
           style={{ marginTop: 10 }}
           color="#4030a5"
         />
@@ -36,7 +36,7 @@ const ResultPopulation = ({ value, hideButtons }) => {
         <ButtonPrimary
           content="Retour à l'activité"
           shadowColor="#201569"
-          onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+          onPress={() => navigation.navigate("DEFI1", { screen: "DEFI1_MENU" })}
           style={{ marginVertical: 30, flexGrow: 0 }}
         />
       </ButtonContainer>

@@ -1,10 +1,10 @@
-import React from 'react';
-import CheckBox from '@react-native-community/checkbox';
-import { useNavigation } from '@react-navigation/native';
-import { Platform } from 'react-native';
-import styled from 'styled-components';
-import ButtonPrimary from './ButtonPrimary';
-import { P } from './Articles';
+import React from "react";
+import CheckBox from "@react-native-community/checkbox";
+import { useNavigation } from "@react-navigation/native";
+import { Platform } from "react-native";
+import styled from "styled-components/native";
+import ButtonPrimary from "./ButtonPrimary";
+import { P } from "./Articles";
 
 const CheckboxLabelled = ({
   answerKey,
@@ -17,7 +17,10 @@ const CheckboxLabelled = ({
 }) => {
   const navigation = useNavigation();
   return (
-    <Container onPress={() => onPress?.(answerKey)} showDisabled={disabled && !result} disabled={disabled}>
+    <Container
+      onPress={() => onPress?.(answerKey)}
+      showDisabled={disabled && !result}
+      disabled={disabled}>
       <ItemContainer showDisabled={disabled && !result}>
         <CheckBoxContainer>
           <CheckBoxStyled
@@ -29,7 +32,7 @@ const CheckboxLabelled = ({
             boxType="square"
             lineWidth={1}
             //android style
-            tintColors={{ true: '#4030a5', false: '#c4c4c4' }}
+            tintColors={{ true: "#4030a5", false: "#c4c4c4" }}
             //common props
             disabled={disabled}
             value={checked}
@@ -46,7 +49,7 @@ const CheckboxLabelled = ({
             small
             widthSmall
             content="Échanger avec un conseiller"
-            onPress={() => navigation.navigate('CONTACT')}
+            onPress={() => navigation.navigate("CONTACT")}
           />
         </AlertContainer>
       )}
@@ -55,7 +58,7 @@ const CheckboxLabelled = ({
 };
 
 const Container = styled.TouchableOpacity`
-  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'}
+  ${({ showDisabled }) => showDisabled && "opacity: 0.5;"}
 `;
 
 const CheckBoxContainer = styled.View`
@@ -78,7 +81,7 @@ const ItemContainer = styled.View`
   align-items: center;
   margin-vertical: 12px;
   margin-right: 10px;
-  ${({ showDisabled }) => showDisabled && 'opacity: 0.5;'};
+  ${({ showDisabled }) => showDisabled && "opacity: 0.5;"};
 `;
 
 const AlertContainer = styled.View`

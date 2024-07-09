@@ -1,28 +1,28 @@
-import React from 'react';
-import styled from 'styled-components';
-import TextStyled from '../../../../components/TextStyled';
+import React from "react";
+import styled from "styled-components/native";
+import TextStyled from "../../../../components/TextStyled";
 
 const STEPS = [
   {
-    label: 'Dépendance',
-    scoreKey: 'RESULT_ARROW_ADDICTED',
+    label: "Dépendance",
+    scoreKey: "RESULT_ARROW_ADDICTED",
   },
   {
-    label: 'Usage nocif',
-    scoreKey: 'RESULT_ARROW_HARMFUL_USAGE',
+    label: "Usage nocif",
+    scoreKey: "RESULT_ARROW_HARMFUL_USAGE",
   },
   {
-    label: 'Usage simple',
-    scoreKey: 'RESULT_ARROW_SIMPLE_USAGE',
+    label: "Usage simple",
+    scoreKey: "RESULT_ARROW_SIMPLE_USAGE",
   },
   {
-    label: 'Non usage',
-    scoreKey: 'RESULT_ARROW_NO_USAGE',
+    label: "Non usage",
+    scoreKey: "RESULT_ARROW_NO_USAGE",
   },
 ];
 
-const inactiveColor = '#C4C4C4';
-const activeColor = '#de285e';
+const inactiveColor = "#C4C4C4";
+const activeColor = "#de285e";
 
 const ArrowUsage = ({ steps = STEPS, height = 180, score }) => {
   const size = height / steps.length;
@@ -35,7 +35,12 @@ const ArrowUsage = ({ steps = STEPS, height = 180, score }) => {
               <ContainerItem key={i}>
                 <ArrowHeadContainer>
                   <ArrowHead height={size} active={scoreKey === score} />
-                  <ElementArrow key={i} width={size / 2} height={size * 0.3} active={scoreKey === score} />
+                  <ElementArrow
+                    key={i}
+                    width={size / 2}
+                    height={size * 0.3}
+                    active={scoreKey === score}
+                  />
                 </ArrowHeadContainer>
               </ContainerItem>
             );

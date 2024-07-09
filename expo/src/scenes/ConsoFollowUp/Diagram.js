@@ -1,23 +1,23 @@
-import React, { useMemo, useState } from 'react';
-import { selectorFamily, useRecoilValue } from 'recoil';
-import styled, { css } from 'styled-components';
-import { Modal, Text, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import dayjs from 'dayjs';
-import { screenHeight, defaultPaddingFontScale } from '../../styles/theme';
-import { derivedDataFromDrinksState } from '../../recoil/consos';
-import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from '../../recoil/gains';
-import TextStyled from '../../components/TextStyled';
-import { isToday } from '../../services/dates';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import Equality from '../../components/illustrations/Equality';
-import H3 from '../../components/H3';
-import PeriodSelector from '../../components/PeriodSelector';
-import PeriodSwitchToggle from '../../components/PeriodSwitchToggle';
-import Stars from '../../components/illustrations/Stars';
-import OneDoseAlcoolExplanation from '../../components/OneDoseAlcoolExplanation';
-import WrapperContainer from '../../components/WrapperContainer';
+import React, { useMemo, useState } from "react";
+import { selectorFamily, useRecoilValue } from "recoil";
+import styled, { css } from "styled-components/native";
+import { Modal, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import dayjs from "dayjs";
+import { screenHeight, defaultPaddingFontScale } from "../../styles/theme";
+import { derivedDataFromDrinksState } from "../../recoil/consos";
+import { maxDrinksPerWeekSelector, totalDrinksByDrinkingDaySelector } from "../../recoil/gains";
+import TextStyled from "../../components/TextStyled";
+import { isToday } from "../../services/dates";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import Equality from "../../components/illustrations/Equality";
+import H3 from "../../components/H3";
+import PeriodSelector from "../../components/PeriodSelector";
+import PeriodSwitchToggle from "../../components/PeriodSwitchToggle";
+import Stars from "../../components/illustrations/Stars";
+import OneDoseAlcoolExplanation from "../../components/OneDoseAlcoolExplanation";
+import WrapperContainer from "../../components/WrapperContainer";
 
 const maxDosesOnScreen = 999;
 const minBarHeight = 1;
@@ -28,29 +28,31 @@ const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) =
   return {
     barMaxHeight: barHighestHeightPossible,
     barMaxAcceptableDoseHeight:
-      (highestAcceptableDosesPerDay / (highestDosesInPeriod < 2 ? 2 : highestDosesInPeriod)) * barHighestHeightPossible,
+      (highestAcceptableDosesPerDay / (highestDosesInPeriod < 2 ? 2 : highestDosesInPeriod)) *
+      barHighestHeightPossible,
   };
 };
 
 const diffWithPreviousWeekSelector = selectorFamily({
-  key: 'diffWithPreviousWeekSelector',
+  key: "diffWithPreviousWeekSelector",
   get:
     ({ firstDay }) =>
     ({ get }) => {
       const { dailyDoses } = get(derivedDataFromDrinksState);
-      const firstDayLastWeek = dayjs(firstDay).startOf('week').add(-1, 'week');
+      const firstDayLastWeek = dayjs(firstDay).startOf("week").add(-1, "week");
       const daysOfLastWeek = [];
       for (let i = 0; i <= 6; i++) {
-        const nextDay = dayjs(firstDayLastWeek).add(i, 'day').format('YYYY-MM-DD');
+        const nextDay = dayjs(firstDayLastWeek).add(i, "day").format("YYYY-MM-DD");
         daysOfLastWeek.push(nextDay);
       }
 
-      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0) return { fillConsoFirst: true };
+      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0)
+        return { fillConsoFirst: true };
 
-      const firstDayThisWeek = dayjs(dayjs(firstDay).startOf('week'));
+      const firstDayThisWeek = dayjs(dayjs(firstDay).startOf("week"));
       const daysOfThisWeek = [];
       for (let i = 0; i <= 6; i++) {
-        const nextDay = dayjs(firstDayThisWeek).add(i, 'day').format('YYYY-MM-DD');
+        const nextDay = dayjs(firstDayThisWeek).add(i, "day").format("YYYY-MM-DD");
         daysOfThisWeek.push(nextDay);
       }
 
@@ -78,13 +80,13 @@ export default function Diagram({ inModalHelp = false }) {
   // 'daily': we display the daily diagram for a week, from Monday to Sunday (6 bars)
   // 'weekly': we display the weekly diagram for 6 weeks
   // 'monthly': we display the monthly diagram for 6 weeks
-  const [period, setPeriod] = useState('daily'); // 'week', 'month'
-  const [firstDay, setFirstDay] = useState(() => dayjs().startOf('week'));
+  const [period, setPeriod] = useState("daily"); // 'week', 'month'
+  const [firstDay, setFirstDay] = useState(() => dayjs().startOf("week"));
   const lastDay = useMemo(() => {
-    if (period === 'weekly') return dayjs(firstDay).add(5, 'week').endOf('week');
-    if (period === 'monthly') return dayjs(firstDay).add(5, 'month').endOf('month');
+    if (period === "weekly") return dayjs(firstDay).add(5, "week").endOf("week");
+    if (period === "monthly") return dayjs(firstDay).add(5, "month").endOf("month");
     // period === 'daily'
-    return dayjs(firstDay).add(6, 'day');
+    return dayjs(firstDay).add(6, "day");
   }, [firstDay, period]);
 
   const maxDrinksPerWeekGoal = useRecoilValue(maxDrinksPerWeekSelector);
@@ -95,19 +97,19 @@ export default function Diagram({ inModalHelp = false }) {
     // we'll display 7 bars if the period is'day' (from monday to sunday)
     // we'll display 6 bars if period is  'week' or 'month'
 
-    const numberOfBars = period === 'daily' ? 7 : 6;
+    const numberOfBars = period === "daily" ? 7 : 6;
 
     for (let i = 0; i < numberOfBars; i++) {
-      if (period === 'daily') {
-        const nextDate = dayjs(firstDay).add(i, 'day').format('YYYY-MM-DD');
+      if (period === "daily") {
+        const nextDate = dayjs(firstDay).add(i, "day").format("YYYY-MM-DD");
         dates.push(nextDate);
       }
-      if (period === 'weekly') {
-        const nextDate = dayjs(firstDay).add(i, 'week').format('YYYY-MM-DD');
+      if (period === "weekly") {
+        const nextDate = dayjs(firstDay).add(i, "week").format("YYYY-MM-DD");
         dates.push(nextDate);
       }
-      if (period === 'monthly') {
-        const nextDate = dayjs(firstDay).add(i, 'month').format('YYYY-MM-DD');
+      if (period === "monthly") {
+        const nextDate = dayjs(firstDay).add(i, "month").format("YYYY-MM-DD");
         dates.push(nextDate);
       }
     }
@@ -117,14 +119,16 @@ export default function Diagram({ inModalHelp = false }) {
   const yValues = useMemo(() => {
     const values = [];
     for (const xValue of xAxis) {
-      if (period === 'daily') {
+      if (period === "daily") {
         values.push(Math.min(maxDosesOnScreen, dailyDoses[xValue] ?? 0));
       }
-      if (period === 'weekly') {
+      if (period === "weekly") {
         values.push(Math.min(maxDosesOnScreen, weeklyDoses[xValue] ?? 0));
       }
-      if (period === 'monthly') {
-        values.push(Math.min(maxDosesOnScreen, monthlyDoses[xValue.slice(0, 'YYYY-MM'.length)] ?? 0));
+      if (period === "monthly") {
+        values.push(
+          Math.min(maxDosesOnScreen, monthlyDoses[xValue.slice(0, "YYYY-MM".length)] ?? 0)
+        );
       }
     }
     return values;
@@ -135,13 +139,13 @@ export default function Diagram({ inModalHelp = false }) {
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   const highestAcceptableDosesInPeriod = useMemo(() => {
     switch (period) {
-      case 'monthly':
+      case "monthly":
         return maxDrinksPerWeekGoal * 4.33 || highestAcceptableDosesPerDayByOMS * 30;
 
-      case 'weekly':
+      case "weekly":
         return maxDrinksPerWeekGoal || highestAcceptableDosesPerDayByOMS * 7;
 
-      case 'daily':
+      case "daily":
       default:
         return totalDrinksByDrinkingDay || highestAcceptableDosesPerDayByOMS;
     }
@@ -174,9 +178,9 @@ export default function Diagram({ inModalHelp = false }) {
         period={period}
         setPeriod={(newPeriod) => {
           setPeriod(newPeriod);
-          if (newPeriod === 'daily') setFirstDay(dayjs().startOf('week'));
-          if (newPeriod === 'weekly') setFirstDay(dayjs().startOf('week').add(-5, 'weeks'));
-          if (newPeriod === 'monthly') setFirstDay(dayjs().startOf('month').add(-5, 'months'));
+          if (newPeriod === "daily") setFirstDay(dayjs().startOf("week"));
+          if (newPeriod === "weekly") setFirstDay(dayjs().startOf("week").add(-5, "weeks"));
+          if (newPeriod === "monthly") setFirstDay(dayjs().startOf("month").add(-5, "months"));
         }}
       />
       <PeriodSelector
@@ -184,8 +188,8 @@ export default function Diagram({ inModalHelp = false }) {
         setFirstDay={setFirstDay}
         lastDay={lastDay}
         period={period}
-        logEventCategory={'ANALYSIS'}
-        logEventAction={'ANALYSIS_DATE'}
+        logEventCategory={"ANALYSIS"}
+        logEventAction={"ANALYSIS_DATE"}
       />
 
       <BarsContainer height={barMaxHeight + doseTextHeight}>
@@ -197,7 +201,8 @@ export default function Diagram({ inModalHelp = false }) {
           const barHeight = yValue > 0 ? Math.round(yValue) : 0;
           const underLineValue = Math.min(barHeight, highestAcceptableDosesInPeriod);
           const overLineValue =
-            barHeight > highestAcceptableDosesInPeriod && barHeight - highestAcceptableDosesInPeriod;
+            barHeight > highestAcceptableDosesInPeriod &&
+            barHeight - highestAcceptableDosesInPeriod;
 
           return (
             <Bar
@@ -205,53 +210,69 @@ export default function Diagram({ inModalHelp = false }) {
               height={(doseHeight * barHeight || minBarHeight) + doseTextHeight}
               heightFactor={barHeight || 0}>
               {yValue >= 0 ? (
-                <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                <Dose
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  ellipsizeMode="clip"
+                  overLine={Boolean(overLineValue)}>
                   {Math.round(yValue)}
                 </Dose>
               ) : (
-                <Dose adjustsFontSizeToFit numberOfLines={1} ellipsizeMode="clip" overLine={Boolean(overLineValue)}>
+                <Dose
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  ellipsizeMode="clip"
+                  overLine={Boolean(overLineValue)}>
                   ?
                 </Dose>
               )}
               {Boolean(overLineValue) && (
-                <UpperBar bottom={doseHeight * highestAcceptableDosesInPeriod} height={doseHeight * overLineValue} />
+                <UpperBar
+                  bottom={doseHeight * highestAcceptableDosesInPeriod}
+                  height={doseHeight * overLineValue}
+                />
               )}
-              <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
+              <LowerBar
+                withTopRadius={!overLineValue}
+                height={doseHeight * underLineValue || minBarHeight}
+              />
             </Bar>
           );
         })}
-        {period === 'daily' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 1 && (
+        {period === "daily" && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 1 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
-        {period === 'weekly' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
+        {period === "weekly" && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 2 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
-        {period === 'monthly' && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
+        {period === "monthly" && highestDosesInPeriod >= highestAcceptableDosesInPeriod - 11 && (
           <Line bottom={barMaxAcceptableDoseHeight} />
         )}
       </BarsContainer>
       <LegendsContainer>
         {xAxis.map((day, index) => {
           switch (period) {
-            case 'monthly':
+            case "monthly":
               return (
-                <LegendContainer backgound={'transparent'} key={index}>
-                  <Legend color={'#4030A5'}>{dayjs(day).format('MMM').capitalize().slice(0, 3)}</Legend>
-                </LegendContainer>
-              );
-            case 'weekly':
-              return (
-                <LegendContainer backgound={'transparent'} key={index}>
-                  <Legend color={'#4030A5'}>
-                    {dayjs(day).format('D') + ' ' + dayjs(day).format('MMM').slice(0, 3)}
+                <LegendContainer backgound={"transparent"} key={index}>
+                  <Legend color={"#4030A5"}>
+                    {dayjs(day).format("MMM").capitalize().slice(0, 3)}
                   </Legend>
                 </LegendContainer>
               );
-            case 'daily':
+            case "weekly":
+              return (
+                <LegendContainer backgound={"transparent"} key={index}>
+                  <Legend color={"#4030A5"}>
+                    {dayjs(day).format("D") + " " + dayjs(day).format("MMM").slice(0, 3)}
+                  </Legend>
+                </LegendContainer>
+              );
+            case "daily":
             default:
-              const formatday = dayjs(day).format('ddd').capitalize().slice(0, 3);
-              const backgound = isToday(day) ? '#4030A5' : 'transparent';
-              const color = isToday(day) ? '#ffffff' : '#4030A5';
+              const formatday = dayjs(day).format("ddd").capitalize().slice(0, 3);
+              const backgound = isToday(day) ? "#4030A5" : "transparent";
+              const color = isToday(day) ? "#ffffff" : "#4030A5";
               return (
                 <LegendContainer backgound={backgound} key={index}>
                   <Legend color={color}>{formatday}</Legend>
@@ -262,14 +283,16 @@ export default function Diagram({ inModalHelp = false }) {
       </LegendsContainer>
       {!inModalHelp && (
         <TouchableOpacity className="mb-6">
-          <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
+          <Text
+            className="text-[#4030A5] text-center underline"
+            onPress={() => setShowHelpModal(true)}>
             Comprendre le graphique et les unités d'alcool
           </Text>
         </TouchableOpacity>
       )}
 
       <DiagramHelpModal visible={showHelpModal} onCloseHelp={() => setShowHelpModal(false)} />
-      {!!showIncrease && !inModalHelp && period === 'daily' && (
+      {!!showIncrease && !inModalHelp && period === "daily" && (
         <EvolutionMessage
           background="#f9f2e8"
           border="#f4cda9"
@@ -278,34 +301,34 @@ export default function Diagram({ inModalHelp = false }) {
           message={
             <>
               <TextStyled>
-                Votre consommation est en hausse de {-diff} verre{-diff > 1 ? 's' : ''} par rapport à la semaine
-                dernière.
+                Votre consommation est en hausse de {-diff} verre{-diff > 1 ? "s" : ""} par rapport
+                à la semaine dernière.
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien{'\u00A0'}!{' '}
-                <TextStyled bold>Découvrez nos articles santé</TextStyled> pour vous motiver à réduire votre
-                consommation.
+                Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien
+                {"\u00A0"}! <TextStyled bold>Découvrez nos articles santé</TextStyled> pour vous
+                motiver à réduire votre consommation.
               </TextStyled>
             </>
           }
         />
       )}
-      {!!showDecrease && !inModalHelp && period === 'daily' && (
+      {!!showDecrease && !inModalHelp && period === "daily" && (
         <EvolutionMessage
           background="#dff6e4"
           border="#a0e1ac"
           message={
             <>
               <TextStyled>
-                Bravo, vous avez consommé {diff} verre{diff > 1 ? 's' : ''} de moins que la semaine dernière,{' '}
-                <TextStyled bold>continuez comme cela{'\u00A0'}!</TextStyled>
+                Bravo, vous avez consommé {diff} verre{diff > 1 ? "s" : ""} de moins que la semaine
+                dernière, <TextStyled bold>continuez comme cela{"\u00A0"}!</TextStyled>
               </TextStyled>
             </>
           }
         />
       )}
-      {!!showStable && !inModalHelp && period === 'daily' && (
+      {!!showStable && !inModalHelp && period === "daily" && (
         <EvolutionMessage
           background="#F9F9F9"
           border="#C4C4C4"
@@ -315,26 +338,28 @@ export default function Diagram({ inModalHelp = false }) {
           message={
             <>
               <TextStyled>
-                Votre consommation est identique à la semaine précédente (soit {thisWeekNumberOfDrinks} verres).
+                Votre consommation est identique à la semaine précédente (soit{" "}
+                {thisWeekNumberOfDrinks} verres).
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Si besoin d'un coup de pouce, vous pouvez <TextStyled bold>découvrir nos articles santé</TextStyled>{' '}
-                pour vous motiver à réduire votre consommation{'\u00A0'}!
+                Si besoin d'un coup de pouce, vous pouvez{" "}
+                <TextStyled bold>découvrir nos articles santé</TextStyled> pour vous motiver à
+                réduire votre consommation{"\u00A0"}!
               </TextStyled>
             </>
           }
         />
       )}
-      {!!showFillConsosFirst && !inModalHelp && period === 'daily' && (
+      {!!showFillConsosFirst && !inModalHelp && period === "daily" && (
         <EvolutionMessage
           background="#e8e8f3"
           border="#4030a5"
           message={
             <>
               <TextStyled>
-                Ajoutez vos consommations <TextStyled bold>tous les jours</TextStyled> pour accéder à l'analyse de la
-                semaine. Bon courage{'\u00A0'}!
+                Ajoutez vos consommations <TextStyled bold>tous les jours</TextStyled> pour accéder
+                à l'analyse de la semaine. Bon courage{"\u00A0"}!
               </TextStyled>
             </>
           }
@@ -379,11 +404,11 @@ const EvolutionMessage = ({ background, border, message, button, navigation }) =
             small
             onPress={() => {
               logEvent({
-                category: 'ANALYSIS',
-                action: 'ANALYSIS_HEALTH',
-                name: 'HEALTH',
+                category: "ANALYSIS",
+                action: "ANALYSIS_HEALTH",
+                name: "HEALTH",
               });
-              navigation.navigate('HEALTH');
+              navigation.navigate("HEALTH");
             }}
           />
         </ContactAddictologue>
@@ -432,7 +457,7 @@ const BarsContainer = styled.View`
 const barWidth = 20;
 const Bar = styled(TouchableOpacity)`
   border-color: #4030a5;
-  border-style: ${({ empty }) => (empty ? 'dashed' : 'solid')};
+  border-style: ${({ empty }) => (empty ? "dashed" : "solid")};
   border-width: ${({ empty }) => (empty ? 1 : 0)}px;
   border-radius: ${screenHeight * 0.005}px;
   flex-grow: 1;
@@ -480,7 +505,7 @@ const Dose = styled(H3)`
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: ${({ overLine }) => (overLine ? '#de285e' : '#4030a5')};
+  color: ${({ overLine }) => (overLine ? "#de285e" : "#4030a5")};
 `;
 
 const Line = styled.View`
@@ -504,17 +529,21 @@ const Elem = ({ content, lineHeight = 20 }) => (
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   return (
-    <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onCloseHelp}>
+    <Modal
+      visible={visible}
+      animationType="slide"
+      presentationStyle="formSheet"
+      onRequestClose={onCloseHelp}>
       <WrapperContainer onPressBackButton={onCloseHelp}>
         <Diagram inModalHelp={true} />
         <Paragraph>
           <Elem
             content={
               <TextStyled>
-                Le graphique représente{' '}
+                Le graphique représente{" "}
                 <TextStyled bold color="#4030a5">
                   les unités d'alcool
-                </TextStyled>{' '}
+                </TextStyled>{" "}
                 consommées sur une journée.
               </TextStyled>
             }
@@ -522,13 +551,13 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           <Elem
             content={
               <TextStyled>
-                La ligne verte représente{' '}
+                La ligne verte représente{" "}
                 <TextStyled bold color="#4030a5">
                   le seuil de votre objectif
-                </TextStyled>{' '}
+                </TextStyled>{" "}
                 {totalDrinksByDrinkingDay === 0
                   ? "(2 unités représentant pour l'instant le seuil fixé par l'OMS)"
-                  : `(${totalDrinksByDrinkingDay} unité${totalDrinksByDrinkingDay > 1 ? 's' : ''} par jour)`}
+                  : `(${totalDrinksByDrinkingDay} unité${totalDrinksByDrinkingDay > 1 ? "s" : ""} par jour)`}
               </TextStyled>
             }
           />
@@ -537,8 +566,8 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           <Elem
             content={
               <TextStyled>
-                Une unité d'alcool correspond à environ 10 grammes d'alcool pur, soit environ un verre de vin de 13cl à
-                12°c ou un demi de bière à 4°c par exemple.
+                Une unité d'alcool correspond à environ 10 grammes d'alcool pur, soit environ un
+                verre de vin de 13cl à 12°c ou un demi de bière à 4°c par exemple.
               </TextStyled>
             }
           />
@@ -548,8 +577,9 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           <Elem
             content={
               <TextStyled>
-                Lorsque vous saisisez une consommation, l'application{' '}
-                <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité d'alcool.
+                Lorsque vous saisisez une consommation, l'application{" "}
+                <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité
+                d'alcool.
               </TextStyled>
             }
           />
@@ -558,8 +588,8 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           <Elem
             content={
               <TextStyled>
-                <TextStyled color="#4030a5">Compter ses consommations</TextStyled> est un pas essentiel pour prendre
-                conscience de ce que l'on consomme.
+                <TextStyled color="#4030a5">Compter ses consommations</TextStyled> est un pas
+                essentiel pour prendre conscience de ce que l'on consomme.
               </TextStyled>
             }
           />

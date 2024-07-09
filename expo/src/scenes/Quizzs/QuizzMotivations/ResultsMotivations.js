@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
-import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
-import H3 from '../../../components/H3';
-import TextStyled from '../../../components/TextStyled';
-import CheckboxLabelled from '../../../components/CheckboxLabelled';
-import sections from './sections';
-import { screenWidth } from '../../../styles/theme';
-import { motivationsQuizzAnswersState } from '../../../recoil/quizzs';
-import ButtonPrimary from '../../../components/ButtonPrimary';
+import React from "react";
+import styled from "styled-components/native";
+import { useRecoilValue } from "recoil";
+import { useNavigation } from "@react-navigation/native";
+import { View } from "react-native";
+import HeaderQuizzsResult from "../../Defis/HeaderQuizzsResult";
+import H3 from "../../../components/H3";
+import TextStyled from "../../../components/TextStyled";
+import CheckboxLabelled from "../../../components/CheckboxLabelled";
+import sections from "./sections";
+import { screenWidth } from "../../../styles/theme";
+import { motivationsQuizzAnswersState } from "../../../recoil/quizzs";
+import ButtonPrimary from "../../../components/ButtonPrimary";
 
 const Wrapper = ({ children, wrapped, inMyTests }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
@@ -27,10 +27,10 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
 const ResultsMotivations = ({ wrapped = true, route }) => {
   const motivationsQuizzAnswers = useRecoilValue(motivationsQuizzAnswersState);
   const navigation = useNavigation();
-  const inDay7Defis = route?.name === 'DEFI1_DAY_7';
+  const inDay7Defis = route?.name === "DEFI1_DAY_7";
   if (!motivationsQuizzAnswers?.length) return null;
 
-  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
+  const inMyTests = route?.params?.rootRoute === "QUIZZ_MENU";
 
   return (
     <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
@@ -38,8 +38,9 @@ const ResultsMotivations = ({ wrapped = true, route }) => {
         <ResultTitle>Vos motivations à changer</ResultTitle>
         {!motivationsQuizzAnswers.length && (
           <TextStyled>
-            Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce questionnaire en
-            allant dans la rubrique<TextStyled bold>Mes tests</TextStyled> dynamiques
+            Vous n'avez pas encore sélectionné de motivations à changer, vous pouvez revenir à ce
+            questionnaire en allant dans la rubrique<TextStyled bold>Mes tests</TextStyled>{" "}
+            dynamiques
             <TextStyled bold> Activités</TextStyled>.
           </TextStyled>
         )}
@@ -67,7 +68,7 @@ const ResultsMotivations = ({ wrapped = true, route }) => {
               content="Commencer l'activité 2"
               shadowColor="#201569"
               onPress={() => {
-                navigation.navigate('DEFIS_MENU');
+                navigation.navigate("DEFIS_MENU");
               }}
               style={{ marginVertical: 30, flexGrow: 0 }}
             />
@@ -75,7 +76,7 @@ const ResultsMotivations = ({ wrapped = true, route }) => {
             <ButtonPrimary
               content="Retour à l'activité"
               shadowColor="#201569"
-              onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+              onPress={() => navigation.navigate("DEFI1", { screen: "DEFI1_MENU" })}
               style={{ marginVertical: 30, flexGrow: 0 }}
             />
           )}

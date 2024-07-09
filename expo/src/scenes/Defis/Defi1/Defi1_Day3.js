@@ -1,26 +1,26 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import GoBackButton from '../../../components/GoBackButton';
-import TextStyled from '../../../components/TextStyled';
-import Sources from '../../Quizzs/Sources';
-import { setValidatedDays } from '../utils';
-import { P, Spacer } from '../../../components/Articles';
-import WrapperContainer from '../../../components/WrapperContainer';
-import { storage } from '../../../services/storage';
-import API from '../../../services/api';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
+import styled from "styled-components/native";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import GoBackButton from "../../../components/GoBackButton";
+import TextStyled from "../../../components/TextStyled";
+import Sources from "../../Quizzs/Sources";
+import { setValidatedDays } from "../utils";
+import { P, Spacer } from "../../../components/Articles";
+import WrapperContainer from "../../../components/WrapperContainer";
+import { storage } from "../../../services/storage";
+import API from "../../../services/api";
 
 const Defi1_Day3 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
-    const matomoId = storage.getString('@UserIdv2');
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, "@Defi1");
+    const matomoId = storage.getString("@UserIdv2");
     if (!isFocused) {
       API.post({
-        path: '/defis/display',
+        path: "/defis/display",
         body: {
           matomoId: matomoId,
         },
@@ -34,9 +34,11 @@ const Defi1_Day3 = ({ navigation, route }) => {
       title="Avez-vous une dépendance physique à l'alcool qui nécessite de consulter un professionnel de santé ?">
       <ElemContainer>
         <P style={{ flex: 1 }}>
-          Le sevrage à l'alcool peut entrainer des complications graves et possiblement mortelles.{'\n\n'}
+          Le sevrage à l'alcool peut entrainer des complications graves et possiblement mortelles.
+          {"\n\n"}
           <P bold color="#de285e">
-            Si vous présentez l'un ou plusieurs des symptômes suivants, consultez sans délai un professionnel de santé.
+            Si vous présentez l'un ou plusieurs des symptômes suivants, consultez sans délai un
+            professionnel de santé.
           </P>
         </P>
       </ElemContainer>
@@ -58,7 +60,7 @@ const Defi1_Day3 = ({ navigation, route }) => {
       <ButtonContainer>
         <ButtonPrimary
           content="Échanger avec un conseiller"
-          onPress={() => navigation.navigate('CONTACT')}
+          onPress={() => navigation.navigate("CONTACT")}
           style={{ marginVertical: 30 }}
         />
         <Button
@@ -66,26 +68,26 @@ const Defi1_Day3 = ({ navigation, route }) => {
           content="Retour à l'activité"
           shadowColor="#201569"
           color="#4030A5"
-          onPress={() => navigation.navigate('DEFI1_MENU')}
+          onPress={() => navigation.navigate("DEFI1_MENU")}
         />
       </ButtonContainer>
       <Spacer size={25} />
       <Sources>
         <TextStyled>
-          - Mayo-Smith M.F. Pharmacological management of alcohol withdrawal: a meta-analysis and evidence-based
-          practice guideline. JAMA 1997 ; 278(2) : 144-51.
+          - Mayo-Smith M.F. Pharmacological management of alcohol withdrawal: a meta-analysis and
+          evidence-based practice guideline. JAMA 1997 ; 278(2) : 144-51.
         </TextStyled>
         <TextStyled>
-          - Moore M., Gray M.G. Delirium tremens: a study of cases at the Boston City Hospital, 1915-1936. NEJM 1939 ;
-          220(23) : 953-6.
+          - Moore M., Gray M.G. Delirium tremens: a study of cases at the Boston City Hospital,
+          1915-1936. NEJM 1939 ; 220(23) : 953-6.
         </TextStyled>
         <TextStyled>
-          -Ferguson J.A., Suelzer C.J., Eckert G.J., et al. Risk factors for delirium tremens development. J Gen Intern
-          Med 1996 ; 11(7) : 410-4.
+          -Ferguson J.A., Suelzer C.J., Eckert G.J., et al. Risk factors for delirium tremens
+          development. J Gen Intern Med 1996 ; 11(7) : 410-4.
         </TextStyled>
         <TextStyled>
-          -Thiercelin N., et al. Facteurs de risque du delirium tremens : revue de la littérature. La Revue de médecine
-          interne 2012 : 33 ; 18-22.
+          -Thiercelin N., et al. Facteurs de risque du delirium tremens : revue de la littérature.
+          La Revue de médecine interne 2012 : 33 ; 18-22.
         </TextStyled>
       </Sources>
     </WrapperContainer>
@@ -107,7 +109,7 @@ const ToggleContent = ({ children, title }) => {
           <P color="#4030a5" noMarginBottom bold>
             {title}
           </P>
-          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
+          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? "90" : "-90"} />
         </TitleStyled>
       </TouchableOpacity>
       {visible ? <View>{children}</View> : null}

@@ -1,13 +1,13 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { Dimensions, View } from 'react-native';
-import styled from 'styled-components';
-import Stars from '../../../components/illustrations/Stars';
-import TextStyled from '../../../components/TextStyled';
-import { setValidatedDays } from '../utils';
-import WrapperContainer from '../../../components/WrapperContainer';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import { Dimensions, View } from "react-native";
+import styled from "styled-components/native";
+import Stars from "../../../components/illustrations/Stars";
+import TextStyled from "../../../components/TextStyled";
+import { setValidatedDays } from "../utils";
+import WrapperContainer from "../../../components/WrapperContainer";
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get("window").width;
 
 const Elem = ({ content, bold }) => (
   <ElemContainer>
@@ -18,17 +18,19 @@ const Elem = ({ content, bold }) => (
   </ElemContainer>
 );
 
-const Br = ({ lines = 1 }) => <TextStyled>{'\n'.repeat(lines)}</TextStyled>;
+const Br = ({ lines = 1 }) => <TextStyled>{"\n".repeat(lines)}</TextStyled>;
 
 const Defi1_OnboardingInfo = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, "@Defi1");
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="À qui s'adresse cette activité 7 jours ?">
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title="À qui s'adresse cette activité 7 jours ?">
       <Paragraph>
         <Elem
           bold
@@ -39,17 +41,17 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
         <ElemContainer>
           <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
           <TextStyled style={{ flex: 1 }}>
-            Toutefois, si vous êtes dans l'une des situations ci-dessous,{' '}
+            Toutefois, si vous êtes dans l'une des situations ci-dessous,{" "}
             <TextStyled bold>
               vous devez prendre conseil auprès de votre médecin ou d'un professionnel Oz Ensemble
-            </TextStyled>{' '}
+            </TextStyled>{" "}
             avant de commencer cette activité 7 jours :
             <Br lines={2} />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled bold color="#de285e" style={{ flex: 1, width: screenWidth * 0.7 }}>
@@ -59,30 +61,31 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
                 <TextStyled bold color="#de285e">
                   Vous ressentez des symptômes de sevrage
-                </TextStyled>{' '}
-                lorsque vous cessez de consommer de l'alcool tel que le besoin de prendre un verre d'alcool le matin,
-                tremblements, transpiration excessive, hallucinations, besoin de consommer.
+                </TextStyled>{" "}
+                lorsque vous cessez de consommer de l'alcool tel que le besoin de prendre un verre
+                d'alcool le matin, tremblements, transpiration excessive, hallucinations, besoin de
+                consommer.
               </TextStyled>
             </View>
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
                 <TextStyled bold color="#de285e">
-                  Vous prenez des médicaments prescrits{' '}
+                  Vous prenez des médicaments prescrits{" "}
                 </TextStyled>
                 : l'alcool entre en interaction avec plusieurs médicaments
               </TextStyled>
@@ -90,18 +93,18 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
-                Vous prenez des{' '}
+                Vous prenez des{" "}
                 <TextStyled bold color="#de285e">
                   drogues illégales
-                </TextStyled>{' '}
-                en association avec l'alcool. Ce défi n'a pas été conçu pour les personnes qui consomment des substances
-                autres que l'alcool.
+                </TextStyled>{" "}
+                en association avec l'alcool. Ce défi n'a pas été conçu pour les personnes qui
+                consomment des substances autres que l'alcool.
               </TextStyled>
             </View>
           </TextStyled>
@@ -111,17 +114,17 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
         <ElemContainer>
           <Stars color="#4030a5" style={{ marginRight: 10 }} size={20} />
           <TextStyled style={{ flex: 1 }}>
-            D'une façon générale, l'option la plus sûre est de{' '}
+            D'une façon générale, l'option la plus sûre est de{" "}
             <TextStyled bold color="#de285e">
               NE PAS CONSOMMER D'ALCOOL
-            </TextStyled>{' '}
+            </TextStyled>{" "}
             en cas de :
             <Br lines={2} />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled>conduite automobile</TextStyled>
@@ -129,9 +132,9 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
@@ -141,19 +144,21 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
-              <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>pratique de sports à risque</TextStyled>
+              <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                pratique de sports à risque
+              </TextStyled>
             </View>
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
               <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
@@ -163,12 +168,14 @@ const Defi1_OnboardingInfo = ({ navigation, route }) => {
             <Br />
             <View
               style={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'row',
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
               }}>
               <TextStyled style={{ marginRight: 10 }}>• </TextStyled>
-              <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>existence de certaines pathologies</TextStyled>
+              <TextStyled style={{ flex: 1, width: screenWidth * 0.7 }}>
+                existence de certaines pathologies
+              </TextStyled>
             </View>
             <Br />
           </TextStyled>

@@ -1,10 +1,10 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
-const SpagettiPlate = ({ size, color = '#DE285E', ...props }) => (
+const SpagettiPlate = ({ size, color = "#DE285E", ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 32 32" {...props}>
     <Path
       d="M16 0C7.178 0 0 7.178 0 16s7.178 16 16 16 16-7.178 16-16S24.822 0 16 0Zm0 31.492C7.458 31.492.508 24.542.508 16 .508 7.458 7.458.508 16 .508c8.542 0 15.492 6.95 15.492 15.492 0 8.542-6.95 15.492-15.492 15.492Z"

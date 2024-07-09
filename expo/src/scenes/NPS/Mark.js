@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import H2 from '../../components/H2';
-import TextStyled from '../../components/TextStyled';
+import React from "react";
+import styled, { css } from "styled-components/native";
+import H2 from "../../components/H2";
+import TextStyled from "../../components/TextStyled";
 
 const Mark = ({ onPress, selected, bad, good }) => (
   <>
@@ -35,17 +35,17 @@ const MarkContainer = styled.View`
 
 const MarkStyled = styled.View`
   height: 40px;
-  ${(props) => props.withMargin && 'margin-right: 3px;'}
+  ${(props) => props.withMargin && "margin-right: 3px;"}
   border: 1px solid #b8b8b8;
   border-radius: 3px;
   justify-content: center;
   align-items: center;
-  ${(props) => props.selected && 'background-color: #4030a5;'}
+  ${(props) => props.selected && "background-color: #4030a5;"}
 `;
 
 const MarkText = styled(H2)`
   font-weight: bold;
-  color: ${({ selected }) => (selected ? '#f9f9f9' : '#191919')};
+  color: ${({ selected }) => (selected ? "#f9f9f9" : "#191919")};
 `;
 
 const MarkButton = styled.TouchableOpacity`

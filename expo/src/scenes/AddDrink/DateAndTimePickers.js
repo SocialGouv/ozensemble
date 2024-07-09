@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
-import DateOrTimeDisplay from '../../components/DateOrTimeDisplay';
-import DatePicker from '../../components/DatePicker';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState } from '../../recoil/consos';
-import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
+import React, { useState } from "react";
+import { useSetRecoilState } from "recoil";
+import styled from "styled-components/native";
+import DateOrTimeDisplay from "../../components/DateOrTimeDisplay";
+import DatePicker from "../../components/DatePicker";
+import { makeSureTimestamp } from "../../helpers/dateHelpers";
+import { drinksState } from "../../recoil/consos";
+import { sortConsosByTimestamp } from "../../helpers/consosHelpers";
 
 const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) => {
   const setDrinksState = useSetRecoilState(drinksState);
@@ -32,8 +32,16 @@ const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) 
   return (
     <>
       <DateAndTimeContainer>
-        <DateOrTimeDisplay mode="date" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('date')} />
-        <DateOrTimeDisplay mode="time" date={addDrinkModalTimestamp} onPress={() => setShowDatePicker('time')} />
+        <DateOrTimeDisplay
+          mode="date"
+          date={addDrinkModalTimestamp}
+          onPress={() => setShowDatePicker("date")}
+        />
+        <DateOrTimeDisplay
+          mode="time"
+          date={addDrinkModalTimestamp}
+          onPress={() => setShowDatePicker("time")}
+        />
       </DateAndTimeContainer>
       <DatePicker
         visible={Boolean(showDatePicker)}
@@ -41,7 +49,7 @@ const DateAndTimePickers = ({ addDrinkModalTimestamp, setDrinkModalTimestamp }) 
         initDate={addDrinkModalTimestamp}
         key={addDrinkModalTimestamp}
         selectDate={(newDate) => {
-          if (newDate && showDatePicker === 'date') {
+          if (newDate && showDatePicker === "date") {
             const newDateObject = new Date(newDate);
             const oldDateObject = new Date(addDrinkModalTimestamp);
             newDate = new Date(

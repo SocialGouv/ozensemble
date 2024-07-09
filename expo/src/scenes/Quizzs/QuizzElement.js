@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components/native";
 
-import ButtonPrimary from '../../components/ButtonPrimary';
-import TickDone from '../../components/illustrations/TickDone';
-import { screenWidth } from '../../styles/theme';
-import Lock from '../../components/illustrations/Lock';
-import TextStyled from '../../components/TextStyled';
+import ButtonPrimary from "../../components/ButtonPrimary";
+import TickDone from "../../components/illustrations/TickDone";
+import { screenWidth } from "../../styles/theme";
+import Lock from "../../components/illustrations/Lock";
+import TextStyled from "../../components/TextStyled";
 
 const QuizzElement = ({ title, disabled, showOnlyIfDone, onStart, done, onShowResult }) => {
   if (!done && !showOnlyIfDone) return null;
@@ -23,8 +23,10 @@ const QuizzElement = ({ title, disabled, showOnlyIfDone, onStart, done, onShowRe
           {!disabled &&
             (done ? (
               <>
-                {!!onShowResult && <ButtonRedoTest onPress={onShowResult}>Mes résultats</ButtonRedoTest>}
-                <ButtonPrimary onPress={onStart} content={'Je refais le test'} small />
+                {!!onShowResult && (
+                  <ButtonRedoTest onPress={onShowResult}>Mes résultats</ButtonRedoTest>
+                )}
+                <ButtonPrimary onPress={onStart} content={"Je refais le test"} small />
               </>
             ) : (
               <Button small content="Je refais le test" onPress={onStart} disabled />
@@ -38,9 +40,9 @@ const QuizzElement = ({ title, disabled, showOnlyIfDone, onStart, done, onShowRe
 export default QuizzElement;
 
 const getBackgroundColor = ({ done, disabled }) => {
-  if (done) return '#81DBD326';
-  if (disabled) return '#D3D3E825';
-  return '#D3D3E825';
+  if (done) return "#81DBD326";
+  if (disabled) return "#D3D3E825";
+  return "#D3D3E825";
 };
 
 const Container = styled.View`
@@ -49,9 +51,9 @@ const Container = styled.View`
   border-radius: 10px;
   overflow: hidden;
   background-color: ${(props) => getBackgroundColor(props)};
-  border: 1px solid ${({ done }) => (done ? '#81DBD37F' : '#79747E')};
+  border: 1px solid ${({ done }) => (done ? "#81DBD37F" : "#79747E")};
   padding-vertical: 15px;
-  height: ${({ disabled }) => (disabled ? '70' : '105')}px;
+  height: ${({ disabled }) => (disabled ? "70" : "105")}px;
   margin-bottom: 20px;
   padding-horizontal: ${Math.min(15, screenWidth * 0.03)}px;
 `;

@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import ArrowLeft from './ArrowLeft';
+import React from "react";
+import styled from "styled-components/native";
+import ArrowLeft from "./ArrowLeft";
 
-const GoBackButton = ({ onPress, color = '#4030a5', rotate = 0, size = 10 }) => (
+const GoBackButton = ({ onPress, color = "#4030a5", rotate = 0, size = 10 }) => (
   <Container color={color} rotate={rotate} onPress={onPress}>
     <ArrowLeft color={color} size={size} />
   </Container>

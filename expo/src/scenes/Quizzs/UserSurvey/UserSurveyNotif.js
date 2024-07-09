@@ -1,13 +1,13 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import H2 from '../../../components/H2';
-import { Dimensions, TouchableOpacity, View } from 'react-native';
-import { logEvent } from '../../../services/logEventsWithMatomo';
-import H3 from '../../../components/H3';
-import UserSurveyLogo from '../../../components/illustrations/UserSurveyLogo';
-import Background from '../../../components/Background';
+import React from "react";
+import styled, { css } from "styled-components/native";
+import TextStyled from "../../../components/TextStyled";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import H2 from "../../../components/H2";
+import { Dimensions, TouchableOpacity, View } from "react-native";
+import { logEvent } from "../../../services/logEventsWithMatomo";
+import H3 from "../../../components/H3";
+import UserSurveyLogo from "../../../components/illustrations/UserSurveyLogo";
+import Background from "../../../components/Background";
 
 // screen displayed from notification
 
@@ -19,23 +19,23 @@ const UserSurveyNotif = ({ navigation, route }) => {
           <UserSurveyLogo />
           <Title>1 min pour améliorer Oz ?</Title>
           <Text>
-            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{'\n\n'}
+            Répondez à 6 questions pour nous aider à améliorer l’application ensemble !{"\n\n"}
             <TextStyled bold>Toutes vos réponses sont anonymes et confidentielles</TextStyled>
           </Text>
         </MiddleContainer>
 
         <InsideContainer>
           <ButtonPrimaryStyled
-            content={'Répondre au sondage'}
+            content={"Répondre au sondage"}
             onPress={async () => {
-              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF' });
-              navigation.push('USER_SURVEY', { from: route.params?.from });
+              logEvent({ category: "QUIZZ_USER_SURVEY", action: "USER_SURVEY_NOTIF" });
+              navigation.push("USER_SURVEY", { from: route.params?.from });
             }}
           />
           <TouchableOpacity
             onPress={() => {
-              logEvent({ category: 'QUIZZ_USER_SURVEY', action: 'USER_SURVEY_NOTIF_SKIP' });
-              navigation.navigate('TABS');
+              logEvent({ category: "QUIZZ_USER_SURVEY", action: "USER_SURVEY_NOTIF_SKIP" });
+              navigation.navigate("TABS");
             }}>
             <Skip>Plus tard</Skip>
           </TouchableOpacity>
@@ -48,7 +48,7 @@ const UserSurveyNotif = ({ navigation, route }) => {
 export default UserSurveyNotif;
 
 const Container = styled.View`
-  width: ${Dimensions.get('window').width}px;
+  width: ${Dimensions.get("window").width}px;
   height: 100%;
   flex: 1;
   flex-direction: column;

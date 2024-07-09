@@ -1,11 +1,11 @@
-import React from 'react';
-import { Dimensions, Modal } from 'react-native';
-import { atom, useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import React from "react";
+import { Dimensions, Modal } from "react-native";
+import { atom, useRecoilValue } from "recoil";
+import styled from "styled-components/native";
 
 // waiting for RNBootSplah.show to come back
 export const showBootSplashState = atom({
-  key: 'showBootSplashState',
+  key: "showBootSplashState",
   default: false,
 });
 
@@ -15,7 +15,7 @@ const CustomBootsplash = () => {
   return (
     <Modal visible={showBootSplash} animationType="fade">
       <FullScreen>
-        <StyledImage source={require('../assets/images/Icon.png')} />
+        <StyledImage source={require("../assets/images/Icon.png")} />
       </FullScreen>
     </Modal>
   );
@@ -34,8 +34,8 @@ const FullScreen = styled.View`
 `;
 
 const StyledImage = styled.Image`
-  width: ${Dimensions.get('window').width / 2}px;
-  height: ${Dimensions.get('window').width / 2}px;
+  width: ${Dimensions.get("window").width / 2}px;
+  height: ${Dimensions.get("window").width / 2}px;
 `;
 
 export default CustomBootsplash;

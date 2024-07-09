@@ -1,8 +1,8 @@
-import React from 'react';
-import Svg, { Polygon } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Polygon } from "react-native-svg";
+import styled from "styled-components/native";
 
-const ArrowUp = ({ color = '#39cec0', size, ...style }) => (
+const ArrowUp = ({ color = "#39cec0", size, ...style }) => (
   <StyledSvg height={size} width={size} viewBox="0 0 270 185" {...style}>
     <Polygon
       id="ArrowDown"

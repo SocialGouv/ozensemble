@@ -1,45 +1,53 @@
-import React, { useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-import { Platform, View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Dimensions } from 'react-native';
-import { useRecoilState } from 'recoil';
-import styled from 'styled-components';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import GoBackButtonText from '../../components/GoBackButtonText';
-import Modal from '../../components/Modal';
+import {
+  Platform,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  KeyboardAvoidingView,
+  Dimensions,
+} from "react-native";
+import { useRecoilState } from "recoil";
+import styled from "styled-components/native";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import GoBackButtonText from "../../components/GoBackButtonText";
+import Modal from "../../components/Modal";
 import {
   emotionIcon,
   contextKeysByCategory,
   contextsCatalog,
   contextsCatalogObject,
   getDisplayName,
-} from './contextsCatalog';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { useToast } from '../../services/toast';
-import { buttonHeight } from '../../styles/theme';
-import dayjs from 'dayjs';
-import API from '../../services/api';
-import { storage } from '../../services/storage';
-import PeopleIcon from '../../components/illustrations/icons/PeopleIcon';
-import Clock from '../../components/illustrations/icons/Clock';
-import CrossOutAddContext from '../../components/illustrations/icons/CroosOutAddContext';
-import Location from '../../components/illustrations/icons/Location';
-import Research from '../../components/illustrations/icons/Research';
-import { drinksContextsState } from '../../recoil/contexts';
+} from "./contextsCatalog";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { useToast } from "../../services/toast";
+import { buttonHeight } from "../../styles/theme";
+import dayjs from "dayjs";
+import API from "../../services/api";
+import { storage } from "../../services/storage";
+import PeopleIcon from "../../components/illustrations/icons/PeopleIcon";
+import Clock from "../../components/illustrations/icons/Clock";
+import CrossOutAddContext from "../../components/illustrations/icons/CroosOutAddContext";
+import Location from "../../components/illustrations/icons/Location";
+import Research from "../../components/illustrations/icons/Research";
+import { drinksContextsState } from "../../recoil/contexts";
 
 const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
-  const date = route?.params?.date ?? dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD');
+  const date = route?.params?.date ?? dayjs(addDrinkModalTimestamp).format("YYYY-MM-DD");
   if (!date) {
-    throw new Error('date is required');
+    throw new Error("date is required");
   }
   const isOpenedFromFeed = route?.params?.isOpenedFromFeed;
   const [drinksContexts, setDrinksContexts] = useRecoilState(drinksContextsState);
 
   const drinksContext = drinksContexts[date] ?? {}; // original data - immutable
 
-  const [note, setNote] = useState(drinksContext.note ?? ''); // mutating data
+  const [note, setNote] = useState(drinksContext.note ?? ""); // mutating data
   const [context, setContext] = useState(drinksContext.context ?? []); // mutating data
-  const [selectedEmotion, setSelectedEmotion] = useState(drinksContext.emotion ?? ''); // mutating data
+  const [selectedEmotion, setSelectedEmotion] = useState(drinksContext.emotion ?? ""); // mutating data
 
   const toast = useToast();
   const scrollRef = useRef(null);
@@ -52,10 +60,10 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       selectedEmotion !== drinksContext.emotion ||
       JSON.stringify(orderedContext) !== JSON.stringify(drinksContext.context);
     if (!contextChanged) {
-      if (route?.params?.parent === 'Defi1_Day1') {
-        navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+      if (route?.params?.parent === "Defi1_Day1") {
+        navigation.navigate("DEFI1", { screen: "DEFI1_MENU" });
       } else {
-        navigation.navigate('TABS');
+        navigation.navigate("TABS");
       }
       return;
     }
@@ -70,9 +78,9 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     newDrinksContexts[date] = newContextToSave;
     setDrinksContexts(newDrinksContexts);
     API.post({
-      path: '/drinks-context',
+      path: "/drinks-context",
       body: {
-        matomoId: storage.getString('@UserIdv2'),
+        matomoId: storage.getString("@UserIdv2"),
         date,
         id: newContextToSave.id,
         context: newContextToSave.orderedContext,
@@ -80,25 +88,25 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
         // we don't send note to the server for confidentiality reasons
       },
     });
-    if (route?.params?.parent === 'Defi1_Day1') {
-      navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' });
+    if (route?.params?.parent === "Defi1_Day1") {
+      navigation.navigate("DEFI1", { screen: "DEFI1_MENU" });
     } else {
-      navigation.navigate('TABS');
+      navigation.navigate("TABS");
     }
 
     logEvent({
-      category: 'CONTEXT',
-      action: 'VALIDATE_CONTEXT',
-      name: 'validate note',
+      category: "CONTEXT",
+      action: "VALIDATE_CONTEXT",
+      name: "validate note",
       value: newDrinksContexts[date].note ? 1 : 0,
     });
     let logIndex = 0;
     Object.keys(emotionIcon).forEach((emotion) => {
       newDrinksContexts[date].emotion === emotion
         ? logEvent({
-            category: 'CONTEXT',
-            action: 'VALIDATE_CONTEXT',
-            name: 'validate emotion',
+            category: "CONTEXT",
+            action: "VALIDATE_CONTEXT",
+            name: "validate emotion",
             value: logIndex,
           })
         : logIndex++;
@@ -108,21 +116,21 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
     contextsCatalog.forEach((_context) => {
       if (context.includes(_context.contextKey)) {
         logEvent({
-          category: 'CONTEXT',
-          action: 'VALIDATE_CONTEXT',
-          name: 'validate context',
+          category: "CONTEXT",
+          action: "VALIDATE_CONTEXT",
+          name: "validate context",
           value: logIndex,
         });
       }
       logIndex++;
     });
-    toast.show('Contexte de consommation enregistré');
+    toast.show("Contexte de consommation enregistré");
   };
 
   return (
     <>
       <View className="flex-1 pt-5">
-        <KeyboardAvoidingView enabled behavior={Platform.select({ ios: 'padding', android: null })}>
+        <KeyboardAvoidingView enabled behavior={Platform.select({ ios: "padding", android: null })}>
           <ModalContent
             keyboardShouldPersistTaps="never"
             keyboardDismissMode="none"
@@ -145,13 +153,13 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                   return (
                     <TouchableOpacity
                       className={[
-                        'bg-white border border-[#E4E4E4] flex-1 rounded-lg px-1 py-1 mr-3 ',
-                        selectedEmotion === emotion ? 'bg-[#4030A5]' : 'bg-white',
-                      ].join(' ')}
+                        "bg-white border border-[#E4E4E4] flex-1 rounded-lg px-1 py-1 mr-3 ",
+                        selectedEmotion === emotion ? "bg-[#4030A5]" : "bg-white",
+                      ].join(" ")}
                       key={emotion}
                       onPress={() => {
                         if (emotion === selectedEmotion) {
-                          setSelectedEmotion('');
+                          setSelectedEmotion("");
                         } else {
                           setSelectedEmotion(emotion);
                         }
@@ -163,7 +171,9 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
             </View>
             <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
-              <Text className="text-[#4030A5] self-center text-base font-extrabold mt-3">Note du jour</Text>
+              <Text className="text-[#4030A5] self-center text-base font-extrabold mt-3">
+                Note du jour
+              </Text>
 
               <TextInput
                 textAlignVertical="top"
@@ -178,7 +188,9 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
 
             <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
               <View className="items-center w-full mb-6">
-                <Text className="text-[#4030A5] mt-3 text-base font-extrabold">Contexte de vos consommations</Text>
+                <Text className="text-[#4030A5] mt-3 text-base font-extrabold">
+                  Contexte de vos consommations
+                </Text>
                 <Text className="color-[#ADADAE] mt-1 ">plusieurs choix autorisés</Text>
               </View>
               <View className="py-2 flex flex-col items-start">
@@ -190,9 +202,16 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.people.map((name) => {
-                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                    return (
+                      <ContextButton
+                        key={name}
+                        name={name}
+                        context={context}
+                        setContext={setContext}
+                      />
+                    );
                   })}
-                  <OtherButton category={'people'} />
+                  <OtherButton category={"people"} />
                 </View>
                 <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                   <View className="mr-1">
@@ -202,9 +221,16 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.places.map((name) => {
-                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                    return (
+                      <ContextButton
+                        key={name}
+                        name={name}
+                        context={context}
+                        setContext={setContext}
+                      />
+                    );
                   })}
-                  <OtherButton category={'places'} />
+                  <OtherButton category={"places"} />
                 </View>
                 <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                   <View className="mr-1">
@@ -214,21 +240,37 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.events.map((name) => {
-                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                    return (
+                      <ContextButton
+                        key={name}
+                        name={name}
+                        context={context}
+                        setContext={setContext}
+                      />
+                    );
                   })}
-                  <OtherButton category={'events'} />
+                  <OtherButton category={"events"} />
                 </View>
                 <View className="flex flex-row bg-[#DE285E] ml-2 rounded-lg items-center py-1 px-2 mt-8 mb-1">
                   <View className="mr-1">
                     <Research />
                   </View>
-                  <Text className="text-white font-bold">Quel(s) besoin(s) a comblé l'alcool ?</Text>
+                  <Text className="text-white font-bold">
+                    Quel(s) besoin(s) a comblé l'alcool ?
+                  </Text>
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.needs.map((name) => {
-                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
+                    return (
+                      <ContextButton
+                        key={name}
+                        name={name}
+                        context={context}
+                        setContext={setContext}
+                      />
+                    );
                   })}
-                  <OtherButton category={'needs'} />
+                  <OtherButton category={"needs"} />
                 </View>
               </View>
             </View>
@@ -251,9 +293,11 @@ const ContextButton = ({ name, context, setContext }) => {
   return (
     <TouchableOpacity
       className={[
-        'bg-[#FFFFFF]  rounded-lg py-2 px-2 mr-2 mb-2',
-        context.includes(name) ? 'bg-[#4030A5] border border-[#4030A5]' : 'border border-[#E4E4E4] bg-white',
-      ].join(' ')}
+        "bg-[#FFFFFF]  rounded-lg py-2 px-2 mr-2 mb-2",
+        context.includes(name)
+          ? "bg-[#4030A5] border border-[#4030A5]"
+          : "border border-[#E4E4E4] bg-white",
+      ].join(" ")}
       onPress={() => {
         setContext((prevContext) => {
           const newContext = [...prevContext];
@@ -266,7 +310,7 @@ const ContextButton = ({ name, context, setContext }) => {
           return newContext;
         });
       }}>
-      <Text className={['', context.includes(name) ? 'color-white' : 'color-black'].join(' ')}>
+      <Text className={["", context.includes(name) ? "color-white" : "color-black"].join(" ")}>
         {getDisplayName(name, contextsCatalogObject)}
       </Text>
     </TouchableOpacity>
@@ -275,35 +319,35 @@ const ContextButton = ({ name, context, setContext }) => {
 
 const OtherButton = ({ category }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [contextSuggestion, setContextSuggestion] = useState('');
+  const [contextSuggestion, setContextSuggestion] = useState("");
   const toast = useToast();
 
   const onValidateContextSuggestion = async () => {
     logEvent({
-      category: 'CONTEXT_SUGGESTION',
-      action: 'VALIDATE_CONTEXT_SUGGESTION',
-      name: 'contextSuggestion',
+      category: "CONTEXT_SUGGESTION",
+      action: "VALIDATE_CONTEXT_SUGGESTION",
+      name: "contextSuggestion",
       value: contextSuggestion,
     });
     await API.post({
-      path: '/drinks-context/request',
+      path: "/drinks-context/request",
       body: {
-        matomoId: storage.getString('@UserIdv2'),
+        matomoId: storage.getString("@UserIdv2"),
         context: contextSuggestion,
         category: category,
       },
     });
 
     setModalVisible(false);
-    toast.show('Merci, contexte envoyé');
-    setContextSuggestion('');
+    toast.show("Merci, contexte envoyé");
+    setContextSuggestion("");
   };
 
   return (
     <>
       <TouchableOpacity
-        style={{ borderStyle: 'dashed', borderWidth: 1, borderColor: '#E4E4E4' }}
-        className={'bg-[#FFFFFF] border-[#E4E4E4] flex-row  rounded-lg py-2 px-2 mr-2 mb-2'}
+        style={{ borderStyle: "dashed", borderWidth: 1, borderColor: "#E4E4E4" }}
+        className={"bg-[#FFFFFF] border-[#E4E4E4] flex-row  rounded-lg py-2 px-2 mr-2 mb-2"}
         onPress={() => setModalVisible(true)}>
         <View className="bg-gray-200 rounded-2xl items-center mr-1">
           <Text className="color-white"> + </Text>
@@ -318,8 +362,8 @@ const OtherButton = ({ category }) => {
         withBackground
         hideOnTouch
         style={{
-          justifyContent: 'start',
-          marginTop: Dimensions.get('window').height * 0.1,
+          justifyContent: "start",
+          marginTop: Dimensions.get("window").height * 0.1,
         }}>
         <View className="bg-white rounded-xl">
           <View className=" flex w-full mb-2 px-2">
@@ -329,8 +373,8 @@ const OtherButton = ({ category }) => {
                 onPress={() => {
                   setModalVisible(false);
                   logEvent({
-                    category: 'CONTEXT_SUGGESTION',
-                    action: 'OTHER_BUTTON_CLICKED',
+                    category: "CONTEXT_SUGGESTION",
+                    action: "OTHER_BUTTON_CLICKED",
                   });
                 }}>
                 <CrossOutAddContext />
@@ -353,13 +397,13 @@ const OtherButton = ({ category }) => {
             <View className="p-2 mt-2">
               <TouchableOpacity
                 className={[
-                  'justify-center  items-center rounded-3xl h-10 w-24',
-                  contextSuggestion === '' ? 'bg-[#DF94AA]' : 'bg-[#de285e]',
-                ].join(' ')}
+                  "justify-center  items-center rounded-3xl h-10 w-24",
+                  contextSuggestion === "" ? "bg-[#DF94AA]" : "bg-[#de285e]",
+                ].join(" ")}
                 onPress={() => {
                   onValidateContextSuggestion();
                 }}
-                disabled={contextSuggestion === ''}>
+                disabled={contextSuggestion === ""}>
                 <Text className="color-white font-extrabold">Envoyer</Text>
               </TouchableOpacity>
             </View>
@@ -394,7 +438,7 @@ const ButtonsContainerSafe = styled.SafeAreaView`
 
 const ButtonsContainer = styled.View`
   flex-direction: row;
-  justify-content: ${(props) => (props.flexStart ? 'flex-start' : 'space-around')};
+  justify-content: ${(props) => (props.flexStart ? "flex-start" : "space-around")};
   margin: 0;
   width: 100%;
   padding: ${buttonsPadding}px;

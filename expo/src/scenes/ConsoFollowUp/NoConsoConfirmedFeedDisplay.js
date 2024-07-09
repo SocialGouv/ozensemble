@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import H3 from '../../components/H3';
-import Applause from '../../components/illustrations/Applause';
-import { FeedButtonStyled } from '../../components/FeedButtonStyled';
+import React from "react";
+import styled from "styled-components/native";
+import H3 from "../../components/H3";
+import Applause from "../../components/illustrations/Applause";
+import { FeedButtonStyled } from "../../components/FeedButtonStyled";
 
 const NoConsoConfirmedFeedDisplay = ({ selected }) => {
   return (

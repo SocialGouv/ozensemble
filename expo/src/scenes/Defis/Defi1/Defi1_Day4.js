@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react';
-import { useIsFocused } from '@react-navigation/native';
-import styled from 'styled-components';
-import { selector, useRecoilValue } from 'recoil';
-import { View } from 'react-native';
-import { lifeQualityQuizzAnswersState, lifeQualityQuizzResultState } from '../../../recoil/quizzs';
-import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
-import HeaderQuizzsResult from '../HeaderQuizzsResult';
-import { setValidatedDays } from '../utils';
-import Sources from '../../Quizzs/Sources';
-import { defaultPaddingFontScale, screenWidth } from '../../../styles/theme';
-import TextStyled from '../../../components/TextStyled';
-import WrapperContainer from '../../../components/WrapperContainer';
-import H3 from '../../../components/H3';
-import { P, Spacer } from '../../../components/Articles';
-import questionsLifeQuality from '../../Quizzs/QuizzLifeQuality/questions';
-import ButtonPrimary from '../../../components/ButtonPrimary';
+import React, { useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import styled from "styled-components/native";
+import { selector, useRecoilValue } from "recoil";
+import { View } from "react-native";
+import { lifeQualityQuizzAnswersState, lifeQualityQuizzResultState } from "../../../recoil/quizzs";
+import QuizzLifeQuality from "../../Quizzs/QuizzLifeQuality";
+import HeaderQuizzsResult from "../HeaderQuizzsResult";
+import { setValidatedDays } from "../utils";
+import Sources from "../../Quizzs/Sources";
+import { defaultPaddingFontScale, screenWidth } from "../../../styles/theme";
+import TextStyled from "../../../components/TextStyled";
+import WrapperContainer from "../../../components/WrapperContainer";
+import H3 from "../../../components/H3";
+import { P, Spacer } from "../../../components/Articles";
+import questionsLifeQuality from "../../Quizzs/QuizzLifeQuality/questions";
+import ButtonPrimary from "../../../components/ButtonPrimary";
 
 const Defi1_Day4 = ({ navigation, route }) => {
   return (
@@ -32,7 +32,7 @@ const Defi1_Day4 = ({ navigation, route }) => {
 export default Defi1_Day4;
 
 const resultsToDisplaySelector = selector({
-  key: 'resultsToDisplaySelector',
+  key: "resultsToDisplaySelector",
   get: ({ get }) => {
     const resultKey = get(lifeQualityQuizzResultState);
     if (!resultKey?.length) return null;
@@ -43,7 +43,10 @@ const resultsToDisplaySelector = selector({
         const response = question?.answers.find((a) => a.score === result.score);
 
         //hide if good score for these questions
-        if (['Handicap physique', 'Frein psychique'].includes(question.resultLabel) && response.score > 0) {
+        if (
+          ["Handicap physique", "Frein psychique"].includes(question.resultLabel) &&
+          response.score > 0
+        ) {
           return null;
         }
 
@@ -66,8 +69,8 @@ const Wrapper = ({ children, wrapped, inMyTests }) => {
               {children}
               <Sources>
                 <TextStyled>
-                  “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users of the SF-8 Health
-                  Survey” Ware, Kosinski, Dewey & Gandek, 2001
+                  “How to Score and Interpret Single-Item Health Status Measures: A Manual for Users
+                  of the SF-8 Health Survey” Ware, Kosinski, Dewey & Gandek, 2001
                 </TextStyled>
               </Sources>
             </>
@@ -84,13 +87,13 @@ export const ResultsLifeQuality = ({ wrapped = true, route, navigation }) => {
   const resultsToDisplay = useRecoilValue(resultsToDisplaySelector);
 
   useEffect(() => {
-    if (resultKey && route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    if (resultKey && route?.params?.inDefi1) setValidatedDays(route?.params?.day, "@Defi1");
   }, [route?.params, isFocused, resultKey]);
 
   if (!resultKey || !resultsToDisplay) return null;
 
-  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
-  const inDay7Defis = route?.name === 'DEFI1_DAY_7';
+  const inMyTests = route?.params?.rootRoute === "QUIZZ_MENU";
+  const inDay7Defis = route?.name === "DEFI1_DAY_7";
 
   return (
     <Wrapper wrapped={wrapped} inMyTests={inMyTests}>
@@ -108,7 +111,7 @@ export const ResultsLifeQuality = ({ wrapped = true, route, navigation }) => {
             <ButtonPrimary
               content="Retour à l'activité"
               shadowColor="#201569"
-              onPress={() => navigation.navigate('DEFI1', { screen: 'DEFI1_MENU' })}
+              onPress={() => navigation.navigate("DEFI1", { screen: "DEFI1_MENU" })}
               style={{ marginVertical: 30, flexGrow: 0 }}
             />
           </View>
@@ -125,9 +128,9 @@ const ResultContainer = styled.View`
 
 const EmojiBlock = ({ response, question }) => {
   const scoreToColor = (score) => {
-    if (score < 0) return '#c0184a';
-    if (score > 0) return '#39cec0';
-    if (score === 0) return '#FF9933';
+    if (score < 0) return "#c0184a";
+    if (score > 0) return "#39cec0";
+    if (score === 0) return "#FF9933";
   };
   return (
     <ItemContainer>
@@ -149,7 +152,7 @@ const ItemStyled = styled.View`
   flex-grow: 0;
   justify-content: center;
   align-items: center;
-  background-color: ${({ color }) => color || '#fff'};
+  background-color: ${({ color }) => color || "#fff"};
   border-radius: 30px;
 `;
 

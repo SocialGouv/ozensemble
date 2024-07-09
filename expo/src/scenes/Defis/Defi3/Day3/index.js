@@ -1,37 +1,39 @@
-import React from 'react';
-import styled from 'styled-components';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
-import TextStyled from '../../../../components/TextStyled';
-import ResultsQuestionnaireDefi3Day3 from './ResultsQuestionnaireDefi3Day3';
-import Section from './Section';
-import sections from './sections';
+import React from "react";
+import styled from "styled-components/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import ButtonPrimary from "../../../../components/ButtonPrimary";
+import TextStyled from "../../../../components/TextStyled";
+import ResultsQuestionnaireDefi3Day3 from "./ResultsQuestionnaireDefi3Day3";
+import Section from "./Section";
+import sections from "./sections";
 import {
   defi3_Day3_Answers_Difficulties_State,
   defi3_Day3_Answers_Help_State,
   defi3_Day3_ResultState,
-} from '../../../../recoil/quizzs';
-import { setValidatedDays } from '../../utils';
-import WrapperContainer from '../../../../components/WrapperContainer';
-import Element from '../../../../components/ElementDayDefi';
-import AddCircle from '../../../../components/illustrations/icons/AddCircle';
-import MinusCircle from '../../../../components/illustrations/icons/MinusCircle';
-import { screenWidth } from '../../../../styles/theme';
+} from "../../../../recoil/quizzs";
+import { setValidatedDays } from "../../utils";
+import WrapperContainer from "../../../../components/WrapperContainer";
+import Element from "../../../../components/ElementDayDefi";
+import AddCircle from "../../../../components/illustrations/icons/AddCircle";
+import MinusCircle from "../../../../components/illustrations/icons/MinusCircle";
+import { screenWidth } from "../../../../styles/theme";
 
 const QuestionnaireDefi3Day3Stack = createStackNavigator();
 
 const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
-  const [defi3_Day3_answers_Difficulties, setDefi3_Day3_Answers_Difficulties_State] = useRecoilState(
-    defi3_Day3_Answers_Difficulties_State
+  const [defi3_Day3_answers_Difficulties, setDefi3_Day3_Answers_Difficulties_State] =
+    useRecoilState(defi3_Day3_Answers_Difficulties_State);
+  const [defi3_Day3_answers_Help, setDefi3_Day3_Answers_Help_State] = useRecoilState(
+    defi3_Day3_Answers_Help_State
   );
-  const [defi3_Day3_answers_Help, setDefi3_Day3_Answers_Help_State] = useRecoilState(defi3_Day3_Answers_Help_State);
   const setDefi3_Day3_ResultState = useSetRecoilState(defi3_Day3_ResultState);
 
   const toggleAnswerDifficulties = async (answerKey, checked) => {
     setDefi3_Day3_Answers_Difficulties_State((prevAnswers) => {
       if (checked && !prevAnswers.includes(answerKey)) return [...prevAnswers, answerKey];
-      if (!checked && prevAnswers.includes(answerKey)) return prevAnswers.filter((key) => key !== answerKey);
+      if (!checked && prevAnswers.includes(answerKey))
+        return prevAnswers.filter((key) => key !== answerKey);
       return prevAnswers;
     });
   };
@@ -39,33 +41,36 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
   const toggleAnswerHelp = async (answerKey, checked) => {
     setDefi3_Day3_Answers_Help_State((prevAnswers) => {
       if (checked && !prevAnswers.includes(answerKey)) return [...prevAnswers, answerKey];
-      if (!checked && prevAnswers.includes(answerKey)) return prevAnswers.filter((key) => key !== answerKey);
+      if (!checked && prevAnswers.includes(answerKey))
+        return prevAnswers.filter((key) => key !== answerKey);
       return prevAnswers;
     });
   };
 
   const validateAnswers = async () => {
     setDefi3_Day3_ResultState(true);
-    setValidatedDays(route?.params?.day, '@Defi3');
-    navigation.push('QUIZZ_RESULTS');
+    setValidatedDays(route?.params?.day, "@Defi3");
+    navigation.push("QUIZZ_RESULTS");
   };
 
   return (
     <QuestionnaireDefi3Day3Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: '#f9f9f9' },
+        cardStyle: { backgroundColor: "#f9f9f9" },
       }}
       initialRouteName={route?.params?.initialRouteName}>
       <QuestionnaireDefi3Day3Stack.Screen name="EXPLICATIONS">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Les facteurs influençant ma motivation">
+          <WrapperContainer
+            onPressBackButton={navigation.goBack}
+            title="Les facteurs influençant ma motivation">
             <Element
               content={
                 <>
                   <TextStyled>
-                    Pour poursuivre au mieux votre réduction, il faut vous interroger sur vos{' '}
-                    <TextStyled bold>difficultés</TextStyled> et vos{' '}
+                    Pour poursuivre au mieux votre réduction, il faut vous interroger sur vos{" "}
+                    <TextStyled bold>difficultés</TextStyled> et vos{" "}
                     <TextStyled bold>sources d'aide et de motivation au quotidien</TextStyled>.
                   </TextStyled>
                 </>
@@ -74,12 +79,12 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
             <Element
               contentView={
                 <>
-                  <TextStyled>Procédons en deux étapes en identifiant : {'\n\n'}</TextStyled>
+                  <TextStyled>Procédons en deux étapes en identifiant : {"\n\n"}</TextStyled>
                   <CircleContainer>
                     <MinusCircleStyled />
                     <TextStyledWidth>
-                      Les éléments ayant rendu votre réduction difficile à maintenir dans le temps malgré votre objectif
-                      (appelés{' '}
+                      Les éléments ayant rendu votre réduction difficile à maintenir dans le temps
+                      malgré votre objectif (appelés{" "}
                       <TextStyled bold italic>
                         facteurs de risque
                       </TextStyled>
@@ -89,7 +94,8 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
                   <CircleContainer>
                     <AddCircleStyled />
                     <TextStyledWidth>
-                      Les sources d'aide et d'inspiration que vous avez trouvées dans votre quotidien (appelés{' '}
+                      Les sources d'aide et d'inspiration que vous avez trouvées dans votre
+                      quotidien (appelés{" "}
                       <TextStyled bold italic>
                         facteurs protecteurs
                       </TextStyled>
@@ -100,7 +106,7 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
               }
             />
             <ImageView>
-              <ImageStyled source={require('../../../../assets/illustrations/Defi3_day3.png')} />
+              <ImageStyled source={require("../../../../assets/illustrations/Defi3_day3.png")} />
             </ImageView>
 
             <Legend>Ma motivation</Legend>
@@ -108,26 +114,31 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
               content={
                 <>
                   <TextStyled>
-                    A la fin ce cet exercice, vous comprendrez mieux les raisons qui peuvent vous pousser à consommer de
-                    l'alcool et qui sont liées à votre environnement.
+                    A la fin ce cet exercice, vous comprendrez mieux les raisons qui peuvent vous
+                    pousser à consommer de l'alcool et qui sont liées à votre environnement.
                   </TextStyled>
                 </>
               }
             />
             <ButtonsContainer>
-              <ButtonPrimary onPress={() => navigation.push('QUIZZ_QUESTIONS_1')} content="J'ai compris" />
+              <ButtonPrimary
+                onPress={() => navigation.push("QUIZZ_QUESTIONS_1")}
+                content="J'ai compris"
+              />
             </ButtonsContainer>
           </WrapperContainer>
         )}
       </QuestionnaireDefi3Day3Stack.Screen>
       <QuestionnaireDefi3Day3Stack.Screen name="QUIZZ_QUESTIONS_1">
         {({ navigation }) => (
-          <WrapperContainer onPressBackButton={navigation.goBack} title="Les facteurs influençant ma consommation">
+          <WrapperContainer
+            onPressBackButton={navigation.goBack}
+            title="Les facteurs influençant ma consommation">
             <Paragraph>
               <TextStyled>
-                Parmi ces exemples, quels facteurs ont pu rendre{' '}
-                <TextStyled bold>plus difficile votre réduction de consommation</TextStyled> d'alcool ? Je sélectionne
-                les facteurs de risque les plus pertinents.{' '}
+                Parmi ces exemples, quels facteurs ont pu rendre{" "}
+                <TextStyled bold>plus difficile votre réduction de consommation</TextStyled>{" "}
+                d'alcool ? Je sélectionne les facteurs de risque les plus pertinents.{" "}
               </TextStyled>
             </Paragraph>
             {sections.difficulties.map((section, id) => (
@@ -139,7 +150,10 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
               />
             ))}
             <ButtonsContainer>
-              <ButtonPrimary onPress={() => navigation.push('QUIZZ_QUESTIONS_2')} content="Suivant" />
+              <ButtonPrimary
+                onPress={() => navigation.push("QUIZZ_QUESTIONS_2")}
+                content="Suivant"
+              />
             </ButtonsContainer>
           </WrapperContainer>
         )}
@@ -150,10 +164,17 @@ const QuestionnaireDefi3Day3 = ({ navigation, route }) => {
             onPressBackButton={navigation.goBack}
             title="Quelles raisons vous motivent à changer votre consommation ?">
             <Paragraph>
-              <TextStyled>Sélectionnez vos principales raisons pour changer votre consommation d'alcool</TextStyled>
+              <TextStyled>
+                Sélectionnez vos principales raisons pour changer votre consommation d'alcool
+              </TextStyled>
             </Paragraph>
             {sections.help.map((section, id) => (
-              <Section key={id} section={section} onToggle={toggleAnswerHelp} answers={defi3_Day3_answers_Help} />
+              <Section
+                key={id}
+                section={section}
+                onToggle={toggleAnswerHelp}
+                answers={defi3_Day3_answers_Help}
+              />
             ))}
             <ButtonsContainer>
               <ButtonPrimary onPress={validateAnswers} content="Suivant" />

@@ -1,14 +1,14 @@
-import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { TouchableWithoutFeedback } from 'react-native';
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
-import styled, { css } from 'styled-components';
-import { screenHeight, screenWidth } from '../../styles/theme';
+import { getFocusedRouteNameFromRoute, useIsFocused, useRoute } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import { TouchableWithoutFeedback } from "react-native";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
+import styled, { css } from "styled-components/native";
+import { screenHeight, screenWidth } from "../../styles/theme";
 
 const iconSize = 30;
 
 export const showCTAButtonState = atom({
-  key: 'showCTAButtonState',
+  key: "showCTAButtonState",
   default: true,
 });
 

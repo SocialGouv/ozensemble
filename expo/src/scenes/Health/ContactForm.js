@@ -1,12 +1,12 @@
-import React from 'react';
-import { Linking } from 'react-native';
-import styled, { css } from 'styled-components';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import TextStyled from '../../components/TextStyled';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { defaultPaddingFontScale, screenWidth } from '../../styles/theme';
-import H2 from '../../components/H2';
-import WrapperContainer from '../../components/WrapperContainer';
+import React from "react";
+import { Linking } from "react-native";
+import styled, { css } from "styled-components/native";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import TextStyled from "../../components/TextStyled";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { defaultPaddingFontScale, screenWidth } from "../../styles/theme";
+import H2 from "../../components/H2";
+import WrapperContainer from "../../components/WrapperContainer";
 
 const ContactForm = ({ navigation }) => {
   return (
@@ -16,7 +16,9 @@ const ContactForm = ({ navigation }) => {
         <>
           <TextStyled color="#4030a5">Échangez</TextStyled>
           <TextStyled color="#de285e"> gratuitement </TextStyled>
-          <TextStyled color="#4030a5">par téléphone avec un professionnel de l'addiction</TextStyled>
+          <TextStyled color="#4030a5">
+            par téléphone avec un professionnel de l'addiction
+          </TextStyled>
         </>
       }>
       <TopSubTitle>
@@ -33,26 +35,26 @@ const ContactForm = ({ navigation }) => {
           content="Prendre RDV téléphonique"
           onPress={() => {
             logEvent({
-              category: 'CONTACT',
-              action: 'CONTACT_RDV',
+              category: "CONTACT",
+              action: "CONTACT_RDV",
             });
-            navigation.navigate('DOCTOLIB');
+            navigation.navigate("DOCTOLIB");
           }}
         />
       </TopButtonContainer>
       <Extra>
         <TextStyled color="#191919">
-          Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire le point ou répondront
-          à vos questions. Nos locaux sont situés à Montreuil -{' '}
+          Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire le
+          point ou répondront à vos questions. Nos locaux sont situés à Montreuil -{" "}
         </TextStyled>
         <TextStyled
           color="#4030a5"
           onPress={() => {
             logEvent({
-              category: 'CONTACT',
-              action: 'CONTACT_WEBSITE_OPEN',
+              category: "CONTACT",
+              action: "CONTACT_WEBSITE_OPEN",
             });
-            Linking.openURL('https://www.capasscite.fr/');
+            Linking.openURL("https://www.capasscite.fr/");
           }}>
           Qui sommes nous ?
         </TextStyled>

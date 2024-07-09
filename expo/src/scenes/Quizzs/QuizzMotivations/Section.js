@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
-import styled from 'styled-components';
-import { P } from '../../../components/Articles';
-import CheckboxLabelled from '../../../components/CheckboxLabelled';
+import React, { useMemo } from "react";
+import styled from "styled-components/native";
+import { P } from "../../../components/Articles";
+import CheckboxLabelled from "../../../components/CheckboxLabelled";
 
 const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers = [], ...props }) => {
   const disabled = useMemo(
@@ -11,7 +11,7 @@ const Section = ({ section, onToggle, maxNumberOfCheckedBoxes = null, answers = 
 
   return (
     <SectionStyled>
-      <SectionTitle noMarginBottom>{'Situations ' + section.sectionTitle} </SectionTitle>
+      <SectionTitle noMarginBottom>{"Situations " + section.sectionTitle} </SectionTitle>
       {section.answers.map((item) => {
         const checked = !!answers?.includes?.(item.answerKey);
         return (

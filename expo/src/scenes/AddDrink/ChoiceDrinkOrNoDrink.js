@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSetRecoilState } from 'recoil';
-import { v4 as uuidv4 } from 'uuid';
-import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
-import NoDrink from '../../components/illustrations/drinksAndFood/NoDrink';
-import { screenHeight } from '../../styles/theme';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import { drinksState } from '../../recoil/consos';
-import { NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { P } from '../../components/Articles';
-import DateAndTimePickers from './DateAndTimePickers';
-import WrapperContainer from '../../components/WrapperContainer';
-import { storage } from '../../services/storage';
-import API from '../../services/api';
-import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
+import React, { useState } from "react";
+import styled from "styled-components/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useSetRecoilState } from "recoil";
+import { v4 as uuidv4 } from "uuid";
+import CocktailGlassTriangle from "../../components/illustrations/drinksAndFood/CocktailGlassTriangle";
+import NoDrink from "../../components/illustrations/drinksAndFood/NoDrink";
+import { screenHeight } from "../../styles/theme";
+import { makeSureTimestamp } from "../../helpers/dateHelpers";
+import { drinksState } from "../../recoil/consos";
+import { NO_CONSO } from "../ConsoFollowUp/drinksCatalog";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { P } from "../../components/Articles";
+import DateAndTimePickers from "./DateAndTimePickers";
+import WrapperContainer from "../../components/WrapperContainer";
+import { storage } from "../../services/storage";
+import API from "../../services/api";
+import { sortConsosByTimestamp } from "../../helpers/consosHelpers";
 
 const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
@@ -24,12 +24,12 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
   return (
     <SafeWrapper>
       <WrapperContainer
-        title={'Mes consommations'}
+        title={"Mes consommations"}
         onPressBackButton={() => {
           navigation.goBack();
           logEvent({
-            category: 'CONSO',
-            action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+            category: "CONSO",
+            action: "CONSO_CLOSE_CONSO_ADDSCREEN",
           });
         }}>
         <DateAndTimePickers
@@ -47,14 +47,14 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
               id: uuidv4(),
             };
             logEvent({
-              category: 'CONSO',
-              action: 'NO_CONSO',
+              category: "CONSO",
+              action: "NO_CONSO",
               dimension6: noConso.timestamp,
             });
             setGlobalDrinksState((state) => sortConsosByTimestamp([...state, noConso]));
-            const matomoId = storage.getString('@UserIdv2');
+            const matomoId = storage.getString("@UserIdv2");
             API.post({
-              path: '/consommation',
+              path: "/consommation",
               body: {
                 matomoId: matomoId,
                 id: noConso.id,
@@ -86,10 +86,10 @@ const ChoiceDrinkOrNoDrink = ({ navigation, route }) => {
           value={"J'ai bu"}
           onPress={() => {
             logEvent({
-              category: 'CONSO',
-              action: 'CONSO_DRINK',
+              category: "CONSO",
+              action: "CONSO_DRINK",
             });
-            navigation.replace('CONSOS_LIST', { timestamp: addDrinkModalTimestamp });
+            navigation.replace("CONSOS_LIST", { timestamp: addDrinkModalTimestamp });
           }}
         />
       </WrapperContainer>

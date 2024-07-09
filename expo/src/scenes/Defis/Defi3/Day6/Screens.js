@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import TextStyled from '../../../../components/TextStyled';
-import ButtonPrimary from '../../../../components/ButtonPrimary';
-import Element from '../../../../components/ElementDayDefi';
-import WrapperContainer from '../../../../components/WrapperContainer';
-import { screenWidth, defaultPaddingFontScale } from '../../../../styles/theme';
-import H2 from '../../../../components/H2';
-import { P, Spacer } from '../../../../components/Articles';
-import ArrowEmotion from '../../../../components/ArrowEmotion';
-import ConsumptionAdvice from './ConsumptionAdvice';
+import React from "react";
+import styled from "styled-components/native";
+import TextStyled from "../../../../components/TextStyled";
+import ButtonPrimary from "../../../../components/ButtonPrimary";
+import Element from "../../../../components/ElementDayDefi";
+import WrapperContainer from "../../../../components/WrapperContainer";
+import { screenWidth, defaultPaddingFontScale } from "../../../../styles/theme";
+import H2 from "../../../../components/H2";
+import { P, Spacer } from "../../../../components/Articles";
+import ArrowEmotion from "../../../../components/ArrowEmotion";
+import ConsumptionAdvice from "./ConsumptionAdvice";
 
 const ArrowContainer = styled.View`
   flex-direction: row;
@@ -70,10 +70,11 @@ export const Explications = ({ navigation, emotion, answersRiskSituations }) => 
         content={
           <>
             <TextStyled>
-              Nous allons nous pencher sur les raisons qui vous poussent à consommer. {'\n\n'}
-              <TextStyled bold>C’est humain de perdre en motivation</TextStyled>, et nous allons vous donner des{' '}
-              <TextStyled bold>conseils</TextStyled> pour continuer votre démarche de réduction. {'\n\n'}
-              Pour personnaliser cet exercice, nous reprenons{' '}
+              Nous allons nous pencher sur les raisons qui vous poussent à consommer. {"\n\n"}
+              <TextStyled bold>C’est humain de perdre en motivation</TextStyled>, et nous allons
+              vous donner des <TextStyled bold>conseils</TextStyled> pour continuer votre démarche
+              de réduction. {"\n\n"}
+              Pour personnaliser cet exercice, nous reprenons{" "}
               <TextStyled bold>votre situation de l'activité 2</TextStyled> :
             </TextStyled>
           </>
@@ -106,18 +107,20 @@ export const Explications = ({ navigation, emotion, answersRiskSituations }) => 
         content={
           <>
             <TextStyled>
-              Les chercheurs ont étudié les raisons de consommer et ont avancé l’hypothèse que{' '}
-              <TextStyled bold>nous buvons de l’alcool pour obtenir des effets spécifiques</TextStyled>, qui peuvent se
-              classer selon deux dimensions : {'\n\n'}
+              Les chercheurs ont étudié les raisons de consommer et ont avancé l’hypothèse que{" "}
+              <TextStyled bold>
+                nous buvons de l’alcool pour obtenir des effets spécifiques
+              </TextStyled>
+              , qui peuvent se classer selon deux dimensions : {"\n\n"}
             </TextStyled>
             <BulletPoint>
               <TextStyled>
-                {'\u2022'} <TextStyled bold>l’état émotionnel</TextStyled> (positif ou négatif)
+                {"\u2022"} <TextStyled bold>l’état émotionnel</TextStyled> (positif ou négatif)
               </TextStyled>
             </BulletPoint>
             <BulletPoint>
               <TextStyled>
-                {'\u2022'} <TextStyled bold>la situation</TextStyled> (intérieure ou extérieure)
+                {"\u2022"} <TextStyled bold>la situation</TextStyled> (intérieure ou extérieure)
               </TextStyled>
             </BulletPoint>
           </>
@@ -126,7 +129,7 @@ export const Explications = ({ navigation, emotion, answersRiskSituations }) => 
       <ButtonPrimaryStyled
         content="Je découvre les conseils"
         widthSmall
-        onPress={() => navigation.navigate('CONSEILS')}
+        onPress={() => navigation.navigate("CONSEILS")}
       />
     </PaddingContainer>
   </WrapperContainer>
@@ -172,8 +175,8 @@ export const Conseils = ({ navigation, emotion, situationText, answersRiskSituat
           <Spacer size={10} />
           <TextStyled>
             {emotion?.value === 2
-              ? 'C’est une émotion positive (traduisant de la joie)'
-              : 'C’est une émotion négative (traduisant de la peur)'}
+              ? "C’est une émotion positive (traduisant de la joie)"
+              : "C’est une émotion négative (traduisant de la peur)"}
           </TextStyled>
           <Spacer size={10} />
         </FirstTextContainer>
@@ -182,18 +185,22 @@ export const Conseils = ({ navigation, emotion, situationText, answersRiskSituat
 
     <PaddingContainer>
       <TextStyled bold color="#4030A5">
-        Ma raison de consommer{'\n'}
+        Ma raison de consommer{"\n"}
       </TextStyled>
       {emotion && answersRiskSituations && (
         <ConsumptionAdvice
-          emotionType={emotion?.value === 2 ? 'positiveEmotion' : 'negativeEmotion'}
+          emotionType={emotion?.value === 2 ? "positiveEmotion" : "negativeEmotion"}
           answerKey={answersRiskSituations[0]?.answerKey}
           navigation={navigation}
         />
       )}
 
       <Spacer size={40} />
-      <ButtonPrimaryStyled content="J’ai compris" widthSmall onPress={() => navigation.navigate('DEFI3_MENU')} />
+      <ButtonPrimaryStyled
+        content="J’ai compris"
+        widthSmall
+        onPress={() => navigation.navigate("DEFI3_MENU")}
+      />
     </PaddingContainer>
   </WrapperContainer>
 );

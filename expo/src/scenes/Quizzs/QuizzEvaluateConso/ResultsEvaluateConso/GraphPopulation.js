@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components/native";
 
 const GraphPopulation = ({ nbBars = 15, maxHeight = 120, minHeight = 10, activeBarIndex }) => {
   const getHeight = (index) => {
@@ -10,7 +10,9 @@ const GraphPopulation = ({ nbBars = 15, maxHeight = 120, minHeight = 10, activeB
   return (
     <Container>
       {[...Array(nbBars)].map((_, i) => {
-        return <Bar key={i} height={getHeight(i)} minHeight={minHeight} active={activeBarIndex === i} />;
+        return (
+          <Bar key={i} height={getHeight(i)} minHeight={minHeight} active={activeBarIndex === i} />
+        );
       })}
     </Container>
   );
@@ -27,7 +29,7 @@ const Container = styled.View`
 `;
 
 const Bar = styled.View`
-  background-color: ${({ active }) => (active ? '#de285e' : '#4030a5')};
+  background-color: ${({ active }) => (active ? "#de285e" : "#4030a5")};
   border-radius: 4px;
   height: ${({ height, minHeight }) => height || minHeight}px;
   flex: 1;

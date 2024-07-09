@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Animated } from 'react-native';
-import styled from 'styled-components';
-import AnimatedTextStyled from './AnimatedTextStyled';
+import React, { useEffect, useState } from "react";
+import { Animated } from "react-native";
+import styled from "styled-components/native";
+import AnimatedTextStyled from "./AnimatedTextStyled";
 
 const CalendarSwitch = ({ tab, setTab }) => {
   const [componentWidth, setComponentWidth] = useState(0);
@@ -10,7 +10,7 @@ const CalendarSwitch = ({ tab, setTab }) => {
   useEffect(() => {
     Animated.timing(animatedXValue, {
       delay: 1,
-      toValue: tab === 'calendar' ? 0 : 1,
+      toValue: tab === "calendar" ? 0 : 1,
       duration: 200,
       useNativeDriver: false,
     }).start();
@@ -38,13 +38,13 @@ const CalendarSwitch = ({ tab, setTab }) => {
       <Cells>
         <CellContainerTouchable
           onPress={() => {
-            setTab('calendar');
+            setTab("calendar");
           }}>
           <CellText
             style={{
               color: animatedXValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['#4030A5', '#767676'],
+                outputRange: ["#4030A5", "#767676"],
               }),
             }}>
             Vue Jours
@@ -52,13 +52,13 @@ const CalendarSwitch = ({ tab, setTab }) => {
         </CellContainerTouchable>
         <CellContainerTouchable
           onPress={() => {
-            setTab('gains');
+            setTab("gains");
           }}>
           <CellText
             style={{
               color: animatedXValue.interpolate({
                 inputRange: [0, 1],
-                outputRange: ['#767676', '#4030A5'],
+                outputRange: ["#767676", "#4030A5"],
               }),
             }}>
             Vue Gains

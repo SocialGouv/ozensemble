@@ -1,35 +1,50 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useIsFocused } from '@react-navigation/native';
-import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager } from 'react-native';
-import { selectorFamily, useRecoilValue, useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import GoBackButtonText from '../../components/GoBackButtonText';
-import DrinksCategory from '../../components/DrinksCategory';
-import { drinksCategories, getDrinkQuantityFromDrinks, NO_CONSO } from '../ConsoFollowUp/drinksCatalog';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { useToast } from '../../services/toast';
-import H2 from '../../components/H2';
-import { consolidatedCatalogObjectSelector, drinksState, ownDrinksCatalogState } from '../../recoil/consos';
-import { buttonHeight, defaultPaddingFontScale } from '../../styles/theme';
-import DateAndTimePickers from './DateAndTimePickers';
-import { makeSureTimestamp } from '../../helpers/dateHelpers';
-import dayjs from 'dayjs';
-import API from '../../services/api';
-import { storage } from '../../services/storage';
-import TextStyled from '../../components/TextStyled';
-import OwnDrinkSelector from '../../components/OwnDrinkSelector';
-import AddOwnDrink from './AddOwnDrink';
-import { capture } from '../../services/sentry';
-import { sortConsosByTimestamp } from '../../helpers/consosHelpers';
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { useIsFocused } from "@react-navigation/native";
+import {
+  BackHandler,
+  Platform,
+  View,
+  Text,
+  TouchableOpacity,
+  InteractionManager,
+} from "react-native";
+import { selectorFamily, useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components/native";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import GoBackButtonText from "../../components/GoBackButtonText";
+import DrinksCategory from "../../components/DrinksCategory";
+import {
+  drinksCategories,
+  getDrinkQuantityFromDrinks,
+  NO_CONSO,
+} from "../ConsoFollowUp/drinksCatalog";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { useToast } from "../../services/toast";
+import H2 from "../../components/H2";
+import {
+  consolidatedCatalogObjectSelector,
+  drinksState,
+  ownDrinksCatalogState,
+} from "../../recoil/consos";
+import { buttonHeight, defaultPaddingFontScale } from "../../styles/theme";
+import DateAndTimePickers from "./DateAndTimePickers";
+import { makeSureTimestamp } from "../../helpers/dateHelpers";
+import dayjs from "dayjs";
+import API from "../../services/api";
+import { storage } from "../../services/storage";
+import TextStyled from "../../components/TextStyled";
+import OwnDrinkSelector from "../../components/OwnDrinkSelector";
+import AddOwnDrink from "./AddOwnDrink";
+import { capture } from "../../services/sentry";
+import { sortConsosByTimestamp } from "../../helpers/consosHelpers";
 
 const checkIfNoDrink = (drinks) => drinks.filter((d) => d && d.quantity > 0).length === 0;
 
 // const initDrinkState = { name: '', volume: '', degrees: '', isNew: true, code: null };
 
 const drinksPerCurrenTimestampSelector = selectorFamily({
-  key: 'drinksPerCurrenTimestampSelector',
+  key: "drinksPerCurrenTimestampSelector",
   get:
     ({ modalTimestamp }) =>
     ({ get }) => {
@@ -95,7 +110,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
       for (let newDrink of drinksWithTimestamps) {
         try {
           const body = {
-            matomoId: storage.getString('@UserIdv2'),
+            matomoId: storage.getString("@UserIdv2"),
             id: newDrink.id,
             name: newDrink.displayDrinkModal,
             drinkKey: newDrink.drinkKey,
@@ -112,14 +127,14 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
             body.quantity = 0;
           }
           logEvent({
-            category: 'CONSO',
-            action: 'CONSO_ADD',
+            category: "CONSO",
+            action: "CONSO_ADD",
             name: newDrink.drinkKey,
             value: Number(newDrink.quantity),
             dimension6: makeSureTimestamp(addDrinkModalTimestamp),
           });
           const response = await API.post({
-            path: '/consommation',
+            path: "/consommation",
             body,
           });
           if (response.ok) {
@@ -138,41 +153,45 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
         } catch (e) {
           capture(e, {
             extra: {
-              Notes: 'Add conso in ConsoList',
+              Notes: "Add conso in ConsoList",
               newDrink,
               consolidatedCatalogObject,
             },
             user: {
-              id: storage.getString('@UserIdv2'),
+              id: storage.getString("@UserIdv2"),
             },
           });
         }
       }
       if (showToast) {
-        toast.show(drinksWithTimestamps.length > 1 ? 'Consommations ajoutées' : 'Consommation ajoutée');
+        toast.show(
+          drinksWithTimestamps.length > 1 ? "Consommations ajoutées" : "Consommation ajoutée"
+        );
       }
     });
   };
 
   const onNext = useCallback(() => {
-    navigation.push('DRINKS_CONTEXTS_LIST', { timestamp: makeSureTimestamp(addDrinkModalTimestamp) });
+    navigation.push("DRINKS_CONTEXTS_LIST", {
+      timestamp: makeSureTimestamp(addDrinkModalTimestamp),
+    });
   }, [navigation, addDrinkModalTimestamp]);
 
   const onCancelConsos = useCallback(() => {
     navigation.goBack();
     setLocalDrinksState([]);
     logEvent({
-      category: 'CONSO',
-      action: 'CONSO_CLOSE_CONSO_ADDSCREEN',
+      category: "CONSO",
+      action: "CONSO_CLOSE_CONSO_ADDSCREEN",
     });
     return true;
   }, [navigation]);
 
   useEffect(() => {
     if (isFocused) {
-      BackHandler.addEventListener('hardwareBackPress', onCancelConsos);
+      BackHandler.addEventListener("hardwareBackPress", onCancelConsos);
     }
-    return () => BackHandler.removeEventListener('hardwareBackPress', onCancelConsos);
+    return () => BackHandler.removeEventListener("hardwareBackPress", onCancelConsos);
   }, [isFocused, onCancelConsos]);
 
   return (
@@ -200,14 +219,14 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                 id: uuidv4(),
               };
               logEvent({
-                category: 'CONSO',
-                action: 'NO_CONSO',
+                category: "CONSO",
+                action: "NO_CONSO",
                 dimension6: noConso.timestamp,
               });
               setGlobalDrinksState((state) => sortConsosByTimestamp([...state, noConso]));
-              const matomoId = storage.getString('@UserIdv2');
+              const matomoId = storage.getString("@UserIdv2");
               API.post({
-                path: '/consommation',
+                path: "/consommation",
                 body: {
                   matomoId: matomoId,
                   id: noConso.id,
@@ -233,7 +252,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
               });
             }}
             content={
-              dayjs(addDrinkModalTimestamp).format('YYYY-MM-DD') === dayjs().format('YYYY-MM-DD')
+              dayjs(addDrinkModalTimestamp).format("YYYY-MM-DD") === dayjs().format("YYYY-MM-DD")
                 ? "Je n'ai rien bu aujourd'hui"
                 : "Je n'ai rien bu ce jour"
             }
@@ -265,8 +284,8 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                     setOwnDrinksModalVisible(true);
                     setUpdateOwnDrinkKey(null);
                     logEvent({
-                      category: 'OWN_CONSO',
-                      action: 'OWN_CONSO_OPEN',
+                      category: "OWN_CONSO",
+                      action: "OWN_CONSO_OPEN",
                     });
                   }}>
                   <Text className="text-[#4030A5] text-center underline text-base mt-2">
@@ -286,11 +305,13 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                   setUpdateOwnDrinkKey(null);
                   setOwnDrinksModalVisible(true);
                   logEvent({
-                    category: 'OWN_CONSO',
-                    action: 'OWN_CONSO_OPEN',
+                    category: "OWN_CONSO",
+                    action: "OWN_CONSO_OPEN",
                   });
                 }}>
-                <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
+                <Text className="text-[#4030A5] text-center underline text-base">
+                  Créer ma propre boisson
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -308,7 +329,11 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
         <ButtonsContainerSafe>
           <ButtonsContainer>
             <BackButton content="Retour" bold onPress={onCancelConsos} />
-            <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
+            <ButtonPrimary
+              content="Valider"
+              onPress={onValidateConsos}
+              disabled={checkIfNoDrink(localDrinksState)}
+            />
           </ButtonsContainer>
         </ButtonsContainerSafe>
       </Container>
@@ -342,7 +367,7 @@ const ModalContent = styled.ScrollView`
 `;
 
 const Title = styled(H2)`
-  font-weight: ${Platform.OS === 'android' ? 'bold' : '800'};
+  font-weight: ${Platform.OS === "android" ? "bold" : "800"};
   color: #4030a5;
   margin: 50px ${defaultPaddingFontScale()}px 15px;
 `;
@@ -362,7 +387,7 @@ const ButtonsContainerSafe = styled.SafeAreaView`
 
 const ButtonsContainer = styled.View`
   flex-direction: row;
-  justify-content: ${(props) => (props.flexStart ? 'flex-start' : 'space-around')};
+  justify-content: ${(props) => (props.flexStart ? "flex-start" : "space-around")};
   margin: 0;
   width: 100%;
   padding: ${buttonsPadding}px;

@@ -1,10 +1,10 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)``;
 
-const CravingIcon = ({ size, color = '#FF0000', ...props }) => (
+const CravingIcon = ({ size, color = "#FF0000", ...props }) => (
   <StyledSvg width={size} height={size} viewBox="0 0 80 52" {...props}>
     <Path
       d="M15.4869 4.5523C16.5284 3.51083 16.5284 1.82243 15.4869 0.7811C14.4456 -0.260367 12.7571 -0.260367 11.7157 0.7811C-3.90524 16.402 -3.90525 41.7286 11.7157 57.3496C12.7571 58.391 14.4456 58.391 15.4869 57.3496C16.5284 56.3082 16.5284 54.6198 15.4869 53.5783C1.94879 40.0402 1.94879 18.0904 15.4869 4.5523Z"

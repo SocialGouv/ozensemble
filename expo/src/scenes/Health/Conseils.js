@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import TextStyled from '../../components/TextStyled';
-import { listConseils } from './ListConseil';
-import { defaultPaddingFontScale, screenHeight, screenWidth } from '../../styles/theme';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import WrapperContainer from '../../components/WrapperContainer';
+import styled from "styled-components/native";
+import TextStyled from "../../components/TextStyled";
+import { listConseils } from "./ListConseil";
+import { defaultPaddingFontScale, screenHeight, screenWidth } from "../../styles/theme";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import WrapperContainer from "../../components/WrapperContainer";
 
 const Conseils = ({ navigation }) => {
   return (
@@ -17,8 +17,8 @@ const Conseils = ({ navigation }) => {
           <ConseilContainer
             onPress={() => {
               logEvent({
-                category: 'HEALTH',
-                action: 'HEALTH_ARTICLE',
+                category: "HEALTH",
+                action: "HEALTH_ARTICLE",
                 name: conseil.title,
               });
               navigation.navigate(conseil.link);

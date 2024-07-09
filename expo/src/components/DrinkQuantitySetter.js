@@ -1,13 +1,20 @@
-import React, { useCallback } from 'react';
-import { View, Text } from 'react-native';
-import styled, { css } from 'styled-components';
-import { getIcon } from '../scenes/ConsoFollowUp/drinksCatalog';
-import H3 from './H3';
-import QButton from './QButton';
-import TextStyled from './TextStyled';
-import TouchableDelete from './TouchableDelete';
+import React, { useCallback } from "react";
+import { View, Text } from "react-native";
+import styled, { css } from "styled-components/native";
+import { getIcon } from "../scenes/ConsoFollowUp/drinksCatalog";
+import H3 from "./H3";
+import QButton from "./QButton";
+import TextStyled from "./TextStyled";
+import TouchableDelete from "./TouchableDelete";
 
-const DrinkQuantitySetter = ({ oneLine, asPreview, drinkKey, quantity = 0, setDrinkQuantity, drink }) => {
+const DrinkQuantitySetter = ({
+  oneLine,
+  asPreview,
+  drinkKey,
+  quantity = 0,
+  setDrinkQuantity,
+  drink,
+}) => {
   const Icon = getIcon(drink.icon);
   const volume = drink.volume;
   const doses = drink.doses;
@@ -58,14 +65,22 @@ export const QuantitySetter = ({ quantity, onSetQuantity }) => (
   </ButtonsContainer>
 );
 
-const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, name, index, onDelete }) => (
+const OneLineDrinkQuantitySetter = ({
+  quantity,
+  onSetQuantity,
+  Icon,
+  volume,
+  name,
+  index,
+  onDelete,
+}) => (
   <TouchableDelete onDelete={onDelete}>
     <OneLineContainer darkBackground={index % 2} first={index === 0}>
       <Icon size={30} />
       <TextContainer>
         <DisplayName>{name}</DisplayName>
         <Volume>
-          {' - '}
+          {" - "}
           {volume}
         </Volume>
       </TextContainer>
@@ -74,11 +89,24 @@ const OneLineDrinkQuantitySetter = ({ quantity, onSetQuantity, Icon, volume, nam
   </TouchableDelete>
 );
 
-const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, volume, doses, name, style }) => {
+const SquareDrinkQuantitySetter = ({
+  asPreview,
+  quantity,
+  onSetQuantity,
+  Icon,
+  volume,
+  doses,
+  name,
+  style,
+}) => {
   return (
     <View className="min-h-24 w-36 flex justify-center shrink-0 grow-0 mb-4">
       <TopContainer>
-        <QButton content="-" disabled={!asPreview && quantity <= 0} onPress={() => onSetQuantity(quantity - 1)} />
+        <QButton
+          content="-"
+          disabled={!asPreview && quantity <= 0}
+          onPress={() => onSetQuantity(quantity - 1)}
+        />
         <Icon size={50} style={style} />
         {Boolean(quantity) && (
           <QuantityDisplayContainer absolute>
@@ -90,13 +118,13 @@ const SquareDrinkQuantitySetter = ({ asPreview, quantity, onSetQuantity, Icon, v
       <BottomContainer>
         <DisplayName>{name}</DisplayName>
         <Text>
-          {' - '}
+          {" - "}
           {volume}
         </Text>
       </BottomContainer>
       <BottomContainer>
         <Doses>
-          {doses} unité{doses > 1 ? 's' : ''}
+          {doses} unité{doses > 1 ? "s" : ""}
         </Doses>
       </BottomContainer>
     </View>
@@ -107,13 +135,13 @@ const OneLineContainer = styled.View`
   height: ${(props) => (props.first ? 70 : 60)}px;
   width: 100%;
   padding-horizontal: 10px;
-  ${(props) => props.first && 'padding-top: 10px;'}
+  ${(props) => props.first && "padding-top: 10px;"}
   flex-shrink: 0;
   flex-grow: 0;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background: ${({ darkBackground }) => (darkBackground ? '#f9f9f9' : '#efefef')};
+  background: ${({ darkBackground }) => (darkBackground ? "#f9f9f9" : "#efefef")};
 `;
 
 const TopContainer = styled.View`

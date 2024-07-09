@@ -1,15 +1,15 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { useIsFocused } from '@react-navigation/native';
-import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
-import { Text, View, TouchableOpacity, BackHandler } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import CalendarIllus from '../../components/illustrations/CalendarIllus';
-import CocktailGlassTriangle from '../../components/illustrations/drinksAndFood/CocktailGlassTriangle';
-import TextStyled from '../../components/TextStyled';
-import { defaultPaddingFontScale, hitSlop, screenHeight } from '../../styles/theme';
+import React, { useRef, useMemo, useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useIsFocused } from "@react-navigation/native";
+import styled from "styled-components/native";
+import { v4 as uuidv4 } from "uuid";
+import { Text, View, TouchableOpacity, BackHandler } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import CalendarIllus from "../../components/illustrations/CalendarIllus";
+import CocktailGlassTriangle from "../../components/illustrations/drinksAndFood/CocktailGlassTriangle";
+import TextStyled from "../../components/TextStyled";
+import { defaultPaddingFontScale, hitSlop, screenHeight } from "../../styles/theme";
 import {
   daysWithGoalNoDrinkState,
   drinksByWeekState,
@@ -18,17 +18,21 @@ import {
   isOnboardedSelector,
   totalDrinksByDrinkingDaySelector,
   goalsState,
-} from '../../recoil/gains';
-import HelpModalCountConsumption from './HelpModalCountConsumption';
-import { drinksCatalogObject, drinksCategories, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
-import DrinksCategory from '../../components/DrinksCategory';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import WrapperContainer from '../../components/WrapperContainer';
-import GoalSetup from '../../components/illustrations/icons/GoalSetup';
-import ModalGoalValidation from '../../components/ModalGoalValidation';
-import ModalWrongValue from '../../components/ModalWrongValue';
-import API from '../../services/api';
-import { storage } from '../../services/storage';
+} from "../../recoil/gains";
+import HelpModalCountConsumption from "./HelpModalCountConsumption";
+import {
+  drinksCatalogObject,
+  drinksCategories,
+  mapDrinkToDose,
+} from "../ConsoFollowUp/drinksCatalog";
+import DrinksCategory from "../../components/DrinksCategory";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import WrapperContainer from "../../components/WrapperContainer";
+import GoalSetup from "../../components/illustrations/icons/GoalSetup";
+import ModalGoalValidation from "../../components/ModalGoalValidation";
+import ModalWrongValue from "../../components/ModalWrongValue";
+import API from "../../services/api";
+import { storage } from "../../services/storage";
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);
@@ -87,7 +91,7 @@ const Goal = ({ navigation }) => {
     JSON.stringify(previousDrinksByWeek.current) !== JSON.stringify(drinksByWeek);
   React.useEffect(
     () =>
-      navigation.addListener('beforeRemove', (e) => {
+      navigation.addListener("beforeRemove", (e) => {
         if (!hasUnsavedChanges) {
           // If we don't have unsaved changes, then we don't need to do anything
           return;
@@ -104,7 +108,7 @@ const Goal = ({ navigation }) => {
 
   return (
     <>
-      <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
+      <SafeAreaView edges={["top"]} className="bg-[#39CEC0]" />
       <ModalGoalValidation
         content={{
           drinksGoal: dosesPerWeek,
@@ -116,19 +120,19 @@ const Goal = ({ navigation }) => {
         onValidate={() => {
           setModalValidationVisible(false);
           logEvent({
-            category: 'GAINS',
-            action: 'GOAL_DRINKLESS',
+            category: "GAINS",
+            action: "GOAL_DRINKLESS",
             name: daysWithGoalNoDrink,
             value: daysWithGoalNoDrink.length,
           });
           logEvent({
-            category: 'GAINS',
-            action: 'GOAL_DRINKWEEK',
+            category: "GAINS",
+            action: "GOAL_DRINKWEEK",
             value: dosesPerWeek,
           });
-          const matomoId = storage.getString('@UserIdv2');
+          const matomoId = storage.getString("@UserIdv2");
           API.post({
-            path: '/goal',
+            path: "/goal",
             body: {
               matomoId: matomoId,
               daysWithGoalNoDrink,
@@ -141,17 +145,17 @@ const Goal = ({ navigation }) => {
             }
           });
           if (isOnboarded) {
-            navigation.navigate('GAINS_SEVRAGE');
+            navigation.navigate("GAINS_SEVRAGE");
             return;
           }
           logEvent({
-            category: 'REMINDER',
-            action: 'REMINDER_OPEN',
-            name: 'GOAL',
+            category: "REMINDER",
+            action: "REMINDER_OPEN",
+            name: "GOAL",
           });
-          navigation.navigate('GAINS_REMINDER', {
+          navigation.navigate("GAINS_REMINDER", {
             enableContinueButton: true,
-            onPressContinueNavigation: ['GAINS_SEVRAGE'],
+            onPressContinueNavigation: ["GAINS_SEVRAGE"],
           });
         }}
         visible={modalValidationVisible}
@@ -163,7 +167,7 @@ const Goal = ({ navigation }) => {
         }}
         onUpdatePreviousConso={() => {
           setModalWrongValueVisible(false);
-          navigation.navigate('GAINS_ESTIMATE_PREVIOUS_CONSUMPTION');
+          navigation.navigate("GAINS_ESTIMATE_PREVIOUS_CONSUMPTION");
         }}
       />
       <WrapperContainer
@@ -174,10 +178,10 @@ const Goal = ({ navigation }) => {
         <Container>
           <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
             <Text className="mb-4">
-              Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{' '}
-              <Text className="font-bold">nombre de jours sans boire</Text> et en{' '}
-              <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre consommation et de
-              diminuer les risques associés à l'usage répété de l'alcool.
+              Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{" "}
+              <Text className="font-bold">nombre de jours sans boire</Text> et en{" "}
+              <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre
+              consommation et de diminuer les risques associés à l'usage répété de l'alcool.
             </Text>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
@@ -186,10 +190,18 @@ const Goal = ({ navigation }) => {
               className="justify-center  items-center rounded-3xl bg-[#4030A5] mb-8"
               onPress={() => {
                 setDrinksByWeek([]);
-                setDaysWithGoalNoDrink(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+                setDaysWithGoalNoDrink([
+                  "monday",
+                  "tuesday",
+                  "wednesday",
+                  "thursday",
+                  "friday",
+                  "saturday",
+                  "sunday",
+                ]);
                 logEvent({
-                  category: 'GAINS',
-                  action: 'GOAL_DRINKWEEK_ABSTINENCE',
+                  category: "GAINS",
+                  action: "GOAL_DRINKWEEK_ABSTINENCE",
                 });
                 setModalValidationVisible(true);
               }}>
@@ -205,60 +217,65 @@ const Goal = ({ navigation }) => {
           </View>
           <Row>
             <CalendarIllus size={24} />
-            <Text className={'font-bold ml-3'}>
+            <Text className={"font-bold ml-3"}>
               Jours où je m'engage à ne <Text className="underline">pas</Text> boire d'alcool
             </Text>
           </Row>
           <DayContainer>
             <DayButton
               content="L"
-              active={daysWithGoalNoDrink.includes('monday')}
+              active={daysWithGoalNoDrink.includes("monday")}
               onPress={() => {
-                toggleDayWithGoalNoDrink('monday');
+                toggleDayWithGoalNoDrink("monday");
               }}
             />
             <DayButton
               content="M"
-              active={daysWithGoalNoDrink.includes('tuesday')}
-              onPress={() => toggleDayWithGoalNoDrink('tuesday')}
+              active={daysWithGoalNoDrink.includes("tuesday")}
+              onPress={() => toggleDayWithGoalNoDrink("tuesday")}
             />
             <DayButton
               content="M"
-              active={daysWithGoalNoDrink.includes('wednesday')}
-              onPress={() => toggleDayWithGoalNoDrink('wednesday')}
+              active={daysWithGoalNoDrink.includes("wednesday")}
+              onPress={() => toggleDayWithGoalNoDrink("wednesday")}
             />
             <DayButton
               content="J"
-              active={daysWithGoalNoDrink.includes('thursday')}
-              onPress={() => toggleDayWithGoalNoDrink('thursday')}
+              active={daysWithGoalNoDrink.includes("thursday")}
+              onPress={() => toggleDayWithGoalNoDrink("thursday")}
             />
             <DayButton
               content="V"
-              active={daysWithGoalNoDrink.includes('friday')}
-              onPress={() => toggleDayWithGoalNoDrink('friday')}
+              active={daysWithGoalNoDrink.includes("friday")}
+              onPress={() => toggleDayWithGoalNoDrink("friday")}
             />
             <DayButton
               content="S"
-              active={daysWithGoalNoDrink.includes('saturday')}
-              onPress={() => toggleDayWithGoalNoDrink('saturday')}
+              active={daysWithGoalNoDrink.includes("saturday")}
+              onPress={() => toggleDayWithGoalNoDrink("saturday")}
             />
             <DayButton
               content="D"
-              active={daysWithGoalNoDrink.includes('sunday')}
-              onPress={() => toggleDayWithGoalNoDrink('sunday')}
+              active={daysWithGoalNoDrink.includes("sunday")}
+              onPress={() => toggleDayWithGoalNoDrink("sunday")}
             />
           </DayContainer>
           <Row>
             <CocktailGlassTriangle size={24} />
             <Text className="font-bold ml-3">
-              Unités <Text className="underline">par semaine</Text> que je m'autorise à boire{' '}
+              Unités <Text className="underline">par semaine</Text> que je m'autorise à boire{" "}
             </Text>
           </Row>
           <View className="bg-[#F5F6FA] p-2 mb-2">
-            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation initiale par semaine</Text>
+            <Text className="text-center text-[#939EA6] text-xs">
+              Rappel de ma consommation initiale par semaine
+            </Text>
             <View className="flex flex-row justify-center items-center mt-2">
               <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
-              <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? 'unités' : 'unité'}</Text>
+              <Text className="text-lg font-bold">
+                {" "}
+                {Number(numberDrinkEstimation) > 1 ? "unités" : "unité"}
+              </Text>
             </View>
           </View>
         </Container>
@@ -274,9 +291,10 @@ const Goal = ({ navigation }) => {
         <Container>
           <View className=" p-2 mt-4">
             <Text>
-              Pensez bien à ajouter vos consommations <Text className="font-bold">tous les jours</Text> même quand vous
-              n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre objectif de la
-              semaine !{' '}
+              Pensez bien à ajouter vos consommations{" "}
+              <Text className="font-bold">tous les jours</Text> même quand vous n'avez pas bu, pour
+              que l'application puisse vous informer si vous avez réussi ou non votre objectif de la
+              semaine !{" "}
             </Text>
           </View>
           <CTAButtonContainer>
@@ -288,13 +306,13 @@ const Goal = ({ navigation }) => {
                 } else {
                   if (dosesPerWeek === 0) {
                     setDaysWithGoalNoDrink([
-                      'monday',
-                      'tuesday',
-                      'wednesday',
-                      'thursday',
-                      'friday',
-                      'saturday',
-                      'sunday',
+                      "monday",
+                      "tuesday",
+                      "wednesday",
+                      "thursday",
+                      "friday",
+                      "saturday",
+                      "sunday",
                     ]);
                   }
                   setModalValidationVisible(true);
@@ -319,8 +337,8 @@ const Row = styled.View`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  ${(props) => props.margins && 'margin-top: 10px;'}
-  ${(props) => props.margins && 'margin-bottom: 15px;'}
+  ${(props) => props.margins && "margin-top: 10px;"}
+  ${(props) => props.margins && "margin-bottom: 15px;"}
 `;
 
 const CTAButtonContainer = styled.View`
@@ -343,10 +361,12 @@ const DayButton = ({ content, onPress, active }) => {
     <TouchableOpacity hitSlop={buttonHitSlop} className="p-px" onPress={onPress}>
       <View
         className={[
-          'h-9 w-9 rounded-full border border-[#4030A5] justify-center items-center',
-          active ? 'bg-[#4030A5]' : 'bg-[#eeeeee]',
-        ].join(' ')}>
-        <TextStyled className="text-base font-bold justify-center items-center" color={active ? '#eeeeee' : '#000000'}>
+          "h-9 w-9 rounded-full border border-[#4030A5] justify-center items-center",
+          active ? "bg-[#4030A5]" : "bg-[#eeeeee]",
+        ].join(" ")}>
+        <TextStyled
+          className="text-base font-bold justify-center items-center"
+          color={active ? "#eeeeee" : "#000000"}>
           {content}
         </TextStyled>
       </View>

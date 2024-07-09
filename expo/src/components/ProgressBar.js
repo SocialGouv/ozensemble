@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { Animated } from 'react-native';
-import styled from 'styled-components';
-import { defaultPaddingFontScale, screenWidth } from '../styles/theme';
+import React, { useEffect, useRef } from "react";
+import { Animated } from "react-native";
+import styled from "styled-components/native";
+import { defaultPaddingFontScale, screenWidth } from "../styles/theme";
 
 const ProgressBar = ({ progress }) => {
   const computedProgress = useRef(new Animated.Value(progress)).current;
@@ -25,7 +25,7 @@ const ProgressBar = ({ progress }) => {
             inputRange: [0, 1],
             outputRange: [0, progressBarWidth],
           }),
-          backgroundColor: '#39cec0',
+          backgroundColor: "#39cec0",
           borderRadius: progressBarHeight,
         }}
       />

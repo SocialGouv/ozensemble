@@ -1,23 +1,25 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import TextStyled from '../../../components/TextStyled';
-import { defaultPaddingFontScale } from '../../../styles/theme';
-import QButton from '../../../components/QButton';
-import { riskSituationsAnswersKeysSelector } from '../../../recoil/quizzs';
-import HeaderQuizzsResult from '../../Defis/HeaderQuizzsResult';
+import React from "react";
+import styled from "styled-components/native";
+import { useRecoilValue } from "recoil";
+import TextStyled from "../../../components/TextStyled";
+import { defaultPaddingFontScale } from "../../../styles/theme";
+import QButton from "../../../components/QButton";
+import { riskSituationsAnswersKeysSelector } from "../../../recoil/quizzs";
+import HeaderQuizzsResult from "../../Defis/HeaderQuizzsResult";
 
 const ResultRiskSituations = ({ navigation, route }) => {
   const answersKeys = useRecoilValue(riskSituationsAnswersKeysSelector);
-  const inMyTests = route?.params?.rootRoute === 'QUIZZ_MENU';
+  const inMyTests = route?.params?.rootRoute === "QUIZZ_MENU";
 
   return (
     <HeaderQuizzsResult
       inMyTests={inMyTests}
-      title={'Identifier mes situations à risques'}
+      title={"Identifier mes situations à risques"}
       buttonCTA="Je valide"
       onPressCTA={() => navigation.navigate(route?.params?.rootRoute)}
-      description={"Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "}>
+      description={
+        "Merci d'avoir répondu, voici les situations sur lesquelles nous travaillerons dès demain : "
+      }>
       <ResultsContainer>
         {answersKeys.map((riskSituation, index) => (
           <Result key={index}>

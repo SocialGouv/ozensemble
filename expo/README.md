@@ -6,28 +6,38 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 1. Install dependencies
 
-   ```bash
-   yarn
-   ```
+```bash
+npx expo install
+```
 
-2. Start the app
+2. Development build
 
-   ```bash
-    npx expo start
-   ```
+Because we use some libs that are not supported in Expo Go (like `react-native-mmkv` for instance, but a few other too), we need to use [development builds](https://docs.expo.dev/develop/development-builds/introduction/)
 
-In the output, you'll find options to open the app in a
+> A development build is a debug build of your app that contains the expo-dev-client package. By using development builds instead of Expo Go, you gain full control over the native runtime, so you can install any native libraries, modify any project configuration, or write your own native code. With Expo development builds, you are building your own native app, while with Expo Go you are running your project in a sandboxed native app environment.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+To start using it, we did the following:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+```bash
+npx expo prebuild
+```
 
-## Display the config
+It created `/ios` and `/android` folders, which are the native projects that we can open with XCode and Android Studio.
+Read more [here](https://docs.expo.dev/workflow/prebuild/)
 
-We have some config files in this project
+You don't need to do it again. It's a one-time thing.
+
+3. Start the development server
+
+For now, we are doing [Local app development](https://docs.expo.dev/guides/local-app-development/), which requires to install Android Studio and XCode, but there is an [option to use EAS too](https://docs.expo.dev/develop/development-builds/create-a-build/).
+We chose the local option to not depend on EAS, but that's an opinionated choice. EAS cost a bit of money, but not that nmuch - it could be much more interesting to use it than to take a lot of time to set up the local environment and debug.
+
+Anyway, now that we are setup locally, we can do
+
+```bash
+yarn ios # or yarn android
+```
+
 
 ## Learn more
 

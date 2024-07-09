@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
-import styled from 'styled-components';
-import GoBackButton from '../../../../components/GoBackButton';
-import Stars from '../../../../components/illustrations/Stars';
-import TextStyled from '../../../../components/TextStyled';
-import WrapperContainer from '../../../../components/WrapperContainer';
+import React, { useState } from "react";
+import { TouchableOpacity, View } from "react-native";
+import styled from "styled-components/native";
+import GoBackButton from "../../../../components/GoBackButton";
+import Stars from "../../../../components/illustrations/Stars";
+import TextStyled from "../../../../components/TextStyled";
+import WrapperContainer from "../../../../components/WrapperContainer";
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -15,7 +15,7 @@ const ToggleContent = ({ children, title }) => {
           <TextStyled color="#4030a5" bold>
             {title}
           </TextStyled>
-          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
+          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? "90" : "-90"} />
         </TitleStyled>
       </TouchableOpacity>
       {visible ? <View>{children}</View> : null}
@@ -33,7 +33,9 @@ const TitleStyled = styled.View`
 
 export default ({ navigation }) => {
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="Conseils pour diminuer ma consommation d'alcool">
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title="Conseils pour diminuer ma consommation d'alcool">
       <ToggleContent title="Planifier">
         <Elem content="Eviter les personnes et les endroits qui incitent à consommer plus qu'on ne le souhaite" />
         <Elem content="Ne pas conserver d'alcool chez soi lorsqu'on a des difficultés à ne pas boire" />
@@ -70,7 +72,11 @@ export default ({ navigation }) => {
         <Elem content={'"Non merci, je viens de finir un verre."'} />
         <Elem content={'"Non merci, je suis au régime."'} />
         <Elem content={'"Non merci, j\'ai un examen demain pour lequel je veux être en forme."'} />
-        <Elem content={'"Non merci, j\'ai un match important demain pour lequel je veux être en forme."'} />
+        <Elem
+          content={
+            '"Non merci, j\'ai un match important demain pour lequel je veux être en forme."'
+          }
+        />
         <Elem content={'"Non merci, j\'ai dit à ma famille que je boirai moins."'} />
         <Elem content={'"Non merci, je fais Dry January."'} />
       </ToggleContent>

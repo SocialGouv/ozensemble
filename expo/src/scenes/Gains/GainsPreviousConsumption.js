@@ -1,28 +1,34 @@
-import React, { useMemo, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import { v4 as uuidv4 } from 'uuid';
-import styled from 'styled-components';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import TextStyled from '../../components/TextStyled';
-import { isOnboardedSelector, previousDrinksPerWeekState } from '../../recoil/gains';
-import DrinksCategory from '../../components/DrinksCategory';
-import { drinksCatalogObject, drinksCategories, mapDrinkToDose } from '../ConsoFollowUp/drinksCatalog';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { Spacer } from '../../components/Articles';
-import { defaultPaddingFontScale } from '../../styles/theme';
-import HelpModalCountConsumption from './HelpModalCountConsumption';
-import WrapperContainer from '../../components/WrapperContainer';
-import PreviousConsumption from '../../components/illustrations/icons/PreviousConsumption';
-import ModalPreviousDrinksValidation from '../../components/ModalPreviousDrinksValidation';
+import React, { useMemo, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components/native";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { Text, View, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import TextStyled from "../../components/TextStyled";
+import { isOnboardedSelector, previousDrinksPerWeekState } from "../../recoil/gains";
+import DrinksCategory from "../../components/DrinksCategory";
+import {
+  drinksCatalogObject,
+  drinksCategories,
+  mapDrinkToDose,
+} from "../ConsoFollowUp/drinksCatalog";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { Spacer } from "../../components/Articles";
+import { defaultPaddingFontScale } from "../../styles/theme";
+import HelpModalCountConsumption from "./HelpModalCountConsumption";
+import WrapperContainer from "../../components/WrapperContainer";
+import PreviousConsumption from "../../components/illustrations/icons/PreviousConsumption";
+import ModalPreviousDrinksValidation from "../../components/ModalPreviousDrinksValidation";
 
 const GainsPreviousConsumption = () => {
   const navigation = useNavigation();
   const isOnboarded = useRecoilValue(isOnboardedSelector);
 
-  const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(previousDrinksPerWeekState);
+  const [previousDrinksPerWeek, setEstimationDrinksPerWeek] = useRecoilState(
+    previousDrinksPerWeekState
+  );
 
   const [modalValidationVisible, setModalValidationVisible] = useState(false);
 
@@ -73,7 +79,7 @@ const GainsPreviousConsumption = () => {
 
   return (
     <>
-      <SafeAreaView edges={['top']} className="bg-[#39CEC0]" />
+      <SafeAreaView edges={["top"]} className="bg-[#39CEC0]" />
 
       <WrapperContainer
         onPressBackButton={navigation.goBack}
@@ -83,10 +89,10 @@ const GainsPreviousConsumption = () => {
         <Container>
           <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
             <Text className="mb-4">
-              Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera ensuite comparée à ce
-              que vous consommerez pour calculer vos gains.{' '}
-              <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus de transparence
-              possible.
+              Estimez votre <Text className="font-bold">consommation actuelle</Text>, elle sera
+              ensuite comparée à ce que vous consommerez pour calculer vos gains.{" "}
+              <Text className="font-bold">Vos réponses sont anonymes</Text>, répondez avec le plus
+              de transparence possible.
             </Text>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
@@ -95,8 +101,8 @@ const GainsPreviousConsumption = () => {
               className="justify-center  items-center rounded-3xl bg-[#4030A5] mb-8"
               onPress={() => {
                 logEvent({
-                  category: 'GAINS',
-                  action: 'GOALS_ESTIMATION_ABSTINENCE',
+                  category: "GAINS",
+                  action: "GOALS_ESTIMATION_ABSTINENCE",
                 });
                 setEstimationDrinksPerWeek([]);
                 setModalValidationVisible(true);
@@ -110,7 +116,8 @@ const GainsPreviousConsumption = () => {
             <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-2" />
           </View>
           <Text className="font-extrabold text-center">
-            Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool consommez-vous ?
+            Sur une <TextStyled underline>semaine type</TextStyled>, combien d'unités d'alcool
+            consommez-vous ?
           </Text>
         </Container>
         <Spacer size={20} />
@@ -148,11 +155,13 @@ const GainsPreviousConsumption = () => {
         onValidate={() => {
           setModalValidationVisible(false);
           logEvent({
-            category: 'GAINS',
-            action: 'GOAL_ESTIMATION_DRINK',
+            category: "GAINS",
+            action: "GOAL_ESTIMATION_DRINK",
             value: numberDrinkEstimation,
           });
-          isOnboarded ? navigation.goBack() : navigation.navigate('GAINS_MY_OBJECTIVE', { forOnboarding: true });
+          isOnboarded
+            ? navigation.goBack()
+            : navigation.navigate("GAINS_MY_OBJECTIVE", { forOnboarding: true });
         }}
         visible={modalValidationVisible}
       />

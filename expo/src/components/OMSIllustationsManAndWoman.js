@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { screenWidth } from '../styles/theme';
-import TextStyled from './TextStyled';
-import ManAndWoman from '../components/illustrations/ManAndWoman';
+import React from "react";
+import styled from "styled-components/native";
+import { screenWidth } from "../styles/theme";
+import TextStyled from "./TextStyled";
+import ManAndWoman from "../components/illustrations/ManAndWoman";
 
 const OMSIllustationsManAndWoman = () => {
   return (
@@ -10,9 +10,12 @@ const OMSIllustationsManAndWoman = () => {
       <ManAndWoman size={120} />
       <TextOMSContainer>
         <TextDescription>
-          <TextStyled bold textAlign={'center'}>
+          <TextStyled bold textAlign={"center"}>
             Pour votre santé, l'alcool c'est
-            <TextStyled color="#4030a5"> maximum 2 verres par jour et pas tous les jours.</TextStyled>{' '}
+            <TextStyled color="#4030a5">
+              {" "}
+              maximum 2 verres par jour et pas tous les jours.
+            </TextStyled>{" "}
           </TextStyled>
         </TextDescription>
       </TextOMSContainer>

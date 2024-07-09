@@ -1,30 +1,32 @@
-import { useIsFocused } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { useEffect } from 'react';
-import Svg, { Path, Rect } from 'react-native-svg';
-import { selector, useRecoilValue } from 'recoil';
-import styled from 'styled-components';
-import { P } from '../../../components/Articles';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import Element from '../../../components/ElementDayDefi';
-import TextStyled from '../../../components/TextStyled';
-import WrapperContainer from '../../../components/WrapperContainer';
+import { useIsFocused } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React, { useEffect } from "react";
+import Svg, { Path, Rect } from "react-native-svg";
+import { selector, useRecoilValue } from "recoil";
+import styled from "styled-components/native";
+import { P } from "../../../components/Articles";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import Element from "../../../components/ElementDayDefi";
+import TextStyled from "../../../components/TextStyled";
+import WrapperContainer from "../../../components/WrapperContainer";
 import {
   lifeQualityQuizzAnswersState,
   relifeQualityQuizzAnswersState,
   relifeQualityQuizzResultState,
-} from '../../../recoil/quizzs';
-import { screenWidth } from '../../../styles/theme';
-import QuizzDefi5Day3 from '../../Quizzs/QuizzDefi5Day3BetterLifeQuality';
-import QuizzLifeQuality from '../../Quizzs/QuizzLifeQuality';
-import questionsLifeQuality from '../../Quizzs/QuizzLifeQuality/questions';
-import { setValidatedDays } from '../utils';
+} from "../../../recoil/quizzs";
+import { screenWidth } from "../../../styles/theme";
+import QuizzDefi5Day3 from "../../Quizzs/QuizzDefi5Day3BetterLifeQuality";
+import QuizzLifeQuality from "../../Quizzs/QuizzLifeQuality";
+import questionsLifeQuality from "../../Quizzs/QuizzLifeQuality/questions";
+import { setValidatedDays } from "../utils";
 
 const Defi5_Day3_Stack = createStackNavigator();
 
 const Defi5_Day3 = ({ route }) => {
   return (
-    <Defi5_Day3_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="DEFI5_DAY3_ONBAORDING">
+    <Defi5_Day3_Stack.Navigator
+      screenOptions={{ headerShown: false }}
+      initialRouteName="DEFI5_DAY3_ONBAORDING">
       <Defi5_Day3_Stack.Screen
         name="DEFI5_DAY3_ONBAORDING"
         component={Defi5_Day3_Onboarding}
@@ -33,7 +35,11 @@ const Defi5_Day3 = ({ route }) => {
       <Defi5_Day3_Stack.Screen
         name="DEFI5_DAY3_QUIZZ_PARTIE1"
         component={QuizzDefi5Day3}
-        initialParams={{ ...route.params, cta: 'Je continue', nextRoute: 'DEFI5_DAY3_ONBAORDING_2' }}
+        initialParams={{
+          ...route.params,
+          cta: "Je continue",
+          nextRoute: "DEFI5_DAY3_ONBAORDING_2",
+        }}
       />
       <Defi5_Day3_Stack.Screen
         name="DEFI5_DAY3_ONBAORDING_2"
@@ -53,7 +59,7 @@ const Defi5_Day3_Onboarding = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi5) setValidatedDays(route?.params?.day, '@Defi5');
+    if (route?.params?.inDefi5) setValidatedDays(route?.params?.day, "@Defi5");
   }, [route?.params, isFocused]);
 
   return (
@@ -63,13 +69,17 @@ const Defi5_Day3_Onboarding = ({ navigation, route }) => {
       <Element
         content={
           <>
-            Nous vous suggérons d'abord d'évaluer{' '}
-            <TextStyled bold>l'évolution globale de votre qualité de vie</TextStyled> sur les quatre dernières semaines.
+            Nous vous suggérons d'abord d'évaluer{" "}
+            <TextStyled bold>l'évolution globale de votre qualité de vie</TextStyled> sur les quatre
+            dernières semaines.
           </>
         }
       />
 
-      <ButtonPrimaryStyled content="Je suis prêt" onPress={() => navigation.navigate('DEFI5_DAY3_QUIZZ_PARTIE1')} />
+      <ButtonPrimaryStyled
+        content="Je suis prêt"
+        onPress={() => navigation.navigate("DEFI5_DAY3_QUIZZ_PARTIE1")}
+      />
     </WrapperContainer>
   );
 };
@@ -82,16 +92,21 @@ const Defi5_Day3_Onboarding_2 = ({ navigation }) => {
       <Element
         content={
           <>
-            Nous vous proposons maintenant de refaire{' '}
-            <TextStyled bold>le questionnaire sur votre qualité de vie de l'activité 1</TextStyled>.{'\n\n'}
-            Vous pourrez ainsi visualiser l'évolution des différentes composantes de votre qualité de vie par rapport au
-            résultat de la première phase de votre activité. Ne vous laissez pas influencer par vos résultats précédents
-            et répondez au test au vu de votre situation actuelle.
+            Nous vous proposons maintenant de refaire{" "}
+            <TextStyled bold>le questionnaire sur votre qualité de vie de l'activité 1</TextStyled>.
+            {"\n\n"}
+            Vous pourrez ainsi visualiser l'évolution des différentes composantes de votre qualité
+            de vie par rapport au résultat de la première phase de votre activité. Ne vous laissez
+            pas influencer par vos résultats précédents et répondez au test au vu de votre situation
+            actuelle.
           </>
         }
       />
 
-      <ButtonPrimaryStyled content="Je suis prêt" onPress={() => navigation.navigate('DEFI5_DAY3_QUIZZ_PARTIE2')} />
+      <ButtonPrimaryStyled
+        content="Je suis prêt"
+        onPress={() => navigation.navigate("DEFI5_DAY3_QUIZZ_PARTIE2")}
+      />
     </WrapperContainer>
   );
 };
@@ -108,7 +123,7 @@ const QuizzLifeQualityRedo = ({ navigation, route }) => (
 );
 
 const updatedResultsToDisplaySelector = selector({
-  key: 'updatedResultsToDisplaySelector',
+  key: "updatedResultsToDisplaySelector",
   get: ({ get }) => {
     const oldAnswers = get(lifeQualityQuizzAnswersState);
     const newAnswers = get(relifeQualityQuizzAnswersState);
@@ -118,22 +133,30 @@ const updatedResultsToDisplaySelector = selector({
       .map((questionIndex) => {
         const question = questionsLifeQuality[questionIndex];
         const answers = question?.answers;
-        const newScore = answers?.find?.((answer) => answer.answerKey === newAnswers[questionIndex])?.score;
-        const oldScore = answers?.find?.((answer) => answer.answerKey === oldAnswers[questionIndex])?.score;
+        const newScore = answers?.find?.(
+          (answer) => answer.answerKey === newAnswers[questionIndex]
+        )?.score;
+        const oldScore = answers?.find?.(
+          (answer) => answer.answerKey === oldAnswers[questionIndex]
+        )?.score;
 
         const difference = newScore > oldScore ? 1 : newScore < oldScore ? -1 : 0;
 
-        if (difference === 0) return { response: { sign: 'equal', color: '#39cec0' }, question };
+        if (difference === 0) return { response: { sign: "equal", color: "#39cec0" }, question };
         if (difference < 0) {
-          const sign = ['Handicap physique', 'Douleurs physiques', 'Frein psychique'].includes(question.resultLabel)
-            ? 'up'
-            : 'down';
-          return { response: { sign, color: '#FF9933' }, question };
+          const sign = ["Handicap physique", "Douleurs physiques", "Frein psychique"].includes(
+            question.resultLabel
+          )
+            ? "up"
+            : "down";
+          return { response: { sign, color: "#FF9933" }, question };
         }
-        const sign = ['Handicap physique', 'Douleurs physiques', 'Frein psychique'].includes(question.resultLabel)
-          ? 'down'
-          : 'up';
-        return { response: { sign, color: '#28a745' }, question };
+        const sign = ["Handicap physique", "Douleurs physiques", "Frein psychique"].includes(
+          question.resultLabel
+        )
+          ? "down"
+          : "up";
+        return { response: { sign, color: "#28a745" }, question };
       })
       .filter(Boolean);
   },
@@ -144,14 +167,19 @@ export const Dfi5_Day3_ResultsReLifeQuality = ({ navigation, route }) => {
   const resultKey = useRecoilValue(relifeQualityQuizzAnswersState);
 
   useEffect(() => {
-    if (resultKey && route?.params?.inDefi5) setValidatedDays(route?.params?.day, '@Defi5');
+    if (resultKey && route?.params?.inDefi5) setValidatedDays(route?.params?.day, "@Defi5");
   }, [route?.params, isFocused, resultKey]);
 
   return (
-    <WrapperContainer onPressBackButton={navigation.goBack} title="L'évolution des composantes de ma qualité de vie">
+    <WrapperContainer
+      onPressBackButton={navigation.goBack}
+      title="L'évolution des composantes de ma qualité de vie">
       <ResultsReLifeQuality />
       <ButtonsContainer>
-        <ButtonPrimary onPress={() => navigation.navigate(route.params.rootRoute)} content="J'ai compris" />
+        <ButtonPrimary
+          onPress={() => navigation.navigate(route.params.rootRoute)}
+          content="J'ai compris"
+        />
       </ButtonsContainer>
     </WrapperContainer>
   );
@@ -185,7 +213,7 @@ const SignBlock = ({ response, question }) => {
           viewBox="0 0 60 60"
           fill="none"
           xmlns="http://www.w3.org/2000/svg">
-          {response.sign === 'down' && (
+          {response.sign === "down" && (
             <Path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -193,7 +221,7 @@ const SignBlock = ({ response, question }) => {
               fill="#fff"
             />
           )}
-          {response.sign === 'up' && (
+          {response.sign === "up" && (
             <Path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -201,7 +229,7 @@ const SignBlock = ({ response, question }) => {
               fill="#fff"
             />
           )}
-          {response.sign === 'equal' && (
+          {response.sign === "equal" && (
             <>
               <Rect x={2} y={13} width={56} height={8} rx={4} stroke="#fff" strokeWidth={4} />
               <Rect x={2} y={38} width={56} height={8} rx={4} stroke="#fff" strokeWidth={4} />
@@ -224,7 +252,7 @@ const ItemStyled = styled.View`
   flex-grow: 0;
   justify-content: center;
   align-items: center;
-  background-color: ${({ color }) => color || '#fff'};
+  background-color: ${({ color }) => color || "#fff"};
   border-radius: 30px;
 `;
 

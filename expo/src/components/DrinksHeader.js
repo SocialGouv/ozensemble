@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import { mediaHeight } from '../styles/mediaQueries';
-import TextStyled from './TextStyled';
+import React from "react";
+import styled, { css } from "styled-components/native";
+import { mediaHeight } from "../styles/mediaQueries";
+import TextStyled from "./TextStyled";
 
 const DrinksHeader = ({ content }) => (
   <HeaderWrapper>
@@ -52,7 +52,7 @@ const smallContent = css`
 `;
 
 const ContentStyled = styled(TextStyled)`
-  color: ${({ color }) => color || '#de285e'};
+  color: ${({ color }) => color || "#de285e"};
   font-weight: bold;
   flex-grow: 0;
   ${bigContent}

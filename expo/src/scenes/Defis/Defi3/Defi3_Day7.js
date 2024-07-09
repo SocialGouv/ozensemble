@@ -1,21 +1,21 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import { Image } from 'react-native';
-import styled from 'styled-components';
-import { setValidatedDays } from '../utils';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import Element from '../../../components/ElementDayDefi';
-import WrapperContainer from '../../../components/WrapperContainer';
-import H2 from '../../../components/H2';
-import { storage } from '../../../services/storage';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import { Image } from "react-native";
+import styled from "styled-components/native";
+import { setValidatedDays } from "../utils";
+import TextStyled from "../../../components/TextStyled";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import Element from "../../../components/ElementDayDefi";
+import WrapperContainer from "../../../components/WrapperContainer";
+import H2 from "../../../components/H2";
+import { storage } from "../../../services/storage";
 
 const Defi3_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, '@Defi3');
-    storage.set('@Defi3_Finished_Date', new Date().toISOString().split('T')[0]);
+    if (route?.params?.inDefi3) setValidatedDays(route?.params?.day, "@Defi3");
+    storage.set("@Defi3_Finished_Date", new Date().toISOString().split("T")[0]);
   }, [route?.params, isFocused]);
 
   return (
@@ -23,37 +23,44 @@ const Defi3_Day7 = ({ navigation, route }) => {
       <Element
         content={
           <>
-            Ce n’est pas facile de modifier tout d’un coup votre consommation habituelle d’alcool.{'\n'}
-            {'\n'}
-            <TextStyled bold>Il est nécessaire de changer pas à pas</TextStyled> pour atteindre progressivement une
-            stabilité.
+            Ce n’est pas facile de modifier tout d’un coup votre consommation habituelle d’alcool.
+            {"\n"}
+            {"\n"}
+            <TextStyled bold>Il est nécessaire de changer pas à pas</TextStyled> pour atteindre
+            progressivement une stabilité.
           </>
         }
       />
 
       <ImageView>
-        <Image source={require('../../../assets/images/Defi3_Day7.png')} />
+        <Image source={require("../../../assets/images/Defi3_Day7.png")} />
       </ImageView>
 
       <H2 color="#4030A5">Les conseils d’Oz Ensemble</H2>
       <BulletPoint>
-        <TextStyled>{'\u2022'} Prenez de la hauteur et cherchez de nouvelles activités.</TextStyled>
-      </BulletPoint>
-      <BulletPoint>
-        <TextStyled>{'\u2022'} Faites un pas de coté pour penser à votre contexte actuel.</TextStyled>
+        <TextStyled>{"\u2022"} Prenez de la hauteur et cherchez de nouvelles activités.</TextStyled>
       </BulletPoint>
       <BulletPoint>
         <TextStyled>
-          {'\u2022'} Demandez de l’aide à un proche ou à un professionnel s’il vous est difficile d’atteindre seul(e)
-          votre objectif.
+          {"\u2022"} Faites un pas de coté pour penser à votre contexte actuel.
         </TextStyled>
       </BulletPoint>
       <BulletPoint>
         <TextStyled>
-          {'\u2022'} Sachez qu’il existe des traitements qui peuvent réduire les envies d’alcool et vous soulager.
+          {"\u2022"} Demandez de l’aide à un proche ou à un professionnel s’il vous est difficile
+          d’atteindre seul(e) votre objectif.
         </TextStyled>
       </BulletPoint>
-      <ButtonPrimaryStyled content="J'échange avec un professionnel" onPress={() => navigation.navigate('CONTACT')} />
+      <BulletPoint>
+        <TextStyled>
+          {"\u2022"} Sachez qu’il existe des traitements qui peuvent réduire les envies d’alcool et
+          vous soulager.
+        </TextStyled>
+      </BulletPoint>
+      <ButtonPrimaryStyled
+        content="J'échange avec un professionnel"
+        onPress={() => navigation.navigate("CONTACT")}
+      />
     </WrapperContainer>
   );
 };

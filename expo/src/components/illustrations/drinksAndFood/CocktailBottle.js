@@ -1,6 +1,6 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import styled from 'styled-components';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import styled from "styled-components/native";
 
 const StyledSvg = styled(Svg)`
   margin-bottom: 10px;

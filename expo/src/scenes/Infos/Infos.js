@@ -4,7 +4,7 @@ import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View } fr
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import InAppReview from "react-native-in-app-review";
-import appInfos from "../../../app.config";
+import * as Application from "expo-application";
 import Background from "../../components/Background";
 import HeaderBackground from "../../components/HeaderBackground";
 import TextStyled from "../../components/TextStyled";
@@ -207,7 +207,7 @@ const InfosMenu = ({ navigation }) => {
         <View className="mt-7 flex items-center">
           <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
             <VersionLabel>
-              version {appInfos.version.buildName} ({appInfos.version.buildNumber})
+              version {Application.nativeApplicationVersion} ({Application.nativeBuildVersion})
             </VersionLabel>
           </TouchableWithoutFeedback>
         </View>
