@@ -1,3 +1,10 @@
+## [1.161.16](https://github.com/SocialGouv/ozensemble/compare/v1.161.15...v1.161.16) (2024-07-09)
+
+
+### Reverts
+
+* Revert "fix: ask notification" ([dc91767](https://github.com/SocialGouv/ozensemble/commit/dc917670a88435ddf850a451ed5ba9ccef718b6f))
+
 ## [1.161.15](https://github.com/SocialGouv/ozensemble/compare/v1.161.14...v1.161.15) (2024-07-09)
 
 
