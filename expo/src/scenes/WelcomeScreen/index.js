@@ -1,7 +1,7 @@
-import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import WelcomeStart from './WelcomeStart';
-import WelcomeSwiper from './WelcomeSwiper';
+import React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import WelcomeStart from "./WelcomeStart";
+import WelcomeSwiper from "./WelcomeSwiper";
 
 const WelcomeStack = createStackNavigator();
 

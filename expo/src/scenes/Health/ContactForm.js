@@ -1,5 +1,5 @@
 import React from "react";
-import { Linking } from "react-native";
+import * as Linking from "expo-linking";
 import styled, { css } from "styled-components/native";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import TextStyled from "../../components/TextStyled";

@@ -1,8 +1,8 @@
-import React from 'react';
-import Quizz from '../../../components/quizz';
-import { quizzDefi3Day1AnswersState, quizzDefi3Day1ResultState } from '../../../recoil/quizzs';
-import questions from './questions';
-import Results from './results';
+import React from "react";
+import Quizz from "../../../components/quizz";
+import { quizzDefi3Day1AnswersState, quizzDefi3Day1ResultState } from "../../../recoil/quizzs";
+import questions from "./questions";
+import Results from "./results";
 
 const QuizzDefi3Day1 = ({ navigation, route }) => {
   return (

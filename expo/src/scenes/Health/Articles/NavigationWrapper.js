@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components/native";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
-import { Linking } from "react-native";
+import * as Linking from "expo-linking";
 import { Spacer } from "./../../../components/Articles";
 import Clock from "../../../components/illustrations/Clock";
 import TextStyled from "../../../components/TextStyled";

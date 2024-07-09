@@ -2,7 +2,7 @@ import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect } from "react";
 import styled from "styled-components/native";
 import { useRecoilValue } from "recoil";
-import { Linking } from "react-native";
+import * as Linking from "expo-linking";
 import { screenWidth } from "../../../styles/theme";
 import { setValidatedDays } from "../utils";
 import ElementDayDefi from "../../../components/ElementDayDefi";

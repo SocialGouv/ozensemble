@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { Linking } from "react-native";
+import * as Linking from "expo-linking";
 import styled from "styled-components/native";
 import { setValidatedDays } from "../utils";
 import TextStyled from "../../../components/TextStyled";

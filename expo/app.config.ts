@@ -29,6 +29,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supportsTablet: true,
     bundleIdentifier: "com.addicto.v1",
     buildNumber: String(version.buildNumber),
+    infoPlist: {
+      LSApplicationQueriesSchemes: ["oz"],
+    },
   },
   android: {
     adaptiveIcon: {
@@ -37,6 +40,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
     package: "com.addicto",
     versionCode: version.buildNumber,
+    intentFilters: [
+      {
+        action: "VIEW",
+        autoVerify: true,
+        data: [
+          {
+            scheme: "oz",
+          },
+        ],
+        category: ["BROWSABLE", "DEFAULT"],
+      },
+    ],
   },
   web: {
     bundler: "metro",
