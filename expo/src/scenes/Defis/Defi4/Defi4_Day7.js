@@ -1,22 +1,27 @@
-import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
-import { Linking, View } from 'react-native';
-import { defaultPaddingFontScale } from '../../../styles/theme';
-import { setValidatedDays } from '../utils';
-import H2 from '../../../components/H2';
-import Sources from '../../Quizzs/Sources';
-import QButton from '../../../components/QButton';
-import { Bold, P } from '../../../components/Articles';
-import TextStyled from '../../../components/TextStyled';
-import ButtonPrimary from '../../../components/ButtonPrimary';
-import WrapperContainer from '../../../components/WrapperContainer';
-import { daysWithGoalNoDrinkState, isOnboardedSelector, maxDrinksPerWeekSelector } from '../../../recoil/gains';
-import Done from '../../../components/illustrations/Done';
-import { defi4_Day5_Answers_State } from '../../../recoil/quizzs';
-import { answersDefi4Day5 } from './Defi4_Day5';
-import { storage } from '../../../services/storage';
+import { useIsFocused } from "@react-navigation/native";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { View } from "react-native";
+import * as Linking from "expo-linking";
+import { defaultPaddingFontScale } from "../../../styles/theme";
+import { setValidatedDays } from "../utils";
+import H2 from "../../../components/H2";
+import Sources from "../../Quizzs/Sources";
+import QButton from "../../../components/QButton";
+import { Bold, P } from "../../../components/Articles";
+import TextStyled from "../../../components/TextStyled";
+import ButtonPrimary from "../../../components/ButtonPrimary";
+import WrapperContainer from "../../../components/WrapperContainer";
+import {
+  daysWithGoalNoDrinkState,
+  isOnboardedSelector,
+  maxDrinksPerWeekSelector,
+} from "../../../recoil/gains";
+import Done from "../../../components/illustrations/Done";
+import { defi4_Day5_Answers_State } from "../../../recoil/quizzs";
+import { answersDefi4Day5 } from "./Defi4_Day5";
+import { storage } from "../../../services/storage";
 
 const Defi4_Day7 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
@@ -27,17 +32,26 @@ const Defi4_Day7 = ({ navigation, route }) => {
 
   useEffect(() => {
     if (route?.params?.inDefi4) {
-      setValidatedDays(route?.params?.day, '@Defi4');
+      setValidatedDays(route?.params?.day, "@Defi4");
     }
-    storage.set('@Defi4_Finished_Date', new Date().toISOString().split('T')[0]);
+    storage.set("@Defi4_Finished_Date", new Date().toISOString().split("T")[0]);
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer title="Bilan de la semaine" onPressBackButton={navigation.goBack} noPaddingHorizontal>
+    <WrapperContainer
+      title="Bilan de la semaine"
+      onPressBackButton={navigation.goBack}
+      noPaddingHorizontal>
       <PaddingContainer>
         <SituationContainer>
           <QButtonCentered>
-            <QButton content={1} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+            <QButton
+              content={1}
+              disabled
+              colorText="#ffffff"
+              colorBorder="#4030A5"
+              colorBackground=" #4030A5"
+            />
           </QButtonCentered>
           <View>
             <H2 color="#4030a5">Ma stratégie</H2>
@@ -51,7 +65,13 @@ const Defi4_Day7 = ({ navigation, route }) => {
 
         <SituationContainer>
           <QButtonCentered>
-            <QButton content={2} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+            <QButton
+              content={2}
+              disabled
+              colorText="#ffffff"
+              colorBorder="#4030A5"
+              colorBackground=" #4030A5"
+            />
           </QButtonCentered>
           <View>
             <H2 color="#4030a5">Mon premier objectif validé</H2>
@@ -70,15 +90,16 @@ const Defi4_Day7 = ({ navigation, route }) => {
                 <PartContainer>
                   <Done size={20} />
                   <TextStyled>
-                    {'  '}
-                    {dayNoDrink} {dayNoDrink > 1 ? 'jours' : 'jour'} où je ne bois pas
+                    {"  "}
+                    {dayNoDrink} {dayNoDrink > 1 ? "jours" : "jour"} où je ne bois pas
                   </TextStyled>
                 </PartContainer>
                 <PartContainer>
                   <Done size={20} />
                   <TextStyled>
-                    {'  '}
-                    {maxDrinksPerWeekGoal} {maxDrinksPerWeekGoal > 1 ? 'verres' : 'verre'} max par semaine
+                    {"  "}
+                    {maxDrinksPerWeekGoal} {maxDrinksPerWeekGoal > 1 ? "verres" : "verre"} max par
+                    semaine
                   </TextStyled>
                 </PartContainer>
               </MyGoalSubContainerInside>
@@ -88,7 +109,13 @@ const Defi4_Day7 = ({ navigation, route }) => {
 
         <SituationContainer>
           <QButtonCentered>
-            <QButton content={3} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+            <QButton
+              content={3}
+              disabled
+              colorText="#ffffff"
+              colorBorder="#4030A5"
+              colorBackground=" #4030A5"
+            />
           </QButtonCentered>
           <View>
             <H2 color="#4030a5">Mes plaisirs alternatifs</H2>
@@ -101,7 +128,7 @@ const Defi4_Day7 = ({ navigation, route }) => {
             ) : (
               defi4_Day5_Answers.map((answer) => (
                 <P key={answer} noMarginBottom>
-                  {'• '} {answersDefi4Day5.find((item) => item.answerKey === answer).content}
+                  {"• "} {answersDefi4Day5.find((item) => item.answerKey === answer).content}
                 </P>
               ))
             )}
@@ -110,7 +137,13 @@ const Defi4_Day7 = ({ navigation, route }) => {
 
         <SituationContainer>
           <QButtonCentered>
-            <QButton content={4} disabled colorText="#ffffff" colorBorder="#4030A5" colorBackground=" #4030A5" />
+            <QButton
+              content={4}
+              disabled
+              colorText="#ffffff"
+              colorBorder="#4030A5"
+              colorBackground=" #4030A5"
+            />
           </QButtonCentered>
           <View>
             <H2 color="#4030a5">Mes boissons alternatives</H2>
@@ -120,40 +153,45 @@ const Defi4_Day7 = ({ navigation, route }) => {
           <MyGoalSubContainerInside>
             <PartContainer>
               <Done size={20} />
-              <TextStyled>{'  '}Je bois 1,5 litres d’eau par jour</TextStyled>
+              <TextStyled>{"  "}Je bois 1,5 litres d’eau par jour</TextStyled>
             </PartContainer>
             <PartContainer>
               <Done size={20} />
-              <TextStyled>{'  '}J’ai choisi des boissons alternatives</TextStyled>
+              <TextStyled>{"  "}J’ai choisi des boissons alternatives</TextStyled>
             </PartContainer>
           </MyGoalSubContainerInside>
         </MyGoalSubContainer>
         <Spacer />
       </PaddingContainer>
 
-      <ImageStyled source={require('../../../assets/images/juiceBar.png')} />
+      <ImageStyled source={require("../../../assets/images/juiceBar.png")} />
 
       <PaddingContainer>
         <Spacer size={40} />
         <H2 color="#4030a5">Les conseils d’Oz Ensemble</H2>
         <Spacer size={20} />
         <P>
-          <Bold>{'• '} Autant que possible, ne changez votre objectif qu’après une période de réflexion.</Bold>
-          {'\n\n'}
+          <Bold>
+            {"• "} Autant que possible, ne changez votre objectif qu’après une période de réflexion.
+          </Bold>
+          {"\n\n"}
           <P>
-            {'• '} Vous pouvez commencer à{' '}
-            <Bold>réduire ou arrêter votre consommation dans les situations qui vous paraissent les plus faciles</Bold>{' '}
-            et continuer à éviter les plus difficiles. Vos chances de succès seront meilleures !{' '}
-          </P>
-          {'\n\n'}
-          <P>
-            {'• '} Quand vous serez à l’aise avec les situations plus faciles, vous pourrez essayer des situations de
-            plus en plus difficiles. Rappelez-vous que{' '}
+            {"• "} Vous pouvez commencer à{" "}
             <Bold>
-              modifier ses habitudes de consommation demande de la pratique et de la persévérance. Faites-vous confiance
-              !
-            </Bold>{' '}
-            Vous y parviendrez, une situation à la fois.{' '}
+              réduire ou arrêter votre consommation dans les situations qui vous paraissent les plus
+              faciles
+            </Bold>{" "}
+            et continuer à éviter les plus difficiles. Vos chances de succès seront meilleures !{" "}
+          </P>
+          {"\n\n"}
+          <P>
+            {"• "} Quand vous serez à l’aise avec les situations plus faciles, vous pourrez essayer
+            des situations de plus en plus difficiles. Rappelez-vous que{" "}
+            <Bold>
+              modifier ses habitudes de consommation demande de la pratique et de la persévérance.
+              Faites-vous confiance !
+            </Bold>{" "}
+            Vous y parviendrez, une situation à la fois.{" "}
           </P>
         </P>
         <Spacer />
@@ -161,10 +199,12 @@ const Defi4_Day7 = ({ navigation, route }) => {
           <>
             <LinkContainer
               onPress={() => {
-                Linking.openURL('https://www.thehealthy.com/addiction/drugs-alcohol/limit-alcohol/');
+                Linking.openURL(
+                  "https://www.thehealthy.com/addiction/drugs-alcohol/limit-alcohol/"
+                );
               }}>
               <TextStyled>
-                {'\n    • '}
+                {"\n    • "}
                 <TextStyled color="#4030a5" italic underline>
                   Cut Back on Alcohol: 17 Tips to Drink a Little Less
                 </TextStyled>
@@ -175,11 +215,11 @@ const Defi4_Day7 = ({ navigation, route }) => {
             <LinkContainer
               onPress={() => {
                 Linking.openURL(
-                  'https://www.ameli.fr/val-de-marne/assure/sante/themes/alcool-sante/conseils-reduire-consommation'
+                  "https://www.ameli.fr/val-de-marne/assure/sante/themes/alcool-sante/conseils-reduire-consommation"
                 );
               }}>
               <TextStyled>
-                {'\n    • '}
+                {"\n    • "}
                 <TextStyled color="#4030a5" underline>
                   Alcool : des conseils pour réduire sa consommation
                 </TextStyled>
@@ -190,11 +230,11 @@ const Defi4_Day7 = ({ navigation, route }) => {
             <LinkContainer
               onPress={() => {
                 Linking.openURL(
-                  'https://www.alcool-info-service.fr/alcool-et-vous/arreter-consommation-alcool/Je-veux-reduire-ma-consommation-d-alcool'
+                  "https://www.alcool-info-service.fr/alcool-et-vous/arreter-consommation-alcool/Je-veux-reduire-ma-consommation-d-alcool"
                 );
               }}>
               <TextStyled>
-                {'\n    • '}
+                {"\n    • "}
                 <TextStyled color="#4030a5" underline>
                   Je veux réduire ma consommation d'alcool
                 </TextStyled>
@@ -205,7 +245,7 @@ const Defi4_Day7 = ({ navigation, route }) => {
         </Sources>
 
         <ButtonsContainer>
-          <ButtonPrimary content="J’ai fini" onPress={() => navigation.navigate('DEFI4_MENU')} />
+          <ButtonPrimary content="J’ai fini" onPress={() => navigation.navigate("DEFI4_MENU")} />
         </ButtonsContainer>
       </PaddingContainer>
     </WrapperContainer>

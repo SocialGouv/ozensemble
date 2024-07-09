@@ -1535,6 +1535,16 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSentry (5.22.3):
+    - hermes-engine
+    - RCT-Folly
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-hermes
+    - ReactCommon/turbomodule/core
+    - Sentry/HybridSDK (= 8.26.0)
   - RNSVG (15.2.0):
     - DoubleConversion
     - glog
@@ -1584,6 +1594,7 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
+  - Sentry/HybridSDK (8.26.0)
   - SocketRocket (0.7.0)
   - Yoga (0.0.0)
 
@@ -1674,6 +1685,7 @@ DEPENDENCIES:
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1685,6 +1697,7 @@ SPEC REPOS:
     - MMKVCore
     - SDWebImage
     - SDWebImageWebPCoder
+    - Sentry
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1857,6 +1870,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -1951,9 +1966,11 @@ SPEC CHECKSUMS:
   RNLocalize: 2f05e47c34bd68b139b8b5140220e2c481cd805b
   RNReanimated: 58a768c2c17a5589ef732fa6bd8d7ed0eb6df1c1
   RNScreens: 63fe8222c172a79f5c30dd1aefaeb369c6eb57b6
+  RNSentry: b9e16034571c6f40e650ba839ca57bc49dac90f3
   RNSVG: 02051bffb0b2fb2166e85009a58211643434ff63
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
+  Sentry: 74a073c71c998117edb08f56f443c83570a31bed
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
   Yoga: 04f1db30bb810187397fa4c37dd1868a27af229c
 

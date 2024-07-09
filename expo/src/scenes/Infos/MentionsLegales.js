@@ -1,23 +1,25 @@
-import React from 'react';
-import { Linking, Text, View } from 'react-native';
-import styled from 'styled-components';
-import H2 from '../../components/H2';
-import WrapperContainer from '../../components/WrapperContainer';
-import TextStyled from '../../components/TextStyled';
-import { Bold } from '../../components/Articles';
+import React from "react";
+import styled from "styled-components";
+import H2 from "../../components/H2";
+import WrapperContainer from "../../components/WrapperContainer";
+import TextStyled from "../../components/TextStyled";
+import { Bold } from "../../components/Articles";
 
 const MentionsLegales = ({ onClose }) => (
-  <WrapperContainer title="Mentions Légales de la plateforme Oz Ensemble" onPressBackButton={onClose}>
+  <WrapperContainer
+    title="Mentions Légales de la plateforme Oz Ensemble"
+    onPressBackButton={onClose}>
     <Spacer size={20} />
     <H2>Édtieur de la Plateforme</H2>
     <Spacer size={30} />
     <P>
-      L'application est éditée par la Fabrique numérique des ministères sociaux, située{'\u00A0'}: {'\n\n'}
-      Tour Mirabeau{'\n'}
-      39-43 quai André-Citroën{'\n'}
-      75739 Paris Cedex 15{'\n'}
-      France{'\n'}
-      {'\n'}
+      L'application est éditée par la Fabrique numérique des ministères sociaux, située{"\u00A0"}:{" "}
+      {"\n\n"}
+      Tour Mirabeau{"\n"}
+      39-43 quai André-Citroën{"\n"}
+      75739 Paris Cedex 15{"\n"}
+      France{"\n"}
+      {"\n"}
       Téléphone : 01 44 38 36 02
     </P>
     <Spacer size={30} />
@@ -27,10 +29,10 @@ const MentionsLegales = ({ onClose }) => (
     <Spacer size={30} />
     <H2>Hébergement de la Plateforme</H2>
     <Spacer size={30} />
-    <P>Cette plateforme est hébergée par{'\u00A0'}:</P>
+    <P>Cette plateforme est hébergée par{"\u00A0"}:</P>
     <P>
-      OVH SAS{'\n'}2 rue Kellermann{'\n'}
-      59100 Roubaix{'\n'}
+      OVH SAS{"\n"}2 rue Kellermann{"\n"}
+      59100 Roubaix{"\n"}
       France
     </P>
   </WrapperContainer>

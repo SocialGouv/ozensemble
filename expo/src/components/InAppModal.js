@@ -5,7 +5,6 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Linking,
   Platform,
   InteractionManager,
   Dimensions,

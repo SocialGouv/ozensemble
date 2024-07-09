@@ -1,15 +1,16 @@
-import { useIsFocused } from '@react-navigation/native';
-import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
-import { Linking, TouchableOpacity, View } from 'react-native';
-import GoBackButton from '../../../components/GoBackButton';
-import TextStyled from '../../../components/TextStyled';
-import Sources from '../../Quizzs/Sources';
-import { setValidatedDays } from '../utils';
-import { P } from '../../../components/Articles';
-import ElementDayDefi from '../../../components/ElementDayDefi';
-import WrapperContainer from '../../../components/WrapperContainer';
-import ButtonPrimary from '../../../components/ButtonPrimary';
+import { useIsFocused } from "@react-navigation/native";
+import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import { TouchableOpacity, View } from "react-native";
+import * as Linking from "expo-linking";
+import GoBackButton from "../../../components/GoBackButton";
+import TextStyled from "../../../components/TextStyled";
+import Sources from "../../Quizzs/Sources";
+import { setValidatedDays } from "../utils";
+import { P } from "../../../components/Articles";
+import ElementDayDefi from "../../../components/ElementDayDefi";
+import WrapperContainer from "../../../components/WrapperContainer";
+import ButtonPrimary from "../../../components/ButtonPrimary";
 
 const ToggleContent = ({ children, title }) => {
   const [visible, setVisible] = useState(false);
@@ -20,7 +21,7 @@ const ToggleContent = ({ children, title }) => {
           <P noMarginBottom color="#4030a5" bold>
             {title}
           </P>
-          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? '90' : '-90'} />
+          <GoBackButton onPress={() => setVisible(!visible)} rotate={visible ? "90" : "-90"} />
         </TitleStyled>
       </TouchableOpacity>
       {visible ? <View>{children}</View> : null}
@@ -40,11 +41,13 @@ const Defi1_Day5 = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, '@Defi1');
+    if (route?.params?.inDefi1) setValidatedDays(route?.params?.day, "@Defi1");
   }, [route?.params, isFocused]);
 
   return (
-    <WrapperContainer title="Conseils pour diminuer ma consommation d'alcool" onPressBackButton={navigation.goBack}>
+    <WrapperContainer
+      title="Conseils pour diminuer ma consommation d'alcool"
+      onPressBackButton={navigation.goBack}>
       <ToggleContent title="Planifier">
         <ElementDayDefi content="Eviter les personnes et les endroits qui incitent à consommer plus qu'on ne le souhaite" />
         <ElementDayDefi content="Ne pas conserver d'alcool chez soi lorsqu'on a des difficultés à ne pas boire" />
@@ -80,19 +83,25 @@ const Defi1_Day5 = ({ navigation, route }) => {
         <ElementDayDefi content={'"Non merci, je conduis."'} />
         <ElementDayDefi content={'"Non merci, je viens de finir un verre."'} />
         <ElementDayDefi content={'"Non merci, je suis au régime."'} />
-        <ElementDayDefi content={'"Non merci, j\'ai un examen demain pour lequel je veux être en forme."'} />
-        <ElementDayDefi content={'"Non merci, j\'ai un match important demain pour lequel je veux être en forme."'} />
+        <ElementDayDefi
+          content={'"Non merci, j\'ai un examen demain pour lequel je veux être en forme."'}
+        />
+        <ElementDayDefi
+          content={
+            '"Non merci, j\'ai un match important demain pour lequel je veux être en forme."'
+          }
+        />
         <ElementDayDefi content={'"Non merci, j\'ai dit à ma famille que je boirai moins."'} />
         <ElementDayDefi content={'"Non merci, je fais Dry January."'} />
       </ToggleContent>
       <Sources>
         <TextStyled>
-          Santé publique France,{'\n'}
+          Santé publique France,{"\n"}
           <TextStyled
             color="#4030a5"
             onPress={() => {
               Linking.openURL(
-                'https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti'
+                "https://www.santepubliquefrance.fr/les-actualites/2017/avis-d-experts-relatif-a-l-evolution-du-discours-public-en-matiere-de-consommation-d-alcool-en-france-organise-par-sante-publique-france-et-l-insti"
               );
             }}>
             Voir l'article sur santepubliquefrance.fr
@@ -100,7 +109,10 @@ const Defi1_Day5 = ({ navigation, route }) => {
         </TextStyled>
       </Sources>
       <ButtonsContainer>
-        <ButtonPrimary onPress={() => navigation.navigate(route?.params?.rootRoute)} content="J'ai compris" />
+        <ButtonPrimary
+          onPress={() => navigation.navigate(route?.params?.rootRoute)}
+          content="J'ai compris"
+        />
       </ButtonsContainer>
     </WrapperContainer>
   );

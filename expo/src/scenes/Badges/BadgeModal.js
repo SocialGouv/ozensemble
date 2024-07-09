@@ -1,22 +1,30 @@
-import React, { useEffect } from 'react';
-import Svg, { Path } from 'react-native-svg';
-import { Text, View, SafeAreaView, TouchableOpacity, Linking, Platform, InteractionManager } from 'react-native';
-import { useSetRecoilState } from 'recoil';
-import InAppReview from 'react-native-in-app-review';
-import { hitSlop } from '../../styles/theme';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import H1 from '../../components/H1';
-import TextStyled from '../../components/TextStyled';
-import { BadgeDrinks } from './Svgs/BadgeDrinks';
-import { BadgeGoals } from './Svgs/BadgeGoals';
-import { LockedBadge } from './Svgs/LockedBadge';
-import { badgesCatalogState, badgesState } from '../../recoil/badges';
-import { BadgeArticles } from './Svgs/BadgeArticles';
-import { BadgeDefis } from './Svgs/BadgeDefis';
-import { BadgeShare } from './Svgs/BadgeShare';
-import { shareApp } from '../../services/shareApp';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import Confetti from '../../components/Confettis';
+import React, { useEffect } from "react";
+import Svg, { Path } from "react-native-svg";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Platform,
+  InteractionManager,
+} from "react-native";
+import * as Linking from "expo-linking";
+import { useSetRecoilState } from "recoil";
+import InAppReview from "react-native-in-app-review";
+import { hitSlop } from "../../styles/theme";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import H1 from "../../components/H1";
+import TextStyled from "../../components/TextStyled";
+import { BadgeDrinks } from "./Svgs/BadgeDrinks";
+import { BadgeGoals } from "./Svgs/BadgeGoals";
+import { LockedBadge } from "./Svgs/LockedBadge";
+import { badgesCatalogState, badgesState } from "../../recoil/badges";
+import { BadgeArticles } from "./Svgs/BadgeArticles";
+import { BadgeDefis } from "./Svgs/BadgeDefis";
+import { BadgeShare } from "./Svgs/BadgeShare";
+import { shareApp } from "../../services/shareApp";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import Confetti from "../../components/Confettis";
 /* example
 {
     category: 'drinks',
@@ -61,8 +69,8 @@ const BadgeModal = ({ navigation, route }) => {
         } else {
           Linking.openURL(
             Platform.select({
-              ios: 'https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1',
-              android: 'https://play.google.com/store/apps/details?id=com.addicto',
+              ios: "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1",
+              android: "https://play.google.com/store/apps/details?id=com.addicto",
             })
           );
         }
@@ -88,8 +96,8 @@ const BadgeModal = ({ navigation, route }) => {
         } else {
           Linking.openURL(
             Platform.select({
-              ios: 'https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1',
-              android: 'https://play.google.com/store/apps/details?id=com.addicto',
+              ios: "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1",
+              android: "https://play.google.com/store/apps/details?id=com.addicto",
             })
           );
         }
@@ -115,21 +123,21 @@ const BadgeModal = ({ navigation, route }) => {
           </Svg>
         </TouchableOpacity>
         <View className="mb-8 mt-4">
-          {badge?.category === 'drinks' && <BadgeDrinks stars={badge?.stars} />}
-          {badge?.category === 'share' && <BadgeShare stars={badge?.stars} />}
-          {badge?.category === 'goals' && <BadgeGoals stars={badge?.stars} />}
-          {badge?.category === 'articles' && <BadgeArticles stars={badge?.stars} />}
-          {badge?.category === 'defis' && <BadgeDefis stars={badge?.stars} />}
-          {badge?.category?.includes('locked_') && <LockedBadge />}
+          {badge?.category === "drinks" && <BadgeDrinks stars={badge?.stars} />}
+          {badge?.category === "share" && <BadgeShare stars={badge?.stars} />}
+          {badge?.category === "goals" && <BadgeGoals stars={badge?.stars} />}
+          {badge?.category === "articles" && <BadgeArticles stars={badge?.stars} />}
+          {badge?.category === "defis" && <BadgeDefis stars={badge?.stars} />}
+          {badge?.category?.includes("locked_") && <LockedBadge />}
         </View>
         <View className="mb-8">
-          <H1 className="text-center" color={'black'}>
+          <H1 className="text-center" color={"black"}>
             {badge?.title}
           </H1>
         </View>
         <Text className="text-base font-medium mb-8 mx-4 text-center">
-          <TextStyled color={'#3C3C43'}>
-            {badge?.content?.split('__')?.map((string, index) => {
+          <TextStyled color={"#3C3C43"}>
+            {badge?.content?.split("__")?.map((string, index) => {
               return (
                 <React.Fragment key={string}>
                   <TextStyled bold={index % 2}>{string}</TextStyled>
@@ -145,7 +153,9 @@ const BadgeModal = ({ navigation, route }) => {
         )}
         {!!badge?.secondaryButtonTitle?.length && (
           <TouchableOpacity>
-            <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
+            <Text
+              className="text-indigo-600 text-center underline text-base"
+              onPress={onSecondaryPress}>
               {badge?.secondaryButtonTitle}
             </Text>
           </TouchableOpacity>
