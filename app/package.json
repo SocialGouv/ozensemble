@@ -46,6 +46,7 @@
     "react-native-draggable-flatlist": "^4.0.1",
     "react-native-fast-image": "^8.6.3",
     "react-native-gesture-handler": "^2.14.0",
+    "react-native-get-random-values": "^1.11.0",
     "react-native-in-app-review": "^4.2.1",
     "react-native-localize": "^2.2.4",
     "react-native-mmkv": "^2.6.3",
