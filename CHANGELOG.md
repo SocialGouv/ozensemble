@@ -1,3 +1,10 @@
+## [1.161.17](https://github.com/SocialGouv/ozensemble/compare/v1.161.16...v1.161.17) (2024-07-10)
+
+
+### Bug Fixes
+
+* `catchErrors` doit être mis sur toutes les routes ([16e4e57](https://github.com/SocialGouv/ozensemble/commit/16e4e571b8014f6fba67b5251565c774680c4ef4))
+
 ## [1.161.16](https://github.com/SocialGouv/ozensemble/compare/v1.161.15...v1.161.16) (2024-07-09)
 
 
