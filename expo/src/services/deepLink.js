@@ -1,5 +1,6 @@
 import * as Linking from "expo-linking";
 import NotificationService from "./notifications";
+import * as Notifications from "expo-notifications";
 
 export const deepLinkingConfig = {
   prefixes: ["oz://"],
@@ -63,12 +64,10 @@ export const deepLinkingConfig = {
       return url;
     }
 
-    // Check if there is an initial notification
-    const notification = NotificationService.popInitialNotification();
+    // Handle URL from expo push notifications
+    const response = await Notifications.getLastNotificationResponseAsync();
 
-    // Get deep link from data
-    // if this is undefined, the app will open the default/home page
-    return notification?.data?.link;
+    return response?.notification.request.content.data.url;
   },
   subscribe(listener) {
     // Listen to incoming links from deep linking
@@ -76,14 +75,23 @@ export const deepLinkingConfig = {
       listener(url);
     });
 
-    const unsubscribeNotificationService = NotificationService.subscribe((notification) => {
-      if (notification?.data?.link) listener(notification.data.link);
-    });
+    // Listen to expo push notifications
+    const notificationsSubscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        const url = response.notification.request.content.data.link;
+
+        // Any custom logic to see whether the URL needs to be handled
+        //...
+
+        // Let React Navigation handle the URL
+        if (url) listener(url);
+      }
+    );
 
     return () => {
       // Clean up the event listeners
       linkingSubscription.remove();
-      unsubscribeNotificationService();
+      notificationsSubscription.remove();
     };
   },
 };
