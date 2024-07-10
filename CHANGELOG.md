@@ -1,3 +1,10 @@
+## [1.161.18](https://github.com/SocialGouv/ozensemble/compare/v1.161.17...v1.161.18) (2024-07-10)
+
+
+### Bug Fixes
+
+* sealed ones ([#602](https://github.com/SocialGouv/ozensemble/issues/602)) ([d0d7b44](https://github.com/SocialGouv/ozensemble/commit/d0d7b44714b57532a145e06ed0abe199db04ab55))
+
 ## [1.161.17](https://github.com/SocialGouv/ozensemble/compare/v1.161.16...v1.161.17) (2024-07-10)
 
 
