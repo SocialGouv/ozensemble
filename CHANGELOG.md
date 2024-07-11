@@ -1,3 +1,10 @@
+## [1.161.19](https://github.com/SocialGouv/ozensemble/compare/v1.161.18...v1.161.19) (2024-07-11)
+
+
+### Bug Fixes
+
+* fixed depths ([#603](https://github.com/SocialGouv/ozensemble/issues/603)) ([17051f4](https://github.com/SocialGouv/ozensemble/commit/17051f4e86fefd397b3c1dcd3685e2f4afa81473))
+
 ## [1.161.18](https://github.com/SocialGouv/ozensemble/compare/v1.161.17...v1.161.18) (2024-07-10)
 
 
