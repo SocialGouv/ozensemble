@@ -12,7 +12,7 @@ import CheckboxLabelled from '../../../components/CheckboxLabelled';
 import { defaultPaddingFontScale } from '../../../styles/theme';
 import { P, Spacer } from '../../../components/Articles';
 
-export const answersDefi5Day2 = [
+const answersDefi5Day2 = [
   { answerKey: '1.1', content: 'Quand je suis triste ou déprimé(e)' },
   { answerKey: '1.2', content: "Quand j'ai envie de dire à quelqu'un ce que je pense vraiment" },
   { answerKey: '1.3', content: 'Quand je suis fâché(e) ou frustré(e) contre moi-même' },

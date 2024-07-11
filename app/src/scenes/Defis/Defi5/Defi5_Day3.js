@@ -139,7 +139,7 @@ const updatedResultsToDisplaySelector = selector({
   },
 });
 
-export const Dfi5_Day3_ResultsReLifeQuality = ({ navigation, route }) => {
+const Dfi5_Day3_ResultsReLifeQuality = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const resultKey = useRecoilValue(relifeQualityQuizzAnswersState);
 

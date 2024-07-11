@@ -24,18 +24,7 @@ export const currentStrategyState = atom({
   ],
 });
 
-export const leavingCravingKeyState = atom({
-  key: 'leavingCravingKeyState',
-  default: storage.getNumber('@leftCraving') || 0,
-  effects: [({ onSet }) => onSet((newValue) => storage.set('@leftCraving', newValue))],
-});
-
 export const isInCravingKeyState = atom({
   key: 'isInCravingKeyState',
   default: false,
-});
-
-export const leavingCravingNextTabState = atom({
-  key: 'leavingCravingNextTabState',
-  default: '',
 });

@@ -8,8 +8,6 @@ import { getInitValueFromStorage } from './utils';
 import { goalsByWeekSelector, goalsState } from './gains';
 import { getDerivedDataFromDrinksState } from '../helpers/consosHelpers';
 
-export const followupNumberOfDays = 7;
-
 export const drinksState = atom({
   key: 'drinksState',
   default: getInitValueFromStorage('@Drinks', []),

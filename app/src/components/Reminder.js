@@ -343,7 +343,7 @@ const Title = styled(H1)`
   text-align: center;
 `;
 
-export const SubTitle = styled(H2)`
+const SubTitle = styled(H2)`
   width: 80%;
   margin-bottom: 15px;
   flex-shrink: 0;

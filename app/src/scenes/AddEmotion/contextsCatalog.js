@@ -207,7 +207,7 @@ export const contextsCatalogObject = contextsCatalog.reduce((_contextsCatalogObj
 }, {});
 
 // [PEOPLE, PLACES ...]
-export const contextsCategories = [...new Set(contextsCatalog.map(({ categoryKey }) => categoryKey))];
+const contextsCategories = [...new Set(contextsCatalog.map(({ categoryKey }) => categoryKey))];
 
 export const contextKeysByCategory = contextsCategories.reduce((acc, categoryKey) => {
   acc[categoryKey] = contextsCatalog

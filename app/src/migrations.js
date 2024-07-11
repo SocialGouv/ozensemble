@@ -1,9 +1,7 @@
-import { MMKV } from 'react-native-mmkv';
 import API from './services/api';
 import { drinksCatalog } from './scenes/ConsoFollowUp/drinksCatalog';
 import { capture } from './services/sentry';
-
-export const storage = new MMKV();
+import { storage } from './services/storage';
 
 export const hasSentPreviousDrinksToDB = storage.getBoolean('hasSentPreviousDrinksToDB');
 export async function sendPreviousDrinksToDB() {
@@ -115,7 +113,7 @@ export async function cleanConsosAndCatalog() {
   }
 }
 
-export function cleanCatalog(oldDrinkCatalog) {
+function cleanCatalog(oldDrinkCatalog) {
   // old drink is either
   // a. a drink from the old catalog from 2020
   // b. a drink that has been created in april/may 2023 but might has been bugged by the migration

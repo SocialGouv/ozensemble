@@ -79,18 +79,15 @@ const ResultAddiction = ({ value }) => {
   );
 };
 
-export const ContainerSection = styled.View`
+const ContainerSection = styled.View`
   margin: 5px 0 20px 0;
 `;
-export const ResultParagraph = styled(P)`
+
+const ResultParagraph = styled(P)`
   margin: 8px 0;
 `;
 
-export const TopContainer = styled.View`
-  padding: 20px 25px 40px;
-`;
-
-export const ResultTitle = styled(H2)`
+const ResultTitle = styled(H2)`
   width: 85%;
   flex-shrink: 0;
   font-weight: bold;

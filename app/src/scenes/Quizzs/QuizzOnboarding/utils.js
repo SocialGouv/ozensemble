@@ -2,7 +2,7 @@ import { capture } from '../../../services/sentry';
 import { getAnswerScore } from '../../../components/quizz/utils';
 
 // Utils
-export const computeScore = (questions, answers) => {
+const computeScore = (questions, answers) => {
   try {
     if (!Object.values(answers).filter(Boolean).length) {
       return {

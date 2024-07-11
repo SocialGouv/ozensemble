@@ -3,11 +3,6 @@ const { version, mobileAppVersion } = require("../package.json");
 const PORT = process.env.PORT || 3000;
 const ENVIRONMENT = process.env.ENVIRONMENT || process.env.NODE_ENV || "development";
 
-const PGHOST = process.env.PGHOST;
-const PGPORT = process.env.PGPORT;
-const PGUSER = process.env.PGUSER;
-const PGPASSWORD = process.env.PGPASSWORD || null;
-const PGDATABASE = process.env.PGDATABASE;
 const DATABASE_URL = process.env.DATABASE_URL;
 
 const SENTRY_KEY = process.env.SENTRY_KEY || "https://0ef6896e639948fd9ba54b861186360d@sentry.fabrique.social.gouv.fr/80";
@@ -32,11 +27,6 @@ const METABASE_PASSWORD = process.env.METABASE_PASSWORD;
 
 module.exports = {
   PORT,
-  PGHOST,
-  PGPORT,
-  PGUSER,
-  PGPASSWORD,
-  PGDATABASE,
   DATABASE_URL,
   ENVIRONMENT,
   SENTRY_KEY,

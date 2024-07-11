@@ -1,10 +1,8 @@
-import { MMKV } from 'react-native-mmkv';
 import API from './services/api';
 import { drinksCatalog } from './scenes/ConsoFollowUp/drinksCatalog';
 import { capture } from './services/sentry';
 import { getMaxDrinksPerWeek, getTotalDrinksByDrinkingDay } from './helpers/gainsHelpers';
-
-export const storage = new MMKV();
+import { storage } from './services/storage';
 
 export async function reconciliateDrinksToDB() {
   try {

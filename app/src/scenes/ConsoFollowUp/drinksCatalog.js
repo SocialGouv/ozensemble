@@ -19,28 +19,28 @@ import SpiritsBottle from '../../components/illustrations/drinksAndFood/SpiritsB
 import OwnClGlass from '../../components/illustrations/drinksAndFood/OwnClGlass';
 import { capture } from '../../services/sentry';
 // categories
-export const BEER = 'Bière (5%)';
-export const WINE = 'Vin (12,5%)';
-export const CHAMPAGNE = 'Champagne (12,5%)';
-export const CIDER = 'Cidre (5%)';
-export const APERITIVE = 'Apéritif (15 à 18%) : porto, vermouth...';
-export const SPIRITS = 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...';
+const BEER = 'Bière (5%)';
+const WINE = 'Vin (12,5%)';
+const CHAMPAGNE = 'Champagne (12,5%)';
+const CIDER = 'Cidre (5%)';
+const APERITIVE = 'Apéritif (15 à 18%) : porto, vermouth...';
+const SPIRITS = 'Spiritueux (38% et +) : pastis, vodka, gin, whisky...';
 // subCategories
-export const NO_CONSO = 'no-conso';
-export const BEER_HALF = 'beer-half';
-export const BEER_PINT = 'beer-pint';
-export const CIDER_HALF = 'cider-half';
-export const CIDER_PINT = 'cider-pint';
-export const WINE_GLASS = 'wine-glass';
-export const WINE_BOTTLE = 'wine-bottle';
-export const CHAMPAGNE_GLASS = 'champagne-glass';
-export const CHAMPAGNE_BOTTLE = 'champagne-bottle';
-export const HARD_COCKTAIL = 'hard-cocktail';
-export const HARD_BOTTLE = 'hard-bottle';
-export const HARD_SHOT = 'hard-shot';
-export const HARD_FLASQUE = 'hard-flasque';
-export const APERITIVE_GLASS = 'aperitive-glass';
-export const APERITIVE_BOTTLE = 'aperitive-bottle';
+const NO_CONSO = 'no-conso';
+const BEER_HALF = 'beer-half';
+const BEER_PINT = 'beer-pint';
+const CIDER_HALF = 'cider-half';
+const CIDER_PINT = 'cider-pint';
+const WINE_GLASS = 'wine-glass';
+const WINE_BOTTLE = 'wine-bottle';
+const CHAMPAGNE_GLASS = 'champagne-glass';
+const CHAMPAGNE_BOTTLE = 'champagne-bottle';
+const HARD_COCKTAIL = 'hard-cocktail';
+const HARD_BOTTLE = 'hard-bottle';
+const HARD_SHOT = 'hard-shot';
+const HARD_FLASQUE = 'hard-flasque';
+const APERITIVE_GLASS = 'aperitive-glass';
+const APERITIVE_BOTTLE = 'aperitive-bottle';
 
 export const getDrinkQuantityFromDrinks = (drinks, drinkKey) => {
   if (drinks === undefined) drinks = 'Cocktails et spiritueux';
@@ -157,63 +157,6 @@ export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1)
   }
 };
 
-export const getVolume = (drinkKey, catalogObject) => {
-  try {
-    const drink = catalogObject[drinkKey];
-    if (!drink) {
-      capture(new Error('drink not found'), {
-        extra: { drinkKey, catalogObject, function: 'getVolume' },
-        tags: { drinkKey },
-      });
-      return '0 cl';
-    }
-    return drink.volume;
-  } catch (e) {
-    capture(e, { extra: { drinkKey, catalogObject, function: 'getVolume' } });
-    return '0 cl';
-  }
-};
-
-export const getDoses = (drinkKey, catalogObject) => {
-  try {
-    const drink = catalogObject[drinkKey];
-    if (!drink) {
-      capture(new Error('drink not found'), {
-        extra: { drinkKey, catalogObject, function: 'getDoses' },
-        tags: { drinkKey },
-      });
-      return 0;
-    }
-    return drink.doses;
-  } catch (e) {
-    capture(e, {
-      extra: { drinkKey, catalogObject, function: 'getDoses' },
-      tags: { drinkKey },
-    });
-    return 0;
-  }
-};
-
-export const getStyle = (drinkKey, catalogObject) => {
-  try {
-    const drink = catalogObject[drinkKey];
-    if (!drink) {
-      capture(new Error('drink not found'), {
-        extra: { drinkKey, catalogObject, function: 'getStyle' },
-        tags: { drinkKey },
-      });
-      return {};
-    }
-    return drink.style || {};
-  } catch (e) {
-    capture(e, {
-      extra: { drinkKey, catalogObject, function: 'getStyle' },
-      tags: { drinkKey },
-    });
-    return {};
-  }
-};
-
 export const getIcon = (iconName) => {
   const icon = mapIconNameToIcon[iconName];
   if (!icon) {
@@ -223,21 +166,7 @@ export const getIcon = (iconName) => {
   return icon;
 };
 
-export const formatNewDrink = (name, quantity, degrees, drinkKey) => ({
-  categoryKey: `${name}-${quantity}-${degrees}`,
-  drinkKey: `${name}-${quantity}-${degrees}`,
-  displayFeed: name,
-  displayDrinkModal: name,
-  volume: `${quantity} cl - ${degrees}˚`,
-  doses: getDoseOfDrink(quantity, degrees),
-  custom: true,
-  active: true,
-  iconOf: drinkKey,
-  price: 0,
-  kcal: 0,
-});
-
-export const mapIconNameToIcon = {
+const mapIconNameToIcon = {
   HalfBeer: HalfBeer,
   Pint: Pint,
   HalfCider: HalfCider,
