@@ -1,3 +1,10 @@
+## [1.161.20](https://github.com/SocialGouv/ozensemble/compare/v1.161.19...v1.161.20) (2024-07-12)
+
+
+### Bug Fixes
+
+* not NULL push token ([df0541e](https://github.com/SocialGouv/ozensemble/commit/df0541e29ec146b0c23c6ab13d07c728ef916be2))
+
 ## [1.161.19](https://github.com/SocialGouv/ozensemble/compare/v1.161.18...v1.161.19) (2024-07-11)
 
 
