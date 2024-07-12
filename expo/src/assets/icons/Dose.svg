@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Dose</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,0 L15,100 L85,100 L100,0 L0,0 Z M9.14,27.228 L5.805,5 L12.347,5 L14.596,24.968 C12.531,25.681 10.695,26.471 9.14,27.228 Z M51.499,30.5 C40.022,21.893 28.473,21.572 19.579,23.554 L17.516,5 L94.194,5 L90.053,32.603 C83.23,36.259 67.286,42.334 51.499,30.5 Z" id="Dose" fill="#000000" fill-rule="nonzero"></path>
+    </g>
+</svg>

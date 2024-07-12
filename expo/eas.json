@@ -1,0 +1,35 @@
+{
+  "cli": {
+    "version": ">= 10.1.1",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_PUBLIC_MATOMO_URL": "https://matomo.fabrique.social.gouv.fr/piwik.php",
+        "EXPO_PUBLIC_MATOMO_IDSITE_1": "22",
+        "EXPO_PUBLIC_MATOMO_URL_2": "https://stats.incubateur.net/matomo.php",
+        "EXPO_PUBLIC_MATOMO_IDSITE_2": "2",
+        "EXPO_PUBLIC_SCHEME": "https",
+        "EXPO_PUBLIC_API_HOST": "api-ozensemble.fabrique.social.gouv.fr",
+        "EXPO_PUBLIC_APP_ENV": "production"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
