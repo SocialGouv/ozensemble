@@ -1,3 +1,10 @@
+## [1.161.21](https://github.com/SocialGouv/ozensemble/compare/v1.161.20...v1.161.21) (2024-07-15)
+
+
+### Reverts
+
+* Revert "fix: sealed ones (#602)" ([cfc9b64](https://github.com/SocialGouv/ozensemble/commit/cfc9b64f19414398b4f4ed9711555c6494584557)), closes [#602](https://github.com/SocialGouv/ozensemble/issues/602)
+
 ## [1.161.20](https://github.com/SocialGouv/ozensemble/compare/v1.161.19...v1.161.20) (2024-07-12)
 
 
