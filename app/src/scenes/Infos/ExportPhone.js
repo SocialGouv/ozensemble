@@ -21,16 +21,11 @@ import RNFS from 'react-native-fs';
 const ExportPhone = ({ navigation }) => {
   const exportData = async () => {
     // Storage
-    console.log(storage.getBoolean('@OnboardingDoneWithCGU'), 'onboarding');
     const allStorage = storage.getAllKeys();
-    console.log(allStorage, 'allStorage');
-    const storageDataToExport = {};
+    const storageData = {};
     allStorage.forEach((key) => {
       const stringValue = storage.getString(key);
-      console.log(stringValue, 'stringValue', key);
       const booleanValue = storage.getBoolean(key);
-      console.log(booleanValue, 'booleanValue', key);
-
       let value;
       if (stringValue !== null && stringValue !== undefined) {
         try {
@@ -43,11 +38,12 @@ const ExportPhone = ({ navigation }) => {
       } else {
         value = null;
       }
-      if (value !== null) storageDataToExport[key] = value;
+      if (value !== null) storageData[key] = value;
     });
-
-    const jsonExport = JSON.stringify(storageDataToExport);
-    console.log(jsonExport);
+    // DB
+    const userDBData = await fetchUserData();
+    const exportData = { storageData, userDBData };
+    const jsonExport = JSON.stringify(exportData);
 
     const path = `${RNFS.DocumentDirectoryPath}/data.json`;
     await RNFS.writeFile(path, jsonExport, 'utf8');
@@ -68,25 +64,30 @@ const ExportPhone = ({ navigation }) => {
       const fileUri = result[0].uri;
       const fileContents = await fetch(fileUri).then((response) => response.text());
       const importedData = JSON.parse(fileContents);
-      console.log(importedData, 'importedData');
+      const storageData = importedData.storageData;
+      const userDBData = importedData.userDBData;
       storage.clearAll();
-      Object.keys(importedData).forEach((key) => {
-        const value = importedData[key];
-        console.log(key, value, 'input');
+      Object.keys(storageData).forEach((key) => {
+        const value = storageData[key];
         if (typeof value === 'object') {
           storage.set(key, JSON.stringify(value));
         } else storage.set(key, value);
       });
-      console.log(storage.getAllKeys(), 'output');
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled the picker');
       } else {
         throw err;
       }
     }
   };
 
+  const fetchUserData = async () => {
+    const matomoId = storage.getString('@UserIdv2');
+    const data = await API.get({ path: `/user/allData`, query: { matomoId } }).then((res) => {
+      if (res.ok) return res.data;
+    });
+    return data;
+  };
   return (
     <WrapperContainer onPressBackButton={navigation.goBack} title="Exporter mes consommations">
       <KeyboardAvoidingView
@@ -120,19 +121,6 @@ const ButtonsContainer = styled.View`
   align-items: flex-start;
   margin-vertical: 30px;
   width: 100%;
-`;
-
-const EmailInput = styled(TextInputStyled)`
-  width: 100%;
-  height: 50px;
-  background-color: #f3f3f6;
-  border: 1px solid #dbdbe9;
-  color: #4030a5;
-  border-radius: 7px;
-  padding-left: 15px;
-  justify-content: center;
-  margin-bottom: 10px;
-  margin-top: 15px;
 `;
 
 export default ExportPhone;

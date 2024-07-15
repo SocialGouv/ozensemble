@@ -36,6 +36,109 @@ router.put(
 );
 
 router.get(
+  "/allData",
+  catchErrors(async (req, res) => {
+    const { matomoId } = req.query || {};
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const user = await prisma.user.findUnique({
+      where: { matomo_id: matomoId },
+    });
+    if (!user) return res.status(404).json({ ok: false, error: "user not found" });
+    const notifications = await prisma.notification.findMany({
+      where: { userId: user.id },
+    });
+    const reminders = await prisma.reminder.findMany({
+      where: { userId: user.id },
+    });
+    const badges = await prisma.badge.findMany({
+      where: { userId: user.id },
+    });
+    const goals = await prisma.goal.findMany({
+      where: { userId: user.id },
+    });
+    const appMilestone = await prisma.appMilestone.findMany({
+      where: { userId: user.id },
+    });
+    const articles = await prisma.article.findMany({
+      where: { userId: user.id },
+    });
+    const data = {
+      user,
+      notifications,
+      reminders,
+      badges,
+      goals,
+      appMilestone,
+      articles,
+    };
+    return res.status(200).send({ ok: true, data });
+  })
+);
+
+router.post(
+  "/allData",
+  catchErrors(async (req, res) => {
+    const { matomoId, data } = req.body || {};
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    if (!data) return res.status(400).json({ ok: false, error: "no data" });
+    const user = await prisma.user.findUnique({
+      where: { matomo_id: matomoId },
+    });
+    if (!user) return res.status(404).json({ ok: false, error: "user not found" });
+    const { notifications, reminders, badges, goals, appMilestone, articles } = data;
+    if (notifications) {
+      await prisma.notification.deleteMany({
+        where: { userId: user.id },
+      });
+      await prisma.notification.createMany({
+        data: notifications.map((n) => ({ ...n, userId: user.id })),
+      });
+    }
+    if (reminders) {
+      await prisma.reminder.deleteMany({
+        where: { userId: user.id },
+      });
+      await prisma.reminder.createMany({
+        data: reminders.map((r) => ({ ...r, userId: user.id })),
+      });
+    }
+    if (badges) {
+      await prisma.badge.deleteMany({
+        where: { userId: user.id },
+      });
+      await prisma.badge.createMany({
+        data: badges.map((b) => ({ ...b, userId: user.id })),
+      });
+    }
+    if (goals) {
+      await prisma.goal.deleteMany({
+        where: { userId: user.id },
+      });
+      await prisma.goal.createMany({
+        data: goals.map((g) => ({ ...g, userId: user.id })),
+      });
+    }
+    if (appMilestone) {
+      await prisma.appMilestone.deleteMany({
+        where: { userId: user.id },
+      });
+      await prisma.appMilestone.createMany({
+        data: appMilestone.map((a) => ({ ...a, userId: user.id })),
+      });
+    }
+    if (articles) {
+      await prisma.article.deleteMany({
+        where: { userId: user.id },
+      });
+      await prisma.article.createMany({
+        data: articles.map((a) => ({ ...a, userId: user.id })),
+      });
+    }
+    return res.status(200).send({ ok: true });
+  })
+);
+
+router.get(
   "/location",
   catchErrors(async (req, res) => {
     const { matomoId } = req.query || {};
