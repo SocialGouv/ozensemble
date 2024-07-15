@@ -30,6 +30,7 @@ import OfficialIcon from '../../components/illustrations/icons/OfficialIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { isOnboardedSelector } from '../../recoil/gains';
 import Official from './Official';
+import ExportPhone from './ExportPhone';
 
 const InfosStack = createStackNavigator();
 
@@ -51,6 +52,7 @@ const Infos = () => {
           {({ navigation }) => <Official onClose={navigation.goBack} />}
         </InfosStack.Screen>
         <InfosStack.Screen name="EXPORT" component={Export} />
+        <InfosStack.Screen name="EXPORT_TO_PHONE" component={ExportPhone} />
         <InfosStack.Screen name="FAKE_DATA" component={FakeData} />
       </InfosStack.Navigator>
     </Background>
@@ -173,6 +175,18 @@ const InfosMenu = ({ navigation }) => {
                 action: 'GOAL_OPEN',
               });
               navigation.push('EXPORT');
+            }}
+          />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+          <MenuItem
+            caption={'Exporter vers un autre telephone'}
+            Icon={ExportDataIcon}
+            onPress={() => {
+              logEvent({
+                category: 'GAINS',
+                action: 'GOAL_OPEN',
+              });
+              navigation.push('EXPORT_TO_PHONE');
             }}
           />
         </View>
