@@ -30,7 +30,8 @@ import OfficialIcon from '../../components/illustrations/icons/OfficialIcon';
 import { logEvent } from '../../services/logEventsWithMatomo';
 import { isOnboardedSelector } from '../../recoil/gains';
 import Official from './Official';
-import ExportPhone from './ExportPhone';
+import ExportPhone from './Transfer';
+import TransferIcon from '../../components/illustrations/icons/TransferIcon';
 
 const InfosStack = createStackNavigator();
 
@@ -171,20 +172,20 @@ const InfosMenu = ({ navigation }) => {
             Icon={ExportDataIcon}
             onPress={() => {
               logEvent({
-                category: 'GAINS',
-                action: 'GOAL_OPEN',
+                category: 'EXPORT',
+                action: 'EXPORT_OPEN',
               });
               navigation.push('EXPORT');
             }}
           />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
           <MenuItem
-            caption={'Exporter vers un autre telephone'}
-            Icon={ExportDataIcon}
+            caption={'Transférer vers un autre téléphone'}
+            Icon={TransferIcon}
             onPress={() => {
               logEvent({
-                category: 'GAINS',
-                action: 'GOAL_OPEN',
+                category: 'TRANSFER',
+                action: 'TRANSFER_OPEN',
               });
               navigation.push('EXPORT_TO_PHONE');
             }}

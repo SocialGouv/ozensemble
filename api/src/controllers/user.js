@@ -78,20 +78,21 @@ router.get(
 router.post(
   "/allData",
   catchErrors(async (req, res) => {
-    const { matomoId, data } = req.body || {};
+    const { matomoId, data, notificationToken } = req.body || {};
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     if (!data) return res.status(400).json({ ok: false, error: "no data" });
     const user = await prisma.user.findUnique({
       where: { matomo_id: matomoId },
     });
     if (!user) return res.status(404).json({ ok: false, error: "user not found" });
+    const userIdLength = user.id.length;
     const { notifications, reminders, badges, goals, appMilestone, articles } = data;
     if (notifications) {
       await prisma.notification.deleteMany({
         where: { userId: user.id },
       });
       await prisma.notification.createMany({
-        data: notifications.map((n) => ({ ...n, userId: user.id })),
+        data: notifications.map((n) => ({ ...n, userId: user.id, id: undefined })),
       });
     }
     if (reminders) {
@@ -99,7 +100,7 @@ router.post(
         where: { userId: user.id },
       });
       await prisma.reminder.createMany({
-        data: reminders.map((r) => ({ ...r, userId: user.id })),
+        data: reminders.map((r) => ({ ...r, userId: user.id, id: undefined })),
       });
     }
     if (badges) {
@@ -107,7 +108,7 @@ router.post(
         where: { userId: user.id },
       });
       await prisma.badge.createMany({
-        data: badges.map((b) => ({ ...b, userId: user.id })),
+        data: badges.map((b) => ({ ...b, userId: user.id, id: undefined })),
       });
     }
     if (goals) {
@@ -115,7 +116,7 @@ router.post(
         where: { userId: user.id },
       });
       await prisma.goal.createMany({
-        data: goals.map((g) => ({ ...g, userId: user.id })),
+        data: goals.map((g) => ({ ...g, userId: user.id, id: `${user.id}_${g.date}` })),
       });
     }
     if (appMilestone) {
@@ -123,7 +124,7 @@ router.post(
         where: { userId: user.id },
       });
       await prisma.appMilestone.createMany({
-        data: appMilestone.map((a) => ({ ...a, userId: user.id })),
+        data: appMilestone.map((a) => ({ ...a, userId: user.id, id: `${user.id}_${a.id.substring(userIdLength)}` })),
       });
     }
     if (articles) {
@@ -131,7 +132,7 @@ router.post(
         where: { userId: user.id },
       });
       await prisma.article.createMany({
-        data: articles.map((a) => ({ ...a, userId: user.id })),
+        data: articles.map((a) => ({ ...a, userId: user.id, id: `${user.id}_${a.id.substring(userIdLength)}` })),
       });
     }
     return res.status(200).send({ ok: true });
