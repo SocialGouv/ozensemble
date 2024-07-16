@@ -15,7 +15,7 @@ router.put(
 
     let created_from = "User";
     if (req.body.hasOwnProperty("pushNotifToken")) {
-      updateObj.push_notif_token = req.body.pushNotifToken;
+      updateObj.push_notif_token = req.body.pushNotifToken ?? "";
       created_from = "User-PushNotif";
     }
 
