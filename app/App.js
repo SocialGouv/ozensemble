@@ -1,4 +1,3 @@
-import 'react-native-get-random-values';
 import React, { useEffect, useState } from 'react';
 import * as Sentry from '@sentry/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

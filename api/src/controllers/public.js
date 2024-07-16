@@ -5,9 +5,8 @@ const fetch = require("node-fetch");
 const { DataFrame } = require("data-forge");
 const { METABASE_ACCOUNT, METABASE_PASSWORD } = require("../config");
 
-router.get(
-  "/metabase",
-  catchErrors(async (req, res) => {
+router.get("/metabase", async (req, res) => {
+  try {
     const questionIndex = req.query.question;
     const sessionResponse = await fetch("https://metabase-ozensemble.fabrique.social.gouv.fr/api/session", {
       method: "POST",
@@ -56,7 +55,10 @@ router.get(
     const df = new DataFrame(rows);
 
     res.status(200).json({ result: df.toJSON() });
-  })
-);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 module.exports = router;

@@ -1,38 +1,3 @@
-## [1.161.21](https://github.com/SocialGouv/ozensemble/compare/v1.161.20...v1.161.21) (2024-07-15)
-
-
-### Reverts
-
-* Revert "fix: sealed ones (#602)" ([cfc9b64](https://github.com/SocialGouv/ozensemble/commit/cfc9b64f19414398b4f4ed9711555c6494584557)), closes [#602](https://github.com/SocialGouv/ozensemble/issues/602)
-
-## [1.161.20](https://github.com/SocialGouv/ozensemble/compare/v1.161.19...v1.161.20) (2024-07-12)
-
-
-### Bug Fixes
-
-* not NULL push token ([df0541e](https://github.com/SocialGouv/ozensemble/commit/df0541e29ec146b0c23c6ab13d07c728ef916be2))
-
-## [1.161.19](https://github.com/SocialGouv/ozensemble/compare/v1.161.18...v1.161.19) (2024-07-11)
-
-
-### Bug Fixes
-
-* fixed depths ([#603](https://github.com/SocialGouv/ozensemble/issues/603)) ([17051f4](https://github.com/SocialGouv/ozensemble/commit/17051f4e86fefd397b3c1dcd3685e2f4afa81473))
-
-## [1.161.18](https://github.com/SocialGouv/ozensemble/compare/v1.161.17...v1.161.18) (2024-07-10)
-
-
-### Bug Fixes
-
-* sealed ones ([#602](https://github.com/SocialGouv/ozensemble/issues/602)) ([d0d7b44](https://github.com/SocialGouv/ozensemble/commit/d0d7b44714b57532a145e06ed0abe199db04ab55))
-
-## [1.161.17](https://github.com/SocialGouv/ozensemble/compare/v1.161.16...v1.161.17) (2024-07-10)
-
-
-### Bug Fixes
-
-* `catchErrors` doit être mis sur toutes les routes ([16e4e57](https://github.com/SocialGouv/ozensemble/commit/16e4e571b8014f6fba67b5251565c774680c4ef4))
-
 ## [1.161.16](https://github.com/SocialGouv/ozensemble/compare/v1.161.15...v1.161.16) (2024-07-09)
 
 
