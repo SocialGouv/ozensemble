@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Background from '../../components/Background';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { myMotivationState } from '../../recoil/gains';
-import BackButton from '../../components/BackButton';
-import H1 from '../../components/H1';
-import { useRecoilState } from 'recoil';
-import { logEvent } from '../../services/logEventsWithMatomo';
+import React, { useState, useEffect } from "react";
+import { Platform, View, Text, TextInput, KeyboardAvoidingView, ScrollView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Background from "../../components/Background";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import { myMotivationState } from "../../recoil/gains";
+import BackButton from "../../components/BackButton";
+import H1 from "../../components/H1";
+import { useRecoilState } from "recoil";
+import { logEvent } from "../../services/logEventsWithMatomo";
 
 // just to make sure nothing goes the bad way in production, debug is always false
 
@@ -17,13 +17,14 @@ const MyMotivations = ({ navigation }) => {
 
   useEffect(() => {
     setInitialMotivation([...motivation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const sendMotivation = () => {
     if (JSON.stringify(motivation) !== JSON.stringify(initialMotivation)) {
-      const filteredMotivation = motivation.filter((m) => m.trim() !== '');
+      const filteredMotivation = motivation.filter((m) => m.trim() !== "");
       logEvent({
-        category: 'CRAVING',
-        action: 'CHANGED_MY_MOTIVATIONS',
+        category: "CRAVING",
+        action: "CHANGED_MY_MOTIVATIONS",
         name: filteredMotivation.length,
       });
     }
@@ -42,7 +43,7 @@ const MyMotivations = ({ navigation }) => {
         <View className="h-full w-screen">
           <KeyboardAvoidingView
             className="flex-1"
-            behavior={Platform.select({ ios: 'padding', android: null })}
+            behavior={Platform.select({ ios: "padding", android: null })}
             keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
             <ScrollView
               showsVerticalScrollIndicator={false}
@@ -54,12 +55,14 @@ const MyMotivations = ({ navigation }) => {
                 <H1>Mes motivations</H1>
               </View>
               <View className="mt-8">
-                <Text className="text-[#191919] text-lg font-bold">Quelles sont vos motivations ?</Text>
+                <Text className="text-[#191919] text-lg font-bold">
+                  Quelles sont vos motivations ?
+                </Text>
                 <Text className="text-gray-500 text-base italic mb-4">
                   Décrire vos motivations à maîtriser votre consommation
                 </Text>
               </View>
-              {['1ère motivation', '2ème motivation', '3ème motivation'].map((title, index) => (
+              {["1ère motivation", "2ème motivation", "3ème motivation"].map((title, index) => (
                 <View key={index} className="mt-8">
                   <Text className="text-[#191919] text-base font-bold">{title}</Text>
                   <TextInput
@@ -75,7 +78,11 @@ const MyMotivations = ({ navigation }) => {
                 </View>
               ))}
               <View className="justify-center flex-row pt-16">
-                <ButtonPrimary content={'Valider'} disabled={!motivation.some((m) => m)} onPress={sendMotivation} />
+                <ButtonPrimary
+                  content={"Valider"}
+                  disabled={!motivation.some((m) => m)}
+                  onPress={sendMotivation}
+                />
               </View>
             </ScrollView>
           </KeyboardAvoidingView>

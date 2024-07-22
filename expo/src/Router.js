@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { Alert, Linking, View } from "react-native";
+import { Alert, Linking } from "react-native";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as SplashScreen from "expo-splash-screen";

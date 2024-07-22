@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
-import { View, Dimensions, StyleSheet } from 'react-native';
-import FastImage from 'react-native-fast-image';
-import ConfettiImage from '../assets/images/confetti.png';
+import React, { useEffect } from "react";
+import Animated, { useSharedValue, useAnimatedStyle } from "react-native-reanimated";
+import { View, Dimensions, StyleSheet } from "react-native";
+import FastImage from "react-native-fast-image";
+import ConfettiImage from "../assets/images/confetti.png";
 
 const NUM_CONFETTI = 100;
-const COLORS = ['#107ed5', '#DE285E', '#39CEC1', '#09aec5', '#FCBC49'];
+const COLORS = ["#107ed5", "#DE285E", "#39CEC1", "#09aec5", "#FCBC49"];
 const CONFETTI_SIZE = 16;
 
 const Confettis = () => {
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('screen');
+  const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
   const confettiProps = Array.from({ length: NUM_CONFETTI }, (_, i) => ({
     initialX: Math.random() * screenWidth,
     initialY: -screenHeight - 100, // Start off-screen
@@ -30,7 +30,7 @@ const Confettis = () => {
   );
 };
 const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity, color }) => {
-  const { width: screenWidth } = Dimensions.get('screen');
+  const { width: screenWidth } = Dimensions.get("screen");
   const x = useSharedValue(initialX);
   const y = useSharedValue(initialY);
   const angle = useSharedValue(0); // Assuming initial angle is 0
@@ -39,8 +39,9 @@ const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity,
     let frameId;
 
     const animate = () => {
-      'worklet';
+      "worklet";
       if (delay > 0) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         delay -= 1 / 60; // Assuming 60 FPS
       } else {
         x.value += xVel / 60;
@@ -50,6 +51,7 @@ const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity,
         // Check and handle left and right boundaries
         if (x.value > screenWidth - CONFETTI_SIZE) {
           x.value = screenWidth - CONFETTI_SIZE; // Adjust position
+          // eslint-disable-next-line react-hooks/exhaustive-deps
           xVel *= -elasticity; // Reverse velocity
         } else if (x.value < 0) {
           x.value = 0; // Adjust position
@@ -71,7 +73,11 @@ const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity,
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
-      transform: [{ translateX: x.value }, { translateY: y.value }, { rotate: `${angle.value}rad` }],
+      transform: [
+        { translateX: x.value },
+        { translateY: y.value },
+        { rotate: `${angle.value}rad` },
+      ],
       backgroundColor: color,
     };
   });
@@ -85,7 +91,7 @@ const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity,
 
 const styles = StyleSheet.create({
   confettiContainer: {
-    position: 'absolute',
+    position: "absolute",
     width: CONFETTI_SIZE,
     height: CONFETTI_SIZE,
     top: 0,

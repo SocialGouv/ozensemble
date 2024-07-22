@@ -1,18 +1,18 @@
-import React, { useMemo, useState } from 'react';
-import { Dimensions, PixelRatio, View, Text, TouchableOpacity } from 'react-native';
-import dayjs from 'dayjs';
-import { useRecoilValue } from 'recoil';
-import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState } from '../recoil/consos';
-import { previousDrinksPerWeekState } from '../recoil/gains';
-import { defaultPaddingFontScale } from '../styles/theme';
-import ModalGainDetails from './ModalGainDetails';
+import React, { useMemo, useState } from "react";
+import { Dimensions, PixelRatio, View, Text, TouchableOpacity } from "react-native";
+import dayjs from "dayjs";
+import { useRecoilValue } from "recoil";
+import { consolidatedCatalogObjectSelector, derivedDataFromDrinksState } from "../recoil/consos";
+import { previousDrinksPerWeekState } from "../recoil/gains";
+import { defaultPaddingFontScale } from "../styles/theme";
+import ModalGainDetails from "./ModalGainDetails";
 
 const WeeklyGains = ({ selectedMonth }) => {
-  const { width: SCREEN_WIDTH } = Dimensions.get('window');
-  const firstDayOfMonth = selectedMonth.startOf('month');
-  const lastDayOfMonth = selectedMonth.endOf('month');
-  const firstDayOfCalendar = firstDayOfMonth.startOf('week');
-  const nbDays = firstDayOfCalendar.add(35, 'days').diff(lastDayOfMonth) > 0 ? 35 : 42; // 35 days if the month run on 5 weeks, 42 if it run on 6 weeks
+  const { width: SCREEN_WIDTH } = Dimensions.get("window");
+  const firstDayOfMonth = selectedMonth.startOf("month");
+  const lastDayOfMonth = selectedMonth.endOf("month");
+  const firstDayOfCalendar = firstDayOfMonth.startOf("week");
+  const nbDays = firstDayOfCalendar.add(35, "days").diff(lastDayOfMonth) > 0 ? 35 : 42; // 35 days if the month run on 5 weeks, 42 if it run on 6 weeks
   const catalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const [modalContent, setModalContent] = useState(null);
   const previousDrinksPerWeek = useRecoilValue(previousDrinksPerWeekState);
@@ -22,14 +22,14 @@ const WeeklyGains = ({ selectedMonth }) => {
   const fontSize = useMemo(() => {
     const newSize = 14 * widthBaseScale;
     return Math.round(PixelRatio.roundToNearestPixel(newSize));
-  }, [SCREEN_WIDTH]);
+  }, [widthBaseScale]);
   const myWeeklyInitialKCal = useMemo(
     () =>
       previousDrinksPerWeek.reduce(
         (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.kcal || 0),
         0
       ),
-    [previousDrinksPerWeek]
+    [catalogObject, previousDrinksPerWeek]
   );
   const myWeeklyInitialExpenses = useMemo(
     () =>
@@ -37,41 +37,47 @@ const WeeklyGains = ({ selectedMonth }) => {
         (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
         0
       ),
-    [previousDrinksPerWeek]
+    [catalogObject, previousDrinksPerWeek]
   );
 
   const weekInfos = useMemo(() => {
     const _weekInfos = [];
     const nbWeeks = nbDays / 7;
     for (let i = 0; i < nbWeeks; i++) {
-      const startDay = firstDayOfCalendar.add(i * 7, 'days');
-      const endDay = firstDayOfCalendar.add(i * 7 + 6, 'days');
+      const startDay = firstDayOfCalendar.add(i * 7, "days");
+      const endDay = firstDayOfCalendar.add(i * 7 + 6, "days");
       let hasEnteredDrinks;
       for (let j = 0; j < 7; j++) {
-        if (drinksByDay[dayjs(startDay).add(j, 'days').format('YYYY-MM-DD')]) {
+        if (drinksByDay[dayjs(startDay).add(j, "days").format("YYYY-MM-DD")]) {
           hasEnteredDrinks = true;
           break;
         }
       }
       const savedExpenses = hasEnteredDrinks
-        ? Math.round(Math.abs(weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyInitialExpenses) * 10) / 10
+        ? Math.round(
+            Math.abs(
+              weeklyExpenses[dayjs(startDay).format("YYYY-MM-DD")] - myWeeklyInitialExpenses
+            ) * 10
+          ) / 10
         : 0;
       const eurosColor =
-        weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyInitialExpenses
-          ? 'bg-[#FF7979]'
+        weeklyExpenses[dayjs(startDay).format("YYYY-MM-DD")] > myWeeklyInitialExpenses
+          ? "bg-[#FF7979]"
           : hasEnteredDrinks
-          ? 'bg-[#3AD39D]'
-          : 'bg-[#939EA6]';
+            ? "bg-[#3AD39D]"
+            : "bg-[#939EA6]";
 
       const savedKcals = hasEnteredDrinks
-        ? Math.round(Math.abs(weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] - myWeeklyInitialKCal))
+        ? Math.round(
+            Math.abs(weeklyKcals[dayjs(startDay).format("YYYY-MM-DD")] - myWeeklyInitialKCal)
+          )
         : 0;
       const kcalsColor =
-        weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')] > myWeeklyInitialKCal
-          ? 'bg-[#FF7979]'
+        weeklyKcals[dayjs(startDay).format("YYYY-MM-DD")] > myWeeklyInitialKCal
+          ? "bg-[#FF7979]"
           : hasEnteredDrinks
-          ? 'bg-[#3AD39D]'
-          : 'bg-[#939EA6]';
+            ? "bg-[#3AD39D]"
+            : "bg-[#939EA6]";
 
       _weekInfos[i] = {
         startDay: startDay,
@@ -81,12 +87,20 @@ const WeeklyGains = ({ selectedMonth }) => {
         kcalsColor: kcalsColor,
         eurosColor: eurosColor,
         hasEnteredDrinks: hasEnteredDrinks,
-        weekKcal: weeklyKcals[dayjs(startDay).format('YYYY-MM-DD')],
-        weekExpenses: weeklyExpenses[dayjs(startDay).format('YYYY-MM-DD')],
+        weekKcal: weeklyKcals[dayjs(startDay).format("YYYY-MM-DD")],
+        weekExpenses: weeklyExpenses[dayjs(startDay).format("YYYY-MM-DD")],
       };
     }
     return _weekInfos;
-  }, [firstDayOfCalendar]);
+  }, [
+    drinksByDay,
+    firstDayOfCalendar,
+    myWeeklyInitialExpenses,
+    myWeeklyInitialKCal,
+    nbDays,
+    weeklyExpenses,
+    weeklyKcals,
+  ]);
 
   return (
     <View style={{ paddingHorizontal: defaultPaddingFontScale() }} className="py-5">
@@ -118,18 +132,20 @@ const WeeklyGains = ({ selectedMonth }) => {
           <View className="flex flex-row mb-2 bg-[#F5F6FA] rounded-lg py-1" key={week.startDay}>
             <View className="flex flex-row grow items-center justify-center basis-14">
               <Text className=" text-[#939EA6] font-semibold" style={{ fontSize: fontSize }}>
-                {week.startDay.format('DD')} au {week.endDay.format('DD')}
+                {week.startDay.format("DD")} au {week.endDay.format("DD")}
               </Text>
             </View>
             <View className="flex flex-row grow justify-center items-center basis-16">
-              <View className={`justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow ${week.eurosColor}`}>
+              <View
+                className={`justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow ${week.eurosColor}`}>
                 <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                   {week.savedExpenses}€
                 </Text>
               </View>
             </View>
             <View className="flex flex-row grow justify-center items-center basis-16">
-              <View className={`justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow ${week.kcalsColor}`}>
+              <View
+                className={`justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow ${week.kcalsColor}`}>
                 <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
                   {week.savedKcals} KCAL
                 </Text>
@@ -147,8 +163,8 @@ const WeeklyGains = ({ selectedMonth }) => {
                     savedExpenses: week.savedExpenses,
                     weekExpenses: week.weekExpenses,
                     estimationExpenses: myWeeklyInitialExpenses,
-                    firstDay: week.startDay.format('DD MMMM'),
-                    lastDay: week.endDay.format('DD MMMM'),
+                    firstDay: week.startDay.format("DD MMMM"),
+                    lastDay: week.endDay.format("DD MMMM"),
                     hasEnteredDrinks: week.hasEnteredDrinks,
                     eurosColor: week.eurosColor,
                     kcalsColor: week.kcalsColor,

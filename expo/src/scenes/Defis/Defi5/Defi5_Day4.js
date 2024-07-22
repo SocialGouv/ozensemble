@@ -12,7 +12,7 @@ import CheckboxLabelled from "../../../components/CheckboxLabelled";
 import { defaultPaddingFontScale } from "../../../styles/theme";
 import { P, Spacer } from "../../../components/Articles";
 
-export const answersDefi5Day4 = [
+const answersDefi5Day4 = [
   { answerKey: "1.1", content: "Moins de fatigue" },
   { answerKey: "1.2", content: "Meilleure concentration" },
   { answerKey: "1.3", content: "Perte de poids" },

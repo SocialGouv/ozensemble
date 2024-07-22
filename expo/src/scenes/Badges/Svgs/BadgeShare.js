@@ -1,11 +1,11 @@
-import React from 'react';
-import Svg, { Path, Rect } from 'react-native-svg';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
 
 export const BadgeShare = ({ stars, size = 96 }) => {
-  const star2 = stars >= 2 ? '#4030A5' : '#E8E8F3';
-  const star3 = stars >= 3 ? '#4030A5' : '#E8E8F3';
-  const star4 = stars >= 4 ? '#4030A5' : '#E8E8F3';
-  const star5 = stars >= 5 ? '#4030A5' : '#E8E8F3';
+  const star2 = stars >= 2 ? "#4030A5" : "#E8E8F3";
+  const star3 = stars >= 3 ? "#4030A5" : "#E8E8F3";
+  const star4 = stars >= 4 ? "#4030A5" : "#E8E8F3";
+  const star5 = stars >= 5 ? "#4030A5" : "#E8E8F3";
   return (
     <Svg width={size} height={size} className="m-auto" viewBox="0 0 90 90" fill="none">
       <Path // large purple bg

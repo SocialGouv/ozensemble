@@ -7,7 +7,7 @@ import { View } from "react-native";
 
 const WelcomeSwiper = ({ navigation }) => {
   const [agreed, setAgreed] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [, setCurrentIndex] = useState(0);
   // const [pagination, setPagination] = useState(true);
   const swiperRef = useRef();
 

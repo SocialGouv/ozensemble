@@ -1,7 +1,7 @@
-import React, { useCallback, useRef } from 'react';
-import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from 'react-native';
-import { capture } from '../services/sentry';
-import TextStyled from './TextStyled';
+import React, { useCallback, useRef } from "react";
+import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from "react-native";
+import { capture } from "../services/sentry";
+import TextStyled from "./TextStyled";
 
 const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosition = 1 }) => {
   const translateX = useRef(new Animated.Value(initPosition)).current;
@@ -23,7 +23,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
         }),
       ]).start();
     },
-    []
+    [initPosition, translateX]
   );
   const onTerminate = async (evt) => {
     const newX = evt.nativeEvent.locationX;
@@ -33,7 +33,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
         (x, y, width) => {
           res(width);
         },
-        (error) => capture('error finding ref', { extra: { error } })
+        (error) => capture("error finding ref", { extra: { error } })
       )
     );
     const newPosition = Number(newX > width / 2);
@@ -43,7 +43,7 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
         (x, y, width) => {
           res(width);
         },
-        (error) => capture('error finding ref', { extra: { error } })
+        (error) => capture("error finding ref", { extra: { error } })
       )
     );
 
@@ -86,7 +86,11 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
         {...(panResponder?.panHandlers || {})}
         pointerEvents="box-only">
         <View ref={insideContainerRef} style={styles.content}>
-          <Animated.View ref={buttonRef} onLayout={onLayout} style={[styles.button, { transform: [{ translateX }] }]} />
+          <Animated.View
+            ref={buttonRef}
+            onLayout={onLayout}
+            style={[styles.button, { transform: [{ translateX }] }]}
+          />
         </View>
         <View style={styles.textsContainer}>
           <View style={styles.textContainer}>
@@ -97,11 +101,11 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                   opacity: position.interpolate({
                     inputRange: [0, 1],
                     outputRange: [0, 1],
-                    extrapolate: 'clamp',
+                    extrapolate: "clamp",
                   }),
                 },
               ]}>
-              <TextStyled bold color={'#000'}>
+              <TextStyled bold color={"#000"}>
                 {leftContent}
               </TextStyled>
             </Animated.View>
@@ -112,11 +116,11 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                   opacity: position.interpolate({
                     inputRange: [0, 1],
                     outputRange: [1, 0],
-                    extrapolate: 'clamp',
+                    extrapolate: "clamp",
                   }),
                 },
               ]}>
-              <TextStyled bold color={'#fff'}>
+              <TextStyled bold color={"#fff"}>
                 {leftContent}
               </TextStyled>
             </Animated.View>
@@ -129,11 +133,11 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                   opacity: position.interpolate({
                     inputRange: [0, 1],
                     outputRange: [1, 0],
-                    extrapolate: 'clamp',
+                    extrapolate: "clamp",
                   }),
                 },
               ]}>
-              <TextStyled bold color={'#000'}>
+              <TextStyled bold color={"#000"}>
                 {rightContent}
               </TextStyled>
             </Animated.View>
@@ -144,11 +148,11 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                   opacity: position.interpolate({
                     inputRange: [0, 1],
                     outputRange: [0, 1],
-                    extrapolate: 'clamp',
+                    extrapolate: "clamp",
                   }),
                 },
               ]}>
-              <TextStyled bold color={'#fff'}>
+              <TextStyled bold color={"#fff"}>
                 {rightContent}
               </TextStyled>
             </Animated.View>
@@ -163,54 +167,54 @@ const padding = 4;
 
 const styles = StyleSheet.create({
   outerContainer: {
-    width: '40%',
-    alignItems: 'center',
+    width: "40%",
+    alignItems: "center",
   },
 
   title: {
     marginBottom: 10,
   },
   container: {
-    width: '70%',
+    width: "70%",
     borderRadius: 30,
-    overflow: 'hidden',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    overflow: "hidden",
+    marginLeft: "auto",
+    marginRight: "auto",
     borderWidth: 1,
-    borderColor: '#DBDBE8',
+    borderColor: "#DBDBE8",
   },
   content: {
-    width: '100%',
+    width: "100%",
   },
   button: {
-    backgroundColor: '#4030A5',
-    width: '50%',
+    backgroundColor: "#4030A5",
+    width: "50%",
     minHeight: 30,
     borderRadius: 30,
     margin: 2,
   },
   textsContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: padding,
     left: padding,
     right: padding,
     bottom: padding,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   textColorsContainer: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
-    marginVertical: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
+    marginVertical: "auto",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
 });
 

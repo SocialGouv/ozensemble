@@ -7,7 +7,7 @@ import { screenHeight, screenWidth } from "../../styles/theme";
 
 const iconSize = 30;
 
-export const showCTAButtonState = atom({
+const showCTAButtonState = atom({
   key: "showCTAButtonState",
   default: true,
 });

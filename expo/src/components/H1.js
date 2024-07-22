@@ -1,4 +1,3 @@
-import React from "react";
 import { Platform } from "react-native";
 import styled, { css } from "styled-components";
 import { mediaHeight } from "../styles/mediaQueries";

@@ -1,38 +1,37 @@
-import React, { useRef, useMemo, useState, useEffect } from "react";
+import React, { useMemo, useRef, useState } from "react";
+import { Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { useIsFocused } from "@react-navigation/native";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
-import { Text, View, TouchableOpacity, BackHandler } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonPrimary from "../../components/ButtonPrimary";
+import DrinksCategory from "../../components/DrinksCategory";
 import CalendarIllus from "../../components/illustrations/CalendarIllus";
 import CocktailGlassTriangle from "../../components/illustrations/drinksAndFood/CocktailGlassTriangle";
+import GoalSetup from "../../components/illustrations/icons/GoalSetup";
+import ModalGoalValidation from "../../components/ModalGoalValidation";
+import ModalWrongValue from "../../components/ModalWrongValue";
 import TextStyled from "../../components/TextStyled";
-import { defaultPaddingFontScale, hitSlop, screenHeight } from "../../styles/theme";
+import WrapperContainer from "../../components/WrapperContainer";
 import {
   daysWithGoalNoDrinkState,
   drinksByWeekState,
+  goalsState,
+  isOnboardedSelector,
   maxDrinksPerWeekSelector,
   previousDrinksPerWeekState,
-  isOnboardedSelector,
   totalDrinksByDrinkingDaySelector,
-  goalsState,
 } from "../../recoil/gains";
-import HelpModalCountConsumption from "./HelpModalCountConsumption";
+import API from "../../services/api";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { storage } from "../../services/storage";
+import { defaultPaddingFontScale, hitSlop, screenHeight } from "../../styles/theme";
 import {
   drinksCatalogObject,
   drinksCategories,
   mapDrinkToDose,
 } from "../ConsoFollowUp/drinksCatalog";
-import DrinksCategory from "../../components/DrinksCategory";
-import { logEvent } from "../../services/logEventsWithMatomo";
-import WrapperContainer from "../../components/WrapperContainer";
-import GoalSetup from "../../components/illustrations/icons/GoalSetup";
-import ModalGoalValidation from "../../components/ModalGoalValidation";
-import ModalWrongValue from "../../components/ModalWrongValue";
-import API from "../../services/api";
-import { storage } from "../../services/storage";
+import HelpModalCountConsumption from "./HelpModalCountConsumption";
 
 const Goal = ({ navigation }) => {
   const [daysWithGoalNoDrink, setDaysWithGoalNoDrink] = useRecoilState(daysWithGoalNoDrinkState);

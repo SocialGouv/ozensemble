@@ -14,6 +14,7 @@ const CalendarSwitch = ({ tab, setTab }) => {
       duration: 200,
       useNativeDriver: false,
     }).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tab]);
 
   return (

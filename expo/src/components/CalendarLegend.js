@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import { TouchableOpacity, ScrollView, View, Text, Modal } from 'react-native';
-import { useRecoilValue } from 'recoil';
-import { useNavigation } from '@react-navigation/native';
-import { logEvent } from '../services/logEventsWithMatomo';
-import { isOnboardedSelector } from '../recoil/gains';
-import { defaultPaddingFontScale } from '../styles/theme';
-import TextStyled from './TextStyled';
-import LegendStar from './illustrations/icons/LegendStar';
-import ButtonPrimary from './ButtonPrimary';
-import LegendInfos from './illustrations/icons/LegendInfos';
-import CheckDefisValidated from './illustrations/icons/CheckDefisValidated';
-import CrossDefisFailed from './illustrations/icons/CrossDefisFailed';
-import OnGoingGoal from './illustrations/icons/OnGoingGoal';
-import BackButton from './BackButton';
-import H3 from './H3';
+import React, { useState } from "react";
+import { TouchableOpacity, ScrollView, View, Text, Modal } from "react-native";
+import { useRecoilValue } from "recoil";
+import { isOnboardedSelector } from "../recoil/gains";
+import { defaultPaddingFontScale } from "../styles/theme";
+import TextStyled from "./TextStyled";
+import LegendStar from "./illustrations/icons/LegendStar";
+import ButtonPrimary from "./ButtonPrimary";
+import LegendInfos from "./illustrations/icons/LegendInfos";
+import CheckDefisValidated from "./illustrations/icons/CheckDefisValidated";
+import CrossDefisFailed from "./illustrations/icons/CrossDefisFailed";
+import OnGoingGoal from "./illustrations/icons/OnGoingGoal";
+import BackButton from "./BackButton";
+import H3 from "./H3";
 
 const CalendarLegend = ({ navigateToFirstStep }) => {
   const [helpModalVisible, setHelpModalVisible] = useState(false);
@@ -31,7 +29,7 @@ const CalendarLegend = ({ navigateToFirstStep }) => {
         style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <View className="mt-2 mb-4">
           <View className="flex flex-row items-center space-x-1 mb-1">
-            <TextStyled color={'#939EA6'} className="text-xs">
+            <TextStyled color={"#939EA6"} className="text-xs">
               Consommations jour
             </TextStyled>
             {isOnboarded && <LegendInfos />}
@@ -62,7 +60,7 @@ const CalendarLegend = ({ navigateToFirstStep }) => {
         </View>
         <View className="mx-auto mt-2 mb-4">
           <View className="flex flex-row items-center space-x-1 mb-1 justify-center">
-            <TextStyled color={'#939EA6'} className="text-xs">
+            <TextStyled color={"#939EA6"} className="text-xs">
               Objectif semaine
             </TextStyled>
             {isOnboarded && <LegendInfos />}
@@ -84,7 +82,7 @@ const CalendarLegend = ({ navigateToFirstStep }) => {
             </View>
           ) : (
             <View className="mt-2">
-              <ButtonPrimary content={'Me fixer un objectif'} small onPress={navigateToFirstStep} />
+              <ButtonPrimary content={"Me fixer un objectif"} small onPress={navigateToFirstStep} />
             </View>
           )}
         </View>
@@ -107,8 +105,8 @@ const LegendHelpModal = ({ visible, hide }) => {
           <View className="my-5" style={{ padding: defaultPaddingFontScale() }}>
             <BackButton content="Retour" bold onPress={hide} />
             <H3 bold color="#4030a5" className="mt-5 mb-4">
-              Consommations{' '}
-              <TextStyled color={'#4030a5'} underline>
+              Consommations{" "}
+              <TextStyled color={"#4030a5"} underline>
                 jour
               </TextStyled>
             </H3>
@@ -123,7 +121,9 @@ const LegendHelpModal = ({ visible, hide }) => {
               <View className="bg-[#34D39A] w-5 h-5 rounded-md mr-2" />
               <View>
                 <Text className="font-bold">Dans l'objectif</Text>
-                <View className="flex flex-row flex-wrap" style={{ paddingRight: defaultPaddingFontScale() }}>
+                <View
+                  className="flex flex-row flex-wrap"
+                  style={{ paddingRight: defaultPaddingFontScale() }}>
                   <Text>
                     Vos consommations de ce jour sont
                     <Text className="font-semibold"> inférieures </Text>ou
@@ -132,19 +132,23 @@ const LegendHelpModal = ({ visible, hide }) => {
                 </View>
               </View>
             </View>
-            <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
+            <View
+              className="flex flex-row mt-6"
+              style={{ paddingRight: defaultPaddingFontScale() }}>
               <View className="bg-[#FF7878] w-5 h-5 rounded-md mr-2" />
               <View>
                 <Text className="font-bold">Au dessus de l'objectif</Text>
                 <View className="flex flex-row flex-wrap">
                   <Text>
-                    Vos consommations de ce jour sont<Text className="font-semibold"> supérieures </Text>à l'objectif
-                    fixé par jour.
+                    Vos consommations de ce jour sont
+                    <Text className="font-semibold"> supérieures </Text>à l'objectif fixé par jour.
                   </Text>
                 </View>
               </View>
             </View>
-            <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
+            <View
+              className="flex flex-row mt-6"
+              style={{ paddingRight: defaultPaddingFontScale() }}>
               <View className="w-5 h-5 rounded-md mr-2 border border-dashed border-[#4030A5]" />
               <View>
                 <Text className="font-bold">Jour à compléter</Text>
@@ -155,12 +159,14 @@ const LegendHelpModal = ({ visible, hide }) => {
             </View>
             <View className="mt-7 pb-60">
               <H3 bold color="#4030a5" className="mb-2">
-                Objectif{' '}
-                <TextStyled color={'#4030a5'} underline>
+                Objectif{" "}
+                <TextStyled color={"#4030a5"} underline>
                   semaine
                 </TextStyled>
               </H3>
-              <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
+              <View
+                className="flex flex-row mt-6"
+                style={{ paddingRight: defaultPaddingFontScale() }}>
                 <CheckDefisValidated size={23} />
                 <View className="ml-2">
                   <Text className="font-bold">Objectif réussi</Text>
@@ -173,7 +179,9 @@ const LegendHelpModal = ({ visible, hide }) => {
                   </Text>
                 </View>
               </View>
-              <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
+              <View
+                className="flex flex-row mt-6"
+                style={{ paddingRight: defaultPaddingFontScale() }}>
                 <CrossDefisFailed size={23} />
                 <View className="ml-2">
                   <Text className="font-bold">Objectif dépassé</Text>
@@ -188,12 +196,15 @@ const LegendHelpModal = ({ visible, hide }) => {
                   </Text>
                 </View>
               </View>
-              <View className="flex flex-row mt-6" style={{ paddingRight: defaultPaddingFontScale() }}>
+              <View
+                className="flex flex-row mt-6"
+                style={{ paddingRight: defaultPaddingFontScale() }}>
                 <OnGoingGoal size={23} />
                 <View className="ml-2">
                   <Text className="font-bold">Objectif en cours</Text>
                   <Text className="flex flex-row flex-wrap">
-                    Ajoutez vos consommations tous les jours de cette semaine pour accéder à son analyse.
+                    Ajoutez vos consommations tous les jours de cette semaine pour accéder à son
+                    analyse.
                   </Text>
                 </View>
               </View>

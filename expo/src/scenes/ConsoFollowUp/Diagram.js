@@ -601,10 +601,6 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   );
 };
 
-export const TopContainer = styled.View`
-  padding-horizontal: 20px;
-`;
-
 const Paragraph = styled.View`
   margin-bottom: 25px;
 `;

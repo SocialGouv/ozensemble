@@ -5,7 +5,7 @@ import { mediaHeight } from "../styles/mediaQueries";
 import { defaultPaddingFontScale } from "../styles/theme";
 import TextStyled from "./TextStyled";
 
-export const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
+const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
   <Container
     onPress={onPress}
     marginBottom={marginBottom}

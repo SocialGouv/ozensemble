@@ -1,5 +1,3 @@
-// Without dotenv, you can access .env
-// import "dotenv/config";
 import { type ExpoConfig, type ConfigContext } from "expo/config";
 import version from "./app.versions.json";
 

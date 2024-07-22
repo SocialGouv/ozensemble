@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { css } from "styled-components";
 import { mediaHeight } from "../styles/mediaQueries";
 import TextStyled from "./TextStyled";

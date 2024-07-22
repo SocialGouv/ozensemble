@@ -31,7 +31,7 @@ const TitleStyled = styled.View`
   margin: 15px;
 `;
 
-export default ({ navigation }) => {
+export default function Advise({ navigation }) {
   return (
     <WrapperContainer
       onPressBackButton={navigation.goBack}
@@ -82,7 +82,7 @@ export default ({ navigation }) => {
       </ToggleContent>
     </WrapperContainer>
   );
-};
+}
 
 const Elem = ({ content }) => (
   <ElemContainer>

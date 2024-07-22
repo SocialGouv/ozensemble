@@ -1,33 +1,33 @@
-import { useFocusEffect } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import Background from '../../../components/Background';
-import { storage } from '../../../services/storage';
-import Defi from '../Defi';
-import { defi3_Data } from './defi3_Data';
-import Defi3_Day1 from './Defi3_Day1';
-import Defi3_Day2 from './Defi3_Day2';
-import Defi3_Day3 from './Day3';
-import Defi3_Day4 from './Day4';
-import Defi3_Day5 from './Defi3_Day5';
-import Defi3_Day6 from './Day6';
-import Defi3_Day7 from './Defi3_Day7';
-import AlcoholAndMotivations from '../../Health/Articles/AlcoholAndMotivation';
-import AlcoholAndHealthRisks from '../../Health/Articles/AlcoholAndHealthRisks';
+import { useFocusEffect } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React, { useState } from "react";
+import Background from "../../../components/Background";
+import { storage } from "../../../services/storage";
+import Defi from "../Defi";
+import { defi3_Data } from "./defi3_Data";
+import Defi3_Day1 from "./Defi3_Day1";
+import Defi3_Day2 from "./Defi3_Day2";
+import Defi3_Day3 from "./Day3";
+import Defi3_Day4 from "./Day4";
+import Defi3_Day5 from "./Defi3_Day5";
+import Defi3_Day6 from "./Day6";
+import Defi3_Day7 from "./Defi3_Day7";
+import AlcoholAndMotivations from "../../Health/Articles/AlcoholAndMotivation";
+import AlcoholAndHealthRisks from "../../Health/Articles/AlcoholAndHealthRisks";
 
 const Defi3_Stack = createStackNavigator();
 
 const Defi3_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <Defi3_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI3_MENU'}>
+      <Defi3_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"DEFI3_MENU"}>
         <Defi3_Stack.Screen name="DEFI3_MENU" component={Defi3_Menu} />
         <Defi3_Stack.Screen
           name="DEFI3_DAY_1"
           component={Defi3_Day1}
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 1,
           }}
         />
@@ -36,7 +36,7 @@ const Defi3_Navigator = () => {
           component={Defi3_Day2}
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 2,
           }}
         />
@@ -45,7 +45,7 @@ const Defi3_Navigator = () => {
           component={Defi3_Day3}
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 3,
           }}
         />
@@ -54,7 +54,7 @@ const Defi3_Navigator = () => {
           component={Defi3_Day4}
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 4,
           }}
         />
@@ -63,7 +63,7 @@ const Defi3_Navigator = () => {
           component={Defi3_Day5}
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 5,
           }}
         />
@@ -73,14 +73,14 @@ const Defi3_Navigator = () => {
           component={Defi3_Day6}
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 6,
           }}
         />
         <Defi3_Stack.Screen
           initialParams={{
             inDefi3: true,
-            rootRoute: 'DEFI3_MENU',
+            rootRoute: "DEFI3_MENU",
             day: 7,
           }}
           name="DEFI3_DAY_7"
@@ -94,29 +94,31 @@ const Defi3_Navigator = () => {
 };
 
 const Defi3_Menu = ({ navigation }) => {
-  const [validatedDays, setValidateDays] = useState(Number(storage.getNumber('@Defi3_ValidatedDays') || 0));
-  const [lastUpdate, setLastUpdate] = useState(storage.getString('@Defi3_LastUpdate') || '');
+  const [validatedDays, setValidateDays] = useState(
+    Number(storage.getNumber("@Defi3_ValidatedDays") || 0)
+  );
+  const [, setLastUpdate] = useState(storage.getString("@Defi3_LastUpdate") || "");
 
   const getValidatedDays = async () => {
-    const storedLastUpdate = storage.getString('@Defi3_LastUpdate');
+    const storedLastUpdate = storage.getString("@Defi3_LastUpdate");
     if (storedLastUpdate) setLastUpdate(storedLastUpdate);
-    const storedValidateDays = storage.getNumber('@Defi3_ValidatedDays');
+    const storedValidateDays = storage.getNumber("@Defi3_ValidatedDays");
     if (storedValidateDays) setValidateDays(storedValidateDays);
   };
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     if (day === 0) {
-      storage.delete('@Defi3_ValidatedDays');
-      storage.delete('@Defi3_LastUpdate');
-      storage.delete('@Defi3_StartedAt');
-      storage.delete('@Defi3_OnBoardingDoneState');
+      storage.delete("@Defi3_ValidatedDays");
+      storage.delete("@Defi3_LastUpdate");
+      storage.delete("@Defi3_StartedAt");
+      storage.delete("@Defi3_OnBoardingDoneState");
       setValidateDays(0);
     } else {
-      storage.set('@Defi3_ValidatedDays', day);
+      storage.set("@Defi3_ValidatedDays", day);
       setValidateDays(day);
     }
-    setLastUpdate('UNLOCK');
+    setLastUpdate("UNLOCK");
   };
 
   useFocusEffect(() => {

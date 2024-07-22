@@ -1,8 +1,14 @@
-import * as React from 'react';
-import Svg, { G, Path, Rect } from 'react-native-svg';
+import * as React from "react";
+import Svg, { G, Path, Rect } from "react-native-svg";
 
 const BadgesIcon = ({ size, ...props }) => (
-  <Svg width={size} height={size} viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <Svg
+    width={size}
+    height={size}
+    viewBox="0 0 25 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}>
     <Rect width="25" height="25" rx="7" fill="#E8E8F3" />
     <G clip-path="url(#clip0_2747_76627)">
       <Path
@@ -18,5 +24,3 @@ const BadgesIcon = ({ size, ...props }) => (
 );
 
 export default BadgesIcon;
-
-<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" />;

@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import H2 from "../../components/H2";
-import WrapperContainer from "../../components/WrapperContainer";
 import TextStyled from "../../components/TextStyled";
-import { Bold } from "../../components/Articles";
+import WrapperContainer from "../../components/WrapperContainer";
 
 const MentionsLegales = ({ onClose }) => (
   <WrapperContainer

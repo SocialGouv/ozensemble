@@ -1,4 +1,3 @@
-import CheckBox from "@react-native-community/checkbox";
 import ExpoCheckbox from "expo-checkbox";
 
 import React, { useState } from "react";

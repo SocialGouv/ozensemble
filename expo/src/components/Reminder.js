@@ -238,7 +238,7 @@ const Reminder = ({
   const setReminderRequest = async (newReminder, newMode, newWeekDay) => {
     setReminderSetupVisible(false);
     if (!dayjs(newReminder).isValid()) return;
-    const ok = await scheduleNotification(newReminder, newMode, newWeekDay);
+    await scheduleNotification(newReminder, newMode, newWeekDay);
     setReminder(dayjs(newReminder));
     setMode(newMode);
     setWeekDay(newWeekDay);
@@ -367,7 +367,7 @@ const Title = styled(H1)`
   text-align: center;
 `;
 
-export const SubTitle = styled(H2)`
+const SubTitle = styled(H2)`
   width: 80%;
   margin-bottom: 15px;
   flex-shrink: 0;

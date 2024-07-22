@@ -1,18 +1,5 @@
 import React from "react";
-import Svg, {
-  Path,
-  Rect,
-  G,
-  Filter,
-  ClipPath,
-  FeFlood,
-  Defs,
-  FeBlend,
-  FeColorMatrix,
-  FeComposite,
-  FeGaussianBlur,
-  FeOffSet,
-} from "react-native-svg";
+import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
 import styled from "styled-components";
 
 const StyledSvg = styled(Svg)``;

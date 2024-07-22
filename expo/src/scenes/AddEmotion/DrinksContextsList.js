@@ -101,16 +101,18 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       value: newDrinksContexts[date].note ? 1 : 0,
     });
     let logIndex = 0;
-    Object.keys(emotionIcon).forEach((emotion) => {
-      newDrinksContexts[date].emotion === emotion
-        ? logEvent({
-            category: "CONTEXT",
-            action: "VALIDATE_CONTEXT",
-            name: "validate emotion",
-            value: logIndex,
-          })
-        : logIndex++;
-    });
+    for (const emotion of Object.keys(emotionIcon)) {
+      if (newDrinksContexts[date].emotion === emotion) {
+        logEvent({
+          category: "CONTEXT",
+          action: "VALIDATE_CONTEXT",
+          name: "validate emotion",
+          value: logIndex,
+        });
+      } else {
+        logIndex++;
+      }
+    }
     logIndex = 0;
 
     contextsCatalog.forEach((_context) => {

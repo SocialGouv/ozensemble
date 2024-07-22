@@ -1,6 +1,5 @@
-import { MMKV } from "react-native-mmkv";
-import API from "./services/api";
 import { drinksCatalog } from "./scenes/ConsoFollowUp/drinksCatalog";
+import API from "./services/api";
 import { capture } from "./services/sentry";
 import { storage } from "./services/storage";
 
@@ -114,7 +113,7 @@ export async function cleanConsosAndCatalog() {
   }
 }
 
-export function cleanCatalog(oldDrinkCatalog) {
+function cleanCatalog(oldDrinkCatalog) {
   // old drink is either
   // a. a drink from the old catalog from 2020
   // b. a drink that has been created in april/may 2023 but might has been bugged by the migration

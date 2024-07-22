@@ -8,7 +8,7 @@ const GoBackButton = ({ onPress, color = "#4030a5", rotate = 0, size = 10 }) => 
   </Container>
 );
 
-export const Container = styled.TouchableOpacity`
+const Container = styled.TouchableOpacity`
   width: 40px;
   height: 40px;
   border-radius: 40px;
