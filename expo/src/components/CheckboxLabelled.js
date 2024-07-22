@@ -1,5 +1,5 @@
 import React from "react";
-import CheckBox from "@react-native-community/checkbox";
+import ExpoCheckbox from "expo-checkbox";
 import { useNavigation } from "@react-navigation/native";
 import { Platform } from "react-native";
 import styled from "styled-components";
@@ -23,7 +23,7 @@ const CheckboxLabelled = ({
       disabled={disabled}>
       <ItemContainer showDisabled={disabled && !result}>
         <CheckBoxContainer>
-          <CheckBoxStyled
+          {/* <CheckBoxStyled
             // ios style
             onCheckColor="#4030a5"
             onTintColor="#4030a5"
@@ -36,6 +36,13 @@ const CheckboxLabelled = ({
             //common props
             disabled={disabled}
             value={checked}
+          /> */}
+          <ExpoCheckbox
+            color="#4030a5"
+            className="h-5 w-5 rounded-md"
+            value={checked}
+            disabled={disabled}
+            onValueChange={() => onPress?.(answerKey)}
           />
         </CheckBoxContainer>
         <P noMarginBottom>{content}</P>
@@ -63,16 +70,9 @@ const Container = styled.TouchableOpacity`
 
 const CheckBoxContainer = styled.View`
   padding: 2px;
-  height: 20px;
-  width: 20px;
   flex-shrink: 0;
   margin-left: ${Platform.select({ ios: 0, android: -10 })}px;
   margin-right: ${Platform.select({ ios: 10, android: 20 })}px;
-`;
-
-const CheckBoxStyled = styled(CheckBox)`
-  height: 100%;
-  width: 100%;
 `;
 
 const ItemContainer = styled.View`

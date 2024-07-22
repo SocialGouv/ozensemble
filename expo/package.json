@@ -28,7 +28,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@react-native-community/checkbox": "^0.5.17",
     "@react-native-community/datetimepicker": "8.0.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-native-community/netinfo": "11.3.1",

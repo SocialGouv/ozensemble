@@ -14,7 +14,8 @@ const CalendarSwitch = ({ tab, setTab }) => {
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [animatedXValue, tab]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
 
   return (
     <Container onLayout={(e) => setComponentWidth(e.nativeEvent.layout.width)}>
