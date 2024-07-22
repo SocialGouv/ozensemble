@@ -20,7 +20,8 @@
     "build-local:ios-ipa:debug": "echo \"This script retains XCode logs for debugging build failures. Look for a message like 'Skipping cleanup, {path/to/logs} won't be removed.'\" && /bin/sh -c 'export $(grep -v ^'#' .env.production | xargs) && EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p ios --local'",
     "build-local:android-aab": "/bin/sh -c 'export $(grep -v ^'#' .env.production | xargs) && eas build -p android --local'",
     "expo-config": "npx expo config",
-    "update-mobile-app-version": "node ./update-mobile-app-version.js"
+    "update-mobile-app-version": "node ./update-mobile-app-version.js",
+    "knip": "knip"
   },
   "jest": {
     "preset": "jest-expo"
@@ -88,18 +89,19 @@
     "@babel/core": "^7.24.8",
     "@types/base-64": "^1",
     "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.11",
     "@types/react": "~18.2.79",
     "@types/react-native-get-random-values": "^1",
-    "@types/react-test-renderer": "^18.0.7",
+    "@types/semver": "^7",
     "@types/urijs": "^1",
     "@types/uuid": "^10",
     "@types/validator": "^13",
-    "dotenv": "^16.4.5",
     "jest": "^29.4.0",
     "jest-expo": "^51.0.3",
-    "react-test-renderer": "^18.2.0",
+    "knip": "^5.26.0",
+    "semver": "^7.6.3",
     "tailwindcss": "3.3.2",
-    "typescript": "~5.3.3"
+    "typescript": "^5.5.3"
   },
   "private": true
 }
