@@ -363,45 +363,12 @@ export const intensityLevels = [
   },
 ];
 
-export const pageContent = [
-  {
-    pageKey: 'feeling',
-    type: 'selection',
-    question: 'Comment vous sentez-vous actuellement ?',
-    multipleChoice: 'plusieurs choix possibles',
-  },
-  {
-    pageKey: 'trigger',
-    type: 'selection',
-    question: 'Quel est le déclencheur de ce craving ?',
-    multipleChoice: 'un seul choix possible',
-  },
-  {
-    pageKey: 'intensity',
-    type: 'slider',
-    question: "Quelle est l'intensité de votre envie de consommer ?",
-    multipleChoice: '',
-  },
-  {
-    pageKey: 'actionPlan',
-    type: 'selection',
-    question: "Quel est votre plan d'action ?",
-    multipleChoice: 'plusieurs choix possibles',
-  },
-  {
-    pageKey: 'validation',
-    type: 'final',
-    question: 'Récapitulatif',
-    multipleChoice: '',
-  },
-];
-
 export const strategyCatalogObject = strategyCatalog.reduce((_strategyCatalogObject, strategy) => {
   _strategyCatalogObject[strategy.strategyKey] = strategy;
   return _strategyCatalogObject;
 }, {});
 
-export const strategyCategories = [...new Set(strategyCatalog.map(({ categoryKey }) => categoryKey))];
+const strategyCategories = [...new Set(strategyCatalog.map(({ categoryKey }) => categoryKey))];
 
 export const strategyKeysByCategory = strategyCategories.reduce((acc, categoryKey) => {
   acc[categoryKey] = strategyCatalog

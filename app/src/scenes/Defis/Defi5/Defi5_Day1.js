@@ -65,7 +65,7 @@ const Defi5_Day1_Onboarding = ({ navigation, route }) => {
   );
 };
 
-export const Defi5_Day1_Quizz = ({ navigation, route }) => (
+const Defi5_Day1_Quizz = ({ navigation, route }) => (
   <QuizzEvaluateConso
     navigation={navigation}
     route={route}
@@ -76,7 +76,7 @@ export const Defi5_Day1_Quizz = ({ navigation, route }) => (
   />
 );
 
-export const Defi5_Day1_Results = ({ navigation }) => {
+const Defi5_Day1_Results = ({ navigation }) => {
   return (
     <WrapperContainer onPressBackButton={navigation.goBack}>
       <ReevaluateConsoResult />

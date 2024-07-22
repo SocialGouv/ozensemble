@@ -46,7 +46,7 @@ const Line = styled.View`
 
 const dotSize = 10;
 
-export const Dot = styled.View`
+const Dot = styled.View`
   width: ${dotSize}px;
   height: ${dotSize}px;
   margin-vertical: 3px;

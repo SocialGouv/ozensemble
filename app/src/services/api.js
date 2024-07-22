@@ -7,7 +7,7 @@ import { StackActions } from '@react-navigation/native';
 import { SCHEME, API_HOST } from '../config';
 import { NewFeaturePop } from './NewFeaturePopup';
 
-export const checkNetwork = async (test = false) => {
+const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
   if (!isConnected || test) {
     await new Promise((res) => setTimeout(res, 1500));

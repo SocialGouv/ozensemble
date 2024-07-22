@@ -14,7 +14,7 @@ import { P } from '../../../components/Articles';
 import Clap from '../../../components/illustrations/Clap';
 import NeedHelp from '../../../components/illustrations/NeedHelp';
 
-export const answersDefi5Day5 = [
+const answersDefi5Day5 = [
   { answerKey: '1.1', content: "Je suis satisfait(e) de ma progression et je n'ai aucune hésitation à continuer." },
   { answerKey: '1.2', content: "J'ai fait des progrès mais c'est plus difficile que prévu." },
   { answerKey: '1.3', content: "J'ai envie de tout lâcher car je n'avance pas comme je l'avais espéré." },

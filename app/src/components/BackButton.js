@@ -5,11 +5,13 @@ import { mediaHeight } from '../styles/mediaQueries';
 import { defaultPaddingFontScale } from '../styles/theme';
 import TextStyled from './TextStyled';
 
-export const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
-  <Container onPress={onPress} marginBottom={marginBottom} marginLeft={marginLeft} marginTop={marginTop}>
-    <ReturnButton bold>{'< Retour'}</ReturnButton>
-  </Container>
-);
+export default function BackButton({ onPress, marginBottom, marginLeft, marginTop }) {
+  return (
+    <Container onPress={onPress} marginBottom={marginBottom} marginLeft={marginLeft} marginTop={marginTop}>
+      <ReturnButton bold>{'< Retour'}</ReturnButton>
+    </Container>
+  );
+}
 
 const Container = styled.TouchableOpacity`
   margin-right: auto;
@@ -41,5 +43,3 @@ const ReturnButton = styled(TextStyled)`
   align-items: center;
   text-align-vertical: center;
 `;
-
-export default BackButton;

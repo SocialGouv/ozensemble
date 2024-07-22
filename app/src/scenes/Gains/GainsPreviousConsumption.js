@@ -160,7 +160,7 @@ const GainsPreviousConsumption = () => {
   );
 };
 
-export const Container = styled.View`
+const Container = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
   flex: 1;
 `;
