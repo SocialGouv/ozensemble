@@ -1,3 +1,10 @@
+## [1.161.22](https://github.com/SocialGouv/ozensemble/compare/v1.161.21...v1.161.22) (2024-07-22)
+
+
+### Bug Fixes
+
+* add ignore idea folder ([9df1a62](https://github.com/SocialGouv/ozensemble/commit/9df1a62d605c50b49a2e13a4d25277163e58a900))
+
 ## [1.161.21](https://github.com/SocialGouv/ozensemble/compare/v1.161.20...v1.161.21) (2024-07-15)
 
 
