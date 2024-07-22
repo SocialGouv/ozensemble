@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Dimensions, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import {
+  Dimensions,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import InAppReview from "react-native-in-app-review";
@@ -27,6 +33,8 @@ import RateAppIcon from "../../components/illustrations/icons/RateAppIcon";
 import GiveFeedbackIcon from "../../components/illustrations/icons/GiveFeedbackIcon";
 import FilesIcon from "../../components/illustrations/icons/FilesIcon";
 import OfficialIcon from "../../components/illustrations/icons/OfficialIcon";
+import ExportPhone from "./Transfer";
+import TransferIcon from "../../components/illustrations/icons/TransferIcon";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { isOnboardedSelector } from "../../recoil/gains";
 import Official from "./Official";
@@ -38,7 +46,10 @@ const Infos = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
       <HeaderBackground />
-      <InfosStack.Navigator initialRouteName="INFOS_MENU" screenOptions={{ headerShown: false }}>
+      <InfosStack.Navigator
+        initialRouteName="INFOS_MENU"
+        screenOptions={{ headerShown: false }}
+      >
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
         <InfosStack.Screen name="CGU">
           {({ navigation }) => <CGUs onClose={navigation.goBack} />}
@@ -53,6 +64,7 @@ const Infos = () => {
           {({ navigation }) => <Official onClose={navigation.goBack} />}
         </InfosStack.Screen>
         <InfosStack.Screen name="EXPORT" component={Export} />
+        <InfosStack.Screen name="EXPORT_TO_PHONE" component={ExportPhone} />
         <InfosStack.Screen name="FAKE_DATA" component={FakeData} />
       </InfosStack.Navigator>
     </Background>
@@ -112,12 +124,16 @@ const InfosMenu = ({ navigation }) => {
           />
         </View>
 
-        <Text className="text-[#4030a5] font-bold mb-4 mt-8">MES PARAMÈTRES</Text>
+        <Text className="text-[#4030a5] font-bold mb-4 mt-8">
+          MES PARAMÈTRES
+        </Text>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
             caption={"Mon estimation initiale"}
             Icon={PreviousConsumption}
-            onPress={() => navigation.navigate("GAINS_ESTIMATE_PREVIOUS_CONSUMPTION")}
+            onPress={() =>
+              navigation.navigate("GAINS_ESTIMATE_PREVIOUS_CONSUMPTION")
+            }
           />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
           <MenuItem
@@ -148,7 +164,10 @@ const InfosMenu = ({ navigation }) => {
               });
               navigation.navigate("GAINS_REMINDER", {
                 enableContinueButton: true,
-                onPressContinueNavigation: ["GAINS_NAVIGATOR", { screen: "GAINS_MAIN_VIEW" }],
+                onPressContinueNavigation: [
+                  "GAINS_NAVIGATOR",
+                  { screen: "GAINS_MAIN_VIEW" },
+                ],
               });
             }}
           />
@@ -171,13 +190,27 @@ const InfosMenu = ({ navigation }) => {
             Icon={ExportDataIcon}
             onPress={() => {
               logEvent({
-                category: "GAINS",
-                action: "GOAL_OPEN",
+                category: "EXPORT",
+                action: "EXPORT_OPEN",
               });
               navigation.push("EXPORT");
             }}
           />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+
+          <MenuItem
+            caption={"Transférer vers un autre téléphone"}
+            Icon={TransferIcon}
+            onPress={() => {
+              logEvent({
+                category: "TRANSFER",
+                action: "TRANSFER_OPEN",
+              });
+              navigation.push("EXPORT_TO_PHONE");
+            }}
+          />
         </View>
+        <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
         <Text className="text-[#4030a5] font-bold mb-4 mt-8">INFORMATIONS</Text>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
@@ -205,9 +238,12 @@ const InfosMenu = ({ navigation }) => {
           />
         </View>
         <View className="mt-7 flex items-center">
-          <TouchableWithoutFeedback onPress={() => setDebugPressed((p) => p + 1)}>
+          <TouchableWithoutFeedback
+            onPress={() => setDebugPressed((p) => p + 1)}
+          >
             <VersionLabel>
-              version {Application.nativeApplicationVersion} ({Application.nativeBuildVersion})
+              version {Application.nativeApplicationVersion} (
+              {Application.nativeBuildVersion})
             </VersionLabel>
           </TouchableWithoutFeedback>
         </View>
@@ -224,7 +260,10 @@ const MenuItem = ({ caption, onPress, Icon, disabled }) => {
       <View className="flex flex-row justify-between items-center ">
         <View className="flex flex-row space-x-1 items-center">
           <Icon size={30} />
-          <Text className="text-[#4030a5] font-semibold" style={{ flexBasis: basis }}>
+          <Text
+            className="text-[#4030a5] font-semibold"
+            style={{ flexBasis: basis }}
+          >
             {caption}
           </Text>
         </View>

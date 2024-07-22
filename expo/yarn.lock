@@ -6099,7 +6099,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-file-system@npm:~17.0.1":
+"expo-document-picker@npm:12.0.2":
+  version: 12.0.2
+  resolution: "expo-document-picker@npm:12.0.2"
+  peerDependencies:
+    expo: "*"
+  checksum: c3028e243ef9a9da8f5800acb7c59c9d19d1a98131a6f8225c47b5daf659b4329c7e557a28ca1c4e0ef416d68828e95eb3bcf13e1ae434dcc19878707cdb33df
+  languageName: node
+  linkType: hard
+
+"expo-file-system@npm:17.0.1, expo-file-system@npm:~17.0.1":
   version: 17.0.1
   resolution: "expo-file-system@npm:17.0.1"
   peerDependencies:
@@ -6196,6 +6205,15 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 05c768ca642fbf9e23a2c604c9ea99d988d43917864b7afb3c5e4000c51c263a83469548647772861b6f2431e2c22d9480944d561839735a01ef04c5445e11ec
+  languageName: node
+  linkType: hard
+
+"expo-sharing@npm:12.0.1":
+  version: 12.0.1
+  resolution: "expo-sharing@npm:12.0.1"
+  peerDependencies:
+    expo: "*"
+  checksum: 9e66755ab3fbed482e700f8a9e0544fbc9abd3bb8e13b60df0d024e97c28c477e18058243410c51f5a39bd04e0775fffc252affa279eb3f3cdcc21aa0321aacf
   languageName: node
   linkType: hard
 
@@ -10089,9 +10107,12 @@ __metadata:
     expo-checkbox: "npm:^3.0.0"
     expo-constants: "npm:^16.0.2"
     expo-dev-client: "npm:^4.0.20"
+    expo-document-picker: "npm:12.0.2"
+    expo-file-system: "npm:17.0.1"
     expo-font: "npm:^12.0.7"
     expo-linking: "npm:^6.3.1"
     expo-notifications: "npm:^0.28.10"
+    expo-sharing: "npm:12.0.1"
     expo-splash-screen: "npm:^0.27.5"
     expo-status-bar: "npm:^1.12.1"
     expo-system-ui: "npm:^3.0.7"
