@@ -32,7 +32,7 @@ const DescriptionContainer = styled.View`
   background-color: #81dbd326;
 `;
 
-export const FeedDayContent = styled.View`
+const FeedDayContent = styled.View`
   flex-grow: 1;
   margin-vertical: 10px;
   margin-horizontal: 5px;

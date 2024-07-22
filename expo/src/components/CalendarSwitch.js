@@ -14,7 +14,7 @@ const CalendarSwitch = ({ tab, setTab }) => {
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [tab]);
+  }, [animatedXValue, tab]);
 
   return (
     <Container onLayout={(e) => setComponentWidth(e.nativeEvent.layout.width)}>

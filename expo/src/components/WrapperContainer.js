@@ -83,4 +83,6 @@ export const Title = styled(H1)`
   padding-horizontal: ${defaultPaddingFontScale()}px;
 `;
 
+WrapperContainer.displayName = "WrapperContainer";
+
 export default WrapperContainer;

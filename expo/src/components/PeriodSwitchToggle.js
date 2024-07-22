@@ -13,7 +13,7 @@ const PeriodSwitchToggle = ({ period, setPeriod }) => {
       duration: 200,
       useNativeDriver: false,
     }).start();
-  }, [period]);
+  }, [animatedXValue, period]);
 
   return (
     <Container onLayout={(e) => setComponentWidth(e.nativeEvent.layout.width)}>

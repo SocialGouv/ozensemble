@@ -1,42 +1,43 @@
-import dayjs from 'dayjs';
-import { atom, selector } from 'recoil';
-import * as Sentry from '@sentry/react-native';
-import { differenceOfDays } from '../helpers/dateHelpers';
-import { drinksCatalogObject } from '../scenes/ConsoFollowUp/drinksCatalog';
-import { storage } from '../services/storage';
-import { getInitValueFromStorage } from './utils';
-import { goalsByWeekSelector, goalsState } from './gains';
-import { getDerivedDataFromDrinksState } from '../helpers/consosHelpers';
-
-export const followupNumberOfDays = 7;
+import dayjs from "dayjs";
+import { atom, selector } from "recoil";
+import * as Sentry from "@sentry/react-native";
+import { differenceOfDays } from "../helpers/dateHelpers";
+import { drinksCatalogObject } from "../scenes/ConsoFollowUp/drinksCatalog";
+import { storage } from "../services/storage";
+import { getInitValueFromStorage } from "./utils";
+import { goalsByWeekSelector, goalsState } from "./gains";
+import { getDerivedDataFromDrinksState } from "../helpers/consosHelpers";
 
 export const drinksState = atom({
-  key: 'drinksState',
-  default: getInitValueFromStorage('@Drinks', []),
+  key: "drinksState",
+  default: getInitValueFromStorage("@Drinks", []),
   effects: [
     ({ onSet }) =>
       onSet((newValue) => {
-        storage.set('@Drinks', JSON.stringify(newValue));
-        Sentry.setExtra('drinks', newValue.slice(0, 50));
-        Sentry.setExtra('all-drinks', newValue.map(({ drinkKey, id }) => `${drinkKey}_${id}`).join('__'));
+        storage.set("@Drinks", JSON.stringify(newValue));
+        Sentry.setExtra("drinks", newValue.slice(0, 50));
+        Sentry.setExtra(
+          "all-drinks",
+          newValue.map(({ drinkKey, id }) => `${drinkKey}_${id}`).join("__")
+        );
       }),
   ],
 });
 
 export const ownDrinksCatalogState = atom({
-  key: 'ownDrinksCatalogState',
-  default: getInitValueFromStorage('@OwnDrinks', []),
+  key: "ownDrinksCatalogState",
+  default: getInitValueFromStorage("@OwnDrinks", []),
   effects: [
     ({ onSet }) =>
       onSet((newValue) => {
-        storage.set('@OwnDrinks', JSON.stringify(newValue));
-        Sentry.setExtra('ownDrinksCatalog', newValue);
+        storage.set("@OwnDrinks", JSON.stringify(newValue));
+        Sentry.setExtra("ownDrinksCatalog", newValue);
       }),
   ],
 });
 
 export const ownDrinksCatalogObjectSelector = selector({
-  key: 'ownDrinksCatalogObjectSelector',
+  key: "ownDrinksCatalogObjectSelector",
   get: ({ get }) => {
     const ownDrinks = get(ownDrinksCatalogState);
     const ownDrinksCatalogObject = {};
@@ -50,7 +51,7 @@ export const ownDrinksCatalogObjectSelector = selector({
 // Selectors
 
 export const consolidatedCatalogObjectSelector = selector({
-  key: 'consolidatedCatalogObjectSelector',
+  key: "consolidatedCatalogObjectSelector",
   get: ({ get }) => {
     const ownDrinksObject = get(ownDrinksCatalogObjectSelector);
     return { ...ownDrinksObject, ...drinksCatalogObject };
@@ -63,24 +64,24 @@ export const consolidatedCatalogObjectSelector = selector({
 const getAllDatesBetweenNowAndFiveMonthsAgo = (amplitudeOfRecords = null) => {
   const now = Date.now();
   // timestamp five month ago in ms
-  const fiveMonthsAgo = dayjs().add(-5, 'month').valueOf();
+  const fiveMonthsAgo = dayjs().add(-5, "month").valueOf();
   const numberOfDays = amplitudeOfRecords ?? differenceOfDays(fiveMonthsAgo, now);
   const days = [];
   for (let i = 0; i <= numberOfDays; i++) {
-    const day = dayjs(now).add(-i, 'day');
-    days.push(day.format('YYYY-MM-DD'));
+    const day = dayjs(now).add(-i, "day");
+    days.push(day.format("YYYY-MM-DD"));
   }
   return days;
 };
-let fiveMonthsAgo = dayjs().add(-5, 'month').valueOf();
+let fiveMonthsAgo = dayjs().add(-5, "month").valueOf();
 let feedDays = getAllDatesBetweenNowAndFiveMonthsAgo();
 
 export const feedDaysSelector = selector({
-  key: 'feedDaysSelector',
+  key: "feedDaysSelector",
   get: ({ get }) => {
-    const today = dayjs().format('YYYY-MM-DD');
+    const today = dayjs().format("YYYY-MM-DD");
     if (feedDays[0] !== today) {
-      fiveMonthsAgo = dayjs().add(-5, 'month').valueOf();
+      fiveMonthsAgo = dayjs().add(-5, "month").valueOf();
     }
     const allDrinks = get(drinksState);
     const drinks = allDrinks.filter(({ timestamp }) => timestamp > fiveMonthsAgo);
@@ -88,7 +89,7 @@ export const feedDaysSelector = selector({
     const lastDayOfDrinks = Math.max(...timestamps, Date.now());
     const firstDayOfDrinks = Math.min(...timestamps, Date.now());
     const amplitudeOfRecords = differenceOfDays(firstDayOfDrinks, lastDayOfDrinks);
-    const firstDay = dayjs(firstDayOfDrinks).format('YYYY-MM-DD');
+    const firstDay = dayjs(firstDayOfDrinks).format("YYYY-MM-DD");
     if (feedDays[0] !== today) {
       feedDays = getAllDatesBetweenNowAndFiveMonthsAgo(amplitudeOfRecords);
     }
@@ -98,7 +99,7 @@ export const feedDaysSelector = selector({
 });
 
 export const derivedDataFromDrinksState = selector({
-  key: 'derivedDataFromDrinksState',
+  key: "derivedDataFromDrinksState",
   get: ({ get }) => {
     // we do this selector to
     // - map only once through all drinks

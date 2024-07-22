@@ -62,7 +62,7 @@ const DefisMenu = ({ navigation }) => {
           : true
       );
     }
-  }, [isFocused, defi1Day, defi2Day, defi3Day, defi4Day, defi5Day]);
+  }, [isFocused, defi1Day, defi2Day, defi3Day, defi4Day, defi5Day, autoEvaluationDone]);
 
   return (
     <WrapperContainer
@@ -105,7 +105,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity2"
         disabled={!autoEvaluationDone || defi1Day < 7}
-        lockedDay={lastfinishedDefi == 1 && !nextDefiIsUnlocked}
+        lockedDay={lastfinishedDefi === 1 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi2Day}
       />
@@ -117,7 +117,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity3"
         disabled={!autoEvaluationDone || defi2Day < 7}
-        lockedDay={lastfinishedDefi == 2 && !nextDefiIsUnlocked}
+        lockedDay={lastfinishedDefi === 2 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi3Day}
       />
@@ -129,7 +129,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity4"
         disabled={!autoEvaluationDone || defi3Day < 7}
-        lockedDay={lastfinishedDefi == 3 && !nextDefiIsUnlocked}
+        lockedDay={lastfinishedDefi === 3 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi4Day}
       />
@@ -141,7 +141,7 @@ const DefisMenu = ({ navigation }) => {
         }}
         image="Activity5"
         disabled={!autoEvaluationDone || defi4Day < 7}
-        lockedDay={lastfinishedDefi == 4 && !nextDefiIsUnlocked}
+        lockedDay={lastfinishedDefi === 4 && !nextDefiIsUnlocked}
         onBoardingPress={() => setShowOnboardingModal(true)}
         nbStepsCompleted={defi5Day}
       />

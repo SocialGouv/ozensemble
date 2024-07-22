@@ -1,32 +1,32 @@
-import { useFocusEffect } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { useState } from 'react';
-import Background from '../../../components/Background';
-import { storage } from '../../../services/storage';
-import Defi from '../Defi';
-import { defi4_Data } from './defi4_Data';
-import Defi4_Day1 from './Defi4_Day1';
-import Defi4_Day2 from './Defi4_Day2';
-import Defi4_Day3 from './Defi4_Day3';
-import Defi4_Day4 from './Defi4_Day4';
-import Defi4_Day5 from './Defi4_Day5';
-import Defi4_Day6 from './Defi4_Day6';
-import Defi4_Day7 from './Defi4_Day7';
-import AlcoholAndDependency from '../../Health/Articles/AlcoholAndDependency';
+import { useFocusEffect } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React, { useState } from "react";
+import Background from "../../../components/Background";
+import { storage } from "../../../services/storage";
+import Defi from "../Defi";
+import { defi4_Data } from "./defi4_Data";
+import Defi4_Day1 from "./Defi4_Day1";
+import Defi4_Day2 from "./Defi4_Day2";
+import Defi4_Day3 from "./Defi4_Day3";
+import Defi4_Day4 from "./Defi4_Day4";
+import Defi4_Day5 from "./Defi4_Day5";
+import Defi4_Day6 from "./Defi4_Day6";
+import Defi4_Day7 from "./Defi4_Day7";
+import AlcoholAndDependency from "../../Health/Articles/AlcoholAndDependency";
 
 const Defi4_Stack = createStackNavigator();
 
 const Defi4_Navigator = () => {
   return (
     <Background color="#39cec0" withSwiperContainer>
-      <Defi4_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'DEFI4_MENU'}>
+      <Defi4_Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={"DEFI4_MENU"}>
         <Defi4_Stack.Screen name="DEFI4_MENU" component={Defi4_Menu} />
         <Defi4_Stack.Screen
           name="DEFI4_DAY_1"
           component={Defi4_Day1}
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 1,
           }}
         />
@@ -35,7 +35,7 @@ const Defi4_Navigator = () => {
           component={Defi4_Day2}
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 2,
           }}
         />
@@ -44,7 +44,7 @@ const Defi4_Navigator = () => {
           component={Defi4_Day3}
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 3,
           }}
         />
@@ -53,7 +53,7 @@ const Defi4_Navigator = () => {
           component={Defi4_Day4}
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 4,
           }}
         />
@@ -62,7 +62,7 @@ const Defi4_Navigator = () => {
           component={Defi4_Day5}
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 5,
           }}
         />
@@ -71,14 +71,14 @@ const Defi4_Navigator = () => {
           component={Defi4_Day6}
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 6,
           }}
         />
         <Defi4_Stack.Screen
           initialParams={{
             inDefi4: true,
-            rootRoute: 'DEFI4_MENU',
+            rootRoute: "DEFI4_MENU",
             day: 7,
           }}
           name="DEFI4_DAY_7"
@@ -91,29 +91,31 @@ const Defi4_Navigator = () => {
 };
 
 const Defi4_Menu = ({ navigation }) => {
-  const [validatedDays, setValidateDays] = useState(Number(storage.getNumber('@Defi4_ValidatedDays') || 0));
-  const [lastUpdate, setLastUpdate] = useState(storage.getString('@Defi4_LastUpdate') || '');
+  const [validatedDays, setValidateDays] = useState(
+    Number(storage.getNumber("@Defi4_ValidatedDays") || 0)
+  );
+  const [, setLastUpdate] = useState(storage.getString("@Defi4_LastUpdate") || "");
 
   const getValidatedDays = async () => {
-    const storedLastUpdate = storage.getString('@Defi4_LastUpdate');
+    const storedLastUpdate = storage.getString("@Defi4_LastUpdate");
     if (storedLastUpdate) setLastUpdate(storedLastUpdate);
-    const storedValidateDays = storage.getNumber('@Defi4_ValidatedDays');
+    const storedValidateDays = storage.getNumber("@Defi4_ValidatedDays");
     if (storedValidateDays) setValidateDays(storedValidateDays);
   };
 
   const hackAndUnlockDay = async (day) => {
     await new Promise((res) => setTimeout(res, 1000)); // better UX
     if (day === 0) {
-      storage.delete('@Defi4_ValidatedDays');
-      storage.delete('@Defi4_LastUpdate');
-      storage.delete('@Defi4_StartedAt');
-      storage.delete('@Defi4_OnBoardingDoneState');
+      storage.delete("@Defi4_ValidatedDays");
+      storage.delete("@Defi4_LastUpdate");
+      storage.delete("@Defi4_StartedAt");
+      storage.delete("@Defi4_OnBoardingDoneState");
       setValidateDays(0);
     } else {
-      storage.set('@Defi4_ValidatedDays', day);
+      storage.set("@Defi4_ValidatedDays", day);
       setValidateDays(day);
     }
-    setLastUpdate('UNLOCK');
+    setLastUpdate("UNLOCK");
   };
 
   useFocusEffect(() => {

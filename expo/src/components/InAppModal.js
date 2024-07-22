@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   Platform,
   InteractionManager,
-  Dimensions,
   Image,
 } from "react-native";
 import InAppReview from "react-native-in-app-review";
@@ -42,8 +41,6 @@ import CupMotivation from "./illustrations/icons/CupMotivation";
     secondaryButtonLink: null,
 }
 */
-
-const screenWidth = Number(Dimensions.get("window").width - 50);
 
 const InAppModal = ({ navigation, route }) => {
   const inAppModal = route.params;

@@ -1,14 +1,14 @@
-import { storage } from '../services/storage';
+import { storage } from "../services/storage";
 
 export const getInitValueFromStorage = (key, defaultValue) => {
   try {
     const valueType = typeof defaultValue;
-    if (valueType === 'number') {
+    if (valueType === "number") {
       const foundValue = storage.getNumber(key);
       if (foundValue == null) return defaultValue;
       return Number(foundValue);
     }
-    if (valueType === 'boolean') {
+    if (valueType === "boolean") {
       const foundValue = storage.getBoolean(key);
       if (!foundValue) return defaultValue;
       return foundValue;
@@ -17,11 +17,11 @@ export const getInitValueFromStorage = (key, defaultValue) => {
     if (!foundValue) return defaultValue;
     try {
       return JSON.parse(foundValue);
-    } catch (e) {
+    } catch (_e) {
       return foundValue;
     }
   } catch (e) {
-    console.log('error recoil', e);
+    console.log("error recoil", e);
     const foundValue = storage.getString(key);
     console.log(foundValue, key, defaultValue);
   }

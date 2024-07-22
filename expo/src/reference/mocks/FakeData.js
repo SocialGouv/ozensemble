@@ -1,27 +1,27 @@
-import React from "react";
-import { TouchableOpacity, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import styled from "styled-components";
 import * as Sentry from "@sentry/react-native";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import dayjs from "dayjs";
+import React from "react";
+import { Alert, TouchableOpacity } from "react-native";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { v4 as uuid } from "uuid";
-import TextStyled from "../../components/TextStyled";
-import { defaultPaddingFontScale } from "../../styles/theme";
-import WrapperContainer from "../../components/WrapperContainer";
 import H1 from "../../components/H1";
-import { storage } from "../../services/storage";
-import { fakeOnboardingQuizz } from "./fakeOnboardingQuizz";
-import { fakeDefi1, fakeDefi3, fakeDefi2, fakeDefi4, fakeDefi5 } from "./defis.js";
-import { fakeGain } from "./gains";
-import { drinksState } from "../../recoil/consos";
-import { fakeConsoData } from "./fakeConsoData";
-import NotificationService from "../../services/notifications";
-import API from "../../services/api";
-import { badgesCatalogState } from "../../recoil/badges";
-import { daysWithGoalNoDrinkState, drinksByWeekState, goalsState } from "../../recoil/gains";
-import { capture } from "../../services/sentry";
+import TextStyled from "../../components/TextStyled";
+import WrapperContainer from "../../components/WrapperContainer";
 import { sortConsosByTimestamp } from "../../helpers/consosHelpers.js";
+import { badgesCatalogState } from "../../recoil/badges";
+import { drinksState } from "../../recoil/consos";
+import { daysWithGoalNoDrinkState, drinksByWeekState, goalsState } from "../../recoil/gains";
+import API from "../../services/api";
+import NotificationService from "../../services/notifications";
+import { capture } from "../../services/sentry";
+import { storage } from "../../services/storage";
+import { defaultPaddingFontScale } from "../../styles/theme";
+import { fakeDefi1, fakeDefi2, fakeDefi3, fakeDefi4, fakeDefi5 } from "./defis.js";
+import { fakeConsoData } from "./fakeConsoData";
+import { fakeOnboardingQuizz } from "./fakeOnboardingQuizz";
+import { fakeGain } from "./gains";
 
 const replaceStorageValues = (values) => {
   for (const key of Object.keys(values)) {
@@ -391,6 +391,7 @@ const FakeData = () => {
           caption="Test Crash"
           noAlert
           onPress={() => {
+            // eslint-disable-next-line no-unused-expressions, no-undef
             lol;
           }}
         />
@@ -488,101 +489,3 @@ const Arrow = styled(TextStyled)`
   color: #4030a5;
   font-weight: bold;
 `;
-
-const initStorageKeys = [
-  "@NewFeaturesPopupIdsShown",
-  "@OnboardingDoneWithCGU",
-  "@UserIdv2",
-  "hasMigratedGenderAndAge",
-  "hasMigratedFromReduxToRecoil",
-  "hasMigratedRemindersToPushToken",
-  "hasMigratedFromAsyncStorage",
-  "@NewFeaturesLastShownId",
-  "@NumberOfVisits",
-  "hasMigratedReminders",
-  "hasMigratedDefi1",
-];
-
-const onboardingQuizzKeys = ["@Quizz_result", "@Quizz_answers", "@Gender", "@Quizz_surprised"];
-
-const defi1Keys = [
-  "@QuizzMotivations_result",
-  "@QuizzLifeQuality_answers",
-  "@QuizzEvaluateConso_answers",
-  "@QuizzLifeQuality_result",
-  "@Defi1_LastUpdate",
-  "@Defi1_ValidatedDays",
-  "@DefisReminder-setup",
-  "@DefisReminder",
-  "@QuizzMotivations_answers",
-  "@Age",
-  "@Defi1_StartedAt",
-  "@QuizzEvaluateConso_result",
-];
-const defi2Keys = [
-  "@Defi2_EmotionState",
-  "@Defi2_ValidatedDays",
-  "@Defi2_OnBoardingDoneState",
-  "@Defi2_LastUpdate",
-  "@QuizzRiskSituations_answers",
-  "@QuizzRiskSituations_result",
-];
-
-const defi3Keys = [
-  "@QuizzDefi3Day5_answers",
-  "@Defi3_Day3_answers_Help",
-  "@Defi3_Day3_result",
-  "@Defi3_Day3_answers_Difficulties",
-  "@Defi3_LastUpdate",
-  "@QuizzDefi3Day1_answers",
-  "@Defi3_ValidatedDays",
-  "@Defi3_OnBoardingDoneState",
-];
-
-const defi4Keys = [
-  "@Defi4_Day5_Result",
-  "@Defi4_Day5_Answers",
-  "@GainsReminder-setup",
-  "@GainsReminder",
-  "@StoredDetailedDrinksByDrinkingDay",
-  "@Defi4_ValidatedDays",
-  "@Defi4_LastUpdate",
-  "@DaysWithGoalNoDrink",
-  "@Defi4_OnBoardingDoneState",
-  "@GainPreviousDrinksPerWeek",
-];
-
-const gainKeys = [
-  "@GainsReminder-setup",
-  "@GainsReminder",
-  "@StoredDetailedDrinksByDrinkingDay",
-  "@DaysWithGoalNoDrink",
-  "@GainPreviousDrinksPerWeek",
-];
-
-const defi5Keys = [
-  "@Defi5_Day5_Result",
-  "@Defi5_Day5_Answers",
-  "@Defi5_Day2_Answers",
-  "@Defi5_ValidatedDays",
-  "@Defi5_LastUpdate",
-  "@QuizzDefi5Day3partie1_answers",
-  "@QuizzReevaluateConso_answers",
-  "@Defi5_Day4_Result",
-  "@Defi5_Day2_Result",
-  "@QuizzReevaluateConso_result",
-  "@Defi5_Day4_Answers",
-  "@QuizzDefi5Day3partie2_answers",
-  "@QuizzDefi5Day3partie2_result",
-];
-
-const allKeys = [
-  ...initStorageKeys,
-  ...onboardingQuizzKeys,
-  ...defi1Keys,
-  ...defi2Keys,
-  ...defi3Keys,
-  ...defi4Keys,
-  ...defi5Keys,
-  ...gainKeys,
-];

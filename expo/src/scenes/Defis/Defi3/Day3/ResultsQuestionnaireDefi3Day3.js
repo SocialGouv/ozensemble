@@ -59,7 +59,9 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
         )}
         <View>
           {/* "motif social" first, order is different from the questionnaire */}
-          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split(".")[0] == 2) && (
+          {defi3_Day3_Answers_Difficulties.some(
+            (answerKey) => Number(answerKey.split(".")[0]) === 2
+          ) && (
             <ToggleContent title="Motif social">
               <Element
                 content={
@@ -85,7 +87,9 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split(".")[0] == 1) && (
+          {defi3_Day3_Answers_Difficulties.some(
+            (answerKey) => Number(answerKey.split(".")[0]) === 1
+          ) && (
             <ToggleContent title="Motif récréatif">
               <Element
                 content={
@@ -106,7 +110,9 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split(".")[0] == 3) && (
+          {defi3_Day3_Answers_Difficulties.some(
+            (answerKey) => Number(answerKey.split(".")[0]) === 3
+          ) && (
             <ToggleContent title="Motif d’oubli des soucis">
               <Element
                 content={
@@ -128,7 +134,9 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {defi3_Day3_Answers_Difficulties.some((answerKey) => answerKey.split(".")[0] == 4) && (
+          {defi3_Day3_Answers_Difficulties.some(
+            (answerKey) => Number(answerKey.split(".")[0]) === 4
+          ) && (
             <ToggleContent title="Motif de conformité">
               <Element
                 content={
@@ -166,7 +174,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
           </TextStyled>
         )}
         <View>
-          {defi3_Day3_Answers_Help.some((answerKey) => answerKey.split(".")[0] == 5) && (
+          {defi3_Day3_Answers_Help.some((answerKey) => Number(answerKey.split(".")[0]) === 5) && (
             <ToggleContent title="Motif psychologique">
               <Element
                 content={
@@ -190,7 +198,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {defi3_Day3_Answers_Help.some((answerKey) => answerKey.split(".")[0] == 6) && (
+          {defi3_Day3_Answers_Help.some((answerKey) => Number(answerKey.split(".")[0]) === 6) && (
             <ToggleContent title="Motif social">
               <Element
                 content={
@@ -215,7 +223,7 @@ const ResultsQuestionnaireDefi3Day3 = ({ wrapped = true, route, navigation }) =>
               />
             </ToggleContent>
           )}
-          {defi3_Day3_Answers_Help.some((answerKey) => answerKey.split(".")[0] == 7) && (
+          {defi3_Day3_Answers_Help.some((answerKey) => Number(answerKey.split(".")[0]) === 7) && (
             <ToggleContent title="Motif biologique">
               <Element
                 content={

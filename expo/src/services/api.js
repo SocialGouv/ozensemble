@@ -1,13 +1,13 @@
-import URI from "urijs";
-import { Alert, Platform } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import deviceInfoModule from "react-native-device-info";
 import { StackActions } from "@react-navigation/native";
+import { Platform } from "react-native";
+import deviceInfoModule from "react-native-device-info";
+import URI from "urijs";
 
-import { SCHEME, API_HOST } from "../config";
+import { API_HOST, SCHEME } from "../config";
 import { NewFeaturePop } from "./NewFeaturePopup";
 
-export const checkNetwork = async (test = false) => {
+const checkNetwork = async (test = false) => {
   const isConnected = await NetInfo.fetch().then((state) => state.isConnected);
   if (!isConnected || test) {
     await new Promise((res) => setTimeout(res, 1500));

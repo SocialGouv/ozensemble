@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
-import styled from "styled-components";
 import { useRecoilState } from "recoil";
+import styled from "styled-components";
 import ArrowRight from "../../components/ArrowRight";
 import ButtonPrimary from "../../components/ButtonPrimary";
-import TextStyled from "../../components/TextStyled";
-import DayModule from "./DayModule";
-import Timeline from "./Timeline";
-import TopTimeline from "./TopTimeline";
 import OnBoardingModal from "../../components/OnBoardingModal";
+import TextStyled from "../../components/TextStyled";
+import WrapperContainer from "../../components/WrapperContainer";
 import {
   defi2OnBoardingDoneState,
   defi3OnBoardingDoneState,
   defi4OnBoardingDoneState,
   defi5OnBoardingDoneState,
 } from "../../recoil/defis";
-import { logEvent } from "../../services/logEventsWithMatomo";
-import WrapperContainer from "../../components/WrapperContainer";
 import { defaultPaddingFontScale } from "../../styles/theme";
+import DayModule from "./DayModule";
+import Timeline from "./Timeline";
+import TopTimeline from "./TopTimeline";
 
 const Defi = ({
   navigation,

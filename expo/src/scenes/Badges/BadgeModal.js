@@ -1,30 +1,30 @@
-import React, { useEffect } from "react";
-import Svg, { Path } from "react-native-svg";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Platform,
-  InteractionManager,
-} from "react-native";
 import * as Linking from "expo-linking";
-import { useSetRecoilState } from "recoil";
+import React, { useEffect } from "react";
+import {
+  InteractionManager,
+  Platform,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import InAppReview from "react-native-in-app-review";
-import { hitSlop } from "../../styles/theme";
+import Svg, { Path } from "react-native-svg";
+import { useSetRecoilState } from "recoil";
 import ButtonPrimary from "../../components/ButtonPrimary";
+import Confetti from "../../components/Confettis";
 import H1 from "../../components/H1";
 import TextStyled from "../../components/TextStyled";
-import { BadgeDrinks } from "./Svgs/BadgeDrinks";
-import { BadgeGoals } from "./Svgs/BadgeGoals";
-import { LockedBadge } from "./Svgs/LockedBadge";
 import { badgesCatalogState, badgesState } from "../../recoil/badges";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { shareApp } from "../../services/shareApp";
+import { hitSlop } from "../../styles/theme";
 import { BadgeArticles } from "./Svgs/BadgeArticles";
 import { BadgeDefis } from "./Svgs/BadgeDefis";
+import { BadgeDrinks } from "./Svgs/BadgeDrinks";
+import { BadgeGoals } from "./Svgs/BadgeGoals";
 import { BadgeShare } from "./Svgs/BadgeShare";
-import { shareApp } from "../../services/shareApp";
-import { logEvent } from "../../services/logEventsWithMatomo";
-import Confetti from "../../components/Confettis";
+import { LockedBadge } from "./Svgs/LockedBadge";
 /* example
 {
     category: 'drinks',
@@ -47,6 +47,7 @@ const BadgeModal = ({ navigation, route }) => {
   useEffect(() => {
     if (params.allBadges) setBadges(params.allBadges);
     if (params.badgesCatalog) setBadgesCatalog(params.badgesCatalog);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClose = () => {

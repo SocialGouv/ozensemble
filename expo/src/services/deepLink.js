@@ -1,6 +1,5 @@
-import { Linking } from "react-native";
-import NotificationService from "./notifications";
 import * as Notifications from "expo-notifications";
+import { Linking } from "react-native";
 
 export const deepLinkingConfig = {
   prefixes: ["oz://"],

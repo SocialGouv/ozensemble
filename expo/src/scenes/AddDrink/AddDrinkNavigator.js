@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import ConsosList from './ConsosList';
-import DrinksContextsList from '../AddEmotion/DrinksContextsList';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { View } from 'react-native';
+import { createStackNavigator } from "@react-navigation/stack";
+import React, { useState } from "react";
+import DrinksContextsList from "../AddEmotion/DrinksContextsList";
+import ConsosList from "./ConsosList";
 
 const AddDrinkStack = createStackNavigator();
 
 const AddDrinkNavigator = ({ route }) => {
-  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(() => route?.params?.timestamp ?? Date.now());
+  const [addDrinkModalTimestamp, setDrinkModalTimestamp] = useState(
+    () => route?.params?.timestamp ?? Date.now()
+  );
 
   return (
     <AddDrinkStack.Navigator
@@ -24,9 +24,15 @@ const AddDrinkNavigator = ({ route }) => {
           />
         )}
       </AddDrinkStack.Screen>
-      <AddDrinkStack.Screen initialParams={{ parent: route?.params?.parent }} name="DRINKS_CONTEXTS_LIST">
+      <AddDrinkStack.Screen
+        initialParams={{ parent: route?.params?.parent }}
+        name="DRINKS_CONTEXTS_LIST">
         {(props) => (
-          <DrinksContextsList {...props} addDrinkModalTimestamp={addDrinkModalTimestamp} key={addDrinkModalTimestamp} />
+          <DrinksContextsList
+            {...props}
+            addDrinkModalTimestamp={addDrinkModalTimestamp}
+            key={addDrinkModalTimestamp}
+          />
         )}
       </AddDrinkStack.Screen>
     </AddDrinkStack.Navigator>

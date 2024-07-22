@@ -159,9 +159,11 @@ const GainsPreviousConsumption = () => {
             action: "GOAL_ESTIMATION_DRINK",
             value: numberDrinkEstimation,
           });
-          isOnboarded
-            ? navigation.goBack()
-            : navigation.navigate("GAINS_MY_OBJECTIVE", { forOnboarding: true });
+          if (isOnboarded) {
+            navigation.goBack();
+          } else {
+            navigation.navigate("GAINS_MY_OBJECTIVE", { forOnboarding: true });
+          }
         }}
         visible={modalValidationVisible}
       />
@@ -169,7 +171,7 @@ const GainsPreviousConsumption = () => {
   );
 };
 
-export const Container = styled.View`
+const Container = styled.View`
   padding-horizontal: ${defaultPaddingFontScale()}px;
   flex: 1;
 `;

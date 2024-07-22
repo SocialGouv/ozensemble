@@ -1,14 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import pck from '../../../package.json';
-import Background from '../../components/Background';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import Mark from './Mark';
-import { storage } from '../../services/storage';
-import BackButton from '../../components/BackButton';
-import { sendMail } from '../../services/mail';
+import React, { useRef, useEffect, useState } from "react";
+import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import pck from "../../../package.json";
+import Background from "../../components/Background";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import Mark from "./Mark";
+import { storage } from "../../services/storage";
+import BackButton from "../../components/BackButton";
+import { sendMail } from "../../services/mail";
 
 const formatText = (useful, feedback, contact, userId) =>
   `
@@ -21,19 +21,20 @@ Contact: ${contact}
 `;
 
 const Super_NPSScreen = ({ navigation, route }) => {
-  const days = route.params?.days || '90';
+  const days = route.params?.days || "90";
   const [useful, setUseful] = useState(null);
-  const [feedback, setFeedback] = useState('');
-  const [contact, setContact] = useState('');
-  const [sendButton, setSendButton] = useState('Envoyer');
+  const [feedback, setFeedback] = useState("");
+  const [contact, setContact] = useState("");
+  const [sendButton, setSendButton] = useState("Envoyer");
 
   useEffect(() => {
     logEvent({
-      category: 'SUPER_' + days + '_NPS',
-      action: 'SUPER_' + days + '_NPS_OPEN',
+      category: "SUPER_" + days + "_NPS",
+      action: "SUPER_" + days + "_NPS_OPEN",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log('SUPER_' + days + '_NPS');
+  console.log("SUPER_" + days + "_NPS");
   const onGoBackRequested = async () => {
     backRequestHandledRef.current = true;
     if (npsSent.current) return navigation.goBack();
@@ -49,7 +50,10 @@ const Super_NPSScreen = ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    const beforeRemoveListenerUnsbscribe = navigation.addListener('beforeRemove', handleBeforeRemove);
+    const beforeRemoveListenerUnsbscribe = navigation.addListener(
+      "beforeRemove",
+      handleBeforeRemove
+    );
     return () => {
       beforeRemoveListenerUnsbscribe();
     };
@@ -59,23 +63,23 @@ const Super_NPSScreen = ({ navigation, route }) => {
   const npsSent = useRef(false);
   const sendNPS = async () => {
     if (npsSent.current) return;
-    const userId = storage.getString('@UserIdv2');
-    setSendButton('Merci !');
+    const userId = storage.getString("@UserIdv2");
+    setSendButton("Merci !");
     logEvent({
-      category: 'SUPER_' + days + '_NPS',
-      action: 'SUPER_' + days + '_NPS_SEND_USEFUL',
+      category: "SUPER_" + days + "_NPS",
+      action: "SUPER_" + days + "_NPS_SEND_USEFUL",
       value: useful,
     });
     if (feedback) {
       logEvent({
-        category: 'SUPER_' + days + '_NPS',
-        action: 'SUPER_' + days + '_NPS_SEND_FEEDBACK',
+        category: "SUPER_" + days + "_NPS",
+        action: "SUPER_" + days + "_NPS_SEND_FEEDBACK",
       });
     }
     await sendMail({
-      subject: 'Super User NPS ' + days + ' Addicto',
+      subject: "Super User NPS " + days + " Addicto",
       text: formatText(useful, feedback, contact, userId),
-    }).catch((err) => console.log('sendNPS err', err));
+    }).catch((err) => console.log("sendNPS err", err));
 
     npsSent.current = true;
     navigation.goBack();
@@ -87,7 +91,7 @@ const Super_NPSScreen = ({ navigation, route }) => {
         <View className="h-full w-screen">
           <KeyboardAvoidingView
             className="flex-1"
-            behavior={Platform.select({ ios: 'padding', android: null })}
+            behavior={Platform.select({ ios: "padding", android: null })}
             keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
             <ScrollView
               showsVerticalScrollIndicator={false}
@@ -97,7 +101,7 @@ const Super_NPSScreen = ({ navigation, route }) => {
               <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
               <View className="mt-2">
                 <Text className="text-[#4030A5] text-xl font-bold mt-3">
-                  Merci pour vos retours !{'\n'}
+                  Merci pour vos retours !{"\n"}
                   Nous lisons tous vos messages
                 </Text>
               </View>
@@ -106,10 +110,16 @@ const Super_NPSScreen = ({ navigation, route }) => {
                   L'application Oz vous a-t-elle aidée à réduire votre consommation d'alcool ?
                 </Text>
               </View>
-              <Mark selected={useful} onPress={setUseful} bad="Pas utile du tout" good="Extrêmement utile" />
+              <Mark
+                selected={useful}
+                onPress={setUseful}
+                bad="Pas utile du tout"
+                good="Extrêmement utile"
+              />
               <View className="mt-8">
                 <Text className="text-[#191919] text-base">
-                  Pour améliorer notre application, avez-vous quelques recommandations à nous faire ?
+                  Pour améliorer notre application, avez-vous quelques recommandations à nous faire
+                  ?
                 </Text>
               </View>
               <TextInput
@@ -124,8 +134,8 @@ const Super_NPSScreen = ({ navigation, route }) => {
               />
               <View className="mt-8">
                 <Text className="text-[#191919] text-base">
-                  Échanger avec vous serait précieux pour améliorer notre service, laissez-nous votre numéro de
-                  téléphone ou votre mail si vous le souhaitez.
+                  Échanger avec vous serait précieux pour améliorer notre service, laissez-nous
+                  votre numéro de téléphone ou votre mail si vous le souhaitez.
                 </Text>
               </View>
               <TextInput

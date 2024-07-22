@@ -25,7 +25,7 @@ const NoConsoYetFeedDisplay = ({ selected, timestamp }) => {
   );
 };
 
-export const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, disabled }) => {
+const NoDrinkTodayButton = ({ content = "Je n'ai rien bu !", timestamp, disabled }) => {
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [goals, setGoals] = useRecoilState(goalsState);
   return (

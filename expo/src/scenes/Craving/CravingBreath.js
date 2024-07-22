@@ -1,14 +1,14 @@
-import { View, Text, Dimensions, Animated, TouchableOpacity } from 'react-native';
-import Background from '../../components/Background';
-import BackButton from '../../components/BackButton';
-import { useEffect, useRef, useState } from 'react';
-import { logEvent } from '../../services/logEventsWithMatomo';
+import { View, Text, Dimensions, Animated, TouchableOpacity } from "react-native";
+import Background from "../../components/Background";
+import BackButton from "../../components/BackButton";
+import { useEffect, useRef, useState } from "react";
+import { logEvent } from "../../services/logEventsWithMatomo";
 
 const CravingBreath = ({ navigation }) => {
   const [breathTime, setBreathTime] = useState(4);
   const [pause, setPause] = useState(1);
 
-  const dimensions = Dimensions.get('window');
+  const dimensions = Dimensions.get("window");
   const cirleWidth = dimensions.width / 2;
   const move = useRef(new Animated.Value(0)).current;
   const inhaleOpacity = useRef(new Animated.Value(0)).current;
@@ -22,8 +22,8 @@ const CravingBreath = ({ navigation }) => {
       if (timeOnComponent >= 89) {
         navigation.goBack();
         logEvent({
-          category: 'CRAVING',
-          action: 'BREATH_LEAVE',
+          category: "CRAVING",
+          action: "BREATH_LEAVE",
           value: timeOnComponent,
         });
       }
@@ -31,6 +31,7 @@ const CravingBreath = ({ navigation }) => {
     return () => {
       clearInterval(timer);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeOnComponent]);
 
   useEffect(() => {
@@ -89,6 +90,7 @@ const CravingBreath = ({ navigation }) => {
         ]),
       ])
     ).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breathTime, pause]);
   const translate = move.interpolate({
     inputRange: [0, 1],
@@ -103,8 +105,8 @@ const CravingBreath = ({ navigation }) => {
           bold
           onPress={() => {
             logEvent({
-              category: 'CRAVING',
-              action: 'BREATH_LEAVE',
+              category: "CRAVING",
+              action: "BREATH_LEAVE",
               value: timeOnComponent,
             });
             navigation.goBack();
@@ -114,18 +116,26 @@ const CravingBreath = ({ navigation }) => {
         />
         <View className="h-full w-screen items-center flex flex-col">
           <Text className="text-[#4030A5] text-3xl font-bold absolute top-10 pr-2">
-            {Math.floor((90 - timeOnComponent) / 60)}:{(90 - timeOnComponent) % 60 < 10 ? '0' : ''}
+            {Math.floor((90 - timeOnComponent) / 60)}:{(90 - timeOnComponent) % 60 < 10 ? "0" : ""}
             {(90 - timeOnComponent) % 60}
           </Text>
           <View className="h-full w-screen items-center flex flex-col justify-center">
-            <Animated.View className="justify-center items-center" style={{ opacity: inhaleOpacity }}>
+            <Animated.View
+              className="justify-center items-center"
+              style={{ opacity: inhaleOpacity }}>
               <Text className="text-[#4030A5] text-3xl font-bold absolute">Inspirez</Text>
             </Animated.View>
-            <Animated.View className="justify-center items-center" style={{ opacity: exhaleOpacity }}>
-              <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">Expirez</Text>
+            <Animated.View
+              className="justify-center items-center"
+              style={{ opacity: exhaleOpacity }}>
+              <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">
+                Expirez
+              </Text>
             </Animated.View>
             <Animated.View className="justify-center items-center" style={{ opacity: holdOpacity }}>
-              <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">Maintenez</Text>
+              <Text className="text-[#4030A5] text-3xl font-bold text-center absolute">
+                Maintenez
+              </Text>
             </Animated.View>
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => {
               {
@@ -136,10 +146,14 @@ const CravingBreath = ({ navigation }) => {
                 return (
                   <Animated.View
                     key={index}
-                    className={'bg-purple-800 rounded-full absolute'}
+                    className={"bg-purple-800 rounded-full absolute"}
                     style={{
                       opacity: 0.1,
-                      transform: [{ rotateZ: rotation }, { translateX: translate }, { translateY: translate }],
+                      transform: [
+                        { rotateZ: rotation },
+                        { translateX: translate },
+                        { translateY: translate },
+                      ],
                       width: cirleWidth,
                       height: cirleWidth,
                     }}

@@ -1,9 +1,15 @@
-import * as React from 'react';
-import Svg, { Defs, G, Mask, Path, Rect } from 'react-native-svg';
+import * as React from "react";
+import Svg, { G, Mask, Path } from "react-native-svg";
 
 function CravingSchema(props) {
   return (
-    <Svg width="315" height="543" viewBox="0 0 315 543" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <Svg
+      width="315"
+      height="543"
+      viewBox="0 0 315 543"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}>
       <G filter="url(#clip0_2703_60323)">
         <Path d="M315 0H0V543H315V0Z" fill="none" />
         <Path
