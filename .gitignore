@@ -10,3 +10,6 @@ bfg.jar
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Idea
+.idea/
