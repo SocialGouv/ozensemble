@@ -25,7 +25,7 @@ const AddOwnDrink = ({ visible, hide, updateDrinkKey, setLocalDrinksState }) => 
       <KeyboardAvoidingView enabled behavior={Platform.select({ ios: "padding", android: null })}>
         <View className="h-full w-full bg-white">
           <ScrollView>
-            <View className="mt-10" style={{ padding: defaultPaddingFontScale() }}>
+            <View style={{ padding: defaultPaddingFontScale() }}>
               <BackButton content="Retour" bold onPress={hide} />
               <H1 className="mt-5 mb-8">
                 {updateDrinkKey ? "Modifiez votre boisson" : "Créez une nouvelle boisson"}
