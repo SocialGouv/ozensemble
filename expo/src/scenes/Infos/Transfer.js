@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { Alert, TouchableOpacity, View, Text } from "react-native";
 import WrapperContainer from "../../components/WrapperContainer.js";
 import { storage } from "../../services/storage.js";
+import {
+  recoilStateMapping,
+  useSetAllRecoilValues,
+  useGetAllRecoilValues,
+} from "../../recoil/transferUtils.js";
 import API from "../../services/api.js";
 import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
@@ -15,28 +20,11 @@ import CloudIcon from "../../components/illustrations/icons/CloudIcon.js";
 import DownloadIcon from "../../components/illustrations/icons/DownloadIcon.js";
 
 const Transfer = ({ navigation }) => {
+  const getAllRecoilValues = useGetAllRecoilValues();
+  const storageData = JSON.stringify(getAllRecoilValues);
+  const setAllRecoilValues = useSetAllRecoilValues();
   const exportData = async () => {
     // Storage
-    const allStorage = storage.getAllKeys();
-    const storageWithoutUser = allStorage.filter((key) => key !== "@UserIdv2");
-    const storageData = {};
-    storageWithoutUser.forEach((key) => {
-      const stringValue = storage.getString(key);
-      const booleanValue = storage.getBoolean(key);
-      let value;
-      if (stringValue !== null && stringValue !== undefined) {
-        try {
-          value = JSON.parse(stringValue);
-        } catch (e) {
-          value = stringValue;
-        }
-      } else if (booleanValue !== null && booleanValue !== undefined) {
-        value = booleanValue;
-      } else {
-        value = null;
-      }
-      if (value !== null) storageData[key] = value;
-    });
     // DB
     const userDBData = await fetchUserData();
     const exportData = { storageData, userDBData };
@@ -63,31 +51,24 @@ const Transfer = ({ navigation }) => {
       const result = await DocumentPicker.getDocumentAsync({
         type: "application/json",
       });
-      const matomoId = storage.getString("@UserIdv2");
       const notificationToken = storage.getString(
         "STORAGE_KEY_PUSH_NOTIFICATION_TOKEN"
       );
-      console.log(notificationToken);
-      const fileUri = result[0].uri;
+      const fileUri =
+        result.assets && result.assets.length > 0
+          ? result.assets[0].uri
+          : undefined;
       const fileContents = await fetch(fileUri).then((response) =>
         response.text()
       );
       const importedData = JSON.parse(fileContents);
       const storageData = importedData.storageData;
       const userDBData = importedData.userDBData;
-      storage.clearAll();
-      storage.set("@UserIdv2", matomoId);
-      storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", notificationToken);
-      console.log(notificationToken);
-      Object.keys(storageData).forEach((key) => {
-        const value = storageData[key];
-        if (typeof value === "object") {
-          storage.set(key, JSON.stringify(value));
-        } else storage.set(key, value);
-      });
+      console.log(storageData, "data", userDBData);
+      setAllRecoilValues(storageData);
       await API.post({
         path: `/user/allData`,
-        body: { matomoId, data: userDBData, notificationToken },
+        body: { matomoId, data: userDBData },
       }).then((res) => {
         if (res.ok) {
           Alert.alert(
@@ -143,14 +124,14 @@ const Transfer = ({ navigation }) => {
         </View>
         <View className="flex flex-row rounded-md">
           <ClickIcon size={20} />
-          <Text className="text-[#4030A5] font-bold">
+          <Text className="text-[#4030A5] font-bold flex-1">
             Cliquez sur le bouton “Sauvegarder mes données Oz” ci-dessous,
           </Text>
         </View>
         <View className="flex flex-row rounded-md mb-2">
           <FolderIcon size={20} />
           <View>
-            <Text className="text-[#4030A5] font-bold mb-2">
+            <Text className="text-[#4030A5] font-bold mb-2 flex-1">
               Une fenêtre s’ouvre, sélectionnez une des méthodes proposées pour
               sauvegarder vos données Oz. Vous pouvez réaliser cette sauvegarde
               :
@@ -208,7 +189,7 @@ const Transfer = ({ navigation }) => {
         <View className="flex flex-row rounded-md">
           <CloudIcon size={20} />
           <View>
-            <Text className="text-[#4030A5] font-bold mb-2">
+            <Text className="text-[#4030A5] font-bold mb-2 flex-1">
               Si vous avez sauvegardé vos données sur un cloud :
             </Text>
             <View className="flex flex-row space-x-2">
@@ -235,7 +216,7 @@ const Transfer = ({ navigation }) => {
         <View className="flex flex-row rounded-md mb-2 pr-4">
           <OppositeArrowsIcon size={20} />
           <View>
-            <Text className="text-[#4030A5] font-bold mb-2">
+            <Text className="text-[#4030A5] font-bold flex-1 mb-2">
               Si vous avez transféré vos données par le biais d’une app (app de
               transfert ou de messagerie) :
             </Text>
