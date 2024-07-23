@@ -38,9 +38,9 @@ const UserSurveyStart = ({ navigation, route }) => {
             onPress={async () => {
               logEvent({ category: "QUIZZ_USER_SURVEY", action: "USER_SURVEY_START_SKIP" });
               // TODO: fix user survey still appearing after bootsplash hide
-              navigation.navigate("TABS");
-              await new Promise((res) => setTimeout(res));
               setShowBootsplash(true);
+              await new Promise((res) => setTimeout(res, 100));
+              navigation.navigate("TABS");
             }}>
             <Skip>Plus tard</Skip>
           </TouchableOpacity>

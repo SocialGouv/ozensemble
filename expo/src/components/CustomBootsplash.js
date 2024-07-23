@@ -1,9 +1,8 @@
-import React from "react";
-import { Dimensions, Modal } from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Image, Dimensions, Animated, StyleSheet } from "react-native";
 import { atom, useRecoilValue } from "recoil";
-import styled from "styled-components";
 
-// waiting for RNBootSplah.show to come back
+// waiting for RNBootSplash.show to come back
 export const showBootSplashState = atom({
   key: "showBootSplashState",
   default: false,
@@ -11,31 +10,42 @@ export const showBootSplashState = atom({
 
 const CustomBootsplash = () => {
   const showBootSplash = useRecoilValue(showBootSplashState);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: showBootSplash ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim, showBootSplash]);
+
+  if (!showBootSplash && fadeAnim._value === 0) return null;
 
   return (
-    <Modal visible={showBootSplash} animationType="fade">
-      <FullScreen>
-        <StyledImage source={require("../assets/images/Icon.png")} />
-      </FullScreen>
-    </Modal>
+    <Animated.View style={[styles.fullScreen, { opacity: fadeAnim }]}>
+      <Image source={require("../assets/images/Icon.png")} style={styles.image} />
+    </Animated.View>
   );
 };
 
-const FullScreen = styled.View`
-  height: 100%;
-  width: 100%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  justify-content: center;
-  align-items: center;
-  background-color: #3e309f;
-`;
-
-const StyledImage = styled.Image`
-  width: ${Dimensions.get("window").width / 2}px;
-  height: ${Dimensions.get("window").width / 2}px;
-`;
+const styles = StyleSheet.create({
+  fullScreen: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#3e309f",
+  },
+  image: {
+    width: Dimensions.get("window").width / 2,
+    height: Dimensions.get("window").width / 2,
+  },
+});
 
 export default CustomBootsplash;

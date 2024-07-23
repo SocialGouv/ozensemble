@@ -21,19 +21,14 @@ import useAppState from "./services/useAppState";
 import { logEvent } from "./services/logEventsWithMatomo";
 import { storage } from "./services/storage";
 import TextStyled from "./components/TextStyled";
-import CustomBootsplash, {
-  showBootSplashState,
-} from "./components/CustomBootsplash";
+import CustomBootsplash, { showBootSplashState } from "./components/CustomBootsplash";
 import CalendarIcon from "./components/illustrations/CalendarIcon";
 import API from "./services/api";
 import CravingNavigator from "./scenes/Craving/CravingNavigator";
 import NewFeaturePopupDisplay from "./services/NewFeaturePopup";
 import { deepLinkingConfig } from "./services/deepLink";
 import EnvironmentIndicator from "./components/EnvironmentIndicator";
-import NPSScreen, {
-  useCheckNeedNPS,
-  useNPSNotif,
-} from "./scenes/NPS/NPSScreen";
+import NPSScreen, { useCheckNeedNPS, useNPSNotif } from "./scenes/NPS/NPSScreen";
 import Super_NPSScreen from "./scenes/NPS/Super_NPSScreen";
 import Inactivity_NPSScreen from "./scenes/NPS/Inactivity_NPSScreen";
 import NotificationService from "./services/notifications";
@@ -94,8 +89,7 @@ const TabsNavigator = ({ navigation }) => {
             // 1. one modal LEAVING_CRAVING_MODAL that we show EVERYTIME the users leaves EXCEPT
             // 2. the second modal STRATEGY_MODAL_TO_NPS that triggers the user to go to the NPS screen
             // if we show STRATEGY_MODAL_TO_NPS, we don't show LEAVING_CRAVING_MODAL
-            const isTimeToAskNPS =
-              dayjsInstance().diff(firstTimeCraving, "day") >= 7;
+            const isTimeToAskNPS = dayjsInstance().diff(firstTimeCraving, "day") >= 7;
             const CravingToNPSModal = storage.getBoolean("@CravingToNPSModal");
             if (isTimeToAskNPS && !CravingToNPSModal) {
               storage.set("@CravingToNPSModal", true);
@@ -110,15 +104,12 @@ const TabsNavigator = ({ navigation }) => {
           tabBarInactiveTintColor: "#767676",
           keyboardHidesTabBar: true,
           lazy: true,
-        }}
-      >
+        }}>
         <Tabs.Screen
           name="GAINS_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Suivi</Label>,
-            tabBarIcon: ({ size, color }) => (
-              <FollowUpIcon size={size} color={color} />
-            ),
+            tabBarIcon: ({ size, color }) => <FollowUpIcon size={size} color={color} />,
           }}
           component={GainsNavigator}
         />
@@ -126,9 +117,7 @@ const TabsNavigator = ({ navigation }) => {
           name="CRAVING"
           options={{
             tabBarLabel: (props) => <Label {...props}>Craving</Label>,
-            tabBarIcon: ({ size, color }) => (
-              <CravingIcon size={size} color={color} />
-            ),
+            tabBarIcon: ({ size, color }) => <CravingIcon size={size} color={color} />,
           }}
           component={CravingNavigator}
         />
@@ -136,9 +125,7 @@ const TabsNavigator = ({ navigation }) => {
           name="CONSO_FOLLOW_UP_NAVIGATOR"
           options={{
             tabBarLabel: (props) => <Label {...props}>Calendrier</Label>,
-            tabBarIcon: ({ size, color }) => (
-              <CalendarIcon size={size} color={color} />
-            ),
+            tabBarIcon: ({ size, color }) => <CalendarIcon size={size} color={color} />,
           }}
           component={ConsoFollowupNavigator}
         />
@@ -146,9 +133,7 @@ const TabsNavigator = ({ navigation }) => {
           name="HEALTH"
           options={{
             tabBarLabel: (props) => <Label {...props}>Santé</Label>,
-            tabBarIcon: ({ size, color }) => (
-              <GuidanceIcon size={size} color={color} />
-            ),
+            tabBarIcon: ({ size, color }) => <GuidanceIcon size={size} color={color} />,
           }}
           component={HealthNavigator}
         />
@@ -156,9 +141,7 @@ const TabsNavigator = ({ navigation }) => {
           name="INFOS"
           options={{
             tabBarLabel: (props) => <Label {...props}>Infos</Label>,
-            tabBarIcon: ({ size, color }) => (
-              <InfosIcon size={size} color={color} />
-            ),
+            tabBarIcon: ({ size, color }) => <InfosIcon size={size} color={color} />,
           }}
           component={Infos}
         />
@@ -190,14 +173,10 @@ const App = () => {
     <>
       <AppStack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={initialRouteName}
-      >
+        initialRouteName={initialRouteName}>
         <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
-        <AppStack.Screen
-          name="USER_SURVEY_FROM_ONBOARDING"
-          component={UserSurvey}
-        />
+        <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
         <AppStack.Screen name="TABS" component={TabsNavigator} />
       </AppStack.Navigator>
     </>
@@ -211,8 +190,7 @@ const Root = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="APP"
-    >
+      initialRouteName="APP">
       <RootStack.Screen name="APP" component={App} />
       <RootStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
       <RootStack.Screen name="USER_SURVEY" component={UserSurvey} />
@@ -301,15 +279,13 @@ const Router = () => {
           API.navigation = navigationRef.current;
         }}
         onStateChange={onNavigationStateChange}
-        linking={deepLinkingConfig}
-      >
+        linking={deepLinkingConfig}>
         <ModalsStack.Navigator
           initialRouteName="ROUTER"
           screenOptions={{
             headerShown: false,
             presentation: "transparentModal",
-          }}
-        >
+          }}>
           <ModalsStack.Screen
             name="ROUTER"
             component={Root}
