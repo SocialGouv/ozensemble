@@ -1,3 +1,10 @@
+## [1.161.23](https://github.com/SocialGouv/ozensemble/compare/v1.161.22...v1.161.23) (2024-07-23)
+
+
+### Bug Fixes
+
+* reminder transitions ([dfe0d11](https://github.com/SocialGouv/ozensemble/commit/dfe0d11f73992977153b1a01f7101867076062ec))
+
 ## [1.161.22](https://github.com/SocialGouv/ozensemble/compare/v1.161.21...v1.161.22) (2024-07-22)
 
 
