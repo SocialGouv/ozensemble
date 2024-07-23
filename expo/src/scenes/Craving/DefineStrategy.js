@@ -30,7 +30,6 @@ const DefineStrategyNavigator = createStackNavigator();
 
 const DefineStrategy = ({ navigation, route }) => {
   const strategyIndex = route?.params?.strategyIndex ?? 0;
-  console.log("strategyIndex", strategyIndex);
   const [strategies, setStrategies] = useRecoilState(defineStrategyState);
   const setCurrentStrategyIndex = useSetRecoilState(currentStrategyState);
   const toast = useToast();
@@ -44,7 +43,7 @@ const DefineStrategy = ({ navigation, route }) => {
   };
 
   const strategy =
-    strategies.find((strategy) => strategy.index === strategyIndex) ??
+    strategies.find((strategy_) => strategy_.index === strategyIndex) ??
     defaultStrategy;
 
   const [feelings, setFeelings] = useState(strategy.feelings);
