@@ -1,3 +1,10 @@
+## [1.161.24](https://github.com/SocialGouv/ozensemble/compare/v1.161.23...v1.161.24) (2024-07-23)
+
+
+### Bug Fixes
+
+* moved text to craving index ([#610](https://github.com/SocialGouv/ozensemble/issues/610)) ([aac996a](https://github.com/SocialGouv/ozensemble/commit/aac996a98a23d9f1ce5c0e5766aade587cbdadc7))
+
 ## [1.161.23](https://github.com/SocialGouv/ozensemble/compare/v1.161.22...v1.161.23) (2024-07-23)
 
 
