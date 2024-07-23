@@ -37,13 +37,11 @@ SplashScreen.preventAutoHideAsync();
 const release =
   getBundleId() + "@" + Application.nativeApplicationVersion + "+" + Application.nativeBuildVersion; // ex : com.addicto.v1@1.18.0+198
 
-if (!__DEV__) {
-  Sentry.init({
-    dsn: "https://0ef6896e639948fd9ba54b861186360d@sentry.fabrique.social.gouv.fr/80",
-    release,
-    attachViewHierarchy: true,
-  });
-}
+Sentry.init({
+  dsn: __DEV__ ? "" : "https://0ef6896e639948fd9ba54b861186360d@sentry.fabrique.social.gouv.fr/80",
+  release,
+  attachViewHierarchy: true,
+});
 
 initMatomo();
 

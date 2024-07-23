@@ -1,8 +1,8 @@
-import React from 'react';
-import { Modal, SafeAreaView, StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import React from "react";
+import { Modal, SafeAreaView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 const ModalContainer = ({
-  animationType = 'fade',
+  animationType = "fade",
   visible,
   hide,
   withBackground,
@@ -10,6 +10,7 @@ const ModalContainer = ({
   hideOnTouch,
   style = {},
   safeAreaView = true,
+  onDismiss,
 }) => {
   const Wrapper = hideOnTouch ? TouchableWithoutFeedback : React.Fragment;
   const wrapperProps = hideOnTouch ? { onPress: hide, style: styles.touchable } : {};
@@ -19,6 +20,7 @@ const ModalContainer = ({
       visible={visible}
       onRequestClose={hide}
       animationType={animationType}
+      onDismiss={onDismiss}
       style={styles.modalContainer}>
       <>
         <Wrapper {...wrapperProps}>
@@ -40,39 +42,39 @@ export default ModalContainer;
 
 const styles = StyleSheet.create({
   modalContainer: {
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
   },
   touchable: {
     flexGrow: 1,
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
     borderWidth: 3,
-    borderColor: 'red',
+    borderColor: "red",
   },
   background: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
     flexGrow: 1,
-    height: '100%',
-    width: '100%',
+    height: "100%",
+    width: "100%",
   },
   colored: {
-    backgroundColor: 'rgba(1,1,1,0.3)',
+    backgroundColor: "rgba(1,1,1,0.3)",
   },
   modal: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
   container: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     padding: 15,
     borderRadius: 15,
-    maxWidth: '90%',
+    maxWidth: "90%",
   },
 });

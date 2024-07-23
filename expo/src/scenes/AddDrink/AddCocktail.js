@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   ScrollView,
@@ -9,23 +9,23 @@ import {
   Modal,
   KeyboardAvoidingView,
   Platform,
-} from 'react-native';
-import BackButton from '../../components/BackButton';
-import { defaultPaddingFontScale } from '../../styles/theme';
-import TextStyled from '../../components/TextStyled';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import CocktailGlass from '../../components/illustrations/drinksAndFood/CocktailGlass';
-import H3 from '../../components/H3';
-import H2 from '../../components/H2';
-import API from '../../services/api';
-import { cocktailsCatalog } from '../../reference/cocktailsCatalog';
+} from "react-native";
+import BackButton from "../../components/BackButton";
+import { defaultPaddingFontScale } from "../../styles/theme";
+import TextStyled from "../../components/TextStyled";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import CocktailGlass from "../../components/illustrations/drinksAndFood/CocktailGlass";
+import H3 from "../../components/H3";
+import H2 from "../../components/H2";
+import API from "../../services/api";
+import { cocktailsCatalog } from "../../reference/cocktailsCatalog";
 
 const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
-  const [newCocktailName, setNewCocktailName] = useState('');
+  const [newCocktailName, setNewCocktailName] = useState("");
 
   return (
-    <Modal visible={visible} hide={hide} animationType="sheet" presentationStyle="formSheet">
-      <KeyboardAvoidingView enabled behavior={Platform.select({ ios: 'padding', android: null })}>
+    <Modal visible={visible} hide={hide} animationType="slide" presentationStyle="formSheet">
+      <KeyboardAvoidingView enabled behavior={Platform.select({ ios: "padding", android: null })}>
         <View className="h-full w-full bg-white">
           <ScrollView keyboardShouldPersistTaps="always" keyboardDismissMode="none">
             <View className="my-10" style={{ padding: defaultPaddingFontScale() }}>
@@ -34,8 +34,9 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
                 Sélectionnez un cocktail
               </H2>
               <TextStyled italic className="text-xs mb-4">
-                Cliquez sur un cocktail pour compléter le champ. Si votre dose d'alcool est plus importante, revenez en
-                arrière et cliquez sur «non» pour paramétrer la quantité d'alcool.
+                Cliquez sur un cocktail pour compléter le champ. Si votre dose d'alcool est plus
+                importante, revenez en arrière et cliquez sur «non» pour paramétrer la quantité
+                d'alcool.
               </TextStyled>
               {cocktailsCatalog.map((cocktail) => {
                 return (
@@ -55,7 +56,7 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
                     <CocktailGlass size={32} />
                     <View className="flex flex-row flex-wrap ml-2 w-10/12">
                       <TextStyled bold className="">
-                        {cocktail.displaySelection} :{' '}
+                        {cocktail.displaySelection} :{" "}
                       </TextStyled>
                       <Text>{cocktail.volume}</Text>
                     </View>
@@ -64,7 +65,7 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
               })}
               <View className="mt-7 pb-60">
                 <H3 bold color="#4030a5">
-                  {'Vous ne trouvez pas votre cocktail\u00A0?'}
+                  {"Vous ne trouvez pas votre cocktail\u00A0?"}
                 </H3>
                 <TextStyled italic className="text-xs mt-3 mb-5 flex flex-col">
                   Demandez à ce qu'il soit ajouté à la liste ci-dessus.
@@ -78,14 +79,14 @@ const AddCocktail = ({ visible, hide, setCocktailSelected, showToast }) => {
                 <View className="flex flex-row mt-3">
                   <ButtonPrimary
                     small
-                    content={'Envoyer'}
+                    content={"Envoyer"}
                     disabled={!newCocktailName}
                     onPress={() => {
                       hide();
-                      setNewCocktailName('');
+                      setNewCocktailName("");
                       showToast();
                       API.post({
-                        path: '/drinks/new-cocktail-request',
+                        path: "/drinks/new-cocktail-request",
                         body: {
                           cocktailName: newCocktailName,
                         },

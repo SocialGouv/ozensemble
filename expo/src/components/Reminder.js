@@ -392,69 +392,80 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
   const [mode, setMode] = useState(onlyDaily ? "day" : null); // 'week'
   const [weekDay, setWeekDay] = useState(null); // 0 Sunday, 1 Monday -> 6 Saturday
   const [timePickerVisible, setTimePickerVisible] = useState(onlyDaily ? visible : false);
-
-  const onModeChoose = (newMode) => {
-    if (newMode === "week") return setMode(newMode);
-    setMode(newMode);
-    setTimePickerVisible(true);
-  };
-
-  const onWeekdayChoose = (newWeekDay) => {
-    setWeekDay(newWeekDay);
-    setTimePickerVisible(true);
-  };
+  const timePickerRequestedAfterDismiss = useRef(false);
+  const [modePickerVisible, setModePickerVisible] = useState(visible);
+  const [weekdayPickerVisible, setWeekdayPickerVisible] = useState(false);
 
   const onSelectDate = (newDate) => setReminderRequest(newDate, mode, weekDay);
 
   return (
     <>
       <Modal
-        visible={visible && !timePickerVisible}
+        visible={modePickerVisible || weekdayPickerVisible}
         animationType="fade"
         hide={hide}
+        onDismiss={() => {
+          if (timePickerRequestedAfterDismiss.current) {
+            setTimePickerVisible(true);
+            timePickerRequestedAfterDismiss.current = false;
+          }
+        }}
         withBackground
         hideOnTouch>
-        {!mode && (
-          <ModalContainer>
-            <ModalTitle>
-              <TextStyled color="#4030a5">Quand préférez-vous votre rappel ?</TextStyled>
-            </ModalTitle>
-            <ModalContent>
-              <ModeSelectButton onPress={() => onModeChoose("day")}>
-                Tous les jours
-              </ModeSelectButton>
-              <ModeSelectButton onPress={() => onModeChoose("week")}>
-                Une fois par semaine
-              </ModeSelectButton>
-            </ModalContent>
-            <ModalCancel onPress={hide}>
-              <TextStyled bold>Annuler</TextStyled>
-            </ModalCancel>
-          </ModalContainer>
-        )}
-        {mode === "week" && weekDay === null && (
-          <ModalContainer>
-            <ModalTitle>
-              <TextStyled color="#4030a5">Quel jour ?</TextStyled>
-            </ModalTitle>
-            <ModalContent>
-              {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map(
-                (weekDay, index) => (
-                  <ModeSelectButton key={index} onPress={() => onWeekdayChoose(index % 7)}>
-                    {weekDay}
-                  </ModeSelectButton>
-                )
-              )}
-            </ModalContent>
-            <ModalCancel>
-              <ModalCancel onPress={hide}>
-                <TextStyled bold>Annuler</TextStyled>
-              </ModalCancel>
-            </ModalCancel>
-          </ModalContainer>
-        )}
+        <ModalContainer>
+          {mode !== "week" ? (
+            <>
+              <ModalTitle>
+                <TextStyled color="#4030a5">Quand préférez-vous votre rappel ?</TextStyled>
+              </ModalTitle>
+              <ModalContent>
+                <ModeSelectButton
+                  onPress={() => {
+                    setMode("day");
+                    setModePickerVisible(false);
+                    timePickerRequestedAfterDismiss.current = true;
+                  }}>
+                  Tous les jours
+                </ModeSelectButton>
+                <ModeSelectButton
+                  onPress={() => {
+                    setMode("week");
+                    setModePickerVisible(false);
+                    setWeekdayPickerVisible(true);
+                  }}>
+                  Une fois par semaine
+                </ModeSelectButton>
+              </ModalContent>
+            </>
+          ) : (
+            <>
+              <ModalTitle>
+                <TextStyled color="#4030a5">Quel jour ?</TextStyled>
+              </ModalTitle>
+              <ModalContent>
+                {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map(
+                  (weekDay, index) => (
+                    <ModeSelectButton
+                      key={index}
+                      onPress={() => {
+                        setWeekDay(index % 7);
+                        setWeekdayPickerVisible(false);
+                        timePickerRequestedAfterDismiss.current = true;
+                      }}>
+                      {weekDay}
+                    </ModeSelectButton>
+                  )
+                )}
+              </ModalContent>
+            </>
+          )}
+
+          <ModalCancel onPress={hide}>
+            <TextStyled bold>Annuler</TextStyled>
+          </ModalCancel>
+        </ModalContainer>
       </Modal>
-      {!!timePickerVisible && <TimePicker visible={timePickerVisible} selectDate={onSelectDate} />}
+      <TimePicker visible={timePickerVisible} selectDate={onSelectDate} />
     </>
   );
 };

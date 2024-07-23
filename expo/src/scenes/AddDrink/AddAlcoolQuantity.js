@@ -10,7 +10,7 @@ import { alcoolQuantityCatalog } from "./alcoolQuantityCatalog";
 const AddAlcoolQuantity = ({ visible, hide, setQuantitySelected }) => {
   const [value, setValue] = useState("");
   return (
-    <Modal visible={visible} hide={hide} animationType="sheet" presentationStyle="formSheet">
+    <Modal visible={visible} hide={hide} animationType="slide" presentationStyle="formSheet">
       <View className="h-full w-full bg-white">
         <WrapperContainer title="Sélectionnez une quantité d'alcool" onPressBackButton={hide}>
           <TextStyled italic className="text-xs mb-4">

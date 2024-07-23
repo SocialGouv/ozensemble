@@ -1,33 +1,37 @@
-import React, { useState } from 'react';
-import { Modal, View, Text, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import { useRecoilValue } from 'recoil';
-import BackButton from '../../components/BackButton';
-import { defaultPaddingFontScale } from '../../styles/theme';
-import H1 from '../../components/H1';
-import SwitchButtons from '../../components/SwitchButtons';
-import DrinkPersonalisation from '../../components/DrinkPersonalisation';
-import CocktailPersonalisation from '../../components/CocktailPersonalisation';
-import { ownDrinksCatalogObjectSelector } from '../../recoil/consos';
+import React, { useState } from "react";
+import { Modal, View, Text, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import { useRecoilValue } from "recoil";
+import BackButton from "../../components/BackButton";
+import { defaultPaddingFontScale } from "../../styles/theme";
+import H1 from "../../components/H1";
+import SwitchButtons from "../../components/SwitchButtons";
+import DrinkPersonalisation from "../../components/DrinkPersonalisation";
+import CocktailPersonalisation from "../../components/CocktailPersonalisation";
+import { ownDrinksCatalogObjectSelector } from "../../recoil/consos";
 
 const AddOwnDrink = ({ visible, hide, updateDrinkKey, setLocalDrinksState }) => {
   const ownDrinksCatalogObject = useRecoilValue(ownDrinksCatalogObjectSelector);
   const drink = ownDrinksCatalogObject[updateDrinkKey];
-  const [switchPosition, setSwitchPosition] = useState(drink?.categoryKey === 'ownCocktail' ? 'oui' : 'non');
+  const [switchPosition, setSwitchPosition] = useState(
+    drink?.categoryKey === "ownCocktail" ? "oui" : "non"
+  );
   const [quantitySelected, setQuantitySelected] = useState();
   const [cocktailSelected, setCocktailSelected] = useState();
-  const showCocktail = switchPosition === 'oui';
-  const initCocktail = drink?.categoryKey === 'ownCocktail';
+  const showCocktail = switchPosition === "oui";
+  const initCocktail = drink?.categoryKey === "ownCocktail";
 
   return (
-    <Modal visible={visible} hide={hide} animationType="sheet" presentationStyle="formSheet">
-      <KeyboardAvoidingView enabled behavior={Platform.select({ ios: 'padding', android: null })}>
+    <Modal visible={visible} hide={hide} animationType="slide" presentationStyle="formSheet">
+      <KeyboardAvoidingView enabled behavior={Platform.select({ ios: "padding", android: null })}>
         <View className="h-full w-full bg-white">
           <ScrollView>
             <View className="mt-10" style={{ padding: defaultPaddingFontScale() }}>
               <BackButton content="Retour" bold onPress={hide} />
-              <H1 className="mt-5 mb-8">{updateDrinkKey ? 'Modifiez votre boisson' : 'Créez une nouvelle boisson'}</H1>
+              <H1 className="mt-5 mb-8">
+                {updateDrinkKey ? "Modifiez votre boisson" : "Créez une nouvelle boisson"}
+              </H1>
               <View className="mb-8 flex flex-row justify-between items-center">
-                <Text className="font-bold text-lg">{'Est-ce un cocktail\u00A0?'}</Text>
+                <Text className="font-bold text-lg">{"Est-ce un cocktail\u00A0?"}</Text>
                 <SwitchButtons
                   leftContent="oui"
                   rightContent="non"

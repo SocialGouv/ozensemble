@@ -99,7 +99,7 @@ const CalendarLegend = ({ navigateToFirstStep }) => {
 
 const LegendHelpModal = ({ visible, hide }) => {
   return (
-    <Modal visible={visible} hide={hide} animationType="sheet" presentationStyle="formSheet">
+    <Modal visible={visible} hide={hide} animationType="slide" presentationStyle="formSheet">
       <View className="h-full w-full bg-white">
         <ScrollView>
           <View className="my-5" style={{ padding: defaultPaddingFontScale() }}>
