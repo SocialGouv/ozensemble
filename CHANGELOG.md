@@ -1,3 +1,10 @@
+## [1.161.25](https://github.com/SocialGouv/ozensemble/compare/v1.161.24...v1.161.25) (2024-07-23)
+
+
+### Bug Fixes
+
+* custom bootsplash ([026490b](https://github.com/SocialGouv/ozensemble/commit/026490b0f395b787363f2ea02a94f802a1be9187))
+
 ## [1.161.24](https://github.com/SocialGouv/ozensemble/compare/v1.161.23...v1.161.24) (2024-07-23)
 
 
