@@ -52,6 +52,10 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       googleServicesFile: "./google-services.json",
       package: "com.addicto",
       versionCode: version.buildNumber,
+      permissions: [
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+      ],
       softwareKeyboardLayoutMode: "pan",
       intentFilters: [
         {
