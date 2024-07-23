@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import { Alert, TouchableOpacity, View, Text } from "react-native";
 import WrapperContainer from "../../components/WrapperContainer.js";
 import { storage } from "../../services/storage.js";
-import {
-  recoilStateMapping,
-  useSetAllRecoilValues,
-  useGetAllRecoilValues,
-} from "../../recoil/transferUtils.js";
 import API from "../../services/api.js";
 import * as DocumentPicker from "expo-document-picker";
 import * as Sharing from "expo-sharing";
@@ -20,7 +15,21 @@ import CloudIcon from "../../components/illustrations/icons/CloudIcon.js";
 import DownloadIcon from "../../components/illustrations/icons/DownloadIcon.js";
 
 const Transfer = ({ navigation }) => {
-  const getAllRecoilValues = useGetAllRecoilValues();
+  const [drinks, setDrinksState] = useRecoilState(drinksState);
+  const [ownDrinksCatalog, setDwnDrinksCatalogState] = useRecoilState(ownDrinksCatalogState);
+  const [isOnboardedSel, setDsOnboardedSelector] = useRecoilState(isOnboardedSelector);
+  const [maxDrinksPerWeekSel, setDaxDrinksPerWeekSelector] = useRecoilState(maxDrinksPerWeekSelector);
+  const [totalDrinksByDrinkingDaySel, setDotalDrinksByDrinkingDaySelector] = useRecoilState(
+    totalDrinksByDrinkingDaySelector
+  );
+  const [drinksContexts, setDrinksContextsState] = useRecoilState(drinksContextsState);
+  const [autoEvaluationQuizzResult, setDutoEvaluationQuizzResultState] = useRecoilState(autoEvaluationQuizzResultState);
+  const [defineStrategy, setDefineStrategyState] = useRecoilState(defineStrategyState);
+  const [currentStrategy, setDurrentStrategyState] = useRecoilState(currentStrategyState);
+  const [isInCravingKey, setDsInCravingKeyState] = useRecoilState(isInCravingKeyState);
+  const [badgesCatalog, setDadgesCatalogState] = useRecoilState(badgesCatalogState);
+  const [badges, setDadgesState] = useRecoilState(badgesState);
+
   const storageData = JSON.stringify(getAllRecoilValues);
   const setAllRecoilValues = useSetAllRecoilValues();
   const exportData = async () => {
@@ -51,16 +60,9 @@ const Transfer = ({ navigation }) => {
       const result = await DocumentPicker.getDocumentAsync({
         type: "application/json",
       });
-      const notificationToken = storage.getString(
-        "STORAGE_KEY_PUSH_NOTIFICATION_TOKEN"
-      );
-      const fileUri =
-        result.assets && result.assets.length > 0
-          ? result.assets[0].uri
-          : undefined;
-      const fileContents = await fetch(fileUri).then((response) =>
-        response.text()
-      );
+      const notificationToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
+      const fileUri = result.assets && result.assets.length > 0 ? result.assets[0].uri : undefined;
+      const fileContents = await fetch(fileUri).then((response) => response.text());
       const importedData = JSON.parse(fileContents);
       const storageData = importedData.storageData;
       const userDBData = importedData.userDBData;
@@ -71,10 +73,7 @@ const Transfer = ({ navigation }) => {
         body: { matomoId, data: userDBData },
       }).then((res) => {
         if (res.ok) {
-          Alert.alert(
-            "Data Imported",
-            "Your data has been imported successfully"
-          );
+          Alert.alert("Data Imported", "Your data has been imported successfully");
         }
       });
     } catch (err) {
@@ -96,30 +95,24 @@ const Transfer = ({ navigation }) => {
     return data;
   };
   return (
-    <WrapperContainer
-      onPressBackButton={navigation.goBack}
-      title="Transférer mes données vers un autre téléphone"
-    >
+    <WrapperContainer onPressBackButton={navigation.goBack} title="Transférer mes données vers un autre téléphone">
       <Text className="text-black text-base p-2 mb-3">
-        Transférez les données de votre profil de votre ancien vers votre
-        nouveau téléphone (incluant vos consos déclarées, vos activités, vos
-        badges gagnés, ...) en suivant les 2 étapes suivantes :
+        Transférez les données de votre profil de votre ancien vers votre nouveau téléphone (incluant vos consos
+        déclarées, vos activités, vos badges gagnés, ...) en suivant les 2 étapes suivantes :
       </Text>
       <View className="flex flex-col space-y-5 bg-[#FFFFFF] rounded-md p-4 border border-[#DFDFEB]">
         <Text className="text-[#4030A5] text-xl font-extrabold">Etape 1</Text>
         <Text className="text-black text-base">
-          Vous êtes sur votre{" "}
-          <Text className="font-bold underline">ancien</Text> téléphone.
+          Vous êtes sur votre <Text className="font-bold underline">ancien</Text> téléphone.
         </Text>
         <Text className="text-black text-base">
-          Les sous-étapes ci-dessous vont vous permettre de sauvegarder
-          l’ensemble de vos données Oz sous la forme d’un fichier.
+          Les sous-étapes ci-dessous vont vous permettre de sauvegarder l’ensemble de vos données Oz sous la forme d’un
+          fichier.
         </Text>
         <View className="flex flex-row bg-[#E6E4F3] rounded-md p-2">
           <TipIcon size={15} className="mr-1" />
           <Text className="text-[#4030A5] font-semibold">
-            Veuillez lire l’ensemble des instructions ci-dessous avant de
-            démarrer la sauvegarde.
+            Veuillez lire l’ensemble des instructions ci-dessous avant de démarrer la sauvegarde.
           </Text>
         </View>
         <View className="flex flex-row rounded-md">
@@ -132,9 +125,8 @@ const Transfer = ({ navigation }) => {
           <FolderIcon size={20} />
           <View>
             <Text className="text-[#4030A5] font-bold mb-2 flex-1">
-              Une fenêtre s’ouvre, sélectionnez une des méthodes proposées pour
-              sauvegarder vos données Oz. Vous pouvez réaliser cette sauvegarde
-              :
+              Une fenêtre s’ouvre, sélectionnez une des méthodes proposées pour sauvegarder vos données Oz. Vous pouvez
+              réaliser cette sauvegarde :
             </Text>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
@@ -142,15 +134,11 @@ const Transfer = ({ navigation }) => {
             </View>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
-              <Text className="text-[#4030A5] font-bold flex-1">
-                via une application de messagerie,
-              </Text>
+              <Text className="text-[#4030A5] font-bold flex-1">via une application de messagerie,</Text>
             </View>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
-              <Text className="text-[#4030A5] font-bold flex-1">
-                via votre adresse e-mail ...
-              </Text>
+              <Text className="text-[#4030A5] font-bold flex-1">via votre adresse e-mail ...</Text>
             </View>
           </View>
         </View>
@@ -159,9 +147,7 @@ const Transfer = ({ navigation }) => {
           className="justify-center items-center flex-row rounded-3xl p-2 bg-[#DE285E]"
         >
           <UploadIcon size={20} className="mr-2" />
-          <Text className="font-bold color-white text-center text-lg">
-            Sauvegarder mes données Oz
-          </Text>
+          <Text className="font-bold color-white text-center text-lg">Sauvegarder mes données Oz</Text>
         </TouchableOpacity>
       </View>
       <View className="flex-row w-full my-8">
@@ -172,18 +158,15 @@ const Transfer = ({ navigation }) => {
       <View className="flex flex-col space-y-5 bg-[#FFFFFF] rounded-md p-4 border border-[#DFDFEB]">
         <Text className="text-[#4030A5] text-xl font-extrabold">Etape 2</Text>
         <Text className="text-black text-base">
-          Vous êtes sur votre{" "}
-          <Text className="font-bold underline">nouveau</Text> téléphone.
+          Vous êtes sur votre <Text className="font-bold underline">nouveau</Text> téléphone.
         </Text>
         <Text className="text-black text-base">
-          Les sous-étapes ci-dessous vont vous permettre de récupérer l’ensemble
-          de vos données Oz.
+          Les sous-étapes ci-dessous vont vous permettre de récupérer l’ensemble de vos données Oz.
         </Text>
         <View className="flex flex-row bg-[#E6E4F3] rounded-md p-2">
           <TipIcon size={15} className="mr-1" />
           <Text className="text-[#4030A5] font-semibold">
-            Veuillez lire l’ensemble des instructions ci-dessous avant de
-            démarrer l'importation.
+            Veuillez lire l’ensemble des instructions ci-dessous avant de démarrer l'importation.
           </Text>
         </View>
         <View className="flex flex-row rounded-md">
@@ -201,15 +184,13 @@ const Transfer = ({ navigation }) => {
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
               <Text className="text-[#4030A5] font-bold flex-1">
-                une fenêtre s’ouvre, sélectionnez le fichier précedemment
-                sauvegardé depuis le même cloud et importez-le,
+                une fenêtre s’ouvre, sélectionnez le fichier précedemment sauvegardé depuis le même cloud et
+                importez-le,
               </Text>
             </View>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
-              <Text className="text-[#4030A5] font-bold flex-1">
-                redémarrez Oz Ensemble.
-              </Text>
+              <Text className="text-[#4030A5] font-bold flex-1">redémarrez Oz Ensemble.</Text>
             </View>
           </View>
         </View>
@@ -217,8 +198,7 @@ const Transfer = ({ navigation }) => {
           <OppositeArrowsIcon size={20} />
           <View>
             <Text className="text-[#4030A5] font-bold flex-1 mb-2">
-              Si vous avez transféré vos données par le biais d’une app (app de
-              transfert ou de messagerie) :
+              Si vous avez transféré vos données par le biais d’une app (app de transfert ou de messagerie) :
             </Text>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
@@ -229,8 +209,7 @@ const Transfer = ({ navigation }) => {
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
               <Text className="text-[#4030A5] font-bold flex-1">
-                téléchargez le fichier contenant les données Oz dans le dossier
-                “Download” de votre téléphone,
+                téléchargez le fichier contenant les données Oz dans le dossier “Download” de votre téléphone,
               </Text>
             </View>
             <View className="flex flex-row space-x-2">
@@ -242,15 +221,12 @@ const Transfer = ({ navigation }) => {
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
               <Text className="text-[#4030A5] font-bold flex-1">
-                une fenêtre s’ouvre, ouvrez le dossier “Download”, puis
-                sélectionnez le fichier précedemment sauvegardé,
+                une fenêtre s’ouvre, ouvrez le dossier “Download”, puis sélectionnez le fichier précedemment sauvegardé,
               </Text>
             </View>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
-              <Text className="text-[#4030A5] font-bold flex-1">
-                redémarrez Oz Ensemble.
-              </Text>
+              <Text className="text-[#4030A5] font-bold flex-1">redémarrez Oz Ensemble.</Text>
             </View>
           </View>
         </View>
@@ -259,9 +235,7 @@ const Transfer = ({ navigation }) => {
           className="justify-center items-center flex-row rounded-3xl p-2 bg-[#4030A5]"
         >
           <DownloadIcon size={20} className="mr-2" />
-          <Text className="font-bold color-white text-center text-lg">
-            Importer mes données Oz
-          </Text>
+          <Text className="font-bold color-white text-center text-lg">Importer mes données Oz</Text>
         </TouchableOpacity>
       </View>
     </WrapperContainer>
