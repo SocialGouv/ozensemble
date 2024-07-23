@@ -223,12 +223,12 @@ const Router = () => {
 
   const initApp = async () => {
     NotificationService.init();
-    await logEvent({ category: "APP", action: "APP_OPEN" });
     // storage.clearAll();
     // BUG FIX: on Android, Swiper is jumping the index
     // -> we prefer to make the splash a bit longer to hide the jump
     await new Promise((resolve) => setTimeout(resolve, 500));
     SplashScreen.hideAsync();
+    logEvent({ category: "APP", action: "APP_OPEN" });
   };
 
   const navigationRef = useRef(null);
