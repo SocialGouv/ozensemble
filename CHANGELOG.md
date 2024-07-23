@@ -1,3 +1,10 @@
+## [1.161.26](https://github.com/SocialGouv/ozensemble/compare/v1.161.25...v1.161.26) (2024-07-23)
+
+
+### Bug Fixes
+
+* stop await for start app ([0c6c0cf](https://github.com/SocialGouv/ozensemble/commit/0c6c0cfa209191b24f87d8f74d783f22ae28b779))
+
 ## [1.161.25](https://github.com/SocialGouv/ozensemble/compare/v1.161.24...v1.161.25) (2024-07-23)
 
 
