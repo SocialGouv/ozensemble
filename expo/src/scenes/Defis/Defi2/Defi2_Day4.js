@@ -22,11 +22,11 @@ const Defi2_Day4 = ({ navigation, route }) => {
   const setAnswersRiskSituations = useSetRecoilState(riskSituationsQuizzAnswersState);
   const answers = useRecoilValue(riskSituationsAnswersKeysSelector);
 
-  const renderItem = ({ item, index, drag, isActive }) => {
+  const renderItem = ({ item, getIndex, drag, isActive }) => {
     return (
       <DraggableContainer onLongPress={drag} disabled={isActive}>
         <QButton
-          content={index + 1}
+          content={getIndex() + 1}
           disabled
           colorText="#ffffff"
           colorBorder="#4030A5"
