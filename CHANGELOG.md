@@ -1,3 +1,10 @@
+## [1.161.35](https://github.com/SocialGouv/ozensemble/compare/v1.161.34...v1.161.35) (2024-07-24)
+
+
+### Bug Fixes
+
+* sentry max length ([11e7622](https://github.com/SocialGouv/ozensemble/commit/11e7622e52e06954e79fd19a24b84bc9c5ef26f0))
+
 ## [1.161.34](https://github.com/SocialGouv/ozensemble/compare/v1.161.33...v1.161.34) (2024-07-24)
 
 
