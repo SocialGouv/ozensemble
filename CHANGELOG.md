@@ -1,3 +1,10 @@
+## [1.161.33](https://github.com/SocialGouv/ozensemble/compare/v1.161.32...v1.161.33) (2024-07-24)
+
+
+### Bug Fixes
+
+* hide DB url ([918babc](https://github.com/SocialGouv/ozensemble/commit/918babc339efa9e957f2a8e437f23dab70dfb535))
+
 ## [1.161.32](https://github.com/SocialGouv/ozensemble/compare/v1.161.31...v1.161.32) (2024-07-24)
 
 
