@@ -1,3 +1,10 @@
+## [1.161.29](https://github.com/SocialGouv/ozensemble/compare/v1.161.28...v1.161.29) (2024-07-24)
+
+
+### Bug Fixes
+
+* confettis ([133bfd9](https://github.com/SocialGouv/ozensemble/commit/133bfd9c0e6c1c959f3f5b951a1b3a38d144ac57))
+
 ## [1.161.28](https://github.com/SocialGouv/ozensemble/compare/v1.161.27...v1.161.28) (2024-07-24)
 
 
