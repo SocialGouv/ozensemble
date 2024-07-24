@@ -1,11 +1,45 @@
 const PushNotifications = require("node-pushnotifications");
 const { capture } = require("../third-parties/sentry");
-const { PUSH_NOTIFICATION_GCM_ID, PUSH_NOTIFICATION_APN_KEY, PUSH_NOTIFICATION_APN_KEY_ID, PUSH_NOTIFICATION_APN_TEAM_ID } = require("../config");
+const {
+  PUSH_NOTIFICATION_FIREBASE_SERVICE_ACCOUNT,
+  PUSH_NOTIFICATION_GCM_ID,
+  PUSH_NOTIFICATION_APN_KEY,
+  PUSH_NOTIFICATION_APN_KEY_ID,
+  PUSH_NOTIFICATION_APN_TEAM_ID,
+} = require("../config");
 const matomo = require("../third-parties/matomo");
 
-const config = {
-  gcm: {
-    id: PUSH_NOTIFICATION_GCM_ID,
+const getFirebaseConfig = () => {
+  try {
+    // Assuming PUSH_NOTIFICATION_FIREBASE_SERVICE_ACCOUNT is already a JSON string
+    const credentials = JSON.parse(PUSH_NOTIFICATION_FIREBASE_SERVICE_ACCOUNT);
+
+    // Ensure the private_key is properly formatted
+    if (credentials.private_key) {
+      credentials.private_key = credentials.private_key.replace(/\\n/g, "\n").trim();
+      if (!credentials.private_key.startsWith("-----BEGIN PRIVATE KEY-----")) {
+        credentials.private_key = `-----BEGIN PRIVATE KEY-----\n${credentials.private_key}\n-----END PRIVATE KEY-----\n`;
+      }
+    }
+
+    return credentials;
+  } catch (error) {
+    capture(error);
+    return null;
+  }
+};
+
+const firebaseConfig = getFirebaseConfig();
+// console.log("firebaseConfig", firebaseConfig);
+
+const NotificationService = new PushNotifications({
+  // gcm: {
+  //   id: PUSH_NOTIFICATION_GCM_ID,
+  // },
+  fcm: {
+    appName: "OzEnsemble", // Replace with your actual app name
+    serviceAccountKey: firebaseConfig,
+    credential: null, // 'firebase-admin' Credential interface
   },
   apn: {
     token: {
@@ -14,16 +48,14 @@ const config = {
       teamId: PUSH_NOTIFICATION_APN_TEAM_ID,
     },
   },
-};
-
-const NotificationService = new PushNotifications(config);
+});
 
 const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, link, channelId, type }) => {
   const data = {
     title,
     body,
     topic: "com.addicto.v1",
-    android_channel_id: channelId,
+    // android_channel_id: channelId,
     custom: {
       link,
       type,
