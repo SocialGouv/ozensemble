@@ -20,7 +20,9 @@ const TimePicker = ({ visible, selectDate }) => {
 
   useEffect(() => {
     if (visible) setDate(new Date(Date.now() + 60 * 1000));
+    setShow(visible);
   }, [visible]);
+
   if (Platform.OS === "ios") {
     return (
       <Modal visible={visible} animationType="fade" transparent>
@@ -39,7 +41,11 @@ const TimePicker = ({ visible, selectDate }) => {
               }}
             />
             <ButtonsContainer>
-              <BackButton content="Retour" bold onPress={() => selectDate(null)} />
+              <BackButton
+                content="Retour"
+                bold
+                onPress={() => selectDate(null)}
+              />
               <ButtonPrimary
                 content="Valider"
                 onPress={() => {
