@@ -1,3 +1,10 @@
+## [1.161.32](https://github.com/SocialGouv/ozensemble/compare/v1.161.31...v1.161.32) (2024-07-24)
+
+
+### Bug Fixes
+
+* connection_limit=5 ([9de1f51](https://github.com/SocialGouv/ozensemble/commit/9de1f518ab59e9a74b2550b00f81bebbe6080715))
+
 ## [1.161.31](https://github.com/SocialGouv/ozensemble/compare/v1.161.30...v1.161.31) (2024-07-24)
 
 
