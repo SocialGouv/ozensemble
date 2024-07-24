@@ -392,7 +392,6 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
   const [mode, setMode] = useState(onlyDaily ? "day" : null); // 'week'
   const [weekDay, setWeekDay] = useState(null); // 0 Sunday, 1 Monday -> 6 Saturday
   const [timePickerVisible, setTimePickerVisible] = useState(onlyDaily ? visible : false);
-  const timePickerRequestedAfterDismiss = useRef(false);
   const [modePickerVisible, setModePickerVisible] = useState(visible);
   const [weekdayPickerVisible, setWeekdayPickerVisible] = useState(false);
 
@@ -404,12 +403,6 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
         visible={modePickerVisible || weekdayPickerVisible}
         animationType="fade"
         hide={hide}
-        onDismiss={() => {
-          if (timePickerRequestedAfterDismiss.current) {
-            setTimePickerVisible(true);
-            timePickerRequestedAfterDismiss.current = false;
-          }
-        }}
         withBackground
         hideOnTouch>
         <ModalContainer>
@@ -423,7 +416,7 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
                   onPress={() => {
                     setMode("day");
                     setModePickerVisible(false);
-                    timePickerRequestedAfterDismiss.current = true;
+                    setTimeout(() => setTimePickerVisible(true), 500);
                   }}>
                   Tous les jours
                 </ModeSelectButton>
@@ -450,7 +443,7 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
                       onPress={() => {
                         setWeekDay(index % 7);
                         setWeekdayPickerVisible(false);
-                        timePickerRequestedAfterDismiss.current = true;
+                        setTimeout(() => setTimePickerVisible(true), 500);
                       }}>
                       {weekDay}
                     </ModeSelectButton>
