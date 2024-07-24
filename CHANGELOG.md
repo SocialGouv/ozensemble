@@ -1,3 +1,10 @@
+## [1.161.28](https://github.com/SocialGouv/ozensemble/compare/v1.161.27...v1.161.28) (2024-07-24)
+
+
+### Bug Fixes
+
+* reminder fix ([77519f2](https://github.com/SocialGouv/ozensemble/commit/77519f213b22438394e87df23c1d839a8ac01209))
+
 ## [1.161.27](https://github.com/SocialGouv/ozensemble/compare/v1.161.26...v1.161.27) (2024-07-24)
 
 
