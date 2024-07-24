@@ -1,3 +1,10 @@
+## [1.161.27](https://github.com/SocialGouv/ozensemble/compare/v1.161.26...v1.161.27) (2024-07-24)
+
+
+### Bug Fixes
+
+* Nan in hierarchisation of situations ([08c64c3](https://github.com/SocialGouv/ozensemble/commit/08c64c3e9ddb1e45a9884986f410e085aa581de8))
+
 ## [1.161.26](https://github.com/SocialGouv/ozensemble/compare/v1.161.25...v1.161.26) (2024-07-23)
 
 
