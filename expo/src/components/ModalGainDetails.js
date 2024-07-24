@@ -1,16 +1,19 @@
-import React from 'react';
-import Svg, { Path } from 'react-native-svg';
-import { View, TouchableOpacity, Text } from 'react-native';
-import Modal from './Modal';
-import { hitSlop } from '../styles/theme';
-import Confetti from './Confettis';
+import React from "react";
+import Svg, { Path } from "react-native-svg";
+import { View, TouchableOpacity, Text } from "react-native";
+import Modal from "./Modal";
+import { hitSlop } from "../styles/theme";
+import Confettis from "./Confettis";
 
 const ModalGainDetails = ({ content, onClose }) => {
-  const firstDayMonth = content?.firstDay?.split(' ')[1];
-  const lastDayMonth = content?.lastDay?.split(' ')[1];
-  const firstDayDisplay = firstDayMonth === lastDayMonth ? content?.firstDay?.split(' ')[0] : content?.firstDay;
-  const caloriesTitle = content?.weekKcal <= content?.estimationKcal ? 'KCalories évitées' : 'KCalories en plus';
-  const eurosTitle = content?.weekExpenses <= content?.estimationExpenses ? 'Euros épargnés' : 'Euros non-épargnés';
+  const firstDayMonth = content?.firstDay?.split(" ")[1];
+  const lastDayMonth = content?.lastDay?.split(" ")[1];
+  const firstDayDisplay =
+    firstDayMonth === lastDayMonth ? content?.firstDay?.split(" ")[0] : content?.firstDay;
+  const caloriesTitle =
+    content?.weekKcal <= content?.estimationKcal ? "KCalories évitées" : "KCalories en plus";
+  const eurosTitle =
+    content?.weekExpenses <= content?.estimationExpenses ? "Euros épargnés" : "Euros non-épargnés";
   return (
     <Modal visible={!!content} animationType="fade" withBackground hideOnTouch>
       <View className="bg-white rounded-xl min-w-full">
@@ -60,7 +63,9 @@ const ModalGainDetails = ({ content, onClose }) => {
               <View className="py-2 mt-3 bg-[#F5F6FA] rounded-md">
                 <Text className="text-center text-[#939EA6] text-xs">{eurosTitle}</Text>
                 <View className={`mx-auto px-2 py-1 rounded-md mt-2 ${content.eurosColor}`}>
-                  <Text className="text-center text-white font-bold text-xl">{content.savedExpenses}€</Text>
+                  <Text className="text-center text-white font-bold text-xl">
+                    {content.savedExpenses}€
+                  </Text>
                 </View>
               </View>
               <View className="flex flex-row justify-center">
@@ -90,7 +95,9 @@ const ModalGainDetails = ({ content, onClose }) => {
                 <Text className="text-center text-[#939EA6] text-xs">{caloriesTitle}</Text>
                 <View
                   className={`flex flex-row justify-center mx-auto px-2 py-1 rounded-md mt-2 items-baseline ${content.kcalsColor}`}>
-                  <Text className="text-center font-bold text-xl text-white">{content?.savedKcal}</Text>
+                  <Text className="text-center font-bold text-xl text-white">
+                    {content?.savedKcal}
+                  </Text>
                   <Text className="text-center font-bold text-base text-white"> KCAL</Text>
                 </View>
               </View>
@@ -105,9 +112,9 @@ const ModalGainDetails = ({ content, onClose }) => {
         </View>
       </View>
 
-      {eurosTitle === 'Euros épargnés' && caloriesTitle === 'KCalories évitées' && content?.isWeekCompleted && (
-        <Confetti run={true} />
-      )}
+      {eurosTitle === "Euros épargnés" &&
+        caloriesTitle === "KCalories évitées" &&
+        content?.isWeekCompleted && <Confettis run={true} />}
     </Modal>
   );
 };

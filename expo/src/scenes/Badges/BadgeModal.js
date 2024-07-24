@@ -12,7 +12,7 @@ import InAppReview from "react-native-in-app-review";
 import Svg, { Path } from "react-native-svg";
 import { useSetRecoilState } from "recoil";
 import ButtonPrimary from "../../components/ButtonPrimary";
-import Confetti from "../../components/Confettis";
+import Confettis from "../../components/Confettis";
 import H1 from "../../components/H1";
 import TextStyled from "../../components/TextStyled";
 import { badgesCatalogState, badgesState } from "../../recoil/badges";
@@ -162,7 +162,7 @@ const BadgeModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
       </View>
-      {badge?.showConfettis && <Confetti run={true} />}
+      {badge?.showConfettis && <Confettis run={true} />}
     </SafeAreaView>
   );
 };

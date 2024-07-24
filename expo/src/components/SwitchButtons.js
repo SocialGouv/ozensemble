@@ -23,7 +23,8 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
         }),
       ]).start();
     },
-    [initPosition, translateX]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
   const onTerminate = async (evt) => {
     const newX = evt.nativeEvent.locationX;

@@ -1,7 +1,15 @@
-import React, { useEffect } from "react";
-import Animated, { useSharedValue, useAnimatedStyle } from "react-native-reanimated";
+import React from "react";
 import { View, Dimensions, StyleSheet } from "react-native";
-import FastImage from "react-native-fast-image";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withDelay,
+  withRepeat,
+  withSequence,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
+import { Image } from "expo-image";
 import ConfettiImage from "../assets/images/confetti.png";
 
 const NUM_CONFETTI = 100;
@@ -9,97 +17,102 @@ const COLORS = ["#107ed5", "#DE285E", "#39CEC1", "#09aec5", "#FCBC49"];
 const CONFETTI_SIZE = 16;
 
 const Confettis = () => {
-  const { width: screenWidth, height: screenHeight } = Dimensions.get("screen");
-  const confettiProps = Array.from({ length: NUM_CONFETTI }, (_, i) => ({
-    initialX: Math.random() * screenWidth,
-    initialY: -screenHeight - 100, // Start off-screen
-    xVel: Math.random() * 400 - 200,
-    yVel: Math.random() * 150 + 400,
-    angleVel: (Math.random() * 3 - 1.5) * Math.PI,
-    delay: Math.floor(i / 15) * 0.3,
-    elasticity: Math.random() * 0.3 + 0.1,
-    color: COLORS[i % COLORS.length],
-  }));
+  const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
   return (
-    <View pointerEvents="none" style={StyleSheet.absoluteFill}>
-      {confettiProps.map((props, index) => (
-        <Confetti key={index} {...props} />
+    <View style={styles.container}>
+      {Array.from({ length: NUM_CONFETTI }).map((_, index) => (
+        <Confetti
+          key={index}
+          screenWidth={screenWidth}
+          screenHeight={screenHeight}
+          color={COLORS[index % COLORS.length]}
+          delay={index * 50}
+        />
       ))}
     </View>
   );
 };
-const Confetti = ({ initialX, initialY, xVel, yVel, angleVel, delay, elasticity, color }) => {
-  const { width: screenWidth } = Dimensions.get("screen");
-  const x = useSharedValue(initialX);
-  const y = useSharedValue(initialY);
-  const angle = useSharedValue(0); // Assuming initial angle is 0
 
-  useEffect(() => {
-    let frameId;
+const Confetti = ({ screenWidth, screenHeight, color, delay }) => {
+  const x = useSharedValue(Math.random() * screenWidth);
+  const y = useSharedValue(-screenHeight); // Start well above the screen
+  const rotation = useSharedValue(0);
 
-    const animate = () => {
-      "worklet";
-      if (delay > 0) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        delay -= 1 / 60; // Assuming 60 FPS
-      } else {
-        x.value += xVel / 60;
-        y.value += yVel / 60;
-        angle.value += angleVel / 60;
+  // Randomize horizontal movement
+  const amplitude = Math.random() * 50 + 50; // Random amplitude between 50 and 250
+  const period = Math.random() * 2000 + 1000; // Random period between 1000 and 3000 ms
 
-        // Check and handle left and right boundaries
-        if (x.value > screenWidth - CONFETTI_SIZE) {
-          x.value = screenWidth - CONFETTI_SIZE; // Adjust position
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          xVel *= -elasticity; // Reverse velocity
-        } else if (x.value < 0) {
-          x.value = 0; // Adjust position
-          xVel *= -elasticity; // Reverse velocity
-        }
-      }
+  React.useEffect(() => {
+    y.value = withDelay(
+      delay,
+      withTiming(screenHeight + CONFETTI_SIZE, {
+        duration: 4000, // 10 seconds for a slower fall
+        easing: Easing.linear,
+      })
+    );
 
-      frameId = requestAnimationFrame(animate);
-    };
+    x.value = withDelay(
+      delay,
+      withRepeat(
+        withSequence(
+          withTiming(x.value - amplitude, {
+            duration: period,
+            easing: Easing.inOut(Easing.ease),
+          }),
+          withTiming(x.value + amplitude, {
+            duration: period,
+            easing: Easing.inOut(Easing.ease),
+          })
+        ),
+        -1,
+        true
+      )
+    );
 
-    frameId = requestAnimationFrame(animate);
-
-    return () => {
-      if (frameId) {
-        cancelAnimationFrame(frameId);
-      }
-    };
+    rotation.value = withDelay(
+      delay,
+      withRepeat(
+        withTiming(2 * Math.PI, {
+          duration: 2000,
+          easing: Easing.linear,
+        }),
+        -1
+      )
+    );
   }, []);
 
-  const animatedStyles = useAnimatedStyle(() => {
+  const animatedStyle = useAnimatedStyle(() => {
     return {
       transform: [
         { translateX: x.value },
         { translateY: y.value },
-        { rotate: `${angle.value}rad` },
+        { rotate: `${rotation.value}rad` },
       ],
       backgroundColor: color,
     };
   });
 
   return (
-    <Animated.View style={[styles.confettiContainer, animatedStyles]}>
-      <FastImage source={ConfettiImage} style={styles.confetti} />
+    <Animated.View style={[styles.confetti, animatedStyle]}>
+      <Image source={ConfettiImage} style={styles.confettiImage} />
     </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
-  confettiContainer: {
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    pointerEvents: "none",
+  },
+  confetti: {
     position: "absolute",
     width: CONFETTI_SIZE,
     height: CONFETTI_SIZE,
-    top: 0,
-    left: 0,
   },
-  confetti: {
-    width: CONFETTI_SIZE,
-    height: CONFETTI_SIZE,
+  confettiImage: {
+    width: "100%",
+    height: "100%",
   },
 });
 

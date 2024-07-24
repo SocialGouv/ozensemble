@@ -6119,6 +6119,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-image@npm:~1.12.13":
+  version: 1.12.13
+  resolution: "expo-image@npm:1.12.13"
+  peerDependencies:
+    expo: "*"
+  checksum: 8ca3844419ace3c37e75db89a7a1b955b3d82ebd1a4987ca7f80d25f89ed910bb5ba3d96756bcf7fe6b90ca070c14fc6a49b5bf0f5a8cea40dc2b4d135f59960
+  languageName: node
+  linkType: hard
+
 "expo-json-utils@npm:~0.13.0":
   version: 0.13.1
   resolution: "expo-json-utils@npm:0.13.1"
@@ -10090,6 +10099,7 @@ __metadata:
     expo-constants: "npm:^16.0.2"
     expo-dev-client: "npm:^4.0.20"
     expo-font: "npm:^12.0.7"
+    expo-image: "npm:~1.12.13"
     expo-linking: "npm:^6.3.1"
     expo-notifications: "npm:^0.28.10"
     expo-splash-screen: "npm:^0.27.5"
@@ -10106,7 +10116,6 @@ __metadata:
     react-native-awesome-slider: "npm:^2.5.3"
     react-native-device-info: "npm:^11.1.0"
     react-native-draggable-flatlist: "npm:^4.0.1"
-    react-native-fast-image: "npm:^8.6.3"
     react-native-gesture-handler: "npm:~2.16.1"
     react-native-get-random-values: "npm:^1.11.0"
     react-native-in-app-review: "npm:^4.3.3"
@@ -10868,16 +10877,6 @@ __metadata:
     react-native-gesture-handler: ">=2.0.0"
     react-native-reanimated: ">=2.8.0"
   checksum: 914e4c1df1a0fed11da474499b78f6144644ab1e45cf22b8d6c3098f12f732d3f15ad26e932114016a80d99a39e9c16cb37357ea707333065dee9d2067639c0b
-  languageName: node
-  linkType: hard
-
-"react-native-fast-image@npm:^8.6.3":
-  version: 8.6.3
-  resolution: "react-native-fast-image@npm:8.6.3"
-  peerDependencies:
-    react: ^17 || ^18
-    react-native: ">=0.60.0"
-  checksum: 4ebeae53ffeadf1e7e5e133c1cfda81f9efe978f9ece10c732a0338149fe9104681bfdabc8427dad7c934b02bfcbd0e205bb6ca43e2844abc6054630ebe34454
   languageName: node
   linkType: hard
 
