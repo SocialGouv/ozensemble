@@ -436,6 +436,7 @@ const notificationsCronJob = async () => {
   for (const notif of notifs) {
     if (!notif?.user?.push_notif_token) continue;
     sendPushNotification({
+      userId: notif.user.id,
       matomoId: notif.user.matomo_id,
       pushNotifToken: notif.user.push_notif_token,
       channelId: "unique_reminder",

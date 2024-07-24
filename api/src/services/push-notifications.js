@@ -1,5 +1,6 @@
 const PushNotifications = require("node-pushnotifications");
 const { capture } = require("../third-parties/sentry");
+const prisma = require("../prisma");
 const {
   PUSH_NOTIFICATION_FIREBASE_SERVICE_ACCOUNT,
   PUSH_NOTIFICATION_GCM_ID,
@@ -50,7 +51,7 @@ const NotificationService = new PushNotifications({
   },
 });
 
-const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, link, channelId, type }) => {
+const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, body, link, channelId, type }) => {
   const data = {
     title,
     body,
@@ -77,6 +78,20 @@ const sendPushNotification = async ({ matomoId, pushNotifToken, title, body, lin
           userId: matomoId,
         });
       } else if (results[0]?.failure) {
+        const error = results[0].message?.[0]?.errorMsg;
+        if (error === "Requested entity was not found") {
+          // https://stackoverflow.com/a/56218146/5225096
+          await prisma.user.upsert({
+            where: { matomo_id: matomoId },
+            update: {
+              push_notif_token: null,
+            },
+          });
+          return { ok: false, results };
+        } else if (error === "apn write timeout") {
+          // just ignore, even Google know nothing about it
+          return { ok: false, results };
+        }
         capture(`push notification sent failure: ${results[0].message?.[0]?.errorMsg}`, {
           extra: { results, data, pushNotifToken },
           user: {

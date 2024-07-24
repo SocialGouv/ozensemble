@@ -179,6 +179,7 @@ const reminderCronJob = async (req, res) => {
     if (!!notif) continue;
 
     sendPushNotification({
+      userId: reminder.user.id,
       matomoId: reminder.user.matomo_id,
       pushNotifToken: reminder.user.push_notif_token,
       channelId: "unique_reminder",
@@ -220,6 +221,7 @@ const reminderCronJob = async (req, res) => {
     if (!!notif) continue;
 
     sendPushNotification({
+      userId: reminder.user.id,
       matomoId: reminder.user.matomo_id,
       pushNotifToken: reminder.user.push_notif_token,
       channelId: "unique_reminder",
