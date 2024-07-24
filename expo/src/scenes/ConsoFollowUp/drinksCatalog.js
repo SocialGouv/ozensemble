@@ -72,7 +72,7 @@ export const mapDrinkToDose = ({ drinkKey, quantity }, catalogObject) => {
     // When a user update is own conso this will generate a sentry log because we update first the catalog which
     // make this function run before we update the consos so there is a mismatch
     // but when the consos are updated everything is back fine and is smooth for the user
-    capture(new Error("drink not found"), {
+    capture(new Error("drink really not found"), {
       extra: { drinkKey, catalogObject, function: "mapDrinkToDose" },
       tags: { drinkKey },
     });
@@ -89,7 +89,7 @@ export const mapDrinkToKcals = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error("drink not found"), {
+    capture(new Error("drink really not found"), {
       extra: { drinkKey, catalogObject, function: "mapDrinkToKcals" },
       tags: { drinkKey },
     });
@@ -106,7 +106,7 @@ export const mapDrinkToPrice = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error("drink not found"), {
+    capture(new Error("drink really not found"), {
       extra: { drinkKey, catalogObject, function: "mapDrinkToPrice" },
       tags: { drinkKey },
     });
@@ -120,7 +120,7 @@ export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   try {
     const drink = catalogObject[drinkKey];
     if (!drink) {
-      capture(new Error("drink not found"), {
+      capture(new Error("drink really not found"), {
         extra: { drinkKey, catalogObject, function: "getDisplayName" },
         tags: { drinkKey },
       });
@@ -140,7 +140,7 @@ export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1)
   try {
     const drink = catalogObject[drinkKey];
     if (!drink) {
-      capture(new Error("drink not found"), {
+      capture(new Error("drink really not found"), {
         extra: { drinkKey, catalogObject, function: "getDisplayDrinksModalName" },
         tags: { drinkKey },
       });

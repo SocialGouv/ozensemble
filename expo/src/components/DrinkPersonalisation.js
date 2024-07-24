@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { useRoute } from '@react-navigation/native';
-import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
-import TextStyled from './TextStyled';
-import ArrowDown from './ArrowDown';
-import { QuantitySetter } from './DrinkQuantitySetter';
-import ButtonPrimary from './ButtonPrimary';
-import ModalUpdateSuppressionDrink from './ModalUpdateSuppressionDrink';
-import API from '../services/api';
-import { storage } from '../services/storage';
-import AddAlcoolQuantity from '../scenes/AddDrink/AddAlcoolQuantity';
-import { logEvent } from '../services/logEventsWithMatomo';
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRoute } from "@react-navigation/native";
+import { drinksState, ownDrinksCatalogState } from "../recoil/consos";
+import TextStyled from "./TextStyled";
+import ArrowDown from "./ArrowDown";
+import { QuantitySetter } from "./DrinkQuantitySetter";
+import ButtonPrimary from "./ButtonPrimary";
+import ModalUpdateSuppressionDrink from "./ModalUpdateSuppressionDrink";
+import API from "../services/api";
+import { storage } from "../services/storage";
+import AddAlcoolQuantity from "../scenes/AddDrink/AddAlcoolQuantity";
+import { logEvent } from "../services/logEventsWithMatomo";
 
-const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected, setLocalDrinksState }) => {
+const DrinkPersonalisation = ({
+  updateDrinkKey,
+  hide,
+  quantitySelected,
+  setQuantitySelected,
+  setLocalDrinksState,
+}) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
 
@@ -30,35 +36,50 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         (catalogdrink) =>
           catalogdrink.drinkKey === updateDrinkKey &&
           catalogdrink.isDeleted === false &&
-          catalogdrink.categoryKey === 'ownDrink'
+          catalogdrink.categoryKey === "ownDrink"
       );
   const [drinkName, setDrinkName] = useState(drink?.drinkKey);
 
-  const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
+  const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : "");
   const [drinkAlcoolPercentage, setDrinkAlcoolPercentage] = useState(
-    drink?.alcoolPercentage ? String(drink?.alcoolPercentage) : ''
+    drink?.alcoolPercentage ? String(drink?.alcoolPercentage) : ""
   );
   const [quantity, setQuantity] = useState(updateDrinkKey ? 0 : 1);
   const setGlobalDrinksState = useSetRecoilState(drinksState);
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
-  const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(' ')[0];
+  const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(" ")[0];
   const saveDrink = async () => {
-    const formatedPrice = drinkPrice.replace(',', '.');
-    const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(',', '.');
-    const formatedVolume = volumeNumber.replace(',', '.');
+    const formatedPrice = drinkPrice.replace(",", ".");
+    const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(",", ".");
+    const formatedVolume = volumeNumber.replace(",", ".");
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
         (catalogDrink) => catalogDrink.drinkKey === drinkName && catalogDrink.isDeleted === false
       ) ??
       ownDrinksCatalog.find(
-        (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
+        (catalogDrink) =>
+          catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) * 7;
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) / 10;
+    const newDrink = {
+      categoryKey: "ownDrink",
+      drinkKey: drinkName,
+      displayFeed: drinkName,
+      displayDrinkModal: drinkName,
+      volume: volumeNumber + " cl",
+      doses: doses,
+      icon: quantitySelected?.icon,
+      price: Number(formatedPrice),
+      alcoolPercentage: Number(formatedAlcoolPercentage),
+      kcal: kCal,
+      custom: true,
+      isDeleted: false,
+    };
     logEvent({
-      category: 'OWN_CONSO',
-      action: 'CREATE_OWN_DRINK',
+      category: "OWN_CONSO",
+      action: "CREATE_OWN_DRINK",
       name: drinkName,
       value: doses,
       dimension6: volumeNumber,
@@ -66,57 +87,50 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
     if (oldDrink) {
       if (!isUpdateWanted) {
         const keepGoing = await new Promise((resolve) => {
-          Alert.alert('Vous avez déjà enregistré ce verre', 'Voulez-vous le remplacer ?', [
+          Alert.alert("Vous avez déjà enregistré ce verre", "Voulez-vous le remplacer ?", [
             {
-              text: 'Annuler',
+              text: "Annuler",
               onPress: () => resolve(false),
-              style: 'cancel',
+              style: "cancel",
             },
             {
-              text: 'Remplacer',
+              text: "Remplacer",
               onPress: () => resolve(true),
             },
           ]);
         });
         if (!keepGoing) return;
       }
-      const drinkIcon = quantitySelected?.icon ?? oldDrink.icon;
+      newDrink.icon = quantitySelected?.icon ?? oldDrink.icon;
       setOwnDrinksCatalog((oldState) => {
+        const tempState = [...oldState, newDrink];
+        return tempState;
+      });
+      setGlobalDrinksState((oldState) => {
         return oldState.map((oldStateDrink) =>
           oldStateDrink.drinkKey === oldDrink.drinkKey
-            ? {
-                categoryKey: 'ownDrink',
-                drinkKey: drinkName,
-                displayFeed: drinkName,
-                displayDrinkModal: drinkName,
-                volume: volumeNumber + ' cl',
-                doses: doses,
-                icon: drinkIcon,
-                price: Number(formatedPrice),
-                alcoolPercentage: Number(formatedAlcoolPercentage),
-                kcal: kCal,
-                custom: true,
-                isDeleted: false,
-              }
+            ? { ...oldStateDrink, drinkKey: drinkName }
             : oldStateDrink
         );
       });
-
-      setGlobalDrinksState((oldState) => {
-        return oldState.map((oldStateDrink) =>
-          oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
-        );
+      setOwnDrinksCatalog((tempState) => {
+        const cleanedNewState = tempState
+          .filter((tempStateDrink) => tempStateDrink.drinkKey !== newDrink.drinkKey)
+          .map((oldStateDrink) =>
+            oldStateDrink.drinkKey === oldDrink.drinkKey ? newDrink : oldStateDrink
+          );
+        return cleanedNewState;
       });
 
-      const matomoId = storage.getString('@UserIdv2');
+      const matomoId = storage.getString("@UserIdv2");
 
       API.post({
-        path: '/consommation/update-own-conso',
+        path: "/consommation/update-own-conso",
         body: {
           matomoId: matomoId,
           oldDrinkKey: oldDrink.drinkKey,
           drinkKey: drinkName,
-          volume: volumeNumber + ' cl',
+          volume: volumeNumber + " cl",
           doses: doses,
           price: Number(formatedPrice),
           kcal: kCal,
@@ -140,12 +154,12 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
     setOwnDrinksCatalog((oldState) => {
       return [
         {
-          categoryKey: 'ownDrink',
+          categoryKey: "ownDrink",
           drinkKey: drinkName,
           displayFeed: drinkName,
           displayDrinkModal: drinkName,
 
-          volume: quantitySelected?.volume + ' cl',
+          volume: quantitySelected?.volume + " cl",
           doses: doses,
           icon: icon,
           price: Number(formatedPrice),
@@ -268,7 +282,9 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
                 setIsUpdateWanted(false);
                 setShowModalUpdate(true);
               }}>
-              <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer ma boisson</Text>
+              <Text className="text-[#4030A5] text-center underline text-base mt-4">
+                Supprimer ma boisson
+              </Text>
             </TouchableOpacity>
           </View>
         )}
