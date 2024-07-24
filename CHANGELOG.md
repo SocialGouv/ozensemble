@@ -1,3 +1,10 @@
+## [1.161.30](https://github.com/SocialGouv/ozensemble/compare/v1.161.29...v1.161.30) (2024-07-24)
+
+
+### Bug Fixes
+
+* reminder animation ([f59545d](https://github.com/SocialGouv/ozensemble/commit/f59545dc064b152ba605eb3b1eee55c5708b73fc))
+
 ## [1.161.29](https://github.com/SocialGouv/ozensemble/compare/v1.161.28...v1.161.29) (2024-07-24)
 
 
