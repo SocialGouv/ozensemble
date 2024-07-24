@@ -1,3 +1,10 @@
+## [1.161.34](https://github.com/SocialGouv/ozensemble/compare/v1.161.33...v1.161.34) (2024-07-24)
+
+
+### Bug Fixes
+
+* drink not found ([51bc72c](https://github.com/SocialGouv/ozensemble/commit/51bc72c28ddee393316fffeeb057c083fd878cbb))
+
 ## [1.161.33](https://github.com/SocialGouv/ozensemble/compare/v1.161.32...v1.161.33) (2024-07-24)
 
 
