@@ -1,3 +1,10 @@
+## [1.161.36](https://github.com/SocialGouv/ozensemble/compare/v1.161.35...v1.161.36) (2024-07-25)
+
+
+### Bug Fixes
+
+* OZENSEMBLE-K2 ([#613](https://github.com/SocialGouv/ozensemble/issues/613)) ([eec4531](https://github.com/SocialGouv/ozensemble/commit/eec453109413f2dff9a9cbcf58c785f464497675))
+
 ## [1.161.35](https://github.com/SocialGouv/ozensemble/compare/v1.161.34...v1.161.35) (2024-07-24)
 
 
