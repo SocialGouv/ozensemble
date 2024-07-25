@@ -86,7 +86,7 @@ const scheduleNotificationsInactivity5DaysCronJob = async () => {
     });
 
     for (const { id } of users) {
-      saveInactivity5Days(id);
+      await saveInactivity5Days(id);
     }
   } catch (e) {
     capture(e, { level: "error" });
@@ -138,7 +138,7 @@ const scheduleNotificationsNotFilledWeekCronJob = async () => {
     });
 
     for (const { id } of users) {
-      saveNotFilledWeek(id);
+      await saveNotFilledWeek(id);
     }
   } catch (e) {
     capture(e, { level: "error" });
@@ -435,7 +435,7 @@ const notificationsCronJob = async () => {
   const sentNotifications = [];
   for (const notif of notifs) {
     if (!notif?.user?.push_notif_token) continue;
-    sendPushNotification({
+    await sendPushNotification({
       userId: notif.user.id,
       matomoId: notif.user.matomo_id,
       pushNotifToken: notif.user.push_notif_token,
