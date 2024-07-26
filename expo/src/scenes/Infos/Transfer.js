@@ -24,6 +24,10 @@ const Transfer = ({ navigation }) => {
     const filteredStorage = allStorage.filter((key) => !key.startsWith("STORAGE_KEY_PUSH_NOTIFICATION"));
     const exportData = {};
     filteredStorage.forEach((key) => {
+      // On vérifie si la valeur est un objet ou un boolean
+      // Si c'est un objet, on le parse en JSON
+      // Si c'est un boolean, on le récupère en boolean
+      // Sinon, on le récupère en string
       const stringValue = storage.getString(key);
       const booleanValue = storage.getBoolean(key);
       let value;
@@ -52,6 +56,9 @@ const Transfer = ({ navigation }) => {
         mimeType: "application/json",
         dialogTitle: "Exported Data",
         UTI: "public.json",
+      }).then(() => {
+        logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
+        Alert.alert("Vos données ont bien été sauvegardées.");
       });
     } else {
       console.log("Sharing is not available on this device");
@@ -73,38 +80,16 @@ const Transfer = ({ navigation }) => {
             text: "Confirmer",
             onPress: async () => {
               try {
-                const result = await DocumentPicker.getDocumentAsync({
-                  type: "application/json",
-                });
+                const result = await DocumentPicker.getDocumentAsync({ type: "application/json" });
                 const fileUri = result.assets && result.assets.length > 0 ? result.assets[0].uri : undefined;
                 const fileContents = await fetch(fileUri).then((response) => response.text());
                 const pushNotifToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
-                const exportData = JSON.parse(fileContents);
-                storage.clearAll();
-                storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
-
-                Object.keys(exportData).forEach((key) => {
-                  const value = exportData[key];
-                  if (typeof value === "object") {
-                    storage.set(key, JSON.stringify(value));
-                  } else storage.set(key, value);
-                });
-                const matomoId = storage.getString("@UserIdv2");
-                await API.put({
-                  path: `/user`,
-                  body: { matomoId, pushNotifToken },
-                }).then((res) => {
-                  if (res.ok) {
-                    Alert.alert("Félicitations, vos données ont bien été importées 🥳");
-                    logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
-                    Expo.reloadAppAsync();
-                  }
-                });
+                await handleImportData(fileContents, pushNotifToken);
               } catch (err) {
                 if (DocumentPicker.isCancel(err)) {
                   logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "DOCUMENT_PICKER_CANCEL" });
                 } else {
-                  throw err;
+                  console.log(err);
                 }
               }
             },
@@ -115,6 +100,57 @@ const Transfer = ({ navigation }) => {
     } catch (err) {
       console.log(err);
     }
+  };
+  const handleImportData = async (fileContents, pushNotifToken) => {
+    const exportData = JSON.parse(fileContents);
+    const overWrittenId = storage.getString("@UserIdv2");
+    const newMatomoId = exportData["@UserIdv2"];
+
+    if (newMatomoId === overWrittenId) {
+      logEvent({ category: "TRANSFER", action: "IMPORT_DATA", name: "SAME_MATOMO_ID" });
+      Alert.alert(
+        "Attention, ces données sont déjà présentes sur ce téléphone",
+        "Voulez-vous continuer?",
+        [
+          {
+            text: "Annuler",
+            onPress: () => logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "CANCEL_SAME_ID" }),
+            style: "cancel",
+          },
+          {
+            text: "Continuer",
+            onPress: async () => {
+              await overwriteData(exportData, pushNotifToken);
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      await overwriteData(exportData, pushNotifToken);
+    }
+  };
+
+  const overwriteData = async (exportData, pushNotifToken) => {
+    await API.put({ path: `/user`, body: { matomoId: storage.getString("@UserIdv2"), isOverWritten: true } });
+    storage.clearAll();
+    storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
+    Object.keys(exportData).forEach((key) => {
+      const value = exportData[key];
+      if (typeof value === "object") {
+        storage.set(key, JSON.stringify(value));
+      } else {
+        storage.set(key, value);
+      }
+    });
+    const matomoId = storage.getString("@UserIdv2");
+    await API.put({ path: `/user`, body: { matomoId, pushNotifToken } }).then((res) => {
+      if (res.ok) {
+        Alert.alert("Félicitations, vos données ont bien été importées 🥳");
+        logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
+        Expo.reloadAppAsync();
+      }
+    });
   };
 
   return (
