@@ -14,9 +14,11 @@ import FolderIcon from "../../components/illustrations/icons/FolderIcon.js";
 import OppositeArrowsIcon from "../../components/illustrations/icons/OppositeArrowsIcon.js";
 import CloudIcon from "../../components/illustrations/icons/CloudIcon.js";
 import DownloadIcon from "../../components/illustrations/icons/DownloadIcon.js";
+import { logEvent } from "../../services/logEventsWithMatomo.js";
 
 const Transfer = ({ navigation }) => {
   const exportData = async () => {
+    logEvent({ category: "TRANSFER", action: "EXPORT_DATA" });
     // Storage
     const allStorage = storage.getAllKeys();
     const filteredStorage = allStorage.filter((key) => !key.startsWith("STORAGE_KEY_PUSH_NOTIFICATION"));
@@ -56,38 +58,62 @@ const Transfer = ({ navigation }) => {
     }
   };
   const importData = async () => {
+    logEvent({ category: "TRANSFER", action: "IMPORT_DATA" });
     try {
-      const result = await DocumentPicker.getDocumentAsync({
-        type: "application/json",
-      });
-      const fileUri = result.assets && result.assets.length > 0 ? result.assets[0].uri : undefined;
-      const fileContents = await fetch(fileUri).then((response) => response.text());
-      const notificationToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
-      const exportData = JSON.parse(fileContents);
-      storage.clearAll();
-      storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", notificationToken);
+      Alert.alert(
+        "Attention",
+        "Les données actuelles seront écrasées par les données importées",
+        [
+          {
+            text: "Annuler",
+            onPress: () => logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "ALERT_CANCEL" }),
+            style: "cancel",
+          },
+          {
+            text: "Confirmer",
+            onPress: async () => {
+              try {
+                const result = await DocumentPicker.getDocumentAsync({
+                  type: "application/json",
+                });
+                const fileUri = result.assets && result.assets.length > 0 ? result.assets[0].uri : undefined;
+                const fileContents = await fetch(fileUri).then((response) => response.text());
+                const notificationToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
+                const exportData = JSON.parse(fileContents);
+                storage.clearAll();
+                storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", notificationToken);
 
-      Object.keys(exportData).forEach((key) => {
-        const value = exportData[key];
-        if (typeof value === "object") {
-          storage.set(key, JSON.stringify(value));
-        } else storage.set(key, value);
-      });
-      const matomoId = storage.getString("@UserIdv2");
-      await API.post({
-        path: `/user/import`,
-        body: { matomoId, notificationToken },
-      }).then((res) => {
-        if (res.ok) {
-          Alert.alert("Félicitation, vos données ont bien été importées");
-          Expo.reloadAppAsync();
-        }
-      });
+                Object.keys(exportData).forEach((key) => {
+                  const value = exportData[key];
+                  if (typeof value === "object") {
+                    storage.set(key, JSON.stringify(value));
+                  } else storage.set(key, value);
+                });
+                const matomoId = storage.getString("@UserIdv2");
+                await API.post({
+                  path: `/user/import`,
+                  body: { matomoId, notificationToken },
+                }).then((res) => {
+                  if (res.ok) {
+                    Alert.alert("Félicitation, vos données ont bien été importées.");
+                    logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
+                    Expo.reloadAppAsync();
+                  }
+                });
+              } catch (err) {
+                if (DocumentPicker.isCancel(err)) {
+                  logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "DOCUMENT_PICKER_CANCEL" });
+                } else {
+                  throw err;
+                }
+              }
+            },
+          },
+        ],
+        { cancelable: false }
+      );
     } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-      } else {
-        throw err;
-      }
+      console.log(err);
     }
   };
 
