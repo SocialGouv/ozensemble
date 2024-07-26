@@ -96,6 +96,36 @@ router.post(
     }
 
     if (user.createdAt && dayjs(user.createdAt).isBefore(dayjs().subtract(3, "day"))) {
+      if (req.headers.appversion >= 298) {
+        const featureTransfer = await prisma.appMilestone.findUnique({
+          where: { id: `${user.id}_@TransferData` },
+        });
+        if (featureTransfer) {
+          await prisma.appMilestone.create({
+            data: {
+              id: `${user.id}_@TransferData`,
+              userId: user.id,
+              date: dayjs().format("YYYY-MM-DD"),
+            },
+          });
+          return res.status(200).send({
+            ok: true,
+            showInAppModal: {
+              id: "@TransferData",
+              title: "Transférer les données de votre compte vers un autre téléphone",
+              content:
+                "Vous changez de téléphone ?\n Dès maintenant vous pouvez transférer les données de votre profil Oz Ensemble vers un autre téléphone.\nCela inclut vos consommations déclarées, vos activités, vos badges gagnés, etc...",
+              CTATitle: "Transférer mes données",
+              CTAEvent: {
+                category: "TRANSFER_DATA",
+                action: "PRESSED_FROM_NEW_FEATURE_MODAL",
+                name: "FROM_NEW_FEATURE",
+              },
+              CTANavigation: ["INFOS", { screen: "TRANSFER" }],
+            },
+          });
+        }
+      }
       if (req.headers.appversion >= 285) {
         const featureMyMotivations = await prisma.appMilestone.findUnique({
           where: { id: `${user.id}_@MyMotivations` },
