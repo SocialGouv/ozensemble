@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Alert, TouchableOpacity, View, Text } from "react-native";
 import WrapperContainer from "../../components/WrapperContainer.js";
 import { storage } from "../../services/storage.js";
