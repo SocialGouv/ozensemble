@@ -22,7 +22,7 @@ const Transfer = ({ navigation }) => {
     // Storage
     const allStorage = storage.getAllKeys();
     const filteredStorage = allStorage.filter((key) => !key.startsWith("STORAGE_KEY_PUSH_NOTIFICATION"));
-    const exportData = {};
+    const toExportData = {};
     filteredStorage.forEach((key) => {
       // On vérifie si la valeur est un objet ou un boolean
       // Si c'est un objet, on le parse en JSON
@@ -43,9 +43,9 @@ const Transfer = ({ navigation }) => {
         value = null;
       }
 
-      if (value !== null) exportData[key] = value;
+      if (value !== null) toExportData[key] = value;
     });
-    const jsonExport = JSON.stringify(exportData);
+    const jsonExport = JSON.stringify(toExportData);
     const path = `${FileSystem.documentDirectory}export-oz-ensemble.json`;
     await FileSystem.writeAsStringAsync(path, jsonExport, {
       encoding: FileSystem.EncodingType.UTF8,
@@ -102,9 +102,9 @@ const Transfer = ({ navigation }) => {
     }
   };
   const handleImportData = async (fileContents, pushNotifToken) => {
-    const exportData = JSON.parse(fileContents);
+    const dataImported = JSON.parse(fileContents);
     const overWrittenId = storage.getString("@UserIdv2");
-    const newMatomoId = exportData["@UserIdv2"];
+    const newMatomoId = dataImported["@UserIdv2"];
 
     if (newMatomoId === overWrittenId) {
       logEvent({ category: "TRANSFER", action: "IMPORT_DATA", name: "SAME_MATOMO_ID" });
@@ -120,7 +120,7 @@ const Transfer = ({ navigation }) => {
           {
             text: "Continuer",
             onPress: async () => {
-              await overwriteData(exportData, pushNotifToken);
+              await overwriteData(dataImported, pushNotifToken);
             },
           },
         ],
@@ -128,15 +128,15 @@ const Transfer = ({ navigation }) => {
       );
     } else {
       await API.put({ path: `/user`, body: { matomoId: storage.getString("@UserIdv2"), isOverWritten: true } });
-      await overwriteData(exportData, pushNotifToken);
+      await overwriteData(dataImported, pushNotifToken);
     }
   };
 
-  const overwriteData = async (exportData, pushNotifToken) => {
+  const overwriteData = async (dataImported, pushNotifToken) => {
     storage.clearAll();
     storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
-    Object.keys(exportData).forEach((key) => {
-      const value = exportData[key];
+    Object.keys(dataImported).forEach((key) => {
+      const value = dataImported[key];
       if (typeof value === "object") {
         storage.set(key, JSON.stringify(value));
       } else {
