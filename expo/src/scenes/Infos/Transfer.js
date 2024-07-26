@@ -78,10 +78,10 @@ const Transfer = ({ navigation }) => {
                 });
                 const fileUri = result.assets && result.assets.length > 0 ? result.assets[0].uri : undefined;
                 const fileContents = await fetch(fileUri).then((response) => response.text());
-                const notificationToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
+                const pushNotifToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
                 const exportData = JSON.parse(fileContents);
                 storage.clearAll();
-                storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", notificationToken);
+                storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
 
                 Object.keys(exportData).forEach((key) => {
                   const value = exportData[key];
@@ -90,9 +90,9 @@ const Transfer = ({ navigation }) => {
                   } else storage.set(key, value);
                 });
                 const matomoId = storage.getString("@UserIdv2");
-                await API.post({
-                  path: `/user/import`,
-                  body: { matomoId, notificationToken },
+                await API.put({
+                  path: `/user`,
+                  body: { matomoId, pushNotifToken },
                 }).then((res) => {
                   if (res.ok) {
                     Alert.alert("Félicitation, vos données ont bien été importées.");

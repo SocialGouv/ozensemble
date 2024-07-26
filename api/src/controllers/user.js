@@ -35,30 +35,6 @@ router.put(
   })
 );
 
-router.post(
-  "/import",
-  catchErrors(async (req, res) => {
-    const { matomoId, notificationToken } = req.body || {};
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    const user = await prisma.user.findUnique({
-      where: { matomo_id: matomoId },
-    });
-    if (!user) return res.status(404).json({ ok: false, error: "user not found" });
-
-    try {
-      await prisma.user.update({
-        where: { id: user.id },
-        data: {
-          push_notif_token: notificationToken ?? "",
-        },
-      });
-      return res.status(200).send({ ok: true });
-    } catch (error) {
-      return res.status(500).json({ ok: false, error: "Transaction failed" });
-    }
-  })
-);
 router.get(
   "/location",
   catchErrors(async (req, res) => {
