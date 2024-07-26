@@ -1,5 +1,5 @@
 import * as React from "react";
-import Svg, { Path, Rect } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 
 const TransferModalIcon = ({ size, ...props }) => (
   <Svg xmlns="http://www.w3.org/2000/svg" width={2 * size} height={size} fill="none" viewBox="0 0 138 60" {...props}>
