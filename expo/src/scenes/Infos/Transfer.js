@@ -42,7 +42,7 @@ const Transfer = ({ navigation }) => {
       if (value !== null) exportData[key] = value;
     });
     const jsonExport = JSON.stringify(exportData);
-    const path = `${FileSystem.documentDirectory}data.json`;
+    const path = `${FileSystem.documentDirectory}export-oz-ensemble.json`;
     await FileSystem.writeAsStringAsync(path, jsonExport, {
       encoding: FileSystem.EncodingType.UTF8,
     });
