@@ -35,46 +35,6 @@ router.put(
   })
 );
 
-router.get(
-  "/allData",
-  catchErrors(async (req, res) => {
-    const { matomoId } = req.query || {};
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    const user = await prisma.user.findUnique({
-      where: { matomo_id: matomoId },
-    });
-    if (!user) return res.status(404).json({ ok: false, error: "user not found" });
-    const notifications = await prisma.notification.findMany({
-      where: { userId: user.id },
-    });
-    const reminders = await prisma.reminder.findMany({
-      where: { userId: user.id },
-    });
-    const badges = await prisma.badge.findMany({
-      where: { userId: user.id },
-    });
-    const goals = await prisma.goal.findMany({
-      where: { userId: user.id },
-    });
-    const appMilestone = await prisma.appMilestone.findMany({
-      where: { userId: user.id },
-    });
-    const articles = await prisma.article.findMany({
-      where: { userId: user.id },
-    });
-    const data = {
-      user,
-      notifications,
-      reminders,
-      badges,
-      goals,
-      appMilestone,
-      articles,
-    };
-    return res.status(200).send({ ok: true, data });
-  })
-);
-
 router.post(
   "/import",
   catchErrors(async (req, res) => {
