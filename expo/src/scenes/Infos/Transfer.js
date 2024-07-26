@@ -127,12 +127,12 @@ const Transfer = ({ navigation }) => {
         { cancelable: false }
       );
     } else {
+      await API.put({ path: `/user`, body: { matomoId: storage.getString("@UserIdv2"), isOverWritten: true } });
       await overwriteData(exportData, pushNotifToken);
     }
   };
 
   const overwriteData = async (exportData, pushNotifToken) => {
-    await API.put({ path: `/user`, body: { matomoId: storage.getString("@UserIdv2"), isOverWritten: true } });
     storage.clearAll();
     storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
     Object.keys(exportData).forEach((key) => {
