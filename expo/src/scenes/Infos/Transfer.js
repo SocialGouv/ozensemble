@@ -95,7 +95,7 @@ const Transfer = ({ navigation }) => {
                   body: { matomoId, pushNotifToken },
                 }).then((res) => {
                   if (res.ok) {
-                    Alert.alert("Félicitation, vos données ont bien été importées.");
+                    Alert.alert("Félicitations, vos données ont bien été importées 🥳");
                     logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
                     Expo.reloadAppAsync();
                   }
