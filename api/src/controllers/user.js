@@ -76,72 +76,23 @@ router.get(
 );
 
 router.post(
-  "/allData",
+  "/import",
   catchErrors(async (req, res) => {
-    const { matomoId, data } = req.body || {};
+    const { matomoId, notificationToken } = req.body || {};
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    if (!data) return res.status(400).json({ ok: false, error: "no data" });
 
     const user = await prisma.user.findUnique({
       where: { matomo_id: matomoId },
     });
     if (!user) return res.status(404).json({ ok: false, error: "user not found" });
 
-    const userIdLength = user.id.length;
-    const { notifications, reminders, badges, goals, appMilestone, articles } = data;
-
     try {
-      await prisma.$transaction(async (prisma) => {
-        if (notifications) {
-          await prisma.notification.deleteMany({
-            where: { userId: user.id },
-          });
-          await prisma.notification.createMany({
-            data: notifications.map((n) => ({ ...n, userId: user.id, id: undefined })),
-          });
-        }
-        if (reminders) {
-          await prisma.reminder.deleteMany({
-            where: { userId: user.id },
-          });
-          await prisma.reminder.createMany({
-            data: reminders.map((r) => ({ ...r, userId: user.id, id: undefined })),
-          });
-        }
-        if (badges) {
-          await prisma.badge.deleteMany({
-            where: { userId: user.id },
-          });
-          await prisma.badge.createMany({
-            data: badges.map((b) => ({ ...b, userId: user.id, id: undefined })),
-          });
-        }
-        if (goals) {
-          await prisma.goal.deleteMany({
-            where: { userId: user.id },
-          });
-          await prisma.goal.createMany({
-            data: goals.map((g) => ({ ...g, userId: user.id, id: `${user.id}_${g.date}` })),
-          });
-        }
-        if (appMilestone) {
-          await prisma.appMilestone.deleteMany({
-            where: { userId: user.id },
-          });
-          await prisma.appMilestone.createMany({
-            data: appMilestone.map((a) => ({ ...a, userId: user.id, id: `${user.id}_${a.id.substring(userIdLength)}` })),
-          });
-        }
-        if (articles) {
-          await prisma.article.deleteMany({
-            where: { userId: user.id },
-          });
-          await prisma.article.createMany({
-            data: articles.map((a) => ({ ...a, userId: user.id, id: `${user.id}_${a.id.substring(userIdLength)}` })),
-          });
-        }
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          push_notif_token: notificationToken ?? "",
+        },
       });
-
       return res.status(200).send({ ok: true });
     } catch (error) {
       return res.status(500).json({ ok: false, error: "Transaction failed" });
