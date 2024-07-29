@@ -43,8 +43,6 @@ Sentry.init({
   attachViewHierarchy: true,
 });
 
-initMatomo();
-
 const App = () => {
   // sync everytime we open the app
   const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
@@ -62,7 +60,7 @@ const App = () => {
   );
 
   useEffect(() => {
-    (async () => {
+    initMatomo().then(async () => {
       if (!reconciliatedDrinksToDB) {
         await reconciliateDrinksToDB();
         setReconciliatedDrinksToDB(true);
@@ -87,7 +85,7 @@ const App = () => {
         migrateMissingDrinkKey();
         sethasMigrateMissingDrinkKey(true);
       }
-    })();
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

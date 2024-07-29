@@ -25,10 +25,11 @@ export const initMatomo = async () => {
   if (!userId) {
     userId = Matomo.makeid();
     storage.set("@UserIdv2", userId);
-    API.put({
+    await API.put({
       path: "/user",
       body: {
         matomoId: userId,
+        calledFrom: "initMatomo",
       },
     });
   }
