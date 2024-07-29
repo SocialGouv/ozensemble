@@ -1,3 +1,10 @@
+## [1.161.42](https://github.com/SocialGouv/ozensemble/compare/v1.161.41...v1.161.42) (2024-07-29)
+
+
+### Bug Fixes
+
+* test notif api ([b9485da](https://github.com/SocialGouv/ozensemble/commit/b9485da34af80255cc9e4a7f5eae1590a09cfd45))
+
 ## [1.161.41](https://github.com/SocialGouv/ozensemble/compare/v1.161.40...v1.161.41) (2024-07-29)
 
 
