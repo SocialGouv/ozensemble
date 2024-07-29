@@ -1,3 +1,10 @@
+## [1.161.37](https://github.com/SocialGouv/ozensemble/compare/v1.161.36...v1.161.37) (2024-07-29)
+
+
+### Bug Fixes
+
+* remove prisma.createMany ([1a749e0](https://github.com/SocialGouv/ozensemble/commit/1a749e0443e58e460cb5289e890a2eb4d696efe9))
+
 ## [1.161.36](https://github.com/SocialGouv/ozensemble/compare/v1.161.35...v1.161.36) (2024-07-25)
 
 
