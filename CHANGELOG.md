@@ -1,3 +1,10 @@
+## [1.161.38](https://github.com/SocialGouv/ozensemble/compare/v1.161.37...v1.161.38) (2024-07-29)
+
+
+### Bug Fixes
+
+* init matomo ([31855ef](https://github.com/SocialGouv/ozensemble/commit/31855ef1a209e214b288b2a1c751eb1fd961f03a))
+
 ## [1.161.37](https://github.com/SocialGouv/ozensemble/compare/v1.161.36...v1.161.37) (2024-07-29)
 
 
