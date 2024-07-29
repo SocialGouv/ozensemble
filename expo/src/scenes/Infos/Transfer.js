@@ -54,7 +54,7 @@ const Transfer = ({ navigation }) => {
     if (await Sharing.isAvailableAsync()) {
       await Sharing.shareAsync(path, {
         mimeType: "application/json",
-        dialogTitle: "Exported Data",
+        dialogTitle: "Données exportées",
         UTI: "public.json",
       }).then(() => {
         logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
