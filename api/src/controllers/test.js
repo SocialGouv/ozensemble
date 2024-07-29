@@ -5,6 +5,7 @@ const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { superUser90DaysInAppModal, superUser30DaysInAppModal, cravingInAppModal } = require("../utils/inAppModals");
 const { scheduleNotificationPlan } = require("../utils/notifications");
+const { sendPushNotification } = require("../services/push-notifications");
 
 router.get(
   "/",
@@ -89,6 +90,41 @@ router.post(
     }
   })
 );
+
+router.get(
+  "/test-notif",
+  catchErrors(async (req, res) => {
+    const { userId } = req.query || {};
+    if (!userId) {
+      return res.status(400).json({ ok: false, error: "no user id" });
+    }
+
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      console.error(`User with id ${userId} not found`);
+      process.exit(1);
+    }
+
+    const results = await sendPushNotification({
+      userId,
+      matomoId: user.matomo_id,
+      pushNotifToken: user.push_notif_token,
+      title: "La notif elle est là",
+      body: "This is a test notification",
+      data: {
+        type: "test",
+      },
+    });
+
+    return res.status(200).json({ ok: true, results });
+  })
+);
+
 router.post(
   "/launch-notification-plan",
   catchErrors(async (req, res) => {
