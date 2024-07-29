@@ -41,9 +41,9 @@ router.post(
       update: {},
     });
 
-    const drinksToSave = drinks.map((drink) => {
+    for (const drink of drinks) {
       if (drink.drinkKey === "no-conso") {
-        return {
+        const drinkToSave = {
           id: drink.id,
           drinkKey: drink.drinkKey,
           name: drink.drinkKey,
@@ -55,9 +55,14 @@ router.post(
           price: 0,
           volume: "",
         };
+        return await prisma.consommation.upsert({
+          where: { id: drink.id },
+          update: drinkToSave,
+          create: drinkToSave,
+        });
       }
       const drinkFromCatalog = drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey);
-      return {
+      const drinkToSave = {
         id: drink.id,
         drinkKey: drink.drinkKey,
         name: drinkFromCatalog.displayDrinkModal,
@@ -69,12 +74,12 @@ router.post(
         price: Number(drinkFromCatalog.price),
         volume: drinkFromCatalog.volume,
       };
-    });
-
-    await prisma.consommation.createMany({
-      data: drinksToSave,
-      skipDuplicates: true,
-    });
+      await prisma.consommation.upsert({
+        where: { id: drink.id },
+        update: drinkToSave,
+        create: drinkToSave,
+      });
+    }
 
     await syncDrinkBadgesWithConsos(matomoId);
 
