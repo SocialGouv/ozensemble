@@ -1,3 +1,10 @@
+## [1.162.1](https://github.com/SocialGouv/ozensemble/compare/v1.162.0...v1.162.1) (2024-07-29)
+
+
+### Bug Fixes
+
+* version minor update ([9ec9429](https://github.com/SocialGouv/ozensemble/commit/9ec9429ea046eea1efabba86547cd955cd88b7f0))
+
 # [1.162.0](https://github.com/SocialGouv/ozensemble/compare/v1.161.42...v1.162.0) (2024-07-29)
 
 
