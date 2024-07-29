@@ -59,6 +59,7 @@ const Transfer = ({ navigation }) => {
       }).then(() => {
         logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
         Alert.alert("Vos données ont bien été sauvegardées.");
+        storage.set("@ExportedData", true);
       });
     } else {
       console.log("Sharing is not available on this device");
