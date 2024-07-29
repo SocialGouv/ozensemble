@@ -1,3 +1,10 @@
+## [1.161.39](https://github.com/SocialGouv/ozensemble/compare/v1.161.38...v1.161.39) (2024-07-29)
+
+
+### Bug Fixes
+
+* back to gcm also ([6d5a1b8](https://github.com/SocialGouv/ozensemble/commit/6d5a1b8968184fcefb922fcaaa762bc169079541))
+
 ## [1.161.38](https://github.com/SocialGouv/ozensemble/compare/v1.161.37...v1.161.38) (2024-07-29)
 
 
