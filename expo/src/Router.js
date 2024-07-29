@@ -48,6 +48,7 @@ import StrategyModalNPS from "./components/StrategyModalNPS";
 import { isInCravingKeyState } from "./recoil/craving";
 import { dayjsInstance } from "./services/dates";
 import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
+import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -104,7 +105,8 @@ const TabsNavigator = ({ navigation }) => {
           tabBarInactiveTintColor: "#767676",
           keyboardHidesTabBar: true,
           lazy: true,
-        }}>
+        }}
+      >
         <Tabs.Screen
           name="GAINS_NAVIGATOR"
           options={{
@@ -171,9 +173,7 @@ const App = () => {
 
   return (
     <>
-      <AppStack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName={initialRouteName}>
+      <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
@@ -190,14 +190,12 @@ const Root = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="APP">
+      initialRouteName="APP"
+    >
       <RootStack.Screen name="APP" component={App} />
       <RootStack.Screen name="USER_SURVEY_NOTIF" component={UserSurveyNotif} />
       <RootStack.Screen name="USER_SURVEY" component={UserSurvey} />
-      <RootStack.Screen
-        name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION"
-        component={GainsPreviousConsumption}
-      />
+      <RootStack.Screen name="GAINS_ESTIMATE_PREVIOUS_CONSUMPTION" component={GainsPreviousConsumption} />
       <RootStack.Screen name="GAINS_MY_OBJECTIVE" component={Goal} />
       <RootStack.Screen name="GAINS_REMINDER" component={GainsReminder} />
 
@@ -244,6 +242,7 @@ const Router = () => {
     });
     prevCurrentRouteName.current = route.name;
   };
+  const alreadyExported = storage.getBoolean("@ExportedData");
 
   const handleInAppMessage = (inAppMessage) => {
     const [title, subTitle, actions = [], options = {}] = inAppMessage;
@@ -277,15 +276,18 @@ const Router = () => {
         ref={navigationRef}
         onReady={() => {
           API.navigation = navigationRef.current;
+          if (alreadyExported) navigationRef.current.navigate("MODAL_EXPORT_DONE");
         }}
         onStateChange={onNavigationStateChange}
-        linking={deepLinkingConfig}>
+        linking={deepLinkingConfig}
+      >
         <ModalsStack.Navigator
           initialRouteName="ROUTER"
           screenOptions={{
             headerShown: false,
             presentation: "transparentModal",
-          }}>
+          }}
+        >
           <ModalsStack.Screen
             name="ROUTER"
             component={Root}
@@ -304,6 +306,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="MODAL_BADGE"
             component={BadgeModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
+              animation: "fade",
+            }}
+          />
+          <ModalsStack.Screen
+            name="MODAL_EXPORT_DONE"
+            component={ExportedDataDone}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },

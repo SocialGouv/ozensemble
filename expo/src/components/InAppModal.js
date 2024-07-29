@@ -1,14 +1,6 @@
 import React, { useEffect } from "react";
 import Svg, { Path } from "react-native-svg";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Platform,
-  InteractionManager,
-  Image,
-} from "react-native";
+import { Text, View, SafeAreaView, TouchableOpacity, Platform, InteractionManager, Image } from "react-native";
 import InAppReview from "react-native-in-app-review";
 import { hitSlop } from "../styles/theme";
 import ButtonPrimary from "./ButtonPrimary";
@@ -28,6 +20,7 @@ import OwnClIcon from "./illustrations/icons/OwnClIcon";
 import CravingIcon from "./illustrations/CravingIcon";
 import StrategyIcon from "./illustrations/StrategyIcon";
 import CupMotivation from "./illustrations/icons/CupMotivation";
+import TransferModalIcon from "./illustrations/icons/TransferModalIcon";
 
 /* example
 {
@@ -123,7 +116,8 @@ const InAppModal = ({ navigation, route }) => {
               }
               onClose();
             }}
-            hitSlop={hitSlop(15)}>
+            hitSlop={hitSlop(15)}
+          >
             <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
               <Path
                 strokeLinecap="round"
@@ -136,6 +130,11 @@ const InAppModal = ({ navigation, route }) => {
           </TouchableOpacity>
         )}
         <View className="w-full mb-6 mt-6 flex flex-col items-center space-y-2">
+          {inAppModal?.id.includes("TransferData") && (
+            <View className="mx-2 flex flex-col items-center">
+              <TransferModalIcon size={60} />
+            </View>
+          )}
           {inAppModal?.id.includes("MyMotivations") && (
             <View className="flex flex-col items-center">
               <CupMotivation size={60} />
@@ -194,10 +193,7 @@ const InAppModal = ({ navigation, route }) => {
           )}
           {inAppModal?.id.includes("OfficialAppAnnouncement") && (
             <View className="mx-2 flex flex-col items-center">
-              <Image
-                className="rounded-full w-[100px] h-[100px]"
-                source={require("../assets/images/Icon.png")}
-              />
+              <Image className="rounded-full w-[100px] h-[100px]" source={require("../assets/images/Icon.png")} />
             </View>
           )}
         </View>
@@ -225,9 +221,7 @@ const InAppModal = ({ navigation, route }) => {
         )}
         {!!inAppModal?.secondaryButtonTitle?.length && (
           <TouchableOpacity>
-            <Text
-              className="text-indigo-600 text-center underline text-base"
-              onPress={onSecondaryPress}>
+            <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
               {inAppModal?.secondaryButtonTitle}
             </Text>
           </TouchableOpacity>

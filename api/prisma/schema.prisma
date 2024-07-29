@@ -34,6 +34,7 @@ model User {
   drinksContextRequests    DrinksContextRequest[]
   appVersion               String?
   strategies               Strategy[]
+  isOverWritten            Boolean                @default(false)
 
   @@index([push_notif_token], type: Hash)
 }

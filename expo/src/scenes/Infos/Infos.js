@@ -27,6 +27,8 @@ import RateAppIcon from "../../components/illustrations/icons/RateAppIcon";
 import GiveFeedbackIcon from "../../components/illustrations/icons/GiveFeedbackIcon";
 import FilesIcon from "../../components/illustrations/icons/FilesIcon";
 import OfficialIcon from "../../components/illustrations/icons/OfficialIcon";
+import Transfer from "./Transfer";
+import TransferIcon from "../../components/illustrations/icons/TransferIcon";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { isOnboardedSelector } from "../../recoil/gains";
 import Official from "./Official";
@@ -40,9 +42,7 @@ const Infos = () => {
       <HeaderBackground />
       <InfosStack.Navigator initialRouteName="INFOS_MENU" screenOptions={{ headerShown: false }}>
         <InfosStack.Screen name="INFOS_MENU" component={InfosMenu} />
-        <InfosStack.Screen name="CGU">
-          {({ navigation }) => <CGUs onClose={navigation.goBack} />}
-        </InfosStack.Screen>
+        <InfosStack.Screen name="CGU">{({ navigation }) => <CGUs onClose={navigation.goBack} />}</InfosStack.Screen>
         <InfosStack.Screen name="MENTIONS_LEGALES">
           {({ navigation }) => <MentionsLegales onClose={navigation.goBack} />}
         </InfosStack.Screen>
@@ -53,6 +53,7 @@ const Infos = () => {
           {({ navigation }) => <Official onClose={navigation.goBack} />}
         </InfosStack.Screen>
         <InfosStack.Screen name="EXPORT" component={Export} />
+        <InfosStack.Screen name="TRANSFER" component={Transfer} />
         <InfosStack.Screen name="FAKE_DATA" component={FakeData} />
       </InfosStack.Navigator>
     </Background>
@@ -171,13 +172,27 @@ const InfosMenu = ({ navigation }) => {
             Icon={ExportDataIcon}
             onPress={() => {
               logEvent({
-                category: "GAINS",
-                action: "GOAL_OPEN",
+                category: "EXPORT",
+                action: "EXPORT_OPEN",
               });
               navigation.push("EXPORT");
             }}
           />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
+
+          <MenuItem
+            caption={"Transférer vers un autre téléphone"}
+            Icon={TransferIcon}
+            onPress={() => {
+              logEvent({
+                category: "TRANSFER",
+                action: "TRANSFER_OPEN",
+              });
+              navigation.push("TRANSFER");
+            }}
+          />
         </View>
+        <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
         <Text className="text-[#4030a5] font-bold mb-4 mt-8">INFORMATIONS</Text>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
@@ -192,11 +207,7 @@ const InfosMenu = ({ navigation }) => {
             onPress={() => navigation.push("CGU")}
           />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
-          <MenuItem
-            caption={"Mentions Légales"}
-            Icon={FilesIcon}
-            onPress={() => navigation.push("MENTIONS_LEGALES")}
-          />
+          <MenuItem caption={"Mentions Légales"} Icon={FilesIcon} onPress={() => navigation.push("MENTIONS_LEGALES")} />
           <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
           <MenuItem
             caption={"Politique de confidentialité"}
