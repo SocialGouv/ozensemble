@@ -1,3 +1,10 @@
+## [1.162.2](https://github.com/SocialGouv/ozensemble/compare/v1.162.1...v1.162.2) (2024-07-29)
+
+
+### Bug Fixes
+
+* back to push notif v2 ([e4473fa](https://github.com/SocialGouv/ozensemble/commit/e4473fa20304b3b3cd5c28cfa2ca3a7ba2ac5200))
+
 ## [1.162.1](https://github.com/SocialGouv/ozensemble/compare/v1.162.0...v1.162.1) (2024-07-29)
 
 
