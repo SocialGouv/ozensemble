@@ -1,3 +1,10 @@
+## [1.161.40](https://github.com/SocialGouv/ozensemble/compare/v1.161.39...v1.161.40) (2024-07-29)
+
+
+### Bug Fixes
+
+* remove fcm ([467c096](https://github.com/SocialGouv/ozensemble/commit/467c096c08ed185cc90643dcf778fbaa66d20f5d))
+
 ## [1.161.39](https://github.com/SocialGouv/ozensemble/compare/v1.161.38...v1.161.39) (2024-07-29)
 
 
