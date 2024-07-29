@@ -34,9 +34,9 @@ const firebaseConfig = getFirebaseConfig();
 // console.log("firebaseConfig", firebaseConfig);
 
 const NotificationService = new PushNotifications({
-  // gcm: {
-  //   id: PUSH_NOTIFICATION_GCM_ID,
-  // },
+  gcm: {
+    id: PUSH_NOTIFICATION_GCM_ID,
+  },
   fcm: {
     appName: "OzEnsemble", // Replace with your actual app name
     serviceAccountKey: firebaseConfig,
