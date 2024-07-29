@@ -1,3 +1,10 @@
+# [1.162.0](https://github.com/SocialGouv/ozensemble/compare/v1.161.42...v1.162.0) (2024-07-29)
+
+
+### Features
+
+* export import ([#609](https://github.com/SocialGouv/ozensemble/issues/609)) ([8d71e11](https://github.com/SocialGouv/ozensemble/commit/8d71e117f38116e41ae2c45b5fa24207e857d379))
+
 ## [1.161.42](https://github.com/SocialGouv/ozensemble/compare/v1.161.41...v1.161.42) (2024-07-29)
 
 
