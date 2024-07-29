@@ -4,14 +4,14 @@
   "scripts": {
     "get-ip": "./get-ip.sh && echo \"this script updates the API IP to your own IP, because that's what Android Emulator needs to work. It's based on your wifi IP, if you need ethernet it won't work (needs en1 instead of en0)\"",
     "start": "expo start --dev-client",
-    "prebuild": "/bin/sh -c 'export $(grep -v ^'#' .env.local | xargs) && yarn eas-build-pre-install && npx expo prebuild --clean && rm ./google-services.json' && rm ./ios/.xcode.env.local",
+    "prebuild": "/bin/sh -c 'export $(grep -v ^'#' .env.local | xargs) && yarn eas-build-pre-install && npx expo prebuild --clean && rm -f ./google-services.json' && rm -f ./ios/.xcode.env.local",
     "android": "expo run:android",
     "ios": "expo run:ios",
     "test": "jest --watchAll",
     "lint": "expo lint",
     "lint-fix": "expo lint --fix",
     "eas-build-pre-install": "echo \"This command is also run before `eas build` locally or in the cloud'\" && echo \"This command is also run before `eas build` locally or in the cloud'\" && node generate-google-service-json.js",
-    "eas-build-post-install": "rm ./ios/.xcode.env.local",
+    "eas-build-post-install": "rm -f ./ios/.xcode.env.local",
     "load-env": "/bin/sh -c 'export $(grep -v ^'#' .env.production | xargs)'",
     "build-eas:ios": "eas build -p ios",
     "build-eas-then-submit:ios": "eas build -p ios && eas submit -p ios --latest",
@@ -21,8 +21,7 @@
     "build-local:ios-ipa:debug": "echo \"This script retains XCode logs for debugging build failures. Look for a message like 'Skipping cleanup, {path/to/logs} won't be removed.'\" && /bin/sh -c 'export $(grep -v ^'#' .env.production | xargs) && EAS_LOCAL_BUILD_SKIP_CLEANUP=1 eas build -p ios --local'",
     "build-local:android-aab": "/bin/sh -c 'export $(grep -v ^'#' .env.production | xargs) && eas build -p android --local'",
     "expo-config": "npx expo config",
-    "update-mobile-app-version": "node ./update-mobile-app-version.js",
-    "knip": "knip"
+    "update-mobile-app-version": "node ./update-mobile-app-version.js"
   },
   "jest": {
     "preset": "jest-expo",
@@ -45,7 +44,7 @@
     "@shopify/flash-list": "1.6.4",
     "base-64": "^1.0.0",
     "dayjs": "^1.11.11",
-    "expo": "^51.0.18",
+    "expo": "~51.0.22",
     "expo-application": "^5.9.1",
     "expo-build-properties": "^0.12.3",
     "expo-checkbox": "^3.0.0",
@@ -53,10 +52,9 @@
     "expo-dev-client": "^4.0.20",
     "expo-document-picker": "12.0.2",
     "expo-file-system": "17.0.1",
-    "expo-font": "^12.0.7",
     "expo-image": "~1.12.13",
     "expo-linking": "^6.3.1",
-    "expo-notifications": "^0.28.10",
+    "expo-notifications": "~0.28.12",
     "expo-sharing": "12.0.1",
     "expo-splash-screen": "^0.27.5",
     "expo-status-bar": "^1.12.1",
@@ -75,7 +73,7 @@
     "react-native-localize": "^3.2.0",
     "react-native-mmkv": "^3.0.0-beta.6",
     "react-native-reanimated": "~3.10.1",
-    "react-native-safe-area-context": "4.10.1",
+    "react-native-safe-area-context": "4.10.5",
     "react-native-screens": "3.31.1",
     "react-native-svg": "15.2.0",
     "react-native-swipe-list-view": "^3.2.9",
@@ -109,7 +107,7 @@
     "knip": "^5.26.0",
     "semver": "^7.6.3",
     "tailwindcss": "3.3.2",
-    "typescript": "^5.5.3"
+    "typescript": "5.3.3"
   },
   "private": true
 }
