@@ -70,7 +70,7 @@ const Transfer = ({ navigation }) => {
     try {
       Alert.alert(
         "Attention",
-        "Les données actuelles seront écrasées par les données importées",
+        "Les données actuelles seront écrasées par les données importées. Cette opération est irréversible.",
         [
           {
             text: "Annuler",
