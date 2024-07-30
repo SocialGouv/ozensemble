@@ -5,7 +5,7 @@ const ENVIRONMENT = process.env.ENVIRONMENT || process.env.NODE_ENV || "developm
 
 const DATABASE_URL = process.env.DATABASE_URL;
 
-const SENTRY_KEY = process.env.SENTRY_KEY || "https://0ef6896e639948fd9ba54b861186360d@sentry.fabrique.social.gouv.fr/80";
+const SENTRY_KEY = process.env.SENTRY_KEY || "https://572354a9a0bfc63bf614b037a5624594@sentry.fabrique.social.gouv.fr/110";
 
 const VERSION = version;
 const MOBILE_VERSION = mobileAppVersion;
