@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const SophrologyIcon = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 45 50" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 45 50" {...props}>
     <Path
       d="M44.089 25.6785H38.1663C37.6627 25.6785 37.2552 25.2705 37.2552 24.7675C37.2552 24.2645 37.6633 23.8564 38.1663 23.8564H44.089C44.5926 23.8564 45 24.2645 45 24.7675C45 25.2705 44.5926 25.6785 44.089 25.6785Z"
       fill="white"
@@ -38,7 +36,7 @@ const SophrologyIcon = ({ size, ...props }) => (
       d="M14.5138 9.73008C14.2283 9.73008 13.9475 9.59627 13.7701 9.34595L10.3422 4.51654C10.0506 4.10613 10.1474 3.5374 10.5578 3.24646C10.9688 2.95493 11.537 3.05171 11.8279 3.46212L15.2558 8.29154C15.5473 8.70195 15.4506 9.27068 15.0401 9.56162C14.8806 9.67572 14.6966 9.73008 14.5138 9.73008Z"
       fill="white"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default SophrologyIcon;

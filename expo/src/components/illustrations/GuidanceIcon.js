@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const GuidanceIcon = ({ size, color, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 25 24" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 25 24" {...props}>
     <Path
       d="M12.5 5.72656C12.2305 5.72656 12.0117 5.94534 12.0117 6.21484C12.0117 6.48435 12.2305 6.70312 12.5 6.70312C12.7695 6.70312 12.9883 6.48435 12.9883 6.21484C12.9883 5.94534 12.7695 5.72656 12.5 5.72656Z"
       fill={color}
@@ -30,7 +28,7 @@ const GuidanceIcon = ({ size, color, ...props }) => (
       d="M20.6055 5.72656H14.4531C14.1834 5.72656 13.9648 5.94514 13.9648 6.21484C13.9648 6.48454 14.1834 6.70312 14.4531 6.70312H20.6055C20.8752 6.70312 21.0938 6.48454 21.0938 6.21484C21.0938 5.94514 20.8752 5.72656 20.6055 5.72656Z"
       fill={color}
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default GuidanceIcon;

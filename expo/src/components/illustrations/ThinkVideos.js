@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path, G, Rect, Defs, ClipPath } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const ThinkVideos = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 91 123" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 91 123" {...props}>
     <G clip-Path="url(#clip0_987_2788)">
       <Path
         d="M35.3801 100.228L31.4401 97.958C31.363 97.9276 31.2993 97.8709 31.2601 97.798L30.5401 96.528L32.8701 95.188L32.8001 95.388L35.3801 100.228Z"
@@ -304,7 +302,7 @@ const ThinkVideos = ({ size, ...props }) => (
         <Rect width="91" height="123" fill="white" />
       </ClipPath>
     </Defs>
-  </StyledSvg>
+  </Svg>
 );
 
 export default ThinkVideos;

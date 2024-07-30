@@ -1,18 +1,44 @@
-import styled from "styled-components";
-import { Animated, Platform } from "react-native";
+import React from "react";
+import { Animated, Platform, StyleSheet } from "react-native";
 
-const AnimatedTextStyled = styled(Animated.Text)`
-  ${Platform.OS === "android" && "font-family: Raleway;"}
-  color: ${({ color }) => color || "#191919"};
-  ${(props) => props.semibold && "font-weight: 600;"}
-  ${(props) => props.bold && "font-weight: bold;"}
-  ${(props) => props.italic && "font-style: italic;"}
-  ${(props) => props.center && "text-align: center;"}
-  textDecoration: ${({ underline }) => underline && "underline"};
-  ${({ size }) => size && `font-size: ${size}px;`}
-  ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}px;`}
+const AnimatedText = ({
+  color = "#191919",
+  semibold,
+  bold,
+  italic,
+  center,
+  underline,
+  size,
+  lineHeight,
+  style,
+  ...props
+}) => {
+  const classNames = [
+    "font-raleway",
+    color !== "#191919" && `text-[${color}]`,
+    semibold && "font-semibold",
+    bold && "font-bold",
+    italic && "italic",
+    center && "text-center",
+    underline && "underline",
+    size && `text-[${size}px]`,
+    lineHeight && `leading-[${lineHeight}px]`,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
-  text-decoration-color: ${({ color }) => color || "#191919"};
-`;
+  const inlineStyle = {
+    ...(Platform.OS === "android" && styles.androidFont),
+    ...(underline && { textDecorationColor: color }),
+  };
 
-export default AnimatedTextStyled;
+  return <Animated.Text {...props} className={classNames} style={[inlineStyle, style]} />;
+};
+
+const styles = StyleSheet.create({
+  androidFont: {
+    fontFamily: "Raleway",
+  },
+});
+
+export default AnimatedText;

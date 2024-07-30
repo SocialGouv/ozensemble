@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const StarButton = ({ color, size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 378.05 378.05" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 378.05 378.05" {...props}>
     <Path
       fill={color}
       fillRule="nonzero"
@@ -15,7 +13,7 @@ const StarButton = ({ color, size, ...props }) => (
 		h89.7l-72.574,52.722c-8.07,5.879-11.428,16.213-8.353,25.713l27.724,85.328l-72.574-52.729c-3.951-2.876-8.622-4.396-13.51-4.396
 		s-9.581,1.52-13.529,4.396l-72.574,52.729L130.649,227.336z"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default StarButton;

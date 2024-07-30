@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const ManAndWoman = ({ color = "#211F28", size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 89 81" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 89 81" {...props}>
     <Path
       d="M23.818 7.10102C23.818 10.6143 20.629 13.4627 16.6957 13.4627C12.7624 13.4627 9.57422 10.6143 9.57422 7.10102C9.57422 3.58777 12.7624 0.73938 16.6957 0.73938C20.629 0.73938 23.818 3.58777 23.818 7.10102Z"
       fill={color}
@@ -26,7 +24,7 @@ const ManAndWoman = ({ color = "#211F28", size, ...props }) => (
       fill={color}
       fillOpacity="0.57"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default ManAndWoman;

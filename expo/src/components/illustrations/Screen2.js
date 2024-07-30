@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const Screen2 = ({ color = "#5150A2", fillOpacity = 0.25, ...props }) => (
-  <StyledSvg width={123} viewBox="0 0 123 119" {...props}>
+  <Svg width={123} viewBox="0 0 123 119" {...props}>
     <Path
       d="M61.5 31.4864C57.153 31.4864 53.629 35.0104 53.629 39.3574V43.2929C53.629 47.6399 57.153 51.1639 61.5 51.1639C65.847 51.1639 69.371 47.6399 69.371 43.2929V39.3574C69.371 35.0104 65.847 31.4864 61.5 31.4864ZM65.4355 43.2929C65.4355 45.4665 63.6736 47.2284 61.5 47.2284C59.3264 47.2284 57.5645 45.4665 57.5645 43.2929V39.3574C57.5645 37.1837 59.3264 35.4219 61.5 35.4219C63.6736 35.4219 65.4355 37.1837 65.4355 39.3574V43.2929Z"
       fill={color}
@@ -36,7 +34,7 @@ const Screen2 = ({ color = "#5150A2", fillOpacity = 0.25, ...props }) => (
       fill={color}
       fillOpacity={fillOpacity}
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default Screen2;
