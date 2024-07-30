@@ -1,15 +1,7 @@
 import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  KeyboardAvoidingView,
-  Dimensions,
-} from "react-native";
+import { Platform, View, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Dimensions } from "react-native";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import ButtonPrimary from "../../components/ButtonPrimary";
@@ -87,6 +79,10 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
         emotion: newContextToSave.selectedEmotion,
         // we don't send note to the server for confidentiality reasons
       },
+    }).then(() => {
+      setTimeout(() => {
+        toast.show("Contexte de consommation enregistré");
+      }, 1000);
     });
     if (route?.params?.parent === "Defi1_Day1") {
       navigation.navigate("DEFI1", { screen: "DEFI1_MENU" });
@@ -100,33 +96,27 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
       name: "validate note",
       value: newDrinksContexts[date].note ? 1 : 0,
     });
-    let logIndex = 0;
-    for (const emotion of Object.keys(emotionIcon)) {
+    for (const [index, emotion] of Object.keys(emotionIcon).entries()) {
       if (newDrinksContexts[date].emotion === emotion) {
         logEvent({
           category: "CONTEXT",
           action: "VALIDATE_CONTEXT",
           name: "validate emotion",
-          value: logIndex,
+          value: index,
         });
-      } else {
-        logIndex++;
       }
     }
-    logIndex = 0;
 
-    contextsCatalog.forEach((_context) => {
+    for (const [index, _context] of contextsCatalog.entries()) {
       if (context.includes(_context.contextKey)) {
         logEvent({
           category: "CONTEXT",
           action: "VALIDATE_CONTEXT",
           name: "validate context",
-          value: logIndex,
+          value: index,
         });
       }
-      logIndex++;
-    });
-    toast.show("Contexte de consommation enregistré");
+    }
   };
 
   return (
@@ -138,7 +128,8 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
             keyboardDismissMode="none"
             className="bg-[#EFEFEF]"
             ref={scrollRef}
-            disableHorizontal>
+            disableHorizontal
+          >
             {!isOpenedFromFeed && (
               <View className="h-2.5 flex-row w-full px-10 mb-6 ">
                 <View className="bg-[#4030A5] h-full flex-1 rounded-full mr-4" />
@@ -165,7 +156,8 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                         } else {
                           setSelectedEmotion(emotion);
                         }
-                      }}>
+                      }}
+                    >
                       <Emoji className="w-full aspect-square" />
                     </TouchableOpacity>
                   );
@@ -173,9 +165,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
               </View>
             </View>
             <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
-              <Text className="text-[#4030A5] self-center text-base font-extrabold mt-3">
-                Note du jour
-              </Text>
+              <Text className="text-[#4030A5] self-center text-base font-extrabold mt-3">Note du jour</Text>
 
               <TextInput
                 textAlignVertical="top"
@@ -190,9 +180,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
 
             <View className="mb-4 py-0.5 mx-7 rounded-xl bg-white sm:px-2 md:px-4 lg:px-20 xl:px-30">
               <View className="items-center w-full mb-6">
-                <Text className="text-[#4030A5] mt-3 text-base font-extrabold">
-                  Contexte de vos consommations
-                </Text>
+                <Text className="text-[#4030A5] mt-3 text-base font-extrabold">Contexte de vos consommations</Text>
                 <Text className="color-[#ADADAE] mt-1 ">plusieurs choix autorisés</Text>
               </View>
               <View className="py-2 flex flex-col items-start">
@@ -204,14 +192,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.people.map((name) => {
-                    return (
-                      <ContextButton
-                        key={name}
-                        name={name}
-                        context={context}
-                        setContext={setContext}
-                      />
-                    );
+                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={"people"} />
                 </View>
@@ -223,14 +204,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.places.map((name) => {
-                    return (
-                      <ContextButton
-                        key={name}
-                        name={name}
-                        context={context}
-                        setContext={setContext}
-                      />
-                    );
+                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={"places"} />
                 </View>
@@ -242,14 +216,7 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.events.map((name) => {
-                    return (
-                      <ContextButton
-                        key={name}
-                        name={name}
-                        context={context}
-                        setContext={setContext}
-                      />
-                    );
+                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={"events"} />
                 </View>
@@ -257,20 +224,11 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
                   <View className="mr-1">
                     <Research />
                   </View>
-                  <Text className="text-white font-bold">
-                    Quel(s) besoin(s) a comblé l'alcool ?
-                  </Text>
+                  <Text className="text-white font-bold">Quel(s) besoin(s) a comblé l'alcool ?</Text>
                 </View>
                 <View className="flex flex-row flex-wrap rounded-lg items-center py-1 px-2">
                   {contextKeysByCategory.needs.map((name) => {
-                    return (
-                      <ContextButton
-                        key={name}
-                        name={name}
-                        context={context}
-                        setContext={setContext}
-                      />
-                    );
+                    return <ContextButton key={name} name={name} context={context} setContext={setContext} />;
                   })}
                   <OtherButton category={"needs"} />
                 </View>
@@ -296,9 +254,7 @@ const ContextButton = ({ name, context, setContext }) => {
     <TouchableOpacity
       className={[
         "bg-[#FFFFFF]  rounded-lg py-2 px-2 mr-2 mb-2",
-        context.includes(name)
-          ? "bg-[#4030A5] border border-[#4030A5]"
-          : "border border-[#E4E4E4] bg-white",
+        context.includes(name) ? "bg-[#4030A5] border border-[#4030A5]" : "border border-[#E4E4E4] bg-white",
       ].join(" ")}
       onPress={() => {
         setContext((prevContext) => {
@@ -311,7 +267,8 @@ const ContextButton = ({ name, context, setContext }) => {
           }
           return newContext;
         });
-      }}>
+      }}
+    >
       <Text className={["", context.includes(name) ? "color-white" : "color-black"].join(" ")}>
         {getDisplayName(name, contextsCatalogObject)}
       </Text>
@@ -350,7 +307,8 @@ const OtherButton = ({ category }) => {
       <TouchableOpacity
         style={{ borderStyle: "dashed", borderWidth: 1, borderColor: "#E4E4E4" }}
         className={"bg-[#FFFFFF] border-[#E4E4E4] flex-row  rounded-lg py-2 px-2 mr-2 mb-2"}
-        onPress={() => setModalVisible(true)}>
+        onPress={() => setModalVisible(true)}
+      >
         <View className="bg-gray-200 rounded-2xl items-center mr-1">
           <Text className="color-white"> + </Text>
         </View>
@@ -366,7 +324,8 @@ const OtherButton = ({ category }) => {
         style={{
           justifyContent: "start",
           marginTop: Dimensions.get("window").height * 0.1,
-        }}>
+        }}
+      >
         <View className="bg-white rounded-xl">
           <View className=" flex w-full mb-2 px-2">
             <View className="px-2 pt-2">
@@ -378,7 +337,8 @@ const OtherButton = ({ category }) => {
                     category: "CONTEXT_SUGGESTION",
                     action: "OTHER_BUTTON_CLICKED",
                   });
-                }}>
+                }}
+              >
                 <CrossOutAddContext />
               </TouchableOpacity>
             </View>
@@ -405,7 +365,8 @@ const OtherButton = ({ category }) => {
                 onPress={() => {
                   onValidateContextSuggestion();
                 }}
-                disabled={contextSuggestion === ""}>
+                disabled={contextSuggestion === ""}
+              >
                 <Text className="color-white font-extrabold">Envoyer</Text>
               </TouchableOpacity>
             </View>

@@ -1,14 +1,14 @@
-import React, { useCallback, useRef, useState } from 'react';
-import { Animated, View } from 'react-native';
+import React, { useCallback, useRef, useState } from "react";
+import { Animated, View } from "react-native";
 
-import TextStyled from '../components/TextStyled';
+import TextStyled from "../components/TextStyled";
 
 const ViewContext = React.createContext();
 
 export const useToast = () => {
   const context = React.useContext(ViewContext);
   if (context === undefined) {
-    throw new Error('useToast must be used within a ToastProvider');
+    throw new Error("useToast must be used within a ToastProvider");
   }
 
   return context;
@@ -23,31 +23,25 @@ const ToastProvider = (props) => {
 
   const show = useCallback(
     (caption, timeout = 1500) => {
-      const fadeIn = () => {
-        // Will change fadeAnim value to 1 in 5 seconds
+      setCaption(caption);
+      setTimeout(() => {
         Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 250,
           useNativeDriver: true,
-        }).start();
-      };
-
-      const fadeOut = () => {
-        // Will change fadeAnim value to 0 in 3 seconds
-        Animated.timing(fadeAnim, {
-          toValue: 0,
-          duration: 250,
-          useNativeDriver: true,
-        }).start();
-      };
-      setCaption(caption);
-      fadeIn();
-      setTimeout(() => {
-        fadeOut();
-        setTimeout(() => {
-          setCaption(null);
-        }, 150);
-      }, timeout);
+        }).start(() => {
+          setTimeout(() => {
+            Animated.timing(fadeAnim, {
+              toValue: 0,
+              duration: 250,
+              useNativeDriver: true,
+            }).start();
+            setTimeout(() => {
+              setCaption(null);
+            }, 150);
+          }, timeout);
+        });
+      }, 150);
     },
     [setCaption, fadeAnim]
   );
@@ -59,9 +53,10 @@ const ToastProvider = (props) => {
         <Animated.View
           style={{ opacity: fadeAnim }}
           className="flex flex-row w-full justify-center absolute bottom-11"
-          pointerEvents={'box-none'}>
+          pointerEvents={"box-none"}
+        >
           <View className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min px-4	">
-            <TextStyled maxFontSizeMultiplier={2} color={'#FFF'} testID="toast" className="text-center py-2">
+            <TextStyled maxFontSizeMultiplier={2} color={"#FFF"} testID="toast" className="text-center py-2">
               {caption}
             </TextStyled>
           </View>
