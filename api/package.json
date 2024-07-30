@@ -40,7 +40,7 @@
     "morgan": "1.10.0",
     "node-cron": "3.0.2",
     "node-fetch": "2.6.7",
-    "node-pushnotifications": "^2.0.0",
+    "node-pushnotifications": "^3.1.1",
     "prisma": "5.16.2",
     "uuid": "^10.0.0"
   },

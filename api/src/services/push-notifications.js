@@ -37,11 +37,11 @@ const NotificationService = new PushNotifications({
   gcm: {
     id: PUSH_NOTIFICATION_GCM_ID,
   },
-  // fcm: {
-  //   appName: "OzEnsemble", // Replace with your actual app name
-  //   serviceAccountKey: firebaseConfig,
-  //   credential: null, // 'firebase-admin' Credential interface
-  // },
+  fcm: {
+    appName: "OzEnsemble", // Replace with your actual app name
+    serviceAccountKey: firebaseConfig,
+    credential: null, // 'firebase-admin' Credential interface
+  },
   apn: {
     token: {
       key: PUSH_NOTIFICATION_APN_KEY,
