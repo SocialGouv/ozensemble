@@ -1,3 +1,10 @@
+## [1.162.5](https://github.com/SocialGouv/ozensemble/compare/v1.162.4...v1.162.5) (2024-07-30)
+
+
+### Bug Fixes
+
+* new sentry url ([06251d2](https://github.com/SocialGouv/ozensemble/commit/06251d2d6b727ac2887298974cd1e73cd3fed6e5))
+
 ## [1.162.4](https://github.com/SocialGouv/ozensemble/compare/v1.162.3...v1.162.4) (2024-07-30)
 
 
