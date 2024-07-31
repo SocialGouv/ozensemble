@@ -1,3 +1,10 @@
+## [1.162.6](https://github.com/SocialGouv/ozensemble/compare/v1.162.5...v1.162.6) (2024-07-31)
+
+
+### Bug Fixes
+
+* front transfer ([5286908](https://github.com/SocialGouv/ozensemble/commit/528690815ea6f46a13b524fefad05e510a1ed54a))
+
 ## [1.162.5](https://github.com/SocialGouv/ozensemble/compare/v1.162.4...v1.162.5) (2024-07-30)
 
 
