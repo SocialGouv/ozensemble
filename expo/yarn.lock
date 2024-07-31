@@ -4127,6 +4127,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"base-64@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "base-64@npm:0.1.0"
+  checksum: fe0dcf076e823f04db7ee9b02495be08a91c445fbc6db03cb9913be9680e2fcc0af8b74459041fe08ad16800b1f65a549501d8f08696a8a6d32880789b7de69d
+  languageName: node
+  linkType: hard
+
 "base-64@npm:^1.0.0":
   version: 1.0.0
   resolution: "base-64@npm:1.0.0"
@@ -6134,7 +6141,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-file-system@npm:17.0.1, expo-file-system@npm:~17.0.1":
+"expo-file-system@npm:~17.0.1":
   version: 17.0.1
   resolution: "expo-file-system@npm:17.0.1"
   peerDependencies:
@@ -6240,15 +6247,6 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 4201d7de3a0573ba6cfb9ee6ee8f3c4e451595a8a3b91564c3753e6b2906733f38c294c7d728c684bdc88a7e2f5e0a0bf9a520ddf6056fbd73653fefeb1071cb
-  languageName: node
-  linkType: hard
-
-"expo-sharing@npm:12.0.1":
-  version: 12.0.1
-  resolution: "expo-sharing@npm:12.0.1"
-  peerDependencies:
-    expo: "*"
-  checksum: 9e66755ab3fbed482e700f8a9e0544fbc9abd3bb8e13b60df0d024e97c28c477e18058243410c51f5a39bd04e0775fffc252affa279eb3f3cdcc21aa0321aacf
   languageName: node
   linkType: hard
 
@@ -10143,11 +10141,9 @@ __metadata:
     expo-constants: "npm:^16.0.2"
     expo-dev-client: "npm:^4.0.20"
     expo-document-picker: "npm:12.0.2"
-    expo-file-system: "npm:17.0.1"
     expo-image: "npm:~1.12.13"
     expo-linking: "npm:^6.3.1"
     expo-notifications: "npm:~0.28.12"
-    expo-sharing: "npm:12.0.1"
     expo-splash-screen: "npm:^0.27.5"
     expo-status-bar: "npm:^1.12.1"
     expo-system-ui: "npm:^3.0.7"
@@ -10162,6 +10158,7 @@ __metadata:
     react-native-awesome-slider: "npm:^2.5.3"
     react-native-device-info: "npm:^11.1.0"
     react-native-draggable-flatlist: "npm:^4.0.1"
+    react-native-fs: "npm:2.20.0"
     react-native-gesture-handler: "npm:~2.16.1"
     react-native-get-random-values: "npm:^1.11.0"
     react-native-in-app-review: "npm:^4.3.3"
@@ -10170,6 +10167,7 @@ __metadata:
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.5"
     react-native-screens: "npm:3.31.1"
+    react-native-share: "npm:10.2.1"
     react-native-svg: "npm:15.2.0"
     react-native-swipe-list-view: "npm:^3.2.9"
     react-native-swiper: "npm:^1.6.0"
@@ -10926,6 +10924,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-fs@npm:2.20.0":
+  version: 2.20.0
+  resolution: "react-native-fs@npm:2.20.0"
+  dependencies:
+    base-64: "npm:^0.1.0"
+    utf8: "npm:^3.0.0"
+  peerDependencies:
+    react-native: "*"
+    react-native-windows: "*"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: 3722b5568610cd72f319c90f60ba8b019a005d015f27e49017ddd0ea314d1ea6991f79288c28549fdc2964dc81c0fa24f8a5f87a4a6283c97c6ea88d4caa6851
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:~2.16.1":
   version: 2.16.2
   resolution: "react-native-gesture-handler@npm:2.16.2"
@@ -11024,6 +11038,13 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 899a02751ecbc6231ce3c869268fb510e5b53428c788135ae46f4bbd768efe78bf74f17fec5becc4c4c1e81a5f224a907dc890ba2406181ff9e21830dda95dec
+  languageName: node
+  linkType: hard
+
+"react-native-share@npm:10.2.1":
+  version: 10.2.1
+  resolution: "react-native-share@npm:10.2.1"
+  checksum: 534e6930d337d7e48de5572d8d6afac865bdad027a5d1c7fa843c7adba702d594b82cf2bb8124f82ffb1b4171f78754744c97a88b2fa5e5fda479f486768d42e
   languageName: node
   linkType: hard
 
@@ -13191,6 +13212,13 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 23b1597c10adf15b26ade9e8c318d8cc0abc9ec0ab5fc7ca7338da92e89c2536abd150a5891bf076836c352fdfa104fc7231fb48f806fd9960e0cbe03601abaf
+  languageName: node
+  linkType: hard
+
+"utf8@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "utf8@npm:3.0.0"
+  checksum: 675d008bab65fc463ce718d5cae8fd4c063540f269e4f25afebce643098439d53e7164bb1f193e0c3852825c7e3e32fbd8641163d19a618dbb53f1f09acb0d5a
   languageName: node
   linkType: hard
 

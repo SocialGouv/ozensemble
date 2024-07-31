@@ -4,9 +4,9 @@ import WrapperContainer from "../../components/WrapperContainer.js";
 import { storage } from "../../services/storage.js";
 import API from "../../services/api.js";
 import * as DocumentPicker from "expo-document-picker";
-import * as Sharing from "expo-sharing";
 import * as Expo from "expo";
-import * as FileSystem from "expo-file-system";
+import RNFS from "react-native-fs";
+import Share from "react-native-share";
 import TipIcon from "../../components/illustrations/TipIcon.js";
 import ClickIcon from "../../components/illustrations/icons/ClickIcon.js";
 import UploadIcon from "../../components/illustrations/icons/UploadIcon.js";
@@ -46,24 +46,19 @@ const Transfer = ({ navigation }) => {
       if (value !== null) toExportData[key] = value;
     });
     const jsonExport = JSON.stringify(toExportData);
-    const path = `${FileSystem.documentDirectory}export-oz-ensemble.json`;
-    await FileSystem.writeAsStringAsync(path, jsonExport, {
-      encoding: FileSystem.EncodingType.UTF8,
+    const path = `${RNFS.DocumentDirectoryPath}/export-oz-ensemble.json`;
+    await RNFS.writeFile(path, jsonExport, "utf8");
+
+    await Share.open({
+      url: `file://${path}`,
+      type: "application/json",
+      title: "Données exportées",
+      message: "Voici vos données exportées depuis l'application Oz Ensemble",
     });
 
-    if (await Sharing.isAvailableAsync()) {
-      await Sharing.shareAsync(path, {
-        mimeType: "application/json",
-        dialogTitle: "Données exportées",
-        UTI: "public.json",
-      }).then(() => {
-        logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
-        Alert.alert("Vos données ont bien été sauvegardées.");
-        storage.set("@ExportedData", true);
-      });
-    } else {
-      console.log("Sharing is not available on this device");
-    }
+    logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
+    Alert.alert("Vos données ont bien été sauvegardées.");
+    storage.set("@ExportedData", true);
   };
   const importData = async () => {
     logEvent({ category: "TRANSFER", action: "IMPORT_DATA" });
