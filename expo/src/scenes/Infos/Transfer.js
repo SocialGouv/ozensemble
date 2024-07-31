@@ -160,7 +160,7 @@ const Transfer = ({ navigation }) => {
         Transférez les données de votre profil de votre ancien vers votre nouveau téléphone (incluant vos consos
         déclarées, vos activités, vos badges gagnés, ...) en suivant les 2 étapes suivantes :
       </Text>
-      <View className="flex flex-col space-y-5 bg-[#FFFFFF] rounded-md p-4 border border-[#DFDFEB]">
+      <View className="flex flex-col space-y-4 bg-[#FFFFFF] rounded-md px-4 py-3 border border-[#DFDFEB]">
         <Text className="text-[#4030A5] text-xl font-extrabold">Etape 1</Text>
         <Text className="text-black text-base">
           Vous êtes sur votre <Text className="font-bold underline">ancien</Text> téléphone.
@@ -169,8 +169,8 @@ const Transfer = ({ navigation }) => {
           Les sous-étapes ci-dessous vont vous permettre de sauvegarder l’ensemble de vos données Oz sous la forme d’un
           fichier.
         </Text>
-        <View className="flex flex-row bg-[#E6E4F3] rounded-md p-2">
-          <TipIcon size={15} className="mr-1" />
+        <View className="flex flex-row bg-[#E6E4F3] space-x-1 rounded-md p-2">
+          <TipIcon size={15} className="" />
           <Text className="text-[#4030A5] font-semibold flex-1">
             Veuillez lire l’ensemble des instructions ci-dessous avant de démarrer la sauvegarde.
           </Text>
@@ -202,20 +202,22 @@ const Transfer = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={exportData}
-          className="justify-center items-center flex-row rounded-3xl p-2 bg-[#DE285E]"
-        >
-          <UploadIcon size={20} className="mr-2" />
-          <Text className="font-bold color-white text-center text-lg flex-1">Sauvegarder mes données Oz</Text>
-        </TouchableOpacity>
+        <View className="flex flex-row justify-center">
+          <TouchableOpacity
+            onPress={exportData}
+            className="justify-center space-x-2 items-center flex-row rounded-3xl bg-[#DE285E] p-2"
+          >
+            <UploadIcon size={20} className="" />
+            <Text className="font-bold color-white text-center text-base">Sauvegarder mes données Oz</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <View className="flex-row w-full my-8">
         <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-4" />
         <Text className="font-extrabold text-center mr-4">PUIS</Text>
         <View className="bg-black h-0.5 flex-1 rounded-full mt-2 mr-2" />
       </View>
-      <View className="flex flex-col space-y-5 bg-[#FFFFFF] rounded-md p-4 border border-[#DFDFEB]">
+      <View className="flex flex-col space-y-4 bg-[#FFFFFF] rounded-md px-4 py-3 border border-[#DFDFEB]">
         <Text className="text-[#4030A5] text-xl font-extrabold">Etape 2</Text>
         <Text className="text-black text-base">
           Vous êtes sur votre <Text className="font-bold underline">nouveau</Text> téléphone.
@@ -282,13 +284,15 @@ const Transfer = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <TouchableOpacity
-          onPress={importData}
-          className="justify-center items-center flex-row rounded-3xl p-2 bg-[#4030A5]"
-        >
-          <DownloadIcon size={20} className="mr-2" />
-          <Text className="font-bold color-white text-center text-lg flex-1">Importer mes données Oz</Text>
-        </TouchableOpacity>
+        <View className="flex flex-row justify-center">
+          <TouchableOpacity
+            onPress={importData}
+            className="justify-center space-x-2 items-center flex-row rounded-3xl bg-[#4030A5] p-2"
+          >
+            <DownloadIcon size={20} className="" />
+            <Text className="font-bold color-white text-center text-base">Importer mes données Oz</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </WrapperContainer>
   );
