@@ -1,3 +1,10 @@
+## [1.162.7](https://github.com/SocialGouv/ozensemble/compare/v1.162.6...v1.162.7) (2024-07-31)
+
+
+### Bug Fixes
+
+* permissions ios ([b94c825](https://github.com/SocialGouv/ozensemble/commit/b94c825114bd02fdc85702d2e7d7630fd3d67127))
+
 ## [1.162.6](https://github.com/SocialGouv/ozensemble/compare/v1.162.5...v1.162.6) (2024-07-31)
 
 
