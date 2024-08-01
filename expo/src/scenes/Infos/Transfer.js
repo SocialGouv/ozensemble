@@ -47,18 +47,28 @@ const Transfer = ({ navigation }) => {
     });
     const jsonExport = JSON.stringify(toExportData);
     const path = `${RNFS.DocumentDirectoryPath}/export-oz-ensemble.json`;
+
     await RNFS.writeFile(path, jsonExport, "utf8");
 
-    await Share.open({
+    const shareOptions = {
       url: `file://${path}`,
       type: "application/json",
       title: "Données exportées",
       message: "Voici vos données exportées depuis l'application Oz Ensemble",
-    });
+    };
 
-    logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
-    Alert.alert("Vos données ont bien été sauvegardées.");
-    storage.set("@ExportedData", true);
+    try {
+      await Share.open(shareOptions).then(() => {
+        (res) => {
+          logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
+          Alert.alert("Vos données ont bien été sauvegardées.");
+          storage.set("@ExportedData", true);
+        };
+      });
+    } catch (error) {
+      console.log("Error sharing:", error);
+      Alert.alert("Erreur lors du partage des données.");
+    }
   };
   const importData = async () => {
     logEvent({ category: "TRANSFER", action: "IMPORT_DATA" });
@@ -197,7 +207,7 @@ const Transfer = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View className="flex flex-row justify-center">
+        <View className="flex flex-row justify-center flex-1">
           <TouchableOpacity
             onPress={exportData}
             className="justify-center space-x-2 items-center flex-row rounded-3xl bg-[#DE285E] p-2"
@@ -279,7 +289,7 @@ const Transfer = ({ navigation }) => {
             </View>
           </View>
         </View>
-        <View className="flex flex-row justify-center">
+        <View className="flex flex-row justify-center flex-1">
           <TouchableOpacity
             onPress={importData}
             className="justify-center space-x-2 items-center flex-row rounded-3xl bg-[#4030A5] p-2"
