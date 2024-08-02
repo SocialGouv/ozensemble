@@ -1,3 +1,10 @@
+## [1.162.16](https://github.com/SocialGouv/ozensemble/compare/v1.162.15...v1.162.16) (2024-08-02)
+
+
+### Bug Fixes
+
+* ios reload restart compatibility ([2456a96](https://github.com/SocialGouv/ozensemble/commit/2456a96b4110ccc8f0c357f1d519338b02abd976))
+
 ## [1.162.15](https://github.com/SocialGouv/ozensemble/compare/v1.162.14...v1.162.15) (2024-08-02)
 
 
