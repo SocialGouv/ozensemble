@@ -1,3 +1,10 @@
+## [1.162.15](https://github.com/SocialGouv/ozensemble/compare/v1.162.14...v1.162.15) (2024-08-02)
+
+
+### Bug Fixes
+
+* send exported data ([1b91ec9](https://github.com/SocialGouv/ozensemble/commit/1b91ec999aea75fb5a21a33fd003db800369373d))
+
 ## [1.162.14](https://github.com/SocialGouv/ozensemble/compare/v1.162.13...v1.162.14) (2024-08-02)
 
 
