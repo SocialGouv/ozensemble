@@ -15,6 +15,7 @@ import OppositeArrowsIcon from "../../components/illustrations/icons/OppositeArr
 import CloudIcon from "../../components/illustrations/icons/CloudIcon.js";
 import DownloadIcon from "../../components/illustrations/icons/DownloadIcon.js";
 import { logEvent } from "../../services/logEventsWithMatomo.js";
+import RNRestart from "react-native-restart";
 
 const Transfer = ({ navigation }) => {
   const exportData = async () => {
@@ -165,7 +166,7 @@ const Transfer = ({ navigation }) => {
           logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS", name: "PUSH_NOTIF_TOKEN_NOT_SYNC" });
         }
         Alert.alert("Félicitations, vos données ont bien été importées 🥳");
-        Expo.reloadAppAsync();
+        RNRestart.restart();
       });
     } catch (error) {
       Alert.alert("Une erreur est survenue lors de l'importation des données");
