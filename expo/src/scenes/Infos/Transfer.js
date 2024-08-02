@@ -21,7 +21,9 @@ const Transfer = ({ navigation }) => {
     logEvent({ category: "TRANSFER", action: "EXPORT_DATA" });
     // Storage
     const allStorage = storage.getAllKeys();
-    const filteredStorage = allStorage.filter((key) => !key.startsWith("STORAGE_KEY_PUSH_NOTIFICATION"));
+    const filteredStorage = allStorage.filter(
+      (key) => !key.startsWith("STORAGE_KEY_PUSH_NOTIFICATION") && key !== "@ExportedData"
+    );
     const toExportData = {};
     filteredStorage.forEach((key) => {
       // On vérifie si la valeur est un objet ou un boolean
