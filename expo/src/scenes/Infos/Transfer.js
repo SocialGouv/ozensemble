@@ -139,28 +139,36 @@ const Transfer = ({ navigation }) => {
   };
 
   const overwriteData = async (dataImported, pushNotifToken) => {
-    storage.clearAll();
-    storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
-    Object.keys(dataImported).forEach((key) => {
-      const value = dataImported[key];
-      if (typeof value === "object") {
-        storage.set(key, JSON.stringify(value));
-      } else {
-        storage.set(key, value);
+    try {
+      if (Object.keys(dataImported).length === 0) {
+        throw new Error("Imported data is empty");
       }
-    });
-    const matomoId = storage.getString("@UserIdv2");
-    await API.put({ path: `/user`, body: { matomoId, pushNotifToken } }).then((res) => {
-      if (res.ok) {
-        Alert.alert("Félicitations, vos données ont bien été importées 🥳");
-        logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
-        Expo.reloadAppAsync();
-      } else {
-        Alert.alert("Félicitations, vos données ont bien été importées 🥳");
-        logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS", name: "PUSH_NOTIF_TOKEN_NOT_SYNC" });
-        Expo.reloadAppAsync();
-      }
-    });
+      storage.clearAll();
+      storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
+      Object.keys(dataImported).forEach((key) => {
+        const value = dataImported[key];
+        if (typeof value === "object") {
+          storage.set(key, JSON.stringify(value));
+        } else {
+          storage.set(key, value);
+        }
+      });
+      const matomoId = storage.getString("@UserIdv2");
+      await API.put({ path: `/user`, body: { matomoId, pushNotifToken } }).then((res) => {
+        if (res.ok) {
+          Alert.alert("Félicitations, vos données ont bien été importées 🥳");
+          logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
+          Expo.reloadAppAsync();
+        } else {
+          Alert.alert("Félicitations, vos données ont bien été importées 🥳");
+          logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS", name: "PUSH_NOTIF_TOKEN_NOT_SYNC" });
+          Expo.reloadAppAsync();
+        }
+      });
+    } catch (error) {
+      Alert.alert("Une erreur est survenue lors de l'importation des données: " + error.message);
+      logEvent({ category: "TRANSFER", action: "IMPORT_DATA_FAILURE", label: error.message });
+    }
   };
 
   return (
