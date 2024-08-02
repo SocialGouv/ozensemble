@@ -155,8 +155,8 @@ const Transfer = ({ navigation }) => {
           storage.set(key, value);
         }
       });
-      const matomoId = storage.getString("@UserIdv2");
-      await API.put({ path: `/user`, body: { matomoId, pushNotifToken } }).then((res) => {
+
+      await API.put({ path: `/user`, body: { matomoId: dataImported["@UserIdv2"], pushNotifToken } }).then((res) => {
         if (res.ok) {
           logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
         } else {
