@@ -158,18 +158,16 @@ const Transfer = ({ navigation }) => {
       const matomoId = storage.getString("@UserIdv2");
       await API.put({ path: `/user`, body: { matomoId, pushNotifToken } }).then((res) => {
         if (res.ok) {
-          Alert.alert("Félicitations, vos données ont bien été importées 🥳");
           logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
-          Expo.reloadAppAsync();
         } else {
-          Alert.alert("Félicitations, vos données ont bien été importées 🥳");
           logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS", name: "PUSH_NOTIF_TOKEN_NOT_SYNC" });
-          Expo.reloadAppAsync();
         }
+        Alert.alert("Félicitations, vos données ont bien été importées 🥳");
+        Expo.reloadAppAsync();
       });
     } catch (error) {
-      Alert.alert("Une erreur est survenue lors de l'importation des données: " + error.message);
-      logEvent({ category: "TRANSFER", action: "IMPORT_DATA_FAILURE", label: error.message });
+      Alert.alert("Une erreur est survenue lors de l'importation des données");
+      logEvent({ category: "TRANSFER", action: "IMPORT_DATA_FAILURE" });
     }
   };
 
