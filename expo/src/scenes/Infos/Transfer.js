@@ -222,10 +222,10 @@ const Transfer = ({ navigation }) => {
         <View className="flex flex-row justify-center flex-1">
           <TouchableOpacity
             onPress={exportData}
-            className="justify-center space-x-2 items-center flex-row rounded-3xl bg-[#DE285E] p-2"
+            className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#DE285E] p-2"
           >
             <UploadIcon size={20} className="" />
-            <Text className="font-bold color-white text-center text-base">Sauvegarder mes données Oz</Text>
+            <Text className="font-bold text-white text-center text-base">Sauvegarder mes données Oz</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -304,10 +304,10 @@ const Transfer = ({ navigation }) => {
         <View className="flex flex-row justify-center flex-1">
           <TouchableOpacity
             onPress={importData}
-            className="justify-center space-x-2 items-center flex-row rounded-3xl bg-[#4030A5] p-2"
+            className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] p-2"
           >
             <DownloadIcon size={20} className="" />
-            <Text className="font-bold color-white text-center text-base">Importer mes données Oz</Text>
+            <Text className="font-bold text-white text-center text-base">Importer mes données Oz</Text>
           </TouchableOpacity>
         </View>
       </View>
