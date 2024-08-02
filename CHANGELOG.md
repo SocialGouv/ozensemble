@@ -1,3 +1,10 @@
+## [1.162.11](https://github.com/SocialGouv/ozensemble/compare/v1.162.10...v1.162.11) (2024-08-02)
+
+
+### Bug Fixes
+
+* notif token ([7527454](https://github.com/SocialGouv/ozensemble/commit/75274545e8f75d33ff7e7a9c13cab30a6c818a4f))
+
 ## [1.162.10](https://github.com/SocialGouv/ozensemble/compare/v1.162.9...v1.162.10) (2024-08-02)
 
 
