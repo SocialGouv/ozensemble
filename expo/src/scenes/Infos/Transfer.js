@@ -52,7 +52,6 @@ const Transfer = ({ navigation }) => {
 
     const shareOptions = {
       url: `file://${path}`,
-      type: "application/json",
       title: "Données exportées",
       message: "Voici vos données exportées depuis l'application Oz Ensemble",
     };
@@ -60,6 +59,7 @@ const Transfer = ({ navigation }) => {
     try {
       await Share.open(shareOptions).then(() => {
         (res) => {
+          console.log(res);
           logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
           Alert.alert("Vos données ont bien été sauvegardées.");
           storage.set("@ExportedData", true);
@@ -155,6 +155,10 @@ const Transfer = ({ navigation }) => {
         Alert.alert("Félicitations, vos données ont bien été importées 🥳");
         logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
         Expo.reloadAppAsync();
+      } else {
+        Alert.alert("Félicitations, vos données ont bien été importées 🥳");
+        logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS", name: "PUSH_NOTIF_TOKEN_NOT_SYNC" });
+        Expo.reloadAppAsync();
       }
     });
   };
@@ -176,7 +180,7 @@ const Transfer = ({ navigation }) => {
         </Text>
         <View className="flex flex-row bg-[#E6E4F3] space-x-1 rounded-md p-2">
           <TipIcon size={15} className="" />
-          <Text className="text-[#4030A5] font-semibold flex-1">
+          <Text className="text-[#4030A5] font-semibold ">
             Veuillez lire l’ensemble des instructions ci-dessous avant de démarrer la sauvegarde.
           </Text>
         </View>
@@ -232,7 +236,7 @@ const Transfer = ({ navigation }) => {
         </Text>
         <View className="flex flex-row bg-[#E6E4F3] rounded-md p-2">
           <TipIcon size={15} className="mr-1" />
-          <Text className="text-[#4030A5] font-semibold flex-1">
+          <Text className="text-[#4030A5] font-semibold ">
             Veuillez lire l’ensemble des instructions ci-dessous avant de démarrer l'importation.
           </Text>
         </View>
