@@ -1,3 +1,10 @@
+## [1.162.9](https://github.com/SocialGouv/ozensemble/compare/v1.162.8...v1.162.9) (2024-08-02)
+
+
+### Bug Fixes
+
+* consider api problem ([fa63144](https://github.com/SocialGouv/ozensemble/commit/fa63144a7fff33bc60da7c32f58c2f1349549b11))
+
 ## [1.162.8](https://github.com/SocialGouv/ozensemble/compare/v1.162.7...v1.162.8) (2024-08-01)
 
 
