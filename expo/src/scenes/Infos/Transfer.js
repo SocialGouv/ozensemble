@@ -144,7 +144,9 @@ const Transfer = ({ navigation }) => {
         throw new Error("Imported data is empty");
       }
       storage.clearAll();
-      storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
+      if (pushNotifToken) {
+        storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
+      }
       Object.keys(dataImported).forEach((key) => {
         const value = dataImported[key];
         if (typeof value === "object") {
