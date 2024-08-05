@@ -1,3 +1,10 @@
+## [1.162.17](https://github.com/SocialGouv/ozensemble/compare/v1.162.16...v1.162.17) (2024-08-05)
+
+
+### Bug Fixes
+
+* dots ([8515855](https://github.com/SocialGouv/ozensemble/commit/8515855b71d1ffcab54c85c6e18aed97375a4590))
+
 ## [1.162.16](https://github.com/SocialGouv/ozensemble/compare/v1.162.15...v1.162.16) (2024-08-02)
 
 
