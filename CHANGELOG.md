@@ -1,3 +1,10 @@
+## [1.162.18](https://github.com/SocialGouv/ozensemble/compare/v1.162.17...v1.162.18) (2024-08-05)
+
+
+### Bug Fixes
+
+* useffect didnt trigger for the last one ([#615](https://github.com/SocialGouv/ozensemble/issues/615)) ([7a74a50](https://github.com/SocialGouv/ozensemble/commit/7a74a5002169b7c31eb68a7a7946616c4b0cb623))
+
 ## [1.162.17](https://github.com/SocialGouv/ozensemble/compare/v1.162.16...v1.162.17) (2024-08-05)
 
 
