@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Image, Dimensions, Animated, StyleSheet } from "react-native";
 import { atom, useRecoilValue } from "recoil";
 
@@ -11,16 +11,21 @@ export const showBootSplashState = atom({
 const CustomBootsplash = () => {
   const showBootSplash = useRecoilValue(showBootSplashState);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: showBootSplash ? 1 : 0,
       duration: 200,
       useNativeDriver: true,
-    }).start();
-  }, [fadeAnim, showBootSplash]);
+    }).start(({ finished }) => {
+      if (finished) {
+        setAnimationComplete(!showBootSplash);
+      }
+    });
+  }, [showBootSplash]);
 
-  if (!showBootSplash && fadeAnim._value === 0) return null;
+  if (!showBootSplash && animationComplete) return null;
 
   return (
     <Animated.View style={[styles.fullScreen, { opacity: fadeAnim }]}>
