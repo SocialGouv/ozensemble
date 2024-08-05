@@ -267,7 +267,7 @@ const Transfer = ({ navigation }) => {
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
               <Text className="text-[#4030A5] font-bold flex-1">
                 une fenêtre s’ouvre, sélectionnez le fichier précedemment sauvegardé depuis le même cloud et
-                importez-le,
+                importez-le.
               </Text>
             </View>
           </View>
@@ -299,7 +299,7 @@ const Transfer = ({ navigation }) => {
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
               <Text className="text-[#4030A5] font-bold flex-1">
-                une fenêtre s’ouvre, ouvrez le dossier “Download”, puis sélectionnez le fichier précedemment sauvegardé,
+                une fenêtre s’ouvre, ouvrez le dossier “Download”, puis sélectionnez le fichier précedemment sauvegardé.
               </Text>
             </View>
           </View>
