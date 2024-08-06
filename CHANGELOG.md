@@ -1,3 +1,10 @@
+## [1.162.20](https://github.com/SocialGouv/ozensemble/compare/v1.162.19...v1.162.20) (2024-08-06)
+
+
+### Bug Fixes
+
+* matomo event notif sent failure ([2a81183](https://github.com/SocialGouv/ozensemble/commit/2a81183bba4fe2aa7508ab2713010c4185a3f239))
+
 ## [1.162.19](https://github.com/SocialGouv/ozensemble/compare/v1.162.18...v1.162.19) (2024-08-05)
 
 
