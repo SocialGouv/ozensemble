@@ -79,6 +79,14 @@ const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, b
         });
       } else if (results[0]?.failure) {
         const error = results[0].message?.[0]?.errorMsg;
+
+        await matomo.logEvent({
+          category: "PUSH_NOTIFICATION_SEND",
+          action: "FAILED",
+          name: results[0].message?.[0]?.errorMsg,
+          userId: matomoId,
+        });
+
         if (error === "Requested entity was not found") {
           // https://stackoverflow.com/a/56218146/5225096
           await prisma.user.upsert({
@@ -99,12 +107,6 @@ const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, b
           },
         });
 
-        await matomo.logEvent({
-          category: "PUSH_NOTIFICATION_SEND",
-          action: "FAILED",
-          name: results[0].message?.[0]?.errorMsg,
-          userId: matomoId,
-        });
         return { ok: false, results };
       }
     }
