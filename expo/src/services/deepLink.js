@@ -63,9 +63,9 @@ export const deepLinkingConfig = {
       return url;
     }
 
-    // // Handle URL from expo push notifications
+    // Handle URL from expo push notifications
     const response = await Notifications.getLastNotificationResponseAsync();
-    return response?.notification.request.content.data.url;
+    return getUrlFromNotificationResponse(response);
   },
   subscribe(listener) {
     // Listen to incoming links from deep linking
@@ -74,17 +74,16 @@ export const deepLinkingConfig = {
     });
 
     // Listen to expo push notifications
-    const notificationsSubscription = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        const url = response.notification.request.content.data.link;
+    const notificationsSubscription = Notifications.addNotificationResponseReceivedListener((response) => {
+      const url = getUrlFromNotificationResponse(response);
+      console.log("url from notification", url);
 
-        // Any custom logic to see whether the URL needs to be handled
-        //...
+      // Any custom logic to see whether the URL needs to be handled
+      //...
 
-        // Let React Navigation handle the URL
-        if (url) listener(url);
-      }
-    );
+      // Let React Navigation handle the URL
+      if (url) listener(url);
+    });
 
     return () => {
       // Clean up the event listeners
@@ -93,3 +92,8 @@ export const deepLinkingConfig = {
     };
   },
 };
+
+function getUrlFromNotificationResponse(response) {
+  console.log("response", response?.notification?.request?.content?.data);
+  return response?.notification?.request?.content?.data?.link;
+}
