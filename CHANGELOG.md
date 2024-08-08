@@ -1,3 +1,10 @@
+## [1.162.27](https://github.com/SocialGouv/ozensemble/compare/v1.162.26...v1.162.27) (2024-08-08)
+
+
+### Bug Fixes
+
+* appDevice ([#619](https://github.com/SocialGouv/ozensemble/issues/619)) ([cc9bf63](https://github.com/SocialGouv/ozensemble/commit/cc9bf639766916b9c26acecbed0301b3374d4e86))
+
 ## [1.162.26](https://github.com/SocialGouv/ozensemble/compare/v1.162.25...v1.162.26) (2024-08-08)
 
 
