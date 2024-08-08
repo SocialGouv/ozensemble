@@ -58,13 +58,15 @@ export const deepLinkingConfig = {
   async getInitialURL() {
     // Check if app was opened from a deep link
     // FIXME: this methods makes the app crash
-    const url = await Linking.getInitialURL();
+    let url = await Linking.getInitialURL();
     if (url != null) {
       return url;
     }
 
     // // Handle URL from expo push notifications
     const response = await Notifications.getLastNotificationResponseAsync();
+    url =
+      response?.notification?.request?.content?.data?.url ?? response?.notification?.request?.trigger?.payload?.link;
     console.log("NotificationService getInitialURL:", JSON.stringify(response, null, 2));
     console.log("URL is ", response?.notification?.request?.content?.data?.url);
     /* NOTE
@@ -92,8 +94,7 @@ export const deepLinkingConfig = {
 
     let's see if the nmapping is still correct when the bug is fixed
     */
-
-    return response?.notification?.request?.content?.data?.url;
+    return url;
   },
   subscribe(listener) {
     // Listen to incoming links from deep linking
@@ -104,7 +105,9 @@ export const deepLinkingConfig = {
     // Listen to expo push notifications
     const notificationsSubscription = Notifications.addNotificationResponseReceivedListener((response) => {
       console.log("NotificationService notificationsSubscription:", JSON.stringify(response, null, 2));
-      const url = response?.notification?.request?.content?.data?.link;
+      const url =
+        response?.notification?.request?.content?.data?.link ?? response?.notification?.request?.trigger?.payload?.link;
+      console.log("URL noitif sub is ", url);
       // Any custom logic to see whether the URL needs to be handled
       //...
       /* NOTE
