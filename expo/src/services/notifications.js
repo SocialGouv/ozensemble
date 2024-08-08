@@ -105,13 +105,7 @@ class NotificationService {
     });
   };
 
-  scheduleLocalAlarm = async ({
-    date,
-    title,
-    message,
-    playSound = true,
-    soundName = "default",
-  }) => {
+  scheduleLocalAlarm = async ({ date, title, message, playSound = true, soundName = "default" }) => {
     return await Notifications.scheduleNotificationAsync({
       content: {
         title,
@@ -175,7 +169,7 @@ class NotificationService {
     }
     this.listeners[listenerKey] = callback;
     return () => {
-      delete this.listeners[listenerKey];
+      if (this.listeners[listenerKey]) delete this.listeners[listenerKey];
     };
   };
 }
