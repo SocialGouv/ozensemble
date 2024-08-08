@@ -308,4 +308,21 @@ router.get(
   })
 );
 
+router.post(
+  "/find-missing-own-drink",
+  catchErrors(async (req, res) => {
+    const { drinkKey, matomoId } = req.body;
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+
+    // find user with matomoId
+    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+
+    const conso = await prisma.consommation.findFirst({
+      where: { userId: user.id, drinkKey },
+    });
+
+    return res.status(200).send({ ok: true, data: conso });
+  })
+);
+
 module.exports = router;

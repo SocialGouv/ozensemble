@@ -14,13 +14,7 @@ import { storage } from "../services/storage";
 import AddAlcoolQuantity from "../scenes/AddDrink/AddAlcoolQuantity";
 import { logEvent } from "../services/logEventsWithMatomo";
 
-const DrinkPersonalisation = ({
-  updateDrinkKey,
-  hide,
-  quantitySelected,
-  setQuantitySelected,
-  setLocalDrinksState,
-}) => {
+const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected, setLocalDrinksState }) => {
   const route = useRoute();
   const timestamp = route?.params?.timestamp;
 
@@ -49,6 +43,7 @@ const DrinkPersonalisation = ({
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
   const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(" ")[0];
   const saveDrink = async () => {
+    console.log("SAVE DRINK");
     const formatedPrice = drinkPrice.replace(",", ".");
     const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(",", ".");
     const formatedVolume = volumeNumber.replace(",", ".");
@@ -58,8 +53,7 @@ const DrinkPersonalisation = ({
         (catalogDrink) => catalogDrink.drinkKey === drinkName && catalogDrink.isDeleted === false
       ) ??
       ownDrinksCatalog.find(
-        (catalogDrink) =>
-          catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
+        (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) * 7;
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) / 10;
@@ -102,25 +96,29 @@ const DrinkPersonalisation = ({
         if (!keepGoing) return;
       }
       newDrink.icon = quantitySelected?.icon ?? oldDrink.icon;
-      setOwnDrinksCatalog((oldState) => {
-        const tempState = [...oldState, newDrink];
-        return tempState;
-      });
-      setGlobalDrinksState((oldState) => {
-        return oldState.map((oldStateDrink) =>
-          oldStateDrink.drinkKey === oldDrink.drinkKey
-            ? { ...oldStateDrink, drinkKey: drinkName }
-            : oldStateDrink
-        );
-      });
-      setOwnDrinksCatalog((tempState) => {
-        const cleanedNewState = tempState
-          .filter((tempStateDrink) => tempStateDrink.drinkKey !== newDrink.drinkKey)
-          .map((oldStateDrink) =>
+      if (oldDrink.drinkKey === newDrink.drinkKey) {
+        setOwnDrinksCatalog((oldState) => {
+          return oldState.map((oldStateDrink) =>
             oldStateDrink.drinkKey === oldDrink.drinkKey ? newDrink : oldStateDrink
           );
-        return cleanedNewState;
-      });
+        });
+      } else {
+        setOwnDrinksCatalog((oldState) => {
+          const tempState = [...oldState, newDrink];
+          return tempState;
+        });
+        setGlobalDrinksState((oldState) => {
+          return oldState.map((oldStateDrink) =>
+            oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
+          );
+        });
+        setOwnDrinksCatalog((tempState) => {
+          const cleanedNewState = tempState
+            .filter((tempStateDrink) => tempStateDrink.drinkKey !== newDrink.drinkKey)
+            .map((oldStateDrink) => (oldStateDrink.drinkKey === oldDrink.drinkKey ? newDrink : oldStateDrink));
+          return cleanedNewState;
+        });
+      }
 
       const matomoId = storage.getString("@UserIdv2");
 
@@ -214,14 +212,16 @@ const DrinkPersonalisation = ({
         {!quantitySelected?.volume && !drink ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => setShowQuantityModal(true)}>
+            onPress={() => setShowQuantityModal(true)}
+          >
             <Text className="text-[#CACACD] flex">Sélectionnez une quantité</Text>
             <ArrowDown color="#000000" size={30} strokeWidth={2} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => setShowQuantityModal(true)}>
+            onPress={() => setShowQuantityModal(true)}
+          >
             <Text className="text-[#4030A5] flex">{volumeNumber}</Text>
           </TouchableOpacity>
         )}
@@ -281,10 +281,9 @@ const DrinkPersonalisation = ({
               onPress={() => {
                 setIsUpdateWanted(false);
                 setShowModalUpdate(true);
-              }}>
-              <Text className="text-[#4030A5] text-center underline text-base mt-4">
-                Supprimer ma boisson
-              </Text>
+              }}
+            >
+              <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer ma boisson</Text>
             </TouchableOpacity>
           </View>
         )}
