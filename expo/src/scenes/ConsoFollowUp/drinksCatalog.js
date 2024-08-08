@@ -69,7 +69,7 @@ export const mapDrinkToDose = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error("drink really not found"), {
+    capture(new Error("drink really really not found"), {
       extra: { drinkKey, catalogObject, function: "mapDrinkToDose" },
       tags: { drinkKey },
     });
@@ -83,7 +83,7 @@ export const mapDrinkToKcals = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error("drink really not found"), {
+    capture(new Error("drink really really not found"), {
       extra: { drinkKey, catalogObject, function: "mapDrinkToKcals" },
       tags: { drinkKey },
     });
@@ -97,7 +97,7 @@ export const mapDrinkToPrice = ({ drinkKey, quantity }, catalogObject) => {
   if (drinkKey === NO_CONSO) return 0;
   const drink = catalogObject[drinkKey];
   if (!drink) {
-    capture(new Error("drink really not found"), {
+    capture(new Error("drink really really not found"), {
       extra: { drinkKey, catalogObject, function: "mapDrinkToPrice" },
       tags: { drinkKey },
     });
@@ -111,7 +111,7 @@ export const getDisplayName = (drinkKey, quantity, catalogObject) => {
   try {
     const drink = catalogObject[drinkKey];
     if (!drink) {
-      capture(new Error("drink really not found"), {
+      capture(new Error("drink really really not found"), {
         extra: { drinkKey, catalogObject, function: "getDisplayName" },
         tags: { drinkKey },
       });
@@ -131,7 +131,7 @@ export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1)
   try {
     const drink = catalogObject[drinkKey];
     if (!drink) {
-      capture(new Error("drink really not found"), {
+      capture(new Error("drink really really not found"), {
         extra: { drinkKey, catalogObject, function: "getDisplayDrinksModalName" },
         tags: { drinkKey },
       });
@@ -151,7 +151,7 @@ export const getDisplayDrinksModalName = (drinkKey, catalogObject, quantity = 1)
 export const getIcon = (iconName) => {
   const icon = mapIconNameToIcon[iconName];
   if (!icon) {
-    capture(new Error("icon not found"), { extra: { iconName, function: "getIcon" } });
+    capture(new Error("icon really really not found"), { extra: { iconName, function: "getIcon" } });
     return HalfBeer;
   }
   return icon;

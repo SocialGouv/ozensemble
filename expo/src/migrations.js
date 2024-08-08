@@ -143,8 +143,8 @@ function cleanCatalog(oldDrinkCatalog) {
     const alcoolPercentage = Number(oldDrink.categoryKey.split("-")[2])
       ? Number(oldDrink.categoryKey.split("-")[2])
       : oldDrink.alcoolPercentage
-        ? String(oldDrink.alcoolPercentage).replace(",", ".")
-        : 5;
+      ? String(oldDrink.alcoolPercentage).replace(",", ".")
+      : 5;
 
     // 4. create kcal and doses if they don't exist
     const kcal = Math.round(((Number(alcoolPercentage) * 0.8 * volume) / 10) * 7);
@@ -172,8 +172,7 @@ function cleanCatalog(oldDrinkCatalog) {
       : "ownDrink";
 
     //  9. we fix the bug of the new cocktails
-    const categoryKeyEvolution2 =
-      drinkKeyEvolution1 === "ownCocktail" ? "ownCocktail" : categoryKeyEvolution1;
+    const categoryKeyEvolution2 = drinkKeyEvolution1 === "ownCocktail" ? "ownCocktail" : categoryKeyEvolution1;
 
     newOwnDrinksCatalog.push({
       drinkKey: drinkKeyEvolution2,
@@ -193,9 +192,7 @@ function cleanCatalog(oldDrinkCatalog) {
   return newOwnDrinksCatalog;
 }
 
-export const hasMigrateFromDailyGoalToWeekly = storage.getBoolean(
-  "hasMigrateFromDailyGoalToWeekly"
-);
+export const hasMigrateFromDailyGoalToWeekly = storage.getBoolean("hasMigrateFromDailyGoalToWeekly");
 export async function migrateFromDailyGoalToWeekly() {
   try {
     const drinksByDrinkingDayString = storage.getString("@StoredDetailedDrinksByDrinkingDay");
@@ -216,9 +213,7 @@ export async function migrateFromDailyGoalToWeekly() {
     capture(e, {
       extra: {
         migration: "hasMigrateFromDailyGoalToWeekly",
-        "@StoredDetailedDrinksByDrinkingDay": storage.getString(
-          "@StoredDetailedDrinksByDrinkingDay"
-        ),
+        "@StoredDetailedDrinksByDrinkingDay": storage.getString("@StoredDetailedDrinksByDrinkingDay"),
         "@DaysWithGoalNoDrink": storage.getString("@DaysWithGoalNoDrink"),
       },
       user: {
