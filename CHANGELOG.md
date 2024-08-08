@@ -1,3 +1,11 @@
+## [1.162.22](https://github.com/SocialGouv/ozensemble/compare/v1.162.21...v1.162.22) (2024-08-08)
+
+
+### Bug Fixes
+
+* OZENSEMBLE-MZ ([#618](https://github.com/SocialGouv/ozensemble/issues/618)) ([f8a5045](https://github.com/SocialGouv/ozensemble/commit/f8a50451322b12e00df8b8864a76ff3a3af3a0df))
+* OZENSEMBLE-N0 ([#617](https://github.com/SocialGouv/ozensemble/issues/617)) ([a86d5e3](https://github.com/SocialGouv/ozensemble/commit/a86d5e31a9565cc6df9fde2f41c5c6fe7266eb7e))
+
 ## [1.162.21](https://github.com/SocialGouv/ozensemble/compare/v1.162.20...v1.162.21) (2024-08-08)
 
 
