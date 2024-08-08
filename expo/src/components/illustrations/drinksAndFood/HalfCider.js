@@ -2,16 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const HalfCider = ({ size, ...props }) => (
-  <StyledSvg
-    width={size}
-    height={size}
-    viewBox="0 0 68 113"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}>
+  <Svg width={size} height={size} viewBox="0 0 68 113" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <Path
       d="M33.9885 100.924C25.2198 100.924 16.4506 99.9266 7.9254 97.9347C7.0508 97.7302 6.63195 96.9833 6.82475 96.3376L6.82479 96.3375C7.02723 95.6589 7.8639 95.1756 8.74783 95.3841L8.74879 95.3843C25.2611 99.2449 42.7158 99.245 59.2281 95.3844C60.1155 95.1777 60.952 95.6601 61.1523 96.3365L61.1526 96.3376C61.3456 96.9838 60.9279 97.7303 60.0522 97.9347L60.0519 97.9347C51.5298 99.9274 42.7606 100.924 33.9912 100.924H33.9885Z"
       fill="#DE285E"
@@ -37,7 +29,7 @@ const HalfCider = ({ size, ...props }) => (
       fill="#DE285E"
       stroke="#DE285E"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default HalfCider;

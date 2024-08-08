@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const CocktailGlassTriangle = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 34 34" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 34 34" {...props}>
     <Path
       d="M6.53684 3.8584C6.25433 3.8584 6.02539 4.06921 6.02539 4.32921V4.55377C6.02539 4.81378 6.25433 5.02459 6.53684 5.02459C6.81935 5.02459 7.04829 4.81378 7.04829 4.55377V4.32921C7.04829 4.06921 6.81928 3.8584 6.53684 3.8584Z"
       fill="black"
@@ -36,7 +34,7 @@ const CocktailGlassTriangle = ({ size, ...props }) => (
       stroke="black"
       stroke-width="0.5"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default CocktailGlassTriangle;

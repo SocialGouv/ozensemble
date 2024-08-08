@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const Stars = ({ color, size = 25, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 25 25" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 25 25" {...props}>
     <Path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -54,7 +52,7 @@ const Stars = ({ color, size = 25, ...props }) => (
       d="M18.268 14.9039C18.6667 15.0688 18.8562 15.5257 18.6913 15.9244C17.6085 18.5429 17.0959 21.3621 17.1877 24.1942C17.2017 24.6255 16.8635 24.9864 16.4322 25.0004C16.001 25.0144 15.64 24.6761 15.6261 24.2449C15.527 21.1909 16.0797 18.1509 17.2474 15.3273C17.4123 14.9285 17.8692 14.739 18.268 14.9039Z"
       fill={color}
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default Stars;

@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const TickDone = ({ size, color, opacity = 1, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 25 24" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 25 24" {...props}>
     <Path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -20,7 +18,7 @@ const TickDone = ({ size, color, opacity = 1, ...props }) => (
       fill={color}
       fill-opacity={opacity}
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default TickDone;

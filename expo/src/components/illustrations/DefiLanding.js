@@ -1,13 +1,8 @@
 import React from "react";
 import Svg, { Line, Circle, Path } from "react-native-svg";
-import styled from "styled-components";
 
-const StyledSvg = styled(Svg)`
-  margin-top: -30px;
-`;
-
-const DefiLanding = ({ color, size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 179 108" {...props}>
+const DefiLanding = ({ color, size, className = "", ...props }) => (
+  <Svg width={size} height={size} viewBox="0 0 179 108" {...props} className={[className, "-mt-[30px]"].join(" ")}>
     <Path
       d="M28.5526 31.1722L28.2079 30.9346C27.8292 30.6735 27.3108 30.7689 27.0499 31.1474C26.789 31.526 26.8842 32.0444 27.2628 32.3054L27.6076 32.5431C27.8196 32.6892 28.0752 32.7236 28.3051 32.6592C28.4859 32.6086 28.6507 32.4968 28.7655 32.3302C29.0265 31.9517 28.9313 31.4332 28.5526 31.1722Z"
       fill={color}
@@ -105,7 +100,7 @@ const DefiLanding = ({ color, size, ...props }) => (
     <Circle cx="64.4398" cy="73.16" r="6.16" fill="#F1F1F5" stroke="#AFAFD3" strokeWidth="2" />
     <Circle cx="112.969" cy="91.4578" r="6.16" fill="#F1F1F5" stroke="#AFAFD3" strokeWidth="2" />
     <Circle cx="171.84" cy="80.32" r="6.16" fill="#F1F1F5" stroke="#AFAFD3" strokeWidth="2" />
-  </StyledSvg>
+  </Svg>
 );
 
 export default DefiLanding;

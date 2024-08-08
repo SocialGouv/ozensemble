@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { ClipPath, Defs, G, Path, Rect } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const EntertainmentVideos = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 93 127" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 93 127" {...props}>
     <Path
       d="M63.5737 0.596488L23.601 23.6794C22.9702 24.0425 22.4417 24.5595 22.0647 25.1822C21.6878 25.8048 21.4747 26.5128 21.4455 27.2401V114.109C21.4455 115.563 22.3502 117.282 23.4643 117.928C24.5785 118.574 26.513 118.51 27.7784 117.768L67.6085 94.7726C68.871 94.0424 69.9037 92.2534 69.9037 90.796V4.25892C69.9037 2.80442 68.999 1.08811 67.8848 0.442311C66.7707 -0.203488 64.8391 -0.133672 63.5737 0.596488Z"
       fill="#37474F"
@@ -211,15 +209,9 @@ const EntertainmentVideos = ({ size, ...props }) => (
         fill="black"
       />
     </G>
-    <Path
-      d="M16.13 19.9093L14.4981 18.9668L14.4922 12.2383L16.1242 13.1808L16.13 19.9093Z"
-      fill="#DE285E"
-    />
+    <Path d="M16.13 19.9093L14.4981 18.9668L14.4922 12.2383L16.1242 13.1808L16.13 19.9093Z" fill="#DE285E" />
     <G opacity="0.55">
-      <Path
-        d="M16.13 19.9093L14.4981 18.9668L14.4922 12.2383L16.1242 13.1808L16.13 19.9093Z"
-        fill="black"
-      />
+      <Path d="M16.13 19.9093L14.4981 18.9668L14.4922 12.2383L16.1242 13.1808L16.13 19.9093Z" fill="black" />
     </G>
     <G opacity="0.2">
       <Path
@@ -282,15 +274,9 @@ const EntertainmentVideos = ({ size, ...props }) => (
         d="M13.7105 90.2806C13.6664 90.2644 13.619 90.259 13.5724 90.2651C13.5258 90.2712 13.4814 90.2885 13.4429 90.3155L12.0582 91.1155C12.1214 90.836 12.1371 90.5478 12.1047 90.2631L12.7156 89.9082C12.7565 89.8763 12.8059 89.857 12.8576 89.8529C12.9093 89.8488 12.9611 89.8599 13.0065 89.885L13.7105 90.2806Z"
         fill="black"
       />
-      <Path
-        d="M10.5336 95.613L9.80923 95.1941L9.80632 92.2036L10.5307 92.6225L10.5336 95.613Z"
-        fill="#DE285E"
-      />
+      <Path d="M10.5336 95.613L9.80923 95.1941L9.80632 92.2036L10.5307 92.6225L10.5336 95.613Z" fill="#DE285E" />
       <G opacity="0.55">
-        <Path
-          d="M10.5336 95.613L9.80923 95.1941L9.80632 92.2036L10.5307 92.6225L10.5336 95.613Z"
-          fill="black"
-        />
+        <Path d="M10.5336 95.613L9.80923 95.1941L9.80632 92.2036L10.5307 92.6225L10.5336 95.613Z" fill="black" />
       </G>
       <G opacity="0.2">
         <Path
@@ -342,10 +328,7 @@ const EntertainmentVideos = ({ size, ...props }) => (
         />
       </G>
       <G opacity="0.1">
-        <Path
-          d="M83.0404 81.1038L81.9844 80.4929L81.9786 76.1323L83.0375 76.7432L83.0404 81.1038Z"
-          fill="black"
-        />
+        <Path d="M83.0404 81.1038L81.9844 80.4929L81.9786 76.1323L83.0375 76.7432L83.0404 81.1038Z" fill="black" />
       </G>
       <G opacity="0.05">
         <Path
@@ -460,7 +443,7 @@ const EntertainmentVideos = ({ size, ...props }) => (
         <Rect width="85" height="119" fill="white" transform="translate(4)" />
       </ClipPath>
     </Defs>
-  </StyledSvg>
+  </Svg>
 );
 
 export default EntertainmentVideos;

@@ -1,49 +1,41 @@
 import React from "react";
-import { Platform } from "react-native";
-import styled, { css } from "styled-components";
-import { mediaHeight } from "../styles/mediaQueries";
-import { defaultPaddingFontScale } from "../styles/theme";
+import { TouchableOpacity, Platform, Dimensions } from "react-native";
 import TextStyled from "./TextStyled";
+import { defaultPaddingFontScale } from "../styles/theme";
 
-const BackButton = ({ onPress, marginBottom, marginLeft, marginTop }) => (
-  <Container
-    onPress={onPress}
-    marginBottom={marginBottom}
-    marginLeft={marginLeft}
-    marginTop={marginTop}>
-    <ReturnButton bold>{"< Retour"}</ReturnButton>
-  </Container>
-);
+const { height } = Dimensions.get("window");
 
-const Container = styled.TouchableOpacity`
-  margin-right: auto;
-  ${({ marginLeft }) => marginLeft && `margin-left: ${defaultPaddingFontScale()}px`};
-  ${({ marginBottom }) => marginBottom && "margin-bottom: 20px"};
-  ${({ marginTop }) => !!marginTop && "margin-top: 20px"};
-`;
-
-const bigContent = css`
-  font-size: ${({ small }) => (small ? 15 : 20)}px;
-`;
-
-const mediumContent = css`
-  font-size: ${({ small }) => (small ? 13 : 18)}px;
-`;
-
-const smallContent = css`
-  font-size: ${({ small }) => (small ? 13 : 15)}px;
-`;
-
-const ReturnButton = styled(TextStyled)`
-  color: #191919;
-  font-weight: ${({ bold }) => (bold ? (Platform.OS === "android" ? "bold" : "800") : "normal")};
-  flex-shrink: 0;
-  ${bigContent}
-  ${mediaHeight.medium`${mediumContent}`}
-  ${mediaHeight.small`${smallContent}`}
-  justify-content: center;
-  align-items: center;
-  text-align-vertical: center;
-`;
-
-export default BackButton;
+export default function BackButton({ onPress, marginBottom, marginLeft, marginTop, small = false }) {
+  return (
+    <TouchableOpacity
+      style={[
+        { marginRight: "auto" },
+        marginBottom && { marginBottom: 20 },
+        marginLeft && { marginLeft: defaultPaddingFontScale() },
+        marginTop && { marginTop: 20 },
+      ]}
+      onPress={onPress}
+    >
+      <TextStyled
+        className={[
+          "text-[#191919] flex-shrink-0 justify-center items-center",
+          Platform.OS === "android" ? "font-bold" : "font-extrabold",
+          height > 800
+            ? small
+              ? "text-[15px]"
+              : "text-[20px]"
+            : height > 700
+            ? small
+              ? "text-[13px]"
+              : "text-[18px]"
+            : small
+            ? "text-[13px]"
+            : "text-[15px]",
+        ].join(" ")}
+        style={{ textAlignVertical: "center" }}
+      >
+        {"< Retour"}
+      </TextStyled>
+    </TouchableOpacity>
+  );
+}
