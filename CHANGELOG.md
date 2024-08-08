@@ -1,3 +1,10 @@
+## [1.162.23](https://github.com/SocialGouv/ozensemble/compare/v1.162.22...v1.162.23) (2024-08-08)
+
+
+### Bug Fixes
+
+* urls in constants ([#614](https://github.com/SocialGouv/ozensemble/issues/614)) ([897cb5f](https://github.com/SocialGouv/ozensemble/commit/897cb5fc65f2809687c51e5ee6665ad52ce7f451))
+
 ## [1.162.22](https://github.com/SocialGouv/ozensemble/compare/v1.162.21...v1.162.22) (2024-08-08)
 
 
