@@ -33,6 +33,7 @@ model User {
   updatedAt                DateTime               @default(now()) @updatedAt
   drinksContextRequests    DrinksContextRequest[]
   appVersion               String?
+  appDevice                String?
   strategies               Strategy[]
   isOverWritten            Boolean                @default(false)
 

@@ -13,6 +13,7 @@
     "test-notification": "cross-env NODE_ENV=development node ./src/scripts/test-notification.js",
     "dev-cron": "nodemon ./src/cronjobs.js ",
     "create-migration": "cross-env NODE_ENV=development npx prisma migrate dev --name",
+    "apply-migration-on-new-dev-db": "cross-env NODE_ENV=development npx prisma migrate deploy",
     "start": "NODE_ENV=production npx prisma migrate deploy && NODE_ENV=production node ./src/server.js",
     "postinstall": "prisma generate",
     "test": "jest",

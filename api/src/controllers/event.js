@@ -20,10 +20,12 @@ router.post(
 
     if (action === "APP_OPEN") {
       const appVersion = req.headers.appversion;
+      const appDevice = req.headers.appdevice;
       await prisma.user.update({
         where: { matomo_id: matomoId },
         data: {
           appVersion: appVersion,
+          appDevice: appDevice,
         },
       });
     }
