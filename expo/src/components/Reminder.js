@@ -36,8 +36,6 @@ const Reminder = ({
   onSetReminderConfirm,
   title,
   wrapperTitle = null,
-  notifReminderTitle = "C'est l'heure de votre suivi !",
-  notifReminderMessage = "N'oubliez pas de remplir votre agenda Oz",
   onlyDaily,
 }) => {
   const setReminderHasBeenSet = useSetRecoilState(reminderHasBeenSetState);
@@ -57,81 +55,10 @@ const Reminder = ({
     setReminder(dayjs(reminder));
   };
 
-  const notifHandled = useRef(false);
-  const handleNotification = (notification) => {
-    if (Platform.OS === "android") {
-      if (notification.title === notifReminderTitle) {
-        navigation.navigate("CONSO_FOLLOW_UP_NAVIGATOR", { screen: "CONSO_FOLLOW_UP" });
-        logEvent({
-          category: "CONSO",
-          action: "CONSO_OPEN",
-          name: "ORIGIN",
-          value: CONSTANTS.FROM_BACKGROUND_NOTIFICATION,
-        });
-      }
-    }
-    if (Platform.OS === "ios") {
-      if (notification.foreground && !notifHandled.current) {
-        notifHandled.current = true;
-        if (notification.message === notifReminderMessage) {
-          Alert.alert(
-            notifReminderTitle,
-            notifReminderMessage,
-            [
-              {
-                text: "Suivi",
-                onPress: () => {
-                  navigation.navigate("CONSO_FOLLOW_UP_NAVIGATOR", { screen: "CONSO_FOLLOW_UP" });
-                  logEvent({
-                    category: "CONSO",
-                    action: "CONSO_OPEN",
-                    name: "ORIGIN",
-                    value: CONSTANTS.FROM_LOCAL_NOTIFICATION,
-                  });
-                  notifHandled.current = false;
-                },
-              },
-              {
-                text: "Annuler",
-                style: "cancel",
-                onPress: () => {
-                  notifHandled.current = false;
-                },
-              },
-            ],
-            { cancelable: true }
-          );
-        }
-      } else {
-        if (notification.message === notifReminderMessage) {
-          navigation.navigate("CONSO_FOLLOW_UP_NAVIGATOR", { screen: "CONSO_FOLLOW_UP" });
-          logEvent({
-            category: "CONSO",
-            action: "CONSO_OPEN",
-            name: "ORIGIN",
-            value: CONSTANTS.FROM_BACKGROUND_NOTIFICATION,
-          });
-        }
-      }
-    }
-  };
-
-  const scheduleNotification = async (
-    reminder = new Date(Date.now() + 10 * 1000),
-    mode = "day",
-    weekDay = 0
-  ) => {
+  const scheduleNotification = async (reminder = new Date(Date.now() + 10 * 1000), mode = "day", weekDay = 0) => {
     NotificationService.cancelAll();
 
-    const weekDayName = [
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "sunday",
-    ][weekDay];
+    const weekDayName = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"][weekDay];
 
     if (!storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN")) return;
 
@@ -261,15 +188,10 @@ const Reminder = ({
 
   useEffect(() => {
     getReminder(false);
-    const unsubscribe = NotificationService.subscribe(handleNotification);
-    return () => {
-      unsubscribe();
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const continueButton =
-    route?.params?.enableContinueButton && route?.params?.onPressContinueNavigation?.length > 0;
+  const continueButton = route?.params?.enableContinueButton && route?.params?.onPressContinueNavigation?.length > 0;
   const continueButtonOnPress = async () => {
     if (!reminder) return navigation.navigate(...route.params.onPressContinueNavigation);
     setReminderHasBeenSet(true);
@@ -292,17 +214,13 @@ const Reminder = ({
           ) : (
             <>
               <Title>
-                <TextStyled color="#4030a5">
-                  {title || "Une aide pour penser à noter vos consommations"}
-                </TextStyled>
+                <TextStyled color="#4030a5">{title || "Une aide pour penser à noter vos consommations"}</TextStyled>
               </Title>
               <SubTitle>
                 {reminder ? (
                   <>
                     <TextStyled color="#191919">Vous avez défini un rappel à</TextStyled>
-                    <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format(
-                      "HH:mm"
-                    )} \n `}</TextStyled>
+                    <TextStyled color="#4030a5">{`\n \n${dayjs(reminder).format("HH:mm")} \n `}</TextStyled>
                     <TextStyled color="#191919">tous les jours.</TextStyled>
                   </>
                 ) : (
@@ -318,16 +236,12 @@ const Reminder = ({
               <>
                 <EditButton content={"Modifier le rappel"} onPress={showReminderSetup} />
                 <RemoveButton content="Désactiver le rappel" onPress={deleteReminder} />
-                {continueButton && (
-                  <ButtonPrimary content="Continuer" onPress={continueButtonOnPress} />
-                )}
+                {continueButton && <ButtonPrimary content="Continuer" onPress={continueButtonOnPress} />}
               </>
             ) : (
               <>
                 <ButtonPrimary content={"Définir un rappel"} onPress={showReminderSetup} />
-                {continueButton && (
-                  <EditButton content="Continuer" onPress={continueButtonOnPress} />
-                )}
+                {continueButton && <EditButton content="Continuer" onPress={continueButtonOnPress} />}
               </>
             )}
           </ButtonsContainer>
@@ -338,10 +252,7 @@ const Reminder = ({
             hide={() => setReminderSetupVisible(false)}
             setReminderRequest={setReminderRequest}
           />
-          <ReminderErrorAlert
-            visible={reminderErrorAlertVisible}
-            hide={() => setReminderErrorAlertVisible(false)}
-          />
+          <ReminderErrorAlert visible={reminderErrorAlertVisible} hide={() => setReminderErrorAlertVisible(false)} />
         </Container>
       </WrapperContainer>
     </>
@@ -404,7 +315,8 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
         animationType="fade"
         hide={hide}
         withBackground
-        hideOnTouch>
+        hideOnTouch
+      >
         <ModalContainer>
           {mode !== "week" ? (
             <>
@@ -417,7 +329,8 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
                     setMode("day");
                     setModePickerVisible(false);
                     setTimeout(() => setTimePickerVisible(true), 500);
-                  }}>
+                  }}
+                >
                   Tous les jours
                 </ModeSelectButton>
                 <ModeSelectButton
@@ -425,7 +338,8 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
                     setMode("week");
                     setModePickerVisible(false);
                     setWeekdayPickerVisible(true);
-                  }}>
+                  }}
+                >
                   Une fois par semaine
                 </ModeSelectButton>
               </ModalContent>
@@ -436,19 +350,18 @@ const ModeAndWeekDayChooseModal = ({ visible, hide, setReminderRequest, onlyDail
                 <TextStyled color="#4030a5">Quel jour ?</TextStyled>
               </ModalTitle>
               <ModalContent>
-                {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map(
-                  (weekDay, index) => (
-                    <ModeSelectButton
-                      key={index}
-                      onPress={() => {
-                        setWeekDay(index % 7);
-                        setWeekdayPickerVisible(false);
-                        setTimeout(() => setTimePickerVisible(true), 500);
-                      }}>
-                      {weekDay}
-                    </ModeSelectButton>
-                  )
-                )}
+                {["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].map((weekDay, index) => (
+                  <ModeSelectButton
+                    key={index}
+                    onPress={() => {
+                      setWeekDay(index % 7);
+                      setWeekdayPickerVisible(false);
+                      setTimeout(() => setTimePickerVisible(true), 500);
+                    }}
+                  >
+                    {weekDay}
+                  </ModeSelectButton>
+                ))}
               </ModalContent>
             </>
           )}
@@ -472,9 +385,7 @@ const ReminderErrorAlert = ({ visible, hide }) => {
             <TextStyled color="#4030a5">Ce service nécessite une connexion internet</TextStyled>
           </ModalTitle>
           <ModalContent>
-            <TextStyled>
-              Veuillez vous connecter à internet avant de définir votre rappel
-            </TextStyled>
+            <TextStyled>Veuillez vous connecter à internet avant de définir votre rappel</TextStyled>
           </ModalContent>
         </ModalContainer>
       </Modal>
