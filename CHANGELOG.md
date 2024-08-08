@@ -1,3 +1,10 @@
+## [1.162.21](https://github.com/SocialGouv/ozensemble/compare/v1.162.20...v1.162.21) (2024-08-08)
+
+
+### Bug Fixes
+
+* no milestone ([860774f](https://github.com/SocialGouv/ozensemble/commit/860774f2599a714b9bba9d2e5145d6bf97bc0629))
+
 ## [1.162.20](https://github.com/SocialGouv/ozensemble/compare/v1.162.19...v1.162.20) (2024-08-06)
 
 
