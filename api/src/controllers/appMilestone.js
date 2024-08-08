@@ -100,7 +100,7 @@ router.post(
         const featureTransfer = await prisma.appMilestone.findUnique({
           where: { id: `${user.id}_@TransferData` },
         });
-        if (featureTransfer) {
+        if (!featureTransfer) {
           await prisma.appMilestone.create({
             data: {
               id: `${user.id}_@TransferData`,
