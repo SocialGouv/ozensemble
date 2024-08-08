@@ -21,6 +21,7 @@ import CravingIcon from "./illustrations/CravingIcon";
 import StrategyIcon from "./illustrations/StrategyIcon";
 import CupMotivation from "./illustrations/icons/CupMotivation";
 import TransferModalIcon from "./illustrations/icons/TransferModalIcon";
+import { APPSTORE_URL, PLAYSTORE_URL } from "../reference/urls";
 
 /* example
 {
@@ -56,8 +57,8 @@ const InAppModal = ({ navigation, route }) => {
         } else {
           Linking.openURL(
             Platform.select({
-              ios: "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1",
-              android: "https://play.google.com/store/apps/details?id=com.addicto",
+              ios: APPSTORE_URL,
+              android: PLAYSTORE_URL,
             })
           );
         }
@@ -90,8 +91,8 @@ const InAppModal = ({ navigation, route }) => {
         } else {
           Linking.openURL(
             Platform.select({
-              ios: "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1",
-              android: "https://play.google.com/store/apps/details?id=com.addicto",
+              ios: APPSTORE_URL,
+              android: PLAYSTORE_URL,
             })
           );
         }

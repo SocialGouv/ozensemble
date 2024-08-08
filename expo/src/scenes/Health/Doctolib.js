@@ -7,6 +7,7 @@ import Background from "../../components/Background";
 import BackButton from "../../components/BackButton";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { defaultPaddingFontScale } from "../../styles/theme";
+import { DOCTOLIB_URL } from "../../reference/urls";
 
 const Doctolib = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
@@ -56,11 +57,7 @@ const Doctolib = ({ navigation }) => {
   };
 
   return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      presentationStyle="formSheet"
-      onRequestClose={hide}>
+    <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={hide}>
       <SafeAreaProvider>
         <Background color="#f9f9f9">
           <Container>
@@ -70,7 +67,7 @@ const Doctolib = ({ navigation }) => {
             <WebViewContainer>
               <WebView
                 source={{
-                  uri: "https://www.doctolib.fr/addictologue/montreuil/ensemble-oz?utm_campaign=website-button&amp;utm_source=ensemble-oz-website-button&amp;utm_medium=referral&amp;utm_content=option-1&amp;utm_term=ensemble-oz",
+                  uri: DOCTOLIB_URL,
                 }}
                 renderLoading={Loading}
                 startInLoadingState

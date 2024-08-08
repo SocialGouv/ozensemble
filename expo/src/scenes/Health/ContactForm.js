@@ -7,6 +7,7 @@ import { logEvent } from "../../services/logEventsWithMatomo";
 import { defaultPaddingFontScale, screenWidth } from "../../styles/theme";
 import H2 from "../../components/H2";
 import WrapperContainer from "../../components/WrapperContainer";
+import { CAPASSCITE } from "../../reference/urls";
 
 const ContactForm = ({ navigation }) => {
   return (
@@ -16,11 +17,10 @@ const ContactForm = ({ navigation }) => {
         <>
           <TextStyled color="#4030a5">Échangez</TextStyled>
           <TextStyled color="#de285e"> gratuitement </TextStyled>
-          <TextStyled color="#4030a5">
-            par téléphone avec un professionnel de l'addiction
-          </TextStyled>
+          <TextStyled color="#4030a5">par téléphone avec un professionnel de l'addiction</TextStyled>
         </>
-      }>
+      }
+    >
       <TopSubTitle>
         <TextStyled color="#191919">Prenez un rendez-vous </TextStyled>
         <TextStyled color="#4030a5">téléphonique </TextStyled>
@@ -44,8 +44,8 @@ const ContactForm = ({ navigation }) => {
       </TopButtonContainer>
       <Extra>
         <TextStyled color="#191919">
-          Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire le
-          point ou répondront à vos questions. Nos locaux sont situés à Montreuil -{" "}
+          Nos équipes sont des professionnels spécialisés en addictions et vous aideront à faire le point ou répondront
+          à vos questions. Nos locaux sont situés à Montreuil -{" "}
         </TextStyled>
         <TextStyled
           color="#4030a5"
@@ -54,8 +54,9 @@ const ContactForm = ({ navigation }) => {
               category: "CONTACT",
               action: "CONTACT_WEBSITE_OPEN",
             });
-            Linking.openURL("https://www.capasscite.fr/");
-          }}>
+            Linking.openURL(CAPASSCITE);
+          }}
+        >
           Qui sommes nous ?
         </TextStyled>
       </Extra>

@@ -6,25 +6,22 @@ import WrapperContainer from "../../components/WrapperContainer";
 import TextStyled from "../../components/TextStyled";
 import H1 from "../../components/H1";
 import Background from "../../components/Background";
+import { GERALDINE_URL } from "../../reference/urls";
 
 const Official = ({ onClose }) => (
   <Background color="#39cec0" withSwiperContainer neverBottom>
     <WrapperContainer onPressBackButton={onClose}>
       <View className="items-center">
-        <Image
-          className="rounded-full w-[100px] h-[100px]"
-          source={require("../../assets/images/Icon.png")}
-        />
+        <Image className="rounded-full w-[100px] h-[100px]" source={require("../../assets/images/Icon.png")} />
       </View>
       <Spacer size={30} />
       <H1>Oz Ensemble, l’application des Ministères Sociaux</H1>
       <Spacer size={30} />
 
       <P>
-        Oz est un service publique numérique anonyme et gratuit développé par la Fabrique Numérique,
-        incubateur des Ministères Sociaux et financé par l’Agence Régionale de Santé d’Ile de France
-        et de la MILDECA (Mission Interministérielle de Lutte Contre les Drogues et les Conduites
-        Addictives)
+        Oz est un service publique numérique anonyme et gratuit développé par la Fabrique Numérique, incubateur des
+        Ministères Sociaux et financé par l’Agence Régionale de Santé d’Ile de France et de la MILDECA (Mission
+        Interministérielle de Lutte Contre les Drogues et les Conduites Addictives)
       </P>
       <View className="flex flex-row basis-11/12">
         <P noMarginBottom>
@@ -32,8 +29,9 @@ const Official = ({ onClose }) => (
           <Text
             className="text-indigo-700"
             onPress={() => {
-              Linking.openURL("https://www.linkedin.com/in/geraldine-talbot-13989b263");
-            }}>
+              Linking.openURL(GERALDINE_URL);
+            }}
+          >
             Docteur Géraldine Talbot
           </Text>
           , médecin addictologue de l’association CaPASSCité.
@@ -42,28 +40,12 @@ const Official = ({ onClose }) => (
 
       {/*  */}
       <View className="flex-row items-center justify-between">
-        <Image
-          className="w-[45%]"
-          source={require("../../assets/images/MIN_SOCIAUX.png")}
-          resizeMode="contain"
-        />
-        <Image
-          className="w-[45%]"
-          resizeMode="contain"
-          source={require("../../assets/images/Logo_ARS.png")}
-        />
+        <Image className="w-[45%]" source={require("../../assets/images/MIN_SOCIAUX.png")} resizeMode="contain" />
+        <Image className="w-[45%]" resizeMode="contain" source={require("../../assets/images/Logo_ARS.png")} />
       </View>
       <View className="flex-row items-center justify-between">
-        <Image
-          className="w-[45%]"
-          resizeMode="contain"
-          source={require("../../assets/images/logo_MILDECA.png")}
-        />
-        <Image
-          className="w-[45%]"
-          resizeMode="contain"
-          source={require("../../assets/images/CaPASSCite.png")}
-        />
+        <Image className="w-[45%]" resizeMode="contain" source={require("../../assets/images/logo_MILDECA.png")} />
+        <Image className="w-[45%]" resizeMode="contain" source={require("../../assets/images/CaPASSCite.png")} />
       </View>
     </WrapperContainer>
   </Background>

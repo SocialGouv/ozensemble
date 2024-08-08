@@ -1,13 +1,6 @@
 import * as Linking from "expo-linking";
 import React, { useEffect } from "react";
-import {
-  InteractionManager,
-  Platform,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { InteractionManager, Platform, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import InAppReview from "react-native-in-app-review";
 import Svg, { Path } from "react-native-svg";
 import { useSetRecoilState } from "recoil";
@@ -25,6 +18,7 @@ import { BadgeDrinks } from "./Svgs/BadgeDrinks";
 import { BadgeGoals } from "./Svgs/BadgeGoals";
 import { BadgeShare } from "./Svgs/BadgeShare";
 import { LockedBadge } from "./Svgs/LockedBadge";
+import { APPSTORE_URL, PLAYSTORE_URL } from "../../reference/urls";
 /* example
 {
     category: 'drinks',
@@ -70,8 +64,8 @@ const BadgeModal = ({ navigation, route }) => {
         } else {
           Linking.openURL(
             Platform.select({
-              ios: "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1",
-              android: "https://play.google.com/store/apps/details?id=com.addicto",
+              ios: APPSTORE_URL,
+              android: PLAYSTORE_URL,
             })
           );
         }
@@ -97,8 +91,8 @@ const BadgeModal = ({ navigation, route }) => {
         } else {
           Linking.openURL(
             Platform.select({
-              ios: "https://apps.apple.com/us/app/oz-ensemble/id1498190343?ls=1",
-              android: "https://play.google.com/store/apps/details?id=com.addicto",
+              ios: APPSTORE_URL,
+              android: PLAYSTORE_URL,
             })
           );
         }
@@ -154,9 +148,7 @@ const BadgeModal = ({ navigation, route }) => {
         )}
         {!!badge?.secondaryButtonTitle?.length && (
           <TouchableOpacity>
-            <Text
-              className="text-indigo-600 text-center underline text-base"
-              onPress={onSecondaryPress}>
+            <Text className="text-indigo-600 text-center underline text-base" onPress={onSecondaryPress}>
               {badge?.secondaryButtonTitle}
             </Text>
           </TouchableOpacity>
