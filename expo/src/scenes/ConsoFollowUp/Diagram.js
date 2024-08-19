@@ -12,7 +12,6 @@ import { isToday } from "../../services/dates";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import Equality from "../../components/illustrations/Equality";
-import H3 from "../../components/H3";
 import PeriodSelector from "../../components/PeriodSelector";
 import PeriodSwitchToggle from "../../components/PeriodSwitchToggle";
 import Stars from "../../components/illustrations/Stars";
@@ -28,8 +27,7 @@ const computeBarsHeight = (highestDosesInPeriod, highestAcceptableDosesPerDay) =
   return {
     barMaxHeight: barHighestHeightPossible,
     barMaxAcceptableDoseHeight:
-      (highestAcceptableDosesPerDay / (highestDosesInPeriod < 2 ? 2 : highestDosesInPeriod)) *
-      barHighestHeightPossible,
+      (highestAcceptableDosesPerDay / (highestDosesInPeriod < 2 ? 2 : highestDosesInPeriod)) * barHighestHeightPossible,
   };
 };
 
@@ -46,8 +44,7 @@ const diffWithPreviousWeekSelector = selectorFamily({
         daysOfLastWeek.push(nextDay);
       }
 
-      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0)
-        return { fillConsoFirst: true };
+      if (daysOfLastWeek.filter((day) => isNaN(dailyDoses[day])).length > 0) return { fillConsoFirst: true };
 
       const firstDayThisWeek = dayjs(dayjs(firstDay).startOf("week"));
       const daysOfThisWeek = [];
@@ -126,9 +123,7 @@ export default function Diagram({ inModalHelp = false }) {
         values.push(Math.min(maxDosesOnScreen, weeklyDoses[xValue] ?? 0));
       }
       if (period === "monthly") {
-        values.push(
-          Math.min(maxDosesOnScreen, monthlyDoses[xValue.slice(0, "YYYY-MM".length)] ?? 0)
-        );
+        values.push(Math.min(maxDosesOnScreen, monthlyDoses[xValue.slice(0, "YYYY-MM".length)] ?? 0));
       }
     }
     return values;
@@ -201,41 +196,23 @@ export default function Diagram({ inModalHelp = false }) {
           const barHeight = yValue > 0 ? Math.round(yValue) : 0;
           const underLineValue = Math.min(barHeight, highestAcceptableDosesInPeriod);
           const overLineValue =
-            barHeight > highestAcceptableDosesInPeriod &&
-            barHeight - highestAcceptableDosesInPeriod;
+            barHeight > highestAcceptableDosesInPeriod && barHeight - highestAcceptableDosesInPeriod;
 
           return (
             <Bar
               key={index}
               height={(doseHeight * barHeight || minBarHeight) + doseTextHeight}
-              heightFactor={barHeight || 0}>
+              heightFactor={barHeight || 0}
+            >
               {yValue >= 0 ? (
-                <Dose
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  ellipsizeMode="clip"
-                  overLine={Boolean(overLineValue)}>
-                  {Math.round(yValue)}
-                </Dose>
+                <DoseCustom overLine={Boolean(overLineValue)}>{Math.round(yValue)}</DoseCustom>
               ) : (
-                <Dose
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  ellipsizeMode="clip"
-                  overLine={Boolean(overLineValue)}>
-                  ?
-                </Dose>
+                <DoseCustom overLine={Boolean(overLineValue)}>?</DoseCustom>
               )}
               {Boolean(overLineValue) && (
-                <UpperBar
-                  bottom={doseHeight * highestAcceptableDosesInPeriod}
-                  height={doseHeight * overLineValue}
-                />
+                <UpperBar bottom={doseHeight * highestAcceptableDosesInPeriod} height={doseHeight * overLineValue} />
               )}
-              <LowerBar
-                withTopRadius={!overLineValue}
-                height={doseHeight * underLineValue || minBarHeight}
-              />
+              <LowerBar withTopRadius={!overLineValue} height={doseHeight * underLineValue || minBarHeight} />
             </Bar>
           );
         })}
@@ -255,9 +232,7 @@ export default function Diagram({ inModalHelp = false }) {
             case "monthly":
               return (
                 <LegendContainer backgound={"transparent"} key={index}>
-                  <Legend color={"#4030A5"}>
-                    {dayjs(day).format("MMM").capitalize().slice(0, 3)}
-                  </Legend>
+                  <Legend color={"#4030A5"}>{dayjs(day).format("MMM").capitalize().slice(0, 3)}</Legend>
                 </LegendContainer>
               );
             case "weekly":
@@ -283,9 +258,7 @@ export default function Diagram({ inModalHelp = false }) {
       </LegendsContainer>
       {!inModalHelp && (
         <TouchableOpacity className="mb-6">
-          <Text
-            className="text-[#4030A5] text-center underline"
-            onPress={() => setShowHelpModal(true)}>
+          <Text className="text-[#4030A5] text-center underline" onPress={() => setShowHelpModal(true)}>
             Comprendre le graphique et les unités d'alcool
           </Text>
         </TouchableOpacity>
@@ -301,14 +274,14 @@ export default function Diagram({ inModalHelp = false }) {
           message={
             <>
               <TextStyled>
-                Votre consommation est en hausse de {-diff} verre{-diff > 1 ? "s" : ""} par rapport
-                à la semaine dernière.
+                Votre consommation est en hausse de {-diff} verre{-diff > 1 ? "s" : ""} par rapport à la semaine
+                dernière.
               </TextStyled>
               <TextStyled />
               <TextStyled>
                 Rien de grave, vous êtes déjà dans une démarche d'amélioration et c'est très bien
-                {"\u00A0"}! <TextStyled bold>Découvrez nos articles santé</TextStyled> pour vous
-                motiver à réduire votre consommation.
+                {"\u00A0"}! <TextStyled bold>Découvrez nos articles santé</TextStyled> pour vous motiver à réduire votre
+                consommation.
               </TextStyled>
             </>
           }
@@ -321,8 +294,8 @@ export default function Diagram({ inModalHelp = false }) {
           message={
             <>
               <TextStyled>
-                Bravo, vous avez consommé {diff} verre{diff > 1 ? "s" : ""} de moins que la semaine
-                dernière, <TextStyled bold>continuez comme cela{"\u00A0"}!</TextStyled>
+                Bravo, vous avez consommé {diff} verre{diff > 1 ? "s" : ""} de moins que la semaine dernière,{" "}
+                <TextStyled bold>continuez comme cela{"\u00A0"}!</TextStyled>
               </TextStyled>
             </>
           }
@@ -338,14 +311,12 @@ export default function Diagram({ inModalHelp = false }) {
           message={
             <>
               <TextStyled>
-                Votre consommation est identique à la semaine précédente (soit{" "}
-                {thisWeekNumberOfDrinks} verres).
+                Votre consommation est identique à la semaine précédente (soit {thisWeekNumberOfDrinks} verres).
               </TextStyled>
               <TextStyled />
               <TextStyled>
-                Si besoin d'un coup de pouce, vous pouvez{" "}
-                <TextStyled bold>découvrir nos articles santé</TextStyled> pour vous motiver à
-                réduire votre consommation{"\u00A0"}!
+                Si besoin d'un coup de pouce, vous pouvez <TextStyled bold>découvrir nos articles santé</TextStyled>{" "}
+                pour vous motiver à réduire votre consommation{"\u00A0"}!
               </TextStyled>
             </>
           }
@@ -358,8 +329,8 @@ export default function Diagram({ inModalHelp = false }) {
           message={
             <>
               <TextStyled>
-                Ajoutez vos consommations <TextStyled bold>tous les jours</TextStyled> pour accéder
-                à l'analyse de la semaine. Bon courage{"\u00A0"}!
+                Ajoutez vos consommations <TextStyled bold>tous les jours</TextStyled> pour accéder à l'analyse de la
+                semaine. Bon courage{"\u00A0"}!
               </TextStyled>
             </>
           }
@@ -497,7 +468,8 @@ const LowerBar = styled.View`
 `;
 
 const doseTextHeight = 25;
-const Dose = styled(H3)`
+
+const DoseCustom = styled.Text`
   height: ${doseTextHeight}px;
   font-weight: bold;
   width: ${barWidth * 2}px;
@@ -529,11 +501,7 @@ const Elem = ({ content, lineHeight = 20 }) => (
 const DiagramHelpModal = ({ visible, onCloseHelp }) => {
   const totalDrinksByDrinkingDay = useRecoilValue(totalDrinksByDrinkingDaySelector);
   return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      presentationStyle="formSheet"
-      onRequestClose={onCloseHelp}>
+    <Modal visible={visible} animationType="slide" presentationStyle="formSheet" onRequestClose={onCloseHelp}>
       <WrapperContainer onPressBackButton={onCloseHelp}>
         <Diagram inModalHelp={true} />
         <Paragraph>
@@ -557,9 +525,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
                 </TextStyled>{" "}
                 {totalDrinksByDrinkingDay === 0
                   ? "(2 unités représentant pour l'instant le seuil fixé par l'OMS)"
-                  : `(${totalDrinksByDrinkingDay} unité${
-                      totalDrinksByDrinkingDay > 1 ? "s" : ""
-                    } par jour)`}
+                  : `(${totalDrinksByDrinkingDay} unité${totalDrinksByDrinkingDay > 1 ? "s" : ""} par jour)`}
               </TextStyled>
             }
           />
@@ -568,8 +534,8 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           <Elem
             content={
               <TextStyled>
-                Une unité d'alcool correspond à environ 10 grammes d'alcool pur, soit environ un
-                verre de vin de 13cl à 12°c ou un demi de bière à 4°c par exemple.
+                Une unité d'alcool correspond à environ 10 grammes d'alcool pur, soit environ un verre de vin de 13cl à
+                12°c ou un demi de bière à 4°c par exemple.
               </TextStyled>
             }
           />
@@ -580,8 +546,7 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
             content={
               <TextStyled>
                 Lorsque vous saisisez une consommation, l'application{" "}
-                <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité
-                d'alcool.
+                <TextStyled color="#4030a5">convertit automatiquement</TextStyled> en unité d'alcool.
               </TextStyled>
             }
           />
@@ -590,8 +555,8 @@ const DiagramHelpModal = ({ visible, onCloseHelp }) => {
           <Elem
             content={
               <TextStyled>
-                <TextStyled color="#4030a5">Compter ses consommations</TextStyled> est un pas
-                essentiel pour prendre conscience de ce que l'on consomme.
+                <TextStyled color="#4030a5">Compter ses consommations</TextStyled> est un pas essentiel pour prendre
+                conscience de ce que l'on consomme.
               </TextStyled>
             }
           />
