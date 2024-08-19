@@ -1,3 +1,12 @@
+## [1.162.28](https://github.com/SocialGouv/ozensemble/compare/v1.162.27...v1.162.28) (2024-08-19)
+
+
+### Bug Fixes
+
+* change own conso ([#622](https://github.com/SocialGouv/ozensemble/issues/622)) ([64de0d6](https://github.com/SocialGouv/ozensemble/commit/64de0d6cdc04ee22c5617cd688728fe278ea8f2c))
+* diagram numbers ([#623](https://github.com/SocialGouv/ozensemble/issues/623)) ([7bba8e5](https://github.com/SocialGouv/ozensemble/commit/7bba8e5b18513f9b46642df4245df3e425135ed1))
+* privacy policy ([#624](https://github.com/SocialGouv/ozensemble/issues/624)) ([e892bf5](https://github.com/SocialGouv/ozensemble/commit/e892bf51a045a18afc50ca0e9ec36977b17981ec))
+
 ## [1.162.27](https://github.com/SocialGouv/ozensemble/compare/v1.162.26...v1.162.27) (2024-08-08)
 
 
