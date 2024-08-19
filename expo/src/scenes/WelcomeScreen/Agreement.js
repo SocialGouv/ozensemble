@@ -9,7 +9,6 @@ const hitSlop = { top: 40, left: 40, right: 40, bottom: 40 };
 
 const Agreement = ({ onAgree, agreed }) => {
   const [showCGUs, setShowCGUs] = useState(false);
-  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
 
   const Wrapper = Platform.select({
     ios: TouchableWithoutFeedback,
