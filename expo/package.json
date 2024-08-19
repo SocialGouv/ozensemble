@@ -1,6 +1,6 @@
 {
   "name": "oz-ensemble",
-  "version": "1.26.2",
+  "version": "1.26.3",
   "scripts": {
     "get-ip": "./get-ip.sh && echo \"this script updates the API IP to your own IP, because that's what Android Emulator needs to work. It's based on your wifi IP, if you need ethernet it won't work (needs en1 instead of en0)\"",
     "start": "expo start --dev-client",
@@ -41,7 +41,7 @@
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^6.3.2",
     "@sentry/react-native": "~5.22.0",
-    "@shopify/flash-list": "1.6.4",
+    "@shopify/flash-list": "1.7.1",
     "base-64": "^1.0.0",
     "dayjs": "^1.11.11",
     "expo": "~51.0.22",
