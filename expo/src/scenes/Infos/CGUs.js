@@ -4,7 +4,7 @@ import BackButton from "../../components/BackButton";
 import { defaultPaddingFontScale } from "../../styles/theme";
 import styled from "styled-components";
 import WebView from "react-native-webview";
-import { CGUS_URL } from "../../reference/urls";
+import { CGUS_AND_PRIVACY_POLICY_TEXT } from "../../reference/urls";
 
 const CGUs = ({ onClose }) => (
   <View className="flex-1 justify-start items-center mt-6">
@@ -13,9 +13,11 @@ const CGUs = ({ onClose }) => (
     </View>
     <WebViewContainer>
       <WebView
+        originWhitelist={['*']}
         source={{
-          uri: CGUS_URL,
+          html: CGUS_AND_PRIVACY_POLICY_TEXT,
         }}
+        style={{ flex: 1, width: Dimensions.get("window").width }}
       />
     </WebViewContainer>
   </View>
