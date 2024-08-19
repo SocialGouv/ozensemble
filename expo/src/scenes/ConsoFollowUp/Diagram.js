@@ -12,7 +12,6 @@ import { isToday } from "../../services/dates";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import Equality from "../../components/illustrations/Equality";
-import H3 from "../../components/H3";
 import PeriodSelector from "../../components/PeriodSelector";
 import PeriodSwitchToggle from "../../components/PeriodSwitchToggle";
 import Stars from "../../components/illustrations/Stars";
