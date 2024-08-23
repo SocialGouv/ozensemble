@@ -21,6 +21,8 @@ router.post(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         created_from: "Goal",
         goal_isSetup: true,
         goal_daysWithGoalNoDrink: daysWithGoalNoDrink,
@@ -111,6 +113,8 @@ router.get(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         created_from: "GetGoal",
       },
       update: {},

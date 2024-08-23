@@ -98,6 +98,8 @@ router.put(
         push_notif_token: pushNotifToken,
       },
       create: {
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         push_notif_token: pushNotifToken,
         matomo_id: matomoId,
         created_from: "Reminder",

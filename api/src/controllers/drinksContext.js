@@ -72,6 +72,8 @@ router.post(
     const user = await prisma.user.upsert({
       where: { matomo_id: matomoId },
       create: {
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         matomo_id: matomoId,
       },
       update: {},

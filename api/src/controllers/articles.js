@@ -16,6 +16,8 @@ router.post(
       create: {
         matomo_id: matomoId,
         created_from: "Articles",
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
       },
       update: {},
     });

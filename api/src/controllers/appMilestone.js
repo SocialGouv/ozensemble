@@ -17,6 +17,8 @@ router.post(
       create: {
         matomo_id: matomoId,
         created_from: "AppMilestonePost",
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
       },
       update: {},
     });
@@ -48,6 +50,8 @@ router.post(
       create: {
         matomo_id: matomoId,
         created_from: "AppMilestoneInit",
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
       },
       update: {},
     });

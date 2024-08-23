@@ -64,8 +64,11 @@ router.post(
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         created_from: "GetBadges",
       },
+
       update: {},
     });
     const share_badges = await prisma.badge.findMany({

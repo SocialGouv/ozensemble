@@ -3,6 +3,128 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const geoip = require("geoip-lite");
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const { isStrongPassword } = require("validator");
+const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../config");
+
+// 1 year
+const JWT_MAX_AGE = "365d";
+
+function validatePassword(password) {
+  return isStrongPassword(password, {
+    minLength: 12,
+    minLowercase: 1,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1,
+  });
+}
+
+router.post(
+  "/signup",
+  catchErrors(async (req, res) => {
+    const { email, password, matomoId } = req.body || {};
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+
+    if (!email || !password) {
+      return res.status(400).json({ ok: false, error: "missing email or password" });
+    }
+
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ ok: false, error: "invalid email" });
+    }
+    if (!validatePassword(password)) {
+      return res.status(400).json({ ok: false, error: "password is not strong enough" });
+    }
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (user) {
+      return res.status(400).json({ ok: false, error: "email already exists" });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await prisma.user.upsert({
+      where: { matomo_id: matomoId },
+      update: updateObj,
+      create: {
+        email,
+        password: hashedPassword,
+        matomo_id: matomoId,
+        created_from,
+        ...updateObj,
+      },
+    });
+
+    const token = jwt.sign({ email }, JWT_SECRET, {
+      expiresIn: JWT_MAX_AGE,
+    });
+
+    return res.status(200).send({ ok: true, token });
+  })
+);
+
+router.post(
+  "/signin",
+  catchErrors(async (req, res) => {
+    const { email, password, matomoId } = req.body || {};
+    validator.isEmail(email);
+    validator.isStrongPassword(password);
+    console.log("signin", email, password, matomoId);
+    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+
+    if (!email || !password) {
+      return res.status(400).json({ ok: false, error: "missing email or password" });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return res.status(400).json({ ok: false, error: "wrong email or password" });
+    }
+    console.log("user", user);
+
+    // const match = await bcrypt.compare(password, user.password);
+    const match = password === user.password;
+
+    if (!match) {
+      return res.status(400).json({ ok: false, error: "wrong email or password" });
+    }
+
+    const token = jwt.sign({ email }, JWT_SECRET, {
+      expiresIn: JWT_MAX_AGE,
+    });
+
+    return res.status(200).send({ ok: true, token });
+  })
+);
+
+router.get(
+  "/signin_token",
+  catchErrors(async (req, res) => {
+    const token = req.headers.authorization?.split(" ")[1]; // Bearer token extraction
+    if (!token) {
+      return res.status(401).json({ ok: false, error: "No token provided" });
+    }
+    const decoded = jwt.verify(token, JWT_SECRET);
+
+    const user = await prisma.user.findUnique({
+      where: { email: decoded.email },
+    });
+
+    if (!user) {
+      return res.status(400).json({ ok: false, error: "user not found" });
+    }
+
+    return res.status(200).send({ ok: true, user, token });
+  })
+);
 
 router.put(
   "/",
@@ -30,6 +152,8 @@ router.put(
       update: updateObj,
       create: {
         matomo_id: matomoId,
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         created_from,
         ...updateObj,
       },

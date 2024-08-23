@@ -49,6 +49,8 @@ import { isInCravingKeyState } from "./recoil/craving";
 import { dayjsInstance } from "./services/dates";
 import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
 import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
+import SigninScreen from "./scenes/Auth/Signin";
+import SignupScreen from "./scenes/Auth/Signup";
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -166,7 +168,9 @@ const TabsNavigator = ({ navigation }) => {
 const AppStack = createNativeStackNavigator();
 const App = () => {
   const initialRouteName = useMemo(() => {
+    const token = storage.getString("@Token");
     const onBoardingDone = storage.getBoolean("@OnboardingDoneWithCGU");
+    if (token) return "SIGNIN_SCREEN";
     if (!onBoardingDone) return "WELCOME";
     return "TABS";
   }, []);
@@ -174,6 +178,8 @@ const App = () => {
   return (
     <>
       <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
+        <AppStack.Screen name="SIGNIN_SCREEN" component={SigninScreen} />
+        <AppStack.Screen name="SIGNUP_SCREEN" component={SignupScreen} />
         <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />

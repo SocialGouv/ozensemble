@@ -11,22 +11,14 @@ const WelcomeStart = ({ navigation }) => {
       <View className="h-[10%] " />
       <View className="h-[60%] px-5 justify-center">
         <View>
-          <TextStyled className="text-center text-white text-3xl font-bold mb-8">
-            Bienvenue sur Oz !
-          </TextStyled>
+          <TextStyled className="text-center text-white text-3xl font-bold mb-8">Bienvenue sur Oz !</TextStyled>
           <TextStyled className="text-center text-white text-xl">
-            Vous avez entre les mains un outil{" "}
-            <TextStyled className="font-bold text-white">gratuit</TextStyled> et{" "}
-            <TextStyled className="font-bold text-white">anonyme</TextStyled> de suivi de
-            consommation d’alcool
+            Vous avez entre les mains un outil <TextStyled className="font-bold text-white">gratuit</TextStyled> et{" "}
+            <TextStyled className="font-bold text-white">anonyme</TextStyled> de suivi de consommation d’alcool
           </TextStyled>
         </View>
         <View className="flex-1 items-center py-6 max-h-56">
-          <Image
-            source={require("../../assets/images/Icon.png")}
-            resizeMode="contain"
-            className="h-full w-full"
-          />
+          <Image source={require("../../assets/images/Icon.png")} resizeMode="contain" className="h-full w-full" />
         </View>
         <View>
           <TextStyled className="text-center text-white text-xl font-bold mb-1">
@@ -43,7 +35,7 @@ const WelcomeStart = ({ navigation }) => {
           content="Commencer"
           AnimationEffect
           onPress={() => {
-            navigation.push("WELCOME_SWIPER");
+            navigation.push("WELCOME_USER_TYPE");
           }}
         />
       </View>

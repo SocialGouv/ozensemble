@@ -4,7 +4,6 @@ import WrapperContainer from "../../components/WrapperContainer.js";
 import { storage } from "../../services/storage.js";
 import API from "../../services/api.js";
 import * as DocumentPicker from "expo-document-picker";
-import * as Expo from "expo";
 import RNFS from "react-native-fs";
 import Share from "react-native-share";
 import TipIcon from "../../components/illustrations/TipIcon.js";

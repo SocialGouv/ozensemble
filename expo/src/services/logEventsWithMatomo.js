@@ -25,13 +25,18 @@ export const initMatomo = async () => {
   if (!userId) {
     userId = Matomo.makeid();
     storage.set("@UserIdv2", userId);
-    await API.put({
-      path: "/user",
+    const response = await API.post({
+      path: "/user/signup",
       body: {
         matomoId: userId,
+        email: "yoanroszak@selego.co",
+        password: "password12@Abc",
         calledFrom: "initMatomo",
       },
     });
+    if (response.ok) {
+      storage.set("@Token", response.token);
+    }
   }
   Sentry.setUser({ id: userId });
   API.userId = userId;
