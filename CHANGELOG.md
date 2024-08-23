@@ -1,3 +1,10 @@
+## [1.162.30](https://github.com/SocialGouv/ozensemble/compare/v1.162.29...v1.162.30) (2024-08-23)
+
+
+### Bug Fixes
+
+* switch button ([49b0f16](https://github.com/SocialGouv/ozensemble/commit/49b0f16c9bab576514e5173eab9264233f6bea2b))
+
 ## [1.162.29](https://github.com/SocialGouv/ozensemble/compare/v1.162.28...v1.162.29) (2024-08-19)
 
 
