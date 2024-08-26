@@ -2596,7 +2596,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-navigation/bottom-tabs@npm:^6.5.11":
+"@react-navigation/bottom-tabs@npm:6.6.1":
   version: 6.6.1
   resolution: "@react-navigation/bottom-tabs@npm:6.6.1"
   dependencies:
@@ -10113,7 +10113,7 @@ __metadata:
     "@react-native-community/datetimepicker": "npm:8.0.1"
     "@react-native-community/masked-view": "npm:^0.1.11"
     "@react-native-community/netinfo": "npm:11.3.1"
-    "@react-navigation/bottom-tabs": "npm:^6.5.11"
+    "@react-navigation/bottom-tabs": "npm:6.6.1"
     "@react-navigation/native": "npm:^6.1.9"
     "@react-navigation/native-stack": "npm:^6.9.17"
     "@react-navigation/stack": "npm:^6.3.2"
