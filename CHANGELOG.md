@@ -1,3 +1,10 @@
+## [1.162.31](https://github.com/SocialGouv/ozensemble/compare/v1.162.30...v1.162.31) (2024-08-26)
+
+
+### Bug Fixes
+
+* tab ipad ([dc1de6b](https://github.com/SocialGouv/ozensemble/commit/dc1de6b2a42e9a4adc4dc08ae0ac3d2798036a40))
+
 ## [1.162.30](https://github.com/SocialGouv/ozensemble/compare/v1.162.29...v1.162.30) (2024-08-23)
 
 
