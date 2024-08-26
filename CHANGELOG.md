@@ -1,3 +1,10 @@
+## [1.162.32](https://github.com/SocialGouv/ozensemble/compare/v1.162.31...v1.162.32) (2024-08-26)
+
+
+### Bug Fixes
+
+* notifications url ([382a9d3](https://github.com/SocialGouv/ozensemble/commit/382a9d3ae482c2ffe9a1aabf18575b74f6b43e9d))
+
 ## [1.162.31](https://github.com/SocialGouv/ozensemble/compare/v1.162.30...v1.162.31) (2024-08-26)
 
 
