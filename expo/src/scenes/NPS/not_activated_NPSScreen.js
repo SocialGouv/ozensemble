@@ -9,7 +9,7 @@ import { storage } from "../../services/storage";
 import BackButton from "../../components/BackButton";
 import { sendMail } from "../../services/mail";
 
-const formatText = (answer, feedback, userId) =>
+const formatText = (answer, feedback, userId, contact) =>
   `
 userId: ${userId}
 Version: ${pck.version}
@@ -77,9 +77,18 @@ const Not_Activated_NPSScreen = ({ navigation }) => {
         action: "NOT_ACTIVATED_NPS_SEND_FEEDBACK",
       });
     }
+    console.log(
+      "sendNPS",
+      formatText(answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content, feedback, userId, contact)
+    );
     await sendMail({
       subject: "Not Activated 3 days NPS Addicto",
-      text: formatText(answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content, feedback, userId),
+      text: formatText(
+        answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content,
+        feedback,
+        userId,
+        contact
+      ),
     }).catch((err) => console.log("sendNPS err", err));
 
     npsSent.current = true;

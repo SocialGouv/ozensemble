@@ -9,6 +9,7 @@ export const deepLinkingConfig = {
       USER_SURVEY_START: "USER_SURVEY_START",
       USER_SURVEY_NOTIF: "USER_SURVEY_NOTIF",
       INACTIVITY_NPS_SCREEN: "INACTIVITY_NPS_SCREEN",
+      NOT_ACTIVATED_NPS_SCREEN: "NOT_ACTIVATED_NPS_SCREEN",
       APP: {
         screens: {
           ADD_DRINK: "ADD_DRINK",
