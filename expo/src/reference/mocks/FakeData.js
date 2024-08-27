@@ -203,6 +203,34 @@ const FakeData = () => {
           }}
         />
         <MenuItem
+          caption="Envoyer une notification user survey"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: "/test/test-notif",
+              body: {
+                matomoId: storage.getString("@UserIdv2"),
+                type: "USER_SURVEY",
+                date: new Date(Date.now() + 70000),
+              },
+            });
+          }}
+        />
+        <MenuItem
+          caption="Envoyer une notification defi1 day1"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: "/test/test-notif",
+              body: {
+                matomoId: storage.getString("@UserIdv2"),
+                type: "DEFI1_DAY1",
+                date: new Date(Date.now() + 70000),
+              },
+            });
+          }}
+        />
+        <MenuItem
           noAlert
           caption="Visualiser l'écran 10 jours d'inactivité"
           onPress={() => {

@@ -108,6 +108,9 @@ const scheduleNotificationsNotActivated3DaysCronJob = async () => {
           //last conso added is null
           equals: null,
         },
+        appVersion: {
+          gte: "313",
+        },
         createdAt: {
           gte: dayjs().utc().subtract(3, "day").startOf("day").toDate(),
           lte: dayjs().utc().subtract(3, "day").endOf("day").toDate(),
