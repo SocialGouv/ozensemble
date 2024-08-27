@@ -12,23 +12,13 @@ import WrapperContainer from "../../components/WrapperContainer";
 import { sortConsosByTimestamp } from "../../helpers/consosHelpers.js";
 import { badgesCatalogState } from "../../recoil/badges";
 import { drinksState } from "../../recoil/consos";
-import {
-  daysWithGoalNoDrinkState,
-  drinksByWeekState,
-  goalsState,
-} from "../../recoil/gains";
+import { daysWithGoalNoDrinkState, drinksByWeekState, goalsState } from "../../recoil/gains";
 import API from "../../services/api";
 import NotificationService from "../../services/notifications";
 import { capture } from "../../services/sentry";
 import { storage } from "../../services/storage";
 import { defaultPaddingFontScale } from "../../styles/theme";
-import {
-  fakeDefi1,
-  fakeDefi2,
-  fakeDefi3,
-  fakeDefi4,
-  fakeDefi5,
-} from "./defis.js";
+import { fakeDefi1, fakeDefi2, fakeDefi3, fakeDefi4, fakeDefi5 } from "./defis.js";
 import { fakeConsoData } from "./fakeConsoData";
 import { fakeOnboardingQuizz } from "./fakeOnboardingQuizz";
 import { fakeGain } from "./gains";
@@ -66,23 +56,13 @@ const FakeData = () => {
                 matomoId: storage.getString("@UserIdv2"),
               },
             }).then((response) => {
-              if (response.ok)
-                Alert.alert(
-                  "Suis-je bien localisé ?",
-                  response.isWellLocated ? "Oui" : "Non"
-                );
+              if (response.ok) Alert.alert("Suis-je bien localisé ?", response.isWellLocated ? "Oui" : "Non");
             });
           }}
         />
         <H1Wrapper delete>Effacer des données</H1Wrapper>
-        <MenuItem
-          caption="Mon NPS"
-          onPress={() => storage.delete("@NPSDone")}
-        />
-        <MenuItem
-          caption="Ma consommation d'alcool"
-          onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)}
-        />
+        <MenuItem caption="Mon NPS" onPress={() => storage.delete("@NPSDone")} />
+        <MenuItem caption="Ma consommation d'alcool" onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)} />
         <MenuItem
           caption="Tous les défis"
           onPress={() => {
@@ -93,41 +73,21 @@ const FakeData = () => {
             deleteStorageValues(fakeDefi5);
           }}
         />
-        <MenuItem
-          caption="Tout le défi 1"
-          onPress={() => deleteStorageValues(fakeDefi1)}
-        />
-        <MenuItem
-          caption="Tout le défi 2"
-          onPress={() => deleteStorageValues(fakeDefi2)}
-        />
-        <MenuItem
-          caption="Tout le défi 3"
-          onPress={() => deleteStorageValues(fakeDefi3)}
-        />
-        <MenuItem
-          caption="Tout le défi 4"
-          onPress={() => deleteStorageValues(fakeDefi4)}
-        />
-        <MenuItem
-          caption="Tout le défi 5"
-          onPress={() => deleteStorageValues(fakeDefi5)}
-        />
+        <MenuItem caption="Tout le défi 1" onPress={() => deleteStorageValues(fakeDefi1)} />
+        <MenuItem caption="Tout le défi 2" onPress={() => deleteStorageValues(fakeDefi2)} />
+        <MenuItem caption="Tout le défi 3" onPress={() => deleteStorageValues(fakeDefi3)} />
+        <MenuItem caption="Tout le défi 4" onPress={() => deleteStorageValues(fakeDefi4)} />
+        <MenuItem caption="Tout le défi 5" onPress={() => deleteStorageValues(fakeDefi5)} />
         <MenuItem
           caption="Toutes les popups de nouvelles fonctionnalités"
           onPress={() => {
-            deleteStorageValues([
-              "@NewFeaturesPopupIdsShown",
-              "NewFeaturesLastShownId",
-            ]);
+            deleteStorageValues(["@NewFeaturesPopupIdsShown", "NewFeaturesLastShownId"]);
           }}
         />
         <MenuItem
           caption="Toutes mes consos"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.empty.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.empty.drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
           }}
         />
@@ -141,9 +101,7 @@ const FakeData = () => {
         <MenuItem
           caption="Reset consos et défi 1"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.empty.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.empty.drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
             deleteStorageValues(fakeDefi1);
           }}
@@ -158,17 +116,12 @@ const FakeData = () => {
             replaceStorageValues(fakeDefi5);
             replaceStorageValues(fakeOnboardingQuizz.risk);
             replaceStorageValues(fakeGain);
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.full.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.full.drinks));
           }}
         />
         <H1Wrapper>Simuler un badge</H1Wrapper>
         {badgesCatalog
-          .reduce(
-            (allBadges, category) => [...allBadges, ...category.badges],
-            []
-          )
+          .reduce((allBadges, category) => [...allBadges, ...category.badges], [])
           .map(({ title, category, stars }) => {
             return (
               <React.Fragment key={title + category}>
@@ -187,12 +140,8 @@ const FakeData = () => {
                 <MenuItem
                   key={title + category}
                   noAlert
-                  caption={
-                    category.includes("locked") ? `LOCKED ${title}` : title
-                  }
-                  onPress={() =>
-                    API.get({ path: "/badge/test", query: { category, stars } })
-                  }
+                  caption={category.includes("locked") ? `LOCKED ${title}` : title}
+                  onPress={() => API.get({ path: "/badge/test", query: { category, stars } })}
                 />
               </React.Fragment>
             );
@@ -208,10 +157,7 @@ const FakeData = () => {
               title: "Vos retours sont importants pour nous",
               message: "Avez-vous quelques secondes pour donner votre avis ?",
             });
-            storage.set(
-              "@NPSNotificationDate",
-              Math.round(NPSNotificationDate.getTime() / 1000) * 1000
-            );
+            storage.set("@NPSNotificationDate", Math.round(NPSNotificationDate.getTime() / 1000) * 1000);
           }}
         />
         <MenuItem
@@ -237,6 +183,20 @@ const FakeData = () => {
               body: {
                 matomoId: storage.getString("@UserIdv2"),
                 type: "INACTIVITY_10_DAYS",
+                date: new Date(Date.now() + 70000),
+              },
+            });
+          }}
+        />
+        <MenuItem
+          caption="Envoyer une notification 3 days not activated dans une minute et 10 secondes"
+          //async function creating a notification
+          onPress={async () => {
+            API.post({
+              path: "/test/test-notif",
+              body: {
+                matomoId: storage.getString("@UserIdv2"),
+                type: "NOT_ACTIVATED_3_DAYS",
                 date: new Date(Date.now() + 70000),
               },
             });
@@ -302,38 +262,21 @@ const FakeData = () => {
           caption="A la prochaine sortie de Craving afficher la modale nps"
           onPress={() => {
             storage.set("@CravingToNpsModal", false);
-            storage.set(
-              "@firstTimeCraving",
-              dayjs().subtract(7, "day").format("YYYY-MM-DD")
-            );
+            storage.set("@firstTimeCraving", dayjs().subtract(7, "day").format("YYYY-MM-DD"));
           }}
         />
 
         <H1Wrapper>Ma consommation d'alcool</H1Wrapper>
-        <MenuItem
-          caption="Sans risque"
-          onPress={() => replaceStorageValues(fakeOnboardingQuizz.good)}
-        />
-        <MenuItem
-          caption="Risquée"
-          onPress={() => replaceStorageValues(fakeOnboardingQuizz.risk)}
-        />
-        <MenuItem
-          caption="Addict"
-          onPress={() => replaceStorageValues(fakeOnboardingQuizz.addicted)}
-        />
+        <MenuItem caption="Sans risque" onPress={() => replaceStorageValues(fakeOnboardingQuizz.good)} />
+        <MenuItem caption="Risquée" onPress={() => replaceStorageValues(fakeOnboardingQuizz.risk)} />
+        <MenuItem caption="Addict" onPress={() => replaceStorageValues(fakeOnboardingQuizz.addicted)} />
         <H1Wrapper>Objectif</H1Wrapper>
-        <MenuItem
-          caption="Tout l'objectif"
-          onPress={() => replaceStorageValues(fakeGain)}
-        />
+        <MenuItem caption="Tout l'objectif" onPress={() => replaceStorageValues(fakeGain)} />
         <MenuItem
           caption="Objectif semaine dernière"
           onPress={() => {
             setDaysWithGoalNoDrink(["wednesday", "thursday"]);
-            setDrinksByWeek([
-              { drinkKey: "beer-half", quantity: 7, id: uuid() },
-            ]);
+            setDrinksByWeek([{ drinkKey: "beer-half", quantity: 7, id: uuid() }]);
             const matomoId = storage.getString("@UserIdv2");
             API.post({
               path: "/goal",
@@ -342,10 +285,7 @@ const FakeData = () => {
                 daysWithGoalNoDrink: ["wednesday", "thursday"],
                 dosesByDrinkingDay: 7,
                 dosesPerWeek: 35,
-                forceDate: dayjs()
-                  .startOf("week")
-                  .subtract(7, "day")
-                  .format("YYYY-MM-DD"),
+                forceDate: dayjs().startOf("week").subtract(7, "day").format("YYYY-MM-DD"),
               },
             }).then((res) => {
               if (res.ok) {
@@ -366,60 +306,37 @@ const FakeData = () => {
             replaceStorageValues(fakeDefi5);
           }}
         />
-        <MenuItem
-          caption="Tout le défi 1"
-          onPress={() => replaceStorageValues(fakeDefi1)}
-        />
-        <MenuItem
-          caption="Tout le défi 2"
-          onPress={() => replaceStorageValues(fakeDefi2)}
-        />
-        <MenuItem
-          caption="Tout le défi 3"
-          onPress={() => replaceStorageValues(fakeDefi3)}
-        />
-        <MenuItem
-          caption="Tout le défi 4"
-          onPress={() => replaceStorageValues(fakeDefi4)}
-        />
-        <MenuItem
-          caption="Tout le défi 5"
-          onPress={() => replaceStorageValues(fakeDefi5)}
-        />
+        <MenuItem caption="Tout le défi 1" onPress={() => replaceStorageValues(fakeDefi1)} />
+        <MenuItem caption="Tout le défi 2" onPress={() => replaceStorageValues(fakeDefi2)} />
+        <MenuItem caption="Tout le défi 3" onPress={() => replaceStorageValues(fakeDefi3)} />
+        <MenuItem caption="Tout le défi 4" onPress={() => replaceStorageValues(fakeDefi4)} />
+        <MenuItem caption="Tout le défi 5" onPress={() => replaceStorageValues(fakeDefi5)} />
         <H1Wrapper>Consommations</H1Wrapper>
         <MenuItem
           caption="2 mois avec une boisson par jour"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.long(700).drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.long(700).drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
           }}
         />
         <MenuItem
           caption="14 jours de conso complets"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.full.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.full.drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
           }}
         />
         <MenuItem
           caption="14 jours de conso partiels"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.partial.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.partial.drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
           }}
         />
         <MenuItem
           caption="10 jours de conso pas trop chargés"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.onlyBelow.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.onlyBelow.drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
           }}
         />
@@ -480,14 +397,8 @@ const FakeData = () => {
           }}
         />
         <H1Wrapper delete>Effacer des données</H1Wrapper>
-        <MenuItem
-          caption="Mon NPS"
-          onPress={() => storage.delete("@NPSDone")}
-        />
-        <MenuItem
-          caption="Ma consommation d'alcool"
-          onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)}
-        />
+        <MenuItem caption="Mon NPS" onPress={() => storage.delete("@NPSDone")} />
+        <MenuItem caption="Ma consommation d'alcool" onPress={() => deleteStorageValues(fakeOnboardingQuizz.good)} />
         <MenuItem
           caption="Tous les défis"
           onPress={() => {
@@ -498,41 +409,21 @@ const FakeData = () => {
             deleteStorageValues(fakeDefi5);
           }}
         />
-        <MenuItem
-          caption="Tout le défi 1"
-          onPress={() => deleteStorageValues(fakeDefi1)}
-        />
-        <MenuItem
-          caption="Tout le défi 2"
-          onPress={() => deleteStorageValues(fakeDefi2)}
-        />
-        <MenuItem
-          caption="Tout le défi 3"
-          onPress={() => deleteStorageValues(fakeDefi3)}
-        />
-        <MenuItem
-          caption="Tout le défi 4"
-          onPress={() => deleteStorageValues(fakeDefi4)}
-        />
-        <MenuItem
-          caption="Tout le défi 5"
-          onPress={() => deleteStorageValues(fakeDefi5)}
-        />
+        <MenuItem caption="Tout le défi 1" onPress={() => deleteStorageValues(fakeDefi1)} />
+        <MenuItem caption="Tout le défi 2" onPress={() => deleteStorageValues(fakeDefi2)} />
+        <MenuItem caption="Tout le défi 3" onPress={() => deleteStorageValues(fakeDefi3)} />
+        <MenuItem caption="Tout le défi 4" onPress={() => deleteStorageValues(fakeDefi4)} />
+        <MenuItem caption="Tout le défi 5" onPress={() => deleteStorageValues(fakeDefi5)} />
         <MenuItem
           caption="Toutes les popups de nouvelles fonctionnalités"
           onPress={() => {
-            deleteStorageValues([
-              "@NewFeaturesPopupIdsShown",
-              "NewFeaturesLastShownId",
-            ]);
+            deleteStorageValues(["@NewFeaturesPopupIdsShown", "NewFeaturesLastShownId"]);
           }}
         />
         <MenuItem
           caption="Toutes mes consos"
           onPress={() => {
-            setGlobalDrinksState(
-              sortConsosByTimestamp(fakeConsoData.empty.drinks)
-            );
+            setGlobalDrinksState(sortConsosByTimestamp(fakeConsoData.empty.drinks));
             storage.delete("nps-asked-after-more-than-3-consos");
           }}
         />
