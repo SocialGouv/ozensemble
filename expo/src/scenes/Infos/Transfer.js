@@ -5,7 +5,7 @@ import { storage } from "../../services/storage.js";
 import API from "../../services/api.js";
 import * as DocumentPicker from "expo-document-picker";
 import * as Expo from "expo";
-import RNFS from "react-native-fs";
+import * as FileSystem from "expo-file-system";
 import Share from "react-native-share";
 import TipIcon from "../../components/illustrations/TipIcon.js";
 import ClickIcon from "../../components/illustrations/icons/ClickIcon.js";
@@ -49,9 +49,9 @@ const Transfer = ({ navigation }) => {
       if (value !== null) toExportData[key] = value;
     });
     const jsonExport = JSON.stringify(toExportData);
-    const path = `${RNFS.DocumentDirectoryPath}/export-oz-ensemble.json`;
+    const path = `${FileSystem.documentDirectory}oz-ensemble-export.json`;
 
-    await RNFS.writeFile(path, jsonExport, "utf8");
+    await FileSystem.writeAsStringAsync(path, jsonExport, { encoding: FileSystem.EncodingType.UTF8 });
 
     const shareOptions = {
       url: `file://${path}`,
