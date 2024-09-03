@@ -26,36 +26,40 @@ router.post(
   "/signup",
   catchErrors(async (req, res) => {
     const { email, password, matomoId } = req.body || {};
+    console.log("signup", email, password, matomoId);
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
     if (!email || !password) {
       return res.status(400).json({ ok: false, error: "missing email or password" });
     }
 
+    console.log("validator.isEmail(email)", validator.isEmail(email));
     if (!validator.isEmail(email)) {
       return res.status(400).json({ ok: false, error: "invalid email" });
     }
+    console.log("validatePassword(password)", validatePassword(password));
     if (!validatePassword(password)) {
       return res.status(400).json({ ok: false, error: "password is not strong enough" });
     }
     const user = await prisma.user.findUnique({
       where: { email },
     });
+    console.log("user", user);
 
     if (user) {
       return res.status(400).json({ ok: false, error: "email already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const updateObj = {};
+    updateObj.email = email;
+    updateObj.password = hashedPassword;
 
     await prisma.user.upsert({
       where: { matomo_id: matomoId },
       update: updateObj,
       create: {
-        email,
-        password: hashedPassword,
         matomo_id: matomoId,
-        created_from,
         ...updateObj,
       },
     });

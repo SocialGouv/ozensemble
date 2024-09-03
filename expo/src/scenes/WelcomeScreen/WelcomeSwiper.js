@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
 import { storage } from "../../services/storage";
-import { ScreenCalendar, ScreenStats, ScreenDefi, ScreenAdvice } from "./Screens";
+import { ScreenCalendar, ScreenStats, ScreenDefi, ScreenAdvice, ScreenFeedback, ScreenCraving } from "./Screens";
 import Dot from "../../components/SwiperDot";
 import { View } from "react-native";
 
@@ -17,7 +17,7 @@ const WelcomeSwiper = ({ navigation }) => {
 
   const onStartPress = async () => {
     storage.set("@OnboardingDoneWithCGU", true);
-    navigation.navigate("USER_SURVEY_START", { from: "NEW_USER" });
+    navigation.navigate("SIGNUP_SCREEN");
   };
 
   const onPressNext = () => swiperRef?.current?.scrollBy(1);
@@ -38,10 +38,13 @@ const WelcomeSwiper = ({ navigation }) => {
           paginationStyle={{
             justifyContent: "center",
             bottom: 108,
-          }}>
+          }}
+        >
+          <ScreenFeedback onPressNext={onPressNext} />
           <ScreenCalendar onPressNext={onPressNext} />
           <ScreenStats onPressNext={onPressNext} />
           <ScreenDefi onPressNext={onPressNext} />
+          <ScreenCraving onPressNext={onPressNext} />
           <ScreenAdvice onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
       </View>

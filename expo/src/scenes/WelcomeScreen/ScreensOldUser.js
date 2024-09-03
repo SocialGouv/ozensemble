@@ -11,6 +11,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { Alert } from "react-native";
 import RNRestart from "react-native-restart";
 import API from "../../services/api";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export const StepOne = ({ onPressNext }) => (
   <View className="h-full">
@@ -92,10 +93,10 @@ export const StepTwo = ({ onPressNext }) => (
       <View className="absolute -bottom-0">
         <Wave currentIndex={0} size={screenWidth + 4} />
       </View>
-      <View className="flex flex-row justify-center flex-1">
+      <View className="flex flex-row justify-center">
         <TouchableOpacity
-          onPress={importData}
-          className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] p-2"
+          onPress={() => importData(onPressNext)}
+          className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] p-3"
         >
           <DownloadIcon size={20} className="" />
           <Text className="font-bold text-white text-center text-base">Importer mes données Oz</Text>
@@ -105,30 +106,25 @@ export const StepTwo = ({ onPressNext }) => (
   </View>
 );
 
-export const Validation = ({ onStartPress, agreed, setAgreed }) => (
+export const Validation = ({ onPressNext }) => (
   <View className="h-full">
-    <View className="h-2/3 justify-center">
-      <View className="px-5">
-        <Text className="text-center text-white text-2xl font-bold -bottom-4">Recevez des conseils personnalisés</Text>
+    <View className="h-2/3 justify-center space-y-16">
+      <View className="items-center">
+        <AntDesign name="checkcircleo" size={120} color="white" />
       </View>
-      <View className="flex-1 items-center">
-        <Image
-          source={require("../../assets/illustrations/screen_advice.png")}
-          resizeMode="contain"
-          className={"h-full w-[80%]"}
-        />
+      <View className="px-5">
+        <Text className="text-center text-white text-2xl font-bold">Vos données ont été importées avec succès !</Text>
       </View>
     </View>
     <View className="h-1/3 pb-12 justify-end items-center">
       <View className="absolute -bottom-0">
         <Wave currentIndex={2} size={screenWidth} />
       </View>
-      <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} className="" />
-      <ButtonPrimary content={"C'est parti"} AnimationEffect onPress={onStartPress} disabled={!agreed} />
+      <ButtonPrimary content={"Suivant"} AnimationEffect onPress={onPressNext} />
     </View>
   </View>
 );
-const importData = async () => {
+const importData = async (onPressNext) => {
   logEvent({ category: "TRANSFER", action: "IMPORT_DATA" });
   try {
     const result = await DocumentPicker.getDocumentAsync({ type: "application/json" });
@@ -136,6 +132,7 @@ const importData = async () => {
     const fileContents = await fetch(fileUri).then((response) => response.text());
     const pushNotifToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
     await overwriteData(fileContents, pushNotifToken);
+    onPressNext();
   } catch (err) {
     if (DocumentPicker.isCancel(err)) {
       logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "DOCUMENT_PICKER_CANCEL" });
@@ -169,10 +166,32 @@ const overwriteData = async (dataImported, pushNotifToken) => {
       } else {
         logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS", name: "PUSH_NOTIF_TOKEN_NOT_SYNC" });
       }
-      onPressNext();
     });
   } catch (error) {
     Alert.alert("Une erreur est survenue lors de l'importation des données");
     logEvent({ category: "TRANSFER", action: "IMPORT_DATA_FAILURE" });
   }
 };
+export const ScreenAdvice = ({ onStartPress, agreed, setAgreed }) => (
+  <View className="h-full">
+    <View className="h-2/3 justify-center">
+      <View className="px-5">
+        <Text className="text-center text-white text-2xl font-bold -bottom-4">Recevez des conseils personnalisés</Text>
+      </View>
+      <View className="flex-1 items-center">
+        <Image
+          source={require("../../assets/illustrations/screen_advice.png")}
+          resizeMode="contain"
+          className={"h-full w-[80%]"}
+        />
+      </View>
+    </View>
+    <View className="h-1/3 pb-12 justify-end items-center">
+      <View className="absolute -bottom-0">
+        <Wave currentIndex={3} size={screenWidth} />
+      </View>
+      <Agreement onAgree={() => setAgreed(!agreed)} agreed={agreed} className="" />
+      <ButtonPrimary content={"C'est parti"} AnimationEffect onPress={onStartPress} disabled={!agreed} />
+    </View>
+  </View>
+);

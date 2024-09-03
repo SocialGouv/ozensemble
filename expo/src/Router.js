@@ -51,6 +51,10 @@ import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
 import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
 import SigninScreen from "./scenes/Auth/Signin";
 import SignupScreen from "./scenes/Auth/Signup";
+import EmailConfirmationScreen from "./scenes/WelcomeScreen/EmailConfirmationScreen";
+import ForgotPassword from "./scenes/Auth/ForgotPassword";
+import ReinitialisePassword from "./scenes/Auth/ReinitialisePassword";
+import ChangeAccountModal from "./scenes/Infos/ChangeAccountModal";
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -180,6 +184,9 @@ const App = () => {
       <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         <AppStack.Screen name="SIGNIN_SCREEN" component={SigninScreen} />
         <AppStack.Screen name="SIGNUP_SCREEN" component={SignupScreen} />
+        <AppStack.Screen name="EMAIL_CONFIRMATION" component={EmailConfirmationScreen} />
+        <AppStack.Screen name="FORGOT_PASSWORD" component={ForgotPassword} />
+        <AppStack.Screen name="REINITIALISE_PASSWORD" component={ReinitialisePassword} />
         <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
@@ -359,6 +366,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="SUCCESS_STRATEGY_MODAL"
             component={SuccessStrategyModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
+              animation: "fade",
+            }}
+          />
+          <ModalsStack.Screen
+            name="CHANGE_ACCOUNT"
+            component={ChangeAccountModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },

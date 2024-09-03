@@ -24,14 +24,15 @@ import AbstinenceIcon from "../../components/illustrations/icons/AbstinenceIcon"
 import ExportDataIcon from "../../components/illustrations/icons/ExportDataIcon";
 import ShareAppIcon from "../../components/illustrations/icons/ShareAppIcon";
 import RateAppIcon from "../../components/illustrations/icons/RateAppIcon";
+import AccountGearIcon from "../../components/illustrations/icons/AccountGearIcon";
 import GiveFeedbackIcon from "../../components/illustrations/icons/GiveFeedbackIcon";
 import FilesIcon from "../../components/illustrations/icons/FilesIcon";
 import OfficialIcon from "../../components/illustrations/icons/OfficialIcon";
 import Transfer from "./Transfer";
-import TransferIcon from "../../components/illustrations/icons/TransferIcon";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { isOnboardedSelector } from "../../recoil/gains";
 import Official from "./Official";
+import Account from "./AccountMenu";
 
 const InfosStack = createStackNavigator();
 
@@ -55,6 +56,7 @@ const Infos = () => {
         <InfosStack.Screen name="EXPORT" component={Export} />
         <InfosStack.Screen name="TRANSFER" component={Transfer} />
         <InfosStack.Screen name="FAKE_DATA" component={FakeData} />
+        <InfosStack.Screen name="ACCOUNT" component={Account} />
       </InfosStack.Navigator>
     </Background>
   );
@@ -75,6 +77,14 @@ const InfosMenu = ({ navigation }) => {
         <Text className="text-[#4030a5] font-bold mb-4">NOUS AIDER</Text>
         <View className="border border-[#DDDDDD] rounded-lg p-4 ">
           <MenuItem
+            caption={"Mon compte"}
+            Icon={AccountGearIcon}
+            onPress={() => {
+              navigation.push("ACCOUNT");
+            }}
+          />
+          <View className="w-full border border-[#E8E8EA] mt-4 mb-4 border-" />
+          <MenuItem
             caption={"Partager l'application"}
             Icon={ShareAppIcon}
             onPress={() => {
@@ -90,10 +100,6 @@ const InfosMenu = ({ navigation }) => {
             caption={"Donner mon avis"}
             Icon={GiveFeedbackIcon}
             onPress={() => {
-              logEvent({
-                category: "NPS",
-                action: "NPS_OPEN_FROM_INFOS",
-              });
               navigation.navigate("NPS_SCREEN", { triggeredFrom: "Infos" });
             }}
           />
@@ -125,11 +131,6 @@ const InfosMenu = ({ navigation }) => {
             caption={"Mon objectif par semaine"}
             Icon={GoalSetup}
             onPress={() => {
-              logEvent({
-                category: "GAINS",
-                action: "GOAL_OPEN",
-                name: "INFOS",
-              });
               if (isOnboarded) {
                 navigation.navigate("GAINS_MY_OBJECTIVE");
               } else {
@@ -142,11 +143,6 @@ const InfosMenu = ({ navigation }) => {
             caption={"Mon rappel"}
             Icon={ReminderIcon}
             onPress={() => {
-              logEvent({
-                category: "REMINDER",
-                action: "REMINDER_OPEN",
-                name: "INFOS",
-              });
               navigation.navigate("GAINS_REMINDER", {
                 enableContinueButton: true,
                 onPressContinueNavigation: ["GAINS_NAVIGATOR", { screen: "GAINS_MAIN_VIEW" }],
@@ -158,11 +154,6 @@ const InfosMenu = ({ navigation }) => {
             caption={"Compteur d'abstinence"}
             Icon={AbstinenceIcon}
             onPress={() => {
-              logEvent({
-                category: "ABSTINENCE",
-                action: "ABSTINENCE_OPEN",
-                name: "INFOS",
-              });
               navigation.navigate("ABSTINENCE_SELECTION", { parent: "Infos" });
             }}
           />
@@ -176,19 +167,6 @@ const InfosMenu = ({ navigation }) => {
                 action: "EXPORT_OPEN",
               });
               navigation.push("EXPORT");
-            }}
-          />
-          <View className="w-full border border-[#E8E8EA] mt-4 mb-4" />
-
-          <MenuItem
-            caption={"Transférer vers un autre téléphone"}
-            Icon={TransferIcon}
-            onPress={() => {
-              logEvent({
-                category: "TRANSFER",
-                action: "TRANSFER_OPEN",
-              });
-              navigation.push("TRANSFER");
             }}
           />
         </View>

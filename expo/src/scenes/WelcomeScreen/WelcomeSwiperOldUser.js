@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
 import { storage } from "../../services/storage";
-import { StepOne, StepTwo, Validation } from "./ScreensOldUser";
+import { ScreenAdvice, StepOne, StepTwo, Validation } from "./ScreensOldUser";
 import Dot from "../../components/SwiperDot";
 import { View } from "react-native";
 
@@ -17,7 +17,7 @@ const WelcomeSwiperOldUser = ({ navigation }) => {
 
   const onStartPress = async () => {
     storage.set("@OnboardingDoneWithCGU", true);
-    navigation.navigate("USER_SURVEY_START", { from: "NEW_USER" });
+    navigation.navigate("SIGNUP_SCREEN");
   };
 
   const onPressNext = () => swiperRef?.current?.scrollBy(1);
@@ -42,7 +42,8 @@ const WelcomeSwiperOldUser = ({ navigation }) => {
         >
           <StepOne onPressNext={onPressNext} />
           <StepTwo onPressNext={onPressNext} />
-          <Validation onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
+          <Validation onPressNext={onPressNext} />
+          <ScreenAdvice onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
       </View>
     </View>
