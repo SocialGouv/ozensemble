@@ -14,7 +14,7 @@ const NOTIFICATIONS_TYPES = {
   NOT_ACTIVATED_3_DAYS: {
     type: "NOT_ACTIVATED_3_DAYS",
     title: "Vous n'êtes pas resté longtemps",
-    body: "Nous aimerions savoir ce qui ne vous a pas plu pour améliorer l'application",
+    body: "Nous aimerions savoir ce qui vous ferait rester sur Oz",
     link: "oz://NOT_ACTIVATED_NPS_SCREEN",
   },
   INACTIVITY_10_DAYS: {

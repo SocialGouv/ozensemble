@@ -1,13 +1,12 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import pck from '../../../package.json';
-import Background from '../../components/Background';
-import ButtonPrimary from '../../components/ButtonPrimary';
-import { logEvent } from '../../services/logEventsWithMatomo';
-import { storage } from '../../services/storage';
-import BackButton from '../../components/BackButton';
-import { sendMail } from '../../services/mail';
+import React, { useRef, useEffect, useState } from "react";
+import { Platform, Text, View, KeyboardAvoidingView, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import pck from "../../../package.json";
+import Background from "../../components/Background";
+import ButtonPrimary from "../../components/ButtonPrimary";
+import { logEvent } from "../../services/logEventsWithMatomo";
+import { storage } from "../../services/storage";
+import { sendMail } from "../../services/mail";
 
 const formatText = (answer, feedback, userId) =>
   `
@@ -20,19 +19,19 @@ Qu'est-ce qui vous aurait fait rester ? : ${feedback}
 
 const Inactivity_NPSScreen = ({ navigation }) => {
   const [selectedAnswerKey, setSelectedAnswerKey] = useState(null);
-  const [feedback, setFeedback] = useState('');
-  const [sendButton, setSendButton] = useState('Envoyer');
+  const [feedback, setFeedback] = useState("");
+  const [sendButton, setSendButton] = useState("Envoyer");
   const answers = [
-    { answerKey: 'OZ_HELPED', content: "Oz m'a aidé mais je n'en ai plus besoin", score: 0 },
-    { answerKey: 'LAKE_FEATURES', content: 'Il manque des fonctionnalités', score: 1 },
-    { answerKey: 'USING_OTHER_APP', content: 'Je préfère une autre application', score: 2 },
-    { answerKey: 'OTHER', content: 'Autre', score: 3 },
+    { answerKey: "OZ_HELPED", content: "Oz m'a aidé mais je n'en ai plus besoin", score: 0 },
+    { answerKey: "LAKE_FEATURES", content: "Il manque des fonctionnalités", score: 1 },
+    { answerKey: "USING_OTHER_APP", content: "Je préfère une autre application", score: 2 },
+    { answerKey: "OTHER", content: "Autre", score: 3 },
   ];
 
   useEffect(() => {
     logEvent({
-      category: 'INACTIVITY_NPS',
-      action: 'INACTIVITY_NPS_OPEN',
+      category: "INACTIVITY_NPS",
+      action: "INACTIVITY_NPS_OPEN",
     });
   }, []);
   const onGoBackRequested = async () => {
@@ -50,7 +49,7 @@ const Inactivity_NPSScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const beforeRemoveListenerUnsbscribe = navigation.addListener('beforeRemove', handleBeforeRemove);
+    const beforeRemoveListenerUnsbscribe = navigation.addListener("beforeRemove", handleBeforeRemove);
     return () => {
       beforeRemoveListenerUnsbscribe();
     };
@@ -60,23 +59,23 @@ const Inactivity_NPSScreen = ({ navigation }) => {
   const npsSent = useRef(false);
   const sendNPS = async () => {
     if (npsSent.current) return;
-    const userId = storage.getString('@UserIdv2');
-    setSendButton('Merci !');
+    const userId = storage.getString("@UserIdv2");
+    setSendButton("Merci !");
     logEvent({
-      category: 'INACTIVITY_NPS',
-      action: 'INACTIVITY_NPS_SEND_ANSWER',
+      category: "INACTIVITY_NPS",
+      action: "INACTIVITY_NPS_SEND_ANSWER",
       value: answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.score,
     });
     if (feedback) {
       logEvent({
-        category: 'INACTIVITY_NPS',
-        action: 'INACTIVITY_NPS_SEND_FEEDBACK',
+        category: "INACTIVITY_NPS",
+        action: "INACTIVITY_NPS_SEND_FEEDBACK",
       });
     }
     await sendMail({
-      subject: 'Inactivity 10 days NPS Addicto',
+      subject: "Inactivity 10 days NPS Addicto",
       text: formatText(answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content, feedback, userId),
-    }).catch((err) => console.log('sendNPS err', err));
+    }).catch((err) => console.log("sendNPS err", err));
 
     npsSent.current = true;
     navigation.goBack();
@@ -88,14 +87,15 @@ const Inactivity_NPSScreen = ({ navigation }) => {
         <View className="h-full w-screen">
           <KeyboardAvoidingView
             className="flex-1"
-            behavior={Platform.select({ ios: 'padding', android: null })}
-            keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}>
+            behavior={Platform.select({ ios: "padding", android: null })}
+            keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}
+          >
             <ScrollView
               showsVerticalScrollIndicator={false}
               className="flex-shrink flex-grow mx-8 mt-3"
               keyboardShouldPersistTaps="never"
-              keyboardDismissMode="none">
-              <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
+              keyboardDismissMode="none"
+            >
               <View className="mt-2">
                 <Text className="text-[#4030A5] text-xl font-bold mt-3">
                   Dites nous pourquoi vous êtes partis, ça nous aidera à améliorer l’application
@@ -108,20 +108,22 @@ const Inactivity_NPSScreen = ({ navigation }) => {
                 {answers.map(({ answerKey, content }, i) => (
                   <TouchableOpacity
                     className={[
-                      'w-full py-3 rounded-md pl-4 justify-center my-1',
+                      "w-full py-3 rounded-md pl-4 justify-center my-1",
                       answerKey === selectedAnswerKey
-                        ? 'bg-[#5352a3] border-[#4030a5] '
-                        : 'border border-[#E4E4E4] bg-gray-100',
-                    ].join(' ')}
+                        ? "bg-[#5352a3] border-[#4030a5] "
+                        : "border border-[#E4E4E4] bg-gray-100",
+                    ].join(" ")}
                     key={answerKey}
                     last={i === answers.length - 1}
                     onPress={() => {
                       setSelectedAnswerKey(answerKey);
-                    }}>
+                    }}
+                  >
                     <Text
-                      className={['font-medium', answerKey === selectedAnswerKey ? 'text-white' : 'text-black'].join(
-                        ' '
-                      )}>
+                      className={["font-medium", answerKey === selectedAnswerKey ? "text-white" : "text-black"].join(
+                        " "
+                      )}
+                    >
                       {content}
                     </Text>
                   </TouchableOpacity>

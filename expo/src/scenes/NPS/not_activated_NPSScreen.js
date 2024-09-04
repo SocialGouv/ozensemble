@@ -6,7 +6,6 @@ import Background from "../../components/Background";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { storage } from "../../services/storage";
-import BackButton from "../../components/BackButton";
 import { sendMail } from "../../services/mail";
 
 const formatText = (answer, feedback, userId, contact) =>
@@ -110,7 +109,6 @@ const Not_Activated_NPSScreen = ({ navigation }) => {
               keyboardShouldPersistTaps="never"
               keyboardDismissMode="none"
             >
-              <BackButton content="< Retour" bold onPress={onGoBackRequested} marginTop />
               <View className="mt-2">
                 <Text className="text-[#4030A5] text-xl font-bold mt-3">
                   Dites nous pourquoi vous n'êtes pas resté pour nous aider à améliorer l'application
@@ -152,7 +150,7 @@ const Not_Activated_NPSScreen = ({ navigation }) => {
               <TextInput
                 className="bg-[#f3f3f6] rounded-lg border h-32 border-[#dbdbe9] text-black mt-3 py-4 px-4"
                 onChangeText={setFeedback}
-                placeholder="Idées d'améliorations (facultatif)"
+                placeholder="Ce que vous auriez aimé trouver sur Oz"
                 value={feedback}
                 multiline
                 textAlignVertical="top"
