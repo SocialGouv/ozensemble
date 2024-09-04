@@ -1,3 +1,10 @@
+## [1.162.35](https://github.com/SocialGouv/ozensemble/compare/v1.162.34...v1.162.35) (2024-09-04)
+
+
+### Bug Fixes
+
+* date format for drinks ([#627](https://github.com/SocialGouv/ozensemble/issues/627)) ([de7ccc9](https://github.com/SocialGouv/ozensemble/commit/de7ccc94b38fd795cbe290f111af7e8f818ea8a3))
+
 ## [1.162.34](https://github.com/SocialGouv/ozensemble/compare/v1.162.33...v1.162.34) (2024-09-03)
 
 
