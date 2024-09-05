@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { View, TextInput, TouchableOpacity, Text, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
 import API from "../../services/api";
 import { storage } from "../../services/storage";
-import { initMatomo } from "../../services/logEventsWithMatomo";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
@@ -49,7 +48,6 @@ const SignupScreen = ({ navigation }) => {
   };
 
   const signup = async () => {
-    // initMatomo(email, password);
     const matomoId = storage.getString("@UserIdv2");
     const response = await API.post({
       path: "/user/signup",
@@ -165,10 +163,9 @@ const SignupScreen = ({ navigation }) => {
         </View>
         <View className="flex mt-10 items-center">
           <TouchableOpacity
-            // onPress={signup}
-            onPress={() => navigation.navigate("EMAIL_CONFIRMATION")}
+            onPress={signup}
             className={`rounded-full px-6 py-3 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
-            // disabled={isButtonDisabled}
+            disabled={isButtonDisabled}
           >
             <Text className="text-center text-white text-xl font-bold">Valider</Text>
           </TouchableOpacity>

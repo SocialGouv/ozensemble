@@ -2,7 +2,6 @@ import * as Notifications from "expo-notifications";
 import { Platform, AppState } from "react-native";
 import { logEvent } from "./logEventsWithMatomo";
 import { storage } from "./storage";
-import API from "./api";
 
 class NotificationService {
   listeners = {};
@@ -40,14 +39,6 @@ class NotificationService {
     logEvent({
       category: "PUSH_NOTIFICATION_TOKEN_REGISTER",
       action: "SUCCESS",
-    });
-    const matomoId = storage.getString("@UserIdv2");
-    await API.put({
-      path: "/user",
-      body: {
-        pushNotifToken: tokenPayload.data,
-        matomoId,
-      },
     });
   };
 

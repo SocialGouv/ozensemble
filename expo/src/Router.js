@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { Alert, Linking } from "react-native";
@@ -48,7 +48,6 @@ import StrategyModalNPS from "./components/StrategyModalNPS";
 import { isInCravingKeyState } from "./recoil/craving";
 import { dayjsInstance } from "./services/dates";
 import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
-import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
 import SigninScreen from "./scenes/Auth/Signin";
 import SignupScreen from "./scenes/Auth/Signup";
 import EmailConfirmationScreen from "./scenes/WelcomeScreen/EmailConfirmationScreen";
@@ -171,13 +170,50 @@ const TabsNavigator = ({ navigation }) => {
 
 const AppStack = createNativeStackNavigator();
 const App = () => {
+  const [isTokenValid, setIsTokenValid] = useState(null);
+  const token = storage.getString("@Token");
+
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      if (!token) {
+        setIsTokenValid(false);
+        return;
+      }
+
+      try {
+        const response = await API.get({
+          path: "/user/signin_token",
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.ok) {
+          setIsTokenValid(true);
+        } else {
+          setIsTokenValid(false);
+        }
+      } catch (e) {
+        setIsTokenValid(false);
+      }
+    };
+
+    checkTokenValidity();
+  }, [token]);
+
   const initialRouteName = useMemo(() => {
-    const token = storage.getString("@Token");
+    console.log("isTokenValid", isTokenValid);
+    if (isTokenValid === null) return null; // Still checking token, render a loading screen or nothing
+
+    if (!isTokenValid) return "SIGNIN_SCREEN";
+
     const onBoardingDone = storage.getBoolean("@OnboardingDoneWithCGU");
-    if (token) return "SIGNIN_SCREEN";
     if (!onBoardingDone) return "WELCOME";
+
     return "TABS";
-  }, []);
+  }, [isTokenValid]);
+
+  if (initialRouteName === null) {
+    return null; // Render a loading screen or nothing until the token validity is checked
+  }
 
   return (
     <>
@@ -255,7 +291,6 @@ const Router = () => {
     });
     prevCurrentRouteName.current = route.name;
   };
-  const alreadyExported = storage.getBoolean("@ExportedData");
 
   const handleInAppMessage = (inAppMessage) => {
     const [title, subTitle, actions = [], options = {}] = inAppMessage;
@@ -289,7 +324,6 @@ const Router = () => {
         ref={navigationRef}
         onReady={() => {
           API.navigation = navigationRef.current;
-          if (alreadyExported) navigationRef.current.navigate("MODAL_EXPORT_DONE");
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}
@@ -326,15 +360,6 @@ const Router = () => {
             }}
           />
           <ModalsStack.Screen
-            name="MODAL_EXPORT_DONE"
-            component={ExportedDataDone}
-            options={{
-              headerShown: false,
-              contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
-              animation: "fade",
-            }}
-          />
-          <ModalsStack.Screen
             name="IN_APP_MODAL"
             component={InAppModal}
             options={{
@@ -343,7 +368,6 @@ const Router = () => {
               animation: "fade",
             }}
           />
-
           <ModalsStack.Screen
             name="ABSTINENCE_SELECTION"
             component={AbstinenceSelection}

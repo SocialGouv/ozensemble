@@ -60,46 +60,11 @@ const App = () => {
   );
 
   useEffect(() => {
-    initMatomo().then(async () => {
-      if (!reconciliatedDrinksToDB) {
-        await reconciliateDrinksToDB();
-        setReconciliatedDrinksToDB(true);
-      }
-      if (!reconciliatedGoalsToDB) {
-        await reconciliateGoalToDB();
-        setReconciliatedGoalsToDB(true);
-      }
-      if (!_hasCleanConsoAndCatalog) {
-        await cleanConsosAndCatalog();
-        setHasCleanConsoAndCatalog(true);
-      }
-      if (!_hasSentPreviousDrinksToDB) {
-        await sendPreviousDrinksToDB();
-        setHasSentPreviousDrinksToDB(true);
-      }
-      if (!_hasMigrateFromDailyGoalToWeekly) {
-        await migrateFromDailyGoalToWeekly();
-        sethasMigrateFromDailyGoalToWeekly(true);
-      }
-      if (!_hasMigrateMissingDrinkKey) {
-        migrateMissingDrinkKey();
-        sethasMigrateMissingDrinkKey(true);
-      }
-    });
+    initMatomo()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (
-    !reconciliatedDrinksToDB ||
-    !reconciliatedGoalsToDB ||
-    !_hasSentPreviousDrinksToDB ||
-    !_hasCleanConsoAndCatalog ||
-    !_hasMigrateFromDailyGoalToWeekly ||
-    !_hasMigrateMissingDrinkKey
-  ) {
-    return null;
-  }
 
   return (
     <RecoilRoot>

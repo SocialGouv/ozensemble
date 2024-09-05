@@ -25,18 +25,6 @@ export const initMatomo = async () => {
   if (!userId) {
     userId = Matomo.makeid();
     storage.set("@UserIdv2", userId);
-    const response = await API.post({
-      path: "/user/signup",
-      body: {
-        matomoId: userId,
-        email: "yoanroszak@selego.co",
-        password: "password12@Abc",
-        calledFrom: "initMatomo",
-      },
-    });
-    if (response.ok) {
-      storage.set("@Token", response.token);
-    }
   }
   Sentry.setUser({ id: userId });
   API.userId = userId;
@@ -83,15 +71,6 @@ export const logEvent = async ({ category, action, name, value, dimension6 }) =>
     const canSend = await checkNetwork();
     if (!canSend) throw new Error("no network");
     Matomo.logEvent({ category, action, name, value, dimension6 });
-    const body = {
-      event: { category, action, name, value, dimension6 },
-      userId: Matomo.userId,
-      dimensions: Matomo.dimensions,
-    };
-    API.post({
-      path: "/event",
-      body,
-    });
   } catch (e) {
     console.log("logEvent error", e);
     console.log("logEvent error", { category, action, name, value, dimension6 });
