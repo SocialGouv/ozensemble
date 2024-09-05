@@ -15,7 +15,9 @@ const DeleteAccount = ({ navigation }) => {
         </Text>
         <View className="flex items-center">
           <TouchableOpacity
-            // onPress={() => }
+            onPress={() => {
+              navigation.navigate("CHANGE_ACCOUNT");
+            }}
             className=" rounded-full px-6 py-2 bg-[#de285e] mt-8"
           >
             <Text className="text-center text-white text-lg font-bold">Supprimer mon Compte</Text>

@@ -20,7 +20,7 @@ router.post(
   catchErrors(async (req, res) => {
     const matomoId = req.body?.matomoId;
     if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
+    console.log("syncing consos", matomoId);
     const { drinks, drinksCatalog } = req.body;
 
     if (!drinks.length) {

@@ -13,6 +13,7 @@ import AccountGearIcon from "../../components/illustrations/icons/AccountGearIco
 import AccountInfo from "./AccountInfo";
 import Support from "./Support";
 import DeleteAccount from "./DeleteAccount";
+import ChangePassword from "./ChangePassword";
 
 const AccountStack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const Account = () => {
         <AccountStack.Screen name="SUPPORT" component={Support} />
         <AccountStack.Screen name="TRANSFER" component={Transfer} />
         <AccountStack.Screen name="DELETE" component={DeleteAccount} />
+        <AccountStack.Screen name="CHANGE_PASSWORD" component={ChangePassword} />
       </AccountStack.Navigator>
     </Background>
   );

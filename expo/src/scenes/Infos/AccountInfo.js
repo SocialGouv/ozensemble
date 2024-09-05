@@ -34,17 +34,20 @@ const AccountInfo = ({ navigation }) => {
         />
         <View className="flex items-center">
           <TouchableOpacity
-            // onPress={signup}
-            onPress={() => navigation.navigate("ROUTER", { screen: "ChangeAccountModal" })}
+            onPress={() => {
+              navigation.navigate("CHANGE_PASSWORD");
+            }}
             className={`mt-2 rounded-full px-6 py-2 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
-            // disabled={isButtonDisabled}
           >
             <Text className="text-center text-white text-lg font-bold">Modifier mon email</Text>
           </TouchableOpacity>
         </View>
         <Text className=" text-black text-lg font-bold">Mot de passe</Text>
         <Text className="text-sm text-black">
-          Pour modifier votre mot de passe, <Text className="text-[#4030a5] underline font-bold">cliquez ici</Text>
+          Pour modifier votre mot de passe,
+          <TouchableOpacity onPress={() => navigation.navigate("CHANGE_PASSWORD")}>
+            <Text className="text-[#4030a5] underline font-bold"> cliquez ici</Text>
+          </TouchableOpacity>
         </Text>
       </View>
     </View>
