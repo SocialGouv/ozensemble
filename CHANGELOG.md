@@ -1,3 +1,10 @@
+## [1.162.36](https://github.com/SocialGouv/ozensemble/compare/v1.162.35...v1.162.36) (2024-09-08)
+
+
+### Bug Fixes
+
+* update prisma ([9a94012](https://github.com/SocialGouv/ozensemble/commit/9a94012b73f88f19f7827a293baffd3c24418074))
+
 ## [1.162.35](https://github.com/SocialGouv/ozensemble/compare/v1.162.34...v1.162.35) (2024-09-04)
 
 
