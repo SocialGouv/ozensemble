@@ -1,4 +1,5 @@
 import { getMaxDrinksPerWeek, getTotalDrinksByDrinkingDay } from "./helpers/gainsHelpers";
+import { alcoolQuantityCatalog } from "./scenes/AddDrink/alcoolQuantityCatalog";
 import { drinksCatalog } from "./scenes/ConsoFollowUp/drinksCatalog";
 import API from "./services/api";
 import { capture } from "./services/sentry";
@@ -26,10 +27,7 @@ export async function reconciliateDrinksToDB() {
       },
     }).then((response) => {
       if (response?.ok) {
-        storage.set(
-          "@Drinks",
-          JSON.stringify(drinks.map((drink) => ({ ...drink, isSyncedWithDB: true })))
-        );
+        storage.set("@Drinks", JSON.stringify(drinks.map((drink) => ({ ...drink, isSyncedWithDB: true }))));
       }
     });
   } catch (e) {
@@ -58,10 +56,7 @@ export async function reconciliateGoalToDB() {
     const daysWithGoalNoDrink = JSON.parse(storage.getString("@DaysWithGoalNoDrink") || "[]");
     const drinksByWeek = JSON.parse(storage.getString("@StoredDetaileddrinksByWeekState") || "[]");
     const maxDrinksPerWeek = getMaxDrinksPerWeek(drinksByWeek);
-    const totalDrinksByDrinkingDay = getTotalDrinksByDrinkingDay(
-      maxDrinksPerWeek,
-      daysWithGoalNoDrink
-    );
+    const totalDrinksByDrinkingDay = getTotalDrinksByDrinkingDay(maxDrinksPerWeek, daysWithGoalNoDrink);
 
     await API.post({
       path: "/goal/sync",
@@ -88,5 +83,48 @@ export async function reconciliateGoalToDB() {
         id: storage.getString("@UserIdv2"),
       },
     });
+  }
+}
+
+export async function fixMissingDrinkKey() {
+  const drinks = JSON.parse(storage.getString("@Drinks"));
+  const ownDrinksCatalog = JSON.parse(storage.getString("@OwnDrinks") || "[]");
+  const objectCatalog = {};
+  for (const ownDrink of ownDrinksCatalog) {
+    objectCatalog[ownDrink.drinkKey] = ownDrink;
+  }
+  for (const catalogDrink of drinksCatalog) {
+    objectCatalog[catalogDrink.drinkKey] = catalogDrink;
+  }
+  for (const drink of drinks) {
+    if (!objectCatalog[drink.drinkKey]) {
+      const response = await API.post({
+        path: "/consommation/find-missing-own-drink",
+        body: {
+          drinkKey: drink.drinkKey,
+          matomoId: storage.getString("@UserIdv2"),
+        },
+      });
+      if (response.ok && response.data) {
+        const missingDrink = {
+          categoryKey: "ownDrink",
+          drinkKey: drink.drinkKey,
+          displayFeed: drink.drinkKey,
+          displayDrinkModal: drink.drinkKey,
+          volume: response.data.volume,
+          price: Number(response.data.price),
+          doses: response.data.doses,
+          icon: alcoolQuantityCatalog.find((catalog) => catalog.volume === response.data.volume)?.icon,
+          // const doses = Math.round((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) / 10;
+          alcoolPercentage: (response.data.doses * 10 * 10) / (response.data.volume * 0.8),
+          kcal: response.data.kcal,
+          custom: true,
+          isDeleted: false,
+        };
+        ownDrinksCatalog.push(missingDrink);
+        objectCatalog[drink.drinkKey] = missingDrink;
+        storage.set("@OwnDrinks", JSON.stringify(ownDrinksCatalog));
+      }
+    }
   }
 }

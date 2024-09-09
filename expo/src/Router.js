@@ -71,6 +71,7 @@ const TabsNavigator = ({ navigation }) => {
 
   const showBootSplash = useRecoilValue(showBootSplashState);
   const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
+
   return (
     <>
       <Tabs.Navigator

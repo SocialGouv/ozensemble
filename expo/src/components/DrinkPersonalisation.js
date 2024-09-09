@@ -43,6 +43,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
   const volumeNumber = quantitySelected?.volume ?? drink?.volume.split(" ")[0];
   const saveDrink = async () => {
+    console.log("SAVE DRINK");
     const formatedPrice = drinkPrice.replace(",", ".");
     const formatedAlcoolPercentage = drinkAlcoolPercentage.replace(",", ".");
     const formatedVolume = volumeNumber.replace(",", ".");
@@ -115,6 +116,7 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         if (!hasChangedDrinkKey) return oldState;
         return oldState.filter((oldStateDrink) => oldStateDrink.drinkKey !== oldDrink.drinkKey);
       });
+
       const matomoId = storage.getString("@UserIdv2");
 
       API.post({
