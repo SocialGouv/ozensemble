@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from "react";
-import { Animated, findNodeHandle, PanResponder, StyleSheet, View } from "react-native";
-import { capture } from "../services/sentry";
+import { Animated, PanResponder, StyleSheet, View } from "react-native";
 import TextStyled from "./TextStyled";
 
 const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosition = 1 }) => {
@@ -27,40 +26,42 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
     []
   );
   const onTerminate = async (evt) => {
-    const newX = evt.nativeEvent.locationX;
-    const width = await new Promise((res) =>
-      insideContainerRef.current.measureLayout(
-        findNodeHandle(containerRef.current),
-        (x, y, width) => {
-          res(width);
-        },
-        (error) => capture("error finding ref", { extra: { error } })
-      )
-    );
-    const newPosition = Number(newX > width / 2);
-    const buttonWidth = await new Promise((res) =>
-      buttonRef.current.measureLayout(
-        findNodeHandle(insideContainerRef.current),
-        (x, y, width) => {
-          res(width);
-        },
-        (error) => capture("error finding ref", { extra: { error } })
-      )
-    );
+    try {
+      const newX = evt.nativeEvent.locationX;
 
-    Animated.parallel([
-      Animated.timing(translateX, {
-        toValue: newPosition * (buttonWidth - 4),
-        duration: 250,
-        useNativeDriver: true,
-      }),
-      Animated.timing(position, {
-        toValue: newPosition,
-        duration: 250,
-        useNativeDriver: true,
-      }),
-    ]).start();
-    handleSwitchChange(newPosition === 0 ? leftContent : rightContent);
+      // Measure the width of the inside container
+      const width = await new Promise((res) =>
+        insideContainerRef.current.measure((x, y, width, height, pageX, pageY) => {
+          res(width);
+        })
+      );
+
+      const newPosition = Number(newX > width / 2);
+
+      // Measure the width of the button
+      const buttonWidth = await new Promise((res) =>
+        buttonRef.current.measure((x, y, width, height, pageX, pageY) => {
+          res(width);
+        })
+      );
+
+      Animated.parallel([
+        Animated.timing(translateX, {
+          toValue: newPosition * (buttonWidth - 4),
+          duration: 250,
+          useNativeDriver: true,
+        }),
+        Animated.timing(position, {
+          toValue: newPosition,
+          duration: 250,
+          useNativeDriver: true,
+        }),
+      ]).start();
+
+      handleSwitchChange(newPosition === 0 ? leftContent : rightContent);
+    } catch (error) {
+      console.error("Error during onTerminate:", error);
+    }
   };
 
   const panResponder = useRef(
@@ -85,13 +86,10 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
         ref={containerRef}
         style={[styles.container]}
         {...(panResponder?.panHandlers || {})}
-        pointerEvents="box-only">
+        pointerEvents="box-only"
+      >
         <View ref={insideContainerRef} style={styles.content}>
-          <Animated.View
-            ref={buttonRef}
-            onLayout={onLayout}
-            style={[styles.button, { transform: [{ translateX }] }]}
-          />
+          <Animated.View ref={buttonRef} onLayout={onLayout} style={[styles.button, { transform: [{ translateX }] }]} />
         </View>
         <View style={styles.textsContainer}>
           <View style={styles.textContainer}>
@@ -105,7 +103,8 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                     extrapolate: "clamp",
                   }),
                 },
-              ]}>
+              ]}
+            >
               <TextStyled bold color={"#000"}>
                 {leftContent}
               </TextStyled>
@@ -120,7 +119,8 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                     extrapolate: "clamp",
                   }),
                 },
-              ]}>
+              ]}
+            >
               <TextStyled bold color={"#fff"}>
                 {leftContent}
               </TextStyled>
@@ -137,7 +137,8 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                     extrapolate: "clamp",
                   }),
                 },
-              ]}>
+              ]}
+            >
               <TextStyled bold color={"#000"}>
                 {rightContent}
               </TextStyled>
@@ -152,7 +153,8 @@ const SwitchButtons = ({ leftContent, rightContent, handleSwitchChange, initPosi
                     extrapolate: "clamp",
                   }),
                 },
-              ]}>
+              ]}
+            >
               <TextStyled bold color={"#fff"}>
                 {rightContent}
               </TextStyled>

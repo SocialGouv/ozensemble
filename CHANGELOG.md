@@ -1,3 +1,68 @@
+## [1.162.36](https://github.com/SocialGouv/ozensemble/compare/v1.162.35...v1.162.36) (2024-09-08)
+
+
+### Bug Fixes
+
+* update prisma ([9a94012](https://github.com/SocialGouv/ozensemble/commit/9a94012b73f88f19f7827a293baffd3c24418074))
+
+## [1.162.35](https://github.com/SocialGouv/ozensemble/compare/v1.162.34...v1.162.35) (2024-09-04)
+
+
+### Bug Fixes
+
+* date format for drinks ([#627](https://github.com/SocialGouv/ozensemble/issues/627)) ([de7ccc9](https://github.com/SocialGouv/ozensemble/commit/de7ccc94b38fd795cbe290f111af7e8f818ea8a3))
+
+## [1.162.34](https://github.com/SocialGouv/ozensemble/compare/v1.162.33...v1.162.34) (2024-09-03)
+
+
+### Bug Fixes
+
+* version ([978be7b](https://github.com/SocialGouv/ozensemble/commit/978be7b7d9f14af67c5d104e772328359d87d09f))
+
+## [1.162.33](https://github.com/SocialGouv/ozensemble/compare/v1.162.32...v1.162.33) (2024-09-03)
+
+
+### Bug Fixes
+
+* update libs ([#626](https://github.com/SocialGouv/ozensemble/issues/626)) ([5e0787c](https://github.com/SocialGouv/ozensemble/commit/5e0787cd65eff0f5a01cd8556993da7dcc007bcb))
+
+## [1.162.32](https://github.com/SocialGouv/ozensemble/compare/v1.162.31...v1.162.32) (2024-08-26)
+
+
+### Bug Fixes
+
+* notifications url ([382a9d3](https://github.com/SocialGouv/ozensemble/commit/382a9d3ae482c2ffe9a1aabf18575b74f6b43e9d))
+
+## [1.162.31](https://github.com/SocialGouv/ozensemble/compare/v1.162.30...v1.162.31) (2024-08-26)
+
+
+### Bug Fixes
+
+* tab ipad ([dc1de6b](https://github.com/SocialGouv/ozensemble/commit/dc1de6b2a42e9a4adc4dc08ae0ac3d2798036a40))
+
+## [1.162.30](https://github.com/SocialGouv/ozensemble/compare/v1.162.29...v1.162.30) (2024-08-23)
+
+
+### Bug Fixes
+
+* switch button ([49b0f16](https://github.com/SocialGouv/ozensemble/commit/49b0f16c9bab576514e5173eab9264233f6bea2b))
+
+## [1.162.29](https://github.com/SocialGouv/ozensemble/compare/v1.162.28...v1.162.29) (2024-08-19)
+
+
+### Bug Fixes
+
+* update flash-list ([d23c4f5](https://github.com/SocialGouv/ozensemble/commit/d23c4f53c47b5e1f1b8d11de2906456a12eedad0))
+
+## [1.162.28](https://github.com/SocialGouv/ozensemble/compare/v1.162.27...v1.162.28) (2024-08-19)
+
+
+### Bug Fixes
+
+* change own conso ([#622](https://github.com/SocialGouv/ozensemble/issues/622)) ([64de0d6](https://github.com/SocialGouv/ozensemble/commit/64de0d6cdc04ee22c5617cd688728fe278ea8f2c))
+* diagram numbers ([#623](https://github.com/SocialGouv/ozensemble/issues/623)) ([7bba8e5](https://github.com/SocialGouv/ozensemble/commit/7bba8e5b18513f9b46642df4245df3e425135ed1))
+* privacy policy ([#624](https://github.com/SocialGouv/ozensemble/issues/624)) ([e892bf5](https://github.com/SocialGouv/ozensemble/commit/e892bf51a045a18afc50ca0e9ec36977b17981ec))
+
 ## [1.162.27](https://github.com/SocialGouv/ozensemble/compare/v1.162.26...v1.162.27) (2024-08-08)
 
 

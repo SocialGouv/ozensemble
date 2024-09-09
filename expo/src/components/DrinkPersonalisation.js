@@ -96,29 +96,26 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
         if (!keepGoing) return;
       }
       newDrink.icon = quantitySelected?.icon ?? oldDrink.icon;
-      if (oldDrink.drinkKey === newDrink.drinkKey) {
-        setOwnDrinksCatalog((oldState) => {
-          return oldState.map((oldStateDrink) =>
-            oldStateDrink.drinkKey === oldDrink.drinkKey ? newDrink : oldStateDrink
-          );
-        });
-      } else {
-        setOwnDrinksCatalog((oldState) => {
-          const tempState = [...oldState, newDrink];
-          return tempState;
-        });
-        setGlobalDrinksState((oldState) => {
-          return oldState.map((oldStateDrink) =>
-            oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
-          );
-        });
-        setOwnDrinksCatalog((tempState) => {
-          const cleanedNewState = tempState
-            .filter((tempStateDrink) => tempStateDrink.drinkKey !== newDrink.drinkKey)
-            .map((oldStateDrink) => (oldStateDrink.drinkKey === oldDrink.drinkKey ? newDrink : oldStateDrink));
-          return cleanedNewState;
-        });
-      }
+
+      // if the drinkKey has changed, we keep the old state, we change the global state and we delete the old state
+      // if the drinkKey has not changed, we change directly the old state
+      const hasChangedDrinkKey = oldDrink.drinkKey !== drinkName;
+      setOwnDrinksCatalog((oldState) => {
+        if (!hasChangedDrinkKey) {
+          const filteredState = oldState.filter((oldStateDrink) => oldStateDrink.drinkKey !== oldDrink.drinkKey);
+          return [...filteredState, newDrink];
+        }
+        return [...oldState, newDrink];
+      });
+      setGlobalDrinksState((oldState) => {
+        return oldState.map((oldStateDrink) =>
+          oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
+        );
+      });
+      setOwnDrinksCatalog((oldState) => {
+        if (!hasChangedDrinkKey) return oldState;
+        return oldState.filter((oldStateDrink) => oldStateDrink.drinkKey !== oldDrink.drinkKey);
+      });
 
       const matomoId = storage.getString("@UserIdv2");
 

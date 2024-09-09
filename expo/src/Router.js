@@ -106,6 +106,7 @@ const TabsNavigator = ({ navigation }) => {
           tabBarInactiveTintColor: "#767676",
           keyboardHidesTabBar: true,
           lazy: true,
+          tabBarLabelPosition: "below-icon", // Ensure label is positioned below the icon
         }}
       >
         <Tabs.Screen

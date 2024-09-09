@@ -18,77 +18,63 @@ router.post(
 router.post(
   "/sync",
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    try {
+      const matomoId = req.body?.matomoId;
+      if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
 
-    const { drinks, drinksCatalog } = req.body;
+      const { drinks, drinksCatalog } = req.body;
 
-    if (!drinks.length) {
+      if (!drinks.length) {
+        await syncDrinkBadgesWithConsos(matomoId);
+
+        await syncAllGoalsWithConsos(matomoId, true);
+
+        // TODO: uncomment this line when the notifications for goals sync is sent
+        // await syncBadgesWithGoals(matomoId, true);
+        return res.status(200).json({ ok: true });
+      }
+
+      const user = await prisma.user.upsert({
+        where: { matomo_id: matomoId },
+        create: {
+          matomo_id: matomoId,
+        },
+        update: {},
+      });
+
+      for (const drink of drinks) {
+        const drinkToSave = {
+          id: drink.id,
+          drinkKey: drink.drinkKey,
+          name: drink.drinkKey === "no-conso" ? drink.drinkKey : drinksCatalog.find((dc) => dc.drinkKey === drink.drinkKey)?.displayDrinkModal,
+          quantity: Number(drink.quantity),
+          date: dayjs(drink.timestamp).toISOString(),
+          userId: user.id,
+          doses: drink.drinkKey === "no-conso" ? 0 : Number(drinksCatalog.find((dc) => dc.drinkKey === drink.drinkKey)?.doses),
+          kcal: drink.drinkKey === "no-conso" ? 0 : Number(drinksCatalog.find((dc) => dc.drinkKey === drink.drinkKey)?.kcal),
+          price: drink.drinkKey === "no-conso" ? 0 : Number(drinksCatalog.find((dc) => dc.drinkKey === drink.drinkKey)?.price),
+          volume: drink.drinkKey === "no-conso" ? "" : drinksCatalog.find((dc) => dc.drinkKey === drink.drinkKey)?.volume,
+        };
+
+        await prisma.consommation.upsert({
+          where: { id: drink.id },
+          update: drinkToSave,
+          create: drinkToSave,
+        });
+      }
+
       await syncDrinkBadgesWithConsos(matomoId);
 
       await syncAllGoalsWithConsos(matomoId, true);
 
       // TODO: uncomment this line when the notifications for goals sync is sent
       // await syncBadgesWithGoals(matomoId, true);
-      return res.status(200).json({ ok: true });
+
+      return res.status(200).send({ ok: true });
+    } catch (error) {
+      console.error("An error occurred during syncing:", error);
+      return res.status(500).json({ ok: false, error: "An internal server error occurred." });
     }
-
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-      },
-      update: {},
-    });
-
-    for (const drink of drinks) {
-      if (drink.drinkKey === "no-conso") {
-        const drinkToSave = {
-          id: drink.id,
-          drinkKey: drink.drinkKey,
-          name: drink.drinkKey,
-          quantity: Number(drink.quantity),
-          date: dayjs(drink.timestamp).format(),
-          userId: user.id,
-          doses: 0,
-          kcal: 0,
-          price: 0,
-          volume: "",
-        };
-        return await prisma.consommation.upsert({
-          where: { id: drink.id },
-          update: drinkToSave,
-          create: drinkToSave,
-        });
-      }
-      const drinkFromCatalog = drinksCatalog.find((drinkCatalog) => drinkCatalog.drinkKey === drink.drinkKey);
-      const drinkToSave = {
-        id: drink.id,
-        drinkKey: drink.drinkKey,
-        name: drinkFromCatalog.displayDrinkModal,
-        quantity: drink.quantity,
-        date: dayjs(drink.timestamp).format(),
-        userId: user.id,
-        doses: Number(drinkFromCatalog.doses),
-        kcal: Number(drinkFromCatalog.kcal),
-        price: Number(drinkFromCatalog.price),
-        volume: drinkFromCatalog.volume,
-      };
-      await prisma.consommation.upsert({
-        where: { id: drink.id },
-        update: drinkToSave,
-        create: drinkToSave,
-      });
-    }
-
-    await syncDrinkBadgesWithConsos(matomoId);
-
-    await syncAllGoalsWithConsos(matomoId, true);
-
-    // TODO: uncomment this line when the notifications for goals sync is sent
-    // await syncBadgesWithGoals(matomoId, true);
-
-    return res.status(200).send({ ok: true });
   })
 );
 
