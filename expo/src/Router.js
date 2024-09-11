@@ -49,6 +49,7 @@ import { isInCravingKeyState } from "./recoil/craving";
 import { dayjsInstance } from "./services/dates";
 import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
 import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
+import EndOzModal from "./scenes/WelcomeScreen/EndOzModal";
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -279,6 +280,7 @@ const Router = () => {
         onReady={() => {
           API.navigation = navigationRef.current;
           if (alreadyExported) navigationRef.current.navigate("MODAL_EXPORT_DONE");
+          else navigationRef.current.navigate("MODAL_CLOSE_APP");
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}
@@ -317,6 +319,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="MODAL_EXPORT_DONE"
             component={ExportedDataDone}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
+              animation: "fade",
+            }}
+          />
+          <ModalsStack.Screen
+            name="MODAL_CLOSE_APP"
+            component={EndOzModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
