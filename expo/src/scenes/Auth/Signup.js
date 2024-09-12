@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import API from "../../services/api";
 import { storage } from "../../services/storage";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -48,18 +57,16 @@ const SignupScreen = ({ navigation }) => {
   };
 
   const signup = async () => {
-    const matomoId = storage.getString("@UserIdv2");
     const response = await API.post({
       path: "/user/signup",
       body: {
-        matomoId,
         email,
         password,
       },
     });
     if (response.ok) {
-      storage.set("@Email", email);
-      storage.set("@Token", response.token);
+      storage.set("@User", response.newUser.email);
+      API.setToken(response.token);
       navigation.navigate("EMAIL_CONFIRMATION");
     } else {
       alert("Erreur lors de l'inscription");
@@ -79,7 +86,12 @@ const SignupScreen = ({ navigation }) => {
   return (
     <SafeAreaView className="bg-[#3E309F] w-full h-full px-5">
       <KeyboardAvoidingView enabled behavior={Platform.select({ ios: "padding", android: null })}>
-        <View className="flex px-4 space-y-8 mt-10 ">
+        <ScrollView
+          className="flex px-4 space-y-8 mt-10"
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="never"
+          keyboardDismissMode="none"
+        >
           <View className="px-5">
             <Text className="text-center text-white text-2xl font-bold">Créer un compte</Text>
           </View>
@@ -160,16 +172,16 @@ const SignupScreen = ({ navigation }) => {
               </View>
             )}
           </View>
-        </View>
-        <View className="flex mt-10 items-center">
-          <TouchableOpacity
-            onPress={signup}
-            className={`rounded-full px-6 py-3 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
-            disabled={isButtonDisabled}
-          >
-            <Text className="text-center text-white text-xl font-bold">Valider</Text>
-          </TouchableOpacity>
-        </View>
+          <View className="flex mt-10 items-center">
+            <TouchableOpacity
+              onPress={signup}
+              className={`rounded-full px-6 py-3 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
+              disabled={isButtonDisabled}
+            >
+              <Text className="text-center text-white text-xl font-bold">Valider</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

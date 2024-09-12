@@ -7,7 +7,7 @@ import { storage } from "../../services/storage";
 const EmailConfirmationScreen = ({ navigation }) => {
   const isOldUser = storage.getBoolean("@IsOldUser");
   // const isReinitialisingPassword = storage.getBoolean("@IsReinitialisingPassword");
-  const isReinitialisingPassword = true;
+  const isReinitialisingPassword = false;
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputRefs = useRef([]);
   const handleCodeChange = (text, index) => {
@@ -45,7 +45,7 @@ const EmailConfirmationScreen = ({ navigation }) => {
           <View className="flex flex-row justify-center mb-10">
             {code.map((digit, index) => (
               <React.Fragment key={index}>
-                {index === 3 && <View className="w-3" />} {/* Adds extra space after the third box */}
+                {index === 3 && <View className="w-3" />}
                 <View className="w-10 h-10 bg-white rounded-lg items-center justify-center mx-0.5">
                   <TextInput
                     value={digit}

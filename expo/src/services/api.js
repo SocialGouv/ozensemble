@@ -20,6 +20,11 @@ const checkNetwork = async (test = false) => {
 class ApiService {
   host = API_HOST;
   scheme = SCHEME;
+
+  setToken = (newToken) => {
+    this.token = newToken;
+  };
+
   getUrl = (path, query) => {
     return new URI().host(this.host).scheme(this.scheme).path(path).setSearch(query).toString();
   };
@@ -37,6 +42,7 @@ class ApiService {
           appversion: deviceInfoModule.getBuildNumber(),
           appdevice: Platform.OS,
           currentroute: this.navigation?.getCurrentRoute?.()?.name,
+          Authorization: `Bearer ${this.token}`,
           ...headers,
         },
         body: body ? JSON.stringify(body) : null,

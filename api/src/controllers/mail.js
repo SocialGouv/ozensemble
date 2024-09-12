@@ -5,14 +5,15 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const { capture } = require("../third-parties/sentry");
 const prisma = require("../prisma");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    let { matomoId, to, replyTo, replyToName, subject, text, html, attachments } = req.body || {};
-    if (!matomoId && req.headers.appversion > 225) {
-      return res.status(200).json({ ok: true });
-    }
+    let { to, replyTo, replyToName, subject, text, html, attachments } = req.body || {};
+    const user = req.user;
+
     if (!subject || (!text && !html)) return res.status(400).json({ ok: false, error: "wrong parameters" });
 
     if (subject === "Context suggestion") {
@@ -23,15 +24,12 @@ router.post(
         .split("\n")
         .filter(Boolean)
         .map((line) => line.split(":"));
-      const matomoId = textAndValues[0][1].trim();
       const requestContext = textAndValues[4][1].trim().toLowerCase();
       const requestCategory = textAndValues[4][0].split(" ").at(-1).replace(":", "").trim();
-      const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
       if (!user) return res.status(400).json({ ok: false, error: "no matomo id" });
       await prisma.drinksContextRequest.create({
         data: {
           userId: user.id,
-          matomo_id: matomoId,
           context: requestContext,
           category: requestCategory,
         },

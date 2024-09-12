@@ -9,6 +9,7 @@ const router = express.Router();
 const dayjs = require("dayjs");
 const utc = require("dayjs/plugin/utc");
 dayjs.extend(utc);
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 const DAYS_OF_WEEK = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
 
@@ -58,51 +59,42 @@ const toUtcData = ({ timeHours, timeMinutes, daysOfWeek, timezone }) => {
 
 router.put(
   ["/", "/sync"],
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId, pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
+    const { pushNotifToken, type, timeHours, timeMinutes, id, daysOfWeek, timezone, disabled } = req.body || {};
+    const user = req.user;
 
     if (!pushNotifToken) {
-      capture("reminder api: no push token", { extra: req.body, user: { matomoId } });
+      capture("reminder api: no push token", { extra: req.body, user: user.id });
       return res.status(400).json({ ok: false, error: "no push token" });
     }
-    if (!matomoId) {
-      capture("reminder api: no matomo id", { extra: req.body, user: { matomoId } });
-      return res.status(400).json({ ok: false, error: "no matomo id" });
-    }
     if (type !== "Daily" && type !== "Weekdays") {
-      capture("reminder api: wrong type", { extra: req.body, user: { matomoId } });
+      capture("reminder api: wrong type", { extra: req.body, user: user.id });
       return res.status(400).json({ ok: false, error: "wrong type" });
     }
     if (!timezone) {
-      capture("reminder api: wrong timezone", { extra: req.body, user: { matomoId } });
+      capture("reminder api: wrong timezone", { extra: req.body, user: user.id });
       return res.status(400).json({ ok: false, error: "wrong timezone" });
     }
     if (isNaN(timeHours)) {
-      capture("reminder api: wrong timeHours", { extra: req.body, user: { matomoId } });
+      capture("reminder api: wrong timeHours", { extra: req.body, user: user.id });
       return res.status(400).json({ ok: false, error: "wrong timeHours" });
     }
     if (isNaN(timeMinutes)) {
-      capture("reminder api: wrong timeMinutes", { extra: req.body, user: { matomoId } });
+      capture("reminder api: wrong timeMinutes", { extra: req.body, user: user.id });
       return res.status(400).json({ ok: false, error: "wrong timeMinutes" });
     }
     if (type === "Weekdays" && !daysOfWeek) {
-      capture("reminder api: wrong daysOfWeek", { extra: req.body, user: { matomoId } });
+      capture("reminder api: wrong daysOfWeek", { extra: req.body, user: user.id });
       return res.status(400).json({ ok: false, error: "wrong daysOfWeek" });
     }
 
     const { utcTimeHours, utcTimeMinutes, utcDaysOfWeek } = toUtcData({ timeHours, timeMinutes, daysOfWeek, timezone });
 
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      update: {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
         push_notif_token: pushNotifToken,
-      },
-      create: {
-        email: "yoan.roszak@selego.co",
-        password: "password12@Abc",
-        push_notif_token: pushNotifToken,
-        matomo_id: matomoId,
-        created_from: "Reminder",
       },
     });
 
@@ -182,7 +174,6 @@ const reminderCronJob = async (req, res) => {
 
     sendPushNotification({
       userId: reminder.user.id,
-      matomoId: reminder.user.matomo_id,
       pushNotifToken: reminder.user.push_notif_token,
       channelId: "unique_reminder",
       ...REMINDER_DATA,
@@ -224,7 +215,6 @@ const reminderCronJob = async (req, res) => {
 
     sendPushNotification({
       userId: reminder.user.id,
-      matomoId: reminder.user.matomo_id,
       pushNotifToken: reminder.user.push_notif_token,
       channelId: "unique_reminder",
       ...REMINDER_DATA,

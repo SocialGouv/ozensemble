@@ -3,9 +3,11 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/init",
+  authenticateToken,
   catchErrors(async (req, res) => {
     return res.status(200).send({ ok: true });
   })
@@ -13,22 +15,11 @@ router.post(
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
+    const user = req.user;
     const completedDays = Number(req.body?.daysValidated);
     const autoEvaluationDone = req.body?.autoEvaluationDone;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        email: "yoan.roszak@selego.co",
-        password: "password12@Abc",
-        created_from: "Defis",
-      },
-      update: {},
-    });
 
     const defis_badges = await prisma.badge.findMany({
       where: { userId: user.id, category: "defis" },
@@ -102,11 +93,9 @@ router.post(
 
 router.post(
   "/display",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId } = req.body || {};
-    const user = await prisma.user.findUnique({
-      where: { matomo_id: matomoId },
-    });
+    const user = req.user;
     const badge_defis_to_show = await prisma.badge.findFirst({
       where: { userId: user.id, category: "defis", shown: false },
     });

@@ -1,9 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { View, TextInput, TouchableOpacity, Text, SafeAreaView, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import BackButton from "../../components/BackButton";
+import API from "../../services/api";
+import { storage } from "../../services/storage";
 
 const ChangePassword = ({ navigation }) => {
   const [formerPassword, setFormerPassword] = useState("");
@@ -41,6 +52,26 @@ const ChangePassword = ({ navigation }) => {
     setIsMatching(password === text);
   };
 
+  const updatePassword = async () => {
+    const email = storage.getString("@User");
+
+    API.post({
+      path: "/user/update",
+      body: {
+        email,
+        password: formerPassword,
+        newPassword: password,
+      },
+    }).then((response) => {
+      if (response.ok) {
+        alert("Votre mot de passe a bien été modifié");
+        navigation.goBack();
+      } else {
+        alert("Erreur lors de la modification du mot de passe");
+      }
+    });
+  };
+
   useEffect(() => {
     if (isStrongPassword && isMatching && isDifferent) {
       setIsButtonDisabled(false);
@@ -53,10 +84,19 @@ const ChangePassword = ({ navigation }) => {
 
   return (
     <SafeAreaView className=" w-full h-full px-5">
-      <KeyboardAvoidingView enabled behavior={Platform.select({ ios: "padding", android: null })}>
-        <BackButton onPress={navigation.goBack} marginTop marginLeft marginBottom />
+      <KeyboardAvoidingView
+        enabled
+        behavior={Platform.select({ ios: "padding", android: null })}
+        keyboardVerticalOffset={Platform.select({ ios: 50, android: 250 })}
+      >
+        <ScrollView
+          className="flex px-8 space-y-8"
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="never"
+          keyboardDismissMode="none"
+        >
+          <BackButton onPress={navigation.goBack} marginTop />
 
-        <View className="flex px-8 space-y-8 ">
           <Text className="text-start text-[#4030A5] text-2xl font-bold">Modifier le mot de passe</Text>
           <Text className="text-black text-sm">
             Veuillez saisir votre mot de passe actuel, ainsi que votre nouveau mot de passe.
@@ -140,17 +180,17 @@ const ChangePassword = ({ navigation }) => {
               </View>
             )}
           </View>
-        </View>
-        <View className="flex mt-10 items-center">
-          <TouchableOpacity
-            // onPress={signup}
-            onPress={() => navigation.push("TABS")}
-            className={`rounded-full px-6 py-3 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
-            // disabled={isButtonDisabled}
-          >
-            <Text className="text-center text-white text-xl font-bold">Valider</Text>
-          </TouchableOpacity>
-        </View>
+          <View className="flex mt-10 items-center">
+            <TouchableOpacity
+              onPress={() => {
+                updatePassword();
+              }}
+              className={`rounded-full px-6 py-3 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
+            >
+              <Text className="text-center text-white text-xl font-bold">Valider</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

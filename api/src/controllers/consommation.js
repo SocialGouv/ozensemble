@@ -6,9 +6,11 @@ const prisma = require("../prisma");
 const { getBadgeCatalog } = require("../utils/badges");
 const { syncGoalsWithConsos, syncAllGoalsWithConsos } = require("../utils/goals");
 const { checksConsecutiveDays, syncDrinkBadgesWithConsos } = require("../utils/drinks");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/init",
+  authenticateToken, // Add authentication middleware
   catchErrors(async (req, res) => {
     // kept for retrocompatilibity
     return res.status(200).send({ ok: true });
@@ -17,31 +19,16 @@ router.post(
 
 router.post(
   "/sync",
+  authenticateToken, // Add authentication middleware
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    console.log("syncing consos", matomoId);
     const { drinks, drinksCatalog } = req.body;
+    const user = req.user;
 
     if (!drinks.length) {
-      await syncDrinkBadgesWithConsos(matomoId);
-
-      await syncAllGoalsWithConsos(matomoId, true);
-
-      // TODO: uncomment this line when the notifications for goals sync is sent
-      // await syncBadgesWithGoals(matomoId, true);
+      await syncDrinkBadgesWithConsos(user.id);
+      await syncAllGoalsWithConsos(user.id, true);
       return res.status(200).json({ ok: true });
     }
-
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        email: "yoan.roszak@selego.co",
-        password: "password12@Abc",
-      },
-      update: {},
-    });
 
     for (const drink of drinks) {
       if (drink.drinkKey === "no-conso") {
@@ -83,12 +70,8 @@ router.post(
       });
     }
 
-    await syncDrinkBadgesWithConsos(matomoId);
-
-    await syncAllGoalsWithConsos(matomoId, true);
-
-    // TODO: uncomment this line when the notifications for goals sync is sent
-    // await syncBadgesWithGoals(matomoId, true);
+    await syncDrinkBadgesWithConsos(user.id);
+    await syncAllGoalsWithConsos(user.id, true);
 
     return res.status(200).send({ ok: true });
   })
@@ -96,16 +79,12 @@ router.post(
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    /* 1. save conso in DB */
-
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    let user = req.user;
 
     const date = req.body.date;
-    const conso_id = req.body.id; // setup in frontend
+    const conso_id = req.body.id;
     const conso = {
       name: req.body.name,
       drinkKey: req.body.drinkKey,
@@ -129,14 +108,9 @@ router.post(
         update: conso,
         create: { ...conso, id: conso_id },
       });
-      console.log("conso upserted", consoDB.id);
     }
 
-    /* 2. SIDE EFFECTS */
-
-    // note: the `date` can be ANY date, not just today,
-    // because the user can update a conso from any date
-    await syncGoalsWithConsos(matomoId, date);
+    await syncGoalsWithConsos(user.id, date);
 
     const drinksBadgeToShow = await syncDrinkBadgesWithConsos(matomoId);
 
@@ -159,12 +133,10 @@ router.post(
 
 router.post(
   "/fix-missing-key",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
     const drinkKey = req.body.drinkKey;
     const conso_id = req.body.id;
-    // find user with matomoId
 
     await prisma.consommation.update({
       where: { id: conso_id },
@@ -178,10 +150,9 @@ router.post(
 
 router.delete(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    const user = await prisma.user.findFirst({ where: { matomo_id: matomoId } });
+    const user = req.user;
     const conso_id = req.body.id;
     const consommation = await prisma.consommation.findFirst({
       where: { id: conso_id },
@@ -196,84 +167,17 @@ router.delete(
   })
 );
 
-const NPSInAppMessage = {
-  id: "@NPSDone",
-  title: "5 sec pour nous aider à améliorer l'application\u00A0?",
-  content: `Nous construisons l'application ensemble et __votre avis sera pris en compte dans les prochaines mises à jour.__ Merci d'avance\u00A0!`,
-  CTATitle: "Je donne mon avis sur Oz",
-  CTANavigation: ["NPS_SCREEN", { triggeredFrom: "5 seconds for NPS" }],
-};
-
-const checkNPSAvailability = async (user) => {
-  const npsDone = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSDone` } });
-  if (npsDone) return null;
-  const npsAsked3 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked3` } });
-  if (npsAsked3) return null;
-  const allConsos = await prisma.consommation.findMany({
-    where: {
-      userId: user.id,
-    },
-    orderBy: { date: "desc" },
-  });
-  const enoughConsecutiveDays = checksConsecutiveDays(4, allConsos);
-  if (!enoughConsecutiveDays) return null;
-
-  const npsAsked2 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked2` } });
-
-  const now = dayjs();
-
-  if (npsAsked2) {
-    if (dayjs(npsAsked2.date).diff(now, "day") < 7) {
-      return null;
-    }
-    await prisma.appMilestone.create({
-      data: {
-        id: `${user.id}_@NPSAsked3`,
-        date: now.format("YYYY-MM-DD"),
-        userId: user.id,
-      },
-    });
-    return NPSInAppMessage;
-  }
-
-  const npsAsked1 = await prisma.appMilestone.findUnique({ where: { id: `${user.id}_@NPSAsked1` } });
-  if (npsAsked1) {
-    if (dayjs(npsAsked1.date).diff(now, "day") < 7) {
-      return null;
-    }
-    await prisma.appMilestone.create({
-      data: {
-        id: `${user.id}_@NPSAsked2`,
-        date: now.format("YYYY-MM-DD"),
-        userId: user.id,
-      },
-    });
-    return NPSInAppMessage;
-  }
-  await prisma.appMilestone.create({
-    data: {
-      id: `${user.id}_@NPSAsked1`,
-      date: now.format("YYYY-MM-DD"),
-      userId: user.id,
-    },
-  });
-  return NPSInAppMessage;
-};
-
 router.post(
   "/update-own-conso",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const user = req.user;
     const oldDrinkKey = req.body?.oldDrinkKey;
     const drinkKey = req.body?.drinkKey;
     const doses = req.body?.doses;
     const kcal = req.body?.kcal;
     const price = req.body?.price;
     const volume = req.body?.volume;
-
-    // find user with matomoId
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
 
     await prisma.consommation.updateMany({
       where: { userId: user.id, drinkKey: oldDrinkKey },
@@ -292,12 +196,9 @@ router.post(
 
 router.get(
   "/get-all-consos",
+  authenticateToken, // Add authentication middleware
   catchErrors(async (req, res) => {
-    const { matomoId } = req.query;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    // find user with matomoId
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    const user = req.user;
 
     const consos = await prisma.consommation.findMany({
       where: { userId: user.id },

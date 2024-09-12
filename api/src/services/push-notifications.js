@@ -89,9 +89,9 @@ const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, b
 
         if (error === "Requested entity was not found") {
           // https://stackoverflow.com/a/56218146/5225096
-          await prisma.user.upsert({
+          await prisma.user.update({
             where: { matomo_id: matomoId },
-            update: {
+            data: {
               push_notif_token: null,
             },
           });

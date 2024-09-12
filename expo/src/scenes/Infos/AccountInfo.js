@@ -4,11 +4,10 @@ import BackButton from "../../components/BackButton";
 import { storage } from "../../services/storage";
 
 const AccountInfo = ({ navigation }) => {
-  const currentEmail = storage.getString("@Email");
+  const currentEmail = storage.getString("@User");
   const [email, setEmail] = useState(currentEmail);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(false);
-  storage.set("@Email", "yoan.roszak@selego.co");
 
   const handleEmailChange = (text) => {
     setEmail(text);
@@ -34,8 +33,9 @@ const AccountInfo = ({ navigation }) => {
         />
         <View className="flex items-center">
           <TouchableOpacity
+            disabled={isButtonDisabled}
             onPress={() => {
-              navigation.navigate("CHANGE_PASSWORD");
+              navigation.navigate("CHANGE_ACCOUNT", { email: email });
             }}
             className={`mt-2 rounded-full px-6 py-2 ${isButtonDisabled ? "bg-[#EA6C96]" : "bg-[#de285e]"}`}
           >
