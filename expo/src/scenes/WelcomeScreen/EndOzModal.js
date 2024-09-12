@@ -12,15 +12,15 @@ const EndOzModal = ({ navigation }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const pagerRef = useRef(null);
 
-  const onStartPress = async () => {
-    storage.set("@OnboardingDoneWithCGU", true);
-    navigation.navigate("USER_SURVEY_START", { from: "NEW_USER" });
-  };
-
   const onPressNext = () => {
     if (pagerRef.current) {
-      pagerRef.current.setPage(currentPage + 1);
-      setCurrentPage(currentPage + 1);
+      if (currentPage === 3) {
+        navigation.goBack();
+      } else {
+        pagerRef.current.setPage(currentPage + 1);
+
+        setCurrentPage(currentPage + 1);
+      }
     } else {
       console.warn("Pager ref is not defined");
     }
@@ -40,7 +40,12 @@ const EndOzModal = ({ navigation }) => {
     <SafeAreaView className="flex-1 justify-center items-center">
       <View className="bg-white rounded-xl w-[90%] h-[70%]">
         <View className="h-5 flex flex-row justify-end p-3">
-          <TouchableOpacity hitSlop={hitSlop(15)} onPress={() => {}}>
+          <TouchableOpacity
+            hitSlop={hitSlop(15)}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
             <Svg fill="none" viewBox="0 0 24 24" className="h-5 w-5">
               <Path
                 strokeLinecap="round"
@@ -79,7 +84,9 @@ const EndOzModal = ({ navigation }) => {
                 onPress={onPressNext}
                 className="justify-center items-center flex-row rounded-3xl bg-[#DE285E] px-6 py-3"
               >
-                <Text className="font-bold text-white text-center text-base">Suivant</Text>
+                <Text className="font-bold text-white text-center text-base">
+                  {currentPage === 3 ? "Terminer" : "Suivant"}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
