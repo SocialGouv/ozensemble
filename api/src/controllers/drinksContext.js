@@ -3,22 +3,21 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/request",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const user = req.user;
+
     const context = req.body.context;
     const category = req.body.category;
     // find user with matomoId
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
 
-    if (!user) return res.status(400).json({ ok: false, error: "no user" });
     await prisma.drinksContextRequest.create({
       data: {
         userId: user.id,
-        matomo_id: matomoId,
         context: context,
         category: category?.toLowerCase(),
       },
@@ -29,15 +28,13 @@ router.post(
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const user = req.user;
     const id = req.body.id;
     const context = req.body.context;
     const date = req.body.date;
     const emotion = req.body.emotion;
-
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
 
     await prisma.drinksContext.upsert({
       where: { id: id },
@@ -61,23 +58,13 @@ router.post(
 
 router.post(
   "/sync",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
     const { drinksContexts } = req.body;
 
     if (!drinksContexts.length) return res.status(200).json({ ok: true });
 
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        email: "yoan.roszak@selego.co",
-        password: "password12@Abc",
-        matomo_id: matomoId,
-      },
-      update: {},
-    });
+    const user = req.user;
 
     const drinksContextsToSave = drinksContexts.map((drinksContext) => {
       return {
@@ -89,7 +76,7 @@ router.post(
       };
     });
 
-    await prisma.DrinksContext.createMany({
+    await prisma.drinksContext.createMany({
       data: drinksContextsToSave,
       skipDuplicates: true,
     });

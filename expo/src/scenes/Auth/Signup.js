@@ -14,8 +14,24 @@ import { storage } from "../../services/storage";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Entypo from "@expo/vector-icons/Entypo";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { reconciliateDrinksToDB, reconciliateGoalToDB } from "../../reconciliations";
+import {
+  hasSentPreviousDrinksToDB,
+  hasCleanConsoAndCatalog,
+  hasMigrateMissingDrinkKey,
+  hasMigrateFromDailyGoalToWeekly,
+  sendPreviousDrinksToDB,
+  cleanConsosAndCatalog,
+  migrateFromDailyGoalToWeekly,
+  migrateMissingDrinkKey,
+} from "../../migrations";
 
 const SignupScreen = ({ navigation }) => {
+  const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
+  const [reconciliatedGoalsToDB, setReconciliatedGoalsToDB] = useState(false);
+  const [hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
+  const [hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,6 +83,18 @@ const SignupScreen = ({ navigation }) => {
     if (response.ok) {
       storage.set("@User", response.newUser.email);
       API.setToken(response.token);
+      await reconciliateDrinksToDB();
+      setReconciliatedDrinksToDB(true);
+      await reconciliateGoalToDB();
+      setReconciliatedGoalsToDB(true);
+      await cleanConsosAndCatalog();
+      setHasCleanConsoAndCatalog(true);
+      await sendPreviousDrinksToDB();
+      setHasSentPreviousDrinksToDB(true);
+      await migrateFromDailyGoalToWeekly();
+      sethasMigrateFromDailyGoalToWeekly(true);
+      migrateMissingDrinkKey();
+      sethasMigrateMissingDrinkKey(true);
       navigation.navigate("EMAIL_CONFIRMATION");
     } else {
       alert("Erreur lors de l'inscription");

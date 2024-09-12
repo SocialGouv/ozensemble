@@ -54,7 +54,17 @@ import EmailConfirmationScreen from "./scenes/WelcomeScreen/EmailConfirmationScr
 import ForgotPassword from "./scenes/Auth/ForgotPassword";
 import ReinitialisePassword from "./scenes/Auth/ReinitialisePassword";
 import ChangeAccountModal from "./scenes/Infos/ChangeAccountModal";
-
+import {
+  hasSentPreviousDrinksToDB,
+  hasCleanConsoAndCatalog,
+  hasMigrateMissingDrinkKey,
+  hasMigrateFromDailyGoalToWeekly,
+  sendPreviousDrinksToDB,
+  cleanConsosAndCatalog,
+  migrateMissingDrinkKey,
+  migrateFromDailyGoalToWeekly,
+} from "./migrations";
+import { reconciliateDrinksToDB, reconciliateGoalToDB } from "./reconciliations";
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
     {children}
@@ -170,6 +180,14 @@ const TabsNavigator = ({ navigation }) => {
 
 const AppStack = createNativeStackNavigator();
 const App = () => {
+  const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
+  const [reconciliatedGoalsToDB, setReconciliatedGoalsToDB] = useState(false);
+  const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
+  const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
+  const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
+    hasMigrateFromDailyGoalToWeekly
+  );
   const [isTokenValid, setIsTokenValid] = useState(null);
   const token = storage.getString("@Token");
 
@@ -188,6 +206,30 @@ const App = () => {
 
         if (response.ok) {
           setIsTokenValid(true);
+          if (!reconciliatedDrinksToDB) {
+            await reconciliateDrinksToDB();
+            setReconciliatedDrinksToDB(true);
+          }
+          if (!reconciliatedGoalsToDB) {
+            await reconciliateGoalToDB();
+            setReconciliatedGoalsToDB(true);
+          }
+          if (!_hasCleanConsoAndCatalog) {
+            await cleanConsosAndCatalog();
+            setHasCleanConsoAndCatalog(true);
+          }
+          if (!_hasSentPreviousDrinksToDB) {
+            await sendPreviousDrinksToDB();
+            setHasSentPreviousDrinksToDB(true);
+          }
+          if (!_hasMigrateFromDailyGoalToWeekly) {
+            await migrateFromDailyGoalToWeekly();
+            sethasMigrateFromDailyGoalToWeekly(true);
+          }
+          if (!_hasMigrateMissingDrinkKey) {
+            migrateMissingDrinkKey();
+            sethasMigrateMissingDrinkKey(true);
+          }
         } else {
           setIsTokenValid(false);
         }
@@ -200,7 +242,6 @@ const App = () => {
   }, [token]);
 
   const initialRouteName = useMemo(() => {
-    console.log("isTokenValid", isTokenValid);
     if (isTokenValid === null) return null; // Still checking token, render a loading screen or nothing
 
     if (!isTokenValid) return "SIGNIN_SCREEN";

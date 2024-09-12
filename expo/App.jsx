@@ -1,5 +1,5 @@
 import "react-native-get-random-values";
-import React, { useEffect, useState } from "react";
+import React, { useEffect} from "react";
 import * as Sentry from "@sentry/react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecoilRoot } from "recoil";
@@ -16,17 +16,6 @@ import "./src/styles/theme";
 
 import { getBundleId } from "react-native-device-info";
 import { initMatomo } from "./src/services/logEventsWithMatomo";
-import {
-  cleanConsosAndCatalog,
-  hasCleanConsoAndCatalog,
-  hasMigrateFromDailyGoalToWeekly,
-  hasMigrateMissingDrinkKey,
-  hasSentPreviousDrinksToDB,
-  migrateFromDailyGoalToWeekly,
-  migrateMissingDrinkKey,
-  sendPreviousDrinksToDB,
-} from "./src/migrations";
-import { reconciliateDrinksToDB, reconciliateGoalToDB } from "./src/reconciliations";
 
 dayjs.locale("fr");
 dayjs.extend(isSameOrAfter);
@@ -44,25 +33,10 @@ Sentry.init({
 });
 
 const App = () => {
-  // sync everytime we open the app
-  const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
-  const [reconciliatedGoalsToDB, setReconciliatedGoalsToDB] = useState(false);
 
-  // migrate only once if not yet done
-  // TODO: clean migrations when it's time
-  const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] =
-    useState(hasSentPreviousDrinksToDB);
-  const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
-  const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] =
-    useState(hasMigrateMissingDrinkKey);
-  const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
-    hasMigrateFromDailyGoalToWeekly
-  );
 
   useEffect(() => {
     initMatomo()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 

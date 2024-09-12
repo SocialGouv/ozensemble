@@ -7,12 +7,6 @@ export const hasSentPreviousDrinksToDB = storage.getBoolean("hasSentPreviousDrin
 export async function sendPreviousDrinksToDB() {
   try {
     if (hasSentPreviousDrinksToDB) return;
-    const matomoId = storage.getString("@UserIdv2");
-    if (!matomoId?.length) {
-      // new user - no drinks to send
-      storage.set("hasSentPreviousDrinksToDB", true);
-      return;
-    }
     // @Drinks
     const drinks = JSON.parse(storage.getString("@Drinks") || "[]");
     const ownDrinksCatalog = JSON.parse(storage.getString("@OwnDrinks") || "[]");
@@ -21,7 +15,6 @@ export async function sendPreviousDrinksToDB() {
       await API.post({
         path: "/consommation/init",
         body: {
-          matomoId,
           drinks,
           drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
         },
@@ -50,12 +43,6 @@ export async function cleanConsosAndCatalog() {
   // so we have to fix our problems too
   try {
     if (hasCleanConsoAndCatalog) return;
-    const matomoId = storage.getString("@UserIdv2");
-    if (!matomoId?.length) {
-      // new user - no drinks to send
-      storage.set("@hasCleanedAndFixedCatalog2", true);
-      return;
-    }
     const catalog = storage.getString("@OwnDrinks");
     if (!catalog?.length) {
       storage.set("@hasCleanedAndFixedCatalog2", true);
@@ -83,7 +70,6 @@ export async function cleanConsosAndCatalog() {
         API.post({
           path: "/consommation",
           body: {
-            matomoId: matomoId,
             id: conso.id,
             name: ownDrink.displayDrinkModal,
             drinkKey: ownDrink.drinkKey,
@@ -143,8 +129,8 @@ function cleanCatalog(oldDrinkCatalog) {
     const alcoolPercentage = Number(oldDrink.categoryKey.split("-")[2])
       ? Number(oldDrink.categoryKey.split("-")[2])
       : oldDrink.alcoolPercentage
-        ? String(oldDrink.alcoolPercentage).replace(",", ".")
-        : 5;
+      ? String(oldDrink.alcoolPercentage).replace(",", ".")
+      : 5;
 
     // 4. create kcal and doses if they don't exist
     const kcal = Math.round(((Number(alcoolPercentage) * 0.8 * volume) / 10) * 7);
@@ -172,8 +158,7 @@ function cleanCatalog(oldDrinkCatalog) {
       : "ownDrink";
 
     //  9. we fix the bug of the new cocktails
-    const categoryKeyEvolution2 =
-      drinkKeyEvolution1 === "ownCocktail" ? "ownCocktail" : categoryKeyEvolution1;
+    const categoryKeyEvolution2 = drinkKeyEvolution1 === "ownCocktail" ? "ownCocktail" : categoryKeyEvolution1;
 
     newOwnDrinksCatalog.push({
       drinkKey: drinkKeyEvolution2,
@@ -193,9 +178,7 @@ function cleanCatalog(oldDrinkCatalog) {
   return newOwnDrinksCatalog;
 }
 
-export const hasMigrateFromDailyGoalToWeekly = storage.getBoolean(
-  "hasMigrateFromDailyGoalToWeekly"
-);
+export const hasMigrateFromDailyGoalToWeekly = storage.getBoolean("hasMigrateFromDailyGoalToWeekly");
 export async function migrateFromDailyGoalToWeekly() {
   try {
     const drinksByDrinkingDayString = storage.getString("@StoredDetailedDrinksByDrinkingDay");
@@ -216,9 +199,7 @@ export async function migrateFromDailyGoalToWeekly() {
     capture(e, {
       extra: {
         migration: "hasMigrateFromDailyGoalToWeekly",
-        "@StoredDetailedDrinksByDrinkingDay": storage.getString(
-          "@StoredDetailedDrinksByDrinkingDay"
-        ),
+        "@StoredDetailedDrinksByDrinkingDay": storage.getString("@StoredDetailedDrinksByDrinkingDay"),
         "@DaysWithGoalNoDrink": storage.getString("@DaysWithGoalNoDrink"),
       },
       user: {
@@ -234,12 +215,6 @@ export const migrateMissingDrinkKey = () => {
 
   try {
     if (hasMigrateMissingDrinkKey) return;
-    const matomoId = storage.getString("@UserIdv2");
-    if (!matomoId?.length) {
-      // new user - no drinks to send
-      storage.set("@hasMigrateMissingDrinkKey", true);
-      return;
-    }
     const catalog = storage.getString("@OwnDrinks");
     if (!catalog?.length) {
       storage.set("@hasMigrateMissingDrinkKey", true);
@@ -305,7 +280,6 @@ export const migrateMissingDrinkKey = () => {
         API.post({
           path: "/consommation/fix-missing-key",
           body: {
-            matomoId: matomoId,
             id: conso.id,
             drinkKey: conso.drinkKey,
           },

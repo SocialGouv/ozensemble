@@ -13,8 +13,30 @@ import {
 import API from "../../services/api";
 import { storage } from "../../services/storage";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import {
+  hasSentPreviousDrinksToDB,
+  hasCleanConsoAndCatalog,
+  hasMigrateMissingDrinkKey,
+  hasMigrateFromDailyGoalToWeekly,
+  sendPreviousDrinksToDB,
+  cleanConsosAndCatalog,
+  migrateMissingDrinkKey,
+  migrateFromDailyGoalToWeekly,
+} from "../../migrations";
+import { reconciliateDrinksToDB, reconciliateGoalToDB } from "../../reconciliations";
 
 const SigninScreen = ({ navigation }) => {
+  const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
+  const [reconciliatedGoalsToDB, setReconciliatedGoalsToDB] = useState(false);
+
+  // migrate only once if not yet done
+  // TODO: clean migrations when it's time
+  const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
+  const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
+  const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
+    hasMigrateFromDailyGoalToWeekly
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [hidePassword, setHidePassword] = useState(true);
@@ -29,6 +51,30 @@ const SigninScreen = ({ navigation }) => {
     });
     if (response.ok) {
       API.setToken(response.token);
+      if (!reconciliatedDrinksToDB) {
+        await reconciliateDrinksToDB();
+        setReconciliatedDrinksToDB(true);
+      }
+      if (!reconciliatedGoalsToDB) {
+        await reconciliateGoalToDB();
+        setReconciliatedGoalsToDB(true);
+      }
+      if (!_hasCleanConsoAndCatalog) {
+        await cleanConsosAndCatalog();
+        setHasCleanConsoAndCatalog(true);
+      }
+      if (!_hasSentPreviousDrinksToDB) {
+        await sendPreviousDrinksToDB();
+        setHasSentPreviousDrinksToDB(true);
+      }
+      if (!_hasMigrateFromDailyGoalToWeekly) {
+        await migrateFromDailyGoalToWeekly();
+        sethasMigrateFromDailyGoalToWeekly(true);
+      }
+      if (!_hasMigrateMissingDrinkKey) {
+        migrateMissingDrinkKey();
+        sethasMigrateMissingDrinkKey(true);
+      }
       storage.set("@User", response.user.email);
       const onBoardingDone = storage.getBoolean("@OnboardingDoneWithCGU");
       if (!onBoardingDone) navigation.push("WELCOME_SWIPER");

@@ -6,11 +6,6 @@ import { storage } from "./services/storage";
 
 export async function reconciliateDrinksToDB() {
   try {
-    const matomoId = storage.getString("@UserIdv2");
-    if (!matomoId?.length) {
-      // new user - no drinks to send
-      return;
-    }
     // @Drinks
     const drinks = JSON.parse(storage.getString("@Drinks") || "[]");
     const ownDrinksCatalog = JSON.parse(storage.getString("@OwnDrinks") || "[]");
@@ -20,16 +15,12 @@ export async function reconciliateDrinksToDB() {
     await API.post({
       path: "/consommation/sync",
       body: {
-        matomoId,
         drinks: unsyncedDrinks,
         drinksCatalog: [...ownDrinksCatalog, ...drinksCatalog],
       },
     }).then((response) => {
       if (response?.ok) {
-        storage.set(
-          "@Drinks",
-          JSON.stringify(drinks.map((drink) => ({ ...drink, isSyncedWithDB: true })))
-        );
+        storage.set("@Drinks", JSON.stringify(drinks.map((drink) => ({ ...drink, isSyncedWithDB: true }))));
       }
     });
   } catch (e) {
@@ -49,24 +40,15 @@ export async function reconciliateDrinksToDB() {
 
 export async function reconciliateGoalToDB() {
   try {
-    const matomoId = storage.getString("@UserIdv2");
-    if (!matomoId?.length) {
-      // new user - no drinks to send
-      return;
-    }
     // @Drinks
     const daysWithGoalNoDrink = JSON.parse(storage.getString("@DaysWithGoalNoDrink") || "[]");
     const drinksByWeek = JSON.parse(storage.getString("@StoredDetaileddrinksByWeekState") || "[]");
     const maxDrinksPerWeek = getMaxDrinksPerWeek(drinksByWeek);
-    const totalDrinksByDrinkingDay = getTotalDrinksByDrinkingDay(
-      maxDrinksPerWeek,
-      daysWithGoalNoDrink
-    );
+    const totalDrinksByDrinkingDay = getTotalDrinksByDrinkingDay(maxDrinksPerWeek, daysWithGoalNoDrink);
 
     await API.post({
       path: "/goal/sync",
       body: {
-        matomoId,
         daysWithGoalNoDrink,
         dosesByDrinkingDay: totalDrinksByDrinkingDay,
         dosesPerWeek: maxDrinksPerWeek,

@@ -4,24 +4,15 @@ const router = express.Router();
 const prisma = require("../prisma");
 const dayjs = require("dayjs");
 const { superUser30DaysInAppModal, superUser90DaysInAppModal } = require("../utils/inAppModals");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId, appMilestone } = req.body || {};
+    const { appMilestone } = req.body || {};
 
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "AppMilestonePost",
-        email: "yoan.roszak@selego.co",
-        password: "password12@Abc",
-      },
-      update: {},
-    });
+    const user = req.user;
 
     await prisma.appMilestone.upsert({
       where: { id: `${user.id}_${appMilestone}` },
@@ -42,19 +33,10 @@ router.post(
 
 router.post(
   "/init",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId, isRegistered } = req.body || {};
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "AppMilestoneInit",
-        email: "yoan.roszak@selego.co",
-        password: "password12@Abc",
-      },
-      update: {},
-    });
+    const { isRegistered } = req.body || {};
+    const user = req.user;
 
     const allowNotification = await prisma.appMilestone.findUnique({
       where: { id: `${user.id}_@AllowNotification` },

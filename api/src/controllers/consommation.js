@@ -110,7 +110,7 @@ router.post(
       });
     }
 
-    await syncGoalsWithConsos(user.id, date);
+    await syncGoalsWithConsos(user, date);
 
     const drinksBadgeToShow = await syncDrinkBadgesWithConsos(matomoId);
 
