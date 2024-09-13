@@ -51,6 +51,7 @@ const SigninScreen = ({ navigation }) => {
     });
     if (response.ok) {
       API.setToken(response.token);
+      storage.set("@Token", response.token);
       if (!reconciliatedDrinksToDB) {
         await reconciliateDrinksToDB();
         setReconciliatedDrinksToDB(true);

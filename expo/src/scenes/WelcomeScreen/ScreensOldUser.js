@@ -9,7 +9,6 @@ import { logEvent } from "../../services/logEventsWithMatomo";
 import { storage } from "../../services/storage";
 import * as DocumentPicker from "expo-document-picker";
 import { Alert } from "react-native";
-import RNRestart from "react-native-restart";
 import API from "../../services/api";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
@@ -150,6 +149,7 @@ const overwriteData = async (dataImported, pushNotifToken) => {
     storage.clearAll();
     if (pushNotifToken) {
       storage.set("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN", pushNotifToken);
+      storage.set("@imported", true);
     }
     Object.keys(dataImported).forEach((key) => {
       const value = dataImported[key];
@@ -160,7 +160,7 @@ const overwriteData = async (dataImported, pushNotifToken) => {
       }
     });
 
-    await API.put({ path: `/user`, body: { matomoId: dataImported["@UserIdv2"], pushNotifToken } }).then((res) => {
+    await API.put({ path: `/user`, body: { pushNotifToken } }).then((res) => {
       if (res.ok) {
         logEvent({ category: "TRANSFER", action: "IMPORT_DATA_SUCCESS" });
       } else {

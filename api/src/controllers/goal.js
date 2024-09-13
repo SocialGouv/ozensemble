@@ -57,9 +57,9 @@ router.post(
           id: `${user.id}_${date}`,
           userId: user.id,
           date,
-          daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
-          dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
-          dosesPerWeek: user.goal_dosesPerWeek,
+          daysWithGoalNoDrink: daysWithGoalNoDrink,
+          dosesByDrinkingDay: dosesByDrinkingDay,
+          dosesPerWeek: dosesPerWeek,
           status: GoalStatus.InProgress,
         },
       });

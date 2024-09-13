@@ -190,6 +190,7 @@ const App = () => {
   );
   const [isTokenValid, setIsTokenValid] = useState(null);
   const token = storage.getString("@Token");
+  API.setToken(token);
 
   useEffect(() => {
     const checkTokenValidity = async () => {
@@ -201,7 +202,6 @@ const App = () => {
       try {
         const response = await API.get({
           path: "/user/signin_token",
-          headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.ok) {
