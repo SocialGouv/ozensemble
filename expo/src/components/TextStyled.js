@@ -1,18 +1,50 @@
-import styled from "styled-components";
-import { Platform } from "react-native";
+import React from "react";
+import { Text, StyleSheet, Platform } from "react-native";
 
-const TextStyled = styled.Text`
-  ${Platform.OS === "android" && "font-family: Raleway;"}
-  color: ${({ color }) => color || "#191919"};
-  ${(props) => props.semibold && "font-weight: 600;"}
-  ${(props) => !!props.bold && "font-weight: bold;"}
-  ${(props) => props.italic && "font-style: italic;"}
-  ${(props) => props.center && "text-align: center;"}
-  textDecoration: ${({ underline }) => underline && "underline"};
-  ${({ size }) => size && `font-size: ${size}px;`}
-  ${({ lineHeight }) => lineHeight && `line-height: ${lineHeight}px;`}
+export default function TextStyled({
+  color = "#191919",
+  semibold,
+  bold,
+  italic,
+  center,
+  underline,
+  size,
+  lineHeight,
+  style,
+  textClassName = "",
+  ...props
+}) {
+  return (
+    <Text
+      className={[
+        "font-raleway",
+        color !== "#191919" && `text-[${color}]`,
+        semibold && "font-semibold",
+        bold && "font-bold",
+        italic && "italic",
+        center && "text-center",
+        underline && "underline",
+        size && `text-[${size}px]`,
+        lineHeight && `leading-[${lineHeight}px]`,
+        textClassName,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={[
+        styles.text,
+        underline && {
+          textDecorationColor: color,
+        },
+        style,
+      ]}
+      {...props}
+    />
+  );
+}
 
-  text-decoration-color: ${({ color }) => color || "#191919"};
-`;
-
-export default TextStyled;
+const styles = StyleSheet.create({
+  text: Platform.select({
+    android: { fontFamily: "Raleway" },
+    ios: {},
+  }),
+});

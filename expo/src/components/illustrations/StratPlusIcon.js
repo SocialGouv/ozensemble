@@ -2,32 +2,16 @@ import React from "react";
 import Svg, { Path, Circle } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const StratPlusIcon = ({ size, color = "#FF0000", ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 99 81" {...props}>
-    <Path
-      d="M51.9217 45.2812L58.2924 48.9926V74.6683L51.8926 70.9093L51.9217 45.2812Z"
-      fill="#DE285E"
-    />
-    <Path
-      opacity="0.2"
-      d="M51.9217 45.2812L58.2924 48.9926V74.6683L51.8926 70.9093L51.9217 45.2812Z"
-      fill="black"
-    />
+  <Svg width={size} height={size} viewBox="0 0 99 81" {...props}>
+    <Path d="M51.9217 45.2812L58.2924 48.9926V74.6683L51.8926 70.9093L51.9217 45.2812Z" fill="#DE285E" />
+    <Path opacity="0.2" d="M51.9217 45.2812L58.2924 48.9926V74.6683L51.8926 70.9093L51.9217 45.2812Z" fill="black" />
     <Path
       d="M53.4569 49.4438L55.836 41.5135C57.5543 39.1001 58.6724 36.1315 58.6724 33.5039C58.6724 29.1766 55.6351 27.424 51.8894 29.5863C48.1436 31.7487 45.1037 37.0117 45.1037 41.339C45.1037 43.467 45.8386 44.9711 47.0308 45.6954L47.1391 45.7589L53.4569 49.4438Z"
       fill="#DE285E"
     />
-    <Path
-      d="M51.9217 3.95898L58.2924 7.67037V33.3487L51.8926 29.5871L51.9217 3.95898Z"
-      fill="#DE285E"
-    />
-    <Path
-      opacity="0.2"
-      d="M51.9217 3.95898L58.2924 7.67037V33.3487L51.8926 29.5871L51.9217 3.95898Z"
-      fill="black"
-    />
+    <Path d="M51.9217 3.95898L58.2924 7.67037V33.3487L51.8926 29.5871L51.9217 3.95898Z" fill="#DE285E" />
+    <Path opacity="0.2" d="M51.9217 3.95898L58.2924 7.67037V33.3487L51.8926 29.5871L51.9217 3.95898Z" fill="black" />
     <Path d="M79.1253 5.8355L79.0275 5.77734L79.1226 5.8355H79.1253Z" fill="#FFA8A7" />
     <Path
       d="M78.6495 5.55547L72.8207 2.1613C67.5338 -1.1192 60.1322 -0.778197 51.9217 3.96148C51.9111 3.96606 51.9013 3.9723 51.8926 3.97998L58.2924 7.68079C66.2253 3.09443 73.4128 2.62126 78.6495 5.55547Z"
@@ -145,7 +129,7 @@ const StratPlusIcon = ({ size, color = "#FF0000", ...props }) => (
     <Circle cx="15" cy="66" r="15" fill="#DE285E" />
     <Path d="M7 66H22" stroke="white" stroke-width="3" stroke-linecap="round" />
     <Path d="M15 73L15 58" stroke="white" stroke-width="3" stroke-linecap="round" />
-  </StyledSvg>
+  </Svg>
 );
 
 export default StratPlusIcon;

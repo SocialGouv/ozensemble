@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const PintCider = ({ size, ...props }) => (
-  <StyledSvg width={size} height={(size * 114) / 98} viewBox="0 0 98 114" fill="none" {...props}>
+  <Svg width={size} height={(size * 114) / 98} viewBox="0 0 98 114" fill="none" {...props}>
     <Path
       d="M60.2592 113.999H11.9341C11.3026 113.997 10.7374 113.514 10.5105 112.783C10.0812 111.416 0 78.9158 0 49.9516C0 29.783 1.66085 2.03326 1.67656 1.75749C1.73671 0.76425 2.40447 -0.00253421 3.20755 6.31519e-06H68.9946C69.797 -0.00253834 70.4654 0.764228 70.5256 1.75749C70.5256 2.03315 72.2022 29.7815 72.2022 49.9516C72.2022 78.9158 62.1209 111.415 61.6917 112.794C61.4607 113.524 60.892 114.003 60.2598 114L60.2592 113.999ZM13.0137 110.199H59.2041C61.0338 103.996 69.1555 75.127 69.1555 49.9519C69.1555 32.8522 67.9458 10.2132 67.6245 3.80112H4.59326C4.23375 10.2135 3.06228 32.8413 3.06228 49.9519C3.06228 75.127 11.169 103.996 13.0137 110.199Z"
       fill="#DE285E"
@@ -27,7 +25,7 @@ const PintCider = ({ size, ...props }) => (
       fill="#DE285E"
       stroke="#DE285E"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default PintCider;

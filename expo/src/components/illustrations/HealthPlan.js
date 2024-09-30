@@ -2,10 +2,8 @@ import React from "react";
 import Svg, { Path } from "react-native-svg";
 import styled from "styled-components";
 
-const StyledSvg = styled(Svg)``;
-
 const HealthPlan = ({ size, ...props }) => (
-  <StyledSvg width={size} height={size} viewBox="0 0 62 80" {...props}>
+  <Svg width={size} height={size} viewBox="0 0 62 80" {...props}>
     <Path
       fill-rule="evenodd"
       clip-rule="evenodd"
@@ -56,7 +54,7 @@ const HealthPlan = ({ size, ...props }) => (
       d="M50.1256 59.7568H28.8807C28.4199 59.7568 28.0059 60.1259 28.0059 60.6317C28.0059 61.1393 28.3749 61.5065 28.8807 61.5065H50.1256C50.5864 61.5065 51.0004 61.1375 51.0004 60.6317C51.0004 60.124 50.5864 59.7568 50.1256 59.7568Z"
       fill="#4030A5"
     />
-  </StyledSvg>
+  </Svg>
 );
 
 export default HealthPlan;
