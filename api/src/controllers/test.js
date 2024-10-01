@@ -75,7 +75,7 @@ router.post(
 
       const userId = user.id;
 
-      const notif = await prisma.notification.create({
+      await prisma.notification.create({
         data: {
           user: { connect: { id: userId } },
           type: type ? type : "DEFI1_DAY1",

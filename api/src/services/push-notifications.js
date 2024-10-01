@@ -65,6 +65,7 @@ const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, b
   await matomo.logEvent({
     category: "PUSH_NOTIFICATION_SEND",
     action: "SENDING",
+    name: type || "",
     userId: matomoId,
   });
 
@@ -75,6 +76,7 @@ const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, b
         await matomo.logEvent({
           category: "PUSH_NOTIFICATION_SEND",
           action: "SUCCESS",
+          name: type || "",
           userId: matomoId,
         });
       } else if (results[0]?.failure) {
@@ -116,6 +118,7 @@ const sendPushNotification = async ({ userId, matomoId, pushNotifToken, title, b
     await matomo.logEvent({
       category: "PUSH_NOTIFICATION_SEND",
       action: "ERROR",
+      name: type || "",
       userId: matomoId,
     });
     return { ok: false, error };

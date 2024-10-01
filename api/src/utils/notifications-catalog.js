@@ -11,6 +11,12 @@ const NOTIFICATIONS_TYPES = {
     body: "Mettez toutes les chances de votre côté en remplissant vos consommations régulièrement 😊",
     link: "oz://APP/ADD_DRINK",
   },
+  NOT_ACTIVATED_3_DAYS: {
+    type: "NOT_ACTIVATED_3_DAYS",
+    title: "Vous n'êtes pas resté longtemps",
+    body: "Nous aimerions savoir ce qui vous ferait rester sur Oz",
+    link: "oz://NOT_ACTIVATED_NPS_SCREEN",
+  },
   INACTIVITY_10_DAYS: {
     type: "INACTIVITY_10_DAYS",
     title: "5 sec pour un dernier retour ?",

@@ -49,6 +49,7 @@ import { isInCravingKeyState } from "./recoil/craving";
 import { dayjsInstance } from "./services/dates";
 import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
 import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
+import Not_Activated_NPSScreen from "./scenes/NPS/not_activated_NPSScreen";
 
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
@@ -380,6 +381,14 @@ const Router = () => {
           <ModalsStack.Screen
             name="INACTIVITY_NPS_SCREEN"
             component={Inactivity_NPSScreen}
+            options={{
+              presentation: "modal",
+              headerShown: false,
+            }}
+          />
+          <ModalsStack.Screen
+            name="NOT_ACTIVATED_NPS_SCREEN"
+            component={Not_Activated_NPSScreen}
             options={{
               presentation: "modal",
               headerShown: false,

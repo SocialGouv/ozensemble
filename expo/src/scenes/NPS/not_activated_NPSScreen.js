@@ -8,30 +8,34 @@ import { logEvent } from "../../services/logEventsWithMatomo";
 import { storage } from "../../services/storage";
 import { sendMail } from "../../services/mail";
 
-const formatText = (answer, feedback, userId) =>
+const formatText = (answer, feedback, userId, contact) =>
   `
 userId: ${userId}
 Version: ${pck.version}
 OS: ${Platform.OS}
 Pourquoi n'utilisez-vous plus Oz ? : ${answer}
 Qu'est-ce qui vous aurait fait rester ? : ${feedback}
+Contact: ${contact}
 `;
 
-const Inactivity_NPSScreen = ({ navigation }) => {
+const Not_Activated_NPSScreen = ({ navigation }) => {
   const [selectedAnswerKey, setSelectedAnswerKey] = useState(null);
   const [feedback, setFeedback] = useState("");
   const [sendButton, setSendButton] = useState("Envoyer");
+  const [contact, setContact] = useState("");
+
   const answers = [
-    { answerKey: "OZ_HELPED", content: "Oz m'a aidé mais je n'en ai plus besoin", score: 0 },
+    { answerKey: "NOT_WHAT_I_AM_LOOKING_FOR", content: "Oz n'est pas ce que je recherche", score: 0 },
     { answerKey: "LAKE_FEATURES", content: "Il manque des fonctionnalités", score: 1 },
     { answerKey: "USING_OTHER_APP", content: "Je préfère une autre application", score: 2 },
-    { answerKey: "OTHER", content: "Autre", score: 3 },
+    { answerKey: "CHANGED_MY_MIND", content: "Je ne veux plus maîtriser ma consommation", score: 3 },
+    { answerKey: "OTHER", content: "Autre", score: 4 },
   ];
 
   useEffect(() => {
     logEvent({
-      category: "INACTIVITY_NPS",
-      action: "INACTIVITY_NPS_OPEN",
+      category: "NOT_ACTIVATED_NPS",
+      action: "NOT_ACTIVATED_NPS_OPEN",
     });
   }, []);
   const onGoBackRequested = async () => {
@@ -62,19 +66,28 @@ const Inactivity_NPSScreen = ({ navigation }) => {
     const userId = storage.getString("@UserIdv2");
     setSendButton("Merci !");
     logEvent({
-      category: "INACTIVITY_NPS",
-      action: "INACTIVITY_NPS_SEND_ANSWER",
+      category: "NOT_ACTIVATED_NPS",
+      action: "NOT_ACTIVATED_NPS_SEND_ANSWER",
       value: answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.score,
     });
     if (feedback) {
       logEvent({
-        category: "INACTIVITY_NPS",
-        action: "INACTIVITY_NPS_SEND_FEEDBACK",
+        category: "NOT_ACTIVATED_NPS",
+        action: "NOT_ACTIVATED_NPS_SEND_FEEDBACK",
       });
     }
+    console.log(
+      "sendNPS",
+      formatText(answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content, feedback, userId, contact)
+    );
     await sendMail({
-      subject: "Inactivity 10 days NPS Addicto",
-      text: formatText(answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content, feedback, userId),
+      subject: "Not Activated 3 days NPS Addicto",
+      text: formatText(
+        answers.find(({ answerKey }) => answerKey === selectedAnswerKey)?.content,
+        feedback,
+        userId,
+        contact
+      ),
     }).catch((err) => console.log("sendNPS err", err));
 
     npsSent.current = true;
@@ -98,11 +111,13 @@ const Inactivity_NPSScreen = ({ navigation }) => {
             >
               <View className="mt-2">
                 <Text className="text-[#4030A5] text-xl font-bold mt-3">
-                  Dites nous pourquoi vous êtes partis, ça nous aidera à améliorer l’application
+                  Dites nous pourquoi vous n'êtes pas resté pour nous aider à améliorer l'application
                 </Text>
               </View>
               <View className="mt-8 mb-3">
-                <Text className="text-[#4030A5] font-bold text-base">Pourquoi n'utilisez-vous plus Oz ?</Text>
+                <Text className="text-[#4030A5] font-bold text-base">
+                  Pourquoi ne pas avoir plus exploré l'application ?
+                </Text>
               </View>
               <View className="bg-[#f9f9f9] flex-shrink grow-0 pr-2 border-transparent border-solid">
                 {answers.map(({ answerKey, content }, i) => (
@@ -135,12 +150,33 @@ const Inactivity_NPSScreen = ({ navigation }) => {
               <TextInput
                 className="bg-[#f3f3f6] rounded-lg border h-32 border-[#dbdbe9] text-black mt-3 py-4 px-4"
                 onChangeText={setFeedback}
-                placeholder="Idées d'améliorations (facultatif)"
+                placeholder="Ce que vous auriez aimé trouver sur Oz"
                 value={feedback}
                 multiline
                 textAlignVertical="top"
                 returnKeyType="next"
                 placeholderTextColor="#c9c9cc"
+              />
+              <View className="mt-8">
+                <Text className="text-[#191919] text-base">
+                  Échanger avec vous serait précieux pour améliorer notre service, laissez-nous votre numéro de
+                  téléphone ou votre mail si vous le souhaitez.
+                </Text>
+              </View>
+              <TextInput
+                className="bg-[#f3f3f6] rounded-lg border border-[#dbdbe9] text-black mb-8 mt-3 py-4 px-3"
+                value={contact}
+                placeholder="Numéro de téléphone ou adresse mail (facultatif)"
+                onChangeText={setContact}
+                autoComplete="email"
+                autoCorrect={false}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                returnKeyType="go"
+                textContentType="emailAddress"
+                onSubmitEditing={sendNPS}
+                placeholderTextColor="#c9c9cc"
+                // onBlur={() => StatusBar.setHidden(false, 'none')}
               />
               <View className="my-5 justify-center flex-row mb-36">
                 <ButtonPrimary content={sendButton} onPress={sendNPS} />
@@ -153,4 +189,4 @@ const Inactivity_NPSScreen = ({ navigation }) => {
   );
 };
 
-export default Inactivity_NPSScreen;
+export default Not_Activated_NPSScreen;

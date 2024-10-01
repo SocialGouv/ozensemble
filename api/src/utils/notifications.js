@@ -73,6 +73,58 @@ const saveInactivity5Days = async (userId) => {
     },
   });
 };
+const saveNotActivated3Days = async (userId) => {
+  const type = "NOT_ACTIVATED_3_DAYS";
+  const notif = await prisma.notification.findFirst({
+    where: {
+      userId,
+      type,
+      status: "NotSent",
+    },
+  });
+  if (notif) return;
+
+  const reminder = await prisma.reminder.findUnique({
+    where: {
+      userId,
+    },
+  });
+  if (reminder) return;
+
+  await prisma.notification.create({
+    data: {
+      user: { connect: { id: userId } },
+      type,
+      date: dayjs().utc().add(14, "hour").startOf("minute").toDate(),
+    },
+  });
+};
+
+const scheduleNotificationsNotActivated3DaysCronJob = async () => {
+  try {
+    const users = await prisma.user.findMany({
+      where: {
+        lastConsoAdded: {
+          //last conso added is null
+          equals: null,
+        },
+        appVersion: {
+          gte: "313",
+        },
+        createdAt: {
+          gte: dayjs().utc().subtract(3, "day").startOf("day").toDate(),
+          lte: dayjs().utc().subtract(3, "day").endOf("day").toDate(),
+        },
+      },
+    });
+
+    for (const { id } of users) {
+      await saveNotActivated3Days(id);
+    }
+  } catch (e) {
+    capture(e, { level: "error" });
+  }
+};
 
 const scheduleNotificationsInactivity5DaysCronJob = async () => {
   try {
@@ -110,12 +162,6 @@ const saveNotFilledWeek = async (userId) => {
     },
   });
   if (reminder?.type === "Daily") return;
-
-  const utcHour = dayjs().utc().hour();
-  const hourInParis = dayjs().tz("Europe/Paris").hour();
-  const timeDifference = hourInParis - utcHour;
-  const utcTimeHours = (!reminder?.disabled && reminder?.date?.utcTimeHours) || 18 - timeDifference;
-  const utcTimeMinutes = (!reminder?.disabled && reminder?.date?.utcTimeMinutes) || 0;
 
   await prisma.notification.create({
     data: {
@@ -468,4 +514,5 @@ module.exports = {
   scheduleUserSurvey,
   scheduleNotificationsNotFilledWeekCronJob,
   scheduleNotificationPlan,
+  scheduleNotificationsNotActivated3DaysCronJob,
 };
