@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const makeSureDate = (date) => {
   if (date instanceof Date) {
     return date;
@@ -26,13 +28,7 @@ export const dateWithoutTime = (inputDate, offset = 0) => {
 export const today = (offset = 0, withTime = false) => {
   if (withTime) {
     const now = new Date();
-    return new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      now.getHours(),
-      now.getMinutes() + 1
-    );
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() + 1);
   }
   return dateWithoutTime(new Date(), offset);
 };
@@ -45,7 +41,6 @@ export const isToday = (inputDate) => {
 const msInDays = (timestamp) => timestamp / 1000 / 60 / 60 / 24;
 
 export const differenceOfDays = (date1, date2) => {
-  date1 = msInDays(Date.parse(dateWithoutTime(makeSureDate(date1))));
-  date2 = msInDays(Date.parse(dateWithoutTime(makeSureDate(date2))));
-  return date1 > date2 ? date1 - date2 : date2 - date1;
+  // Use dayjs to calculate the absolute difference in days
+  return Math.abs(dayjs(date1).diff(dayjs(date2), "day"));
 };
