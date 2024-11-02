@@ -1,3 +1,11 @@
+## [1.162.38](https://github.com/SocialGouv/ozensemble/compare/v1.162.37...v1.162.38) (2024-11-02)
+
+
+### Bug Fixes
+
+* heure dhiver ([dca688a](https://github.com/SocialGouv/ozensemble/commit/dca688a422fc0405e6eb1660960dffbbf9e9bb77))
+* je nai pas bu depuis x jours ([c724ec6](https://github.com/SocialGouv/ozensemble/commit/c724ec677fda1e926b8460f766cbb2748e4bf94b))
+
 ## [1.162.37](https://github.com/SocialGouv/ozensemble/compare/v1.162.36...v1.162.37) (2024-09-09)
 
 
