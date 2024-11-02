@@ -70,8 +70,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
   const showNoConsoSinceLongTime = useMemo(
     // the last day entered is before today
     () => {
-      const date =
-        dayjs(dateLastEntered).format("YYYY-MM-DD") < dayjs().add(-1, "day").format("YYYY-MM-DD");
+      const date = dayjs(dateLastEntered).format("YYYY-MM-DD") < dayjs().add(-1, "day").format("YYYY-MM-DD");
       return date;
     },
     [dateLastEntered]
@@ -81,6 +80,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
     const differenceDay = dayjs().diff(dayjs(dateLastEntered), "d");
     const matomoId = storage.getString("@UserIdv2");
     setNoConsoLoading(true);
+    const noConsos = [];
     for (let i = 1; i <= differenceDay; i++) {
       const currentDate = dayjs(dateLastEntered).add(i, "d");
       const noConso = {
@@ -88,6 +88,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
         quantity: 1,
         timestamp: makeSureTimestamp(currentDate),
         id: uuidv4(),
+        isSyncedWithDB: false,
       };
       logEvent({
         category: "CONSO",
@@ -104,23 +105,16 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
           quantity: Number(noConso.quantity),
           date: noConso.timestamp,
         },
-      }).then((response) => {
-        if (response.ok) {
-          setDrinks((state) => {
-            return state.map((drink) => {
-              if (drink.id === noConso.id) {
-                return {
-                  ...drink,
-                  isSyncedWithDB: true,
-                };
-              }
-              return drink;
-            });
-          });
-        }
-      });
+      })
+        .then((response) => {
+          if (response.ok) {
+            noConso.isSyncedWithDB = true;
+          }
+          noConsos.push(noConso);
+        })
+        .catch((err) => console.log("Post no consos err", err));
     }
-    setDrinks((state) => sortConsosByTimestamp(state));
+    setDrinks((state) => sortConsosByTimestamp([...state, ...noConsos]));
     setNoConsoLoading(false);
     API.get({
       path: "/goal/list",
@@ -139,9 +133,7 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
   }, [dateLastEntered, setDrinks, goals, setGoals]);
   return (
     <>
-      <View
-        className="flex flex-row shrink-0 mb-4 pt-5"
-        style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      <View className="flex flex-row shrink-0 mb-4 pt-5" style={{ paddingHorizontal: defaultPaddingFontScale() }}>
         <H1 color="#4030a5">Calendrier</H1>
       </View>
       <View style={{ paddingHorizontal: defaultPaddingFontScale() }}>
@@ -152,17 +144,17 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
               hitSlop={hitSlop(15)}
               onPress={() => {
                 setSelectedMonth(selectedMonth.subtract(1, "month"));
-              }}>
+              }}
+            >
               <ArrowLeft color="#4030A5" size={15} />
             </TouchableOpacity>
-            <Text className="text-lg font-semibold">
-              {selectedMonth.format("MMMM YYYY").capitalize()}
-            </Text>
+            <Text className="text-lg font-semibold">{selectedMonth.format("MMMM YYYY").capitalize()}</Text>
             <TouchableOpacity
               hitSlop={hitSlop(15)}
               onPress={() => {
                 setSelectedMonth(selectedMonth.add(1, "month"));
-              }}>
+              }}
+            >
               <ArrowRight color="#4030A5" size={15} />
             </TouchableOpacity>
           </View>
@@ -198,7 +190,8 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
                       category: "CONSO",
                       action: "CONSO_OPEN_CONSO_ADDSCREEN",
                     });
-                  }}>
+                  }}
+                >
                   <AddDrinkText>
                     <TextStyled color="#4030A5">Ajoutez une conso</TextStyled>
                   </AddDrinkText>
@@ -219,14 +212,13 @@ const Header = ({ onScrollToDate, tab, setTab, selectedMonth, setSelectedMonth }
                   });
                   navigation.navigate("GAINS_ESTIMATE_PREVIOUS_CONSUMPTION");
                 }}
-                className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]">
+                className="flex flex-row items-center justify-around bg-[#E8E8F3] rounded-lg py-4 px-8 border border-[#4030a5]"
+              >
                 <TargetGoal size={35} />
                 <Text className="mx-6">
                   Complétez l'
-                  <Text className="font-bold">estimation de votre consommation initiale </Text>et
-                  fixez-vous un
-                  <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le
-                  temps&nbsp;!
+                  <Text className="font-bold">estimation de votre consommation initiale </Text>et fixez-vous un
+                  <Text className="font-bold"> objectif </Text>pour calculer vos gains dans le temps&nbsp;!
                 </Text>
                 <View>
                   <ArrowRight color="#4030a5" size={15} />
@@ -346,13 +338,7 @@ const Feed = () => {
   );
 };
 
-const FeedDayItem = ({
-  date,
-  index,
-  addDrinksRequest,
-  deleteDrinkRequest,
-  updateDrinksContextsRequest,
-}) => {
+const FeedDayItem = ({ date, index, addDrinksRequest, deleteDrinkRequest, updateDrinksContextsRequest }) => {
   const days = useRecoilValue(feedDaysSelector);
   const drinksContexts = useRecoilValue(drinksContextsState);
   const { drinksByDay } = useRecoilValue(derivedDataFromDrinksState);
@@ -363,9 +349,7 @@ const FeedDayItem = ({
   const noDrinksYet = !drinksOfTheDay.length;
   const isContext =
     drinksContexts[date] &&
-    (drinksContexts[date].note ||
-      drinksContexts[date].emotion ||
-      drinksContexts[date].context.length > 0);
+    (drinksContexts[date].note || drinksContexts[date].emotion || drinksContexts[date].context.length > 0);
   const noDrinksConfirmed = drinksOfTheDay.length === 1 && drinksOfTheDay[0].drinkKey === NO_CONSO;
 
   const [timestampSelected, setTimestampSelected] = useState(null);
@@ -393,19 +377,19 @@ const FeedDayItem = ({
   return (
     <View
       className="flex flex-row shrink grow-0 overflow-hidden"
-      style={{ paddingHorizontal: defaultPaddingFontScale() }}>
+      style={{ paddingHorizontal: defaultPaddingFontScale() }}
+    >
       <TouchableWithoutFeedback
         onPress={() => {
           setTimestampSelected(null);
-        }}>
+        }}
+      >
         <>
           <Timeline first={isFirst} last={isLast} />
           <View className="flex-grow ml-2.5 my-2.5 flex-shrink">
             <DateDisplay day={date} />
             {!!isFirst && <ThoughtOfTheDay day={date} selected={timestampSelected === null} />}
-            {!!noDrinksYet && (
-              <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={date} />
-            )}
+            {!!noDrinksYet && <NoConsoYetFeedDisplay selected={timestampSelected === null} timestamp={date} />}
             {noDrinksConfirmed ? (
               <NoConsoConfirmedFeedDisplay selected={timestampSelected === null} />
             ) : (
@@ -464,9 +448,7 @@ const FeedDayItem = ({
                   ) : (
                     <View className="w-7 h-7" />
                   )}
-                  <Text className="font-bold text-[#4030A5] pl-1 mt-2 mr-auto">
-                    Note et contexte
-                  </Text>
+                  <Text className="font-bold text-[#4030A5] pl-1 mt-2 mr-auto">Note et contexte</Text>
                   <View className="py-1">
                     <TouchableOpacity
                       onPress={() => {
@@ -475,7 +457,8 @@ const FeedDayItem = ({
                           category: "CONTEXT",
                           action: "USED_MODIFY_CONTEXT",
                         });
-                      }}>
+                      }}
+                    >
                       <ModifyIcon />
                     </TouchableOpacity>
                   </View>
@@ -489,9 +472,7 @@ const FeedDayItem = ({
                       const contextName = contextsCatalogObject[_drinksContext].displayFeed;
 
                       return (
-                        <View
-                          key={contextName}
-                          className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
+                        <View key={contextName} className="bg-[#4030A5] rounded-lg py-2 px-2 mr-3 mb-2">
                           <Text className="color-white font-bold">{contextName}</Text>
                         </View>
                       );
