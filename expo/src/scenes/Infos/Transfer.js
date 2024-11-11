@@ -60,14 +60,12 @@ const Transfer = ({ navigation }) => {
     };
 
     try {
-      await Share.open(shareOptions).then(() => {
-        (res) => {
+      await Share.open(shareOptions).then((res) => {
           console.log(res);
           logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
           Alert.alert("Vos données ont bien été sauvegardées.");
           storage.set("@ExportedData", true);
-        };
-      });
+        });
     } catch (error) {
       console.log("Error sharing:", error);
       Alert.alert("Erreur lors du partage des données.");

@@ -38,9 +38,9 @@ export const isToday = (inputDate) => {
   return Date.parse(date) === Date.parse(today());
 };
 
-const msInDays = (timestamp) => timestamp / 1000 / 60 / 60 / 24;
-
 export const differenceOfDays = (date1, date2) => {
-  // Use dayjs to calculate the absolute difference in days
-  return Math.abs(dayjs(date1).diff(dayjs(date2), "day"));
+  // Convert dates to start of day in local timezone to avoid DST issues
+  const d1 = dayjs(date1).startOf('day');
+  const d2 = dayjs(date2).startOf('day');
+  return Math.abs(d1.diff(d2, 'day'));
 };
