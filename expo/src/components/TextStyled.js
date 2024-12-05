@@ -32,6 +32,7 @@ export default function TextStyled({
         .join(" ")}
       style={[
         styles.text,
+        color,
         underline && {
           textDecorationColor: color,
         },

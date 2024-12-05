@@ -1,18 +1,19 @@
-import React, { useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { View, Text, TouchableOpacity, TextInput, Alert, Animated } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import TextStyled from './TextStyled';
-import ArrowDown from './ArrowDown';
-import { QuantitySetter } from './DrinkQuantitySetter';
-import ButtonPrimary from './ButtonPrimary';
-import { drinksState, ownDrinksCatalogState } from '../recoil/consos';
-import ModalUpdateSuppressionCocktail from './ModalUpdateSuppressionCocktail';
-import { storage } from '../services/storage';
-import API from '../services/api';
-import AddCocktail from '../scenes/AddDrink/AddCocktail';
-import { logEvent } from '../services/logEventsWithMatomo';
+import React, { useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { View, Text, TouchableOpacity, TextInput, Alert, Animated } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import TextStyled from "./TextStyled";
+import ArrowDown from "./ArrowDown";
+import { QuantitySetter } from "./DrinkQuantitySetter";
+import ButtonPrimary from "./ButtonPrimary";
+import { drinksState, ownDrinksCatalogState } from "../recoil/consos";
+import ModalUpdateSuppressionCocktail from "./ModalUpdateSuppressionCocktail";
+import { storage } from "../services/storage";
+import API from "../services/api";
+import AddCocktail from "../scenes/AddDrink/AddCocktail";
+import { logEvent } from "../services/logEventsWithMatomo";
+import { NO_CONSO } from "../scenes/ConsoFollowUp/drinksCatalog";
 
 const CocktailPersonalisation = ({
   updateDrinkKey,
@@ -34,11 +35,11 @@ const CocktailPersonalisation = ({
     (catalogdrink) =>
       catalogdrink.drinkKey === updateDrinkKey &&
       catalogdrink.isDeleted === false &&
-      catalogdrink.categoryKey === 'ownCocktail'
+      catalogdrink.categoryKey === "ownCocktail"
   );
   const drinkName = cocktailSelected?.name ?? drink?.drinkKey;
-  const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : '');
-  const drinkVolume = cocktailSelected?.volume ? cocktailSelected?.volume + ' cl' : drink?.volume;
+  const [drinkPrice, setDrinkPrice] = useState(drink?.price ? String(drink?.price) : "");
+  const drinkVolume = cocktailSelected?.volume ? cocktailSelected?.volume + " cl" : drink?.volume;
   const drinkDoses = cocktailSelected?.doses ?? drink?.doses;
   const drinkKcal = cocktailSelected?.kCal ?? drink?.kcal;
   const [isUpdateWanted, setIsUpdateWanted] = useState(true);
@@ -63,26 +64,30 @@ const CocktailPersonalisation = ({
   };
 
   const saveDrink = async () => {
-    const formatedPrice = drinkPrice.replace(',', '.');
+    const formatedPrice = drinkPrice.replace(",", ".");
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
-        (catalogDrink) => catalogDrink.drinkKey === cocktailSelected?.name && catalogDrink.isDeleted === false
+        (catalogDrink) =>
+          catalogDrink.drinkKey === cocktailSelected?.name &&
+          catalogDrink.isDeleted === false &&
+          drink.drinkKey !== NO_CONSO
       ) ??
       ownDrinksCatalog.find(
-        (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
+        (catalogDrink) =>
+          catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false && drink.drinkKey !== NO_CONSO
       );
     if (oldDrink) {
       if (!isUpdateWanted) {
         const keepGoing = await new Promise((resolve) => {
-          Alert.alert('Vous avez déjà enregistré ce verre', 'Voulez-vous le remplacer ?', [
+          Alert.alert("Vous avez déjà enregistré ce verre", "Voulez-vous le remplacer ?", [
             {
-              text: 'Annuler',
+              text: "Annuler",
               onPress: () => resolve(false),
-              style: 'cancel',
+              style: "cancel",
             },
             {
-              text: 'Remplacer',
+              text: "Remplacer",
               onPress: () => resolve(true),
             },
           ]);
@@ -93,13 +98,13 @@ const CocktailPersonalisation = ({
         return oldState.map((oldStateDrink) =>
           oldStateDrink.drinkKey === oldDrink.drinkKey
             ? {
-                categoryKey: 'ownCocktail',
+                categoryKey: "ownCocktail",
                 drinkKey: drinkName,
                 displayFeed: drinkName,
                 displayDrinkModal: drinkName,
                 volume: drinkVolume,
                 doses: drinkDoses,
-                icon: 'CocktailGlass',
+                icon: "CocktailGlass",
                 price: Number(formatedPrice),
                 kcal: drinkKcal,
                 custom: true,
@@ -113,9 +118,9 @@ const CocktailPersonalisation = ({
           oldStateDrink.drinkKey === oldDrink.drinkKey ? { ...oldStateDrink, drinkKey: drinkName } : oldStateDrink
         );
       });
-      const matomoId = storage.getString('@UserIdv2');
+      const matomoId = storage.getString("@UserIdv2");
       await API.post({
-        path: '/consommation/update-own-conso',
+        path: "/consommation/update-own-conso",
         body: {
           matomoId: matomoId,
           oldDrinkKey: oldDrink.drinkKey,
@@ -139,17 +144,17 @@ const CocktailPersonalisation = ({
       ]);
       return;
     }
-    logEvent({ category: 'OWN_CONSO', action: 'CREATE_OWN_COCKTAIL', name: drinkName, value: drinkDoses });
+    logEvent({ category: "OWN_CONSO", action: "CREATE_OWN_COCKTAIL", name: drinkName, value: drinkDoses });
     setOwnDrinksCatalog((oldState) => {
       return [
         {
-          categoryKey: 'ownCocktail',
+          categoryKey: "ownCocktail",
           drinkKey: drinkName,
           displayFeed: drinkName,
           displayDrinkModal: drinkName,
           volume: drinkVolume,
           doses: drinkDoses,
-          icon: 'CocktailGlass',
+          icon: "CocktailGlass",
           price: Number(drinkPrice),
           kcal: drinkKcal,
           custom: true,
@@ -187,14 +192,16 @@ const CocktailPersonalisation = ({
         {!cocktailSelected?.name && !drink ? (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => setShowModalAddCocktail(true)}>
+            onPress={() => setShowModalAddCocktail(true)}
+          >
             <Text className="text-[#CACACD] flex">Sélectionnez un cocktail</Text>
             <ArrowDown color="#000000" size={30} strokeWidth={2} />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             className="bg-[#f3f3f6] h-14 rounded-lg border border-[#dbdbe9] px-4 my-2 flex flex-row justify-between items-center"
-            onPress={() => setShowModalAddCocktail(true)}>
+            onPress={() => setShowModalAddCocktail(true)}
+          >
             <Text className="text-[#4030A5] flex">{cocktailSelected?.name ?? updateDrinkKey}</Text>
           </TouchableOpacity>
         )}
@@ -224,7 +231,7 @@ const CocktailPersonalisation = ({
             onPress={() => {
               saveDrink();
               setCocktailSelected(null);
-              setSwitchPosition('non');
+              setSwitchPosition("non");
               hide();
             }}
             disabled={!drinkPrice || !cocktailSelected}
@@ -243,7 +250,8 @@ const CocktailPersonalisation = ({
               onPress={() => {
                 setIsUpdateWanted(false);
                 setShowModalUpdate(true);
-              }}>
+              }}
+            >
               <Text className="text-[#4030A5] text-center underline text-base mt-4">Supprimer mon cocktail</Text>
             </TouchableOpacity>
           </View>
@@ -270,9 +278,10 @@ const CocktailPersonalisation = ({
       <Animated.View
         style={{ opacity: fadeAnim }}
         className="flex flex-row w-screen justify-center absolute -bottom-2"
-        pointerEvents={'box-none'}>
+        pointerEvents={"box-none"}
+      >
         <View className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min px-4	">
-          <TextStyled maxFontSizeMultiplier={2} color={'#FFF'} testID="toast" className="text-center py-2">
+          <TextStyled maxFontSizeMultiplier={2} color={"#FFF"} testID="toast" className="text-center py-2">
             Nouveau cocktail demandé
           </TextStyled>
         </View>

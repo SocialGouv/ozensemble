@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { atom, selector } from "recoil";
 import * as Sentry from "@sentry/react-native";
 import { differenceOfDays } from "../helpers/dateHelpers";
-import { drinksCatalogObject } from "../scenes/ConsoFollowUp/drinksCatalog";
+import { drinksCatalogObject, NO_CONSO } from "../scenes/ConsoFollowUp/drinksCatalog";
 import { storage } from "../services/storage";
 import { getInitValueFromStorage } from "./utils";
 import { goalsByWeekSelector, goalsState } from "./gains";
@@ -39,6 +39,7 @@ export const ownDrinksCatalogObjectSelector = selector({
     const ownDrinks = get(ownDrinksCatalogState);
     const ownDrinksCatalogObject = {};
     for (const drink of ownDrinks) {
+      if (drink.drinkKey === NO_CONSO) continue; // bug fix
       ownDrinksCatalogObject[drink.drinkKey] = drink;
     }
     return ownDrinksCatalogObject;
@@ -51,6 +52,7 @@ export const consolidatedCatalogObjectSelector = selector({
   key: "consolidatedCatalogObjectSelector",
   get: ({ get }) => {
     const ownDrinksObject = get(ownDrinksCatalogObjectSelector);
+    console.log({ ownDrinksObject: JSON.stringify(ownDrinksObject, null, 2) });
     return { ...ownDrinksObject, ...drinksCatalogObject };
   },
 });

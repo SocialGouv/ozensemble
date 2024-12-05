@@ -40,6 +40,8 @@ const WeeklyGains = ({ selectedMonth }) => {
     [catalogObject, previousDrinksPerWeek]
   );
 
+  console.log({ weeklyExpenses, myWeeklyInitialExpenses });
+
   const weekInfos = useMemo(() => {
     const _weekInfos = [];
     const nbWeeks = nbDays / 7;
@@ -54,30 +56,24 @@ const WeeklyGains = ({ selectedMonth }) => {
         }
       }
       const savedExpenses = hasEnteredDrinks
-        ? Math.round(
-            Math.abs(
-              weeklyExpenses[dayjs(startDay).format("YYYY-MM-DD")] - myWeeklyInitialExpenses
-            ) * 10
-          ) / 10
+        ? Math.round(Math.abs(weeklyExpenses[dayjs(startDay).format("YYYY-MM-DD")] - myWeeklyInitialExpenses) * 10) / 10
         : 0;
       const eurosColor =
         weeklyExpenses[dayjs(startDay).format("YYYY-MM-DD")] > myWeeklyInitialExpenses
           ? "bg-[#FF7979]"
           : hasEnteredDrinks
-            ? "bg-[#3AD39D]"
-            : "bg-[#939EA6]";
+          ? "bg-[#3AD39D]"
+          : "bg-[#939EA6]";
 
       const savedKcals = hasEnteredDrinks
-        ? Math.round(
-            Math.abs(weeklyKcals[dayjs(startDay).format("YYYY-MM-DD")] - myWeeklyInitialKCal)
-          )
+        ? Math.round(Math.abs(weeklyKcals[dayjs(startDay).format("YYYY-MM-DD")] - myWeeklyInitialKCal))
         : 0;
       const kcalsColor =
         weeklyKcals[dayjs(startDay).format("YYYY-MM-DD")] > myWeeklyInitialKCal
           ? "bg-[#FF7979]"
           : hasEnteredDrinks
-            ? "bg-[#3AD39D]"
-            : "bg-[#939EA6]";
+          ? "bg-[#3AD39D]"
+          : "bg-[#939EA6]";
 
       _weekInfos[i] = {
         startDay: startDay,
@@ -136,16 +132,14 @@ const WeeklyGains = ({ selectedMonth }) => {
               </Text>
             </View>
             <View className="flex flex-row grow justify-center items-center basis-16">
-              <View
-                className={`justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow ${week.eurosColor}`}>
+              <View className={`justify-center rounded-md flex flex-row my-1 py-1 mx-4 grow ${week.eurosColor}`}>
                 <Text className=" text-white font-semibold" style={{ fontSize: fontSize }}>
                   {week.savedExpenses}€
                 </Text>
               </View>
             </View>
             <View className="flex flex-row grow justify-center items-center basis-16">
-              <View
-                className={`justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow ${week.kcalsColor}`}>
+              <View className={`justify-center rounded-md flex flex-row my-1 py-1 mx-1 grow ${week.kcalsColor}`}>
                 <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
                   {week.savedKcals} KCAL
                 </Text>
@@ -169,7 +163,8 @@ const WeeklyGains = ({ selectedMonth }) => {
                     eurosColor: week.eurosColor,
                     kcalsColor: week.kcalsColor,
                   });
-                }}>
+                }}
+              >
                 <Text className="text-white font-semibold" style={{ fontSize: fontSize }}>
                   Détails
                 </Text>

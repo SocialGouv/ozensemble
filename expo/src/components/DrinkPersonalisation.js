@@ -13,6 +13,7 @@ import API from "../services/api";
 import { storage } from "../services/storage";
 import AddAlcoolQuantity from "../scenes/AddDrink/AddAlcoolQuantity";
 import { logEvent } from "../services/logEventsWithMatomo";
+import { NO_CONSO } from "../scenes/ConsoFollowUp/drinksCatalog";
 
 const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuantitySelected, setLocalDrinksState }) => {
   const route = useRoute();
@@ -50,10 +51,12 @@ const DrinkPersonalisation = ({ updateDrinkKey, hide, quantitySelected, setQuant
     const oldDrink =
       drink ??
       ownDrinksCatalog.find(
-        (catalogDrink) => catalogDrink.drinkKey === drinkName && catalogDrink.isDeleted === false
+        (catalogDrink) =>
+          catalogDrink.drinkKey === drinkName && catalogDrink.isDeleted === false && drink.drinkKey !== NO_CONSO
       ) ??
       ownDrinksCatalog.find(
-        (catalogDrink) => catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false
+        (catalogDrink) =>
+          catalogDrink.drinkKey === updateDrinkKey && catalogDrink.isDeleted === false && drink.drinkKey !== NO_CONSO
       );
     const kCal = ((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) * 7;
     const doses = Math.round((formatedAlcoolPercentage * 0.8 * formatedVolume) / 10) / 10;

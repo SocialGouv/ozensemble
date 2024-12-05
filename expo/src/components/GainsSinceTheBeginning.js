@@ -7,11 +7,7 @@ import { Spacer } from "./Articles";
 import H2 from "./H2";
 import EuroIcon from "./illustrations/icons/EuroIcon";
 import KcalIcon from "./illustrations/icons/KcalIcon";
-import {
-  drinksState,
-  derivedDataFromDrinksState,
-  consolidatedCatalogObjectSelector,
-} from "../recoil/consos";
+import { drinksState, derivedDataFromDrinksState, consolidatedCatalogObjectSelector } from "../recoil/consos";
 import dayjs from "dayjs";
 
 const GainSinceTheBeginning = ({ isOnboarded }) => {
@@ -23,8 +19,7 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
     return dayjs(drinks[drinks.length - 1].timestamp);
   }, [drinks]);
 
-  const numberOfWeeksSinceBeginning =
-    Math.abs(dayjs(beginDateOfOz).startOf("week").diff(dayjs(), "weeks")) + 1;
+  const numberOfWeeksSinceBeginning = Math.abs(dayjs(beginDateOfOz).startOf("week").diff(dayjs(), "weeks")) + 1;
   let weeksWithDrinks = 0;
   for (let i = 0; i < numberOfWeeksSinceBeginning; i++) {
     const startDay = dayjs(beginDateOfOz)
@@ -62,13 +57,21 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
   );
   const mySavingsSinceBeginning = useMemo(() => {
     if (!drinks.length) return null;
-    const myExpensesSinceBegnining = drinks.reduce(
-      (sum, drink) => sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0),
-      0
-    );
+    const myExpensesSinceBegnining = drinks.reduce((sum, drink) => {
+      console.log({ price: catalogObject[drink.drinkKey]?.price, sum, drink });
+      return sum + drink.quantity * (catalogObject[drink.drinkKey]?.price || 0);
+    }, 0);
     const result = myWeeklyInitialExpenses * weeksWithDrinks - myExpensesSinceBegnining;
+    console.log({
+      myWeeklyInitialExpenses,
+      weeksWithDrinks,
+      myExpensesSinceBegnining,
+      result,
+      catalogObject: JSON.stringify(catalogObject, null, 2),
+    });
     return Math.round(result * 10) / 10;
   }, [drinks, myWeeklyInitialExpenses, weeksWithDrinks, catalogObject]);
+  console.log({ mySavingsSinceBeginning });
 
   const myKcalSavingsSinceBeginning = useMemo(() => {
     if (!drinks.length) return null;
@@ -91,9 +94,7 @@ const GainSinceTheBeginning = ({ isOnboarded }) => {
             </View>
             <Spacer size={5} />
             {isOnboarded ? (
-              <Text className="font-bold text-2xl">
-                {mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€
-              </Text>
+              <Text className="font-bold text-2xl">{mySavingsSinceBeginning > 0 ? mySavingsSinceBeginning : 0}€</Text>
             ) : (
               <Text className="font-bold text-2xl">-€</Text>
             )}

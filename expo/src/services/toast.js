@@ -56,7 +56,7 @@ const ToastProvider = (props) => {
           pointerEvents={"box-none"}
         >
           <View className="bg-[#4030a5] grow-0 rounded-full mb-4 flex w-min px-4	">
-            <TextStyled maxFontSizeMultiplier={2} color={"#FFF"} testID="toast" className="text-center py-2">
+            <TextStyled maxFontSizeMultiplier={2} testID="toast" className="text-white text-center py-2">
               {caption}
             </TextStyled>
           </View>

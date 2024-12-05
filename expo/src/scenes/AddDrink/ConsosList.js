@@ -1,32 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useIsFocused } from "@react-navigation/native";
-import {
-  BackHandler,
-  Platform,
-  View,
-  Text,
-  TouchableOpacity,
-  InteractionManager,
-} from "react-native";
+import { BackHandler, Platform, View, Text, TouchableOpacity, InteractionManager } from "react-native";
 import { selectorFamily, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import GoBackButtonText from "../../components/GoBackButtonText";
 import DrinksCategory from "../../components/DrinksCategory";
-import {
-  drinksCategories,
-  getDrinkQuantityFromDrinks,
-  NO_CONSO,
-} from "../ConsoFollowUp/drinksCatalog";
+import { drinksCategories, getDrinkQuantityFromDrinks, NO_CONSO } from "../ConsoFollowUp/drinksCatalog";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { useToast } from "../../services/toast";
 import H2 from "../../components/H2";
-import {
-  consolidatedCatalogObjectSelector,
-  drinksState,
-  ownDrinksCatalogState,
-} from "../../recoil/consos";
+import { consolidatedCatalogObjectSelector, drinksState, ownDrinksCatalogState } from "../../recoil/consos";
 import { buttonHeight, defaultPaddingFontScale } from "../../styles/theme";
 import DateAndTimePickers from "./DateAndTimePickers";
 import { makeSureTimestamp } from "../../helpers/dateHelpers";
@@ -64,7 +49,9 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
   const [updateOwnDrinkKey, setUpdateOwnDrinkKey] = useState(null);
   const toast = useToast();
   const ownDrinksCatalog = useRecoilValue(ownDrinksCatalogState);
-  const availableOwnDrinksCatalog = ownDrinksCatalog.filter((drink) => drink.isDeleted === false);
+  const availableOwnDrinksCatalog = ownDrinksCatalog.filter(
+    (drink) => drink.isDeleted === false && drink.drinkKey !== NO_CONSO
+  );
   const consolidatedCatalogObject = useRecoilValue(consolidatedCatalogObjectSelector);
   const scrollRef = useRef(null);
   const isFocused = useIsFocused();
@@ -164,9 +151,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
         }
       }
       if (showToast) {
-        toast.show(
-          drinksWithTimestamps.length > 1 ? "Consommations ajoutées" : "Consommation ajoutée"
-        );
+        toast.show(drinksWithTimestamps.length > 1 ? "Consommations ajoutées" : "Consommation ajoutée");
       }
     });
   };
@@ -287,7 +272,8 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                       category: "OWN_CONSO",
                       action: "OWN_CONSO_OPEN",
                     });
-                  }}>
+                  }}
+                >
                   <Text className="text-[#4030A5] text-center underline text-base mt-2">
                     Créer une nouvelle boisson
                   </Text>
@@ -308,10 +294,9 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
                     category: "OWN_CONSO",
                     action: "OWN_CONSO_OPEN",
                   });
-                }}>
-                <Text className="text-[#4030A5] text-center underline text-base">
-                  Créer ma propre boisson
-                </Text>
+                }}
+              >
+                <Text className="text-[#4030A5] text-center underline text-base">Créer ma propre boisson</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -329,11 +314,7 @@ const ConsosList = ({ navigation, route, addDrinkModalTimestamp, setDrinkModalTi
         <ButtonsContainerSafe>
           <ButtonsContainer>
             <BackButton content="Retour" bold onPress={onCancelConsos} />
-            <ButtonPrimary
-              content="Valider"
-              onPress={onValidateConsos}
-              disabled={checkIfNoDrink(localDrinksState)}
-            />
+            <ButtonPrimary content="Valider" onPress={onValidateConsos} disabled={checkIfNoDrink(localDrinksState)} />
           </ButtonsContainer>
         </ButtonsContainerSafe>
       </Container>

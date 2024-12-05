@@ -1,6 +1,6 @@
 import { getMaxDrinksPerWeek, getTotalDrinksByDrinkingDay } from "./helpers/gainsHelpers";
 import { alcoolQuantityCatalog } from "./scenes/AddDrink/alcoolQuantityCatalog";
-import { drinksCatalog } from "./scenes/ConsoFollowUp/drinksCatalog";
+import { drinksCatalog, NO_CONSO } from "./scenes/ConsoFollowUp/drinksCatalog";
 import API from "./services/api";
 import { capture } from "./services/sentry";
 import { storage } from "./services/storage";
@@ -97,6 +97,9 @@ export async function fixMissingDrinkKey() {
     objectCatalog[catalogDrink.drinkKey] = catalogDrink;
   }
   for (const drink of drinks) {
+    if (drink.drinkKey === NO_CONSO) {
+      continue;
+    }
     if (!objectCatalog[drink.drinkKey]) {
       const response = await API.post({
         path: "/consommation/find-missing-own-drink",
