@@ -1,3 +1,10 @@
+## [1.162.39](https://github.com/SocialGouv/ozensemble/compare/v1.162.38...v1.162.39) (2024-12-05)
+
+
+### Bug Fixes
+
+* no-conso calculations ([50faaa4](https://github.com/SocialGouv/ozensemble/commit/50faaa463147628fd9c91719a7f5396e5b1eea7d))
+
 ## [1.162.38](https://github.com/SocialGouv/ozensemble/compare/v1.162.37...v1.162.38) (2024-11-02)
 
 
