@@ -26,11 +26,7 @@ import API from "../../services/api";
 import { logEvent } from "../../services/logEventsWithMatomo";
 import { storage } from "../../services/storage";
 import { defaultPaddingFontScale, hitSlop, screenHeight } from "../../styles/theme";
-import {
-  drinksCatalogObject,
-  drinksCategories,
-  mapDrinkToDose,
-} from "../ConsoFollowUp/drinksCatalog";
+import { drinksCatalogObject, drinksCategories, mapDrinkToDose } from "../ConsoFollowUp/drinksCatalog";
 import HelpModalCountConsumption from "./HelpModalCountConsumption";
 
 const Goal = ({ navigation }) => {
@@ -173,14 +169,15 @@ const Goal = ({ navigation }) => {
         noPaddingHorizontal
         onPressBackButton={navigation.goBack}
         title="Mon objectif semaine"
-        Icon={GoalSetup}>
+        Icon={GoalSetup}
+      >
         <Container>
           <View className="p-5 border rounded-md border-[#4030A5] bg-[#E8E8F3] mb-8">
             <Text className="mb-4">
               Maintenant fixez-vous un <Text className="font-bold">objectif réaliste</Text> en{" "}
               <Text className="font-bold">nombre de jours sans boire</Text> et en{" "}
-              <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre
-              consommation et de diminuer les risques associés à l'usage répété de l'alcool.
+              <Text className="font-bold">unités autorisées par semaine</Text> afin de réduire votre consommation et de
+              diminuer les risques associés à l'usage répété de l'alcool.
             </Text>
             <HelpModalCountConsumption event="PREVIOUS_CONSUMPTION" />
           </View>
@@ -189,21 +186,14 @@ const Goal = ({ navigation }) => {
               className="justify-center  items-center rounded-3xl bg-[#4030A5] mb-8"
               onPress={() => {
                 setDrinksByWeek([]);
-                setDaysWithGoalNoDrink([
-                  "monday",
-                  "tuesday",
-                  "wednesday",
-                  "thursday",
-                  "friday",
-                  "saturday",
-                  "sunday",
-                ]);
+                setDaysWithGoalNoDrink(["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]);
                 logEvent({
                   category: "GAINS",
                   action: "GOAL_DRINKWEEK_ABSTINENCE",
                 });
                 setModalValidationVisible(true);
-              }}>
+              }}
+            >
               <Text className="color-white text-center font-extrabold mx-4 my-3">
                 Je vise l'abstinence soit 0 consommation
               </Text>
@@ -266,15 +256,10 @@ const Goal = ({ navigation }) => {
             </Text>
           </Row>
           <View className="bg-[#F5F6FA] p-2 mb-2">
-            <Text className="text-center text-[#939EA6] text-xs">
-              Rappel de ma consommation initiale par semaine
-            </Text>
+            <Text className="text-center text-[#939EA6] text-xs">Rappel de ma consommation initiale par semaine</Text>
             <View className="flex flex-row justify-center items-center mt-2">
               <Text className="text-center font-bold text-xl">{numberDrinkEstimation}</Text>
-              <Text className="text-lg font-bold">
-                {" "}
-                {Number(numberDrinkEstimation) > 1 ? "unités" : "unité"}
-              </Text>
+              <Text className="text-lg font-bold"> {Number(numberDrinkEstimation) > 1 ? "unités" : "unité"}</Text>
             </View>
           </View>
         </Container>
@@ -290,9 +275,8 @@ const Goal = ({ navigation }) => {
         <Container>
           <View className=" p-2 mt-4">
             <Text>
-              Pensez bien à ajouter vos consommations{" "}
-              <Text className="font-bold">tous les jours</Text> même quand vous n'avez pas bu, pour
-              que l'application puisse vous informer si vous avez réussi ou non votre objectif de la
+              Pensez bien à ajouter vos consommations <Text className="font-bold">tous les jours</Text> même quand vous
+              n'avez pas bu, pour que l'application puisse vous informer si vous avez réussi ou non votre objectif de la
               semaine !{" "}
             </Text>
           </View>
@@ -362,10 +346,12 @@ const DayButton = ({ content, onPress, active }) => {
         className={[
           "h-9 w-9 rounded-full border border-[#4030A5] justify-center items-center",
           active ? "bg-[#4030A5]" : "bg-[#eeeeee]",
-        ].join(" ")}>
+        ].join(" ")}
+      >
         <TextStyled
-          className="text-base font-bold justify-center items-center"
-          color={active ? "#eeeeee" : "#000000"}>
+          className="text-base font-bold justify-center items-center text-[#eeeeee]"
+          color={active ? "#eeeeee" : "#000000"}
+        >
           {content}
         </TextStyled>
       </View>
