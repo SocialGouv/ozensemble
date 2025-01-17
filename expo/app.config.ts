@@ -36,6 +36,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       buildNumber: String(version.buildNumber),
       infoPlist: {
         LSApplicationQueriesSchemes: ["oz"],
+        UISupportsDocumentBrowser: true,
+        UIFileSharingEnabled: true,
+        LSSupportsOpeningDocumentsInPlace: true,
       },
     },
     androidStatusBar: {
@@ -52,10 +55,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       googleServicesFile: "./google-services.json",
       package: "com.addicto",
       versionCode: version.buildNumber,
-      permissions: [
-        "android.permission.SCHEDULE_EXACT_ALARM",
-        "android.permission.WRITE_EXTERNAL_STORAGE",
-      ],
+      permissions: ["android.permission.SCHEDULE_EXACT_ALARM", "android.permission.WRITE_EXTERNAL_STORAGE"],
       softwareKeyboardLayoutMode: "pan",
       intentFilters: [
         {
