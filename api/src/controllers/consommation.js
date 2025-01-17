@@ -111,7 +111,7 @@ router.post(
       const consoDB = await prisma.consommation.upsert({
         where: { id: conso_id },
         update: conso,
-        create: { ...conso, id: conso_id },
+        create: { ...conso, id: conso_id, user },
       });
       console.log("conso upserted", consoDB.id);
     }
