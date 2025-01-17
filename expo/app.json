@@ -1,7 +1,9 @@
-{"ios": {
+{
+  "ios": {
     "infoPlist": {
-        "UISupportsDocumentBrowser": true,
-        "UIFileSharingEnabled": true,
-        "LSSupportsOpeningDocumentsInPlace": true
+      "UISupportsDocumentBrowser": true,
+      "UIFileSharingEnabled": true,
+      "LSSupportsOpeningDocumentsInPlace": true
     }
-}}
+  }
+}
