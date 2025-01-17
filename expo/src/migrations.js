@@ -223,7 +223,8 @@ export async function migrateFromDailyGoalToWeekly() {
   }
 }
 
-export const hasMigrateMissingDrinkKey = storage.getBoolean("@hasMigrateMissingDrinkKey");
+// export const hasMigrateMissingDrinkKey = storage.getBoolean("@hasMigrateMissingDrinkKey");
+export const hasMigrateMissingDrinkKey = storage.getBoolean("@three_users_missing_drinkkey");
 export const migrateMissingDrinkKey = () => {
   // this migration is to fix a few drinks that have bugs-impossible-to-solve
 
@@ -232,27 +233,31 @@ export const migrateMissingDrinkKey = () => {
     const matomoId = storage.getString("@UserIdv2");
     if (!matomoId?.length) {
       // new user - no drinks to send
-      storage.set("@hasMigrateMissingDrinkKey", true);
+      storage.set("@three_users_missing_drinkkey", true);
+      return;
+    }
+    if (!["3ac47B7fA560FAAb", "5faB6eCdF026694F", "b6f6a866-437e-4e53-bb90-b11637dabbce"].includes(matomoId)) {
+      storage.set("@three_users_missing_drinkkey", true);
       return;
     }
     const catalog = storage.getString("@OwnDrinks");
     if (!catalog?.length) {
-      storage.set("@hasMigrateMissingDrinkKey", true);
+      storage.set("@three_users_missing_drinkkey", true);
       return;
     }
     const oldDrinkCatalog = JSON.parse(catalog);
     if (!oldDrinkCatalog?.length) {
-      storage.set("@hasMigrateMissingDrinkKey", true);
+      storage.set("@three_users_missing_drinkkey", true);
       return;
     }
     const drinks = storage.getString("@Drinks");
     if (!drinks?.length) {
-      storage.set("@hasMigrateMissingDrinkKey", true);
+      storage.set("@three_users_missing_drinkkey", true);
       return;
     }
     const drinksParsed = JSON.parse(drinks);
     if (!drinksParsed?.length) {
-      storage.set("@hasMigrateMissingDrinkKey", true);
+      storage.set("@three_users_missing_drinkkey", true);
       return;
     }
     const ownDrinksCatalogObject = {};
@@ -272,24 +277,34 @@ export const migrateMissingDrinkKey = () => {
     const newDrinks = drinksParsed.map((drink) => {
       if (drink.drinkKey === "no-conso") return drink;
       if (allDrinksObject[drink.drinkKey]) return drink;
-      if (drink.drinkKey === "Stella-25-5") {
+      if (drink.drinkKey === "Bière forte") {
         drinksFixed.push({
           ...drink,
-          drinkKey: "Stella ",
+          drinkKey: "beer-pint",
         });
         return {
           ...drink,
-          drinkKey: "Stella ",
+          drinkKey: "beer-pint",
         };
       }
-      if (drink.drinkKey === "Stella -33-5") {
+      if (drink.drinkKey === "Biere") {
         drinksFixed.push({
           ...drink,
-          drinkKey: "Stella ",
+          drinkKey: "beer-half",
         });
         return {
           ...drink,
-          drinkKey: "Stella ",
+          drinkKey: "beer-half",
+        };
+      }
+      if (drink.drinkKey === "Bière") {
+        drinksFixed.push({
+          ...drink,
+          drinkKey: "beer-half",
+        });
+        return {
+          ...drink,
+          drinkKey: "beer-half",
         };
       }
       drinksWithMistake.push(drink);
@@ -309,7 +324,7 @@ export const migrateMissingDrinkKey = () => {
       storage.set("@Drinks", JSON.stringify(newDrinks));
     }
     if (!drinksWithMistake.length) {
-      storage.set("@hasMigrateMissingDrinkKey", true);
+      storage.set("@three_users_missing_drinkkey", true);
       return;
     }
     // if there is any problem with missing drink key, we'll do a manual migration later on following L276
@@ -334,7 +349,7 @@ export const migrateMissingDrinkKey = () => {
         migration: "hasMigrateMissingDrinkKey",
         "@OwnDrinks": storage.getString("@OwnDrinks"),
         "@Drinks": storage.getString("@Drinks"),
-        hasMigrateMissingDrinkKey: storage.getBoolean("@hasMigrateMissingDrinkKey"),
+        hasMigrateMissingDrinkKey: storage.getBoolean("@three_users_missing_drinkkey"),
       },
       user: {
         id: storage.getString("@UserIdv2"),
