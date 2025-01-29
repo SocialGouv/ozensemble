@@ -25,6 +25,7 @@ const MATOMO_URL = process.env.MATOMO_URL;
 const MATOMO_IDSITE_1 = process.env.MATOMO_IDSITE_1;
 const METABASE_ACCOUNT = process.env.METABASE_ACCOUNT;
 const METABASE_PASSWORD = process.env.METABASE_PASSWORD;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = {
   PORT,
@@ -46,4 +47,5 @@ module.exports = {
   MATOMO_IDSITE_1,
   METABASE_ACCOUNT,
   METABASE_PASSWORD,
+  JWT_SECRET,
 };

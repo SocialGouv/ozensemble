@@ -3,6 +3,7 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog, missedGoal } = require("../utils/badges");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.get(
   "/test",
@@ -16,21 +17,17 @@ router.get(
 
 router.get(
   "/:matomoId",
+  authenticateToken,
+
   catchErrors(async (req, res) => {
     const { matomoId } = req.params;
     // Don't show badges that are not available in the app version
 
     if (!matomoId) return res.status(200).send({ ok: true, data: [] });
 
+    const user = req.user;
+
     // find badges of matomoId
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "GetBadges",
-      },
-      update: {},
-    });
 
     const badges = await prisma.badge.findMany({
       where: {
@@ -57,17 +54,10 @@ router.get(
 
 router.post(
   "/shares",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId } = req.body || {};
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "GetBadges",
-      },
-      update: {},
-    });
+    const user = req.user;
+
     const share_badges = await prisma.badge.findMany({
       where: { userId: user.id, category: "share" },
     });

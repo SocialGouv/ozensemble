@@ -5,29 +5,23 @@ const prisma = require("../prisma");
 const { grabBadgeFromCatalog, getBadgeCatalog } = require("../utils/badges");
 const { GoalStatus } = require("@prisma/client");
 const router = express.Router();
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   ["/", "/sync"],
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId, daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, forceDate } = req.body || {};
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
+    const { daysWithGoalNoDrink, dosesByDrinkingDay, dosesPerWeek, noDisplayBadge, forceDate } = req.body || {};
+    const user = req.user;
 
     /* 1. update user settings */
     /* 2. update current goal if any */
     /* 3. send badge if not yet sent */
 
     /* 1. update user settings */
-    let user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "Goal",
-        goal_isSetup: true,
-        goal_daysWithGoalNoDrink: daysWithGoalNoDrink,
-        goal_dosesByDrinkingDay: dosesByDrinkingDay,
-        goal_dosesPerWeek: dosesPerWeek,
-      },
-      update: {
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
         goal_isSetup: true,
         goal_daysWithGoalNoDrink: daysWithGoalNoDrink,
         goal_dosesByDrinkingDay: dosesByDrinkingDay,
@@ -63,9 +57,9 @@ router.post(
           id: `${user.id}_${date}`,
           userId: user.id,
           date,
-          daysWithGoalNoDrink: user.goal_daysWithGoalNoDrink,
-          dosesByDrinkingDay: user.goal_dosesByDrinkingDay,
-          dosesPerWeek: user.goal_dosesPerWeek,
+          daysWithGoalNoDrink: daysWithGoalNoDrink,
+          dosesByDrinkingDay: dosesByDrinkingDay,
+          dosesPerWeek: dosesPerWeek,
           status: GoalStatus.InProgress,
         },
       });
@@ -105,16 +99,9 @@ router.post(
 
 router.get(
   "/list",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId } = req.query;
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "GetGoal",
-      },
-      update: {},
-    });
+    const user = req.query;
 
     if (user.goal_isSetup) {
       let currentGoal = {

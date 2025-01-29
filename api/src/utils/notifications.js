@@ -14,6 +14,8 @@ const updateLastConsoAdded = async (matomoId) => {
       where: { matomo_id: matomoId },
       create: {
         matomo_id: matomoId,
+        email: "yoan.roszak@selego.co",
+        password: "password12@Abc",
         lastConsoAdded: dayjs().utc().toDate(),
         created_from: "UpdateLastConso",
       },
@@ -318,7 +320,7 @@ const scheduleDefi1Day1 = async (matomoId) => {
   const type = "DEFI1_DAY1";
   const user = await prisma.user.upsert({
     where: { matomo_id: matomoId },
-    create: { matomo_id: matomoId, created_from: "SheduleDefiDay1" },
+    create: { matomo_id: matomoId, created_from: "SheduleDefiDay1", email: "yoan.roszak@selego.co", password: "password12@Abc" },
     update: {},
   });
 
@@ -356,7 +358,7 @@ const scheduleUserSurvey = async (matomoId) => {
   const type = "USER_SURVEY";
   const user = await prisma.user.upsert({
     where: { matomo_id: matomoId },
-    create: { matomo_id: matomoId, created_from: "UserSurvey" },
+    create: { matomo_id: matomoId, created_from: "UserSurvey", email: "yoan.roszak@selego.co", password: "password12@Abc" },
     update: {},
   });
 

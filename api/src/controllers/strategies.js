@@ -3,14 +3,13 @@ const express = require("express");
 const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.get(
   "/list",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.query?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-    // find user with matomoId
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    const user = req.user;
 
     let strategies = await prisma.strategy.findMany({ where: { userId: user.id } });
 
@@ -20,10 +19,8 @@ router.get(
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const matomoId = req.body?.matomoId;
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
     const strategyIndex = req.body.strategyIndex;
     const feelings = req.body.feelings;
     const trigger = req.body.trigger;
@@ -32,7 +29,7 @@ router.post(
     const createdAt = req.body.createdAt;
     const updatedAt = req.body.updatedAt;
     // find user with matomoId
-    let user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+    const user = req.user;
 
     await prisma.strategy.upsert({
       where: { id: `${user.id}_${strategyIndex}` },

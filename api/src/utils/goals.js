@@ -10,9 +10,7 @@ dayjs.extend(isBetween);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
-const syncGoalsWithConsos = async (matomoId, date) => {
-  if (!matomoId) return null;
-  const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+const syncGoalsWithConsos = async (user, date) => {
   if (!user) return null;
   if (!user.goal_isSetup) return null;
 
@@ -182,10 +180,10 @@ function getStarsCorrespondingToGoalsSuccess(goalsSuccessCount) {
   return 1;
 }
 
-async function syncAllGoalsWithConsos(matomoId, fixGoals = false, debug = false) {
+async function syncAllGoalsWithConsos(userId, fixGoals = false, debug = false) {
   const user = await prisma.user.findUnique({
     where: {
-      matomo_id: matomoId,
+      id: userId,
     },
     include: {
       consommations: {
@@ -355,10 +353,10 @@ async function syncAllGoalsWithConsos(matomoId, fixGoals = false, debug = false)
   }
 }
 
-async function syncBadgesWithGoals(matomoId, fixBadges = false) {
+async function syncBadgesWithGoals(userId, fixBadges = false) {
   const user = await prisma.user.findUnique({
     where: {
-      matomo_id: matomoId,
+      id: userId,
     },
     include: {
       badges: {

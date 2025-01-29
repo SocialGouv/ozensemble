@@ -6,9 +6,11 @@ const dayjs = require("dayjs");
 const { superUser90DaysInAppModal, superUser30DaysInAppModal, cravingInAppModal } = require("../utils/inAppModals");
 const { scheduleNotificationPlan } = require("../utils/notifications");
 const { sendPushNotification } = require("../services/push-notifications");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.get(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
     // test prisma db connection
     const conso = await prisma.consommation.findFirst({
@@ -25,6 +27,7 @@ router.get(
 
 router.get(
   "/in-app-modal",
+  authenticateToken,
   catchErrors(async (req, res) => {
     console.log("init");
     const modale = req.query?.modale;
@@ -53,31 +56,17 @@ router.get(
 
 router.post(
   "/test-notif",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId, type, date } = req.body || {};
-    if (!matomoId) {
-      return res.status(400).json({ ok: false, error: "no matomo id" });
-    }
+    const { type, date } = req.body || {};
+    const user = req.user;
+
     try {
       // Assuming userId should be retrieved from the 'users' variable
-      let user = await prisma.user.upsert({
-        where: { matomo_id: matomoId },
-        create: {
-          matomo_id: matomoId,
-          created_from: "test",
-        },
-        update: {},
-      });
-
-      if (!user) {
-        return res.status(404).json({ ok: false, error: "user not found" });
-      }
-
-      const userId = user.id;
 
       const notif = await prisma.notification.create({
         data: {
-          user: { connect: { id: userId } },
+          user: { connect: { id: user.id } },
           type: type ? type : "DEFI1_DAY1",
           date: date ? dayjs(date).toDate() : dayjs().toDate(),
         },
@@ -93,17 +82,9 @@ router.post(
 
 router.get(
   "/test-notif",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { userId } = req.query || {};
-    if (!userId) {
-      return res.status(400).json({ ok: false, error: "no user id" });
-    }
-
-    const user = await prisma.user.findFirst({
-      where: {
-        id: userId,
-      },
-    });
+    const user = req.user;
 
     if (!user) {
       console.error(`User with id ${userId} not found`);
@@ -111,8 +92,7 @@ router.get(
     }
 
     const results = await sendPushNotification({
-      userId,
-      matomoId: user.matomo_id,
+      userId: user.id,
       pushNotifToken: user.push_notif_token,
       title: "La notif elle est là",
       body: "This is a test notification",
@@ -127,12 +107,10 @@ router.get(
 
 router.post(
   "/launch-notification-plan",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId } = req.body || {};
-    if (!matomoId) {
-      return res.status(400).json({ ok: false, error: "no matomo id" });
-    }
-    scheduleNotificationPlan(matomoId);
+    const user = req.user;
+    scheduleNotificationPlan(user.id);
     return res.status(200).json({ ok: true });
   })
 );

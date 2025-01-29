@@ -11,9 +11,8 @@ dayjs.extend(utc);
 dayjs.locale("fr");
 dayjs.extend(weekday);
 
-async function syncDrinkBadgesWithConsos(matomoId) {
-  if (!matomoId) return null;
-  const user = await prisma.user.findUnique({ where: { matomo_id: matomoId } });
+async function syncDrinkBadgesWithConsos(userId) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user) return null;
 
   const latestDrinksBadge = await prisma.badge.findFirst({

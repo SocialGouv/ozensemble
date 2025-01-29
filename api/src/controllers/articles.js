@@ -3,22 +3,15 @@ const { catchErrors } = require("../middlewares/errors");
 const router = express.Router();
 const prisma = require("../prisma");
 const { getBadgeCatalog, grabBadgeFromCatalog } = require("../utils/badges");
+const { authenticateToken } = require("../middlewares/tokenAuth");
 
 router.post(
   "/",
+  authenticateToken,
   catchErrors(async (req, res) => {
-    const { matomoId, articleTitle } = req.body || {};
+    const { articleTitle } = req.body || {};
 
-    if (!matomoId) return res.status(400).json({ ok: false, error: "no matomo id" });
-
-    const user = await prisma.user.upsert({
-      where: { matomo_id: matomoId },
-      create: {
-        matomo_id: matomoId,
-        created_from: "Articles",
-      },
-      update: {},
-    });
+    const user = req.user;
 
     await prisma.article.upsert({
       where: { id: `${user.id}_${articleTitle.replaceAll(" ", "")}` },
