@@ -75,8 +75,8 @@ const DrinksContextsList = ({ navigation, route, addDrinkModalTimestamp }) => {
         matomoId: storage.getString("@UserIdv2"),
         date,
         id: newContextToSave.id,
-        context: newContextToSave.orderedContext,
-        emotion: newContextToSave.selectedEmotion,
+        context: newContextToSave.context,
+        emotion: newContextToSave.emotion,
         // we don't send note to the server for confidentiality reasons
       },
     }).then(() => {
