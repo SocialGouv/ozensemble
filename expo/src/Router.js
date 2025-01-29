@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { Alert, Linking } from "react-native";
@@ -48,8 +48,23 @@ import StrategyModalNPS from "./components/StrategyModalNPS";
 import { isInCravingKeyState } from "./recoil/craving";
 import { dayjsInstance } from "./services/dates";
 import SuccessStrategyModal from "./scenes/Craving/SuccessStrategyModal";
-import ExportedDataDone from "./scenes/Craving/ExportedDataDone";
-
+import SigninScreen from "./scenes/Auth/Signin";
+import SignupScreen from "./scenes/Auth/Signup";
+import EmailConfirmationScreen from "./scenes/WelcomeScreen/EmailConfirmationScreen";
+import ForgotPassword from "./scenes/Auth/ForgotPassword";
+import ReinitialisePassword from "./scenes/Auth/ReinitialisePassword";
+import ChangeAccountModal from "./scenes/Infos/ChangeAccountModal";
+import {
+  hasSentPreviousDrinksToDB,
+  hasCleanConsoAndCatalog,
+  hasMigrateMissingDrinkKey,
+  hasMigrateFromDailyGoalToWeekly,
+  sendPreviousDrinksToDB,
+  cleanConsosAndCatalog,
+  migrateMissingDrinkKey,
+  migrateFromDailyGoalToWeekly,
+} from "./migrations";
+import { reconciliateDrinksToDB, reconciliateGoalToDB } from "./reconciliations";
 const Label = ({ children, focused, color }) => (
   <LabelStyled focused={focused} color={color}>
     {children}
@@ -71,7 +86,6 @@ const TabsNavigator = ({ navigation }) => {
 
   const showBootSplash = useRecoilValue(showBootSplashState);
   const [isInCraving, setIsInCraving] = useRecoilState(isInCravingKeyState);
-
   return (
     <>
       <Tabs.Navigator
@@ -106,7 +120,6 @@ const TabsNavigator = ({ navigation }) => {
           tabBarInactiveTintColor: "#767676",
           keyboardHidesTabBar: true,
           lazy: true,
-          tabBarLabelPosition: "below-icon", // Ensure label is positioned below the icon
         }}
       >
         <Tabs.Screen
@@ -167,15 +180,90 @@ const TabsNavigator = ({ navigation }) => {
 
 const AppStack = createNativeStackNavigator();
 const App = () => {
+  const [reconciliatedDrinksToDB, setReconciliatedDrinksToDB] = useState(false);
+  const [reconciliatedGoalsToDB, setReconciliatedGoalsToDB] = useState(false);
+  const [_hasSentPreviousDrinksToDB, setHasSentPreviousDrinksToDB] = useState(hasSentPreviousDrinksToDB);
+  const [_hasCleanConsoAndCatalog, setHasCleanConsoAndCatalog] = useState(hasCleanConsoAndCatalog);
+  const [_hasMigrateMissingDrinkKey, sethasMigrateMissingDrinkKey] = useState(hasMigrateMissingDrinkKey);
+  const [_hasMigrateFromDailyGoalToWeekly, sethasMigrateFromDailyGoalToWeekly] = useState(
+    hasMigrateFromDailyGoalToWeekly
+  );
+  const [isTokenValid, setIsTokenValid] = useState(null);
+  const token = storage.getString("@Token");
+  API.setToken(token);
+
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      if (!token) {
+        setIsTokenValid(false);
+        return;
+      }
+
+      try {
+        const response = await API.get({
+          path: "/user/signin_token",
+        });
+
+        if (response.ok) {
+          setIsTokenValid(true);
+          if (!reconciliatedDrinksToDB) {
+            await reconciliateDrinksToDB();
+            setReconciliatedDrinksToDB(true);
+          }
+          if (!reconciliatedGoalsToDB) {
+            await reconciliateGoalToDB();
+            setReconciliatedGoalsToDB(true);
+          }
+          if (!_hasCleanConsoAndCatalog) {
+            await cleanConsosAndCatalog();
+            setHasCleanConsoAndCatalog(true);
+          }
+          if (!_hasSentPreviousDrinksToDB) {
+            await sendPreviousDrinksToDB();
+            setHasSentPreviousDrinksToDB(true);
+          }
+          if (!_hasMigrateFromDailyGoalToWeekly) {
+            await migrateFromDailyGoalToWeekly();
+            sethasMigrateFromDailyGoalToWeekly(true);
+          }
+          if (!_hasMigrateMissingDrinkKey) {
+            migrateMissingDrinkKey();
+            sethasMigrateMissingDrinkKey(true);
+          }
+        } else {
+          setIsTokenValid(false);
+        }
+      } catch (e) {
+        setIsTokenValid(false);
+      }
+    };
+
+    checkTokenValidity();
+  }, [token]);
+
   const initialRouteName = useMemo(() => {
+    if (isTokenValid === null) return null; // Still checking token, render a loading screen or nothing
+
+    if (!isTokenValid) return "SIGNIN_SCREEN";
+
     const onBoardingDone = storage.getBoolean("@OnboardingDoneWithCGU");
     if (!onBoardingDone) return "WELCOME";
+
     return "TABS";
-  }, []);
+  }, [isTokenValid]);
+
+  if (initialRouteName === null) {
+    return null; // Render a loading screen or nothing until the token validity is checked
+  }
 
   return (
     <>
       <AppStack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
+        <AppStack.Screen name="SIGNIN_SCREEN" component={SigninScreen} />
+        <AppStack.Screen name="SIGNUP_SCREEN" component={SignupScreen} />
+        <AppStack.Screen name="EMAIL_CONFIRMATION" component={EmailConfirmationScreen} />
+        <AppStack.Screen name="FORGOT_PASSWORD" component={ForgotPassword} />
+        <AppStack.Screen name="REINITIALISE_PASSWORD" component={ReinitialisePassword} />
         <AppStack.Screen name="WELCOME" component={WelcomeScreen} />
         <AppStack.Screen name="USER_SURVEY_START" component={UserSurveyStart} />
         <AppStack.Screen name="USER_SURVEY_FROM_ONBOARDING" component={UserSurvey} />
@@ -244,7 +332,6 @@ const Router = () => {
     });
     prevCurrentRouteName.current = route.name;
   };
-  const alreadyExported = storage.getBoolean("@ExportedData");
 
   const handleInAppMessage = (inAppMessage) => {
     const [title, subTitle, actions = [], options = {}] = inAppMessage;
@@ -278,7 +365,6 @@ const Router = () => {
         ref={navigationRef}
         onReady={() => {
           API.navigation = navigationRef.current;
-          if (alreadyExported) navigationRef.current.navigate("MODAL_EXPORT_DONE");
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}
@@ -315,15 +401,6 @@ const Router = () => {
             }}
           />
           <ModalsStack.Screen
-            name="MODAL_EXPORT_DONE"
-            component={ExportedDataDone}
-            options={{
-              headerShown: false,
-              contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
-              animation: "fade",
-            }}
-          />
-          <ModalsStack.Screen
             name="IN_APP_MODAL"
             component={InAppModal}
             options={{
@@ -332,7 +409,6 @@ const Router = () => {
               animation: "fade",
             }}
           />
-
           <ModalsStack.Screen
             name="ABSTINENCE_SELECTION"
             component={AbstinenceSelection}
@@ -355,6 +431,15 @@ const Router = () => {
           <ModalsStack.Screen
             name="SUCCESS_STRATEGY_MODAL"
             component={SuccessStrategyModal}
+            options={{
+              headerShown: false,
+              contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },
+              animation: "fade",
+            }}
+          />
+          <ModalsStack.Screen
+            name="CHANGE_ACCOUNT"
+            component={ChangeAccountModal}
             options={{
               headerShown: false,
               contentStyle: { backgroundColor: "rgba(0,0,0,0.3)" },

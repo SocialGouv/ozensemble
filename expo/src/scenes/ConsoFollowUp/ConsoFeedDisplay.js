@@ -48,7 +48,9 @@ const ConsoFeedDisplay = ({
                     ({drink.volume})
                   </Volume>
                 )}
-                {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime("fr")}</Hour>}
+                {(isFirst(position) || isAlone(position)) && (
+                  <Hour>{new Date(timestamp).getLocaleTime("fr")}</Hour>
+                )}
               </>
             ) : (
               <>
@@ -57,7 +59,9 @@ const ConsoFeedDisplay = ({
                   {quantity} {"Boisson inconnue"}{" "}
                 </Drink>
 
-                {(isFirst(position) || isAlone(position)) && <Hour>{new Date(timestamp).getLocaleTime("fr")}</Hour>}
+                {(isFirst(position) || isAlone(position)) && (
+                  <Hour>{new Date(timestamp).getLocaleTime("fr")}</Hour>
+                )}
               </>
             )}
           </Content>
@@ -66,7 +70,13 @@ const ConsoFeedDisplay = ({
       {showButtons && (
         <UpdateContainer>
           <UpdateButton small content="Modifier" onPress={updateDrinkRequest} />
-          <DeleteButton small content="Supprimer" onPress={deleteDrinkRequest} color="#4030a5" shadowColor="#171586" />
+          <DeleteButton
+            small
+            content="Supprimer"
+            onPress={deleteDrinkRequest}
+            color="#4030a5"
+            shadowColor="#171586"
+          />
         </UpdateContainer>
       )}
     </>

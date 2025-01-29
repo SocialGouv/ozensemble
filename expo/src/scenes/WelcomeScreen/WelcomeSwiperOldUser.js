@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
 import Swiper from "react-native-swiper";
 import { storage } from "../../services/storage";
-import { ScreenCalendar, ScreenStats, ScreenDefi, ScreenAdvice, ScreenFeedback, ScreenCraving } from "./Screens";
+import { ScreenAdvice, StepOne, StepTwo, Validation } from "./ScreensOldUser";
 import Dot from "../../components/SwiperDot";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const WelcomeSwiper = ({ navigation }) => {
+const WelcomeSwiperOldUser = ({ navigation }) => {
   const [agreed, setAgreed] = useState(false);
   const [, setCurrentIndex] = useState(0);
   // const [pagination, setPagination] = useState(true);
@@ -23,11 +24,10 @@ const WelcomeSwiper = ({ navigation }) => {
   const onPressNext = () => swiperRef?.current?.scrollBy(1);
 
   return (
-    <View className="bg-[#3E309F] w-full">
-      <View className="h-[10%]" />
-      <View className="h-[90%]">
+    <SafeAreaView className="bg-[#3E309F] flex-1" edges={["right", "top", "left"]}>
+      <View className="flex-1">
         <Swiper
-          className="h-full"
+          className=""
           onIndexChanged={indexChanged}
           ref={swiperRef}
           loop={false}
@@ -40,16 +40,14 @@ const WelcomeSwiper = ({ navigation }) => {
             bottom: 108,
           }}
         >
-          <ScreenFeedback onPressNext={onPressNext} />
-          <ScreenCalendar onPressNext={onPressNext} />
-          <ScreenStats onPressNext={onPressNext} />
-          <ScreenDefi onPressNext={onPressNext} />
-          <ScreenCraving onPressNext={onPressNext} />
+          <StepOne onPressNext={onPressNext} />
+          <StepTwo onPressNext={onPressNext} />
+          <Validation onPressNext={onPressNext} />
           <ScreenAdvice onStartPress={onStartPress} agreed={agreed} setAgreed={setAgreed} />
         </Swiper>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default WelcomeSwiper;
+export default WelcomeSwiperOldUser;
