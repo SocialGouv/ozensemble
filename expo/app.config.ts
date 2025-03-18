@@ -17,6 +17,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     name: "Oz Ensemble",
     slug: "oz_ensemble",
     owner: "oz-ensemble",
+    newArchEnabled: true,
     version: version.buildName,
     // orientation: "portrait",
     icon: "./assets/images/icon.png",
@@ -55,7 +56,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       googleServicesFile: "./google-services.json",
       package: "com.addicto",
       versionCode: version.buildNumber,
-      permissions: ["android.permission.SCHEDULE_EXACT_ALARM", "android.permission.WRITE_EXTERNAL_STORAGE"],
+      permissions: [
+        "android.permission.SCHEDULE_EXACT_ALARM",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission",
+      ],
       softwareKeyboardLayoutMode: "pan",
       intentFilters: [
         {
@@ -76,14 +81,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     },
     plugins: [
       [
-        "expo-build-properties",
+        "react-native-share",
         {
-          ios: {
-            newArchEnabled: true,
-          },
-          android: {
-            newArchEnabled: true,
-          },
+          ios: ["fb", "instagram", "twitter", "tiktoksharesdk"],
+          android: ["com.facebook.katana", "com.instagram.android", "com.twitter.android", "com.zhiliaoapp.musically"],
+          enableBase64ShareAndroid: true,
         },
       ],
       [

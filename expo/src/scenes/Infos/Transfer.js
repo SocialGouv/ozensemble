@@ -4,7 +4,6 @@ import WrapperContainer from "../../components/WrapperContainer.js";
 import { storage } from "../../services/storage.js";
 import API from "../../services/api.js";
 import * as DocumentPicker from "expo-document-picker";
-import * as Expo from "expo";
 import * as FileSystem from "expo-file-system";
 import Share from "react-native-share";
 import TipIcon from "../../components/illustrations/TipIcon.js";
@@ -16,6 +15,7 @@ import CloudIcon from "../../components/illustrations/icons/CloudIcon.js";
 import DownloadIcon from "../../components/illustrations/icons/DownloadIcon.js";
 import { logEvent } from "../../services/logEventsWithMatomo.js";
 import RNRestart from "react-native-restart";
+import { capture } from "../../services/sentry.js";
 
 const Transfer = ({ navigation }) => {
   const exportData = async () => {
@@ -26,49 +26,62 @@ const Transfer = ({ navigation }) => {
       (key) => !key.startsWith("STORAGE_KEY_PUSH_NOTIFICATION") && key !== "@ExportedData"
     );
     const toExportData = {};
-    filteredStorage.forEach((key) => {
+    for (const key of filteredStorage) {
+      const debug = key === "@Defi1_ValidatedDays";
       // On vérifie si la valeur est un objet ou un boolean
       // Si c'est un objet, on le parse en JSON
       // Si c'est un boolean, on le récupère en boolean
       // Sinon, on le récupère en string
       const stringValue = storage.getString(key);
       const booleanValue = storage.getBoolean(key);
+      const numberValue = storage.getNumber(key);
+
       let value;
       if (stringValue !== null && stringValue !== undefined) {
-        try {
-          value = JSON.parse(stringValue);
-        } catch (e) {
-          value = stringValue;
+        if (stringValue === "" && numberValue > 0) {
+          value = numberValue;
+        } else {
+          try {
+            value = JSON.parse(stringValue);
+          } catch (e) {
+            value = stringValue;
+          }
         }
       } else if (booleanValue !== null && booleanValue !== undefined) {
         value = booleanValue;
+      } else if (numberValue !== null && numberValue !== undefined) {
+        value = numberValue;
       } else {
         value = null;
       }
 
       if (value !== null) toExportData[key] = value;
-    });
+    }
     const jsonExport = JSON.stringify(toExportData);
     const path = `${FileSystem.documentDirectory}oz-ensemble-export.json`;
 
     await FileSystem.writeAsStringAsync(path, jsonExport, { encoding: FileSystem.EncodingType.UTF8 });
 
-    const shareOptions = {
-      url: `file://${path}`,
-      title: "Données exportées",
-      message: "Voici vos données exportées depuis l'application Oz Ensemble",
-    };
-
     try {
-      await Share.open(shareOptions).then((res) => {
-          console.log(res);
-          logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
-          Alert.alert("Vos données ont bien été sauvegardées.");
-          storage.set("@ExportedData", true);
-        });
+      await Share.open({
+        url: `file://${path}`,
+        title: "Données exportées",
+        message: "Voici vos données exportées depuis l'application Oz Ensemble",
+        type: "application/json",
+      }).then((res) => {
+        console.log(res);
+        logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS" });
+        Alert.alert("Vos données ont bien été sauvegardées.");
+        storage.set("@ExportedData", true);
+      });
     } catch (error) {
       console.log("Error sharing:", error);
-      Alert.alert("Erreur lors du partage des données.");
+      if (error.message === "User did not share") {
+        logEvent({ category: "TRANSFER", action: "EXPORT_DATA_SUCCESS", name: "SHARE_CANCEL" });
+      } else {
+        logEvent({ category: "TRANSFER", action: "EXPORT_DATA_FAILURE" });
+        Alert.alert("Erreur lors du partage des données.");
+      }
     }
   };
   const importData = async () => {
@@ -88,16 +101,20 @@ const Transfer = ({ navigation }) => {
             onPress: async () => {
               try {
                 const result = await DocumentPicker.getDocumentAsync({ type: "application/json" });
-                const fileUri = result.assets && result.assets.length > 0 ? result.assets[0].uri : undefined;
+                if (result.canceled || !result.assets || result.assets.length === 0) {
+                  logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "DOCUMENT_PICKER_CANCEL" });
+                  return;
+                }
+                const fileUri = result.assets[0].uri;
+                if (!fileUri) {
+                  logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "DOCUMENT_PICKER_CANCEL" });
+                  return;
+                }
                 const fileContents = await fetch(fileUri).then((response) => response.text());
                 const pushNotifToken = storage.getString("STORAGE_KEY_PUSH_NOTIFICATION_TOKEN");
                 await handleImportData(fileContents, pushNotifToken);
               } catch (err) {
-                if (DocumentPicker.isCancel(err)) {
-                  logEvent({ category: "TRANSFER", action: "CANCEL_IMPORT_DATA", name: "DOCUMENT_PICKER_CANCEL" });
-                } else {
-                  console.log(err);
-                }
+                console.log(err);
               }
             },
           },
@@ -167,6 +184,7 @@ const Transfer = ({ navigation }) => {
         RNRestart.restart();
       });
     } catch (error) {
+      capture(error);
       Alert.alert("Une erreur est survenue lors de l'importation des données");
       logEvent({ category: "TRANSFER", action: "IMPORT_DATA_FAILURE" });
     }
@@ -206,6 +224,10 @@ const Transfer = ({ navigation }) => {
               Une fenêtre s’ouvre, sélectionnez une des méthodes proposées pour sauvegarder vos données Oz. Vous pouvez
               réaliser cette sauvegarde :
             </Text>
+            <View className="flex flex-row space-x-2">
+              <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
+              <Text className="text-[#4030A5] font-bold">sur votre téléphone,</Text>
+            </View>
             <View className="flex flex-row space-x-2">
               <Text className="text-[#4030A5] font-bold">{"\u2022"}</Text>
               <Text className="text-[#4030A5] font-bold">via le cloud,</Text>
