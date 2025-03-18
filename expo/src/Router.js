@@ -280,11 +280,11 @@ const Router = () => {
         onReady={() => {
           API.navigation = navigationRef.current;
           if (alreadyExported) navigationRef.current.navigate("MODAL_EXPORT_DONE");
-          const lastShownEndModal = storage.getString("@lastShownEndModal");
-          if (!lastShownEndModal || dayjsInstance().diff(lastShownEndModal, "day") >= 5) {
-            storage.set("@lastShownEndModal", dayjsInstance().format("YYYY-MM-DD"));
-            navigationRef.current.navigate("MODAL_CLOSE_APP");
-          }
+          // const lastShownEndModal = storage.getString("@lastShownEndModal");
+          // if (!lastShownEndModal || dayjsInstance().diff(lastShownEndModal, "day") >= 1) {
+          // storage.set("@lastShownEndModal", dayjsInstance().format("YYYY-MM-DD"));
+          navigationRef.current.navigate("MODAL_CLOSE_APP");
+          // }
         }}
         onStateChange={onNavigationStateChange}
         linking={deepLinkingConfig}

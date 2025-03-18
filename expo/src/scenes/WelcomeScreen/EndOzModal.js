@@ -4,7 +4,6 @@ import PagerView from "react-native-pager-view";
 import { View, Text, TouchableOpacity, Image, ScrollView, Linking, Platform } from "react-native";
 import { hitSlop } from "../../styles/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { storage } from "../../services/storage";
 import SwiperDot from "../../components/SwiperDot";
 import Foundation from "@expo/vector-icons/Foundation";
 
@@ -38,7 +37,7 @@ const EndOzModal = ({ navigation }) => {
 
   return (
     <SafeAreaView className="flex-1 justify-center items-center">
-      <View className="bg-white rounded-xl w-[90%] h-[70%]">
+      <View className="bg-white rounded-xl w-[90%] min-h-[500px]">
         <View className="h-5 flex flex-row justify-end p-3">
           <TouchableOpacity
             hitSlop={hitSlop(15)}
@@ -62,7 +61,7 @@ const EndOzModal = ({ navigation }) => {
             ref={pagerRef}
             initialPage={0}
             onPageSelected={(e) => setCurrentPage(e.nativeEvent.position)}
-            className="flex-1"
+            className="flex-1 h-full"
           >
             <View key="1">
               <StopScreen />
@@ -180,8 +179,12 @@ const AlternativeScreen = () => (
     </View>
     <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
       <View className="flex flex-row space-x-8  items-center">
-        <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-12 w-12" />
-        <Text className="text-black">Objectif Zen</Text>
+        <Image
+          source={require("../../assets/images/option-zero-logo.png")}
+          resizeMode="contain"
+          className="h-12 w-12"
+        />
+        <Text className="text-black">Option Zéro</Text>
       </View>
       <View className="flex flex-row justify-center">
         <TouchableOpacity className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] px-7 py-2 mt-4">
