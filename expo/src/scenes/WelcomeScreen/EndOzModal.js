@@ -1,19 +1,21 @@
 import React, { useState, useRef } from "react";
-import { Path, Svg } from "react-native-svg";
+import Svg, { Path } from "react-native-svg";
 import PagerView from "react-native-pager-view";
 import { View, Text, TouchableOpacity, Image, ScrollView, Linking, Platform } from "react-native";
 import { hitSlop } from "../../styles/theme";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SwiperDot from "../../components/SwiperDot";
-import Foundation from "@expo/vector-icons/Foundation";
+import Modal from "../../components/Modal";
+import ButtonPrimary from "../../components/ButtonPrimary";
 
 const EndOzModal = ({ navigation }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const pagerRef = useRef(null);
+  const totalPages = 5;
 
   const onPressNext = () => {
     if (pagerRef.current) {
-      if (currentPage === 3) {
+      if (currentPage === totalPages - 1) {
         navigation.goBack();
       } else {
         pagerRef.current.setPage(currentPage + 1);
@@ -25,7 +27,6 @@ const EndOzModal = ({ navigation }) => {
     }
   };
   const renderDots = () => {
-    const totalPages = 4;
     return (
       <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 20 }}>
         {Array.from({ length: totalPages }).map((_, index) => (
@@ -37,7 +38,7 @@ const EndOzModal = ({ navigation }) => {
 
   return (
     <SafeAreaView className="flex-1 justify-center items-center">
-      <View className="bg-white rounded-xl w-[90%] min-h-[500px]">
+      <View className="bg-white w-full h-full">
         <View className="h-5 flex flex-row justify-end p-3">
           <TouchableOpacity
             hitSlop={hitSlop(15)}
@@ -50,7 +51,7 @@ const EndOzModal = ({ navigation }) => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={3}
-                stroke="black"
+                stroke={currentPage === totalPages - 1 ? "black" : "white"}
                 d="M6 18L18 6M6 6l12 12"
               />
             </Svg>
@@ -70,9 +71,12 @@ const EndOzModal = ({ navigation }) => {
               <ExportScreen />
             </View>
             <View key="3">
-              <AlternativeScreen />
+              <KeepGoingScreen />
             </View>
             <View key="4">
+              <AlternativeScreen />
+            </View>
+            <View key="5">
               <SupportScreen />
             </View>
           </PagerView>
@@ -84,7 +88,7 @@ const EndOzModal = ({ navigation }) => {
                 className="justify-center items-center flex-row rounded-3xl bg-[#DE285E] px-6 py-3"
               >
                 <Text className="font-bold text-white text-center text-base">
-                  {currentPage === 3 ? "Terminer" : "Suivant"}
+                  {currentPage === 4 ? "Terminer" : "Suivant"}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -101,11 +105,13 @@ const StopScreen = () => (
       <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-full w-full" />
     </View>
     <View className="flex flex-col justify-center items-center">
-      <Text className="text-[#4030A5] font-bold text-2xl">Arrêt de Oz Ensemble</Text>
+      <Text className="text-[#4030A5] font-bold text-2xl text-center">Arrêt de Oz Ensemble</Text>
     </View>
-    <Text className="text-black text-sm">
-      L'application Oz Ensemble va s'arrêter de fonctionner dès le 25 Novembre 2024.
-    </Text>
+    <View className="flex flex-col justify-center items-center">
+      <Text className="text-black text-sm text-center">
+        L'application Oz Ensemble va s'arrêter de fonctionner début mai 2025.
+      </Text>
+    </View>
   </View>
 );
 
@@ -115,86 +121,165 @@ const ExportScreen = () => (
       <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-full w-full" />
     </View>
     <View className="flex flex-col justify-center items-center">
-      <Text className="text-[#4030A5] font-bold text-2xl">Exportez vos données</Text>
+      <Text className="text-[#4030A5] font-bold text-2xl text-center">Exportez vos données</Text>
     </View>
-    <Text className="text-black text-sm">
-      Rendez-vous dans le paramétrage de votre application pour sauvegarder les données de votre historique avant la
-      fermeture du service.
-    </Text>
+    <View className="flex flex-col justify-center items-center space-y-4">
+      <Text className="text-black text-sm text-center">
+        Rendez-vous dans le paramétrage de votre application pour sauvegarder les données de votre historique.
+      </Text>
+      <Text className="text-black text-sm text-center">
+        Vous pourriez les réutiliser dans une application qui pourrait être compatible avec votre historique.
+      </Text>
+      <Text className="text-black text-sm text-center">
+        Faites cette étape avant la fermeture du service début mai 2025.
+      </Text>
+    </View>
   </View>
 );
 
-const AlternativeScreen = () => (
+const KeepGoingScreen = () => (
   <ScrollView className="flex flex-col space-y-6 -center px-5 mb-28">
     <View className=" items-center py-6 max-h-56">
       <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-full w-full" />
     </View>
     <View className="flex flex-col justify-center items-center">
-      <Text className="text-[#4030A5] font-bold text-2xl">Continuez à suivre vos consommations</Text>
+      <Text className="text-[#4030A5] font-bold text-2xl text-center">Continuez à suivre vos consommations</Text>
     </View>
-    <Text className="text-black text-sm">
-      Pour votre santé, nous vous conseillons de continuer à suivre votre consommation (voici des exemples d’aplications
-      ci-dessous).
-    </Text>
-    <Text className="text-black font-light -mb-2 italic">Applications triées par ordre alphabétique</Text>
-    <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
-      <View className="flex flex-row justify-between items-center">
-        <Image source={require("../../assets/images/sobero-logo.png")} resizeMode="contain" className="h-12 w-12" />
-        <Text className="text-black">Arrêter l'alcool - Sobero</Text>
-        <View className=" items-center flex flex-col">
-          <View className=" items-center bg-[#DE285E] rounded-full px-1.5 py-0.5">
-            <Foundation name="euro" size={24} color="white" />
-          </View>
-          <Text className="text-[#DE285E] text-xs">Payant</Text>
-        </View>
-      </View>
-      <View className="flex flex-row justify-center">
-        <TouchableOpacity
-          className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] px-7 py-2 mt-4"
-          onPress={() => Linking.openURL("https://apps.apple.com/fr/app/drinking-control-sobero/")}
-        >
-          <Text className="font-bold text-white text-center text-base">Télécharger</Text>
-        </TouchableOpacity>
-      </View>
+    <View className="flex flex-col justify-center items-center space-y-4">
+      <Text className="text-black text-sm text-center">
+        Pour votre santé, nous vous conseillons de continuer à suivre votre consommation. Voici des exemples
+        d’aplications en page suivante.
+      </Text>
     </View>
-    <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
-      <View className="flex flex-row space-x-8  items-center">
-        <Image source={require("../../assets/images/mydefi-logo.png")} resizeMode="contain" className="h-12 w-12" />
-        <Text className="text-black">Mydéfi</Text>
-      </View>
-      <View className="flex flex-row justify-center">
-        <TouchableOpacity
-          className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] px-7 py-2 mt-4"
-          onPress={() => {
-            if (Platform.OS === "ios") {
-              Linking.openURL("https://apps.apple.com/fr/app/myd%C3%A9fi/id6467121693");
-            } else {
-              Linking.openURL("https://play.google.com/store/apps/details?id=com.appdiction.mydefi");
-            }
-          }}
-        >
-          <Text className="font-bold text-white text-center text-base">Télécharger</Text>
-        </TouchableOpacity>
-      </View>
+    <View className="flex flex-col justify-center items-center">
+      <Text className="text-black text-sm text-center italic">La liste est non exhaustive.</Text>
     </View>
-    <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
-      <View className="flex flex-row space-x-8  items-center">
-        <Image
-          source={require("../../assets/images/option-zero-logo.png")}
-          resizeMode="contain"
-          className="h-12 w-12"
-        />
-        <Text className="text-black">Option Zéro</Text>
-      </View>
-      <View className="flex flex-row justify-center">
-        <TouchableOpacity className="justify-center space-x-1 items-center flex-row rounded-3xl bg-[#4030A5] px-7 py-2 mt-4">
-          <Text className="font-bold text-white text-center text-base">Télécharger</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-    <Text className="text-black">La liste ci-dessus est non exhaustive.</Text>
   </ScrollView>
 );
+
+const AlternativeScreen = () => {
+  const [modalCompatibleVisible, setModalCompatibleVisible] = useState(false);
+  return (
+    <>
+      <ScrollView className="flex flex-col space-y-6 -center px-5 mb-28">
+        {/* <View className=" items-center py-6 max-h-32">
+      <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-full w-full" />
+    </View> */}
+        <View className="flex flex-col justify-center items-center">
+          <Text className="text-[#4030A5] font-bold text-2xl text-center">Applications alternatives</Text>
+        </View>
+        <View className="flex flex-col justify-center items-center">
+          <Text className="text-black font-light -mb-2 italic">Applications triées par ordre alphabétique</Text>
+        </View>
+        <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
+          <View className="flex flex-row space-x-8  items-center">
+            <Image source={require("../../assets/images/mydefi-logo.png")} resizeMode="contain" className="h-12 w-12" />
+            <Text className="text-black font-bold">mydéfi</Text>
+          </View>
+          <View className="flex flex-row justify-end">
+            <TouchableOpacity
+              className="justify-center space-x-1 items-center flex-row rounded-3xl px-4 py-1 mt-4 border border-[#4030A5]"
+              onPress={() => {
+                Linking.openURL(
+                  Platform.select({
+                    android: "https://play.google.com/store/apps/details?id=com.appdiction.mydefi",
+                    ios: "https://apps.apple.com/fr/app/myd%C3%A9fi/id6467121693",
+                  })
+                );
+              }}
+            >
+              <Text className="font-semibold text-[#4030A5] text-center text-base">Télécharger</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
+          <View className="flex flex-row items-center w-full">
+            <Image
+              source={require("../../assets/images/option-zero-logo.png")}
+              resizeMode="contain"
+              className="h-12 w-12"
+            />
+            <View className="ml-8">
+              <Text className="text-black font-bold">Option Zéro</Text>
+            </View>
+            {/* <TouchableOpacity
+              className="flex flex-row justify-center pl-2 rounded-full ml-auto items-center"
+              onPress={() => {
+                setModalCompatibleVisible(true);
+              }}
+            >
+              <Text className="text-[#4030A5] text-xs">Compatible</Text>
+              <View className="flex flex-row justify-center items-center rounded-full w-6 h-6 ml-2 border border-[#4030A5]">
+                <Text className="text-[#4030A5] text-xs">?</Text>
+              </View>
+            </TouchableOpacity> */}
+          </View>
+          <View className="flex flex-row justify-end">
+            <TouchableOpacity
+              className="justify-center space-x-1 items-center flex-row rounded-3xl px-4 py-1 mt-4 border border-[#4030A5]"
+              onPress={() => {
+                Linking.openURL(
+                  Platform.select({
+                    android: "https://play.google.com/store/apps/details?id=com.capasscite.optionzero",
+                    ios: "https://apps.apple.com/fr/app/option-z%C3%A9ro/id6742791977",
+                  })
+                );
+              }}
+            >
+              <Text className="font-semibold text-[#4030A5] text-center text-base">Télécharger</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View className="flex flex-col justify-center border border-[#767676] rounded-lg p-4">
+          <View className="flex flex-row space-x-8  items-center">
+            <Image source={require("../../assets/images/trydry.png")} resizeMode="contain" className="h-12 w-12" />
+            <Text className="text-black font-bold">Try Dry</Text>
+          </View>
+          <View className="flex flex-row justify-end">
+            <TouchableOpacity
+              className="justify-center space-x-1 items-center flex-row rounded-3xl px-4 py-1 mt-4 border border-[#4030A5]"
+              onPress={() => {
+                Linking.openURL(
+                  Platform.select({
+                    android: "https://play.google.com/store/apps/details?id=uk.org.alcoholconcern.dryjanuary",
+                    ios: "https://apps.apple.com/fr/app/try-dry-the-dry-january-app/id1441293755?l=fr-FR",
+                  })
+                );
+              }}
+            >
+              <Text className="font-semibold text-[#4030A5] text-center text-base">Télécharger</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <Text className="text-black text-center">La liste ci-dessus est non exhaustive.</Text>
+      </ScrollView>
+      <Modal visible={modalCompatibleVisible} animationType="fade" withBackground hideOnTouch>
+        <View className="bg-white rounded-xl m-auto w-10/12">
+          <TouchableOpacity onPress={() => setModalCompatibleVisible(false)} hitSlop={hitSlop(15)}>
+            <Svg fill="none" viewBox="0 0 24 24" className="absolute right-0 mb-8 h-5 w-5">
+              <Path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={3}
+                stroke="black"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </Svg>
+          </TouchableOpacity>
+          <View className="mb-4 mt-2 p-2">
+            <Text className="text-base mt-4 text-center">
+              L'export de vos données pourra être réimporté dans l'application compatible.
+            </Text>
+
+            <View className=" justify-around mt-6 space-y-4">
+              <ButtonPrimary content="OK" onPress={() => setModalCompatibleVisible(false)} />
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
+};
 
 const SupportScreen = () => (
   <View className="flex flex-col space-y-6 justify-center px-5">
@@ -202,10 +287,11 @@ const SupportScreen = () => (
       <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-full w-full" />
     </View>
     <View className="flex flex-col justify-center items-center">
-      <Text className="text-[#4030A5] font-bold text-2xl">Une question ?</Text>
+      <Text className="text-[#4030A5] font-bold text-2xl text-center">Une question ?</Text>
     </View>
-    <Text className="text-black text-sm">
-      Pour toute question, n’hesitez pas à nous contacter à l’adresse email ozensemble@fabrique.social.gouv.fr
+    <Text className="text-black text-sm text-center">
+      Pour toute question,{"\n"}n’hesitez pas à nous contacter à l’adresse email{"\n"}
+      {"\n"}ozensemble@fabrique.social.gouv.fr
     </Text>
   </View>
 );
