@@ -138,7 +138,7 @@ const ExportScreen = () => (
 );
 
 const KeepGoingScreen = () => (
-  <ScrollView className="flex flex-col space-y-6 -center px-5 mb-28">
+  <ScrollView className="flex flex-col space-y-6 -center px-5 pt-10 mb-28">
     <View className=" items-center py-6 max-h-56">
       <Image source={require("../../assets/images/logo-oz-rond.png")} resizeMode="contain" className="h-full w-full" />
     </View>
@@ -148,7 +148,7 @@ const KeepGoingScreen = () => (
     <View className="flex flex-col justify-center items-center space-y-4">
       <Text className="text-black text-sm text-center">
         Pour votre santé, nous vous conseillons de continuer à suivre votre consommation. Voici des exemples
-        d’aplications en page suivante.
+        d’applications en page suivante.
       </Text>
     </View>
     <View className="flex flex-col justify-center items-center">
