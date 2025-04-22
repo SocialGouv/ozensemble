@@ -1,4 +1,4 @@
-const MINIMUM_MOBILE_APP_VERSION = 273;
+const MINIMUM_MOBILE_APP_VERSION = 323;
 
 module.exports = ({ headers: { appversion, appdevice } }, res, next) => {
   if (appdevice && !appversion) return res.status(403).send({ ok: false, sendInApp: ["Veuillez mettre à jour votre application!"] });
@@ -9,8 +9,10 @@ module.exports = ({ headers: { appversion, appdevice } }, res, next) => {
     return res.status(403).send({
       ok: false,
       sendInApp: [
-        "Votre application n'est pas à jour !",
-        `Vous pouvez la mettre à jour en cliquant sur le lien ci-dessous ou en vous rendant sur ${appdevice === "ios" ? iosLink : androidLink}`,
+        "Oz Ensemble va fermer courant mai 2025",
+        `Pour sauver vos données, mettez l'app à jour en cliquant sur le lien ci-dessous ou en vous rendant sur ${
+          appdevice === "ios" ? iosLink : androidLink
+        }`,
         [{ text: "Mettre à jour", link: appdevice === "ios" ? iosLink : androidLink }],
         { cancelable: true },
       ],
