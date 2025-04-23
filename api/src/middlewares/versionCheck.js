@@ -1,6 +1,8 @@
 const MINIMUM_MOBILE_APP_VERSION = 323;
 
-module.exports = ({ headers: { appversion, appdevice } }, res, next) => {
+module.exports = ({ headers: { appversion, appdevice }, path }, res, next) => {
+  if (path === "/user") return next();
+  if (path.startsWith("/consommation/sync")) return next();
   if (appdevice && !appversion) return res.status(403).send({ ok: false, sendInApp: ["Veuillez mettre à jour votre application!"] });
   if (appdevice && Number(appversion) < MINIMUM_MOBILE_APP_VERSION) {
     const iosLink = "https://apps.apple.com/fr/app/oz-ensemble/id1498190343";
