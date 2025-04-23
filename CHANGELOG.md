@@ -1,3 +1,10 @@
+## [1.163.2](https://github.com/SocialGouv/ozensemble/compare/v1.163.1...v1.163.2) (2025-04-23)
+
+
+### Bug Fixes
+
+* no check on user and consommation routes ([2ae503f](https://github.com/SocialGouv/ozensemble/commit/2ae503f3ab65501d3b2e832c98e0b73bcdd41ccd))
+
 ## [1.163.1](https://github.com/SocialGouv/ozensemble/compare/v1.163.0...v1.163.1) (2025-04-23)
 
 
