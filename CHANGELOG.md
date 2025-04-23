@@ -1,3 +1,16 @@
+# [1.163.0](https://github.com/SocialGouv/ozensemble/compare/v1.162.39...v1.163.0) (2025-04-23)
+
+
+### Bug Fixes
+
+* force 323 ([74d4bf8](https://github.com/SocialGouv/ozensemble/commit/74d4bf82c00d6bc7b265c13098700dfb1967043e))
+* release workflow ([609fdda](https://github.com/SocialGouv/ozensemble/commit/609fddaf4df82c6dc68f936e1f55bd18c56e7369))
+
+
+### Features
+
+* modal app stop ([#628](https://github.com/SocialGouv/ozensemble/issues/628)) ([c2e44a3](https://github.com/SocialGouv/ozensemble/commit/c2e44a3a87b72356d266f7f27f1535bcf2c6db83))
+
 ## [1.162.39](https://github.com/SocialGouv/ozensemble/compare/v1.162.38...v1.162.39) (2024-12-05)
 
 
