@@ -10,7 +10,7 @@ module.exports = ({ headers: { appversion, appdevice } }, res, next) => {
       ok: false,
       sendInApp: [
         "Oz Ensemble va fermer courant mai 2025",
-        `Pour sauver vos données, mettez l'app à jour en cliquant sur le lien ci-dessous ou en vous rendant sur ${
+        `Pour sauver vos données, mettez l'app à jour en cliquant sur le bouton ci-dessous ou en vous rendant sur ${
           appdevice === "ios" ? iosLink : androidLink
         }`,
         [{ text: "Mettre à jour", link: appdevice === "ios" ? iosLink : androidLink }],
