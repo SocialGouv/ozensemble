@@ -38,7 +38,7 @@ jobs:
       - name: 📦 Build and push Docker image for app
         uses: socialgouv/workflows/actions/buildkit@v1
         with:
-          context: "api"
+          context: "./api"
           dockerfile: "Dockerfile"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
