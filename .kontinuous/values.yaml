@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../kontinuous/docs/values.schema.json
 
 app:
-  ~needs: [build-app, pg]
+  ~needs: [pg]
   containerPort: 3000
   probesPath: /healthz
   envFrom:
@@ -12,9 +12,3 @@ app:
 
 pg:
   ~chart: pg
-
-jobs:
-  runs:
-    build-app:
-      with:
-        context: api
